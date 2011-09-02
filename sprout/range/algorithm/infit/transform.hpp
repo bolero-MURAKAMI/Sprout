@@ -20,7 +20,7 @@ namespace sprout {
 				UnaryOperation op
 				)
 			{
-				return sprout::infit::transform(sprout::begin(input), sprout::end(input), result, op));
+				return sprout::infit::transform(sprout::begin(input), sprout::end(input), result, op);
 			}
 
 			//

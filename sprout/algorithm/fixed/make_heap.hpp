@@ -1,5 +1,5 @@
-#ifndef SPROUT_ALGORITHM_FIXED_POP_HEAP_HPP
-#define SPROUT_ALGORITHM_FIXED_POP_HEAP_HPP
+#ifndef SPROUT_ALGORITHM_FIXED_MAKE_HEAP_HPP
+#define SPROUT_ALGORITHM_FIXED_MAKE_HEAP_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
@@ -119,4 +119,4 @@ namespace sprout {
 	}	// namespace fixed
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_ALGORITHM_FIXED_POP_HEAP_HPP
+#endif	// #ifndef SPROUT_ALGORITHM_FIXED_MAKE_HEAP_HPP
