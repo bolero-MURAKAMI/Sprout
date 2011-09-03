@@ -1,0 +1,51 @@
+Sprout C++ Library
+
+C++11 constexpr based Mutating-Algorithms and Container-Operations
+
+このライブラリは、C++11 の constexpr に対応した、固定長コンテナに対する STL ライクな変更のアルゴリズムやコンテナ操作を提供する。
+
+
+
+インストール
+
+<sprout/*> を参照できるようライブラリのディレクトリにパスを通す。
+このライブラリはヘッダオンリーで使える。
+
+
+
+コンフィグ用マクロ定義
+
+#define SPROUT_CONFIG_DISABLE_CONSTEXPR
+このマクロが定義されているとき、関数は constexpr として宣言されない。
+コンパイラが constexpr に対応していない場合。
+
+#define SPROUT_CONFIG_DISABLE_NOEXCEPT
+このマクロが定義されているとき、関数は noexcept 修飾されない。
+コンパイラが noexcept に対応していない場合。
+
+#define SPROUT_CONFIG_USE_SSCRISK_CEL
+このマクロが定義されているとき、実装の詳細として CEL - ConstExpr Library を使用する。
+https://github.com/sscrisk/CEL---ConstExpr-Library
+
+これらのマクロが定義される時点は、このライブラリのいかなるヘッダがインクルードされるより以前でなければならない。
+
+
+
+作者
+
+Bolero MURAKAMI
+Blog: http://d.hatena.ne.jp/boleros/
+Twitter: http://twitter.com/#!/bolero_MURAKAMI
+Mail: contact-lib@boleros.x0.com
+
+
+
+著作権等
+
+このライブラリは Boost Software License の元で公開されています。
+
+Copyright (C) 2011 Bolero MURAKAMI.
+
+Distributed under the Boost Software License, Version 1.0. (See
+accompanying file LICENSE_1_0.txt or copy at
+http://www.boost.org/LICENSE_1_0.txt)
