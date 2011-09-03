@@ -196,6 +196,87 @@ namespace sprout {
 	};
 
 	namespace detail {
+		template<typename T, typename Enable = void>
+		struct is_basic_string_impl {
+		public:
+			typedef std::integral_constant<bool, false> type;
+			SPROUT_STATIC_CONSTEXPR bool value = type::value;
+		};
+		template<typename T>
+		struct is_basic_string_impl<
+			T,
+			typename std::enable_if<
+				std::is_same<
+					T,
+					sprout::basic_string<typename T::value_type, T::static_size>
+				>::value
+			>::type
+		> {
+		public:
+			typedef std::integral_constant<bool, true> type;
+			SPROUT_STATIC_CONSTEXPR bool value = type::value;
+		};
+	}	// namespace detail
+	//
+	// is_basic_string
+	//
+	template<typename T>
+	struct is_basic_string
+		: public sprout::detail::is_basic_string_impl<T>
+	{};
+
+	namespace detail {
+		template<typename T, typename Elem, typename Enable = void>
+		struct is_string_impl {
+		public:
+			typedef std::integral_constant<bool, false> type;
+			SPROUT_STATIC_CONSTEXPR bool value = type::value;
+		};
+		template<typename T, typename Elem>
+		struct is_string_impl<
+			T,
+			typename std::enable_if<
+				std::is_same<
+					T,
+					sprout::basic_string<Elem, T::static_size>
+				>::value
+			>::type
+		> {
+		public:
+			typedef std::integral_constant<bool, true> type;
+			SPROUT_STATIC_CONSTEXPR bool value = type::value;
+		};
+	}	// namespace detail
+	//
+	// is_string
+	//
+	template<typename T>
+	struct is_string
+		: public sprout::detail::is_string_impl<T, char>
+	{};
+	//
+	// is_wstring
+	//
+	template<typename T>
+	struct is_wstring
+		: public sprout::detail::is_string_impl<T, wchar_t>
+	{};
+	//
+	// is_u16string
+	//
+	template<typename T>
+	struct is_u16string
+		: public sprout::detail::is_string_impl<T, char16_t>
+	{};
+	//
+	// is_u32string
+	//
+	template<typename T>
+	struct is_u32string
+		: public sprout::detail::is_string_impl<T, char32_t>
+	{};
+
+	namespace detail {
 		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl(
 			T const(& arr)[N],
@@ -265,13 +346,55 @@ namespace sprout {
 	//
 	template<std::size_t N>
 	using string = sprout::basic_string<char, N>;
-
 	//
 	// wstring
 	//
 	template<std::size_t N>
 	using wstring = sprout::basic_string<wchar_t, N>;
+	//
+	// u16string
+	//
+	template<std::size_t N>
+	using u16string = sprout::basic_string<char16_t, N>;
+	//
+	// u32string
+	//
+	template<std::size_t N>
+	using u32string = sprout::basic_string<char32_t, N>;
 #endif	// #if 0
+
+	//
+	// string_t
+	//
+	template<std::size_t N>
+	struct string_t {
+	public:
+		typedef sprout::basic_string<char, N> type;
+	};
+	//
+	// wstring_t
+	//
+	template<std::size_t N>
+	struct wstring_t {
+	public:
+		typedef sprout::basic_string<wchar_t, N> type;
+	};
+	//
+	// u16string_t
+	//
+	template<std::size_t N>
+	struct u16string_t {
+	public:
+		typedef sprout::basic_string<char16_t, N> type;
+	};
+	//
+	// u32string_t
+	//
+	template<std::size_t N>
+	struct u32string_t {
+	public:
+		typedef sprout::basic_string<char32_t, N> type;
+	};
 }	// namespace sprout
 
 namespace std {

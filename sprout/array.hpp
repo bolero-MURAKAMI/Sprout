@@ -187,6 +187,36 @@ namespace sprout {
 		};
 	};
 
+	namespace detail {
+		template<typename T, typename Enable = void>
+		struct is_array_impl {
+		public:
+			typedef std::integral_constant<bool, false> type;
+			SPROUT_STATIC_CONSTEXPR bool value = type::value;
+		};
+		template<typename T>
+		struct is_array_impl<
+			T,
+			typename std::enable_if<
+				std::is_same<
+					T,
+					sprout::array<typename T::value_type, T::static_size>
+				>::value
+			>::type
+		> {
+		public:
+			typedef std::integral_constant<bool, true> type;
+			SPROUT_STATIC_CONSTEXPR bool value = type::value;
+		};
+	}	// namespace detail
+	//
+	// is_array
+	//
+	template<typename T>
+	struct is_array
+		: public sprout::detail::is_array_impl<T>
+	{};
+
 	//
 	// make_array
 	//
