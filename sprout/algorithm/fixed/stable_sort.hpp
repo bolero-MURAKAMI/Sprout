@@ -31,7 +31,7 @@ namespace sprout {
 				sprout::index_tuple<Indexes...>
 				)
 			{
-				return sprout::remake_clone<Container, Container>(result, sprout::size(result), (*(sprout::fixed_begin(cont) + Indexes))...);
+				return sprout::remake_clone<Container, Container>(cont, sprout::size(cont), (*(sprout::fixed_begin(cont) + Indexes))...);
 			}
 			template<typename Container, typename Compare, std::ptrdiff_t I1, std::ptrdiff_t... Indexes, std::ptrdiff_t I2, std::ptrdiff_t... SortedIndexes, std::ptrdiff_t... NextIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<

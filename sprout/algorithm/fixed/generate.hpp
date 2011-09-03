@@ -44,7 +44,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Container, Container>(cont, sprout::size(result), args...);
+				return sprout::remake_clone<Container, Container>(cont, sprout::size(cont), args...);
 			}
 			template<typename Container, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -68,7 +68,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Container, Container>(cont, sprout::size(result), args...);
+				return sprout::remake_clone<Container, Container>(cont, sprout::size(cont), args...);
 			}
 			template<std::size_t InitSize, typename Container, typename Generator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -97,7 +97,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Container, Container>(cont, sprout::size(result), args...);
+				return sprout::remake_clone<Container, Container>(cont, sprout::size(cont), args...);
 			}
 			template<typename Container, typename Head, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<

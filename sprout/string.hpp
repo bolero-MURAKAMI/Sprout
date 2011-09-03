@@ -10,12 +10,10 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
-#include <sprout/sub_array.hpp>
 #include <sprout/operation/fixed/push_back.hpp>
 #include <sprout/operation/fixed/push_front.hpp>
 #include <sprout/operation/fixed/join_back.hpp>
 #include <sprout/operation/fixed/join_front.hpp>
-#include <sprout/operation/fit/realine.hpp>
 #include <sprout/detail/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -237,6 +235,7 @@ namespace sprout {
 		template<typename T, typename Elem>
 		struct is_string_of_impl<
 			T,
+			Elem,
 			typename std::enable_if<
 				std::is_same<
 					T,
@@ -352,67 +351,6 @@ namespace sprout {
 		)
 	{
 		return sprout::fixed::join_back(lhs, rhs);
-	}
-
-	template<typename T, typename String, std::size_t N2>
-	SPROUT_CONSTEXPR inline std::enable_if<
-		sprout::is_string_of<
-			typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type,
-			T
-		>::value,
-		typename sprout::fit::result_of::realine<
-			typename sprout::fixed::result_of::join_back<
-				sprout::sub_array<String>,
-				sprout::basic_string<T, N2 - 1>
-			>::type
-		>::type
-	>::type operator+(
-		sprout::sub_array<String> const& lhs,
-		T const (& rhs)[N2]
-		)
-	{
-		return sprout::fit::realine(sprout::fixed::join_back(lhs, sprout::to_string(rhs)));
-	}
-	template<typename T, typename String, std::size_t N2>
-	SPROUT_CONSTEXPR inline std::enable_if<
-		sprout::is_string_of<
-			typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type,
-			T
-		>::value,
-		typename sprout::fit::result_of::realine<
-			typename sprout::fixed::result_of::join_front<
-				sprout::sub_array<String>,
-				sprout::basic_string<T, N2 - 1>
-			>::type
-		>::type
-	>::type operator+(
-		T const (& lhs)[N2],
-		sprout::sub_array<String> const& rhs
-		)
-	{
-		return sprout::fit::realine(sprout::fixed::join_front(rhs, sprout::to_string(lhs)));
-	}
-	template<typename String, std::size_t String2>
-	SPROUT_CONSTEXPR inline std::enable_if<
-		std::is_same<
-			typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type::value_type,
-			typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type::value_type
-		>::value
-			&& sprout::is_basic_string<typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type>::value
-			&& sprout::is_basic_string<typename sprout::fixed_container_traits<sprout::sub_array<String2> >::internal_type>::value
-			,
-		typename sprout::fit::result_of::realine<
-			typename sprout::fixed::result_of::join_back<
-				sprout::sub_array<String>,
-				sprout::sub_array<String2>
-			>::type
-		>::type
-	>::type operator+(
-		sprout::sub_array<String> const& lhs,
-		sprout::sub_array<String2> const& rhs
-		)
-	{
-		return sprout::fit::realine(sprout::fixed::join_back(lhs, rhs));
 	}
 
 	template<typename T, std::size_t N, typename Traits>

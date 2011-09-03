@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/sub_array.hpp>
 
 namespace sprout {
 	namespace fit {
