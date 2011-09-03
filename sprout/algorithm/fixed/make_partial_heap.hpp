@@ -52,7 +52,7 @@ namespace sprout {
 				)
 			{
 				return sprout::fixed::detail::make_partial_heap_impl_1(
-					sprout::fixed::detail::make_heap_impl(cont, comp, offset, middle_size),
+                                 ::sprout::fixed::detail::make_heap_impl(cont, comp, offset, middle_size),
 					comp,
 					offset,
 					size,
