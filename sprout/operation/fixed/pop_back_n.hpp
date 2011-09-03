@@ -16,7 +16,7 @@ namespace sprout {
 			//
 			template<std::size_t N, typename Container>
 			struct pop_back_n
-				: public erase_n<N, Container>
+				: public sprout::fixed::result_of::erase_n<N, Container>
 			{};
 		}	// namespace result_of
 
@@ -35,6 +35,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::pop_back_n;
+	}	// namespace result_of
+
+	using sprout::fixed::pop_back_n;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_POP_BACK_N_HPP

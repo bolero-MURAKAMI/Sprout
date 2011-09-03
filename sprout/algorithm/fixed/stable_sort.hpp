@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
@@ -14,7 +15,7 @@ namespace sprout {
 			template<typename Container, typename Compare, std::ptrdiff_t I1, std::ptrdiff_t... Indexes, std::ptrdiff_t I2, std::ptrdiff_t... SortedIndexes, std::ptrdiff_t... NextIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Indexes) != 0 && sizeof...(SortedIndexes) != 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_4(
 				Container const& cont,
 				Compare comp,
@@ -25,17 +26,17 @@ namespace sprout {
 				sprout::index_tuple<PostIndexes...>
 				);
 			template<typename Container, std::ptrdiff_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type stable_sort_impl_finish(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type stable_sort_impl_finish(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>
 				)
 			{
-				return typename sprout::fixed_container_traits<Container>::fixed_container_type{(*(sprout::fixed_begin(cont) + Indexes))...};
+				return sprout::remake_clone<Container, Container>(result, sprout::size(result), (*(sprout::fixed_begin(cont) + Indexes))...);
 			}
 			template<typename Container, typename Compare, std::ptrdiff_t I1, std::ptrdiff_t... Indexes, std::ptrdiff_t I2, std::ptrdiff_t... SortedIndexes, std::ptrdiff_t... NextIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Indexes) == 0 && sizeof...(SortedIndexes) == 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_4(
 				Container const& cont,
 				Compare comp,
@@ -54,7 +55,7 @@ namespace sprout {
 			template<typename Container, typename Compare, std::ptrdiff_t I1, std::ptrdiff_t... Indexes, std::ptrdiff_t I2, std::ptrdiff_t... SortedIndexes, std::ptrdiff_t... NextIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Indexes) == 0 && sizeof...(SortedIndexes) != 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_4(
 				Container const& cont,
 				Compare comp,
@@ -73,7 +74,7 @@ namespace sprout {
 			template<typename Container, typename Compare, std::ptrdiff_t I1, std::ptrdiff_t... Indexes, std::ptrdiff_t I2, std::ptrdiff_t... SortedIndexes, std::ptrdiff_t... NextIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Indexes) != 0 && sizeof...(SortedIndexes) == 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_4(
 				Container const& cont,
 				Compare comp,
@@ -92,7 +93,7 @@ namespace sprout {
 			template<typename Container, typename Compare, std::ptrdiff_t I1, std::ptrdiff_t... Indexes, std::ptrdiff_t I2, std::ptrdiff_t... SortedIndexes, std::ptrdiff_t... NextIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Indexes) != 0 && sizeof...(SortedIndexes) != 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_4(
 				Container const& cont,
 				Compare comp,
@@ -109,7 +110,7 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Compare, std::ptrdiff_t I, std::ptrdiff_t... Indexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type stable_sort_impl_3(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type stable_sort_impl_3(
 				Container const& cont,
 				Compare comp,
 				sprout::index_tuple<I, Indexes...>,
@@ -122,7 +123,7 @@ namespace sprout {
 			template<typename Container, typename Compare, std::ptrdiff_t... Indexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				(sizeof...(Indexes) <= 1),
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_2(
 				Container const& cont,
 				Compare comp,
@@ -136,7 +137,7 @@ namespace sprout {
 			template<typename Container, typename Compare, std::ptrdiff_t... Indexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				(sizeof...(Indexes) > 1),
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_2(
 				Container const& cont,
 				Compare comp,
@@ -150,7 +151,7 @@ namespace sprout {
 			template<typename Container, typename Compare, std::ptrdiff_t I, std::ptrdiff_t... Indexes, std::ptrdiff_t... RangeIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Indexes) == 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_1(
 				Container const& cont,
 				Compare comp,
@@ -170,7 +171,7 @@ namespace sprout {
 			template<typename Container, typename Compare, std::ptrdiff_t I, std::ptrdiff_t... Indexes, std::ptrdiff_t... RangeIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Indexes) != 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type stable_sort_impl_1(
 				Container const& cont,
 				Compare comp,
@@ -188,7 +189,7 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Compare, std::ptrdiff_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type stable_sort_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type stable_sort_impl(
 				Container const& cont,
 				Compare comp,
 				sprout::index_tuple<Indexes...>
@@ -203,18 +204,18 @@ namespace sprout {
 		template<typename Container, typename Compare>
 		SPROUT_CONSTEXPR inline typename std::enable_if<
 			(sprout::fixed_container_traits<Container>::fixed_size <= 1),
-			typename sprout::fixed_container_traits<Container>::fixed_container_type
+			typename sprout::fixed::result_of::algorithm<Container>::type
 		>::type stable_sort(
 			Container const& cont,
 			Compare comp
 			)
 		{
-			return sprout::get_fixed_copy(cont);
+			return sprout::clone(cont);
 		}
 		template<typename Container, typename Compare>
 		SPROUT_CONSTEXPR inline typename std::enable_if<
 			(sprout::fixed_container_traits<Container>::fixed_size > 1),
-			typename sprout::fixed_container_traits<Container>::fixed_container_type
+			typename sprout::fixed::result_of::algorithm<Container>::type
 		>::type stable_sort(
 			Container const& cont,
 			Compare comp
@@ -232,17 +233,17 @@ namespace sprout {
 		template<typename Container>
 		SPROUT_CONSTEXPR inline typename std::enable_if<
 			(sprout::fixed_container_traits<Container>::fixed_size <= 1),
-			typename sprout::fixed_container_traits<Container>::fixed_container_type
+			typename sprout::fixed::result_of::algorithm<Container>::type
 		>::type stable_sort(
 			Container const& cont
 			)
 		{
-			return sprout::get_fixed_copy(cont);
+			return sprout::clone(cont);
 		}
 		template<typename Container>
 		SPROUT_CONSTEXPR inline typename std::enable_if<
 			(sprout::fixed_container_traits<Container>::fixed_size > 1),
-			typename sprout::fixed_container_traits<Container>::fixed_container_type
+			typename sprout::fixed::result_of::algorithm<Container>::type
 		>::type stable_sort(
 			Container const& cont
 			)
@@ -254,6 +255,8 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::stable_sort;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_STABLE_SORT_HPP

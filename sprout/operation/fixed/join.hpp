@@ -18,7 +18,7 @@ namespace sprout {
 			struct join {
 			public:
 				typedef typename sprout::rebind_fixed_size<
-					typename sprout::fixed_container_traits<Container>::fixed_container_type
+					Container
 				>::template apply<
 					sprout::fixed_container_traits<Container>::fixed_size + sprout::fixed_container_traits<Input>::fixed_size
 				>::type type;
@@ -35,7 +35,9 @@ namespace sprout {
 				Input const& input
 				)
 			{
-				return Result{
+				return sprout::remake_clone<Result, Container>(
+					cont,
+					sprout::size(cont) + sprout::size(input),
 					(Indexes < sprout::fixed_container_traits<Container>::fixed_size + size
 						? (Indexes < pos
 							? *(sprout::fixed_begin(cont) + Indexes)
@@ -43,9 +45,9 @@ namespace sprout {
 							? *(sprout::begin(input) + Indexes - pos)
 							: *(sprout::fixed_begin(cont) + Indexes - size)
 							)
-						: typename sprout::fixed_container_traits<Result>::value_type{}
+						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
@@ -85,6 +87,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::join;
+	}	// namespace result_of
+
+	using sprout::fixed::join;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_JOIN_HPP

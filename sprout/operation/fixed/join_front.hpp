@@ -16,7 +16,7 @@ namespace sprout {
 			//
 			template<typename Container, typename Input>
 			struct join_front
-				: public join<Container, Input>
+				: public sprout::fixed::result_of::join<Container, Input>
 			{};
 		}	// namespace result_of
 
@@ -38,6 +38,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::join_front;
+	}	// namespace result_of
+
+	using sprout::fixed::join_front;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_JOIN_FRONT_HPP

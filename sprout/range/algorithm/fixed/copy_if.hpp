@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy_if.hpp>
 
 namespace sprout {
@@ -13,7 +14,7 @@ namespace sprout {
 			// copy_if
 			//
 			template<typename Input, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type copy_if(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_if(
 				Input const& input,
 				Result const& result
 				)
@@ -21,6 +22,8 @@ namespace sprout {
 				return sprout::fixed::copy_if(sprout::begin(input), sprout::end(input), result);
 			}
 		}	// namespace fixed
+
+		using sprout::range::fixed::copy_if;
 	}	// namespace range
 }	// namespace sprout
 

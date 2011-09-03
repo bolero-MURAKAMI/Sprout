@@ -6,12 +6,13 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename T, std::ptrdiff_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type fill_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type fill_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				T const& value,
@@ -19,19 +20,21 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::size_type size
 				)
 			{
-				return typename sprout::fixed_container_traits<Container>::fixed_container_type{
+				return sprout::remake_clone<Container, Container>(
+					cont,
+					sprout::size(cont),
 					(Indexes >= offset && Indexes < offset + size
 						? value
 						: *(sprout::fixed_begin(cont) + Indexes)
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
 		// fill
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type fill(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type fill(
 			Container const& cont,
 			T const& value
 			)
@@ -45,6 +48,8 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::fill;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_FILL_HPP

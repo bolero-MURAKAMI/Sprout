@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/make_partial_heap.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -13,7 +14,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type nth_element_impl_1(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type nth_element_impl_1(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::difference_type offset,
 				typename sprout::fixed_container_traits<Container>::difference_type nth_size
@@ -26,7 +27,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type nth_element_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type nth_element_impl(
 				Container const& cont,
 				Compare comp,
 				typename sprout::fixed_container_traits<Container>::difference_type offset,
@@ -45,7 +46,7 @@ namespace sprout {
 		// nth_element
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type nth_element(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type nth_element(
 			Container const& cont,
 			typename sprout::fixed_container_traits<Container>::const_iterator nth,
 			Compare comp
@@ -63,7 +64,7 @@ namespace sprout {
 		// nth_element
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type nth_element(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type nth_element(
 			Container const& cont,
 			typename sprout::fixed_container_traits<Container>::const_iterator nth
 			)
@@ -77,6 +78,8 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::nth_element;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_NTH_ELEMENT_HPP

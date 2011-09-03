@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -11,7 +12,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type push_heap_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type push_heap_impl(
 				Container const& cont,
 				Compare comp,
 				typename sprout::fixed_container_traits<Container>::difference_type offset,
@@ -25,7 +26,7 @@ namespace sprout {
 						offset,
 						(n - 1) / 2
 						)
-					: sprout::get_fixed_copy(cont)
+					: sprout::clone(cont)
 					;
 			}
 		}	// namespace detail
@@ -33,7 +34,7 @@ namespace sprout {
 		// push_heap
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type push_heap(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type push_heap(
 			Container const& cont,
 			Compare comp
 			)
@@ -49,7 +50,7 @@ namespace sprout {
 		// push_heap
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type push_heap(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type push_heap(
 			Container const& cont
 			)
 		{
@@ -61,6 +62,8 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::push_heap;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_PUSH_HEAP_HPP

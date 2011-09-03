@@ -10,11 +10,11 @@ namespace sprout {
 	//
 	template<typename Container>
 	inline typename sprout::fixed_container_traits<Container>::fixed_container_type& get_fixed(Container& cont) {
-		return get_fixed_functor<Container>()(cont);
+		return sprout::get_fixed_functor<Container>()(cont);
 	}
 	template<typename Container>
 	SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type const& get_fixed(Container const& cont) {
-		return get_fixed_functor<Container>()(cont);
+		return sprout::get_fixed_functor<Container>()(cont);
 	}
 
 	//
@@ -22,7 +22,7 @@ namespace sprout {
 	//
 	template<typename Container>
 	SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type const& get_cfixed(Container const& cont) {
-		return get_fixed_functor<Container>()(cont);
+		return sprout::get_fixed_functor<Container>()(cont);
 	}
 
 	//
@@ -30,7 +30,7 @@ namespace sprout {
 	//
 	template<typename Container>
 	SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type get_fixed_copy(Container const& cont) {
-		return get_fixed_functor<Container>()(cont);
+		return sprout::get_fixed_functor<Container>()(cont);
 	}
 }	// namespace sprout
 

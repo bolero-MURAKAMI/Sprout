@@ -16,7 +16,7 @@ namespace sprout {
 			//
 			template<typename Container, typename T, typename... Values>
 			struct push_back
-				: public insert<Container, T, Values...>
+				: public sprout::fixed::result_of::insert<Container, T, Values...>
 			{};
 		}	// namespace result_of
 
@@ -39,6 +39,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::push_back;
+	}	// namespace result_of
+
+	using sprout::fixed::push_back;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_PUSH_BACK_HPP

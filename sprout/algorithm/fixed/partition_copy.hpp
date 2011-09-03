@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -12,18 +13,18 @@ namespace sprout {
 			template<typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partition_copy_impl_3(
 				Result const& result,
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{args...};
+				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
 			}
 			template<typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partition_copy_impl_3(
 				Result const& result,
 				Args const&... args
@@ -34,7 +35,7 @@ namespace sprout {
 			template<typename Iterator, typename Result, typename Predicate, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partition_copy_impl_2(
 				Iterator first,
 				Iterator last,
@@ -44,12 +45,12 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{args...};
+				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
 			}
 			template<typename Iterator, typename Result, typename Predicate, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partition_copy_impl_2(
 				Iterator first,
 				Iterator last,
@@ -69,7 +70,7 @@ namespace sprout {
 			template<typename Iterator, typename Result, typename Predicate, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partition_copy_impl_1(
 				Iterator first,
 				Iterator last,
@@ -79,12 +80,12 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{args...};
+				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
 			}
 			template<typename Iterator, typename Result, typename Predicate, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partition_copy_impl_1(
 				Iterator first,
 				Iterator last,
@@ -100,7 +101,7 @@ namespace sprout {
 					;
 			}
 			template<typename Iterator, typename Result, typename Predicate>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type partition_copy_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type partition_copy_impl(
 				Iterator first,
 				Iterator last,
 				Result const& result,
@@ -114,7 +115,7 @@ namespace sprout {
 		// partition_copy
 		//
 		template<typename Iterator, typename Result, typename Predicate>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type partition_copy(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type partition_copy(
 			Iterator first,
 			Iterator last,
 			Result const& result,
@@ -124,6 +125,8 @@ namespace sprout {
 			return sprout::fixed::detail::partition_copy_impl(first, last, result, pred);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::partition_copy;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_PARTITION_COPY_HPP

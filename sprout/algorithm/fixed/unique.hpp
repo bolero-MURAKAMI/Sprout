@@ -12,7 +12,7 @@ namespace sprout {
 		// unique
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type unique(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type unique(
 			Container const& cont
 			)
 		{
@@ -23,7 +23,7 @@ namespace sprout {
 		// unique
 		//
 		template<typename Container, typename BinaryPredicate>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type unique(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type unique(
 			Container const& cont,
 			BinaryPredicate pred
 			)
@@ -31,6 +31,8 @@ namespace sprout {
 			return sprout::fixed::unique_copy(sprout::begin(cont), sprout::end(cont), cont, pred);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::unique;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_UNIQUE_HPP

@@ -6,13 +6,14 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Iterator, typename Result, std::ptrdiff_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type copy_backward_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward_impl(
 				Iterator first,
 				Iterator last,
 				Result const& result,
@@ -22,19 +23,21 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Result>::size_type input_size
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{
+				return sprout::remake_clone<Result, Result>(
+					result,
+					sprout::size(result),
 					(Indexes < offset && Indexes + size >= offset && Indexes + input_size >= offset
 						? *(last + Indexes - offset)
 						: *(sprout::fixed_begin(result) + Indexes)
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
 		// copy_backward
 		//
 		template<typename Iterator, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type copy_backward(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward(
 			Iterator first,
 			Iterator last,
 			Result const& result
@@ -51,6 +54,8 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::copy_backward;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_BACKWARD_HPP

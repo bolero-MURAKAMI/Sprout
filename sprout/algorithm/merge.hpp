@@ -3,7 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/algorithm/fixed/merge.hpp>
-#include <sprout/algorithm/outfit/merge.hpp>
-#include <sprout/algorithm/infit/merge.hpp>
+#include <sprout/algorithm/fit/merge.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_MERGE_HPP

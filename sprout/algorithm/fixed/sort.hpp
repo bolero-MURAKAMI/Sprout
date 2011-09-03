@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -42,33 +43,33 @@ namespace sprout {
 				return comp(p, *(origin + r)) ? sort_find_r<Container>(origin, comp, r - 1, p) : r;
 			}
 			template<typename Container>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type swap_lr(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type swap_lr(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::difference_type l,
 				typename sprout::fixed_container_traits<Container>::difference_type r
 				);
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type sort_part_l(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_part_l(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::difference_type start,
 				Compare comp,
 				typename sprout::fixed_container_traits<Container>::difference_type l
 				)
 			{	// 左側をソート
-				return start < l - 1 ? sort_start(cont, start, l - 1, comp) : sprout::get_fixed_copy(cont);
+				return start < l - 1 ? sort_start(cont, start, l - 1, comp) : sprout::clone(cont);
 			}
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type sort_part_r(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_part_r(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::difference_type end,
 				Compare comp,
 				typename sprout::fixed_container_traits<Container>::difference_type r
 				)
 			{	// 右側をソート
-				return r + 1 < end ? sort_start(cont, r + 1, end, comp) : sprout::get_fixed_copy(cont);
+				return r + 1 < end ? sort_start(cont, r + 1, end, comp) : sprout::clone(cont);
 			}
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type sort_part_lr(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_part_lr(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::difference_type start,
 				typename sprout::fixed_container_traits<Container>::difference_type end,
@@ -80,7 +81,7 @@ namespace sprout {
 				return sort_part_r(sort_part_l(cont, start, comp, l), end, comp, r);
 			}
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type sort_next(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_next(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::difference_type start,
 				typename sprout::fixed_container_traits<Container>::difference_type end,
@@ -96,7 +97,7 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type sort_lr(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_lr(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::difference_type start,
 				typename sprout::fixed_container_traits<Container>::difference_type end,
@@ -117,7 +118,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type sort_start(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_start(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::difference_type start,
 				typename sprout::fixed_container_traits<Container>::difference_type end,
@@ -133,18 +134,18 @@ namespace sprout {
 		template<typename Container, typename Compare>
 		SPROUT_CONSTEXPR inline typename std::enable_if<
 			(sprout::fixed_container_traits<Container>::fixed_size <= 1),
-			typename sprout::fixed_container_traits<Container>::fixed_container_type
+			typename sprout::fixed::result_of::algorithm<Container>::type
 		>::type sort(
 			Container const& cont,
 			Compare comp
 			)
 		{
-			return sprout::get_fixed_copy(cont);
+			return sprout::clone(cont);
 		}
 		template<typename Container, typename Compare>
 		SPROUT_CONSTEXPR inline typename std::enable_if<
 			(sprout::fixed_container_traits<Container>::fixed_size > 1),
-			typename sprout::fixed_container_traits<Container>::fixed_container_type
+			typename sprout::fixed::result_of::algorithm<Container>::type
 		>::type sort(
 			Container const& cont,
 			Compare comp
@@ -163,17 +164,17 @@ namespace sprout {
 		template<typename Container>
 		SPROUT_CONSTEXPR inline typename std::enable_if<
 			(sprout::fixed_container_traits<Container>::fixed_size <= 1),
-			typename sprout::fixed_container_traits<Container>::fixed_container_type
+			typename sprout::fixed::result_of::algorithm<Container>::type
 		>::type sort(
 			Container const& cont
 			)
 		{
-			return sprout::get_fixed_copy(cont);
+			return sprout::clone(cont);
 		}
 		template<typename Container>
 		SPROUT_CONSTEXPR inline typename std::enable_if<
 			(sprout::fixed_container_traits<Container>::fixed_size > 1),
-			typename sprout::fixed_container_traits<Container>::fixed_container_type
+			typename sprout::fixed::result_of::algorithm<Container>::type
 		>::type sort(
 			Container const& cont
 			)
@@ -186,6 +187,8 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::sort;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_SORT_HPP

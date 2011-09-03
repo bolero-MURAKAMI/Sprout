@@ -12,7 +12,7 @@ namespace sprout {
 	template<typename Container>
 	struct fixed_size {
 	public:
-		static SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::size_type value
+		typedef typename sprout::fixed_container_traits<Container>::size_type value
 			= sprout::fixed_container_traits<Container>::fixed_size
 			;
 		typedef std::integral_constant<typename sprout::fixed_container_traits<Container>::size_type, value> type;

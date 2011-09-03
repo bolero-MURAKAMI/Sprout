@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
@@ -13,18 +14,18 @@ namespace sprout {
 			template<typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_difference_impl_3(
 				Result const& result,
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{args...};
+				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
 			}
 			template<typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_difference_impl_3(
 				Result const& result,
 				Args const&... args
@@ -35,7 +36,7 @@ namespace sprout {
 			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_difference_impl_2(
 				Iterator1 first1,
 				Iterator1 last1,
@@ -47,12 +48,12 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{args...};
+				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
 			}
 			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_difference_impl_2(
 				Iterator1 first1,
 				Iterator1 last1,
@@ -82,7 +83,7 @@ namespace sprout {
 			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_difference_impl_1(
 				Iterator1 first1,
 				Iterator1 last1,
@@ -94,12 +95,12 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{args...};
+				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
 			}
 			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Result>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_difference_impl_1(
 				Iterator1 first1,
 				Iterator1 last1,
@@ -117,7 +118,7 @@ namespace sprout {
 					;
 			}
 			template<typename Iterator1, typename Iterator2, typename Result, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type set_difference_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type set_difference_impl(
 				Iterator1 first1,
 				Iterator1 last1,
 				Iterator2 first2,
@@ -133,7 +134,7 @@ namespace sprout {
 		// set_difference
 		//
 		template<typename Iterator1, typename Iterator2, typename Result, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type set_difference(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type set_difference(
 			Iterator1 first1,
 			Iterator1 last1,
 			Iterator2 first2,
@@ -155,7 +156,7 @@ namespace sprout {
 		// set_difference
 		//
 		template<typename Iterator1, typename Iterator2, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type set_difference(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type set_difference(
 			Iterator1 first1,
 			Iterator1 last1,
 			Iterator2 first2,
@@ -173,6 +174,8 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::set_difference;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_SET_DIFFERENCE_HPP

@@ -16,7 +16,11 @@ namespace sprout {
 			template<typename Container, typename Input>
 			struct join {
 			public:
-				typedef sprout::sub_array<typename sprout::fixed::result_of::join<Container, Input>::type> type;
+				typedef sprout::sub_array<
+					typename sprout::fixed_container_traits<
+						typename sprout::fixed::result_of::join<Container, Input>::type
+					>::internal_type
+				> type;
 			};
 		}	// namespace result_of
 
@@ -31,7 +35,7 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::fixed::join(cont, pos, input),
+				sprout::get_fixed(sprout::fixed::join(cont, pos, input)),
 				sprout::fixed_begin_offset(cont),
 				sprout::fixed_end_offset(cont) + sprout::size(input)
 				);
@@ -47,7 +51,7 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::fixed::join(cont, pos, input),
+				sprout::get_fixed(sprout::fixed::join(cont, pos, input)),
 				sprout::fixed_begin_offset(cont),
 				sprout::fixed_end_offset(cont) + sprout::size(input)
 				);

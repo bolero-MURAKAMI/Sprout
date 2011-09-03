@@ -36,8 +36,8 @@ namespace sprout {
 		typedef sprout::detail::reverse_iterator<iterator> reverse_iterator;
 		typedef sprout::detail::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
-		static constexpr size_type static_size = N;
-		static constexpr size_type fixed_size = static_size;
+		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
+		SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
 	public:
 		T elems[N + 1];
 	public:
@@ -109,13 +109,13 @@ namespace sprout {
 			return elems[0];
 		}
 		SPROUT_CONSTEXPR const_reference front() const {
-			return elems[size() - 1];
+			return elems[0];
 		}
 		reference back() {
 			return elems[size() - 1];
 		}
 		SPROUT_CONSTEXPR const_reference back() const {
-			return elems[0];
+			return elems[size() - 1];
 		}
 		pointer data() SPROUT_NOEXCEPT {
 			return elems;
@@ -282,7 +282,7 @@ namespace std {
 	struct tuple_size<sprout::basic_string<T, N> > {
 	public:
 		typedef std::integral_constant<std::size_t, N> type;
-		static constexpr std::size_t value = type::value;
+		SPROUT_STATIC_CONSTEXPR std::size_t value = type::value;
 	};
 
 	//

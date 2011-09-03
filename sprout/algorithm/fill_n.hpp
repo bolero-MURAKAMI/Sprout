@@ -3,7 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/algorithm/fixed/fill_n.hpp>
-#include <sprout/algorithm/outfit/fill_n.hpp>
-#include <sprout/algorithm/infit/fill_n.hpp>
+#include <sprout/algorithm/fit/fill_n.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_FILL_N_HPP

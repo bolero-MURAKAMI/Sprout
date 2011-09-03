@@ -45,9 +45,11 @@ namespace sprout {
 	{
 	public:
 		typedef Container fixed_container_type;
+		typedef Container internal_type;
+		typedef Container clone_type;
 	public:
-		static constexpr typename sprout::detail::fixed_container_traits_base<Container>::size_type fixed_size
-			= std::tuple_size<typename std::remove_const<fixed_container_type>::type>::value
+		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<Container>::size_type fixed_size
+			= std::tuple_size<typename std::remove_const<internal_type>::type>::value
 			;
 	};
 	template<typename T, std::size_t N>
@@ -56,8 +58,10 @@ namespace sprout {
 	{
 	public:
 		typedef T fixed_container_type[N];
+		typedef T internal_type[N];
+		typedef T clone_type[N];
 	public:
-		static constexpr typename sprout::detail::fixed_container_traits_base<T[N]>::size_type fixed_size = N;
+		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<T[N]>::size_type fixed_size = N;
 	};
 
 	//
@@ -90,6 +94,58 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::fixed_container_type const& operator()(Container const& cont) const {
 			return cont;
+		}
+	};
+
+	//
+	// clone_functor
+	//
+	template<typename Container>
+	struct clone_functor {
+	public:
+		typename sprout::fixed_container_traits<Container>::clone_type operator()(Container& cont) const {
+			return typename sprout::fixed_container_traits<Container>::clone_type(cont);
+		}
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(Container const& cont) const {
+			return typename sprout::fixed_container_traits<Container>::clone_type(cont);
+		}
+	};
+
+	//
+	// make_clone_functor
+	//
+	template<typename Container>
+	struct make_clone_functor {
+	public:
+		template<typename... Args>
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(Args const&... args) const {
+			return typename sprout::fixed_container_traits<Container>::clone_type{args...};
+		}
+	};
+
+	//
+	// remake_clone_functor
+	//
+	template<typename Container>
+	struct remake_clone_functor {
+	public:
+		template<typename Other, typename... Args>
+		typename sprout::fixed_container_traits<Container>::clone_type operator()(
+			Other& other,
+			typename sprout::fixed_container_traits<Container>::difference_type size,
+			Args const&... args
+			) const
+		{
+			return sprout::make_clone_functor<Container>().template operator()(args...);
+		}
+		template<typename Other, typename... Args>
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(
+			Other const& other,
+			typename sprout::fixed_container_traits<Container>::difference_type size,
+			Args const&... args
+			) const
+		{
+			return sprout::make_clone_functor<Container>().template operator()(args...);
 		}
 	};
 }	// namespace sprout

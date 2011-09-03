@@ -21,7 +21,7 @@ namespace sprout {
 			struct insert_n {
 			public:
 				typedef typename sprout::rebind_fixed_size<
-					typename sprout::fixed_container_traits<Container>::fixed_container_type
+					Container
 				>::template apply<
 					sprout::fixed_container_traits<Container>::fixed_size + (1 + sizeof...(Values)) * N
 				>::type type;
@@ -38,7 +38,9 @@ namespace sprout {
 				Values const&... values
 				)
 			{
-				return Result{
+				return sprout::remake_clone<Result, Container>(
+					cont,
+					sprout::size(cont) + (1 + sizeof...(Values)) * N,
 					(Indexes < sprout::fixed_container_traits<Container>::fixed_size + (1 + sizeof...(Values)) * N
 						? (Indexes < pos
 							? *(sprout::fixed_begin(cont) + Indexes)
@@ -46,9 +48,9 @@ namespace sprout {
 							? sprout::detail::param_at<typename sprout::fixed_container_traits<Result>::value_type>((Indexes - pos) % (1 + sizeof...(Values)), v, values...)
 							: *(sprout::fixed_begin(cont) + Indexes - (1 + sizeof...(Values)) * N)
 							)
-						: typename sprout::fixed_container_traits<Result>::value_type{}
+						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
@@ -90,6 +92,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::insert_n;
+	}	// namespace result_of
+
+	using sprout::fixed::insert_n;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_INSERT_N_HPP

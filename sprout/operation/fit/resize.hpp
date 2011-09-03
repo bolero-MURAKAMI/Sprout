@@ -17,7 +17,11 @@ namespace sprout {
 			template<std::size_t N, typename Container>
 			struct resize {
 			public:
-				typedef sprout::sub_array<typename sprout::fixed::result_of::resize<N, Container>::type> type;
+				typedef sprout::sub_array<
+					typename sprout::fixed_container_traits<
+						typename sprout::fixed::result_of::resize<N, Container>::type
+					>::internal_type
+				> type;
 			};
 		}	// namespace result_of
 
@@ -31,7 +35,7 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::fixed::resize<N>(cont, v),
+				sprout::get_fixed(sprout::fixed::resize<N>(cont, v)),
 				0,
 				sprout::fixed_container_traits<typename sprout::fit::result_of::resize<N, Container>::type>::fixed_size
 				);
@@ -46,7 +50,7 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::fixed::resize<N>(cont),
+				sprout::get_fixed(sprout::fixed::resize<N>(cont)),
 				0,
 				sprout::fixed_container_traits<typename sprout::fit::result_of::resize<N, Container>::type>::fixed_size
 				);

@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/unique_copy.hpp>
 
 namespace sprout {
@@ -13,7 +14,7 @@ namespace sprout {
 			// unique_copy
 			//
 			template<typename Input, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type unique_copy(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
 				Input const& input,
 				Result const& result
 				)
@@ -25,7 +26,7 @@ namespace sprout {
 			// unique_copy
 			//
 			template<typename Input, typename Result, typename BinaryPredicate>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type unique_copy(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
 				Input const& input,
 				Result const& result,
 				BinaryPredicate pred
@@ -34,6 +35,8 @@ namespace sprout {
 				return sprout::fixed::unique_copy(sprout::begin(input), sprout::end(input), result, pred);
 			}
 		}	// namespace fixed
+
+		using sprout::range::fixed::unique_copy;
 	}	// namespace range
 }	// namespace sprout
 

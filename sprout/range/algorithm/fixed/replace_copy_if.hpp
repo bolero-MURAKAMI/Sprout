@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/replace_copy_if.hpp>
 
 namespace sprout {
@@ -13,7 +14,7 @@ namespace sprout {
 			// replace_copy_if
 			//
 			template<typename Input, typename Result, typename T, typename Predicate>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type replace_copy_if(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type replace_copy_if(
 				Input const& input,
 				Result const& result,
 				Predicate pred,
@@ -23,6 +24,8 @@ namespace sprout {
 				return sprout::fixed::replace_copy_if(sprout::begin(input), sprout::end(input), result, pred, new_value);
 			}
 		}	// namespace fixed
+
+		using sprout::range::fixed::replace_copy_if;
 	}	// namespace range
 }	// namespace sprout
 

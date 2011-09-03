@@ -17,7 +17,7 @@ namespace sprout {
 			struct resize {
 			public:
 				typedef typename sprout::rebind_fixed_size<
-					typename sprout::fixed_container_traits<Container>::fixed_container_type
+					Container
 				>::template apply<
 					N
 				>::type type;
@@ -33,12 +33,12 @@ namespace sprout {
 				T const& v
 				)
 			{
-				return Result{
+				return sprout::make_clone<Result>(
 					(Indexes < size
 						? *(sprout::begin(cont) + Indexes)
 						: v
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
@@ -66,12 +66,12 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Result>::difference_type size
 				)
 			{
-				return Result{
+				return sprout::make_clone<Result>(
 					(Indexes < size
 						? *(sprout::begin(cont) + Indexes)
-						: typename sprout::fixed_container_traits<Result>::value_type{}
+						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
@@ -88,6 +88,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::resize;
+	}	// namespace result_of
+
+	using sprout::fixed::resize;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_RESIZE_HPP

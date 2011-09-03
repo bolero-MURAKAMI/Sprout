@@ -16,7 +16,11 @@ namespace sprout {
 			template<typename Container>
 			struct realign {
 			public:
-				typedef sprout::sub_array<typename sprout::fixed::result_of::realign<Container>::type> type;
+				typedef sprout::sub_array<
+					typename sprout::fixed_container_traits<
+						typename sprout::fixed::result_of::realign<Container>::type
+					>::internal_type
+				> type;
 			};
 		}	// namespace result_of
 
@@ -30,7 +34,7 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::fixed::realign(cont, v),
+				sprout::get_fixed(sprout::fixed::realign(cont, v)),
 				0,
 				sprout::size(cont)
 				);
@@ -45,7 +49,7 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::fixed::realign(cont),
+				sprout::get_fixed(sprout::fixed::realign(cont)),
 				0,
 				sprout::size(cont)
 				);

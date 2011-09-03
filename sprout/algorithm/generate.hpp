@@ -3,7 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/algorithm/fixed/generate.hpp>
-#include <sprout/algorithm/outfit/generate.hpp>
-#include <sprout/algorithm/infit/generate.hpp>
+#include <sprout/algorithm/fit/generate.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_GENERATE_HPP

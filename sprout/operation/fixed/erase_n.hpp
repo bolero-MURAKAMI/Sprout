@@ -19,7 +19,7 @@ namespace sprout {
 				static_assert(sprout::fixed_container_traits<Container>::fixed_size >= N, "fixed_size >= N");
 			public:
 				typedef typename sprout::rebind_fixed_size<
-					typename sprout::fixed_container_traits<Container>::fixed_container_type
+					Container
 				>::template apply<
 					sprout::fixed_container_traits<Container>::fixed_size - N
 				>::type type;
@@ -34,15 +34,17 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::difference_type pos
 				)
 			{
-				return Result{
+				return sprout::remake_clone<Result, Container>(
+					cont,
+					sprout::size(cont) - N,
 					(Indexes < sprout::fixed_container_traits<Container>::fixed_size - N
 						? (Indexes < pos
 							? *(sprout::fixed_begin(cont) + Indexes)
 							: *(sprout::fixed_begin(cont) + Indexes + N)
 							)
-						: typename sprout::fixed_container_traits<Result>::value_type{}
+						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
@@ -76,6 +78,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::erase_n;
+	}	// namespace result_of
+
+	using sprout::fixed::erase_n;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_ERASE_N_HPP

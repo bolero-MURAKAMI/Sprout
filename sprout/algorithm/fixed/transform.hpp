@@ -6,13 +6,14 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Iterator, typename Result, std::ptrdiff_t... Indexes, typename UnaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type transform_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type transform_impl(
 				Iterator first,
 				Iterator last,
 				Result const& result,
@@ -23,19 +24,21 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Result>::size_type input_size
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{
+				return sprout::remake_clone<Result, Result>(
+					result,
+					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? op(*(first + Indexes - offset))
 						: *(sprout::fixed_begin(result) + Indexes)
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
 		// transform
 		//
 		template<typename Iterator, typename Result, typename UnaryOperation>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type transform(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type transform(
 			Iterator first,
 			Iterator last,
 			Result const& result,
@@ -56,7 +59,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Iterator1, typename Iterator2, typename Result, std::ptrdiff_t... Indexes, typename BinaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type transform_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type transform_impl(
 				Iterator1 first1,
 				Iterator1 last1,
 				Iterator2 first2,
@@ -68,19 +71,21 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Result>::size_type input_size
 				)
 			{
-				return typename sprout::fixed_container_traits<Result>::fixed_container_type{
+				return sprout::remake_clone<Result, Result>(
+					result,
+					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? op(*(first1 + Indexes - offset), *(first2 + Indexes - offset))
 						: *(sprout::fixed_begin(result) + Indexes)
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
 		// transform
 		//
 		template<typename Iterator1, typename Iterator2, typename Result, typename BinaryOperation>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type transform(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type transform(
 			Iterator1 first1,
 			Iterator1 last1,
 			Iterator2 first2,
@@ -101,6 +106,8 @@ namespace sprout {
 			);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::transform;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_TRANSFORM_HPP

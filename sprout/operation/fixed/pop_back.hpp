@@ -16,7 +16,7 @@ namespace sprout {
 			//
 			template<typename Container>
 			struct pop_back
-				: public erase<Container>
+				: public sprout::fixed::result_of::erase<Container>
 			{};
 		}	// namespace result_of
 
@@ -35,6 +35,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::pop_back;
+	}	// namespace result_of
+
+	using sprout::fixed::pop_back;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_POP_BACK_HPP

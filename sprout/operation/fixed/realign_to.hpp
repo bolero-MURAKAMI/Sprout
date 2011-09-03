@@ -18,7 +18,7 @@ namespace sprout {
 			struct realign_to {
 			public:
 				typedef typename sprout::rebind_fixed_size<
-					typename sprout::fixed_container_traits<Result>::fixed_container_type
+					Result
 				>::template apply<
 					sprout::fixed_container_traits<Container>::fixed_size
 				>::type type;
@@ -57,6 +57,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::realign_to;
+	}	// namespace result_of
+
+	using sprout::fixed::realign_to;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_REALIGN_TO_HPP

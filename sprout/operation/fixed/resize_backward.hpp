@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/operation/fixed/resize.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -15,7 +16,7 @@ namespace sprout {
 			//
 			template<std::size_t N, typename Container>
 			struct resize_backward
-				: public resize<N, Container>
+				: public sprout::fixed::result_of::resize<N, Container>
 			{};
 		}	// namespace result_of
 
@@ -29,12 +30,12 @@ namespace sprout {
 				T const& v
 				)
 			{
-				return Result{
+				return sprout::make_clone<Result>(
 					(Indexes >= offset && Indexes < offset + size
 						? *(sprout::begin(cont) + Indexes - offset)
 						: v
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
@@ -67,12 +68,12 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Result>::difference_type offset
 				)
 			{
-				return Result{
+				return sprout::make_clone<Result>(
 					(Indexes >= offset && Indexes < offset + size
 						? *(sprout::begin(cont) + Indexes - offset)
-						: typename sprout::fixed_container_traits<Result>::value_type{}
+						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
@@ -94,6 +95,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::resize_backward;
+	}	// namespace result_of
+
+	using sprout::fixed::resize_backward;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_RESIZE_BACKWARD_HPP

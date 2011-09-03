@@ -3,7 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/algorithm/fixed.hpp>
-#include <sprout/algorithm/outfit.hpp>
-#include <sprout/algorithm/infit.hpp>
+#include <sprout/algorithm/fit.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_HPP

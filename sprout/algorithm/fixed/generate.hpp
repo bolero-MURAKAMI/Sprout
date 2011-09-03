@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -37,18 +38,18 @@ namespace sprout {
 			template<typename Container, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Container>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_4(
 				Container const& cont,
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Container>::fixed_container_type{args...};
+				return sprout::remake_clone<Container, Container>(cont, sprout::size(result), args...);
 			}
 			template<typename Container, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Container>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_4(
 				Container const& cont,
 				Args const&... args
@@ -59,7 +60,7 @@ namespace sprout {
 			template<std::size_t InitSize, typename Container, typename Generator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Container>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_3(
 				Container const& cont,
 				Generator gen,
@@ -67,12 +68,12 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Container>::fixed_container_type{args...};
+				return sprout::remake_clone<Container, Container>(cont, sprout::size(result), args...);
 			}
 			template<std::size_t InitSize, typename Container, typename Generator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Container>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_3(
 				Container const& cont,
 				Generator gen,
@@ -88,7 +89,7 @@ namespace sprout {
 			template<typename Container, typename Head, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Args) == 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_2_drop(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::size_type dropped_size,
@@ -96,12 +97,12 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return typename sprout::fixed_container_traits<Container>::fixed_container_type{args...};
+				return sprout::remake_clone<Container, Container>(cont, sprout::size(result), args...);
 			}
 			template<typename Container, typename Head, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sizeof...(Args) != 0,
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_2_drop(
 				Container const& cont,
 				typename sprout::fixed_container_traits<Container>::size_type dropped_size,
@@ -115,7 +116,7 @@ namespace sprout {
 					;
 			}
 			template<std::size_t InitSize, typename Container, typename Generator, typename Head, typename... Args>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type generate_impl_2(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type generate_impl_2(
 				Container const& cont,
 				Generator gen,
 				typename sprout::fixed_container_traits<Container>::difference_type offset,
@@ -136,7 +137,7 @@ namespace sprout {
 			template<std::size_t InitSize, typename Container, typename Generator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Container>::fixed_size == sizeof...(Args),
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_1(
 				Container const& cont,
 				Generator gen,
@@ -150,7 +151,7 @@ namespace sprout {
 			template<std::size_t InitSize, typename Container, typename Generator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Container>::fixed_size != sizeof...(Args),
-				typename sprout::fixed_container_traits<Container>::fixed_container_type
+				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_1(
 				Container const& cont,
 				Generator gen,
@@ -165,7 +166,7 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Generator, typename... Inits>
-			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type generate_impl(
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type generate_impl(
 				Container const& cont,
 				Generator gen,
 				typename sprout::fixed_container_traits<Container>::size_type size,
@@ -179,7 +180,7 @@ namespace sprout {
 		// generate
 		//
 		template<typename Container, typename Generator, typename... Inits>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type generate(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type generate(
 			Container const& cont,
 			Generator gen,
 			Inits const&... inits
@@ -188,6 +189,8 @@ namespace sprout {
 			return sprout::fixed::detail::generate_impl(cont, gen, sprout::size(cont), inits...);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::generate;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_GENERATE_HPP

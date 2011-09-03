@@ -16,7 +16,7 @@ namespace sprout {
 			//
 			template<std::size_t N, typename Container, typename T, typename... Values>
 			struct push_back_n
-				: public insert_n<N, Container, T, Values...>
+				: public sprout::fixed::result_of::insert_n<N, Container, T, Values...>
 			{};
 		}	// namespace result_of
 
@@ -39,6 +39,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::push_back_n;
+	}	// namespace result_of
+
+	using sprout::fixed::push_back_n;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_PUSH_BACK_N_HPP

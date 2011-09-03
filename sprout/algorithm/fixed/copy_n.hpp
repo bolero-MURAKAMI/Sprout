@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 
 namespace sprout {
@@ -12,7 +13,7 @@ namespace sprout {
 		// copy_n
 		//
 		template<typename Iterator, typename Size, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Result>::fixed_container_type copy_n(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_n(
 			Iterator first,
 			Size n,
 			Result const& result
@@ -29,6 +30,8 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	using sprout::fixed::copy_n;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_N_HPP

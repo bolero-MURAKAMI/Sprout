@@ -20,7 +20,7 @@ namespace sprout {
 			struct insert {
 			public:
 				typedef typename sprout::rebind_fixed_size<
-					typename sprout::fixed_container_traits<Container>::fixed_container_type
+					Container
 				>::template apply<
 					sprout::fixed_container_traits<Container>::fixed_size + 1 + sizeof...(Values)
 				>::type type;
@@ -37,7 +37,9 @@ namespace sprout {
 				Values const&... values
 				)
 			{
-				return Result{
+				return sprout::remake_clone<Result, Container>(
+					cont,
+					sprout::size(cont) + 1 + sizeof...(Values),
 					(Indexes < sprout::fixed_container_traits<Container>::fixed_size + 1 + sizeof...(Values)
 						? (Indexes < pos
 							? *(sprout::fixed_begin(cont) + Indexes)
@@ -45,9 +47,9 @@ namespace sprout {
 							? sprout::detail::param_at<typename sprout::fixed_container_traits<Result>::value_type>(Indexes - pos, v, values...)
 							: *(sprout::fixed_begin(cont) + Indexes - (1 + sizeof...(Values)))
 							)
-						: typename sprout::fixed_container_traits<Result>::value_type{}
+						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
-					};
+					);
 			}
 		}	// namespace detail
 		//
@@ -89,6 +91,12 @@ namespace sprout {
 				);
 		}
 	}	// namespace fixed
+
+	namespace result_of {
+		using sprout::fixed::result_of::insert;
+	}	// namespace result_of
+
+	using sprout::fixed::insert;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_INSERT_HPP
