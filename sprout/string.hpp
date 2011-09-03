@@ -10,10 +10,12 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
+#include <sprout/sub_array.hpp>
 #include <sprout/operation/fixed/push_back.hpp>
 #include <sprout/operation/fixed/push_front.hpp>
 #include <sprout/operation/fixed/join_back.hpp>
 #include <sprout/operation/fixed/join_front.hpp>
+#include <sprout/operation/fit/realine.hpp>
 #include <sprout/detail/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -227,13 +229,13 @@ namespace sprout {
 
 	namespace detail {
 		template<typename T, typename Elem, typename Enable = void>
-		struct is_string_impl {
+		struct is_string_of_impl {
 		public:
 			typedef std::integral_constant<bool, false> type;
 			SPROUT_STATIC_CONSTEXPR bool value = type::value;
 		};
 		template<typename T, typename Elem>
-		struct is_string_impl<
+		struct is_string_of_impl<
 			T,
 			typename std::enable_if<
 				std::is_same<
@@ -248,32 +250,40 @@ namespace sprout {
 		};
 	}	// namespace detail
 	//
+	// is_string_of
+	//
+	template<typename T, typename Elem>
+	struct is_string_of
+		: public sprout::detail::is_string_of_impl<T, Elem>
+	{};
+
+	//
 	// is_string
 	//
 	template<typename T>
 	struct is_string
-		: public sprout::detail::is_string_impl<T, char>
+		: public sprout::is_string_of<T, char>
 	{};
 	//
 	// is_wstring
 	//
 	template<typename T>
 	struct is_wstring
-		: public sprout::detail::is_string_impl<T, wchar_t>
+		: public sprout::is_string_of<T, wchar_t>
 	{};
 	//
 	// is_u16string
 	//
 	template<typename T>
 	struct is_u16string
-		: public sprout::detail::is_string_impl<T, char16_t>
+		: public sprout::is_string_of<T, char16_t>
 	{};
 	//
 	// is_u32string
 	//
 	template<typename T>
 	struct is_u32string
-		: public sprout::detail::is_string_impl<T, char32_t>
+		: public sprout::is_string_of<T, char32_t>
 	{};
 
 	namespace detail {
@@ -311,28 +321,98 @@ namespace sprout {
 		return sprout::fixed::push_front(rhs, lhs);
 	}
 	template<typename T, std::size_t N, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_back<sprout::basic_string<T, N>, sprout::basic_string<T, N2 - 1> >::type operator+(
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_back<
+			sprout::basic_string<T, N>,
+			sprout::basic_string<T, N2 - 1>
+	>::type operator+(
 		sprout::basic_string<T, N> const& lhs,
 		T const (& rhs)[N2]
 		)
 	{
-		return sprout::fixed::join_back(lhs, to_string(rhs));
+		return sprout::fixed::join_back(lhs, sprout::to_string(rhs));
 	}
 	template<typename T, std::size_t N, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_front<sprout::basic_string<T, N>, sprout::basic_string<T, N2 - 1> >::type operator+(
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_front<
+		sprout::basic_string<T, N>,
+		sprout::basic_string<T, N2 - 1>
+	>::type operator+(
 		T const (& lhs)[N2],
 		sprout::basic_string<T, N> const& rhs
 		)
 	{
-		return sprout::fixed::join_front(rhs, to_string(lhs));
+		return sprout::fixed::join_front(rhs, sprout::to_string(lhs));
 	}
 	template<typename T, std::size_t N, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_back<sprout::basic_string<T, N>, sprout::basic_string<T, N2> >::type operator+(
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_back<
+		sprout::basic_string<T, N>,
+		sprout::basic_string<T, N2>
+	>::type operator+(
 		sprout::basic_string<T, N> const& lhs,
 		sprout::basic_string<T, N2> const& rhs
 		)
 	{
 		return sprout::fixed::join_back(lhs, rhs);
+	}
+
+	template<typename T, typename String, std::size_t N2>
+	SPROUT_CONSTEXPR inline std::enable_if<
+		sprout::is_string_of<
+			typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type,
+			T
+		>::value,
+		typename sprout::fit::result_of::realine<
+			typename sprout::fixed::result_of::join_back<
+				sprout::sub_array<String>,
+				sprout::basic_string<T, N2 - 1>
+			>::type
+		>::type
+	>::type operator+(
+		sprout::sub_array<String> const& lhs,
+		T const (& rhs)[N2]
+		)
+	{
+		return sprout::fit::realine(sprout::fixed::join_back(lhs, sprout::to_string(rhs)));
+	}
+	template<typename T, typename String, std::size_t N2>
+	SPROUT_CONSTEXPR inline std::enable_if<
+		sprout::is_string_of<
+			typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type,
+			T
+		>::value,
+		typename sprout::fit::result_of::realine<
+			typename sprout::fixed::result_of::join_front<
+				sprout::sub_array<String>,
+				sprout::basic_string<T, N2 - 1>
+			>::type
+		>::type
+	>::type operator+(
+		T const (& lhs)[N2],
+		sprout::sub_array<String> const& rhs
+		)
+	{
+		return sprout::fit::realine(sprout::fixed::join_front(rhs, sprout::to_string(lhs)));
+	}
+	template<typename String, std::size_t String2>
+	SPROUT_CONSTEXPR inline std::enable_if<
+		std::is_same<
+			typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type::value_type,
+			typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type::value_type
+		>::value
+			&& sprout::is_basic_string<typename sprout::fixed_container_traits<sprout::sub_array<String> >::internal_type>::value
+			&& sprout::is_basic_string<typename sprout::fixed_container_traits<sprout::sub_array<String2> >::internal_type>::value
+			,
+		typename sprout::fit::result_of::realine<
+			typename sprout::fixed::result_of::join_back<
+				sprout::sub_array<String>,
+				sprout::sub_array<String2>
+			>::type
+		>::type
+	>::type operator+(
+		sprout::sub_array<String> const& lhs,
+		sprout::sub_array<String2> const& rhs
+		)
+	{
+		return sprout::fit::realine(sprout::fixed::join_back(lhs, rhs));
 	}
 
 	template<typename T, std::size_t N, typename Traits>
