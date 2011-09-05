@@ -119,7 +119,7 @@ namespace sprout {
 	public:
 		template<typename... Args>
 		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(Args const&... args) const {
-			return typename sprout::fixed_container_traits<Container>::clone_type{args...};
+			return typename sprout::fixed_container_traits<Container>::clone_type{{args...}};
 		}
 	};
 

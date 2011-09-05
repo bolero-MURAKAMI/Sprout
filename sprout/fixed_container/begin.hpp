@@ -14,7 +14,7 @@ namespace sprout {
 		return range.begin();
 	}
 	template<typename T, std::size_t N>
-	typename sprout::fixed_container_traits<T const[N]>::iterator begin(T (& arr)[N]) {
+	typename sprout::fixed_container_traits<T[N]>::iterator begin(T (& arr)[N]) {
 		return arr;
 	}
 	//

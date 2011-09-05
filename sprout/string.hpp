@@ -292,7 +292,7 @@ namespace sprout {
 			sprout::index_tuple<Indexes...>
 			)
 		{
-			return sprout::basic_string<T, N - 1>{arr[Indexes]...};
+			return sprout::basic_string<T, N - 1>{{arr[Indexes]...}};
 		}
 	}	// namespace detail
 	//
