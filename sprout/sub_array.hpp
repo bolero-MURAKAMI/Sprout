@@ -279,7 +279,7 @@ namespace sprout {
 			return last_ - first_;
 		}
 		SPROUT_CONSTEXPR bool empty() const {
-			return size() != 0;
+			return size() == 0;
 		}
 		SPROUT_CONSTEXPR size_type max_size() const {
 			return size();

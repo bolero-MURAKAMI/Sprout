@@ -75,15 +75,15 @@ namespace sprout {
 			reverse_iterator(reverse_iterator const&) = default;
 			SPROUT_CONSTEXPR explicit reverse_iterator(iterator_type it)
 				: current(it)
-				, deref_tmp(current - 1)
+				, deref_tmp(it - 1)
 			{}
 			template<typename U>
 			SPROUT_CONSTEXPR reverse_iterator(reverse_iterator<U> const& it)
 				: current(it)
-				, deref_tmp(current - 1)
+				, deref_tmp(it - 1)
 			{}
 			template<typename U>
-			reverse_iterator& operator=(const reverse_iterator<U>& it) {
+			reverse_iterator& operator=(reverse_iterator<U> const& it) {
 				reverse_iterator temp(it);
 				temp.swap(this);
 				return this;

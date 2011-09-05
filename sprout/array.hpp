@@ -9,6 +9,7 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
+#include <sprout/fixed_container/functions.hpp>
 #include <sprout/detail/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -40,7 +41,7 @@ namespace sprout {
 			return N;
 		}
 		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
-			return N != 0;
+			return N == 0;
 		}
 		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
 			return size();
@@ -69,22 +70,22 @@ namespace sprout {
 			return &elems[0] + size();
 		}
 		reverse_iterator rbegin() SPROUT_NOEXCEPT {
-			return reverse_iterator(begin());
-		}
-		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
-			return const_reverse_iterator(begin());
-		}
-		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
-			return const_reverse_iterator(begin());
-		}
-		reverse_iterator rend() SPROUT_NOEXCEPT {
 			return reverse_iterator(end());
 		}
-		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
-		SPROUT_CONSTEXPR const_reverse_iterator crend() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
+		}
+		reverse_iterator rend() SPROUT_NOEXCEPT {
+			return reverse_iterator(begin());
+		}
+		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(begin());
+		}
+		SPROUT_CONSTEXPR const_reverse_iterator crend() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(begin());
 		}
 		reference operator[](size_type i) {
 			return elems[i];
