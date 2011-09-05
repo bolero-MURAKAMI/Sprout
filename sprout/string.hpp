@@ -56,22 +56,22 @@ namespace sprout {
 			}
 		}
 		iterator begin() SPROUT_NOEXCEPT {
-			return elems;
+			return &elems[0];
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
-			return elems;
+			return &elems[0];
 		}
 		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
-			return elems;
+			return &elems[0];
 		}
 		iterator end() SPROUT_NOEXCEPT {
-			return elems + size();
+			return &elems[0] + size();
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
-			return elems + size();
+			return &elems[0] + size();
 		}
 		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
-			return elems + size();
+			return &elems[0] + size();
 		}
 		reverse_iterator rbegin() SPROUT_NOEXCEPT {
 			return reverse_iterator(begin());
@@ -118,16 +118,16 @@ namespace sprout {
 			return elems[size() - 1];
 		}
 		pointer data() SPROUT_NOEXCEPT {
-			return elems;
+			return &elems[0];
 		}
 		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
-			return elems;
+			return &elems[0];
 		}
 		pointer c_array() SPROUT_NOEXCEPT {
-			return elems;
+			return &elems[0];
 		}
 		const_pointer c_str() const SPROUT_NOEXCEPT {
-			return elems;
+			return &elems[0];
 		}
 		void assign(const_reference value) {
 			fill(value);
