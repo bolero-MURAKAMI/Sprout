@@ -171,7 +171,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline void swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
 		lhs.swap(rhs);
 	}
 
@@ -290,3 +290,4 @@ namespace std {
 }	// namespace std
 
 #endif	// #ifndef SPROUT_ARRAY_HPP
+

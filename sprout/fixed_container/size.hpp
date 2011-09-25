@@ -12,7 +12,7 @@ namespace sprout {
 	// size
 	//
 	template<typename Range>
-	SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Range>::difference_type size(Range const& range) {
+	SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Range>::difference_type size(Range const& range) {
 		return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::begin(range), sprout::end(range));
 	}
 }	// namespace sprout
