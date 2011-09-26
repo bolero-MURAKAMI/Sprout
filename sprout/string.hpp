@@ -108,24 +108,43 @@ namespace sprout {
 		SPROUT_STATIC_CONSTEXPR size_type npos = -1;
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
 		SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
-	public:
-		T elems[N + 1];
-		size_type len;
 	private:
-		SPROUT_CONSTEXPR int compare_impl_2(int compared, size_type n1, size_type n2) const {
+		static SPROUT_CONSTEXPR int compare_impl_2(int compared, size_type n1, size_type n2) {
 			return compared != 0 ? compared
 				: n1 < n2 ? -1
 				: n2 < n1 ? 1
 				: 0
 				;
 		}
-		SPROUT_CONSTEXPR int compare_impl_1(size_type pos1, size_type n1, char const* s, size_type n2) const {
+		static SPROUT_CONSTEXPR int compare_impl_1(value_type const* dest, size_type pos1, size_type n1, value_type const* s, size_type n2) {
 			return compare_impl_2(
-				traits_type::compare(c_str() + pos1, s, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, n2)),
+				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, n2)),
 				n1,
 				n2
 				);
 		}
+		template<std::ptrdiff_t...Indexes>
+		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str_impl(
+			value_type const* s,
+			size_type n,
+			sprout::index_tuple<Indexes...>
+			)
+		{
+			return sprout::basic_string<T, N, Traits>{{(Indexes < n ? s[Indexes] : T())...}, n};
+		}
+	public:
+		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str(value_type const* s, size_type n) {
+			return !(N < n)
+				? from_c_str_impl(s, n, typename sprout::index_range<0, N>::type())
+				: throw "basic_string<>: index out of range"
+				;
+		}
+		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str(value_type const* s) {
+			return from_c_str(s, traits_type::length(s));
+		}
+	public:
+		T elems[N + 1];
+		size_type len;
 	public:
 		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
 			return len;
@@ -141,6 +160,11 @@ namespace sprout {
 		}
 		void rangecheck(size_type i) const {
 			if (i >= size()) {
+				throw std::out_of_range("basic_string<>: index out of range");
+			}
+		}
+		void maxcheck(size_type n) const {
+			if (n > max_size()) {
 				throw std::out_of_range("basic_string<>: index out of range");
 			}
 		}
@@ -218,6 +242,21 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_pointer c_str() const SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
+		void resize(size_type n, value_type c) {
+			maxcheck(n);
+			if (n > size()) {
+				traits_type::assign(end(), n - size(), c);
+			}
+			traits_type::assign(begin() + n, max_size() - n, value_type());
+			len = n;
+		}
+		void resize(size_type n) {
+			resize(n, value_type());
+		}
+		void clear() {
+			traits_type::assign(begin(), max_size(), value_type());
+			len = 0;
+		}
 		template<std::size_t N2>
 		basic_string<T, N, Traits>& assign(basic_string<T, N2, Traits> const& str) {
 			return assign(str.begin(), str.size());
@@ -230,9 +269,7 @@ namespace sprout {
 			return assign(str.begin() + pos, n);
 		}
 		basic_string<T, N, Traits>& assign(value_type const* s, size_type n) {
-			if (max_size() < n) {
-				throw std::out_of_range("basic_string<>: index out of range");
-			}
+			maxcheck(n);
 			for (size_type i = 0; i < n; ++i) {
 				traits_type::assign(elems[i], s[i]);
 			}
@@ -246,9 +283,7 @@ namespace sprout {
 			return assign(s, traits_type::length(s));
 		}
 		basic_string<T, N, Traits>& assign(size_type n, value_type c) {
-			if (max_size() < n) {
-				throw std::out_of_range("basic_string<>: index out of range");
-			}
+			maxcheck(n);
 			traits_type::assign(begin(), n, c);
 			traits_type::assign(begin() + n, max_size() - n, value_type());
 			len = n;
@@ -306,7 +341,15 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, char const* s, size_type n2) const {
 			return !(size() < pos1)
-				? compare_impl_1(pos1, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, size() - pos1), s, n2)
+				? compare_impl_1(c_str(), pos1, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, size() - pos1), s, n2)
+				: throw "basic_string<>: index out of range"
+				;
+		}
+		SPROUT_CONSTEXPR basic_string<T, N, Traits> substr(size_type pos = 0, size_type n = npos) const {
+			return !(size() < pos)
+				? n == npos
+					? substr(pos, size() - pos)
+					: from_c_str(c_str() + pos, n)
 				: throw "basic_string<>: index out of range"
 				;
 		}
@@ -590,11 +633,11 @@ namespace sprout {
 		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl_1(
 			T const(& arr)[N],
-			sprout::index_tuple<Indexes...>,
-			typename sprout::basic_string<T, N - 1>::size_type len
+			typename sprout::basic_string<T, N - 1>::size_type n,
+			sprout::index_tuple<Indexes...>
 			)
 		{
-			return sprout::basic_string<T, N - 1>{{(Indexes < len ? arr[Indexes] : T())...}, len};
+			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
 		}
 		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl(
@@ -602,7 +645,7 @@ namespace sprout {
 			sprout::index_tuple<Indexes...>
 			)
 		{
-			return to_string_impl_1(arr, sprout::index_tuple<Indexes...>(), sprout::char_traits<T>::length(arr));
+			return to_string_impl_1(arr, sprout::char_traits<T>::length(arr), sprout::index_tuple<Indexes...>());
 		}
 	}	// namespace detail
 	//
@@ -611,6 +654,18 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string(T const(& arr)[N]) {
 		return sprout::detail::to_string_impl(arr, typename sprout::index_range<0, N - 1>::type());
+	}
+
+	//
+	// string_from_c_str
+	//
+	template<std::size_t N, typename T>
+	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s, std::size_t n) {
+		return sprout::basic_string<T, N>::from_c_str(s, n);
+	}
+	template<std::size_t N, typename T>
+	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s) {
+		return sprout::basic_string<T, N>::from_c_str(s);
 	}
 
 	template<typename T, std::size_t N, typename Traits>
