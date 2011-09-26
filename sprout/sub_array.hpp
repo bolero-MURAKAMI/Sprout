@@ -399,7 +399,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR inline void swap(sprout::sub_array<Container>& lhs, sprout::sub_array<Container>& rhs) {
+	inline void swap(sprout::sub_array<Container>& lhs, sprout::sub_array<Container>& rhs) {
 		lhs.swap(rhs);
 	}
 
@@ -934,3 +934,4 @@ namespace std {
 }	// namespace std
 
 #endif	// #ifndef SPROUT_SUB_ARRAY_HPP
+

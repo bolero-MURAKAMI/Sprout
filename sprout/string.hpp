@@ -400,25 +400,93 @@ namespace sprout {
 		};
 	};
 
+	namespace detail {
+		//
+		// make_clone_functor_impl
+		//
+		template<typename Container>
+		struct make_clone_functor_impl;
+
+		template<typename T, std::size_t N, typename Traits>
+		struct make_clone_functor_impl<sprout::basic_string<T, N, Traits> > {
+		private:
+			typedef sprout::basic_string<T, N, Traits> container_type;
+			typedef typename sprout::fixed_container_traits<container_type>::clone_type clone_type;
+		private:
+			template<std::size_t S>
+			static SPROUT_CONSTEXPR clone_type make_impl(typename clone_type::size_type size) {
+				return clone_type{{}, size};
+			}
+			template<std::size_t S, typename... Args>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				S != sizeof...(Args),
+				clone_type
+			>::type make_impl(typename clone_type::size_type size, T const& head, Args const&... tail) {
+				return make_impl<S + 1>(size, tail..., S < size ? head : T());
+			}
+			template<std::size_t S, typename... Args>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				S == sizeof...(Args),
+				clone_type
+			>::type make_impl(typename clone_type::size_type size, T const& head, Args const&... tail) {
+				return clone_type{{tail..., head}, size};
+			}
+		public:
+			static SPROUT_CONSTEXPR typename clone_type::size_type length() {
+				return 0;
+			}
+			template<typename... Tail>
+			static SPROUT_CONSTEXPR typename clone_type::size_type length(T const& head, Tail const&... tail) {
+				return !head ? 0 : 1 + length(tail...);
+			}
+			template<typename... Args>
+			static SPROUT_CONSTEXPR clone_type make(typename clone_type::size_type size, Args const&... args) {
+				return make_impl<0>(size, args...);
+			}
+		};
+	}	// namespace detail
+
 	//
 	// make_clone_functor
 	//
 	template<typename T, std::size_t N, typename Traits>
 	struct make_clone_functor<sprout::basic_string<T, N, Traits> > {
 	private:
-		typedef typename sprout::fixed_container_traits<sprout::basic_string<T, N, Traits> >::clone_type clone_type;
-	private:
-		static SPROUT_CONSTEXPR typename clone_type::size_type length() {
-			return 0;
-		}
-		template<typename... Tail>
-		static SPROUT_CONSTEXPR typename clone_type::size_type length(T const& head, Tail const&... tail) {
-			return !head ? 0 : 1 + length(tail...);
-		}
+		typedef sprout::basic_string<T, N, Traits> container_type;
+		typedef sprout::detail::make_clone_functor_impl<container_type> impl_type;
 	public:
 		template<typename... Args>
-		SPROUT_CONSTEXPR clone_type operator()(Args const&... args) const {
-			return clone_type{{args...}, length(args...)};
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(Args const&... args) const {
+			return impl_type::make(impl_type::length(args...), args...);
+		}
+	};
+
+	//
+	// remake_clone_functor
+	//
+	template<typename T, std::size_t N, typename Traits>
+	struct remake_clone_functor<sprout::basic_string<T, N, Traits> > {
+	private:
+		typedef sprout::basic_string<T, N, Traits> container_type;
+		typedef sprout::detail::make_clone_functor_impl<container_type> impl_type;
+	public:
+		template<typename Other, typename... Args>
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(
+			Other& other,
+			typename sprout::fixed_container_traits<container_type>::difference_type size,
+			Args const&... args
+			) const
+		{
+			return impl_type::make(size, args...);
+		}
+		template<typename Other, typename... Args>
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(
+			Other const& other,
+			typename sprout::fixed_container_traits<container_type>::difference_type size,
+			Args const&... args
+			) const
+		{
+			return impl_type::make(size, args...);
 		}
 	};
 
