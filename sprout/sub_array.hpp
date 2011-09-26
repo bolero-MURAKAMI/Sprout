@@ -934,4 +934,3 @@ namespace std {
 }	// namespace std
 
 #endif	// #ifndef SPROUT_SUB_ARRAY_HPP
-

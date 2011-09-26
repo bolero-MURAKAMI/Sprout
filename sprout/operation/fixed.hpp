@@ -18,8 +18,8 @@
 #include <sprout/operation/fixed/insert_n.hpp>
 #include <sprout/operation/fixed/erase.hpp>
 #include <sprout/operation/fixed/erase_n.hpp>
-#include <sprout/operation/fixed/join.hpp>
-#include <sprout/operation/fixed/join_back.hpp>
-#include <sprout/operation/fixed/join_front.hpp>
+#include <sprout/operation/fixed/append.hpp>
+#include <sprout/operation/fixed/append_back.hpp>
+#include <sprout/operation/fixed/append_front.hpp>
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_HPP

@@ -290,4 +290,3 @@ namespace std {
 }	// namespace std
 
 #endif	// #ifndef SPROUT_ARRAY_HPP
-

@@ -18,8 +18,8 @@
 #include <sprout/operation/fit/insert_n.hpp>
 #include <sprout/operation/fit/erase.hpp>
 #include <sprout/operation/fit/erase_n.hpp>
-#include <sprout/operation/fit/join.hpp>
-#include <sprout/operation/fit/join_back.hpp>
-#include <sprout/operation/fit/join_front.hpp>
+#include <sprout/operation/fit/append.hpp>
+#include <sprout/operation/fit/append_back.hpp>
+#include <sprout/operation/fit/append_front.hpp>
 
 #endif	// #ifndef SPROUT_OPERATION_FIT_HPP

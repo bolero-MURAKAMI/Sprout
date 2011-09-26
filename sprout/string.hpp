@@ -13,8 +13,8 @@
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/operation/fixed/push_back.hpp>
 #include <sprout/operation/fixed/push_front.hpp>
-#include <sprout/operation/fixed/join_back.hpp>
-#include <sprout/operation/fixed/join_front.hpp>
+#include <sprout/operation/fixed/append_back.hpp>
+#include <sprout/operation/fixed/append_front.hpp>
 #include <sprout/detail/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -685,7 +685,7 @@ namespace sprout {
 		return sprout::fixed::push_front(rhs, lhs);
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_back<
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_back<
 			sprout::basic_string<T, N, Traits>,
 			sprout::basic_string<T, N2 - 1, Traits>
 	>::type operator+(
@@ -693,10 +693,10 @@ namespace sprout {
 		T const (& rhs)[N2]
 		)
 	{
-		return sprout::fixed::join_back(lhs, sprout::to_string(rhs));
+		return sprout::fixed::append_back(lhs, sprout::to_string(rhs));
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_front<
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_front<
 		sprout::basic_string<T, N, Traits>,
 		sprout::basic_string<T, N2 - 1, Traits>
 	>::type operator+(
@@ -704,10 +704,10 @@ namespace sprout {
 		sprout::basic_string<T, N, Traits> const& rhs
 		)
 	{
-		return sprout::fixed::join_front(rhs, sprout::to_string(lhs));
+		return sprout::fixed::append_front(rhs, sprout::to_string(lhs));
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::join_back<
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_back<
 		sprout::basic_string<T, N, Traits>,
 		sprout::basic_string<T, N2, Traits>
 	>::type operator+(
@@ -715,7 +715,7 @@ namespace sprout {
 		sprout::basic_string<T, N2, Traits> const& rhs
 		)
 	{
-		return sprout::fixed::join_back(lhs, rhs);
+		return sprout::fixed::append_back(lhs, rhs);
 	}
 
 	template<typename T, std::size_t N, typename Traits, typename StreamTraits>
@@ -866,4 +866,3 @@ namespace std {
 }	// namespace std
 
 #endif	// #ifndef SPROUT_STRING_HPP
-
