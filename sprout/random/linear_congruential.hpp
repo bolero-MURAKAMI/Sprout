@@ -6,6 +6,7 @@
 #include <ios>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/const_mod.hpp>
+#include <sprout/random/random_result.hpp>
 
 namespace sprout {
 	namespace random {
@@ -29,9 +30,10 @@ namespace sprout {
 			static_assert(m == 0 || c < m, "m == 0 || c < m");
 		private:
 			static SPROUT_CONSTEXPR IntType init_seed_3(IntType const& x0) {
-				//static_assert(x0 >= static_min(), "x0 >= static_min()");
-				//static_assert(x0 <= static_max(), "x0 <= static_max()");
-				return x0;
+				return x0 >= static_min() && x0 <= static_max()
+					? x0
+					: throw "assert(x0 >= static_min() && x0 <= static_max())"
+					;
 			}
 			static SPROUT_CONSTEXPR IntType init_seed_2(IntType const& x0) {
 				return init_seed_3(increment == 0 && x0 == 0 ? 1 : x0);
@@ -55,6 +57,12 @@ namespace sprout {
 			SPROUT_CONSTEXPR linear_congruential_engine(IntType const& x, private_constructor_tag)
 				: x_(x)
 			{}
+			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> generate(result_type result) const {
+				return sprout::random::random_result<linear_congruential_engine>(
+					result,
+					linear_congruential_engine(result, private_constructor_tag())
+					);
+			}
 		public:
 			SPROUT_CONSTEXPR linear_congruential_engine()
 				: x_(init_seed(default_seed))
@@ -68,11 +76,8 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const {
 				return static_max();
 			}
-			SPROUT_CONSTEXPR result_type operator()() const {
-				return sprout::random::detail::const_mod<IntType, m>::mult_add(a, x_, c);
-			}
-			SPROUT_CONSTEXPR linear_congruential_engine next() const {
-				return linear_congruential_engine(operator()(), private_constructor_tag());
+			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> operator()() const {
+				return generate(sprout::random::detail::const_mod<IntType, m>::mult_add(a, x_, c));
 			}
 			friend SPROUT_CONSTEXPR bool operator==(linear_congruential_engine const& lhs, linear_congruential_engine const& rhs) {
 				return lhs.x_ == rhs.x_;
