@@ -15,7 +15,7 @@
 #include <sprout/operation/fixed/push_front.hpp>
 #include <sprout/operation/fixed/append_back.hpp>
 #include <sprout/operation/fixed/append_front.hpp>
-#include <sprout/detail/iterator.hpp>
+#include <sprout/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
@@ -101,8 +101,8 @@ namespace sprout {
 		typedef std::ptrdiff_t difference_type;
 		typedef T* pointer;
 		typedef T const* const_pointer;
-		typedef sprout::detail::reverse_iterator<iterator> reverse_iterator;
-		typedef sprout::detail::reverse_iterator<const_iterator> const_reverse_iterator;
+		typedef sprout::reverse_iterator<iterator> reverse_iterator;
+		typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 		typedef Traits traits_type;
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type npos = -1;

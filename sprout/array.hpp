@@ -10,7 +10,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
-#include <sprout/detail/iterator.hpp>
+#include <sprout/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
@@ -29,8 +29,8 @@ namespace sprout {
 		typedef std::ptrdiff_t difference_type;
 		typedef T* pointer;
 		typedef T const* const_pointer;
-		typedef sprout::detail::reverse_iterator<iterator> reverse_iterator;
-		typedef sprout::detail::reverse_iterator<const_iterator> const_reverse_iterator;
+		typedef sprout::reverse_iterator<iterator> reverse_iterator;
+		typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
 		SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
