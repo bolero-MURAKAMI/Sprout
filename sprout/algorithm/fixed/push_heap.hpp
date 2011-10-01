@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -19,9 +20,13 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::difference_type n
 				)
 			{
-				return n != 0 && comp(*(sprout::fixed_begin(cont) + offset + (n - 1) / 2), *(sprout::fixed_begin(cont) + offset + n))
+				return n != 0 && comp(*sprout::next(sprout::fixed_begin(cont), offset + (n - 1) / 2), *sprout::next(sprout::fixed_begin(cont), offset + n))
 					? sprout::fixed::detail::push_heap_impl(
-						sprout::fixed::swap_element(cont, sprout::fixed_begin(cont) + offset + (n - 1) / 2, sprout::fixed_begin(cont) + offset + n),
+						sprout::fixed::swap_element(
+							cont,
+							sprout::next(sprout::fixed_begin(cont), offset + (n - 1) / 2),
+							sprout::next(sprout::fixed_begin(cont), offset + n)
+							),
 						comp,
 						offset,
 						(n - 1) / 2

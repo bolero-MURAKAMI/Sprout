@@ -3,6 +3,7 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -20,10 +21,10 @@ namespace sprout {
 		{
 			return first1 != last1 && first2 != last2
 				? comp(*first1, *first2)
-					? sprout::detail::overlap_count_2(first1 + 1, last1, first2, last2, comp)
+					? sprout::detail::overlap_count_2(sprout::next(first1), last1, first2, last2, comp)
 					: comp(*first2, *first1)
-						? sprout::detail::overlap_count_2(first1, last1, first2 + 1, last2, comp)
-						: 1 + sprout::detail::overlap_count_2(first1 + 1, last1, first2 + 1, last2, comp)
+						? sprout::detail::overlap_count_2(first1, last1, sprout::next(first2), last2, comp)
+						: 1 + sprout::detail::overlap_count_2(sprout::next(first1), last1, sprout::next(first2), last2, comp)
 				: 0
 				;
 		}
@@ -40,10 +41,10 @@ namespace sprout {
 		{
 			return first1 != last1 && first2 != last2
 				? *first1 < *first2
-					? sprout::detail::overlap_count_2(first1 + 1, last1, first2, last2)
+					? sprout::detail::overlap_count_2(sprout::next(first1), last1, first2, last2)
 					: *first2 < *first1
-						? sprout::detail::overlap_count_2(first1, last1, first2 + 1, last2)
-						: 1 + sprout::detail::overlap_count_2(first1 + 1, last1, first2 + 1, last2)
+						? sprout::detail::overlap_count_2(first1, last1, sprout::next(first2), last2)
+						: 1 + sprout::detail::overlap_count_2(sprout::next(first1), last1, sprout::next(first2), last2)
 				: 0
 				;
 		}

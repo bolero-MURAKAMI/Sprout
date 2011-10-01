@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 
@@ -21,7 +22,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::copy_impl(
 				first,
-				first + n,
+				sprout::next(first, n),
 				result,
 				typename sprout::index_range<0, sprout::fixed_container_traits<Result>::fixed_size>::type(),
 				sprout::fixed_begin_offset(result),

@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/make_partial_heap.hpp>
@@ -22,8 +23,8 @@ namespace sprout {
 			{
 				return sprout::fixed::swap_element(
 					cont,
-					sprout::fixed_begin(cont) + offset,
-					sprout::fixed_begin(cont) + offset + nth_size
+					sprout::next(sprout::fixed_begin(cont), offset),
+					sprout::next(sprout::fixed_begin(cont), offset + nth_size)
 					);
 			}
 			template<typename Container, typename Compare>

@@ -9,6 +9,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/detail/if.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -290,48 +291,48 @@ namespace sprout {
 			}
 		}
 		iterator begin() {
-			return sprout::begin(get_array()) + first_;
+			return sprout::next(sprout::begin(get_array()), first_);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
-			return sprout::begin(get_array()) + first_;
+			return sprout::next(sprout::begin(get_array()), first_);
 		}
 		SPROUT_CONSTEXPR const_iterator cbegin() const {
-			return sprout::begin(get_array()) + first_;
+			return sprout::next(sprout::begin(get_array()), first_);
 		}
 		iterator end() {
-			return sprout::begin(get_array()) + last_;
+			return sprout::next(sprout::begin(get_array()), last_);
 		}
 		SPROUT_CONSTEXPR const_iterator end() const {
-			return sprout::begin(get_array()) + last_;
+			return sprout::next(sprout::begin(get_array()), last_);
 		}
 		SPROUT_CONSTEXPR const_iterator cend() const {
-			return sprout::begin(get_array()) + last_;
+			return sprout::next(sprout::begin(get_array()), last_);
 		}
 		reference operator[](size_type i) {
-			return *(sprout::begin(get_array()) + first_ + i);
+			return *sprout::next(sprout::begin(get_array()), first_ + i);
 		}
 		SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
-			return *(sprout::begin(get_array()) + first_ + i);
+			return *sprout::next(sprout::begin(get_array()), first_ + i);
 		}
 		reference at(size_type i) {
 			rangecheck(i);
-			return *(sprout::begin(get_array()) + first_ + i);
+			return *sprout::next(sprout::begin(get_array()), first_ + i);
 		}
 		const_reference at(size_type i) const {
 			rangecheck(i);
-			return *(sprout::begin(get_array()) + first_ + i);
+			return *sprout::next(sprout::begin(get_array()), first_ + i);
 		}
 		reference front() {
-			return *(sprout::begin(get_array()) + first_);
+			return *sprout::next(sprout::begin(get_array()), first_);
 		}
 		SPROUT_CONSTEXPR const_reference front() const {
-			return *(sprout::begin(get_array()) + first_);
+			return *sprout::next(sprout::begin(get_array()), first_);
 		}
 		reference back() {
-			return *(sprout::begin(get_array()) + (last_ - 1));
+			return *sprout::next(sprout::begin(get_array()), last_ - 1);
 		}
 		SPROUT_CONSTEXPR const_reference back() const {
-			return *(sprout::begin(get_array()) + (last_ - 1));
+			return *sprout::next(sprout::begin(get_array()), last_ - 1);
 		}
 		pointer data() {
 			return get_array().data() + first_;
@@ -506,8 +507,8 @@ namespace sprout {
 		{
 			return clone_type(
 				cloned,
-				sprout::begin(cloned) + sprout::fixed_begin_offset(other),
-				sprout::begin(cloned) + sprout::fixed_begin_offset(other) + size
+				sprout::next(sprout::begin(cloned), sprout::fixed_begin_offset(other)),
+				sprout::next(sprout::begin(cloned), sprout::fixed_begin_offset(other) + size)
 				);
 		}
 		template<typename Other>
@@ -519,8 +520,8 @@ namespace sprout {
 		{
 			return clone_type(
 				cloned,
-				sprout::begin(cloned) + sprout::fixed_begin_offset(other),
-				sprout::begin(cloned) + sprout::fixed_begin_offset(other) + size
+				sprout::next(sprout::begin(cloned), sprout::fixed_begin_offset(other)),
+				sprout::next(sprout::begin(cloned), sprout::fixed_begin_offset(other) + size)
 				);
 		}
 	public:
@@ -770,7 +771,11 @@ namespace sprout {
 		typename sprout::fixed_container_traits<Container>::difference_type last
 		)
 	{
-		return sprout::sub_array<typename Container::fixed_container_type const&>(arr.get_array(), sprout::begin(arr) + first, sprout::begin(arr) + last);
+		return sprout::sub_array<typename Container::fixed_container_type const&>(
+			arr.get_array(),
+			sprout::next(sprout::begin(arr), first),
+			sprout::next(sprout::begin(arr), last)
+		);
 	}
 	template<typename Container>
 	SPROUT_CONSTEXPR inline typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::fixed_container_type const&> >::type csub(
@@ -859,7 +864,11 @@ namespace sprout {
 		typename sprout::fixed_container_traits<Container>::difference_type last
 		)
 	{
-		return sprout::sub_array<typename Container::fixed_container_type>(arr.get_array(), sprout::begin(arr) + first, sprout::begin(arr) + last);
+		return sprout::sub_array<typename Container::fixed_container_type>(
+			arr.get_array(),
+			sprout::next(sprout::begin(arr), first),
+			sprout::next(sprout::begin(arr), last)
+			);
 	}
 	template<typename Container>
 	SPROUT_CONSTEXPR inline typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::fixed_container_type> >::type sub_copy(
@@ -918,18 +927,18 @@ namespace std {
 	// get
 	//
 	template<std::size_t I, typename T, typename Container>
-	T& get(sprout::sub_array<Container>& arr) SPROUT_NOEXCEPT {
-		static_assert(I < sprout::fixed_container_traits<sprout::sub_array<Container> >::fixed_size, "tuple_element<>: index out of range");
-		return *(sprout::fixed_begin(arr) + I);
+	T& get(sprout::sub_array<Container>& arr) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::fixed_begin(arr), I))) {
+		static_assert(I < sprout::fixed_container_traits<sprout::sub_array<Container> >::fixed_size, "get: index out of range");
+		return *sprout::next(sprout::fixed_begin(arr), I);
 	}
 	template<std::size_t I, typename T, typename Container>
-	SPROUT_CONSTEXPR T const& get(sprout::sub_array<Container> const& arr) SPROUT_NOEXCEPT {
-		static_assert(I < sprout::fixed_container_traits<sprout::sub_array<Container> >::fixed_size, "tuple_element<>: index out of range");
-		return *(sprout::fixed_begin(arr) + I);
+	SPROUT_CONSTEXPR T const& get(sprout::sub_array<Container> const& arr) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::fixed_begin(arr), I))) {
+		static_assert(I < sprout::fixed_container_traits<sprout::sub_array<Container> >::fixed_size, "get: index out of range");
+		return *sprout::next(sprout::fixed_begin(arr), I);
 	}
 	template<std::size_t I, typename T, typename Container>
-	T&& get(sprout::sub_array<Container>&& arr) SPROUT_NOEXCEPT {
-		return std::move(get<I>(arr));
+	T&& get(sprout::sub_array<Container>&& arr) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::move(std::get<I>(arr)))) {
+		return std::move(std::get<I>(arr));
 	}
 }	// namespace std
 

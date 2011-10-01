@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/pop_heap.hpp>
@@ -24,7 +25,7 @@ namespace sprout {
 					? sprout::clone(cont)
 					: sprout::fixed::detail::sort_heap_impl(
 						sprout::fixed::detail::pop_heap_impl(
-							sprout::fixed::swap_element(cont, sprout::begin(cont), sprout::begin(cont) + size - 1),
+							sprout::fixed::swap_element(cont, sprout::begin(cont), sprout::next(sprout::begin(cont), size - 1)),
 							comp,
 							offset,
 							size - 1

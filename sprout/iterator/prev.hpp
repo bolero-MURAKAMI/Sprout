@@ -60,6 +60,18 @@ namespace sprout {
 			static_cast<typename std::iterator_traits<typename std::decay<Iterator>::type>::iterator_category*>(nullptr)
 			);
 	}
+	template<typename Iterator>
+	SPROUT_CONSTEXPR typename std::decay<Iterator>::type prev(
+		Iterator&& it,
+		typename std::iterator_traits<typename std::decay<Iterator>::type>::difference_type n
+		)
+	{
+		return sprout::detail::prev_impl(
+			sprout::forward<Iterator>(it),
+			n,
+			static_cast<typename std::iterator_traits<typename std::decay<Iterator>::type>::iterator_category*>(nullptr)
+			);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ITERATOR_PREV_HPP

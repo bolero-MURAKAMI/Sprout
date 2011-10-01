@@ -851,17 +851,17 @@ namespace std {
 	//
 	template<std::size_t I, typename T, std::size_t N, typename Traits>
 	T& get(sprout::basic_string<T, N, Traits>& arr) SPROUT_NOEXCEPT {
-		static_assert(I < N, "tuple_element<>: index out of range");
+		static_assert(I < N, "get: index out of range");
 		return arr[I];
 	}
 	template<std::size_t I, typename T, std::size_t N, typename Traits>
 	SPROUT_CONSTEXPR T const& get(sprout::basic_string<T, N, Traits> const& arr) SPROUT_NOEXCEPT {
-		static_assert(I < N, "tuple_element<>: index out of range");
+		static_assert(I < N, "get: index out of range");
 		return arr[I];
 	}
 	template<std::size_t I, typename T, std::size_t N, typename Traits>
 	T&& get(sprout::basic_string<T, N, Traits>&& arr) SPROUT_NOEXCEPT {
-		return std::move(get<I>(arr));
+		return std::move(std::get<I>(arr));
 	}
 }	// namespace std
 

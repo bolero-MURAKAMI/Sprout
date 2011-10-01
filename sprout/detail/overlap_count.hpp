@@ -3,6 +3,7 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -17,8 +18,8 @@ namespace sprout {
 			return first == last
 				? 0
 				: *first == value
-				? 1 + sprout::detail::overlap_count_impl(first + 1, last, value)
-				: sprout::detail::overlap_count_impl(first + 1, last, *first)
+				? 1 + sprout::detail::overlap_count_impl(sprout::next(first), last, value)
+				: sprout::detail::overlap_count_impl(sprout::next(first), last, *first)
 				;
 		}
 		//
@@ -32,7 +33,7 @@ namespace sprout {
 		{
 			return first == last
 				? 0
-				: sprout::detail::overlap_count_impl(first + 1, last, *first)
+				: sprout::detail::overlap_count_impl(sprout::next(first), last, *first)
 				;
 		}
 
@@ -47,8 +48,8 @@ namespace sprout {
 			return first == last
 				? 0
 				: pred(*first, value)
-				? 1 + sprout::detail::overlap_count_impl(first + 1, last, pred, value)
-				: sprout::detail::overlap_count_impl(first + 1, last, pred, *first)
+				? 1 + sprout::detail::overlap_count_impl(sprout::next(first), last, pred, value)
+				: sprout::detail::overlap_count_impl(sprout::next(first), last, pred, *first)
 				;
 		}
 		//
@@ -63,7 +64,7 @@ namespace sprout {
 		{
 			return first == last
 				? 0
-				: sprout::detail::overlap_count_impl(first + 1, last, pred, *first)
+				: sprout::detail::overlap_count_impl(sprout::next(first), last, pred, *first)
 				;
 		}
 	}	// namespace detail

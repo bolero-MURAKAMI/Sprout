@@ -1,5 +1,6 @@
 #ifndef SPROUT_ITERATOR_NEXT_HPP
 #define SPROUT_ITERATOR_NEXT_HPP
+	
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -56,6 +57,18 @@ namespace sprout {
 	SPROUT_CONSTEXPR typename std::decay<Iterator>::type next(Iterator&& it) {
 		return sprout::detail::next_impl(
 			sprout::forward<Iterator>(it),
+			static_cast<typename std::iterator_traits<typename std::decay<Iterator>::type>::iterator_category*>(nullptr)
+			);
+	}
+	template<typename Iterator>
+	SPROUT_CONSTEXPR typename std::decay<Iterator>::type next(
+		Iterator&& it,
+		typename std::iterator_traits<typename std::decay<Iterator>::type>::difference_type n
+		)
+	{
+		return sprout::detail::next_impl(
+			sprout::forward<Iterator>(it),
+			n,
 			static_cast<typename std::iterator_traits<typename std::decay<Iterator>::type>::iterator_category*>(nullptr)
 			);
 	}

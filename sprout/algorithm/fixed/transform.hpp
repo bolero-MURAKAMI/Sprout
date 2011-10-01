@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -28,8 +29,8 @@ namespace sprout {
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? op(*(first + Indexes - offset))
-						: *(sprout::fixed_begin(result) + Indexes)
+						? op(*sprout::next(first, Indexes - offset))
+						: *sprout::next(sprout::fixed_begin(result), Indexes)
 						)...
 					);
 			}
@@ -75,8 +76,8 @@ namespace sprout {
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? op(*(first1 + Indexes - offset), *(first2 + Indexes - offset))
-						: *(sprout::fixed_begin(result) + Indexes)
+						? op(*sprout::next(first1, Indexes - offset), *sprout::next(first2, Indexes - offset))
+						: *sprout::next(sprout::fixed_begin(result), Indexes)
 						)...
 					);
 			}

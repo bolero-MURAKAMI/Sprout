@@ -5,6 +5,7 @@
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -32,10 +33,14 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::difference_type r
 				)
 			{
-				return comp(*(sprout::fixed_begin(cont) + offset + l), *(sprout::fixed_begin(cont) + offset + r))
-					? comp(*(sprout::fixed_begin(cont) + offset + n), *(sprout::fixed_begin(cont) + offset + r))
+				return comp(*sprout::next(sprout::fixed_begin(cont), offset + l), *sprout::next(sprout::fixed_begin(cont), offset + r))
+					? comp(*sprout::next(sprout::fixed_begin(cont), offset + n), *sprout::next(sprout::fixed_begin(cont), offset + r))
 						? sprout::fixed::detail::make_heap_impl(
-							sprout::fixed::swap_element(cont, sprout::fixed_begin(cont) + offset + n, sprout::fixed_begin(cont) + offset + r),
+							sprout::fixed::swap_element(
+								cont,
+								sprout::next(sprout::fixed_begin(cont), offset + n),
+								sprout::next(sprout::fixed_begin(cont), offset + r)
+								),
 							comp,
 							offset,
 							size,
@@ -44,9 +49,13 @@ namespace sprout {
 							r * 2 + 2
 							)
 						: sprout::clone(cont)
-					: comp(*(sprout::fixed_begin(cont) + offset + n), *(sprout::fixed_begin(cont) + offset + l))
+					: comp(*sprout::next(sprout::fixed_begin(cont), offset + n), *sprout::next(sprout::fixed_begin(cont), offset + l))
 						? sprout::fixed::detail::make_heap_impl(
-							sprout::fixed::swap_element(cont, sprout::fixed_begin(cont) + offset + n, sprout::fixed_begin(cont) + offset + l),
+							sprout::fixed::swap_element(
+								cont,
+								sprout::next(sprout::fixed_begin(cont), offset + n),
+								sprout::next(sprout::fixed_begin(cont), offset + l)
+								),
 							comp,
 							offset,
 							size,
@@ -71,11 +80,23 @@ namespace sprout {
 				return r > size
 					? sprout::clone(cont)
 					: r == size
-						? comp(*(sprout::fixed_begin(cont) + offset + n), *(sprout::fixed_begin(cont) + offset + l))
-							? sprout::fixed::swap_element(cont, sprout::fixed_begin(cont) + offset + n, sprout::fixed_begin(cont) + offset + l)
+						? comp(*sprout::next(sprout::fixed_begin(cont), offset + n), *sprout::next(sprout::fixed_begin(cont), offset + l))
+							? sprout::fixed::swap_element(
+								cont,
+								sprout::next(sprout::fixed_begin(cont), offset + n),
+								sprout::next(sprout::fixed_begin(cont), offset + l)
+								)
 							: sprout::clone(cont)
 						: sprout::fixed::detail::make_heap_impl_1(
-							sprout::fixed::detail::make_heap_impl(sprout::fixed::detail::make_heap_impl(cont, comp, offset, size, l, l * 2 + 1, l * 2 + 2), comp, offset, size, r, r * 2 + 1, r * 2 + 2),
+							sprout::fixed::detail::make_heap_impl(
+								sprout::fixed::detail::make_heap_impl(cont, comp, offset, size, l, l * 2 + 1, l * 2 + 2),
+								comp,
+								offset,
+								size,
+								r,
+								r * 2 + 1,
+								r * 2 + 2
+								),
 							comp,
 							offset,
 							size,

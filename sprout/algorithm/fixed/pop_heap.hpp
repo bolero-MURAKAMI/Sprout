@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -22,10 +23,14 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::difference_type r = 2
 				)
 			{
-				return r < size && comp(*(sprout::fixed_begin(cont) + offset + l), *(sprout::fixed_begin(cont) + offset + r))
-					? comp(*(sprout::fixed_begin(cont) + offset + n), *(sprout::fixed_begin(cont) + offset + r))
+				return r < size && comp(*sprout::next(sprout::fixed_begin(cont), offset + l), *sprout::next(sprout::fixed_begin(cont), offset + r))
+					? comp(*sprout::next(sprout::fixed_begin(cont), offset + n), *sprout::next(sprout::fixed_begin(cont), offset + r))
 						? sprout::fixed::detail::pop_heap_impl(
-							sprout::fixed::swap_element(cont, sprout::fixed_begin(cont) + offset + n, sprout::fixed_begin(cont) + offset + r),
+							sprout::fixed::swap_element(
+								cont,
+								sprout::next(sprout::fixed_begin(cont), offset + n),
+								sprout::next(sprout::fixed_begin(cont), offset + r)
+								),
 							comp,
 							offset,
 							size,
@@ -35,9 +40,13 @@ namespace sprout {
 							)
 						: sprout::clone(cont)
 					: l < size
-						? comp(*(sprout::fixed_begin(cont) + offset + n), *(sprout::fixed_begin(cont) + offset + l))
+						? comp(*sprout::next(sprout::fixed_begin(cont), offset + n), *sprout::next(sprout::fixed_begin(cont), offset + l))
 							? sprout::fixed::detail::pop_heap_impl(
-								sprout::fixed::swap_element(cont, sprout::fixed_begin(cont) + offset + n, sprout::fixed_begin(cont) + offset + l),
+								sprout::fixed::swap_element(
+									cont,
+									sprout::next(sprout::fixed_begin(cont), offset + n),
+									sprout::next(sprout::fixed_begin(cont), offset + l)
+									),
 								comp,
 								offset,
 								size,

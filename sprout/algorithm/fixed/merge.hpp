@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -31,7 +32,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return merge_impl_3(result, args..., *(sprout::fixed_begin(result) + sizeof...(Args)));
+				return merge_impl_3(result, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)));
 			}
 			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -69,11 +70,11 @@ namespace sprout {
 					? first1 != last1
 						? first2 != last2
 							? comp(*first2, *first1)
-								? merge_impl_2(first1, last1, first2 + 1, last2, result, comp, offset, args..., *first2)
-								: merge_impl_2(first1 + 1, last1, first2, last2, result, comp, offset, args..., *first1)
-							: merge_impl_2(first1 + 1, last1, first2, last2, result, comp, offset, args..., *first1)
+								? merge_impl_2(first1, last1, sprout::next(first2), last2, result, comp, offset, args..., *first2)
+								: merge_impl_2(sprout::next(first1), last1, first2, last2, result, comp, offset, args..., *first1)
+							: merge_impl_2(sprout::next(first1), last1, first2, last2, result, comp, offset, args..., *first1)
 						: first2 != last2
-							? merge_impl_2(first1, last1, first2 + 1, last2, result, comp, offset, args..., *first2)
+							? merge_impl_2(first1, last1, sprout::next(first2), last2, result, comp, offset, args..., *first2)
 							: merge_impl_3(result, args...)
 					: merge_impl_3(result, args...)
 					;
@@ -111,7 +112,7 @@ namespace sprout {
 				)
 			{
 				return sizeof...(Args) < offset
-					? merge_impl_1(first1, last1, first2, last2, result, comp, offset, args..., *(sprout::fixed_begin(result) + sizeof...(Args)))
+					? merge_impl_1(first1, last1, first2, last2, result, comp, offset, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)))
 					: merge_impl_2(first1, last1, first2, last2, result, comp, offset + sprout::size(result), args...)
 					;
 			}

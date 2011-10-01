@@ -275,17 +275,17 @@ namespace std {
 	//
 	template<std::size_t I, typename T, std::size_t N>
 	T& get(sprout::array<T, N>& arr) SPROUT_NOEXCEPT {
-		static_assert(I < N, "tuple_element<>: index out of range");
+		static_assert(I < N, "get: index out of range");
 		return arr[I];
 	}
 	template<std::size_t I, typename T, std::size_t N>
 	SPROUT_CONSTEXPR T const& get(sprout::array<T, N> const& arr) SPROUT_NOEXCEPT {
-		static_assert(I < N, "tuple_element<>: index out of range");
+		static_assert(I < N, "get: index out of range");
 		return arr[I];
 	}
 	template<std::size_t I, typename T, std::size_t N>
 	T&& get(sprout::array<T, N>&& arr) SPROUT_NOEXCEPT {
-		return std::move(get<I>(arr));
+		return std::move(std::get<I>(arr));
 	}
 }	// namespace std
 

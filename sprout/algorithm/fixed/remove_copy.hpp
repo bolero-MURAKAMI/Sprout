@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 
 namespace sprout {
@@ -30,7 +31,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return remove_copy_impl_3(result, args..., *(sprout::fixed_begin(result) + sizeof...(Args)));
+				return remove_copy_impl_3(result, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)));
 			}
 			template<typename Iterator, typename Result, typename T, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -62,8 +63,8 @@ namespace sprout {
 			{
 				return first != last && sizeof...(Args) < offset
 					? *first == value
-						? remove_copy_impl_2(first + 1, last, result, value, offset, args...)
-						: remove_copy_impl_2(first + 1, last, result, value, offset, args..., *first)
+						? remove_copy_impl_2(sprout::next(first), last, result, value, offset, args...)
+						: remove_copy_impl_2(sprout::next(first), last, result, value, offset, args..., *first)
 					: remove_copy_impl_3(result, args...)
 					;
 			}
@@ -96,7 +97,7 @@ namespace sprout {
 				)
 			{
 				return sizeof...(Args) < offset
-					? remove_copy_impl_1(first, last, result, value, offset, args..., *(sprout::fixed_begin(result) + sizeof...(Args)))
+					? remove_copy_impl_1(first, last, result, value, offset, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)))
 					: remove_copy_impl_2(first, last, result, value, offset + sprout::size(result), args...)
 					;
 			}

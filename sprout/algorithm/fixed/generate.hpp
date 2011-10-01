@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 
 namespace sprout {
@@ -55,7 +56,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return generate_impl_4(cont, args..., *(sprout::fixed_begin(cont) + sizeof...(Args)));
+				return generate_impl_4(cont, args..., *sprout::next(sprout::fixed_begin(cont), sizeof...(Args)));
 			}
 			template<std::size_t InitSize, typename Container, typename Generator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -161,7 +162,7 @@ namespace sprout {
 				)
 			{
 				return sizeof...(Args) - InitSize < offset
-					? generate_impl_1<InitSize>(cont, gen, offset, size, args..., *(sprout::fixed_begin(cont) + sizeof...(Args) - InitSize))
+					? generate_impl_1<InitSize>(cont, gen, offset, size, args..., *sprout::next(sprout::fixed_begin(cont), sizeof...(Args) - InitSize))
 					: generate_impl_2<InitSize>(cont, gen, offset, size, InitSize, args...)
 					;
 			}

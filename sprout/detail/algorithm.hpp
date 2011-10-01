@@ -3,6 +3,7 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -42,7 +43,7 @@ namespace sprout {
 		{
 			return first == last
 				? 0
-				: (*first == value ? 1 : 0) + sprout::detail::count(first + 1, last, value)
+				: (*first == value ? 1 : 0) + sprout::detail::count(sprout::next(first), last, value)
 				;
 		}
 
@@ -58,7 +59,7 @@ namespace sprout {
 		{
 			return first == last
 				? 0
-				: (pred(*first) ? 1 : 0) + sprout::detail::count_if(first + 1, last, pred);
+				: (pred(*first) ? 1 : 0) + sprout::detail::count_if(sprout::next(first), last, pred);
 		}
 
 		//
@@ -73,7 +74,7 @@ namespace sprout {
 		{
 			return first1 == last1
 				? true
-				: *first1 == *first2 && sprout::detail::equal(first1 + 1, last1, first2 + 1)
+				: *first1 == *first2 && sprout::detail::equal(sprout::next(first1), last1, sprout::next(first2))
 				;
 		}
 		template<typename Iterator1, typename Iterator2, typename Predicate>
@@ -86,7 +87,7 @@ namespace sprout {
 		{
 			return first1 == last1
 				? true
-				: pred(*first1, *first2) && sprout::detail::equal(first1 + 1, last1, first2 + 1, pred);
+				: pred(*first1, *first2) && sprout::detail::equal(sprout::next(first1), last1, sprout::next(first2), pred);
 		}
 
 		//
@@ -106,7 +107,7 @@ namespace sprout {
 				? true
 				: *first2 < *first1
 				? false
-				: sprout::detail::lexicographical_compare(first1 + 1, last1, first2 + 1, last2);
+				: sprout::detail::lexicographical_compare(sprout::next(first1), last1, sprout::next(first2), last2);
 		}
 		template<typename Iterator1, typename Iterator2, typename Compare>
 		SPROUT_CONSTEXPR bool lexicographical_compare(
@@ -123,7 +124,7 @@ namespace sprout {
 				? true
 				: comp(*first2, *first1)
 				? false
-				: sprout::detail::lexicographical_compare(first1 + 1, last1, first2 + 1, last2, comp);
+				: sprout::detail::lexicographical_compare(sprout::next(first1), last1, sprout::next(first2), last2, comp);
 		}
 	}	// namespace detail
 }	// namespace sprout

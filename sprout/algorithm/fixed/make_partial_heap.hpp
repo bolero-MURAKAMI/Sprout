@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/pop_heap.hpp>
@@ -25,10 +26,14 @@ namespace sprout {
 				)
 			{
 				return n < size
-					? comp(*(sprout::fixed_begin(cont) + offset + n), *(sprout::fixed_begin(cont) + offset))
+					? comp(*sprout::next(sprout::fixed_begin(cont), offset + n), *sprout::next(sprout::fixed_begin(cont), offset))
 						? sprout::fixed::detail::make_partial_heap_impl_1(
 							sprout::fixed::detail::pop_heap_impl(
-								sprout::fixed::swap_element(cont, sprout::fixed_begin(cont) + offset + n, sprout::fixed_begin(cont) + offset),
+								sprout::fixed::swap_element(
+									cont,
+									sprout::next(sprout::fixed_begin(cont), offset + n),
+									sprout::next(sprout::fixed_begin(cont), offset)
+									),
 								comp,
 								offset,
 								middle_size

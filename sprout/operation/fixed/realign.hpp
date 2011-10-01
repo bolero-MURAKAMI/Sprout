@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -31,7 +32,7 @@ namespace sprout {
 			{
 				return sprout::make_clone<Result>(
 					(Indexes < size
-						? *(sprout::begin(cont) + Indexes)
+						? *sprout::next(sprout::begin(cont), Indexes)
 						: v
 						)...
 					);
@@ -64,7 +65,7 @@ namespace sprout {
 			{
 				return sprout::make_clone<Result>(
 					(Indexes < size
-						? *(sprout::begin(cont) + Indexes)
+						? *sprout::next(sprout::begin(cont), Indexes)
 						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
 					);

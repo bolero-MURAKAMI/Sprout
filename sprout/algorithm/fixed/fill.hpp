@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 
 namespace sprout {
@@ -25,7 +26,7 @@ namespace sprout {
 					sprout::size(cont),
 					(Indexes >= offset && Indexes < offset + size
 						? value
-						: *(sprout::fixed_begin(cont) + Indexes)
+						: *sprout::next(sprout::fixed_begin(cont), Indexes)
 						)...
 					);
 			}

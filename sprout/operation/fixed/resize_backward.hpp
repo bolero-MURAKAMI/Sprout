@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/operation/fixed/resize.hpp>
 
 namespace sprout {
@@ -32,7 +33,7 @@ namespace sprout {
 			{
 				return sprout::make_clone<Result>(
 					(Indexes >= offset && Indexes < offset + size
-						? *(sprout::begin(cont) + Indexes - offset)
+						? *sprout::next(sprout::begin(cont), Indexes - offset)
 						: v
 						)...
 					);
@@ -70,7 +71,7 @@ namespace sprout {
 			{
 				return sprout::make_clone<Result>(
 					(Indexes >= offset && Indexes < offset + size
-						? *(sprout::begin(cont) + Indexes - offset)
+						? *sprout::next(sprout::begin(cont), Indexes - offset)
 						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
 					);

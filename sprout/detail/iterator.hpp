@@ -3,6 +3,7 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -15,7 +16,7 @@ namespace sprout {
 			Iterator last
 			)
 		{
-			return first == last ? 0 : 1 + sprout::detail::distance(first + 1, last);
+			return first == last ? 0 : 1 + sprout::detail::distance(sprout::next(first), last);
 		}
 
 		template<typename Iterator>
@@ -30,7 +31,7 @@ namespace sprout {
 				? current
 				: first2 == last
 				? -current
-				: sprout::detail::bidirectional_distance_impl(first1 + 1, first2 - 1, last, current + 1)
+				: sprout::detail::bidirectional_distance_impl(sprout::next(first1), sprout::prev(first2), last, current + 1)
 				;
 		}
 		//
@@ -42,7 +43,7 @@ namespace sprout {
 			Iterator last
 			)
 		{
-			return first == last ? 0 : sprout::detail::bidirectional_distance_impl(first + 1, first - 1, last);
+			return first == last ? 0 : sprout::detail::bidirectional_distance_impl(sprout::next(first), sprout::prev(first), last);
 		}
 	}	// namespace detail
 }	// namespace sprout

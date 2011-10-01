@@ -7,6 +7,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/operation/fixed/insert.hpp>
 #include <sprout/detail/param_at.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -46,7 +47,7 @@ namespace sprout {
 							? *(sprout::fixed_begin(cont) + Indexes)
 							: Indexes < pos + (1 + sizeof...(Values)) * N
 							? sprout::detail::param_at<typename sprout::fixed_container_traits<Result>::value_type>((Indexes - pos) % (1 + sizeof...(Values)), v, values...)
-							: *(sprout::fixed_begin(cont) + Indexes - (1 + sizeof...(Values)) * N)
+							: *sprout::next(sprout::fixed_begin(cont), Indexes - (1 + sizeof...(Values)) * N)
 							)
 						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
@@ -86,7 +87,7 @@ namespace sprout {
 			return sprout::fixed::detail::insert_n_impl<N, typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type>(
 				cont,
 				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type>::fixed_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::begin(cont) + pos),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				v,
 				values...
 				);

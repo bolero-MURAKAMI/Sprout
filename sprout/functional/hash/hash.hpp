@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <limits>
 #include <sprout/config.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 
 namespace sprout {
@@ -162,7 +163,7 @@ namespace sprout {
 	template<typename Iterator>
 	SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, Iterator first, Iterator last) {
 		return first != last
-			? sprout::hash_range(sprout::hash_combine(seed, *first), first + 1, last)
+			? sprout::hash_range(sprout::hash_combine(seed, *first), sprout::next(first), last)
 			: seed
 			;
 	}

@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -29,10 +30,10 @@ namespace sprout {
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? (Indexes < offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(middle, last)
-							? *(middle + Indexes - offset)
-							: *((first + Indexes - offset) - NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, middle))
+							? *sprout::next(middle, Indexes - offset)
+							: *sprout::prev(sprout::next(first, Indexes - offset), NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, middle))
 							)
-						: *(sprout::fixed_begin(result) + Indexes)
+						: *sprout::next(sprout::fixed_begin(result), Indexes)
 						)...
 					);
 			}

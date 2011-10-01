@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -20,7 +21,7 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::difference_type end
 				)
 			{	// pivot を選ぶ（中央の要素）
-				return *(origin + (end + start) / 2);
+				return *sprout::next(origin, (end + start) / 2);
 			}
 			template<typename Container, typename Iterator, typename Compare>
 			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::difference_type sort_find_l(
@@ -30,7 +31,7 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::value_type const& p
 				)
 			{	// left を見つける
-				return comp(*(origin + l), p) ? sort_find_l<Container>(origin, comp, l + 1, p) : l;
+				return comp(*sprout::next(origin, l), p) ? sort_find_l<Container>(origin, comp, l + 1, p) : l;
 			}
 			template<typename Container, typename Iterator, typename Compare>
 			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::difference_type sort_find_r(
@@ -40,7 +41,7 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::value_type const& p
 				)
 			{	// right を見つける
-				return comp(p, *(origin + r)) ? sort_find_r<Container>(origin, comp, r - 1, p) : r;
+				return comp(p, *sprout::next(origin, r)) ? sort_find_r<Container>(origin, comp, r - 1, p) : r;
 			}
 			template<typename Container>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type swap_lr(
@@ -93,7 +94,7 @@ namespace sprout {
 			{	// left と right 比較して、左右に分けてソートするか、またはスワップしてこの範囲のソートを続ける
 				return l >= r
 					? sort_part_lr(cont, start, end, comp, l, r)
-					: sort_lr(sprout::fixed::swap_element(cont, sprout::fixed_begin(cont) + l, sprout::fixed_begin(cont) + r), start, end, comp, l + 1, r - 1, p)
+					: sort_lr(sprout::fixed::swap_element(cont, sprout::next(sprout::fixed_begin(cont), l), sprout::next(sprout::fixed_begin(cont), r)), start, end, comp, l + 1, r - 1, p)
 					;
 			}
 			template<typename Container, typename Compare>

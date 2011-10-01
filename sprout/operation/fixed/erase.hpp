@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
@@ -39,8 +40,8 @@ namespace sprout {
 					sprout::size(cont) - 1,
 					(Indexes < sprout::fixed_container_traits<Container>::fixed_size - 1
 						? (Indexes < pos
-							? *(sprout::fixed_begin(cont) + Indexes)
-							: *(sprout::fixed_begin(cont) + Indexes + 1)
+							? *sprout::next(sprout::fixed_begin(cont), Indexes)
+							: *sprout::next(sprout::fixed_begin(cont), Indexes + 1)
 							)
 						: typename sprout::fixed_container_traits<Result>::value_type()
 						)...
@@ -74,7 +75,7 @@ namespace sprout {
 			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::erase<Container>::type>(
 				cont,
 				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::erase<Container>::type>::fixed_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::begin(cont) + pos)
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::next(sprout::begin(cont), pos))
 				);
 		}
 	}	// namespace fixed

@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -31,7 +32,7 @@ namespace sprout {
 				sprout::index_tuple<Indexes...>
 				)
 			{
-				return sprout::remake_clone<Container, Container>(cont, sprout::size(cont), (*(sprout::fixed_begin(cont) + Indexes))...);
+				return sprout::remake_clone<Container, Container>(cont, sprout::size(cont), (*sprout::next(sprout::fixed_begin(cont), Indexes))...);
 			}
 			template<typename Container, typename Compare, std::ptrdiff_t I1, std::ptrdiff_t... Indexes, std::ptrdiff_t I2, std::ptrdiff_t... SortedIndexes, std::ptrdiff_t... NextIndexes, std::ptrdiff_t... PreIndexes, std::ptrdiff_t... PostIndexes>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -47,7 +48,7 @@ namespace sprout {
 				sprout::index_tuple<PostIndexes...>
 				)
 			{
-				return comp(*(sprout::fixed_begin(cont) + I1), *(sprout::fixed_begin(cont) + I2))
+				return comp(*sprout::next(sprout::fixed_begin(cont), I1), *sprout::next(sprout::fixed_begin(cont), I2))
 					? stable_sort_impl_finish(cont, sprout::index_tuple<PreIndexes..., NextIndexes..., I1, I2, SortedIndexes..., PostIndexes...>())
 					: stable_sort_impl_finish(cont, sprout::index_tuple<PreIndexes..., NextIndexes..., I2, I1, SortedIndexes..., PostIndexes...>())
 					;
@@ -66,7 +67,7 @@ namespace sprout {
 				sprout::index_tuple<PostIndexes...>
 				)
 			{
-				return comp(*(sprout::fixed_begin(cont) + I1), *(sprout::fixed_begin(cont) + I2))
+				return comp(*sprout::next(sprout::fixed_begin(cont), I1), *sprout::next(sprout::fixed_begin(cont), I2))
 					? stable_sort_impl_finish(cont, sprout::index_tuple<PreIndexes..., NextIndexes..., I1, I2, SortedIndexes..., PostIndexes...>())
 					: stable_sort_impl_4(cont, comp, sprout::index_tuple<I1>(), sprout::index_tuple<SortedIndexes...>(), sprout::index_tuple<NextIndexes..., I2>(), sprout::index_tuple<PreIndexes...>(), sprout::index_tuple<PostIndexes...>())
 					;
@@ -85,7 +86,7 @@ namespace sprout {
 				sprout::index_tuple<PostIndexes...>
 				)
 			{
-				return comp(*(sprout::fixed_begin(cont) + I1), *(sprout::fixed_begin(cont) + I2))
+				return comp(*sprout::next(sprout::fixed_begin(cont), I1), *sprout::next(sprout::fixed_begin(cont), I2))
 					? stable_sort_impl_4(cont, comp, sprout::index_tuple<Indexes...>(), sprout::index_tuple<NextIndexes..., I1, I2, SortedIndexes...>(), sprout::index_tuple<>(), sprout::index_tuple<PreIndexes...>(), sprout::index_tuple<PostIndexes...>())
 					: stable_sort_impl_4(cont, comp, sprout::index_tuple<Indexes...>(), sprout::index_tuple<NextIndexes..., I2, I1, SortedIndexes...>(), sprout::index_tuple<>(), sprout::index_tuple<PreIndexes...>(), sprout::index_tuple<PostIndexes...>())
 					;
@@ -104,7 +105,7 @@ namespace sprout {
 				sprout::index_tuple<PostIndexes...>
 				)
 			{
-				return comp(*(sprout::fixed_begin(cont) + I1), *(sprout::fixed_begin(cont) + I2))
+				return comp(*sprout::next(sprout::fixed_begin(cont), I1), *sprout::next(sprout::fixed_begin(cont), I2))
 					? stable_sort_impl_4(cont, comp, sprout::index_tuple<Indexes...>(), sprout::index_tuple<NextIndexes..., I1, I2, SortedIndexes...>(), sprout::index_tuple<>(), sprout::index_tuple<PreIndexes...>(), sprout::index_tuple<PostIndexes...>())
 					: stable_sort_impl_4(cont, comp, sprout::index_tuple<I1, Indexes...>(), sprout::index_tuple<SortedIndexes...>(), sprout::index_tuple<NextIndexes..., I2>(), sprout::index_tuple<PreIndexes...>(), sprout::index_tuple<PostIndexes...>())
 					;
