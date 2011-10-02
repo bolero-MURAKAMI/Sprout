@@ -53,6 +53,12 @@ namespace sprout {
 			engine_type engine_;
 			distribution_type distribution_;
 		public:
+			//random_result() = default;	// ???
+			SPROUT_CONSTEXPR random_result()
+				: result_()
+				, engine_()
+				, distribution_()
+			{}
 			SPROUT_CONSTEXPR random_result(
 				result_type result,
 				engine_type const& engine,
@@ -159,6 +165,11 @@ namespace sprout {
 			result_type result_;
 			engine_type engine_;
 		public:
+			//random_result() = default;	// ???
+			SPROUT_CONSTEXPR random_result()
+				: result_()
+				, engine_()
+			{}
 			SPROUT_CONSTEXPR random_result(
 				result_type result,
 				engine_type const& engine
@@ -232,18 +243,18 @@ namespace sprout {
 		{
 			lhs.swap(rhs);
 		}
-
-		//
-		// next
-		//
-		template<typename Engine, typename Distribution>
-		SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution> next(
-			sprout::random::random_result<Engine, Distribution> const& it
-			)
-		{
-			return it();
-		}
 	}	// namespace random
+
+	//
+	// next
+	//
+	template<typename Engine, typename Distribution>
+	SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution> next(
+		sprout::random::random_result<Engine, Distribution> const& it
+		)
+	{
+		return it();
+	}
 
 	using sprout::random::random_result;
 }	// namespace sprout

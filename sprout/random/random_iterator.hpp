@@ -46,6 +46,7 @@ namespace sprout {
 			random_result_type random_;
 			difference_type count_;
 		public:
+			//random_iterator() = default;	// ???
 			SPROUT_CONSTEXPR random_iterator()
 				: random_()
 				, count_()
@@ -118,7 +119,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR reference operator*() const {
 				return count_ != 0
 					? random_.result()
-					: throw "assert(count_ != 0)"
+					: (throw "assert(count_ != 0)", random_.result())
 					;
 			}
 			SPROUT_CONSTEXPR pointer operator->() const {
@@ -165,6 +166,7 @@ namespace sprout {
 			random_result_type random_;
 			difference_type count_;
 		public:
+			//random_iterator() = default;	// ???
 			SPROUT_CONSTEXPR random_iterator()
 				: random_()
 				, count_()
@@ -230,7 +232,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR reference operator*() const {
 				return count_ != 0
 					? random_.result()
-					: throw "assert(count_ != 0)"
+					: (throw "assert(count_ != 0)", random_.result())
 					;
 			}
 			SPROUT_CONSTEXPR pointer operator->() const {
@@ -263,18 +265,62 @@ namespace sprout {
 		}
 
 		//
-		// next
+		// begin
 		//
 		template<typename Engine, typename Distribution>
-		SPROUT_CONSTEXPR sprout::random::random_iterator<Engine, Distribution> next(
-			sprout::random::random_iterator<Engine, Distribution> const& it
+		SPROUT_CONSTEXPR typename std::enable_if<
+			!std::is_integral<Distribution>::value,
+			sprout::random::random_iterator<Engine, Distribution>
+		>::type begin(
+			Engine const& engine,
+			Distribution const& distribution,
+			typename sprout::random::random_iterator<Engine, Distribution>::difference_type count = -1
 			)
 		{
-			return it();
+			return sprout::random::random_iterator<Engine, Distribution>(engine, distribution, count);
+		}
+		template<typename Engine>
+		SPROUT_CONSTEXPR sprout::random::random_iterator<Engine> begin(
+			Engine const& engine,
+			typename sprout::random::random_iterator<Engine>::difference_type count = -1
+			)
+		{
+			return sprout::random::random_iterator<Engine>(engine, count);
+		}
+
+		//
+		// end
+		//
+		template<typename Engine, typename Distribution>
+		SPROUT_CONSTEXPR sprout::random::random_iterator<Engine, Distribution> end(
+			Engine const& engine,
+			Distribution const& distribution
+			)
+		{
+			return sprout::random::random_iterator<Engine, Distribution>();
+		}
+		template<typename Engine>
+		SPROUT_CONSTEXPR sprout::random::random_iterator<Engine> end(
+			Engine const& engine
+			)
+		{
+			return sprout::random::random_iterator<Engine>();
 		}
 	}	// namespace random
+
+	//
+	// next
+	//
+	template<typename Engine, typename Distribution>
+	SPROUT_CONSTEXPR sprout::random::random_iterator<Engine, Distribution> next(
+		sprout::random::random_iterator<Engine, Distribution> const& it
+		)
+	{
+		return it();
+	}
 
 	using sprout::random::random_iterator;
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_RANDOM_ITERATOR_HPP
+

@@ -37,7 +37,11 @@ namespace sprout {
 				IntType min_;
 				IntType max_;
 			public:
-				SPROUT_CONSTEXPR param_type(IntType min_arg = 0, IntType max_arg = 9)
+				SPROUT_CONSTEXPR param_type()
+					: min_(0)
+					, max_(9)
+				{}
+				SPROUT_CONSTEXPR explicit param_type(IntType min_arg, IntType max_arg = 9)
 					: min_(arg_check(min_arg, max_arg))
 					, max_(max_arg)
 				{}
@@ -180,11 +184,17 @@ namespace sprout {
 					);
 			}
 		public:
-			SPROUT_CONSTEXPR explicit uniform_smallint(IntType min_arg = 0, IntType max_arg = 9)
-				: min_(min_arg), max_(max_arg)
+			SPROUT_CONSTEXPR uniform_smallint()
+				: min_(0)
+				, max_(9)
+			{}
+			SPROUT_CONSTEXPR explicit uniform_smallint(IntType min_arg, IntType max_arg = 9)
+				: min_(min_arg)
+				, max_(max_arg)
 			{}
 			explicit uniform_smallint(param_type const& parm)
-				: min_(parm.a()), max_(parm.b())
+				: min_(parm.a())
+				, max_(parm.b())
 			{}
 			SPROUT_CONSTEXPR result_type a() const {
 				return min_;
