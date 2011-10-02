@@ -62,10 +62,10 @@ namespace sprout {
 		reverse_iterator& operator++() {
 			--current;
 			--deref_tmp;
-			return this;
+			return *this;
 		}
 		reverse_iterator operator++(int) {
-			reverse_iterator result(this);
+			reverse_iterator result(*this);
 			--current;
 			--deref_tmp;
 			return result;
@@ -73,10 +73,10 @@ namespace sprout {
 		reverse_iterator& operator--() {
 			++current;
 			++deref_tmp;
-			return this;
+			return *this;
 		}
 		reverse_iterator operator--(int) {
-			reverse_iterator temp(this);
+			reverse_iterator temp(*this);
 			++current;
 			++deref_tmp;
 			return temp;
