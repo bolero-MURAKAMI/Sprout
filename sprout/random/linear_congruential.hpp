@@ -66,7 +66,7 @@ namespace sprout {
 		public:
 			SPROUT_CONSTEXPR linear_congruential_engine()
 				//: x_(init_seed(default_seed))	// ???
-				: x_(init_seed(1))	// ???
+				: x_(init_seed(1))
 			{}
 			SPROUT_CONSTEXPR explicit linear_congruential_engine(IntType const& x0)
 				: x_(init_seed(x0))
@@ -120,11 +120,87 @@ namespace sprout {
 		// minstd_rand
 		//
 		typedef sprout::random::linear_congruential_engine<std::uint32_t, 48271, 0, 2147483647> minstd_rand;
+
+		class rand48 {
+		public:
+			typedef std::uint32_t result_type;
+		private:
+			struct private_constructor_tag {};
+			typedef sprout::random::linear_congruential_engine<
+				std::uint64_t,
+				std::uint64_t(0xDEECE66DUL) | (std::uint64_t(0x5) << 32),
+				0xB,
+				std::uint64_t(1) << 48
+			> lcf_type;
+		public:
+			static SPROUT_CONSTEXPR result_type static_min() {
+				return 0;
+			}
+			static SPROUT_CONSTEXPR result_type static_max() {
+				return 0x7FFFFFFF;
+			}
+			static SPROUT_CONSTEXPR std::uint64_t cnv(std::uint32_t x) {
+				return (static_cast<std::uint64_t>(x) << 16) | 0x330e;
+			}
+		private:
+			lcf_type lcf_;
+		private:
+			SPROUT_CONSTEXPR rand48(lcf_type const& lcf, private_constructor_tag)
+				: lcf_(lcf)
+			{}
+			SPROUT_CONSTEXPR sprout::random::random_result<rand48> generate(
+				sprout::random::random_result<lcf_type> const& lcf_result
+				) const
+			{
+				return sprout::random::random_result<rand48>(
+					lcf_result.result() >> 17,
+					rand48(lcf_result.engine(), private_constructor_tag())
+					);
+			}
+		public:
+			SPROUT_CONSTEXPR rand48()
+				: lcf_(cnv(static_cast<std::uint32_t>(1)))
+			{}
+			SPROUT_CONSTEXPR explicit rand48(result_type const& x0)
+				: lcf_(cnv(x0))
+			{}
+			SPROUT_CONSTEXPR result_type min() const {
+				return static_min();
+			}
+			SPROUT_CONSTEXPR result_type max() const {
+				return static_max();
+			}
+			SPROUT_CONSTEXPR sprout::random::random_result<rand48> operator()() const {
+				return generate(lcf_());
+			}
+			friend SPROUT_CONSTEXPR bool operator==(rand48 const& lhs, rand48 const& rhs) {
+				return lhs.lcf_ == rhs.lcf_;
+			}
+			friend SPROUT_CONSTEXPR bool operator!=(rand48 const& lhs, rand48 const& rhs) {
+				return !(lhs == rhs);
+			}
+			template<typename Elem, typename Traits>
+			friend std::basic_istream<Elem, Traits>& operator>>(
+				std::basic_istream<Elem, Traits>& lhs,
+				rand48 const& rhs
+				)
+			{
+				return lhs >> rhs.lcf_;
+			}
+			template<typename Elem, typename Traits>
+			friend std::basic_ostream<Elem, Traits>& operator<<(
+				std::basic_ostream<Elem, Traits>& lhs,
+				rand48 const& rhs
+				)
+			{
+				return lhs << rhs.lcf_;
+			}
+		};
 	} // namespace random
 
 	using sprout::random::minstd_rand0;
 	using sprout::random::minstd_rand;
+	using sprout::random::rand48;
 } // namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_LINEAR_CONGRUENTIAL_HPP
-
