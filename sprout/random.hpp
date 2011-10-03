@@ -3,6 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/random/linear_congruential.hpp>
+#include <sprout/random/mersenne_twister.hpp>
 #include <sprout/random/uniform_smallint.hpp>
 #include <sprout/random/uniform_01.hpp>
 #include <sprout/random/variate_generator.hpp>

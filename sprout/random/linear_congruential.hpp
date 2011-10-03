@@ -121,6 +121,9 @@ namespace sprout {
 		//
 		typedef sprout::random::linear_congruential_engine<std::uint32_t, 48271, 0, 2147483647> minstd_rand;
 
+		//
+		// rand48
+		//
 		class rand48 {
 		public:
 			typedef std::uint32_t result_type;
