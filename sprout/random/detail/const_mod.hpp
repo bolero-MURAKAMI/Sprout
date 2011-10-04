@@ -1,8 +1,8 @@
-#ifndef SPROUT_RANDOM_CONST_MOD_HPP
-#define SPROUT_RANDOM_CONST_MOD_HPP
+#ifndef SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
+#define SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
 
-#include <type_traits>
 #include <limits>
+#include <type_traits>
 #include <sprout/config.hpp>
 
 namespace sprout {
@@ -128,5 +128,5 @@ namespace sprout {
 	} // namespace random
 } // namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_CONST_MOD_HPP
+#endif // #ifndef SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
 

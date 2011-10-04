@@ -19,6 +19,13 @@ namespace sprout {
 		public:
 			typedef IntType input_type;
 			typedef IntType result_type;
+		private:
+			static SPROUT_CONSTEXPR IntType arg_check(IntType min_arg, IntType max_arg) {
+				return min_arg <= max_arg
+					? min_arg
+					: throw "assert(min_arg <= max_arg)"
+					;
+			}
 		public:
 			//
 			// param_type
@@ -26,13 +33,6 @@ namespace sprout {
 			class param_type {
 			public:
 				typedef uniform_smallint distribution_type;
-			private:
-				static SPROUT_CONSTEXPR IntType arg_check(IntType min_arg, IntType max_arg) {
-					return min_arg <= max_arg
-						? min_arg
-						: throw "assert(min_arg <= max_arg)"
-						;
-				}
 			private:
 				IntType min_;
 				IntType max_;
@@ -189,7 +189,7 @@ namespace sprout {
 				, max_(9)
 			{}
 			SPROUT_CONSTEXPR explicit uniform_smallint(IntType min_arg, IntType max_arg = 9)
-				: min_(min_arg)
+				: min_(arg_check(min_arg, max_arg))
 				, max_(max_arg)
 			{}
 			explicit uniform_smallint(param_type const& parm)
