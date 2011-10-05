@@ -1,8 +1,8 @@
 #ifndef SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP
 
-#include <iosfwd>
 #include <limits>
+#include <ios>
 #include <istream>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -13,9 +13,6 @@
 namespace sprout {
 	namespace random {
 		namespace detail {
-			//
-			// generate_uniform_int_result
-			//
 			template<typename T, typename Engine>
 			struct generate_uniform_int_result {
 			public:
@@ -266,7 +263,7 @@ namespace sprout {
 						)
 					;
 			}
-	template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
+			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
 			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine> generate_uniform_int_true_2(
 				Engine const& eng,
 				T min_value,
@@ -376,7 +373,7 @@ namespace sprout {
 				T max_value
 				)
 			{
-				return generate_uniform_int(
+				return sprout::random::detail::generate_uniform_int(
 					eng,
 					min_value,
 					max_value,
