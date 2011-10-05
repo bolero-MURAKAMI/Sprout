@@ -17,7 +17,10 @@ namespace sprout {
 				typedef std::int8_t type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 5;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1,
 					1,
 					2,
@@ -26,12 +29,16 @@ namespace sprout {
 					120
 				}};
 			};
+			template<>
 			struct factorials<std::uint8_t> {
 			public:
 				typedef std::uint8_t type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 5;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1,
 					1,
 					2,
@@ -46,7 +53,10 @@ namespace sprout {
 				typedef std::int16_t type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 7;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1,
 					1,
 					2,
@@ -63,7 +73,10 @@ namespace sprout {
 				typedef std::uint16_t type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 8;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1,
 					1,
 					2,
@@ -81,7 +94,10 @@ namespace sprout {
 				typedef std::int32_t type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 11;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1,
 					1,
 					2,
@@ -102,7 +118,10 @@ namespace sprout {
 				typedef std::uint32_t type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 11;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1,
 					1,
 					2,
@@ -120,10 +139,13 @@ namespace sprout {
 			template<>
 			struct factorials<std::int64_t> {
 			public:
-				typedef std::int32_t type;
+				typedef std::int64_t type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 20;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					INT64_C(1),
 					INT64_C(1),
 					INT64_C(2),
@@ -150,10 +172,13 @@ namespace sprout {
 			template<>
 			struct factorials<std::uint64_t> {
 			public:
-				typedef std::uint32_t type;
+				typedef std::uint64_t type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 20;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					UINT64_C(1),
 					UINT64_C(1),
 					UINT64_C(2),
@@ -183,7 +208,10 @@ namespace sprout {
 				typedef float type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 34;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1.0F,
 					1.0F,
 					2.0F,
@@ -227,7 +255,10 @@ namespace sprout {
 				typedef double type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 170;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1.0,
 					1.0,
 					2.0,
@@ -407,7 +438,10 @@ namespace sprout {
 				typedef long double type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 170;
-				SPROUT_STATIC_CONSTEXPR sprout::array<type, limit + 1> table{{
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
 					1.0L,
 					1.0L,
 					2.0L,
@@ -585,9 +619,9 @@ namespace sprout {
 
 		template<typename T>
 		SPROUT_CONSTEXPR T factorial(std::size_t x) {
-			return x <= sprout::detail::factorials<T>::limit
-				? sprout::detail::factorials<T>::table[x]
-				: throw "assert(x <= sprout::detail::factorials<T>::limit)"
+			return x <= sprout::math::detail::factorials<T>::limit
+				? sprout::math::detail::factorials<T>::table[x]
+				: throw "assert(x <= sprout::math::detail::factorials<T>::limit)"
 				;
 		}
 	}	// namespace math
@@ -596,3 +630,4 @@ namespace sprout {
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_MATH_FACTORIAL_HPP
+
