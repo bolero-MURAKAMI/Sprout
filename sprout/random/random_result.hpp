@@ -23,7 +23,7 @@ namespace sprout {
 			typename std::enable_if<!std::is_same<Distribution, void>::value>::type
 		>
 			: public std::iterator<
-				std::forward_iterator_tag,
+				std::input_iterator_tag,
 				typename Distribution::result_type,
 				std::ptrdiff_t,
 				typename Distribution::result_type const*,
@@ -36,7 +36,7 @@ namespace sprout {
 			typedef typename distribution_type::result_type result_type;
 		private:
 			typedef std::iterator<
-				std::forward_iterator_tag,
+				std::input_iterator_tag,
 				result_type,
 				std::ptrdiff_t,
 				result_type const*,
@@ -137,7 +137,7 @@ namespace sprout {
 			typename std::enable_if<std::is_same<Distribution, void>::value>::type
 		>
 			: public std::iterator<
-				std::forward_iterator_tag,
+				std::input_iterator_tag,
 				typename Engine::result_type,
 				std::ptrdiff_t,
 				typename Engine::result_type const*,
@@ -149,7 +149,7 @@ namespace sprout {
 			typedef typename engine_type::result_type result_type;
 		private:
 			typedef std::iterator<
-				std::forward_iterator_tag,
+				std::input_iterator_tag,
 				result_type,
 				std::ptrdiff_t,
 				result_type const*,

@@ -20,14 +20,10 @@ namespace sprout {
 			Result const& result
 			)
 		{
-			return sprout::fixed::detail::copy_impl(
+			return sprout::fixed::copy(
 				first,
 				sprout::next(first, n),
-				result,
-				typename sprout::index_range<0, sprout::fixed_container_traits<Result>::fixed_size>::type(),
-				sprout::fixed_begin_offset(result),
-				sprout::size(result),
-				n
+				result
 				);
 		}
 	}	// namespace fixed

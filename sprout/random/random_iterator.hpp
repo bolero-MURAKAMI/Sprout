@@ -306,18 +306,18 @@ namespace sprout {
 		{
 			return sprout::random::random_iterator<Engine>();
 		}
-	}	// namespace random
 
-	//
-	// next
-	//
-	template<typename Engine, typename Distribution>
-	SPROUT_CONSTEXPR sprout::random::random_iterator<Engine, Distribution> next(
-		sprout::random::random_iterator<Engine, Distribution> const& it
-		)
-	{
-		return it();
-	}
+		//
+		// next
+		//
+		template<typename Engine, typename Distribution>
+		SPROUT_CONSTEXPR sprout::random::random_iterator<Engine, Distribution> next(
+			sprout::random::random_iterator<Engine, Distribution> const& it
+			)
+		{
+			return it();
+		}
+	}	// namespace random
 
 	using sprout::random::random_iterator;
 }	// namespace sprout

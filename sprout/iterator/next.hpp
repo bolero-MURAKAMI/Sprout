@@ -20,12 +20,13 @@ namespace sprout {
 			return sprout::forward<Iterator>(it) + 1;
 		}
 		template<typename Iterator>
-		Iterator next_impl(
+		SPROUT_CONSTEXPR typename std::decay<Iterator>::type next_impl(
 			Iterator&& it,
 			void*
 			)
 		{
-			return std::next(sprout::forward<Iterator>(it));
+			using std::next;
+			return next(sprout::forward<Iterator>(it));
 		}
 
 		template<typename Iterator>
@@ -41,13 +42,14 @@ namespace sprout {
 			return sprout::forward<Iterator>(it) + n;
 		}
 		template<typename Iterator>
-		Iterator next_impl(
+		SPROUT_CONSTEXPR typename std::decay<Iterator>::type next_impl(
 			Iterator it,
 			typename std::iterator_traits<typename std::decay<Iterator>::type>::difference_type n,
 			void*
 			)
 		{
-			return std::next(sprout::forward<Iterator>(it), n);
+			using std::next;
+			return next(sprout::forward<Iterator>(it), n);
 		}
 	}	// namespace detail
 	//
