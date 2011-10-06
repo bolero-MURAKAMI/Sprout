@@ -20,12 +20,13 @@ namespace sprout {
 			return sprout::forward<Iterator>(it) - 1;
 		}
 		template<typename Iterator>
-		Iterator prev_impl(
+		SPROUT_CONSTEXPR typename std::decay<Iterator>::type prev_impl(
 			Iterator&& it,
 			void*
 			)
 		{
-			return std::prev(sprout::forward<Iterator>(it));
+			using std::prev;
+			return prev(sprout::forward<Iterator>(it));
 		}
 
 		template<typename Iterator>
@@ -41,13 +42,14 @@ namespace sprout {
 			return sprout::forward<Iterator>(it) - n;
 		}
 		template<typename Iterator>
-		Iterator prev_impl(
+		SPROUT_CONSTEXPR typename std::decay<Iterator>::type prev_impl(
 			Iterator it,
 			typename std::iterator_traits<typename std::decay<Iterator>::type>::difference_type n,
 			void*
 			)
 		{
-			return std::prev(sprout::forward<Iterator>(it), n);
+			using std::prev;
+			return prev(sprout::forward<Iterator>(it), n);
 		}
 	}	// namespace detail
 	//
@@ -55,9 +57,10 @@ namespace sprout {
 	//
 	template<typename Iterator>
 	SPROUT_CONSTEXPR typename std::decay<Iterator>::type prev(Iterator&& it) {
+		typedef typename std::iterator_traits<typename std::decay<Iterator>::type>::iterator_category* category;
 		return sprout::detail::prev_impl(
 			sprout::forward<Iterator>(it),
-			static_cast<typename std::iterator_traits<typename std::decay<Iterator>::type>::iterator_category*>(nullptr)
+			category()
 			);
 	}
 	template<typename Iterator>
@@ -66,10 +69,11 @@ namespace sprout {
 		typename std::iterator_traits<typename std::decay<Iterator>::type>::difference_type n
 		)
 	{
+		typedef typename std::iterator_traits<typename std::decay<Iterator>::type>::iterator_category* category;
 		return sprout::detail::prev_impl(
 			sprout::forward<Iterator>(it),
 			n,
-			static_cast<typename std::iterator_traits<typename std::decay<Iterator>::type>::iterator_category*>(nullptr)
+			category()
 			);
 	}
 }	// namespace sprout
