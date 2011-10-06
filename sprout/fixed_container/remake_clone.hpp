@@ -18,8 +18,13 @@ namespace sprout {
 		return sprout::remake_clone_functor<Container>().template operator()(other, size, args...);
 	}
 	template<typename Container, typename Other, typename... Args>
-	SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::clone_type remake_clone(Other const& other, Args const&... args) {
-		return sprout::remake_clone_functor<Container>().template operator()(other, args...);
+	SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::clone_type remake_clone(
+		Other const& other,
+		typename sprout::fixed_container_traits<Container>::difference_type size,
+		Args const&... args
+		)
+	{
+		return sprout::remake_clone_functor<Container>().template operator()(other, size, args...);
 	}
 
 	//

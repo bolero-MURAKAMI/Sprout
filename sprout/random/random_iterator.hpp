@@ -123,7 +123,7 @@ namespace sprout {
 					;
 			}
 			SPROUT_CONSTEXPR pointer operator->() const {
-				return count_ > 0
+				return count_ != 0
 					? &random_.result()
 					: throw "assert(count_ != 0)"
 					;

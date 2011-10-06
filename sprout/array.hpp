@@ -131,12 +131,12 @@ namespace sprout {
 		void swap(array<T, N>& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>()))) {
 			std::swap_ranges(other.begin(), other.end(), begin());
 		}
-		template <typename T2>
+		template<typename T2>
 		array<T, N>& operator=(array<T2, N> const& rhs) {
 			std::copy(rhs.begin(), rhs.end(), begin());
 			return *this;
 		}
-		template <typename T2>
+		template<typename T2>
 		array<T, N>& operator=(array<T2, N>&& rhs) {
 			std::move(rhs.begin(), rhs.end(), begin());
 			return *this;
