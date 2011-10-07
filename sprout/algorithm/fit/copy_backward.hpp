@@ -13,32 +13,32 @@
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename Iterator, typename Result>
+			template<typename BidirectionalIterator, typename Result>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type copy_backward_impl(
-				Iterator first,
-				Iterator last,
+				BidirectionalIterator first,
+				BidirectionalIterator last,
 				Result const& result,
 				typename sprout::fixed_container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
 					sprout::get_fixed(sprout::fixed::copy_backward(first, last, result)),
-					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last), sprout::size(result))
+					offset - NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last), sprout::size(result)),
+					offset
 					);
 			}
 		}	// namespace detail
 		//
 		// copy_backward
 		//
-		template<typename Iterator, typename Result>
+		template<typename BidirectionalIterator, typename Result>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type copy_backward(
-			Iterator first,
-			Iterator last,
+			BidirectionalIterator first,
+			BidirectionalIterator last,
 			Result const& result
 			)
 		{
-			return sprout::fit::detail::copy_backward_impl(first, last, result, sprout::fixed_begin_offset(result));
+			return sprout::fit::detail::copy_backward_impl(first, last, result, sprout::fixed_end_offset(result));
 		}
 	}	// namespace fit
 }	// namespace sprout

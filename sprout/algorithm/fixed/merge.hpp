@@ -34,15 +34,15 @@ namespace sprout {
 			{
 				return merge_impl_3(result, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)));
 			}
-			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type merge_impl_2(
-				Iterator1 first1,
-				Iterator1 last1,
-				Iterator2 first2,
-				Iterator2 last2,
+				InputIterator1 first1,
+				InputIterator1 last1,
+				InputIterator2 first2,
+				InputIterator2 last2,
 				Result const& result,
 				Compare comp,
 				typename sprout::fixed_container_traits<Result>::difference_type offset,
@@ -51,15 +51,15 @@ namespace sprout {
 			{
 				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
 			}
-			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type merge_impl_2(
-				Iterator1 first1,
-				Iterator1 last1,
-				Iterator2 first2,
-				Iterator2 last2,
+				InputIterator1 first1,
+				InputIterator1 last1,
+				InputIterator2 first2,
+				InputIterator2 last2,
 				Result const& result,
 				Compare comp,
 				typename sprout::fixed_container_traits<Result>::difference_type offset,
@@ -79,15 +79,15 @@ namespace sprout {
 					: merge_impl_3(result, args...)
 					;
 			}
-			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type merge_impl_1(
-				Iterator1 first1,
-				Iterator1 last1,
-				Iterator2 first2,
-				Iterator2 last2,
+				InputIterator1 first1,
+				InputIterator1 last1,
+				InputIterator2 first2,
+				InputIterator2 last2,
 				Result const& result,
 				Compare comp,
 				typename sprout::fixed_container_traits<Result>::difference_type offset,
@@ -96,15 +96,15 @@ namespace sprout {
 			{
 				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
 			}
-			template<typename Iterator1, typename Iterator2, typename Result, typename Compare, typename... Args>
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type merge_impl_1(
-				Iterator1 first1,
-				Iterator1 last1,
-				Iterator2 first2,
-				Iterator2 last2,
+				InputIterator1 first1,
+				InputIterator1 last1,
+				InputIterator2 first2,
+				InputIterator2 last2,
 				Result const& result,
 				Compare comp,
 				typename sprout::fixed_container_traits<Result>::difference_type offset,
@@ -116,12 +116,12 @@ namespace sprout {
 					: merge_impl_2(first1, last1, first2, last2, result, comp, offset + sprout::size(result), args...)
 					;
 			}
-			template<typename Iterator1, typename Iterator2, typename Result, typename Compare>
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type merge_impl(
-				Iterator1 first1,
-				Iterator1 last1,
-				Iterator2 first2,
-				Iterator2 last2,
+				InputIterator1 first1,
+				InputIterator1 last1,
+				InputIterator2 first2,
+				InputIterator2 last2,
 				Result const& result,
 				Compare comp
 				)
@@ -132,12 +132,12 @@ namespace sprout {
 		//
 		// merge
 		//
-		template<typename Iterator1, typename Iterator2, typename Result, typename Compare>
+		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
 		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type merge(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2,
-			Iterator2 last2,
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			InputIterator2 last2,
 			Result const& result,
 			Compare comp
 			)
@@ -154,12 +154,12 @@ namespace sprout {
 		//
 		// merge
 		//
-		template<typename Iterator1, typename Iterator2, typename Result>
+		template<typename InputIterator1, typename InputIterator2, typename Result>
 		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type merge(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2,
-			Iterator2 last2,
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			InputIterator2 last2,
 			Result const& result
 			)
 		{

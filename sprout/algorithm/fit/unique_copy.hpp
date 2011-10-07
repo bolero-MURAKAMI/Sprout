@@ -14,10 +14,10 @@
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename Iterator, typename Result>
+			template<typename InputIterator, typename Result>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type unique_copy_impl(
-				Iterator first,
-				Iterator last,
+				InputIterator first,
+				InputIterator last,
 				Result const& result,
 				typename sprout::fixed_container_traits<Result>::difference_type offset
 				)
@@ -32,10 +32,10 @@ namespace sprout {
 		//
 		// unique_copy
 		//
-		template<typename Iterator, typename Result>
+		template<typename InputIterator, typename Result>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type unique_copy(
-			Iterator first,
-			Iterator last,
+			InputIterator first,
+			InputIterator last,
 			Result const& result
 			)
 		{
@@ -43,10 +43,10 @@ namespace sprout {
 		}
 
 		namespace detail {
-			template<typename Iterator, typename Result, typename BinaryPredicate>
+			template<typename InputIterator, typename Result, typename BinaryPredicate>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type unique_copy_impl(
-				Iterator first,
-				Iterator last,
+				InputIterator first,
+				InputIterator last,
 				Result const& result,
 				BinaryPredicate pred,
 				typename sprout::fixed_container_traits<Result>::difference_type offset
@@ -62,10 +62,10 @@ namespace sprout {
 		//
 		// unique_copy
 		//
-		template<typename Iterator, typename Result, typename BinaryPredicate>
+		template<typename InputIterator, typename Result, typename BinaryPredicate>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type unique_copy(
-			Iterator first,
-			Iterator last,
+			InputIterator first,
+			InputIterator last,
 			Result const& result,
 			BinaryPredicate pred
 			)

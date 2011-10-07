@@ -14,12 +14,12 @@
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename Iterator1, typename Iterator2, typename Result, typename Compare>
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_union_impl(
-				Iterator1 first1,
-				Iterator1 last1,
-				Iterator2 first2,
-				Iterator2 last2,
+				InputIterator1 first1,
+				InputIterator1 last1,
+				InputIterator2 first2,
+				InputIterator2 last2,
 				Result const& result,
 				Compare comp,
 				typename sprout::fixed_container_traits<Result>::difference_type offset
@@ -41,12 +41,12 @@ namespace sprout {
 		//
 		// set_union
 		//
-		template<typename Iterator1, typename Iterator2, typename Result, typename Compare>
+		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_union(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2,
-			Iterator2 last2,
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			InputIterator2 last2,
 			Result const& result,
 			Compare comp
 			)
@@ -55,12 +55,12 @@ namespace sprout {
 		}
 
 		namespace detail {
-			template<typename Iterator1, typename Iterator2, typename Result>
+			template<typename InputIterator1, typename InputIterator2, typename Result>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_union_impl(
-				Iterator1 first1,
-				Iterator1 last1,
-				Iterator2 first2,
-				Iterator2 last2,
+				InputIterator1 first1,
+				InputIterator1 last1,
+				InputIterator2 first2,
+				InputIterator2 last2,
 				Result const& result,
 				typename sprout::fixed_container_traits<Result>::difference_type offset
 				)
@@ -81,12 +81,12 @@ namespace sprout {
 		//
 		// set_union
 		//
-		template<typename Iterator1, typename Iterator2, typename Result>
+		template<typename InputIterator1, typename InputIterator2, typename Result>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_union(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2,
-			Iterator2 last2,
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			InputIterator2 last2,
 			Result const& result
 			)
 		{

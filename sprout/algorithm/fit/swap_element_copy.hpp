@@ -13,13 +13,13 @@
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename Iterator, typename Result>
+			template<typename InputIterator, typename Result>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type swap_element_copy_impl(
-				Iterator first,
-				Iterator last,
+				InputIterator first,
+				InputIterator last,
 				Result const& result,
-				Iterator pos1,
-				Iterator pos2,
+				InputIterator pos1,
+				InputIterator pos2,
 				typename sprout::fixed_container_traits<Result>::difference_type offset
 				)
 			{
@@ -33,13 +33,13 @@ namespace sprout {
 		//
 		// swap_element_copy
 		//
-		template<typename Iterator, typename Result>
+		template<typename InputIterator, typename Result>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type swap_element_copy(
-			Iterator first,
-			Iterator last,
+			InputIterator first,
+			InputIterator last,
 			Result const& result,
-			Iterator pos1,
-			Iterator pos2
+			InputIterator pos1,
+			InputIterator pos2
 			)
 		{
 			return sprout::fit::detail::swap_element_copy_impl(first, last, result, pos1, pos2, sprout::fixed_begin_offset(result));

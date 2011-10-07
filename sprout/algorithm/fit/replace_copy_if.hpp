@@ -13,10 +13,10 @@
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename Iterator, typename Result, typename T, typename Predicate>
+			template<typename InputIterator, typename Result, typename T, typename Predicate>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type replace_copy_if_impl(
-				Iterator first,
-				Iterator last,
+				InputIterator first,
+				InputIterator last,
 				Result const& result,
 				Predicate pred,
 				T const& new_value,
@@ -33,10 +33,10 @@ namespace sprout {
 		//
 		// replace_copy_if
 		//
-		template<typename Iterator, typename Result, typename T, typename Predicate>
+		template<typename InputIterator, typename Result, typename T, typename Predicate>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type replace_copy_if(
-			Iterator first,
-			Iterator last,
+			InputIterator first,
+			InputIterator last,
 			Result const& result,
 			Predicate pred,
 			T const& new_value
