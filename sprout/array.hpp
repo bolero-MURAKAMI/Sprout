@@ -45,20 +45,13 @@ namespace sprout {
 	public:
 		T elems[N ? N : 1];
 	public:
-		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
-			return N;
+		void fill(const_reference value) {
+			std::fill_n(begin(), size(), value);
 		}
-		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
-			return N == 0;
+		void swap(array<T, N>& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>()))) {
+			std::swap_ranges(other.begin(), other.end(), begin());
 		}
-		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
-			return size();
-		}
-		void rangecheck(size_type i) const {
-			if (i >= size()) {
-				throw std::out_of_range("array<>: index out of range");
-			}
-		}
+		// iterators:
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		iterator begin() SPROUT_NOEXCEPT {
 			return iterator(*this, 0);
@@ -66,16 +59,10 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
 			return const_iterator(*this, 0);
 		}
-		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
-			return const_iterator(*this, 0);
-		}
 		iterator end() SPROUT_NOEXCEPT {
 			return iterator(*this, size());
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
-			return const_iterator(*this, size());
-		}
-		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
 			return const_iterator(*this, size());
 		}
 #else
@@ -85,16 +72,10 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
-		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
-			return &elems[0];
-		}
 		iterator end() SPROUT_NOEXCEPT {
 			return &elems[0] + size();
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
-			return &elems[0] + size();
-		}
-		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
 			return &elems[0] + size();
 		}
 #endif
@@ -104,18 +85,44 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
-		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
-			return const_reverse_iterator(end());
-		}
 		reverse_iterator rend() SPROUT_NOEXCEPT {
 			return reverse_iterator(begin());
 		}
 		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(begin());
 		}
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
+		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, 0);
+		}
+		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, size());
+		}
+#else
+		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+			return &elems[0];
+		}
+		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+			return &elems[0] + size();
+		}
+#endif
+		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(end());
+		}
 		SPROUT_CONSTEXPR const_reverse_iterator crend() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(begin());
 		}
+		// capacity:
+		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
+			return N;
+		}
+		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
+			return size();
+		}
+		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
+			return N == 0;
+		}
+		// element access:
 		reference operator[](size_type i) {
 			return elems[i];
 		}
@@ -142,24 +149,14 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_reference back() const {
 			return elems[size() - 1];
 		}
+
 		pointer data() SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
 		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
-		pointer c_array() SPROUT_NOEXCEPT {
-			return &elems[0];
-		}
-		void assign(const_reference value) {
-			fill(value);
-		}
-		void fill(const_reference value) {
-			std::fill_n(begin(), size(), value);
-		}
-		void swap(array<T, N>& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>()))) {
-			std::swap_ranges(other.begin(), other.end(), begin());
-		}
+		// others:
 		template<typename T2>
 		array<T, N>& operator=(array<T2, N> const& rhs) {
 			std::copy(rhs.begin(), rhs.end(), begin());
@@ -170,7 +167,26 @@ namespace sprout {
 			std::move(rhs.begin(), rhs.end(), begin());
 			return *this;
 		}
+		pointer c_array() SPROUT_NOEXCEPT {
+			return &elems[0];
+		}
+		void assign(const_reference value) {
+			fill(value);
+		}
+		void rangecheck(size_type i) const {
+			if (i >= size()) {
+				throw std::out_of_range("array<>: index out of range");
+			}
+		}
 	};
+
+	//
+	// operator!=
+	// operator<
+	// operator>
+	// operator<=
+	// operator>=
+	//
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR inline bool operator==(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
 		return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::equal(lhs.begin(), lhs.end(), rhs.begin());
@@ -217,36 +233,6 @@ namespace sprout {
 		};
 	};
 
-	namespace detail {
-		template<typename T, typename Enable = void>
-		struct is_array_impl {
-		public:
-			typedef std::integral_constant<bool, false> type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
-		template<typename T>
-		struct is_array_impl<
-			T,
-			typename std::enable_if<
-				std::is_same<
-					T,
-					sprout::array<typename T::value_type, T::static_size>
-				>::value
-			>::type
-		> {
-		public:
-			typedef std::integral_constant<bool, true> type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
-	}	// namespace detail
-	//
-	// is_array
-	//
-	template<typename T>
-	struct is_array
-		: public sprout::detail::is_array_impl<T>
-	{};
-
 	//
 	// make_array
 	//
@@ -276,6 +262,36 @@ namespace sprout {
 	SPROUT_CONSTEXPR inline sprout::array<T, N> to_array(T const (& arr)[N]) {
 		return sprout::detail::to_array_impl(arr, typename sprout::index_range<0, N>::type());
 	}
+
+	namespace detail {
+		template<typename T, typename Enable = void>
+		struct is_array_impl {
+		public:
+			typedef std::integral_constant<bool, false> type;
+			SPROUT_STATIC_CONSTEXPR bool value = type::value;
+		};
+		template<typename T>
+		struct is_array_impl<
+			T,
+			typename std::enable_if<
+				std::is_same<
+					T,
+					sprout::array<typename T::value_type, T::static_size>
+				>::value
+			>::type
+		> {
+		public:
+			typedef std::integral_constant<bool, true> type;
+			SPROUT_STATIC_CONSTEXPR bool value = type::value;
+		};
+	}	// namespace detail
+	//
+	// is_array
+	//
+	template<typename T>
+	struct is_array
+		: public sprout::detail::is_array_impl<T>
+	{};
 }	// namespace sprout
 
 namespace std {

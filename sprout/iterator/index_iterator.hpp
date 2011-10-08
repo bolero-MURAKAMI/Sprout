@@ -160,7 +160,7 @@ namespace sprout {
 			return holder_.get()[index_ + n];
 		}
 		friend difference_type operator-(index_iterator const& lhs, index_iterator const& rhs) {
-			return static_cast<difference_type>(rhs.index_) - static_cast<difference_type>(lhs.index_);
+			return static_cast<difference_type>(lhs.index_) - static_cast<difference_type>(rhs.index_);
 		}
 		friend SPROUT_CONSTEXPR index_iterator operator+(difference_type n, index_iterator const& it) {
 			return it + n;

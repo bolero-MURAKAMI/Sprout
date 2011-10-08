@@ -224,6 +224,7 @@ namespace sprout {
 		using impl_type::first_;
 		using impl_type::last_;
 	public:
+		// construct/copy/destroy:
 		sub_array() = default;
 		SPROUT_CONSTEXPR sub_array(param_type arr, const_iterator first, const_iterator last)
 			: impl_type(
@@ -261,42 +262,22 @@ namespace sprout {
 				last + other.first_
 				)
 		{}
-		param_type get_fixed() {
-			return impl_type::template to_param<Container>(array_);
+
+		void fill(const_reference value) {
+			std::fill_n(begin(), size(), value);
 		}
-		SPROUT_CONSTEXPR const_param_type get_fixed() const {
-			return impl_type::template to_const_param<Container>(array_);
+		template<typename Container2>
+		void swap(sub_array<Container2>& other) {
+			using std::swap;
+			swap(other.array_, array_);
+			swap(other.first_, first_);
+			swap(other.last_, last_);
 		}
-		SPROUT_CONSTEXPR const_param_type get_cfixed() const {
-			return impl_type::template to_const_param<Container>(array_);
-		}
-		param_type get_array() {
-			return impl_type::template to_param<Container>(array_);
-		}
-		SPROUT_CONSTEXPR const_param_type get_array() const {
-			return impl_type::template to_const_param<Container>(array_);
-		}
-		SPROUT_CONSTEXPR size_type size() const {
-			return last_ - first_;
-		}
-		SPROUT_CONSTEXPR bool empty() const {
-			return size() == 0;
-		}
-		SPROUT_CONSTEXPR size_type max_size() const {
-			return size();
-		}
-		void rangecheck(size_type i) const {
-			if (i >= size()) {
-				throw std::out_of_range("sub_array<>: index out of range");
-			}
-		}
+		// iterators:
 		iterator begin() {
 			return sprout::next(sprout::begin(get_array()), first_);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
-			return sprout::next(sprout::begin(get_array()), first_);
-		}
-		SPROUT_CONSTEXPR const_iterator cbegin() const {
 			return sprout::next(sprout::begin(get_array()), first_);
 		}
 		iterator end() {
@@ -305,9 +286,23 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_iterator end() const {
 			return sprout::next(sprout::begin(get_array()), last_);
 		}
+		SPROUT_CONSTEXPR const_iterator cbegin() const {
+			return sprout::next(sprout::begin(get_array()), first_);
+		}
 		SPROUT_CONSTEXPR const_iterator cend() const {
 			return sprout::next(sprout::begin(get_array()), last_);
 		}
+		// capacity:
+		SPROUT_CONSTEXPR size_type size() const {
+			return last_ - first_;
+		}
+		SPROUT_CONSTEXPR size_type max_size() const {
+			return size();
+		}
+		SPROUT_CONSTEXPR bool empty() const {
+			return size() == 0;
+		}
+		// element access:
 		reference operator[](size_type i) {
 			return *sprout::next(sprout::begin(get_array()), first_ + i);
 		}
@@ -334,28 +329,14 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_reference back() const {
 			return *sprout::next(sprout::begin(get_array()), last_ - 1);
 		}
+
 		pointer data() {
 			return get_array().data() + first_;
 		}
 		SPROUT_CONSTEXPR const_pointer data() const {
 			return get_array().data() + first_;
 		}
-		pointer c_array() {
-			return data();
-		}
-		void assign (const_reference value) {
-			fill(value);
-		}
-		void fill(const_reference value) {
-			std::fill_n(begin(), size(), value);
-		}
-		template<typename Container2>
-		void swap(sub_array<Container2>& other) {
-			using std::swap;
-			swap(other.array_, array_);
-			swap(other.first_, first_);
-			swap(other.last_, last_);
-		}
+		// others:
 		template<typename Container2>
 		sub_array<Container>& operator=(sub_array<Container2> const& rhs) {
 			array_ = rhs.array_;
@@ -370,7 +351,42 @@ namespace sprout {
 			last_ = std::move(rhs.last_);
 			return *this;
 		}
+		pointer c_array() {
+			return data();
+		}
+		void assign(const_reference value) {
+			fill(value);
+		}
+		void rangecheck(size_type i) const {
+			if (i >= size()) {
+				throw std::out_of_range("sub_array<>: index out of range");
+			}
+		}
+
+		param_type get_fixed() {
+			return impl_type::template to_param<Container>(array_);
+		}
+		SPROUT_CONSTEXPR const_param_type get_fixed() const {
+			return impl_type::template to_const_param<Container>(array_);
+		}
+		SPROUT_CONSTEXPR const_param_type get_cfixed() const {
+			return impl_type::template to_const_param<Container>(array_);
+		}
+		param_type get_array() {
+			return impl_type::template to_param<Container>(array_);
+		}
+		SPROUT_CONSTEXPR const_param_type get_array() const {
+			return impl_type::template to_const_param<Container>(array_);
+		}
 	};
+
+	//
+	// operator!=
+	// operator<
+	// operator>
+	// operator<=
+	// operator>=
+	//
 	template<typename Container>
 	SPROUT_CONSTEXPR inline bool operator==(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
 		return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::equal(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs));

@@ -39,27 +39,15 @@ namespace sprout {
 		value_type elem;
 	public:
 		null_array() = default;
-		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
-			return static_size;
+		void swap(null_array& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<value_type&>(), std::declval<value_type&>()))) {
+			using std::swap;
+			swap(elem, other.elem);
 		}
-		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
-			return static_size == 0;
-		}
-		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
-			return size();
-		}
-		void rangecheck(size_type i) const {
-			if (i >= size()) {
-				throw std::out_of_range("null_array<>: index out of range");
-			}
-		}
+		// iterators:
 		iterator begin() {
 			return iterator(elem, static_size);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
-			return const_iterator(elem, static_size);
-		}
-		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
 			return const_iterator(elem, static_size);
 		}
 		iterator end() SPROUT_NOEXCEPT {
@@ -68,16 +56,10 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
 			return const_iterator();
 		}
-		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
-			return const_iterator();
-		}
 		reverse_iterator rbegin() SPROUT_NOEXCEPT {
 			return reverse_iterator(end());
 		}
 		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
-			return const_reverse_iterator(end());
-		}
-		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
 		reverse_iterator rend() SPROUT_NOEXCEPT {
@@ -86,9 +68,29 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(begin());
 		}
+		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+			return const_iterator(elem, static_size);
+		}
+		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+			return const_iterator();
+		}
+		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(end());
+		}
 		SPROUT_CONSTEXPR const_reverse_iterator crend() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(begin());
 		}
+		// capacity:
+		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
+			return static_size;
+		}
+		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
+			return size();
+		}
+		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
+			return static_size == 0;
+		}
+		// element access:
 		reference operator[](size_type i) {
 			return elem;
 		}
@@ -115,11 +117,21 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_reference back() const {
 			return elem;
 		}
-		void swap(null_array& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<value_type&>(), std::declval<value_type&>()))) {
-			using std::swap;
-			swap(elem, other.elem);
+		// others:
+		void rangecheck(size_type i) const {
+			if (i >= size()) {
+				throw std::out_of_range("null_array<>: index out of range");
+			}
 		}
 	};
+
+	//
+	// operator!=
+	// operator<
+	// operator>
+	// operator<=
+	// operator>=
+	//
 	template<typename Container>
 	SPROUT_CONSTEXPR inline bool operator==(sprout::null_array<Container> const& lhs, sprout::null_array<Container> const& rhs) {
 		return lhs.front() == rhs.front();

@@ -202,28 +202,18 @@ namespace sprout {
 		T elems[N + 1];
 		size_type len;
 	public:
-		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
-			return len;
+		// construct/copy/destroy:
+		template<std::size_t N2>
+		basic_string<T, N, Traits>& operator=(basic_string<T, N2, Traits> const& rhs) {
+			return assign(rhs);
 		}
-		SPROUT_CONSTEXPR size_type length() const SPROUT_NOEXCEPT {
-			return size();
+		basic_string<T, N, Traits>& operator=(value_type const* rhs) {
+			return assign(rhs);
 		}
-		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
-			return size() == 0;
+		basic_string<T, N, Traits>& operator=(value_type rhs) {
+			return assign(1, rhs);
 		}
-		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
-			return N;
-		}
-		void rangecheck(size_type i) const {
-			if (i >= size()) {
-				throw std::out_of_range("basic_string<>: index out of range");
-			}
-		}
-		void maxcheck(size_type n) const {
-			if (n > max_size()) {
-				throw std::out_of_range("basic_string<>: index out of range");
-			}
-		}
+		// iterators:
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		iterator begin() SPROUT_NOEXCEPT {
 			return iterator(*this, 0);
@@ -231,16 +221,10 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
 			return const_iterator(*this, 0);
 		}
-		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
-			return const_iterator(*this, 0);
-		}
 		iterator end() SPROUT_NOEXCEPT {
 			return iterator(*this, size());
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
-			return const_iterator(*this, size());
-		}
-		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
 			return const_iterator(*this, size());
 		}
 #else
@@ -250,16 +234,10 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
-		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
-			return &elems[0];
-		}
 		iterator end() SPROUT_NOEXCEPT {
 			return &elems[0] + size();
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
-			return &elems[0] + size();
-		}
-		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
 			return &elems[0] + size();
 		}
 #endif
@@ -269,18 +247,62 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
-		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
-			return const_reverse_iterator(end());
-		}
 		reverse_iterator rend() SPROUT_NOEXCEPT {
 			return const_reverse_iterator(begin());
 		}
 		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(begin());
 		}
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
+		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, 0);
+		}
+		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, size());
+		}
+#else
+		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+			return &elems[0];
+		}
+		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+			return &elems[0] + size();
+		}
+#endif
+		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(end());
+		}
 		SPROUT_CONSTEXPR const_reverse_iterator crend() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(begin());
 		}
+		// capacity:
+		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
+			return len;
+		}
+		SPROUT_CONSTEXPR size_type length() const SPROUT_NOEXCEPT {
+			return size();
+		}
+		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
+			return N;
+		}
+		void resize(size_type n, value_type c) {
+			maxcheck(n);
+			if (n > size()) {
+				traits_type::assign(end(), n - size(), c);
+			}
+			traits_type::assign(begin() + n, max_size() - n, value_type());
+			len = n;
+		}
+		void resize(size_type n) {
+			resize(n, value_type());
+		}
+		void clear() {
+			traits_type::assign(begin(), max_size(), value_type());
+			len = 0;
+		}
+		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
+			return size() == 0;
+		}
+		// element access:
 		reference operator[](size_type i) {
 			return elems[i];
 		}
@@ -307,33 +329,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_reference back() const {
 			return elems[size() - 1];
 		}
-		pointer data() SPROUT_NOEXCEPT {
-			return &elems[0];
-		}
-		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
-			return &elems[0];
-		}
-		pointer c_array() SPROUT_NOEXCEPT {
-			return &elems[0];
-		}
-		SPROUT_CONSTEXPR const_pointer c_str() const SPROUT_NOEXCEPT {
-			return &elems[0];
-		}
-		void resize(size_type n, value_type c) {
-			maxcheck(n);
-			if (n > size()) {
-				traits_type::assign(end(), n - size(), c);
-			}
-			traits_type::assign(begin() + n, max_size() - n, value_type());
-			len = n;
-		}
-		void resize(size_type n) {
-			resize(n, value_type());
-		}
-		void clear() {
-			traits_type::assign(begin(), max_size(), value_type());
-			len = 0;
-		}
+		// modifiers:
 		template<std::size_t N2>
 		basic_string<T, N, Traits>& assign(basic_string<T, N2, Traits> const& str) {
 			return assign(str.begin(), str.size());
@@ -385,15 +381,23 @@ namespace sprout {
 				swap(len, other.len);
 			}
 		}
-		template<std::size_t N2>
-		basic_string<T, N, Traits>& operator=(basic_string<T, N2, Traits> const& rhs) {
-			return assign(rhs);
+		// string operations:
+		SPROUT_CONSTEXPR const_pointer c_str() const SPROUT_NOEXCEPT {
+			return &elems[0];
 		}
-		basic_string<T, N, Traits>& operator=(value_type const* rhs) {
-			return assign(rhs);
+		pointer data() SPROUT_NOEXCEPT {
+			return &elems[0];
 		}
-		basic_string<T, N, Traits>& operator=(value_type rhs) {
-			return assign(1, rhs);
+		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
+			return &elems[0];
+		}
+		SPROUT_CONSTEXPR basic_string<T, N, Traits> substr(size_type pos = 0, size_type n = npos) const {
+			return !(size() < pos)
+				? n == npos
+					? substr(pos, size() - pos)
+					: from_c_str(c_str() + pos, n)
+				: throw "basic_string<>: index out of range"
+				;
 		}
 		template<std::size_t N2>
 		SPROUT_CONSTEXPR int compare(basic_string<T, N2, Traits> const& str) const {
@@ -422,13 +426,19 @@ namespace sprout {
 				: throw "basic_string<>: index out of range"
 				;
 		}
-		SPROUT_CONSTEXPR basic_string<T, N, Traits> substr(size_type pos = 0, size_type n = npos) const {
-			return !(size() < pos)
-				? n == npos
-					? substr(pos, size() - pos)
-					: from_c_str(c_str() + pos, n)
-				: throw "basic_string<>: index out of range"
-				;
+		// others:
+		pointer c_array() SPROUT_NOEXCEPT {
+			return &elems[0];
+		}
+		void rangecheck(size_type i) const {
+			if (i >= size()) {
+				throw std::out_of_range("basic_string<>: index out of range");
+			}
+		}
+		void maxcheck(size_type n) const {
+			if (n > max_size()) {
+				throw std::out_of_range("basic_string<>: index out of range");
+			}
 		}
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		basic_string<T, N, Traits>& assign(const_iterator s, size_type n) {
@@ -462,6 +472,14 @@ namespace sprout {
 		}
 #endif
 	};
+
+	//
+	// operator!=
+	// operator<
+	// operator>
+	// operator<=
+	// operator>=
+	//
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
 	SPROUT_CONSTEXPR inline bool operator==(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
 		return lhs.compare(rhs) == 0;
@@ -545,6 +563,60 @@ namespace sprout {
 		) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
+	}
+
+	//
+	// operator>>
+	// operator<<
+	//
+	template<typename T, std::size_t N, typename Traits, typename StreamTraits>
+	inline std::basic_istream<T, StreamTraits>& operator>>(std::basic_istream<T, StreamTraits>& lhs, sprout::basic_string<T, N, Traits>& rhs) {
+		typedef T elem_type;
+		typedef StreamTraits traits_type;
+		typedef std::basic_istream<T, StreamTraits> istream_type;
+		typedef sprout::basic_string<T, N, Traits> string_type;
+		typedef std::ctype<elem_type> ctype_type;
+		typedef typename string_type::size_type size_type;
+		std::ios_base::iostate state = std::ios_base::goodbit;
+		bool changed = false;
+		size_type current = 0;
+		if (typename istream_type::sentry(lhs)) {
+			ctype_type const& ctype_fac = std::use_facet<ctype_type>(lhs.getloc());
+			try {
+				size_type remain = 0 < lhs.width() && static_cast<size_type>(lhs.width()) < rhs.max_size()
+					? static_cast<size_type>(lhs.width())
+					: rhs.max_size()
+					;
+				typename traits_type::int_type meta = lhs.rdbuf()->sgetc();
+				for (; remain; --remain, meta = lhs.rdbuf()->snextc())
+					if (traits_type::eq_int_type(traits_type::eof(), meta)) {
+						state |= std::ios_base::eofbit;
+						break;
+					} else if (ctype_fac.is(ctype_type::space, traits_type::to_char_type(meta))) {
+						break;
+					} else {
+						rhs[current] = traits_type::to_char_type(meta);
+						changed = true;
+						++current;
+					}
+			} catch (...) {
+				state |= std::ios_base::badbit;
+			}
+		}
+		lhs.width(0);
+		if (!changed) {
+			state |= std::ios_base::failbit;
+		}
+		lhs.setstate(state);
+		rhs.len = current;
+		for (; current != rhs.max_size(); ++current) {
+			rhs[current] = T();
+		}
+		return lhs;
+	}
+	template<typename T, std::size_t N, typename Traits, typename StreamTraits>
+	inline std::basic_ostream<T, StreamTraits>& operator<<(std::basic_ostream<T, StreamTraits>& lhs, sprout::basic_string<T, N, Traits> const& rhs) {
+		return lhs << rhs.c_str();
 	}
 
 	//
@@ -648,6 +720,154 @@ namespace sprout {
 	};
 
 	namespace detail {
+		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
+		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl_1(
+			T const(& arr)[N],
+			typename sprout::basic_string<T, N - 1>::size_type n,
+			sprout::index_tuple<Indexes...>
+			)
+		{
+			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
+		}
+		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
+		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl(
+			T const(& arr)[N],
+			sprout::index_tuple<Indexes...>
+			)
+		{
+			return to_string_impl_1(arr, sprout::char_traits<T>::length(arr), sprout::index_tuple<Indexes...>());
+		}
+	}	// namespace detail
+	//
+	// to_string
+	//
+	template<typename T, std::size_t N>
+	SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string(T const(& arr)[N]) {
+		return sprout::detail::to_string_impl(arr, typename sprout::index_range<0, N - 1>::type());
+	}
+
+	//
+	// string_from_c_str
+	//
+	template<std::size_t N, typename T>
+	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s, std::size_t n) {
+		return sprout::basic_string<T, N>::from_c_str(s, n);
+	}
+	template<std::size_t N, typename T>
+	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s) {
+		return sprout::basic_string<T, N>::from_c_str(s);
+	}
+
+	//
+	// operator+
+	//
+	template<typename T, std::size_t N, typename Traits>
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::push_back<sprout::basic_string<T, N, Traits>, T>::type operator+(
+		sprout::basic_string<T, N, Traits> const& lhs,
+		T const& rhs
+		)
+	{
+		return sprout::fixed::push_back(lhs, rhs);
+	}
+	template<typename T, std::size_t N, typename Traits>
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::push_front<sprout::basic_string<T, N, Traits>, T>::type operator+(
+		T const& lhs,
+		sprout::basic_string<T, N, Traits> const& rhs
+		)
+	{
+		return sprout::fixed::push_front(rhs, lhs);
+	}
+	template<typename T, std::size_t N, typename Traits, std::size_t N2>
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_back<
+			sprout::basic_string<T, N, Traits>,
+			sprout::basic_string<T, N2 - 1, Traits>
+	>::type operator+(
+		sprout::basic_string<T, N, Traits> const& lhs,
+		T const (& rhs)[N2]
+		)
+	{
+		return sprout::fixed::append_back(lhs, sprout::to_string(rhs));
+	}
+	template<typename T, std::size_t N, typename Traits, std::size_t N2>
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_front<
+		sprout::basic_string<T, N, Traits>,
+		sprout::basic_string<T, N2 - 1, Traits>
+	>::type operator+(
+		T const (& lhs)[N2],
+		sprout::basic_string<T, N, Traits> const& rhs
+		)
+	{
+		return sprout::fixed::append_front(rhs, sprout::to_string(lhs));
+	}
+	template<typename T, std::size_t N, typename Traits, std::size_t N2>
+	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_back<
+		sprout::basic_string<T, N, Traits>,
+		sprout::basic_string<T, N2, Traits>
+	>::type operator+(
+		sprout::basic_string<T, N, Traits> const& lhs,
+		sprout::basic_string<T, N2, Traits> const& rhs
+		)
+	{
+		return sprout::fixed::append_back(lhs, rhs);
+	}
+
+#if 0
+	//
+	// string
+	//
+	template<std::size_t N>
+	using string = sprout::basic_string<char, N>;
+	//
+	// wstring
+	//
+	template<std::size_t N>
+	using wstring = sprout::basic_string<wchar_t, N>;
+	//
+	// u16string
+	//
+	template<std::size_t N>
+	using u16string = sprout::basic_string<char16_t, N>;
+	//
+	// u32string
+	//
+	template<std::size_t N>
+	using u32string = sprout::basic_string<char32_t, N>;
+#endif	// #if 0
+
+	//
+	// string_t
+	//
+	template<std::size_t N>
+	struct string_t {
+	public:
+		typedef sprout::basic_string<char, N> type;
+	};
+	//
+	// wstring_t
+	//
+	template<std::size_t N>
+	struct wstring_t {
+	public:
+		typedef sprout::basic_string<wchar_t, N> type;
+	};
+	//
+	// u16string_t
+	//
+	template<std::size_t N>
+	struct u16string_t {
+	public:
+		typedef sprout::basic_string<char16_t, N> type;
+	};
+	//
+	// u32string_t
+	//
+	template<std::size_t N>
+	struct u32string_t {
+	public:
+		typedef sprout::basic_string<char32_t, N> type;
+	};
+
+	namespace detail {
 		template<typename T, typename Enable = void>
 		struct is_basic_string_impl {
 		public:
@@ -736,201 +956,6 @@ namespace sprout {
 	struct is_u32string
 		: public sprout::is_string_of<T, char32_t>
 	{};
-
-	namespace detail {
-		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
-		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl_1(
-			T const(& arr)[N],
-			typename sprout::basic_string<T, N - 1>::size_type n,
-			sprout::index_tuple<Indexes...>
-			)
-		{
-			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
-		}
-		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
-		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl(
-			T const(& arr)[N],
-			sprout::index_tuple<Indexes...>
-			)
-		{
-			return to_string_impl_1(arr, sprout::char_traits<T>::length(arr), sprout::index_tuple<Indexes...>());
-		}
-	}	// namespace detail
-	//
-	// to_string
-	//
-	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string(T const(& arr)[N]) {
-		return sprout::detail::to_string_impl(arr, typename sprout::index_range<0, N - 1>::type());
-	}
-
-	//
-	// string_from_c_str
-	//
-	template<std::size_t N, typename T>
-	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s, std::size_t n) {
-		return sprout::basic_string<T, N>::from_c_str(s, n);
-	}
-	template<std::size_t N, typename T>
-	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s) {
-		return sprout::basic_string<T, N>::from_c_str(s);
-	}
-
-	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::push_back<sprout::basic_string<T, N, Traits>, T>::type operator+(
-		sprout::basic_string<T, N, Traits> const& lhs,
-		T const& rhs
-		)
-	{
-		return sprout::fixed::push_back(lhs, rhs);
-	}
-	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::push_front<sprout::basic_string<T, N, Traits>, T>::type operator+(
-		T const& lhs,
-		sprout::basic_string<T, N, Traits> const& rhs
-		)
-	{
-		return sprout::fixed::push_front(rhs, lhs);
-	}
-	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_back<
-			sprout::basic_string<T, N, Traits>,
-			sprout::basic_string<T, N2 - 1, Traits>
-	>::type operator+(
-		sprout::basic_string<T, N, Traits> const& lhs,
-		T const (& rhs)[N2]
-		)
-	{
-		return sprout::fixed::append_back(lhs, sprout::to_string(rhs));
-	}
-	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_front<
-		sprout::basic_string<T, N, Traits>,
-		sprout::basic_string<T, N2 - 1, Traits>
-	>::type operator+(
-		T const (& lhs)[N2],
-		sprout::basic_string<T, N, Traits> const& rhs
-		)
-	{
-		return sprout::fixed::append_front(rhs, sprout::to_string(lhs));
-	}
-	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_back<
-		sprout::basic_string<T, N, Traits>,
-		sprout::basic_string<T, N2, Traits>
-	>::type operator+(
-		sprout::basic_string<T, N, Traits> const& lhs,
-		sprout::basic_string<T, N2, Traits> const& rhs
-		)
-	{
-		return sprout::fixed::append_back(lhs, rhs);
-	}
-
-	template<typename T, std::size_t N, typename Traits, typename StreamTraits>
-	inline std::basic_ostream<T, StreamTraits>& operator<<(std::basic_ostream<T, StreamTraits>& lhs, sprout::basic_string<T, N, Traits> const& rhs) {
-		return lhs << rhs.c_str();
-	}
-	template<typename T, std::size_t N, typename Traits, typename StreamTraits>
-	inline std::basic_istream<T, StreamTraits>& operator>>(std::basic_istream<T, StreamTraits>& lhs, sprout::basic_string<T, N, Traits>& rhs) {
-		typedef T elem_type;
-		typedef StreamTraits traits_type;
-		typedef std::basic_istream<T, StreamTraits> istream_type;
-		typedef sprout::basic_string<T, N, Traits> string_type;
-		typedef std::ctype<elem_type> ctype_type;
-		typedef typename string_type::size_type size_type;
-		std::ios_base::iostate state = std::ios_base::goodbit;
-		bool changed = false;
-		size_type current = 0;
-		if (typename istream_type::sentry(lhs)) {
-			ctype_type const& ctype_fac = std::use_facet<ctype_type>(lhs.getloc());
-			try {
-				size_type remain = 0 < lhs.width() && static_cast<size_type>(lhs.width()) < rhs.max_size()
-					? static_cast<size_type>(lhs.width())
-					: rhs.max_size()
-					;
-				typename traits_type::int_type meta = lhs.rdbuf()->sgetc();
-				for (; remain; --remain, meta = lhs.rdbuf()->snextc())
-					if (traits_type::eq_int_type(traits_type::eof(), meta)) {
-						state |= std::ios_base::eofbit;
-						break;
-					} else if (ctype_fac.is(ctype_type::space, traits_type::to_char_type(meta))) {
-						break;
-					} else {
-						rhs[current] = traits_type::to_char_type(meta);
-						changed = true;
-						++current;
-					}
-			} catch (...) {
-				state |= std::ios_base::badbit;
-			}
-		}
-		lhs.width(0);
-		if (!changed) {
-			state |= std::ios_base::failbit;
-		}
-		lhs.setstate(state);
-		rhs.len = current;
-		for (; current != rhs.max_size(); ++current) {
-			rhs[current] = T();
-		}
-		return lhs;
-	}
-
-#if 0
-	//
-	// string
-	//
-	template<std::size_t N>
-	using string = sprout::basic_string<char, N>;
-	//
-	// wstring
-	//
-	template<std::size_t N>
-	using wstring = sprout::basic_string<wchar_t, N>;
-	//
-	// u16string
-	//
-	template<std::size_t N>
-	using u16string = sprout::basic_string<char16_t, N>;
-	//
-	// u32string
-	//
-	template<std::size_t N>
-	using u32string = sprout::basic_string<char32_t, N>;
-#endif	// #if 0
-
-	//
-	// string_t
-	//
-	template<std::size_t N>
-	struct string_t {
-	public:
-		typedef sprout::basic_string<char, N> type;
-	};
-	//
-	// wstring_t
-	//
-	template<std::size_t N>
-	struct wstring_t {
-	public:
-		typedef sprout::basic_string<wchar_t, N> type;
-	};
-	//
-	// u16string_t
-	//
-	template<std::size_t N>
-	struct u16string_t {
-	public:
-		typedef sprout::basic_string<char16_t, N> type;
-	};
-	//
-	// u32string_t
-	//
-	template<std::size_t N>
-	struct u32string_t {
-	public:
-		typedef sprout::basic_string<char32_t, N> type;
-	};
 }	// namespace sprout
 
 namespace std {
@@ -974,4 +999,3 @@ namespace std {
 }	// namespace std
 
 #endif	// #ifndef SPROUT_STRING_HPP
-
