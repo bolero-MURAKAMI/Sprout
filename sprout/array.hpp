@@ -12,7 +12,7 @@
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
 
@@ -24,7 +24,7 @@ namespace sprout {
 	class array {
 	public:
 		typedef T value_type;
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		typedef sprout::index_iterator<array&> iterator;
 		typedef sprout::index_iterator<array const&> const_iterator;
 #else
@@ -59,7 +59,7 @@ namespace sprout {
 				throw std::out_of_range("array<>: index out of range");
 			}
 		}
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		iterator begin() SPROUT_NOEXCEPT {
 			return iterator(*this, 0);
 		}

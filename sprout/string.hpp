@@ -17,7 +17,7 @@
 #include <sprout/operation/fixed/append_front.hpp>
 #include <sprout/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <algorithm>
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -88,7 +88,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR int_type eof() SPROUT_NOEXCEPT {
 			return impl_type::eof();
 		}
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename CharIterator>
 		static SPROUT_CONSTEXPR int compare(CharIterator s1, CharIterator s2, std::size_t n) {
 			return !n ? 0
@@ -135,7 +135,7 @@ namespace sprout {
 	class basic_string {
 	public:
 		typedef T value_type;
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		typedef sprout::index_iterator<basic_string&> iterator;
 		typedef sprout::index_iterator<basic_string const&> const_iterator;
 #else
@@ -179,7 +179,7 @@ namespace sprout {
 		{
 			return sprout::basic_string<T, N, Traits>{{(Indexes < n ? s[Indexes] : T())...}, n};
 		}
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		static SPROUT_CONSTEXPR int compare_impl_1(const_iterator dest, size_type pos1, size_type n1, const_iterator s, size_type n2) {
 			return compare_impl_2(
 				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, n2)),
@@ -224,7 +224,7 @@ namespace sprout {
 				throw std::out_of_range("basic_string<>: index out of range");
 			}
 		}
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		iterator begin() SPROUT_NOEXCEPT {
 			return iterator(*this, 0);
 		}
@@ -430,7 +430,7 @@ namespace sprout {
 				: throw "basic_string<>: index out of range"
 				;
 		}
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		basic_string<T, N, Traits>& assign(const_iterator s, size_type n) {
 			maxcheck(n);
 			for (size_type i = 0; i < n; ++i) {
