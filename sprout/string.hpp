@@ -17,6 +17,10 @@
 #include <sprout/operation/fixed/append_front.hpp>
 #include <sprout/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#	include <algorithm>
+#	include <sprout/iterator/index_iterator.hpp>
+#endif
 
 namespace sprout {
 	//
@@ -84,6 +88,44 @@ namespace sprout {
 		static SPROUT_CONSTEXPR int_type eof() SPROUT_NOEXCEPT {
 			return impl_type::eof();
 		}
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+		template<typename CharIterator>
+		static SPROUT_CONSTEXPR int compare(CharIterator s1, CharIterator s2, std::size_t n) {
+			return !n ? 0
+				: lt(*s1, *s2) ? -1
+				: lt(*s2, *s1) ? 1
+				: compare(s1 + 1, s2 + 1, n - 1)
+				;
+		}
+		template<typename CharIterator>
+		static SPROUT_CONSTEXPR std::size_t length(CharIterator s) {
+    		return !*s ? 0
+    			: 1 + length(s + 1)
+    			;
+		}
+		template<typename CharIterator>
+		static SPROUT_CONSTEXPR CharIterator find(CharIterator s, std::size_t n, char_type const& a) {
+			return !n ? nullptr
+				: eq(*s, a) ? s
+				: find(s + 1, n - 1, a)
+				;
+		}
+		template<typename CharIterator1, typename CharIterator2>
+		static CharIterator1 move(CharIterator1 s1, CharIterator2 s2, std::size_t n) {
+			std::copy_backward(s2, s2 + n, s1);
+			return s1;
+		}
+		template<typename CharIterator1, typename CharIterator2>
+		static CharIterator1 copy(CharIterator1 s1, CharIterator2 s2, std::size_t n) {
+			std::copy(s2, s2 + n, s1);
+			return s1;
+		}
+		template<typename CharIterator>
+		static CharIterator assign(CharIterator s, std::size_t n, char_type a) {
+			std::fill(s, s + n, a);
+			return s;
+		}
+#endif
 	};
 
 	//
@@ -93,8 +135,13 @@ namespace sprout {
 	class basic_string {
 	public:
 		typedef T value_type;
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+		typedef sprout::index_iterator<basic_string&> iterator;
+		typedef sprout::index_iterator<basic_string const&> const_iterator;
+#else
 		typedef T* iterator;
 		typedef T const* const_iterator;
+#endif
 		typedef T& reference;
 		typedef T const& const_reference;
 		typedef std::size_t size_type;
@@ -132,6 +179,15 @@ namespace sprout {
 		{
 			return sprout::basic_string<T, N, Traits>{{(Indexes < n ? s[Indexes] : T())...}, n};
 		}
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+		static SPROUT_CONSTEXPR int compare_impl_1(const_iterator dest, size_type pos1, size_type n1, const_iterator s, size_type n2) {
+			return compare_impl_2(
+				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, n2)),
+				n1,
+				n2
+				);
+		}
+#endif
 	public:
 		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str(value_type const* s, size_type n) {
 			return !(N < n)
@@ -168,6 +224,26 @@ namespace sprout {
 				throw std::out_of_range("basic_string<>: index out of range");
 			}
 		}
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+		iterator begin() SPROUT_NOEXCEPT {
+			return iterator(*this, 0);
+		}
+		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, 0);
+		}
+		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, 0);
+		}
+		iterator end() SPROUT_NOEXCEPT {
+			return iterator(*this, size());
+		}
+		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, size());
+		}
+		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, size());
+		}
+#else
 		iterator begin() SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
@@ -186,6 +262,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
 			return &elems[0] + size();
 		}
+#endif
 		reverse_iterator rbegin() SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
@@ -322,14 +399,14 @@ namespace sprout {
 		SPROUT_CONSTEXPR int compare(basic_string<T, N2, Traits> const& str) const {
 			return compare(0, size(), str.c_str(), str.size());
 		}
-		SPROUT_CONSTEXPR int compare(T const* s) const {
+		SPROUT_CONSTEXPR int compare(value_type const* s) const {
 			return compare(0, size(), s, traits_type::length(s));
 		}
 		template<std::size_t N2>
 		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, basic_string<T, N2, Traits> const& str) const {
 			return compare(pos1, n1, str, 0, npos);
 		}
-		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, char const* s) const {
+		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, value_type const* s) const {
 			return compare(pos1, n1, s, traits_type::length(s));
 		}
 		template<std::size_t N2>
@@ -339,7 +416,7 @@ namespace sprout {
 				: throw "basic_string<>: index out of range"
 				;
 		}
-		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, char const* s, size_type n2) const {
+		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, value_type const* s, size_type n2) const {
 			return !(size() < pos1)
 				? compare_impl_1(c_str(), pos1, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, size() - pos1), s, n2)
 				: throw "basic_string<>: index out of range"
@@ -353,6 +430,37 @@ namespace sprout {
 				: throw "basic_string<>: index out of range"
 				;
 		}
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+		basic_string<T, N, Traits>& assign(const_iterator s, size_type n) {
+			maxcheck(n);
+			for (size_type i = 0; i < n; ++i) {
+				traits_type::assign(elems[i], s[i]);
+			}
+			for (size_type i = n; i < max_size(); ++i) {
+				traits_type::assign(elems[i], value_type());
+			}
+			len = n;
+			return *this;
+		}
+		basic_string<T, N, Traits>& assign(const_iterator s) {
+			return assign(s, traits_type::length(s));
+		}
+		basic_string<T, N, Traits>& operator=(const_iterator rhs) {
+			return assign(rhs);
+		}
+		SPROUT_CONSTEXPR int compare(const_iterator s) const {
+			return compare(0, size(), s, traits_type::length(s));
+		}
+		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, const_iterator s) const {
+			return compare(pos1, n1, s, traits_type::length(s));
+		}
+		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, const_iterator s, size_type n2) const {
+			return !(size() < pos1)
+				? compare_impl_1(c_str(), pos1, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, size() - pos1), s, n2)
+				: throw "basic_string<>: index out of range"
+				;
+		}
+#endif
 	};
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
 	SPROUT_CONSTEXPR inline bool operator==(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
@@ -866,3 +974,4 @@ namespace std {
 }	// namespace std
 
 #endif	// #ifndef SPROUT_STRING_HPP
+

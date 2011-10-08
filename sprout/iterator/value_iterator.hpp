@@ -4,10 +4,12 @@
 #include <cstddef>
 #include <iterator>
 #include <utility>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/utility/value_holder.hpp>
+#include <sprout/detail/if.hpp>
 
 namespace sprout {
 	//
@@ -25,6 +27,11 @@ namespace sprout {
 	{
 	public:
 		typedef T type;
+		typedef typename sprout::detail::if_c<
+			std::is_reference<type>::value,
+			typename std::decay<type>::type const&,
+			typename std::decay<type>::type const
+		>::type const_type;
 	private:
 		typedef std::iterator<
 			std::random_access_iterator_tag,
@@ -57,6 +64,9 @@ namespace sprout {
 			: holder_(p)
 			, count_(count)
 		{}
+		operator value_iterator<const_type>() const {
+			return value_iterator<const_type>(holder_.get(), count_);
+		}
 		SPROUT_CONSTEXPR value_iterator next() const {
 			return value_iterator(holder_, count_ != 0 ? count_ - 1 : count_);
 		}

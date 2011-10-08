@@ -12,6 +12,9 @@
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#	include <sprout/iterator/index_iterator.hpp>
+#endif
 
 namespace sprout {
 	//
@@ -21,8 +24,13 @@ namespace sprout {
 	class array {
 	public:
 		typedef T value_type;
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+		typedef sprout::index_iterator<array&> iterator;
+		typedef sprout::index_iterator<array const&> const_iterator;
+#else
 		typedef T* iterator;
 		typedef T const* const_iterator;
+#endif
 		typedef T& reference;
 		typedef T const& const_reference;
 		typedef std::size_t size_type;
@@ -51,6 +59,26 @@ namespace sprout {
 				throw std::out_of_range("array<>: index out of range");
 			}
 		}
+#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+		iterator begin() SPROUT_NOEXCEPT {
+			return iterator(*this, 0);
+		}
+		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, 0);
+		}
+		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, 0);
+		}
+		iterator end() SPROUT_NOEXCEPT {
+			return iterator(*this, size());
+		}
+		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, size());
+		}
+		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+			return const_iterator(*this, size());
+		}
+#else
 		iterator begin() SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
@@ -69,6 +97,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
 			return &elems[0] + size();
 		}
+#endif
 		reverse_iterator rbegin() SPROUT_NOEXCEPT {
 			return reverse_iterator(end());
 		}
