@@ -13,7 +13,7 @@ C++11 constexpr based Mutating-Algorithms and Container-Operations
 
 
 
-コンフィグ用マクロ定義
+コンフィグ用ユーザマクロ
 
 #define SPROUT_CONFIG_DISABLE_CONSTEXPR
 このマクロが定義されているとき、関数は constexpr として宣言されない。
@@ -27,7 +27,11 @@ C++11 constexpr based Mutating-Algorithms and Container-Operations
 このマクロが定義されているとき、実装の詳細として CEL - ConstExpr Library を使用する。
 https://github.com/sscrisk/CEL---ConstExpr-Library
 
-これらのマクロが定義される時点は、このライブラリのいかなるヘッダがインクルードされるより以前でなければならない。
+#define SPROUT_CONFIG_SUPPORT_TEMPORARY_CONTAINER_ITERATION
+このマクロが定義されているとき、GCC4.7 において、アルゴリズムにコンテナの一時オブジェクトを渡せない問題を回避する。
+なおその場合、Sprout のコンテナのイテレータはポインタではなくなる。
+
+これらのマクロをユーザ定義する場合、このライブラリのどのヘッダがインクルードされるよりも先に定義されなければならない。
 
 
 
