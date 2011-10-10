@@ -179,6 +179,10 @@ namespace sprout {
 			}
 		}
 	};
+	template<typename T, std::size_t N>
+	SPROUT_CONSTEXPR typename sprout::array<T, N>::size_type sprout::array<T, N>::static_size;
+	template<typename T, std::size_t N>
+	SPROUT_CONSTEXPR typename sprout::array<T, N>::size_type sprout::array<T, N>::fixed_size;
 
 	//
 	// operator==
@@ -266,11 +270,9 @@ namespace sprout {
 
 	namespace detail {
 		template<typename T, typename Enable = void>
-		struct is_array_impl {
-		public:
-			typedef std::false_type type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		struct is_array_impl
+			: public std::false_type
+		{};
 		template<typename T>
 		struct is_array_impl<
 			T,
@@ -280,11 +282,9 @@ namespace sprout {
 					sprout::array<typename T::value_type, T::static_size>
 				>::value
 			>::type
-		> {
-		public:
-			typedef std::true_type type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		>
+			: public std::true_type
+		{};
 	}	// namespace detail
 	//
 	// is_array

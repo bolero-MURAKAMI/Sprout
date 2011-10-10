@@ -15,22 +15,7 @@ namespace sprout {
 		//
 		// mersenne_twister_engine
 		//
-		template<
-			typename UIntType,
-			std::size_t w,
-			std::size_t n,
-			std::size_t m,
-			std::size_t r,
-			UIntType a,
-			std::size_t u,
-			UIntType d,
-			std::size_t s,
-			UIntType b,
-			std::size_t t,
-			UIntType c,
-			std::size_t l,
-			UIntType f
-		>
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
 		class mersenne_twister_engine {
 		public:
 			typedef UIntType result_type;
@@ -326,8 +311,7 @@ namespace sprout {
 			}
 		public:
 			SPROUT_CONSTEXPR mersenne_twister_engine()
-				//: x_(init_seed(default_seed))	// ???
-				: x_(init_seed(5489u))
+				: x_(init_seed(default_seed))
 				, i_(n)
 			{}
 			SPROUT_CONSTEXPR explicit mersenne_twister_engine(UIntType const& value)
@@ -387,6 +371,34 @@ namespace sprout {
 				return lhs;
 			}
 		};
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR std::size_t sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::word_size;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR std::size_t sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::state_size;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR std::size_t sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::shift_size;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR std::size_t sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::mask_bits;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR UIntType sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::xor_mask;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR std::size_t sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::tempering_u;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR UIntType sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::tempering_d;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR std::size_t sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::tempering_s;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR UIntType sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::tempering_b;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR std::size_t sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::tempering_t;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR UIntType sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::tempering_c;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR std::size_t sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::tempering_l;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR UIntType sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::initialization_multiplier;
+		template<typename UIntType, std::size_t w, std::size_t n, std::size_t m, std::size_t r, UIntType a, std::size_t u, UIntType d, std::size_t s, UIntType b, std::size_t t, UIntType c, std::size_t l, UIntType f>
+		SPROUT_CONSTEXPR UIntType sprout::random::mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>::default_seed;
 
 		//
 		// mt11213b

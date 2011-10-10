@@ -124,6 +124,10 @@ namespace sprout {
 			}
 		}
 	};
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::null_array<Container>::size_type sprout::null_array<Container>::static_size;
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::null_array<Container>::size_type sprout::null_array<Container>::fixed_size;
 
 	//
 	// operator==

@@ -65,8 +65,7 @@ namespace sprout {
 			}
 		public:
 			SPROUT_CONSTEXPR linear_congruential_engine()
-				//: x_(init_seed(default_seed))	// ???
-				: x_(init_seed(1))
+				: x_(init_seed(default_seed))
 			{}
 			SPROUT_CONSTEXPR explicit linear_congruential_engine(IntType const& x0)
 				: x_(init_seed(x0))
@@ -111,6 +110,14 @@ namespace sprout {
 				return lhs << rhs.x_;
 			}
 		};
+		template<typename IntType, IntType a, IntType c, IntType m>
+		SPROUT_CONSTEXPR IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::multiplier;
+		template<typename IntType, IntType a, IntType c, IntType m>
+		SPROUT_CONSTEXPR IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::increment;
+		template<typename IntType, IntType a, IntType c, IntType m>
+		SPROUT_CONSTEXPR IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::modulus;
+		template<typename IntType, IntType a, IntType c, IntType m>
+		SPROUT_CONSTEXPR IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::default_seed;
 
 		//
 		// minstd_rand0

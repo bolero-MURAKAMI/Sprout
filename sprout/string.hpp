@@ -170,11 +170,9 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 	private:
 		template<typename U, typename Enable = void>
-		struct is_index_iterator_impl {
-		public:
-			typedef std::false_type type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		struct is_index_iterator_impl
+			: public std::false_type
+		{};
 		template<typename U>
 		struct is_index_iterator_impl<
 			U,
@@ -188,11 +186,9 @@ namespace sprout {
 					value_type
 				>::value
 			>::type
-		> {
-		public:
-			typedef std::true_type type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		>
+			: public std::true_type
+		{};
 		template<typename U>
 		struct is_index_iterator
 			: public is_index_iterator_impl<U>
@@ -565,6 +561,12 @@ namespace sprout {
 		}
 #endif
 	};
+	template<typename T, std::size_t N, typename Traits>
+	SPROUT_CONSTEXPR typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::npos;
+	template<typename T, std::size_t N, typename Traits>
+	SPROUT_CONSTEXPR typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::static_size;
+	template<typename T, std::size_t N, typename Traits>
+	SPROUT_CONSTEXPR typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::fixed_size;
 
 	//
 	// operator==
@@ -963,11 +965,9 @@ namespace sprout {
 
 	namespace detail {
 		template<typename T, typename Enable = void>
-		struct is_basic_string_impl {
-		public:
-			typedef std::integral_constant<bool, false> type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		struct is_basic_string_impl
+			: public std::false_type
+		{};
 		template<typename T>
 		struct is_basic_string_impl<
 			T,
@@ -977,11 +977,9 @@ namespace sprout {
 					sprout::basic_string<typename T::value_type, T::static_size, typename T::traits_type>
 				>::value
 			>::type
-		> {
-		public:
-			typedef std::integral_constant<bool, true> type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		>
+			: public std::true_type
+		{};
 	}	// namespace detail
 	//
 	// is_basic_string
@@ -993,11 +991,9 @@ namespace sprout {
 
 	namespace detail {
 		template<typename T, typename Elem, typename Enable = void>
-		struct is_string_of_impl {
-		public:
-			typedef std::integral_constant<bool, false> type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		struct is_string_of_impl
+			: public std::false_type
+		{};
 		template<typename T, typename Elem>
 		struct is_string_of_impl<
 			T,
@@ -1008,11 +1004,9 @@ namespace sprout {
 					sprout::basic_string<Elem, T::static_size>
 				>::value
 			>::type
-		> {
-		public:
-			typedef std::integral_constant<bool, true> type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		>
+			: public std::true_type
+		{};
 	}	// namespace detail
 	//
 	// is_string_of

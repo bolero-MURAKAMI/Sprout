@@ -379,6 +379,10 @@ namespace sprout {
 			return impl_type::template to_const_param<Container>(array_);
 		}
 	};
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::sub_array<Container>::size_type sprout::sub_array<Container>::static_size;
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::sub_array<Container>::size_type sprout::sub_array<Container>::fixed_size;
 
 	//
 	// operator==
@@ -564,11 +568,9 @@ namespace sprout {
 
 	namespace detail {
 		template<typename T, typename Enable = void>
-		struct is_sub_array_impl {
-		public:
-			typedef std::integral_constant<bool, false> type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		struct is_sub_array_impl
+			: public std::false_type
+		{};
 		template<typename T>
 		struct is_sub_array_impl<
 			T,
@@ -578,11 +580,9 @@ namespace sprout {
 					sprout::sub_array<typename T::container_type>
 				>::value
 			>::type
-		> {
-		public:
-			typedef std::integral_constant<bool, true> type;
-			SPROUT_STATIC_CONSTEXPR bool value = type::value;
-		};
+		>
+			: public std::true_type
+		{};
 	}	// namespace detail
 	//
 	// is_sub_array
