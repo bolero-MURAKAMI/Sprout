@@ -2,6 +2,7 @@
 #define SPROUT_RANDOM_UNIFORM_01_HPP
 
 #include <iosfwd>
+#include <istream>
 #include <limits>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>

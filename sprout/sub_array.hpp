@@ -381,6 +381,7 @@ namespace sprout {
 	};
 
 	//
+	// operator==
 	// operator!=
 	// operator<
 	// operator>

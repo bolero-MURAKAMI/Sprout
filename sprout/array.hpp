@@ -181,6 +181,7 @@ namespace sprout {
 	};
 
 	//
+	// operator==
 	// operator!=
 	// operator<
 	// operator>
@@ -267,7 +268,7 @@ namespace sprout {
 		template<typename T, typename Enable = void>
 		struct is_array_impl {
 		public:
-			typedef std::integral_constant<bool, false> type;
+			typedef std::false_type type;
 			SPROUT_STATIC_CONSTEXPR bool value = type::value;
 		};
 		template<typename T>
@@ -281,7 +282,7 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			typedef std::integral_constant<bool, true> type;
+			typedef std::true_type type;
 			SPROUT_STATIC_CONSTEXPR bool value = type::value;
 		};
 	}	// namespace detail

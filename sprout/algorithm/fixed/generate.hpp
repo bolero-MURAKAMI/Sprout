@@ -82,7 +82,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) < offset
+				return sizeof...(Args) < static_cast<std::size_t>(offset)
 					? generate_impl_3<InitSize>(cont, gen, offset, args..., call_gen<InitSize, Container>(gen, args...))
 					: generate_impl_4(cont, args...)
 					;
@@ -161,7 +161,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) - InitSize < offset
+				return sizeof...(Args) - InitSize < static_cast<std::size_t>(offset)
 					? generate_impl_1<InitSize>(cont, gen, offset, size, args..., *sprout::next(sprout::fixed_begin(cont), sizeof...(Args) - InitSize))
 					: generate_impl_2<InitSize>(cont, gen, offset, size, InitSize, args...)
 					;
