@@ -6,14 +6,44 @@ C++11 constexpr based Mutating-Algorithms and Container-Operations
 
 
 
-インストール
+*インストール
 
 <sprout/*> を参照できるようライブラリのディレクトリにパスを通す。
 このライブラリはヘッダオンリーで使える。
 
 
 
-コンフィグ用ユーザマクロ
+*主なコンテンツ
+
+constexpr コンテナ
+    sprout/array.hpp
+    sprout/string.hpp
+
+constexpr アルゴリズム
+    sprout/algorithm.hpp
+
+constexpr 範囲アルゴリズム
+    sprout/range/algorithm.hpp
+
+constexpr コンテナ操作
+    sprout/operation.hpp
+
+constexpr 乱数
+    sprout/random.hpp
+
+constexpr ハッシュ関数
+    sprout/functional/hash.hpp
+
+コンテナアダプタ
+    sprout/sub_array.hpp
+    sprout/null_array.hpp
+
+コンテナ特性
+    sprout/fixed_container.hpp
+
+
+
+*コンフィグ用ユーザマクロ
 
 #define SPROUT_CONFIG_DISABLE_CONSTEXPR
 このマクロが定義されているとき、関数は constexpr として宣言されない。
@@ -35,7 +65,7 @@ https://github.com/sscrisk/CEL---ConstExpr-Library
 
 
 
-作者
+*作者
 
 Bolero MURAKAMI
 Blog: http://d.hatena.ne.jp/boleros/
@@ -44,7 +74,7 @@ Mail: contact-lib@boleros.x0.com
 
 
 
-著作権等
+*著作権等
 
 このライブラリは Boost Software License の元で公開されています。
 
