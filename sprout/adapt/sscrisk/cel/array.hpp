@@ -36,26 +36,8 @@ namespace sprout {
 	{
 	public:
 		typedef sscrisk::cel::array<T, N> fixed_container_type;
-		typedef fixed_container_type internal_type;
-		typedef internal_type clone_type;
-		typedef sprout::index_iterator<fixed_container_type&> iterator;
-		typedef sprout::index_iterator<fixed_container_type const&> const_iterator;
-	public:
-		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<fixed_container_type>::size_type fixed_size
-			= std::tuple_size<typename std::remove_const<internal_type>::type>::value
-			;
-	};
-	//
-	// fixed_container_traits
-	//
-	template<typename T, std::size_t N>
-	struct fixed_container_traits<sscrisk::cel::array<T, N> const>
-		: public sprout::detail::fixed_container_traits_base<sscrisk::cel::array<T, N> const>
-	{
-	public:
-		typedef sscrisk::cel::array<T, N> const fixed_container_type;
-		typedef typename std::remove_const<fixed_container_type>::type internal_type;
-		typedef internal_type clone_type;
+		typedef sscrisk::cel::array<T, N> internal_type;
+		typedef sscrisk::cel::array<T, N> clone_type;
 		typedef sprout::index_iterator<fixed_container_type&> iterator;
 		typedef sprout::index_iterator<fixed_container_type const&> const_iterator;
 	public:

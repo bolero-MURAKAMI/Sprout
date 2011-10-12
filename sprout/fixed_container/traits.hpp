@@ -48,7 +48,7 @@ namespace sprout {
 		typedef Container internal_type;
 		typedef Container clone_type;
 	public:
-		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<Container>::size_type fixed_size
+		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<fixed_container_type>::size_type fixed_size
 			= std::tuple_size<typename std::remove_const<internal_type>::type>::value
 			;
 	};
@@ -62,6 +62,24 @@ namespace sprout {
 		typedef T clone_type[N];
 	public:
 		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<T[N]>::size_type fixed_size = N;
+	};
+	template<typename Container>
+	struct fixed_container_traits<Container const>
+		: public sprout::fixed_container_traits<Container>
+	{
+	public:
+		typedef typename sprout::fixed_container_traits<Container>::const_iterator iterator;
+		typedef typename sprout::fixed_container_traits<Container>::const_reference reference;
+		typedef typename sprout::fixed_container_traits<Container>::const_pointer pointer;
+	};
+	template<typename T, std::size_t N>
+	struct fixed_container_traits<T const[N]>
+		: public sprout::fixed_container_traits<T[N]>
+	{
+	public:
+		typedef typename sprout::fixed_container_traits<T[N]>::const_iterator iterator;
+		typedef typename sprout::fixed_container_traits<T[N]>::const_reference reference;
+		typedef typename sprout::fixed_container_traits<T[N]>::const_pointer pointer;
 	};
 
 	//
