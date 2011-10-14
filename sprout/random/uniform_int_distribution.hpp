@@ -390,8 +390,11 @@ namespace sprout {
 			typedef IntType input_type;
 			typedef IntType result_type;
 		private:
+			static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType min_arg, IntType max_arg) {
+				return min_arg <= max_arg;
+			}
 			static SPROUT_CONSTEXPR IntType arg_check(IntType min_arg, IntType max_arg) {
-				return min_arg <= max_arg
+				return arg_check_nothrow(min_arg, max_arg)
 					? min_arg
 					: throw "assert(min_arg <= max_arg)"
 					;
@@ -427,7 +430,17 @@ namespace sprout {
 					param_type const& rhs
 					)
 				{
-					return lhs >> rhs.min_ >> std::ws >> rhs.max_;
+					IntType min;
+					IntType max;
+					if (lhs >> min >> std::ws >> max) {
+						if (arg_check_nothrow(min, max)) {
+							rhs.min_ = min;
+							rhs.max_ = max;
+						} else {
+							lhs.setstate(std::ios_base::failbit);
+						}
+					}
+					return lhs;
 				}
 				template<typename Elem, typename Traits>
 				friend std::basic_ostream<Elem, Traits>& operator<<(
@@ -499,7 +512,7 @@ namespace sprout {
 				)
 			{
 				param_type parm;
-				return lhs >> parm;
+				lhs >> parm;
 				param(parm);
 				return lhs;
 			}

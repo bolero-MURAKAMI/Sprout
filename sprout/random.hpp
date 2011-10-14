@@ -10,6 +10,7 @@
 #include <sprout/random/uniform_real_distribution.hpp>
 #include <sprout/random/bernoulli_distribution.hpp>
 #include <sprout/random/binomial_distribution.hpp>
+#include <sprout/random/geometric_distribution.hpp>
 #include <sprout/random/variate_generator.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/random_iterator.hpp>

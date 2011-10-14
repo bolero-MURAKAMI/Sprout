@@ -182,8 +182,11 @@ namespace sprout {
 			typedef RealType input_type;
 			typedef RealType result_type;
 		private:
+			static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType min_arg, RealType max_arg) {
+				return min_arg <= max_arg;
+			}
 			static SPROUT_CONSTEXPR RealType arg_check(RealType min_arg, RealType max_arg) {
-				return min_arg <= max_arg
+				return arg_check_nothrow(min_arg, max_arg)
 					? min_arg
 					: throw "assert(min_arg <= max_arg)"
 					;
@@ -219,7 +222,17 @@ namespace sprout {
 					param_type const& rhs
 					)
 				{
-					return lhs >> rhs.min_ >> std::ws >> rhs.max_;
+					RealType min;
+					RealType max;
+					if (lhs >> min >> std::ws >> max) {
+						if (arg_check_nothrow(min, max)) {
+							rhs.min_ = min;
+							rhs.max_ = max;
+						} else {
+							lhs.setstate(std::ios_base::failbit);
+						}
+					}
+					return lhs;
 				}
 				template<typename Elem, typename Traits>
 				friend std::basic_ostream<Elem, Traits>& operator<<(
@@ -291,7 +304,7 @@ namespace sprout {
 				)
 			{
 				param_type parm;
-				return lhs >> parm;
+				lhs >> parm;
 				param(parm);
 				return lhs;
 			}

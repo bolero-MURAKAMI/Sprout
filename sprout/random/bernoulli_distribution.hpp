@@ -16,8 +16,11 @@ namespace sprout {
 			typedef int input_type;
 			typedef bool result_type;
 		private:
+			static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType p_arg) {
+				return p_arg >= 0 && p_arg <= 1;
+			}
 			static SPROUT_CONSTEXPR RealType arg_check(RealType p_arg) {
-				return p_arg >= 0 && p_arg <= 1
+				return arg_check_nothrow(p_arg)
 					? p_arg
 					: throw "assert(p_arg >= 0 && p_arg <= 1)"
 					;
@@ -47,7 +50,15 @@ namespace sprout {
 					param_type const& rhs
 					)
 				{
-					return lhs >> rhs.p_;
+					RealType p;
+					if (lhs >> p) {
+						if (arg_check_nothrow(p)) {
+							rhs.p_ = p;
+						} else {
+							lhs.setstate(std::ios_base::failbit);
+						}
+					}
+					return lhs;
 				}
 				template<typename Elem, typename Traits>
 				friend std::basic_ostream<Elem, Traits>& operator<<(

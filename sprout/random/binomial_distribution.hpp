@@ -1,6 +1,7 @@
 #ifndef SPROUT_RANDOM_BINOMIAL_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_BINOMIAL_DISTRIBUTION_HPP
 
+#include <cmath>
 #include <iosfwd>
 #include <istream>
 #include <sprout/config.hpp>
@@ -52,8 +53,11 @@ namespace sprout {
 				RealType u_rv_r;
 			};
 		private:
+			static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType t_arg, RealType p_arg) {
+				return t_arg >= IntType(0) && RealType(0) <= p_arg && p_arg <= RealType(1);
+			}
 			static SPROUT_CONSTEXPR IntType arg_check(IntType t_arg, RealType p_arg) {
-				return t_arg >= IntType(0) && RealType(0) <= p_arg && p_arg <= RealType(1)
+				return arg_check_nothrow(t_arg, p_arg)
 					? t_arg
 					: throw "assert(t_arg >= IntType(0) && RealType(0) <= p_arg && p_arg <= RealType(1))"
 					;
@@ -89,7 +93,17 @@ namespace sprout {
 					param_type const& rhs
 					)
 				{
-					return lhs >> rhs.t_ >> std::ws >> rhs.p_;
+					IntType t;
+					RealType p;
+					if (lhs >> t >> std::ws >> p) {
+						if (arg_check_nothrow(t, p)) {
+							rhs.t_ = t;
+							rhs.p_ = p;
+						} else {
+							lhs.setstate(std::ios_base::failbit);
+						}
+					}
+					return lhs;
 				}
 				template<typename Elem, typename Traits>
 				friend std::basic_ostream<Elem, Traits>& operator<<(
@@ -397,7 +411,7 @@ namespace sprout {
 				)
 			{
 				param_type parm;
-				return lhs >> parm;
+				lhs >> parm;
 				param(parm);
 				return lhs;
 			}
