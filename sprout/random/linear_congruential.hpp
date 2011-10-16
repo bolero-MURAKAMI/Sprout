@@ -29,14 +29,17 @@ namespace sprout {
 			static_assert(m == 0 || a < m, "m == 0 || a < m");
 			static_assert(m == 0 || c < m, "m == 0 || c < m");
 		private:
-			static SPROUT_CONSTEXPR IntType init_seed_3(IntType const& x0) {
-				return x0 >= static_min() && x0 <= static_max()
+			static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType const& x0) {
+				return x0 >= static_min() && x0 <= static_max();
+			}
+			static SPROUT_CONSTEXPR IntType arg_check(IntType const& x0) {
+				return arg_check_nothrow(x0)
 					? x0
 					: throw "assert(x0 >= static_min() && x0 <= static_max())"
 					;
 			}
 			static SPROUT_CONSTEXPR IntType init_seed_2(IntType const& x0) {
-				return init_seed_3(increment == 0 && x0 == 0 ? 1 : x0);
+				return arg_check(increment == 0 && x0 == 0 ? 1 : x0);
 			}
 			static SPROUT_CONSTEXPR IntType init_seed_1(IntType const& x0) {
 				return init_seed_2(x0 <= 0 && x0 != 0 ? x0 + modulus : x0);
@@ -88,12 +91,12 @@ namespace sprout {
 			template<typename Elem, typename Traits>
 			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				linear_congruential_engine const& rhs
+				linear_congruential_engine& rhs
 				)
 			{
 				IntType x;
 				if(lhs >> x) {
-					if(x >= min() && x <= max()) {
+					if(arg_check_nothrow(x)) {
 						rhs.x_ = x;
 					} else {
 						lhs.setstate(std::ios_base::failbit);
@@ -192,7 +195,7 @@ namespace sprout {
 			template<typename Elem, typename Traits>
 			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				rand48 const& rhs
+				rand48& rhs
 				)
 			{
 				return lhs >> rhs.lcf_;

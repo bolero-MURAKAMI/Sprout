@@ -17,6 +17,37 @@ namespace sprout {
 		public:
 			typedef RealType input_type;
 			typedef RealType result_type;
+		public:
+			//
+			// param_type
+			//
+			class param_type {
+			public:
+				typedef uniform_01 distribution_type;
+			public:
+				template<typename Elem, typename Traits>
+				friend std::basic_ostream<Elem, Traits>& operator>>(
+					std::basic_istream<Elem, Traits>& lhs,
+					param_type const& rhs
+					)
+				{
+					return lhs;
+				}
+				template<typename Elem, typename Traits>
+				friend std::basic_ostream<Elem, Traits>& operator<<(
+					std::basic_ostream<Elem, Traits>& lhs,
+					param_type const& rhs
+					)
+				{
+					return lhs;
+				}
+				SPROUT_CONSTEXPR friend bool operator==(param_type const& lhs, param_type const& rhs) {
+					return true;
+				}
+				SPROUT_CONSTEXPR friend bool operator!=(param_type const& lhs, param_type const& rhs) {
+					return !(lhs == rhs);
+				}
+			};
 		private:
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> generate_1(
@@ -50,11 +81,18 @@ namespace sprout {
 					);
 			}
 		public:
+			SPROUT_CONSTEXPR explicit uniform_01(param_type const& parm)
+			{}
 			SPROUT_CONSTEXPR result_type min() const {
 				return result_type(0);
 			}
 			SPROUT_CONSTEXPR result_type max() const {
 				return result_type(1);
+			}
+			SPROUT_CONSTEXPR param_type param() const {
+				return param_type();
+			}
+			void param(param_type const& parm) {
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> operator()(Engine const& eng) const {

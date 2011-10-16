@@ -331,7 +331,7 @@ namespace sprout {
 					;
 			}
 			friend SPROUT_CONSTEXPR bool operator==(mersenne_twister_engine const& lhs, mersenne_twister_engine const& rhs) {
-				return lhs.i_ < lhs.i_
+				return lhs.i_ < rhs.i_
 					? lhs.equal_impl(rhs)
 					: rhs.equal_impl(lhs)
 					;
@@ -342,6 +342,18 @@ namespace sprout {
 			template<typename Elem, typename Traits>
 			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
+				mersenne_twister_engine& rhs
+				)
+			{
+				for (std::size_t i = 0; i < state_size; ++i) {
+					lhs >> rhs.x_[i] >> std::ws;
+				}
+				rhs.i_ = state_size;
+				return lhs;
+			}
+			template<typename Elem, typename Traits>
+			friend std::basic_ostream<Elem, Traits>& operator<<(
+				std::basic_ostream<Elem, Traits>& lhs,
 				mersenne_twister_engine const& rhs
 				)
 			{
@@ -356,18 +368,6 @@ namespace sprout {
 				for (std::size_t i = 0; i < rhs.i_; ++i) {
 					lhs << ' ' << data[i];
 				}
-				return lhs;
-			}
-			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator<<(
-				std::basic_ostream<Elem, Traits>& lhs,
-				mersenne_twister_engine const& rhs
-				)
-			{
-				for (std::size_t i = 0; i < state_size; ++i) {
-					lhs >> rhs.x_[i] >> std::ws;
-				}
-				rhs.i_ = state_size;
 				return lhs;
 			}
 		};

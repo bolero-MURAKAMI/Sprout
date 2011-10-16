@@ -96,6 +96,9 @@ namespace sprout {
 			SPROUT_CONSTEXPR explicit bernoulli_distribution(RealType p_arg = RealType(0.5))
 				: p_(arg_check(p_arg))
 			{}
+			SPROUT_CONSTEXPR explicit bernoulli_distribution(param_type const& parm)
+				: p_(parm.p())
+			{}
 			SPROUT_CONSTEXPR RealType p() const {
 				return p_;
 			}
