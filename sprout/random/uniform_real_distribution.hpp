@@ -199,6 +199,10 @@ namespace sprout {
 			public:
 				typedef uniform_real_distribution distribution_type;
 			private:
+				static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType min_arg, RealType max_arg) {
+					return distribution_type::arg_check_nothrow(min_arg, max_arg);
+				}
+			private:
 				RealType min_;
 				RealType max_;
 			public:
@@ -217,9 +221,9 @@ namespace sprout {
 					return max_;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator>>(
+				friend std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
-					param_type const& rhs
+					param_type& rhs
 					)
 				{
 					RealType min;
@@ -270,7 +274,7 @@ namespace sprout {
 				: min_(arg_check(min_arg, max_arg))
 				, max_(max_arg)
 			{}
-			explicit uniform_real_distribution(param_type const& parm)
+			SPROUT_CONSTEXPR explicit uniform_real_distribution(param_type const& parm)
 				: min_(parm.a())
 				, max_(parm.b())
 			{}
@@ -298,14 +302,14 @@ namespace sprout {
 				return generate<Engine>(sprout::random::detail::generate_uniform_real(eng, min_, max_));
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator>>(
+			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				uniform_real_distribution const& rhs
+				uniform_real_distribution& rhs
 				)
 			{
 				param_type parm;
 				lhs >> parm;
-				param(parm);
+				rhs.param(parm);
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
@@ -314,7 +318,7 @@ namespace sprout {
 				uniform_real_distribution const& rhs
 				)
 			{
-				return lhs << param();
+				return lhs << rhs.param();
 			}
 			SPROUT_CONSTEXPR friend bool operator==(uniform_real_distribution const& lhs, uniform_real_distribution const& rhs) {
 				return lhs.param() == rhs.param();

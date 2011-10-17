@@ -70,6 +70,10 @@ namespace sprout {
 			public:
 				typedef binomial_distribution distribution_type;
 			private:
+				static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType t_arg, RealType p_arg) {
+					return distribution_type::arg_check_nothrow(t_arg, p_arg);
+				}
+			private:
 				IntType t_;
 				RealType p_;
 			public:
@@ -88,9 +92,9 @@ namespace sprout {
 					return p_;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator>>(
+				friend std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
-					param_type const& rhs
+					param_type& rhs
 					)
 				{
 					IntType t;
@@ -391,8 +395,8 @@ namespace sprout {
 				return param_type(t_, p_);
 			}
 			void param(param_type const& parm) {
-				t_ = parm.a();
-				p_ = parm.b();
+				t_ = parm.t();
+				p_ = parm.p();
 				init();
 			}
 			template<typename Engine>
@@ -405,14 +409,14 @@ namespace sprout {
 					;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator>>(
+			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				binomial_distribution const& rhs
+				binomial_distribution& rhs
 				)
 			{
 				param_type parm;
 				lhs >> parm;
-				param(parm);
+				rhs.param(parm);
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
@@ -421,7 +425,7 @@ namespace sprout {
 				binomial_distribution const& rhs
 				)
 			{
-				return lhs << param();
+				return lhs << rhs.param();
 			}
 			SPROUT_CONSTEXPR friend bool operator==(binomial_distribution const& lhs, binomial_distribution const& rhs) {
 				return lhs.param() == rhs.param();

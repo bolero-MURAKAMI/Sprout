@@ -46,6 +46,10 @@ namespace sprout {
 			public:
 				typedef geometric_distribution distribution_type;
 			private:
+				static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType p_arg) {
+					return distribution_type::arg_check_nothrow(p_arg);
+				}
+			private:
 				RealType p_;
 			public:
 				SPROUT_CONSTEXPR param_type()
@@ -58,9 +62,9 @@ namespace sprout {
 					return p_;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator>>(
+				friend std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
-					param_type const& rhs
+					param_type& rhs
 					)
 				{
 					RealType p;
@@ -147,14 +151,14 @@ namespace sprout {
 				return generate(eng);
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator>>(
+			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				geometric_distribution const& rhs
+				geometric_distribution& rhs
 				)
 			{
 				param_type parm;
 				lhs >> parm;
-				param(parm);
+				rhs.param(parm);
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
@@ -163,7 +167,7 @@ namespace sprout {
 				geometric_distribution const& rhs
 				)
 			{
-				return lhs << param();
+				return lhs << rhs.param();
 			}
 			SPROUT_CONSTEXPR friend bool operator==(geometric_distribution const& lhs, geometric_distribution const& rhs) {
 				return lhs.param() == rhs.param();

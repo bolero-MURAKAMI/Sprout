@@ -33,21 +33,25 @@ namespace sprout {
 			public:
 				typedef bernoulli_distribution distribution_type;
 			private:
+				static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType p_arg) {
+					return distribution_type::arg_check_nothrow(p_arg);
+				}
+			private:
 				RealType p_;
 			public:
 				SPROUT_CONSTEXPR param_type()
 					: p_(RealType(0.5))
 				{}
-				SPROUT_CONSTEXPR explicit param_type(RealType p_arg = RealType(0.5))
+				SPROUT_CONSTEXPR explicit param_type(RealType p_arg)
 					: p_(arg_check(p_arg))
 				{}
 				SPROUT_CONSTEXPR RealType p() const {
 					return p_;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator>>(
+				friend std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
-					param_type const& rhs
+					param_type& rhs
 					)
 				{
 					RealType p;
@@ -93,7 +97,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR bernoulli_distribution()
 				: p_(RealType(0.5))
 			{}
-			SPROUT_CONSTEXPR explicit bernoulli_distribution(RealType p_arg = RealType(0.5))
+			SPROUT_CONSTEXPR explicit bernoulli_distribution(RealType p_arg)
 				: p_(arg_check(p_arg))
 			{}
 			SPROUT_CONSTEXPR explicit bernoulli_distribution(param_type const& parm)
@@ -122,14 +126,14 @@ namespace sprout {
 					;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator>>(
+			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				bernoulli_distribution const& rhs
+				bernoulli_distribution& rhs
 				)
 			{
 				param_type parm;
 				return lhs >> parm;
-				param(parm);
+				rhs.param(parm);
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
@@ -138,7 +142,7 @@ namespace sprout {
 				bernoulli_distribution const& rhs
 				)
 			{
-				return lhs << param();
+				return lhs << rhs.param();
 			}
 			SPROUT_CONSTEXPR friend bool operator==(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) {
 				return lhs.param() == rhs.param();

@@ -37,6 +37,10 @@ namespace sprout {
 			public:
 				typedef uniform_smallint distribution_type;
 			private:
+				static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType min_arg, IntType max_arg) {
+					return distribution_type::arg_check_nothrow(min_arg, max_arg);
+				}
+			private:
 				IntType min_;
 				IntType max_;
 			public:
@@ -55,9 +59,9 @@ namespace sprout {
 					return max_;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator>>(
+				friend std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
-					param_type const& rhs
+					param_type& rhs
 					)
 				{
 					IntType min;
@@ -205,7 +209,7 @@ namespace sprout {
 				: min_(arg_check(min_arg, max_arg))
 				, max_(max_arg)
 			{}
-			explicit uniform_smallint(param_type const& parm)
+			SPROUT_CONSTEXPR explicit uniform_smallint(param_type const& parm)
 				: min_(parm.a())
 				, max_(parm.b())
 			{}
@@ -234,14 +238,14 @@ namespace sprout {
 				return generate(eng, typename std::is_integral<base_result>::type());
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator>>(
+			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				uniform_smallint const& rhs
+				uniform_smallint& rhs
 				)
 			{
 				param_type parm;
 				lhs >> parm;
-				param(parm);
+				rhs.param(parm);
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
@@ -250,7 +254,7 @@ namespace sprout {
 				uniform_smallint const& rhs
 				)
 			{
-				return lhs << param();
+				return lhs << rhs.param();
 			}
 			SPROUT_CONSTEXPR friend bool operator==(uniform_smallint const& lhs, uniform_smallint const& rhs) {
 				return lhs.param() == rhs.param();

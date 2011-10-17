@@ -26,9 +26,9 @@ namespace sprout {
 				typedef uniform_01 distribution_type;
 			public:
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator>>(
+				friend std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
-					param_type const& rhs
+					param_type& rhs
 					)
 				{
 					return lhs;
@@ -81,6 +81,8 @@ namespace sprout {
 					);
 			}
 		public:
+			SPROUT_CONSTEXPR explicit uniform_01()
+			{}
 			SPROUT_CONSTEXPR explicit uniform_01(param_type const& parm)
 			{}
 			SPROUT_CONSTEXPR result_type min() const {
@@ -99,9 +101,9 @@ namespace sprout {
 				return generate(eng, eng());
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator>>(
+			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				uniform_01 const& rhs
+				uniform_01& rhs
 				)
 			{
 				return lhs;
