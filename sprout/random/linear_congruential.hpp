@@ -95,7 +95,7 @@ namespace sprout {
 				)
 			{
 				IntType x;
-				if(lhs >> x) {
+				if (lhs >> x) {
 					if(arg_check_nothrow(x)) {
 						rhs.x_ = x;
 					} else {

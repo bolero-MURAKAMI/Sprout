@@ -21,5 +21,6 @@
 #include <sprout/operation/fit/append.hpp>
 #include <sprout/operation/fit/append_back.hpp>
 #include <sprout/operation/fit/append_front.hpp>
+#include <sprout/operation/fit/set.hpp>
 
 #endif	// #ifndef SPROUT_OPERATION_FIT_HPP

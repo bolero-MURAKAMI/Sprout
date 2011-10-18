@@ -21,5 +21,6 @@
 #include <sprout/operation/fixed/append.hpp>
 #include <sprout/operation/fixed/append_back.hpp>
 #include <sprout/operation/fixed/append_front.hpp>
+#include <sprout/operation/fixed/set.hpp>
 
 #endif	// #ifndef SPROUT_OPERATION_FIXED_HPP

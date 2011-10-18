@@ -17,7 +17,7 @@ namespace sprout {
 			template<typename Container>
 			struct realign {
 			public:
-				typedef Container type;
+				typedef typename sprout::fixed_container_traits<Container>::clone_type type;
 			};
 		}	// namespace result_of
 
