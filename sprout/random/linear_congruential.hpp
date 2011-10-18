@@ -144,7 +144,7 @@ namespace sprout {
 				0xB,
 				std::uint64_t(1) << 48
 			> lcf_type;
-		public:
+		private:
 			static SPROUT_CONSTEXPR result_type static_min() {
 				return 0;
 			}
