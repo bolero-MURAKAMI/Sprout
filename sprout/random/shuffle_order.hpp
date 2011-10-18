@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <limits>
-#include <utility>
 #include <ios>
 #include <istream>
 #include <type_traits>
@@ -141,20 +140,11 @@ namespace sprout {
 				shuffle_order_engine& rhs
 				)
 			{
-				using std::swap;
-				base_type rng;
-				sprout::array<result_type, k> v;
-				result_type y;
-				lhs >> rng;
+				lhs >> rhs.rng_;
 				for (std::size_t i = 0; i < k; ++i) {
-					lhs >> std::ws >> v[i];
+					lhs >> std::ws >> rhs.v_[i];
 				}
-				lhs >> std::ws >> y;
-				if (lhs) {
-					swap(rhs.rng_, rng);
-					swap(rhs.v_, v);
-					swap(rhs.y_, y);
-				}
+				lhs >> std::ws >> rhs.y_;
 				return lhs;
 			}
 			template<typename Elem, typename Traits>

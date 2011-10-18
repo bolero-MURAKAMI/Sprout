@@ -3,7 +3,9 @@
 
 #include <sprout/config.hpp>
 #include <sprout/random/linear_congruential.hpp>
+#include <sprout/random/additive_combine.hpp>
 #include <sprout/random/shuffle_order.hpp>
+#include <sprout/random/inversive_congruential.hpp>
 #include <sprout/random/mersenne_twister.hpp>
 #include <sprout/random/uniform_smallint.hpp>
 #include <sprout/random/uniform_int_distribution.hpp>

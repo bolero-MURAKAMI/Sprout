@@ -29,6 +29,12 @@ namespace sprout {
 			static_assert(m == 0 || a < m, "m == 0 || a < m");
 			static_assert(m == 0 || c < m, "m == 0 || c < m");
 		private:
+			static SPROUT_CONSTEXPR result_type static_min() {
+				return c == 0 ? 1 : 0;
+			}
+			static SPROUT_CONSTEXPR result_type static_max() {
+				return modulus - 1;
+			}
 			static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType const& x0) {
 				return x0 >= static_min() && x0 <= static_max();
 			}
@@ -46,13 +52,6 @@ namespace sprout {
 			}
 			static SPROUT_CONSTEXPR IntType init_seed(IntType const& x0) {
 				return init_seed_1(modulus == 0 ? x0 : x0 % modulus);
-			}
-		public:
-			static SPROUT_CONSTEXPR result_type static_min() {
-				return c == 0 ? 1 : 0;
-			}
-			static SPROUT_CONSTEXPR result_type static_max() {
-				return modulus - 1;
 			}
 		private:
 			IntType x_;
