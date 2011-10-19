@@ -92,8 +92,8 @@ namespace sprout {
 				}
 			};
 		private:
-			result_type min_;
-			result_type max_;
+			IntType min_;
+			IntType max_;
 		private:
 			template<typename Engine, typename RangeType, typename BaseUnsigned>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate_true_2(
@@ -244,8 +244,9 @@ namespace sprout {
 				)
 			{
 				param_type parm;
-				lhs >> parm;
-				rhs.param(parm);
+				if (lhs >> parm) {
+					rhs.param(parm);
+				}
 				return lhs;
 			}
 			template<typename Elem, typename Traits>

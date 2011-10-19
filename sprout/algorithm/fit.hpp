@@ -25,6 +25,7 @@
 #include <sprout/algorithm/fit/reverse_copy.hpp>
 #include <sprout/algorithm/fit/rotate.hpp>
 #include <sprout/algorithm/fit/rotate_copy.hpp>
+#include <sprout/algorithm/fit/shuffle.hpp>
 #include <sprout/algorithm/fit/partition.hpp>
 #include <sprout/algorithm/fit/partition_copy.hpp>
 #include <sprout/algorithm/fit/stable_partition.hpp>

@@ -254,8 +254,8 @@ namespace sprout {
 				}
 			};
 		private:
-			result_type min_;
-			result_type max_;
+			RealType min_;
+			RealType max_;
 		private:
 			template<typename Engine, typename Result>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_real_distribution> generate(Result const& rnd) const {
@@ -308,8 +308,9 @@ namespace sprout {
 				)
 			{
 				param_type parm;
-				lhs >> parm;
-				rhs.param(parm);
+				if (lhs >> parm) {
+					rhs.param(parm);
+				}
 				return lhs;
 			}
 			template<typename Elem, typename Traits>

@@ -25,6 +25,7 @@
 #include <sprout/algorithm/fixed/reverse_copy.hpp>
 #include <sprout/algorithm/fixed/rotate.hpp>
 #include <sprout/algorithm/fixed/rotate_copy.hpp>
+#include <sprout/algorithm/fixed/shuffle.hpp>
 #include <sprout/algorithm/fixed/partition.hpp>
 #include <sprout/algorithm/fixed/partition_copy.hpp>
 #include <sprout/algorithm/fixed/stable_partition.hpp>

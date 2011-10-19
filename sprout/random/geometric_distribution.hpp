@@ -157,8 +157,9 @@ namespace sprout {
 				)
 			{
 				param_type parm;
-				lhs >> parm;
-				rhs.param(parm);
+				if (lhs >> parm) {
+					rhs.param(parm);
+				}
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
