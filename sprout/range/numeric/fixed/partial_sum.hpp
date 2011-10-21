@@ -1,0 +1,42 @@
+#ifndef SPROUT_RANGE_NUMERIC_FIXED_PARTIAL_SUM_HPP
+#define SPROUT_RANGE_NUMERIC_FIXED_PARTIAL_SUM_HPP
+
+#include <sprout/config.hpp>
+#include <sprout/fixed_container/traits.hpp>
+#include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/numeric/fixed/partial_sum.hpp>
+
+namespace sprout {
+	namespace range {
+		namespace fixed {
+			//
+			// partial_sum
+			//
+			template<typename Input, typename Result>
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type partial_sum(
+				Input const& input,
+				Result const& result
+				)
+			{
+				return sprout::fixed::partial_sum(sprout::begin(input), sprout::end(input), result);
+			}
+			//
+			// partial_sum
+			//
+			template<typename Input, typename Result, typename BinaryOperation>
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type partial_sum(
+				Input const& input,
+				Result const& result,
+				BinaryOperation binary_op
+				)
+			{
+				return sprout::fixed::partial_sum(sprout::begin(input), sprout::end(input), result, binary_op);
+			}
+		}	// namespace fixed
+
+		using sprout::range::fixed::partial_sum;
+	}	// namespace range
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_RANGE_NUMERIC_FIXED_PARTIAL_SUM_HPP

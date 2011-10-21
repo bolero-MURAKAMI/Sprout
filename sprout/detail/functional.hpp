@@ -7,6 +7,19 @@
 namespace sprout {
 	namespace detail {
 		//
+		// equal_to
+		//
+		template<typename T>
+		class equal_to
+			: public std::binary_function<T, T, bool>
+		{
+		public:
+			SPROUT_CONSTEXPR bool operator()(T const& lhs, T const& rhs) const {
+				return lhs == rhs;
+			}
+		};
+
+		//
 		// less
 		//
 		template<typename T>

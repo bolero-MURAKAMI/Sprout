@@ -1,6 +1,7 @@
 #ifndef SPROUT_ALGORITHM_FIXED_PARTITION_COPY_HPP
 #define SPROUT_ALGORITHM_FIXED_PARTITION_COPY_HPP
 
+#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
@@ -61,7 +62,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return first != last && sizeof...(Args) < offset
+				return first != last && sizeof...(Args) < static_cast<std::size_t>(offset)
 					? pred(*first)
 						? partition_copy_impl_2(sprout::next(first), last, result, pred, offset, *first, args...)
 						: partition_copy_impl_2(sprout::next(first), last, result, pred, offset, args..., *first)
@@ -96,7 +97,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) < offset
+				return sizeof...(Args) < static_cast<std::size_t>(offset)
 					? partition_copy_impl_1(first, last, result, pred, offset, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)))
 					: partition_copy_impl_2(first, last, result, pred, offset + sprout::size(result), args...)
 					;

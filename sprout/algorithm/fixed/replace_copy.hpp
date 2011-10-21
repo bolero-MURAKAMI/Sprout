@@ -11,6 +11,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
 	namespace fixed {
@@ -32,7 +33,7 @@ namespace sprout {
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? *sprout::next(first, Indexes - offset) == old_value ? new_value : *sprout::next(first, Indexes - offset)
+						? NS_SSCRISK_CEL_OR_SPROUT_DETAIL::equal_to<T>()(*sprout::next(first, Indexes - offset), old_value) ? new_value : *sprout::next(first, Indexes - offset)
 						: *sprout::next(sprout::fixed_begin(result), Indexes)
 						)...
 					);

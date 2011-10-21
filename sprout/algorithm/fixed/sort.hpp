@@ -14,6 +14,24 @@
 namespace sprout {
 	namespace fixed {
 		namespace detail {
+			template<typename Container, typename Compare>
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_lr(
+				Container const& cont,
+				typename sprout::fixed_container_traits<Container>::difference_type start,
+				typename sprout::fixed_container_traits<Container>::difference_type end,
+				Compare comp,
+				typename sprout::fixed_container_traits<Container>::difference_type l,
+				typename sprout::fixed_container_traits<Container>::difference_type r,
+				typename sprout::fixed_container_traits<Container>::value_type const& p
+				);
+			template<typename Container, typename Compare>
+			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_start(
+				Container const& cont,
+				typename sprout::fixed_container_traits<Container>::difference_type start,
+				typename sprout::fixed_container_traits<Container>::difference_type end,
+				Compare comp
+				);
+
 			template<typename Container, typename Iterator>
 			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::value_type const& sort_select_pivot(
 				Iterator origin,
@@ -128,64 +146,80 @@ namespace sprout {
 			{	// pivot を選択してソートを開始
 				return sort_lr(cont, start, end, comp, start, end, sort_select_pivot<Container>(sprout::fixed_begin(cont), start, end));
 			}
+			template<typename Container, typename Compare>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				(sprout::fixed_container_traits<Container>::fixed_size <= 1),
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type sort(
+				Container const& cont,
+				Compare comp
+				)
+			{
+				return sprout::clone(cont);
+			}
+			template<typename Container, typename Compare>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				(sprout::fixed_container_traits<Container>::fixed_size > 1),
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type sort(
+				Container const& cont,
+				Compare comp
+				)
+			{
+				return sprout::fixed::detail::sort_start(
+					cont,
+					sprout::fixed_begin_offset(cont),
+					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::end(cont) - 1),
+					comp
+					);
+			}
+			template<typename Container>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				(sprout::fixed_container_traits<Container>::fixed_size <= 1),
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type sort(
+				Container const& cont
+				)
+			{
+				return sprout::clone(cont);
+			}
+			template<typename Container>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				(sprout::fixed_container_traits<Container>::fixed_size > 1),
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type sort(
+				Container const& cont
+				)
+			{
+				return sprout::fixed::detail::sort_start(
+					cont,
+					sprout::fixed_begin_offset(cont),
+					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::end(cont) - 1),
+					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::fixed_container_traits<Container>::value_type>()
+					);
+			}
 		}	// namespace detail
 		//
+
 		// sort
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
-			(sprout::fixed_container_traits<Container>::fixed_size <= 1),
-			typename sprout::fixed::result_of::algorithm<Container>::type
-		>::type sort(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort(
 			Container const& cont,
 			Compare comp
 			)
 		{
-			return sprout::clone(cont);
-		}
-		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
-			(sprout::fixed_container_traits<Container>::fixed_size > 1),
-			typename sprout::fixed::result_of::algorithm<Container>::type
-		>::type sort(
-			Container const& cont,
-			Compare comp
-			)
-		{
-			return sprout::fixed::detail::sort_start(
-				cont,
-				sprout::fixed_begin_offset(cont),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::end(cont) - 1),
-				comp
-				);
+			return sprout::fixed::detail::sort(cont, comp);
 		}
 		//
 		// sort
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
-			(sprout::fixed_container_traits<Container>::fixed_size <= 1),
-			typename sprout::fixed::result_of::algorithm<Container>::type
-		>::type sort(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort(
 			Container const& cont
 			)
 		{
-			return sprout::clone(cont);
-		}
-		template<typename Container>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
-			(sprout::fixed_container_traits<Container>::fixed_size > 1),
-			typename sprout::fixed::result_of::algorithm<Container>::type
-		>::type sort(
-			Container const& cont
-			)
-		{
-			return sprout::fixed::detail::sort_start(
-				cont,
-				sprout::fixed_begin_offset(cont),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::end(cont) - 1),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::fixed_container_traits<Container>::value_type>()
-				);
+			return sprout::fixed::detail::sort(cont);
 		}
 	}	// namespace fixed
 

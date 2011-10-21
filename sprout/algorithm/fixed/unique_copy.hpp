@@ -1,6 +1,7 @@
 #ifndef SPROUT_ALGORITHM_FIXED_UNIQUE_COPY_HPP
 #define SPROUT_ALGORITHM_FIXED_UNIQUE_COPY_HPP
 
+#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
@@ -46,7 +47,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
+				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args..., head);
 			}
 			template<typename InputIterator, typename Result, typename Head, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -61,7 +62,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return first != last && sizeof...(Args) + 1 < offset
+				return first != last && sizeof...(Args) + 1 < static_cast<std::size_t>(offset)
 					? !(head == *first)
 						? unique_copy_impl_2(sprout::next(first), last, result, offset, *first, args..., head)
 						: unique_copy_impl_2(sprout::next(first), last, result, offset, head, args...)
@@ -94,9 +95,11 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) < offset
+				return sizeof...(Args) < static_cast<std::size_t>(offset)
 					? unique_copy_impl_1(first, last, result, offset, args..., *(sprout::fixed_begin(result) + sizeof...(Args)))
-					: unique_copy_impl_2(sprout::next(first), last, result, offset + sprout::size(result), *first, args...)
+					: first != last
+						? unique_copy_impl_2(sprout::next(first), last, result, offset + sprout::size(result), *first, args...)
+						: unique_copy_impl_3(result, args...)
 					;
 			}
 			template<typename InputIterator, typename Result>
@@ -137,7 +140,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
+				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args..., head);
 			}
 			template<typename InputIterator, typename Result, typename BinaryPredicate, typename Head, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -153,7 +156,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return first != last && sizeof...(Args) + 1 < offset
+				return first != last && sizeof...(Args) + 1 < static_cast<std::size_t>(offset)
 					? !pred(head, *first)
 						? unique_copy_impl_2(sprout::next(first), last, result, pred, offset, *first, args..., head)
 						: unique_copy_impl_2(sprout::next(first), last, result, pred, offset, head, args...)
@@ -188,9 +191,11 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) < offset
+				return sizeof...(Args) < static_cast<std::size_t>(offset)
 					? unique_copy_impl_1(first, last, result, pred, offset, args..., *(sprout::fixed_begin(result) + sizeof...(Args)))
-					: unique_copy_impl_2(sprout::next(first), last, result, pred, offset + sprout::size(result), *first, args...)
+					: first != last
+						? unique_copy_impl_2(sprout::next(first), last, result, pred, offset + sprout::size(result), *first, args...)
+						: unique_copy_impl_3(result, args...)
 					;
 			}
 			template<typename InputIterator, typename Result, typename BinaryPredicate>

@@ -198,62 +198,77 @@ namespace sprout {
 			{
 				return stable_sort_impl_1(cont, comp, sprout::index_tuple<Indexes...>(), sprout::index_tuple<>(), sprout::index_tuple<>(), sprout::index_tuple<>());
 			}
+			template<typename Container, typename Compare>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				(sprout::fixed_container_traits<Container>::fixed_size <= 1),
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type stable_sort(
+				Container const& cont,
+				Compare comp
+				)
+			{
+				return sprout::clone(cont);
+			}
+			template<typename Container, typename Compare>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				(sprout::fixed_container_traits<Container>::fixed_size > 1),
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type stable_sort(
+				Container const& cont,
+				Compare comp
+				)
+			{
+				return sprout::fixed::detail::stable_sort_impl(
+					cont,
+					comp,
+					typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type()
+					);
+			}
+			template<typename Container>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				(sprout::fixed_container_traits<Container>::fixed_size <= 1),
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type stable_sort(
+				Container const& cont
+				)
+			{
+				return sprout::clone(cont);
+			}
+			template<typename Container>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				(sprout::fixed_container_traits<Container>::fixed_size > 1),
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type stable_sort(
+				Container const& cont
+				)
+			{
+				return sprout::fixed::detail::stable_sort_impl(
+					cont,
+					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::fixed_container_traits<Container>::value_type>(),
+					typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type()
+					);
+			}
 		}	// namespace detail
 		//
 		// stable_sort
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
-			(sprout::fixed_container_traits<Container>::fixed_size <= 1),
-			typename sprout::fixed::result_of::algorithm<Container>::type
-		>::type stable_sort(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type stable_sort(
 			Container const& cont,
 			Compare comp
 			)
 		{
-			return sprout::clone(cont);
-		}
-		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
-			(sprout::fixed_container_traits<Container>::fixed_size > 1),
-			typename sprout::fixed::result_of::algorithm<Container>::type
-		>::type stable_sort(
-			Container const& cont,
-			Compare comp
-			)
-		{
-			return sprout::fixed::detail::stable_sort_impl(
-				cont,
-				comp,
-				typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type()
-				);
+			return sprout::fixed::detail::stable_sort(cont, comp);
 		}
 		//
 		// stable_sort
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
-			(sprout::fixed_container_traits<Container>::fixed_size <= 1),
-			typename sprout::fixed::result_of::algorithm<Container>::type
-		>::type stable_sort(
+		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type stable_sort(
 			Container const& cont
 			)
 		{
-			return sprout::clone(cont);
-		}
-		template<typename Container>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
-			(sprout::fixed_container_traits<Container>::fixed_size > 1),
-			typename sprout::fixed::result_of::algorithm<Container>::type
-		>::type stable_sort(
-			Container const& cont
-			)
-		{
-			return sprout::fixed::detail::stable_sort_impl(
-				cont,
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::fixed_container_traits<Container>::value_type>(),
-				typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type()
-				);
+			return sprout::fixed::detail::stable_sort(cont);
 		}
 	}	// namespace fixed
 
