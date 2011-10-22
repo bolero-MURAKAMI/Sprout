@@ -21,9 +21,11 @@ constexpr コンテナ
 
 constexpr アルゴリズム
     sprout/algorithm.hpp
+    sprout/numeric.hpp
 
 constexpr 範囲アルゴリズム
     sprout/range/algorithm.hpp
+    sprout/range/numeric.hpp
 
 constexpr コンテナ操作
     sprout/operation.hpp
