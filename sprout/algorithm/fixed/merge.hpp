@@ -1,6 +1,7 @@
 #ifndef SPROUT_ALGORITHM_FIXED_MERGE_HPP
 #define SPROUT_ALGORITHM_FIXED_MERGE_HPP
 
+#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
@@ -66,7 +67,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) < offset
+				return sizeof...(Args) < static_cast<std::size_t>(offset)
 					? first1 != last1
 						? first2 != last2
 							? comp(*first2, *first1)
@@ -111,7 +112,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) < offset
+				return sizeof...(Args) < static_cast<std::size_t>(offset)
 					? merge_impl_1(first1, last1, first2, last2, result, comp, offset, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)))
 					: merge_impl_2(first1, last1, first2, last2, result, comp, offset + sprout::size(result), args...)
 					;

@@ -200,7 +200,6 @@ namespace sprout {
 			}
 		}	// namespace detail
 		//
-
 		// sort
 		//
 		template<typename Container, typename Compare>

@@ -1,6 +1,7 @@
 #ifndef SPROUT_ALGORITHM_FIXED_SET_SYMMETRIC_DIFFERENCE_HPP
 #define SPROUT_ALGORITHM_FIXED_SET_SYMMETRIC_DIFFERENCE_HPP
 
+#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
@@ -66,7 +67,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) < offset
+				return sizeof...(Args) < static_cast<std::size_t>(offset)
 					? first1 != last1
 						? first2 != last2
 							? comp(*first1, *first2)
@@ -113,7 +114,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sizeof...(Args) < offset
+				return sizeof...(Args) < static_cast<std::size_t>(offset)
 					? set_symmetric_difference_impl_1(first1, last1, first2, last2, result, comp, offset, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)))
 					: set_symmetric_difference_impl_2(first1, last1, first2, last2, result, comp, offset + sprout::size(result), args...)
 					;
