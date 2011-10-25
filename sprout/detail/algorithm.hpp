@@ -126,6 +126,17 @@ namespace sprout {
 				? false
 				: sprout::detail::lexicographical_compare(sprout::next(first1), last1, sprout::next(first2), last2, comp);
 		}
+
+		//
+		// find
+		//
+		template<typename Iterator, typename T>
+		SPROUT_CONSTEXPR Iterator find(Iterator first, Iterator last, T const& value) {
+			return first == last || *first == value
+				? first
+				: sprout::detail::find(sprout::next(first), last, value)
+				;
+		}
 	}	// namespace detail
 }	// namespace sprout
 

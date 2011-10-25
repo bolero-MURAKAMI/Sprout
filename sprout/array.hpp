@@ -43,7 +43,7 @@ namespace sprout {
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
 		SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
 	public:
-		T elems[N ? N : 1];
+		value_type elems[static_size ? static_size : 1];
 	public:
 		void fill(const_reference value) {
 			std::fill_n(begin(), size(), value);
@@ -114,13 +114,13 @@ namespace sprout {
 		}
 		// capacity:
 		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
-			return N;
+			return static_size;
 		}
 		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
 			return size();
 		}
 		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
-			return N == 0;
+			return size() == 0;
 		}
 		// element access:
 		reference operator[](size_type i) {
@@ -320,18 +320,18 @@ namespace std {
 	// get
 	//
 	template<std::size_t I, typename T, std::size_t N>
-	T& get(sprout::array<T, N>& arr) SPROUT_NOEXCEPT {
+	T& get(sprout::array<T, N>& t) SPROUT_NOEXCEPT {
 		static_assert(I < N, "get: index out of range");
-		return arr[I];
+		return t[I];
 	}
 	template<std::size_t I, typename T, std::size_t N>
-	SPROUT_CONSTEXPR T const& get(sprout::array<T, N> const& arr) SPROUT_NOEXCEPT {
+	SPROUT_CONSTEXPR T const& get(sprout::array<T, N> const& t) SPROUT_NOEXCEPT {
 		static_assert(I < N, "get: index out of range");
-		return arr[I];
+		return t[I];
 	}
 	template<std::size_t I, typename T, std::size_t N>
-	T&& get(sprout::array<T, N>&& arr) SPROUT_NOEXCEPT {
-		return std::move(std::get<I>(arr));
+	T&& get(sprout::array<T, N>&& t) SPROUT_NOEXCEPT {
+		return std::move(std::get<I>(t));
 	}
 }	// namespace std
 

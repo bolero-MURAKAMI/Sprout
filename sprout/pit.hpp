@@ -1,5 +1,5 @@
-#ifndef SPROUT_NULL_ARRAY_HPP
-#define SPROUT_NULL_ARRAY_HPP
+#ifndef SPROUT_PIT_HPP
+#define SPROUT_PIT_HPP
 
 #include <cstddef>
 #include <utility>
@@ -12,13 +12,13 @@
 
 namespace sprout {
 	//
-	// null_array
+	// pit
 	//
 	template<typename Container>
-	class null_array {
+	class pit {
 	public:
 		typedef Container container_type;
-		typedef null_array fixed_container_type;
+		typedef pit fixed_container_type;
 		typedef container_type internal_type;
 		typedef typename sprout::fixed_container_traits<internal_type>::clone_type clone_type;
 		typedef typename sprout::fixed_container_traits<internal_type>::value_type value_type;
@@ -38,8 +38,8 @@ namespace sprout {
 	public:
 		value_type elem;
 	public:
-		null_array() = default;
-		void swap(null_array& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<value_type&>(), std::declval<value_type&>()))) {
+		pit() = default;
+		void swap(pit& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<value_type&>(), std::declval<value_type&>()))) {
 			using std::swap;
 			swap(elem, other.elem);
 		}
@@ -120,14 +120,14 @@ namespace sprout {
 		// others:
 		void rangecheck(size_type i) const {
 			if (i >= size()) {
-				throw std::out_of_range("null_array<>: index out of range");
+				throw std::out_of_range("pit<>: index out of range");
 			}
 		}
 	};
 	template<typename Container>
-	SPROUT_CONSTEXPR typename sprout::null_array<Container>::size_type sprout::null_array<Container>::static_size;
+	SPROUT_CONSTEXPR typename sprout::pit<Container>::size_type sprout::pit<Container>::static_size;
 	template<typename Container>
-	SPROUT_CONSTEXPR typename sprout::null_array<Container>::size_type sprout::null_array<Container>::fixed_size;
+	SPROUT_CONSTEXPR typename sprout::pit<Container>::size_type sprout::pit<Container>::fixed_size;
 
 	//
 	// operator==
@@ -138,27 +138,27 @@ namespace sprout {
 	// operator>=
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR inline bool operator==(sprout::null_array<Container> const& lhs, sprout::null_array<Container> const& rhs) {
+	SPROUT_CONSTEXPR inline bool operator==(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return lhs.front() == rhs.front();
 	}
 	template<typename Container>
-	SPROUT_CONSTEXPR inline bool operator!=(sprout::null_array<Container> const& lhs, sprout::null_array<Container> const& rhs) {
+	SPROUT_CONSTEXPR inline bool operator!=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename Container>
-	SPROUT_CONSTEXPR inline bool operator<(sprout::null_array<Container> const& lhs, sprout::null_array<Container> const& rhs) {
+	SPROUT_CONSTEXPR inline bool operator<(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return lhs.front() < rhs.front();
 	}
 	template<typename Container>
-	SPROUT_CONSTEXPR inline bool operator>(sprout::null_array<Container> const& lhs, sprout::null_array<Container> const& rhs) {
+	SPROUT_CONSTEXPR inline bool operator>(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename Container>
-	SPROUT_CONSTEXPR inline bool operator<=(sprout::null_array<Container> const& lhs, sprout::null_array<Container> const& rhs) {
+	SPROUT_CONSTEXPR inline bool operator<=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename Container>
-	SPROUT_CONSTEXPR inline bool operator>=(sprout::null_array<Container> const& lhs, sprout::null_array<Container> const& rhs) {
+	SPROUT_CONSTEXPR inline bool operator>=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return !(lhs < rhs);
 	}
 
@@ -166,7 +166,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	inline void swap(sprout::null_array<Container>& lhs, sprout::null_array<Container>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void swap(sprout::pit<Container>& lhs, sprout::pit<Container>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
 		lhs.swap(rhs);
 	}
 
@@ -174,15 +174,15 @@ namespace sprout {
 	// fixed_container_traits
 	//
 	template<typename Container>
-	struct fixed_container_traits<sprout::null_array<Container> >
-		: public sprout::detail::fixed_container_traits_base<sprout::null_array<Container> >
+	struct fixed_container_traits<sprout::pit<Container> >
+		: public sprout::detail::fixed_container_traits_base<sprout::pit<Container> >
 	{
 	public:
-		typedef typename sprout::null_array<Container>::fixed_container_type fixed_container_type;
-		typedef typename sprout::null_array<Container>::internal_type internal_type;
-		typedef typename sprout::null_array<Container>::clone_type clone_type;
+		typedef typename sprout::pit<Container>::fixed_container_type fixed_container_type;
+		typedef typename sprout::pit<Container>::internal_type internal_type;
+		typedef typename sprout::pit<Container>::clone_type clone_type;
 	public:
-		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<sprout::null_array<Container> >::size_type fixed_size
+		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<sprout::pit<Container> >::size_type fixed_size
 			= std::tuple_size<typename std::remove_const<internal_type>::type>::value
 			;
 	};
@@ -191,14 +191,14 @@ namespace sprout {
 	// rebind_fixed_size
 	//
 	template<typename Container>
-	struct rebind_fixed_size<sprout::null_array<Container> > {
+	struct rebind_fixed_size<sprout::pit<Container> > {
 	public:
-		template<typename sprout::fixed_container_traits<sprout::null_array<Container> >::size_type S>
+		template<typename sprout::fixed_container_traits<sprout::pit<Container> >::size_type S>
 		struct apply {
 			public:
-				typedef sprout::null_array<
+				typedef sprout::pit<
 					typename sprout::rebind_fixed_size<
-						typename sprout::fixed_container_traits<sprout::null_array<Container> >::internal_type
+						typename sprout::fixed_container_traits<sprout::pit<Container> >::internal_type
 					>::template apply<S>::type
 				> type;
 		};
@@ -208,14 +208,14 @@ namespace sprout {
 	// clone_functor
 	//
 	template<typename Container>
-	struct clone_functor<sprout::null_array<Container> > {
+	struct clone_functor<sprout::pit<Container> > {
 	private:
-		typedef typename sprout::fixed_container_traits<sprout::null_array<Container> >::clone_type clone_type;
+		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::clone_type clone_type;
 	public:
-		clone_type operator()(sprout::null_array<Container>& cont) const {
+		clone_type operator()(sprout::pit<Container>& cont) const {
 			return clone_type();
 		}
-		SPROUT_CONSTEXPR clone_type operator()(sprout::null_array<Container> const& cont) const {
+		SPROUT_CONSTEXPR clone_type operator()(sprout::pit<Container> const& cont) const {
 			return clone_type();
 		}
 	};
@@ -224,10 +224,10 @@ namespace sprout {
 	// make_clone_functor
 	//
 	template<typename Container>
-	struct make_clone_functor<sprout::null_array<Container> > {
+	struct make_clone_functor<sprout::pit<Container> > {
 	private:
-		typedef typename sprout::fixed_container_traits<sprout::null_array<Container> >::clone_type clone_type;
-		typedef typename sprout::fixed_container_traits<sprout::null_array<Container> >::internal_type internal_type;
+		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::clone_type clone_type;
+		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::internal_type internal_type;
 	public:
 		template<typename... Args>
 		SPROUT_CONSTEXPR clone_type operator()(Args const&... args) const {
@@ -239,15 +239,15 @@ namespace sprout {
 	// remake_clone_functor
 	//
 	template<typename Container>
-	struct remake_clone_functor<sprout::null_array<Container> > {
+	struct remake_clone_functor<sprout::pit<Container> > {
 	private:
-		typedef typename sprout::fixed_container_traits<sprout::null_array<Container> >::clone_type clone_type;
-		typedef typename sprout::fixed_container_traits<sprout::null_array<Container> >::internal_type internal_type;
+		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::clone_type clone_type;
+		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::internal_type internal_type;
 	public:
 		template<typename Other, typename... Args>
 		clone_type operator()(
 			Other& other,
-			typename sprout::fixed_container_traits<sprout::null_array<Container> >::difference_type size,
+			typename sprout::fixed_container_traits<sprout::pit<Container> >::difference_type size,
 			Args const&... args
 			) const
 		{
@@ -256,7 +256,7 @@ namespace sprout {
 		template<typename Other, typename... Args>
 		SPROUT_CONSTEXPR clone_type operator()(
 			Other const& other,
-			typename sprout::fixed_container_traits<sprout::null_array<Container> >::difference_type size,
+			typename sprout::fixed_container_traits<sprout::pit<Container> >::difference_type size,
 			Args const&... args
 			) const
 		{
@@ -270,9 +270,9 @@ namespace std {
 	// tuple_size
 	//
 	template<typename Container>
-	struct tuple_size<sprout::null_array<Container> > {
+	struct tuple_size<sprout::pit<Container> > {
 	public:
-		typedef std::integral_constant<std::size_t, sprout::fixed_container_traits<sprout::null_array<Container> >::fixed_size> type;
+		typedef std::integral_constant<std::size_t, sprout::fixed_container_traits<sprout::pit<Container> >::fixed_size> type;
 		SPROUT_STATIC_CONSTEXPR std::size_t value = type::value;
 	};
 
@@ -280,38 +280,38 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename Container>
-	struct tuple_element<I, sprout::null_array<Container> > {
+	struct tuple_element<I, sprout::pit<Container> > {
 	public:
-		static_assert(I < sprout::fixed_container_traits<sprout::null_array<Container> >::fixed_size, "tuple_element<>: index out of range");
-		typedef typename sprout::fixed_container_traits<sprout::null_array<Container> >::value_type type;
+		static_assert(I < sprout::fixed_container_traits<sprout::pit<Container> >::fixed_size, "tuple_element<>: index out of range");
+		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::value_type type;
 	};
 
 	//
 	// get
 	//
 	template<std::size_t I, typename Container>
-	typename sprout::fixed_container_traits<sprout::null_array<Container> >::value_type& get(
-		sprout::null_array<Container>& arr
+	typename sprout::fixed_container_traits<sprout::pit<Container> >::value_type& get(
+		sprout::pit<Container>& t
 		) SPROUT_NOEXCEPT
 	{
-		static_assert(I < sprout::fixed_container_traits<sprout::null_array<Container> >::fixed_size, "get: index out of range");
-		return arr[I];
+		static_assert(I < sprout::fixed_container_traits<sprout::pit<Container> >::fixed_size, "get: index out of range");
+		return t[I];
 	}
 	template<std::size_t I, typename Container>
-	SPROUT_CONSTEXPR typename sprout::fixed_container_traits<sprout::null_array<Container> >::value_type const& get(
-		sprout::null_array<Container> const& arr
+	SPROUT_CONSTEXPR typename sprout::fixed_container_traits<sprout::pit<Container> >::value_type const& get(
+		sprout::pit<Container> const& t
 		) SPROUT_NOEXCEPT
 	{
-		static_assert(I < sprout::fixed_container_traits<sprout::null_array<Container> >::fixed_size, "get: index out of range");
-		return arr[I];
+		static_assert(I < sprout::fixed_container_traits<sprout::pit<Container> >::fixed_size, "get: index out of range");
+		return t[I];
 	}
 	template<std::size_t I, typename Container>
-	typename sprout::fixed_container_traits<sprout::null_array<Container> >::value_type&& get(
-		sprout::null_array<Container>&& arr
-		) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::move(std::get<I>(arr))))
+	typename sprout::fixed_container_traits<sprout::pit<Container> >::value_type&& get(
+		sprout::pit<Container>&& t
+		) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::move(std::get<I>(t))))
 	{
-		return std::move(std::get<I>(arr));
+		return std::move(std::get<I>(t));
 	}
 }	// namespace std
 
-#endif	// #ifndef SPROUT_NULL_ARRAY_HPP
+#endif	// #ifndef SPROUT_PIT_HPP

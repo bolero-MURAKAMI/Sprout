@@ -264,7 +264,7 @@ namespace sprout {
 			return from_c_str(s, traits_type::length(s));
 		}
 	public:
-		T elems[N + 1];
+		value_type elems[static_size + 1];
 		size_type len;
 	public:
 		// construct/copy/destroy:
@@ -347,7 +347,7 @@ namespace sprout {
 			return size();
 		}
 		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
-			return N;
+			return static_size;
 		}
 		void resize(size_type n, value_type c) {
 			maxcheck(n);
@@ -1071,18 +1071,18 @@ namespace std {
 	// get
 	//
 	template<std::size_t I, typename T, std::size_t N, typename Traits>
-	T& get(sprout::basic_string<T, N, Traits>& arr) SPROUT_NOEXCEPT {
+	T& get(sprout::basic_string<T, N, Traits>& t) SPROUT_NOEXCEPT {
 		static_assert(I < N, "get: index out of range");
-		return arr[I];
+		return t[I];
 	}
 	template<std::size_t I, typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR T const& get(sprout::basic_string<T, N, Traits> const& arr) SPROUT_NOEXCEPT {
+	SPROUT_CONSTEXPR T const& get(sprout::basic_string<T, N, Traits> const& t) SPROUT_NOEXCEPT {
 		static_assert(I < N, "get: index out of range");
-		return arr[I];
+		return t[I];
 	}
 	template<std::size_t I, typename T, std::size_t N, typename Traits>
-	T&& get(sprout::basic_string<T, N, Traits>&& arr) SPROUT_NOEXCEPT {
-		return std::move(std::get<I>(arr));
+	T&& get(sprout::basic_string<T, N, Traits>&& t) SPROUT_NOEXCEPT {
+		return std::move(std::get<I>(t));
 	}
 }	// namespace std
 

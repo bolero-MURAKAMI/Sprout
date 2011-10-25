@@ -216,7 +216,7 @@ namespace sprout {
 	public:
 		typedef T* argument_type;
 		typedef std::size_t result_type;
-	public: \
+	public:
 		SPROUT_CONSTEXPR std::size_t operator()(T* v) const {
 			return sprout::hash_value(v);
 		}

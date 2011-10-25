@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/array.hpp>
-#include <sprout/null_array.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
@@ -48,7 +48,7 @@ namespace sprout {
 					? sprout::fixed::detail::make_shuffle_indexes_1(
 						n,
 						sprout::random::uniform_int_distribution<std::ptrdiff_t>(0, n - 1)(sprout::forward<UniformRandomNumberGenerator>(g)),
-						sprout::fixed::iota(sprout::null_array<sprout::array<std::ptrdiff_t, N> >(), 0),
+						sprout::fixed::iota(sprout::pit<sprout::array<std::ptrdiff_t, N> >(), 0),
 						0
 						)
 					: sprout::array<std::ptrdiff_t, N>{{}}
