@@ -375,12 +375,16 @@ namespace sprout {
 			return elems[i];
 		}
 		reference at(size_type i) {
-			rangecheck(i);
-			return elems[i];
+			return i < size()
+				? elems[i]
+				: (throw std::out_of_range("basic_string<>: index out of range"), elems[i])
+				;
 		}
-		const_reference at(size_type i) const {
-			rangecheck(i);
-			return elems[i];
+		SPROUT_CONSTEXPR const_reference at(size_type i) const {
+			return i < size()
+				? elems[i]
+				: (throw std::out_of_range("basic_string<>: index out of range"), elems[i])
+				;
 		}
 		reference front() {
 			return elems[0];

@@ -98,12 +98,16 @@ namespace sprout {
 			return elem;
 		}
 		reference at(size_type i) {
-			rangecheck(i);
-			return elem;
+			return i < size()
+				? elem
+				: (throw std::out_of_range("pit<>: index out of range"), elem)
+				;
 		}
-		const_reference at(size_type i) const {
-			rangecheck(i);
-			return elem;
+		SPROUT_CONSTEXPR const_reference at(size_type i) const {
+			return i < size()
+				? elem
+				: (throw std::out_of_range("pit<>: index out of range"), elem)
+				;
 		}
 		reference front() {
 			return elem;

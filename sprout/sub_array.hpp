@@ -310,12 +310,16 @@ namespace sprout {
 			return *sprout::next(sprout::begin(get_array()), first_ + i);
 		}
 		reference at(size_type i) {
-			rangecheck(i);
-			return *sprout::next(sprout::begin(get_array()), first_ + i);
+			return i < size()
+				? *sprout::next(sprout::begin(get_array()), first_ + i)
+				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), first_ + i))
+				;
 		}
-		const_reference at(size_type i) const {
-			rangecheck(i);
-			return *sprout::next(sprout::begin(get_array()), first_ + i);
+		SPROUT_CONSTEXPR const_reference at(size_type i) const {
+			return i < size()
+				? *sprout::next(sprout::begin(get_array()), first_ + i)
+				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), first_ + i))
+				;
 		}
 		reference front() {
 			return *sprout::next(sprout::begin(get_array()), first_);
