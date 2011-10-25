@@ -32,13 +32,18 @@ constexpr コンテナ操作
 
 constexpr 乱数
     sprout/random.hpp
+    sprout/random/unique_seed.hpp
 
 constexpr ハッシュ関数
     sprout/functional/hash.hpp
+    sprout/checksum/sha1.hpp
+
+constexpr UUID
+    sprout/uuid.hpp
 
 コンテナアダプタ
     sprout/sub_array.hpp
-    sprout/null_array.hpp
+    sprout/pit.hpp
 
 コンテナ特性
     sprout/fixed_container.hpp
