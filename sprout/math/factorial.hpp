@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
 
@@ -634,7 +635,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR T factorial(std::size_t x) {
 			return x <= sprout::math::detail::factorials<T>::limit
 				? sprout::math::detail::factorials<T>::table[x]
-				: throw "assert(x <= sprout::math::detail::factorials<T>::limit)"
+				: throw std::invalid_argument("factorial(): argument limit exceeded")
 				;
 		}
 	}	// namespace math

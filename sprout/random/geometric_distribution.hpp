@@ -4,6 +4,7 @@
 #include <cmath>
 #include <ios>
 #include <limits>
+#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
@@ -35,7 +36,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR RealType arg_check(RealType p_arg) {
 				return arg_check_nothrow(p_arg)
 					? p_arg
-					: throw "assert(RealType(0) < p_arg && p_arg < RealType(1))"
+					: throw std::invalid_argument("geometric_distribution<>: invalid argument (0 < p_arg && p_arg < 1)")
 					;
 			}
 		public:

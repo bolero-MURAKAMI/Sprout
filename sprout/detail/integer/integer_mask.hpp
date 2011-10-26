@@ -12,8 +12,8 @@ namespace sprout {
 		template<std::size_t Bits>
 		struct high_bit_mask_t {
 		public:
-		    typedef typename sprout::detail::uint_t<(Bits + 1)>::least least;
-		    typedef typename sprout::detail::uint_t<(Bits + 1)>::fast fast;
+			typedef typename sprout::detail::uint_t<(Bits + 1)>::least least;
+			typedef typename sprout::detail::uint_t<(Bits + 1)>::fast fast;
 		public:
 			SPROUT_STATIC_CONSTEXPR least high_bit = least(1u) << Bits;
 			SPROUT_STATIC_CONSTEXPR fast high_bit_fast = fast(1u) << Bits;
@@ -23,8 +23,8 @@ namespace sprout {
 		template<std::size_t Bits>
 		struct low_bits_mask_t {
 		public:
-		    typedef typename sprout::detail::uint_t<Bits>::least least;
-		    typedef typename sprout::detail::uint_t<Bits>::fast fast;
+			typedef typename sprout::detail::uint_t<Bits>::least least;
+			typedef typename sprout::detail::uint_t<Bits>::fast fast;
 		public:
 			SPROUT_STATIC_CONSTEXPR least sig_bits = ~(~(least(0u)) << Bits);
 			SPROUT_STATIC_CONSTEXPR fast sig_bits_fast = fast(sig_bits);
@@ -35,9 +35,9 @@ namespace sprout {
 		template<> \
 		struct low_bits_mask_t<std::numeric_limits<Type>::digits> { \
 		public: \
-	    	typedef std::numeric_limits<Type> limits_type; \
-	    	typedef typename sprout::detail::uint_t<limits_type::digits>::least least; \
-	    	typedef typename sprout::detail::uint_t<limits_type::digits>::fast fast; \
+			typedef std::numeric_limits<Type> limits_type; \
+			typedef typename sprout::detail::uint_t<limits_type::digits>::least least; \
+			typedef typename sprout::detail::uint_t<limits_type::digits>::fast fast; \
 		public: \
 			SPROUT_STATIC_CONSTEXPR least sig_bits = ~(least(0u)); \
 			SPROUT_STATIC_CONSTEXPR fast sig_bits_fast = fast(sig_bits); \
@@ -55,7 +55,7 @@ namespace sprout {
 		SPROUT_LOW_BITS_MASK_SPECIALIZE(unsigned long);
 #endif
 #if ULLONG_MAX > ULONG_MAX
-	    SPROUT_LOW_BITS_MASK_SPECIALIZE(unsigned long long);
+		SPROUT_LOW_BITS_MASK_SPECIALIZE(unsigned long long);
 #endif
 
 #undef SPROUT_LOW_BITS_MASK_SPECIALIZE

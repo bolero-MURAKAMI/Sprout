@@ -2,6 +2,7 @@
 #define SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
 
 #include <limits>
+#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 
@@ -31,7 +32,7 @@ namespace sprout {
 				static SPROUT_CONSTEXPR IntType mult_schrage_1(IntType a, IntType value, IntType q, IntType r) {
 					return r < q
 						? sub(a * (value % q), r * (value / q))
-						: throw "assert(r < q)"
+						: throw std::domain_error("const_mod<>: domain error (r < q)")
 						;
 				}
 				static SPROUT_CONSTEXPR IntType mult_schrage(IntType a, IntType value) {
@@ -40,7 +41,8 @@ namespace sprout {
 				static SPROUT_CONSTEXPR IntType mult_general(IntType a, IntType b) {
 					return std::uintmax_t(modulus) <= std::numeric_limits<std::uintmax_t>::max() / modulus
 						? static_cast<IntType>(std::uintmax_t(a) * b % modulus)
-						: /*static_cast<IntType>(sprout::random::detail::mulmod(a, b, modulus))*/throw "Sorry, not implemented."
+						//: static_cast<IntType>(sprout::random::detail::mulmod(a, b, modulus)) // ???
+						: throw std::domain_error("const_mod<>: Sorry, not implemented.")
 						;
 				}
 				static SPROUT_CONSTEXPR IntType sub(IntType a, IntType b) {
@@ -61,7 +63,7 @@ namespace sprout {
 				static SPROUT_CONSTEXPR IntType invert_euclidian(IntType c) {
 					return c > 0
 						? c == 1 ? 1 : invert_euclidian_1(c, 0, 1, c, m)
-						: throw "assert(c > 0)"
+						: throw std::domain_error("const_mod<>: domain error (c > 0)")
 						;
 				}
 				static SPROUT_CONSTEXPR IntType invert_euclidian0_3(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
@@ -73,13 +75,13 @@ namespace sprout {
 				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
 					return std::numeric_limits<IntType>::max() % n != n - 1
 						? invert_euclidian0_2(c, l1 + (std::numeric_limits<IntType>::max() / n) * l2, l2, n, std::numeric_limits<IntType>::max() - (std::numeric_limits<IntType>::max() / n) * n + 1)
-						: throw "assert(std::numeric_limits<IntType>::max() % n != n - 1)"
+						: throw std::domain_error("const_mod<>: domain error (numeric_limits<IntType>::max() % n != n - 1)")
 						;
 				}
 				static SPROUT_CONSTEXPR IntType invert_euclidian0(IntType c) {
 					return c > 0
 						? c == 1 ? 1 : invert_euclidian0_1(c, 0, 1, c, m)
-						: throw "assert(c > 0)"
+						: throw std::domain_error("const_mod<>: domain error (c > 0)")
 						;
 				}
 			public:

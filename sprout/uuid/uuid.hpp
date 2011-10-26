@@ -29,7 +29,7 @@ namespace sprout {
 		//
 		class uuid {
 		public:
-		    typedef std::uint8_t value_type;
+			typedef std::uint8_t value_type;
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 			typedef sprout::index_iterator<uuid&> iterator;
 			typedef sprout::index_iterator<uuid const&> const_iterator;

@@ -2,6 +2,7 @@
 #define SPROUT_RANDOM_BERNOULLI_DISTRIBUTION_HPP
 
 #include <iosfwd>
+#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
 
@@ -22,7 +23,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR RealType arg_check(RealType p_arg) {
 				return arg_check_nothrow(p_arg)
 					? p_arg
-					: throw "assert(p_arg >= 0 && p_arg <= 1)"
+					: throw std::invalid_argument("bernoulli_distribution<>: invalid argument (p_arg >= 0 && p_arg <= 1)")
 					;
 			}
 		public:

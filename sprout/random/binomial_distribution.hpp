@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iosfwd>
 #include <istream>
+#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
 #include <sprout/random/random_result.hpp>
@@ -59,7 +60,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR IntType arg_check(IntType t_arg, RealType p_arg) {
 				return arg_check_nothrow(t_arg, p_arg)
 					? t_arg
-					: throw "assert(t_arg >= IntType(0) && RealType(0) <= p_arg && p_arg <= RealType(1))"
+					: throw std::invalid_argument("binomial_distribution<>: invalid argument (t_arg >= 0 && 0 <= p_arg && p_arg <= 1)")
 					;
 			}
 		public:

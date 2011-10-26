@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <iterator>
 #include <utility>
+#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
@@ -99,13 +100,13 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator*() const {
 			return count_ != 0
 				? holder_.get()
-				: (throw "assert(count_ != 0)", holder_.get())
+				: (throw std::out_of_range("value_iterator<>: dereference at out of range"), holder_.get())
 				;
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return count_ != 0
 				? holder_.get_pointer()
-				: throw "assert(count_ != 0)"
+				: throw std::out_of_range("value_iterator<>: dereference at out of range")
 				;
 		}
 		value_iterator& operator++() {

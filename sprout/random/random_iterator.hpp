@@ -69,7 +69,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR random_iterator operator()() const {
 				return count_ != 0
 					? random_iterator(random_(), count_ > 0 ? count_ - 1 : count_)
-					: throw "assert(count_ != 0)"
+					: throw std::out_of_range("random_iterator<>: increment at out of range")
 					;
 			}
 			random_result_type& random_result() {
@@ -119,13 +119,13 @@ namespace sprout {
 			SPROUT_CONSTEXPR reference operator*() const {
 				return count_ != 0
 					? random_.result()
-					: (throw "assert(count_ != 0)", random_.result())
+					: (throw std::out_of_range("random_iterator<>: dereference at out of range"), random_.result())
 					;
 			}
 			SPROUT_CONSTEXPR pointer operator->() const {
 				return count_ != 0
 					? &random_.result()
-					: throw "assert(count_ != 0)"
+					: throw std::out_of_range("random_iterator<>: dereference at out of range")
 					;
 			}
 			random_iterator& operator++() {
@@ -188,7 +188,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR random_iterator operator()() const {
 				return count_ != 0
 					? random_iterator(random_(), count_ > 0 ? count_ - 1 : count_)
-					: throw "assert(count_ != 0)"
+					: throw std::out_of_range("random_iterator<>: increment at out of range")
 					;
 			}
 			random_result_type& random_result() {
@@ -232,13 +232,13 @@ namespace sprout {
 			SPROUT_CONSTEXPR reference operator*() const {
 				return count_ != 0
 					? random_.result()
-					: (throw "assert(count_ != 0)", random_.result())
+					: (throw std::out_of_range("random_iterator<>: dereference at out of range"), random_.result())
 					;
 			}
 			SPROUT_CONSTEXPR pointer operator->() const {
 				return count_ > 0
 					? &random_.result()
-					: throw "assert(count_ != 0)"
+					: throw std::out_of_range("random_iterator<>: dereference at out of range")
 					;
 			}
 			random_iterator& operator++() {

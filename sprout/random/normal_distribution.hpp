@@ -5,6 +5,7 @@
 #include <limits>
 #include <ios>
 #include <istream>
+#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/random/uniform_01.hpp>
 #include <sprout/random/random_result.hpp>
@@ -30,7 +31,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR RealType arg_check(RealType mean_arg, RealType sigma_arg) {
 				return arg_check_nothrow(mean_arg, sigma_arg)
 					? mean_arg
-					: throw "assert(sigma_arg >= RealType(0))"
+					: throw std::invalid_argument("normal_distribution<>: invalid argument (sigma_arg >= 0)")
 					;
 			}
 		public:

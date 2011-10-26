@@ -8,8 +8,8 @@
 namespace sprout {
 	namespace detail {
 		template<typename LeastInt>
-		struct int_fast_t { 
-			typedef LeastInt fast; 
+		struct int_fast_t {
+			typedef LeastInt fast;
 			typedef fast type;
 		};
 

@@ -43,7 +43,7 @@ namespace sprout {
 				UniformRandomNumberGenerator&& g
 				)
 			{
-				
+
 				return n > 0
 					? sprout::fixed::detail::make_shuffle_indexes_1(
 						n,

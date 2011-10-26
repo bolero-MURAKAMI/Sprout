@@ -54,9 +54,9 @@ namespace sprout {
 				;
 		}
 		static SPROUT_CONSTEXPR std::size_t length(char_type const* s) {
-    		return !*s ? 0
-    			: 1 + length(s + 1)
-    			;
+			return !*s ? 0
+				: 1 + length(s + 1)
+				;
 		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
 			return !n ? nullptr
@@ -115,9 +115,9 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR std::size_t length(ConstIterator s) {
-    		return !*s ? 0
-    			: 1 + length(s + 1)
-    			;
+			return !*s ? 0
+				: 1 + length(s + 1)
+				;
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
@@ -257,7 +257,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str(value_type const* s, size_type n) {
 			return !(N < n)
 				? from_c_str_impl(s, n, typename sprout::index_range<0, N>::type())
-				: throw "basic_string<>: index out of range"
+				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
 		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str(value_type const* s) {
@@ -465,7 +465,7 @@ namespace sprout {
 				? n == npos
 					? substr(pos, size() - pos)
 					: from_c_str(c_str() + pos, n)
-				: throw "basic_string<>: index out of range"
+				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
 		template<std::size_t N2>
@@ -486,13 +486,13 @@ namespace sprout {
 		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, basic_string<T, N2, Traits> const& str, size_type pos2, size_type n2) const {
 			return !(str.size() < pos2)
 				? compare(pos1, n1, str.begin() + pos2, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n2, str.size() - pos2))
-				: throw "basic_string<>: index out of range"
+				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
 		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, value_type const* s, size_type n2) const {
 			return !(size() < pos1)
 				? compare_impl_1(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, size() - pos1), s, n2)
-				: throw "basic_string<>: index out of range"
+				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
 		// others:
@@ -560,7 +560,7 @@ namespace sprout {
 		>::type compare(size_type pos1, size_type n1, ConstIterator s, size_type n2) const {
 			return !(size() < pos1)
 				? compare_impl_1(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, size() - pos1), s, n2)
-				: throw "basic_string<>: index out of range"
+				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
 #endif

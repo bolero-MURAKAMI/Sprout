@@ -1,6 +1,6 @@
 #ifndef SPROUT_ITERATOR_NEXT_HPP
 #define SPROUT_ITERATOR_NEXT_HPP
-	
+
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>

@@ -17,7 +17,7 @@ namespace sprout {
 		private:
 			typedef typename result_type::value_type value_type;
 		private:
-		    sprout::sha1 sha_;
+			sprout::sha1 sha_;
 		private:
 			SPROUT_CONSTEXPR result_type sha_to_uuid_1(sprout::sha1::value_type const& value) const {
 				return result_type{{

@@ -3,6 +3,7 @@
 
 #include <ios>
 #include <istream>
+#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
@@ -54,8 +55,8 @@ namespace sprout {
 							max_value,
 							numerator / divisor * (max_value - min_value) + min_value
 							)
-						: throw "assert(numerator >= 0 && numerator <= divisor)"
-					: throw "assert(divisor > 0)"
+						: throw std::domain_error("generate_uniform_real(): domain error (numerator >= 0 && numerator <= divisor)")
+					: throw std::domain_error("generate_uniform_real(): domain error (divisor > 0)")
 					;
 			}
 			template<typename Engine, typename T>
@@ -123,8 +124,8 @@ namespace sprout {
 							max_value,
 							numerator / divisor * (max_value - min_value) + min_value
 							)
-						: throw "assert(numerator >= 0 && numerator <= divisor)"
-					: throw "assert(divisor > 0)"
+						: throw std::domain_error("generate_uniform_real(): domain error (numerator >= 0 && numerator <= divisor)")
+					: throw std::domain_error("generate_uniform_real(): domain error (divisor > 0)")
 					;
 			}
 			template<typename Engine, typename T>
@@ -188,7 +189,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR RealType arg_check(RealType min_arg, RealType max_arg) {
 				return arg_check_nothrow(min_arg, max_arg)
 					? min_arg
-					: throw "assert(min_arg <= max_arg)"
+					: throw std::invalid_argument("uniform_real_distribution<>: invalid argument (min_arg <= max_arg)")
 					;
 			}
 		public:

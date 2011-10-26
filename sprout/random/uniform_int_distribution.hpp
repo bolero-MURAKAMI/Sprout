@@ -4,6 +4,7 @@
 #include <limits>
 #include <ios>
 #include <istream>
+#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
@@ -396,7 +397,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR IntType arg_check(IntType min_arg, IntType max_arg) {
 				return arg_check_nothrow(min_arg, max_arg)
 					? min_arg
-					: throw "assert(min_arg <= max_arg)"
+					: throw std::invalid_argument("uniform_int_distribution<>: invalid argument (min_arg <= max_arg)")
 					;
 			}
 		public:

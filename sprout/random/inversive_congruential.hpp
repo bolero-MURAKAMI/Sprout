@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <limits>
 #include <ios>
+#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/random_result.hpp>
@@ -37,7 +38,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR IntType arg_check(IntType const& x0) {
 				return arg_check_nothrow(x0)
 					? x0
-					: throw "assert(x0 >= static_min() && x0 <= static_max())"
+					: throw std::invalid_argument("inversive_congruential_engine<>: invalid argument (x0 >= static_min() && x0 <= static_max())")
 					;
 			}
 			static SPROUT_CONSTEXPR IntType init_seed_2(IntType const& x0) {

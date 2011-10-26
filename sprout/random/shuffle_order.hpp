@@ -6,6 +6,7 @@
 #include <limits>
 #include <ios>
 #include <istream>
+#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
@@ -102,7 +103,8 @@ namespace sprout {
 					k == 1 ? BaseUnsigned(0)
 						: brange < std::numeric_limits<BaseUnsigned>::max() / k ? BaseUnsigned(k * off / (brange + 1))
 						: brange < std::numeric_limits<std::uintmax_t>::max() / k ? static_cast<BaseUnsigned>(static_cast<std::uintmax_t>(off) * k / (static_cast<std::uintmax_t>(brange) + 1))
-						: /*static_cast<BaseUnsigned>(sprout::random::detail::muldiv(off, k, static_cast<std::uintmax_t>(brange) + 1))*/throw "Sorry, not implemented."
+						//: static_cast<BaseUnsigned>(sprout::random::detail::muldiv(off, k, static_cast<std::uintmax_t>(brange) + 1)) // ???
+						: throw std::domain_error("shuffle_order_engine<>: Sorry, not implemented.")
 					);
 			}
 		public:
