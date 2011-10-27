@@ -34,11 +34,11 @@ namespace sprout {
 		//
 		// count
 		//
-		template<typename Iterator, typename T>
-		SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type count(
-			Iterator first,
-			Iterator last,
-			T const & value
+		template<typename InputIterator, typename T>
+		SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type count(
+			InputIterator first,
+			InputIterator last,
+			T const& value
 			)
 		{
 			return first == last
@@ -50,26 +50,27 @@ namespace sprout {
 		//
 		// count_if
 		//
-		template<typename Iterator, typename Predicate>
-		SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type count_if(
-			Iterator first,
-			Iterator last,
+		template<typename InputIterator, typename Predicate>
+		SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type count_if(
+			InputIterator first,
+			InputIterator last,
 			Predicate pred
 			)
 		{
 			return first == last
 				? 0
-				: (pred(*first) ? 1 : 0) + sprout::detail::count_if(sprout::next(first), last, pred);
+				: (pred(*first) ? 1 : 0) + sprout::detail::count_if(sprout::next(first), last, pred)
+				;
 		}
 
 		//
 		// equal
 		//
-		template<typename Iterator1, typename Iterator2>
+		template<typename InputIterator1, typename InputIterator2>
 		SPROUT_CONSTEXPR bool equal(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2
 			)
 		{
 			return first1 == last1
@@ -77,28 +78,29 @@ namespace sprout {
 				: *first1 == *first2 && sprout::detail::equal(sprout::next(first1), last1, sprout::next(first2))
 				;
 		}
-		template<typename Iterator1, typename Iterator2, typename Predicate>
+		template<typename InputIterator1, typename InputIterator2, typename Predicate>
 		SPROUT_CONSTEXPR bool equal(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2,
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
 			Predicate pred
 			)
 		{
 			return first1 == last1
 				? true
-				: pred(*first1, *first2) && sprout::detail::equal(sprout::next(first1), last1, sprout::next(first2), pred);
+				: pred(*first1, *first2) && sprout::detail::equal(sprout::next(first1), last1, sprout::next(first2), pred)
+				;
 		}
 
 		//
 		// lexicographical_compare
 		//
-		template<typename Iterator1, typename Iterator2>
+		template<typename InputIterator1, typename InputIterator2>
 		SPROUT_CONSTEXPR bool lexicographical_compare(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2,
-			Iterator2 last2
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			InputIterator2 last2
 			)
 		{
 			return first2 == last2
@@ -107,14 +109,15 @@ namespace sprout {
 				? true
 				: *first2 < *first1
 				? false
-				: sprout::detail::lexicographical_compare(sprout::next(first1), last1, sprout::next(first2), last2);
+				: sprout::detail::lexicographical_compare(sprout::next(first1), last1, sprout::next(first2), last2)
+				;
 		}
-		template<typename Iterator1, typename Iterator2, typename Compare>
+		template<typename InputIterator1, typename InputIterator2, typename Compare>
 		SPROUT_CONSTEXPR bool lexicographical_compare(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2,
-			Iterator2 last2,
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			InputIterator2 last2,
 			Compare comp
 			)
 		{
@@ -124,14 +127,15 @@ namespace sprout {
 				? true
 				: comp(*first2, *first1)
 				? false
-				: sprout::detail::lexicographical_compare(sprout::next(first1), last1, sprout::next(first2), last2, comp);
+				: sprout::detail::lexicographical_compare(sprout::next(first1), last1, sprout::next(first2), last2, comp)
+				;
 		}
 
 		//
 		// find
 		//
-		template<typename Iterator, typename T>
-		SPROUT_CONSTEXPR Iterator find(Iterator first, Iterator last, T const& value) {
+		template<typename InputIterator, typename T>
+		SPROUT_CONSTEXPR InputIterator find(InputIterator first, InputIterator last, T const& value) {
 			return first == last || *first == value
 				? first
 				: sprout::detail::find(sprout::next(first), last, value)

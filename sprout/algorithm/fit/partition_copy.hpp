@@ -7,7 +7,9 @@
 #include <sprout/algorithm/fixed/partition_copy.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
+#include <sprout/detail/algorithm_ext.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
 	namespace fit {
@@ -24,7 +26,14 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_fixed(sprout::fixed::partition_copy(first, last, result, pred)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::count_if(first, last, pred), sprout::size(result))
+					offset + sprout::detail::count_n_if(
+						first,
+						NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(
+							NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last),
+							sprout::size(result)
+							),
+						pred
+						)
 					);
 			}
 		}	// namespace detail

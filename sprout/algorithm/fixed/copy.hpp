@@ -10,6 +10,7 @@
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/detail/container_complate.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
@@ -53,37 +54,15 @@ namespace sprout {
 					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last)
 					);
 			}
-			template<typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_impl_3(
-				Result const& result,
-				Args const&... args
-				)
-			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
-			}
-			template<typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_impl_3(
-				Result const& result,
-				Args const&... args
-				)
-			{
-				return copy_impl_3(result, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)));
-			}
 			template<typename InputIterator, typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_impl_2(
+			>::type copy_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
+				typename sprout::fixed_container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
@@ -93,58 +72,18 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_impl_2(
+			>::type copy_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
+				typename sprout::fixed_container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
-				return first != last && sizeof...(Args) < static_cast<std::size_t>(offset)
-					? copy_impl_2(sprout::next(first), last, result, offset, args..., *first)
-					: copy_impl_3(result, args...)
+				return first != last && sizeof...(Args) < size
+					? sprout::fixed::detail::copy_impl(sprout::next(first), last, result, size, args..., *first)
+					: sprout::detail::container_complate(result, args...)
 					;
-			}
-			template<typename InputIterator, typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_impl_1(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
-				Args const&... args
-				)
-			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
-			}
-			template<typename InputIterator, typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_impl_1(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
-				Args const&... args
-				)
-			{
-				return sizeof...(Args) < static_cast<std::size_t>(offset)
-					? copy_impl_1(first, last, result, offset, args..., *sprout::next(sprout::fixed_begin(result), sizeof...(Args)))
-					: copy_impl_2(first, last, result, offset + sprout::size(result), args...)
-					;
-			}
-			template<typename InputIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result
-				)
-			{
-				return copy_impl_1(first, last, result, sprout::fixed_begin_offset(result));
 			}
 			template<typename InputIterator, typename Result>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy(
@@ -157,7 +96,8 @@ namespace sprout {
 				return sprout::fixed::detail::copy_impl(
 					first,
 					last,
-					result
+					result,
+					sprout::size(result)
 					);
 			}
 		}	// namespace detail

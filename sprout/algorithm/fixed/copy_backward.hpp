@@ -10,6 +10,7 @@
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/detail/container_complate_backward.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
@@ -53,37 +54,15 @@ namespace sprout {
 					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last)
 					);
 			}
-			template<typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_backward_impl_3(
-				Result const& result,
-				Args const&... args
-				)
-			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
-			}
-			template<typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_backward_impl_3(
-				Result const& result,
-				Args const&... args
-				)
-			{
-				return copy_backward_impl_3(result, *sprout::prev(sprout::fixed_end(result), sizeof...(Args) + 1), args...);
-			}
 			template<typename BidirectionalIterator, typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_backward_impl_2(
+			>::type copy_backward_impl(
 				BidirectionalIterator first,
 				BidirectionalIterator last,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
+				typename sprout::fixed_container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
@@ -93,58 +72,18 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline typename std::enable_if<
 				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_backward_impl_2(
+			>::type copy_backward_impl(
 				BidirectionalIterator first,
 				BidirectionalIterator last,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
+				typename sprout::fixed_container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
-				return first != last && sizeof...(Args) < static_cast<std::size_t>(offset)
-					? copy_backward_impl_2(first, sprout::prev(last), result, offset, *sprout::prev(last), args...)
-					: copy_backward_impl_3(result, args...)
+				return first != last && sizeof...(Args) < size
+					? copy_backward_impl(first, sprout::prev(last), result, size, *sprout::prev(last), args...)
+					: sprout::detail::container_complate_backward(result, args...)
 					;
-			}
-			template<typename BidirectionalIterator, typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_backward_impl_1(
-				BidirectionalIterator first,
-				BidirectionalIterator last,
-				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
-				Args const&... args
-				)
-			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
-			}
-			template<typename BidirectionalIterator, typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_backward_impl_1(
-				BidirectionalIterator first,
-				BidirectionalIterator last,
-				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
-				Args const&... args
-				)
-			{
-				return sizeof...(Args) < static_cast<std::size_t>(offset)
-					? copy_backward_impl_1(first, last, result, offset, *sprout::prev(sprout::fixed_end(result), sizeof...(Args) + 1), args...)
-					: copy_backward_impl_2(first, last, result, offset + sprout::size(result), args...)
-					;
-			}
-			template<typename BidirectionalIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward_impl(
-				BidirectionalIterator first,
-				BidirectionalIterator last,
-				Result const& result
-				)
-			{
-				return copy_backward_impl_1(first, last, result, sprout::fixed_end_offset(result));
 			}
 			template<typename BidirectionalIterator, typename Result>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward(
@@ -157,7 +96,8 @@ namespace sprout {
 				return sprout::fixed::detail::copy_backward_impl(
 					first,
 					last,
-					result
+					result,
+					sprout::size(result)
 					);
 			}
 		}	// namespace detail

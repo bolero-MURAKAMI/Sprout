@@ -10,6 +10,8 @@
 #include <sprout/fixed_container/fixed_end.hpp>
 #include <sprout/fixed_container/fixed_begin_offset.hpp>
 #include <sprout/fixed_container/fixed_end_offset.hpp>
+#include <sprout/fixed_container/fixed_begin_offset_backward.hpp>
+#include <sprout/fixed_container/fixed_end_offset_backward.hpp>
 #include <sprout/fixed_container/get_fixed.hpp>
 #include <sprout/fixed_container/clone.hpp>
 #include <sprout/fixed_container/make_clone.hpp>
