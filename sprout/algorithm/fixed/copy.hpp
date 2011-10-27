@@ -93,12 +93,7 @@ namespace sprout {
 				void*
 				)
 			{
-				return sprout::fixed::detail::copy_impl(
-					first,
-					last,
-					result,
-					sprout::size(result)
-					);
+				return sprout::fixed::detail::copy_impl(first, last, result, sprout::size(result));
 			}
 		}	// namespace detail
 		//
@@ -112,12 +107,7 @@ namespace sprout {
 			)
 		{
 			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-			return sprout::fixed::detail::copy(
-				first,
-				last,
-				result,
-				category()
-				);
+			return sprout::fixed::detail::copy(first, last, result, category());
 		}
 	}	// namespace fixed
 
