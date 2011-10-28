@@ -81,7 +81,7 @@ namespace sprout {
 				)
 			{
 				return first != last && sizeof...(Args) < size
-					? copy_backward_impl(first, sprout::prev(last), result, size, *sprout::prev(last), args...)
+					? sprout::fixed::detail::copy_backward_impl(first, sprout::prev(last), result, size, *sprout::prev(last), args...)
 					: sprout::detail::container_complate_backward(result, args...)
 					;
 			}

@@ -113,7 +113,7 @@ namespace sprout {
 				)
 			{
 				return sizeof...(Args) < size
-					? generate_impl_1<InitSize>(cont, gen, size, args..., sprout::fixed::detail::call_gen<InitSize, Container>(gen, args...))
+					? sprout::fixed::detail::generate_impl_1<InitSize>(cont, gen, size, args..., sprout::fixed::detail::call_gen<InitSize, Container>(gen, args...))
 					: sprout::detail::container_complate(cont, args...)
 					;
 			}

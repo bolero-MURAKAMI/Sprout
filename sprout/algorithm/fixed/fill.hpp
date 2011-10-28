@@ -15,8 +15,8 @@ namespace sprout {
 			template<typename Container, typename T, std::ptrdiff_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type fill_impl(
 				Container const& cont,
-				sprout::index_tuple<Indexes...>,
 				T const& value,
+				sprout::index_tuple<Indexes...>,
 				typename sprout::fixed_container_traits<Container>::difference_type offset,
 				typename sprout::fixed_container_traits<Container>::size_type size
 				)
@@ -42,8 +42,8 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::fill_impl(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type(),
 				value,
+				typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type(),
 				sprout::fixed_begin_offset(cont),
 				sprout::size(cont)
 				);

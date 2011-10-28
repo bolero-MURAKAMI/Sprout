@@ -22,8 +22,8 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::fill_impl(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type(),
 				value,
+				typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type(),
 				sprout::fixed_begin_offset(cont),
 				n
 				);
