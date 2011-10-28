@@ -49,7 +49,10 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::value_type const& p
 				)
 			{	// left を見つける
-				return comp(*sprout::next(origin, l), p) ? sort_find_l<Container>(origin, comp, l + 1, p) : l;
+				return comp(*sprout::next(origin, l), p)
+					? sprout::fixed::detail::sort_find_l<Container>(origin, comp, l + 1, p)
+					: l
+					;
 			}
 			template<typename Container, typename Iterator, typename Compare>
 			SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::difference_type sort_find_r(
@@ -59,7 +62,10 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::value_type const& p
 				)
 			{	// right を見つける
-				return comp(p, *sprout::next(origin, r)) ? sort_find_r<Container>(origin, comp, r - 1, p) : r;
+				return comp(p, *sprout::next(origin, r))
+					? sprout::fixed::detail::sort_find_r<Container>(origin, comp, r - 1, p)
+					: r
+					;
 			}
 			template<typename Container>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type swap_lr(
@@ -75,7 +81,10 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::difference_type l
 				)
 			{	// 左側をソート
-				return start < l - 1 ? sort_start(cont, start, l - 1, comp) : sprout::clone(cont);
+				return start < l - 1
+					? sprout::fixed::detail::sort_start(cont, start, l - 1, comp)
+					: sprout::clone(cont)
+					;
 			}
 			template<typename Container, typename Compare>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_part_r(
@@ -85,7 +94,10 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::difference_type r
 				)
 			{	// 右側をソート
-				return r + 1 < end ? sort_start(cont, r + 1, end, comp) : sprout::clone(cont);
+				return r + 1 < end
+					? sprout::fixed::detail::sort_start(cont, r + 1, end, comp)
+					: sprout::clone(cont)
+					;
 			}
 			template<typename Container, typename Compare>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_part_lr(
@@ -97,7 +109,12 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::difference_type r
 				)
 			{	// 左右に分けてソート
-				return sort_part_r(sort_part_l(cont, start, comp, l), end, comp, r);
+				return sprout::fixed::detail::sort_part_r(
+					sprout::fixed::detail::sort_part_l(cont, start, comp, l),
+					end,
+					comp,
+					r
+					);
 			}
 			template<typename Container, typename Compare>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type sort_next(
@@ -111,8 +128,20 @@ namespace sprout {
 				)
 			{	// left と right 比較して、左右に分けてソートするか、またはスワップしてこの範囲のソートを続ける
 				return l >= r
-					? sort_part_lr(cont, start, end, comp, l, r)
-					: sort_lr(sprout::fixed::swap_element(cont, sprout::next(sprout::fixed_begin(cont), l), sprout::next(sprout::fixed_begin(cont), r)), start, end, comp, l + 1, r - 1, p)
+					? sprout::fixed::detail::sort_part_lr(cont, start, end, comp, l, r)
+					: sprout::fixed::detail::sort_lr(
+						sprout::fixed::swap_element(
+							cont,
+							sprout::next(sprout::fixed_begin(cont), l),
+							sprout::next(sprout::fixed_begin(cont), r)
+							),
+						start,
+						end,
+						comp,
+						l + 1,
+						r - 1,
+						p
+						)
 					;
 			}
 			template<typename Container, typename Compare>
@@ -126,13 +155,13 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::value_type const& p
 				)
 			{	// left と right を検索
-				return sort_next(
+				return sprout::fixed::detail::sort_next(
 					cont,
 					start,
 					end,
 					comp,
-					sort_find_l<Container>(sprout::fixed_begin(cont), comp, l, p),
-					sort_find_r<Container>(sprout::fixed_begin(cont), comp, r, p),
+					sprout::fixed::detail::sort_find_l<Container>(sprout::fixed_begin(cont), comp, l, p),
+					sprout::fixed::detail::sort_find_r<Container>(sprout::fixed_begin(cont), comp, r, p),
 					p
 					);
 			}
@@ -144,7 +173,15 @@ namespace sprout {
 				Compare comp
 				)
 			{	// pivot を選択してソートを開始
-				return sort_lr(cont, start, end, comp, start, end, sort_select_pivot<Container>(sprout::fixed_begin(cont), start, end));
+				return sprout::fixed::detail::sort_lr(
+					cont,
+					start,
+					end,
+					comp,
+					start,
+					end,
+					sprout::fixed::detail::sort_select_pivot<Container>(sprout::fixed_begin(cont), start, end)
+					);
 			}
 			template<typename Container, typename Compare>
 			SPROUT_CONSTEXPR inline typename std::enable_if<

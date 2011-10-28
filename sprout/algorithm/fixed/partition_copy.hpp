@@ -1,7 +1,6 @@
 #ifndef SPROUT_ALGORITHM_FIXED_PARTITION_COPY_HPP
 #define SPROUT_ALGORITHM_FIXED_PARTITION_COPY_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
