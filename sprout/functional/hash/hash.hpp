@@ -85,11 +85,11 @@ namespace sprout {
 				);
 		}
 
-		SPROUT_CONSTEXPR inline std::size_t hash_value_pointer_1(std::size_t x) {
+		inline std::size_t hash_value_pointer_1(std::size_t x) {
 			return x + (x >> 3);
 		}
 		template<typename T>
-		SPROUT_CONSTEXPR std::size_t hash_value_pointer(T* v) {
+		std::size_t hash_value_pointer(T const* v) {
 			return sprout::hash_detail::hash_value_pointer_1(static_cast<std::size_t>(reinterpret_cast<std::ptrdiff_t>(v)));
 		}
 	}	// namespace hash_detail
@@ -146,11 +146,20 @@ namespace sprout {
 	}
 
 	//
+	// to_hash
+	//
+	template<typename T>
+	SPROUT_CONSTEXPR std::size_t to_hash(T const& v) {
+		using sprout::hash_value;
+		return hash_value(v);
+	}
+
+	//
 	// hash_combine
 	//
 	template<typename T>
 	SPROUT_CONSTEXPR std::size_t hash_combine(std::size_t seed, T const& v) {
-		return seed ^ (sprout::hash<T>()(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2));
+		return seed ^ (sprout::to_hash(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2));
 	}
 
 	//
@@ -178,8 +187,7 @@ namespace sprout {
 		typedef std::size_t result_type;
 	public:
 		SPROUT_CONSTEXPR std::size_t operator()(T const& v) const {
-			using sprout::hash_value;
-			return hash_value(v);
+			return sprout::to_hash(v);
 		}
 	};
 
@@ -224,14 +232,24 @@ namespace sprout {
 #undef SPROUT_HASH_SPECIALIZE_REF
 
 	template<typename T>
-	struct hash<T*> {
+	struct hash<T const> {
 	public:
-		typedef T* argument_type;
+		typedef T argument_type;
 		typedef std::size_t result_type;
 	public:
-		SPROUT_CONSTEXPR std::size_t operator()(T* v) const {
+		SPROUT_CONSTEXPR std::size_t operator()(T const& v) const {
 			using sprout::hash_value;
 			return hash_value(v);
+		}
+	};
+	template<typename T>
+	struct hash<T const*> {
+	public:
+		typedef T const* argument_type;
+		typedef std::size_t result_type;
+	public:
+		std::size_t operator()(T const* v) const {
+			return sprout::to_hash(v);
 		}
 	};
 }	//namespace sprout

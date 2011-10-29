@@ -12,6 +12,12 @@ namespace sprout {
 	struct hash;
 
 	//
+	// to_hash
+	//
+	template<typename T>
+	SPROUT_CONSTEXPR std::size_t to_hash(T const& v);
+
+	//
 	// hash_combine
 	//
 	template<typename T>
