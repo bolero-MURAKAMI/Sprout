@@ -1,5 +1,5 @@
-#ifndef SPROUT_FUNCTIONAL_HASH_HPP
-#define SPROUT_FUNCTIONAL_HASH_HPP
+#ifndef SPROUT_FUNCTIONAL_HASH_HASH_HPP
+#define SPROUT_FUNCTIONAL_HASH_HASH_HPP
 
 #include <cstddef>
 #include <limits>
@@ -168,6 +168,21 @@ namespace sprout {
 			;
 	}
 
+	//
+	// hash
+	//
+	template<typename T>
+	struct hash {
+	public:
+		typedef T argument_type;
+		typedef std::size_t result_type;
+	public:
+		SPROUT_CONSTEXPR std::size_t operator()(T const& v) const {
+			using sprout::hash_value;
+			return hash_value(v);
+		}
+	};
+
 #define SPROUT_HASH_SPECIALIZE(type) \
 	template<> \
 	struct hash<type> { \
@@ -191,9 +206,6 @@ namespace sprout {
 		} \
 	}
 
-	//
-	// hash
-	//
 	SPROUT_HASH_SPECIALIZE(bool);
 	SPROUT_HASH_SPECIALIZE(char);
 	SPROUT_HASH_SPECIALIZE(wchar_t);
@@ -211,17 +223,18 @@ namespace sprout {
 #undef SPROUT_HASH_SPECIALIZE
 #undef SPROUT_HASH_SPECIALIZE_REF
 
-	template <class T>
+	template<typename T>
 	struct hash<T*> {
 	public:
 		typedef T* argument_type;
 		typedef std::size_t result_type;
 	public:
 		SPROUT_CONSTEXPR std::size_t operator()(T* v) const {
-			return sprout::hash_value(v);
+			using sprout::hash_value;
+			return hash_value(v);
 		}
 	};
 }	//namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_HASH_HPP
+#endif	// #ifndef SPROUT_FUNCTIONAL_HASH_HASH_HPP
 

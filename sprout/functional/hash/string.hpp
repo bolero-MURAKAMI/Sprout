@@ -7,7 +7,7 @@
 #include <sprout/string.hpp>
 
 namespace sprout {
-	template<typename T, std::size_t N, typename Traits = sprout::char_traits<T> >
+	template<typename T, std::size_t N, typename Traits>
 	SPROUT_CONSTEXPR std::size_t hash_value(sprout::basic_string<T, N, Traits> const& v) {
 		return sprout::hash_range(v.begin(), v.end());
 	}
