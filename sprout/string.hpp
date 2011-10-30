@@ -16,6 +16,7 @@
 #include <sprout/operation/fixed/append_back.hpp>
 #include <sprout/operation/fixed/append_front.hpp>
 #include <sprout/iterator.hpp>
+#include <sprout/utility/forward.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <algorithm>
@@ -746,31 +747,31 @@ namespace sprout {
 			static SPROUT_CONSTEXPR clone_type make_impl(typename clone_type::size_type size) {
 				return clone_type{{}, size};
 			}
-			template<std::size_t S, typename... Args>
+			template<std::size_t S, typename Head, typename... Tail>
 			static SPROUT_CONSTEXPR typename std::enable_if<
-				S != sizeof...(Args),
+				S == sizeof...(Tail),
 				clone_type
-			>::type make_impl(typename clone_type::size_type size, T const& head, Args const&... tail) {
-				return make_impl<S + 1>(size, tail..., S < size ? head : T());
+			>::type make_impl(typename clone_type::size_type size, Head&& head, Tail&&... tail) {
+				return clone_type{{sprout::forward<Tail>(tail)..., sprout::forward<Head>(head)}, size};
 			}
-			template<std::size_t S, typename... Args>
+			template<std::size_t S, typename Head, typename... Tail>
 			static SPROUT_CONSTEXPR typename std::enable_if<
-				S == sizeof...(Args),
+				S != sizeof...(Tail),
 				clone_type
-			>::type make_impl(typename clone_type::size_type size, T const& head, Args const&... tail) {
-				return clone_type{{tail..., head}, size};
+			>::type make_impl(typename clone_type::size_type size, Head&& head, Tail&&... tail) {
+				return make_impl<S + 1>(size, sprout::forward<Tail>(tail)..., S >= size ? T() : sprout::forward<Head>(head));
 			}
 		public:
 			static SPROUT_CONSTEXPR typename clone_type::size_type length() {
 				return 0;
 			}
 			template<typename... Tail>
-			static SPROUT_CONSTEXPR typename clone_type::size_type length(T const& head, Tail const&... tail) {
-				return !head ? 0 : 1 + length(tail...);
+			static SPROUT_CONSTEXPR typename clone_type::size_type length(T const& head, Tail&&... tail) {
+				return !head ? 0 : 1 + length(sprout::forward<Tail>(tail)...);
 			}
 			template<typename... Args>
-			static SPROUT_CONSTEXPR clone_type make(typename clone_type::size_type size, Args const&... args) {
-				return make_impl<0>(size, args...);
+			static SPROUT_CONSTEXPR clone_type make(typename clone_type::size_type size, Args&&... args) {
+				return make_impl<0>(size, sprout::forward<Args>(args)...);
 			}
 		};
 	}	// namespace detail
@@ -785,8 +786,8 @@ namespace sprout {
 		typedef sprout::detail::make_clone_functor_impl<container_type> impl_type;
 	public:
 		template<typename... Args>
-		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(Args const&... args) const {
-			return impl_type::make(impl_type::length(args...), args...);
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(Args&&... args) const {
+			return impl_type::make(impl_type::length(sprout::forward<Args>(args)...), sprout::forward<Args>(args)...);
 		}
 	};
 
@@ -801,21 +802,12 @@ namespace sprout {
 	public:
 		template<typename Other, typename... Args>
 		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(
-			Other& other,
+			Other&& other,
 			typename sprout::fixed_container_traits<container_type>::difference_type size,
-			Args const&... args
+			Args&&... args
 			) const
 		{
-			return impl_type::make(size, args...);
-		}
-		template<typename Other, typename... Args>
-		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(
-			Other const& other,
-			typename sprout::fixed_container_traits<container_type>::difference_type size,
-			Args const&... args
-			) const
-		{
-			return impl_type::make(size, args...);
+			return impl_type::make(size, sprout::forward<Args>(args)...);
 		}
 	};
 

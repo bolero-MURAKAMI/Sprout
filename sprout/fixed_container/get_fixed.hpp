@@ -22,7 +22,7 @@ namespace sprout {
 	//
 	template<typename Container>
 	SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type const& get_cfixed(Container const& cont) {
-		return sprout::get_fixed_functor<Container>()(cont);
+		return sprout::get_fixed_functor<Container>().template operator()(cont);
 	}
 
 	//
@@ -30,7 +30,7 @@ namespace sprout {
 	//
 	template<typename Container>
 	SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Container>::fixed_container_type get_fixed_copy(Container const& cont) {
-		return sprout::get_fixed_functor<Container>()(cont);
+		return sprout::get_fixed_functor<Container>().template operator()(cont);
 	}
 }	// namespace sprout
 

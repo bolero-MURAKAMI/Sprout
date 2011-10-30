@@ -99,7 +99,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Container, Container>(cont, sprout::size(cont), args...);
+				return sprout::remake_clone<Container>(cont, sprout::size(cont), args...);
 			}
 			template<std::size_t InitSize, typename Container, typename Generator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<

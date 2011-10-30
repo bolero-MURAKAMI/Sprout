@@ -9,6 +9,7 @@
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator.hpp>
 #include <sprout/iterator/value_iterator.hpp>
+#include <sprout/utility/forward.hpp>
 
 namespace sprout {
 	//
@@ -216,10 +217,8 @@ namespace sprout {
 	private:
 		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::clone_type clone_type;
 	public:
-		clone_type operator()(sprout::pit<Container>& cont) const {
-			return clone_type();
-		}
-		SPROUT_CONSTEXPR clone_type operator()(sprout::pit<Container> const& cont) const {
+		template<typename Other>
+		SPROUT_CONSTEXPR clone_type operator()(Other&& cont) const {
 			return clone_type();
 		}
 	};
@@ -234,8 +233,8 @@ namespace sprout {
 		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::internal_type internal_type;
 	public:
 		template<typename... Args>
-		SPROUT_CONSTEXPR clone_type operator()(Args const&... args) const {
-			return sprout::make_clone<internal_type>(args...);
+		SPROUT_CONSTEXPR clone_type operator()(Args&&... args) const {
+			return sprout::make_clone<internal_type>(sprout::forward<Args>(args)...);
 		}
 	};
 
@@ -249,22 +248,13 @@ namespace sprout {
 		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::internal_type internal_type;
 	public:
 		template<typename Other, typename... Args>
-		clone_type operator()(
-			Other& other,
-			typename sprout::fixed_container_traits<sprout::pit<Container> >::difference_type size,
-			Args const&... args
-			) const
-		{
-			return sprout::remake_clone<internal_type, Other>(other, size, args...);
-		}
-		template<typename Other, typename... Args>
 		SPROUT_CONSTEXPR clone_type operator()(
-			Other const& other,
+			Other&& other,
 			typename sprout::fixed_container_traits<sprout::pit<Container> >::difference_type size,
-			Args const&... args
+			Args&&... args
 			) const
 		{
-			return sprout::remake_clone<internal_type, Other>(other, size, args...);
+			return sprout::remake_clone<internal_type>(sprout::forward<Other>(other), size, sprout::forward<Args>(args)...);
 		}
 	};
 }	// namespace sprout

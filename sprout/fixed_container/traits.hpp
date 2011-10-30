@@ -5,6 +5,7 @@
 #include <array>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/utility/forward.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -114,6 +115,10 @@ namespace sprout {
 			return cont;
 		}
 	};
+	template<typename Container>
+	struct get_fixed_functor<Container const>
+		: public sprout::get_fixed_functor<Container>
+	{};
 
 	//
 	// clone_functor
@@ -121,13 +126,15 @@ namespace sprout {
 	template<typename Container>
 	struct clone_functor {
 	public:
-		typename sprout::fixed_container_traits<Container>::clone_type operator()(Container& cont) const {
-			return typename sprout::fixed_container_traits<Container>::clone_type(cont);
-		}
-		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(Container const& cont) const {
-			return typename sprout::fixed_container_traits<Container>::clone_type(cont);
+		template<typename Other>
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(Other&& cont) const {
+			return typename sprout::fixed_container_traits<Container>::clone_type(sprout::forward<Other>(cont));
 		}
 	};
+	template<typename Container>
+	struct clone_functor<Container const>
+		: public sprout::clone_functor<Container>
+	{};
 
 	//
 	// make_clone_functor
@@ -136,10 +143,14 @@ namespace sprout {
 	struct make_clone_functor {
 	public:
 		template<typename... Args>
-		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(Args const&... args) const {
-			return typename sprout::fixed_container_traits<Container>::clone_type{{args...}};
+		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(Args&&... args) const {
+			return typename sprout::fixed_container_traits<Container>::clone_type{{sprout::forward<Args>(args)...}};
 		}
 	};
+	template<typename Container>
+	struct make_clone_functor<Container const>
+		: public sprout::make_clone_functor<Container>
+	{};
 
 	//
 	// remake_clone_functor
@@ -148,24 +159,19 @@ namespace sprout {
 	struct remake_clone_functor {
 	public:
 		template<typename Other, typename... Args>
-		typename sprout::fixed_container_traits<Container>::clone_type operator()(
-			Other& other,
-			typename sprout::fixed_container_traits<Container>::difference_type size,
-			Args const&... args
-			) const
-		{
-			return sprout::make_clone_functor<Container>().template operator()(args...);
-		}
-		template<typename Other, typename... Args>
 		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<Container>::clone_type operator()(
-			Other const& other,
+			Other&& other,
 			typename sprout::fixed_container_traits<Container>::difference_type size,
-			Args const&... args
+			Args&&... args
 			) const
 		{
-			return sprout::make_clone_functor<Container>().template operator()(args...);
+			return sprout::make_clone_functor<Container>().template operator()(sprout::forward<Args>(args)...);
 		}
 	};
+	template<typename Container>
+	struct remake_clone_functor<Container const>
+		: public sprout::remake_clone_functor<Container>
+	{};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FIXED_CONTAINER_TRAITS_HPP

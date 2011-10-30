@@ -25,7 +25,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args..., head);
+				return sprout::remake_clone<Result>(result, sprout::size(result), args..., head);
 			}
 			template<typename InputIterator, typename Result, typename Head, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -79,7 +79,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args..., head);
+				return sprout::remake_clone<Result>(result, sprout::size(result), args..., head);
 			}
 			template<typename InputIterator, typename Result, typename BinaryPredicate, typename Head, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<

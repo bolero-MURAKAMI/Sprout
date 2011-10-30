@@ -36,7 +36,7 @@ namespace sprout {
 				Input const& input
 				)
 			{
-				return sprout::remake_clone<Result, Container>(
+				return sprout::remake_clone<Result>(
 					cont,
 					sprout::size(cont) + sprout::size(input),
 					(Indexes < sprout::fixed_container_traits<Container>::fixed_size + size

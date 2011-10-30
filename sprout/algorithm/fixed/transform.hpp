@@ -28,7 +28,7 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Result>::size_type input_size
 				)
 			{
-				return sprout::remake_clone<Result, Result>(
+				return sprout::remake_clone<Result>(
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
@@ -70,7 +70,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
+				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator, typename Result, typename UnaryOperation, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -131,7 +131,7 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Result>::size_type input_size
 				)
 			{
-				return sprout::remake_clone<Result, Result>(
+				return sprout::remake_clone<Result>(
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
@@ -176,7 +176,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
+				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename BinaryOperation, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<

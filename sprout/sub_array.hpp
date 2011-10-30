@@ -10,6 +10,7 @@
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/utility/forward.hpp>
 #include <sprout/detail/if.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -486,12 +487,28 @@ namespace sprout {
 	struct clone_functor<sprout::sub_array<Container> > {
 	private:
 		typedef typename sprout::fixed_container_traits<sprout::sub_array<Container> >::clone_type clone_type;
-	public:
-		clone_type operator()(sprout::sub_array<Container>& cont) const {
-			return clone_type(sprout::clone(sprout::get_fixed(cont)), sprout::fixed_begin_offset(cont), sprout::fixed_end_offset(cont));
+	private:
+		template<typename Other>
+		SPROUT_CONSTEXPR clone_type make(
+			Other&& cont,
+			typename sprout::fixed_container_traits<sprout::sub_array<Container> >::difference_type first,
+			typename sprout::fixed_container_traits<sprout::sub_array<Container> >::difference_type last
+			) const
+		{
+			return clone_type(
+				sprout::clone(sprout::get_fixed(sprout::forward<Other>(cont))),
+				first,
+				last
+				);
 		}
-		SPROUT_CONSTEXPR clone_type operator()(sprout::sub_array<Container> const& cont) const {
-			return clone_type(sprout::clone(sprout::get_fixed(cont)), sprout::fixed_begin_offset(cont), sprout::fixed_end_offset(cont));
+	public:
+		template<typename Other>
+		SPROUT_CONSTEXPR clone_type operator()(Other&& cont) const {
+			return make(
+				sprout::forward<Other>(cont),
+				sprout::fixed_begin_offset(cont),
+				sprout::fixed_end_offset(cont)
+				);
 		}
 	};
 
@@ -509,8 +526,8 @@ namespace sprout {
 		}
 	public:
 		template<typename... Args>
-		SPROUT_CONSTEXPR clone_type operator()(Args const&... args) const {
-			return make(sprout::make_clone<internal_type>(args...));
+		SPROUT_CONSTEXPR clone_type operator()(Args&&... args) const {
+			return make(sprout::make_clone<internal_type>(sprout::forward<Args>(args)...));
 		}
 	};
 
@@ -524,21 +541,8 @@ namespace sprout {
 		typedef typename sprout::fixed_container_traits<sprout::sub_array<Container> >::internal_type internal_type;
 	private:
 		template<typename Other>
-		clone_type remake(
-			Other& other,
-			typename sprout::fixed_container_traits<sprout::sub_array<Container> >::difference_type size,
-			typename sprout::fixed_container_traits<internal_type>::clone_type const& cloned
-			) const
-		{
-			return clone_type(
-				cloned,
-				sprout::next(sprout::begin(cloned), sprout::fixed_begin_offset(other)),
-				sprout::next(sprout::begin(cloned), sprout::fixed_begin_offset(other) + size)
-				);
-		}
-		template<typename Other>
 		SPROUT_CONSTEXPR clone_type remake(
-			Other const& other,
+			Other&& other,
 			typename sprout::fixed_container_traits<sprout::sub_array<Container> >::difference_type size,
 			typename sprout::fixed_container_traits<internal_type>::clone_type const& cloned
 			) const
@@ -551,22 +555,17 @@ namespace sprout {
 		}
 	public:
 		template<typename Other, typename... Args>
-		clone_type operator()(
-			Other& other,
-			typename sprout::fixed_container_traits<sprout::sub_array<Container> >::difference_type size,
-			Args const&... args
-			) const
-		{
-			return remake(other, size, sprout::make_clone<internal_type>(args...));
-		}
-		template<typename Other, typename... Args>
 		SPROUT_CONSTEXPR clone_type operator()(
-			Other const& other,
+			Other&& other,
 			typename sprout::fixed_container_traits<sprout::sub_array<Container> >::difference_type size,
-			Args const&... args
+			Args&&... args
 			) const
 		{
-			return remake(other, size, sprout::make_clone<internal_type>(args...));
+			return remake(
+				sprout::forward<Other>(other),
+				size,
+				sprout::make_clone<internal_type>(sprout::forward<Args>(args)...)
+				);
 		}
 	};
 

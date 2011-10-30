@@ -63,7 +63,7 @@ namespace sprout {
 				typename sprout::fixed_container_traits<Container>::size_type size
 				)
 			{
-				return sprout::remake_clone<Container, Container>(
+				return sprout::remake_clone<Container>(
 					cont,
 					sprout::size(cont),
 					(Indexes >= offset && Indexes < offset + size

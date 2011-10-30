@@ -28,7 +28,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
+				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<

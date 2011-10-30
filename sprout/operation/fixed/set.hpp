@@ -31,7 +31,7 @@ namespace sprout {
 				T const& v
 				)
 			{
-				return sprout::remake_clone<Result, Container>(
+				return sprout::remake_clone<Result>(
 					cont,
 					sprout::size(cont),
 					(Indexes != pos

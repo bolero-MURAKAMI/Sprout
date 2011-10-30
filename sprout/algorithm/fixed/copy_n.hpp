@@ -36,7 +36,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result, Result>(result, sprout::size(result), args...);
+				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator, typename Size, typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<

@@ -39,7 +39,7 @@ namespace sprout {
 				Values const&... values
 				)
 			{
-				return sprout::remake_clone<Result, Container>(
+				return sprout::remake_clone<Result>(
 					cont,
 					sprout::size(cont) + (1 + sizeof...(Values)) * N,
 					(Indexes < sprout::fixed_container_traits<Container>::fixed_size + (1 + sizeof...(Values)) * N
