@@ -629,11 +629,18 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<long double>::table_type sprout::math::detail::factorials<long double>::table;
 		}	// namespace detail
 		//
+		// factorial_limit
+		//
+		template<typename T>
+		SPROUT_CONSTEXPR std::size_t factorial_limit() {
+			return sprout::math::detail::factorials<T>::limit;
+		}
+		//
 		// factorial
 		//
 		template<typename T>
 		SPROUT_CONSTEXPR T factorial(std::size_t x) {
-			return x <= sprout::math::detail::factorials<T>::limit
+			return x <= sprout::math::factorial_limit<T>()
 				? sprout::math::detail::factorials<T>::table[x]
 				: throw std::invalid_argument("factorial(): argument limit exceeded")
 				;

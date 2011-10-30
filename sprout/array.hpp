@@ -11,6 +11,7 @@
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator.hpp>
+#include <sprout/utility/forward.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
@@ -245,13 +246,17 @@ namespace sprout {
 	//
 	// make_array
 	//
-	template<typename T, typename... Tail>
-	SPROUT_CONSTEXPR inline sprout::array<T, 1 + sizeof...(Tail)> make_array(T const& head, Tail const&... tail) {
-		return sprout::array<T, 1 + sizeof...(Tail)>{{head, tail...}};
+	template<typename T, typename... Types>
+	SPROUT_CONSTEXPR inline sprout::array<T, sizeof...(Types)> make_array(Types&&... args) {
+		return sprout::array<typename std::decay<T>::type, sizeof...(Types)>{{sprout::forward<Types>(args)...}};
 	}
-	template<typename T>
-	SPROUT_CONSTEXPR inline sprout::array<T, 0> make_array() {
-		return sprout::array<T, 0>{};
+
+	//
+	// make_common_array
+	//
+	template<typename... Types>
+	SPROUT_CONSTEXPR inline sprout::array<typename std::common_type<typename std::decay<Types>::type...>::type, sizeof...(Types)> make_common_array(Types&&... args) {
+		return sprout::array<typename std::common_type<typename std::decay<Types>::type...>::type, sizeof...(Types)>{{sprout::forward<Types>(args)...}};
 	}
 
 	namespace detail {
