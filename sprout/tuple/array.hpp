@@ -2,6 +2,7 @@
 #define SPROUT_TUPLE_ARRAY_HPP
 
 #include <cstddef>
+#include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>

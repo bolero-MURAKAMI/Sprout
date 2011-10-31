@@ -1062,24 +1062,6 @@ namespace std {
 		static_assert(I < N, "tuple_element<>: index out of range");
 		typedef T type;
 	};
-
-	//
-	// get
-	//
-	template<std::size_t I, typename T, std::size_t N, typename Traits>
-	T& get(sprout::basic_string<T, N, Traits>& t) SPROUT_NOEXCEPT {
-		static_assert(I < N, "get: index out of range");
-		return t[I];
-	}
-	template<std::size_t I, typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR T const& get(sprout::basic_string<T, N, Traits> const& t) SPROUT_NOEXCEPT {
-		static_assert(I < N, "get: index out of range");
-		return t[I];
-	}
-	template<std::size_t I, typename T, std::size_t N, typename Traits>
-	T&& get(sprout::basic_string<T, N, Traits>&& t) SPROUT_NOEXCEPT {
-		return std::move(std::get<I>(t));
-	}
 }	// namespace std
 
 #endif	// #ifndef SPROUT_STRING_HPP

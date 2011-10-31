@@ -280,24 +280,6 @@ namespace std {
 		static_assert(I < 16, "tuple_element<>: index out of range");
 		typedef sprout::uuids::uuid::value_type type;
 	};
-
-	//
-	// get
-	//
-	template<std::size_t I>
-	sprout::uuids::uuid::value_type& get(sprout::uuids::uuid& t) SPROUT_NOEXCEPT {
-		static_assert(I < 16, "get: index out of range");
-		return t[I];
-	}
-	template<std::size_t I>
-	SPROUT_CONSTEXPR sprout::uuids::uuid::value_type const& get(sprout::uuids::uuid const& t) SPROUT_NOEXCEPT {
-		static_assert(I < 16, "get: index out of range");
-		return t[I];
-	}
-	template<std::size_t I>
-	sprout::uuids::uuid::value_type&& get(sprout::uuids::uuid&& t) SPROUT_NOEXCEPT {
-		return std::move(std::get<I>(t));
-	}
 }	// namespace std
 
 #endif	// #ifndef SPROUT_UUID_UUID_HPP

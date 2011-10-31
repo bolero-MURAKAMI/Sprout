@@ -942,33 +942,6 @@ namespace std {
 			>::type
 		>::type type;
 	};
-
-	//
-	// get
-	//
-	template<std::size_t I, typename Container>
-	typename sprout::fixed_container_traits<sprout::sub_array<Container> >::value_type& get(
-		sprout::sub_array<Container>& t
-		) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::fixed_begin(t), I)))
-	{
-		static_assert(I < sprout::fixed_container_traits<sprout::sub_array<Container> >::fixed_size, "get: index out of range");
-		return *sprout::next(sprout::fixed_begin(t), I);
-	}
-	template<std::size_t I, typename Container>
-	SPROUT_CONSTEXPR typename sprout::fixed_container_traits<sprout::sub_array<Container> >::value_type const& get(
-		sprout::sub_array<Container> const& t
-		) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::fixed_begin(t), I)))
-	{
-		static_assert(I < sprout::fixed_container_traits<sprout::sub_array<Container> >::fixed_size, "get: index out of range");
-		return *sprout::next(sprout::fixed_begin(t), I);
-	}
-	template<std::size_t I, typename Container>
-	typename sprout::fixed_container_traits<sprout::sub_array<Container> >::value_type&& get(
-		sprout::sub_array<Container>&& t
-		) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::move(std::get<I>(t))))
-	{
-		return std::move(std::get<I>(t));
-	}
 }	// namespace std
 
 #endif	// #ifndef SPROUT_SUB_ARRAY_HPP
