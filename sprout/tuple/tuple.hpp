@@ -261,6 +261,18 @@ namespace sprout {
 			return sprout::tuples::tuple<Types&...>(args...);
 		}
 
+		//
+		// swap
+		//
+		template<typename... Types>
+		inline void swap(
+			sprout::tuples::tuple<Types...>& lhs,
+			sprout::tuples::tuple<Types...>& rhs
+			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		{
+			lhs.swap(rhs);
+		}
+
 		namespace detail {
 			template<std::size_t I, typename T>
 			struct tuple_element_impl;
@@ -281,6 +293,7 @@ namespace sprout {
 	using sprout::tuples::make_tuple;
 	using sprout::tuples::forward_as_tuple;
 	using sprout::tuples::tie;
+	using sprout::tuples::swap;
 }	// namespace sprout
 
 namespace std {
@@ -325,7 +338,8 @@ namespace sprout {
 		template<std::size_t I, typename T>
 		SPROUT_CONSTEXPR auto get(
 			T&& t
-			) SPROUT_NOEXCEPT -> decltype(std::get<I>(sprout::forward<T>(t)))
+			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::get<I>(sprout::forward<T>(t))))
+			-> decltype(std::get<I>(sprout::forward<T>(t)))
 		{
 			return std::get<I>(sprout::forward<T>(t));
 		}
@@ -371,20 +385,11 @@ namespace sprout {
 		{
 			return sprout::tuples::detail::get_helper<I>(t);
 		}
-
-		//
-		// swap
-		//
-		template<typename... Types>
-		inline void swap(tuple<Types...>& lhs, tuple<Types...>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
-			lhs.swap(rhs);
-		}
 	}	// namespace tuples
 
 	using sprout::tuples::tuple_size;
 	using sprout::tuples::tuple_element;
 	using sprout::tuples::get;
-	using sprout::tuples::swap;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_HPP

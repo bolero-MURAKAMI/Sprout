@@ -27,6 +27,8 @@ namespace sprout {
 			return std::move(std::get<I>(t));
 		}
 	}	// namespace tuples
+
+	using sprout::tuples::get;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_UUID_HPP

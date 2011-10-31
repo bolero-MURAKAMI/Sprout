@@ -27,6 +27,8 @@ namespace sprout {
 			return std::move(sprout::tuples::get<I>(t));
 		}
 	}	// namespace tuples
+
+	using sprout::tuples::get;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_SSCRISK_CEL_ARRAY_HPP
