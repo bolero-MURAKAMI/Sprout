@@ -261,48 +261,6 @@ namespace sprout {
 			return sprout::tuples::tuple<Types&...>(args...);
 		}
 
-		//
-		// tuple_size
-		//
-		template<typename T>
-		struct tuple_size;
-		template<typename T>
-		struct tuple_size<T const>
-			: public sprout::tuples::tuple_size<T>
-		{};
-		template<typename T>
-		struct tuple_size<T volatile>
-			: public sprout::tuples::tuple_size<T>
-		{};
-		template<typename T>
-		struct tuple_size<T const volatile>
-			: public sprout::tuples::tuple_size<T>
-		{};
-		template<typename... Types>
-		struct tuple_size<sprout::tuples::tuple<Types...> >
-			: public std::integral_constant<std::size_t, sizeof...(Types)>
-		{};
-
-		//
-		// tuple_element
-		//
-		template<std::size_t I, typename T>
-		struct tuple_element;
-		template<std::size_t I, typename T>
-		struct tuple_element<I, T const> {
-		public:
-			typedef typename std::add_const<typename sprout::tuples::tuple_element<I, T>::type>::type type;
-		};
-		template<std::size_t I, typename T>
-		struct tuple_element<I, T volatile> {
-		public:
-			typedef typename std::add_volatile<typename sprout::tuples::tuple_element<I, T>::type>::type type;
-		};
-		template<std::size_t I, typename T>
-		struct tuple_element<I, T const volatile> {
-		public:
-			typedef typename std::add_cv<typename sprout::tuples::tuple_element<I, T>::type>::type type;
-		};
 		namespace detail {
 			template<std::size_t I, typename T>
 			struct tuple_element_impl;
@@ -313,14 +271,64 @@ namespace sprout {
 			};
 			template<std::size_t I, typename Head, typename... Tail>
 			struct tuple_element_impl<I, sprout::tuples::tuple<Head, Tail...> >
-				: public sprout::tuples::tuple_element<I - 1, sprout::tuples::tuple<Tail...> >
+				: public sprout::tuples::detail::tuple_element_impl<I - 1, sprout::tuples::tuple<Tail...> >
 			{};
 		}	// namespace detail
-		template<std::size_t I, typename... Types>
-		struct tuple_element<I, sprout::tuples::tuple<Types...> >
-			: public sprout::tuples::detail::tuple_element_impl<I, sprout::tuples::tuple<Types...> >
+	}	// namespace tuples
+
+	using sprout::tuples::tuple;
+	using sprout::tuples::ignore;
+	using sprout::tuples::make_tuple;
+	using sprout::tuples::forward_as_tuple;
+	using sprout::tuples::tie;
+}	// namespace sprout
+
+namespace std {
+	//
+	// tuple_size
+	//
+	template<typename... Types>
+	struct tuple_size<sprout::tuples::tuple<Types...> >
+		: public std::integral_constant<std::size_t, sizeof...(Types)>
+	{};
+
+	//
+	// tuple_element
+	//
+	template<std::size_t I, typename... Types>
+	struct tuple_element<I, sprout::tuples::tuple<Types...> >
+		: public sprout::tuples::detail::tuple_element_impl<I, sprout::tuples::tuple<Types...> >
+	{};
+}	// namespace std
+
+namespace sprout {
+	namespace tuples {
+		//
+		// tuple_size
+		//
+		template<typename T>
+		struct tuple_size
+			: public std::tuple_size<T>
 		{};
 
+		//
+		// tuple_element
+		//
+		template<std::size_t I, typename T>
+		struct tuple_element
+			: public std::tuple_element<I, T>
+		{};
+
+		//
+		// get
+		//
+		template<std::size_t I, typename T>
+		SPROUT_CONSTEXPR auto get(
+			T&& t
+			) SPROUT_NOEXCEPT -> decltype(std::get<I>(sprout::forward<T>(t)))
+		{
+			return std::get<I>(sprout::forward<T>(t));
+		}
 		//
 		// get
 		//
@@ -342,23 +350,23 @@ namespace sprout {
 		}	// namespace detail
 		template<std::size_t I, typename... Types>
 		SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type& get(
-			tuple<Types...>& t
+			sprout::tuples::tuple<Types...>& t
 			) SPROUT_NOEXCEPT
 		{
 			return sprout::tuples::detail::get_helper<I>(t);
 		}
 		template<std::size_t I, typename... Types>
 		SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&& get(
-			tuple<Types...>&& t
+			sprout::tuples::tuple<Types...>&& t
 			) SPROUT_NOEXCEPT
 		{
-			return sprout::forward<typename tuple_element<I, sprout::tuples::tuple<Types...> >::type&&>(
+			return sprout::forward<typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&&>(
 				sprout::tuples::get<I>(t)
 				);
 		}
 		template<std::size_t I, typename... Types>
 		SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const& get(
-			tuple<Types...> const& t
+			sprout::tuples::tuple<Types...> const& t
 			) SPROUT_NOEXCEPT
 		{
 			return sprout::tuples::detail::get_helper<I>(t);
@@ -373,33 +381,10 @@ namespace sprout {
 		}
 	}	// namespace tuples
 
-	using sprout::tuples::tuple;
-	using sprout::tuples::ignore;
-	using sprout::tuples::make_tuple;
-	using sprout::tuples::forward_as_tuple;
-	using sprout::tuples::tie;
 	using sprout::tuples::tuple_size;
 	using sprout::tuples::tuple_element;
 	using sprout::tuples::get;
 	using sprout::tuples::swap;
 }	// namespace sprout
-
-namespace std {
-	//
-	// tuple_size
-	//
-	template<typename... Types>
-	struct tuple_size<sprout::tuples::tuple<Types...> >
-		: public sprout::tuples::tuple_size<sprout::tuples::tuple<Types...> >
-	{};
-
-	//
-	// tuple_element
-	//
-	template<std::size_t I, typename... Types>
-	struct tuple_element<I, sprout::tuples::tuple<Types...> >
-		: public sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >
-	{};
-}	// namespace std
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_HPP
