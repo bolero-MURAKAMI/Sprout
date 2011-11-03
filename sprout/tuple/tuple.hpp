@@ -6,7 +6,7 @@
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
-#include <sprout/utility/forward.hpp>
+#include <sprout/utility/operation.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -71,6 +71,24 @@ namespace sprout {
 				void swap(tuple_impl&) SPROUT_NOEXCEPT {}
 			public:
 				tuple_impl() = default;
+				template<typename... UTypes>
+				SPROUT_CONSTEXPR explicit tuple_impl(UTypes&&... args) SPROUT_NOEXCEPT {}
+				SPROUT_CONSTEXPR tuple_impl(tuple_impl const&) = default;
+				SPROUT_CONSTEXPR tuple_impl(tuple_impl&&) = default;
+				template<typename... UTypes>
+				SPROUT_CONSTEXPR tuple_impl(tuple_impl<Index, UTypes...> const& t) SPROUT_NOEXCEPT {}
+				template<typename... UTypes>
+				SPROUT_CONSTEXPR tuple_impl(tuple_impl<Index, UTypes...>&& t) SPROUT_NOEXCEPT {}
+				tuple_impl& operator=(tuple_impl const&) = default;
+				tuple_impl& operator=(tuple_impl&& t) = default;
+				template<typename... UTypes>
+				tuple_impl& operator=(sprout::tuples::detail::tuple_impl<Index, UTypes...> const&) SPROUT_NOEXCEPT {
+					return *this;
+				}
+				template<typename... UTypes>
+				tuple_impl& operator=(sprout::tuples::detail::tuple_impl<Index, UTypes...>&&) SPROUT_NOEXCEPT {
+					return *this;
+				}
 			};
 			template<std::size_t Index, typename Head, typename... Tail>
 			class tuple_impl<Index, Head, Tail...>
@@ -87,7 +105,7 @@ namespace sprout {
 				static SPROUT_CONSTEXPR Head& head(tuple_impl& t) SPROUT_NOEXCEPT {
 					return base_type::head(t);
 				}
-				static SPROUT_CONSTEXPR const Head& head(tuple_impl const& t) SPROUT_NOEXCEPT {
+				static SPROUT_CONSTEXPR Head const& head(tuple_impl const& t) SPROUT_NOEXCEPT {
 					return base_type::head(t);
 				}
 				static SPROUT_CONSTEXPR inherited_type& tail(tuple_impl& t) SPROUT_NOEXCEPT {
@@ -115,7 +133,7 @@ namespace sprout {
 					: inherited_type(tail...)
 					, base_type(h)
 				{}
-				template<typename UHead, typename... UTail, typename = typename std::enable_if<sizeof...(Tail) == sizeof...(UTail)>::type>
+				template<typename UHead, typename... UTail>
 				SPROUT_CONSTEXPR explicit tuple_impl(UHead&& h, UTail&&... tail)
 					: inherited_type(sprout::forward<UTail>(tail)...)
 					, base_type(sprout::forward<UHead>(h))
@@ -123,7 +141,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl const&) = default;
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl&& t)
 				SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_constructible<Head>::value && std::is_nothrow_move_constructible<inherited_type>::value)
-					: inherited_type(std::move(tail(t)))
+					: inherited_type(sprout::move(tail(t)))
 					, base_type(sprout::forward<Head>(head(t)))
 				{}
 				template<typename... UTypes>
@@ -133,8 +151,16 @@ namespace sprout {
 				{}
 				template<typename UHead, typename... UTail>
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl<Index, UHead, UTail...>&& t)
-					: inherited_type(std::move(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::tail(t)))
+					: inherited_type(sprout::move(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::tail(t)))
 					, base_type(sprout::forward<UHead>(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::head(t)))
+				{}
+				SPROUT_CONSTEXPR tuple_impl(tuple_impl<Index> const& t)
+					: inherited_type()
+					, base_type()
+				{}
+				SPROUT_CONSTEXPR tuple_impl(tuple_impl<Index>&& t)
+					: inherited_type()
+					, base_type()
 				{}
 				tuple_impl& operator=(tuple_impl const& t) {
 					head(*this) = head(t);
@@ -145,7 +171,7 @@ namespace sprout {
 				SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<Head>::value && std::is_nothrow_move_assignable<inherited_type>::value)
 				{
 					head(*this) = sprout::forward<Head>(head(t));
-					tail(*this) = std::move(tail(t));
+					tail(*this) = sprout::move(tail(t));
 					return *this;
 				}
 				template<typename... UTypes>
@@ -157,7 +183,15 @@ namespace sprout {
 				template<typename UHead, typename... UTail>
 				tuple_impl& operator=(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>&& t) {
 					head(*this) = sprout::forward<UHead>(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::head(t));
-					tail(*this) = std::move(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::tail(t));
+					tail(*this) = sprout::move(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::tail(t));
+					return *this;
+				}
+				tuple_impl& operator=(sprout::tuples::detail::tuple_impl<Index> const& t) {
+					*this = sprout::move(tuple_impl());
+					return *this;
+				}
+				tuple_impl& operator=(sprout::tuples::detail::tuple_impl<Index>&& t) {
+					*this = sprout::move(tuple_impl());
 					return *this;
 				}
 			};
@@ -180,17 +214,17 @@ namespace sprout {
 			SPROUT_CONSTEXPR explicit tuple(Types const&... elements)
 				: inherited_type(elements...)
 			{}
-			template<typename... UTypes, typename = typename std::enable_if<sizeof...(UTypes) == sizeof...(Types)>::type>
+			template<typename... UTypes>
 			SPROUT_CONSTEXPR explicit tuple(UTypes&&... elements)
 				: inherited_type(sprout::forward<UTypes>(elements)...)
 			{}
 			SPROUT_CONSTEXPR tuple(tuple const &) = default;
 			SPROUT_CONSTEXPR tuple(tuple&&) = default;
-			template<typename... UTypes, typename = typename std::enable_if<sizeof...(UTypes) == sizeof...(Types)>::type>
+			template<typename... UTypes>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...> const& t)
 				: inherited_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...> const&>(t))
 			{}
-			template<typename... UTypes, typename = typename std::enable_if<sizeof...(UTypes) == sizeof...(Types)>::type>
+			template<typename... UTypes>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...>&& t)
 				: inherited_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...>&&>(t))
 			{}
@@ -200,17 +234,17 @@ namespace sprout {
 				return *this;
 			}
 			tuple& operator=(tuple&& rhs) SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<inherited_type>::value) {
-				static_cast<inherited_type&>(*this) = std::move(rhs);
+				static_cast<inherited_type&>(*this) = sprout::move(rhs);
 				return *this;
 			}
-			template<typename... UTypes, typename = typename std::enable_if<sizeof...(UTypes) == sizeof...(Types)>::type>
+			template<typename... UTypes>
 			tuple& operator=(sprout::tuples::tuple<UTypes...> const& rhs) {
 				static_cast<inherited_type&>(*this) = rhs;
 				return *this;
 			}
-			template<typename... UTypes, typename = typename std::enable_if<sizeof...(UTypes) == sizeof...(Types)>::type>
+			template<typename... UTypes>
 			tuple& operator=(sprout::tuples::tuple<UTypes...>&& rhs) {
-				static_cast<inherited_type&>(*this) = std::move(rhs);
+				static_cast<inherited_type&>(*this) = sprout::move(rhs);
 				return *this;
 			}
 			// tuple swap

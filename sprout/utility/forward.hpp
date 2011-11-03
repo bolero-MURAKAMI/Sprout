@@ -17,4 +17,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_FORWARD_HPP
-
