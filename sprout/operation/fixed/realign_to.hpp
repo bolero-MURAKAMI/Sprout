@@ -17,11 +17,7 @@ namespace sprout {
 			template<typename Result, typename Container>
 			struct realign_to {
 			public:
-				typedef typename sprout::rebind_fixed_size<
-					Result
-				>::template apply<
-					sprout::fixed_container_traits<Container>::fixed_size
-				>::type type;
+				typedef typename sprout::fixed_container_traits<Result>::clone_type type;
 			};
 		}	// namespace result_of
 

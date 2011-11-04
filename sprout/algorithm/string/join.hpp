@@ -1,12 +1,13 @@
 #ifndef SPROUT_ALGORITHM_STRING_JOIN_HPP
 #define SPROUT_ALGORITHM_STRING_JOIN_HPP
 
+#include <cstddef>
+#include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/operation/fixed/append_back.hpp>
 
 namespace sprout {
 	namespace algorithm {
@@ -14,92 +15,109 @@ namespace sprout {
 			//
 			// join
 			//
-			template<typename ContainerContainer, typename Separator>
+			template<typename ContainerContainer>
 			struct join {
 			public:
 				typedef typename sprout::rebind_fixed_size<
 					typename sprout::fixed_container_traits<ContainerContainer>::value_type
 				>::template apply<
-					sprout::fixed_container_traits<ContainerContainer>::fixed_size != 0
-						? (
-							sprout::fixed_container_traits<
-								typename sprout::fixed_container_traits<ContainerContainer>::value_type
-							>::fixed_size
-							+ (sprout::fixed_container_traits<ContainerContainer>::fixed_size - 1) * (
-								sprout::fixed_container_traits<Separator>::fixed_size
-								+ sprout::fixed_container_traits<
-									typename sprout::fixed_container_traits<ContainerContainer>::value_type
-								>::fixed_size
-								)
-							)
-						: 0
+					sprout::fixed_container_traits<
+						typename sprout::fixed_container_traits<ContainerContainer>::value_type
+					>::fixed_size
+					* sprout::fixed_container_traits<ContainerContainer>::fixed_size
 				>::type type;
 			};
 		}	// namespace result_of
 
 		namespace detail {
-			template<typename Result, typename ContainerIterator, typename Separator, typename Container>
+			template<typename Result, typename ContainerInputIterator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				(sprout::fixed_container_traits<Container>::fixed_size == sprout::fixed_container_traits<Result>::fixed_size),
+				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				Result
+			>::type join_impl(
+				ContainerInputIterator first_cont,
+				ContainerInputIterator last_cont,
+				Args const&... args
+				);
+			template<typename Result, typename ContainerInputIterator, typename... Args>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				Result
+			>::type join_impl(
+				ContainerInputIterator first_cont,
+				ContainerInputIterator last_cont,
+				Args const&... args
+				);
+			template<typename Result, typename ContainerInputIterator, typename InputIterator, typename... Args>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
 				Result
 			>::type join_impl_1(
-				ContainerIterator first,
-				ContainerIterator last,
-				Separator const& separator,
-				Container const& current
+				ContainerInputIterator first_cont,
+				ContainerInputIterator last_cont,
+				InputIterator first,
+				InputIterator last,
+				Args const&... args
 				)
 			{
-				return current;
+				return sprout::make_clone<Result>(args...);
 			}
-			template<typename Result, typename ContainerIterator, typename Separator, typename Container>
+			template<typename Result, typename ContainerInputIterator, typename InputIterator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				(sprout::fixed_container_traits<Container>::fixed_size < sprout::fixed_container_traits<Result>::fixed_size),
+				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
 				Result
 			>::type join_impl_1(
-				ContainerIterator first,
-				ContainerIterator last,
-				Separator const& separator,
-				Container const& current
-				)
-			{
-				return sprout::algorithm::detail::join_impl_1<Result>(
-					sprout::next(first),
-					last,
-					separator,
-					sprout::fixed::append_back(sprout::fixed::append_back(current, separator), *first)
-					);
-			}
-			template<typename Result, typename ContainerIterator, typename Separator>
-			SPROUT_CONSTEXPR inline Result join_impl(
-				ContainerIterator first,
-				ContainerIterator last,
-				Separator const& separator
+				ContainerInputIterator first_cont,
+				ContainerInputIterator last_cont,
+				InputIterator first,
+				InputIterator last,
+				Args const&... args
 				)
 			{
 				return first != last
-					? sprout::algorithm::detail::join_impl_1<Result>(
-						sprout::next(first),
-						last,
-						separator,
-						*first
-						)
-					: sprout::make_clone<Result>()
+					? sprout::algorithm::detail::join_impl_1<Result>(first_cont, last_cont, sprout::next(first), last, args..., *first)
+					: sprout::algorithm::detail::join_impl<Result>(sprout::next(first_cont), last_cont, args...)
+					;
+			}
+			template<typename Result, typename ContainerInputIterator, typename... Args>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				Result
+			>::type join_impl(
+				ContainerInputIterator first_cont,
+				ContainerInputIterator last_cont,
+				Args const&... args
+				)
+			{
+				return sprout::make_clone<Result>(args...);
+			}
+			template<typename Result, typename ContainerInputIterator, typename... Args>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				Result
+			>::type join_impl(
+				ContainerInputIterator first_cont,
+				ContainerInputIterator last_cont,
+				Args const&... args
+				)
+			{
+				return first_cont != last_cont
+					? sprout::algorithm::detail::join_impl_1<Result>(first_cont, last_cont, sprout::begin(*first_cont), sprout::end(*first_cont), args...)
+					: sprout::make_clone<Result>(args...)
 					;
 			}
 		}	// namespace detail
 		//
 		// join
 		//
-		template<typename ContainerContainer, typename Separator>
-		SPROUT_CONSTEXPR inline typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type join(
-			ContainerContainer const& cont_cont,
-			Separator const& separator
+		template<typename ContainerContainer>
+		SPROUT_CONSTEXPR inline typename sprout::algorithm::result_of::join<ContainerContainer>::type join(
+			ContainerContainer const& cont_cont
 			)
 		{
-			return sprout::algorithm::detail::join_impl<typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type>(
+			return sprout::algorithm::detail::join_impl<typename sprout::algorithm::result_of::join<ContainerContainer>::type>(
 				sprout::begin(cont_cont),
-				sprout::end(cont_cont),
-				separator
+				sprout::end(cont_cont)
 				);
 		}
 	}	// namespace algorithm
