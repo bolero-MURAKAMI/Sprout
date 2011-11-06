@@ -22,6 +22,9 @@ constexpr コンテナ
 constexpr タプル
     sprout/tuple.hpp
 
+constexpr バリアント
+    sprout/variant.hpp
+
 constexpr アルゴリズム
     sprout/algorithm.hpp
     sprout/numeric.hpp
@@ -43,6 +46,9 @@ constexpr ハッシュ関数
 
 constexpr UUID
     sprout/uuid.hpp
+
+型リスト
+    sprout/type.hpp
 
 コンテナアダプタ
     sprout/sub_array.hpp
