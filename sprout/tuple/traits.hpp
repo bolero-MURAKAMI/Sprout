@@ -3,6 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/type/rebind_types.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -24,20 +25,9 @@ namespace sprout {
 		// rebind_types
 		//
 		template<typename Tuple>
-		struct rebind_types {
-		public:
-			template<typename... Types>
-			struct apply;
-		};
-		template<typename... Ts>
-		struct rebind_types<sprout::tuples::tuple<Ts...> > {
-		public:
-			template<typename... Types>
-			struct apply {
-			public:
-				typedef sprout::tuples::tuple<Types...> type;
-			};
-		};
+		struct rebind_types
+			: public sprout::types::rebind_types<Tuple>
+		{};
 
 		//
 		// clone_functor
@@ -93,7 +83,6 @@ namespace sprout {
 	}	// namespace tuples
 
 	using sprout::tuples::tuple_traits;
-	using sprout::tuples::rebind_types;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_TRAITS_HPP

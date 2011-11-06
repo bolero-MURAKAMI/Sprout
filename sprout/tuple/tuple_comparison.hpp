@@ -46,7 +46,7 @@ namespace sprout {
 			};
 		}	// namespace detail
 		template<typename... TTypes, typename... UTypes>
-		bool SPROUT_CONSTEXPR inline operator==(
+		SPROUT_CONSTEXPR inline bool operator==(
 			sprout::tuples::tuple<TTypes...> const& lhs,
 			sprout::tuples::tuple<UTypes...> const& rhs
 			)
@@ -62,7 +62,7 @@ namespace sprout {
 				>::eq(lhs, rhs);
 		}
 		template<typename... TTypes, typename... UTypes>
-		bool SPROUT_CONSTEXPR inline operator<(
+		SPROUT_CONSTEXPR inline bool operator<(
 			sprout::tuples::tuple<TTypes...> const& lhs,
 			sprout::tuples::tuple<UTypes...> const& rhs
 			)
@@ -78,7 +78,7 @@ namespace sprout {
 				>::less(lhs, rhs);
 		}
 		template<typename... TTypes, typename... UTypes>
-		bool SPROUT_CONSTEXPR inline operator!=(
+		SPROUT_CONSTEXPR inline bool operator!=(
 			sprout::tuples::tuple<TTypes...> const& lhs,
 			sprout::tuples::tuple<UTypes...> const& rhs
 			)
@@ -86,7 +86,7 @@ namespace sprout {
 			return !(lhs == rhs);
 		}
 		template<typename... TTypes, typename... UTypes>
-		bool SPROUT_CONSTEXPR inline operator>(
+		SPROUT_CONSTEXPR inline bool operator>(
 			sprout::tuples::tuple<TTypes...> const& lhs,
 			sprout::tuples::tuple<UTypes...> const& rhs
 			)
@@ -94,7 +94,7 @@ namespace sprout {
 			return rhs < lhs;
 		}
 		template<typename... TTypes, typename... UTypes>
-		bool SPROUT_CONSTEXPR inline operator<=(
+		SPROUT_CONSTEXPR inline bool operator<=(
 			sprout::tuples::tuple<TTypes...> const& lhs,
 			sprout::tuples::tuple<UTypes...> const& rhs
 			)
@@ -102,7 +102,7 @@ namespace sprout {
 			return !(rhs < lhs);
 		}
 		template<typename... TTypes, typename... UTypes>
-		bool SPROUT_CONSTEXPR inline operator>=(
+		SPROUT_CONSTEXPR inline bool operator>=(
 			sprout::tuples::tuple<TTypes...> const& lhs,
 			sprout::tuples::tuple<UTypes...> const& rhs
 			)

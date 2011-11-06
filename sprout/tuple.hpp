@@ -3,6 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
-#include <sprout/tuple/tuple_comparison.hpp>
+#include <sprout/tuple/traits.hpp>
 
 #endif	// #ifndef SPROUT_TUPLE_HPP

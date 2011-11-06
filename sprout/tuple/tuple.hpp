@@ -229,7 +229,7 @@ namespace sprout {
 				: inherited_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...>&&>(t))
 			{}
 			// tuple assignment
-			tuple& operator=(const tuple& rhs) {
+			tuple& operator=(tuple const& rhs) {
 				static_cast<inherited_type&>(*this) = rhs;
 				return *this;
 			}
@@ -248,7 +248,7 @@ namespace sprout {
 				return *this;
 			}
 			// tuple swap
-			void swap(tuple& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(other.swap(other))) {
+			void swap(tuple& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(inherited_type::swap(other))) {
 				inherited_type::swap(other);
 			}
 		};
@@ -425,5 +425,7 @@ namespace sprout {
 	using sprout::tuples::tuple_element;
 	using sprout::tuples::get;
 }	// namespace sprout
+
+#include <sprout/tuple/tuple_comparison.hpp>
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_HPP

@@ -4,8 +4,9 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/tuple/traits.hpp>
+#include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/type/operation/append_front.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -14,25 +15,9 @@ namespace sprout {
 			// append_front
 			//
 			template<typename Tuple, typename InputTuple>
-			struct append_front {
-			private:
-				template<typename IndexTuple1, typename IndexTuple2>
-				struct apply_impl;
-				template<std::ptrdiff_t... Indexes1, std::ptrdiff_t... Indexes2>
-				struct apply_impl<sprout::index_tuple<Indexes1...>, sprout::index_tuple<Indexes2...> >
-					: public sprout::tuples::rebind_types<
-						Tuple
-					>::template apply<
-						typename sprout::tuples::tuple_element<Indexes2, InputTuple>::type...,
-						typename sprout::tuples::tuple_element<Indexes1, Tuple>::type...
-					>
-				{};
-			public:
-				typedef typename apply_impl<
-					typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type,
-					typename sprout::index_range<0, sprout::tuples::tuple_size<InputTuple>::value>::type
-				>::type type;
-			};
+			struct append_front
+				: public sprout::types::append_front<Tuple, InputTuple>
+			{};
 		}	// namespace result_of
 
 		namespace detail {

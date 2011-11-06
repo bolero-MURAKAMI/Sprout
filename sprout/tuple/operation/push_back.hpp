@@ -4,8 +4,9 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/tuple/traits.hpp>
+#include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/type/operation/push_back.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -14,24 +15,9 @@ namespace sprout {
 			// push_back
 			//
 			template<typename Tuple, typename T>
-			struct push_back {
-			private:
-				template<typename IndexTuple>
-				struct apply_impl;
-				template<std::ptrdiff_t... Indexes>
-				struct apply_impl<sprout::index_tuple<Indexes...>>
-					: public sprout::tuples::rebind_types<
-						Tuple
-					>::template apply<
-						typename sprout::tuples::tuple_element<Indexes, Tuple>::type...,
-						T
-					>
-				{};
-			public:
-				typedef typename apply_impl<
-					typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type
-				>::type type;
-			};
+			struct push_back
+				: public sprout::types::push_back<Tuple, T>
+			{};
 		}	// namespace result_of
 
 		namespace detail {
