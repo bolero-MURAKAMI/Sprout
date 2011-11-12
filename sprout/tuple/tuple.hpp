@@ -61,7 +61,7 @@ namespace sprout {
 			};
 
 			template<std::size_t Index, typename... Types>
-			class tuple_impl; 
+			class tuple_impl;
 			template<std::size_t Index>
 			class tuple_impl<Index> {
 			public:
@@ -200,7 +200,7 @@ namespace sprout {
 		//
 		// tuple
 		//
-		template<typename... Types> 
+		template<typename... Types>
 		class tuple
 			: public sprout::tuples::detail::tuple_impl<0, Types...>
 		{

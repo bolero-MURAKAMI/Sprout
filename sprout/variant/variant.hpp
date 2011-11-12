@@ -114,6 +114,23 @@ namespace sprout {
 				: output<I + 1>(os, t, which)
 				;
 		}
+		template<int I, typename Tuple, typename Visitor>
+		static SPROUT_CONSTEXPR typename std::enable_if<
+			I == sizeof...(Types),
+			typename Visitor::result_type
+		>::type visit(Tuple&& t, Visitor&& v, int which) {
+			return typename Visitor::result_type();
+		}
+		template<int I, typename Tuple, typename Visitor>
+		static SPROUT_CONSTEXPR typename std::enable_if<
+			I != sizeof...(Types),
+			typename Visitor::result_type
+		>::type visit(Tuple&& t, Visitor&& v, int which) {
+			return I == which
+				? sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)))
+				: visit<I + 1>(sprout::forward<Tuple>(t), sprout::forward<Visitor>(v), which)
+				;
+		}
 	private:
 		using impl_type::tuple_;
 		using impl_type::which_;
@@ -149,7 +166,7 @@ namespace sprout {
 			return which_;
 		}
 		SPROUT_CONSTEXPR bool empty() const {
-			return sizeof...(Types) == 0;
+			return false;
 		}
 		// relational
 		friend SPROUT_CONSTEXPR bool operator==(variant const& lhs, variant const& rhs) {
@@ -177,6 +194,7 @@ namespace sprout {
 		friend std::basic_ostream<Elem, Traits>& operator<<(std::basic_ostream<Elem, Traits>& lhs, variant const& rhs) {
 			return output<0>(lhs, rhs.tuple_, rhs.which_);
 		}
+		// get support
 		template<typename U>
 		SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::types::find_index<tuple_type, U>::value != sizeof...(Types),
@@ -196,6 +214,15 @@ namespace sprout {
 				? sprout::tuples::get<sprout::types::find_index<tuple_type, U>::value>(tuple_)
 				: (throw std::domain_error("variant<>: bad get"), sprout::tuples::get<sprout::types::find_index<tuple_type, U>::value>(tuple_))
 				;
+		}
+		// visitation support
+		template<typename Visitor>
+		SPROUT_CONSTEXPR typename Visitor::result_type apply_visitor(Visitor&& visitor) const {
+			return visit(tuple_, sprout::forward<Visitor>(visitor), which_);
+		}
+		template<typename Visitor>
+		typename Visitor::result_type apply_visitor(Visitor&& visitor) {
+			return visit(tuple_, sprout::forward<Visitor>(visitor), which_);
 		}
 	};
 
@@ -217,6 +244,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename... Types>
+
 	struct tuple_size<sprout::variant<Types...> >
 		: public std::tuple_size<typename sprout::variant<Types...>::tuple_tyep>
 	{};
