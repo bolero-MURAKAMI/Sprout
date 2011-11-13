@@ -4,27 +4,13 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
+#include <sprout/ctype/ascii.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
-#include <sscrisk/cel/cctype.hpp>
 
 namespace sprout {
 	namespace weed {
-		//
-		// alnum_p
-		// alpha_p
-		// blank_p
-		// cntrl_p
-		// digit_p
-		// graph_p
-		// print_p
-		// punct_p
-		// space_p
-		// xdigit_p
-		// lower_p
-		// upper_p
-		//
 #define SPROUT_WEED_DEFINE_CTYPE_P(NAME, ISNAME) \
 		template<bool Nil = false> \
 		struct NAME \
@@ -55,12 +41,27 @@ namespace sprout {
 			{ \
 				typedef typename result<Context, Iterator>::type result_type; \
 				typedef typename attribute<Context, Iterator>::type attribute_type; \
-				return first != last && sscrisk::cel::ISNAME(*first) \
+				return first != last && sprout::ascii::ISNAME(*first) \
 					? result_type(true, sprout::next(first), *first) \
 					: result_type(false, first, attribute_type()) \
 					; \
 			} \
 		}
+
+		//
+		// alnum_p
+		// alpha_p
+		// blank_p
+		// cntrl_p
+		// digit_p
+		// graph_p
+		// print_p
+		// punct_p
+		// space_p
+		// xdigit_p
+		// lower_p
+		// upper_p
+		//
 		SPROUT_WEED_DEFINE_CTYPE_P(alnum_p, isalnum);
 		SPROUT_WEED_DEFINE_CTYPE_P(alpha_p, isalpha);
 		SPROUT_WEED_DEFINE_CTYPE_P(blank_p, isblank);
@@ -73,7 +74,9 @@ namespace sprout {
 		SPROUT_WEED_DEFINE_CTYPE_P(xdigit_p, isxdigit);
 		SPROUT_WEED_DEFINE_CTYPE_P(lower_p, islower);
 		SPROUT_WEED_DEFINE_CTYPE_P(upper_p, isupper);
+
 #undef SPROUT_WEED_DEFINE_CTYPE_P
+
 		//
 		// alnum
 		// alpha
