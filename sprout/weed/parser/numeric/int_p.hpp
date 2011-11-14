@@ -1,5 +1,5 @@
-#ifndef SPROUT_WEED_PARSER_NUMERIC_UINT_P_HPP
-#define SPROUT_WEED_PARSER_NUMERIC_UINT_P_HPP
+#ifndef SPROUT_WEED_PARSER_NUMERIC_INT_P_HPP
+#define SPROUT_WEED_PARSER_NUMERIC_INT_P_HPP
 
 #include <cstddef>
 #include <sprout/config.hpp>
@@ -14,27 +14,27 @@
 namespace sprout {
 	namespace weed {
 		//
-		// uint_p
+		// int_p
 		//
 		template<
-			typename UIntType,
+			typename IntType,
 			std::size_t Radix = 10,
 			std::size_t MinDigits = 1,
-			std::size_t MaxDigits = sprout::integer_digits<UIntType, Radix>::value
+			std::size_t MaxDigits = sprout::integer_digits<IntType, Radix>::value
 		>
-		struct uint_p
+		struct int_p
 			: public sprout::weed::parser_base
 		{
 		private:
-			SPROUT_STATIC_CONSTEXPR std::size_t limit_digits = MaxDigits <= sprout::integer_digits<UIntType, Radix>::value
+			SPROUT_STATIC_CONSTEXPR std::size_t limit_digits = MaxDigits <= sprout::integer_digits<IntType, Radix>::value
 				? MaxDigits
-				: sprout::integer_digits<UIntType, Radix>::value
+				: sprout::integer_digits<IntType, Radix>::value
 				;
 		public:
 			template<typename Context, typename Iterator>
 			struct attribute {
 			public:
-				typedef UIntType type;
+				typedef IntType type;
 			};
 			template<typename Context, typename Iterator>
 			struct result {
@@ -63,7 +63,7 @@ namespace sprout {
 				Iterator first,
 				Iterator last,
 				Iterator temp_first,
-				UIntType t,
+				IntType t,
 				std::size_t n,
 				PResult const& res
 				) const
@@ -76,13 +76,13 @@ namespace sprout {
 							sprout::next(first),
 							last,
 							temp_first,
-							static_cast<UIntType>(t * Radix + sprout::tuples::get<0>(res)),
+							static_cast<IntType>(t * Radix + sprout::tuples::get<0>(res)),
 							n
 							)
 						: result_type(
 							true,
 							sprout::next(first),
-							static_cast<UIntType>(t * Radix + sprout::tuples::get<0>(res))
+							static_cast<IntType>(t * Radix + sprout::tuples::get<0>(res))
 							)
 					: N < MinDigits
 						? result_type(false, temp_first, attribute_type())
@@ -97,7 +97,7 @@ namespace sprout {
 				Iterator first,
 				Iterator last,
 				Iterator temp_first,
-				UIntType t,
+				IntType t,
 				std::size_t n,
 				PResult const& res
 				) const
@@ -109,7 +109,7 @@ namespace sprout {
 						sprout::next(first),
 						last,
 						temp_first,
-						static_cast<UIntType>(t * Radix + sprout::tuples::get<0>(res)),
+						static_cast<IntType>(t * Radix + sprout::tuples::get<0>(res)),
 						n
 						)
 					: N < MinDigits
@@ -122,7 +122,7 @@ namespace sprout {
 				Iterator first,
 				Iterator last,
 				Iterator temp_first,
-				UIntType t,
+				IntType t,
 				std::size_t n
 				) const
 			{
@@ -135,7 +135,7 @@ namespace sprout {
 						temp_first,
 						t,
 						n + 1,
-						sprout::weed::detail::from_ndigit<Radix, UIntType>(*first)
+						sprout::weed::detail::from_ndigit<Radix, IntType>(*first)
 						)
 					: N < MinDigits
 						? result_type(false, temp_first, attribute_type())
@@ -167,15 +167,24 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type call(
 				Iterator first,
 				Iterator last,
-				Iterator temp_first
+				Iterator temp_first,
+				int sign = 0
 				) const
 			{
-				return call_i<Context>(
-					first,
-					last,
-					temp_first,
-					sprout::weed::detail::from_ndigit<Radix, UIntType>(*first)
-					);
+				typedef typename result<Context, Iterator>::type result_type;
+				typedef typename attribute<Context, Iterator>::type attribute_type;
+				return first != last
+					? make_result<Context, Iterator>(
+						call_i<Context>(
+							first,
+							last,
+							temp_first,
+							sprout::weed::detail::from_ndigit<Radix, IntType>(*first)
+							),
+						sign
+						)
+					: result_type(false, temp_first, attribute_type())
+					;
 			}
 		public:
 			template<typename Context, typename Iterator>
@@ -185,14 +194,29 @@ namespace sprout {
 				Context const&
 				) const
 			{
+				typedef typename std::iterator_traits<Iterator>::value_type elem_type;
 				typedef typename result<Context, Iterator>::type result_type;
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return first != last
-					? call<Context>(
-						first,
-						last,
-						first
-						)
+					? *first == elem_type('+')
+						? call<Context>(
+							sprout::next(first),
+							last,
+							first,
+							1
+							)
+						: *first == elem_type('-')
+							? call<Context>(
+								sprout::next(first),
+								last,
+								first,
+								-1
+								)
+							: call<Context>(
+								first,
+								last,
+								first
+								)
 					: result_type(false, first, attribute_type())
 					;
 			}
@@ -200,5 +224,5 @@ namespace sprout {
 	}	// namespace weed
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_WEED_PARSER_NUMERIC_UINT_P_HPP
+#endif	// #ifndef SPROUT_WEED_PARSER_NUMERIC_INT_P_HPP
 

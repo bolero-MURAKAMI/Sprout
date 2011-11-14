@@ -9,9 +9,9 @@
 namespace sprout {
 	namespace weed {
 		//
-		// uint
+		// uint_
 		//
-		SPROUT_STATIC_CONSTEXPR auto uint = sprout::weed::uint_p<std::uintmax_t, 10, -1>();
+		SPROUT_STATIC_CONSTEXPR auto uint_ = sprout::weed::uint_p<std::uintmax_t, 10, 1, -1>();
 
 		//
 		// uint8
