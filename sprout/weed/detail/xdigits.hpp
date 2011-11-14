@@ -6,6 +6,8 @@
 #include <sprout/string.hpp>
 #include <sprout/array.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
 namespace sprout {
 	namespace weed {
