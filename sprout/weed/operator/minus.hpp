@@ -1,5 +1,5 @@
-#ifndef SPROUT_WEED_OPERATOR_ADDRESS_OF_HPP
-#define SPROUT_WEED_OPERATOR_ADDRESS_OF_HPP
+#ifndef SPROUT_WEED_OPERATOR_MINUS_HPP
+#define SPROUT_WEED_OPERATOR_MINUS_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -13,25 +13,31 @@
 namespace sprout {
 	namespace weed {
 		//
-		// operator&
+		// operator-
 		//
 		template<
-			typename Arg,
+			typename Arg1,
+			typename Arg2,
 			typename = typename std::enable_if<
 				sprout::weed::traits::is_parser<
-					typename sprout::weed::detail::uncvref<Arg>::type
+					typename sprout::weed::detail::uncvref<Arg1>::type
+				>::value
+				&& sprout::weed::traits::is_parser<
+					typename sprout::weed::detail::uncvref<Arg2>::type
 				>::value
 			>::type
 		>
 		SPROUT_CONSTEXPR inline typename sprout::weed::traits::expr_of<
-			sprout::weed::tag::address_of,
-			Arg
-		>::type operator&(Arg&& arg) {
-			return sprout::weed::make_expr<sprout::weed::tag::address_of>(
-				sprout::forward<Arg>(arg)
+			sprout::weed::tag::minus,
+			Arg1,
+			Arg2
+		>::type operator-(Arg1&& arg1, Arg2&& arg2) {
+			return sprout::weed::make_expr<sprout::weed::tag::minus>(
+				sprout::forward<Arg1>(arg1),
+				sprout::forward<Arg2>(arg2)
 				);
 		}
 	}	// namespace weed
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_WEED_OPERATOR_ADDRESS_OF_HPP
+#endif	// #ifndef SPROUT_WEED_OPERATOR_MINUS_HPP

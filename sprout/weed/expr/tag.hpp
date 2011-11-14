@@ -8,11 +8,13 @@ namespace sprout {
 		namespace tag {
 			struct terminal {};
 			struct unary_plus {};
+			struct negate {};
 			struct dereference {};
 			struct address_of {};
 			struct logical_not {};
 			struct shift_left {};
 			struct modulus {};
+			struct minus {};
 			struct bitwise_or {};
 		}	// namespace tag
 	}	// namespace weed

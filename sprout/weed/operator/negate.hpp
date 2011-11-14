@@ -1,5 +1,5 @@
-#ifndef SPROUT_WEED_OPERATOR_ADDRESS_OF_HPP
-#define SPROUT_WEED_OPERATOR_ADDRESS_OF_HPP
+#ifndef SPROUT_WEED_OPERATOR_NEGATE_HPP
+#define SPROUT_WEED_OPERATOR_NEGATE_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -13,7 +13,7 @@
 namespace sprout {
 	namespace weed {
 		//
-		// operator&
+		// operator-
 		//
 		template<
 			typename Arg,
@@ -24,14 +24,14 @@ namespace sprout {
 			>::type
 		>
 		SPROUT_CONSTEXPR inline typename sprout::weed::traits::expr_of<
-			sprout::weed::tag::address_of,
+			sprout::weed::tag::negate,
 			Arg
-		>::type operator&(Arg&& arg) {
-			return sprout::weed::make_expr<sprout::weed::tag::address_of>(
+		>::type operator-(Arg&& arg) {
+			return sprout::weed::make_expr<sprout::weed::tag::negate>(
 				sprout::forward<Arg>(arg)
 				);
 		}
 	}	// namespace weed
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_WEED_OPERATOR_ADDRESS_OF_HPP
+#endif	// #ifndef SPROUT_WEED_OPERATOR_NEGATE_HPP

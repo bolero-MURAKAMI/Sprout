@@ -71,6 +71,12 @@ namespace sprout {
 				>
 			{};
 			template<typename Arg, typename Iterator, typename Context>
+			struct attribute_of<sprout::weed::expr<sprout::weed::tag::negate, Arg>, Iterator, Context>
+				: public sprout::weed::attr_cnv::result_of::negate<
+					typename sprout::weed::traits::attribute_of<Arg, Iterator, Context>::type
+				>
+			{};
+			template<typename Arg, typename Iterator, typename Context>
 			struct attribute_of<sprout::weed::expr<sprout::weed::tag::dereference, Arg>, Iterator, Context>
 				: public sprout::weed::attr_cnv::result_of::times<
 					sprout::weed::traits::limit_of<Arg, Iterator, Context>::value,
@@ -101,6 +107,11 @@ namespace sprout {
 					typename sprout::weed::traits::attribute_of<Arg1, Iterator, Context>::type
 				>
 			{};
+			template<typename Arg1, typename Arg2, typename Iterator, typename Context>
+			struct attribute_of<sprout::weed::expr<sprout::weed::tag::minus, Arg1, Arg2>, Iterator, Context> {
+			public:
+				typedef typename sprout::weed::traits::attribute_of<Arg1, Iterator, Context>::type type;
+			};
 			template<typename Arg1, typename Arg2, typename Iterator, typename Context>
 			struct attribute_of<sprout::weed::expr<sprout::weed::tag::bitwise_or, Arg1, Arg2>, Iterator, Context>
 				: public sprout::weed::attr_cnv::result_of::bitwise_or<
