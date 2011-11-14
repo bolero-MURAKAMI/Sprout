@@ -8,6 +8,7 @@
 #include <sprout/weed/limited.hpp>
 #include <sprout/weed/expr/tag.hpp>
 #include <sprout/weed/expr/eval.hpp>
+#include <sprout/weed/attr_cnv/result_of/times.hpp>
 #include <sprout/weed/attr_cnv/times.hpp>
 #include <sprout/weed/traits/expr/tag_of.hpp>
 #include <sprout/weed/traits/parser/attribute_of.hpp>
@@ -36,7 +37,10 @@ namespace sprout {
 			typedef typename sprout::weed::traits::limit_of<expr_type, Iterator, context_type>::type limit;
 			typedef typename sprout::weed::traits::attribute_of<expr_type, Iterator, context_type>::type attr_type;
 		public:
-			typedef typename sprout::weed::traits::attribute_of<Expr, Iterator, context_type>::type attribute_type;
+			typedef typename sprout::weed::attr_cnv::result_of::times<
+				limit::value,
+				typename sprout::weed::traits::attribute_of<expr_type, Iterator, context_type>::type
+			>::type attribute_type;
 			typedef sprout::weed::eval_result<context_type, Iterator, attribute_type> result_type;
 		private:
 			template<typename Result, typename Head, typename... Attrs>

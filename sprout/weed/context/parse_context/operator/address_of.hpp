@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/weed/unused.hpp>
 #include <sprout/weed/eval_result.hpp>
 #include <sprout/weed/expr/tag.hpp>
 #include <sprout/weed/expr/eval.hpp>
@@ -30,7 +31,7 @@ namespace sprout {
 		private:
 			typedef sprout::weed::parse_context<Iterator> context_type;
 		public:
-			typedef typename sprout::weed::traits::attribute_of<Expr, Iterator, context_type>::type attribute_type;
+			typedef sprout::weed::unused attribute_type;
 			typedef sprout::weed::eval_result<context_type, Iterator, attribute_type> result_type;
 		public:
 			SPROUT_CONSTEXPR result_type operator()(

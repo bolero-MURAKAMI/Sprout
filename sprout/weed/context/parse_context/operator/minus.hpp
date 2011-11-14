@@ -29,8 +29,10 @@ namespace sprout {
 		> {
 		private:
 			typedef sprout::weed::parse_context<Iterator> context_type;
+			typedef typename sprout::tuples::tuple_element<0, typename Expr::args_type>::type expr1_type;
+			typedef typename sprout::tuples::tuple_element<1, typename Expr::args_type>::type expr2_type;
 		public:
-			typedef typename sprout::weed::traits::attribute_of<Expr, Iterator, context_type>::type attribute_type;
+			typedef typename sprout::weed::traits::attribute_of<expr1_type, Iterator, context_type>::type attribute_type;
 			typedef sprout::weed::eval_result<context_type, Iterator, attribute_type> result_type;
 		private:
 			template<typename Result1>
