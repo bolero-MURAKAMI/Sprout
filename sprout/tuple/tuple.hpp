@@ -129,7 +129,7 @@ namespace sprout {
 					: inherited_type()
 					, base_type()
 				{}
-				SPROUT_CONSTEXPR explicit tuple_impl(const Head& h, Tail const&... tail)
+				SPROUT_CONSTEXPR explicit tuple_impl(Head const& h, Tail const&... tail)
 					: inherited_type(tail...)
 					, base_type(h)
 				{}
@@ -215,10 +215,15 @@ namespace sprout {
 				: inherited_type(elements...)
 			{}
 			template<typename... UTypes>
-			SPROUT_CONSTEXPR explicit tuple(UTypes&&... elements)
-				: inherited_type(sprout::forward<UTypes>(elements)...)
+			SPROUT_CONSTEXPR explicit tuple(UTypes const&... elements)
+				: inherited_type(elements...)
 			{}
-			SPROUT_CONSTEXPR tuple(tuple const &) = default;
+			// !!!
+//			template<typename... UTypes>
+//			SPROUT_CONSTEXPR explicit tuple(UTypes&&... elements)
+//				: inherited_type(sprout::forward<UTypes>(elements)...)
+//			{}
+			SPROUT_CONSTEXPR tuple(tuple const&) = default;
 			SPROUT_CONSTEXPR tuple(tuple&&) = default;
 			template<typename... UTypes>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...> const& t)
