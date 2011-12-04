@@ -140,6 +140,7 @@ namespace sprout {
 			: impl_type()
 		{}
 		variant(variant const&) = default;
+		variant(variant&&) = default;
 		template<typename T>
 		SPROUT_CONSTEXPR variant(T&& operand)
 			: impl_type(sprout::forward<T>(operand), sprout::types::find_index<tuple_type, T>())
