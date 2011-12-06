@@ -12,6 +12,20 @@ namespace sprout {
 		template<typename Tuple>
 		struct rebind_types;
 
+		template<typename Tuple>
+		struct rebind_types<Tuple const> {
+		public:
+			template<typename... Types>
+			struct apply {
+			public:
+				typedef typename sprout::types::rebind_types<
+					Tuple
+				>::template apply<
+					Types...
+				>::type const type;
+			};
+		};
+
 		template<typename... Ts>
 		struct rebind_types<sprout::types::type_tuple<Ts...> > {
 		public:
