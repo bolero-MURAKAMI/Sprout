@@ -41,7 +41,7 @@ namespace sprout {
 						lights,
 						camera.template operator()(
 							static_cast<typename Camera::unit_type>(x) / width - 0.5,
-							static_cast<typename Camera::unit_type>(y) / height - 0.5
+							-(static_cast<typename Camera::unit_type>(y) / height - 0.5)
 							),
 						depth_max
 						);

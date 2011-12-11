@@ -56,7 +56,7 @@ namespace sprout {
 					sprout::darkroom::coords::scale(sprout::darkroom::rays::direction(ray), dist)
 					);
 			}
-		}	// namespace ray
+		}	// namespace rays
 	}	// namespace darkroom
 }	// namespace sprout
 
