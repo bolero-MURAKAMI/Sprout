@@ -35,32 +35,32 @@ namespace sprout {
 			// calc_color
 			// calc_reflection
 			//
-			template<typename Image, typename Position, typename Normal>
-			SPROUT_CONSTEXPR auto calc_color(Image&& t, Position const&, Normal const&) SPROUT_NOEXCEPT
-				-> decltype(t)
+			template<typename Image, typename Unit>
+			SPROUT_CONSTEXPR auto calc_color(Image&& t, Unit const& u, Unit const& v) SPROUT_NOEXCEPT
+				-> decltype(sprout::forward<Image>(t).template operator()(u, v))
 			{
-				return t;
+				return sprout::forward<Image>(t).template operator()(u, v);
 			}
-			template<typename Image, typename Position, typename Normal>
-			SPROUT_CONSTEXPR auto calc_reflection(Image&& t, Position const&, Normal const&) SPROUT_NOEXCEPT
-				-> decltype(t)
+			template<typename Image, typename Unit>
+			SPROUT_CONSTEXPR auto calc_reflection(Image&& t, Unit const& u, Unit const& v) SPROUT_NOEXCEPT
+				-> decltype(sprout::forward<Image>(t).template operator()(u, v))
 			{
-				return t;
+				return sprout::forward<Image>(t).template operator()(u, v);
 			}
 
 			//
 			// calc_material
 			//
-			template<typename Material, typename Position, typename Normal>
-			SPROUT_CONSTEXPR auto calc_material(Material const& mat, Position const& pos, Normal const& nor)
+			template<typename Material, typename Unit>
+			SPROUT_CONSTEXPR auto calc_material(Material const& mat, Unit const& u, Unit const& v)
 				-> decltype(sprout::tuples::make_tuple(
-					sprout::darkroom::materials::calc_color(sprout::darkroom::materials::color(mat), pos, nor),
-					sprout::darkroom::materials::calc_reflection(sprout::darkroom::materials::reflection(mat), pos, nor)
+					sprout::darkroom::materials::calc_color(sprout::darkroom::materials::color(mat), u, v),
+					sprout::darkroom::materials::calc_reflection(sprout::darkroom::materials::reflection(mat), u, v)
 					))
 			{
 				return sprout::tuples::make_tuple(
-					sprout::darkroom::materials::calc_color(sprout::darkroom::materials::color(mat), pos, nor),
-					sprout::darkroom::materials::calc_reflection(sprout::darkroom::materials::reflection(mat), pos, nor)
+					sprout::darkroom::materials::calc_color(sprout::darkroom::materials::color(mat), u, v),
+					sprout::darkroom::materials::calc_reflection(sprout::darkroom::materials::reflection(mat), u, v)
 					);
 			}
 
@@ -77,6 +77,46 @@ namespace sprout {
 			// material
 			//
 			typedef sprout::tuples::tuple<sprout::darkroom::colors::rgb_f, double> material;
+
+			//
+			// uniform_element
+			//
+			template<typename Element>
+			class uniform_element {
+			public:
+				typedef Element result_type;
+			private:
+				result_type elem_;
+			public:
+				SPROUT_CONSTEXPR explicit uniform_element(result_type const& elem)
+					: elem_(elem)
+				{}
+				template<typename Unit>
+				SPROUT_CONSTEXPR result_type operator()(Unit const&, Unit const&) const {
+					return elem_;
+				}
+			};
+			//
+			// make_uniform
+			//
+			template<typename Element>
+			SPROUT_CONSTEXPR sprout::darkroom::materials::uniform_element<Element>
+			make_uniform(Element const& elem) {
+				return sprout::darkroom::materials::uniform_element<Element>(elem);
+			}
+			//
+			// make_uniform_material_image
+			//
+			template<typename Color, typename Reflection>
+			SPROUT_CONSTEXPR sprout::tuples::tuple<
+				sprout::darkroom::materials::uniform_element<Color>,
+				sprout::darkroom::materials::uniform_element<Reflection>
+			> make_uniform_material_image(Color const& col, Reflection const& ref) {
+				return sprout::tuples::make_tuple(
+					sprout::darkroom::materials::make_uniform(col),
+					sprout::darkroom::materials::make_uniform(ref)
+					);
+			}
 		}	// namespace materials
 	}	// namespace darkroom
 }	// namespace sprout

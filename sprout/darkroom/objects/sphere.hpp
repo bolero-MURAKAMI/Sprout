@@ -35,8 +35,8 @@ namespace sprout {
 						position_type,
 						decltype(sprout::darkroom::materials::calc_material(
 							std::declval<material_type const&>(),
-							std::declval<position_type const&>(),
-							std::declval<position_type const&>()
+							std::declval<unit_type const&>(),
+							std::declval<unit_type const&>()
 							))
 					> type;
 				};
@@ -52,6 +52,8 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR std::size_t point_of_intersection = 0;
 					SPROUT_STATIC_CONSTEXPR std::size_t normal = 1;
 				};
+			private:
+				SPROUT_STATIC_CONSTEXPR unit_type pi = 3.1415926535897932384626433832795;
 			private:
 				position_type pos_;
 				radius_type rad_;
@@ -133,6 +135,40 @@ namespace sprout {
 							)
 						;
 				}
+				template<typename Ray, typename Point>
+				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_6(
+					Ray const& ray,
+					zwo_type const& zwo,
+					drei_type const& drei,
+					Point const& poi
+					) const
+				{
+					using std::atan2;
+					using std::sqrt;
+					return typename intersection<Ray>::type(
+						sprout::tuples::get<zw::does_intersect>(zwo),
+						sprout::tuples::get<zw::distance>(zwo),
+						sprout::tuples::get<dr::point_of_intersection>(drei),
+						sprout::tuples::get<dr::normal>(drei),
+						sprout::darkroom::materials::calc_material(	// ! Spherical
+							mat_,
+							atan2(
+								sprout::darkroom::coords::x(poi),
+								sprout::darkroom::coords::z(poi)
+								)
+								/ (2 * pi)
+								,
+							atan2(
+								sqrt(
+									sprout::darkroom::coords::x(poi) * sprout::darkroom::coords::x(poi)
+										+ sprout::darkroom::coords::y(poi) * sprout::darkroom::coords::y(poi)
+									),
+								sprout::darkroom::coords::z(poi)
+								)
+								/ (2 * pi)
+							)
+						);
+				}
 				template<typename Ray>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_5(
 					Ray const& ray,
@@ -140,16 +176,11 @@ namespace sprout {
 					drei_type const& drei
 					) const
 				{
-					return typename intersection<Ray>::type(
-						sprout::tuples::get<zw::does_intersect>(zwo),
-						sprout::tuples::get<zw::distance>(zwo),
-						sprout::tuples::get<dr::point_of_intersection>(drei),
-						sprout::tuples::get<dr::normal>(drei),
-						sprout::darkroom::materials::calc_material(
-							mat_,
-							sprout::tuples::get<dr::point_of_intersection>(drei),
-							sprout::tuples::get<dr::normal>(drei)
-							)
+					return intersect_6(
+						ray,
+						zwo,
+						drei,
+						sprout::tuples::get<dr::point_of_intersection>(drei)
 						);
 				}
 				template<typename Ray>

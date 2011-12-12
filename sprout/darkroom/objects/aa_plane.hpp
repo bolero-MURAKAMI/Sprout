@@ -44,8 +44,8 @@ namespace sprout {
 						position_type,
 						decltype(sprout::darkroom::materials::calc_material(
 							std::declval<material_type const&>(),
-							std::declval<position_type const&>(),
-							std::declval<position_type const&>()
+							std::declval<unit_type const&>(),
+							std::declval<unit_type const&>()
 							))
 					> type;
 				};
@@ -71,16 +71,27 @@ namespace sprout {
 					position_type const& normal
 					) const
 				{
+					using std::fmod;
 					return typename intersection<Ray>::type(
 						does_intersect,
 						distance,
 						point_of_intersection,
 						normal,
-						sprout::darkroom::materials::calc_material(
+						is_x() ? sprout::darkroom::materials::calc_material(	// ! Tile
 							mat_,
-							point_of_intersection,
-							normal
+							fmod(sprout::darkroom::coords::z(point_of_intersection), 0.5),
+							fmod(sprout::darkroom::coords::y(point_of_intersection), 0.5)
 							)
+							: is_y() ? sprout::darkroom::materials::calc_material(
+								mat_,
+								fmod(sprout::darkroom::coords::x(point_of_intersection), 0.5),
+								fmod(sprout::darkroom::coords::z(point_of_intersection), 0.5)
+								)
+							: sprout::darkroom::materials::calc_material(
+								mat_,
+								fmod(sprout::darkroom::coords::x(point_of_intersection), 0.5),
+								fmod(sprout::darkroom::coords::y(point_of_intersection), 0.5)
+								)
 						);
 				}
 				template<typename Ray>
@@ -95,10 +106,9 @@ namespace sprout {
 						does_intersect,
 						distance,
 						point_of_intersection,
-						(is_x() ? position_type(hit_side > 0 ? 1 : -1, 0, 0)
+						is_x() ? position_type(hit_side > 0 ? 1 : -1, 0, 0)
 							: is_y() ? position_type(0, hit_side > 0 ? 1 : -1, 0)
 							: position_type(0, 0, hit_side > 0 ? 1 : -1)
-							)
 						);
 				}
 				template<typename Ray>
