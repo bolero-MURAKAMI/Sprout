@@ -21,17 +21,17 @@ namespace sprout {
 					typename Camera,
 					typename Objects,
 					typename Lights,
-					typename Unit
+					typename Unit2D
 				>
 				SPROUT_CONSTEXPR color_type operator()(
 					Renderer const& renderer,
 					Camera const& camera,
 					Objects const& objs,
 					Lights const& lights,
-					Unit const& x,
-					Unit const& y,
-					Unit const& width,
-					Unit const& height,
+					Unit2D const& x,
+					Unit2D const& y,
+					Unit2D const& width,
+					Unit2D const& height,
 					std::size_t depth_max = 8
 					) const
 				{
@@ -39,10 +39,7 @@ namespace sprout {
 						camera,
 						objs,
 						lights,
-						camera.template operator()(
-							static_cast<typename Camera::unit_type>(x) / width - 0.5,
-							-(static_cast<typename Camera::unit_type>(y) / height - 0.5)
-							),
+						camera.template operator()(x, y, width, height),
 						depth_max
 						);
 				}

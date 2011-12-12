@@ -114,6 +114,23 @@ namespace sprout {
 					;
 			}
 			//
+			// cross
+			//
+			template<typename Vector1, typename Vector2>
+			SPROUT_CONSTEXPR inline Vector1 cross(Vector1 const& lhs, Vector2 const& rhs) {
+				return sprout::tuples::remake_clone<Vector1>(
+					lhs,
+					sprout::darkroom::coords::y(lhs) * sprout::darkroom::coords::z(rhs)
+						- sprout::darkroom::coords::z(lhs) * sprout::darkroom::coords::y(rhs)
+						,
+					sprout::darkroom::coords::y(lhs) * sprout::darkroom::coords::x(rhs)
+						- sprout::darkroom::coords::x(lhs) * sprout::darkroom::coords::y(rhs)
+						,
+					sprout::darkroom::coords::x(lhs) * sprout::darkroom::coords::y(rhs)
+						- sprout::darkroom::coords::y(lhs) * sprout::darkroom::coords::x(rhs)
+					);
+			}
+			//
 			// normalize
 			//
 			namespace detail {
@@ -136,6 +153,16 @@ namespace sprout {
 				return sprout::darkroom::coords::detail::normalize_impl(
 					vec,
 					sprout::darkroom::coords::length(vec)
+					);
+			}
+			//
+			// resize
+			//
+			template<typename Vector, typename Fac>
+			SPROUT_CONSTEXPR inline Vector resize(Vector const& lhs, Fac const& rhs) {
+				return sprout::darkroom::coords::detail::normalize_impl(
+					lhs,
+					sprout::darkroom::coords::length(lhs) / rhs
 					);
 			}
 			//
