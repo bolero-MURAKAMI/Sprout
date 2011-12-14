@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/array.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/operation/fixed/push_back.hpp>
@@ -214,7 +215,7 @@ namespace sprout {
 				n2
 				);
 		}
-		template<std::ptrdiff_t...Indexes>
+		template<std::ptrdiff_t... Indexes>
 		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str_impl(
 			value_type const* s,
 			size_type n,
@@ -254,6 +255,15 @@ namespace sprout {
 				);
 		}
 #endif
+		template<std::size_t M, std::ptrdiff_t... Indexes>
+		static SPROUT_CONSTEXPR basic_string<T, sizeof...(Indexes), Traits> implicit_conversion_impl(
+			T const(& elems)[M],
+			size_type len,
+			sprout::index_tuple<Indexes...>
+			)
+		{
+			return sprout::basic_string<T, sizeof...(Indexes), Traits>{{(Indexes < M - 1 ? elems[Indexes] : T())...}, len};
+		}
 	public:
 		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str(value_type const* s, size_type n) {
 			return !(N < n)
@@ -497,6 +507,15 @@ namespace sprout {
 				;
 		}
 		// others:
+		template<std::size_t N2>
+		SPROUT_CONSTEXPR operator basic_string<T, N2, Traits>() const {
+			static_assert(N <= N2, "basic_string<>: implicit conversion to small string");
+			return implicit_conversion_impl(
+				elems,
+				len,
+				typename sprout::index_range<0, N2>::type()
+				);
+		}
 		pointer c_array() SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
@@ -811,8 +830,11 @@ namespace sprout {
 		}
 	};
 
+	//
+	// to_string
+	//
 	namespace detail {
-		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
+		template<typename T, std::size_t N, std::ptrdiff_t... Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl_1(
 			T const(& arr)[N],
 			typename sprout::basic_string<T, N - 1>::size_type n,
@@ -821,7 +843,7 @@ namespace sprout {
 		{
 			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
 		}
-		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
+		template<typename T, std::size_t N, std::ptrdiff_t... Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl(
 			T const(& arr)[N],
 			sprout::index_tuple<Indexes...>
@@ -830,9 +852,6 @@ namespace sprout {
 			return to_string_impl_1(arr, sprout::char_traits<T>::length(arr), sprout::index_tuple<Indexes...>());
 		}
 	}	// namespace detail
-	//
-	// to_string
-	//
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string(T const(& arr)[N]) {
 		return sprout::detail::to_string_impl(arr, typename sprout::index_range<0, N - 1>::type());
@@ -848,6 +867,45 @@ namespace sprout {
 	template<std::size_t N, typename T>
 	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s) {
 		return sprout::basic_string<T, N>::from_c_str(s);
+	}
+
+	//
+	// make_string
+	//
+	namespace detail {
+		template<typename T, std::size_t N, std::ptrdiff_t... Indexes>
+		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> make_string_impl_1(
+			sprout::array<T, N> const& arr,
+			std::size_t n,
+			sprout::index_tuple<Indexes...>
+			)
+		{
+			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
+		}
+		template<typename T, std::size_t N, std::ptrdiff_t... Indexes>
+		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> make_string_impl(
+			sprout::array<T, N> const& arr,
+			sprout::index_tuple<Indexes...>
+			)
+		{
+			return sprout::detail::make_string_impl_1(
+				arr,
+				sprout::char_traits<T>::length(arr.begin()),
+				sprout::index_tuple<Indexes...>()
+				);
+		}
+	}	// namespace detail
+	template<typename T, typename... Types>
+	SPROUT_CONSTEXPR inline sprout::basic_string<typename std::decay<T>::type, 1 + sizeof...(Types)>
+	make_string(T&& t, Types&&... args) {
+		return sprout::detail::make_string_impl(
+			sprout::make_array<typename std::decay<T>::type>(
+				sprout::forward<T>(t),
+				sprout::forward<Types>(args)...,
+				T()
+				),
+			typename sprout::index_range<0, 1 + sizeof...(Types)>::type()
+			);
 	}
 
 	//

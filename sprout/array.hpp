@@ -248,7 +248,7 @@ namespace sprout {
 	//
 	template<typename T, typename... Types>
 	SPROUT_CONSTEXPR inline sprout::array<T, sizeof...(Types)> make_array(Types&&... args) {
-		return sprout::array<typename std::decay<T>::type, sizeof...(Types)>{{sprout::forward<Types>(args)...}};
+		return sprout::array<T, sizeof...(Types)>{{sprout::forward<Types>(args)...}};
 	}
 
 	//
