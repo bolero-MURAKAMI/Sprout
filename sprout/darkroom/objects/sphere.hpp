@@ -135,12 +135,12 @@ namespace sprout {
 							)
 						;
 				}
-				template<typename Ray, typename Point>
+				template<typename Ray, typename Vec>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_6(
 					Ray const& ray,
 					zwo_type const& zwo,
 					drei_type const& drei,
-					Point const& poi
+					Vec const& normal
 					) const
 				{
 					using std::atan2;
@@ -153,19 +153,19 @@ namespace sprout {
 						sprout::darkroom::materials::calc_material(	// ! Spherical
 							mat_,
 							atan2(
-								sprout::darkroom::coords::x(poi),
-								sprout::darkroom::coords::z(poi)
+								sprout::darkroom::coords::z(normal),
+								sprout::darkroom::coords::x(normal)
 								)
-								/ (2 * pi)
+								/ pi
 								,
 							atan2(
+								sprout::darkroom::coords::y(normal),
 								sqrt(
-									sprout::darkroom::coords::x(poi) * sprout::darkroom::coords::x(poi)
-										+ sprout::darkroom::coords::y(poi) * sprout::darkroom::coords::y(poi)
-									),
-								sprout::darkroom::coords::z(poi)
+									sprout::darkroom::coords::x(normal) * sprout::darkroom::coords::x(normal)
+										+ sprout::darkroom::coords::z(normal) * sprout::darkroom::coords::z(normal)
+									)
 								)
-								/ (2 * pi)
+								/ (pi / 2)
 							)
 						);
 				}
@@ -180,7 +180,7 @@ namespace sprout {
 						ray,
 						zwo,
 						drei,
-						sprout::tuples::get<dr::point_of_intersection>(drei)
+						sprout::tuples::get<dr::normal>(drei)
 						);
 				}
 				template<typename Ray>

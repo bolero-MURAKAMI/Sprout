@@ -14,5 +14,6 @@
 #include <sprout/darkroom/renderers.hpp>
 #include <sprout/darkroom/tracers.hpp>
 #include <sprout/darkroom/pixels.hpp>
+#include <sprout/darkroom/textures.hpp>
 
 #endif	// #ifndef SPROUT_DARKROOM_HPP
