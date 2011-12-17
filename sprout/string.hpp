@@ -507,9 +507,8 @@ namespace sprout {
 				;
 		}
 		// others:
-		template<std::size_t N2>
+		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 > N)>::type>
 		SPROUT_CONSTEXPR operator basic_string<T, N2, Traits>() const {
-			static_assert(N <= N2, "basic_string<>: implicit conversion to small string");
 			return implicit_conversion_impl(
 				elems,
 				len,
