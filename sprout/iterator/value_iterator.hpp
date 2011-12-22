@@ -10,7 +10,6 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/utility/value_holder.hpp>
-#include <sprout/detail/if.hpp>
 
 namespace sprout {
 	//
@@ -28,7 +27,7 @@ namespace sprout {
 	{
 	public:
 		typedef T type;
-		typedef typename sprout::detail::if_c<
+		typedef typename std::conditional<
 			std::is_reference<type>::value,
 			typename std::decay<type>::type const&,
 			typename std::decay<type>::type const

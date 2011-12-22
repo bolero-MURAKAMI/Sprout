@@ -9,7 +9,6 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/utility/value_holder.hpp>
-#include <sprout/detail/if.hpp>
 
 namespace sprout {
 	//
@@ -21,12 +20,12 @@ namespace sprout {
 			std::random_access_iterator_tag,
 			typename sprout::fixed_container_traits<typename std::decay<Container>::type>::value_type,
 			typename sprout::fixed_container_traits<typename std::decay<Container>::type>::difference_type,
-			typename sprout::detail::if_c<
+			typename std::conditional<
 				std::is_const<typename std::remove_reference<Container>::type>::value,
 				typename sprout::fixed_container_traits<typename std::decay<Container>::type>::const_pointer,
 				typename sprout::fixed_container_traits<typename std::decay<Container>::type>::pointer
 			>::type,
-			typename sprout::detail::if_c<
+			typename std::conditional<
 				std::is_const<typename std::remove_reference<Container>::type>::value,
 				typename sprout::fixed_container_traits<typename std::decay<Container>::type>::const_reference,
 				typename sprout::fixed_container_traits<typename std::decay<Container>::type>::reference
@@ -36,7 +35,7 @@ namespace sprout {
 	public:
 		typedef Container container_type;
 		typedef typename sprout::fixed_container_traits<typename std::decay<container_type>::type> traits_type;
-		typedef typename sprout::detail::if_c<
+		typedef typename std::conditional<
 			std::is_reference<container_type>::value,
 			typename std::decay<container_type>::type const&,
 			typename std::decay<container_type>::type const
@@ -46,12 +45,12 @@ namespace sprout {
 			std::random_access_iterator_tag,
 			typename traits_type::value_type,
 			typename traits_type::difference_type,
-			typename sprout::detail::if_c<
+			typename std::conditional<
 				std::is_const<typename std::remove_reference<container_type>::type>::value,
 				typename traits_type::const_pointer,
 				typename traits_type::pointer
 			>::type,
-			typename sprout::detail::if_c<
+			typename std::conditional<
 				std::is_const<typename std::remove_reference<container_type>::type>::value,
 				typename traits_type::const_reference,
 				typename traits_type::reference

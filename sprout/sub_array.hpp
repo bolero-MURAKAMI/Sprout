@@ -11,7 +11,6 @@
 #include <sprout/fixed_container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/detail/if.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -31,13 +30,13 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR bool is_const = std::is_const<fixed_container_type>::value;
 		protected:
 			typedef typename sprout::fixed_container_traits<fixed_container_type>::value_type value_type;
-			typedef typename sprout::detail::if_c<
+			typedef typename std::conditional<
 				is_const,
 				typename sprout::fixed_container_traits<fixed_container_type>::const_iterator,
 				typename sprout::fixed_container_traits<fixed_container_type>::iterator
 			>::type iterator;
 			typedef typename sprout::fixed_container_traits<fixed_container_type>::const_iterator const_iterator;
-			typedef typename sprout::detail::if_c<
+			typedef typename std::conditional<
 				is_const,
 				typename sprout::fixed_container_traits<fixed_container_type>::const_reference,
 				typename sprout::fixed_container_traits<fixed_container_type>::reference
@@ -45,7 +44,7 @@ namespace sprout {
 			typedef typename sprout::fixed_container_traits<fixed_container_type>::const_reference const_reference;
 			typedef typename sprout::fixed_container_traits<fixed_container_type>::size_type size_type;
 			typedef typename sprout::fixed_container_traits<fixed_container_type>::difference_type difference_type;
-			typedef typename sprout::detail::if_c<
+			typedef typename std::conditional<
 				is_const,
 				typename sprout::fixed_container_traits<fixed_container_type>::const_pointer,
 				typename sprout::fixed_container_traits<fixed_container_type>::pointer
@@ -55,19 +54,19 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR size_type static_size = sprout::fixed_container_traits<fixed_container_type>::fixed_size;
 			SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
 		protected:
-			typedef typename sprout::detail::if_c<
+			typedef typename std::conditional<
 				is_reference,
 				fixed_container_type*,
 				typename std::remove_const<fixed_container_type>::type
 			>::type holder_type;
-			typedef typename sprout::detail::if_c<
+			typedef typename std::conditional<
 				is_reference,
 				fixed_container_type&,
 				fixed_container_type const&
 			>::type param_type;
 			typedef fixed_container_type const& const_param_type;
 		protected:
-			typedef typename sprout::detail::if_c<
+			typedef typename std::conditional<
 				std::is_array<holder_type>::value,
 				sprout::detail::is_non_reference_array_tag,
 				sprout::detail::is_not_non_reference_array_tag

@@ -3,7 +3,6 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/detail/if.hpp>
 #include <sprout/random/detail/ptr_helper.hpp>
 #include <sprout/random/random_result.hpp>
 

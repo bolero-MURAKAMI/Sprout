@@ -4,7 +4,6 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
-#include <sprout/detail/if.hpp>
 
 namespace sprout {
 	//
@@ -13,7 +12,7 @@ namespace sprout {
 	template<typename Container>
 	struct fixed_iterator {
 	public:
-		typedef typename sprout::detail::if_c<
+		typedef typename std::conditional<
 			std::is_const<Container>::value,
 			typename sprout::fixed_container_traits<Container>::const_iterator,
 			typename sprout::fixed_container_traits<Container>::iterator
