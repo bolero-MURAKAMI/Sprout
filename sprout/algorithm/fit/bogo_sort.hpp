@@ -1,0 +1,80 @@
+#ifndef SPROUT_ALGORITHM_FIT_BOGO_SORT_HPP
+#define SPROUT_ALGORITHM_FIT_BOGO_SORT_HPP
+
+#include <sprout/config.hpp>
+#include <sprout/fixed_container/traits.hpp>
+#include <sprout/fixed_container/functions.hpp>
+#include <sprout/algorithm/fixed/bogo_sort.hpp>
+#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/sub_array.hpp>
+
+namespace sprout {
+	namespace fit {
+		namespace detail {
+			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
+			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
+				Container const& cont,
+				UniformRandomNumberGenerator&& g,
+				Compare comp,
+				typename sprout::fixed_container_traits<Container>::difference_type offset
+				)
+			{
+				return sprout::sub_copy(
+					sprout::get_fixed(sprout::fixed::bogo_sort(cont, sprout::forward<UniformRandomNumberGenerator>(g), comp)),
+					offset,
+					offset + sprout::size(cont)
+					);
+			}
+		}	// namespace detail
+		//
+		// bogo_sort
+		//
+		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
+		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort(
+			Container const& cont,
+			UniformRandomNumberGenerator&& g,
+			Compare comp
+			)
+		{
+			return sprout::fit::detail::bogo_sort_impl(
+				cont,
+				sprout::forward<UniformRandomNumberGenerator>(g),
+				comp,
+				sprout::fixed_begin_offset(cont)
+				);
+		}
+
+		namespace detail {
+			template<typename Container, typename UniformRandomNumberGenerator>
+			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
+				Container const& cont,
+				UniformRandomNumberGenerator&& g,
+				typename sprout::fixed_container_traits<Container>::difference_type offset
+				)
+			{
+				return sprout::sub_copy(
+					sprout::get_fixed(sprout::fixed::bogo_sort(cont, sprout::forward<UniformRandomNumberGenerator>(g))),
+					offset,
+					offset + sprout::size(cont)
+					);
+			}
+		}	// namespace detail
+		//
+		// bogo_sort
+		//
+		template<typename Container, typename UniformRandomNumberGenerator>
+		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort(
+			Container const& cont,
+			UniformRandomNumberGenerator&& g
+			)
+		{
+			return sprout::fit::detail::bogo_sort_impl(
+				cont,
+				sprout::forward<UniformRandomNumberGenerator>(g),
+				sprout::fixed_begin_offset(cont)
+				);
+		}
+	}	// namespace fit
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_ALGORITHM_FIT_BOGO_SORT_HPP

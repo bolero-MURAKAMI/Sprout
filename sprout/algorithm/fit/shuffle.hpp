@@ -35,7 +35,11 @@ namespace sprout {
 			UniformRandomNumberGenerator&& g
 			)
 		{
-			return sprout::fit::detail::shuffle_impl(cont, sprout::forward<UniformRandomNumberGenerator>(g), sprout::fixed_begin_offset(cont));
+			return sprout::fit::detail::shuffle_impl(
+				cont,
+				sprout::forward<UniformRandomNumberGenerator>(g),
+				sprout::fixed_begin_offset(cont)
+				);
 		}
 	}	// namespace fit
 }	// namespace sprout

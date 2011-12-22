@@ -26,6 +26,7 @@
 #include <sprout/algorithm/fit/rotate.hpp>
 #include <sprout/algorithm/fit/rotate_copy.hpp>
 #include <sprout/algorithm/fit/shuffle.hpp>
+#include <sprout/algorithm/fit/shuffle_result.hpp>
 #include <sprout/algorithm/fit/partition.hpp>
 #include <sprout/algorithm/fit/partition_copy.hpp>
 #include <sprout/algorithm/fit/stable_partition.hpp>
@@ -47,5 +48,7 @@
 #include <sprout/algorithm/fit/sort_heap.hpp>
 #include <sprout/algorithm/fit/swap_element.hpp>
 #include <sprout/algorithm/fit/swap_element_copy.hpp>
+#include <sprout/algorithm/fit/bogo_sort.hpp>
+#include <sprout/algorithm/fit/bogo_sort_result.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIT_HPP

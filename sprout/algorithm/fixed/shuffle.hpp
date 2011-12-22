@@ -27,14 +27,14 @@ namespace sprout {
 				std::ptrdiff_t i
 				)
 			{
-				return i < n
+				return i < n - 1
 					? sprout::fixed::detail::make_shuffle_indexes_1(
 						n,
 						rnd(),
 						sprout::fixed::swap_element(arr, arr.begin() + i, arr.begin() + rnd.result()),
 						i + 1
 						)
-					: arr
+					: sprout::fixed::swap_element(arr, arr.begin() + i, arr.begin() + rnd.result())
 					;
 			}
 			template<std::size_t N, typename UniformRandomNumberGenerator>

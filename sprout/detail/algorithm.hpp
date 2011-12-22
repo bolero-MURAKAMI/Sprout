@@ -141,6 +141,36 @@ namespace sprout {
 				: sprout::detail::find(sprout::next(first), last, value)
 				;
 		}
+
+		//
+		// is_sorted_until
+		//
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR InputIterator is_sorted_until(InputIterator first, InputIterator last) {
+			return first == last || sprout::next(first) == last ? last
+				: *sprout::next(first) < *first ? sprout::next(first)
+				: sprout::detail::is_sorted_until(sprout::next(first), last)
+				;
+		}
+		template<typename InputIterator, typename Compare>
+		SPROUT_CONSTEXPR InputIterator is_sorted_until(InputIterator first, InputIterator last, Compare comp) {
+			return first == last || sprout::next(first) == last ? last
+				: comp(*sprout::next(first), *first) != false ? sprout::next(first)
+				: sprout::detail::is_sorted_until(sprout::next(first), last)
+				;
+		}
+
+		//
+		// is_sorted
+		//
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR bool is_sorted(InputIterator first, InputIterator last) {
+			return sprout::detail::is_sorted_until(first, last) == last;
+		}
+		template<typename InputIterator, typename Compare>
+		SPROUT_CONSTEXPR bool is_sorted(InputIterator first, InputIterator last, Compare comp) {
+			return sprout::detail::is_sorted_until(first, last, comp) == last;
+		}
 	}	// namespace detail
 }	// namespace sprout
 

@@ -26,6 +26,7 @@
 #include <sprout/algorithm/fixed/rotate.hpp>
 #include <sprout/algorithm/fixed/rotate_copy.hpp>
 #include <sprout/algorithm/fixed/shuffle.hpp>
+#include <sprout/algorithm/fixed/shuffle_result.hpp>
 #include <sprout/algorithm/fixed/partition.hpp>
 #include <sprout/algorithm/fixed/partition_copy.hpp>
 #include <sprout/algorithm/fixed/stable_partition.hpp>
@@ -47,5 +48,7 @@
 #include <sprout/algorithm/fixed/sort_heap.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/swap_element_copy.hpp>
+#include <sprout/algorithm/fixed/bogo_sort.hpp>
+#include <sprout/algorithm/fixed/bogo_sort_result.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_HPP
