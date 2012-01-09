@@ -28,7 +28,7 @@ namespace sprout {
 		std::ptrdiff_t First,
 		std::ptrdiff_t Last,
 		std::ptrdiff_t Step,
-		std::ptrdiff_t ...Indexes
+		std::ptrdiff_t... Indexes
 	>
 	struct index_range<First, Last, Step, sprout::index_tuple<Indexes...>, false>
 		: public sprout::index_range<First + Step, Last, Step, sprout::index_tuple<Indexes..., First> >
@@ -49,7 +49,7 @@ namespace sprout {
 	template<
 		std::ptrdiff_t I,
 		std::ptrdiff_t N,
-		std::ptrdiff_t ...Indexes
+		std::ptrdiff_t... Indexes
 	>
 	struct index_n<I, N, sprout::index_tuple<Indexes...>, false>
 		: public sprout::index_n<I, N - 1, sprout::index_tuple<Indexes..., I> >
