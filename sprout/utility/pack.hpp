@@ -13,15 +13,29 @@ namespace sprout {
 	//
 	namespace detail {
 		template<std::size_t N, typename Head, typename... Tail>
-		struct tppack_at_impl {
+		struct tppack_at_impl_1 {
 		public:
 			typedef typename sprout::detail::tppack_at_impl<N - 1, Tail...>::type type;
 		};
 		template<typename Head, typename... Tail>
-		struct tppack_at_impl<0, Head, Tail...> {
+		struct tppack_at_impl_1<0, Head, Tail...> {
 		public:
 			typedef Head type;
 		};
+		template<
+			std::size_t N,
+			typename... Args,
+			typename std::enable_if<(N < sizeof...(Args))>::type*& = sprout::enabler
+		>
+		struct tppack_at_impl
+			: public sprout::detail::tppack_at_impl_1<N, Args...>
+		{};
+		template<
+			std::size_t N,
+			typename... Args,
+			typename std::enable_if<(N >= sizeof...(Args))>::type*& = sprout::enabler
+		>
+		struct tppack_at_impl {};
 	}	// namespace detail
 	template<std::size_t N, typename... Args>
 	struct tppack_at
