@@ -13,6 +13,7 @@
 #include <sprout/weed/detail/is_elem_and_container.hpp>
 #include <sprout/weed/detail/is_both_tuple.hpp>
 #include <sprout/weed/detail/is_same_elem.hpp>
+#include <sprout/weed/detail/is_different_elem.hpp>
 #include <sprout/weed/detail/is_elem_and_unused.hpp>
 #include <sprout/weed/detail/is_unused_and_elem.hpp>
 #include <sprout/weed/detail/is_both_unused.hpp>
@@ -87,6 +88,14 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
 				return x;
+			}
+			// V | W -> variant<V, W>
+			template<typename T, typename U, typename X>
+			SPROUT_CONSTEXPR inline typename std::enable_if<
+				sprout::weed::detail::is_different_elem<T, U>::value,
+				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
+			>::type bitwise_or(X const& x) {
+				return typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type(x);
 			}
 			// V | unused -> container<V, 1>
 			template<typename T, typename U, typename X>

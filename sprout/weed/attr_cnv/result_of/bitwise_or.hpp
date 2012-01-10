@@ -6,6 +6,7 @@
 #include <sprout/string.hpp>
 #include <sprout/array.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/variant/variant.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/traits/type/is_char_type.hpp>
 #include <sprout/weed/detail/is_same_container.hpp>
@@ -13,6 +14,7 @@
 #include <sprout/weed/detail/is_elem_and_container.hpp>
 #include <sprout/weed/detail/is_both_tuple.hpp>
 #include <sprout/weed/detail/is_same_elem.hpp>
+#include <sprout/weed/detail/is_different_elem.hpp>
 #include <sprout/weed/detail/is_elem_and_unused.hpp>
 #include <sprout/weed/detail/is_unused_and_elem.hpp>
 #include <sprout/weed/detail/is_both_unused.hpp>
@@ -101,6 +103,18 @@ namespace sprout {
 				> {
 				public:
 					typedef T type;
+				};
+				// V | W -> variant<V, W>
+				template<typename T, typename U>
+				struct bitwise_or<
+					T,
+					U,
+					typename std::enable_if<
+						sprout::weed::detail::is_different_elem<T, U>::value
+					>::type
+				> {
+				public:
+					typedef sprout::variant<T, U> type;
 				};
 				// V | unused -> container<V, 1>
 				template<typename T, typename U>

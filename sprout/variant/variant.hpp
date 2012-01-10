@@ -4,11 +4,13 @@
 #include <cstddef>
 #include <utility>
 #include <stdexcept>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/utility/operation.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/type/type_tuple.hpp>
 #include <sprout/type/algorithm/find_index.hpp>
 
 namespace sprout {
@@ -17,6 +19,7 @@ namespace sprout {
 		class variant_impl {
 		protected:
 			typedef sprout::tuples::tuple<Types...> tuple_type;;
+			typedef sprout::types::type_tuple<typename std::decay<Types>::type...> uncvref_tuple_type;;
 		private:
 			template<typename T, std::ptrdiff_t... Indexes>
 			static SPROUT_CONSTEXPR tuple_type init(T&& operand, sprout::index_tuple<Indexes...>) {
@@ -60,6 +63,7 @@ namespace sprout {
 	{
 	private:
 		typedef sprout::detail::variant_impl<Types...> impl_type;;
+		typedef typename impl_type::uncvref_tuple_type uncvref_tuple_type;;
 	public:
 		typedef typename impl_type::tuple_type tuple_type;;
 	private:
@@ -143,7 +147,10 @@ namespace sprout {
 		variant(variant&&) = default;
 		template<typename T>
 		SPROUT_CONSTEXPR variant(T&& operand)
-			: impl_type(sprout::forward<T>(operand), sprout::types::find_index<tuple_type, T>())
+			: impl_type(
+				sprout::forward<T>(operand),
+				sprout::types::find_index<uncvref_tuple_type, typename std::decay<T>::type>()
+				)
 		{}
 		// modifiers
 		void swap(variant& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(impl_type::swap(other))) {
@@ -196,25 +203,39 @@ namespace sprout {
 			return output<0>(lhs, rhs.tuple_, rhs.which_);
 		}
 		// get support
+		template<std::size_t I>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			I != sizeof...(Types),
+			typename sprout::tuples::tuple_element<I, tuple_type>::type const&
+		>::type get_at() const {
+			return I == static_cast<std::size_t>(which_)
+				? sprout::tuples::get<I>(tuple_)
+				: (throw std::domain_error("variant<>: bad get"), sprout::tuples::get<I>(tuple_))
+				;
+		}
+		template<std::size_t I>
+		typename std::enable_if<
+			I != sizeof...(Types),
+			typename sprout::tuples::tuple_element<I, tuple_type>::type&
+		>::type get_at() {
+			return I == which_
+				? sprout::tuples::get<I>(tuple_)
+				: (throw std::domain_error("variant<>: bad get"), sprout::tuples::get<I>(tuple_))
+				;
+		}
 		template<typename U>
 		SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::types::find_index<tuple_type, U>::value != sizeof...(Types),
 			U const&
 		>::type get() const {
-			return sprout::types::find_index<tuple_type, U>::value == static_cast<std::size_t>(which_)
-				? sprout::tuples::get<sprout::types::find_index<tuple_type, U>::value>(tuple_)
-				: (throw std::domain_error("variant<>: bad get"), sprout::tuples::get<sprout::types::find_index<tuple_type, U>::value>(tuple_))
-				;
+			return get_at<sprout::types::find_index<tuple_type, U>::value>();
 		}
 		template<typename U>
 		typename std::enable_if<
 			sprout::types::find_index<tuple_type, U>::value != sizeof...(Types),
 			U&
 		>::type get() {
-			return sprout::types::find_index<tuple_type, U>::value == which_
-				? sprout::tuples::get<sprout::types::find_index<tuple_type, U>::value>(tuple_)
-				: (throw std::domain_error("variant<>: bad get"), sprout::tuples::get<sprout::types::find_index<tuple_type, U>::value>(tuple_))
-				;
+			return get_at<sprout::types::find_index<tuple_type, U>::value>();
 		}
 		// visitation support
 		template<typename Visitor>
@@ -245,9 +266,8 @@ namespace std {
 	// tuple_size
 	//
 	template<typename... Types>
-
 	struct tuple_size<sprout::variant<Types...> >
-		: public std::tuple_size<typename sprout::variant<Types...>::tuple_tyep>
+		: public std::tuple_size<typename sprout::variant<Types...>::tuple_type>
 	{};
 
 	//
@@ -255,7 +275,7 @@ namespace std {
 	//
 	template<std::size_t I, typename... Types>
 	struct tuple_element<I, sprout::variant<Types...> >
-		: public std::tuple_element<I, typename sprout::variant<Types...>::tuple_tyep>
+		: public std::tuple_element<I, typename sprout::variant<Types...>::tuple_type>
 	{};
 }	// namespace std
 
