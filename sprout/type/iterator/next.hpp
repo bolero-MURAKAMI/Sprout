@@ -8,7 +8,7 @@ namespace sprout {
 		//
 		// next
 		//
-		template<typename Iterator>
+		template<typename Iterator, typename Enable = void>
 		struct next {
 		public:
 			typedef typename Iterator::next type;

@@ -1,0 +1,45 @@
+#ifndef SPROUT_TYPE_BOOST_MPL_VECTOR_HPP
+#define SPROUT_TYPE_BOOST_MPL_VECTOR_HPP
+
+#include <sprout/config.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/size.hpp>
+#include <boost/mpl/at.hpp>
+#include <sprout/type/tuple.hpp>
+#include <sprout/type/boost/mpl/v_iter.hpp>
+
+namespace sprout {
+	namespace types {
+		//
+		// begin
+		//
+		template<typename... Types>
+		struct begin<boost::mpl::vector<Types...> >
+			: public boost::mpl::begin<boost::mpl::vector<Types...> >
+		{};
+		//
+		// end
+		//
+		template<typename... Types>
+		struct end<boost::mpl::vector<Types...> >
+			: public boost::mpl::end<boost::mpl::vector<Types...> >
+		{};
+
+		//
+		// tuple_size
+		//
+		template<typename... Types>
+		struct tuple_size<boost::mpl::vector<Types...> >
+			: public boost::mpl::size<boost::mpl::vector<Types...> >
+		{};
+		//
+		// tuple_element
+		//
+		template<std::size_t I, typename... Types>
+		struct tuple_element<I, boost::mpl::vector<Types...> >
+			: public boost::mpl::at_c<boost::mpl::vector<Types...>, I>
+		{};
+	}	// namespace types
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_TYPE_BOOST_MPL_VECTOR_HPP

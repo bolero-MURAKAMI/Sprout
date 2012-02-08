@@ -84,7 +84,10 @@ namespace sprout {
 		struct index_iterator
 			: public sprout::types::detail::index_iterator_impl<Tuple, Index>
 			, public std::integral_constant<std::ptrdiff_t, Index>
-		{};
+		{
+		public:
+			typedef typename sprout::types::detail::index_iterator_impl<Tuple, Index>::type type;
+		};
 	}	// namespace types
 }	// namespace sprout
 

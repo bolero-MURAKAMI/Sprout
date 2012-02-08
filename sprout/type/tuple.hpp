@@ -10,14 +10,14 @@ namespace sprout {
 		//
 		// begin
 		//
-		template<typename T>
+		template<typename T, typename Enable = void>
 		struct begin {
 			typedef typename T::begin type;
 		};
 		//
 		// end
 		//
-		template<typename T>
+		template<typename T, typename Enable = void>
 		struct end {
 			typedef typename T::end type;
 		};
@@ -25,14 +25,14 @@ namespace sprout {
 		//
 		// tuple_size
 		//
-		template<typename T>
+		template<typename T, typename Enable = void>
 		struct tuple_size
 			: public std::tuple_size<T>
 		{};
 		//
 		// tuple_element
 		//
-		template<std::size_t I, typename T>
+		template<std::size_t I, typename T, typename Enable = void>
 		struct tuple_element
 			: public std::tuple_element<I, T>
 		{};

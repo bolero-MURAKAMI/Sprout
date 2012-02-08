@@ -1098,4 +1098,6 @@ namespace std {
 	};
 }	// namespace std
 
+#include <sprout/string/alias.hpp>
+
 #endif	// #ifndef SPROUT_STRING_HPP

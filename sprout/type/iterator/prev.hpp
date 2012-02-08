@@ -8,7 +8,7 @@ namespace sprout {
 		//
 		// prev
 		//
-		template<typename Iterator>
+		template<typename Iterator, typename Enable = void>
 		struct prev {
 		public:
 			typedef typename Iterator::prev type;

@@ -75,13 +75,20 @@ constexpr レイトレーシング
 このマクロが定義されているとき、関数は noexcept 修飾されない。
 コンパイラが noexcept に対応していない場合。
 
+#define SPROUT_CONFIG_DISABLE_TEMPLATE_ALIASES
+このマクロが定義されているとき、Template Aliases によるエイリアスは定義されない。
+コンパイラが Template Aliases に対応していない場合。
+
 #define SPROUT_CONFIG_USE_SSCRISK_CEL
 このマクロが定義されているとき、実装の詳細として CEL - ConstExpr Library を使用する。
 https://github.com/sscrisk/CEL---ConstExpr-Library
 
+#define SPROUT_CONFIG_DISABLE_SUPPORT_TEMPORARY_CONTAINER_ITERATION
+このマクロが定義されているとき、アルゴリズムへのコンテナの一時オブジェクトを渡しをサポートしない。
+なおその場合、Sprout のコンテナのイテレータはポインタになる。
+
 #define SPROUT_CONFIG_SUPPORT_TEMPORARY_CONTAINER_ITERATION
-このマクロが定義されているとき、GCC4.7 において、アルゴリズムにコンテナの一時オブジェクトを渡せない問題を回避する。
-なおその場合、Sprout のコンテナのイテレータはポインタではなくなる。
+このマクロは非推奨です。
 
 これらのマクロをユーザ定義する場合、このライブラリのどのヘッダがインクルードされるよりも先に定義されなければならない。
 
