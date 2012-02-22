@@ -1,6 +1,7 @@
 #ifndef SPROUT_WEED_HPP
 #define SPROUT_WEED_HPP
 
+#include <sprout/config.hpp>
 #include <sprout/weed/expr.hpp>
 #include <sprout/weed/operator.hpp>
 #include <sprout/weed/attr_cnv.hpp>

@@ -42,14 +42,9 @@ namespace sprout {
 				typename Sequence::value_type,
 				sprout::types::detail::str_length<Sequence>::value
 			> to_string_constant_impl(sprout::index_tuple<Indexes...>) {
-				typedef sprout::basic_string<
-					typename Sequence::value_type,
-					sprout::types::detail::str_length<Sequence>::value
-				> type;
-				return type{
-					{sprout::types::tuple_element<Indexes, Sequence>::type::value...},
-					sprout::types::detail::str_length<Sequence>::value
-					};
+				return sprout::make_string_as<typename Sequence::value_type>(
+					sprout::types::tuple_element<Indexes, Sequence>::type::value...
+					);
 			}
 		}	// namespace detail
 		template<typename Sequence>

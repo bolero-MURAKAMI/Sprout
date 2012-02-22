@@ -6,9 +6,13 @@
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/next_prior.hpp>
+#include <boost/mpl/push_back.hpp>
+#include <boost/mpl/push_front.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/iterator/next.hpp>
 #include <sprout/type/iterator/prev.hpp>
+#include <sprout/type/operation/push_back.hpp>
+#include <sprout/type/operation/push_front.hpp>
 
 namespace sprout {
 	namespace types {
@@ -49,12 +53,29 @@ namespace sprout {
 		struct next<boost::mpl::string_iterator<Sequence, I, J> >
 			: public boost::mpl::next<boost::mpl::string_iterator<Sequence, I, J> >
 		{};
+
 		//
 		// prev
 		//
 		template<typename Sequence, int I, int J>
 		struct prev<boost::mpl::string_iterator<Sequence, I, J> >
 			: public boost::mpl::prior<boost::mpl::string_iterator<Sequence, I, J> >
+		{};
+
+		//
+		// push_back
+		//
+		template<int... Values, typename T>
+		struct push_back<boost::mpl::string<Values...>, T>
+			: public boost::mpl::push_back<boost::mpl::string<Values...>, T>
+		{};
+
+		//
+		// push_front
+		//
+		template<int... Values, typename T>
+		struct push_front<boost::mpl::string<Values...>, T>
+			: public boost::mpl::push_back<boost::mpl::string<Values...>, T>
 		{};
 	}	// namespace types
 }	// namespace sprout

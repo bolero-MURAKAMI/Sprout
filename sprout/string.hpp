@@ -901,7 +901,27 @@ namespace sprout {
 			sprout::make_array<typename std::decay<T>::type>(
 				sprout::forward<T>(t),
 				sprout::forward<Types>(args)...,
-				T()
+				typename std::decay<T>::type()
+				),
+			typename sprout::index_range<0, 1 + sizeof...(Types)>::type()
+			);
+	}
+
+	//
+	// make_string_as
+	//
+	template<typename T>
+	SPROUT_CONSTEXPR inline sprout::basic_string<typename std::decay<T>::type, 0>
+	make_string_as() {
+		return sprout::basic_string<typename std::decay<T>::type, 0>{};
+	}
+	template<typename T, typename... Types>
+	SPROUT_CONSTEXPR inline sprout::basic_string<typename std::decay<T>::type, sizeof...(Types)>
+	make_string_as(Types&&... args) {
+		return sprout::detail::make_string_impl(
+			sprout::make_array<typename std::decay<T>::type>(
+				sprout::forward<Types>(args)...,
+				typename std::decay<T>::type()
 				),
 			typename sprout::index_range<0, 1 + sizeof...(Types)>::type()
 			);

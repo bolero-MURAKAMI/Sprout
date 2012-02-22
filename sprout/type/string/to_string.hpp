@@ -18,10 +18,10 @@ namespace sprout {
 		//
 		// to_string
 		//
-		template<typename StringClass>
+		template<typename Proxy>
 		struct to_string {
 		private:
-			typedef decltype(StringClass()()) string_type;
+			typedef decltype(Proxy()()) string_type;
 			typedef sprout::fixed_container_traits<string_type> traits_type;
 		private:
 			template<typename IndexTuple>
@@ -31,12 +31,12 @@ namespace sprout {
 			public:
 				typedef sprout::types::basic_string<
 					typename traits_type::value_type,
-					(*sprout::next(sprout::begin(StringClass()()), Indexes))...
+					(*sprout::next(sprout::begin(Proxy()()), Indexes))...
 				> type;
 			};
 		public:
 			typedef typename impl<
-				typename sprout::index_range<0, sprout::size(StringClass()())>::type
+				typename sprout::index_range<0, sprout::size(Proxy()())>::type
 			>::type type;
 		};
 		namespace detail {
@@ -63,7 +63,7 @@ namespace sprout {
 		// SPROUT_TYPES_STRING_TYPEDEF
 		//
 #		define SPROUT_TYPES_STRING_TYPEDEF(SOURCE, TYPE) \
-		struct SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_IMPL_, __LINE__) { \
+		struct SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_PROXY_, __LINE__) { \
 		private: \
 			typedef typename std::remove_reference<decltype(SOURCE)>::type src_type; \
 			typedef sprout::types::detail::string_typedef_impl<src_type, std::is_array<src_type>::value> impl_type; \
@@ -74,7 +74,7 @@ namespace sprout {
 				return impl_type()(SOURCE); \
 			} \
 		}; \
-		typedef typename sprout::types::to_string<SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_IMPL_, __LINE__)>::type TYPE
+		typedef typename sprout::types::to_string<SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_PROXY_, __LINE__)>::type TYPE
 	}	// namespace types
 }	// namespace sprout
 
