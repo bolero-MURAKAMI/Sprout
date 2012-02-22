@@ -1,8 +1,8 @@
 Sprout C++ Library
 
-C++11 constexpr based Mutating-Algorithms and Container-Operations
+C++11 constexpr based Container, Algorithms, Random, Parsing, Ray tracing, and others.
 
-このライブラリは、C++11 の constexpr に対応した、固定長コンテナに対する STL ライクな変更のアルゴリズムやコンテナ操作を提供する。
+このライブラリは、C++11 の constexpr に対応したコンテナ、アルゴリズム、乱数、構文解析、レイトレーシング、その他の機能を提供する。
 
 
 
