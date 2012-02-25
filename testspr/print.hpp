@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <bitset>
 #include <iostream>
 #include <sprout/fixed_container.hpp>
 
@@ -17,14 +18,30 @@ namespace testspr {
 	}
 	template<typename Range>
 	void print(Range const& range) {
-		print(sprout::begin(range), sprout::end(range));
+		testspr::print(sprout::begin(range), sprout::end(range));
+	}
+
+	//
+	// print_ln
+	//
+	template<typename T>
+	static void print_ln(T const& t) {
+		std::cout << t << std::endl;
+	}
+
+	//
+	// print_bits
+	//
+	template<typename T>
+	static void print_bits(T const& t) {
+		testspr::print_ln(std::bitset<sizeof(T) * 8>(t).template to_string<char>());
 	}
 
 	//
 	// print_hl
 	//
 	void print_hl() {
-		std::cout << "--------------------------------------------------------------------------------" << std::endl;
+		testspr::print_ln("--------------------------------------------------------------------------------");
 	}
 }	// namespace testspr
 

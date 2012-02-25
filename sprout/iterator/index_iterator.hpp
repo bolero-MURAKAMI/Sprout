@@ -101,16 +101,16 @@ namespace sprout {
 		friend SPROUT_CONSTEXPR bool operator!=(index_iterator const& lhs, index_iterator const& rhs) {
 			return !(lhs == rhs);
 		}
-		friend bool operator<(index_iterator const& lhs, index_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator<(index_iterator const& lhs, index_iterator const& rhs) {
 			return lhs.index_ < rhs.index_;
 		}
-		friend bool operator>(index_iterator const& lhs, index_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator>(index_iterator const& lhs, index_iterator const& rhs) {
 			return rhs < lhs;
 		}
-		friend bool operator<=(index_iterator const& lhs, index_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator<=(index_iterator const& lhs, index_iterator const& rhs) {
 			return !(rhs < lhs);
 		}
-		friend bool operator>=(index_iterator const& lhs, index_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator>=(index_iterator const& lhs, index_iterator const& rhs) {
 			return !(lhs < rhs);
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
@@ -158,7 +158,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return holder_.get()[index_ + n];
 		}
-		friend difference_type operator-(index_iterator const& lhs, index_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR difference_type operator-(index_iterator const& lhs, index_iterator const& rhs) {
 			return static_cast<difference_type>(lhs.index_) - static_cast<difference_type>(rhs.index_);
 		}
 		friend SPROUT_CONSTEXPR index_iterator operator+(difference_type n, index_iterator const& it) {
@@ -210,6 +210,24 @@ namespace sprout {
 		)
 	{
 		return it - n;
+	}
+}	// namespace sprout
+
+
+
+#include <sprout/detail/iterator.hpp>
+
+namespace sprout {
+	//
+	// distance
+	//
+	template<typename Container>
+	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::index_iterator<Container> >::difference_type distance(
+		sprout::index_iterator<Container> first,
+		sprout::index_iterator<Container> last
+		)
+	{
+		return last - first;
 	}
 }	// namespace sprout
 

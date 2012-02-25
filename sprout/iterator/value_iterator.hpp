@@ -84,16 +84,16 @@ namespace sprout {
 		friend SPROUT_CONSTEXPR bool operator!=(value_iterator const& lhs, value_iterator const& rhs) {
 			return !(lhs == rhs);
 		}
-		friend bool operator<(value_iterator const& lhs, value_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator<(value_iterator const& lhs, value_iterator const& rhs) {
 			return lhs.count_ > rhs.count_;
 		}
-		friend bool operator>(value_iterator const& lhs, value_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator>(value_iterator const& lhs, value_iterator const& rhs) {
 			return rhs < lhs;
 		}
-		friend bool operator<=(value_iterator const& lhs, value_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator<=(value_iterator const& lhs, value_iterator const& rhs) {
 			return !(rhs < lhs);
 		}
-		friend bool operator>=(value_iterator const& lhs, value_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator>=(value_iterator const& lhs, value_iterator const& rhs) {
 			return !(lhs < rhs);
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
@@ -147,7 +147,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return holder_.get();
 		}
-		friend difference_type operator-(value_iterator const& lhs, value_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR difference_type operator-(value_iterator const& lhs, value_iterator const& rhs) {
 			return rhs.count_ - lhs.count_;
 		}
 		friend SPROUT_CONSTEXPR value_iterator operator+(difference_type n, value_iterator const& it) {
@@ -199,6 +199,24 @@ namespace sprout {
 		)
 	{
 		return it - n;
+	}
+}	// namespace sprout
+
+
+
+#include <sprout/detail/iterator.hpp>
+
+namespace sprout {
+	//
+	// distance
+	//
+	template<typename T>
+	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::value_iterator<T> >::difference_type distance(
+		sprout::value_iterator<T> first,
+		sprout::value_iterator<T> last
+		)
+	{
+		return last - first;
 	}
 }	// namespace sprout
 

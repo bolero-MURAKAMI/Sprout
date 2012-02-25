@@ -123,7 +123,7 @@ namespace sprout {
 		return !(lhs == rhs);
 	}
 	template <typename Iterator1, typename Iterator2>
-	bool operator<(
+	SPROUT_CONSTEXPR bool operator<(
 		sprout::reverse_iterator<Iterator1> const& lhs,
 		sprout::reverse_iterator<Iterator2> const& rhs
 		)
@@ -131,7 +131,7 @@ namespace sprout {
 		return lhs.base() < rhs.base();
 	}
 	template <typename Iterator1, typename Iterator2>
-	bool operator>(
+	SPROUT_CONSTEXPR bool operator>(
 		sprout::reverse_iterator<Iterator1> const& lhs,
 		sprout::reverse_iterator<Iterator2> const& rhs
 		)
@@ -139,7 +139,7 @@ namespace sprout {
 		return rhs < lhs;
 	}
 	template <typename Iterator1, typename Iterator2>
-	bool operator<=(
+	SPROUT_CONSTEXPR bool operator<=(
 		sprout::reverse_iterator<Iterator1> const& lhs,
 		sprout::reverse_iterator<Iterator2> const& rhs
 		)
@@ -147,7 +147,7 @@ namespace sprout {
 		return !(rhs < lhs);
 	}
 	template <typename Iterator1, typename Iterator2>
-	bool operator>=(
+	SPROUT_CONSTEXPR bool operator>=(
 		sprout::reverse_iterator<Iterator1> const& lhs,
 		sprout::reverse_iterator<Iterator2> const& rhs
 		)
@@ -155,7 +155,7 @@ namespace sprout {
 		return !(lhs < rhs);
 	}
 	template <typename Iterator1, typename Iterator2>
-	auto operator-(
+	SPROUT_CONSTEXPR auto operator-(
 		sprout::reverse_iterator<Iterator1> const& lhs,
 		sprout::reverse_iterator<Iterator2> const& rhs
 		) -> decltype(lhs.current - rhs.current)

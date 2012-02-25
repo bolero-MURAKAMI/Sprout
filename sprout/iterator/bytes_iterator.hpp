@@ -99,16 +99,16 @@ namespace sprout {
 		friend SPROUT_CONSTEXPR bool operator!=(bytes_iterator const& lhs, bytes_iterator const& rhs) {
 			return !(lhs == rhs);
 		}
-		friend bool operator<(bytes_iterator const& lhs, bytes_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator<(bytes_iterator const& lhs, bytes_iterator const& rhs) {
 			return lhs.it_ < rhs.it_ || lhs.it_ == rhs.it_ && lhs.i_ < rhs.i_;
 		}
-		friend bool operator>(bytes_iterator const& lhs, bytes_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator>(bytes_iterator const& lhs, bytes_iterator const& rhs) {
 			return rhs < lhs;
 		}
-		friend bool operator<=(bytes_iterator const& lhs, bytes_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator<=(bytes_iterator const& lhs, bytes_iterator const& rhs) {
 			return !(rhs < lhs);
 		}
-		friend bool operator>=(bytes_iterator const& lhs, bytes_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR bool operator>=(bytes_iterator const& lhs, bytes_iterator const& rhs) {
 			return !(lhs < rhs);
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
@@ -153,7 +153,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return *(*this + n);
 		}
-		friend difference_type operator-(bytes_iterator const& lhs, bytes_iterator const& rhs) {
+		friend SPROUT_CONSTEXPR difference_type operator-(bytes_iterator const& lhs, bytes_iterator const& rhs) {
 			return (lhs.it_ - rhs.it_) * traits_type::size() + (lhs.i_ - rhs.i_);
 		}
 		friend SPROUT_CONSTEXPR bytes_iterator operator+(difference_type n, bytes_iterator const& it) {
