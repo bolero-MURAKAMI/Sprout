@@ -1,0 +1,40 @@
+#ifndef SPROUT_FUNCTIONAL_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
+#define SPROUT_FUNCTIONAL_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
+
+#include <cmath>
+#include <iterator>
+#include <type_traits>
+#include <sprout/config.hpp>
+#include <sprout/iterator/operation.hpp>
+
+namespace sprout {
+	namespace detail {
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR inline typename std::iterator_traits<InputIterator>::value_type dft_element_gen(
+			InputIterator first,
+			InputIterator last,
+			typename std::iterator_traits<InputIterator>::value_type::value_type arg,
+			typename std::iterator_traits<InputIterator>::difference_type k = 0,
+			typename std::iterator_traits<InputIterator>::value_type value = typename std::iterator_traits<InputIterator>::value_type(),
+			typename std::iterator_traits<InputIterator>::value_type::value_type theta = typename std::iterator_traits<InputIterator>::value_type::value_type()
+			)
+		{
+			typedef typename std::iterator_traits<InputIterator>::value_type value_type;
+			using std::cos;
+			using std::sin;
+			return first != last
+				? value + sprout::detail::dft_element_gen(
+					sprout::next(first),
+					last,
+					arg,
+					k + 1,
+					*first * value_type(cos(theta), sin(theta)),
+					arg * (k + 1)
+					)
+				: value
+				;
+		}
+	}	// namespace detail
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_FUNCTIONAL_DFT_DETAIL_DFT_ELEMENT_GEN_HPP

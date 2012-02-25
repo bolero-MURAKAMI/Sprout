@@ -3,14 +3,9 @@
 
 #include <cmath>
 #include <sprout/config.hpp>
+#include <sprout/math/constants.hpp>
 
 namespace sprout {
-	namespace detail {
-		template<typename T>
-		SPROUT_CONSTEXPR T pi_div_two() {
-			return 1.5707963267948966192313216916397514L;
-		}
-	}	// namespace detail
 	template<typename T>
 	class complex;
 	template<typename T>
@@ -94,7 +89,7 @@ namespace sprout {
 		complex<T>& operator*=(complex<X> const& rhs) {
 			return *this = complex<T>(
 				re_ * rhs.real() - im_ * rhs.imag(),
-				re_ * rhs.imag() + im_ * rhs.imag()
+				re_ * rhs.imag() + im_ * rhs.real()
 				);
 		}
 		template<typename X>
@@ -153,7 +148,7 @@ namespace sprout {
 	SPROUT_CONSTEXPR sprout::complex<T> operator*(sprout::complex<T> const& lhs, sprout::complex<T> const& rhs) {
 		return sprout::complex<T>(
 			lhs.real() * rhs.real() - lhs.imag() * rhs.imag(),
-			lhs.real() * rhs.imag() + lhs.imag() * rhs.imag()
+			lhs.real() * rhs.imag() + lhs.imag() * rhs.real()
 			);
 	}
 	template<typename T>
@@ -364,7 +359,7 @@ namespace sprout {
 	namespace detail {
 		template<typename T>
 		SPROUT_CONSTEXPR sprout::complex<T> acos_impl(sprout::complex<T> const& t) {
-			return sprout::complex<T>(sprout::detail::pi_div_two<T>() - t.real(), -t.imag());
+			return sprout::complex<T>(sprout::math::pi_div_two<T>() - t.real(), -t.imag());
 		}
 	}	// namespace detail
 	template<typename T>

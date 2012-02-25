@@ -1,11 +1,11 @@
-#ifndef SPROUT_FFT_FIT_BITREV_TABLE_HPP
-#define SPROUT_FFT_FIT_BITREV_TABLE_HPP
+#ifndef SPROUT_FUNCTIONAL_FFT_FIT_BITREV_TABLE_HPP
+#define SPROUT_FUNCTIONAL_FFT_FIT_BITREV_TABLE_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/fixed_container/traits.hpp>
 #include <sprout/fixed_container/functions.hpp>
-#include <sprout/fft/fixed/bitrev_table.hpp>
+#include <sprout/functional/fft/fixed/bitrev_table.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
 
@@ -38,4 +38,4 @@ namespace sprout {
 	}	// namespace fit
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FFT_FIT_BITREV_TABLE_HPP
+#endif	// #ifndef SPROUT_FUNCTIONAL_FFT_FIT_BITREV_TABLE_HPP
