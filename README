@@ -1,100 +1,111 @@
 Sprout C++ Library
 
-C++11 constexpr based Container, Algorithms, Random, Parsing, Ray tracing, and others.
+C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, and others.
 
 このライブラリは、C++11 の constexpr に対応したコンテナ、アルゴリズム、乱数、構文解析、レイトレーシング、その他の機能を提供する。
 
 
 
-*インストール
+*インストール (Install)
 
-<sprout/*> を参照できるようライブラリのディレクトリにパスを通す。
+<sprout/*> にライブラリのディレクトリにパスを通す。
 このライブラリはヘッダオンリーで使える。
+ (Trough the path to the directory of the library to <sprout/*>.
+  This library can be used in the header only.)
 
 
 
-*主なコンテンツ
+*主なコンテンツ (Main contents)
 
-constexpr コンテナ
+constexpr コンテナ (Containers)
     sprout/array.hpp
     sprout/string.hpp
 
-constexpr タプル
+constexpr タプル (Tuples)
     sprout/tuple.hpp
 
-constexpr バリアント
+constexpr バリアント (Variants)
     sprout/variant.hpp
 
-constexpr アルゴリズム
+constexpr アルゴリズム (Algorithms)
     sprout/algorithm.hpp
     sprout/numeric.hpp
 
-constexpr 範囲アルゴリズム
+constexpr 範囲アルゴリズム (Range algorithms)
     sprout/range/algorithm.hpp
     sprout/range/numeric.hpp
 
-constexpr コンテナ操作
+constexpr コンテナ操作 (Container operations)
     sprout/operation.hpp
 
-constexpr 乱数
+constexpr 乱数 (Random numbers)
     sprout/random.hpp
     sprout/random/unique_seed.hpp
 
-constexpr ハッシュ関数
+constexpr ハッシュ関数 (Hash functions)
     sprout/functional/hash.hpp
     sprout/checksum/sha1.hpp
 
-constexpr UUID
+constexpr UUID (UUID)
     sprout/uuid.hpp
 
-型リスト
+型リスト (Type lists)
     sprout/type.hpp
 
-コンテナアダプタ
+コンテナアダプタ (Container adopters)
     sprout/sub_array.hpp
     sprout/pit.hpp
 
-コンテナ特性
+コンテナ特性 (Container traits)
     sprout/fixed_container.hpp
 
-constexpr 構文解析
+constexpr 構文解析 (Parsing)
     sprout/weed.hpp
 
-constexpr レイトレーシング
+constexpr レイトレーシング (Ray tracing)
     sprout/darkroom.hpp
 
 
 
-*コンフィグ用ユーザマクロ
+*コンフィグ用ユーザマクロ (User macros for configuration)
 
 #define SPROUT_CONFIG_DISABLE_CONSTEXPR
-このマクロが定義されているとき、関数は constexpr として宣言されない。
+このマクロが定義されているとき、関数は constexpr 指定されない。
 コンパイラが constexpr に対応していない場合。
+ (When this macro is defined, the functions are not specified constexpr.
+  If the compiler does not support constexpr.)
 
 #define SPROUT_CONFIG_DISABLE_NOEXCEPT
 このマクロが定義されているとき、関数は noexcept 修飾されない。
 コンパイラが noexcept に対応していない場合。
+ (When this macro is defined, the functions are not qualified noexcept.
+  If the compiler does not support noexcept.)
 
 #define SPROUT_CONFIG_DISABLE_TEMPLATE_ALIASES
-このマクロが定義されているとき、Template Aliases によるエイリアスは定義されない。
-コンパイラが Template Aliases に対応していない場合。
+このマクロが定義されているとき、Template aliases によるエイリアスは定義されない。
+コンパイラが Template aliases に対応していない場合。
+ (When this macro is defined, the aliases are not defined by the Template aliases.
+  If the compiler does not support Template aliases.)
 
 #define SPROUT_CONFIG_USE_SSCRISK_CEL
 このマクロが定義されているとき、実装の詳細として CEL - ConstExpr Library を使用する。
+ (When this macro is defined, you use the CEL - ConstExpr Library as an implementation detail.)
 https://github.com/sscrisk/CEL---ConstExpr-Library
 
 #define SPROUT_CONFIG_DISABLE_SUPPORT_TEMPORARY_CONTAINER_ITERATION
-このマクロが定義されているとき、アルゴリズムへのコンテナの一時オブジェクトを渡しをサポートしない。
-なおその場合、Sprout のコンテナのイテレータはポインタになる。
+このマクロが定義されているとき、アルゴリズムへのコンテナの一時オブジェクト渡しをサポートしない。
+　(When this macro is defined, does not support passing a temporary object of the container to the algorithm.)
 
 #define SPROUT_CONFIG_SUPPORT_TEMPORARY_CONTAINER_ITERATION
 このマクロは非推奨です。
+ (This macro is deprecated.)
 
-これらのマクロをユーザ定義する場合、このライブラリのどのヘッダがインクルードされるよりも先に定義されなければならない。
+これらのマクロを定義するのは、このライブラリのどのヘッダをインクルードするよりも以前でなければならない。
+ (To define these macros must be earlier than any of this library to include the header.)
 
 
 
-*作者
+*作者 (Author)
 
 Bolero MURAKAMI
 Blog: http://d.hatena.ne.jp/boleros/
@@ -103,12 +114,9 @@ Mail: contact-lib@boleros.x0.com
 
 
 
-*著作権等
+*著作権等 (Copyrights)
 
 このライブラリは Boost Software License の元で公開されています。
 
-Copyright (C) 2011 Bolero MURAKAMI.
-
-Distributed under the Boost Software License, Version 1.0. (See
-accompanying file LICENSE_1_0.txt or copy at
-http://www.boost.org/LICENSE_1_0.txt)
+Copyright (C) 2011-2012 Bolero MURAKAMI.
+Distributed under the Boost Software License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
