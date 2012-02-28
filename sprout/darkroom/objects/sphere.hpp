@@ -7,6 +7,7 @@
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/math/constants.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
 #include <sprout/darkroom/rays/ray.hpp>
@@ -52,8 +53,6 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR std::size_t point_of_intersection = 0;
 					SPROUT_STATIC_CONSTEXPR std::size_t normal = 1;
 				};
-			private:
-				SPROUT_STATIC_CONSTEXPR unit_type pi = 3.1415926535897932384626433832795;
 			private:
 				position_type pos_;
 				radius_type rad_;
@@ -156,7 +155,7 @@ namespace sprout {
 								sprout::darkroom::coords::z(normal),
 								sprout::darkroom::coords::x(normal)
 								)
-								/ pi
+								/ sprout::math::pi<unit_type>()
 								,
 							atan2(
 								sprout::darkroom::coords::y(normal),
@@ -165,7 +164,7 @@ namespace sprout {
 										+ sprout::darkroom::coords::z(normal) * sprout::darkroom::coords::z(normal)
 									)
 								)
-								/ (pi / 2)
+								/ sprout::math::pi_div_two<unit_type>()
 							)
 						);
 				}

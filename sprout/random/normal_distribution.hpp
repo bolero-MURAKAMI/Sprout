@@ -7,6 +7,7 @@
 #include <istream>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/math/constants.hpp>
 #include <sprout/random/uniform_01.hpp>
 #include <sprout/random/random_result.hpp>
 
@@ -22,8 +23,6 @@ namespace sprout {
 			typedef RealType result_type;
 		private:
 			struct private_constructor_tag {};
-		private:
-			SPROUT_STATIC_CONSTEXPR result_type pi = result_type(3.14159265358979323846);
 		private:
 			static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType mean_arg, RealType sigma_arg) {
 				return sigma_arg >= RealType(0);
@@ -125,7 +124,12 @@ namespace sprout {
 				using std::sin;
 				using std::cos;
 				return sprout::random::random_result<Engine, normal_distribution>(
-					cached_rho * (valid ? cos(result_type(2) * pi * r1) : sin(result_type(2) * pi * r1)) * sigma_ + mean_,
+					cached_rho
+						* (valid
+							? cos(result_type(2) * sprout::math::pi<result_type>() * r1)
+							: sin(result_type(2) * sprout::math::pi<result_type>() * r1)
+							)
+						* sigma_ + mean_,
 					eng,
 					normal_distribution(
 						mean_,

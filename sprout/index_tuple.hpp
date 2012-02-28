@@ -156,10 +156,7 @@ namespace sprout {
 			>
 		{};
 	}	// namespace detail
-	template<
-		sprout::index_t I,
-		std::size_t N
-	>
+	template<sprout::index_t I, std::size_t N>
 	struct index_n
 		: public sprout::detail::index_n_impl<I, N>
 	{};
