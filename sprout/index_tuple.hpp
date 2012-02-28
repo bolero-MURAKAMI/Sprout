@@ -98,32 +98,70 @@ namespace sprout {
 	// index_n
 	//
 	namespace detail {
-		template<
-			sprout::index_t I,
-			std::size_t N,
-			typename Acc,
-			bool Break = (N == 0)
-		>
-		struct index_n_impl {
+		template<typename IndexTuple>
+		struct index_n_next;
+		template<sprout::index_t... Indexes>
+		struct index_n_next<sprout::index_tuple<Indexes...>> {
 		public:
-			typedef Acc type;
+			typedef sprout::index_tuple<Indexes..., Indexes...> type;
 		};
-		template<
-			sprout::index_t I,
-			std::size_t N,
-			sprout::index_t... Indexes
+
+		template<typename IndexTuple, sprout::index_t Tail>
+		struct index_n_next2;
+		template<sprout::index_t... Indexes, sprout::index_t Tail>
+		struct index_n_next2<sprout::index_tuple<Indexes...>, Tail> {
+		public:
+			typedef sprout::index_tuple<Indexes..., Indexes..., Tail> type;
+		};
+
+		template<sprout::index_t I, std::size_t N, typename Enable = void>
+		struct index_n_impl;
+		template<sprout::index_t I, std::size_t N>
+		struct index_n_impl<
+			I,
+			N,
+			typename std::enable_if<(N == 0)>::type
+		> {
+		public:
+			typedef sprout::index_tuple<> type;
+		};
+		template<sprout::index_t I, std::size_t N>
+		struct index_n_impl<
+			I,
+			N,
+			typename std::enable_if<(N == 1)>::type
+		> {
+		public:
+			typedef sprout::index_tuple<I> type;
+		};
+		template<sprout::index_t I, std::size_t N>
+		struct index_n_impl<
+			I,
+			N,
+			typename std::enable_if<(N > 1 && N % 2 == 0)>::type
 		>
-		struct index_n_impl<I, N, sprout::index_tuple<Indexes...>, false>
-			: public sprout::detail::index_n_impl<I, N - 1, sprout::index_tuple<Indexes..., I> >
+			: public sprout::detail::index_n_next<
+				typename sprout::detail::index_n_impl<I, N / 2>::type
+			>
+		{};
+		template<sprout::index_t I, std::size_t N>
+		struct index_n_impl<
+			I,
+			N,
+			typename std::enable_if<(N > 1 && N % 2 == 1)>::type
+		>
+			: public sprout::detail::index_n_next2<
+				typename sprout::detail::index_n_impl<I, N / 2>::type,
+				I
+			>
 		{};
 	}	// namespace detail
 	template<
 		sprout::index_t I,
-		std::size_t N,
-		typename Acc = sprout::index_tuple<>
+		std::size_t N
 	>
 	struct index_n
-		: public sprout::detail::index_n_impl<I, N, Acc>
+		: public sprout::detail::index_n_impl<I, N>
 	{};
 }	// namespace sprout
 
