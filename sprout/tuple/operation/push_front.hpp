@@ -1,7 +1,6 @@
 #ifndef SPROUT_TUPLE_OPERATION_PUSH_FRONT_HPP
 #define SPROUT_TUPLE_OPERATION_PUSH_FRONT_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/tuple/tuple.hpp>
@@ -21,7 +20,7 @@ namespace sprout {
 		}	// namespace result_of
 
 		namespace detail {
-			template<typename Result, typename Tuple, typename T, std::ptrdiff_t... Indexes>
+			template<typename Result, typename Tuple, typename T, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline Result push_front_impl(
 				Tuple const& t,
 				T const& v,

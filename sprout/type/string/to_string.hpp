@@ -1,9 +1,9 @@
 #ifndef SPROUT_TYPE_STRING_TO_STRING_HPP
 #define SPROUT_TYPE_STRING_TO_STRING_HPP
 
-#include <sprout/config.hpp>
 #include <utility>
 #include <type_traits>
+#include <sprout/config.hpp>
 #include <sprout/string.hpp>
 #include <sprout/type/string.hpp>
 #include <sprout/index_tuple.hpp>
@@ -26,7 +26,7 @@ namespace sprout {
 		private:
 			template<typename IndexTuple>
 			struct impl;
-			template<std::ptrdiff_t... Indexes>
+			template<sprout::index_t... Indexes>
 			struct impl<sprout::index_tuple<Indexes...> > {
 			public:
 				typedef sprout::types::basic_string<

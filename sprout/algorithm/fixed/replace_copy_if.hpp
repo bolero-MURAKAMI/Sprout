@@ -1,7 +1,6 @@
 #ifndef SPROUT_ALGORITHM_FIXED_REPLACE_COPY_IF_HPP
 #define SPROUT_ALGORITHM_FIXED_REPLACE_COPY_IF_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -16,7 +15,7 @@
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename RandomAccessIterator, typename Result, typename T, typename Predicate, std::ptrdiff_t... Indexes>
+			template<typename RandomAccessIterator, typename Result, typename T, typename Predicate, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type replace_copy_if_impl_ra(
 				RandomAccessIterator first,
 				RandomAccessIterator last,

@@ -1,7 +1,6 @@
 #ifndef SPROUT_TYPE_OPERATION_PUSH_BACK_HPP
 #define SPROUT_TYPE_OPERATION_PUSH_BACK_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/type/tuple.hpp>
@@ -17,7 +16,7 @@ namespace sprout {
 		private:
 			template<typename IndexTuple>
 			struct apply_impl;
-			template<std::ptrdiff_t... Indexes>
+			template<sprout::index_t... Indexes>
 			struct apply_impl<sprout::index_tuple<Indexes...> >
 				: public sprout::types::rebind_types<
 					Tuple

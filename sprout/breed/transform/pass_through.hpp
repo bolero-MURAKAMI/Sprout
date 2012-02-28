@@ -1,7 +1,6 @@
 #ifndef SPROUT_BREED_TRANSFORM_PASS_THROUGH_HPP
 #define SPROUT_BREED_TRANSFORM_PASS_THROUGH_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
@@ -28,7 +27,7 @@ namespace sprout {
 			private:
 				template<typename IndexTuple>
 				struct list_impl {};
-				template<std::ptrdiff_t... Indexes>
+				template<sprout::index_t... Indexes>
 				struct list_impl<sprout::index_tuple<Indexes...> > {
 				public:
 					typedef sprout::breed::list<
@@ -50,7 +49,7 @@ namespace sprout {
 					breed_generator(expr_type)
 				>::type result_type;
 			private:
-				template<std::ptrdiff_t... Indexes>
+				template<sprout::index_t... Indexes>
 				SPROUT_CONSTEXPR result_type call_impl(
 					typename pass_through_impl::expr_param e,
 					typename pass_through_impl::state_param s,

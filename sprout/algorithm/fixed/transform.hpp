@@ -1,7 +1,6 @@
 #ifndef SPROUT_ALGORITHM_FIXED_TRANSFORM_HPP
 #define SPROUT_ALGORITHM_FIXED_TRANSFORM_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -16,7 +15,7 @@
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename RandomAccessIterator, typename Result, typename UnaryOperation, std::ptrdiff_t... Indexes>
+			template<typename RandomAccessIterator, typename Result, typename UnaryOperation, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type transform_impl_ra(
 				RandomAccessIterator first,
 				RandomAccessIterator last,
@@ -118,7 +117,7 @@ namespace sprout {
 		}
 
 		namespace detail {
-			template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename Result, typename BinaryOperation, std::ptrdiff_t... Indexes>
+			template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename Result, typename BinaryOperation, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type transform_impl_ra(
 				RandomAccessIterator1 first1,
 				RandomAccessIterator1 last1,

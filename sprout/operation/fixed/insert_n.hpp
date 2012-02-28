@@ -30,7 +30,7 @@ namespace sprout {
 		}	// namespace result_of
 
 		namespace detail {
-			template<std::size_t N, typename Result, typename Container, typename T, typename... Values, std::ptrdiff_t... Indexes>
+			template<std::size_t N, typename Result, typename Container, typename T, typename... Values, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline Result insert_n_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,

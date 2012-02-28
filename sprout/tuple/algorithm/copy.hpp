@@ -1,7 +1,6 @@
 #ifndef SPROUT_TUPLE_ALGORITHM_COPY_HPP
 #define SPROUT_TUPLE_ALGORITHM_COPY_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
@@ -22,7 +21,7 @@ namespace sprout {
 		}	// namespace result_of
 
 		namespace detail {
-			template<typename Result, typename Tuple, typename InputTuple, std::ptrdiff_t... Indexes1, std::ptrdiff_t... Indexes2>
+			template<typename Result, typename Tuple, typename InputTuple, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
 			SPROUT_CONSTEXPR inline Result copy_impl(
 				Tuple const& t,
 				InputTuple const& input,

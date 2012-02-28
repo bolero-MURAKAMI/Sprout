@@ -49,7 +49,7 @@ namespace sprout {
 				typedef sprout::breed::expr<Tag, src_args, N> src_type;
 				typedef sprout::breed::expr<Tag, dst_args, N> type;
 			private:
-				template<std::ptrdiff_t... Indexes>
+				template<sprout::index_t... Indexes>
 				static SPROUT_CONSTEXPR type call_impl(src_type const& e, sprout::index_tuple<Indexes...>) {
 					return type(e.template child<Indexes>()...);
 				}
@@ -68,7 +68,7 @@ namespace sprout {
 				typedef sprout::breed::basic_expr<Tag, src_args, N> src_type;
 				typedef sprout::breed::basic_expr<Tag, dst_args, N> type;
 			private:
-				template<std::ptrdiff_t... Indexes>
+				template<sprout::index_t... Indexes>
 				static SPROUT_CONSTEXPR type call_impl(src_type const& e, sprout::index_tuple<Indexes...>) {
 					return type(e.template child<Indexes>()...);
 				}

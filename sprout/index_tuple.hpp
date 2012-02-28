@@ -6,18 +6,23 @@
 
 namespace sprout {
 	//
+	// index_t
+	//
+	typedef std::ptrdiff_t index_t;
+
+	//
 	// index_tuple
 	//
-	template<std::ptrdiff_t... Indexes>
+	template<sprout::index_t... Indexes>
 	struct index_tuple {};
 
 	//
 	// index_range
 	//
 	template<
-		std::ptrdiff_t First,
-		std::ptrdiff_t Last,
-		std::ptrdiff_t Step = 1,
+		sprout::index_t First,
+		sprout::index_t Last,
+		sprout::index_t Step = 1,
 		typename Acc = sprout::index_tuple<>,
 		bool Break = (First >= Last)
 	>
@@ -25,10 +30,10 @@ namespace sprout {
 		typedef Acc type;
 	};
 	template<
-		std::ptrdiff_t First,
-		std::ptrdiff_t Last,
-		std::ptrdiff_t Step,
-		std::ptrdiff_t... Indexes
+		sprout::index_t First,
+		sprout::index_t Last,
+		sprout::index_t Step,
+		sprout::index_t... Indexes
 	>
 	struct index_range<First, Last, Step, sprout::index_tuple<Indexes...>, false>
 		: public sprout::index_range<First + Step, Last, Step, sprout::index_tuple<Indexes..., First> >
@@ -38,8 +43,8 @@ namespace sprout {
 	// index_n
 	//
 	template<
-		std::ptrdiff_t I,
-		std::ptrdiff_t N,
+		sprout::index_t I,
+		sprout::index_t N,
 		typename Acc = sprout::index_tuple<>,
 		bool Break = (N == 0)
 	>
@@ -47,9 +52,9 @@ namespace sprout {
 		typedef Acc type;
 	};
 	template<
-		std::ptrdiff_t I,
-		std::ptrdiff_t N,
-		std::ptrdiff_t... Indexes
+		sprout::index_t I,
+		sprout::index_t N,
+		sprout::index_t... Indexes
 	>
 	struct index_n<I, N, sprout::index_tuple<Indexes...>, false>
 		: public sprout::index_n<I, N - 1, sprout::index_tuple<Indexes..., I> >

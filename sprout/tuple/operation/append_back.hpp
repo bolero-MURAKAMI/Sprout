@@ -1,7 +1,6 @@
 #ifndef SPROUT_TUPLE_OPERATION_APPEND_BACK_HPP
 #define SPROUT_TUPLE_OPERATION_APPEND_BACK_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/tuple/tuple.hpp>
@@ -21,7 +20,7 @@ namespace sprout {
 		}	// namespace result_of
 
 		namespace detail {
-			template<typename Result, typename Tuple, typename InputTuple, std::ptrdiff_t... Indexes1, std::ptrdiff_t... Indexes2>
+			template<typename Result, typename Tuple, typename InputTuple, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
 			SPROUT_CONSTEXPR inline Result append_back_impl(
 				Tuple const& t,
 				InputTuple const& input,

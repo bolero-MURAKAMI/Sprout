@@ -215,7 +215,7 @@ namespace sprout {
 				n2
 				);
 		}
-		template<std::ptrdiff_t... Indexes>
+		template<sprout::index_t... Indexes>
 		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str_impl(
 			value_type const* s,
 			size_type n,
@@ -255,7 +255,7 @@ namespace sprout {
 				);
 		}
 #endif
-		template<std::size_t M, std::ptrdiff_t... Indexes>
+		template<std::size_t M, sprout::index_t... Indexes>
 		static SPROUT_CONSTEXPR basic_string<T, sizeof...(Indexes), Traits> implicit_conversion_impl(
 			T const(& elems)[M],
 			size_type len,
@@ -833,7 +833,7 @@ namespace sprout {
 	// to_string
 	//
 	namespace detail {
-		template<typename T, std::size_t N, std::ptrdiff_t... Indexes>
+		template<typename T, std::size_t N, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl_1(
 			T const(& arr)[N],
 			typename sprout::basic_string<T, N - 1>::size_type n,
@@ -842,7 +842,7 @@ namespace sprout {
 		{
 			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
 		}
-		template<typename T, std::size_t N, std::ptrdiff_t... Indexes>
+		template<typename T, std::size_t N, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl(
 			T const(& arr)[N],
 			sprout::index_tuple<Indexes...>
@@ -872,7 +872,7 @@ namespace sprout {
 	// make_string
 	//
 	namespace detail {
-		template<typename T, std::size_t N, std::ptrdiff_t... Indexes>
+		template<typename T, std::size_t N, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> make_string_impl_1(
 			sprout::array<T, N> const& arr,
 			std::size_t n,
@@ -881,7 +881,7 @@ namespace sprout {
 		{
 			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
 		}
-		template<typename T, std::size_t N, std::ptrdiff_t... Indexes>
+		template<typename T, std::size_t N, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> make_string_impl(
 			sprout::array<T, N> const& arr,
 			sprout::index_tuple<Indexes...>

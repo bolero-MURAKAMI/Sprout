@@ -23,7 +23,7 @@ namespace sprout {
 					typename Camera,
 					typename Objects,
 					typename Lights,
-					std::ptrdiff_t... XIndexes
+					sprout::index_t... XIndexes
 				>
 				SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Pixels>::value_type
 				generate_impl_line(
@@ -71,7 +71,7 @@ namespace sprout {
 					typename Camera,
 					typename Objects,
 					typename Lights,
-					std::ptrdiff_t... YIndexes
+					sprout::index_t... YIndexes
 				>
 				SPROUT_CONSTEXPR inline Pixels
 				generate_impl(

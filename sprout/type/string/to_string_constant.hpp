@@ -1,8 +1,8 @@
 #ifndef SPROUT_TYPE_STRING_TO_STRING_CONSTANT_HPP
 #define SPROUT_TYPE_STRING_TO_STRING_CONSTANT_HPP
 
-#include <sprout/config.hpp>
 #include <type_traits>
+#include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/string.hpp>
 #include <sprout/type/string.hpp>
@@ -37,7 +37,7 @@ namespace sprout {
 					>::type
 				>
 			{};
-			template<typename Sequence, std::ptrdiff_t... Indexes>
+			template<typename Sequence, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline sprout::basic_string<
 				typename Sequence::value_type,
 				sprout::types::detail::str_length<Sequence>::value

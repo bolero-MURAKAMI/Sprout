@@ -1,7 +1,6 @@
 #ifndef SPROUT_ALGORITHM_FIXED_FILL_HPP
 #define SPROUT_ALGORITHM_FIXED_FILL_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
@@ -12,7 +11,7 @@
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename Container, typename T, std::ptrdiff_t... Indexes>
+			template<typename Container, typename T, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type fill_impl(
 				Container const& cont,
 				T const& value,

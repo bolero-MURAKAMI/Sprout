@@ -21,7 +21,7 @@ namespace sprout {
 			typedef sprout::tuples::tuple<Types...> tuple_type;;
 			typedef sprout::types::type_tuple<typename std::decay<Types>::type...> uncvref_tuple_type;;
 		private:
-			template<typename T, std::ptrdiff_t... Indexes>
+			template<typename T, sprout::index_t... Indexes>
 			static SPROUT_CONSTEXPR tuple_type init(T&& operand, sprout::index_tuple<Indexes...>) {
 				return sprout::tuples::make_clone<tuple_type>(
 					typename sprout::tuples::tuple_element<Indexes, tuple_type>::type()...,

@@ -1,7 +1,6 @@
 #ifndef SPROUT_OPERATION_FIXED_INSERT_HPP
 #define SPROUT_OPERATION_FIXED_INSERT_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
@@ -29,7 +28,7 @@ namespace sprout {
 		}	// namespace result_of
 
 		namespace detail {
-			template<typename Result, typename Container, typename T, typename... Values, std::ptrdiff_t... Indexes>
+			template<typename Result, typename Container, typename T, typename... Values, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline Result insert_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,

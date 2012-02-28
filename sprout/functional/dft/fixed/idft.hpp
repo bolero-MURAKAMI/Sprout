@@ -1,7 +1,6 @@
 #ifndef SPROUT_FUNCTIONAL_DFT_FIXED_IDFT_HPP
 #define SPROUT_FUNCTIONAL_DFT_FIXED_IDFT_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/fixed_container/traits.hpp>
@@ -14,7 +13,7 @@
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename InputIterator, typename Result, std::ptrdiff_t... Indexes>
+			template<typename InputIterator, typename Result, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type idft_impl(
 				InputIterator first,
 				InputIterator last,

@@ -16,7 +16,7 @@
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename RandomAccessIterator, typename Result, std::ptrdiff_t... Indexes>
+			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward_impl_ra(
 				RandomAccessIterator first,
 				RandomAccessIterator last,

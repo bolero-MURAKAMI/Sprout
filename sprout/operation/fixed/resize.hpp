@@ -26,7 +26,7 @@ namespace sprout {
 		}	// namespace result_of
 
 		namespace detail {
-			template<typename Result, typename Container, typename T, std::ptrdiff_t... Indexes>
+			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline Result resize_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
@@ -60,7 +60,7 @@ namespace sprout {
 		}
 
 		namespace detail {
-			template<typename Result, typename Container, std::ptrdiff_t... Indexes>
+			template<typename Result, typename Container, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline Result resize_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,

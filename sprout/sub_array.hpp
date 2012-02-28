@@ -128,7 +128,7 @@ namespace sprout {
 		public:
 			sub_array_impl() = default;
 		protected:
-			template<typename ContainerTag, std::ptrdiff_t... Indexes>
+			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
 				ContainerTag,
 				param_type arr,
@@ -141,7 +141,7 @@ namespace sprout {
 				, first_(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::cbegin(arr), first))
 				, last_(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::cbegin(arr), last))
 			{}
-			template<typename ContainerTag, std::ptrdiff_t... Indexes>
+			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
 				ContainerTag,
 				param_type arr,
@@ -154,7 +154,7 @@ namespace sprout {
 				, first_(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::cbegin(arr), first))
 				, last_(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::cbegin(arr), last))
 			{}
-			template<typename ContainerTag, std::ptrdiff_t... Indexes>
+			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
 				ContainerTag,
 				param_type arr,
@@ -167,7 +167,7 @@ namespace sprout {
 				, first_(first)
 				, last_(last)
 			{}
-			template<typename ContainerTag, std::ptrdiff_t... Indexes>
+			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
 				ContainerTag,
 				param_type arr,

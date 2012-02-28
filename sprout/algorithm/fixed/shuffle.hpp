@@ -54,7 +54,7 @@ namespace sprout {
 					: sprout::array<std::ptrdiff_t, N>{{}}
 					;
 			}
-			template<typename Container, typename Shuffled, std::ptrdiff_t... Indexes>
+			template<typename Container, typename Shuffled, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type shuffle_impl_1(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
@@ -72,7 +72,7 @@ namespace sprout {
 						)...
 					);
 			}
-			template<typename Container, typename UniformRandomNumberGenerator, std::ptrdiff_t... Indexes>
+			template<typename Container, typename UniformRandomNumberGenerator, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type shuffle_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...> indexes,

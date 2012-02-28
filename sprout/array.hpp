@@ -260,7 +260,7 @@ namespace sprout {
 	}
 
 	namespace detail {
-		template<typename T, std::size_t N, std::ptrdiff_t...Indexes>
+		template<typename T, std::size_t N, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR inline sprout::array<T, N> to_array_impl(
 			T const (& arr)[N],
 			sprout::index_tuple<Indexes...>

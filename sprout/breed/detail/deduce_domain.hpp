@@ -203,7 +203,7 @@ namespace sprout {
 
 			template<typename IndexTuple, typename... Args>
 			struct deduce_domain_impl;
-			template<typename... Args, std::ptrdiff_t... Indexes>
+			template<typename... Args, sprout::index_t... Indexes>
 			struct deduce_domain_impl<sprout::index_tuple<Indexes...>, Args...>
 				: public sprout::breed::detail::common_domain<
 					typename sprout::breed::domain_of<
