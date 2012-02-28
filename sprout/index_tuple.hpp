@@ -2,6 +2,7 @@
 #define SPROUT_INDEX_TUPLE_HPP
 
 #include <cstddef>
+#include <type_traits>
 #include <sprout/config.hpp>
 
 namespace sprout {
@@ -19,45 +20,110 @@ namespace sprout {
 	//
 	// index_range
 	//
-	template<
-		sprout::index_t First,
-		sprout::index_t Last,
-		sprout::index_t Step = 1,
-		typename Acc = sprout::index_tuple<>,
-		bool Break = (First >= Last)
-	>
-	struct index_range {
-		typedef Acc type;
-	};
-	template<
-		sprout::index_t First,
-		sprout::index_t Last,
-		sprout::index_t Step,
-		sprout::index_t... Indexes
-	>
-	struct index_range<First, Last, Step, sprout::index_tuple<Indexes...>, false>
-		: public sprout::index_range<First + Step, Last, Step, sprout::index_tuple<Indexes..., First> >
+	namespace detail {
+		template<typename IndexTuple, sprout::index_t Next>
+		struct index_range_next;
+		template<sprout::index_t... Indexes, sprout::index_t Next>
+		struct index_range_next<sprout::index_tuple<Indexes...>, Next> {
+		public:
+			typedef sprout::index_tuple<Indexes..., (Indexes + Next)...> type;
+		};
+
+		template<typename IndexTuple, sprout::index_t Next, sprout::index_t Tail>
+		struct index_range_next2;
+		template<sprout::index_t... Indexes, sprout::index_t Next, sprout::index_t Tail>
+		struct index_range_next2<sprout::index_tuple<Indexes...>, Next, Tail> {
+		public:
+			typedef sprout::index_tuple<Indexes..., (Indexes + Next)..., Tail> type;
+		};
+
+		template<sprout::index_t First, sprout::index_t Step, std::size_t N, typename Enable = void>
+		struct index_range_impl;
+		template<sprout::index_t First, sprout::index_t Step, std::size_t N>
+		struct index_range_impl<
+			First,
+			Step,
+			N,
+			typename std::enable_if<(N == 0)>::type
+		> {
+		public:
+			typedef sprout::index_tuple<> type;
+		};
+		template<sprout::index_t First, sprout::index_t Step, std::size_t N>
+		struct index_range_impl<
+			First,
+			Step,
+			N,
+			typename std::enable_if<(N == 1)>::type
+		> {
+		public:
+			typedef sprout::index_tuple<First> type;
+		};
+		template<sprout::index_t First, sprout::index_t Step, std::size_t N>
+		struct index_range_impl<
+			First,
+			Step,
+			N,
+			typename std::enable_if<(N > 1 && N % 2 == 0)>::type
+		>
+			: public sprout::detail::index_range_next<
+				typename sprout::detail::index_range_impl<First, Step, N / 2>::type,
+				First + N / 2 * Step
+			>
+		{};
+		template<sprout::index_t First, sprout::index_t Step, std::size_t N>
+		struct index_range_impl<
+			First,
+			Step,
+			N,
+			typename std::enable_if<(N > 1 && N % 2 == 1)>::type
+		>
+			: public sprout::detail::index_range_next2<
+				typename sprout::detail::index_range_impl<First, Step, N / 2>::type,
+				First + N / 2 * Step,
+				First + (N - 1) * Step
+			>
+		{};
+	}	// namespace detail
+	template<sprout::index_t First, sprout::index_t Last, sprout::index_t Step = 1>
+	struct index_range
+		: public sprout::detail::index_range_impl<
+			First,
+			Step,
+			((Last - First) + (Step - 1)) / Step
+		>
 	{};
 
 	//
 	// index_n
 	//
+	namespace detail {
+		template<
+			sprout::index_t I,
+			std::size_t N,
+			typename Acc,
+			bool Break = (N == 0)
+		>
+		struct index_n_impl {
+		public:
+			typedef Acc type;
+		};
+		template<
+			sprout::index_t I,
+			std::size_t N,
+			sprout::index_t... Indexes
+		>
+		struct index_n_impl<I, N, sprout::index_tuple<Indexes...>, false>
+			: public sprout::detail::index_n_impl<I, N - 1, sprout::index_tuple<Indexes..., I> >
+		{};
+	}	// namespace detail
 	template<
 		sprout::index_t I,
-		sprout::index_t N,
-		typename Acc = sprout::index_tuple<>,
-		bool Break = (N == 0)
+		std::size_t N,
+		typename Acc = sprout::index_tuple<>
 	>
-	struct index_n {
-		typedef Acc type;
-	};
-	template<
-		sprout::index_t I,
-		sprout::index_t N,
-		sprout::index_t... Indexes
-	>
-	struct index_n<I, N, sprout::index_tuple<Indexes...>, false>
-		: public sprout::index_n<I, N - 1, sprout::index_tuple<Indexes..., I> >
+	struct index_n
+		: public sprout::detail::index_n_impl<I, N, Acc>
 	{};
 }	// namespace sprout
 
