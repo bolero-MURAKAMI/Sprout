@@ -6,5 +6,6 @@
 #include <sprout/uuid/uuid_io.hpp>
 #include <sprout/uuid/uuid_hash.hpp>
 #include <sprout/uuid/uuid_generators.hpp>
+#include <sprout/uuid/udl.hpp>
 
 #endif	// #ifndef SPROUT_UUID_HPP

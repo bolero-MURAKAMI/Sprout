@@ -168,6 +168,10 @@ namespace sprout {
 					;
 			}
 		public:
+			template<typename Iterator>
+			SPROUT_CONSTEXPR result_type operator()(Iterator first, Iterator last) const {
+				return generate_1(next_char<Iterator>(first, last));
+			}
 			template<typename Elem, std::size_t N, typename Traits>
 			SPROUT_CONSTEXPR result_type operator()(sprout::basic_string<Elem, N, Traits> const& s) const {
 				return operator()(s.begin(), s.end());
@@ -183,10 +187,6 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR result_type operator()(char32_t const* s) const {
 				return operator()(s, s + sprout::char_traits<char32_t>::length(s));
-			}
-			template<typename Iterator>
-			SPROUT_CONSTEXPR result_type operator()(Iterator first, Iterator last) const {
-				return generate_1(next_char<Iterator>(first, last));
 			}
 		};
 	}	// namespace uuids
