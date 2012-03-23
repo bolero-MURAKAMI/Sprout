@@ -18,8 +18,8 @@ namespace sprout {
 		template<typename... Types>
 		class variant_impl {
 		protected:
-			typedef sprout::tuples::tuple<Types...> tuple_type;;
-			typedef sprout::types::type_tuple<typename std::decay<Types>::type...> uncvref_tuple_type;;
+			typedef sprout::tuples::tuple<Types...> tuple_type;
+			typedef sprout::types::type_tuple<typename std::decay<Types>::type...> uncvref_tuple_type;
 		private:
 			template<typename T, sprout::index_t... Indexes>
 			static SPROUT_CONSTEXPR tuple_type init(T&& operand, sprout::index_tuple<Indexes...>) {
@@ -62,10 +62,10 @@ namespace sprout {
 		: private sprout::detail::variant_impl<Types...>
 	{
 	private:
-		typedef sprout::detail::variant_impl<Types...> impl_type;;
-		typedef typename impl_type::uncvref_tuple_type uncvref_tuple_type;;
+		typedef sprout::detail::variant_impl<Types...> impl_type;
+		typedef typename impl_type::uncvref_tuple_type uncvref_tuple_type;
 	public:
-		typedef typename impl_type::tuple_type tuple_type;;
+		typedef typename impl_type::tuple_type tuple_type;
 	private:
 		template<int I>
 		static SPROUT_CONSTEXPR typename std::enable_if<

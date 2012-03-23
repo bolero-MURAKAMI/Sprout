@@ -10,6 +10,8 @@
 
 namespace sprout {
 	namespace breed {
+		namespace detail {
+		}	// namespace detail
 	}	// namespace breed
 }	// namespace sprout
 
