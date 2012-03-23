@@ -47,8 +47,8 @@ namespace sprout {
 		template<typename U>
 		reverse_iterator& operator=(reverse_iterator<U> const& it) {
 			reverse_iterator temp(it);
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		SPROUT_CONSTEXPR iterator_type base() const {
 			return current;
@@ -89,13 +89,13 @@ namespace sprout {
 		}
 		reverse_iterator& operator+=(difference_type n) {
 			reverse_iterator temp(current - n);
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		reverse_iterator& operator-=(difference_type n) {
 			reverse_iterator temp(current + n);
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return *(deref_tmp - n);

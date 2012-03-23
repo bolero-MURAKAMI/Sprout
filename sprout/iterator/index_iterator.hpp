@@ -147,13 +147,13 @@ namespace sprout {
 		}
 		index_iterator& operator+=(difference_type n) {
 			index_iterator temp(holder_, index_ + n);
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		index_iterator& operator-=(difference_type n) {
 			index_iterator temp(holder_, index_ - n);
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return holder_.get()[index_ + n];

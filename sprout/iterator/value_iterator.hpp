@@ -136,13 +136,13 @@ namespace sprout {
 		}
 		value_iterator& operator+=(difference_type n) {
 			value_iterator temp(holder_, count_ - n);
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		value_iterator& operator-=(difference_type n) {
 			value_iterator temp(holder_, count_ + n);
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return holder_.get();
