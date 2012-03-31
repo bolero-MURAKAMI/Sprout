@@ -55,9 +55,9 @@ namespace sprout {
 				> {
 				public:
 					typedef typename std::conditional<
-						sprout::fixed_container_traits<T>::fixed_size != 0,
+						sprout::container_traits<T>::static_size != 0,
 						T,
-						typename sprout::rebind_fixed_size<T>::template apply<1>::type
+						typename sprout::container_transform_traits<T>::template rebind_size<1>::type
 					>::type type;
 				};
 				// V | container<V, N> -> container<V, N ? N : 1>
@@ -71,9 +71,9 @@ namespace sprout {
 				> {
 				public:
 					typedef typename std::conditional<
-						sprout::fixed_container_traits<T>::fixed_size != 0,
+						sprout::container_traits<T>::static_size != 0,
 						U,
-						typename sprout::rebind_fixed_size<U>::template apply<1>::type
+						typename sprout::container_transform_traits<U>::template rebind_size<1>::type
 					>::type type;
 				};
 				// tuple<Vs...> | tuple<Ws...> -> tuple<max(Vs..., Ws...)>

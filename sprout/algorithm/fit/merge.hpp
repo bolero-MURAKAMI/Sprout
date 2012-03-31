@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIT_MERGE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/merge.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
@@ -21,11 +21,11 @@ namespace sprout {
 				InputIterator2 last2,
 				Result const& result,
 				Compare comp,
-				typename sprout::fixed_container_traits<Result>::difference_type offset
+				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::merge(first1, last1, first2, last2, result, comp)),
+					sprout::get_internal(sprout::fixed::merge(first1, last1, first2, last2, result, comp)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(
 						NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first1, last1) + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first2, last2),
@@ -47,7 +47,7 @@ namespace sprout {
 			Compare comp
 			)
 		{
-			return sprout::fit::detail::merge_impl(first1, last1, first2, last2, result, comp, sprout::fixed_begin_offset(result));
+			return sprout::fit::detail::merge_impl(first1, last1, first2, last2, result, comp, sprout::internal_begin_offset(result));
 		}
 
 		namespace detail {
@@ -58,11 +58,11 @@ namespace sprout {
 				InputIterator2 first2,
 				InputIterator2 last2,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset
+				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::merge(first1, last1, first2, last2, result)),
+					sprout::get_internal(sprout::fixed::merge(first1, last1, first2, last2, result)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(
 						NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first1, last1) + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first2, last2),
@@ -83,7 +83,7 @@ namespace sprout {
 			Result const& result
 			)
 		{
-			return sprout::fit::detail::merge_impl(first1, last1, first2, last2, result, sprout::fixed_begin_offset(result));
+			return sprout::fit::detail::merge_impl(first1, last1, first2, last2, result, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit
 }	// namespace sprout

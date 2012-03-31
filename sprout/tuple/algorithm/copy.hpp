@@ -16,7 +16,7 @@ namespace sprout {
 			template<typename Tuple, typename InputTuple>
 			struct copy {
 			public:
-				typedef typename sprout::tuples::tuple_traits<Tuple>::clone_type type;
+				typedef typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type type;
 			};
 		}	// namespace result_of
 
@@ -29,7 +29,7 @@ namespace sprout {
 				sprout::index_tuple<Indexes2...>
 				)
 			{
-				return sprout::tuples::remake_clone<Result>(
+				return sprout::tuples::remake<Result>(
 					t,
 					sprout::tuples::get<Indexes2>(input)...,
 					sprout::tuples::get<Indexes1>(t)...

@@ -7,9 +7,9 @@
 #include <sprout/string.hpp>
 #include <sprout/type/string.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/size.hpp>
-#include <sprout/fixed_container/begin.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/size.hpp>
+#include <sprout/container/begin.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/preprocessor/cat.hpp>
 
@@ -22,7 +22,7 @@ namespace sprout {
 		struct to_string {
 		private:
 			typedef decltype(Proxy()()) string_type;
-			typedef sprout::fixed_container_traits<string_type> traits_type;
+			typedef sprout::container_traits<string_type> traits_type;
 		private:
 			template<typename IndexTuple>
 			struct impl;

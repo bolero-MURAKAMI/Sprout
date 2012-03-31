@@ -47,7 +47,7 @@ namespace sprout {
 						camera,
 						objs,
 						lights,
-						sprout::tuples::remake_clone<Ray>(
+						sprout::tuples::remake<Ray>(
 							ray,
 							sprout::darkroom::coords::add(
 								sprout::darkroom::intersects::point_of_intersection(inter),
@@ -106,7 +106,7 @@ namespace sprout {
 								sprout::darkroom::intersects::normal(inter)
 								)
 							)
-						: sprout::tuples::make_clone<Color>(0, 0, 0)
+						: sprout::tuples::make<Color>(0, 0, 0)
 						;
 				}
 			};

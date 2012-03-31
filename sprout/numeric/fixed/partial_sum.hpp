@@ -3,8 +3,8 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 
@@ -13,29 +13,29 @@ namespace sprout {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args) + 1,
+				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partial_sum_impl_1(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::size_type size,
-				typename sprout::fixed_container_traits<Result>::value_type const& value,
+				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::value_type const& value,
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
+				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator, typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args) + 1,
+				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partial_sum_impl_1(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::size_type size,
-				typename sprout::fixed_container_traits<Result>::value_type const& value,
+				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::value_type const& value,
 				Args const&... args
 				)
 			{
@@ -46,26 +46,26 @@ namespace sprout {
 			}
 			template<typename InputIterator, typename Result>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == 0,
+				sprout::container_traits<Result>::static_size == 0,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partial_sum_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::size_type size
+				typename sprout::container_traits<Result>::size_type size
 				)
 			{
-				return sprout::remake_clone<Result>(result, sprout::size(result));
+				return sprout::remake<Result>(result, sprout::size(result));
 			}
 			template<typename InputIterator, typename Result>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != 0,
+				sprout::container_traits<Result>::static_size != 0,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partial_sum_impl_1(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::size_type size
+				typename sprout::container_traits<Result>::size_type size
 				)
 			{
 				return first != last
@@ -90,31 +90,31 @@ namespace sprout {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename BinaryOperation, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args) + 1,
+				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partial_sum_impl_1(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
 				BinaryOperation binary_op,
-				typename sprout::fixed_container_traits<Result>::size_type size,
-				typename sprout::fixed_container_traits<Result>::value_type const& value,
+				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::value_type const& value,
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
+				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator, typename Result, typename BinaryOperation, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args) + 1,
+				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partial_sum_impl_1(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
 				BinaryOperation binary_op,
-				typename sprout::fixed_container_traits<Result>::size_type size,
-				typename sprout::fixed_container_traits<Result>::value_type const& value,
+				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::value_type const& value,
 				Args const&... args
 				)
 			{
@@ -125,28 +125,28 @@ namespace sprout {
 			}
 			template<typename InputIterator, typename Result, typename BinaryOperation>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == 0,
+				sprout::container_traits<Result>::static_size == 0,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partial_sum_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
 				BinaryOperation binary_op,
-				typename sprout::fixed_container_traits<Result>::size_type size
+				typename sprout::container_traits<Result>::size_type size
 				)
 			{
-				return sprout::remake_clone<Result>(result, sprout::size(result));
+				return sprout::remake<Result>(result, sprout::size(result));
 			}
 			template<typename InputIterator, typename Result, typename BinaryOperation>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != 0,
+				sprout::container_traits<Result>::static_size != 0,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type partial_sum_impl_1(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
 				BinaryOperation binary_op,
-				typename sprout::fixed_container_traits<Result>::size_type size
+				typename sprout::container_traits<Result>::size_type size
 				)
 			{
 				return first != last

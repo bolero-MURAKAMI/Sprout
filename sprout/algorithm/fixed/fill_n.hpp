@@ -3,8 +3,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/fill.hpp>
 
@@ -23,8 +23,8 @@ namespace sprout {
 			return sprout::fixed::detail::fill_impl(
 				cont,
 				value,
-				typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type(),
-				sprout::fixed_begin_offset(cont),
+				typename sprout::index_range<0, sprout::container_traits<Container>::static_size>::type(),
+				sprout::internal_begin_offset(cont),
 				n
 				);
 		}

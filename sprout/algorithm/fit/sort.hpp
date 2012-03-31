@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIT_SORT_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/sort.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
@@ -15,11 +15,11 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type sort_impl(
 				Container const& cont,
 				Compare comp,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::sort(cont, comp)),
+					sprout::get_internal(sprout::fixed::sort(cont, comp)),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -34,18 +34,18 @@ namespace sprout {
 			Compare comp
 			)
 		{
-			return sprout::fit::detail::sort_impl(cont, comp, sprout::fixed_begin_offset(cont));
+			return sprout::fit::detail::sort_impl(cont, comp, sprout::internal_begin_offset(cont));
 		}
 
 		namespace detail {
 			template<typename Container>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type sort_impl(
 				Container const& cont,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::sort(cont)),
+					sprout::get_internal(sprout::fixed::sort(cont)),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -59,7 +59,7 @@ namespace sprout {
 			Container const& cont
 			)
 		{
-			return sprout::fit::detail::sort_impl(cont, sprout::fixed_begin_offset(cont));
+			return sprout::fit::detail::sort_impl(cont, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit
 }	// namespace sprout

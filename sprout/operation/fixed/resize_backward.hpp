@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/operation/fixed/resize.hpp>
 
@@ -26,12 +26,12 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline Result resize_backward_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Result>::difference_type size,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
+				typename sprout::container_traits<Result>::difference_type size,
+				typename sprout::container_traits<Result>::difference_type offset,
 				T const& v
 				)
 			{
-				return sprout::make_clone<Result>(
+				return sprout::make<Result>(
 					(Indexes >= offset && Indexes < offset + size
 						? *sprout::next(sprout::begin(cont), Indexes - offset)
 						: v
@@ -50,10 +50,10 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::fixed_size>::type(),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size>::type(),
 				sprout::size(cont),
-				static_cast<typename sprout::fixed_container_traits<Container>::difference_type>(
-					sprout::fixed_container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::fixed_size
+				static_cast<typename sprout::container_traits<Container>::difference_type>(
+					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
 					)
 					- sprout::size(cont),
 				v
@@ -65,14 +65,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline Result resize_backward_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Result>::difference_type size,
-				typename sprout::fixed_container_traits<Result>::difference_type offset
+				typename sprout::container_traits<Result>::difference_type size,
+				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
-				return sprout::make_clone<Result>(
+				return sprout::make<Result>(
 					(Indexes >= offset && Indexes < offset + size
 						? *sprout::next(sprout::begin(cont), Indexes - offset)
-						: typename sprout::fixed_container_traits<Result>::value_type()
+						: typename sprout::container_traits<Result>::value_type()
 						)...
 					);
 			}
@@ -87,10 +87,10 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::fixed_size>::type(),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size>::type(),
 				sprout::size(cont),
-				static_cast<typename sprout::fixed_container_traits<Container>::difference_type>(
-					sprout::fixed_container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::fixed_size
+				static_cast<typename sprout::container_traits<Container>::difference_type>(
+					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
 					)
 					- sprout::size(cont)
 				);

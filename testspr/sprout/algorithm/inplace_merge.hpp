@@ -4,7 +4,7 @@
 #include <sprout/algorithm/inplace_merge.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -46,7 +46,7 @@ namespace testspr {
 					array<int, 6>{{2, 4, 5, 6, 7, 9}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(merged),
+					sprout::get_internal(merged),
 					array<int, 10>{{1, 3, 2, 4, 5, 6, 7, 9, 8, 10}}
 					));
 			}
@@ -60,7 +60,7 @@ namespace testspr {
 					array<int, 6>{{2, 4, 5, 6, 7, 9}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(merged),
+					sprout::get_internal(merged),
 					array<int, 10>{{1, 3, 2, 4, 5, 6, 7, 9, 8, 10}}
 					));
 			}
@@ -104,7 +104,7 @@ namespace testspr {
 					array<int, 6>{{2, 4, 5, 6, 7, 9}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(merged),
+					sprout::get_internal(merged),
 					array<int, 10>{{1, 3, 2, 4, 5, 6, 7, 9, 8, 10}}
 					));
 			}
@@ -119,7 +119,7 @@ namespace testspr {
 					array<int, 6>{{2, 4, 5, 6, 7, 9}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(merged),
+					sprout::get_internal(merged),
 					array<int, 10>{{1, 3, 2, 4, 5, 6, 7, 9, 8, 10}}
 					));
 			}

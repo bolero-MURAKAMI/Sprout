@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/make_clone.hpp>
+#include <sprout/container/make.hpp>
 #include <sprout/operation/fixed/realign_to.hpp>
 #include <sprout/tuple/algorithm/copy.hpp>
 #include <sprout/weed/unused.hpp>
@@ -51,7 +51,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
-				return sprout::make_clone<type>(x);
+				return sprout::make<type>(x);
 			}
 			// V | container<V, N> -> container<V, N ? N : 1>
 			template<typename T, typename U, typename X>
@@ -70,7 +70,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
-				return sprout::make_clone<type>(x);
+				return sprout::make<type>(x);
 			}
 			// tuple<Vs...> | tuple<Ws...> -> tuple<max(Vs..., Ws...)>
 			template<typename T, typename U, typename X>
@@ -105,7 +105,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
-				return sprout::make_clone<type>(x);
+				return sprout::make<type>(x);
 			}
 			template<typename T, typename U, typename X>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -114,7 +114,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
-				return sprout::make_clone<type>();
+				return sprout::make<type>();
 			}
 			// unused | V -> container<V, 1>
 			template<typename T, typename U, typename X>
@@ -124,7 +124,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
-				return sprout::make_clone<type>(x);
+				return sprout::make<type>(x);
 			}
 			template<typename T, typename U, typename X>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
@@ -133,7 +133,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
-				return sprout::make_clone<type>();
+				return sprout::make<type>();
 			}
 			// unused >> unused -> unused
 			template<typename T, typename U, typename X>

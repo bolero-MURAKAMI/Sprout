@@ -4,7 +4,7 @@
 #include <sprout/algorithm/nth_element.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -46,7 +46,7 @@ namespace testspr {
 					array<int, 6>{{2, 3, 5, 9, 8, 6}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(nth),
+					sprout::get_internal(nth),
 					array<int, 10>{{10, 7, 2, 3, 5, 9, 8, 6, 4, 1}}
 					));
 			}
@@ -60,7 +60,7 @@ namespace testspr {
 					array<int, 3>{{2, 3, 5}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(nth),
+					sprout::get_internal(nth),
 					array<int, 10>{{10, 7, 2, 3, 5, 9, 8, 6, 4, 1}}
 					));
 			}
@@ -104,7 +104,7 @@ namespace testspr {
 					array<int, 6>{{2, 3, 5, 9, 8, 6}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(nth),
+					sprout::get_internal(nth),
 					array<int, 10>{{10, 7, 2, 3, 5, 9, 8, 6, 4, 1}}
 					));
 			}
@@ -119,7 +119,7 @@ namespace testspr {
 					array<int, 3>{{2, 3, 5}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(nth),
+					sprout::get_internal(nth),
 					array<int, 10>{{10, 7, 2, 3, 5, 9, 8, 6, 4, 1}}
 					));
 			}

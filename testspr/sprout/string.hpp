@@ -5,7 +5,7 @@
 #include <sstream>
 #include <type_traits>
 #include <sprout/string.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {

@@ -5,7 +5,7 @@
 #include <iterator>
 #include <bitset>
 #include <iostream>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 
 namespace testspr {
 	//

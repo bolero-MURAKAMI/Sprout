@@ -4,7 +4,7 @@
 #include <sprout/algorithm/fill.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -46,7 +46,7 @@ namespace testspr {
 					array<int, 6>{{-1, -1, -1, -1, -1, -1}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(filled),
+					sprout::get_internal(filled),
 					array<int, 10>{{1, 2, -1, -1, -1, -1, -1, -1, 9, 10}}
 					));
 			}
@@ -60,7 +60,7 @@ namespace testspr {
 					array<int, 6>{{-1, -1, -1, -1, -1, -1}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(filled),
+					sprout::get_internal(filled),
 					array<int, 10>{{1, 2, -1, -1, -1, -1, -1, -1, 9, 10}}
 					));
 			}

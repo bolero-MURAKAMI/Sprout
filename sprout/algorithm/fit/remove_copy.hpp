@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIT_REMOVE_COPY_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/remove_copy.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
@@ -19,11 +19,11 @@ namespace sprout {
 				InputIterator last,
 				Result const& result,
 				T const& value,
-				typename sprout::fixed_container_traits<Result>::difference_type offset
+				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::remove_copy(first, last, result, value)),
+					sprout::get_internal(sprout::fixed::remove_copy(first, last, result, value)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last) - NS_SSCRISK_CEL_OR_SPROUT_DETAIL::count(first, last, value), sprout::size(result))
 					);
@@ -40,7 +40,7 @@ namespace sprout {
 			T const& value
 			)
 		{
-			return sprout::fit::detail::remove_copy_impl(first, last, result, value, sprout::fixed_begin_offset(result));
+			return sprout::fit::detail::remove_copy_impl(first, last, result, value, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit
 }	// namespace sprout

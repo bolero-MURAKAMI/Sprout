@@ -8,8 +8,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator.hpp>
 #include <sprout/utility/forward.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -42,7 +42,6 @@ namespace sprout {
 		typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
-		SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
 	public:
 		value_type elems[static_size ? static_size : 1];
 	public:
@@ -186,8 +185,6 @@ namespace sprout {
 	};
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR typename sprout::array<T, N>::size_type sprout::array<T, N>::static_size;
-	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR typename sprout::array<T, N>::size_type sprout::array<T, N>::fixed_size;
 
 	//
 	// operator==
@@ -229,19 +226,6 @@ namespace sprout {
 	inline void swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
 		lhs.swap(rhs);
 	}
-
-	//
-	// rebind_fixed_size
-	//
-	template<typename T, std::size_t N>
-	struct rebind_fixed_size<sprout::array<T, N> > {
-	public:
-		template<typename sprout::fixed_container_traits<sprout::array<T, N> >::size_type S>
-		struct apply {
-			public:
-				typedef sprout::array<T, S> type;
-		};
-	};
 
 	//
 	// make_array
@@ -309,11 +293,9 @@ namespace std {
 	// tuple_size
 	//
 	template<typename T, std::size_t N>
-	struct tuple_size<sprout::array<T, N> > {
-	public:
-		typedef std::integral_constant<std::size_t, N> type;
-		SPROUT_STATIC_CONSTEXPR std::size_t value = type::value;
-	};
+	struct tuple_size<sprout::array<T, N> >
+		: public std::integral_constant<std::size_t, N>
+	{};
 
 	//
 	// tuple_element

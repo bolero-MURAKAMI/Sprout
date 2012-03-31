@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIT_SHUFFLE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/shuffle.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
@@ -16,11 +16,11 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type shuffle_impl(
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::shuffle(cont, sprout::forward<UniformRandomNumberGenerator>(g))),
+					sprout::get_internal(sprout::fixed::shuffle(cont, sprout::forward<UniformRandomNumberGenerator>(g))),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -38,7 +38,7 @@ namespace sprout {
 			return sprout::fit::detail::shuffle_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
-				sprout::fixed_begin_offset(cont)
+				sprout::internal_begin_offset(cont)
 				);
 		}
 	}	// namespace fit

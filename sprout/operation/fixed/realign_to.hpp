@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/realign.hpp>
 
 namespace sprout {
@@ -17,7 +17,7 @@ namespace sprout {
 			template<typename Result, typename Container>
 			struct realign_to {
 			public:
-				typedef typename sprout::fixed_container_traits<Result>::clone_type type;
+				typedef typename sprout::container_construct_traits<Result>::copied_type type;
 			};
 		}	// namespace result_of
 
@@ -32,7 +32,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign_to<Result, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::fixed_size>::type(),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size>::type(),
 				sprout::size(cont),
 				v
 				);
@@ -48,7 +48,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign_to<Result, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::fixed_size>::type(),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size>::type(),
 				sprout::size(cont)
 				);
 		}

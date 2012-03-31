@@ -23,7 +23,7 @@ namespace sprout {
 		private:
 			template<typename T, sprout::index_t... Indexes>
 			static SPROUT_CONSTEXPR tuple_type init(T&& operand, sprout::index_tuple<Indexes...>) {
-				return sprout::tuples::make_clone<tuple_type>(
+				return sprout::tuples::make<tuple_type>(
 					typename sprout::tuples::tuple_element<Indexes, tuple_type>::type()...,
 					sprout::forward<T>(operand)
 					);

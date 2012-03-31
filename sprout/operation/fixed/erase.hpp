@@ -3,8 +3,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -16,12 +16,12 @@ namespace sprout {
 			//
 			template<typename Container>
 			struct erase {
-				static_assert(sprout::fixed_container_traits<Container>::fixed_size >= 1, "fixed_size >= 1");
+				static_assert(sprout::container_traits<Container>::static_size >= 1, "static_size >= 1");
 			public:
-				typedef typename sprout::rebind_fixed_size<
+				typedef typename sprout::container_transform_traits<
 					Container
-				>::template apply<
-					sprout::fixed_container_traits<Container>::fixed_size - 1
+				>::template rebind_size<
+					sprout::container_traits<Container>::static_size - 1
 				>::type type;
 			};
 		}	// namespace result_of
@@ -31,18 +31,18 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline Result erase_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Container>::difference_type pos
+				typename sprout::container_traits<Container>::difference_type pos
 				)
 			{
-				return sprout::remake_clone<Result>(
+				return sprout::remake<Result>(
 					cont,
 					sprout::size(cont) - 1,
-					(Indexes < sprout::fixed_container_traits<Container>::fixed_size - 1
+					(Indexes < sprout::container_traits<Container>::static_size - 1
 						? (Indexes < pos
-							? *sprout::next(sprout::fixed_begin(cont), Indexes)
-							: *sprout::next(sprout::fixed_begin(cont), Indexes + 1)
+							? *sprout::next(sprout::internal_begin(cont), Indexes)
+							: *sprout::next(sprout::internal_begin(cont), Indexes + 1)
 							)
-						: typename sprout::fixed_container_traits<Result>::value_type()
+						: typename sprout::container_traits<Result>::value_type()
 						)...
 					);
 			}
@@ -53,13 +53,13 @@ namespace sprout {
 		template<typename Container>
 		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::erase<Container>::type erase(
 			Container const& cont,
-			typename sprout::fixed_container_traits<Container>::const_iterator pos
+			typename sprout::container_traits<Container>::const_iterator pos
 			)
 		{
 			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::erase<Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::erase<Container>::type>::fixed_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), pos)
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::erase<Container>::type>::static_size>::type(),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), pos)
 				);
 		}
 		//
@@ -68,13 +68,13 @@ namespace sprout {
 		template<typename Container>
 		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::erase<Container>::type erase(
 			Container const& cont,
-			typename sprout::fixed_container_traits<Container>::difference_type pos
+			typename sprout::container_traits<Container>::difference_type pos
 			)
 		{
 			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::erase<Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::erase<Container>::type>::fixed_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::next(sprout::begin(cont), pos))
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::erase<Container>::type>::static_size>::type(),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos))
 				);
 		}
 	}	// namespace fixed

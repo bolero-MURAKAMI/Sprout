@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIT_BOGO_SORT_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/bogo_sort.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
@@ -16,11 +16,11 @@ namespace sprout {
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
 				Compare comp,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::bogo_sort(cont, sprout::forward<UniformRandomNumberGenerator>(g), comp)),
+					sprout::get_internal(sprout::fixed::bogo_sort(cont, sprout::forward<UniformRandomNumberGenerator>(g), comp)),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -40,7 +40,7 @@ namespace sprout {
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				comp,
-				sprout::fixed_begin_offset(cont)
+				sprout::internal_begin_offset(cont)
 				);
 		}
 
@@ -49,11 +49,11 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::bogo_sort(cont, sprout::forward<UniformRandomNumberGenerator>(g))),
+					sprout::get_internal(sprout::fixed::bogo_sort(cont, sprout::forward<UniformRandomNumberGenerator>(g))),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -71,7 +71,7 @@ namespace sprout {
 			return sprout::fit::detail::bogo_sort_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
-				sprout::fixed_begin_offset(cont)
+				sprout::internal_begin_offset(cont)
 				);
 		}
 	}	// namespace fit

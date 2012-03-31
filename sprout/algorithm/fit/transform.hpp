@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIT_TRANSFORM_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
@@ -19,11 +19,11 @@ namespace sprout {
 				Iterator last,
 				Result const& result,
 				UnaryOperation op,
-				typename sprout::fixed_container_traits<Result>::difference_type offset
+				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::transform(first, last, result, op)),
+					sprout::get_internal(sprout::fixed::transform(first, last, result, op)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last), sprout::size(result))
 					);
@@ -40,7 +40,7 @@ namespace sprout {
 			UnaryOperation op
 			)
 		{
-			return sprout::fit::detail::transform_impl(first, last, result, op, sprout::fixed_begin_offset(result));
+			return sprout::fit::detail::transform_impl(first, last, result, op, sprout::internal_begin_offset(result));
 		}
 
 		namespace detail {
@@ -51,11 +51,11 @@ namespace sprout {
 				Iterator2 first2,
 				Result const& result,
 				BinaryOperation op,
-				typename sprout::fixed_container_traits<Result>::difference_type offset
+				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::transform(first1, last1, first2, result, op)),
+					sprout::get_internal(sprout::fixed::transform(first1, last1, first2, result, op)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first1, last1), sprout::size(result))
 					);
@@ -73,7 +73,7 @@ namespace sprout {
 			BinaryOperation op
 			)
 		{
-			return sprout::fit::detail::transform_impl(first1, last1, first2, result, op, sprout::fixed_begin_offset(result));
+			return sprout::fit::detail::transform_impl(first1, last1, first2, result, op, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit
 }	// namespace sprout

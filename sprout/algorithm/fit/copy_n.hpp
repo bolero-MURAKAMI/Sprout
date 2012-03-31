@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIT_COPY_N_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/copy_n.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
@@ -17,11 +17,11 @@ namespace sprout {
 				InputIterator first,
 				Size n,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset
+				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::copy_n(first, n, result)),
+					sprout::get_internal(sprout::fixed::copy_n(first, n, result)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n, sprout::size(result))
 					);
@@ -37,7 +37,7 @@ namespace sprout {
 			Result const& result
 			)
 		{
-			return sprout::fit::detail::copy_n_impl(first, n, result, sprout::fixed_begin_offset(result));
+			return sprout::fit::detail::copy_n_impl(first, n, result, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit
 }	// namespace sprout

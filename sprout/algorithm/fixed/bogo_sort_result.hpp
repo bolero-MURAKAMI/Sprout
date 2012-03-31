@@ -4,8 +4,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
@@ -60,7 +60,7 @@ namespace sprout {
 					comp
 					)
 					? result_type(
-						sprout::clone(cont),
+						sprout::deep_copy(cont),
 						sprout::forward<UniformRandomNumberGenerator>(g)
 						)
 					: sprout::fixed::detail::bogo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
@@ -107,7 +107,7 @@ namespace sprout {
 			return sprout::fixed::detail::bogo_sort_result_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::fixed_container_traits<Container>::value_type>()
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::container_traits<Container>::value_type>()
 				);
 		}
 	}	// namespace fixed

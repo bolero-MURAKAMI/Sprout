@@ -2,8 +2,8 @@
 #define SPROUT_RANGE_NUMERIC_FIT_PARTIAL_SUM_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/numeric/fit/partial_sum.hpp>
 

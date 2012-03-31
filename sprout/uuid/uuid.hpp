@@ -68,7 +68,6 @@ namespace sprout {
 			};
 		public:
 			SPROUT_STATIC_CONSTEXPR size_type static_size = 16;
-			SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
 		public:
 			value_type elems[static_size];
 		public:

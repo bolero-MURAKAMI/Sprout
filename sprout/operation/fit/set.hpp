@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/sub_array.hpp>
 
@@ -18,7 +18,7 @@ namespace sprout {
 			struct set {
 			public:
 				typedef sprout::sub_array<
-					typename sprout::fixed_container_traits<
+					typename sprout::container_traits<
 						typename sprout::fixed::result_of::set<Container, T>::type
 					>::internal_type
 				> type;
@@ -31,14 +31,14 @@ namespace sprout {
 		template<typename Container, typename T>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::set<Container, T>::type set(
 			Container const& cont,
-			typename sprout::fixed_container_traits<Container>::const_iterator pos,
+			typename sprout::container_traits<Container>::const_iterator pos,
 			T const& v
 			)
 		{
 			return sprout::sub_copy(
-				sprout::get_fixed(sprout::fixed::set(cont, pos, v)),
-				sprout::fixed_begin_offset(cont),
-				sprout::fixed_end_offset(cont)
+				sprout::get_internal(sprout::fixed::set(cont, pos, v)),
+				sprout::internal_begin_offset(cont),
+				sprout::internal_end_offset(cont)
 				);
 		}
 		//
@@ -47,14 +47,14 @@ namespace sprout {
 		template<typename Container, typename T>
 		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::set<Container, T>::type set(
 			Container const& cont,
-			typename sprout::fixed_container_traits<Container>::difference_type pos,
+			typename sprout::container_traits<Container>::difference_type pos,
 			T const& v
 			)
 		{
 			return sprout::sub_copy(
-				sprout::get_fixed(sprout::fixed::set(cont, pos, v)),
-				sprout::fixed_begin_offset(cont),
-				sprout::fixed_end_offset(cont)
+				sprout::get_internal(sprout::fixed::set(cont, pos, v)),
+				sprout::internal_begin_offset(cont),
+				sprout::internal_end_offset(cont)
 				);
 		}
 	}	// namespace fit

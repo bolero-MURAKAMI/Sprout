@@ -4,7 +4,7 @@
 #include <sprout/algorithm/rotate_copy.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -80,7 +80,7 @@ namespace testspr {
 					array<int, 6>{{6, 7, 8, 3, 4, 5}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(rotated),
+					sprout::get_internal(rotated),
 					array<int, 10>{{0, 0, 6, 7, 8, 3, 4, 5, 0, 0}}
 					));
 			}
@@ -96,7 +96,7 @@ namespace testspr {
 					array<int, 6>{{6, 7, 8, 3, 4, 5}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(rotated),
+					sprout::get_internal(rotated),
 					array<int, 10>{{0, 0, 6, 7, 8, 3, 4, 5, 0, 0}}
 					));
 			}

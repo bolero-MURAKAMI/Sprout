@@ -5,7 +5,7 @@
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
+#include <sprout/container/traits.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/utility/value_holder.hpp>
@@ -18,23 +18,23 @@ namespace sprout {
 	class index_iterator
 		: public std::iterator<
 			std::random_access_iterator_tag,
-			typename sprout::fixed_container_traits<typename std::decay<Container>::type>::value_type,
-			typename sprout::fixed_container_traits<typename std::decay<Container>::type>::difference_type,
+			typename sprout::container_traits<typename std::decay<Container>::type>::value_type,
+			typename sprout::container_traits<typename std::decay<Container>::type>::difference_type,
 			typename std::conditional<
 				std::is_const<typename std::remove_reference<Container>::type>::value,
-				typename sprout::fixed_container_traits<typename std::decay<Container>::type>::const_pointer,
-				typename sprout::fixed_container_traits<typename std::decay<Container>::type>::pointer
+				typename sprout::container_traits<typename std::decay<Container>::type>::const_pointer,
+				typename sprout::container_traits<typename std::decay<Container>::type>::pointer
 			>::type,
 			typename std::conditional<
 				std::is_const<typename std::remove_reference<Container>::type>::value,
-				typename sprout::fixed_container_traits<typename std::decay<Container>::type>::const_reference,
-				typename sprout::fixed_container_traits<typename std::decay<Container>::type>::reference
+				typename sprout::container_traits<typename std::decay<Container>::type>::const_reference,
+				typename sprout::container_traits<typename std::decay<Container>::type>::reference
 			>::type
 		>
 	{
 	public:
 		typedef Container container_type;
-		typedef typename sprout::fixed_container_traits<typename std::decay<container_type>::type> traits_type;
+		typedef typename sprout::container_traits<typename std::decay<container_type>::type> traits_type;
 		typedef typename std::conditional<
 			std::is_reference<container_type>::value,
 			typename std::decay<container_type>::type const&,

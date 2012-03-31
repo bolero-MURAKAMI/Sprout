@@ -4,7 +4,7 @@
 #include <sprout/algorithm/swap_element_copy.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -85,7 +85,7 @@ namespace testspr {
 					array<int, 6>{{8, 4, 5, 6, 7, 3}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(swapped),
+					sprout::get_internal(swapped),
 					array<int, 10>{{0, 0, 8, 4, 5, 6, 7, 3, 0, 0}}
 					));
 			}
@@ -102,7 +102,7 @@ namespace testspr {
 					array<int, 6>{{8, 4, 5, 6, 7, 3}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(swapped),
+					sprout::get_internal(swapped),
 					array<int, 10>{{0, 0, 8, 4, 5, 6, 7, 3, 0, 0}}
 					));
 			}

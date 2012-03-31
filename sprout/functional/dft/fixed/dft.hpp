@@ -3,8 +3,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/functional/dft/dft_element.hpp>
@@ -19,17 +19,17 @@ namespace sprout {
 				InputIterator last,
 				Result const& result,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
-				typename sprout::fixed_container_traits<Result>::size_type size,
-				typename sprout::fixed_container_traits<Result>::size_type input_size
+				typename sprout::container_traits<Result>::difference_type offset,
+				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type input_size
 				)
 			{
-				return sprout::remake_clone<Result>(
+				return sprout::remake<Result>(
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? sprout::detail::dft_element_impl(first, last, Indexes - offset, input_size)
-						: *sprout::next(sprout::fixed_begin(result), Indexes)
+						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);
 			}
@@ -44,8 +44,8 @@ namespace sprout {
 					first,
 					last,
 					result,
-					typename sprout::index_range<0, sprout::fixed_container_traits<Result>::fixed_size>::type(),
-					sprout::fixed_begin_offset(result),
+					typename sprout::index_range<0, sprout::container_traits<Result>::static_size>::type(),
+					sprout::internal_begin_offset(result),
 					sprout::size(result),
 					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last)
 					);

@@ -5,8 +5,8 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/array.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 
 namespace sprout {
@@ -25,30 +25,30 @@ namespace sprout {
 					typename Lights,
 					sprout::index_t... XIndexes
 				>
-				SPROUT_CONSTEXPR inline typename sprout::fixed_container_traits<Pixels>::value_type
+				SPROUT_CONSTEXPR inline typename sprout::container_traits<Pixels>::value_type
 				generate_impl_line(
 					RayTracer const& raytracer,
 					Renderer const& renderer,
 					Camera const& camera,
 					Objects const& objs,
 					Lights const& lights,
-					typename sprout::fixed_container_traits<
-						typename sprout::fixed_container_traits<Pixels>::value_type
+					typename sprout::container_traits<
+						typename sprout::container_traits<Pixels>::value_type
 						>::size_type x
 						,
-					typename sprout::fixed_container_traits<Pixels>::size_type y,
-					typename sprout::fixed_container_traits<
-						typename sprout::fixed_container_traits<Pixels>::value_type
+					typename sprout::container_traits<Pixels>::size_type y,
+					typename sprout::container_traits<
+						typename sprout::container_traits<Pixels>::value_type
 						>::size_type width
 						,
-					typename sprout::fixed_container_traits<Pixels>::size_type height,
+					typename sprout::container_traits<Pixels>::size_type height,
 					std::size_t depth_max,
 					sprout::index_tuple<XIndexes...>
 					)
 				{
-					typedef typename sprout::fixed_container_traits<Pixels>::value_type pixel_line_type;
-					typedef typename sprout::fixed_container_traits<pixel_line_type>::value_type pixel_type;
-					return sprout::make_clone<pixel_line_type>(
+					typedef typename sprout::container_traits<Pixels>::value_type pixel_line_type;
+					typedef typename sprout::container_traits<pixel_line_type>::value_type pixel_type;
+					return sprout::make<pixel_line_type>(
 						sprout::darkroom::colors::rgb_f_to_rgb<pixel_type>(
 							raytracer.template operator()(
 								renderer,
@@ -80,21 +80,21 @@ namespace sprout {
 					Camera const& camera,
 					Objects const& objs,
 					Lights const& lights,
-					typename sprout::fixed_container_traits<
-						typename sprout::fixed_container_traits<Pixels>::value_type
+					typename sprout::container_traits<
+						typename sprout::container_traits<Pixels>::value_type
 						>::size_type x
 						,
-					typename sprout::fixed_container_traits<Pixels>::size_type y,
-					typename sprout::fixed_container_traits<
-						typename sprout::fixed_container_traits<Pixels>::value_type
+					typename sprout::container_traits<Pixels>::size_type y,
+					typename sprout::container_traits<
+						typename sprout::container_traits<Pixels>::value_type
 						>::size_type width
 						,
-					typename sprout::fixed_container_traits<Pixels>::size_type height,
+					typename sprout::container_traits<Pixels>::size_type height,
 					std::size_t depth_max,
 					sprout::index_tuple<YIndexes...>
 					)
 				{
-					return sprout::make_clone<Pixels>(
+					return sprout::make<Pixels>(
 						sprout::darkroom::pixels::detail::generate_impl_line<Pixels>(
 							raytracer,
 							renderer,
@@ -108,9 +108,9 @@ namespace sprout {
 							depth_max,
 							typename sprout::index_range<
 								0,
-								sprout::fixed_container_traits<
-									typename sprout::fixed_container_traits<Pixels>::value_type
-									>::fixed_size
+								sprout::container_traits<
+									typename sprout::container_traits<Pixels>::value_type
+									>::static_size
 								>::type()
 							)...
 						);
@@ -130,23 +130,23 @@ namespace sprout {
 				Camera const& camera,
 				Objects const& objs,
 				Lights const& lights,
-				typename sprout::fixed_container_traits<
-					typename sprout::fixed_container_traits<Pixels>::value_type
+				typename sprout::container_traits<
+					typename sprout::container_traits<Pixels>::value_type
 					>::size_type x
 					= 0
 					,
-				typename sprout::fixed_container_traits<Pixels>::size_type y
+				typename sprout::container_traits<Pixels>::size_type y
 					= 0
 					,
-				typename sprout::fixed_container_traits<
-					typename sprout::fixed_container_traits<Pixels>::value_type
+				typename sprout::container_traits<
+					typename sprout::container_traits<Pixels>::value_type
 					>::size_type width
-					= sprout::fixed_container_traits<
-						typename sprout::fixed_container_traits<Pixels>::value_type
-						>::fixed_size
+					= sprout::container_traits<
+						typename sprout::container_traits<Pixels>::value_type
+						>::static_size
 					,
-				typename sprout::fixed_container_traits<Pixels>::size_type height
-					= sprout::fixed_container_traits<Pixels>::fixed_size
+				typename sprout::container_traits<Pixels>::size_type height
+					= sprout::container_traits<Pixels>::static_size
 					,
 				std::size_t depth_max = 8
 				)
@@ -164,7 +164,7 @@ namespace sprout {
 					depth_max,
 					typename sprout::index_range<
 						0,
-						sprout::fixed_container_traits<Pixels>::fixed_size
+						sprout::container_traits<Pixels>::static_size
 						>::type()
 					);
 			}

@@ -9,7 +9,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
 #include <sprout/range/algorithm/fixed/copy.hpp>
@@ -175,13 +175,13 @@ namespace sprout {
 		{
 			return first == last ? process(
 					h_,
-					sprout::get_fixed(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
+					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
 					block_byte_index_ + sizeof...(Args),
 					byte_count_ + sizeof...(Args)
 					)
 				: block_byte_index_ + sizeof...(Args) == 64 ? process(
 					h_,
-					sprout::get_fixed(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
+					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
 					block_byte_index_ + sizeof...(Args),
 					byte_count_ + sizeof...(Args)
 					).process_block_impl(first, last)
@@ -214,13 +214,13 @@ namespace sprout {
 		{
 			return block_byte_index_ + sizeof...(Args) == 56 ? process(
 					h_,
-					sprout::get_fixed(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
+					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
 					block_byte_index_ + sizeof...(Args),
 					byte_count_ + sizeof...(Args)
 					)
 				: block_byte_index_ + sizeof...(Args) == 64 ? process(
 					h_,
-					sprout::get_fixed(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
+					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
 					block_byte_index_ + sizeof...(Args),
 					byte_count_ + sizeof...(Args)
 					).process_padding()
@@ -230,7 +230,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR sha1 process_append() const {
 			return process(
 				h_,
-				sprout::get_fixed(sprout::range::fixed::copy(
+				sprout::get_internal(sprout::range::fixed::copy(
 					sprout::array<std::uint8_t, 8>{{
 						static_cast<std::uint8_t>(0),
 						static_cast<std::uint8_t>(0),

@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
-#include <sprout/fixed_container/make_clone.hpp>
+#include <sprout/container/make.hpp>
 #include <sprout/algorithm/string/join.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/traits/type/is_container.hpp>
@@ -25,7 +25,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::times<Limit, T>::type
 			>::type times(Args const&... args) {
 				return sprout::algorithm::join(
-					sprout::make_clone<sprout::array<T, Limit> >(args...)
+					sprout::make<sprout::array<T, Limit> >(args...)
 					);
 			}
 			// times<N>(V) -> container<V, N>
@@ -36,7 +36,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::times<Limit, T>::type
 			>::type times(Args const&... args) {
 				typedef typename sprout::weed::attr_cnv::result_of::times<Limit, T>::type type;
-				return sprout::make_clone<type>(args...);
+				return sprout::make<type>(args...);
 			}
 			// times<N>(unused) -> unused
 			template<std::size_t Limit, typename T, typename... Args>

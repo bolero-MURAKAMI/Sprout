@@ -3,8 +3,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/bogo_sort_result.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
@@ -19,7 +19,7 @@ namespace sprout {
 				typename std::decay<UniformRandomNumberGenerator>::type
 			> bogo_sort_result_impl_1(
 				Sorted const& sorted,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				typedef sprout::tuples::tuple<
@@ -28,7 +28,7 @@ namespace sprout {
 				> result_type;
 				return result_type(
 					sprout::sub_copy(
-						sprout::get_fixed(sprout::tuples::get<0>(sorted)),
+						sprout::get_internal(sprout::tuples::get<0>(sorted)),
 						offset,
 						offset + sprout::size(sprout::tuples::get<0>(sorted))
 						),
@@ -43,7 +43,7 @@ namespace sprout {
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
 				Compare comp,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::fit::detail::bogo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
@@ -69,7 +69,7 @@ namespace sprout {
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				comp,
-				sprout::fixed_begin_offset(cont)
+				sprout::internal_begin_offset(cont)
 				);
 		}
 
@@ -81,7 +81,7 @@ namespace sprout {
 			> bogo_sort_result_impl(
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::fit::detail::bogo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
@@ -105,7 +105,7 @@ namespace sprout {
 			return sprout::fit::detail::bogo_sort_result_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
-				sprout::fixed_begin_offset(cont)
+				sprout::internal_begin_offset(cont)
 				);
 		}
 	}	// namespace fit

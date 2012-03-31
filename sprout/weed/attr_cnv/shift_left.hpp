@@ -84,7 +84,7 @@ namespace sprout {
 				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
 				typedef typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type type;
-				return sprout::make_clone<type>(t, u);
+				return sprout::make<type>(t, u);
 			}
 			// V >> W -> tuple<V, W>
 			template<typename T, typename U>

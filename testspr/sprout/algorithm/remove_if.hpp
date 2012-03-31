@@ -4,7 +4,7 @@
 #include <sprout/algorithm/remove_if.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -46,7 +46,7 @@ namespace testspr {
 					array<int, 6>{{0, 0, 0, 0, 7, 0}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(removed),
+					sprout::get_internal(removed),
 					array<int, 10>{{1, 0, 0, 0, 0, 0, 7, 0, 9, 0}}
 					));
 			}
@@ -60,7 +60,7 @@ namespace testspr {
 					array<int, 3>{{0, 0, 0}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(removed),
+					sprout::get_internal(removed),
 					array<int, 10>{{1, 0, 0, 0, 0, 0, 7, 0, 9, 0}}
 					));
 			}

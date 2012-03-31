@@ -3,8 +3,8 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/functional/fft/fixed/bitrev_table.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
@@ -15,11 +15,11 @@ namespace sprout {
 			template<typename Container>
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bitrev_table_impl(
 				Container const& cont,
-				typename sprout::fixed_container_traits<Container>::difference_type offset
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::bitrev_table(cont)),
+					sprout::get_internal(sprout::fixed::bitrev_table(cont)),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -33,7 +33,7 @@ namespace sprout {
 			Container const& cont
 			)
 		{
-			return sprout::fit::detail::bitrev_table_impl(cont, sprout::fixed_begin_offset(cont));
+			return sprout::fit::detail::bitrev_table_impl(cont, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit
 }	// namespace sprout

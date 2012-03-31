@@ -4,8 +4,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/detail/param_at.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
@@ -19,10 +19,10 @@ namespace sprout {
 			template<typename Container, typename T, typename... Values>
 			struct insert {
 			public:
-				typedef typename sprout::rebind_fixed_size<
+				typedef typename sprout::container_transform_traits<
 					Container
-				>::template apply<
-					sprout::fixed_container_traits<Container>::fixed_size + 1 + sizeof...(Values)
+				>::template rebind_size<
+					sprout::container_traits<Container>::static_size + 1 + sizeof...(Values)
 				>::type type;
 			};
 		}	// namespace result_of
@@ -32,22 +32,22 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline Result insert_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Container>::difference_type pos,
+				typename sprout::container_traits<Container>::difference_type pos,
 				T const& v,
 				Values const&... values
 				)
 			{
-				return sprout::remake_clone<Result>(
+				return sprout::remake<Result>(
 					cont,
 					sprout::size(cont) + 1 + sizeof...(Values),
-					(Indexes < sprout::fixed_container_traits<Container>::fixed_size + 1 + sizeof...(Values)
+					(Indexes < sprout::container_traits<Container>::static_size + 1 + sizeof...(Values)
 						? (Indexes < pos
-							? *sprout::next(sprout::fixed_begin(cont), Indexes)
+							? *sprout::next(sprout::internal_begin(cont), Indexes)
 							: Indexes < pos + 1 + sizeof...(Values)
-							? sprout::detail::param_at<typename sprout::fixed_container_traits<Result>::value_type>(Indexes - pos, v, values...)
-							: *sprout::next(sprout::fixed_begin(cont), Indexes - (1 + sizeof...(Values)))
+							? sprout::detail::param_at<typename sprout::container_traits<Result>::value_type>(Indexes - pos, v, values...)
+							: *sprout::next(sprout::internal_begin(cont), Indexes - (1 + sizeof...(Values)))
 							)
-						: typename sprout::fixed_container_traits<Result>::value_type()
+						: typename sprout::container_traits<Result>::value_type()
 						)...
 					);
 			}
@@ -58,15 +58,15 @@ namespace sprout {
 		template<typename Container, typename T, typename... Values>
 		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::insert<Container, T, Values...>::type insert(
 			Container const& cont,
-			typename sprout::fixed_container_traits<Container>::const_iterator pos,
+			typename sprout::container_traits<Container>::const_iterator pos,
 			T const& v,
 			Values const&... values
 			)
 		{
 			return sprout::fixed::detail::insert_impl<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>::fixed_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), pos),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>::static_size>::type(),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), pos),
 				v,
 				values...
 				);
@@ -77,15 +77,15 @@ namespace sprout {
 		template<typename Container, typename T, typename... Values>
 		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::insert<Container, T, Values...>::type insert(
 			Container const& cont,
-			typename sprout::fixed_container_traits<Container>::difference_type pos,
+			typename sprout::container_traits<Container>::difference_type pos,
 			T const& v,
 			Values const&... values
 			)
 		{
 			return sprout::fixed::detail::insert_impl<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>::fixed_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::next(sprout::begin(cont), pos)),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>::static_size>::type(),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				v,
 				values...
 				);

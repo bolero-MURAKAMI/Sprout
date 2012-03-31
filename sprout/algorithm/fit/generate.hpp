@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIT_GENERATE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/generate.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
@@ -15,12 +15,12 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type generate_impl(
 				Container const& cont,
 				Generator gen,
-				typename sprout::fixed_container_traits<Container>::difference_type offset,
+				typename sprout::container_traits<Container>::difference_type offset,
 				Inits const&... inits
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_fixed(sprout::fixed::generate(cont, gen, inits...)),
+					sprout::get_internal(sprout::fixed::generate(cont, gen, inits...)),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -36,7 +36,7 @@ namespace sprout {
 			Inits const&... inits
 			)
 		{
-			return sprout::fit::detail::generate_impl(cont, gen, sprout::fixed_begin_offset(cont), inits...);
+			return sprout::fit::detail::generate_impl(cont, gen, sprout::internal_begin_offset(cont), inits...);
 		}
 	}	// namespace fit
 }	// namespace sprout

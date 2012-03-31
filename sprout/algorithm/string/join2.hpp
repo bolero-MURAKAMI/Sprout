@@ -3,8 +3,8 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/operation/fixed/append_back.hpp>
 
@@ -17,19 +17,19 @@ namespace sprout {
 			template<typename ContainerContainer, typename Separator>
 			struct join2 {
 			public:
-				typedef typename sprout::rebind_fixed_size<
-					typename sprout::fixed_container_traits<ContainerContainer>::value_type
-				>::template apply<
-					sprout::fixed_container_traits<ContainerContainer>::fixed_size != 0
+				typedef typename sprout::container_transform_traits<
+					typename sprout::container_traits<ContainerContainer>::value_type
+				>::template rebind_size<
+					sprout::container_traits<ContainerContainer>::static_size != 0
 						? (
-							sprout::fixed_container_traits<
-								typename sprout::fixed_container_traits<ContainerContainer>::value_type
-							>::fixed_size
-							+ (sprout::fixed_container_traits<ContainerContainer>::fixed_size - 1) * (
-								sprout::fixed_container_traits<Separator>::fixed_size
-								+ sprout::fixed_container_traits<
-									typename sprout::fixed_container_traits<ContainerContainer>::value_type
-								>::fixed_size
+							sprout::container_traits<
+								typename sprout::container_traits<ContainerContainer>::value_type
+							>::static_size
+							+ (sprout::container_traits<ContainerContainer>::static_size - 1) * (
+								sprout::container_traits<Separator>::static_size
+								+ sprout::container_traits<
+									typename sprout::container_traits<ContainerContainer>::value_type
+								>::static_size
 								)
 							)
 						: 0
@@ -40,7 +40,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename ContainerIterator, typename Separator, typename Container>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				(sprout::fixed_container_traits<Container>::fixed_size == sprout::fixed_container_traits<Result>::fixed_size),
+				(sprout::container_traits<Container>::static_size == sprout::container_traits<Result>::static_size),
 				Result
 			>::type join2_impl_1(
 				ContainerIterator first,
@@ -53,7 +53,7 @@ namespace sprout {
 			}
 			template<typename Result, typename ContainerIterator, typename Separator, typename Container>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				(sprout::fixed_container_traits<Container>::fixed_size < sprout::fixed_container_traits<Result>::fixed_size),
+				(sprout::container_traits<Container>::static_size < sprout::container_traits<Result>::static_size),
 				Result
 			>::type join2_impl_1(
 				ContainerIterator first,
@@ -83,7 +83,7 @@ namespace sprout {
 						separator,
 						*first
 						)
-					: sprout::make_clone<Result>()
+					: sprout::make<Result>()
 					;
 			}
 		}	// namespace detail

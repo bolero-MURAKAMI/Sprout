@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/insert_n.hpp>
 
 namespace sprout {
@@ -32,8 +32,8 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::insert_n_impl<N, typename sprout::fixed::result_of::push_back_n<N, Container, T, Values...>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::push_back_n<N, Container, T, Values...>::type>::fixed_size>::type(),
-				sprout::fixed_end_offset(cont),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::push_back_n<N, Container, T, Values...>::type>::static_size>::type(),
+				sprout::internal_end_offset(cont),
 				v,
 				values...
 				);

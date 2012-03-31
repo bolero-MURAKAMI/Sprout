@@ -28,7 +28,7 @@ namespace sprout {
 				sprout::index_tuple<Indexes2...>
 				)
 			{
-				return sprout::tuples::remake_clone<Result>(
+				return sprout::tuples::remake<Result>(
 					t,
 					sprout::tuples::get<Indexes1>(t)...,
 					sprout::tuples::get<Indexes2>(input)...

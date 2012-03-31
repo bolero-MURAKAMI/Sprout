@@ -4,7 +4,7 @@
 #include <sprout/algorithm/replace.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -49,7 +49,7 @@ namespace testspr {
 					array<int, 6>{{3, -1, 5, -1, 7, -1}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(replaced),
+					sprout::get_internal(replaced),
 					array<int, 10>{{1, 0, 3, -1, 5, -1, 7, -1, 9, 0}}
 					));
 			}
@@ -64,7 +64,7 @@ namespace testspr {
 					array<int, 6>{{3, -1, 5, -1, 7, -1}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(replaced),
+					sprout::get_internal(replaced),
 					array<int, 10>{{1, 0, 3, -1, 5, -1, 7, -1, 9, 0}}
 					));
 			}

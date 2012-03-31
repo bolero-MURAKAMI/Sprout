@@ -2,8 +2,8 @@
 #define SPROUT_RANGE_NUMERIC_FIXED_ADJACENT_DIFFERENCE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/numeric/fixed/adjacent_difference.hpp>
 

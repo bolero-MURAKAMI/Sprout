@@ -1,8 +1,10 @@
 #ifndef SPROUT_ALGORITHM_FIT_RESULT_OF_HPP
 #define SPROUT_ALGORITHM_FIT_RESULT_OF_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/metafunctions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/sub_array.hpp>
 
@@ -16,9 +18,11 @@ namespace sprout {
 			struct algorithm {
 			public:
 				typedef sprout::sub_array<
-					typename sprout::fixed_container_traits<
-						typename sprout::fixed::result_of::algorithm<Result>::type
-					>::internal_type
+					typename std::decay<
+						typename sprout::containers::internal<
+							typename sprout::fixed::result_of::algorithm<Result>::type
+						>::type
+					>::type
 				> type;
 			};
 		}	// namespace result_of

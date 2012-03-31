@@ -6,7 +6,7 @@
 #include <sprout/random/unique_seed.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -59,7 +59,7 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8)
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
-					sprout::get_fixed(sprout::get<0>(shuffled)),
+					sprout::get_internal(sprout::get<0>(shuffled)),
 					arr1
 					));
 				SPROUT_STATIC_CONSTEXPR auto shuffled2 = sprout::shuffle_result(
@@ -78,7 +78,7 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8)
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
-					sprout::get_fixed(sprout::get<0>(shuffled)),
+					sprout::get_internal(sprout::get<0>(shuffled)),
 					arr1
 					));
 				SPROUT_STATIC_CONSTEXPR auto shuffled2 = sprout::shuffle_result(

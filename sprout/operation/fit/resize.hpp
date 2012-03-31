@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/resize.hpp>
 #include <sprout/sub_array.hpp>
 
@@ -18,7 +18,7 @@ namespace sprout {
 			struct resize {
 			public:
 				typedef sprout::sub_array<
-					typename sprout::fixed_container_traits<
+					typename sprout::container_traits<
 						typename sprout::fixed::result_of::resize<N, Container>::type
 					>::internal_type
 				> type;
@@ -35,9 +35,9 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::get_fixed(sprout::fixed::resize<N>(cont, v)),
+				sprout::get_internal(sprout::fixed::resize<N>(cont, v)),
 				0,
-				sprout::fixed_container_traits<typename sprout::fit::result_of::resize<N, Container>::type>::fixed_size
+				sprout::container_traits<typename sprout::fit::result_of::resize<N, Container>::type>::static_size
 				);
 		}
 
@@ -50,9 +50,9 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::get_fixed(sprout::fixed::resize<N>(cont)),
+				sprout::get_internal(sprout::fixed::resize<N>(cont)),
 				0,
-				sprout::fixed_container_traits<typename sprout::fit::result_of::resize<N, Container>::type>::fixed_size
+				sprout::container_traits<typename sprout::fit::result_of::resize<N, Container>::type>::static_size
 				);
 		}
 	}	// namespace fit

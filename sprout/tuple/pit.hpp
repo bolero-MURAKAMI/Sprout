@@ -14,23 +14,23 @@ namespace sprout {
 		// get
 		//
 		template<std::size_t I, typename Container>
-		typename sprout::fixed_container_traits<sprout::pit<Container> >::value_type& get(
+		typename sprout::container_traits<sprout::pit<Container> >::value_type& get(
 			sprout::pit<Container>& t
 			) SPROUT_NOEXCEPT
 		{
-			static_assert(I < sprout::fixed_container_traits<sprout::pit<Container> >::fixed_size, "get: index out of range");
+			static_assert(I < sprout::container_traits<sprout::pit<Container> >::static_size, "get: index out of range");
 			return t[I];
 		}
 		template<std::size_t I, typename Container>
-		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<sprout::pit<Container> >::value_type const& get(
+		SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type const& get(
 			sprout::pit<Container> const& t
 			) SPROUT_NOEXCEPT
 		{
-			static_assert(I < sprout::fixed_container_traits<sprout::pit<Container> >::fixed_size, "get: index out of range");
+			static_assert(I < sprout::container_traits<sprout::pit<Container> >::static_size, "get: index out of range");
 			return t[I];
 		}
 		template<std::size_t I, typename Container>
-		typename sprout::fixed_container_traits<sprout::pit<Container> >::value_type&& get(
+		typename sprout::container_traits<sprout::pit<Container> >::value_type&& get(
 			sprout::pit<Container>&& t
 			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::move(sprout::tuples::get<I>(t))))
 		{

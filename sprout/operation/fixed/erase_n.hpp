@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
 
@@ -17,12 +17,12 @@ namespace sprout {
 			//
 			template<std::size_t N, typename Container>
 			struct erase_n {
-				static_assert(sprout::fixed_container_traits<Container>::fixed_size >= N, "fixed_size >= N");
+				static_assert(sprout::container_traits<Container>::static_size >= N, "static_size >= N");
 			public:
-				typedef typename sprout::rebind_fixed_size<
+				typedef typename sprout::container_transform_traits<
 					Container
-				>::template apply<
-					sprout::fixed_container_traits<Container>::fixed_size - N
+				>::template rebind_size<
+					sprout::container_traits<Container>::static_size - N
 				>::type type;
 			};
 		}	// namespace result_of
@@ -32,18 +32,18 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline Result erase_n_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Container>::difference_type pos
+				typename sprout::container_traits<Container>::difference_type pos
 				)
 			{
-				return sprout::remake_clone<Result>(
+				return sprout::remake<Result>(
 					cont,
 					sprout::size(cont) - N,
-					(Indexes < sprout::fixed_container_traits<Container>::fixed_size - N
+					(Indexes < sprout::container_traits<Container>::static_size - N
 						? (Indexes < pos
-							? *sprout::next(sprout::fixed_begin(cont), Indexes)
-							: *sprout::next(sprout::fixed_begin(cont), Indexes + N)
+							? *sprout::next(sprout::internal_begin(cont), Indexes)
+							: *sprout::next(sprout::internal_begin(cont), Indexes + N)
 							)
-						: typename sprout::fixed_container_traits<Result>::value_type()
+						: typename sprout::container_traits<Result>::value_type()
 						)...
 					);
 			}
@@ -54,13 +54,13 @@ namespace sprout {
 		template<std::size_t N, typename Container>
 		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::erase_n<N, Container>::type erase_n(
 			Container const& cont,
-			typename sprout::fixed_container_traits<Container>::const_iterator pos
+			typename sprout::container_traits<Container>::const_iterator pos
 			)
 		{
 			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::result_of::erase_n<N, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::fixed_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), pos)
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::static_size>::type(),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), pos)
 				);
 		}
 		//
@@ -69,13 +69,13 @@ namespace sprout {
 		template<std::size_t N, typename Container>
 		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::erase_n<N, Container>::type erase_n(
 			Container const& cont,
-			typename sprout::fixed_container_traits<Container>::difference_type pos
+			typename sprout::container_traits<Container>::difference_type pos
 			)
 		{
 			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::result_of::erase_n<N, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::fixed_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::fixed_begin(cont), sprout::next(sprout::begin(cont), pos))
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::static_size>::type(),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos))
 				);
 		}
 	}	// namespace fixed

@@ -5,8 +5,8 @@
 #include <utility>
 #include <stdexcept>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator.hpp>
 #include <sprout/iterator/value_iterator.hpp>
 #include <sprout/utility/forward.hpp>
@@ -19,23 +19,19 @@ namespace sprout {
 	class pit {
 	public:
 		typedef Container container_type;
-		typedef pit fixed_container_type;
-		typedef container_type internal_type;
-		typedef typename sprout::fixed_container_traits<internal_type>::clone_type clone_type;
-		typedef typename sprout::fixed_container_traits<internal_type>::value_type value_type;
-		typedef typename sprout::fixed_container_traits<internal_type>::reference reference;
-		typedef typename sprout::fixed_container_traits<internal_type>::const_reference const_reference;
+		typedef typename sprout::container_traits<container_type>::value_type value_type;
+		typedef typename sprout::container_traits<container_type>::reference reference;
+		typedef typename sprout::container_traits<container_type>::const_reference const_reference;
 		typedef typename sprout::value_iterator<reference> iterator;
 		typedef typename sprout::value_iterator<const_reference> const_iterator;
-		typedef typename sprout::fixed_container_traits<internal_type>::size_type size_type;
-		typedef typename sprout::fixed_container_traits<internal_type>::difference_type difference_type;
-		typedef typename sprout::fixed_container_traits<internal_type>::pointer pointer;
-		typedef typename sprout::fixed_container_traits<internal_type>::const_pointer const_pointer;
+		typedef typename sprout::container_traits<container_type>::size_type size_type;
+		typedef typename sprout::container_traits<container_type>::difference_type difference_type;
+		typedef typename sprout::container_traits<container_type>::pointer pointer;
+		typedef typename sprout::container_traits<container_type>::const_pointer const_pointer;
 		typedef typename sprout::reverse_iterator<iterator> reverse_iterator;
 		typedef typename sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
-		SPROUT_STATIC_CONSTEXPR size_type static_size = sprout::fixed_container_traits<fixed_container_type>::fixed_size;
-		SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
+		SPROUT_STATIC_CONSTEXPR size_type static_size = sprout::container_traits<container_type>::static_size;
 	public:
 		value_type elem;
 	public:
@@ -131,8 +127,6 @@ namespace sprout {
 	};
 	template<typename Container>
 	SPROUT_CONSTEXPR typename sprout::pit<Container>::size_type sprout::pit<Container>::static_size;
-	template<typename Container>
-	SPROUT_CONSTEXPR typename sprout::pit<Container>::size_type sprout::pit<Container>::fixed_size;
 
 	//
 	// operator==
@@ -176,86 +170,45 @@ namespace sprout {
 	}
 
 	//
-	// fixed_container_traits
+	// container_construct_traits
 	//
 	template<typename Container>
-	struct fixed_container_traits<sprout::pit<Container> >
-		: public sprout::detail::fixed_container_traits_base<sprout::pit<Container> >
-	{
+	struct container_construct_traits<sprout::pit<Container> > {
 	public:
-		typedef typename sprout::pit<Container>::fixed_container_type fixed_container_type;
-		typedef typename sprout::pit<Container>::internal_type internal_type;
-		typedef typename sprout::pit<Container>::clone_type clone_type;
+		typedef typename sprout::container_construct_traits<Container>::copied_type copied_type;
 	public:
-		SPROUT_STATIC_CONSTEXPR typename sprout::detail::fixed_container_traits_base<sprout::pit<Container> >::size_type fixed_size
-			= std::tuple_size<typename std::remove_const<internal_type>::type>::value
-			;
-	};
-
-	//
-	// rebind_fixed_size
-	//
-	template<typename Container>
-	struct rebind_fixed_size<sprout::pit<Container> > {
-	public:
-		template<typename sprout::fixed_container_traits<sprout::pit<Container> >::size_type S>
-		struct apply {
-			public:
-				typedef sprout::pit<
-					typename sprout::rebind_fixed_size<
-						typename sprout::fixed_container_traits<sprout::pit<Container> >::internal_type
-					>::template apply<S>::type
-				> type;
-		};
-	};
-
-	//
-	// clone_functor
-	//
-	template<typename Container>
-	struct clone_functor<sprout::pit<Container> > {
-	private:
-		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::clone_type clone_type;
-	public:
-		template<typename Other>
-		SPROUT_CONSTEXPR clone_type operator()(Other&& cont) const {
-			return clone_type();
+		template<typename Cont>
+		static SPROUT_CONSTEXPR copied_type deep_copy(Cont&& cont) {
+			return copied_type();
 		}
-	};
-
-	//
-	// make_clone_functor
-	//
-	template<typename Container>
-	struct make_clone_functor<sprout::pit<Container> > {
-	private:
-		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::clone_type clone_type;
-		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::internal_type internal_type;
-	public:
 		template<typename... Args>
-		SPROUT_CONSTEXPR clone_type operator()(Args&&... args) const {
-			return sprout::make_clone<internal_type>(sprout::forward<Args>(args)...);
+		static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
+			return sprout::make<copied_type>(sprout::forward<Args>(args)...);
+		}
+		template<typename Cont, typename... Args>
+		static SPROUT_CONSTEXPR copied_type remake(
+			Cont&& cont,
+			typename sprout::container_traits<sprout::pit<Container> >::difference_type size,
+			Args&&... args
+			)
+		{
+			return sprout::remake<Container>(sprout::forward<Cont>(cont), size, sprout::forward<Args>(args)...);
 		}
 	};
 
 	//
-	// remake_clone_functor
+	// container_transform_traits
 	//
 	template<typename Container>
-	struct remake_clone_functor<sprout::pit<Container> > {
-	private:
-		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::clone_type clone_type;
-		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::internal_type internal_type;
+	struct container_transform_traits<sprout::pit<Container> > {
 	public:
-		template<typename Other, typename... Args>
-		SPROUT_CONSTEXPR clone_type operator()(
-			Other&& other,
-			typename sprout::fixed_container_traits<sprout::pit<Container> >::difference_type size,
-			Args&&... args
-			) const
-		{
-			return sprout::remake_clone<internal_type>(sprout::forward<Other>(other), size, sprout::forward<Args>(args)...);
-		}
+		template<typename sprout::container_traits<sprout::pit<Container> >::size_type Size>
+		struct rebind_size {
+		public:
+			typedef sprout::pit<
+				typename sprout::container_transform_traits<Container>::template rebind_size<Size>::type
+			> type;
+		};
 	};
 }	// namespace sprout
 
@@ -264,21 +217,17 @@ namespace std {
 	// tuple_size
 	//
 	template<typename Container>
-	struct tuple_size<sprout::pit<Container> > {
-	public:
-		typedef std::integral_constant<std::size_t, sprout::fixed_container_traits<sprout::pit<Container> >::fixed_size> type;
-		SPROUT_STATIC_CONSTEXPR std::size_t value = type::value;
-	};
+	struct tuple_size<sprout::pit<Container> >
+		: public std::tuple_size<Container>
+	{};
 
 	//
 	// tuple_element
 	//
 	template<std::size_t I, typename Container>
-	struct tuple_element<I, sprout::pit<Container> > {
-	public:
-		static_assert(I < sprout::fixed_container_traits<sprout::pit<Container> >::fixed_size, "tuple_element<>: index out of range");
-		typedef typename sprout::fixed_container_traits<sprout::pit<Container> >::value_type type;
-	};
+	struct tuple_element<I, sprout::pit<Container> >
+		: public std::tuple_element<I, Container>
+	{};
 }	// namespace std
 
 #endif	// #ifndef SPROUT_PIT_HPP

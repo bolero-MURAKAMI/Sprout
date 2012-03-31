@@ -4,7 +4,7 @@
 #include <sprout/algorithm/make_heap.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -43,7 +43,7 @@ namespace testspr {
 					array<int, 8>{{9, 6, 8, 2, 5, 3, 4, 1}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(heap),
+					sprout::get_internal(heap),
 					array<int, 10>{{10, 7, 9, 6, 8, 2, 5, 3, 4, 1}}
 					));
 			}
@@ -56,7 +56,7 @@ namespace testspr {
 					array<int, 8>{{9, 6, 8, 2, 5, 3, 4, 1}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(heap),
+					sprout::get_internal(heap),
 					array<int, 10>{{10, 7, 9, 6, 8, 2, 5, 3, 4, 1}}
 					));
 			}
@@ -97,7 +97,7 @@ namespace testspr {
 					array<int, 8>{{9, 6, 8, 2, 5, 3, 4, 1}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(heap),
+					sprout::get_internal(heap),
 					array<int, 10>{{10, 7, 9, 6, 8, 2, 5, 3, 4, 1}}
 					));
 			}
@@ -111,7 +111,7 @@ namespace testspr {
 					array<int, 8>{{9, 6, 8, 2, 5, 3, 4, 1}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(heap),
+					sprout::get_internal(heap),
 					array<int, 10>{{10, 7, 9, 6, 8, 2, 5, 3, 4, 1}}
 					));
 			}

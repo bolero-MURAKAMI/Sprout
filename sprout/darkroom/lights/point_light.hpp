@@ -40,7 +40,7 @@ namespace sprout {
 					unit_type const& intensity
 					) const
 				{
-					return sprout::tuples::remake_clone<color_type>(
+					return sprout::tuples::remake<color_type>(
 						col_,
 						sprout::darkroom::colors::r(col_)
 							* sprout::darkroom::colors::r(

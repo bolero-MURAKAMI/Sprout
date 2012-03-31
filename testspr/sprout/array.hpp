@@ -2,7 +2,7 @@
 #define TESTSPR_SPROUT_ARRAY_HPP
 
 #include <sprout/array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {

@@ -7,8 +7,8 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/array.hpp>
 #include <sprout/pit.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
@@ -59,16 +59,16 @@ namespace sprout {
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				Shuffled const& shuffled,
-				typename sprout::fixed_container_traits<Container>::difference_type offset,
-				typename sprout::fixed_container_traits<Container>::size_type size
+				typename sprout::container_traits<Container>::difference_type offset,
+				typename sprout::container_traits<Container>::size_type size
 				)
 			{
-				return sprout::remake_clone<Container>(
+				return sprout::remake<Container>(
 					cont,
 					sprout::size(cont),
 					(Indexes >= offset && Indexes < offset + size
 						? *sprout::next(sprout::begin(cont), shuffled[Indexes - offset])
-						: *sprout::next(sprout::fixed_begin(cont), Indexes)
+						: *sprout::next(sprout::internal_begin(cont), Indexes)
 						)...
 					);
 			}
@@ -77,14 +77,14 @@ namespace sprout {
 				Container const& cont,
 				sprout::index_tuple<Indexes...> indexes,
 				UniformRandomNumberGenerator&& g,
-				typename sprout::fixed_container_traits<Container>::difference_type offset,
-				typename sprout::fixed_container_traits<Container>::size_type size
+				typename sprout::container_traits<Container>::difference_type offset,
+				typename sprout::container_traits<Container>::size_type size
 				)
 			{
 				return sprout::fixed::detail::shuffle_impl_1(
 					cont,
 					indexes,
-					sprout::fixed::detail::make_shuffle_indexes<sprout::fixed_container_traits<Container>::fixed_size>(
+					sprout::fixed::detail::make_shuffle_indexes<sprout::container_traits<Container>::static_size>(
 						size,
 						sprout::forward<UniformRandomNumberGenerator>(g)
 						),
@@ -104,9 +104,9 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::shuffle_impl(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<Container>::fixed_size>::type(),
+				typename sprout::index_range<0, sprout::container_traits<Container>::static_size>::type(),
 				sprout::forward<UniformRandomNumberGenerator>(g),
-				sprout::fixed_begin_offset(cont),
+				sprout::internal_begin_offset(cont),
 				sprout::size(cont)
 				);
 		}

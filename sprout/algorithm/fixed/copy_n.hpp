@@ -4,8 +4,8 @@
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
@@ -26,27 +26,27 @@ namespace sprout {
 			}
 			template<typename InputIterator, typename Size, typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type copy_n_impl(
 				InputIterator first,
 				Size n,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
+				typename sprout::container_traits<Result>::difference_type offset,
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
+				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator, typename Size, typename Result, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type copy_n_impl(
 				InputIterator first,
 				Size n,
 				Result const& result,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
+				typename sprout::container_traits<Result>::difference_type offset,
 				Args const&... args
 				)
 			{

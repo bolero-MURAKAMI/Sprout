@@ -2,8 +2,8 @@
 #define SPROUT_OPERATION_FIT_REALIGN_TO_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/realign_to.hpp>
 #include <sprout/sub_array.hpp>
 
@@ -17,7 +17,7 @@ namespace sprout {
 			struct realign_to {
 			public:
 				typedef sprout::sub_array<
-					typename sprout::fixed_container_traits<
+					typename sprout::container_traits<
 						typename sprout::fixed::result_of::realign_to<Result, Container>::type
 					>::internal_type
 				> type;
@@ -34,7 +34,7 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::get_fixed(sprout::fixed::realign_to<Result>(cont, v)),
+				sprout::get_internal(sprout::fixed::realign_to<Result>(cont, v)),
 				0,
 				sprout::size(cont)
 				);
@@ -49,7 +49,7 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::get_fixed(sprout::fixed::realign_to<Result>(cont)),
+				sprout::get_internal(sprout::fixed::realign_to<Result>(cont)),
 				0,
 				sprout::size(cont)
 				);

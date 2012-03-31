@@ -2,7 +2,7 @@
 #define SPROUT_ALGORITHM_FIXED_RESULT_OF_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
+#include <sprout/container/traits.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -13,7 +13,7 @@ namespace sprout {
 			template<typename Result>
 			struct algorithm {
 			public:
-				typedef typename sprout::fixed_container_traits<Result>::clone_type type;
+				typedef typename sprout::container_construct_traits<Result>::copied_type type;
 			};
 		}	// namespace result_of
 	}	// namespace fixed

@@ -5,8 +5,8 @@
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
@@ -18,13 +18,13 @@ namespace sprout {
 			template<typename ContainerContainer>
 			struct join {
 			public:
-				typedef typename sprout::rebind_fixed_size<
-					typename sprout::fixed_container_traits<ContainerContainer>::value_type
-				>::template apply<
-					sprout::fixed_container_traits<
-						typename sprout::fixed_container_traits<ContainerContainer>::value_type
-					>::fixed_size
-					* sprout::fixed_container_traits<ContainerContainer>::fixed_size
+				typedef typename sprout::container_transform_traits<
+					typename sprout::container_traits<ContainerContainer>::value_type
+				>::template rebind_size<
+					sprout::container_traits<
+						typename sprout::container_traits<ContainerContainer>::value_type
+					>::static_size
+					* sprout::container_traits<ContainerContainer>::static_size
 				>::type type;
 			};
 		}	// namespace result_of
@@ -32,7 +32,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename ContainerInputIterator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				Result
 			>::type join_impl(
 				ContainerInputIterator first_cont,
@@ -41,7 +41,7 @@ namespace sprout {
 				);
 			template<typename Result, typename ContainerInputIterator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl(
 				ContainerInputIterator first_cont,
@@ -50,7 +50,7 @@ namespace sprout {
 				);
 			template<typename Result, typename ContainerInputIterator, typename InputIterator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				Result
 			>::type join_impl_1(
 				ContainerInputIterator first_cont,
@@ -60,11 +60,11 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::make_clone<Result>(args...);
+				return sprout::make<Result>(args...);
 			}
 			template<typename Result, typename ContainerInputIterator, typename InputIterator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl_1(
 				ContainerInputIterator first_cont,
@@ -81,7 +81,7 @@ namespace sprout {
 			}
 			template<typename Result, typename ContainerInputIterator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				Result
 			>::type join_impl(
 				ContainerInputIterator first_cont,
@@ -89,11 +89,11 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::make_clone<Result>(args...);
+				return sprout::make<Result>(args...);
 			}
 			template<typename Result, typename ContainerInputIterator, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl(
 				ContainerInputIterator first_cont,
@@ -103,7 +103,7 @@ namespace sprout {
 			{
 				return first_cont != last_cont
 					? sprout::algorithm::detail::join_impl_1<Result>(first_cont, last_cont, sprout::begin(*first_cont), sprout::end(*first_cont), args...)
-					: sprout::make_clone<Result>(args...)
+					: sprout::make<Result>(args...)
 					;
 			}
 		}	// namespace detail

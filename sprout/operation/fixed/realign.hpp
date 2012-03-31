@@ -3,8 +3,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
@@ -16,7 +16,7 @@ namespace sprout {
 			template<typename Container>
 			struct realign {
 			public:
-				typedef typename sprout::fixed_container_traits<Container>::clone_type type;
+				typedef typename sprout::container_construct_traits<Container>::copied_type type;
 			};
 		}	// namespace result_of
 
@@ -25,11 +25,11 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline Result realign_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Result>::difference_type size,
+				typename sprout::container_traits<Result>::difference_type size,
 				T const& v
 				)
 			{
-				return sprout::make_clone<Result>(
+				return sprout::make<Result>(
 					(Indexes < size
 						? *sprout::next(sprout::begin(cont), Indexes)
 						: v
@@ -48,7 +48,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign<Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::realign<Container>::type>::fixed_size>::type(),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign<Container>::type>::static_size>::type(),
 				sprout::size(cont),
 				v
 				);
@@ -59,13 +59,13 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline Result realign_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Result>::difference_type size
+				typename sprout::container_traits<Result>::difference_type size
 				)
 			{
-				return sprout::make_clone<Result>(
+				return sprout::make<Result>(
 					(Indexes < size
 						? *sprout::next(sprout::begin(cont), Indexes)
-						: typename sprout::fixed_container_traits<Result>::value_type()
+						: typename sprout::container_traits<Result>::value_type()
 						)...
 					);
 			}
@@ -80,7 +80,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign<Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::realign<Container>::type>::fixed_size>::type(),
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign<Container>::type>::static_size>::type(),
 				sprout::size(cont)
 				);
 		}

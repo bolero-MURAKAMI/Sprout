@@ -2,8 +2,8 @@
 #define SPROUT_ALGORITHM_FIXED_POP_HEAP_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
@@ -16,20 +16,20 @@ namespace sprout {
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type pop_heap_impl(
 				Container const& cont,
 				Compare comp,
-				typename sprout::fixed_container_traits<Container>::difference_type offset,
-				typename sprout::fixed_container_traits<Container>::difference_type size,
-				typename sprout::fixed_container_traits<Container>::difference_type n = 0,
-				typename sprout::fixed_container_traits<Container>::difference_type l = 1,
-				typename sprout::fixed_container_traits<Container>::difference_type r = 2
+				typename sprout::container_traits<Container>::difference_type offset,
+				typename sprout::container_traits<Container>::difference_type size,
+				typename sprout::container_traits<Container>::difference_type n = 0,
+				typename sprout::container_traits<Container>::difference_type l = 1,
+				typename sprout::container_traits<Container>::difference_type r = 2
 				)
 			{
-				return r < size && comp(*sprout::next(sprout::fixed_begin(cont), offset + l), *sprout::next(sprout::fixed_begin(cont), offset + r))
-					? comp(*sprout::next(sprout::fixed_begin(cont), offset + n), *sprout::next(sprout::fixed_begin(cont), offset + r))
+				return r < size && comp(*sprout::next(sprout::internal_begin(cont), offset + l), *sprout::next(sprout::internal_begin(cont), offset + r))
+					? comp(*sprout::next(sprout::internal_begin(cont), offset + n), *sprout::next(sprout::internal_begin(cont), offset + r))
 						? sprout::fixed::detail::pop_heap_impl(
 							sprout::fixed::swap_element(
 								cont,
-								sprout::next(sprout::fixed_begin(cont), offset + n),
-								sprout::next(sprout::fixed_begin(cont), offset + r)
+								sprout::next(sprout::internal_begin(cont), offset + n),
+								sprout::next(sprout::internal_begin(cont), offset + r)
 								),
 							comp,
 							offset,
@@ -38,14 +38,14 @@ namespace sprout {
 							r * 2 + 1,
 							r * 2 + 2
 							)
-						: sprout::clone(cont)
+						: sprout::deep_copy(cont)
 					: l < size
-						? comp(*sprout::next(sprout::fixed_begin(cont), offset + n), *sprout::next(sprout::fixed_begin(cont), offset + l))
+						? comp(*sprout::next(sprout::internal_begin(cont), offset + n), *sprout::next(sprout::internal_begin(cont), offset + l))
 							? sprout::fixed::detail::pop_heap_impl(
 								sprout::fixed::swap_element(
 									cont,
-									sprout::next(sprout::fixed_begin(cont), offset + n),
-									sprout::next(sprout::fixed_begin(cont), offset + l)
+									sprout::next(sprout::internal_begin(cont), offset + n),
+									sprout::next(sprout::internal_begin(cont), offset + l)
 									),
 								comp,
 								offset,
@@ -54,8 +54,8 @@ namespace sprout {
 								l * 2 + 1,
 								l * 2 + 2
 								)
-							: sprout::clone(cont)
-						: sprout::clone(cont)
+							: sprout::deep_copy(cont)
+						: sprout::deep_copy(cont)
 					;
 			}
 		}	// namespace detail
@@ -71,7 +71,7 @@ namespace sprout {
 			return sprout::fixed::detail::pop_heap_impl(
 				sprout::fixed::swap_element(cont, sprout::begin(cont), sprout::end(cont) - 1),
 				comp,
-				sprout::fixed_begin_offset(cont),
+				sprout::internal_begin_offset(cont),
 				sprout::size(cont) - 1
 				);
 		}
@@ -85,8 +85,8 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::pop_heap_impl(
 				sprout::fixed::swap_element(cont, sprout::begin(cont), sprout::end(cont) - 1),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::fixed_container_traits<Container>::value_type>(),
-				sprout::fixed_begin_offset(cont),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::container_traits<Container>::value_type>(),
+				sprout::internal_begin_offset(cont),
 				sprout::size(cont) - 1
 				);
 		}

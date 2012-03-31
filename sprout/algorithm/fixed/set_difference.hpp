@@ -3,8 +3,8 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -15,7 +15,7 @@ namespace sprout {
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_difference_impl(
 				InputIterator1 first1,
@@ -24,15 +24,15 @@ namespace sprout {
 				InputIterator2 last2,
 				Result const& result,
 				Compare comp,
-				typename sprout::fixed_container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
+				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_difference_impl(
 				InputIterator1 first1,
@@ -41,7 +41,7 @@ namespace sprout {
 				InputIterator2 last2,
 				Result const& result,
 				Compare comp,
-				typename sprout::fixed_container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
@@ -102,7 +102,7 @@ namespace sprout {
 				first2,
 				last2,
 				result,
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::fixed_container_traits<Result>::value_type>(),
+				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::container_traits<Result>::value_type>(),
 				sprout::size(result)
 				);
 		}

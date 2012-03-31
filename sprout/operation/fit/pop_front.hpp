@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/pop_front.hpp>
 #include <sprout/sub_array.hpp>
 
@@ -18,7 +18,7 @@ namespace sprout {
 			struct pop_front {
 			public:
 				typedef sprout::sub_array<
-					typename sprout::fixed_container_traits<
+					typename sprout::container_traits<
 						typename sprout::fixed::result_of::pop_front<Container>::type
 					>::internal_type
 				> type;
@@ -34,9 +34,9 @@ namespace sprout {
 			)
 		{
 			return sprout::sub_copy(
-				sprout::get_fixed(sprout::fixed::pop_front(cont)),
-				sprout::fixed_begin_offset(cont),
-				sprout::fixed_end_offset(cont) - 1
+				sprout::get_internal(sprout::fixed::pop_front(cont)),
+				sprout::internal_begin_offset(cont),
+				sprout::internal_end_offset(cont) - 1
 				);
 		}
 	}	// namespace fit

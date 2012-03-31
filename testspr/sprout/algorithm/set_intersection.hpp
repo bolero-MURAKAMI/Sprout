@@ -4,7 +4,7 @@
 #include <sprout/algorithm/set_intersection.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -86,7 +86,7 @@ namespace testspr {
 					array<int, 6>{{20, 30, 40, 0, 0, 0}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(merged),
+					sprout::get_internal(merged),
 					array<int, 10>{{0, 0, 20, 30, 40, 0, 0, 0, 0, 0}}
 					));
 			}
@@ -103,7 +103,7 @@ namespace testspr {
 					array<int, 3>{{20, 30, 40}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(merged),
+					sprout::get_internal(merged),
 					array<int, 10>{{0, 0, 20, 30, 40, 0, 0, 0, 0, 0}}
 					));
 			}
@@ -189,7 +189,7 @@ namespace testspr {
 					array<int, 6>{{20, 30, 40, 0, 0, 0}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(merged),
+					sprout::get_internal(merged),
 					array<int, 10>{{0, 0, 20, 30, 40, 0, 0, 0, 0, 0}}
 					));
 			}
@@ -207,7 +207,7 @@ namespace testspr {
 					array<int, 3>{{20, 30, 40}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(merged),
+					sprout::get_internal(merged),
 					array<int, 10>{{0, 0, 20, 30, 40, 0, 0, 0, 0, 0}}
 					));
 			}

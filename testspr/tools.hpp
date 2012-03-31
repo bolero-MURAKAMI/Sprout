@@ -4,7 +4,7 @@
 #include <cassert>
 #include <iterator>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #ifdef TESTSPR_CONFIG_ENABLE_STATIC_WARNING
 #	include <boost/serialization/static_warning.hpp>
 #endif

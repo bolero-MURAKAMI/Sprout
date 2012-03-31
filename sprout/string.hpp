@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
+#include <sprout/container/traits.hpp>
 #include <sprout/operation/fixed/push_back.hpp>
 #include <sprout/operation/fixed/push_front.hpp>
 #include <sprout/operation/fixed/append_back.hpp>
@@ -199,7 +199,6 @@ namespace sprout {
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type npos = -1;
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
-		SPROUT_STATIC_CONSTEXPR size_type fixed_size = static_size;
 	private:
 		static SPROUT_CONSTEXPR int compare_impl_2(int compared, size_type n1, size_type n2) {
 			return compared != 0 ? compared
@@ -588,8 +587,6 @@ namespace sprout {
 	SPROUT_CONSTEXPR typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::npos;
 	template<typename T, std::size_t N, typename Traits>
 	SPROUT_CONSTEXPR typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::static_size;
-	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::fixed_size;
 
 	//
 	// operator==
@@ -738,95 +735,88 @@ namespace sprout {
 		return lhs << rhs.c_str();
 	}
 
-	//
-	// rebind_fixed_size
-	//
-	template<typename T, std::size_t N, typename Traits>
-	struct rebind_fixed_size<sprout::basic_string<T, N, Traits> > {
-	public:
-		template<typename sprout::fixed_container_traits<sprout::basic_string<T, N, Traits> >::size_type S>
-		struct apply {
-			public:
-				typedef sprout::basic_string<T, S, Traits> type;
-		};
-	};
-
 	namespace detail {
 		template<typename Container>
-		struct make_clone_functor_impl;
+		struct make_construct_impl;
 
 		template<typename T, std::size_t N, typename Traits>
-		struct make_clone_functor_impl<sprout::basic_string<T, N, Traits> > {
+		struct make_construct_impl<sprout::basic_string<T, N, Traits> > {
 		private:
-			typedef sprout::basic_string<T, N, Traits> container_type;
-			typedef typename sprout::fixed_container_traits<container_type>::clone_type clone_type;
+			typedef sprout::basic_string<T, N, Traits> copied_type;
 		private:
 			template<std::size_t S>
-			static SPROUT_CONSTEXPR clone_type make_impl(typename clone_type::size_type size) {
-				return clone_type{{}, size};
+			static SPROUT_CONSTEXPR copied_type make_impl(typename copied_type::size_type size) {
+				return copied_type{{}, size};
 			}
 			template<std::size_t S, typename Head, typename... Tail>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				S == sizeof...(Tail),
-				clone_type
-			>::type make_impl(typename clone_type::size_type size, Head&& head, Tail&&... tail) {
-				return clone_type{{sprout::forward<Tail>(tail)..., sprout::forward<Head>(head)}, size};
+				copied_type
+			>::type make_impl(typename copied_type::size_type size, Head&& head, Tail&&... tail) {
+				return copied_type{{sprout::forward<Tail>(tail)..., sprout::forward<Head>(head)}, size};
 			}
 			template<std::size_t S, typename Head, typename... Tail>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				S != sizeof...(Tail),
-				clone_type
-			>::type make_impl(typename clone_type::size_type size, Head&& head, Tail&&... tail) {
+				copied_type
+			>::type make_impl(typename copied_type::size_type size, Head&& head, Tail&&... tail) {
 				return make_impl<S + 1>(size, sprout::forward<Tail>(tail)..., S >= size ? T() : sprout::forward<Head>(head));
 			}
 		public:
-			static SPROUT_CONSTEXPR typename clone_type::size_type length() {
+			static SPROUT_CONSTEXPR typename copied_type::size_type length() {
 				return 0;
 			}
 			template<typename... Tail>
-			static SPROUT_CONSTEXPR typename clone_type::size_type length(T const& head, Tail&&... tail) {
+			static SPROUT_CONSTEXPR typename copied_type::size_type length(T const& head, Tail&&... tail) {
 				return !head ? 0 : 1 + length(sprout::forward<Tail>(tail)...);
 			}
 			template<typename... Args>
-			static SPROUT_CONSTEXPR clone_type make(typename clone_type::size_type size, Args&&... args) {
+			static SPROUT_CONSTEXPR copied_type make(typename copied_type::size_type size, Args&&... args) {
 				return make_impl<0>(size, sprout::forward<Args>(args)...);
 			}
 		};
 	}	// namespace detail
 
 	//
-	// make_clone_functor
+	// container_construct_traits
 	//
 	template<typename T, std::size_t N, typename Traits>
-	struct make_clone_functor<sprout::basic_string<T, N, Traits> > {
-	private:
-		typedef sprout::basic_string<T, N, Traits> container_type;
-		typedef sprout::detail::make_clone_functor_impl<container_type> impl_type;
+	struct container_construct_traits<sprout::basic_string<T, N, Traits> > {
 	public:
+		typedef sprout::basic_string<T, N, Traits> copied_type;
+	public:
+		template<typename Cont>
+		static SPROUT_CONSTEXPR copied_type deep_copy(Cont&& cont) {
+			return sprout::forward<Cont>(cont);
+		}
 		template<typename... Args>
-		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(Args&&... args) const {
+		static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
+			typedef sprout::detail::make_construct_impl<copied_type> impl_type;
 			return impl_type::make(impl_type::length(sprout::forward<Args>(args)...), sprout::forward<Args>(args)...);
+		}
+		template<typename Cont, typename... Args>
+		static SPROUT_CONSTEXPR copied_type remake(
+			Cont&& cont,
+			typename sprout::container_traits<sprout::basic_string<T, N, Traits> >::difference_type size,
+			Args&&... args
+			)
+		{
+			typedef sprout::detail::make_construct_impl<copied_type> impl_type;
+			return impl_type::make(size, sprout::forward<Args>(args)...);
 		}
 	};
 
 	//
-	// remake_clone_functor
+	// container_transform_traits
 	//
 	template<typename T, std::size_t N, typename Traits>
-	struct remake_clone_functor<sprout::basic_string<T, N, Traits> > {
-	private:
-		typedef sprout::basic_string<T, N, Traits> container_type;
-		typedef sprout::detail::make_clone_functor_impl<container_type> impl_type;
+	struct container_transform_traits<sprout::basic_string<T, N, Traits> > {
 	public:
-		template<typename Other, typename... Args>
-		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<container_type>::clone_type operator()(
-			Other&& other,
-			typename sprout::fixed_container_traits<container_type>::difference_type size,
-			Args&&... args
-			) const
-		{
-			return impl_type::make(size, sprout::forward<Args>(args)...);
-		}
+		template<typename sprout::container_traits<sprout::basic_string<T, N, Traits> >::size_type Size>
+		struct rebind_size {
+		public:
+			typedef sprout::basic_string<T, Size, Traits> type;
+		};
 	};
 
 	//
@@ -1101,11 +1091,9 @@ namespace std {
 	// tuple_size
 	//
 	template<typename T, std::size_t N, typename Traits>
-	struct tuple_size<sprout::basic_string<T, N, Traits> > {
-	public:
-		typedef std::integral_constant<std::size_t, N> type;
-		SPROUT_STATIC_CONSTEXPR std::size_t value = type::value;
-	};
+	struct tuple_size<sprout::basic_string<T, N, Traits> >
+		: public std::integral_constant<std::size_t, N>
+	{};
 
 	//
 	// tuple_element

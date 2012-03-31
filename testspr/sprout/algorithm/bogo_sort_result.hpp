@@ -6,7 +6,7 @@
 #include <sprout/random/unique_seed.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -59,7 +59,7 @@ namespace testspr {
 					array<int, 3>{{1, 2, 4}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(sprout::get<0>(sorted)),
+					sprout::get_internal(sprout::get<0>(sorted)),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
 				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
@@ -78,7 +78,7 @@ namespace testspr {
 					array<int, 3>{{1, 2, 4}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(sprout::get<0>(sorted)),
+					sprout::get_internal(sprout::get<0>(sorted)),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
 				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
@@ -138,7 +138,7 @@ namespace testspr {
 					array<int, 3>{{1, 2, 4}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(sprout::get<0>(sorted)),
+					sprout::get_internal(sprout::get<0>(sorted)),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
 				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
@@ -158,7 +158,7 @@ namespace testspr {
 					array<int, 3>{{1, 2, 4}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(sprout::get<0>(sorted)),
+					sprout::get_internal(sprout::get<0>(sorted)),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
 				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(

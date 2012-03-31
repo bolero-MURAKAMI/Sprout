@@ -5,7 +5,7 @@
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/sub_array.hpp>
@@ -16,23 +16,23 @@ namespace sprout {
 		// get
 		//
 		template<std::size_t I, typename Container>
-		typename sprout::fixed_container_traits<sprout::sub_array<Container> >::value_type& get(
+		typename sprout::container_traits<sprout::sub_array<Container> >::value_type& get(
 			sprout::sub_array<Container>& t
-			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::fixed_begin(t), I)))
+			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::internal_begin(t), I)))
 		{
-			static_assert(I < sprout::fixed_container_traits<sprout::sub_array<Container> >::fixed_size, "get: index out of range");
-			return *sprout::next(sprout::fixed_begin(t), I);
+			static_assert(I < sprout::container_traits<sprout::sub_array<Container> >::static_size, "get: index out of range");
+			return *sprout::next(sprout::internal_begin(t), I);
 		}
 		template<std::size_t I, typename Container>
-		SPROUT_CONSTEXPR typename sprout::fixed_container_traits<sprout::sub_array<Container> >::value_type const& get(
+		SPROUT_CONSTEXPR typename sprout::container_traits<sprout::sub_array<Container> >::value_type const& get(
 			sprout::sub_array<Container> const& t
-			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::fixed_begin(t), I)))
+			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::internal_begin(t), I)))
 		{
-			static_assert(I < sprout::fixed_container_traits<sprout::sub_array<Container> >::fixed_size, "get: index out of range");
-			return *sprout::next(sprout::fixed_begin(t), I);
+			static_assert(I < sprout::container_traits<sprout::sub_array<Container> >::static_size, "get: index out of range");
+			return *sprout::next(sprout::internal_begin(t), I);
 		}
 		template<std::size_t I, typename Container>
-		typename sprout::fixed_container_traits<sprout::sub_array<Container> >::value_type&& get(
+		typename sprout::container_traits<sprout::sub_array<Container> >::value_type&& get(
 			sprout::sub_array<Container>&& t
 			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::move(sprout::tuples::get<I>(t))))
 		{

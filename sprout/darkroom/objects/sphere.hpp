@@ -129,8 +129,8 @@ namespace sprout {
 					return neg
 						? drittens_1(ray, sprout::darkroom::rays::point_of_intersection(ray, distance))
 						: drei_type(
-							sprout::tuples::make_clone<position_type>(0, 0, 0),
-							sprout::tuples::make_clone<position_type>(1, 1, 1)
+							sprout::tuples::make<position_type>(0, 0, 0),
+							sprout::tuples::make<position_type>(1, 1, 1)
 							)
 						;
 				}

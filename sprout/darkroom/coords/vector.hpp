@@ -71,7 +71,7 @@ namespace sprout {
 			//
 			template<typename Vector1, typename Vector2>
 			SPROUT_CONSTEXPR inline Vector1 add(Vector1 const& lhs, Vector2 const& rhs) {
-				return sprout::tuples::remake_clone<Vector1>(
+				return sprout::tuples::remake<Vector1>(
 					lhs,
 					sprout::darkroom::coords::x(lhs) + sprout::darkroom::coords::x(rhs),
 					sprout::darkroom::coords::y(lhs) + sprout::darkroom::coords::y(rhs),
@@ -83,7 +83,7 @@ namespace sprout {
 			//
 			template<typename Vector1, typename Vector2>
 			SPROUT_CONSTEXPR inline Vector1 sub(Vector1 const& lhs, Vector2 const& rhs) {
-				return sprout::tuples::remake_clone<Vector1>(
+				return sprout::tuples::remake<Vector1>(
 					lhs,
 					sprout::darkroom::coords::x(lhs) - sprout::darkroom::coords::x(rhs),
 					sprout::darkroom::coords::y(lhs) - sprout::darkroom::coords::y(rhs),
@@ -95,7 +95,7 @@ namespace sprout {
 			//
 			template<typename Vector, typename Fac>
 			SPROUT_CONSTEXPR inline Vector scale(Vector const& lhs, Fac const& rhs) {
-				return sprout::tuples::remake_clone<Vector>(
+				return sprout::tuples::remake<Vector>(
 					lhs,
 					sprout::darkroom::coords::x(lhs) * rhs,
 					sprout::darkroom::coords::y(lhs) * rhs,
@@ -118,7 +118,7 @@ namespace sprout {
 			//
 			template<typename Vector1, typename Vector2>
 			SPROUT_CONSTEXPR inline Vector1 cross(Vector1 const& lhs, Vector2 const& rhs) {
-				return sprout::tuples::remake_clone<Vector1>(
+				return sprout::tuples::remake<Vector1>(
 					lhs,
 					sprout::darkroom::coords::y(lhs) * sprout::darkroom::coords::z(rhs)
 						- sprout::darkroom::coords::z(lhs) * sprout::darkroom::coords::y(rhs)
@@ -140,7 +140,7 @@ namespace sprout {
 					typename sprout::darkroom::access::unit<Vector>::type const& len
 					)
 				{
-					return sprout::tuples::remake_clone<Vector>(
+					return sprout::tuples::remake<Vector>(
 						vec,
 						sprout::darkroom::coords::x(vec) / len,
 						sprout::darkroom::coords::y(vec) / len,
@@ -181,7 +181,7 @@ namespace sprout {
 			//
 			template<typename Color, typename Normal>
 			SPROUT_CONSTEXPR Color normal_to_color(Normal const& nor) {
-				return sprout::tuples::make_clone<Color>(
+				return sprout::tuples::make<Color>(
 					0.5 + sprout::darkroom::coords::x(nor) * 0.5,
 					0.5 + sprout::darkroom::coords::y(nor) * 0.5,
 					0.5 + sprout::darkroom::coords::z(nor) * 0.5

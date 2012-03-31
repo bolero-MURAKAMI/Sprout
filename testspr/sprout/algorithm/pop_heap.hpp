@@ -4,7 +4,7 @@
 #include <sprout/algorithm/pop_heap.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/fixed_container.hpp>
+#include <sprout/container.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -43,7 +43,7 @@ namespace testspr {
 					array<int, 8>{{7, 6, 4, 5, 3, 1, 2, 9}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(heap),
+					sprout::get_internal(heap),
 					array<int, 10>{{10, 8, 7, 6, 4, 5, 3, 1, 2, 9}}
 					));
 			}
@@ -56,7 +56,7 @@ namespace testspr {
 					array<int, 7>{{7, 6, 4, 5, 3, 1, 2}}
 					));
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
-					sprout::get_fixed(heap),
+					sprout::get_internal(heap),
 					array<int, 10>{{10, 8, 7, 6, 4, 5, 3, 1, 2, 9}}
 					));
 			}

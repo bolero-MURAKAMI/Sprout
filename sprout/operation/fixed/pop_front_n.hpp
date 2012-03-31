@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/erase_n.hpp>
 
 namespace sprout {
@@ -30,8 +30,8 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::result_of::pop_front_n<N, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::fixed_container_traits<typename sprout::fixed::result_of::pop_front_n<N, Container>::type>::fixed_size>::type(),
-				sprout::fixed_begin_offset(cont)
+				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::pop_front_n<N, Container>::type>::static_size>::type(),
+				sprout::internal_begin_offset(cont)
 				);
 		}
 	}	// namespace fixed

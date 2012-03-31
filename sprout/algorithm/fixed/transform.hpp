@@ -5,8 +5,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -22,17 +22,17 @@ namespace sprout {
 				Result const& result,
 				UnaryOperation op,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
-				typename sprout::fixed_container_traits<Result>::size_type size,
-				typename sprout::fixed_container_traits<Result>::size_type input_size
+				typename sprout::container_traits<Result>::difference_type offset,
+				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type input_size
 				)
 			{
-				return sprout::remake_clone<Result>(
+				return sprout::remake<Result>(
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? op(*sprout::next(first, Indexes - offset))
-						: *sprout::next(sprout::fixed_begin(result), Indexes)
+						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);
 			}
@@ -50,37 +50,37 @@ namespace sprout {
 					last,
 					result,
 					op,
-					typename sprout::index_range<0, sprout::fixed_container_traits<Result>::fixed_size>::type(),
-					sprout::fixed_begin_offset(result),
+					typename sprout::index_range<0, sprout::container_traits<Result>::static_size>::type(),
+					sprout::internal_begin_offset(result),
 					sprout::size(result),
 					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last)
 					);
 			}
 			template<typename InputIterator, typename Result, typename UnaryOperation, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type transform_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
 				UnaryOperation op,
-				typename sprout::fixed_container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
+				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator, typename Result, typename UnaryOperation, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type transform_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
 				UnaryOperation op,
-				typename sprout::fixed_container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
@@ -125,17 +125,17 @@ namespace sprout {
 				Result const& result,
 				BinaryOperation op,
 				sprout::index_tuple<Indexes...>,
-				typename sprout::fixed_container_traits<Result>::difference_type offset,
-				typename sprout::fixed_container_traits<Result>::size_type size,
-				typename sprout::fixed_container_traits<Result>::size_type input_size
+				typename sprout::container_traits<Result>::difference_type offset,
+				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type input_size
 				)
 			{
-				return sprout::remake_clone<Result>(
+				return sprout::remake<Result>(
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? op(*sprout::next(first1, Indexes - offset), *sprout::next(first2, Indexes - offset))
-						: *sprout::next(sprout::fixed_begin(result), Indexes)
+						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);
 			}
@@ -155,15 +155,15 @@ namespace sprout {
 					first2,
 					result,
 					op,
-					typename sprout::index_range<0, sprout::fixed_container_traits<Result>::fixed_size>::type(),
-					sprout::fixed_begin_offset(result),
+					typename sprout::index_range<0, sprout::container_traits<Result>::static_size>::type(),
+					sprout::internal_begin_offset(result),
 					sprout::size(result),
 					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first1, last1)
 				);
 			}
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename BinaryOperation, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size == sizeof...(Args),
+				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type transform_impl(
 				InputIterator1 first1,
@@ -171,15 +171,15 @@ namespace sprout {
 				InputIterator2 first2,
 				Result const& result,
 				BinaryOperation op,
-				typename sprout::fixed_container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
-				return sprout::remake_clone<Result>(result, sprout::size(result), args...);
+				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename BinaryOperation, typename... Args>
 			SPROUT_CONSTEXPR inline typename std::enable_if<
-				sprout::fixed_container_traits<Result>::fixed_size != sizeof...(Args),
+				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type transform_impl(
 				InputIterator1 first1,
@@ -187,7 +187,7 @@ namespace sprout {
 				InputIterator2 first2,
 				Result const& result,
 				BinaryOperation op,
-				typename sprout::fixed_container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{

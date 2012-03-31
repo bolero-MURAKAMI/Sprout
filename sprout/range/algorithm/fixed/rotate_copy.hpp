@@ -2,8 +2,8 @@
 #define SPROUT_RANGE_ALGORITHM_FIXED_ROTATE_COPY_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/fixed_container/traits.hpp>
-#include <sprout/fixed_container/functions.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/rotate_copy.hpp>
 
@@ -16,7 +16,7 @@ namespace sprout {
 			template<typename Input, typename Result>
 			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type rotate_copy(
 				Input const& input,
-				typename sprout::fixed_container_traits<Input>::const_iterator middle,
+				typename sprout::container_traits<Input>::const_iterator middle,
 				Result const& result
 				)
 			{
