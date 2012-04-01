@@ -5,7 +5,7 @@
 #include <istream>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace random {
@@ -49,10 +49,10 @@ namespace sprout {
 				, rng2_(rng2)
 			{}
 			SPROUT_CONSTEXPR result_type min() const {
-				return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(rng1_.min(), rng2_.min());
+				return NS_SSCRISK_CEL_OR_SPROUT::min(rng1_.min(), rng2_.min());
 			}
 			SPROUT_CONSTEXPR result_type max() const {
-				return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::max(rng1_.max(), rng2_.max());
+				return NS_SSCRISK_CEL_OR_SPROUT::max(rng1_.max(), rng2_.max());
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<xor_combine_engine> operator()() const {
 				return generate(rng1_(), rng2_());

@@ -3,5 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/utility/operation.hpp>
+#include <sprout/utility/pair.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_HPP

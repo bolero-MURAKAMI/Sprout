@@ -30,15 +30,15 @@
 #endif	// #ifndef SPROUT_CONFIG_DISABLE_USER_DEFINED_LITERALS
 
 #ifndef SPROUT_CONFIG_USE_SSCRISK_CEL
-#	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL <sprout/detail/functional.hpp>
-#	define HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL <sprout/detail/algorithm.hpp>
-#	define HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL <sprout/detail/iterator.hpp>
-#	define NS_SSCRISK_CEL_OR_SPROUT_DETAIL sprout::detail
+#	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT <sprout/functional.hpp>
+#	define HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT <sprout/algorithm/non_modifying.hpp>
+#	define HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT <sprout/iterator.hpp>
+#	define NS_SSCRISK_CEL_OR_SPROUT sprout
 #else	// #ifndef SPROUT_CONFIG_USE_SSCRISK_CEL
-#	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL <sscrisk/cel/functional.hpp>
-#	define HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL <sscrisk/cel/algorithm.hpp>
-#	define HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL <sscrisk/cel/iterator.hpp>
-#	define NS_SSCRISK_CEL_OR_SPROUT_DETAIL sscrisk::cel
+#	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT <sscrisk/cel/functional.hpp>
+#	define HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT <sscrisk/cel/algorithm.hpp>
+#	define HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT <sscrisk/cel/iterator.hpp>
+#	define NS_SSCRISK_CEL_OR_SPROUT sscrisk::cel
 #endif	// #ifndef SPROUT_CONFIG_USE_SSCRISK_CEL
 
 #ifndef SPROUT_CONFIG_DISABLE_SUPPORT_TEMPORARY_CONTAINER_ITERATION

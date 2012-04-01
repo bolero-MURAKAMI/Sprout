@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/remove.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fit {
@@ -22,7 +22,7 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::remove(cont, value)),
 					offset,
-					offset + sprout::size(cont) - NS_SSCRISK_CEL_OR_SPROUT_DETAIL::count(sprout::begin(cont), sprout::end(cont), value)
+					offset + sprout::size(cont) - NS_SSCRISK_CEL_OR_SPROUT::count(sprout::begin(cont), sprout::end(cont), value)
 					);
 			}
 		}	// namespace detail

@@ -12,7 +12,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator.hpp>
 #include <sprout/utility/forward.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -196,7 +196,7 @@ namespace sprout {
 	//
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR inline bool operator==(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
-		return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::equal(lhs.begin(), lhs.end(), rhs.begin());
+		return NS_SSCRISK_CEL_OR_SPROUT::equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR inline bool operator!=(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
@@ -204,7 +204,7 @@ namespace sprout {
 	}
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR inline bool operator<(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
-		return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR inline bool operator>(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {

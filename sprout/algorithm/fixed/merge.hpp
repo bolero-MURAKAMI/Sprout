@@ -8,7 +8,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/detail/container_complate.hpp>
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -100,7 +100,7 @@ namespace sprout {
 				first2,
 				last2,
 				result,
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::container_traits<Result>::value_type>(),
+				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Result>::value_type>(),
 				sprout::size(result)
 				);
 		}

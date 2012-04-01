@@ -2,7 +2,7 @@
 #define SPROUT_RANGE_ALGORITHM_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/range/algorithm/fixed.hpp>
-#include <sprout/range/algorithm/fit.hpp>
+#include <sprout/range/algorithm/non_modifying.hpp>
+#include <sprout/range/algorithm/modifying.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_ALGORITHM_HPP

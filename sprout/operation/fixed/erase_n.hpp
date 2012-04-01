@@ -7,7 +7,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -60,7 +60,7 @@ namespace sprout {
 			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::result_of::erase_n<N, Container>::type>(
 				cont,
 				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::static_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), pos)
+				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), pos)
 				);
 		}
 		//
@@ -75,7 +75,7 @@ namespace sprout {
 			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::result_of::erase_n<N, Container>::type>(
 				cont,
 				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::static_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos))
+				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos))
 				);
 		}
 	}	// namespace fixed

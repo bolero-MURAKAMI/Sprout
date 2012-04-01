@@ -9,8 +9,8 @@
 #include <sprout/string.hpp>
 #include <sprout/uuid/uuid.hpp>
 #include <sprout/uuid/detail/table.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace uuids {
@@ -52,9 +52,9 @@ namespace sprout {
 			template<typename Elem>
 			SPROUT_CONSTEXPR std::uint8_t get_value(Elem c) const {
 				return value_at(
-					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(
+					NS_SSCRISK_CEL_OR_SPROUT::distance(
 						sprout::uuids::detail::digits<Elem>::table.begin(),
-						NS_SSCRISK_CEL_OR_SPROUT_DETAIL::find(
+						NS_SSCRISK_CEL_OR_SPROUT::find(
 							sprout::uuids::detail::digits<Elem>::table.begin(),
 							sprout::uuids::detail::digits<Elem>::table.end(),
 							c

@@ -8,7 +8,7 @@
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
 #include <sprout/detail/integer.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace random {
@@ -39,7 +39,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR result_type max() const {
 					return (
 						result_type(2) << (
-							NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(
+							NS_SSCRISK_CEL_OR_SPROUT::min(
 								std::numeric_limits<result_type>::digits,
 								sprout::random::detail::generator_bits<base_type>::value()
 								) - 1

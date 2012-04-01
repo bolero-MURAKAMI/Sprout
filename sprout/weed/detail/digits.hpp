@@ -6,8 +6,8 @@
 #include <sprout/string.hpp>
 #include <sprout/array.hpp>
 #include <sprout/tuple/tuple.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace weed {
@@ -71,9 +71,9 @@ namespace sprout {
 			template<typename IntType, typename Elem>
 			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_digit(Elem c) {
 				return sprout::weed::detail::value_at<IntType>(
-					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(
+					NS_SSCRISK_CEL_OR_SPROUT::distance(
 						sprout::weed::detail::digits<Elem>::table.begin(),
-						NS_SSCRISK_CEL_OR_SPROUT_DETAIL::find(
+						NS_SSCRISK_CEL_OR_SPROUT::find(
 							sprout::weed::detail::digits<Elem>::table.begin(),
 							sprout::weed::detail::digits<Elem>::table.end(),
 							c

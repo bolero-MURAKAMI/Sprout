@@ -7,8 +7,8 @@
 #include <sprout/algorithm/fixed/merge.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fit {
@@ -27,8 +27,8 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::merge(first1, last1, first2, last2, result, comp)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(
-						NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first1, last1) + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first2, last2),
+					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
+						NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) + NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2),
 						sprout::size(result)
 						)
 					);
@@ -64,8 +64,8 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::merge(first1, last1, first2, last2, result)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(
-						NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first1, last1) + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first2, last2),
+					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
+						NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) + NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2),
 						sprout::size(result)
 						)
 					);

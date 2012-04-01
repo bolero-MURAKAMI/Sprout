@@ -5,7 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/functional/dft/detail/dft_element_gen.hpp>
 #include <sprout/math/constants.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -40,7 +40,7 @@ namespace sprout {
 			first,
 			last,
 			i,
-			NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last)
+			NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)
 			);
 	}
 }	// namespace sprout

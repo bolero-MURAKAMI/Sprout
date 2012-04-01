@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/partial_sort.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fit {
@@ -23,7 +23,7 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::partial_sort(cont, middle, comp)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::begin(cont), middle)
+					offset + NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), middle)
 					);
 			}
 		}	// namespace detail
@@ -51,7 +51,7 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::partial_sort(cont, middle)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::begin(cont), middle)
+					offset + NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), middle)
 					);
 			}
 		}	// namespace detail

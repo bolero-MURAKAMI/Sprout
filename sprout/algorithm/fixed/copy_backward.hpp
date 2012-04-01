@@ -11,7 +11,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/detail/container_complate_backward.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -51,7 +51,7 @@ namespace sprout {
 					typename sprout::index_range<0, sprout::container_traits<Result>::static_size>::type(),
 					sprout::internal_end_offset(result),
 					sprout::size(result),
-					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last)
+					NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)
 					);
 			}
 			template<typename BidirectionalIterator, typename Result, typename... Args>

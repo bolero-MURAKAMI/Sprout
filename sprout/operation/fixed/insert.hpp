@@ -8,7 +8,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/detail/param_at.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -66,7 +66,7 @@ namespace sprout {
 			return sprout::fixed::detail::insert_impl<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>(
 				cont,
 				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>::static_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), pos),
+				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), pos),
 				v,
 				values...
 				);
@@ -85,7 +85,7 @@ namespace sprout {
 			return sprout::fixed::detail::insert_impl<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>(
 				cont,
 				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>::static_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
+				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				v,
 				values...
 				);

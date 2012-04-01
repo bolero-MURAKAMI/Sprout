@@ -8,8 +8,8 @@
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
 #include <sprout/detail/algorithm_ext.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fit {
@@ -28,8 +28,8 @@ namespace sprout {
 					offset,
 					offset + sprout::detail::count_n_if(
 						first,
-						NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(
-							NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(first, last),
+						NS_SSCRISK_CEL_OR_SPROUT::min(
+							NS_SSCRISK_CEL_OR_SPROUT::distance(first, last),
 							sprout::size(result)
 							),
 						pred

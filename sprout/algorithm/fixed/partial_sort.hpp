@@ -7,8 +7,8 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/make_partial_heap.hpp>
 #include <sprout/algorithm/fixed/sort_heap.hpp>
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -45,7 +45,7 @@ namespace sprout {
 				comp,
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::begin(cont), middle)
+				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), middle)
 				);
 		}
 		//
@@ -59,10 +59,10 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::partial_sort_impl(
 				cont,
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::container_traits<Container>::value_type>(),
+				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::begin(cont), middle)
+				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), middle)
 				);
 		}
 	}	// namespace fixed

@@ -11,8 +11,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -136,8 +136,8 @@ namespace sprout {
 				typename std::enable_if<std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_{to_holder<Container>(arr)[Indexes]...}
-				, first_(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::cbegin(arr), first))
-				, last_(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::cbegin(arr), last))
+				, first_(NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::cbegin(arr), first))
+				, last_(NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::cbegin(arr), last))
 			{}
 			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
@@ -149,8 +149,8 @@ namespace sprout {
 				typename std::enable_if<!std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_(to_holder<Container>(arr))
-				, first_(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::cbegin(arr), first))
-				, last_(NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::cbegin(arr), last))
+				, first_(NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::cbegin(arr), first))
+				, last_(NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::cbegin(arr), last))
 			{}
 			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
@@ -244,8 +244,8 @@ namespace sprout {
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
 				typename sprout::index_range<0, static_size>::type(),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::begin(other.get_array()), first),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::distance(sprout::begin(other.get_array()), last)
+				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(other.get_array()), first),
+				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(other.get_array()), last)
 				)
 		{}
 		SPROUT_CONSTEXPR sub_array(sub_array<Container> const& other, difference_type first, difference_type last)
@@ -388,7 +388,7 @@ namespace sprout {
 	//
 	template<typename Container>
 	SPROUT_CONSTEXPR inline bool operator==(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
-		return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::equal(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs));
+		return NS_SSCRISK_CEL_OR_SPROUT::equal(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs));
 	}
 	template<typename Container>
 	SPROUT_CONSTEXPR inline bool operator!=(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
@@ -396,7 +396,7 @@ namespace sprout {
 	}
 	template<typename Container>
 	SPROUT_CONSTEXPR inline bool operator<(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
-		return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::lexicographical_compare(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs), sprout::end(rhs));
+		return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs), sprout::end(rhs));
 	}
 	template<typename Container>
 	SPROUT_CONSTEXPR inline bool operator>(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {

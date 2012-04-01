@@ -9,6 +9,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
+#include <sprout/iterator/distance.hpp>
 #include <sprout/utility/value_holder.hpp>
 
 namespace sprout {
@@ -200,22 +201,13 @@ namespace sprout {
 	{
 		return it - n;
 	}
-}	// namespace sprout
 
-
-
-#include <sprout/detail/iterator.hpp>
-
-namespace sprout {
 	//
 	// distance
 	//
 	template<typename T>
-	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::value_iterator<T> >::difference_type distance(
-		sprout::value_iterator<T> first,
-		sprout::value_iterator<T> last
-		)
-	{
+	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::value_iterator<T> >::difference_type
+	distance(sprout::value_iterator<T> first, sprout::value_iterator<T> last) {
 		return last - first;
 	}
 }	// namespace sprout

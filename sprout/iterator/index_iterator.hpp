@@ -8,6 +8,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
+#include <sprout/iterator/distance.hpp>
 #include <sprout/utility/value_holder.hpp>
 
 namespace sprout {
@@ -211,22 +212,13 @@ namespace sprout {
 	{
 		return it - n;
 	}
-}	// namespace sprout
 
-
-
-#include <sprout/detail/iterator.hpp>
-
-namespace sprout {
 	//
 	// distance
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::index_iterator<Container> >::difference_type distance(
-		sprout::index_iterator<Container> first,
-		sprout::index_iterator<Container> last
-		)
-	{
+	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::index_iterator<Container> >::difference_type
+	distance(sprout::index_iterator<Container> first, sprout::index_iterator<Container> last) {
 		return last - first;
 	}
 }	// namespace sprout

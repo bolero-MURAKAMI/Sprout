@@ -8,7 +8,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -230,13 +230,13 @@ namespace sprout {
 		// operator>=
 		//
 		SPROUT_CONSTEXPR inline bool operator==(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-			return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::equal(lhs.begin(), lhs.end(), rhs.begin());
+			return NS_SSCRISK_CEL_OR_SPROUT::equal(lhs.begin(), lhs.end(), rhs.begin());
 		}
 		SPROUT_CONSTEXPR inline bool operator!=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
 			return !(lhs == rhs);
 		}
 		SPROUT_CONSTEXPR inline bool operator<(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-			return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+			return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 		}
 		SPROUT_CONSTEXPR inline bool operator>(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
 			return rhs < lhs;

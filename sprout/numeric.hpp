@@ -2,7 +2,7 @@
 #define SPROUT_NUMERIC_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/numeric/fixed.hpp>
-#include <sprout/numeric/fit.hpp>
+#include <sprout/numeric/non_modifying.hpp>
+#include <sprout/numeric/modifying.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_HPP

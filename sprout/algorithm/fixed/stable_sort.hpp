@@ -194,7 +194,7 @@ namespace sprout {
 			{
 				return sprout::fixed::detail::stable_sort_impl(
 					cont,
-					NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::container_traits<Container>::value_type>(),
+					NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 					sprout::size(cont)
 					);
 			}

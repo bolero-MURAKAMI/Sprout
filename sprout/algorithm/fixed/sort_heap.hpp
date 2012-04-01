@@ -8,7 +8,7 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/pop_heap.hpp>
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -63,7 +63,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::sort_heap_impl(
 				cont,
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::container_traits<Container>::value_type>(),
+				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)
 				);

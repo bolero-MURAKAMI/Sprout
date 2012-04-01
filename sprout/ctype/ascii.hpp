@@ -6,6 +6,8 @@
 
 namespace sprout {
 	namespace ascii {
+		// Copyright (C) 2011 RiSK (sscrisk)
+
 		namespace detail {
 			SPROUT_STATIC_CONSTEXPR std::size_t alpha = 1 << 0;
 			SPROUT_STATIC_CONSTEXPR std::size_t blank = 1 << 1;

@@ -9,8 +9,8 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/shuffle.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -21,7 +21,7 @@ namespace sprout {
 				Compare comp
 				)
 			{
-				return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::is_sorted(
+				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
 					sprout::begin(sprout::tuples::get<0>(shuffled)),
 					sprout::end(sprout::tuples::get<0>(shuffled)),
 					comp
@@ -43,7 +43,7 @@ namespace sprout {
 				Compare comp
 				)
 			{
-				return NS_SSCRISK_CEL_OR_SPROUT_DETAIL::is_sorted(
+				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
 					sprout::begin(cont),
 					sprout::end(cont),
 					comp
@@ -87,7 +87,7 @@ namespace sprout {
 			return sprout::fixed::detail::bogo_sort_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
-				NS_SSCRISK_CEL_OR_SPROUT_DETAIL::less<typename sprout::container_traits<Container>::value_type>()
+				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>()
 				);
 		}
 	}	// namespace fixed

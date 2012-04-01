@@ -13,7 +13,7 @@
 #include <sprout/darkroom/materials/material.hpp>
 #include <sprout/darkroom/intersects/intersection.hpp>
 #include <sprout/darkroom/objects/intersect.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace darkroom {
@@ -82,7 +82,7 @@ namespace sprout {
 								> sprout::darkroom::coords::length(diff)
 							|| sprout::darkroom::intersects::distance(light_ray_inter)
 								< std::numeric_limits<unit_type>::epsilon()
-							? NS_SSCRISK_CEL_OR_SPROUT_DETAIL::max(
+							? NS_SSCRISK_CEL_OR_SPROUT::max(
 								std::numeric_limits<unit_type>::epsilon(),
 								sprout::darkroom::coords::dot(
 									direction,

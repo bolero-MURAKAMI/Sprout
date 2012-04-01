@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/generate_n.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fit {
@@ -24,7 +24,7 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::generate_n(cont, n, gen, inits...)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n, sprout::size(cont))
+					offset + NS_SSCRISK_CEL_OR_SPROUT::min(n, sprout::size(cont))
 					);
 			}
 		}	// namespace detail

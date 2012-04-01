@@ -18,7 +18,7 @@
 #include <sprout/operation/fixed/append_front.hpp>
 #include <sprout/iterator.hpp>
 #include <sprout/utility/forward.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT_DETAIL
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <algorithm>
 #	include <sprout/iterator/index_iterator.hpp>
@@ -209,7 +209,7 @@ namespace sprout {
 		}
 		static SPROUT_CONSTEXPR int compare_impl_1(value_type const* dest, size_type pos1, size_type n1, value_type const* s, size_type n2) {
 			return compare_impl_2(
-				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, n2)),
+				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1,
 				n2
 				);
@@ -230,14 +230,14 @@ namespace sprout {
 			int
 		>::type compare_impl_1(value_type const* dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
 			return compare_impl_2(
-				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, n2)),
+				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1,
 				n2
 				);
 		}
 		static SPROUT_CONSTEXPR int compare_impl_1(const_iterator dest, size_type pos1, size_type n1, value_type const* s, size_type n2) {
 			return compare_impl_2(
-				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, n2)),
+				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1,
 				n2
 				);
@@ -248,7 +248,7 @@ namespace sprout {
 			int
 		>::type compare_impl_1(const_iterator dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
 			return compare_impl_2(
-				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, n2)),
+				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1,
 				n2
 				);
@@ -495,13 +495,13 @@ namespace sprout {
 		template<std::size_t N2>
 		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, basic_string<T, N2, Traits> const& str, size_type pos2, size_type n2) const {
 			return !(str.size() < pos2)
-				? compare(pos1, n1, str.begin() + pos2, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n2, str.size() - pos2))
+				? compare(pos1, n1, str.begin() + pos2, NS_SSCRISK_CEL_OR_SPROUT::min(n2, str.size() - pos2))
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
 		SPROUT_CONSTEXPR int compare(size_type pos1, size_type n1, value_type const* s, size_type n2) const {
 			return !(size() < pos1)
-				? compare_impl_1(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, size() - pos1), s, n2)
+				? compare_impl_1(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT::min(n1, size() - pos1), s, n2)
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
@@ -577,7 +577,7 @@ namespace sprout {
 			int
 		>::type compare(size_type pos1, size_type n1, ConstIterator s, size_type n2) const {
 			return !(size() < pos1)
-				? compare_impl_1(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT_DETAIL::min(n1, size() - pos1), s, n2)
+				? compare_impl_1(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT::min(n1, size() - pos1), s, n2)
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
