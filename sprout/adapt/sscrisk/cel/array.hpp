@@ -44,7 +44,7 @@ namespace sprout {
 	//
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR typename sprout::container_traits<sscrisk::cel::array<T, N> >::const_iterator cbegin(sscrisk::cel::array<T, N> const& cont) {
-		return sprout::container_traits<sscrisk::cel::array<T, N> >::const_iterator(cont, 0);
+		return typename sprout::container_traits<sscrisk::cel::array<T, N> >::const_iterator(cont, 0);
 	}
 
 	//

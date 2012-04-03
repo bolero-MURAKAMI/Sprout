@@ -22,7 +22,7 @@ namespace sprout {
 		{
 			return first1_ == last1 ? true
 				: sprout::count(first1, last1, *first1_)
-					== sprout::count(first2, first2 + NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1), *first1_)
+					== sprout::count(first2, sprout::next(first2, NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1)), *first1_)
 					&& sprout::detail::is_permutation_impl(first1, last1, first2, sprout::next(first1_))
 					? true
 				: false
@@ -40,7 +40,7 @@ namespace sprout {
 		{
 			return first1_ == last1 ? true
 				: sprout::count_if(first1, last1, NS_SSCRISK_CEL_OR_SPROUT::bind2nd(pred, *first1_))
-					== sprout::count_if(first2, first2 + NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1), NS_SSCRISK_CEL_OR_SPROUT::bind2nd(pred, *first1_))
+					== sprout::count_if(first2, sprout::next(first2, NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1)), NS_SSCRISK_CEL_OR_SPROUT::bind2nd(pred, *first1_))
 					&& sprout::detail::is_permutation_impl(first1, last1, first2, sprout::next(first1_), pred)
 					? true
 				: false

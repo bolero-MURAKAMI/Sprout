@@ -13,9 +13,9 @@ namespace sprout {
 	SPROUT_CONSTEXPR ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, T const& value) {
 		return first == last ? last
 			: sprout::next(first) == last ? !(value < *first) ? last : first
-			: !(value < *(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2))
-				? upper_bound(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, last, value)
-			: sprout::upper_bound(first, first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, value)
+			: !(value < *sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2))
+				? upper_bound(sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), last, value)
+			: sprout::upper_bound(first, sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value)
 			;
 	}
 
@@ -23,9 +23,9 @@ namespace sprout {
 	SPROUT_CONSTEXPR ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
 		return first == last ? last
 			: sprout::next(first) == last ? !comp(value, *first) ? last : first
-			: !comp(value, *(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2))
-				? sprout::upper_bound(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, last, value, comp)
-			: sprout::upper_bound(first, first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, value, comp)
+			: !comp(value, *sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2))
+				? sprout::upper_bound(sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), last, value, comp)
+			: sprout::upper_bound(first, sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value, comp)
 			;
 	}
 }	// namespace sprout

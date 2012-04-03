@@ -19,7 +19,7 @@ namespace sprout {
 			std::size_t n
 			)
 		{
-			return first + n == last || !comp(first[n], first[(n - 1) / 2]) ? first + n
+			return sprout::next(first, n) == last || !comp(first[n], first[(n - 1) / 2]) ? sprout::next(first, n)
 				: sprout::detail::is_heap_until_impl(first, last, comp, n + 1)
 				;
 		}

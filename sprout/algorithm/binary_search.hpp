@@ -13,10 +13,10 @@ namespace sprout {
 	SPROUT_CONSTEXPR bool binary_search(ForwardIterator first, ForwardIterator last, T const& value) {
 		return first == last ? false
 			: sprout::next(first) == last ? !(*first < value) && !(value < *first) ? true : false
-			: *(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2) < value
-				? sprout::binary_search(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, last, value)
-			: value < *(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)) / 2
-				? sprout::binary_search(first, first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, value)
+			: *sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2) < value
+				? sprout::binary_search(sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), last, value)
+			: value < *sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)) / 2
+				? sprout::binary_search(first, sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value)
 			: true
 			;
 	}
@@ -25,10 +25,10 @@ namespace sprout {
 	SPROUT_CONSTEXPR bool binary_search(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
 		return first == last ? false
 			: sprout::next(first) == last ? !comp(*first, value) && !comp(value, *first) ? true : false
-			: comp(*(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value)
-				? sprout::binary_search(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, last, value)
-			: comp(value, *(first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)) / 2)
-				? sprout::binary_search(first, first + NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, value)
+			: comp(*sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value)
+				? sprout::binary_search(sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), last, value)
+			: comp(value, *sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)) / 2)
+				? sprout::binary_search(first, sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value)
 			: true
 			;
 	}
