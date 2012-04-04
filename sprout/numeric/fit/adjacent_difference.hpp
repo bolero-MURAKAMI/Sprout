@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
@@ -32,7 +32,7 @@ namespace sprout {
 		// adjacent_difference
 		//
 		template<typename InputIterator, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
 			InputIterator first,
 			InputIterator last,
 			Result const& result
@@ -43,7 +43,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename InputIterator, typename Result, typename BinaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
@@ -62,7 +62,7 @@ namespace sprout {
 		// adjacent_difference
 		//
 		template<typename InputIterator, typename Result, typename BinaryOperation>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
 			InputIterator first,
 			InputIterator last,
 			Result const& result,

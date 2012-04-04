@@ -19,7 +19,7 @@ namespace sprout {
 	static_assert(CHAR_BIT == 8, "CHAR_BIT == 8");
 
 	namespace detail {
-		SPROUT_CONSTEXPR inline std::uint32_t sha1_left_rotate(std::uint32_t x, std::size_t n) {
+		inline SPROUT_CONSTEXPR std::uint32_t sha1_left_rotate(std::uint32_t x, std::size_t n) {
 			return (x << n) ^ (x >> (32 - n));
 		}
 	}	// namespace detail

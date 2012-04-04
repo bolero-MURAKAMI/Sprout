@@ -14,7 +14,7 @@ namespace sprout {
 			// adjacent_difference
 			//
 			template<typename Input, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
 				Input const& input,
 				Result const& result
 				)
@@ -25,7 +25,7 @@ namespace sprout {
 			// adjacent_difference
 			//
 			template<typename Input, typename Result, typename BinaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
 				Input const& input,
 				Result const& result,
 				BinaryOperation binary_op

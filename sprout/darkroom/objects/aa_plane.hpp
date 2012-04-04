@@ -204,7 +204,7 @@ namespace sprout {
 			// make_aa_plane
 			//
 			template<typename Material, typename Unit>
-			SPROUT_CONSTEXPR inline sprout::darkroom::objects::basic_aa_plane<Material>
+			inline SPROUT_CONSTEXPR sprout::darkroom::objects::basic_aa_plane<Material>
 			make_aa_plane(
 				sprout::darkroom::objects::aa_plane_direction::values dir_val,
 				Unit const& val,

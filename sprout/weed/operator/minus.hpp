@@ -27,7 +27,7 @@ namespace sprout {
 				>::value
 			>::type
 		>
-		SPROUT_CONSTEXPR inline typename sprout::weed::traits::expr_of<
+		inline SPROUT_CONSTEXPR typename sprout::weed::traits::expr_of<
 			sprout::weed::tag::minus,
 			Arg1,
 			Arg2

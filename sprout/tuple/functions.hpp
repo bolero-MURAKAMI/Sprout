@@ -1,6 +1,7 @@
 #ifndef SPROUT_TUPLE_FUNCTIONS_HPP
 #define SPROUT_TUPLE_FUNCTIONS_HPP
 
+#include <sprout/config.hpp>
 #include <sprout/tuple/deep_copy.hpp>
 #include <sprout/tuple/make.hpp>
 #include <sprout/tuple/remake.hpp>

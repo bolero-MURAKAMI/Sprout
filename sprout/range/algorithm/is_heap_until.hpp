@@ -13,7 +13,7 @@ namespace sprout {
 
 		// 25.4.6.5 is_heap
 		template<typename Range>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		is_heap_until(Range&& range) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::is_heap_until(
@@ -25,7 +25,7 @@ namespace sprout {
 		}
 
 		template<typename Range, typename Compare>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		is_heap_until(Range&& range, Compare comp) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::is_heap_until(
@@ -38,7 +38,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		is_heap_until(Range&& range) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::is_heap_until(
@@ -50,7 +50,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename Compare>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		is_heap_until(Range&& range, Compare comp) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::is_heap_until(

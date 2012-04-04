@@ -11,7 +11,7 @@ namespace sprout {
 
 	// 25.2.8 Adjacent find
 	template<typename ForwardIterator, typename BinaryPredicate>
-	SPROUT_CONSTEXPR ForwardIterator adjacent_find(ForwardIterator first, ForwardIterator last, BinaryPredicate pred) {
+	inline SPROUT_CONSTEXPR ForwardIterator adjacent_find(ForwardIterator first, ForwardIterator last, BinaryPredicate pred) {
 		return first == last || sprout::next(first) == last ? last
 			: pred(*first, *(sprout::next(first))) != false ? first
 			: sprout::adjacent_find(sprout::next(first), last, pred)
@@ -19,7 +19,7 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator>
-	SPROUT_CONSTEXPR ForwardIterator adjacent_find(ForwardIterator first, ForwardIterator last) {
+	inline SPROUT_CONSTEXPR ForwardIterator adjacent_find(ForwardIterator first, ForwardIterator last) {
 		return sprout::adjacent_find(
 			first,
 			last,

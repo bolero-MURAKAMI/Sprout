@@ -14,7 +14,7 @@ namespace sprout {
 			// copy_if
 			//
 			template<typename Input, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_if(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_if(
 				Input const& input,
 				Result const& result
 				)

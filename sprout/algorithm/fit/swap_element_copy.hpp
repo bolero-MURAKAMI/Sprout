@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type swap_element_copy_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type swap_element_copy_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
@@ -34,7 +34,7 @@ namespace sprout {
 		// swap_element_copy
 		//
 		template<typename InputIterator, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type swap_element_copy(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type swap_element_copy(
 			InputIterator first,
 			InputIterator last,
 			Result const& result,

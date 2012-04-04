@@ -15,7 +15,30 @@ namespace sprout {
 	// index_tuple
 	//
 	template<sprout::index_t... Indexes>
-	struct index_tuple {};
+	struct index_tuple {
+	public:
+		typedef index_tuple type;
+	};
+
+	//
+	// make_indexes
+	//
+	template<typename IndexTupleType>
+	inline SPROUT_CONSTEXPR typename IndexTupleType::type make_indexes() {
+		return typename IndexTupleType::type();
+	}
+
+	namespace detail {
+		template<typename IndexTupleType>
+		struct make_index_tuple_helper {
+		public:
+			typedef typename IndexTupleType::type type;
+		public:
+			static SPROUT_CONSTEXPR type make() {
+				return type();
+			}
+		};
+	}	// namespace detail
 
 	//
 	// index_range
@@ -87,10 +110,12 @@ namespace sprout {
 	}	// namespace detail
 	template<sprout::index_t First, sprout::index_t Last, sprout::index_t Step = 1>
 	struct index_range
-		: public sprout::detail::index_range_impl<
-			First,
-			Step,
-			((Last - First) + (Step - 1)) / Step
+		: public sprout::detail::make_index_tuple_helper<
+			sprout::detail::index_range_impl<
+				First,
+				Step,
+				((Last - First) + (Step - 1)) / Step
+			>
 		>
 	{};
 
@@ -158,7 +183,19 @@ namespace sprout {
 	}	// namespace detail
 	template<sprout::index_t I, std::size_t N>
 	struct index_n
-		: public sprout::detail::index_n_impl<I, N>
+		: public sprout::detail::make_index_tuple_helper<
+			sprout::detail::index_n_impl<I, N>
+		>
+	{};
+
+	//
+	// pack_indexes
+	//
+	template<typename... Args>
+	struct pack_indexes
+		: public sprout::detail::make_index_tuple_helper<
+			sprout::index_range<0, sizeof...(Args)>
+		>
 	{};
 }	// namespace sprout
 

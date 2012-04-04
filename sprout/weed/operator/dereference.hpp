@@ -23,7 +23,7 @@ namespace sprout {
 				>::value
 			>::type
 		>
-		SPROUT_CONSTEXPR inline typename sprout::weed::traits::expr_of<
+		inline SPROUT_CONSTEXPR typename sprout::weed::traits::expr_of<
 			sprout::weed::tag::dereference,
 			Arg
 		>::type operator*(Arg&& arg) {

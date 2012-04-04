@@ -13,7 +13,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type nth_element_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type nth_element_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::const_iterator nth,
 				Compare comp,
@@ -31,7 +31,7 @@ namespace sprout {
 		// nth_element
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type nth_element(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type nth_element(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator nth,
 			Compare comp
@@ -42,7 +42,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Container>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type nth_element_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type nth_element_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::const_iterator nth,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -59,7 +59,7 @@ namespace sprout {
 		// nth_element
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type nth_element(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type nth_element(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator nth
 			)

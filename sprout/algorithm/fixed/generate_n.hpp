@@ -12,7 +12,7 @@ namespace sprout {
 		// generate_n
 		//
 		template<typename Container, typename Size, typename Generator, typename... Inits>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type generate_n(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type generate_n(
 			Container const& cont,
 			Size n,
 			Generator gen,

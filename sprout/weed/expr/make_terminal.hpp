@@ -15,7 +15,7 @@ namespace sprout {
 		// make_terminal
 		//
 		template<typename Arg>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
+		inline SPROUT_CONSTEXPR typename std::enable_if<
 			!sprout::weed::traits::is_c_str<
 				typename sprout::weed::detail::uncvref<Arg>::type
 			>::value,
@@ -26,7 +26,7 @@ namespace sprout {
 				);
 		}
 		template<typename Arg>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
+		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::weed::traits::is_c_str<
 				typename sprout::weed::detail::uncvref<Arg>::type
 			>::value,

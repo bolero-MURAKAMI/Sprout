@@ -21,7 +21,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename UniformRandomNumberGenerator, std::size_t N, typename Random>
-			SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::array<std::ptrdiff_t, N>,
 				typename std::decay<UniformRandomNumberGenerator>::type
 			> make_shuffle_result_indexes_1(
@@ -49,7 +49,7 @@ namespace sprout {
 					;
 			}
 			template<std::size_t N, typename UniformRandomNumberGenerator>
-			SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::array<std::ptrdiff_t, N>,
 				typename std::decay<UniformRandomNumberGenerator>::type
 			> make_shuffle_result_indexes(
@@ -75,7 +75,7 @@ namespace sprout {
 					;
 			}
 			template<typename UniformRandomNumberGenerator, typename Container, typename Shuffled, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fixed::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
 			> shuffle_result_impl_1(
@@ -103,7 +103,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fixed::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
 			> shuffle_result_impl(
@@ -130,7 +130,7 @@ namespace sprout {
 		// shuffle_result
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fixed::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
 		> shuffle_result(

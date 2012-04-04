@@ -13,7 +13,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type copy_if_impl(
@@ -28,7 +28,7 @@ namespace sprout {
 				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type copy_if_impl(
@@ -52,7 +52,7 @@ namespace sprout {
 		// copy_if
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_if(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_if(
 			InputIterator first,
 			InputIterator last,
 			Result const& result,

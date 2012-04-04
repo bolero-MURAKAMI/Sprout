@@ -12,7 +12,7 @@ namespace sprout {
 	namespace range {
 		namespace detail {
 			template<typename Range, typename Pair>
-			SPROUT_CONSTEXPR sprout::pair<
+			inline SPROUT_CONSTEXPR sprout::pair<
 				typename sprout::range::range_return<Range>::type,
 				typename sprout::range::range_return<Range>::type
 			>
@@ -24,7 +24,7 @@ namespace sprout {
 			}
 
 			template<sprout::range::range_return_value RetV, typename Range, typename Pair>
-			SPROUT_CONSTEXPR sprout::pair<
+			inline SPROUT_CONSTEXPR sprout::pair<
 				typename sprout::range::range_return<Range, RetV>::type,
 				typename sprout::range::range_return<Range, RetV>::type
 			>
@@ -40,7 +40,7 @@ namespace sprout {
 
 		// 25.4.7 Minimum and maximum
 		template<typename Range>
-		SPROUT_CONSTEXPR sprout::pair<
+		inline SPROUT_CONSTEXPR sprout::pair<
 			typename sprout::range::range_return<Range>::type,
 			typename sprout::range::range_return<Range>::type
 		>
@@ -55,7 +55,7 @@ namespace sprout {
 		}
 
 		template<typename Range, typename Compare>
-		SPROUT_CONSTEXPR sprout::pair<
+		inline SPROUT_CONSTEXPR sprout::pair<
 			typename sprout::range::range_return<Range>::type,
 			typename sprout::range::range_return<Range>::type
 		>
@@ -71,7 +71,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range>
-		SPROUT_CONSTEXPR sprout::pair<
+		inline SPROUT_CONSTEXPR sprout::pair<
 			typename sprout::range::range_return<Range, RetV>::type,
 			typename sprout::range::range_return<Range, RetV>::type
 		>
@@ -86,7 +86,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename Compare>
-		SPROUT_CONSTEXPR sprout::pair<
+		inline SPROUT_CONSTEXPR sprout::pair<
 			typename sprout::range::range_return<Range, RetV>::type,
 			typename sprout::range::range_return<Range, RetV>::type
 		>

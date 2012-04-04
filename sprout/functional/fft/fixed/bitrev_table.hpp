@@ -16,7 +16,7 @@ namespace sprout {
 	 namespace fixed {
 		 namespace detail {
 			template<typename Container, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type bitrev_table_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bitrev_table_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				std::size_t bit_length,
@@ -41,7 +41,7 @@ namespace sprout {
 		// bitrev_table
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type bitrev_table(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bitrev_table(
 			Container const& cont
 			)
 		{

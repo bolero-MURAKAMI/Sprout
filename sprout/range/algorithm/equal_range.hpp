@@ -11,7 +11,7 @@ namespace sprout {
 	namespace range {
 		namespace detail {
 			template<typename Range, typename Pair>
-			SPROUT_CONSTEXPR typename sprout::range::lvref_range<Range>::type
+			inline SPROUT_CONSTEXPR typename sprout::range::lvref_range<Range>::type
 			pair_to_range(Pair const& pair) {
 				return {pair.first, pair.second};
 			}
@@ -21,7 +21,7 @@ namespace sprout {
 
 		// 25.4.3.3 equal_range
 		template<typename Range, typename T>
-		SPROUT_CONSTEXPR typename sprout::range::lvref_range<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::lvref_range<Range>::type
 		equal_range(Range&& range, T const& value) {
 			return sprout::range::detail::pair_to_range<Range>(
 				sprout::equal_range(
@@ -33,7 +33,7 @@ namespace sprout {
 		}
 
 		template<typename Range, typename T, typename Compare>
-		SPROUT_CONSTEXPR typename sprout::range::lvref_range<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::lvref_range<Range>::type
 		equal_range(Range&& range, T const& value, Compare comp) {
 			return sprout::range::detail::pair_to_range<Range>(
 				sprout::equal_range(

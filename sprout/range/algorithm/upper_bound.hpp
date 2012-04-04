@@ -13,7 +13,7 @@ namespace sprout {
 
 		// 25.4.3.2 upper_bound
 		template<typename Range, typename T>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		upper_bound(Range&& range, T const& value) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::upper_bound(
@@ -26,7 +26,7 @@ namespace sprout {
 		}
 
 		template<typename Range, typename T, typename Compare>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		upper_bound(Range&& range, T const& value, Compare comp) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::upper_bound(
@@ -40,7 +40,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename T>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		upper_bound(Range&& range, T const& value) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::upper_bound(
@@ -53,7 +53,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename T, typename Compare>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		upper_bound(Range&& range, T const& value, Compare comp) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::upper_bound(

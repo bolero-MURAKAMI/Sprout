@@ -13,7 +13,7 @@ namespace sprout {
 			// intersect
 			//
 			template<typename Object, typename Ray>
-			SPROUT_CONSTEXPR inline typename Object::template intersection<Ray>::type
+			inline SPROUT_CONSTEXPR typename Object::template intersection<Ray>::type
 			intersect(Object const& obj, Ray const& ray) {
 				return obj.intersect(ray);
 			}
@@ -62,7 +62,7 @@ namespace sprout {
 				};
 			}	// namespace detail
 			template<typename Objects, typename Ray>
-			SPROUT_CONSTEXPR inline typename sprout::darkroom::access::unit<Objects>::type
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type
 				::template intersection<Ray>::type
 			intersect_list(Objects const& objs, Ray const& ray) {
 				return sprout::darkroom::objects::detail::intersect_list_impl<

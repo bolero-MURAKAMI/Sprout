@@ -6,7 +6,7 @@
 
 namespace sprout {
 	template<typename Visitor, typename Visitable>
-	SPROUT_CONSTEXPR inline typename Visitor::result_type apply_visitor(
+	inline SPROUT_CONSTEXPR typename Visitor::result_type apply_visitor(
 		Visitor&& visitor,
 		Visitable&& visitable
 		)

@@ -195,27 +195,27 @@ namespace sprout {
 	// operator>=
 	//
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline bool operator==(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator==(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
 		return NS_SSCRISK_CEL_OR_SPROUT::equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline bool operator!=(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator!=(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline bool operator<(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator<(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
 		return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline bool operator>(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator>(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline bool operator<=(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator<=(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline bool operator>=(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator>=(sprout::array<T, N> const& lhs, sprout::array<T, N> const& rhs) {
 		return !(lhs < rhs);
 	}
 
@@ -231,7 +231,7 @@ namespace sprout {
 	// make_array
 	//
 	template<typename T, typename... Types>
-	SPROUT_CONSTEXPR inline sprout::array<T, sizeof...(Types)> make_array(Types&&... args) {
+	inline SPROUT_CONSTEXPR sprout::array<T, sizeof...(Types)> make_array(Types&&... args) {
 		return sprout::array<T, sizeof...(Types)>{{sprout::forward<Types>(args)...}};
 	}
 
@@ -239,13 +239,13 @@ namespace sprout {
 	// make_common_array
 	//
 	template<typename... Types>
-	SPROUT_CONSTEXPR inline sprout::array<typename std::common_type<typename std::decay<Types>::type...>::type, sizeof...(Types)> make_common_array(Types&&... args) {
+	inline SPROUT_CONSTEXPR sprout::array<typename std::common_type<typename std::decay<Types>::type...>::type, sizeof...(Types)> make_common_array(Types&&... args) {
 		return sprout::array<typename std::common_type<typename std::decay<Types>::type...>::type, sizeof...(Types)>{{sprout::forward<Types>(args)...}};
 	}
 
 	namespace detail {
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		SPROUT_CONSTEXPR inline sprout::array<T, N> to_array_impl(
+		inline SPROUT_CONSTEXPR sprout::array<T, N> to_array_impl(
 			T const (& arr)[N],
 			sprout::index_tuple<Indexes...>
 			)
@@ -257,7 +257,7 @@ namespace sprout {
 	// to_array
 	//
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline sprout::array<T, N> to_array(T const (& arr)[N]) {
+	inline SPROUT_CONSTEXPR sprout::array<T, N> to_array(T const (& arr)[N]) {
 		return sprout::detail::to_array_impl(arr, typename sprout::index_range<0, N>::type());
 	}
 

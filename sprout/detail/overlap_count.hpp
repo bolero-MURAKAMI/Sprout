@@ -8,7 +8,7 @@
 namespace sprout {
 	namespace detail {
 		template<typename Iterator>
-		SPROUT_CONSTEXPR inline typename std::iterator_traits<Iterator>::difference_type overlap_count_impl(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type overlap_count_impl(
 			Iterator first,
 			Iterator last,
 			typename std::iterator_traits<Iterator>::value_type const& value,
@@ -26,7 +26,7 @@ namespace sprout {
 		// overlap_count
 		//
 		template<typename Iterator>
-		SPROUT_CONSTEXPR inline typename std::iterator_traits<Iterator>::difference_type overlap_count(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type overlap_count(
 			Iterator first,
 			Iterator last
 			)
@@ -38,7 +38,7 @@ namespace sprout {
 		}
 
 		template<typename Iterator, typename Predicate>
-		SPROUT_CONSTEXPR inline typename std::iterator_traits<Iterator>::difference_type overlap_count_impl(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type overlap_count_impl(
 			Iterator first,
 			Iterator last,
 			Predicate pred,
@@ -56,7 +56,7 @@ namespace sprout {
 		// overlap_count
 		//
 		template<typename Iterator, typename Predicate>
-		SPROUT_CONSTEXPR inline typename std::iterator_traits<Iterator>::difference_type overlap_count(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type overlap_count(
 			Iterator first,
 			Iterator last,
 			Predicate pred

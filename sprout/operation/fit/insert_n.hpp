@@ -29,7 +29,7 @@ namespace sprout {
 		// insert_n
 		//
 		template<std::size_t N, typename Container, typename T, typename... Values>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::insert_n<N, Container, T, Values...>::type insert_n(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::insert_n<N, Container, T, Values...>::type insert_n(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos,
 			T const& v,
@@ -46,7 +46,7 @@ namespace sprout {
 		// insert_n
 		//
 		template<std::size_t N, typename Container, typename T, typename... Values>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::insert_n<N, Container, T, Values...>::type insert_n(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::insert_n<N, Container, T, Values...>::type insert_n(
 			Container const& cont,
 			typename sprout::container_traits<Container>::difference_type pos,
 			T const& v,

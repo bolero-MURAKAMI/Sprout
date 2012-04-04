@@ -24,7 +24,7 @@ namespace sprout {
 		// pop_front
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::pop_front<Container>::type pop_front(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::pop_front<Container>::type pop_front(
 			Container const& cont
 			)
 		{

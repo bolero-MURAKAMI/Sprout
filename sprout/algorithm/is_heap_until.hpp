@@ -12,7 +12,7 @@ namespace sprout {
 
 	namespace detail {
 		template<typename RandomAccessIterator, typename Compare>
-		SPROUT_CONSTEXPR RandomAccessIterator is_heap_until_impl(
+		inline SPROUT_CONSTEXPR RandomAccessIterator is_heap_until_impl(
 			RandomAccessIterator first,
 			RandomAccessIterator last,
 			Compare comp,
@@ -27,12 +27,12 @@ namespace sprout {
 
 	// 25.4.6.5 is_heap
 	template<typename RandomAccessIterator>
-	SPROUT_CONSTEXPR RandomAccessIterator is_heap_until(RandomAccessIterator first, RandomAccessIterator last) {
+	inline SPROUT_CONSTEXPR RandomAccessIterator is_heap_until(RandomAccessIterator first, RandomAccessIterator last) {
 		return sprout::is_heap_until(first, last, NS_SSCRISK_CEL_OR_SPROUT::less<decltype(*first)>());
 	}
 
 	template<typename RandomAccessIterator, typename Compare>
-	SPROUT_CONSTEXPR RandomAccessIterator is_heap_until(RandomAccessIterator first, RandomAccessIterator last, Compare comp) {
+	inline SPROUT_CONSTEXPR RandomAccessIterator is_heap_until(RandomAccessIterator first, RandomAccessIterator last, Compare comp) {
 		return NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) < 2 ? last : sprout::detail::is_heap_until_impl(first, last, comp, 1);
 	}
 }	// namespace sprout

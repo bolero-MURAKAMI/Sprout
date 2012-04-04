@@ -29,7 +29,7 @@ namespace sprout {
 		// erase
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::erase<Container>::type erase(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase<Container>::type erase(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos
 			)
@@ -44,7 +44,7 @@ namespace sprout {
 		// erase
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::erase<Container>::type erase(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase<Container>::type erase(
 			Container const& cont,
 			typename sprout::container_traits<Container>::difference_type pos
 			)

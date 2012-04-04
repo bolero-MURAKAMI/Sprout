@@ -21,7 +21,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Tuple, typename T, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline Result push_front_impl(
+			inline SPROUT_CONSTEXPR Result push_front_impl(
 				Tuple const& t,
 				T const& v,
 				sprout::index_tuple<Indexes...>
@@ -38,7 +38,7 @@ namespace sprout {
 		// push_front
 		//
 		template<typename Tuple, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::tuples::result_of::push_front<Tuple, T>::type push_front(
+		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::push_front<Tuple, T>::type push_front(
 			Tuple const& t,
 			T const& v
 			)

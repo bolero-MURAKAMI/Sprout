@@ -22,7 +22,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline Result realign_impl(
+			inline SPROUT_CONSTEXPR Result realign_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type size,
@@ -41,7 +41,7 @@ namespace sprout {
 		// realign
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::realign<Container>::type realign(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::realign<Container>::type realign(
 			Container const& cont,
 			T const& v
 			)
@@ -56,7 +56,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline Result realign_impl(
+			inline SPROUT_CONSTEXPR Result realign_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type size
@@ -74,7 +74,7 @@ namespace sprout {
 		// realign
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::realign<Container>::type realign(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::realign<Container>::type realign(
 			Container const& cont
 			)
 		{

@@ -13,7 +13,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::const_iterator middle,
 				Compare comp,
@@ -31,7 +31,7 @@ namespace sprout {
 		// make_partial_heap
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator middle,
 			Compare comp
@@ -42,7 +42,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Container>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::const_iterator middle,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -59,7 +59,7 @@ namespace sprout {
 		// make_partial_heap
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator middle
 			)

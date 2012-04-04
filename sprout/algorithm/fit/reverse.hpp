@@ -12,7 +12,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type reverse_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type reverse_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
@@ -28,7 +28,7 @@ namespace sprout {
 		// reverse
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type reverse(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type reverse(
 			Container const& cont
 			)
 		{

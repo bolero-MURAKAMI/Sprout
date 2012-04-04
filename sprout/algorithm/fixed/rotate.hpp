@@ -13,7 +13,7 @@ namespace sprout {
 		// rotate
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type rotate(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type rotate(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator middle
 			)

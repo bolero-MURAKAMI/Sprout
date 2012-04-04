@@ -13,7 +13,7 @@ namespace sprout {
 
 		// 25.3.13 partitions
 		template<typename Range, typename Predicate>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		partition_point(Range&& range, Predicate pred) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::partition_point(

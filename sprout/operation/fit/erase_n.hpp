@@ -29,7 +29,7 @@ namespace sprout {
 		// erase_n
 		//
 		template<std::size_t N, typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::erase_n<N, Container>::type erase_n(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase_n<N, Container>::type erase_n(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos
 			)
@@ -44,7 +44,7 @@ namespace sprout {
 		// erase_n
 		//
 		template<std::size_t N, typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::erase_n<N, Container>::type erase_n(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase_n<N, Container>::type erase_n(
 			Container const& cont,
 			typename sprout::container_traits<Container>::difference_type pos
 			)

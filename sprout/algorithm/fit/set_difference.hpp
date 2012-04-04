@@ -15,7 +15,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_difference_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type set_difference_impl(
 				InputIterator1 first1,
 				InputIterator1 last1,
 				InputIterator2 first2,
@@ -41,7 +41,7 @@ namespace sprout {
 		// set_difference
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_difference(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type set_difference(
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,
@@ -55,7 +55,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_difference_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type set_difference_impl(
 				InputIterator1 first1,
 				InputIterator1 last1,
 				InputIterator2 first2,
@@ -80,7 +80,7 @@ namespace sprout {
 		// set_difference
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_difference(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type set_difference(
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,

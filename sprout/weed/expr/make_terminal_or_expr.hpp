@@ -15,7 +15,7 @@ namespace sprout {
 		// make_terminal_or_expr
 		//
 		template<typename Arg>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
+		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::weed::traits::is_expr<
 				typename sprout::weed::detail::uncvref<Arg>::type
 			>::value,
@@ -24,7 +24,7 @@ namespace sprout {
 			return sprout::forward<Arg>(arg);
 		}
 		template<typename Arg>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
+		inline SPROUT_CONSTEXPR typename std::enable_if<
 			!sprout::weed::traits::is_expr<
 				typename sprout::weed::detail::uncvref<Arg>::type
 			>::value,

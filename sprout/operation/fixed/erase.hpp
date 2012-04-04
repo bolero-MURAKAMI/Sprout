@@ -28,7 +28,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline Result erase_impl(
+			inline SPROUT_CONSTEXPR Result erase_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Container>::difference_type pos
@@ -51,7 +51,7 @@ namespace sprout {
 		// erase
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::erase<Container>::type erase(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::erase<Container>::type erase(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos
 			)
@@ -66,7 +66,7 @@ namespace sprout {
 		// erase
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::erase<Container>::type erase(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::erase<Container>::type erase(
 			Container const& cont,
 			typename sprout::container_traits<Container>::difference_type pos
 			)

@@ -14,7 +14,7 @@ namespace sprout {
 			// set_intersection
 			//
 			template<typename Input1, typename Input2, typename Result, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type set_intersection(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set_intersection(
 				Input1 const& input1,
 				Input2 const& input2,
 				Result const& result,
@@ -28,7 +28,7 @@ namespace sprout {
 			// set_intersection
 			//
 			template<typename Input1, typename Input2, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type set_intersection(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set_intersection(
 				Input1 const& input1,
 				Input2 const& input2,
 				Result const& result

@@ -10,7 +10,7 @@
 namespace sprout {
 	namespace detail {
 		template<typename InputIterator, typename Size>
-		SPROUT_CONSTEXPR inline typename std::iterator_traits<InputIterator>::value_type idft_element_impl(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type idft_element_impl(
 			InputIterator first,
 			InputIterator last,
 			typename std::iterator_traits<InputIterator>::difference_type i,
@@ -32,7 +32,7 @@ namespace sprout {
 	// idft_element
 	//
 	template<typename InputIterator>
-	SPROUT_CONSTEXPR inline typename std::iterator_traits<InputIterator>::value_type idft_element(
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type idft_element(
 		InputIterator first,
 		InputIterator last,
 		typename std::iterator_traits<InputIterator>::difference_type i

@@ -13,7 +13,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Predicate>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type remove_if_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type remove_if_impl(
 				Container const& cont,
 				Predicate pred,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -30,7 +30,7 @@ namespace sprout {
 		// remove_if
 		//
 		template<typename Container, typename Predicate>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type remove_if(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type remove_if(
 			Container const& cont,
 			Predicate pred
 			)

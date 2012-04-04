@@ -10,7 +10,7 @@ namespace sprout {
 
 	// 25.4.3.2 upper_bound
 	template<typename ForwardIterator, typename T>
-	SPROUT_CONSTEXPR ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, T const& value) {
+	inline SPROUT_CONSTEXPR ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, T const& value) {
 		return first == last ? last
 			: sprout::next(first) == last ? !(value < *first) ? last : first
 			: !(value < *sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2))
@@ -20,7 +20,7 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator, typename T, typename Compare>
-	SPROUT_CONSTEXPR ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
+	inline SPROUT_CONSTEXPR ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
 		return first == last ? last
 			: sprout::next(first) == last ? !comp(value, *first) ? last : first
 			: !comp(value, *sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2))

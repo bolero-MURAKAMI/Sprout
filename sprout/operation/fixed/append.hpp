@@ -27,7 +27,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, typename Input, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline Result append_impl(
+			inline SPROUT_CONSTEXPR Result append_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Container>::difference_type pos,
@@ -54,7 +54,7 @@ namespace sprout {
 		// append
 		//
 		template<typename Container, typename Input>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append<Container, Input>::type append(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append<Container, Input>::type append(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos,
 			Input const& input
@@ -72,7 +72,7 @@ namespace sprout {
 		// append
 		//
 		template<typename Container, typename Input>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append<Container, Input>::type append(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append<Container, Input>::type append(
 			Container const& cont,
 			typename sprout::container_traits<Container>::difference_type pos,
 			Input const& input

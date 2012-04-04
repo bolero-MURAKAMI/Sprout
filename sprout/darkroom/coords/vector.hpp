@@ -50,7 +50,7 @@ namespace sprout {
 			// length_sq
 			//
 			template<typename Vector>
-			SPROUT_CONSTEXPR inline typename sprout::darkroom::access::unit<Vector>::type
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Vector>::type
 			length_sq(Vector const& vec) {
 				return sprout::darkroom::coords::x(vec) * sprout::darkroom::coords::x(vec)
 					+ sprout::darkroom::coords::y(vec) * sprout::darkroom::coords::y(vec)
@@ -61,7 +61,7 @@ namespace sprout {
 			// length
 			//
 			template<typename Vector>
-			SPROUT_CONSTEXPR inline typename sprout::darkroom::access::unit<Vector>::type
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Vector>::type
 			length(Vector const& vec) {
 				using std::sqrt;
 				return sqrt(sprout::darkroom::coords::length_sq(vec));
@@ -70,7 +70,7 @@ namespace sprout {
 			// add
 			//
 			template<typename Vector1, typename Vector2>
-			SPROUT_CONSTEXPR inline Vector1 add(Vector1 const& lhs, Vector2 const& rhs) {
+			inline SPROUT_CONSTEXPR Vector1 add(Vector1 const& lhs, Vector2 const& rhs) {
 				return sprout::tuples::remake<Vector1>(
 					lhs,
 					sprout::darkroom::coords::x(lhs) + sprout::darkroom::coords::x(rhs),
@@ -82,7 +82,7 @@ namespace sprout {
 			// sub
 			//
 			template<typename Vector1, typename Vector2>
-			SPROUT_CONSTEXPR inline Vector1 sub(Vector1 const& lhs, Vector2 const& rhs) {
+			inline SPROUT_CONSTEXPR Vector1 sub(Vector1 const& lhs, Vector2 const& rhs) {
 				return sprout::tuples::remake<Vector1>(
 					lhs,
 					sprout::darkroom::coords::x(lhs) - sprout::darkroom::coords::x(rhs),
@@ -94,7 +94,7 @@ namespace sprout {
 			// scale
 			//
 			template<typename Vector, typename Fac>
-			SPROUT_CONSTEXPR inline Vector scale(Vector const& lhs, Fac const& rhs) {
+			inline SPROUT_CONSTEXPR Vector scale(Vector const& lhs, Fac const& rhs) {
 				return sprout::tuples::remake<Vector>(
 					lhs,
 					sprout::darkroom::coords::x(lhs) * rhs,
@@ -106,7 +106,7 @@ namespace sprout {
 			// dot
 			//
 			template<typename Vector>
-			SPROUT_CONSTEXPR inline typename sprout::darkroom::access::unit<Vector>::type
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Vector>::type
 			dot(Vector const& lhs, Vector const& rhs) {
 				return sprout::darkroom::coords::x(lhs) * sprout::darkroom::coords::x(rhs)
 					+ sprout::darkroom::coords::y(lhs) * sprout::darkroom::coords::y(rhs)
@@ -117,7 +117,7 @@ namespace sprout {
 			// cross
 			//
 			template<typename Vector1, typename Vector2>
-			SPROUT_CONSTEXPR inline Vector1 cross(Vector1 const& lhs, Vector2 const& rhs) {
+			inline SPROUT_CONSTEXPR Vector1 cross(Vector1 const& lhs, Vector2 const& rhs) {
 				return sprout::tuples::remake<Vector1>(
 					lhs,
 					sprout::darkroom::coords::y(lhs) * sprout::darkroom::coords::z(rhs)
@@ -135,7 +135,7 @@ namespace sprout {
 			//
 			namespace detail {
 				template<typename Vector>
-				SPROUT_CONSTEXPR inline Vector normalize_impl(
+				inline SPROUT_CONSTEXPR Vector normalize_impl(
 					Vector const& vec,
 					typename sprout::darkroom::access::unit<Vector>::type const& len
 					)
@@ -149,7 +149,7 @@ namespace sprout {
 				}
 			}	// namespace detail
 			template<typename Vector>
-			SPROUT_CONSTEXPR inline Vector normalize(Vector const& vec) {
+			inline SPROUT_CONSTEXPR Vector normalize(Vector const& vec) {
 				return sprout::darkroom::coords::detail::normalize_impl(
 					vec,
 					sprout::darkroom::coords::length(vec)
@@ -159,7 +159,7 @@ namespace sprout {
 			// resize
 			//
 			template<typename Vector, typename Fac>
-			SPROUT_CONSTEXPR inline Vector resize(Vector const& lhs, Fac const& rhs) {
+			inline SPROUT_CONSTEXPR Vector resize(Vector const& lhs, Fac const& rhs) {
 				return sprout::darkroom::coords::detail::normalize_impl(
 					lhs,
 					sprout::darkroom::coords::length(lhs) / rhs
@@ -169,7 +169,7 @@ namespace sprout {
 			// reflect
 			//
 			template<typename Incident, typename Normal>
-			SPROUT_CONSTEXPR inline Incident reflect(Incident const& incid, Normal const& nor) {
+			inline SPROUT_CONSTEXPR Incident reflect(Incident const& incid, Normal const& nor) {
 				return sprout::darkroom::coords::sub(
 					incid,
 					sprout::darkroom::coords::scale(nor, sprout::darkroom::coords::dot(incid, nor) * 2)

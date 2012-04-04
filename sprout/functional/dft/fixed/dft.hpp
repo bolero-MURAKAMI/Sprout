@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename InputIterator, typename Result, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type dft_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type dft_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
@@ -34,7 +34,7 @@ namespace sprout {
 					);
 			}
 			template<typename InputIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type dft(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type dft(
 				InputIterator first,
 				InputIterator last,
 				Result const& result
@@ -55,7 +55,7 @@ namespace sprout {
 		// dft
 		//
 		template<typename InputIterator, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type dft(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type dft(
 			InputIterator first,
 			InputIterator last,
 			Result const& result

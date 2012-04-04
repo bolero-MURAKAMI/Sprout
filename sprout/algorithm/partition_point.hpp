@@ -10,7 +10,7 @@ namespace sprout {
 
 	namespace detail {
 		template<typename ForwardIterator, typename Predicate>
-		SPROUT_CONSTEXPR ForwardIterator partition_point_impl(ForwardIterator first, ForwardIterator last, Predicate pred, ForwardIterator mid) {
+		inline SPROUT_CONSTEXPR ForwardIterator partition_point_impl(ForwardIterator first, ForwardIterator last, Predicate pred, ForwardIterator mid) {
 			return mid == last ? mid
 				: pred(*mid) ? sprout::detail::partition_point_impl(
 					sprout::next(mid),
@@ -30,7 +30,7 @@ namespace sprout {
 
 	// 25.3.13 Partitions
 	template<typename ForwardIterator, typename Predicate>
-	SPROUT_CONSTEXPR ForwardIterator partition_point(ForwardIterator first, ForwardIterator last, Predicate pred) {
+	inline SPROUT_CONSTEXPR ForwardIterator partition_point(ForwardIterator first, ForwardIterator last, Predicate pred) {
 		return sprout::detail::partition_point_impl(first, last, pred, sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2));
 	}
 }	// namespace sprout

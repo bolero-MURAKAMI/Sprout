@@ -31,7 +31,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename ContainerInputIterator, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				Result
 			>::type join_impl(
@@ -40,7 +40,7 @@ namespace sprout {
 				Args const&... args
 				);
 			template<typename Result, typename ContainerInputIterator, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl(
@@ -49,7 +49,7 @@ namespace sprout {
 				Args const&... args
 				);
 			template<typename Result, typename ContainerInputIterator, typename InputIterator, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				Result
 			>::type join_impl_1(
@@ -63,7 +63,7 @@ namespace sprout {
 				return sprout::make<Result>(args...);
 			}
 			template<typename Result, typename ContainerInputIterator, typename InputIterator, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl_1(
@@ -80,7 +80,7 @@ namespace sprout {
 					;
 			}
 			template<typename Result, typename ContainerInputIterator, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				Result
 			>::type join_impl(
@@ -92,7 +92,7 @@ namespace sprout {
 				return sprout::make<Result>(args...);
 			}
 			template<typename Result, typename ContainerInputIterator, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl(
@@ -111,7 +111,7 @@ namespace sprout {
 		// join
 		//
 		template<typename ContainerContainer>
-		SPROUT_CONSTEXPR inline typename sprout::algorithm::result_of::join<ContainerContainer>::type join(
+		inline SPROUT_CONSTEXPR typename sprout::algorithm::result_of::join<ContainerContainer>::type join(
 			ContainerContainer const& cont_cont
 			)
 		{

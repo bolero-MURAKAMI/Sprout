@@ -62,7 +62,7 @@ namespace sprout {
 			// mul
 			//
 			template<typename Color, typename Fac>
-			SPROUT_CONSTEXPR inline Color mul(Color const& lhs, Fac const& rhs) {
+			inline SPROUT_CONSTEXPR Color mul(Color const& lhs, Fac const& rhs) {
 				return sprout::tuples::remake<Color>(
 					lhs,
 					sprout::darkroom::colors::r(lhs) * rhs,
@@ -74,7 +74,7 @@ namespace sprout {
 			// add
 			//
 			template<typename Color1, typename Color2>
-			SPROUT_CONSTEXPR inline Color1 add(Color1 const& lhs, Color2 const& rhs) {
+			inline SPROUT_CONSTEXPR Color1 add(Color1 const& lhs, Color2 const& rhs) {
 				return sprout::tuples::remake<Color1>(
 					lhs,
 					sprout::darkroom::colors::r(lhs) + sprout::darkroom::colors::r(rhs),
@@ -86,7 +86,7 @@ namespace sprout {
 			// filter
 			//
 			template<typename Color1, typename Color2>
-			SPROUT_CONSTEXPR inline Color1 filter(Color1 const& lhs, Color2 const& rhs) {
+			inline SPROUT_CONSTEXPR Color1 filter(Color1 const& lhs, Color2 const& rhs) {
 				return sprout::tuples::remake<Color1>(
 					lhs,
 					sprout::darkroom::colors::r(lhs) * sprout::darkroom::colors::r(rhs),
@@ -99,7 +99,7 @@ namespace sprout {
 			// rgb_f_to_rgb
 			//
 			template<typename RGB, typename RGB_F>
-			SPROUT_CONSTEXPR inline RGB rgb_f_to_rgb(RGB_F const& col) {
+			inline SPROUT_CONSTEXPR RGB rgb_f_to_rgb(RGB_F const& col) {
 				typedef typename sprout::darkroom::access::unit<RGB>::type unit_type;
 				return sprout::tuples::make<RGB>(
 					sprout::darkroom::colors::r(col) < 0 ? std::numeric_limits<unit_type>::min()

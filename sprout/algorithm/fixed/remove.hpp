@@ -13,7 +13,7 @@ namespace sprout {
 		// remove
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type remove(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type remove(
 			Container const& cont,
 			T const& value
 			)

@@ -29,7 +29,7 @@ namespace sprout {
 		// pop_front_n
 		//
 		template<std::size_t N, typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::pop_front_n<N, Container>::type pop_front_n(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::pop_front_n<N, Container>::type pop_front_n(
 			Container const& cont
 			)
 		{

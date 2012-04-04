@@ -13,7 +13,7 @@ namespace sprout {
 
 		// 25.4.7 Minimum and maximum
 		template<typename Range>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		max_element(Range&& range) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::max_element(
@@ -25,7 +25,7 @@ namespace sprout {
 		}
 
 		template<typename Range, typename Compare>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		max_element(Range&& range, Compare comp) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::max_element(
@@ -38,7 +38,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		max_element(Range&& range) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::max_element(
@@ -50,7 +50,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename Compare>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		max_element(Range&& range, Compare comp) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::max_element(

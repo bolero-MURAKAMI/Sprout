@@ -13,7 +13,7 @@ namespace sprout {
 
 		// 25.2.8 Adjacent find
 		template<typename Range>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		adjacent_find(Range&& range) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::adjacent_find(
@@ -25,7 +25,7 @@ namespace sprout {
 		}
 
 		template<typename Range, typename BinaryPredicate>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		adjacent_find(Range&& range, BinaryPredicate pred) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::adjacent_find(
@@ -38,7 +38,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		adjacent_find(Range&& range) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::adjacent_find(
@@ -50,7 +50,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename BinaryPredicate>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		adjacent_find(Range&& range, BinaryPredicate pred) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::adjacent_find(

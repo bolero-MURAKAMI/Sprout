@@ -14,7 +14,7 @@ namespace sprout {
 			// rotate_copy
 			//
 			template<typename Input, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type rotate_copy(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type rotate_copy(
 				Input const& input,
 				typename sprout::container_traits<Input>::const_iterator middle,
 				Result const& result

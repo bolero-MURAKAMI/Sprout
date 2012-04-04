@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type merge_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type merge_impl(
 				InputIterator1 first1,
 				InputIterator1 last1,
 				InputIterator2 first2,
@@ -38,7 +38,7 @@ namespace sprout {
 		// merge
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type merge(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type merge(
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,
@@ -52,7 +52,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type merge_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type merge_impl(
 				InputIterator1 first1,
 				InputIterator1 last1,
 				InputIterator2 first2,
@@ -75,7 +75,7 @@ namespace sprout {
 		// merge
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type merge(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type merge(
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,

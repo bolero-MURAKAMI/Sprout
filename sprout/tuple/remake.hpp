@@ -12,7 +12,7 @@ namespace sprout {
 		// remake
 		//
 		template<typename Tuple, typename Tup, typename... Args>
-		SPROUT_CONSTEXPR inline typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type remake(
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type remake(
 			Tup&& tup,
 			Args&&... args
 			)

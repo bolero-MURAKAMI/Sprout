@@ -9,7 +9,7 @@ namespace sprout {
 	// fixed_size
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR inline typename sprout::container_traits<Container>::size_type fixed_size() {
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::size_type fixed_size() {
 		return sprout::container_traits<Container>::fixed_size();
 	}
 }	// namespace sprout

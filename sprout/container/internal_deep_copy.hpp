@@ -15,7 +15,7 @@ namespace sprout {
 	// internal_deep_copy
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR inline typename sprout::container_construct_traits<
+	inline SPROUT_CONSTEXPR typename sprout::container_construct_traits<
 		typename std::remove_reference<
 			typename sprout::containers::internal<Container>::type
 		>::type

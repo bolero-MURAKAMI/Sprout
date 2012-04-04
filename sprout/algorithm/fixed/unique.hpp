@@ -12,7 +12,7 @@ namespace sprout {
 		// unique
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type unique(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type unique(
 			Container const& cont
 			)
 		{
@@ -23,7 +23,7 @@ namespace sprout {
 		// unique
 		//
 		template<typename Container, typename BinaryPredicate>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type unique(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type unique(
 			Container const& cont,
 			BinaryPredicate pred
 			)

@@ -10,14 +10,14 @@ namespace sprout {
 
 	// 26.7.2 Accumulate
 	template<typename InputIterator, typename T, typename BinaryOperation>
-	SPROUT_CONSTEXPR T accumulate(InputIterator first, InputIterator last, T init, BinaryOperation binary_op) {
+	inline SPROUT_CONSTEXPR T accumulate(InputIterator first, InputIterator last, T init, BinaryOperation binary_op) {
 		return first == last ? init
 			: sprout::accumulate(sprout::next(first), last, binary_op(init, *first), binary_op)
 			;
 	}
 
 	template<typename InputIterator, typename T>
-	SPROUT_CONSTEXPR T accumulate(InputIterator first, InputIterator last, T init) {
+	inline SPROUT_CONSTEXPR T accumulate(InputIterator first, InputIterator last, T init) {
 		return sprout::accumulate(first, last, init, NS_SSCRISK_CEL_OR_SPROUT::plus<typename std::iterator_traits<InputIterator>::value_type>());
 	}
 }	// namespace sprout

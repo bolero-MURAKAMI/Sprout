@@ -12,7 +12,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Generator, typename... Inits>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type generate_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type generate_impl(
 				Container const& cont,
 				Generator gen,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -30,7 +30,7 @@ namespace sprout {
 		// generate
 		//
 		template<typename Container, typename Generator, typename... Inits>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type generate(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type generate(
 			Container const& cont,
 			Generator gen,
 			Inits const&... inits

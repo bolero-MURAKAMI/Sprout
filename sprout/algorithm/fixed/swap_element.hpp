@@ -13,7 +13,7 @@ namespace sprout {
 		// swap_element
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type swap_element(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type swap_element(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos1,
 			typename sprout::container_traits<Container>::const_iterator pos2

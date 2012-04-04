@@ -13,7 +13,7 @@ namespace sprout {
 
 		// 25.2.13 Search
 		template<typename Range, typename Size, typename T>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		search_n(Range&& range, Size count, T const& value) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::search_n(
@@ -27,7 +27,7 @@ namespace sprout {
 		}
 
 		template<typename Range, typename Size, typename T, typename BinaryPredicate>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		search_n(Range&& range, Size count, T const& value, BinaryPredicate pred) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::search_n(
@@ -42,7 +42,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename Size, typename T>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		search_n(Range&& range, Size count, T const& value) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::search_n(
@@ -56,7 +56,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename Size, typename T, typename BinaryPredicate>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		search_n(Range&& range, Size count, T const& value, BinaryPredicate pred) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::search_n(

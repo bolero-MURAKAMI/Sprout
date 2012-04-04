@@ -15,7 +15,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_union_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type set_union_impl(
 				InputIterator1 first1,
 				InputIterator1 last1,
 				InputIterator2 first2,
@@ -42,7 +42,7 @@ namespace sprout {
 		// set_union
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_union(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type set_union(
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,
@@ -56,7 +56,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_union_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type set_union_impl(
 				InputIterator1 first1,
 				InputIterator1 last1,
 				InputIterator2 first2,
@@ -82,7 +82,7 @@ namespace sprout {
 		// set_union
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type set_union(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type set_union(
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,

@@ -12,7 +12,7 @@ namespace sprout {
 
 		// 25.2.9 Count
 		template<typename Range, typename Predicate>
-		SPROUT_CONSTEXPR typename sprout::container_traits<Range const>::difference_type
+		inline SPROUT_CONSTEXPR typename sprout::container_traits<Range const>::difference_type
 		count_if(Range const& range, Predicate pred) {
 			return sprout::count_if(sprout::begin(range), sprout::end(range), pred);
 		}

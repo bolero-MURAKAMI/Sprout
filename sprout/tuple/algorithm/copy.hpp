@@ -22,7 +22,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Tuple, typename InputTuple, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
-			SPROUT_CONSTEXPR inline Result copy_impl(
+			inline SPROUT_CONSTEXPR Result copy_impl(
 				Tuple const& t,
 				InputTuple const& input,
 				sprout::index_tuple<Indexes1...>,
@@ -36,7 +36,7 @@ namespace sprout {
 					);
 			}
 			template<typename Tuple, typename InputTuple>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::tuples::tuple_size<Tuple>::value > sprout::tuples::tuple_size<InputTuple>::value),
 				typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type
 			>::type copy(
@@ -52,7 +52,7 @@ namespace sprout {
 					);
 			}
 			template<typename Tuple, typename InputTuple>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!(sprout::tuples::tuple_size<Tuple>::value > sprout::tuples::tuple_size<InputTuple>::value),
 				typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type
 			>::type copy(
@@ -72,7 +72,7 @@ namespace sprout {
 		// copy
 		//
 		template<typename Tuple, typename InputTuple>
-		SPROUT_CONSTEXPR inline typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type copy(
+		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type copy(
 			Tuple const& t,
 			InputTuple const& input
 			)

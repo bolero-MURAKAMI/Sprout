@@ -20,7 +20,7 @@ namespace sprout {
 		//
 		// nil_uuid
 		//
-		SPROUT_CONSTEXPR inline sprout::uuids::uuid nil_uuid() {
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid nil_uuid() {
 			return sprout::uuids::nil_generator()();
 		}
 	}	// namespace uuids

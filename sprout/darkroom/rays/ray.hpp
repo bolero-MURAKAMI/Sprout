@@ -49,7 +49,7 @@ namespace sprout {
 			// point_of_intersection
 			//
 			template<typename Ray, typename Distance>
-			SPROUT_CONSTEXPR inline typename sprout::darkroom::access::unit<Ray>::type
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Ray>::type
 			point_of_intersection(Ray const& ray, Distance const& dist) {
 				return sprout::darkroom::coords::add(
 					sprout::darkroom::rays::position(ray),

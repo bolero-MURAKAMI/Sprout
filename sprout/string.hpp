@@ -597,75 +597,75 @@ namespace sprout {
 	// operator>=
 	//
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator==(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator==(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
 		return lhs.compare(rhs) == 0;
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator==(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
+	inline SPROUT_CONSTEXPR bool operator==(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
 		return lhs.compare(rhs) == 0;
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator==(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator==(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
 		return 0 == rhs.compare(lhs);
 	}
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator!=(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator!=(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator!=(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
+	inline SPROUT_CONSTEXPR bool operator!=(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator!=(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator!=(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator<(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator<(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
 		return lhs.compare(rhs) < 0;
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator<(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
+	inline SPROUT_CONSTEXPR bool operator<(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
 		return lhs.compare(rhs) < 0;
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator<(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator<(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
 		return 0 < rhs.compare(lhs);
 	}
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator>(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator>(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator>(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
+	inline SPROUT_CONSTEXPR bool operator>(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
 		return rhs < lhs;
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator>(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator>(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator<=(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator<=(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator<=(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
+	inline SPROUT_CONSTEXPR bool operator<=(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator<=(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator<=(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator>=(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator>=(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
 		return !(lhs < rhs);
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator>=(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
+	inline SPROUT_CONSTEXPR bool operator>=(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
 		return !(lhs < rhs);
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline bool operator>=(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
+	inline SPROUT_CONSTEXPR bool operator>=(T const* lhs, sprout::basic_string<T, N, Traits> const& rhs) {
 		return !(lhs < rhs);
 	}
 
@@ -824,7 +824,7 @@ namespace sprout {
 	//
 	namespace detail {
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl_1(
+		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> to_string_impl_1(
 			T const(& arr)[N],
 			typename sprout::basic_string<T, N - 1>::size_type n,
 			sprout::index_tuple<Indexes...>
@@ -833,7 +833,7 @@ namespace sprout {
 			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
 		}
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string_impl(
+		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> to_string_impl(
 			T const(& arr)[N],
 			sprout::index_tuple<Indexes...>
 			)
@@ -842,7 +842,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> to_string(T const(& arr)[N]) {
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> to_string(T const(& arr)[N]) {
 		return sprout::detail::to_string_impl(arr, typename sprout::index_range<0, N - 1>::type());
 	}
 
@@ -850,11 +850,11 @@ namespace sprout {
 	// string_from_c_str
 	//
 	template<std::size_t N, typename T>
-	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s, std::size_t n) {
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, N> string_from_c_str(T const* s, std::size_t n) {
 		return sprout::basic_string<T, N>::from_c_str(s, n);
 	}
 	template<std::size_t N, typename T>
-	SPROUT_CONSTEXPR inline sprout::basic_string<T, N> string_from_c_str(T const* s) {
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, N> string_from_c_str(T const* s) {
 		return sprout::basic_string<T, N>::from_c_str(s);
 	}
 
@@ -863,7 +863,7 @@ namespace sprout {
 	//
 	namespace detail {
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> make_string_impl_1(
+		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> make_string_impl_1(
 			sprout::array<T, N> const& arr,
 			std::size_t n,
 			sprout::index_tuple<Indexes...>
@@ -872,7 +872,7 @@ namespace sprout {
 			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
 		}
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		SPROUT_CONSTEXPR inline sprout::basic_string<T, N - 1> make_string_impl(
+		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> make_string_impl(
 			sprout::array<T, N> const& arr,
 			sprout::index_tuple<Indexes...>
 			)
@@ -885,7 +885,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 	template<typename T, typename... Types>
-	SPROUT_CONSTEXPR inline sprout::basic_string<typename std::decay<T>::type, 1 + sizeof...(Types)>
+	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, 1 + sizeof...(Types)>
 	make_string(T&& t, Types&&... args) {
 		return sprout::detail::make_string_impl(
 			sprout::make_array<typename std::decay<T>::type>(
@@ -901,12 +901,12 @@ namespace sprout {
 	// make_string_as
 	//
 	template<typename T>
-	SPROUT_CONSTEXPR inline sprout::basic_string<typename std::decay<T>::type, 0>
+	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, 0>
 	make_string_as() {
 		return sprout::basic_string<typename std::decay<T>::type, 0>{};
 	}
 	template<typename T, typename... Types>
-	SPROUT_CONSTEXPR inline sprout::basic_string<typename std::decay<T>::type, sizeof...(Types)>
+	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, sizeof...(Types)>
 	make_string_as(Types&&... args) {
 		return sprout::detail::make_string_impl(
 			sprout::make_array<typename std::decay<T>::type>(
@@ -921,7 +921,7 @@ namespace sprout {
 	// operator+
 	//
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::push_back<sprout::basic_string<T, N, Traits>, T>::type operator+(
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::push_back<sprout::basic_string<T, N, Traits>, T>::type operator+(
 		sprout::basic_string<T, N, Traits> const& lhs,
 		T const& rhs
 		)
@@ -929,7 +929,7 @@ namespace sprout {
 		return sprout::fixed::push_back(lhs, rhs);
 	}
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::push_front<sprout::basic_string<T, N, Traits>, T>::type operator+(
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::push_front<sprout::basic_string<T, N, Traits>, T>::type operator+(
 		T const& lhs,
 		sprout::basic_string<T, N, Traits> const& rhs
 		)
@@ -937,7 +937,7 @@ namespace sprout {
 		return sprout::fixed::push_front(rhs, lhs);
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_back<
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append_back<
 			sprout::basic_string<T, N, Traits>,
 			sprout::basic_string<T, N2 - 1, Traits>
 	>::type operator+(
@@ -948,7 +948,7 @@ namespace sprout {
 		return sprout::fixed::append_back(lhs, sprout::to_string(rhs));
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_front<
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append_front<
 		sprout::basic_string<T, N, Traits>,
 		sprout::basic_string<T, N2 - 1, Traits>
 	>::type operator+(
@@ -959,7 +959,7 @@ namespace sprout {
 		return sprout::fixed::append_front(rhs, sprout::to_string(lhs));
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t N2>
-	SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_back<
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append_back<
 		sprout::basic_string<T, N, Traits>,
 		sprout::basic_string<T, N2, Traits>
 	>::type operator+(

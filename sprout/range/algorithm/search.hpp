@@ -13,7 +13,7 @@ namespace sprout {
 
 		// 25.2.13 Search
 		template<typename Range1, typename Range2>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range1>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range1>::type
 		search(Range1&& range1, Range2&& range2) {
 			return sprout::range::range_return<Range1>::pack(
 				sprout::search(
@@ -27,7 +27,7 @@ namespace sprout {
 		}
 
 		template<typename Range1, typename Range2, typename BinaryPredicate>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range1>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range1>::type
 		search(Range1&& range1, Range2&& range2, BinaryPredicate pred) {
 			return sprout::range::range_return<Range1>::pack(
 				sprout::search(
@@ -42,7 +42,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range1, typename Range2>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range1, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range1, RetV>::type
 		search(Range1&& range1, Range2&& range2) {
 			return sprout::range::range_return<Range1, RetV>::pack(
 				sprout::search(
@@ -56,7 +56,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range1, typename Range2, typename BinaryPredicate>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range1, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range1, RetV>::type
 		search(Range1&& range1, Range2&& range2, BinaryPredicate pred) {
 			return sprout::range::range_return<Range1, RetV>::pack(
 				sprout::search(

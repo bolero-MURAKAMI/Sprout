@@ -21,7 +21,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Tuple, typename InputTuple, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
-			SPROUT_CONSTEXPR inline Result append_front_impl(
+			inline SPROUT_CONSTEXPR Result append_front_impl(
 				Tuple const& t,
 				InputTuple const& input,
 				sprout::index_tuple<Indexes1...>,
@@ -39,7 +39,7 @@ namespace sprout {
 		// append_front
 		//
 		template<typename Tuple, typename InputTuple>
-		SPROUT_CONSTEXPR inline typename sprout::tuples::result_of::append_front<Tuple, InputTuple>::type append_front(
+		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::append_front<Tuple, InputTuple>::type append_front(
 			Tuple const& t,
 			InputTuple const& input
 			)

@@ -77,8 +77,8 @@ namespace sprout {
 			return typename Context::template eval<Expr const>()(e, ctx);
 		}
 		template<typename Expr, typename Context>
-		typename sprout::breed::result_of::eval<Expr const, Context>::type
-		SPROUT_CONSTEXPR eval(Expr const& e, Context const& ctx) {
+		SPROUT_CONSTEXPRtypename sprout::breed::result_of::eval<Expr const, Context>::type
+		eval(Expr const& e, Context const& ctx) {
 			return typename Context::template eval<Expr const>()(e, ctx);
 		}
 		}	// namespace breed

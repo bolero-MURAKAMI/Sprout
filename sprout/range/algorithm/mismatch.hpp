@@ -14,7 +14,7 @@ namespace sprout {
 
 		// 25.2.10 Mismatch
 		template<typename Range1, typename Range2>
-		SPROUT_CONSTEXPR sprout::pair<
+		inline SPROUT_CONSTEXPR sprout::pair<
 			typename sprout::range::lvref_iterator<Range1>::type,
 			typename sprout::range::lvref_iterator<Range2>::type
 		>
@@ -27,7 +27,7 @@ namespace sprout {
 		}
 
 		template<typename Range1, typename Range2, typename BinaryPredicate>
-		SPROUT_CONSTEXPR sprout::pair<
+		inline SPROUT_CONSTEXPR sprout::pair<
 			typename sprout::range::lvref_iterator<Range1>::type,
 			typename sprout::range::lvref_iterator<Range2>::type
 		>

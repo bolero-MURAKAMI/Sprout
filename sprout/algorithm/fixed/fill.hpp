@@ -12,7 +12,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename T, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type fill_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type fill_impl(
 				Container const& cont,
 				T const& value,
 				sprout::index_tuple<Indexes...>,
@@ -34,7 +34,7 @@ namespace sprout {
 		// fill
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type fill(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type fill(
 			Container const& cont,
 			T const& value
 			)

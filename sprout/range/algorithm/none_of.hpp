@@ -11,7 +11,7 @@ namespace sprout {
 
 		// 25.2.3 None of
 		template<typename Range, typename Predicate>
-		SPROUT_CONSTEXPR bool none_of(Range const& range, Predicate pred) {
+		inline SPROUT_CONSTEXPR bool none_of(Range const& range, Predicate pred) {
 			return sprout::none_of(sprout::begin(range), sprout::end(range), pred);
 		}
 	}	// namespace range

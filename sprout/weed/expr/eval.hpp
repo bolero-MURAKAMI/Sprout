@@ -11,7 +11,7 @@ namespace sprout {
 		// eval
 		//
 		template<typename Expr, typename Context>
-		SPROUT_CONSTEXPR inline typename Context::template eval<
+		inline SPROUT_CONSTEXPR typename Context::template eval<
 			typename sprout::weed::traits::terminal_or_expr_of<Expr>::type
 		>::result_type eval(
 			Expr const& expr,

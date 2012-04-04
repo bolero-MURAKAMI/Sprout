@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator, typename Sorted>
-			SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fit::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
 			> bogo_sort_result_impl_1(
@@ -36,7 +36,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-			SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fit::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
 			> bogo_sort_result_impl(
@@ -56,7 +56,7 @@ namespace sprout {
 		// bogo_sort_result
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fit::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
 		> bogo_sort_result(
@@ -75,7 +75,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator>
-			SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fit::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
 			> bogo_sort_result_impl(
@@ -94,7 +94,7 @@ namespace sprout {
 		// bogo_sort_result
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		SPROUT_CONSTEXPR inline sprout::tuples::tuple<
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fit::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
 		> bogo_sort_result(

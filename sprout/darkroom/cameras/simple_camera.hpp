@@ -136,7 +136,7 @@ namespace sprout {
 			// make_simple_camera
 			//
 			template<typename Unit>
-			SPROUT_CONSTEXPR inline sprout::darkroom::cameras::basic_simple_camera<Unit>
+			inline SPROUT_CONSTEXPR sprout::darkroom::cameras::basic_simple_camera<Unit>
 			make_simple_camera(
 				Unit const& far_plane,
 				typename sprout::darkroom::cameras::basic_simple_camera<Unit>::angle_of_view_reference::values reference_value

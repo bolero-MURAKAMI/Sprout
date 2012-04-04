@@ -12,7 +12,7 @@ namespace sprout {
 	// remake
 	//
 	template<typename Container, typename Cont, typename... Args>
-	SPROUT_CONSTEXPR inline typename sprout::container_construct_traits<Container>::copied_type remake(
+	inline SPROUT_CONSTEXPR typename sprout::container_construct_traits<Container>::copied_type remake(
 		Cont&& cont,
 		typename sprout::container_traits<Container>::difference_type size,
 		Args&&... args

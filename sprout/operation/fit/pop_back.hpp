@@ -29,7 +29,7 @@ namespace sprout {
 		// pop_back
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::pop_back<Container>::type pop_back(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::pop_back<Container>::type pop_back(
 			Container const& cont
 			)
 		{

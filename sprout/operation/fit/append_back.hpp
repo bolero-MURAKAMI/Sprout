@@ -27,7 +27,7 @@ namespace sprout {
 		// append_back
 		//
 		template<typename Container, typename Input>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::append_back<Container, Input>::type append_back(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append_back<Container, Input>::type append_back(
 			Container const& cont,
 			Input const& input
 			)

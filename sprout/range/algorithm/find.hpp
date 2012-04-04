@@ -13,7 +13,7 @@ namespace sprout {
 
 		// 25.2.5 Find
 		template<typename Range, typename T>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
 		find(Range&& range, T const& value) {
 			return sprout::range::range_return<Range>::pack(
 				sprout::find(
@@ -26,7 +26,7 @@ namespace sprout {
 		}
 
 		template<sprout::range::range_return_value RetV, typename Range, typename T>
-		SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
 		find(Range&& range, T const& value) {
 			return sprout::range::range_return<Range, RetV>::pack(
 				sprout::find(

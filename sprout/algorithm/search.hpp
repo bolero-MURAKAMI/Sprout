@@ -10,7 +10,7 @@ namespace sprout {
 
 	// 25.2.13 Search
 	template<typename ForwardIterator1, typename ForwardIterator2>
-	SPROUT_CONSTEXPR ForwardIterator1 search(
+	inline SPROUT_CONSTEXPR ForwardIterator1 search(
 		ForwardIterator1 first1,
 		ForwardIterator1 last1,
 		ForwardIterator2 first2,
@@ -27,7 +27,7 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
-	SPROUT_CONSTEXPR ForwardIterator1 search(
+	inline SPROUT_CONSTEXPR ForwardIterator1 search(
 		ForwardIterator1 first1,
 		ForwardIterator1 last1,
 		ForwardIterator2 first2,

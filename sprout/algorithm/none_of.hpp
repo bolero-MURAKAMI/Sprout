@@ -9,7 +9,7 @@ namespace sprout {
 
 	// 25.2.3 None of
 	template <typename InputIterator, typename Predicate>
-	SPROUT_CONSTEXPR bool none_of(InputIterator first, InputIterator last, Predicate pred) {
+	inline SPROUT_CONSTEXPR bool none_of(InputIterator first, InputIterator last, Predicate pred) {
 		return first == last ? true
 			: pred(*first) == false && sprout::none_of(sprout::next(first), last, pred)
 			;

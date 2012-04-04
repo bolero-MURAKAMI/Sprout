@@ -28,7 +28,7 @@ namespace sprout {
 		// append
 		//
 		template<typename Container, typename Input>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::append<Container, Input>::type append(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append<Container, Input>::type append(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos,
 			Input const& input
@@ -44,7 +44,7 @@ namespace sprout {
 		// append
 		//
 		template<typename Container, typename Input>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::append<Container, Input>::type append(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append<Container, Input>::type append(
 			Container const& cont,
 			typename sprout::container_traits<Container>::difference_type pos,
 			Input const& input

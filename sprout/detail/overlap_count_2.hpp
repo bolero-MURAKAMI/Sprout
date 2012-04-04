@@ -11,7 +11,7 @@ namespace sprout {
 		// overlap_count_2
 		//
 		template<typename Iterator1, typename Iterator2, typename Compare>
-		SPROUT_CONSTEXPR inline typename std::iterator_traits<Iterator1>::difference_type overlap_count_2(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator1>::difference_type overlap_count_2(
 			Iterator1 first1,
 			Iterator1 last1,
 			Iterator2 first2,
@@ -32,7 +32,7 @@ namespace sprout {
 		// overlap_count_2
 		//
 		template<typename Iterator1, typename Iterator2>
-		SPROUT_CONSTEXPR inline typename std::iterator_traits<Iterator1>::difference_type overlap_count_2(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator1>::difference_type overlap_count_2(
 			Iterator1 first1,
 			Iterator1 last1,
 			Iterator2 first2,

@@ -10,7 +10,7 @@ namespace sprout {
 
 	// 25.4.8 Lexicographical comparison
 	template<typename InputIterator1, typename InputIterator2, typename Compare>
-	SPROUT_CONSTEXPR bool lexicographical_compare(
+	inline SPROUT_CONSTEXPR bool lexicographical_compare(
 		InputIterator1 first1,
 		InputIterator1 last1,
 		InputIterator2 first2,
@@ -26,7 +26,7 @@ namespace sprout {
 	}
 
 	template<typename InputIterator1, typename InputIterator2>
-	SPROUT_CONSTEXPR bool lexicographical_compare(
+	inline SPROUT_CONSTEXPR bool lexicographical_compare(
 		InputIterator1 first1,
 		InputIterator1 last1,
 		InputIterator2 first2,

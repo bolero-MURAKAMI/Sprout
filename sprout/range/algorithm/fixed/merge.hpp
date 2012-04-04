@@ -14,7 +14,7 @@ namespace sprout {
 			// merge
 			//
 			template<typename Input1, typename Input2, typename Result, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type merge(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type merge(
 				Input1 const& input1,
 				Input2 const& input2,
 				Result const& result,
@@ -28,7 +28,7 @@ namespace sprout {
 			// merge
 			//
 			template<typename Input1, typename Input2, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type merge(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type merge(
 				Input1 const& input1,
 				Input2 const& input2,
 				Result const& result

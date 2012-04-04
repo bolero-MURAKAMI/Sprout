@@ -11,7 +11,7 @@ namespace sprout {
 
 		// 25.2.1 All of
 		template<typename Range, typename Predicate>
-		SPROUT_CONSTEXPR bool all_of(Range const& range, Predicate pred) {
+		inline SPROUT_CONSTEXPR bool all_of(Range const& range, Predicate pred) {
 			return sprout::all_of(sprout::begin(range), sprout::end(range), pred);
 		}
 	}	// namespace range

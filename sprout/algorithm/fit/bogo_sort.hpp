@@ -12,7 +12,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
 				Compare comp,
@@ -30,7 +30,7 @@ namespace sprout {
 		// bogo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bogo_sort(
 			Container const& cont,
 			UniformRandomNumberGenerator&& g,
 			Compare comp
@@ -46,7 +46,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -63,7 +63,7 @@ namespace sprout {
 		// bogo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type bogo_sort(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bogo_sort(
 			Container const& cont,
 			UniformRandomNumberGenerator&& g
 			)

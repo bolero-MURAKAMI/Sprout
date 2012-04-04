@@ -14,7 +14,7 @@ namespace sprout {
 			// reverse_copy
 			//
 			template<typename Input, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type reverse_copy(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type reverse_copy(
 				Input const& input,
 				Result const& result
 				)

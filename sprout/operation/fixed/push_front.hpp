@@ -24,7 +24,7 @@ namespace sprout {
 		// push_front
 		//
 		template<typename Container, typename T, typename... Values>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::push_front<Container, T, Values...>::type push_front(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::push_front<Container, T, Values...>::type push_front(
 			Container const& cont,
 			T const& v,
 			Values const&... values

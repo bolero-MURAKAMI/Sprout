@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename BidirectionalIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type reverse_copy_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type reverse_copy_impl(
 				BidirectionalIterator first,
 				BidirectionalIterator last,
 				Result const& result,
@@ -32,7 +32,7 @@ namespace sprout {
 		// reverse_copy
 		//
 		template<typename BidirectionalIterator, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type reverse_copy(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type reverse_copy(
 			BidirectionalIterator first,
 			BidirectionalIterator last,
 			Result const& result

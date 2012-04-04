@@ -13,7 +13,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Size, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type copy_n_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type copy_n_impl(
 				InputIterator first,
 				Size n,
 				Result const& result,
@@ -31,7 +31,7 @@ namespace sprout {
 		// copy_n
 		//
 		template<typename InputIterator, typename Size, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type copy_n(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type copy_n(
 			InputIterator first,
 			Size n,
 			Result const& result

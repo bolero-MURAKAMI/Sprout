@@ -11,19 +11,19 @@ namespace sprout {
 	//
 	// hash_value
 	//
-	SPROUT_CONSTEXPR inline std::size_t hash_value(bool v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(char v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(wchar_t v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned char v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(signed char v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(short v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned short v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(int v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned int v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(long v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned long v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(long long v);
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned long long v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(bool v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(char v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(wchar_t v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned char v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(signed char v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(short v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned short v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(int v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned int v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(long v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(long long v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long long v);
 	//SPROUT_CONSTEXPR std::size_t inline hash_value(float v);
 	//SPROUT_CONSTEXPR std::size_t inline hash_value(double v);
 	//SPROUT_CONSTEXPR std::size_t inline hash_value(long double v);
@@ -97,43 +97,43 @@ namespace sprout {
 	//
 	// hash_value
 	//
-	SPROUT_CONSTEXPR inline std::size_t hash_value(bool v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(bool v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(char v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(char v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(wchar_t v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(wchar_t v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned char v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned char v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(signed char v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(signed char v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(short v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(short v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned short v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned short v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(int v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(int v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned int v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned int v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(long v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(long v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned long v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long v) {
 		return static_cast<std::size_t>(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(long long v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(long long v) {
 		return sprout::hash_detail::hash_value_signed(v);
 	}
-	SPROUT_CONSTEXPR inline std::size_t hash_value(unsigned long long v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long long v) {
 		return sprout::hash_detail::hash_value_unsigned(v);
 	}
 	template<typename T>

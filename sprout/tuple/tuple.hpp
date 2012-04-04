@@ -282,14 +282,14 @@ namespace sprout {
 		// make_tuple
 		//
 		template<typename... Types>
-		SPROUT_CONSTEXPR inline sprout::tuples::tuple<typename std::decay<Types>::type...> make_tuple(Types&&... args) {
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<typename std::decay<Types>::type...> make_tuple(Types&&... args) {
 			return sprout::tuples::tuple<typename std::decay<Types>::type...>(sprout::forward<Types>(args)...);
 		}
 		//
 		// forward_as_tuple
 		//
 		template<typename... Types>
-		SPROUT_CONSTEXPR inline sprout::tuples::tuple<Types&&...> forward_as_tuple(Types&&... args) SPROUT_NOEXCEPT {
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types&&...> forward_as_tuple(Types&&... args) SPROUT_NOEXCEPT {
 			return sprout::tuples::tuple<Types&&...>(sprout::forward<Types>(args)...);
 		}
 		//

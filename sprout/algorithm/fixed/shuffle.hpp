@@ -20,7 +20,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<std::size_t N, typename Random>
-			SPROUT_CONSTEXPR inline sprout::array<std::ptrdiff_t, N> make_shuffle_indexes_1(
+			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, N> make_shuffle_indexes_1(
 				std::ptrdiff_t n,
 				Random const& rnd,
 				sprout::array<std::ptrdiff_t, N> const& arr,
@@ -38,7 +38,7 @@ namespace sprout {
 					;
 			}
 			template<std::size_t N, typename UniformRandomNumberGenerator>
-			SPROUT_CONSTEXPR inline sprout::array<std::ptrdiff_t, N> make_shuffle_indexes(
+			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, N> make_shuffle_indexes(
 				std::ptrdiff_t n,
 				UniformRandomNumberGenerator&& g
 				)
@@ -54,7 +54,7 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Shuffled, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type shuffle_impl_1(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type shuffle_impl_1(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				Shuffled const& shuffled,
@@ -72,7 +72,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type shuffle_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type shuffle_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...> indexes,
 				UniformRandomNumberGenerator&& g,
@@ -96,7 +96,7 @@ namespace sprout {
 		// shuffle
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type shuffle(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type shuffle(
 			Container const& cont,
 			UniformRandomNumberGenerator&& g
 			)

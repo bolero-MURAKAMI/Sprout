@@ -139,7 +139,7 @@ namespace sprout {
 		// string
 		//
 		template<typename T>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
+		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::weed::traits::is_c_str<T const>::value,
 			sprout::weed::str_p<
 				typename sprout::weed::detail::c_str_as_string<T const>::type
@@ -150,7 +150,7 @@ namespace sprout {
 				>(sprout::to_string(t));
 		}
 		template<typename T>
-		SPROUT_CONSTEXPR inline typename std::enable_if<
+		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::weed::traits::is_string<T>::value,
 			sprout::weed::str_p<T>
 		>::type string(T const& t) {

@@ -13,7 +13,7 @@ namespace sprout {
 		// make_expr
 		//
 		template<typename Tag, typename... Args>
-		SPROUT_CONSTEXPR inline typename sprout::weed::traits::expr_of<Tag, Args...>::type
+		inline SPROUT_CONSTEXPR typename sprout::weed::traits::expr_of<Tag, Args...>::type
 		make_expr(Args&&... args) {
 			return typename sprout::weed::traits::expr_of<Tag, Args...>::type(
 				sprout::weed::make_terminal_or_expr(sprout::forward<Args>(args))...

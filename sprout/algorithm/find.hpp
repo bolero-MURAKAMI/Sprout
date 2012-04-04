@@ -9,7 +9,7 @@ namespace sprout {
 
 	// 25.2.5 Find
 	template<typename InputIterator, typename T>
-	SPROUT_CONSTEXPR InputIterator find(InputIterator first, InputIterator last, T const& value) {
+	inline SPROUT_CONSTEXPR InputIterator find(InputIterator first, InputIterator last, T const& value) {
 		return first == last || *first == value ? first
 			: sprout::find(sprout::next(first), last, value)
 			;

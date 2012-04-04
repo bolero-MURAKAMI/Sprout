@@ -24,7 +24,7 @@ namespace sprout {
 		// append_front
 		//
 		template<typename Container, typename Input>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::append_front<Container, Input>::type append_front(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append_front<Container, Input>::type append_front(
 			Container const& cont,
 			Input const& input
 			)

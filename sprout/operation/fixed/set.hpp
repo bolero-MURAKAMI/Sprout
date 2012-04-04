@@ -23,7 +23,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline Result set_impl(
+			inline SPROUT_CONSTEXPR Result set_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Container>::difference_type pos,
@@ -44,7 +44,7 @@ namespace sprout {
 		// set
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::set<Container, T>::type set(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::set<Container, T>::type set(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos,
 			T const& v
@@ -61,7 +61,7 @@ namespace sprout {
 		// set
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::set<Container, T>::type set(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::set<Container, T>::type set(
 			Container const& cont,
 			typename sprout::container_traits<Container>::difference_type pos,
 			T const& v

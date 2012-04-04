@@ -39,7 +39,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename ContainerIterator, typename Separator, typename Container>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size == sprout::container_traits<Result>::static_size),
 				Result
 			>::type join2_impl_1(
@@ -52,7 +52,7 @@ namespace sprout {
 				return current;
 			}
 			template<typename Result, typename ContainerIterator, typename Separator, typename Container>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size < sprout::container_traits<Result>::static_size),
 				Result
 			>::type join2_impl_1(
@@ -70,7 +70,7 @@ namespace sprout {
 					);
 			}
 			template<typename Result, typename ContainerIterator, typename Separator>
-			SPROUT_CONSTEXPR inline Result join2_impl(
+			inline SPROUT_CONSTEXPR Result join2_impl(
 				ContainerIterator first,
 				ContainerIterator last,
 				Separator const& separator
@@ -91,7 +91,7 @@ namespace sprout {
 		// join2
 		//
 		template<typename ContainerContainer, typename Separator>
-		SPROUT_CONSTEXPR inline typename sprout::algorithm::result_of::join2<ContainerContainer, Separator>::type join2(
+		inline SPROUT_CONSTEXPR typename sprout::algorithm::result_of::join2<ContainerContainer, Separator>::type join2(
 			ContainerContainer const& cont_cont,
 			Separator const& separator
 			)

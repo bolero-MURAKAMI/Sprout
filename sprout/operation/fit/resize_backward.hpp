@@ -29,7 +29,7 @@ namespace sprout {
 		// resize_backward
 		//
 		template<std::size_t N, typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::resize_backward<N, Container>::type resize_backward(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::resize_backward<N, Container>::type resize_backward(
 			Container const& cont,
 			T const& v
 			)
@@ -45,7 +45,7 @@ namespace sprout {
 		// resize_backward
 		//
 		template<std::size_t N, typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::resize_backward<N, Container>::type resize_backward(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::resize_backward<N, Container>::type resize_backward(
 			Container const& cont
 			)
 		{

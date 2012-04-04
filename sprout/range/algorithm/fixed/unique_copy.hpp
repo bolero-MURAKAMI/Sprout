@@ -14,7 +14,7 @@ namespace sprout {
 			// unique_copy
 			//
 			template<typename Input, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
 				Input const& input,
 				Result const& result
 				)
@@ -26,7 +26,7 @@ namespace sprout {
 			// unique_copy
 			//
 			template<typename Input, typename Result, typename BinaryPredicate>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
 				Input const& input,
 				Result const& result,
 				BinaryPredicate pred

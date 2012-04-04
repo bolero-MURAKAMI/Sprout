@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename ForwardIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type rotate_copy_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type rotate_copy_impl(
 				ForwardIterator first,
 				ForwardIterator middle,
 				ForwardIterator last,
@@ -33,7 +33,7 @@ namespace sprout {
 		// rotate_copy
 		//
 		template<typename ForwardIterator, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type rotate_copy(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type rotate_copy(
 			ForwardIterator first,
 			ForwardIterator middle,
 			ForwardIterator last,

@@ -9,7 +9,7 @@ namespace sprout {
 
 	// 25.4.1.5 is_sorted
 	template<typename ForwardIterator>
-	SPROUT_CONSTEXPR ForwardIterator is_sorted_until(ForwardIterator first, ForwardIterator last) {
+	inline SPROUT_CONSTEXPR ForwardIterator is_sorted_until(ForwardIterator first, ForwardIterator last) {
 		return first == last || sprout::next(first) == last ? last
 			: *(sprout::next(first)) < *first ? sprout::next(first)
 			: sprout::is_sorted_until(sprout::next(first), last)
@@ -17,7 +17,7 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator, typename Compare>
-	SPROUT_CONSTEXPR ForwardIterator is_sorted_until(ForwardIterator first, ForwardIterator last, Compare comp) {
+	inline SPROUT_CONSTEXPR ForwardIterator is_sorted_until(ForwardIterator first, ForwardIterator last, Compare comp) {
 		return first == last || sprout::next(first) == last ? last
 			: comp(*(sprout::next(first)), *first) != false ? sprout::next(first)
 			: sprout::is_sorted_until(sprout::next(first), last)

@@ -8,11 +8,11 @@ namespace sprout {
 	namespace breed {
 		namespace detail {
 			template<typename T>
-			SPROUT_CONSTEXPR T& as_lvalue(T& t) {
+			inline SPROUT_CONSTEXPR T& as_lvalue(T& t) {
 				return t;
 			}
 			template<typename T>
-			SPROUT_CONSTEXPR T const& as_lvalue(T const& t) {
+			inline SPROUT_CONSTEXPR T const& as_lvalue(T const& t) {
 				return t;
 			}
 		}	// namespace detail

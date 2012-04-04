@@ -17,7 +17,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward_impl_ra(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_backward_impl_ra(
 				RandomAccessIterator first,
 				RandomAccessIterator last,
 				Result const& result,
@@ -37,7 +37,7 @@ namespace sprout {
 					);
 			}
 			template<typename RandomAccessIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_backward(
 				RandomAccessIterator first,
 				RandomAccessIterator last,
 				Result const& result,
@@ -55,7 +55,7 @@ namespace sprout {
 					);
 			}
 			template<typename BidirectionalIterator, typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type copy_backward_impl(
@@ -69,7 +69,7 @@ namespace sprout {
 				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename BidirectionalIterator, typename Result, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type copy_backward_impl(
@@ -86,7 +86,7 @@ namespace sprout {
 					;
 			}
 			template<typename BidirectionalIterator, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_backward(
 				BidirectionalIterator first,
 				BidirectionalIterator last,
 				Result const& result,
@@ -105,7 +105,7 @@ namespace sprout {
 		// copy_backward
 		//
 		template<typename BidirectionalIterator, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type copy_backward(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_backward(
 			BidirectionalIterator first,
 			BidirectionalIterator last,
 			Result const& result

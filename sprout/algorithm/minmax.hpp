@@ -10,12 +10,12 @@ namespace sprout {
 
 	// 25.4.7 Minimum and maximum
 	template<typename T, typename Compare>
-	SPROUT_CONSTEXPR sprout::pair<T, T> minmax(T const& a, T const& b, Compare comp) {
+	inline SPROUT_CONSTEXPR sprout::pair<T, T> minmax(T const& a, T const& b, Compare comp) {
 		return comp(b, a) ? sprout::pair<T, T>(b, a) : sprout::pair<T, T>(a, b);
 	}
 
 	template<typename T>
-	SPROUT_CONSTEXPR sprout::pair<T, T> minmax(T const& a, T const& b) {
+	inline SPROUT_CONSTEXPR sprout::pair<T, T> minmax(T const& a, T const& b) {
 		return sprout::minmax(a, b, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
 	}
 }	// namespace sprout

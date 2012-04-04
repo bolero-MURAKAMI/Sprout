@@ -263,7 +263,7 @@ namespace sprout {
 			// make_sphere
 			//
 			template<typename Material, typename Position, typename Radius>
-			SPROUT_CONSTEXPR inline sprout::darkroom::objects::basic_sphere<Material, Position>
+			inline SPROUT_CONSTEXPR sprout::darkroom::objects::basic_sphere<Material, Position>
 			make_sphere(Position const& pos, Radius const& rad, Material const& mat) {
 				return sprout::darkroom::objects::basic_sphere<Material, Position>(pos, rad, mat);
 			}

@@ -13,7 +13,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Size, typename T>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type fill_n_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type fill_n_impl(
 				Container const& cont,
 				Size n,
 				T const& value,
@@ -31,7 +31,7 @@ namespace sprout {
 		// fill_n
 		//
 		template<typename Container, typename Size, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type fill_n(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type fill_n(
 			Container const& cont,
 			Size n,
 			T const& value

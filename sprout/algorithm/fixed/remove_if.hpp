@@ -13,7 +13,7 @@ namespace sprout {
 		// remove_if
 		//
 		template<typename Container, typename Predicate>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type remove_if(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type remove_if(
 			Container const& cont,
 			Predicate pred
 			)

@@ -14,7 +14,7 @@ namespace sprout {
 		// fill_n
 		//
 		template<typename Container, typename Size, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type fill_n(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type fill_n(
 			Container const& cont,
 			Size n,
 			T const& value

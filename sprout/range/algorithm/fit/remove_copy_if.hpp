@@ -14,7 +14,7 @@ namespace sprout {
 			// remove_copy_if
 			//
 			template<typename Input, typename Result, typename Predicate>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type remove_copy_if(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type remove_copy_if(
 				Input const& input,
 				Result const& result,
 				Predicate pred

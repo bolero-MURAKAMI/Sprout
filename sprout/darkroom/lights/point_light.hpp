@@ -158,7 +158,7 @@ namespace sprout {
 			// make_point_light
 			//
 			template<typename Position, typename Color>
-			SPROUT_CONSTEXPR inline sprout::darkroom::lights::basic_point_light<Position, Color>
+			inline SPROUT_CONSTEXPR sprout::darkroom::lights::basic_point_light<Position, Color>
 			make_point_light(Position const& pos, Color const& col) {
 				return sprout::darkroom::lights::basic_point_light<Position, Color>(pos, col);
 			}

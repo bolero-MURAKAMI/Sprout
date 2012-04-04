@@ -12,7 +12,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename T>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type replace_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type replace_impl(
 				Container const& cont,
 				T const& old_value,
 				T const& new_value,
@@ -30,7 +30,7 @@ namespace sprout {
 		// replace
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type replace(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type replace(
 			Container const& cont,
 			T const& old_value,
 			T const& new_value

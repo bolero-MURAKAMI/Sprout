@@ -14,7 +14,7 @@ namespace sprout {
 			// replace_copy
 			//
 			template<typename Input, typename Result, typename T>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type replace_copy(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type replace_copy(
 				Input const& input,
 				Result const& result,
 				T const& old_value,

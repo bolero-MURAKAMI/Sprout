@@ -12,7 +12,7 @@ namespace sprout {
 		// deep_copy
 		//
 		template<typename Tuple>
-		SPROUT_CONSTEXPR inline typename sprout::tuples::tuple_construct_traits<
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<
 			typename std::remove_reference<Tuple>::type
 		>::copied_type deep_copy(Tuple&& tup) {
 			typedef typename std::remove_reference<Tuple>::type tuple_type;

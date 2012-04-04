@@ -11,12 +11,12 @@ namespace sprout {
 
 		// 25.4.3.4 binary_search
 		template<typename Range, typename T>
-		SPROUT_CONSTEXPR bool binary_search(Range const& range, T const& value) {
+		inline SPROUT_CONSTEXPR bool binary_search(Range const& range, T const& value) {
 			return sprout::binary_search(sprout::begin(range), sprout::end(range), value);
 		}
 
 		template<typename Range, typename T, typename Compare>
-		SPROUT_CONSTEXPR bool binary_search(Range const& range, T const& value, Compare comp) {
+		inline SPROUT_CONSTEXPR bool binary_search(Range const& range, T const& value, Compare comp) {
 			return sprout::binary_search(sprout::begin(range), sprout::end(range), value, comp);
 		}
 	}	// namespace range

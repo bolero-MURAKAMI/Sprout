@@ -13,7 +13,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename Head, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type unique_copy_impl(
@@ -28,7 +28,7 @@ namespace sprout {
 				return sprout::remake<Result>(result, sprout::size(result), args..., head);
 			}
 			template<typename InputIterator, typename Result, typename Head, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type unique_copy_impl(
@@ -52,7 +52,7 @@ namespace sprout {
 		// unique_copy
 		//
 		template<typename InputIterator, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
 			InputIterator first,
 			InputIterator last,
 			Result const& result
@@ -66,7 +66,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename InputIterator, typename Result, typename BinaryPredicate, typename Head, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type unique_copy_impl(
@@ -82,7 +82,7 @@ namespace sprout {
 				return sprout::remake<Result>(result, sprout::size(result), args..., head);
 			}
 			template<typename InputIterator, typename Result, typename BinaryPredicate, typename Head, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type unique_copy_impl(
@@ -107,7 +107,7 @@ namespace sprout {
 		// unique_copy
 		//
 		template<typename InputIterator, typename Result, typename BinaryPredicate>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
 			InputIterator first,
 			InputIterator last,
 			Result const& result,

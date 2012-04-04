@@ -11,12 +11,12 @@ namespace sprout {
 
 		// 25.4.6.5 is_heap
 		template<typename Range>
-		SPROUT_CONSTEXPR bool is_heap(Range const& range) {
+		inline SPROUT_CONSTEXPR bool is_heap(Range const& range) {
 			return sprout::is_heap(sprout::begin(range), sprout::end(range));
 		}
 
 		template<typename Range, typename Compare>
-		SPROUT_CONSTEXPR bool is_heap(Range const& range, Compare comp) {
+		inline SPROUT_CONSTEXPR bool is_heap(Range const& range, Compare comp) {
 			return sprout::is_heap(sprout::begin(range), sprout::end(range), comp);
 		}
 	}	// namespace range

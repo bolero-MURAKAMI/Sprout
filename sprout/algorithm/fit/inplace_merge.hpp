@@ -12,7 +12,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type inplace_merge_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type inplace_merge_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::const_iterator middle,
 				Compare comp,
@@ -30,7 +30,7 @@ namespace sprout {
 		// inplace_merge
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type inplace_merge(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type inplace_merge(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator middle,
 			Compare comp
@@ -41,7 +41,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Container>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type inplace_merge_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type inplace_merge_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::const_iterator middle,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -58,7 +58,7 @@ namespace sprout {
 		// inplace_merge
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type inplace_merge(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type inplace_merge(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator middle
 			)

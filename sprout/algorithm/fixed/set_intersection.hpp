@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_intersection_impl(
@@ -31,7 +31,7 @@ namespace sprout {
 				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type set_intersection_impl(
@@ -65,7 +65,7 @@ namespace sprout {
 		// set_intersection
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type set_intersection(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set_intersection(
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,
@@ -88,7 +88,7 @@ namespace sprout {
 		// set_intersection
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type set_intersection(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set_intersection(
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,

@@ -14,7 +14,7 @@ namespace sprout {
 			// partial_sum
 			//
 			template<typename Input, typename Result>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type partial_sum(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type partial_sum(
 				Input const& input,
 				Result const& result
 				)
@@ -25,7 +25,7 @@ namespace sprout {
 			// partial_sum
 			//
 			template<typename Input, typename Result, typename BinaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type partial_sum(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type partial_sum(
 				Input const& input,
 				Result const& result,
 				BinaryOperation binary_op

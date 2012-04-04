@@ -13,7 +13,7 @@ namespace sprout {
 		// reverse
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type reverse(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type reverse(
 			Container const& cont
 			)
 		{

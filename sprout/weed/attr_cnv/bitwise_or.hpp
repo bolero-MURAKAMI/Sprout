@@ -27,7 +27,7 @@ namespace sprout {
 			//
 			// container<V, N> | container<V, M> -> container<V, max(N, M)>
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_same_container<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
@@ -36,7 +36,7 @@ namespace sprout {
 			}
 			// container<V, N> | V -> container<V, N ? N : 1>
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_container_and_elem<T, U>::value
 				&& sprout::weed::traits::is_container<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
@@ -45,7 +45,7 @@ namespace sprout {
 				return sprout::fixed::realign_to<type>(x);
 			}
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_container_and_elem<T, U>::value
 				&& !sprout::weed::traits::is_container<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
@@ -55,7 +55,7 @@ namespace sprout {
 			}
 			// V | container<V, N> -> container<V, N ? N : 1>
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_elem_and_container<T, U>::value
 				&& sprout::weed::traits::is_container<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
@@ -64,7 +64,7 @@ namespace sprout {
 				return sprout::fixed::realign_to<type>(x);
 			}
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_elem_and_container<T, U>::value
 				&& !sprout::weed::traits::is_container<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
@@ -74,7 +74,7 @@ namespace sprout {
 			}
 			// tuple<Vs...> | tuple<Ws...> -> tuple<max(Vs..., Ws...)>
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_both_tuple<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
@@ -83,7 +83,7 @@ namespace sprout {
 			}
 			// V | V -> V
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_same_elem<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
@@ -91,7 +91,7 @@ namespace sprout {
 			}
 			// V | W -> variant<V, W>
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_different_elem<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {
@@ -99,7 +99,7 @@ namespace sprout {
 			}
 			// V | unused -> container<V, 1>
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_elem_and_unused<T, U>::value
 				&& !sprout::weed::traits::is_unused<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
@@ -108,7 +108,7 @@ namespace sprout {
 				return sprout::make<type>(x);
 			}
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_elem_and_unused<T, U>::value
 				&& sprout::weed::traits::is_unused<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
@@ -118,7 +118,7 @@ namespace sprout {
 			}
 			// unused | V -> container<V, 1>
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_unused_and_elem<T, U>::value
 				&& !sprout::weed::traits::is_unused<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
@@ -127,7 +127,7 @@ namespace sprout {
 				return sprout::make<type>(x);
 			}
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_unused_and_elem<T, U>::value
 				&& sprout::weed::traits::is_unused<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
@@ -137,7 +137,7 @@ namespace sprout {
 			}
 			// unused >> unused -> unused
 			template<typename T, typename U, typename X>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_both_unused<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
 			>::type bitwise_or(X const& x) {

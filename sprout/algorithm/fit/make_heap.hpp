@@ -12,7 +12,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type make_heap_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_heap_impl(
 				Container const& cont,
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -29,7 +29,7 @@ namespace sprout {
 		// make_heap
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type make_heap(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_heap(
 			Container const& cont,
 			Compare comp
 			)
@@ -39,7 +39,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Container>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type make_heap_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_heap_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
@@ -55,7 +55,7 @@ namespace sprout {
 		// make_heap
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Container>::type make_heap(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_heap(
 			Container const& cont
 			)
 		{

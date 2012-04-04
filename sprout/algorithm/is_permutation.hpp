@@ -13,7 +13,7 @@ namespace sprout {
 
 	namespace detail {
 		template<typename ForwardIterator1, typename ForwardIterator2>
-		SPROUT_CONSTEXPR bool is_permutation_impl(
+		inline SPROUT_CONSTEXPR bool is_permutation_impl(
 			ForwardIterator1 first1,
 			ForwardIterator1 last1,
 			ForwardIterator2 first2,
@@ -30,7 +30,7 @@ namespace sprout {
 		}
 
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		SPROUT_CONSTEXPR bool is_permutation_impl(
+		inline SPROUT_CONSTEXPR bool is_permutation_impl(
 			ForwardIterator1 first1,
 			ForwardIterator1 last1,
 			ForwardIterator2 first2,
@@ -50,7 +50,7 @@ namespace sprout {
 
 	// 25.2.12 Is permutation
 	template<typename ForwardIterator1, typename ForwardIterator2>
-	SPROUT_CONSTEXPR bool is_permutation(
+	inline SPROUT_CONSTEXPR bool is_permutation(
 		ForwardIterator1 first1,
 		ForwardIterator1 last1,
 		ForwardIterator2 first2
@@ -60,7 +60,7 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
-	SPROUT_CONSTEXPR bool is_permutation(
+	inline SPROUT_CONSTEXPR bool is_permutation(
 		ForwardIterator1 first1,
 		ForwardIterator1 last1,
 		ForwardIterator2 first2,

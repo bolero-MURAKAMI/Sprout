@@ -9,7 +9,7 @@ namespace sprout {
 
 	// 25.2.13 Search
 	template<typename ForwardIterator, typename Size, typename T>
-	SPROUT_CONSTEXPR ForwardIterator search_n(
+	inline SPROUT_CONSTEXPR ForwardIterator search_n(
 		ForwardIterator first,
 		ForwardIterator last,
 		Size count,
@@ -26,7 +26,7 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator, typename Size, typename T, typename BinaryPredicate>
-	SPROUT_CONSTEXPR ForwardIterator search_n(
+	inline SPROUT_CONSTEXPR ForwardIterator search_n(
 		ForwardIterator first,
 		ForwardIterator last,
 		Size count,

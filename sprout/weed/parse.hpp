@@ -12,7 +12,7 @@ namespace sprout {
 		// parse
 		//
 		template<typename Iterator, typename Parser>
-		SPROUT_CONSTEXPR inline typename sprout::weed::parse_context<Iterator>::template eval<
+		inline SPROUT_CONSTEXPR typename sprout::weed::parse_context<Iterator>::template eval<
 			typename sprout::weed::traits::terminal_or_expr_of<Parser>::type
 		>::result_type::presult_type parse(
 			Iterator first,

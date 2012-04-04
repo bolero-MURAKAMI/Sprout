@@ -28,7 +28,7 @@ namespace sprout {
 		// realign
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::realign<Container>::type realign(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::realign<Container>::type realign(
 			Container const& cont,
 			T const& v
 			)
@@ -44,7 +44,7 @@ namespace sprout {
 		// realign
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::realign<Container>::type realign(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::realign<Container>::type realign(
 			Container const& cont
 			)
 		{

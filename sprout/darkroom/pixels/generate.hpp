@@ -25,7 +25,7 @@ namespace sprout {
 					typename Lights,
 					sprout::index_t... XIndexes
 				>
-				SPROUT_CONSTEXPR inline typename sprout::container_traits<Pixels>::value_type
+				inline SPROUT_CONSTEXPR typename sprout::container_traits<Pixels>::value_type
 				generate_impl_line(
 					RayTracer const& raytracer,
 					Renderer const& renderer,
@@ -73,7 +73,7 @@ namespace sprout {
 					typename Lights,
 					sprout::index_t... YIndexes
 				>
-				SPROUT_CONSTEXPR inline Pixels
+				inline SPROUT_CONSTEXPR Pixels
 				generate_impl(
 					RayTracer const& raytracer,
 					Renderer const& renderer,
@@ -124,7 +124,7 @@ namespace sprout {
 				typename Objects,
 				typename Lights
 			>
-			SPROUT_CONSTEXPR inline Pixels generate(
+			inline SPROUT_CONSTEXPR Pixels generate(
 				RayTracer const& raytracer,
 				Renderer const& renderer,
 				Camera const& camera,

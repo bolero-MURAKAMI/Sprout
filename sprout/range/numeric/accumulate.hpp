@@ -7,12 +7,12 @@
 namespace sprout {
 	// 26.7.2 Accumulate
 	template<typename Range, typename T, typename BinaryOperation>
-	SPROUT_CONSTEXPR T accumulate(Range const& range, T init, BinaryOperation binary_op) {
+	inline SPROUT_CONSTEXPR T accumulate(Range const& range, T init, BinaryOperation binary_op) {
 		return sprout::accumulate(sprout::begin(range), sprout::end(range), init, binary_op);
 	}
 
 	template<typename Range, typename T>
-	SPROUT_CONSTEXPR T accumulate(Range const& range, T init) {
+	inline SPROUT_CONSTEXPR T accumulate(Range const& range, T init) {
 		return sprout::accumulate(sprout::begin(range), sprout::end(range), init);
 	}
 }	// namespace sprout

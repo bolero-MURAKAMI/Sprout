@@ -11,7 +11,7 @@ namespace sprout {
 	// deep_copy
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR inline typename sprout::container_construct_traits<
+	inline SPROUT_CONSTEXPR typename sprout::container_construct_traits<
 		typename std::remove_reference<Container>::type
 	>::copied_type deep_copy(Container&& cont) {
 		typedef typename std::remove_reference<Container>::type container_type;

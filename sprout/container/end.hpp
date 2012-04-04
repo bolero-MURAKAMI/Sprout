@@ -19,11 +19,11 @@ namespace sprout {
 	}
 
 	template<typename Container>
-	SPROUT_CONSTEXPR inline typename sprout::container_traits<Container>::const_iterator end(Container const& cont) {
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::const_iterator end(Container const& cont) {
 		return cont.end();
 	}
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline typename sprout::container_traits<T const[N]>::const_iterator end(T const (& arr)[N]) {
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::const_iterator end(T const (& arr)[N]) {
 		return arr + N;
 	}
 
@@ -31,11 +31,11 @@ namespace sprout {
 	// cend
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR inline typename sprout::container_traits<Container>::const_iterator cend(Container const& cont) {
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::const_iterator cend(Container const& cont) {
 		return cont.end();
 	}
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR inline typename sprout::container_traits<T const[N]>::const_iterator cend(T const (& arr)[N]) {
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::const_iterator cend(T const (& arr)[N]) {
 		return arr + N;
 	}
 }	// namespace sprout

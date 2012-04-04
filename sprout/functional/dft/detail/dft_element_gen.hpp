@@ -10,7 +10,7 @@
 namespace sprout {
 	namespace detail {
 		template<typename InputIterator>
-		SPROUT_CONSTEXPR inline typename std::iterator_traits<InputIterator>::value_type dft_element_gen(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type dft_element_gen(
 			InputIterator first,
 			InputIterator last,
 			typename std::iterator_traits<InputIterator>::value_type::value_type arg,

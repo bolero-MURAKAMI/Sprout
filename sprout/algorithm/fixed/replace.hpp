@@ -13,7 +13,7 @@ namespace sprout {
 		// replace
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type replace(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type replace(
 			Container const& cont,
 			T const& old_value,
 			T const& new_value

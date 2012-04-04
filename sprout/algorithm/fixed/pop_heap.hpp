@@ -13,7 +13,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Compare>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type pop_heap_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type pop_heap_impl(
 				Container const& cont,
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -63,7 +63,7 @@ namespace sprout {
 		// pop_heap
 		//
 		template<typename Container, typename Compare>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type pop_heap(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type pop_heap(
 			Container const& cont,
 			Compare comp
 			)
@@ -79,7 +79,7 @@ namespace sprout {
 		// pop_heap
 		//
 		template<typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type pop_heap(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type pop_heap(
 			Container const& cont
 			)
 		{

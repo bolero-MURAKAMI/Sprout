@@ -14,7 +14,7 @@ namespace sprout {
 			// stable_partition_copy
 			//
 			template<typename Input, typename Result, typename Predicate>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type stable_partition_copy(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type stable_partition_copy(
 				Input const& input,
 				Result const& result,
 				Predicate pred

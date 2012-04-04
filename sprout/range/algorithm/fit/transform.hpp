@@ -14,7 +14,7 @@ namespace sprout {
 			// transform
 			//
 			template<typename Input, typename Result, typename UnaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type transform(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type transform(
 				Input const& input,
 				Result const& result,
 				UnaryOperation op
@@ -27,7 +27,7 @@ namespace sprout {
 			// transform
 			//
 			template<typename Input1, typename Input2, typename Result, typename BinaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Result>::type transform(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type transform(
 				Input1 const& input1,
 				Input2 const& input2,
 				Result const& result,

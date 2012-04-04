@@ -15,7 +15,7 @@ namespace sprout {
 			//
 			// !unused -> unused
 			template<typename T>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::traits::is_unused<T>::value,
 				typename sprout::weed::attr_cnv::result_of::negate<T>::type
 			>::type negate(T const& t, bool cond) {

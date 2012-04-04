@@ -24,7 +24,7 @@ namespace sprout {
 
 	// 25.2.6 Find end
 	template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
-	SPROUT_CONSTEXPR ForwardIterator1 find_end(
+	inline SPROUT_CONSTEXPR ForwardIterator1 find_end(
 		ForwardIterator1 first1,
 		ForwardIterator1 last1,
 		ForwardIterator2 first2,
@@ -41,7 +41,7 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator1, typename ForwardIterator2>
-	SPROUT_CONSTEXPR ForwardIterator1 find_end(
+	inline SPROUT_CONSTEXPR ForwardIterator1 find_end(
 		ForwardIterator1 first1,
 		ForwardIterator1 last1,
 		ForwardIterator2 first2,

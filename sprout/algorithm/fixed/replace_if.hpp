@@ -13,7 +13,7 @@ namespace sprout {
 		// replace_if
 		//
 		template<typename Container, typename T, typename Predicate>
-		SPROUT_CONSTEXPR inline typename sprout::fixed::result_of::algorithm<Container>::type replace_if(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type replace_if(
 			Container const& cont,
 			Predicate pred,
 			T const& new_value

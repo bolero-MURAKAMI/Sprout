@@ -12,7 +12,7 @@ namespace sprout {
 
 		// 25.2.9 Count
 		template<typename Range, typename T>
-		SPROUT_CONSTEXPR typename sprout::container_traits<Range const>::difference_type
+		inline SPROUT_CONSTEXPR typename sprout::container_traits<Range const>::difference_type
 		count(Range const& range, T const& value) {
 			return sprout::count(sprout::begin(range), sprout::end(range), value);
 		}

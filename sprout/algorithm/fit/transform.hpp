@@ -14,7 +14,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Iterator, typename Result, typename UnaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type transform_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type transform_impl(
 				Iterator first,
 				Iterator last,
 				Result const& result,
@@ -33,7 +33,7 @@ namespace sprout {
 		// transform
 		//
 		template<typename Iterator, typename Result, typename UnaryOperation>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type transform(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type transform(
 			Iterator first,
 			Iterator last,
 			Result const& result,
@@ -45,7 +45,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Iterator1, typename Iterator2, typename Result, typename BinaryOperation>
-			SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type transform_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type transform_impl(
 				Iterator1 first1,
 				Iterator1 last1,
 				Iterator2 first2,
@@ -65,7 +65,7 @@ namespace sprout {
 		// transform
 		//
 		template<typename Iterator1, typename Iterator2, typename Result, typename BinaryOperation>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::algorithm<Result>::type transform(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type transform(
 			Iterator1 first1,
 			Iterator1 last1,
 			Iterator2 first2,

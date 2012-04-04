@@ -38,7 +38,7 @@ namespace sprout {
 				>
 			{};
 			template<typename Sequence, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR inline sprout::basic_string<
+			inline SPROUT_CONSTEXPR sprout::basic_string<
 				typename Sequence::value_type,
 				sprout::types::detail::str_length<Sequence>::value
 			> to_string_constant_impl(sprout::index_tuple<Indexes...>) {
@@ -48,7 +48,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 		template<typename Sequence>
-		SPROUT_CONSTEXPR inline sprout::basic_string<
+		inline SPROUT_CONSTEXPR sprout::basic_string<
 			typename Sequence::value_type,
 			sprout::types::detail::str_length<Sequence>::value
 		> to_string_constant() {

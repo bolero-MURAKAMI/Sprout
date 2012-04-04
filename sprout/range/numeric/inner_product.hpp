@@ -7,7 +7,7 @@
 namespace sprout {
 	// 26.7.3 Inner product
 	template<typename Range1, typename Range2, typename T, typename BinaryOperation1, typename BinaryOperation2>
-	SPROUT_CONSTEXPR T inner_product(
+	inline SPROUT_CONSTEXPR T inner_product(
 		Range1 const& range1,
 		Range2 const& range2,
 		T init,
@@ -19,7 +19,7 @@ namespace sprout {
 	}
 
 	template<typename Range1, typename Range2, typename T>
-	SPROUT_CONSTEXPR T inner_product(
+	inline SPROUT_CONSTEXPR T inner_product(
 		Range1 const& range1,
 		Range2 const& range2,
 		T init

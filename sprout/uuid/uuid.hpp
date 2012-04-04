@@ -17,7 +17,7 @@ namespace sprout {
 	namespace uuids {
 		namespace detail {
 			template<typename InputIterator>
-			SPROUT_CONSTEXPR inline bool is_nil(InputIterator first, InputIterator last) {
+			inline SPROUT_CONSTEXPR bool is_nil(InputIterator first, InputIterator last) {
 				return first == last ? true
 					: !*first && sprout::uuids::detail::is_nil(sprout::next(first), last)
 					;
@@ -229,22 +229,22 @@ namespace sprout {
 		// operator<=
 		// operator>=
 		//
-		SPROUT_CONSTEXPR inline bool operator==(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+		inline SPROUT_CONSTEXPR bool operator==(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
 			return NS_SSCRISK_CEL_OR_SPROUT::equal(lhs.begin(), lhs.end(), rhs.begin());
 		}
-		SPROUT_CONSTEXPR inline bool operator!=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+		inline SPROUT_CONSTEXPR bool operator!=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
 			return !(lhs == rhs);
 		}
-		SPROUT_CONSTEXPR inline bool operator<(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+		inline SPROUT_CONSTEXPR bool operator<(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
 			return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 		}
-		SPROUT_CONSTEXPR inline bool operator>(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+		inline SPROUT_CONSTEXPR bool operator>(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
 			return rhs < lhs;
 		}
-		SPROUT_CONSTEXPR inline bool operator<=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+		inline SPROUT_CONSTEXPR bool operator<=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
 			return !(rhs < lhs);
 		}
-		SPROUT_CONSTEXPR inline bool operator>=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+		inline SPROUT_CONSTEXPR bool operator>=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
 			return !(lhs < rhs);
 		}
 

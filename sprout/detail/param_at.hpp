@@ -8,7 +8,7 @@
 namespace sprout {
 		namespace detail {
 			template<typename R, typename T, typename... Values>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Values) == 0,
 				R
 			>::type param_at(
@@ -20,7 +20,7 @@ namespace sprout {
 				return v;
 			}
 			template<typename R, typename T, typename... Values>
-			SPROUT_CONSTEXPR inline typename std::enable_if<
+			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Values) != 0,
 				R
 			>::type param_at(

@@ -11,7 +11,7 @@ namespace sprout {
 
 	// 26.7.3 Inner product
 	template<typename InputIterator1, typename InputIterator2, typename T, typename BinaryOperation1, typename BinaryOperation2>
-	SPROUT_CONSTEXPR T inner_product(
+	inline SPROUT_CONSTEXPR T inner_product(
 		InputIterator1 first1,
 		InputIterator1 last1,
 		InputIterator2 first2,
@@ -33,7 +33,7 @@ namespace sprout {
 	}
 
 	template<typename InputIterator1, typename InputIterator2, typename T>
-	SPROUT_CONSTEXPR T inner_product(
+	inline SPROUT_CONSTEXPR T inner_product(
 		InputIterator1 first1,
 		InputIterator1 last1,
 		InputIterator2 first2,

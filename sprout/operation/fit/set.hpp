@@ -29,7 +29,7 @@ namespace sprout {
 		// set
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::set<Container, T>::type set(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::set<Container, T>::type set(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos,
 			T const& v
@@ -45,7 +45,7 @@ namespace sprout {
 		// set
 		//
 		template<typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::set<Container, T>::type set(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::set<Container, T>::type set(
 			Container const& cont,
 			typename sprout::container_traits<Container>::difference_type pos,
 			T const& v

@@ -11,7 +11,7 @@ namespace sprout {
 
 		// 25.2.2 Any of
 		template<typename Range, typename Predicate>
-		SPROUT_CONSTEXPR bool any_of(Range const& range, Predicate pred) {
+		inline SPROUT_CONSTEXPR bool any_of(Range const& range, Predicate pred) {
 			return sprout::any_of(sprout::begin(range), sprout::end(range), pred);
 		}
 	}	// namespace range

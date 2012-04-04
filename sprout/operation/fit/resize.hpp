@@ -29,7 +29,7 @@ namespace sprout {
 		// resize
 		//
 		template<std::size_t N, typename Container, typename T>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::resize<N, Container>::type resize(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::resize<N, Container>::type resize(
 			Container const& cont,
 			T const& v
 			)
@@ -45,7 +45,7 @@ namespace sprout {
 		// resize
 		//
 		template<std::size_t N, typename Container>
-		SPROUT_CONSTEXPR inline typename sprout::fit::result_of::resize<N, Container>::type resize(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::resize<N, Container>::type resize(
 			Container const& cont
 			)
 		{

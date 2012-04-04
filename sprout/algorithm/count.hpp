@@ -10,7 +10,7 @@ namespace sprout {
 
 	// 25.2.9 Count
 	template<typename InputIterator, typename T>
-	SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 	count(InputIterator first, InputIterator last, T const& value) {
 		return first == last ? 0
 			: (*first == value ? 1 : 0) + sprout::count(sprout::next(first), last, value)
