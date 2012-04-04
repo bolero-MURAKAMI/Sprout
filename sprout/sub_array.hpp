@@ -295,7 +295,7 @@ namespace sprout {
 			return size();
 		}
 		SPROUT_CONSTEXPR bool empty() const {
-			return size() == 0;
+			return first_ == last_;
 		}
 		// element access:
 		reference operator[](size_type i) {

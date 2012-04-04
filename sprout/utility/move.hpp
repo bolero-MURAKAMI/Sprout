@@ -9,7 +9,7 @@ namespace sprout {
 	// move
 	//
 	template<typename T>
-	SPROUT_CONSTEXPR typename std::remove_reference<T>::type&& move(T&& t) SPROUT_NOEXCEPT {
+	inline SPROUT_CONSTEXPR typename std::remove_reference<T>::type&& move(T&& t) SPROUT_NOEXCEPT {
 		return static_cast<typename std::remove_reference<T>::type&&>(t);
 	}
 }	// namespace sprout

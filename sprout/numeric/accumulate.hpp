@@ -9,14 +9,14 @@ namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
 	// 26.7.2 Accumulate
-	template<class InputIterator, typename T, typename BinaryOperation>
+	template<typename InputIterator, typename T, typename BinaryOperation>
 	SPROUT_CONSTEXPR T accumulate(InputIterator first, InputIterator last, T init, BinaryOperation binary_op) {
 		return first == last ? init
-			: sprout::accumulate(first + 1, last, binary_op(init, *first), binary_op)
+			: sprout::accumulate(sprout::next(first), last, binary_op(init, *first), binary_op)
 			;
 	}
 
-	template<class InputIterator, typename T>
+	template<typename InputIterator, typename T>
 	SPROUT_CONSTEXPR T accumulate(InputIterator first, InputIterator last, T init) {
 		return sprout::accumulate(first, last, init, NS_SSCRISK_CEL_OR_SPROUT::plus<typename std::iterator_traits<InputIterator>::value_type>());
 	}

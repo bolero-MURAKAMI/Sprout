@@ -10,7 +10,7 @@ namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
 	// 26.7.3 Inner product
-	template<class InputIterator1, class InputIterator2, typename T, typename BinaryOperation1, typename BinaryOperation2>
+	template<typename InputIterator1, typename InputIterator2, typename T, typename BinaryOperation1, typename BinaryOperation2>
 	SPROUT_CONSTEXPR T inner_product(
 		InputIterator1 first1,
 		InputIterator1 last1,
@@ -32,7 +32,7 @@ namespace sprout {
 			;
 	}
 
-	template<class InputIterator1, typename InputIterator2, typename T>
+	template<typename InputIterator1, typename InputIterator2, typename T>
 	SPROUT_CONSTEXPR T inner_product(
 		InputIterator1 first1,
 		InputIterator1 last1,

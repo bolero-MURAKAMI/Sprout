@@ -9,16 +9,16 @@ namespace sprout {
 	namespace detail {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
-		template<typename Iterator>
-		SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type
-		distance(Iterator first, Iterator last) {
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+		distance(InputIterator first, InputIterator last) {
 			return first == last ? 0
 				: 1 + sprout::detail::distance(sprout::next(first), last)
 				;
 		}
-		template<typename Iterator>
-		SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type
-		distance_impl(Iterator first, Iterator last) {
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+		distance_impl(InputIterator first, InputIterator last) {
 			using sprout::detail::distance;
 			return distance(first, last);
 		}
@@ -26,9 +26,9 @@ namespace sprout {
 	//
 	// distance
 	//
-	template<typename Iterator>
-	SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type
-	distance(Iterator first, Iterator last) {
+	template<typename InputIterator>
+	SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last) {
 		return sprout::detail::distance_impl(first, last);
 	}
 }	// namespace sprout
