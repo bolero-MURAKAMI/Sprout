@@ -5,8 +5,8 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/utility/operation.hpp>
-#include <sprout/range/lvref_iterator.hpp>
-#include <sprout/range/lvref_range.hpp>
+#include <sprout/range/lvalue_iterator.hpp>
+#include <sprout/range/lvalue_range.hpp>
 
 namespace sprout {
 	namespace range {
@@ -28,7 +28,7 @@ namespace sprout {
 		template<typename Range>
 		struct range_return<Range, sprout::range::return_found> {
 		public:
-			typedef typename sprout::range::lvref_iterator<Range>::type type;
+			typedef typename sprout::range::lvalue_iterator<Range>::type type;
 		public:
 			static SPROUT_CONSTEXPR type pack(
 				typename sprout::container_traits<Range>::iterator found,
@@ -41,7 +41,7 @@ namespace sprout {
 		template<typename Range>
 		struct range_return<Range, sprout::range::return_found_end> {
 		public:
-			typedef typename sprout::range::lvref_range<Range>::type type;
+			typedef typename sprout::range::lvalue_range<Range>::type type;
 		public:
 			static SPROUT_CONSTEXPR type pack(
 				typename sprout::container_traits<Range>::iterator found,
@@ -54,7 +54,7 @@ namespace sprout {
 		template<typename Range>
 		struct range_return<Range, sprout::range::return_begin_found> {
 		public:
-			typedef typename sprout::range::lvref_range<Range>::type type;
+			typedef typename sprout::range::lvalue_range<Range>::type type;
 		public:
 			static SPROUT_CONSTEXPR type pack(
 				typename sprout::container_traits<Range>::iterator found,

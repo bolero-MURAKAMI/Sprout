@@ -5,7 +5,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/utility/operation.hpp>
 #include <sprout/utility/pair.hpp>
-#include <sprout/range/lvref_iterator.hpp>
+#include <sprout/range/lvalue_iterator.hpp>
 #include <sprout/algorithm/mismatch.hpp>
 
 namespace sprout {
@@ -15,8 +15,8 @@ namespace sprout {
 		// 25.2.10 Mismatch
 		template<typename Range1, typename Range2>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::range::lvref_iterator<Range1>::type,
-			typename sprout::range::lvref_iterator<Range2>::type
+			typename sprout::range::lvalue_iterator<Range1>::type,
+			typename sprout::range::lvalue_iterator<Range2>::type
 		>
 		mismatch(Range1&& range1, Range2&& range2) {
 			return sprout::mismatch(
@@ -28,8 +28,8 @@ namespace sprout {
 
 		template<typename Range1, typename Range2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::range::lvref_iterator<Range1>::type,
-			typename sprout::range::lvref_iterator<Range2>::type
+			typename sprout::range::lvalue_iterator<Range1>::type,
+			typename sprout::range::lvalue_iterator<Range2>::type
 		>
 		mismatch(Range1&& range1, Range2&& range2, BinaryPredicate pred) {
 			return sprout::mismatch(
