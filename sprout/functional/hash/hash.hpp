@@ -13,9 +13,11 @@ namespace sprout {
 	//
 	inline SPROUT_CONSTEXPR std::size_t hash_value(bool v);
 	inline SPROUT_CONSTEXPR std::size_t hash_value(char v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(wchar_t v);
 	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned char v);
 	inline SPROUT_CONSTEXPR std::size_t hash_value(signed char v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(char16_t v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(char32_t v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(wchar_t v);
 	inline SPROUT_CONSTEXPR std::size_t hash_value(short v);
 	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned short v);
 	inline SPROUT_CONSTEXPR std::size_t hash_value(int v);
@@ -103,13 +105,19 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR std::size_t hash_value(char v) {
 		return static_cast<std::size_t>(v);
 	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(wchar_t v) {
-		return static_cast<std::size_t>(v);
-	}
 	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned char v) {
 		return static_cast<std::size_t>(v);
 	}
 	inline SPROUT_CONSTEXPR std::size_t hash_value(signed char v) {
+		return static_cast<std::size_t>(v);
+	}
+	inline SPROUT_CONSTEXPR std::size_t hash_value(char16_t v) {
+		return static_cast<std::size_t>(v);
+	}
+	inline SPROUT_CONSTEXPR std::size_t hash_value(char32_t v) {
+		return static_cast<std::size_t>(v);
+	}
+	inline SPROUT_CONSTEXPR std::size_t hash_value(wchar_t v) {
 		return static_cast<std::size_t>(v);
 	}
 	inline SPROUT_CONSTEXPR std::size_t hash_value(short v) {
@@ -216,9 +224,11 @@ namespace sprout {
 
 	SPROUT_HASH_SPECIALIZE(bool);
 	SPROUT_HASH_SPECIALIZE(char);
-	SPROUT_HASH_SPECIALIZE(wchar_t);
 	SPROUT_HASH_SPECIALIZE(signed char);
 	SPROUT_HASH_SPECIALIZE(unsigned char);
+	SPROUT_HASH_SPECIALIZE(char16_t);
+	SPROUT_HASH_SPECIALIZE(char32_t);
+	SPROUT_HASH_SPECIALIZE(wchar_t);
 	SPROUT_HASH_SPECIALIZE(short);
 	SPROUT_HASH_SPECIALIZE(unsigned short);
 	SPROUT_HASH_SPECIALIZE(int);

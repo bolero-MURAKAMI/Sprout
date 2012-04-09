@@ -3,9 +3,11 @@
 
 #ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
 #	define SPROUT_CONSTEXPR constexpr
+#	define SPROUT_CONSTEXPR_OR_CONST constexpr
 #	define SPROUT_STATIC_CONSTEXPR static constexpr
 #else	// #ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
 #	define SPROUT_CONSTEXPR
+#	define SPROUT_CONSTEXPR_OR_CONST const
 #	define SPROUT_STATIC_CONSTEXPR static const
 #endif	// #ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
 
@@ -30,9 +32,9 @@
 #endif	// #ifndef SPROUT_CONFIG_DISABLE_USER_DEFINED_LITERALS
 
 #ifndef SPROUT_CONFIG_USE_SSCRISK_CEL
-#	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT <sprout/functional.hpp>
+#	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT <sprout/functional/functor.hpp>
 #	define HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT <sprout/algorithm/non_modifying.hpp>
-#	define HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT <sprout/iterator.hpp>
+#	define HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT <sprout/iterator/operation.hpp>
 #	define NS_SSCRISK_CEL_OR_SPROUT sprout
 #else	// #ifndef SPROUT_CONFIG_USE_SSCRISK_CEL
 #	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT <sscrisk/cel/functional.hpp>
