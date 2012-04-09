@@ -195,7 +195,44 @@ namespace sprout {
 					return *this;
 				}
 			};
+
+			template<bool Cond, typename... Tail>
+			struct and_impl
+				: public std::false_type
+			{};
+			template<typename... Tail>
+			struct and_impl<true, Tail...>
+				: public std::integral_constant<bool, sprout::tuples::detail::and_impl<Tail...>::value>
+			{};
+
+			template<typename Head, typename... Tail>
+			struct and_
+				: public sprout::tuples::detail::and_impl<Head::value, Tail...>
+			{};
 		}	// namespace detail
+
+		template<typename... Types>
+		class tuple;
+
+		//
+		// is_tuple
+		//
+		template<typename T>
+		struct is_tuple
+			: public std::false_type
+		{};
+		template<typename T>
+		struct is_tuple<T const>
+			: public sprout::tuples::is_tuple<T>
+		{};
+		template<typename T>
+		struct is_tuple<T const volatile>
+			: public sprout::tuples::is_tuple<T>
+		{};
+		template<typename... Types>
+		struct is_tuple<sprout::tuples::tuple<Types...> >
+			: public std::true_type
+		{};
 
 		//
 		// tuple
@@ -214,9 +251,22 @@ namespace sprout {
 			SPROUT_CONSTEXPR explicit tuple(Types const&... elements)
 				: inherited_type(elements...)
 			{}
-			template<typename... UTypes>
-			SPROUT_CONSTEXPR explicit tuple(UTypes&&... elements)
-				: inherited_type(sprout::forward<UTypes>(elements)...)
+			template<
+				typename U,
+				typename = typename std::enable_if<
+					!sprout::tuples::is_tuple<typename std::remove_reference<U>::type>::value
+				>::type
+			>
+			SPROUT_CONSTEXPR explicit tuple(U&& elem)
+				: inherited_type(sprout::forward<U>(elem))
+			{}
+			template<
+				typename U1,
+				typename U2,
+				typename... UTypes
+			>
+			SPROUT_CONSTEXPR explicit tuple(U1&& elem1, U2&& elem2, UTypes&&... elements)
+				: inherited_type(sprout::forward<U1>(elem1), sprout::forward<U2>(elem2), sprout::forward<UTypes>(elements)...)
 			{}
 			SPROUT_CONSTEXPR tuple(tuple const&) = default;
 			SPROUT_CONSTEXPR tuple(tuple&&) = default;
