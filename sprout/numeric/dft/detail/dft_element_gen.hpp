@@ -1,5 +1,5 @@
-#ifndef SPROUT_FUNCTIONAL_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
-#define SPROUT_FUNCTIONAL_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
+#ifndef SPROUT_NUMERIC_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
+#define SPROUT_NUMERIC_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
 
 #include <cmath>
 #include <iterator>
@@ -37,4 +37,4 @@ namespace sprout {
 	}	// namespace detail
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
+#endif	// #ifndef SPROUT_NUMERIC_DFT_DETAIL_DFT_ELEMENT_GEN_HPP

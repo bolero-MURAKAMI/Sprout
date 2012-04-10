@@ -1,10 +1,10 @@
-#ifndef SPROUT_FUNCTIONAL_DFT_FIT_DFT_HPP
-#define SPROUT_FUNCTIONAL_DFT_FIT_DFT_HPP
+#ifndef SPROUT_NUMERIC_DFT_FIT_DFT_HPP
+#define SPROUT_NUMERIC_DFT_FIT_DFT_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/functional/dft/fixed/dft.hpp>
+#include <sprout/numeric/dft/fixed/dft.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
@@ -43,4 +43,4 @@ namespace sprout {
 	}	// namespace fit
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_DFT_FIT_DFT_HPP
+#endif	// #ifndef SPROUT_NUMERIC_DFT_FIT_DFT_HPP

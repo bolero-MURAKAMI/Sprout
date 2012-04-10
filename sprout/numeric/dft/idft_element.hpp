@@ -1,9 +1,9 @@
-#ifndef SPROUT_FUNCTIONAL_DFT_FIXED_IDFT_ELEMENT_HPP
-#define SPROUT_FUNCTIONAL_DFT_FIXED_IDFT_ELEMENT_HPP
+#ifndef SPROUT_NUMERIC_DFT_FIXED_IDFT_ELEMENT_HPP
+#define SPROUT_NUMERIC_DFT_FIXED_IDFT_ELEMENT_HPP
 
 #include <iterator>
 #include <sprout/config.hpp>
-#include <sprout/functional/dft/detail/dft_element_gen.hpp>
+#include <sprout/numeric/dft/detail/dft_element_gen.hpp>
 #include <sprout/math/constants.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
@@ -47,4 +47,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_DFT_FIXED_IDFT_ELEMENT_HPP
+#endif	// #ifndef SPROUT_NUMERIC_DFT_FIXED_IDFT_ELEMENT_HPP

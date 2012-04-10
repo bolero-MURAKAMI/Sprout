@@ -1,5 +1,5 @@
-#ifndef SPROUT_FUNCTIONAL_DFT_FIXED_IDFT_HPP
-#define SPROUT_FUNCTIONAL_DFT_FIXED_IDFT_HPP
+#ifndef SPROUT_NUMERIC_DFT_FIXED_IDFT_HPP
+#define SPROUT_NUMERIC_DFT_FIXED_IDFT_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
@@ -7,7 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/functional/dft/idft_element.hpp>
+#include <sprout/numeric/dft/idft_element.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -68,4 +68,4 @@ namespace sprout {
 	using sprout::fixed::idft;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_DFT_FIXED_IDFT_HPP
+#endif	// #ifndef SPROUT_NUMERIC_DFT_FIXED_IDFT_HPP

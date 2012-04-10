@@ -1,5 +1,5 @@
-#ifndef SPROUT_FUNCTIONAL_FFT_FIXED_BITREV_TABLE_HPP
-#define SPROUT_FUNCTIONAL_FFT_FIXED_BITREV_TABLE_HPP
+#ifndef SPROUT_NUMERIC_FFT_FIXED_BITREV_TABLE_HPP
+#define SPROUT_NUMERIC_FFT_FIXED_BITREV_TABLE_HPP
 
 #include <cstddef>
 #include <type_traits>
@@ -61,4 +61,4 @@ namespace sprout {
 	using sprout::fixed::bitrev_table;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_FFT_FIXED_BITREV_TABLE_HPP
+#endif	// #ifndef SPROUT_NUMERIC_FFT_FIXED_BITREV_TABLE_HPP

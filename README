@@ -30,6 +30,7 @@ constexpr バリアント (Variants)
 constexpr アルゴリズム (Algorithms)
     sprout/algorithm.hpp
     sprout/numeric.hpp
+    sprout/numeric/dft.hpp
 
 constexpr 範囲アルゴリズム (Range algorithms)
     sprout/range/algorithm.hpp
