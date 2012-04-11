@@ -1,8 +1,8 @@
 #ifndef SPROUT_FUNCTIONAL_BIND1ST_HPP
 #define SPROUT_FUNCTIONAL_BIND1ST_HPP
 
-#include <functional>
 #include <sprout/config.hpp>
+#include <sprout/functional/base.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
@@ -10,7 +10,7 @@ namespace sprout {
 	// D.9.1 Class template binder1st
 	template<typename Fn>
 	class binder1st
-		: public std::unary_function<typename Fn::second_argument_type, typename Fn::result_type>
+		: public sprout::unary_function<typename Fn::second_argument_type, typename Fn::result_type>
 	{
 	protected:
 		Fn op;

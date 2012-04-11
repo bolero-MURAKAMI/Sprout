@@ -56,7 +56,7 @@ namespace sprout {
 			}
 		public:
 			as_array_p() = default;
-			SPROUT_CONSTEXPR explicit as_array_p(
+			explicit SPROUT_CONSTEXPR as_array_p(
 				Parser const& p
 				)
 				: expr_(sprout::weed::make_terminal_or_expr(p))

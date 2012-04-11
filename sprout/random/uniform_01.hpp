@@ -81,9 +81,9 @@ namespace sprout {
 					);
 			}
 		public:
-			SPROUT_CONSTEXPR explicit uniform_01()
+			explicit SPROUT_CONSTEXPR uniform_01()
 			{}
-			SPROUT_CONSTEXPR explicit uniform_01(param_type const& parm)
+			explicit SPROUT_CONSTEXPR uniform_01(param_type const& parm)
 			{}
 			SPROUT_CONSTEXPR result_type min() const {
 				return result_type(0);

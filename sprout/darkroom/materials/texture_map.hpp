@@ -131,7 +131,7 @@ namespace sprout {
 						;
 				}
 			public:
-				SPROUT_CONSTEXPR explicit texture_map(
+				explicit SPROUT_CONSTEXPR texture_map(
 					texture_type const& texture,
 					unit_type const& scale = 1,
 					unit_type const& offset_u = 0,

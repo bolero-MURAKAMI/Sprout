@@ -419,7 +419,7 @@ namespace sprout {
 					: min_(0)
 					, max_(9)
 				{}
-				SPROUT_CONSTEXPR explicit param_type(IntType min_arg, IntType max_arg = 9)
+				explicit SPROUT_CONSTEXPR param_type(IntType min_arg, IntType max_arg = 9)
 					: min_(arg_check(min_arg, max_arg))
 					, max_(max_arg)
 				{}
@@ -479,11 +479,11 @@ namespace sprout {
 				: min_(0)
 				, max_(9)
 			{}
-			SPROUT_CONSTEXPR explicit uniform_int_distribution(IntType min_arg, IntType max_arg = 9)
+			explicit SPROUT_CONSTEXPR uniform_int_distribution(IntType min_arg, IntType max_arg = 9)
 				: min_(arg_check(min_arg, max_arg))
 				, max_(max_arg)
 			{}
-			SPROUT_CONSTEXPR explicit uniform_int_distribution(param_type const& parm)
+			explicit SPROUT_CONSTEXPR uniform_int_distribution(param_type const& parm)
 				: min_(parm.a())
 				, max_(parm.b())
 			{}

@@ -35,7 +35,7 @@ namespace sprout {
 			T t_;
 		public:
 			lit_char_p() = default;
-			SPROUT_CONSTEXPR explicit lit_char_p(T const& t)
+			explicit SPROUT_CONSTEXPR lit_char_p(T const& t)
 				: t_(t)
 			{}
 			template<typename Context, typename Iterator>
@@ -94,7 +94,7 @@ namespace sprout {
 			T t_;
 		public:
 			char_p() = default;
-			SPROUT_CONSTEXPR explicit char_p(T const& t)
+			explicit SPROUT_CONSTEXPR char_p(T const& t)
 				: t_(t)
 			{}
 			template<typename Context, typename Iterator>

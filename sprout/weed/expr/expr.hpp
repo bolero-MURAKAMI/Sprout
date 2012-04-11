@@ -19,7 +19,7 @@ namespace sprout {
 			args_type args_;
 		public:
 			template<typename... As>
-			SPROUT_CONSTEXPR explicit expr(As&&... args)
+			explicit SPROUT_CONSTEXPR expr(As&&... args)
 				: args_(sprout::forward<As>(args)...)
 			{}
 			SPROUT_CONSTEXPR args_type const& args() const {

@@ -82,7 +82,7 @@ namespace sprout {
 					: t_(1)
 					, p_(0.5)
 				{}
-				SPROUT_CONSTEXPR explicit param_type(IntType t_arg, RealType p_arg = RealType(0.5))
+				explicit SPROUT_CONSTEXPR param_type(IntType t_arg, RealType p_arg = RealType(0.5))
 					: t_(arg_check(t_arg, p_arg))
 					, p_(p_arg)
 				{}
@@ -366,14 +366,14 @@ namespace sprout {
 				, btrd_(!init_use_inversion(1, RealType(0.5)) ? init_btrd(1, RealType(0.5)) : btrd_type())
 				, q_n_(init_use_inversion(1, RealType(0.5)) ? init_q_n(1, RealType(0.5)) : RealType())
 			{}
-			SPROUT_CONSTEXPR explicit binomial_distribution(IntType t_arg, RealType p_arg = RealType(0.5))
+			explicit SPROUT_CONSTEXPR binomial_distribution(IntType t_arg, RealType p_arg = RealType(0.5))
 				: t_(arg_check(t_arg, p_arg))
 				, p_(p_arg)
 				, m_(init_m(t_arg, p_arg))
 				, btrd_(!init_use_inversion(t_arg, p_arg) ? init_btrd(t_arg, p_arg) : btrd_type())
 				, q_n_(init_use_inversion(t_arg, p_arg) ? init_q_n(t_arg, p_arg) : RealType())
 			{}
-			SPROUT_CONSTEXPR explicit binomial_distribution(param_type const& parm)
+			explicit SPROUT_CONSTEXPR binomial_distribution(param_type const& parm)
 				: t_(parm.t())
 				, p_(parm.p())
 				, m_(init_m(parm.t(), parm.p()))

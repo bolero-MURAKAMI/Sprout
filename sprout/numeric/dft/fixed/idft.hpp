@@ -26,7 +26,7 @@ namespace sprout {
 			{
 				return sprout::remake<Result>(
 					result,
-					sprout::size(result),
+					size,
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? sprout::detail::idft_element_impl(first, last, Indexes - offset, input_size)
 						: *sprout::next(sprout::internal_begin(result), Indexes)

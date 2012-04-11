@@ -314,7 +314,7 @@ namespace sprout {
 				: x_(init_seed(default_seed))
 				, i_(n)
 			{}
-			SPROUT_CONSTEXPR explicit mersenne_twister_engine(UIntType const& value)
+			explicit SPROUT_CONSTEXPR mersenne_twister_engine(UIntType const& value)
 				: x_(init_seed(value))
 				, i_(n)
 			{}

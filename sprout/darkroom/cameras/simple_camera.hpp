@@ -99,7 +99,7 @@ namespace sprout {
 						);
 				}
 			public:
-				SPROUT_CONSTEXPR explicit basic_simple_camera(
+				explicit SPROUT_CONSTEXPR basic_simple_camera(
 					unit_type const& far_plane,
 					angle_of_view_reference::values reference_value = angle_of_view_reference::long_side,
 					position_type const& position = position_type(0, 0, -1),

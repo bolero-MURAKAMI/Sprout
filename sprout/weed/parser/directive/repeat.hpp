@@ -156,7 +156,7 @@ namespace sprout {
 			std::size_t count_;
 		public:
 			repeat_p() = default;
-			SPROUT_CONSTEXPR explicit repeat_p(Parser const& p, std::size_t count = -1)
+			explicit SPROUT_CONSTEXPR repeat_p(Parser const& p, std::size_t count = -1)
 				: expr_(sprout::weed::make_terminal_or_expr(p))
 				, count_(count)
 			{}
@@ -178,7 +178,7 @@ namespace sprout {
 		private:
 			std::size_t count_;
 		public:
-			SPROUT_CONSTEXPR explicit repeat_g(std::size_t count)
+			explicit SPROUT_CONSTEXPR repeat_g(std::size_t count)
 				: count_(count)
 			{}
 			template<typename Parser>

@@ -61,7 +61,7 @@ namespace sprout {
 			, count_()
 		{}
 		value_iterator(value_iterator const&) = default;
-		SPROUT_CONSTEXPR explicit value_iterator(typename sprout::value_holder<T>::param_type p, std::size_t count = -1)
+		explicit SPROUT_CONSTEXPR value_iterator(typename sprout::value_holder<T>::param_type p, std::size_t count = -1)
 			: holder_(p)
 			, count_(count)
 		{}

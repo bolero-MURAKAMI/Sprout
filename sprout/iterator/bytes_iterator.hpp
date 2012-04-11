@@ -78,7 +78,7 @@ namespace sprout {
 			, i_()
 		{}
 		bytes_iterator(bytes_iterator const&) = default;
-		SPROUT_CONSTEXPR explicit bytes_iterator(base_type it)
+		explicit SPROUT_CONSTEXPR bytes_iterator(base_type it)
 			: it_(it)
 			, i_()
 		{}

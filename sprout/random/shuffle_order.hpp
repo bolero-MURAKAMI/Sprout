@@ -111,10 +111,10 @@ namespace sprout {
 			SPROUT_CONSTEXPR shuffle_order_engine()
 				: member_type(init_member(base_type()))
 			{}
-			SPROUT_CONSTEXPR explicit shuffle_order_engine(result_type const& s)
+			explicit SPROUT_CONSTEXPR shuffle_order_engine(result_type const& s)
 				: member_type(init_member(base_type(s)))
 			{}
-			SPROUT_CONSTEXPR explicit shuffle_order_engine(base_type const& rng)
+			explicit SPROUT_CONSTEXPR shuffle_order_engine(base_type const& rng)
 				: member_type(init_member(rng))
 			{}
 			SPROUT_CONSTEXPR result_type min() const {

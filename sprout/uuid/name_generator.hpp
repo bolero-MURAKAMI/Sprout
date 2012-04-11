@@ -46,7 +46,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR name_generator()
 				: sha_(sprout::sha1().process_range(sprout::uuids::uuid{{0}}))
 			{}
-			SPROUT_CONSTEXPR explicit name_generator(sprout::uuids::uuid const& namespace_uuid)
+			explicit SPROUT_CONSTEXPR name_generator(sprout::uuids::uuid const& namespace_uuid)
 				: sha_(sprout::sha1().process_range(namespace_uuid))
 			{}
 			template<typename Elem, std::size_t N, typename Traits>

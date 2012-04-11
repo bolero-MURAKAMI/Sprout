@@ -41,7 +41,7 @@ namespace sprout {
 			sprout::weed::limited::category limited_category_;
 		public:
 			limit_p() = default;
-			SPROUT_CONSTEXPR explicit limit_p(
+			explicit SPROUT_CONSTEXPR limit_p(
 				Parser const& p,
 				sprout::weed::limited::category limited_category = sprout::weed::limited::discard
 				)

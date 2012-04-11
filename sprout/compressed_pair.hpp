@@ -338,10 +338,10 @@ namespace sprout {
 		SPROUT_CONSTEXPR compressed_pair(first_param_type x, second_param_type y)
 			: base_type(x, y)
 		{}
-		SPROUT_CONSTEXPR explicit compressed_pair(first_param_type x)
+		explicit SPROUT_CONSTEXPR compressed_pair(first_param_type x)
 			: base_type(x)
 		{}
-		SPROUT_CONSTEXPR explicit compressed_pair(second_param_type y)
+		explicit SPROUT_CONSTEXPR compressed_pair(second_param_type y)
 			: base_type(y)
 		{}
 		first_reference first() {
@@ -402,7 +402,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR compressed_pair(first_param_type x, second_param_type y)
 			: base_type(x, y)
 		{}
-		SPROUT_CONSTEXPR explicit compressed_pair(first_param_type x)
+		explicit SPROUT_CONSTEXPR compressed_pair(first_param_type x)
 			: base_type(x)
 		{}
 		first_reference first() {

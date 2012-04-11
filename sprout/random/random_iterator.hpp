@@ -59,7 +59,7 @@ namespace sprout {
 				: random_(distribution(engine))
 				, count_(count)
 			{}
-			SPROUT_CONSTEXPR explicit random_iterator(
+			explicit SPROUT_CONSTEXPR random_iterator(
 				random_result_type const& random,
 				difference_type count = -1
 				)
@@ -178,7 +178,7 @@ namespace sprout {
 				: random_(engine())
 				, count_(count)
 			{}
-			SPROUT_CONSTEXPR explicit random_iterator(
+			explicit SPROUT_CONSTEXPR random_iterator(
 				random_result_type const& random,
 				difference_type count = -1
 				)

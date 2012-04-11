@@ -211,7 +211,7 @@ namespace sprout {
 					: min_(RealType(0.0))
 					, max_(RealType(1.0))
 				{}
-				SPROUT_CONSTEXPR explicit param_type(RealType min_arg, RealType max_arg = RealType(1.0))
+				explicit SPROUT_CONSTEXPR param_type(RealType min_arg, RealType max_arg = RealType(1.0))
 					: min_(arg_check(min_arg, max_arg))
 					, max_(max_arg)
 				{}
@@ -271,11 +271,11 @@ namespace sprout {
 				: min_(RealType(0.0))
 				, max_(RealType(1.0))
 			{}
-			SPROUT_CONSTEXPR explicit uniform_real_distribution(RealType min_arg, RealType max_arg = RealType(1.0))
+			explicit SPROUT_CONSTEXPR uniform_real_distribution(RealType min_arg, RealType max_arg = RealType(1.0))
 				: min_(arg_check(min_arg, max_arg))
 				, max_(max_arg)
 			{}
-			SPROUT_CONSTEXPR explicit uniform_real_distribution(param_type const& parm)
+			explicit SPROUT_CONSTEXPR uniform_real_distribution(param_type const& parm)
 				: min_(parm.a())
 				, max_(parm.b())
 			{}

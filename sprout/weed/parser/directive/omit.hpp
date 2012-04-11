@@ -51,7 +51,7 @@ namespace sprout {
 			}
 		public:
 			omit_p() = default;
-			SPROUT_CONSTEXPR explicit omit_p(
+			explicit SPROUT_CONSTEXPR omit_p(
 				Parser const& p
 				)
 				: expr_(sprout::weed::make_terminal_or_expr(p))

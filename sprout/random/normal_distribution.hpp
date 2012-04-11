@@ -52,7 +52,7 @@ namespace sprout {
 					: mean_(RealType(0.0))
 					, sigma_(RealType(1.0))
 				{}
-				SPROUT_CONSTEXPR explicit param_type(RealType mean_arg, RealType sigma_arg = RealType(1.0))
+				explicit SPROUT_CONSTEXPR param_type(RealType mean_arg, RealType sigma_arg = RealType(1.0))
 					: mean_(arg_check(mean_arg, sigma_arg))
 					, sigma_(sigma_arg)
 				{}
@@ -168,7 +168,7 @@ namespace sprout {
 				, cached_rho_(0)
 				, valid_(false)
 			{}
-			SPROUT_CONSTEXPR explicit normal_distribution(RealType mean_arg, RealType sigma_arg = RealType(1.0))
+			explicit SPROUT_CONSTEXPR normal_distribution(RealType mean_arg, RealType sigma_arg = RealType(1.0))
 				: mean_(arg_check(mean_arg, sigma_arg))
 				, sigma_(sigma_arg)
 				, r1_(0)
@@ -176,7 +176,7 @@ namespace sprout {
 				, cached_rho_(0)
 				, valid_(false)
 			{}
-			SPROUT_CONSTEXPR explicit normal_distribution(param_type const& parm)
+			explicit SPROUT_CONSTEXPR normal_distribution(param_type const& parm)
 				: mean_(parm.mean())
 				, sigma_(parm.sigma())
 				, r1_(0)

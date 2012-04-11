@@ -35,7 +35,7 @@ namespace sprout {
 	public:
 		reverse_iterator() = default;
 		reverse_iterator(reverse_iterator const&) = default;
-		SPROUT_CONSTEXPR explicit reverse_iterator(iterator_type it)
+		explicit SPROUT_CONSTEXPR reverse_iterator(iterator_type it)
 			: current(it)
 			, deref_tmp(sprout::prev(it))
 		{}

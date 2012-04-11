@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/functional/base.hpp>
 
 namespace sprout {
 	// 20.8.10 member function adaptors
@@ -14,11 +15,11 @@ namespace sprout {
 		struct maybe_unary_or_binary_function {};
 		template<typename Res, typename T1>
 		struct maybe_unary_or_binary_function<Res, T1>
-			: public std::unary_function<T1, Res>
+			: public sprout::unary_function<T1, Res>
 		{};
 		template<typename Res, typename T1, typename T2>
 		struct maybe_unary_or_binary_function<Res, T1, T2>
-			: public std::binary_function<T1, T2, Res>
+			: public sprout::binary_function<T1, T2, Res>
 		{};
 
 		template<typename T, bool>

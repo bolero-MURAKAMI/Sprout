@@ -70,7 +70,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR linear_congruential_engine()
 				: x_(init_seed(default_seed))
 			{}
-			SPROUT_CONSTEXPR explicit linear_congruential_engine(IntType const& x0)
+			explicit SPROUT_CONSTEXPR linear_congruential_engine(IntType const& x0)
 				: x_(init_seed(x0))
 			{}
 			SPROUT_CONSTEXPR result_type min() const {
@@ -174,7 +174,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR rand48()
 				: lcf_(cnv(static_cast<std::uint32_t>(1)))
 			{}
-			SPROUT_CONSTEXPR explicit rand48(result_type const& x0)
+			explicit SPROUT_CONSTEXPR rand48(result_type const& x0)
 				: lcf_(cnv(x0))
 			{}
 			SPROUT_CONSTEXPR result_type min() const {

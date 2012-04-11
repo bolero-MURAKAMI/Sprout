@@ -40,7 +40,7 @@ namespace sprout {
 				: rng1_()
 				, rng2_()
 			{}
-			SPROUT_CONSTEXPR explicit xor_combine_engine(result_type const& seed)
+			explicit SPROUT_CONSTEXPR xor_combine_engine(result_type const& seed)
 				: rng1_(seed)
 				, rng2_(seed)
 			{}

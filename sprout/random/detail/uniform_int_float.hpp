@@ -30,7 +30,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR uniform_int_float()
 					: rng_()
 				{}
-				SPROUT_CONSTEXPR explicit uniform_int_float(base_type const& rng)
+				explicit SPROUT_CONSTEXPR uniform_int_float(base_type const& rng)
 					: rng_(rng)
 				{}
 				SPROUT_CONSTEXPR result_type min() const {

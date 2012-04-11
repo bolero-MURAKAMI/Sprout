@@ -127,7 +127,7 @@ namespace sprout {
 			private:
 				sprout::tuples::tuple<Arg> children_;
 			public:
-				SPROUT_CONSTEXPR explicit basic_expr(Arg const& arg)
+				explicit SPROUT_CONSTEXPR basic_expr(Arg const& arg)
 					: children_(arg)
 				{}
 				template<long N>
@@ -174,7 +174,7 @@ namespace sprout {
 			private:
 				sprout::tuples::tuple<Args...> children_;
 			public:
-				SPROUT_CONSTEXPR explicit basic_expr(Args const&... args)
+				explicit SPROUT_CONSTEXPR basic_expr(Args const&... args)
 					: children_(args...)
 				{}
 				template<long N>
@@ -238,7 +238,7 @@ namespace sprout {
 			private:
 				sprout::tuples::tuple<Arg> children_;
 			public:
-				SPROUT_CONSTEXPR explicit expr(Arg const& arg)
+				explicit SPROUT_CONSTEXPR expr(Arg const& arg)
 					: children_(arg)
 				{}
 				template<long N>
@@ -365,7 +365,7 @@ namespace sprout {
 			private:
 				sprout::tuples::tuple<Arg> children_;
 			public:
-				SPROUT_CONSTEXPR explicit basic_expr(Args const&... args)
+				explicit SPROUT_CONSTEXPR basic_expr(Args const&... args)
 					: children_(args...)
 				{}
 				template<long N>
@@ -466,7 +466,7 @@ namespace sprout {
 		public:
 			SPROUT_BREED_UNEXPR();
 		public:
-			SPROUT_CONSTEXPR explicit unexpr(Expr const& e)
+			explicit SPROUT_CONSTEXPR unexpr(Expr const& e)
 				: Expr(e)
 			{}
 			using Expr::operator=;

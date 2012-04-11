@@ -61,7 +61,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR linear_feedback_shift_engine()
 				: x_(init_seed(default_seed))
 			{}
-			SPROUT_CONSTEXPR explicit linear_feedback_shift_engine(UIntType const& x0)
+			explicit SPROUT_CONSTEXPR linear_feedback_shift_engine(UIntType const& x0)
 				: x_(init_seed(x0))
 			{}
 			SPROUT_CONSTEXPR result_type min() const {

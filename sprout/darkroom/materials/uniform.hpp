@@ -17,7 +17,7 @@ namespace sprout {
 			private:
 				result_type elem_;
 			public:
-				SPROUT_CONSTEXPR explicit uniform_element(result_type const& elem)
+				explicit SPROUT_CONSTEXPR uniform_element(result_type const& elem)
 					: elem_(elem)
 				{}
 				template<typename Unit>

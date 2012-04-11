@@ -43,7 +43,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR param_type()
 					: p_(RealType(0.5))
 				{}
-				SPROUT_CONSTEXPR explicit param_type(RealType p_arg)
+				explicit SPROUT_CONSTEXPR param_type(RealType p_arg)
 					: p_(arg_check(p_arg))
 				{}
 				SPROUT_CONSTEXPR RealType p() const {
@@ -98,10 +98,10 @@ namespace sprout {
 			SPROUT_CONSTEXPR bernoulli_distribution()
 				: p_(RealType(0.5))
 			{}
-			SPROUT_CONSTEXPR explicit bernoulli_distribution(RealType p_arg)
+			explicit SPROUT_CONSTEXPR bernoulli_distribution(RealType p_arg)
 				: p_(arg_check(p_arg))
 			{}
-			SPROUT_CONSTEXPR explicit bernoulli_distribution(param_type const& parm)
+			explicit SPROUT_CONSTEXPR bernoulli_distribution(param_type const& parm)
 				: p_(parm.p())
 			{}
 			SPROUT_CONSTEXPR RealType p() const {

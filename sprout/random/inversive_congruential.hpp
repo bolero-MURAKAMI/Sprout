@@ -66,7 +66,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR inversive_congruential_engine()
 				: x_(init_seed(default_seed))
 			{}
-			SPROUT_CONSTEXPR explicit inversive_congruential_engine(IntType const& x0)
+			explicit SPROUT_CONSTEXPR inversive_congruential_engine(IntType const& x0)
 				: x_(init_seed(x0))
 			{}
 			SPROUT_CONSTEXPR result_type min() const {

@@ -133,7 +133,7 @@ namespace sprout {
 		holder_type holder_;
 	public:
 		value_holder() = default;
-		SPROUT_CONSTEXPR explicit value_holder(param_type p)
+		explicit SPROUT_CONSTEXPR value_holder(param_type p)
 			: holder_(helper_type::hold(p))
 		{}
 		operator reference() {
