@@ -239,6 +239,32 @@ namespace sprout {
 	{};
 
 	//
+	// strip_reference
+	//
+	template<typename T>
+	struct strip_reference {
+	public:
+		typedef T type;
+	};
+	template<typename T>
+	struct strip_reference<sprout::reference_wrapper<T> > {
+	public:
+		typedef T& type;
+	};
+	template<typename T>
+	struct strip_reference<T const>
+		: public sprout::strip_reference<T>
+	{};
+	template<typename T>
+	struct strip_reference<T volatile>
+		: public sprout::strip_reference<T>
+	{};
+	template<typename T>
+	struct strip_reference<T const volatile>
+		: public sprout::strip_reference<T>
+	{};
+
+	//
 	// unwrap_ref
 	//
 	template<typename T>
