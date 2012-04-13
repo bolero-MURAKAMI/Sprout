@@ -20,6 +20,14 @@ namespace sprout {
 			struct is_container<T const>
 				: public sprout::weed::traits::is_container<T>
 			{};
+			template<typename T>
+			struct is_container<T volatile>
+				: public sprout::weed::traits::is_container<T>
+			{};
+			template<typename T>
+			struct is_container<T const volatile>
+				: public sprout::weed::traits::is_container<T>
+			{};
 			template<typename T, std::size_t N>
 			struct is_container<sprout::array<T, N> >
 				: public std::true_type

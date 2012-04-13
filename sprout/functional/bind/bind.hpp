@@ -25,6 +25,14 @@ namespace sprout {
 	struct is_bind_expression<T const>
 		: public sprout::is_bind_expression<T>
 	{};
+	template<typename T>
+	struct is_bind_expression<T volatile>
+		: public sprout::is_bind_expression<T>
+	{};
+	template<typename T>
+	struct is_bind_expression<T const volatile>
+		: public sprout::is_bind_expression<T>
+	{};
 
 	template<typename T>
 	struct is_placeholder
@@ -32,6 +40,14 @@ namespace sprout {
 	{};
 	template<typename T>
 	struct is_placeholder<T const>
+		: public sprout::is_placeholder<T>
+	{};
+	template<typename T>
+	struct is_placeholder<T volatile>
+		: public sprout::is_placeholder<T>
+	{};
+	template<typename T>
+	struct is_placeholder<T const volatile>
 		: public sprout::is_placeholder<T>
 	{};
 

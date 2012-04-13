@@ -176,6 +176,26 @@ namespace sprout {
 	}
 
 	//
+	// is_index_iterator
+	//
+	template<typename T>
+	struct is_index_iterator
+		: public std::false_type
+	{};
+	template<typename T>
+	struct is_index_iterator<T const>
+		: public sprout::is_index_iterator<T>
+	{};
+	template<typename T>
+	struct is_index_iterator<T const volatile>
+		: public sprout::is_index_iterator<T>
+	{};
+	template<typename Container>
+	struct is_index_iterator<sprout::index_iterator<Container> >
+		: public std::true_type
+	{};
+
+	//
 	// next
 	//
 	template<typename Container>

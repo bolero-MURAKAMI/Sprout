@@ -95,30 +95,28 @@ namespace sprout {
 			lhs.swap(rhs);
 		}
 
-		namespace detail {
-			template<typename T, typename Enable = void>
-			struct is_range_container_impl
-				: public std::false_type
-			{};
-			template<typename T>
-			struct is_range_container_impl<
-				T,
-				typename std::enable_if<
-					std::is_same<
-						T,
-						sprout::range::range_container<typename T::iterator>
-					>::value
-				>::type
-			>
-				: public std::true_type
-			{};
-		}	// namespace detail
 		//
 		// is_range_container
 		//
 		template<typename T>
 		struct is_range_container
-			: public sprout::range::detail::is_range_container_impl<T>
+			: public std::false_type
+		{};
+		template<typename T>
+		struct is_range_container<T const>
+			: public sprout::range::is_range_container<T>
+		{};
+		template<typename T>
+		struct is_range_container<T volatile>
+			: public sprout::range::is_range_container<T>
+		{};
+		template<typename T>
+		struct is_range_container<T const volatile>
+			: public sprout::range::is_range_container<T>
+		{};
+		template<typename Iterator>
+		struct is_range_container<sprout::range::range_container<Iterator> >
+			: public std::true_type
 		{};
 	}	// namespace range
 

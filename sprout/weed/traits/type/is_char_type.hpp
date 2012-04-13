@@ -18,6 +18,14 @@ namespace sprout {
 			struct is_char_type<T const>
 				: public sprout::weed::traits::is_char_type<T>
 			{};
+			template<typename T>
+			struct is_char_type<T volatile>
+				: public sprout::weed::traits::is_char_type<T>
+			{};
+			template<typename T>
+			struct is_char_type<T const volatile>
+				: public sprout::weed::traits::is_char_type<T>
+			{};
 			template<>
 			struct is_char_type<char>
 				: public std::true_type

@@ -196,10 +196,6 @@ namespace sprout {
 		: public std::false_type
 	{};
 	template<typename T>
-	struct is_reference_wrapper<sprout::reference_wrapper<T> >
-		: public std::true_type
-	{};
-	template<typename T>
 	struct is_reference_wrapper<T const>
 		: public sprout::is_reference_wrapper<T>
 	{};
@@ -210,6 +206,10 @@ namespace sprout {
 	template<typename T>
 	struct is_reference_wrapper<T const volatile>
 		: public sprout::is_reference_wrapper<T>
+	{};
+	template<typename T>
+	struct is_reference_wrapper<sprout::reference_wrapper<T> >
+		: public std::true_type
 	{};
 
 	//

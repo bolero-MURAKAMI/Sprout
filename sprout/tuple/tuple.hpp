@@ -407,6 +407,18 @@ namespace sprout {
 		struct tuple_size
 			: public std::tuple_size<T>
 		{};
+		template<typename T>
+		struct tuple_size<T const>
+			: public sprout::tuples::tuple_size<T>
+		{};
+		template<typename T>
+		struct tuple_size<T volatile>
+			: public sprout::tuples::tuple_size<T>
+		{};
+		template<typename T>
+		struct tuple_size<T const volatile>
+			: public sprout::tuples::tuple_size<T>
+		{};
 
 		//
 		// tuple_element
@@ -414,6 +426,18 @@ namespace sprout {
 		template<std::size_t I, typename T>
 		struct tuple_element
 			: public std::tuple_element<I, T>
+		{};
+		template<std::size_t I, typename T>
+		struct tuple_element<I, T const>
+			: public sprout::tuples::tuple_element<I, T>
+		{};
+		template<std::size_t I, typename T>
+		struct tuple_element<I, T volatile>
+			: public sprout::tuples::tuple_element<I, T>
+		{};
+		template<std::size_t I, typename T>
+		struct tuple_element<I, T const volatile>
+			: public sprout::tuples::tuple_element<I, T>
 		{};
 
 		//

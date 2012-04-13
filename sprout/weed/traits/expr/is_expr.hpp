@@ -19,6 +19,14 @@ namespace sprout {
 			struct is_expr<T const>
 				: public sprout::weed::traits::is_expr<T>
 			{};
+			template<typename T>
+			struct is_expr<T volatile>
+				: public sprout::weed::traits::is_expr<T>
+			{};
+			template<typename T>
+			struct is_expr<T const volatile>
+				: public sprout::weed::traits::is_expr<T>
+			{};
 			template<typename Tag, typename... Args>
 			struct is_expr<sprout::weed::expr<Tag, Args...> >
 				: public std::true_type

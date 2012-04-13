@@ -169,33 +169,6 @@ namespace sprout {
 		typedef sprout::reverse_iterator<iterator> reverse_iterator;
 		typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 		typedef Traits traits_type;
-#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-	private:
-		template<typename U, typename Enable = void>
-		struct is_index_iterator_impl
-			: public std::false_type
-		{};
-		template<typename U>
-		struct is_index_iterator_impl<
-			U,
-			typename std::enable_if<
-				std::is_same<
-					U,
-					sprout::index_iterator<typename U::container_type>
-				>::value
-				&& std::is_same<
-					typename std::iterator_traits<U>::value_type,
-					value_type
-				>::value
-			>::type
-		>
-			: public std::true_type
-		{};
-		template<typename U>
-		struct is_index_iterator
-			: public is_index_iterator_impl<U>
-		{};
-#endif
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type npos = -1;
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
@@ -226,7 +199,7 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR typename std::enable_if<
-			is_index_iterator<ConstIterator>::value,
+			sprout::is_index_iterator<ConstIterator>::value,
 			int
 		>::type compare_impl_1(value_type const* dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
 			return compare_impl_2(
@@ -244,7 +217,7 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR typename std::enable_if<
-			is_index_iterator<ConstIterator>::value,
+			sprout::is_index_iterator<ConstIterator>::value,
 			int
 		>::type compare_impl_1(const_iterator dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
 			return compare_impl_2(
@@ -530,7 +503,7 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename ConstIterator>
 		typename std::enable_if<
-			is_index_iterator<ConstIterator>::value,
+			sprout::is_index_iterator<ConstIterator>::value,
 			basic_string<T, N, Traits>&
 		>::type assign(ConstIterator s, size_type n) {
 			maxcheck(n);
@@ -545,35 +518,35 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		typename std::enable_if<
-			is_index_iterator<ConstIterator>::value,
+			sprout::is_index_iterator<ConstIterator>::value,
 			basic_string<T, N, Traits>&
 		>::type assign(ConstIterator s) {
 			return assign(s, traits_type::length(s));
 		}
 		template<typename ConstIterator>
 		typename std::enable_if<
-			is_index_iterator<ConstIterator>::value,
+			sprout::is_index_iterator<ConstIterator>::value,
 			basic_string<T, N, Traits>&
 		>::type operator=(ConstIterator rhs) {
 			return assign(rhs);
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			is_index_iterator<ConstIterator>::value,
+			sprout::is_index_iterator<ConstIterator>::value,
 			int
 		>::type compare(ConstIterator s) const {
 			return compare(0, size(), s, traits_type::length(s));
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			is_index_iterator<ConstIterator>::value,
+			sprout::is_index_iterator<ConstIterator>::value,
 			int
 		>::type compare(size_type pos1, size_type n1, ConstIterator s) const {
 			return compare(pos1, n1, s, traits_type::length(s));
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			is_index_iterator<ConstIterator>::value,
+			sprout::is_index_iterator<ConstIterator>::value,
 			int
 		>::type compare(size_type pos1, size_type n1, ConstIterator s, size_type n2) const {
 			return !(size() < pos1)
@@ -1003,57 +976,44 @@ namespace sprout {
 		typedef sprout::basic_string<char32_t, N> type;
 	};
 
-	namespace detail {
-		template<typename T, typename Enable = void>
-		struct is_basic_string_impl
-			: public std::false_type
-		{};
-		template<typename T>
-		struct is_basic_string_impl<
-			T,
-			typename std::enable_if<
-				std::is_same<
-					T,
-					sprout::basic_string<typename T::value_type, T::static_size, typename T::traits_type>
-				>::value
-			>::type
-		>
-			: public std::true_type
-		{};
-	}	// namespace detail
 	//
 	// is_basic_string
 	//
 	template<typename T>
 	struct is_basic_string
-		: public sprout::detail::is_basic_string_impl<T>
+		: public std::false_type
+	{};
+	template<typename T>
+	struct is_basic_string<T const>
+		: public sprout::is_basic_string<T>
+	{};
+	template<typename T>
+	struct is_basic_string<T const volatile>
+		: public sprout::is_basic_string<T>
+	{};
+	template<typename T, std::size_t N, typename Traits>
+	struct is_basic_string<sprout::basic_string<T, N, Traits> >
+		: public std::true_type
 	{};
 
-	namespace detail {
-		template<typename T, typename Elem, typename Enable = void>
-		struct is_string_of_impl
-			: public std::false_type
-		{};
-		template<typename T, typename Elem>
-		struct is_string_of_impl<
-			T,
-			Elem,
-			typename std::enable_if<
-				std::is_same<
-					T,
-					sprout::basic_string<Elem, T::static_size>
-				>::value
-			>::type
-		>
-			: public std::true_type
-		{};
-	}	// namespace detail
 	//
 	// is_string_of
 	//
 	template<typename T, typename Elem>
 	struct is_string_of
-		: public sprout::detail::is_string_of_impl<T, Elem>
+		: public std::false_type
+	{};
+	template<typename T, typename Elem>
+	struct is_string_of<T const, Elem>
+		: public sprout::is_string_of<T, Elem>
+	{};
+	template<typename T, typename Elem>
+	struct is_string_of<T const volatile, Elem>
+		: public sprout::is_string_of<T, Elem>
+	{};
+	template<typename T, std::size_t N, typename Traits, typename Elem>
+	struct is_string_of<sprout::basic_string<T, N, Traits>, Elem>
+		: public std::true_type
 	{};
 
 	//

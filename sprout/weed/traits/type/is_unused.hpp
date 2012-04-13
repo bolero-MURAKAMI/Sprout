@@ -13,11 +13,23 @@ namespace sprout {
 			//
 			template<typename T>
 			struct is_unused
-				: public std::is_same<T, sprout::weed::unused>
+				: public std::false_type
 			{};
 			template<typename T>
 			struct is_unused<T const>
 				: public sprout::weed::traits::is_unused<T>
+			{};
+			template<typename T>
+			struct is_unused<T volatile>
+				: public sprout::weed::traits::is_unused<T>
+			{};
+			template<typename T>
+			struct is_unused<T const volatile>
+				: public sprout::weed::traits::is_unused<T>
+			{};
+			template<>
+			struct is_unused<sprout::weed::unused>
+				: public std::true_type
 			{};
 		}	// namespace traits
 	}	// namespace weed

@@ -261,30 +261,24 @@ namespace sprout {
 		return sprout::detail::to_array_impl(arr, typename sprout::index_range<0, N>::type());
 	}
 
-	namespace detail {
-		template<typename T, typename Enable = void>
-		struct is_array_impl
-			: public std::false_type
-		{};
-		template<typename T>
-		struct is_array_impl<
-			T,
-			typename std::enable_if<
-				std::is_same<
-					T,
-					sprout::array<typename T::value_type, T::static_size>
-				>::value
-			>::type
-		>
-			: public std::true_type
-		{};
-	}	// namespace detail
 	//
 	// is_array
 	//
 	template<typename T>
 	struct is_array
-		: public sprout::detail::is_array_impl<T>
+		: public std::false_type
+	{};
+	template<typename T>
+	struct is_array<T const>
+		: public sprout::is_array<T>
+	{};
+	template<typename T>
+	struct is_array<T const volatile>
+		: public sprout::is_array<T>
+	{};
+	template<typename T, std::size_t N>
+	struct is_array<sprout::array<T, N> >
+		: public std::true_type
 	{};
 }	// namespace sprout
 

@@ -19,6 +19,14 @@ namespace sprout {
 			struct is_tuple<T const>
 				: public sprout::weed::traits::is_tuple<T>
 			{};
+			template<typename T>
+			struct is_tuple<T volatile>
+				: public sprout::weed::traits::is_tuple<T>
+			{};
+			template<typename T>
+			struct is_tuple<T const volatile>
+				: public sprout::weed::traits::is_tuple<T>
+			{};
 			template<typename... Types>
 			struct is_tuple<sprout::tuples::tuple<Types...> >
 				: public std::true_type

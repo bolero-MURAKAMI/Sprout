@@ -520,30 +520,24 @@ namespace sprout {
 		}
 	};
 
-	namespace detail {
-		template<typename T, typename Enable = void>
-		struct is_sub_array_impl
-			: public std::false_type
-		{};
-		template<typename T>
-		struct is_sub_array_impl<
-			T,
-			typename std::enable_if<
-				std::is_same<
-					T,
-					sprout::sub_array<typename T::container_type>
-				>::value
-			>::type
-		>
-			: public std::true_type
-		{};
-	}	// namespace detail
 	//
 	// is_sub_array
 	//
 	template<typename T>
 	struct is_sub_array
-		: public sprout::detail::is_sub_array_impl<T>
+		: public std::false_type
+	{};
+	template<typename T>
+	struct is_sub_array<T const>
+		: public sprout::is_sub_array<T>
+	{};
+	template<typename T>
+	struct is_sub_array<T const volatile>
+		: public sprout::is_sub_array<T>
+	{};
+	template<typename Container>
+	struct is_sub_array<sprout::sub_array<Container> >
+		: public std::true_type
 	{};
 
 	//
