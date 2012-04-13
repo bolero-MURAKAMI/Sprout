@@ -10,22 +10,12 @@
 #endif
 
 //
-// TESTSPR_PP_CAT
-//
-#define TESTSPR_PP_CAT(a, b) TESTSPR_PP_CAT_I(a, b)
-#define TESTSPR_PP_CAT_I(a, b) a ## b
-
-//
 // TESTSPR_STATIC_ASSERT
-//
-#define TESTSPR_STATIC_ASSERT(expr) static_assert(expr, #expr)
-//
 // TESTSPR_ASSERT
-//
-#define TESTSPR_ASSERT(expr) assert(expr)
-//
 // TESTSPR_DOUBLE_ASSERT
 //
+#define TESTSPR_STATIC_ASSERT(expr) static_assert(expr, #expr)
+#define TESTSPR_ASSERT(expr) assert(expr)
 #define TESTSPR_DOUBLE_ASSERT(expr) TESTSPR_STATIC_ASSERT(expr); TESTSPR_ASSERT(expr)
 
 //
@@ -39,15 +29,11 @@
 
 //
 // TESTSPR_STATIC_UNCHECKED
-//
-#define TESTSPR_STATIC_UNCHECKED(expr) TESTSPR_STATIC_WARNING(expr)
-//
 // TESTSPR_UNCHECKED
-//
-#define TESTSPR_UNCHECKED(expr) (expr)
-//
 // TESTSPR_DOUBLE_UNCHECKED
 //
+#define TESTSPR_STATIC_UNCHECKED(expr) TESTSPR_STATIC_WARNING(expr)
+#define TESTSPR_UNCHECKED(expr) (expr)
 #define TESTSPR_DOUBLE_UNCHECKED(expr) TESTSPR_STATIC_UNCHECKED(expr); TESTSPR_UNCHECKED(expr)
 
 namespace testspr {
@@ -56,6 +42,10 @@ namespace testspr {
 	//
 	template<typename T>
 	struct is_even {
+	public:
+		typedef T argument_type;
+		typedef bool result_type;
+	public:
 		SPROUT_CONSTEXPR bool operator()(T const& t) const { return t % 2 == 0; }
 	};
 	//
@@ -63,6 +53,10 @@ namespace testspr {
 	//
 	template<typename T>
 	struct is_odd {
+	public:
+		typedef T argument_type;
+		typedef bool result_type;
+	public:
 		SPROUT_CONSTEXPR bool operator()(T const& t) const { return t % 2 != 0; }
 	};
 
@@ -71,6 +65,11 @@ namespace testspr {
 	//
 	template<typename T>
 	struct less {
+	public:
+		typedef T first_argument_type;
+		typedef T second_argument_type;
+		typedef bool result_type;
+	public:
 		SPROUT_CONSTEXPR bool operator()(T const& lhs, T const& rhs) const { return lhs < rhs; }
 	};
 	//
@@ -78,6 +77,11 @@ namespace testspr {
 	//
 	template<typename T>
 	struct greater {
+	public:
+		typedef T first_argument_type;
+		typedef T second_argument_type;
+		typedef bool result_type;
+	public:
 		SPROUT_CONSTEXPR bool operator()(T const& lhs, T const& rhs) const { return lhs > rhs; }
 	};
 	//
@@ -85,6 +89,11 @@ namespace testspr {
 	//
 	template<typename T>
 	struct equal_to {
+	public:
+		typedef T first_argument_type;
+		typedef T second_argument_type;
+		typedef bool result_type;
+	public:
 		SPROUT_CONSTEXPR bool operator()(T const& lhs, T const& rhs) const { return lhs == rhs; }
 	};
 	//
@@ -92,6 +101,11 @@ namespace testspr {
 	//
 	template<typename T, T mod>
 	struct mod_less {
+	public:
+		typedef T first_argument_type;
+		typedef T second_argument_type;
+		typedef bool result_type;
+	public:
 		SPROUT_CONSTEXPR bool operator()(T const& lhs, T const& rhs) const { return lhs % mod < rhs % mod; }
 	};
 
@@ -100,22 +114,32 @@ namespace testspr {
 	//
 	template<typename T>
 	struct x2 {
+	public:
+		typedef T argument_type;
+		typedef T result_type;
+	public:
 		SPROUT_CONSTEXPR T operator()(T const& t) const { return t + t; }
 	};
+
 	//
 	// plus
 	//
 	template<typename T>
 	struct plus {
+	public:
+		typedef T first_argument_type;
+		typedef T second_argument_type;
+		typedef T result_type;
+	public:
 		SPROUT_CONSTEXPR T operator()(T const& lhs, T const& rhs) const { return lhs + rhs; }
 	};
 
 	//
 	// distance
 	//
-	template<typename Iterator>
-	SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type
-	distance(Iterator first, Iterator last) {
+	template<typename InputIterator>
+	SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last) {
 		return first == last ? 0
 			: 1 + testspr::distance(first + 1, last)
 			;
@@ -124,8 +148,8 @@ namespace testspr {
 	//
 	// equal
 	//
-	template<typename Iterator1, typename Iterator2>
-	SPROUT_CONSTEXPR bool equal(Iterator1 first1, Iterator1 last1, Iterator2 first2, Iterator2 last2) {
+	template<typename InputIterator1, typename InputIterator2>
+	inline SPROUT_CONSTEXPR bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2) {
 		return first1 == last1 ? first2 == last2
 			: first2 == last2 ? false
 			: !(*first1 == *first2) ? false
@@ -140,8 +164,8 @@ namespace testspr {
 	//
 	// is_found
 	//
-	template<class Iterator, typename T>
-	SPROUT_CONSTEXPR bool is_found(Iterator first, Iterator last, T const& value) {
+	template<class InputIterator, typename T>
+	SPROUT_CONSTEXPR bool is_found(InputIterator first, InputIterator last, T const& value) {
 		return first == last ? false
 			: *first == value ? true
 			: testspr::is_found(first + 1, last, value)
@@ -155,9 +179,9 @@ namespace testspr {
 	//
 	// count
 	//
-	template<typename Iterator, typename T>
-	SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type
-	count(Iterator first, Iterator last, T const& value) {
+	template<typename InputIterator, typename T>
+	SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+	count(InputIterator first, InputIterator last, T const& value) {
 		return first == last ? 0
 			: (*first == value ? 1 : 0) + testspr::count(first + 1, last, value)
 			;
@@ -169,8 +193,15 @@ namespace testspr {
 	}
 
 	namespace detail {
-		template<typename Iterator1, typename Iterator2>
-		SPROUT_CONSTEXPR bool is_permutation_impl(Iterator1 first1, Iterator1 last1, Iterator2 first2, Iterator2 last2, Iterator1 first1_, Iterator2 first2_)
+		template<typename ForwardIterator1, typename ForwardIterator2>
+		SPROUT_CONSTEXPR bool is_permutation_impl(
+			ForwardIterator1 first1,
+			ForwardIterator1 last1,
+			ForwardIterator2 first2,
+			ForwardIterator2 last2,
+			ForwardIterator1 first1_,
+			ForwardIterator2 first2_
+			)
 		{
 			return first1_ == last1 && first2_ == last2 ? true
 				: testspr::count(first1, last1, *first1_) != testspr::count(first2, first2 + testspr::distance(first1, last1), *first1_) ? false
@@ -181,8 +212,14 @@ namespace testspr {
 	//
 	// is_permutation
 	//
-	template<typename Iterator1, typename Iterator2>
-	SPROUT_CONSTEXPR bool is_permutation(Iterator1 first1, Iterator1 last1, Iterator2 first2, Iterator2 last2) {
+	template<typename ForwardIterator1, typename ForwardIterator2>
+	SPROUT_CONSTEXPR bool is_permutation(
+		ForwardIterator1 first1,
+		ForwardIterator1 last1,
+		ForwardIterator2 first2,
+		ForwardIterator2 last2
+		)
+	{
 		return testspr::detail::is_permutation_impl(first1, last1, first2, last2, first1, first2);
 	}
 	template<typename Range1, typename Range2>
