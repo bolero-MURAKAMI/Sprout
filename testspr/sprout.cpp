@@ -1,4 +1,3 @@
-#define SPROUT_CONFIG_SUPPORT_TEMPORARY_CONTAINER_ITERATION
 
 #include <iostream>
 #include <testspr/sprout.hpp>
