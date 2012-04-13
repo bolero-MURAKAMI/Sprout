@@ -43,9 +43,12 @@ constexpr 乱数 (Random numbers)
     sprout/random.hpp
     sprout/random/unique_seed.hpp
 
+constexpr 関数オブジェクト (functors)
+    sprout/functional.hpp
+
 constexpr ハッシュ関数 (Hash functions)
-    sprout/functional/hash.hpp
     sprout/checksum/sha1.hpp
+    sprout/functional/hash.hpp
 
 constexpr UUID (UUID)
     sprout/uuid.hpp
@@ -72,21 +75,39 @@ constexpr レイトレーシング (Ray tracing)
 
 #define SPROUT_CONFIG_DISABLE_CONSTEXPR
 このマクロが定義されているとき、関数は constexpr 指定されない。
-コンパイラが constexpr に対応していない場合。
+コンパイラが constexpr に対応していない場合、これを定義すべき。
+通常、これはコンパイラに応じて自動的に定義される。
  (When this macro is defined, the functions are not specified constexpr.
-  If the compiler does not support constexpr.)
+  If the compiler does not support constexpr, should define it.
+  Usually, it defined automatically depending to the compiler.)
 
 #define SPROUT_CONFIG_DISABLE_NOEXCEPT
 このマクロが定義されているとき、関数は noexcept 修飾されない。
-コンパイラが noexcept に対応していない場合。
+コンパイラが noexcept に対応していない場合、これを定義すべき。
+通常、これはコンパイラに応じて自動的に定義される。
  (When this macro is defined, the functions are not qualified noexcept.
-  If the compiler does not support noexcept.)
+  If the compiler does not support noexcept, should define it.
+  Usually, it defined automatically depending to the compiler.)
 
 #define SPROUT_CONFIG_DISABLE_TEMPLATE_ALIASES
 このマクロが定義されているとき、Template aliases によるエイリアスは定義されない。
-コンパイラが Template aliases に対応していない場合。
+コンパイラが Template aliases に対応していない場合、これを定義すべき。
+通常、これはコンパイラに応じて自動的に定義される。
  (When this macro is defined, the aliases are not defined by the Template aliases.
-  If the compiler does not support Template aliases.)
+  If the compiler does not support Template aliases, should define it.
+  Usually, it defined automatically depending to the compiler.)
+
+#define SPROUT_CONFIG_DISABLE_DELEGATING_CONSTRUCTORS
+このマクロが定義されているとき、Delegating constructors による実装は行われない。
+コンパイラが Delegating constructors に対応していない場合、これを定義すべき。
+通常、これはコンパイラに応じて自動的に定義される。
+ (When this macro is defined, the implementation is not done by Delegating constructors.
+  If the compiler does not support Delegating constructors, should define it.
+  Usually, it defined automatically depending to the compiler.)
+
+#define SPROUT_CONFIG_DISABLE_AUTO_CONFIG
+このマクロが定義されているとき、自動的な言語機能の無効化は行われない。
+ (When this macro is defined, not automatically disable language features.)
 
 #define SPROUT_CONFIG_USE_SSCRISK_CEL
 このマクロが定義されているとき、実装の詳細として CEL - ConstExpr Library を使用する。
@@ -110,7 +131,7 @@ https://github.com/sscrisk/CEL---ConstExpr-Library
 
 Bolero MURAKAMI
 Blog: http://d.hatena.ne.jp/boleros/
-Twitter: http://twitter.com/#!/bolero_MURAKAMI
+Twitter: https://twitter.com/#!/bolero_MURAKAMI
 Mail: contact-lib@boleros.x0.com
 
 
