@@ -2,7 +2,7 @@
 #define SPROUT_CSTDLIB_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/cstdlib/abs.hpp>
-#include <sprout/cstdlib/div.hpp>
+#include <sprout/cstdlib/conversion.hpp>
+#include <sprout/cstdlib/arithmetic.hpp>
 
 #endif	// #ifndef SPROUT_CSTDLIB_HPP

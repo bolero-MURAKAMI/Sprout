@@ -2,39 +2,16 @@
 #define SPROUT_STRING_TO_STRING_HPP
 
 #include <cstddef>
-#include <stdexcept>
 #include <type_traits>
+#include <sprout/config.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/string/make_string.hpp>
 #include <sprout/integer/integer_digits.hpp>
 #include <sprout/utility/enabler_if.hpp>
+#include <sprout/detail/char_conversion.hpp>
 
 namespace sprout {
 	namespace detail {
-		template<
-			typename Elem,
-			std::size_t Base,
-			typename IntType,
-			typename sprout::enabler_if<(Base < 10)>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR Elem int_to_char(IntType val){
-			return val >= 0 && val < 10 ? static_cast<Elem>('0') + val
-				: throw std::invalid_argument("value out of bounds")
-				;
-		}
-		template<
-			typename Elem,
-			std::size_t Base,
-			typename IntType,
-			typename sprout::enabler_if<(Base >= 10 && Base < 36)>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR Elem int_to_char(IntType val){
-			return val >= 0 && val < 10 ? static_cast<Elem>('0') + val
-				: val >= 10 && val < 36 ? static_cast<Elem>('a') + (val - 10)
-				: throw std::invalid_argument("value out of bounds")
-				;
-		}
-
 		template<
 			typename Elem,
 			std::size_t Base,
@@ -64,7 +41,7 @@ namespace sprout {
 				: sprout::detail::int_to_string_impl_1<Elem, Base>(
 					val / Base,
 					negative,
-					sprout::detail::int_to_char<Elem, Base>(val % Base),
+					sprout::detail::int_to_char<Elem>(val % Base, Base),
 					args...
 					)
 				;
@@ -102,7 +79,7 @@ namespace sprout {
 				? sprout::make_string_as<Elem>(args...)
 				: sprout::detail::uint_to_string_impl_1<Elem, Base>(
 					val / Base,
-					sprout::detail::int_to_char<Elem, Base>(val % Base),
+					sprout::detail::int_to_char<Elem>(val % Base, Base),
 					args...
 					)
 				;
