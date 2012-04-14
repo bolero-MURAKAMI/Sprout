@@ -3,12 +3,11 @@
 
 #include <sprout/config.hpp>
 
-#define SPROUT_PP_STRINGIZE_I(text) #text
-
 //
 // SPROUT_PP_STRINGIZE
 //
 #define SPROUT_PP_STRINGIZE(text) SPROUT_PP_STRINGIZE_I(text)
+#define SPROUT_PP_STRINGIZE_I(text) #text
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_STRINGIZE_HPP
 

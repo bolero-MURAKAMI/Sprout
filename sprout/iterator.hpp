@@ -3,6 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/iterator/reverse_iterator.hpp>
+#include <sprout/iterator/predefined.hpp>
 
 #endif	// #ifndef SPROUT_ITERATOR_HPP

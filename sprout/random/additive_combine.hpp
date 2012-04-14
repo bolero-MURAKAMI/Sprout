@@ -96,12 +96,13 @@ namespace sprout {
 		//
 		// ecuyer1988
 		//
-		typedef additive_combine_engine<
+		typedef sprout::random::additive_combine_engine<
 			sprout::random::linear_congruential_engine<std::uint32_t, 40014, 0, 2147483563>,
 			sprout::random::linear_congruential_engine<std::uint32_t, 40692, 0, 2147483399>
 		> ecuyer1988;
 	} // namespace random
 
+	using sprout::random::additive_combine_engine;
 	using sprout::random::ecuyer1988;
 } // namespace sprout
 

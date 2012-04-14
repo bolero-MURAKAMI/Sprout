@@ -21,5 +21,6 @@
 #include <sprout/random/variate_generator.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/random_iterator.hpp>
+#include <sprout/random/unique_seed.hpp>
 
 #endif // #ifndef SPROUT_RANDOM_HPP

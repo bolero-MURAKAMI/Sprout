@@ -211,6 +211,7 @@ namespace sprout {
 		};
 	} // namespace random
 
+	using sprout::random::linear_congruential_engine;
 	using sprout::random::minstd_rand0;
 	using sprout::random::minstd_rand;
 	using sprout::random::rand48;

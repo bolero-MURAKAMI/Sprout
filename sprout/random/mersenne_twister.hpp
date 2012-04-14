@@ -459,6 +459,7 @@ namespace sprout {
 		> mt19937_64;
 	}	// namespace random
 
+	using sprout::random::mersenne_twister_engine;
 	using sprout::random::mt11213b;
 	using sprout::random::mt19937;
 	using sprout::random::mt19937_64;
