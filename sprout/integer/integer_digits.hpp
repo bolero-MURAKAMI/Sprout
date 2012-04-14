@@ -8,9 +8,6 @@
 
 namespace sprout {
 	namespace detail {
-		//
-		// integer_digits_impl
-		//
 		template<typename IntType, long N, long D>
 		struct integer_digits_impl
 			: public std::integral_constant<
@@ -24,7 +21,7 @@ namespace sprout {
 	//
 	// integer_digits
 	//
-	template<typename IntType, std::size_t Base>
+	template<typename IntType, std::size_t Base = 10>
 	struct integer_digits;
 
 	template<typename IntType>

@@ -2,13 +2,14 @@
 #define SPROUT_STRING_ALIAS_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/string.hpp>
 
 #if SPROUT_USE_TEMPLATE_ALIASES
-
-#include <cstddef>
+#	include <cstddef>
+#	include <sprout/string/string.hpp>
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 
 namespace sprout {
+#if SPROUT_USE_TEMPLATE_ALIASES
 	//
 	// string
 	//
@@ -29,8 +30,7 @@ namespace sprout {
 	//
 	template<std::size_t N>
 	using u32string = sprout::basic_string<char32_t, N>;
-}	// namespace sprout
-
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_STRING_ALIAS_HPP

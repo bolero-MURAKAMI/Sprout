@@ -26,9 +26,9 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long v);
 	inline SPROUT_CONSTEXPR std::size_t hash_value(long long v);
 	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long long v);
-	//SPROUT_CONSTEXPR std::size_t inline hash_value(float v);
-	//SPROUT_CONSTEXPR std::size_t inline hash_value(double v);
-	//SPROUT_CONSTEXPR std::size_t inline hash_value(long double v);
+	//inline SPROUT_CONSTEXPR std::size_t hash_value(float v);
+	//inline SPROUT_CONSTEXPR std::size_t hash_value(double v);
+	//inline SPROUT_CONSTEXPR std::size_t hash_value(long double v);
 	template<typename T>
 	SPROUT_CONSTEXPR std::size_t hash_value(T*);
 	template<typename T, std::size_t N>
