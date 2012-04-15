@@ -3,6 +3,8 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/preprocessor/cat.hpp>
+#include <sprout/preprocessor/empty.hpp>
 
 namespace sprout {
 	namespace ascii {
@@ -177,48 +179,48 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-#define SPROUT_CTYPE_DEFINE_ASCII(CHAR_TYPE) \
-		SPROUT_CONSTEXPR bool isalnum(CHAR_TYPE c) { \
+#define SPROUT_CTYPE_ASCII_DECL(CHAR_TYPE, PREFIX) \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, alnum))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & (sprout::ascii::detail::alpha | sprout::ascii::detail::digit); \
 		} \
-		SPROUT_CONSTEXPR bool isalpha(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, alpha))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::alpha; \
 		} \
-		SPROUT_CONSTEXPR bool isblank(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, blank))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::blank; \
 		} \
-		SPROUT_CONSTEXPR bool iscntrl(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, cntrl))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::cntrl; \
 		} \
-		SPROUT_CONSTEXPR bool isdigit(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, digit))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::digit; \
 		} \
-		SPROUT_CONSTEXPR bool isgraph(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, graph))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::graph; \
 		} \
-		SPROUT_CONSTEXPR bool islower(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, lower))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::lower; \
 		} \
-		SPROUT_CONSTEXPR bool isprint(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, print))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::print; \
 		} \
-		SPROUT_CONSTEXPR bool ispunct(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, punct))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::punct; \
 		} \
-		SPROUT_CONSTEXPR bool isspace(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, space))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::space; \
 		} \
-		SPROUT_CONSTEXPR bool isupper(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, upper))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::upper; \
 		} \
-		SPROUT_CONSTEXPR bool isxdigit(CHAR_TYPE c) { \
+		SPROUT_CONSTEXPR bool SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, xdigit))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::xdigit; \
 		} \
-		SPROUT_CONSTEXPR CHAR_TYPE tolower(CHAR_TYPE c) { \
-			return sprout::ascii::isupper(c) ? c + (0x61 - 0x41) : c; \
+		SPROUT_CONSTEXPR CHAR_TYPE SPROUT_PP_CAT(to, SPROUT_PP_CAT(PREFIX, lower))(CHAR_TYPE c) { \
+			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::lower ? c + (0x61 - 0x41) : c; \
 		} \
-		SPROUT_CONSTEXPR CHAR_TYPE toupper(CHAR_TYPE c) { \
-			return sprout::ascii::islower(c) ? c - (0x61 - 0x41) : c; \
+		SPROUT_CONSTEXPR CHAR_TYPE SPROUT_PP_CAT(to, SPROUT_PP_CAT(PREFIX, upper))(CHAR_TYPE c) { \
+			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::upper ? c - (0x61 - 0x41) : c; \
 		}
 
 		//
@@ -237,12 +239,10 @@ namespace sprout {
 		// tolower
 		// toupper
 		//
-		SPROUT_CTYPE_DEFINE_ASCII(char);
-		SPROUT_CTYPE_DEFINE_ASCII(wchar_t);
-		SPROUT_CTYPE_DEFINE_ASCII(char16_t);
-		SPROUT_CTYPE_DEFINE_ASCII(char32_t);
-
-#undef SPROUT_CTYPE_DEFINE_ASCII
+		SPROUT_CTYPE_ASCII_DECL(char, SPROUT_PP_EMPTY());
+		SPROUT_CTYPE_ASCII_DECL(wchar_t, SPROUT_PP_EMPTY());
+		SPROUT_CTYPE_ASCII_DECL(char16_t, SPROUT_PP_EMPTY());
+		SPROUT_CTYPE_ASCII_DECL(char32_t, SPROUT_PP_EMPTY());
 	}	// namespace ascii
 
 	using sprout::ascii::isalnum;

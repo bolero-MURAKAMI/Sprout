@@ -56,7 +56,16 @@ namespace sprout {
 					)
 				;
 		}
-		template<typename IntType, typename CStrIterator>
+		template<typename IntType, typename CStrIterator, typename sprout::enabler_if<std::is_unsigned<IntType>::value>::type = sprout::enabler>
+		inline SPROUT_CONSTEXPR IntType str_to_int(CStrIterator str, int base) {
+			return sprout::ascii::isspace(*str)
+				? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
+				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('+')
+				? sprout::detail::str_to_int_impl<IntType>(sprout::next(str), base, false)
+				: sprout::detail::str_to_int_impl<IntType>(str, base, false)
+				;
+		}
+		template<typename IntType, typename CStrIterator, typename sprout::enabler_if<std::is_signed<IntType>::value>::type = sprout::enabler>
 		inline SPROUT_CONSTEXPR IntType str_to_int(CStrIterator str, int base) {
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::str_to_int<IntType>(sprout::next(str), base)

@@ -8,7 +8,7 @@ namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
 	namespace detail {
-		inline SPROUT_CONSTEXPR void const* memchr_impl(unsigned char const* s, char c, std::size_t n) {
+		inline SPROUT_CONSTEXPR void const* memchr_impl(unsigned char const* s, unsigned char c, std::size_t n) {
 			return !n ? 0
 				: *s == c ? s
 				: sprout::detail::memchr_impl(s + 1, c, n - 1)

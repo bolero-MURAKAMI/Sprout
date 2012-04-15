@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/ctype/ascii.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -23,15 +24,15 @@ namespace sprout {
 
 		template<typename IntType, typename Elem>
 		inline SPROUT_CONSTEXPR IntType char_to_int(Elem c, std::size_t base){
-			return c >= static_cast<Elem>('0') && c <= static_cast<Elem>('9') ? c - static_cast<Elem>('0')
-				: c >= static_cast<Elem>('a') && c <= static_cast<Elem>('a' + (base - 11)) ? c - static_cast<Elem>('a') + 10
-				: c >= static_cast<Elem>('A') && c <= static_cast<Elem>('A' + (base - 11)) ? c - static_cast<Elem>('A') + 10
+			return sprout::ascii::isdigit(c) && static_cast<std::size_t>(c - static_cast<Elem>('0')) < base ? c - static_cast<Elem>('0')
+				: sprout::ascii::islower(c) && static_cast<std::size_t>(c - static_cast<Elem>('a') + 10) < base ? c - static_cast<Elem>('a') + 10
+				: sprout::ascii::isupper(c) && static_cast<std::size_t>(c - static_cast<Elem>('A') + 10) < base ? c - static_cast<Elem>('A') + 10
 				: static_cast<IntType>(-1)
 				;
 		}
 		template<typename IntType, typename Elem>
 		inline SPROUT_CONSTEXPR IntType char_to_int(Elem c){
-			return c >= static_cast<Elem>('0') && c <= static_cast<Elem>('9') ? c - static_cast<Elem>('0')
+			return sprout::ascii::isdigit(c) ? c - static_cast<Elem>('0')
 				: static_cast<IntType>(-1)
 				;
 		}

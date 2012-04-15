@@ -14,37 +14,46 @@ namespace sprout {
 		// Copyright (c) 2011 osyo-manga : http://d.hatena.ne.jp/osyo-manga/
 
 		template<typename IntType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR IntType decimal_to_int_impl(CStrIterator str, IntType val, bool negative) {
+		inline SPROUT_CONSTEXPR IntType ascii_to_int_impl(CStrIterator str, IntType val, bool negative) {
 			return !sprout::ascii::isdigit(*str)
 				? negative ? -val : val
 				: val > (std::numeric_limits<IntType>::max() - (*str - static_cast<typename std::iterator_traits<CStrIterator>::value_type>('0')) - (negative ? 1 : 0)) / 10
 				? (negative ? std::numeric_limits<IntType>::min() : std::numeric_limits<IntType>::max())
-				: sprout::detail::decimal_to_int_impl<IntType>(
+				: sprout::detail::ascii_to_int_impl<IntType>(
 					sprout::next(str),
 					val * 10 + (*str - static_cast<typename std::iterator_traits<CStrIterator>::value_type>('0')),
 					negative
 					)
 				;
 		}
-		template<typename IntType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR IntType decimal_to_int(CStrIterator str) {
+		template<typename IntType, typename CStrIterator, typename sprout::enabler_if<std::is_unsigned<IntType>::value>::type = sprout::enabler>
+		inline SPROUT_CONSTEXPR IntType ascii_to_int(CStrIterator str) {
 			return sprout::ascii::isspace(*str)
-				? sprout::detail::decimal_to_int<IntType>(sprout::next(str))
-				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('-')
-				? sprout::detail::decimal_to_int_impl<IntType>(sprout::next(str), IntType(), true)
+				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
 				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('+')
-				? sprout::detail::decimal_to_int_impl<IntType>(sprout::next(str), IntType(), false)
-				: sprout::detail::decimal_to_int_impl<IntType>(str, IntType(), false)
+				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), false)
+				: sprout::detail::ascii_to_int_impl<IntType>(str, IntType(), false)
+				;
+		}
+		template<typename IntType, typename CStrIterator, typename sprout::enabler_if<std::is_signed<IntType>::value>::type = sprout::enabler>
+		inline SPROUT_CONSTEXPR IntType ascii_to_int(CStrIterator str) {
+			return sprout::ascii::isspace(*str)
+				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
+				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('-')
+				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), true)
+				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('+')
+				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), false)
+				: sprout::detail::ascii_to_int_impl<IntType>(str, IntType(), false)
 				;
 		}
 	}	// namespace detail
 
 	//
-	// decimal_to_int
+	// ascii_to_int
 	//
 	template<typename IntType, typename Char, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR IntType decimal_to_int(Char const* str) {
-		return sprout::detail::decimal_to_int<IntType>(str);
+	inline SPROUT_CONSTEXPR IntType ascii_to_int(Char const* str) {
+		return sprout::detail::ascii_to_int<IntType>(str);
 	}
 }	// namespace sprout
 

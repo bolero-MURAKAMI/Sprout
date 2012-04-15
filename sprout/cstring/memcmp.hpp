@@ -17,7 +17,7 @@ namespace sprout {
 	}	// namespace detail
 
 	// 7.21.4.1  memcmp ä÷êî
-	inline SPROUT_CONSTEXPR int memcmp(void const * s1, void const * s2, std::size_t n) {
+	inline SPROUT_CONSTEXPR int memcmp(void const* s1, void const* s2, std::size_t n) {
 		return sprout::detail::memcmp_impl(
 			static_cast<unsigned char const*>(s1),
 			static_cast<unsigned char const*>(s2),
