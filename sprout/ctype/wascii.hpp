@@ -22,7 +22,7 @@ namespace sprout {
 		// towlower
 		// towupper
 		//
-		SPROUT_CTYPE_ASCII_DECL(wchar_t, w);
+		SPROUT_CTYPE_ASCII_DECL(wchar_t, w)
 	}	// namespace ascii
 
 	using sprout::ascii::iswalnum;

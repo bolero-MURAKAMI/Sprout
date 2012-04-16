@@ -13,7 +13,7 @@ namespace sprout {
 #		define SPROUT_DIV_T_TRAITS_IMPL(DIV_T) \
 		typedef DIV_T type; \
 		static SPROUT_CONSTEXPR std::size_t offsetof_quot = offsetof(DIV_T, quot); \
-		static SPROUT_CONSTEXPR std::size_t offsetof_rem = offsetof(DIV_T, rem);
+		static SPROUT_CONSTEXPR std::size_t offsetof_rem = offsetof(DIV_T, rem)
 
 		template<typename T>
 		struct div_t_traits {};

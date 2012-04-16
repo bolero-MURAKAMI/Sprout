@@ -239,10 +239,10 @@ namespace sprout {
 		// tolower
 		// toupper
 		//
-		SPROUT_CTYPE_ASCII_DECL(char, SPROUT_PP_EMPTY());
-		SPROUT_CTYPE_ASCII_DECL(wchar_t, SPROUT_PP_EMPTY());
-		SPROUT_CTYPE_ASCII_DECL(char16_t, SPROUT_PP_EMPTY());
-		SPROUT_CTYPE_ASCII_DECL(char32_t, SPROUT_PP_EMPTY());
+		SPROUT_CTYPE_ASCII_DECL(char, SPROUT_PP_EMPTY())
+		SPROUT_CTYPE_ASCII_DECL(wchar_t, SPROUT_PP_EMPTY())
+		SPROUT_CTYPE_ASCII_DECL(char16_t, SPROUT_PP_EMPTY())
+		SPROUT_CTYPE_ASCII_DECL(char32_t, SPROUT_PP_EMPTY())
 	}	// namespace ascii
 
 	using sprout::ascii::isalnum;

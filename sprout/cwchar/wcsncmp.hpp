@@ -12,7 +12,7 @@ namespace sprout {
 			: !*s1 ? -1
 			: !*s2 ? 1
 			: *s1 == *s2 ? sprout::wcsncmp(s1 + 1, s2 + 1, n - 1)
-			: static_cast<unsigned wchar_t>(*s1) - static_cast<unsigned wchar_t>(*s2)
+			: *s1 - *s2
 			;
 	}
 }	// namespace sprout

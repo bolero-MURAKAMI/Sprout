@@ -339,7 +339,7 @@ namespace sprout {
 					base_result(eng.min()),
 					base_unsigned(sprout::random::detail::subtract<base_result>()(eng.max(), eng.min()))
 					);
-			};
+			}
 			template<typename Engine, typename T, typename Result>
 			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine> generate_uniform_int_false_1(
 				Result const& rnd
