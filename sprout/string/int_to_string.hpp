@@ -1,6 +1,7 @@
 #ifndef SPROUT_STRING_INT_TO_STRING_HPP
 #define SPROUT_STRING_INT_TO_STRING_HPP
 
+#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/string/string.hpp>
@@ -149,30 +150,30 @@ namespace sprout {
 	//
 	// to_string
 	//
-	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<int>::value>
-	to_string(int val) {
-		return sprout::to_string_of<char>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<unsigned>::value>
-	to_string(unsigned val) {
-		return sprout::to_string_of<char>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<long>::value>
-	to_string(long val) {
-		return sprout::to_string_of<char>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<unsigned long>::value>
-	to_string(unsigned long val) {
-		return sprout::to_string_of<char>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<long long>::value>
-	to_string(long long val) {
-		return sprout::to_string_of<char>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<unsigned long long>::value>
-	to_string(unsigned long long val) {
-		return sprout::to_string_of<char>(val);
-	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<int>::value>
+//	to_string(int val) {
+//		return sprout::to_string_of<char>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<unsigned>::value>
+//	to_string(unsigned val) {
+//		return sprout::to_string_of<char>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<long>::value>
+//	to_string(long val) {
+//		return sprout::to_string_of<char>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<unsigned long>::value>
+//	to_string(unsigned long val) {
+//		return sprout::to_string_of<char>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<long long>::value>
+//	to_string(long long val) {
+//		return sprout::to_string_of<char>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<unsigned long long>::value>
+//	to_string(unsigned long long val) {
+//		return sprout::to_string_of<char>(val);
+//	}
 	template<typename IntType, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
 	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_integer_digits<IntType>::value>
 	to_string(IntType val) {
@@ -182,30 +183,30 @@ namespace sprout {
 	//
 	// to_wstring
 	//
-	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<int>::value>
-	to_wstring(int val) {
-		return sprout::to_string_of<wchar_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<unsigned>::value>
-	to_wstring(unsigned val) {
-		return sprout::to_string_of<wchar_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<long>::value>
-	to_wstring(long val) {
-		return sprout::to_string_of<wchar_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<unsigned long>::value>
-	to_wstring(unsigned long val) {
-		return sprout::to_string_of<wchar_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<long long>::value>
-	to_wstring(long long val) {
-		return sprout::to_string_of<wchar_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<unsigned long long>::value>
-	to_wstring(unsigned long long val) {
-		return sprout::to_string_of<wchar_t>(val);
-	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<int>::value>
+//	to_wstring(int val) {
+//		return sprout::to_string_of<wchar_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<unsigned>::value>
+//	to_wstring(unsigned val) {
+//		return sprout::to_string_of<wchar_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<long>::value>
+//	to_wstring(long val) {
+//		return sprout::to_string_of<wchar_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<unsigned long>::value>
+//	to_wstring(unsigned long val) {
+//		return sprout::to_string_of<wchar_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<long long>::value>
+//	to_wstring(long long val) {
+//		return sprout::to_string_of<wchar_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<unsigned long long>::value>
+//	to_wstring(unsigned long long val) {
+//		return sprout::to_string_of<wchar_t>(val);
+//	}
 	template<typename IntType, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
 	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_integer_digits<IntType>::value>
 	to_wstring(IntType val) {
@@ -215,30 +216,30 @@ namespace sprout {
 	//
 	// to_u16string
 	//
-	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<int>::value>
-	to_u16string(int val) {
-		return sprout::to_string_of<char16_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<unsigned>::value>
-	to_u16string(unsigned val) {
-		return sprout::to_string_of<char16_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<long>::value>
-	to_u16string(long val) {
-		return sprout::to_string_of<char16_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<unsigned long>::value>
-	to_u16string(unsigned long val) {
-		return sprout::to_string_of<char16_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<long long>::value>
-	to_u16string(long long val) {
-		return sprout::to_string_of<char16_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<unsigned long long>::value>
-	to_u16string(unsigned long long val) {
-		return sprout::to_string_of<char16_t>(val);
-	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<int>::value>
+//	to_u16string(int val) {
+//		return sprout::to_string_of<char16_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<unsigned>::value>
+//	to_u16string(unsigned val) {
+//		return sprout::to_string_of<char16_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<long>::value>
+//	to_u16string(long val) {
+//		return sprout::to_string_of<char16_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<unsigned long>::value>
+//	to_u16string(unsigned long val) {
+//		return sprout::to_string_of<char16_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<long long>::value>
+//	to_u16string(long long val) {
+//		return sprout::to_string_of<char16_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<unsigned long long>::value>
+//	to_u16string(unsigned long long val) {
+//		return sprout::to_string_of<char16_t>(val);
+//	}
 	template<typename IntType, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
 	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_integer_digits<IntType>::value>
 	to_u16string(IntType val) {
@@ -248,30 +249,30 @@ namespace sprout {
 	//
 	// to_u32string
 	//
-	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<int>::value>
-	to_u32string(int val) {
-		return sprout::to_string_of<char32_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<unsigned>::value>
-	to_u32string(unsigned val) {
-		return sprout::to_string_of<char32_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<long>::value>
-	to_u32string(long val) {
-		return sprout::to_string_of<char32_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<unsigned long>::value>
-	to_u32string(unsigned long val) {
-		return sprout::to_string_of<char32_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<long long>::value>
-	to_u32string(long long val) {
-		return sprout::to_string_of<char32_t>(val);
-	}
-	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<unsigned long long>::value>
-	to_u32string(unsigned long long val) {
-		return sprout::to_string_of<char32_t>(val);
-	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<int>::value>
+//	to_u32string(int val) {
+//		return sprout::to_string_of<char32_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<unsigned>::value>
+//	to_u32string(unsigned val) {
+//		return sprout::to_string_of<char32_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<long>::value>
+//	to_u32string(long val) {
+//		return sprout::to_string_of<char32_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<unsigned long>::value>
+//	to_u32string(unsigned long val) {
+//		return sprout::to_string_of<char32_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<long long>::value>
+//	to_u32string(long long val) {
+//		return sprout::to_string_of<char32_t>(val);
+//	}
+//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<unsigned long long>::value>
+//	to_u32string(unsigned long long val) {
+//		return sprout::to_string_of<char32_t>(val);
+//	}
 	template<typename IntType, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
 	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_integer_digits<IntType>::value>
 	to_u32string(IntType val) {
