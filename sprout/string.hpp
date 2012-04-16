@@ -11,7 +11,7 @@
 #include <sprout/string/tuple.hpp>
 #include <sprout/string/container.hpp>
 #include <sprout/string/make_string.hpp>
-#include <sprout/string/to_string.hpp>
+#include <sprout/string/conversion.hpp>
 #include <sprout/string/type_traits.hpp>
 #include <sprout/string/alias.hpp>
 

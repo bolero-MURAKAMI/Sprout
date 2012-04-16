@@ -81,7 +81,11 @@ namespace sprout {
 		template<typename IntType, typename CStrIterator, typename CharPtr>
 		inline SPROUT_CONSTEXPR IntType str_to_int(CStrIterator str, CharPtr* endptr, int base) {
 			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
-				: std::strtol(str, endptr, base)
+				: std::is_signed<IntType>::value
+					? sizeof(IntType) <= sizeof(long) ? static_cast<IntType>(std::strtol(&*str, endptr, base))
+						: static_cast<IntType>(std::strtoll(&*str, endptr, base))
+					: sizeof(IntType) <= sizeof(unsigned long) ? static_cast<IntType>(std::strtoul(&*str, endptr, base))
+						: static_cast<IntType>(std::strtoull(&*str, endptr, base))
 				;
 		}
 	}	// namespace detail

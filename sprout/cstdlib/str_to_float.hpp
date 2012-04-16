@@ -231,7 +231,9 @@ namespace sprout {
 		template<typename FloatType, typename CStrIterator, typename CharPtr>
 		inline SPROUT_CONSTEXPR FloatType str_to_float(CStrIterator str, CharPtr* endptr) {
 			return !endptr ? sprout::detail::str_to_float<FloatType>(str)
-				: std::strtod(str, endptr)
+				: std::is_same<typename std::remove_cv<FloatType>::type, float>::value ? std::strtof(&*str, endptr)
+				: std::is_same<typename std::remove_cv<FloatType>::type, double>::value ? std::strtod(&*str, endptr)
+				: std::strtold(&*str, endptr)
 				;
 		}
 	}	// namespace detail
