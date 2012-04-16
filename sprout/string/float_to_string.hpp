@@ -14,7 +14,10 @@
 #include <sprout/detail/char_conversion.hpp>
 
 namespace sprout {
-	SPROUT_STATIC_CONSTEXPR std::size_t decimal_places_length = 6;
+	namespace detail {
+		SPROUT_STATIC_CONSTEXPR std::size_t decimal_places_length = 6;
+	}	// namespace detail
+
 	//
 	// printed_float_digits
 	//
@@ -22,8 +25,8 @@ namespace sprout {
 	struct printed_float_digits
 		: public std::integral_constant<
 			std::size_t,
-			/*std::numeric_limits<floatFloatType>::max_exponent10 + decimal_places_length + 3*/
-			sprout::integer_digits<std::intmax_t>::value + decimal_places_length + 3
+			/*std::numeric_limits<floatFloatType>::max_exponent10 + sprout::detail::decimal_places_length + 3*/
+			sprout::integer_digits<std::intmax_t>::value + sprout::detail::decimal_places_length + 3
 		>
 	{};
 
@@ -121,13 +124,13 @@ namespace sprout {
 					-val,
 					true,
 					sprout::detail::float_extract_rounded(-val),
-					decimal_places_length
+					sprout::detail::decimal_places_length
 					)
 				: sprout::detail::float_to_string_impl<Elem>(
 					val,
 					false,
 					sprout::detail::float_extract_rounded(val),
-					decimal_places_length
+					sprout::detail::decimal_places_length
 					)
 				;
 		}
