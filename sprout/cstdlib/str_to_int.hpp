@@ -39,21 +39,21 @@ namespace sprout {
 						sprout::next(str, 2),
 						base ? base : 16,
 						IntType(),
-						sprout::detail::char_to_int<IntType>(*sprout::next(str, 2), base),
+						sprout::detail::char_to_int<IntType>(*sprout::next(str, 2), base ? base : 16),
 						negative
 						)
 					: sprout::detail::str_to_int_impl_1<IntType>(
 						sprout::next(str),
 						base ? base : 8,
 						IntType(),
-						sprout::detail::char_to_int<IntType>(*sprout::next(str), base),
+						sprout::detail::char_to_int<IntType>(*sprout::next(str), base ? base : 8),
 						negative
 						)
 				: sprout::detail::str_to_int_impl_1<IntType>(
 					str,
 					base ? base : 10,
 					IntType(),
-					sprout::detail::char_to_int<IntType>(*str, base),
+					sprout::detail::char_to_int<IntType>(*str, base ? base : 10),
 					negative
 					)
 				;

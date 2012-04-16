@@ -122,7 +122,7 @@ namespace sprout {
 		typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR IntType from_string(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx) {
-		return sprout::string_to_int<IntType>(str, idx);
+		return sprout::string_to_int<IntType>(str, idx, 0);
 	}
 	template<
 		typename IntType,
@@ -132,7 +132,7 @@ namespace sprout {
 		typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR IntType from_string(sprout::basic_string<Elem, N, Traits> const& str) {
-		return sprout::string_to_int<IntType>(str);
+		return sprout::string_to_int<IntType>(str, 0);
 	}
 }	// namespace sprout
 
