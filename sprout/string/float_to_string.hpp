@@ -14,6 +14,7 @@
 #include <sprout/detail/char_conversion.hpp>
 
 namespace sprout {
+	SPROUT_STATIC_CONSTEXPR std::size_t decimal_places_length = 6;
 	//
 	// printed_float_digits
 	//
@@ -21,12 +22,24 @@ namespace sprout {
 	struct printed_float_digits
 		: public std::integral_constant<
 			std::size_t,
-			/*std::numeric_limits<floatFloatType>::max_exponent10 + 6 + 2*/
-			sprout::integer_digits<std::intmax_t>::value + 6 + 3
+			/*std::numeric_limits<floatFloatType>::max_exponent10 + decimal_places_length + 3*/
+			sprout::integer_digits<std::intmax_t>::value + decimal_places_length + 3
 		>
 	{};
 
 	namespace detail {
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR unsigned float_extract_rounded_impl(FloatType val) {
+			return static_cast<unsigned>(val * 1000000)
+				+ (static_cast<unsigned>(val * 10000000) % 10 >= 5 ? 1 : 0)
+				;
+		}
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR unsigned float_extract_rounded(FloatType val) {
+			using std::floor;
+			return sprout::detail::float_extract_rounded_impl(val - floor(val));
+		}
+
 		template<
 			typename Elem,
 			typename FloatType,
@@ -47,7 +60,6 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
 		float_to_string_impl_1(FloatType val, bool negative, Args... args) {
-			using std::floor;
 			return !(val < 1) ? sprout::detail::float_to_string_impl_1<Elem>(
 					val / 10,
 					negative,
@@ -105,8 +117,18 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
 		float_to_string(FloatType val) {
 			using std::floor;
-			return val < 0 ? sprout::detail::float_to_string_impl<Elem>(-val, true, static_cast<unsigned>((-val - floor(-val)) * 1000000), 6)
-				: sprout::detail::float_to_string_impl<Elem>(val, false, static_cast<unsigned>((val - floor(val)) * 1000000), 6)
+			return val < 0 ? sprout::detail::float_to_string_impl<Elem>(
+					-val,
+					true,
+					sprout::detail::float_extract_rounded(-val),
+					decimal_places_length
+					)
+				: sprout::detail::float_to_string_impl<Elem>(
+					val,
+					false,
+					sprout::detail::float_extract_rounded(val),
+					decimal_places_length
+					)
 				;
 		}
 	}	// namespace detail
