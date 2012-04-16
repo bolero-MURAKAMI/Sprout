@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/index_tuple.hpp>
 #include <sprout/string/string.hpp>
-#include <sprout/string/make_string.hpp>
 #include <sprout/integer/integer_digits.hpp>
 #include <sprout/utility/enabler_if.hpp>
 #include <sprout/detail/char_conversion.hpp>
@@ -23,82 +23,34 @@ namespace sprout {
 	{};
 
 	namespace detail {
-		template<
-			typename Elem,
-			int Base,
-			typename IntType,
-			typename... Args,
-			typename sprout::enabler_if<(sizeof...(Args) == sprout::printed_integer_digits<IntType, Base>::value - 1)>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
-		int_to_string_impl_1(IntType val, bool negative, Args... args) {
-			return negative ? sprout::make_string_as<Elem>(static_cast<Elem>('-'), args...)
-				: sprout::make_string_as<Elem>(args...)
-				;
-		}
-		template<
-			typename Elem,
-			int Base,
-			typename IntType,
-			typename... Args,
-			typename sprout::enabler_if<(sizeof...(Args) < sprout::printed_integer_digits<IntType, Base>::value - 1)>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
-		int_to_string_impl_1(IntType val, bool negative, Args... args) {
-			return val == 0
-				? (negative ? sprout::make_string_as<Elem>(static_cast<Elem>('-'), args...)
-					: sprout::make_string_as<Elem>(args...)
-					)
-				: sprout::detail::int_to_string_impl_1<Elem, Base>(
-					val / Base,
-					negative,
-					sprout::detail::int_to_char<Elem>(negative ? -(val % Base) : val % Base, Base),
-					args...
-					)
-				;
-		}
-		template<typename Elem, int Base, typename IntType>
-		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
-		int_to_string_impl(IntType val) {
-			return val == 0 ? sprout::make_string_as<Elem>(static_cast<Elem>('0'))
-				: sprout::detail::int_to_string_impl_1<Elem, Base>(val, val < 0)
+		template<typename IntType, int Base>
+		inline SPROUT_CONSTEXPR IntType
+		int_pow(int exponent) {
+			return exponent ? Base * sprout::detail::int_pow<IntType, Base>(exponent - 1)
+				: 1
 				;
 		}
 
-		template<
-			typename Elem,
-			int Base,
-			typename UIntType,
-			typename... Args,
-			typename sprout::enabler_if<(sizeof...(Args) == sprout::printed_integer_digits<UIntType, Base>::value)>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<UIntType, Base>::value>
-		uint_to_string_impl_1(UIntType val, Args... args) {
-			return sprout::make_string_as<Elem>(args...);
-		}
-		template<
-			typename Elem,
-			int Base,
-			typename UIntType,
-			typename... Args,
-			typename sprout::enabler_if<(sizeof...(Args) < sprout::printed_integer_digits<UIntType, Base>::value)>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<UIntType, Base>::value>
-		uint_to_string_impl_1(UIntType val, Args... args) {
-			return val == 0
-				? sprout::make_string_as<Elem>(args...)
-				: sprout::detail::uint_to_string_impl_1<Elem, Base>(
-					val / Base,
-					sprout::detail::int_to_char<Elem>(val % Base, Base),
-					args...
-					)
+		template<int Base, typename IntType>
+		inline SPROUT_CONSTEXPR int
+		int_digits_impl(IntType val) {
+			return val ? 1 + sprout::detail::int_digits_impl<Base>(val / Base)
+				: 0
 				;
 		}
-		template<typename Elem, int Base, typename UIntType>
-		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<UIntType, Base>::value>
-		uint_to_string_impl(UIntType val) {
-			return val == 0 ? sprout::make_string_as<Elem>(static_cast<Elem>('0'))
-				: sprout::detail::uint_to_string_impl_1<Elem, Base>(val)
+		template<int Base, typename IntType>
+		inline SPROUT_CONSTEXPR int
+		int_digits(IntType val) {
+			return val ? 1 + sprout::detail::int_digits_impl<Base>(val / Base)
+				: 1
+				;
+		}
+
+		template<int Base, typename IntType>
+		inline SPROUT_CONSTEXPR int
+		int_digit_of(IntType val, int digits) {
+			return val < 0 ? -((val / sprout::detail::int_pow<IntType, Base>(digits)) % Base)
+				: (val / sprout::detail::int_pow<IntType, Base>(digits)) % Base
 				;
 		}
 
@@ -106,21 +58,47 @@ namespace sprout {
 			typename Elem,
 			int Base,
 			typename IntType,
+			sprout::index_t... Indexes,
 			typename sprout::enabler_if<std::is_signed<IntType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
-		int_to_string(IntType val) {
-			return sprout::detail::int_to_string_impl<Elem, Base>(val);
+		int_to_string(IntType val, int digits, sprout::index_tuple<Indexes...>) {
+			return val < 0 ? sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
+					{
+						static_cast<Elem>('-'),
+						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_of<Base>(val, digits - 1 - Indexes))
+							: Elem()
+							)...
+						},
+						static_cast<std::size_t>(digits + 1)
+					}
+				: sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
+					{
+						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_of<Base>(val, digits - 1 - Indexes))
+							: Elem()
+							)...
+						},
+						static_cast<std::size_t>(digits)
+					}
+				;
 		}
 		template<
 			typename Elem,
 			int Base,
 			typename IntType,
+			sprout::index_t... Indexes,
 			typename sprout::enabler_if<std::is_unsigned<IntType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
-		int_to_string(IntType val) {
-			return sprout::detail::uint_to_string_impl<Elem, Base>(val);
+		int_to_string(IntType val, int digits, sprout::index_tuple<Indexes...>) {
+			return sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
+				{
+					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_of<Base>(val, digits - 1 - Indexes))
+						: Elem()
+						)...
+					},
+					static_cast<std::size_t>(digits)
+				};
 		}
 	}	// namespace detail
 
@@ -135,7 +113,11 @@ namespace sprout {
 	>
 	inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
 	int_to_string(IntType val) {
-		return sprout::detail::int_to_string<Elem, Base>(val);
+		return sprout::detail::int_to_string<Elem, Base>(
+			val,
+			sprout::detail::int_digits<Base>(val),
+			sprout::index_range<0, sprout::integer_digits<IntType, Base>::value>::make()
+			);
 	}
 
 	//
