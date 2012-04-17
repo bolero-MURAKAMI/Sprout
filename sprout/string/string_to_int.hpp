@@ -2,6 +2,7 @@
 #define SPROUT_STRING_STRING_TO_INT_HPP
 
 #include <cstddef>
+#include <cstdint>
 #include <string>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -109,6 +110,30 @@ namespace sprout {
 	template<typename Elem, std::size_t N, typename Traits>
 	inline SPROUT_CONSTEXPR unsigned long long stoull(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::string_to_int<unsigned long long>(str, base);
+	}
+
+	//
+	// stoimax
+	//
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR std::intmax_t stoimax(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+		return sprout::string_to_int<std::intmax_t>(str, idx, base);
+	}
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR std::intmax_t stoimax(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+		return sprout::string_to_int<std::intmax_t>(str, base);
+	}
+
+	//
+	// stoumax
+	//
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR std::uintmax_t stoumax(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+		return sprout::string_to_int<std::uintmax_t>(str, idx, base);
+	}
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR std::uintmax_t stoumax(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+		return sprout::string_to_int<std::uintmax_t>(str, base);
 	}
 
 	//
