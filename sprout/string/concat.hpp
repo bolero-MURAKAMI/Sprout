@@ -32,8 +32,8 @@ namespace sprout {
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t N2>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append_back<
-			sprout::basic_string<T, N, Traits>,
-			sprout::basic_string<T, N2 - 1, Traits>
+		sprout::basic_string<T, N, Traits>,
+		sprout::basic_string<T, N2 - 1, Traits>
 	>::type operator+(
 		sprout::basic_string<T, N, Traits> const& lhs,
 		T const (& rhs)[N2]

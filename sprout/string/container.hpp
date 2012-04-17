@@ -23,7 +23,7 @@ namespace sprout {
 		template<typename... Args>
 		static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
 			typedef sprout::detail::make_construct_impl<copied_type> impl_type;
-			return impl_type::make(impl_type::length(sprout::forward<Args>(args)...), sprout::forward<Args>(args)...);
+			return impl_type::make(sprout::forward<Args>(args)...);
 		}
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type remake(
@@ -33,7 +33,7 @@ namespace sprout {
 			)
 		{
 			typedef sprout::detail::make_construct_impl<copied_type> impl_type;
-			return impl_type::make(size, sprout::forward<Args>(args)...);
+			return impl_type::make(static_cast<typename copied_type::size_type>(size), sprout::forward<Args>(args)...);
 		}
 	};
 

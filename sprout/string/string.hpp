@@ -8,10 +8,12 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
+#include <sprout/array.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/string/char_traits.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -453,35 +455,45 @@ namespace sprout {
 		private:
 			typedef sprout::basic_string<T, N, Traits> copied_type;
 		private:
-			template<std::size_t S>
-			static SPROUT_CONSTEXPR copied_type make_impl(typename copied_type::size_type size) {
-				return copied_type{{}, size};
+			template<std::size_t M>
+			static SPROUT_CONSTEXPR typename copied_type::size_type length_impl(sprout::array<T, M> const& arr) {
+				return NS_SSCRISK_CEL_OR_SPROUT::distance(
+					arr.begin(),
+					NS_SSCRISK_CEL_OR_SPROUT::find(arr.begin(), arr.end(), T())
+					);
 			}
-			template<std::size_t S, typename Head, typename... Tail>
-			static SPROUT_CONSTEXPR typename std::enable_if<
-				S == sizeof...(Tail),
-				copied_type
-			>::type make_impl(typename copied_type::size_type size, Head&& head, Tail&&... tail) {
-				return copied_type{{sprout::forward<Tail>(tail)..., sprout::forward<Head>(head)}, size};
-			}
-			template<std::size_t S, typename Head, typename... Tail>
-			static SPROUT_CONSTEXPR typename std::enable_if<
-				S != sizeof...(Tail),
-				copied_type
-			>::type make_impl(typename copied_type::size_type size, Head&& head, Tail&&... tail) {
-				return make_impl<S + 1>(size, sprout::forward<Tail>(tail)..., S >= size ? T() : sprout::forward<Head>(head));
+			template<typename... Args, sprout::index_t... Indexes>
+			static SPROUT_CONSTEXPR copied_type make_impl(
+				typename copied_type::size_type size,
+				sprout::index_tuple<Indexes...>,
+				Args&&... args
+				)
+			{
+				return copied_type{
+					{(Indexes < size ? sprout::forward<Args>(args) : T())...},
+					size
+					};
 			}
 		public:
-			static SPROUT_CONSTEXPR typename copied_type::size_type length() {
-				return 0;
+			template<typename... Args>
+			static SPROUT_CONSTEXPR typename copied_type::size_type length(Args&&... args) {
+				return length_impl(sprout::make_array<T>(sprout::forward<Args>(args)...));
 			}
-			template<typename... Tail>
-			static SPROUT_CONSTEXPR typename copied_type::size_type length(T const& head, Tail&&... tail) {
-				return !head ? 0 : 1 + length(sprout::forward<Tail>(tail)...);
+			template<typename... Args>
+			static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
+				return make_impl(
+					length(args...),
+					sprout::index_range<0, sizeof...(Args)>::make(),
+					sprout::forward<Args>(args)...
+					);
 			}
 			template<typename... Args>
 			static SPROUT_CONSTEXPR copied_type make(typename copied_type::size_type size, Args&&... args) {
-				return make_impl<0>(size, sprout::forward<Args>(args)...);
+				return make_impl(
+					size,
+					sprout::index_range<0, sizeof...(Args)>::make(),
+					sprout::forward<Args>(args)...
+					);
 			}
 		};
 	}	// namespace detail

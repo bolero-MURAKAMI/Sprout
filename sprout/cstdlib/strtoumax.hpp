@@ -8,7 +8,7 @@
 
 namespace sprout {
 	//
-	// strtoul
+	// strtoumax
 	//
 	inline SPROUT_CONSTEXPR std::uintmax_t strtoumax(char const* str, char** endptr, int base = 10){
 		return sprout::str_to_int<std::uintmax_t>(str, endptr, base);
