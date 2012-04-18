@@ -9,6 +9,7 @@
 #include <sprout/string/string.hpp>
 #include <sprout/utility/enabler_if.hpp>
 #include <sprout/detail/char_conversion.hpp>
+#include <sprout/detail/float.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -27,64 +28,15 @@ namespace sprout {
 	{};
 
 	namespace detail {
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR FloatType
-		float_pow10(int exponent) {
-			return exponent ? FloatType(10) * sprout::detail::float_pow10<FloatType>(exponent - 1)
-				: FloatType(1)
-				;
-		}
-
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR int
-		float_digits_impl(FloatType val) {
-			return !(val < 1 && val > -1) ? 1 + sprout::detail::float_digits_impl(val / 10)
-				: 0
-				;
-		}
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR int
-		float_digits(FloatType val) {
-			return !(val < 1 && val > -1) ? 1 + sprout::detail::float_digits_impl(val / 10)
-				: 1
-				;
-		}
-
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR int
-		float_digit_of_impl(FloatType val) {
-			using std::floor;
-			return static_cast<int>((val - floor(val)) * 10);
-		}
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR int
-		float_digit_of(FloatType val, int digits) {
-			return digits < 0 ? sprout::detail::float_digit_of_impl(val * sprout::detail::float_pow10<FloatType>(-digits - 1))
-				: sprout::detail::float_digit_of_impl(val / sprout::detail::float_pow10<FloatType>(digits + 1))
-				;
-		}
-
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR FloatType
-		float_round_impl(FloatType val, FloatType p10) {
-			using std::round;
-			return round(val * p10) / p10;
-		}
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR FloatType
-		float_round(FloatType val, int digits) {
-			return sprout::detail::float_round_impl(val, sprout::detail::float_pow10<FloatType>(digits));
-		}
-
 		template<typename Elem, typename FloatType, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
 		float_to_string(FloatType val, bool negative, int digits, sprout::index_tuple<Indexes...>) {
 			return negative ? sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>{
 					{
 						static_cast<Elem>('-'),
-						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_of(val, digits - 1 - Indexes))
+						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
 							: Indexes == digits ? static_cast<Elem>('.')
-							: Indexes < digits + 1 + sprout::detail::decimal_places_length ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_of(val, digits - Indexes))
+							: Indexes < digits + 1 + sprout::detail::decimal_places_length ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - Indexes))
 							: Elem()
 							)...
 						},
@@ -92,9 +44,9 @@ namespace sprout {
 					}
 				: sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>{
 					{
-						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_of(val, digits - 1 - Indexes))
+						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
 							: Indexes == digits ? static_cast<Elem>('.')
-							: Indexes < digits + 1 + sprout::detail::decimal_places_length ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_of(val, digits - Indexes))
+							: Indexes < digits + 1 + sprout::detail::decimal_places_length ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - Indexes))
 							: Elem()
 							)...
 						},
@@ -115,7 +67,7 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
 	float_to_string(FloatType val) {
 		return sprout::detail::float_to_string<Elem>(
-			sprout::detail::float_round(val < 0 ? -val : val, sprout::detail::decimal_places_length),
+			sprout::detail::float_round_at(val < 0 ? -val : val, sprout::detail::decimal_places_length),
 			val < 0,
 			sprout::detail::float_digits(val),
 			sprout::index_range<0, sprout::printed_float_digits<FloatType>::value - 1>::make()
