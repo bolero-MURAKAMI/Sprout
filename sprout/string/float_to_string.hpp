@@ -6,10 +6,13 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/index_tuple.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/utility/enabler_if.hpp>
 #include <sprout/detail/char_conversion.hpp>
+#include <sprout/detail/int.hpp>
 #include <sprout/detail/float.hpp>
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -71,6 +74,88 @@ namespace sprout {
 			val < 0,
 			sprout::detail::float_digits(val),
 			sprout::index_range<0, sprout::printed_float_digits<FloatType>::value - 1>::make()
+			);
+	}
+
+	namespace detail {
+		template<typename FloatType>
+		struct printed_float_exponent10_digits
+			: public std::integral_constant<
+				std::size_t,
+				NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(std::numeric_limits<FloatType>::max_exponent10), 2)
+			>
+		{};
+	}	// namespace detail
+
+	//
+	// printed_float_exp_digits
+	//
+	template<typename FloatType>
+	struct printed_float_exp_digits
+		: public std::integral_constant<
+			std::size_t,
+			5 + sprout::detail::decimal_places_length + sprout::detail::printed_float_exponent10_digits<FloatType>::value
+		>
+	{};
+
+	namespace detail {
+		template<typename Elem, typename FloatType, sprout::index_t... Indexes>
+		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>
+		float_to_string_exp(FloatType val, bool negative, int exponent10, int e10_digits, sprout::index_tuple<Indexes...>) {
+			return negative ? sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>{
+					{
+						static_cast<Elem>('-'),
+						(Indexes == 0 ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 0))
+							: Indexes == 1 ? static_cast<Elem>('.')
+							: Indexes < 2 + sprout::detail::decimal_places_length
+								? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 1 - Indexes))
+							: Indexes == 2 + sprout::detail::decimal_places_length ? static_cast<Elem>('e')
+							: Indexes == 3 + sprout::detail::decimal_places_length ? static_cast<Elem>(exponent10 < 0 ? '-' : '+')
+							: Indexes < 4 + sprout::detail::decimal_places_length + e10_digits
+								? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at(exponent10, 3 + sprout::detail::decimal_places_length + e10_digits - Indexes))
+							: Elem()
+							)...
+						},
+						static_cast<std::size_t>(5 + sprout::detail::decimal_places_length + e10_digits)
+					}
+				: sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>{
+					{
+						(Indexes == 0 ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 0))
+							: Indexes == 1 ? static_cast<Elem>('.')
+							: Indexes < 2 + sprout::detail::decimal_places_length
+								? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 1 - Indexes))
+							: Indexes == 2 + sprout::detail::decimal_places_length ? static_cast<Elem>('e')
+							: Indexes == 3 + sprout::detail::decimal_places_length ? static_cast<Elem>(exponent10 < 0 ? '-' : '+')
+							: Indexes < 4 + sprout::detail::decimal_places_length + e10_digits
+								? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at(exponent10, 3 + sprout::detail::decimal_places_length + e10_digits - Indexes))
+							: Elem()
+							)...
+						},
+						static_cast<std::size_t>(4 + sprout::detail::decimal_places_length + e10_digits)
+					}
+				;
+		}
+	}	// namespace detail
+
+	//
+	// float_to_string_exp
+	//
+	template<
+		typename Elem,
+		typename FloatType,
+		typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>
+	float_to_string_exp(FloatType val) {
+		return sprout::detail::float_to_string_exp<Elem>(
+			sprout::detail::float_round_at(
+				(val < 0 ? -val : val) / sprout::detail::float_pow10<FloatType>(sprout::detail::float_exponent10(val)),
+				sprout::detail::decimal_places_length
+				),
+			val < 0,
+			sprout::detail::float_exponent10(val),
+			NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(sprout::detail::float_exponent10(val)), 2),
+			sprout::index_range<0, sprout::printed_float_exp_digits<FloatType>::value - 1>::make()
 			);
 	}
 
