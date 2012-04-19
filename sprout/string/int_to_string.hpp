@@ -9,6 +9,7 @@
 #include <sprout/integer/integer_digits.hpp>
 #include <sprout/utility/enabler_if.hpp>
 #include <sprout/detail/char_conversion.hpp>
+#include <sprout/detail/int.hpp>
 
 namespace sprout {
 	//
@@ -23,37 +24,6 @@ namespace sprout {
 	{};
 
 	namespace detail {
-		template<typename IntType, int Base>
-		inline SPROUT_CONSTEXPR IntType
-		int_pow(int exponent) {
-			return exponent ? Base * sprout::detail::int_pow<IntType, Base>(exponent - 1)
-				: 1
-				;
-		}
-
-		template<int Base, typename IntType>
-		inline SPROUT_CONSTEXPR int
-		int_digits_impl(IntType val) {
-			return val ? 1 + sprout::detail::int_digits_impl<Base>(val / Base)
-				: 0
-				;
-		}
-		template<int Base, typename IntType>
-		inline SPROUT_CONSTEXPR int
-		int_digits(IntType val) {
-			return val ? 1 + sprout::detail::int_digits_impl<Base>(val / Base)
-				: 1
-				;
-		}
-
-		template<int Base, typename IntType>
-		inline SPROUT_CONSTEXPR int
-		int_digit_of(IntType val, int digits) {
-			return val < 0 ? -((val / sprout::detail::int_pow<IntType, Base>(digits)) % Base)
-				: (val / sprout::detail::int_pow<IntType, Base>(digits)) % Base
-				;
-		}
-
 		template<
 			typename Elem,
 			int Base,
@@ -66,7 +36,7 @@ namespace sprout {
 			return val < 0 ? sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
 					{
 						static_cast<Elem>('-'),
-						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_of<Base>(val, digits - 1 - Indexes))
+						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
 							: Elem()
 							)...
 						},
@@ -74,7 +44,7 @@ namespace sprout {
 					}
 				: sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
 					{
-						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_of<Base>(val, digits - 1 - Indexes))
+						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
 							: Elem()
 							)...
 						},
@@ -93,7 +63,7 @@ namespace sprout {
 		int_to_string(IntType val, int digits, sprout::index_tuple<Indexes...>) {
 			return sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
 				{
-					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_of<Base>(val, digits - 1 - Indexes))
+					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
 						: Elem()
 						)...
 					},
