@@ -7,6 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -24,7 +25,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake<Result>(result, sprout::size(result), args...);
+				return sprout::remake<Result>(result, sprout::size(result), args..., value);
 			}
 			template<typename InputIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -61,7 +62,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != 0,
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type partial_sum_impl_1(
+			>::type partial_sum_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,
@@ -102,7 +103,7 @@ namespace sprout {
 				Args const&... args
 				)
 			{
-				return sprout::remake<Result>(result, sprout::size(result), args...);
+				return sprout::remake<Result>(result, sprout::size(result), args..., value);
 			}
 			template<typename InputIterator, typename Result, typename BinaryOperation, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -141,7 +142,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != 0,
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type partial_sum_impl_1(
+			>::type partial_sum_impl(
 				InputIterator first,
 				InputIterator last,
 				Result const& result,

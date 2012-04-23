@@ -118,6 +118,18 @@ namespace sprout {
 		struct is_range_container<sprout::range::range_container<Iterator> >
 			: public std::true_type
 		{};
+
+		//
+		// make_range_container
+		//
+		template<typename Range>
+		inline SPROUT_CONSTEXPR sprout::range::range_container<typename sprout::range::lvalue_iterator<Range>::type>
+		make_range_container(Range&& range) {
+			return sprout::range::range_container<typename sprout::range::lvalue_iterator<Range>::type>(
+				sprout::begin(sprout::forward<Range>(range)),
+				sprout::end(sprout::forward<Range>(range))
+				);
+		}
 	}	// namespace range
 
 	//

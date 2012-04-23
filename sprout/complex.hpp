@@ -2,6 +2,8 @@
 #define SPROUT_COMPLEX_HPP
 
 #include <cmath>
+#include <iosfwd>
+#include <ios>
 #include <sprout/config.hpp>
 #include <sprout/math/constants.hpp>
 

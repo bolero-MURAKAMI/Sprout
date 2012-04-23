@@ -31,7 +31,7 @@ namespace sprout {
 			typedef typename sprout::range::lvalue_iterator<Range>::type type;
 		public:
 			static SPROUT_CONSTEXPR type pack(
-				typename sprout::container_traits<Range>::iterator found,
+				typename sprout::range::lvalue_iterator<Range>::type found,
 				Range&& range
 				)
 			{
@@ -44,7 +44,7 @@ namespace sprout {
 			typedef typename sprout::range::lvalue_range<Range>::type type;
 		public:
 			static SPROUT_CONSTEXPR type pack(
-				typename sprout::container_traits<Range>::iterator found,
+				typename sprout::range::lvalue_iterator<Range>::type found,
 				Range&& range
 				)
 			{
@@ -57,7 +57,7 @@ namespace sprout {
 			typedef typename sprout::range::lvalue_range<Range>::type type;
 		public:
 			static SPROUT_CONSTEXPR type pack(
-				typename sprout::container_traits<Range>::iterator found,
+				typename sprout::range::lvalue_iterator<Range>::type found,
 				Range&& range
 				)
 			{
