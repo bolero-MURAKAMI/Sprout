@@ -700,6 +700,16 @@ namespace sprout {
 		{
 			return sprout::to_string(holder.value());
 		}
+		template<
+			typename Elem, std::size_t N, typename T,
+			typename sprout::enabler_if<sprout::is_string<T>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR auto
+		eval(sprout::io::format_holder<T> const& holder)
+			-> decltype(holder.value())
+		{
+			return holder.value();
+		}
 
 		//
 		// output
