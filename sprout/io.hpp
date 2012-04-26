@@ -397,6 +397,10 @@ namespace sprout {
 			}
 		}	// namespace flags
 
+		template<std::size_t N, typename Elem = char, typename Expression>
+		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, N>
+		output(Expression const& expr);
+
 		//
 		// nil_expression
 		//
@@ -494,6 +498,14 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR sprout::io::format_settings const& settings() const {
 				return left().settings();
+			}
+			template<std::size_t N, typename Elem = char>
+			SPROUT_CONSTEXPR sprout::basic_string<Elem, N> output() const {
+				return sprout::io::output<N, Elem>(*this);
+			}
+			template<std::size_t N, typename Elem = char>
+			SPROUT_CONSTEXPR operator sprout::basic_string<Elem, N>() const {
+				return sprout::io::output<N, Elem>(*this);
 			}
 		};
 
