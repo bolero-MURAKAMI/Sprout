@@ -113,6 +113,7 @@ namespace sprout {
 			swap(deref_tmp, other.deref_tmp);
 		}
 	};
+
 	template<typename Iterator1, typename Iterator2>
 	SPROUT_CONSTEXPR bool operator==(
 		sprout::reverse_iterator<Iterator1> const& lhs,

@@ -674,7 +674,10 @@ namespace sprout {
 		//
 		template<
 			typename Elem, std::size_t N, typename T,
-			typename sprout::enabler_if<std::is_integral<T>::value>::type = sprout::enabler
+			typename sprout::enabler_if<
+				std::is_integral<T>::value
+					&& !sprout::weed::traits::is_char_type<T>::value
+			>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR auto
 		eval(sprout::io::format_holder<T> const& holder)

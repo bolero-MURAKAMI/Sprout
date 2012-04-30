@@ -32,8 +32,8 @@ namespace sprout {
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? (Indexes < offset + NS_SSCRISK_CEL_OR_SPROUT::distance(middle, last)
-							? *sprout::next(middle, Indexes - offset)
-							: *sprout::prev(sprout::next(first, Indexes - offset), NS_SSCRISK_CEL_OR_SPROUT::distance(first, middle))
+							? middle[Indexes - offset]
+							: first[(Indexes - offset) - NS_SSCRISK_CEL_OR_SPROUT::distance(first, middle)]
 							)
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...

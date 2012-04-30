@@ -31,7 +31,7 @@ namespace sprout {
 					result,
 					sprout::size(result),
 					(Indexes < offset && Indexes + size >= static_cast<std::size_t>(offset) && Indexes + input_size >= static_cast<std::size_t>(offset)
-						? *sprout::next(last, Indexes - offset)
+						? last[Indexes - offset]
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);

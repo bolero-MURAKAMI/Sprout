@@ -77,7 +77,7 @@ namespace sprout {
 	//
 	template<
 		typename Elem,
-		int Base,
+		int Base = 10,
 		typename IntType,
 		typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 	>

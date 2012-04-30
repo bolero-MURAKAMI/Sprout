@@ -30,7 +30,7 @@ namespace sprout {
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? *sprout::prev(last, 1 + Indexes - offset)
+						? last[-(1 + Indexes - offset)]
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);

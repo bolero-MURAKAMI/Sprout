@@ -36,7 +36,7 @@ namespace sprout {
 							? *pos2
 							: sprout::next(first, Indexes - offset) == pos2
 							? *pos1
-							: *sprout::next(first, Indexes - offset)
+							: first[Indexes - offset]
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);

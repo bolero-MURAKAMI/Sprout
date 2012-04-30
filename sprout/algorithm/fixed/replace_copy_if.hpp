@@ -32,7 +32,7 @@ namespace sprout {
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? pred(*sprout::next(first, Indexes - offset)) ? new_value : *sprout::next(first, Indexes - offset)
+						? pred(first[Indexes - offset]) ? new_value : first[Indexes - offset]
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);

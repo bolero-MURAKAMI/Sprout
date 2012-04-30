@@ -3,5 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/range/adaptor/transformed.hpp>
+#include <sprout/range/adaptor/sinusoidal.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_ADAPTOR_HPP
