@@ -192,7 +192,7 @@ namespace sprout {
 			Args&&... args
 			)
 		{
-			return sprout::remake<Container>(sprout::forward<Cont>(cont), size, sprout::forward<Args>(args)...);
+			return sprout::remake<copied_type>(sprout::forward<Cont>(cont), size, sprout::forward<Args>(args)...);
 		}
 	};
 

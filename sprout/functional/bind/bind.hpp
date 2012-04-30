@@ -58,36 +58,38 @@ namespace sprout {
 	struct placeholder {};
 
 	namespace placeholders {
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<1> _1;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<2> _2;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<3> _3;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<4> _4;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<5> _5;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<6> _6;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<7> _7;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<8> _8;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<9> _9;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<10> _10;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<11> _11;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<12> _12;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<13> _13;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<14> _14;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<15> _15;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<16> _16;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<17> _17;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<18> _18;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<19> _19;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<20> _20;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<21> _21;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<22> _22;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<23> _23;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<24> _24;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<25> _25;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<26> _26;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<27> _27;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<28> _28;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<29> _29;
-		SPROUT_STATIC_CONSTEXPR sprout::placeholder<30> _30;
+		namespace {
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<1> _1{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<2> _2{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<3> _3{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<4> _4{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<5> _5{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<6> _6{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<7> _7{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<8> _8{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<9> _9{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<10> _10{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<11> _11{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<12> _12{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<13> _13{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<14> _14{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<15> _15{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<16> _16{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<17> _17{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<18> _18{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<19> _19{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<20> _20{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<21> _21{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<22> _22{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<23> _23{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<24> _24{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<25> _25{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<26> _26{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<27> _27{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<28> _28{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<29> _29{};
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<30> _30{};
+		}	// anonymous-namespace
 	}	// namespace placeholders
 	using sprout::placeholders::_1;
 	using sprout::placeholders::_2;

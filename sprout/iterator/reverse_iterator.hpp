@@ -162,10 +162,10 @@ namespace sprout {
 		return !(lhs < rhs);
 	}
 	template<typename Iterator1, typename Iterator2>
-	SPROUT_CONSTEXPR auto operator-(
+	SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>()) operator-(
 		sprout::reverse_iterator<Iterator1> const& lhs,
 		sprout::reverse_iterator<Iterator2> const& rhs
-		) -> decltype(lhs.base() - rhs.base())
+		)
 	{
 		return lhs.base() - rhs.base();
 	}

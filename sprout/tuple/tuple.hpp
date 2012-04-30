@@ -13,27 +13,52 @@ namespace sprout {
 		namespace detail {
 			template<std::size_t Index, typename Head, bool IsEmpty>
 			class head_base;
+			//!!!
+			// EBO disabled
+//			template<std::size_t Index, typename Head>
+//			class head_base<Index, Head, true>
+//				: public Head
+//			{
+//			public:
+//				static SPROUT_CONSTEXPR Head& head(head_base& t) SPROUT_NOEXCEPT {
+//					return t;
+//				}
+//				static SPROUT_CONSTEXPR Head const& head(head_base const& t) SPROUT_NOEXCEPT {
+//					return t;
+//				}
+//			public:
+//				SPROUT_CONSTEXPR head_base()
+//					: Head()
+//				{}
+//				SPROUT_CONSTEXPR head_base(Head const& v)
+//					: Head(v)
+//				{}
+//				template<typename UHead>
+//				SPROUT_CONSTEXPR head_base(UHead&& v)
+//					: Head(sprout::forward<UHead>(v))
+//				{}
+//			};
 			template<std::size_t Index, typename Head>
-			class head_base<Index, Head, true>
-				: public Head
-			{
+			class head_base<Index, Head, true> {
 			public:
 				static SPROUT_CONSTEXPR Head& head(head_base& t) SPROUT_NOEXCEPT {
-					return t;
+					return t.head_;
 				}
 				static SPROUT_CONSTEXPR Head const& head(head_base const& t) SPROUT_NOEXCEPT {
-					return t;
+					return t.head_;
 				}
+			private:
+				Head head_;
 			public:
 				SPROUT_CONSTEXPR head_base()
-					: Head()
+					: head_()
 				{}
 				SPROUT_CONSTEXPR head_base(Head const& v)
-					: Head(v)
+					: head_(v)
 				{}
 				template<typename UHead>
 				SPROUT_CONSTEXPR head_base(UHead&& v)
-					: Head(sprout::forward<UHead>(v))
+					: head_(sprout::forward<UHead>(v))
 				{}
 			};
 			template<std::size_t Index, typename Head>

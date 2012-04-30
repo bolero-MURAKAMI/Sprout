@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/range/lvalue_iterator.hpp>
 
 namespace sprout {
 	namespace range {
