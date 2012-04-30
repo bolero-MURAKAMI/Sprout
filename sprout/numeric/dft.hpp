@@ -6,6 +6,7 @@
 #include <sprout/numeric/dft/idft.hpp>
 #include <sprout/numeric/dft/dft_element.hpp>
 #include <sprout/numeric/dft/idft_element.hpp>
+#include <sprout/numeric/dft/spectrum.hpp>
+#include <sprout/numeric/dft/sinusoid.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_DFT_HPP
-

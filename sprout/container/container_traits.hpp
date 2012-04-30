@@ -3,31 +3,72 @@
 
 #include <cstddef>
 #include <array>
+#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/has_xxx.hpp>
+#include <sprout/type_traits/inherit_if_xxx.hpp>
 
 namespace sprout {
-	//
-	// container_traits
-	//
 	template<typename Container>
 	struct container_traits;
 
 	namespace detail {
+		//
+		// inherit_if_value_type
+		// inherit_if_iterator
+		// inherit_if_const_iterator
+		// inherit_if_reference
+		// inherit_if_const_reference
+		// inherit_if_size_type
+		// inherit_if_difference_type
+		// inherit_if_pointer
+		// inherit_if_static_size
+		//
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(value_type);
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(iterator);
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(const_iterator);
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(reference);
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(const_reference);
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(size_type);
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(difference_type);
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(pointer);
+		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(const_pointer);
+		SPROUT_INHERIT_IF_XXX_CONSTANT_DEF_LAZY(static_size);
+
+		//
+		// has_static_size
+		//
+		SPROUT_HAS_XXX_VALUE_DEF_LAZY(static_size);
+
+		template<typename Container, typename Enable = void>
+		struct inherit_if_fixed_size {};
 		template<typename Container>
-		struct container_traits_default_types {
+		struct inherit_if_fixed_size<
+			Container,
+			typename std::enable_if<sprout::detail::has_static_size<Container>::value>::type
+		> {
 		public:
-			typedef typename Container::value_type value_type;
-			typedef typename Container::iterator iterator;
-			typedef typename Container::const_iterator const_iterator;
-			typedef typename Container::reference reference;
-			typedef typename Container::const_reference const_reference;
-			typedef typename Container::size_type size_type;
-			typedef typename Container::difference_type difference_type;
-			typedef typename Container::pointer pointer;
-			typedef typename Container::const_pointer const_pointer;
+			static SPROUT_CONSTEXPR decltype(Container::static_size) fixed_size() {
+				return Container::static_size;
+			}
 		};
+
+		template<typename Container>
+		struct container_traits_default
+			: public sprout::detail::inherit_if_value_type<Container>
+			, public sprout::detail::inherit_if_iterator<Container>
+			, public sprout::detail::inherit_if_const_iterator<Container>
+			, public sprout::detail::inherit_if_reference<Container>
+			, public sprout::detail::inherit_if_const_reference<Container>
+			, public sprout::detail::inherit_if_size_type<Container>
+			, public sprout::detail::inherit_if_difference_type<Container>
+			, public sprout::detail::inherit_if_pointer<Container>
+			, public sprout::detail::inherit_if_const_pointer<Container>
+			, public sprout::detail::inherit_if_static_size<Container>
+			, public sprout::detail::inherit_if_fixed_size<Container>
+		{};
 		template<typename T, std::size_t N>
-		struct container_traits_default_types<T[N]> {
+		struct container_traits_default<T[N]> {
 		public:
 			typedef T value_type;
 			typedef T* iterator;
@@ -38,36 +79,21 @@ namespace sprout {
 			typedef std::ptrdiff_t difference_type;
 			typedef T* pointer;
 			typedef T const* const_pointer;
-		};
-
-		template<typename Container>
-		struct container_traits_default_size {
 		public:
-			SPROUT_STATIC_CONSTEXPR typename sprout::detail::container_traits_default_types<Container>::size_type static_size
-				= std::tuple_size<Container>::value
-				;
+			SPROUT_STATIC_CONSTEXPR size_type static_size = N ;
 		public:
-			static SPROUT_CONSTEXPR typename sprout::detail::container_traits_default_types<Container>::size_type fixed_size() {
-				return static_size;
-			}
-		};
-		template<typename T, std::size_t N>
-		struct container_traits_default_size<T[N]> {
-		public:
-			SPROUT_STATIC_CONSTEXPR typename sprout::detail::container_traits_default_types<T[N]>::size_type static_size
-				= N
-				;
-		public:
-			static SPROUT_CONSTEXPR typename sprout::detail::container_traits_default_types<T[N]>::size_type fixed_size() {
+			static SPROUT_CONSTEXPR size_type fixed_size() {
 				return static_size;
 			}
 		};
 	}	// namespace detail
 
+	//
+	// container_traits
+	//
 	template<typename Container>
 	struct container_traits
-		: public sprout::detail::container_traits_default_types<Container>
-		, public sprout::detail::container_traits_default_size<Container>
+		: public sprout::detail::container_traits_default<Container>
 	{};
 	template<typename Container>
 	struct container_traits<Container const>
@@ -81,8 +107,7 @@ namespace sprout {
 
 	template<typename T, std::size_t N>
 	struct container_traits<T[N]>
-		: public sprout::detail::container_traits_default_types<T[N]>
-		, public sprout::detail::container_traits_default_size<T[N]>
+		: public sprout::detail::container_traits_default<T[N]>
 	{};
 	template<typename T, std::size_t N>
 	struct container_traits<T const[N]>

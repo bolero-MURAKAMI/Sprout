@@ -238,7 +238,11 @@ namespace sprout {
 	//
 	template<typename Container>
 	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::index_iterator<Container> >::difference_type
-	distance(sprout::index_iterator<Container> first, sprout::index_iterator<Container> last) {
+	distance(
+		sprout::index_iterator<Container> first,
+		sprout::index_iterator<Container> last
+		)
+	{
 		return last - first;
 	}
 }	// namespace sprout
