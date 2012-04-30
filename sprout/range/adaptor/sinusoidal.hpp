@@ -12,10 +12,9 @@
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
-#include <sprout/utility/value_holder.hpp>
 
 namespace sprout {
-	namespace range {
+	namespace adaptors {
 		//
 		// sinusoidal_range
 		//
@@ -43,8 +42,8 @@ namespace sprout {
 				value_type const& amplitude = 1
 				)
 				: base_type(
-					iterator(frequency, amplitude, 0),
-					iterator(frequency, amplitude, sprout::size(range))
+					iterator(0, frequency, amplitude),
+					iterator(sprout::size(range), frequency, amplitude)
 					)
 			{}
 		};
@@ -70,8 +69,8 @@ namespace sprout {
 				value_type const& amplitude = 1
 				)
 				: base_type(
-					iterator(frequency, amplitude, 0),
-					iterator(frequency, amplitude, -1)
+					iterator(0, frequency, amplitude),
+					iterator(-1, frequency, amplitude)
 					)
 			{}
 		};
@@ -82,13 +81,13 @@ namespace sprout {
 		class sinusoidal_forwarder {
 		public:
 			template<typename Value>
-			SPROUT_CONSTEXPR sprout::range::sinusoidal_range<Value>
+			SPROUT_CONSTEXPR sprout::adaptors::sinusoidal_range<Value>
 			operator()(
 				Value const& frequency = 1,
 				Value const& amplitude = 1
 				)
 			{
-				return sprout::range::sinusoidal_range<Value>(frequency, amplitude);
+				return sprout::adaptors::sinusoidal_range<Value>(frequency, amplitude);
 			}
 		};
 
@@ -96,19 +95,19 @@ namespace sprout {
 		// sinusoidal
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::range::sinusoidal_forwarder sinusoidal{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::sinusoidal_forwarder sinusoidal{};
 		}	// anonymous-namespace
 
 		//
 		// operator|
 		//
 		template<typename Range, typename Value>
-		inline SPROUT_CONSTEXPR sprout::range::sinusoidal_range<
+		inline SPROUT_CONSTEXPR sprout::adaptors::sinusoidal_range<
 			Value,
 			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 		>
-		operator|(Range&& lhs, sprout::range::sinusoidal_range<Value> const& rhs) {
-			return sprout::range::sinusoidal_range<
+		operator|(Range&& lhs, sprout::adaptors::sinusoidal_range<Value> const& rhs) {
+			return sprout::adaptors::sinusoidal_range<
 				Value,
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>(
@@ -117,12 +116,13 @@ namespace sprout {
 				rhs.amplitude()
 				);
 		}
-	}	// namespace range
+	}	// namespace adaptors
+
 	//
 	// container_construct_traits
 	//
 	template<typename Value, typename Range>
-	struct container_construct_traits<sprout::range::sinusoidal_range<Value, Range> > {
+	struct container_construct_traits<sprout::adaptors::sinusoidal_range<Value, Range> > {
 	public:
 		typedef typename sprout::container_construct_traits<Range>::copied_type copied_type;
 	public:
@@ -137,7 +137,7 @@ namespace sprout {
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type remake(
 			Cont&& cont,
-			typename sprout::container_traits<sprout::range::sinusoidal_range<Value, Range> >::difference_type size,
+			typename sprout::container_traits<sprout::adaptors::sinusoidal_range<Value, Range> >::difference_type size,
 			Args&&... args
 			)
 		{

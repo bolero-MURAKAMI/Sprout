@@ -15,7 +15,7 @@
 #include <sprout/utility/value_holder.hpp>
 
 namespace sprout {
-	namespace range {
+	namespace adaptors {
 		//
 		// transformed_range
 		//
@@ -133,12 +133,12 @@ namespace sprout {
 		class transformed_forwarder {
 		public:
 			template<typename RRange, typename BinaryFunction>
-			SPROUT_CONSTEXPR sprout::range::transform_holder<
+			SPROUT_CONSTEXPR sprout::adaptors::transform_holder<
 				BinaryFunction,
 				typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 			>
 			operator()(RRange&& range, BinaryFunction func) {
-				return sprout::range::transform_holder<
+				return sprout::adaptors::transform_holder<
 					BinaryFunction,
 					typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 				> (
@@ -147,9 +147,9 @@ namespace sprout {
 					);
 			}
 			template<typename UnaryFunction>
-			SPROUT_CONSTEXPR sprout::range::transform_holder<UnaryFunction>
+			SPROUT_CONSTEXPR sprout::adaptors::transform_holder<UnaryFunction>
 			operator()(UnaryFunction func) {
-				return sprout::range::transform_holder<UnaryFunction>(func);
+				return sprout::adaptors::transform_holder<UnaryFunction>(func);
 			}
 		};
 
@@ -157,20 +157,20 @@ namespace sprout {
 		// transformed
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::range::transformed_forwarder transformed{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::transformed_forwarder transformed{};
 		}	// anonymous-namespace
 
 		//
 		// operator|
 		//
 		template<typename LRange, typename BinaryFunction, typename RRange>
-		inline SPROUT_CONSTEXPR sprout::range::transformed_range<
+		inline SPROUT_CONSTEXPR sprout::adaptors::transformed_range<
 			BinaryFunction,
 			typename std::remove_reference<typename sprout::lvalue_reference<LRange>::type>::type,
 			RRange
 		>
-		operator|(LRange&& lhs, sprout::range::transform_holder<BinaryFunction, RRange> const& rhs) {
-			return sprout::range::transformed_range<
+		operator|(LRange&& lhs, sprout::adaptors::transform_holder<BinaryFunction, RRange> const& rhs) {
+			return sprout::adaptors::transformed_range<
 				BinaryFunction,
 				typename std::remove_reference<typename sprout::lvalue_reference<LRange>::type>::type,
 				RRange
@@ -181,12 +181,12 @@ namespace sprout {
 				);
 		}
 		template<typename Range, typename UnaryFunction>
-		inline SPROUT_CONSTEXPR sprout::range::transformed_range<
+		inline SPROUT_CONSTEXPR sprout::adaptors::transformed_range<
 			UnaryFunction,
 			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 		>
-		operator|(Range&& lhs, sprout::range::transform_holder<UnaryFunction> const& rhs) {
-			return sprout::range::transformed_range<
+		operator|(Range&& lhs, sprout::adaptors::transform_holder<UnaryFunction> const& rhs) {
+			return sprout::adaptors::transformed_range<
 				UnaryFunction,
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>(
@@ -194,12 +194,13 @@ namespace sprout {
 				sprout::lvalue_forward<Range>(lhs)
 				);
 		}
-	}	// namespace range
+	}	// namespace adaptors
+
 	//
 	// container_construct_traits
 	//
 	template<typename UnaryOrBinaryFunction, typename LRange, typename RRange>
-	struct container_construct_traits<sprout::range::transformed_range<UnaryOrBinaryFunction, LRange, RRange> > {
+	struct container_construct_traits<sprout::adaptors::transformed_range<UnaryOrBinaryFunction, LRange, RRange> > {
 	public:
 		typedef typename sprout::container_construct_traits<LRange>::copied_type copied_type;
 	public:
@@ -214,7 +215,7 @@ namespace sprout {
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type remake(
 			Cont&& cont,
-			typename sprout::container_traits<sprout::range::transformed_range<UnaryOrBinaryFunction, LRange, RRange> >::difference_type size,
+			typename sprout::container_traits<sprout::adaptors::transformed_range<UnaryOrBinaryFunction, LRange, RRange> >::difference_type size,
 			Args&&... args
 			)
 		{

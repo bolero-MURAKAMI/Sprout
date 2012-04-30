@@ -33,40 +33,40 @@ namespace sprout {
 		typedef value_type* pointer;
 		typedef value_type reference;
 	private:
+		difference_type index_;
 		value_type frequency_;
 		value_type amplitude_;
-		difference_type index_;
 		value_type d_;
 	private:
 		explicit SPROUT_CONSTEXPR sinusoid_iterator(sinusoid_iterator const& other, difference_type index)
-			: frequency_(other.frequency_)
+			: index_(index)
+			, frequency_(other.frequency_)
 			, amplitude_(other.amplitude_)
-			, index_(index)
 			, d_(other.d_)
 		{}
 	public:
 		SPROUT_CONSTEXPR sinusoid_iterator()
-			: frequency_(1)
+			: index_()
+			, frequency_(1)
 			, amplitude_(1)
-			, index_()
 			, d_(value_type(2) * sprout::math::pi<value_type>())
 		{}
 		sinusoid_iterator(sinusoid_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR sinusoid_iterator(
-			value_type const& frequency,
-			value_type const& amplitude = 1,
-			difference_type index = 0
+			difference_type index,
+			value_type const& frequency = 1,
+			value_type const& amplitude = 1
 			)
-			: frequency_(frequency)
+			: index_(index)
+			, frequency_(frequency)
 			, amplitude_(amplitude)
-			, index_(index)
 			, d_(value_type(2) * sprout::math::pi<value_type>() * frequency)
 		{}
 		template<typename U>
 		SPROUT_CONSTEXPR sinusoid_iterator(sinusoid_iterator<U> const& it)
-			: frequency_(it.frequency_)
+			: index_(it.index_)
+			, frequency_(it.frequency_)
 			, amplitude_(it.amplitude_)
-			, index_(it.index_)
 			, d_(it.d_)
 		{}
 		template<typename U>
