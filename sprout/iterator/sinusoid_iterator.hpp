@@ -95,7 +95,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
 			using std::sin;
-			return amplitude_ * sin(d_ * value_type(index_));
+			return amplitude_ * sin(d_ * value_type(index_) + phase_);
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &operator*()();
@@ -136,7 +136,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			using std::sin;
-			return amplitude_ * sin(d_ * value_type(index_ + n));
+			return amplitude_ * sin(d_ * value_type(index_ + n) + phase_);
 		}
 		SPROUT_CONSTEXPR sinusoid_iterator next() const {
 			return sinusoid_iterator(*this, index_ + 1);
