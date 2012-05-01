@@ -36,12 +36,14 @@ namespace sprout {
 		difference_type index_;
 		value_type frequency_;
 		value_type amplitude_;
+		value_type phase_;
 		value_type d_;
 	private:
 		explicit SPROUT_CONSTEXPR sinusoid_iterator(sinusoid_iterator const& other, difference_type index)
 			: index_(index)
 			, frequency_(other.frequency_)
 			, amplitude_(other.amplitude_)
+			, phase_(other.phase_)
 			, d_(other.d_)
 		{}
 	public:
@@ -49,17 +51,20 @@ namespace sprout {
 			: index_()
 			, frequency_(1)
 			, amplitude_(1)
+			, phase_(0)
 			, d_(value_type(2) * sprout::math::pi<value_type>())
 		{}
 		sinusoid_iterator(sinusoid_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR sinusoid_iterator(
 			difference_type index,
 			value_type const& frequency = 1,
-			value_type const& amplitude = 1
+			value_type const& amplitude = 1,
+			value_type const& phase = 0
 			)
 			: index_(index)
 			, frequency_(frequency)
 			, amplitude_(amplitude)
+			, phase_(phase)
 			, d_(value_type(2) * sprout::math::pi<value_type>() * frequency)
 		{}
 		template<typename U>
@@ -67,6 +72,7 @@ namespace sprout {
 			: index_(it.index_)
 			, frequency_(it.frequency_)
 			, amplitude_(it.amplitude_)
+			, phase_(it.phase_)
 			, d_(it.d_)
 		{}
 		template<typename U>
@@ -83,6 +89,9 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR value_type const& amplitude() const {
 			return amplitude_;
+		}
+		SPROUT_CONSTEXPR value_type const& phase() const {
+			return phase_;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
 			using std::sin;
@@ -137,9 +146,10 @@ namespace sprout {
 		}
 		void swap(sinusoid_iterator& other) {
 			using std::swap;
+			swap(index_, other.index_);
 			swap(frequency_, other.frequency_);
 			swap(amplitude_, other.amplitude_);
-			swap(index_, other.index_);
+			swap(phase_, other.phase_);
 			swap(d_, other.d_);
 		}
 	};

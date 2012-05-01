@@ -16,11 +16,12 @@ namespace sprout {
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& frequency,
 				typename sprout::container_traits<Container>::value_type const& amplitude,
+				typename sprout::container_traits<Container>::value_type const& phase,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_internal(sprout::fixed::sinusoid(cont, frequency, amplitude)),
+					sprout::get_internal(sprout::fixed::sinusoid(cont, frequency, amplitude, phase)),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -33,7 +34,8 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type sinusoid(
 			Container const& cont,
 			typename sprout::container_traits<Container>::value_type const& frequency = 1,
-			typename sprout::container_traits<Container>::value_type const& amplitude = 1
+			typename sprout::container_traits<Container>::value_type const& amplitude = 1,
+			typename sprout::container_traits<Container>::value_type const& phase = 0
 			)
 		{
 			return sprout::fit::detail::sinusoid_impl(cont, frequency, amplitude, sprout::internal_begin_offset(cont));

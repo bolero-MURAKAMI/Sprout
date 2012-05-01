@@ -19,6 +19,7 @@ namespace sprout {
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& d,
 				typename sprout::container_traits<Container>::value_type const& amplitude,
+				typename sprout::container_traits<Container>::value_type const& phase,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::size_type size
@@ -30,7 +31,7 @@ namespace sprout {
 					cont,
 					size,
 					(Indexes >= offset && Indexes < offset + size
-						? amplitude * sin(d * value_type(Indexes))
+						? amplitude * sin(d * value_type(Indexes) + phase)
 						: *sprout::next(sprout::internal_begin(cont), Indexes)
 						)...
 					);
@@ -40,7 +41,8 @@ namespace sprout {
 			sinusoid(
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& frequency,
-				typename sprout::container_traits<Container>::value_type const& amplitude
+				typename sprout::container_traits<Container>::value_type const& amplitude,
+				typename sprout::container_traits<Container>::value_type const& phase
 				)
 			{
 				typedef typename sprout::container_traits<Container>::value_type value_type;
@@ -48,6 +50,7 @@ namespace sprout {
 					cont,
 					value_type(2) * sprout::math::pi<value_type>() * frequency / value_type(sprout::size(cont)),
 					amplitude,
+					phase,
 					sprout::container_indexes<Container>::make(),
 					sprout::internal_begin_offset(cont),
 					sprout::size(cont)
@@ -62,10 +65,11 @@ namespace sprout {
 		sinusoid(
 			Container const& cont,
 			typename sprout::container_traits<Container>::value_type const& frequency = 1,
-			typename sprout::container_traits<Container>::value_type const& amplitude = 1
+			typename sprout::container_traits<Container>::value_type const& amplitude = 1,
+			typename sprout::container_traits<Container>::value_type const& phase = 0
 			)
 		{
-			return sprout::fixed::detail::sinusoid(cont, frequency, amplitude);
+			return sprout::fixed::detail::sinusoid(cont, frequency, amplitude, phase);
 		}
 	}	// namespace fixed
 

@@ -39,13 +39,23 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR sinusoidal_range(
 				range_type& range,
 				value_type const& frequency = 1,
-				value_type const& amplitude = 1
+				value_type const& amplitude = 1,
+				value_type const& phase = 0
 				)
 				: base_type(
-					iterator(0, frequency, amplitude),
-					iterator(sprout::size(range), frequency, amplitude)
+					iterator(0, frequency, amplitude, phase),
+					iterator(sprout::size(range), frequency, amplitude, phase)
 					)
 			{}
+			SPROUT_CONSTEXPR value_type const& frequency() const {
+				return base_type::begin().frequency();
+			}
+			SPROUT_CONSTEXPR value_type const& amplitude() const {
+				return base_type::begin().amplitude();
+			}
+			SPROUT_CONSTEXPR value_type const& phase() const {
+				return base_type::begin().phase();
+			}
 		};
 
 		template<typename Value>
@@ -66,13 +76,23 @@ namespace sprout {
 			sinusoidal_range(sinusoidal_range const&) = default;
 			explicit SPROUT_CONSTEXPR sinusoidal_range(
 				value_type const& frequency = 1,
-				value_type const& amplitude = 1
+				value_type const& amplitude = 1,
+				value_type const& phase = 0
 				)
 				: base_type(
-					iterator(0, frequency, amplitude),
-					iterator(-1, frequency, amplitude)
+					iterator(0, frequency, amplitude, phase),
+					iterator(-1, frequency, amplitude, phase)
 					)
 			{}
+			SPROUT_CONSTEXPR value_type const& frequency() const {
+				return base_type::begin().frequency();
+			}
+			SPROUT_CONSTEXPR value_type const& amplitude() const {
+				return base_type::begin().amplitude();
+			}
+			SPROUT_CONSTEXPR value_type const& phase() const {
+				return base_type::begin().phase();
+			}
 		};
 
 		//
@@ -84,10 +104,11 @@ namespace sprout {
 			SPROUT_CONSTEXPR sprout::adaptors::sinusoidal_range<Value>
 			operator()(
 				Value const& frequency = 1,
-				Value const& amplitude = 1
+				Value const& amplitude = 1,
+				Value const& phase = 0
 				)
 			{
-				return sprout::adaptors::sinusoidal_range<Value>(frequency, amplitude);
+				return sprout::adaptors::sinusoidal_range<Value>(frequency, amplitude, phase);
 			}
 		};
 
@@ -113,7 +134,8 @@ namespace sprout {
 			>(
 				sprout::lvalue_forward<Range>(lhs),
 				rhs.frequency(),
-				rhs.amplitude()
+				rhs.amplitude(),
+				rhs.phase()
 				);
 		}
 	}	// namespace adaptors
