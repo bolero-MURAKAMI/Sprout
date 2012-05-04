@@ -164,7 +164,7 @@ namespace sprout {
 										+ sprout::darkroom::coords::z(normal) * sprout::darkroom::coords::z(normal)
 									)
 								)
-								/ sprout::math::pi_div_two<unit_type>()
+								/ sprout::math::half_pi<unit_type>()
 							)
 						);
 				}

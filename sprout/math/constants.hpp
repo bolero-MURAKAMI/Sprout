@@ -13,11 +13,18 @@ namespace sprout {
 			return 3.141592653589793238462643383279502884197169399375105820974944L;
 		}
 		//
-		// pi_div_two
+		// half_pi
 		//
 		template<typename T>
-		inline SPROUT_CONSTEXPR T pi_div_two() {
+		inline SPROUT_CONSTEXPR T half_pi() {
 			return 1.570796326794896619231321691639751442098584699687552910487472L;
+		}
+		//
+		// quarter_pi
+		//
+		template<typename T>
+		inline SPROUT_CONSTEXPR T quarter_pi() {
+			return 0.785398163397448309615660845819875721049292349843776455243736L;
 		}
 		//
 		// root_two

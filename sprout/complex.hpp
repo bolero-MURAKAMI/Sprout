@@ -361,7 +361,7 @@ namespace sprout {
 	namespace detail {
 		template<typename T>
 		SPROUT_CONSTEXPR sprout::complex<T> acos_impl(sprout::complex<T> const& t) {
-			return sprout::complex<T>(sprout::math::pi_div_two<T>() - t.real(), -t.imag());
+			return sprout::complex<T>(sprout::math::half_pi<T>() - t.real(), -t.imag());
 		}
 	}	// namespace detail
 	template<typename T>
