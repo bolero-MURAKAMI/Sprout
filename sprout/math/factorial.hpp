@@ -651,4 +651,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_MATH_FACTORIAL_HPP
-
