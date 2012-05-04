@@ -7,5 +7,6 @@
 #include <sprout/math/asin.hpp>
 #include <sprout/math/acos.hpp>
 #include <sprout/math/atan.hpp>
+#include <sprout/math/atan2.hpp>
 
 #endif	// #ifndef SPROUT_MATH_TRIGONOMETRIC_HPP
