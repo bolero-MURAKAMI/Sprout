@@ -53,7 +53,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			log(FloatType x) {
 				typedef double type;
-				return !(x > 0) ? -std::numeric_limits<FloatType>::infinity()
+				return x == 0 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: !(x > 0) ? -std::numeric_limits<FloatType>::infinity()
 					: static_cast<FloatType>(sprout::math::detail::log_impl(x))
 					;
 			}
