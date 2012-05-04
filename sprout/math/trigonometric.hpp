@@ -4,6 +4,8 @@
 #include <sprout/math/sin.hpp>
 #include <sprout/math/cos.hpp>
 #include <sprout/math/tan.hpp>
+#include <sprout/math/asin.hpp>
+#include <sprout/math/acos.hpp>
 #include <sprout/math/atan.hpp>
 
 #endif	// #ifndef SPROUT_MATH_TRIGONOMETRIC_HPP
