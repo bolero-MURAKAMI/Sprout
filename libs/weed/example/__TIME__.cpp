@@ -34,7 +34,7 @@ main(){
 	//
 	// parse __TIME__
 	//
-	constexpr auto parser = w::int_ >> ':' >> w::int_ >> ':' >> w::int_;
+	constexpr auto expr = w::int_ >> ':' >> w::int_ >> ':' >> w::int_;
 	static constexpr auto result = w::parse(time.begin(), time.end(), parser);
 	static_assert(result.success(), "failed parse");
 	
