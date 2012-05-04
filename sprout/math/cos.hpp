@@ -19,7 +19,7 @@ namespace sprout {
 				return 2 * n > sprout::math::factorial_limit<T>() ? tmp
 					: sprout::math::detail::cos_impl(
 						x,
-						tmp + (n % 2 ? -1 : 1) / sprout::math::factorial<T>(2 * n) * x2n,
+						tmp + (n % 2 ? -1 : 1) * x2n / sprout::math::factorial<T>(2 * n),
 						n + 1,
 						x2n * x * x
 						)

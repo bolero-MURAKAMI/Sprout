@@ -1,5 +1,5 @@
-#ifndef SPROUT_MATH_SINH_HPP
-#define SPROUT_MATH_SINH_HPP
+#ifndef SPROUT_MATH_EXP_HPP
+#define SPROUT_MATH_EXP_HPP
 
 #include <cstddef>
 #include <type_traits>
@@ -15,13 +15,13 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			sinh_impl(T x, T tmp, std::size_t n, T x2n1) {
-				return 2 * n + 1 > sprout::math::factorial_limit<T>() ? tmp
-					: sprout::math::detail::sinh_impl(
+			exp_impl(T x, T tmp, std::size_t n, T xn) {
+				return n > sprout::math::factorial_limit<T>() ? tmp
+					: sprout::math::detail::exp_impl(
 						x,
-						tmp + x2n1 / sprout::math::factorial<T>(2 * n + 1),
+						tmp + xn / sprout::math::factorial<T>(n),
 						n + 1,
-						x2n1 * x * x
+						xn * x
 						)
 					;
 			}
@@ -31,13 +31,13 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR FloatType
-			sinh(FloatType x) {
+			exp(FloatType x) {
 				typedef double type;
-				return static_cast<FloatType>(sprout::math::detail::sinh_impl(
+				return static_cast<FloatType>(sprout::math::detail::exp_impl(
 					static_cast<type>(x),
-					static_cast<type>(x),
+					type(1),
 					1,
-					static_cast<type>(x) * static_cast<type>(x) * static_cast<type>(x)
+					static_cast<type>(x)
 					));
 			}
 
@@ -46,19 +46,19 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR double
-			sinh(IntType x) {
-				return sprout::math::detail::sinh(static_cast<double>(x));
+			exp(IntType x) {
+				return sprout::math::detail::exp(static_cast<double>(x));
 			}
 		}	// namespace detail
 
 #	if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-		using std::sinh;
+		using std::exp;
 #	else
-		using sprout::math::detail::sinh;
+		using sprout::math::detail::exp;
 #	endif
 	}	// namespace math
 
-	using sprout::math::sinh;
+	using sprout::math::exp;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_MATH_SINH_HPP
+#endif	// #ifndef SPROUT_MATH_EXP_HPP

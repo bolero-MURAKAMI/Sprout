@@ -19,7 +19,7 @@ namespace sprout {
 				return 2 * n > sprout::math::factorial_limit<T>() ? tmp
 					: sprout::math::detail::cosh_impl(
 						x,
-						tmp + 1 / sprout::math::factorial<T>(2 * n) * x2n,
+						tmp + x2n / sprout::math::factorial<T>(2 * n),
 						n + 1,
 						x2n * x * x
 						)

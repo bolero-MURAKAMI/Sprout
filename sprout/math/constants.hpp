@@ -19,6 +19,13 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR T pi_div_two() {
 			return 1.570796326794896619231321691639751442098584699687552910487472L;
 		}
+		//
+		// root_two
+		//
+		template<typename T>
+		inline SPROUT_CONSTEXPR T root_two() {
+			return 1.414213562373095048801688724209698078569671875376948073L;
+		}
 	}	// namespace math
 }	// namespace sprout
 
