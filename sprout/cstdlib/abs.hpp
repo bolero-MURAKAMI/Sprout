@@ -20,11 +20,11 @@ namespace sprout {
 	}
 
 	SPROUT_CONSTEXPR long abs(long j) {
-		return labs(j);
+		return sprout::labs(j);
 	}
 
 	SPROUT_CONSTEXPR long long abs(long long j) {
-		return llabs(j);
+		return sprout::llabs(j);
 	}
 }	// namespace sprout
 

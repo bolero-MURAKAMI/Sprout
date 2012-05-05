@@ -16,7 +16,5 @@
 #include <sprout/cstdlib/strtof.hpp>
 #include <sprout/cstdlib/strtod.hpp>
 #include <sprout/cstdlib/strtold.hpp>
-#include <sprout/cstdlib/strtoimax.hpp>
-#include <sprout/cstdlib/strtoumax.hpp>
 
 #endif	// #ifndef SPROUT_CSTDLIB_CONVERSION_HPP

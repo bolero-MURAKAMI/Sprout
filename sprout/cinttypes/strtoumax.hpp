@@ -1,5 +1,5 @@
-#ifndef SPROUT_CSTDLIB_STRTTOUMAX_HPP
-#define SPROUT_CSTDLIB_STRTTOUMAX_HPP
+#ifndef SPROUT_CINTTYPES_STRTOUMAX_HPP
+#define SPROUT_CINTTYPES_STRTOUMAX_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -27,4 +27,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_CSTDLIB_STRTTOUMAX_HPP
+#endif	// #ifndef SPROUT_CINTTYPES_STRTOUMAX_HPP

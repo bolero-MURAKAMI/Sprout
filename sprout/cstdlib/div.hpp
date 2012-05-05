@@ -5,42 +5,34 @@
 #include <cstdlib>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/utility/enabler_if.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
 	namespace detail {
-#		define SPROUT_DIV_T_TRAITS_IMPL(DIV_T) \
-		typedef DIV_T type; \
-		static SPROUT_CONSTEXPR std::size_t offsetof_quot = offsetof(DIV_T, quot); \
-		static SPROUT_CONSTEXPR std::size_t offsetof_rem = offsetof(DIV_T, rem)
-
 		template<typename T>
 		struct div_t_traits {};
-		template<>
-		struct div_t_traits<int> {
-		public:
-			SPROUT_DIV_T_TRAITS_IMPL(std::div_t);
-		};
-		template<>
-		struct div_t_traits<long> {
-		public:
-			SPROUT_DIV_T_TRAITS_IMPL(std::ldiv_t);
-		};
-		template<>
-		struct div_t_traits<long long> {
-		public:
-			SPROUT_DIV_T_TRAITS_IMPL(std::lldiv_t);
-		};
-#		undef SPROUT_DIV_T_TRAITS_IMPL
 
-		extern void* enabler;
+#	define SPROUT_DETAIL_DIV_T_TRAITS_IMPL(INT_T, DIV_T) \
+		template<> \
+		struct div_t_traits<INT_T> { \
+		public: \
+			typedef DIV_T type; \
+			static SPROUT_CONSTEXPR std::size_t offsetof_quot = offsetof(DIV_T, quot); \
+			static SPROUT_CONSTEXPR std::size_t offsetof_rem = offsetof(DIV_T, rem); \
+		}
+
+		SPROUT_DETAIL_DIV_T_TRAITS_IMPL(int, std::div_t);
+		SPROUT_DETAIL_DIV_T_TRAITS_IMPL(long, std::ldiv_t);
+		SPROUT_DETAIL_DIV_T_TRAITS_IMPL(long long, std::lldiv_t);
+#	undef SPROUT_DETAIL_DIV_T_TRAITS_IMPL
 
 		template<
 			typename T,
-			typename std::enable_if<
+			typename sprout::enabler_if<
 				sprout::detail::div_t_traits<T>::offsetof_quot == 0
-			>::type*& = sprout::detail::enabler
+			>::type = sprout::enabler
 		>
 		SPROUT_CONSTEXPR typename sprout::detail::div_t_traits<T>::type div_impl(T const& numer, T const& denom) {
 			return {numer / denom, numer % denom};
@@ -48,9 +40,9 @@ namespace sprout {
 
 		template<
 			typename T,
-			typename std::enable_if<
+			typename sprout::enabler_if<
 				sprout::detail::div_t_traits<T>::offsetof_rem == 0
-			>::type*& = sprout::detail::enabler
+			>::type = sprout::enabler
 		>
 		SPROUT_CONSTEXPR typename sprout::detail::div_t_traits<T>::type div_impl(T const &numer, T const& denom) {
 			return {numer % denom, numer / denom};
@@ -66,7 +58,7 @@ namespace sprout {
 		return sprout::detail::div_impl(numer, denom);
 	}
 
-	SPROUT_CONSTEXPR std::lldiv_t lldiv(long long  numer, long long denom) {
+	SPROUT_CONSTEXPR std::lldiv_t lldiv(long long numer, long long denom) {
 		return sprout::detail::div_impl(numer, denom);
 	}
 
