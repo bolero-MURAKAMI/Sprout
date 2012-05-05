@@ -1,5 +1,5 @@
-#ifndef SPROUT_MATH_ABS_HPP
-#define SPROUT_MATH_ABS_HPP
+#ifndef SPROUT_MATH_FABS_HPP
+#define SPROUT_MATH_FABS_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -64,4 +64,4 @@ namespace sprout {
 	using sprout::math::fabs;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_MATH_ABS_HPP
+#endif	// #ifndef SPROUT_MATH_FABS_HPP
