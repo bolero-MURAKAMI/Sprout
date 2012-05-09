@@ -2,12 +2,13 @@
 #define SPROUT_DARKROOM_OBJECTS_SPHERE_HPP
 
 #include <cstddef>
-#include <cmath>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/atan2.hpp>
+#include <sprout/math/sqrt.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
 #include <sprout/darkroom/rays/ray.hpp>
@@ -142,8 +143,8 @@ namespace sprout {
 					Vec const& normal
 					) const
 				{
-					using std::atan2;
-					using std::sqrt;
+					using sprout::atan2;
+					using sprout::sqrt;
 					return typename intersection<Ray>::type(
 						sprout::tuples::get<zw::does_intersect>(zwo),
 						sprout::tuples::get<zw::distance>(zwo),
@@ -205,7 +206,7 @@ namespace sprout {
 					unit_type const& det_sq
 					) const
 				{
-					using std::sqrt;
+					using sprout::sqrt;
 					return intersect_4(
 						ray,
 						zweitens(

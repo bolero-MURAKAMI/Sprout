@@ -2,7 +2,6 @@
 #define SPROUT_ITERATOR_SINUSOID_ITERATOR_HPP
 
 #include <cstddef>
-#include <cmath>
 #include <iterator>
 #include <utility>
 #include <type_traits>
@@ -11,6 +10,7 @@
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/sin.hpp>
 
 namespace sprout {
 	//
@@ -94,7 +94,7 @@ namespace sprout {
 			return phase_;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
-			using std::sin;
+			using sprout::sin;
 			return amplitude_ * sin(d_ * value_type(index_) + phase_);
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
@@ -135,7 +135,7 @@ namespace sprout {
 			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
-			using std::sin;
+			using sprout::sin;
 			return amplitude_ * sin(d_ * value_type(index_ + n) + phase_);
 		}
 		SPROUT_CONSTEXPR sinusoid_iterator next() const {

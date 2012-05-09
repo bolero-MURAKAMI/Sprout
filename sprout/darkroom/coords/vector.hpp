@@ -1,11 +1,11 @@
 #ifndef SPROUT_DARKROOM_COORDS_VECTOR_HPP
 #define SPROUT_DARKROOM_COORDS_VECTOR_HPP
 
-#include <cmath>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/math/sqrt.hpp>
 #include <sprout/darkroom/access/access.hpp>
 
 namespace sprout {
@@ -63,7 +63,7 @@ namespace sprout {
 			template<typename Vector>
 			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Vector>::type
 			length(Vector const& vec) {
-				using std::sqrt;
+				using sprout::sqrt;
 				return sqrt(sprout::darkroom::coords::length_sq(vec));
 			}
 			//

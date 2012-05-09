@@ -1,11 +1,12 @@
 #ifndef SPROUT_NUMERIC_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
 #define SPROUT_NUMERIC_DFT_DETAIL_DFT_ELEMENT_GEN_HPP
 
-#include <cmath>
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/math/sin.hpp>
+#include <sprout/math/cos.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -20,8 +21,8 @@ namespace sprout {
 			)
 		{
 			typedef typename std::iterator_traits<InputIterator>::value_type value_type;
-			using std::cos;
-			using std::sin;
+			using sprout::cos;
+			using sprout::sin;
 			return first != last
 				? value + sprout::detail::dft_element_gen(
 					sprout::next(first),

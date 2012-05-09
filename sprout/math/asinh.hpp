@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_ASINH_HPP
 #define SPROUT_MATH_ASINH_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/log.hpp>
@@ -19,7 +20,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			asinh(FloatType x) {
-				return sprout::math::detail::log(x + sprout::math::detail::sqrt(x * x + 1))
+				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: sprout::math::detail::log(x + sprout::math::detail::sqrt(x * x + 1))
 					;
 			}
 

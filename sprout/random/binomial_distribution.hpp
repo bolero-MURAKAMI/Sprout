@@ -7,6 +7,10 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
+#include <sprout/math/abs.hpp>
+#include <sprout/math/log.hpp>
+#include <sprout/math/pow.hpp>
+#include <sprout/math/sqrt.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
 
@@ -155,7 +159,7 @@ namespace sprout {
 				return init_btrd_5(t, p, r, nr, npq, sqrt_npq, RealType(1.15) + RealType(2.53) * sqrt_npq);
 			}
 			static SPROUT_CONSTEXPR btrd_type init_btrd_3(IntType t, RealType p, RealType r, RealType nr, RealType npq) {
-				using std::sqrt;
+				using sprout::sqrt;
 				return init_btrd_4(t, p, r, nr, npq, sqrt(npq));
 			}
 			static SPROUT_CONSTEXPR btrd_type init_btrd_2(IntType t, RealType p, RealType r) {
@@ -168,7 +172,7 @@ namespace sprout {
 				return init_btrd_1(init_t(t), init_p(p));
 			}
 			static SPROUT_CONSTEXPR RealType init_q_n(IntType t, RealType p) {
-				using std::pow;
+				using sprout::pow;
 				return pow(1 - init_p(p), static_cast<RealType>(init_t(t)));
 			}
 			static SPROUT_CONSTEXPR bool init_use_inversion(IntType t, RealType p) {
@@ -230,7 +234,7 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> generate_10(Engine const& eng, RealType v, IntType k, IntType nm, RealType h, IntType nk) const {
-				using std::log;
+				using sprout::log;
 				return v <= h + (t_ + 1) * log(static_cast<RealType>(nm) / nk) + (k + RealType(0.5)) * log(nk * btrd_.r / (k + 1))- fc(k)- fc(t_ - k)
 					? sprout::random::random_result<Engine, binomial_distribution>(k, eng, *this)
 					: generate(eng)
@@ -238,7 +242,7 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> generate_9(Engine const& eng, RealType v, IntType k, IntType nm) const {
-				using std::log;
+				using sprout::log;
 				return generate_10(eng, v, k, nm, (m_ + RealType(0.5)) * log((m_ + 1) / (btrd_.r * nm)) + fc(m_) + fc(t_ - m_), t_ - k + 1);
 			}
 			template<typename Engine>
@@ -278,7 +282,7 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> generate_6(Engine const& eng, RealType v, IntType k, RealType km) const {
-				using std::log;
+				using sprout::log;
 				return km <= 15
 					? generate_7(eng, v, k)
 					: generate_8(eng, log(v), k, (km / btrd_.npq) * (((km / RealType(3.0) + RealType(0.625)) * km + RealType(1.0) / 6) / btrd_.npq + RealType(0.5)), -km * km / (2 * btrd_.npq))
@@ -286,7 +290,7 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> generate_5(Engine const& eng, RealType v, RealType u, RealType us, IntType k) const {
-				using std::abs;
+				using sprout::abs;
 				return k < 0 || k > t_
 					? generate(eng)
 					: generate_6(eng, v * btrd_.alpha / (btrd_.a / (us * us) + btrd_.b), k, abs(k - m_))
@@ -299,7 +303,7 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> generate_3(Engine const& eng, RealType v, RealType u) const {
-				using std::abs;
+				using sprout::abs;
 				return generate_4(eng, v, u, 0.5 - abs(u));
 			}
 			template<typename Engine, typename Random>
@@ -320,7 +324,7 @@ namespace sprout {
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> generate_1_1(Engine const& eng, RealType u) const {
 				using std::floor;
-				using std::abs;
+				using sprout::abs;
 				return sprout::random::random_result<Engine, binomial_distribution>(
 					static_cast<IntType>(floor((2 * btrd_.a / (RealType(0.5) - abs(u)) + btrd_.b) * u + btrd_.c)),
 					eng,

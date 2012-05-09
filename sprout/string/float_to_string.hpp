@@ -2,7 +2,6 @@
 #define SPROUT_STRING_FLOAT_TO_STRING_HPP
 
 #include <cstddef>
-#include <cmath>
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>

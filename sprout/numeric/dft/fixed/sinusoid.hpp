@@ -1,7 +1,6 @@
 #ifndef SPROUT_NUMERIC_DFT_FIXED_SINUSOID_HPP
 #define SPROUT_NUMERIC_DFT_FIXED_SINUSOID_HPP
 
-#include <cmath>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
@@ -9,6 +8,7 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/sin.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -26,7 +26,7 @@ namespace sprout {
 				)
 			{
 				typedef typename sprout::container_traits<Container>::value_type value_type;
-				using std::sin;
+				using sprout::sin;
 				return sprout::remake<Container>(
 					cont,
 					size,

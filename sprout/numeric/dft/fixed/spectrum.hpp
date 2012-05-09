@@ -1,14 +1,14 @@
 #ifndef SPROUT_NUMERIC_DFT_FIXED_SPECTRUM_HPP
 #define SPROUT_NUMERIC_DFT_FIXED_SPECTRUM_HPP
 
-#include <cmath>
-#include <complex>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/complex.hpp>
+#include <sprout/math/sqrt.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -26,9 +26,9 @@ namespace sprout {
 				typename sprout::container_traits<Result>::size_type input_size
 				)
 			{
-				using std::sqrt;
-				using std::real;
-				using std::imag;
+				using sprout::sqrt;
+				using sprout::real;
+				using sprout::imag;
 				return sprout::remake<Result>(
 					result,
 					size,

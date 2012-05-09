@@ -21,6 +21,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			acosh(FloatType x) {
 				return x < 1 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: sprout::math::detail::log(x + sprout::math::detail::sqrt(x * x - 1))
 					;
 			}

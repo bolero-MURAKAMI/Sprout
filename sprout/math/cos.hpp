@@ -2,6 +2,7 @@
 #define SPROUT_MATH_COS_HPP
 
 #include <cstddef>
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/factorial.hpp>
@@ -33,12 +34,16 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			cos(FloatType x) {
 				typedef double type;
-				return static_cast<FloatType>(sprout::math::detail::cos_impl(
-					static_cast<type>(x),
-					type(1),
-					1,
-					static_cast<type>(x) * static_cast<type>(x)
-					));
+				return x == std::numeric_limits<FloatType>::infinity()
+					|| x == -std::numeric_limits<FloatType>::infinity()
+					? std::numeric_limits<FloatType>::quiet_NaN()
+					: static_cast<FloatType>(sprout::math::detail::cos_impl(
+						static_cast<type>(x),
+						type(1),
+						1,
+						static_cast<type>(x) * static_cast<type>(x)
+						))
+					;
 			}
 
 			template<

@@ -1,9 +1,11 @@
 #ifndef SPROUT_DARKROOM_CAMERAS_SIMPLE_CAMERA_HPP
 #define SPROUT_DARKROOM_CAMERAS_SIMPLE_CAMERA_HPP
 
-#include <cmath>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/math/sin.hpp>
+#include <sprout/math/cos.hpp>
+#include <sprout/math/sqrt.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
 #include <sprout/darkroom/cameras/angle_of_view.hpp>
 
@@ -49,9 +51,9 @@ namespace sprout {
 					unit_type const& v
 					) const
 				{
-					using std::sqrt;
-					using std::sin;
-					using std::cos;
+					using sprout::sqrt;
+					using sprout::sin;
+					using sprout::cos;
 					return transform_1(
 						c,
 						u * cos(rotate_) - v * sin(rotate_),

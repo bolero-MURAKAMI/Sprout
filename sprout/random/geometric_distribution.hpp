@@ -6,6 +6,7 @@
 #include <limits>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/math/log.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
 
@@ -96,7 +97,7 @@ namespace sprout {
 		private:
 		public:
 			static SPROUT_CONSTEXPR RealType init_log_1mp(RealType p) {
-				using std::log;
+				using sprout::log;
 				return log(1 - p);
 			}
 		private:
@@ -106,7 +107,7 @@ namespace sprout {
 		private:
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> generate_1(Random const& rnd) const {
-				using std::log;
+				using sprout::log;
 				using std::floor;
 				return sprout::random::random_result<Engine, geometric_distribution>(
 					static_cast<IntType>(floor(log(RealType(1) - rnd.result()) / log_1mp_)),

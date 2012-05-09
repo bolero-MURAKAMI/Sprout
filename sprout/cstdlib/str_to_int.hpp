@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+#include <cinttypes>
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -83,9 +84,11 @@ namespace sprout {
 			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
 				: std::is_signed<IntType>::value
 					? sizeof(IntType) <= sizeof(long) ? static_cast<IntType>(std::strtol(&*str, endptr, base))
-						: static_cast<IntType>(std::strtoll(&*str, endptr, base))
+						: sizeof(IntType) <= sizeof(long long) ? static_cast<IntType>(std::strtoll(&*str, endptr, base))
+						: static_cast<IntType>(std::strtoimax(&*str, endptr, base))
 					: sizeof(IntType) <= sizeof(unsigned long) ? static_cast<IntType>(std::strtoul(&*str, endptr, base))
-						: static_cast<IntType>(std::strtoull(&*str, endptr, base))
+						: sizeof(IntType) <= sizeof(unsigned long long) ? static_cast<IntType>(std::strtoull(&*str, endptr, base))
+						: static_cast<IntType>(std::strtoumax(&*str, endptr, base))
 				;
 		}
 	}	// namespace detail

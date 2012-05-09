@@ -1,13 +1,16 @@
 #ifndef SPROUT_RANDOM_NORMAL_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_NORMAL_DISTRIBUTION_HPP
 
-#include <cmath>
 #include <limits>
 #include <ios>
 #include <istream>
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/sin.hpp>
+#include <sprout/math/cos.hpp>
+#include <sprout/math/log.hpp>
+#include <sprout/math/sqrt.hpp>
 #include <sprout/random/uniform_01.hpp>
 #include <sprout/random/random_result.hpp>
 
@@ -121,8 +124,8 @@ namespace sprout {
 			{}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate_2(Engine const& eng, RealType r1, RealType r2, RealType cached_rho, bool valid) const {
-				using std::sin;
-				using std::cos;
+				using sprout::sin;
+				using sprout::cos;
 				return sprout::random::random_result<Engine, normal_distribution>(
 					cached_rho
 						* (valid
@@ -144,8 +147,8 @@ namespace sprout {
 			}
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate_1_1(RealType r1, Random const& rnd) const {
-				using std::sqrt;
-				using std::log;
+				using sprout::sqrt;
+				using sprout::log;
 				return generate_2(rnd.engine(), r1, rnd.result(), sqrt(-result_type(2) * log(result_type(1) - rnd.result())), true);
 			}
 			template<typename Engine, typename Random>
