@@ -19,7 +19,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			expm1(FloatType x) {
-				return sprout::math::detail::exp(x) - 1;
+				return sprout::math::exp(x) - 1;
 			}
 
 			template<

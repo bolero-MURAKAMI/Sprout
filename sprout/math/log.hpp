@@ -42,7 +42,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			log_impl(T x) {
 				return !(x > sprout::math::root_two<T>()) ? sprout::math::detail::log_impl_1(x - 1)
-					: 2 * sprout::math::detail::log_impl(sprout::math::detail::sqrt(x))
+					: 2 * sprout::math::detail::log_impl(sprout::math::sqrt(x))
 					;
 			}
 

@@ -19,8 +19,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			cbrt(FloatType x) {
-				return x < 0 ? -sprout::math::detail::pow(-x, sprout::math::third<FloatType>())
-					: sprout::math::detail::pow(x, sprout::math::third<FloatType>())
+				return x < 0 ? -sprout::math::pow(-x, sprout::math::third<FloatType>())
+					: sprout::math::pow(x, sprout::math::third<FloatType>())
 					;
 			}
 

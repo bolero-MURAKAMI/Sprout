@@ -22,7 +22,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			pow(FloatType x, FloatType y) {
 				return x == 0 && y > 0 ? FloatType(0)
-					: sprout::math::detail::exp(y * sprout::math::detail::log(x))
+					: sprout::math::exp(y * sprout::math::log(x))
 					;
 			}
 

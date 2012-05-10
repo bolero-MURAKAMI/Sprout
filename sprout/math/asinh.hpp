@@ -22,7 +22,7 @@ namespace sprout {
 			asinh(FloatType x) {
 				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
-					: sprout::math::detail::log(x + sprout::math::detail::sqrt(x * x + 1))
+					: sprout::math::log(x + sprout::math::sqrt(x * x + 1))
 					;
 			}
 

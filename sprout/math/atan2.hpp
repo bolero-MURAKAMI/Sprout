@@ -21,8 +21,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			atan2(FloatType y, FloatType x) {
 				return x < 0
-					? sprout::math::detail::atan(y / x) + (y < 0 ? -1 : 1) * sprout::math::pi<FloatType>()
-					: sprout::math::detail::atan(y / x)
+					? sprout::math::atan(y / x) + (y < 0 ? -1 : 1) * sprout::math::pi<FloatType>()
+					: sprout::math::atan(y / x)
 					;
 			}
 

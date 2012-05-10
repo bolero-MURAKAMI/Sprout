@@ -18,7 +18,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			log1p(FloatType x) {
-				return sprout::math::detail::log(1 + x);
+				return sprout::math::log(1 + x);
 			}
 
 			template<

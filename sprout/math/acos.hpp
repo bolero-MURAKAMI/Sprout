@@ -19,7 +19,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			acos(FloatType x) {
-				return sprout::math::half_pi<FloatType>() - sprout::math::detail::asin(x);
+				return sprout::math::half_pi<FloatType>() - sprout::math::asin(x);
 			}
 
 			template<

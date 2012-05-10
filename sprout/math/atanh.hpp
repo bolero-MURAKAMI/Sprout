@@ -22,7 +22,7 @@ namespace sprout {
 				return x < -1 || x > 1 ? std::numeric_limits<FloatType>::quiet_NaN()
 					: x == -1 ? -std::numeric_limits<FloatType>::infinity()
 					: x == 1 ? std::numeric_limits<FloatType>::infinity()
-					: sprout::math::detail::log((1 + x) / (1 - x)) / 2
+					: sprout::math::log((1 + x) / (1 - x)) / 2
 					;
 			}
 

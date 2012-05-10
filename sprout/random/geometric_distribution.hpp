@@ -11,16 +11,6 @@
 #include <sprout/random/uniform_01.hpp>
 
 namespace sprout {
-	namespace detail {
-		template<typename T>
-		SPROUT_CONSTEXPR T floor(T x) {
-			return x >= T(0) ? std::floor(x) : -std::ceil(-x);
-		}
-		template<typename T>
-		SPROUT_CONSTEXPR T ceil(T x) {
-			return x >= T(0) ? std::ceil(x) : -std::floor(-x);
-		}
-	}	// namespace detail
 	namespace random {
 		//
 		// geometric_distribution

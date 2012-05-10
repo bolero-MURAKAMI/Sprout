@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_EXPONENTIAL_HPP
 #define SPROUT_MATH_EXPONENTIAL_HPP
 
+#include <sprout/config.hpp>
 #include <sprout/math/exp.hpp>
 #include <sprout/math/exp10.hpp>
 #include <sprout/math/exp2.hpp>

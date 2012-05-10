@@ -19,7 +19,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			log10(FloatType x) {
-				return sprout::math::detail::log(x) / sprout::math::ln_ten<FloatType>();
+				return sprout::math::log(x) / sprout::math::ln_ten<FloatType>();
 			}
 
 			template<

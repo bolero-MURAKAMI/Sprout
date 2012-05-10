@@ -19,7 +19,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			hypot(FloatType x, FloatType y) {
-				return sprout::math::detail::sqrt(x * x + y * y);
+				return sprout::math::sqrt(x * x + y * y);
 			}
 
 			template<

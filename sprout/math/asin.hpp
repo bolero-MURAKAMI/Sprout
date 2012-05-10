@@ -47,7 +47,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			asin_impl(T x) {
 				return x > sprout::math::half_root_two<T>()
-						? sprout::math::half_pi<T>() - sprout::math::detail::asin_impl_1(sprout::math::detail::sqrt(1 - x * x))
+						? sprout::math::half_pi<T>() - sprout::math::detail::asin_impl_1(sprout::math::sqrt(1 - x * x))
 					: sprout::math::detail::asin_impl_1(x)
 					;
 			}

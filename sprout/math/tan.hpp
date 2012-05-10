@@ -19,7 +19,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			tan(FloatType x) {
-				return sprout::math::detail::sin(x) / sprout::math::detail::cos(x);
+				return sprout::math::sin(x) / sprout::math::cos(x);
 			}
 
 			template<

@@ -19,7 +19,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			tanh(FloatType x) {
-				return sprout::math::detail::sinh(x) / sprout::math::detail::cosh(x);
+				return sprout::math::sinh(x) / sprout::math::cosh(x);
 			}
 
 			template<

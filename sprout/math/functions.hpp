@@ -7,5 +7,6 @@
 #include <sprout/math/power.hpp>
 #include <sprout/math/trigonometric.hpp>
 #include <sprout/math/hyperbolic.hpp>
+#include <sprout/math/classifications.hpp>
 
 #endif	// #ifndef SPROUT_MATH_FUNCTIONS_HPP
