@@ -4,15 +4,15 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/string/char_traits.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/utility/value_holder.hpp>
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	//
 	// shrink_string
 	//
-	template<typename T, std::size_t N, typename Traits = sprout::char_traits<T> >
+	template<typename T, std::size_t N, typename Traits>
 	class shrink_string {
 	public:
 		typedef sprout::basic_string<T, N, Traits> string_type;
@@ -42,8 +42,8 @@ namespace sprout {
 		SPROUT_CONSTEXPR operator sprout::basic_string<T, N2, Traits>() const {
 			return implicit_conversion_impl(
 				holder_.get().elems,
-				holder_.get().len,
-				sprout::index_range<0, (N2 < N ? N2 : N)>::make()
+				NS_SSCRISK_CEL_OR_SPROUT::min(N2, holder_.get().len),
+				sprout::index_range<0, NS_SSCRISK_CEL_OR_SPROUT::min(N2, N)>::make()
 				);
 		}
 	};
