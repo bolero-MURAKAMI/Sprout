@@ -22,6 +22,7 @@ namespace sprout {
 		// inherit_if_size_type
 		// inherit_if_difference_type
 		// inherit_if_pointer
+		// inherit_if_const_pointer
 		// inherit_if_static_size
 		//
 		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(value_type);
@@ -40,6 +41,18 @@ namespace sprout {
 		//
 		SPROUT_HAS_XXX_VALUE_DEF_LAZY(static_size);
 
+		//
+		// inherit_iterator_if_const_iterator
+		// inherit_reference_if_const_reference
+		// inherit_pointer_if_const_pointer
+		//
+		SPROUT_INHERIT_ALIAS_IF_XXX_TYPE_DEF_LAZY(iterator, const_iterator);
+		SPROUT_INHERIT_ALIAS_IF_XXX_TYPE_DEF_LAZY(reference, const_reference);
+		SPROUT_INHERIT_ALIAS_IF_XXX_TYPE_DEF_LAZY(pointer, const_pointer);
+
+		//
+		// inherit_if_fixed_size
+		//
 		template<typename Container, typename Enable = void>
 		struct inherit_if_fixed_size {};
 		template<typename Container>
@@ -53,6 +66,9 @@ namespace sprout {
 			}
 		};
 
+		//
+		// container_traits_default
+		//
 		template<typename Container>
 		struct container_traits_default
 			: public sprout::detail::inherit_if_value_type<Container>
@@ -86,6 +102,24 @@ namespace sprout {
 				return static_size;
 			}
 		};
+
+		//
+		// container_traits_const_default
+		//
+		template<typename Container>
+		struct container_traits_const_default
+			: public sprout::detail::inherit_if_value_type<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_if_const_iterator<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_if_const_reference<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_if_size_type<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_if_difference_type<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_if_const_pointer<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_if_static_size<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_if_fixed_size<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_iterator_if_const_iterator<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_reference_if_const_reference<sprout::container_traits<Container> >
+			, public sprout::detail::inherit_pointer_if_const_pointer<sprout::container_traits<Container> >
+		{};
 	}	// namespace detail
 
 	//
@@ -97,13 +131,8 @@ namespace sprout {
 	{};
 	template<typename Container>
 	struct container_traits<Container const>
-		: public sprout::container_traits<Container>
-	{
-	public:
-		typedef typename sprout::container_traits<Container>::const_iterator iterator;
-		typedef typename sprout::container_traits<Container>::const_reference reference;
-		typedef typename sprout::container_traits<Container>::const_pointer pointer;
-	};
+		: public sprout::detail::container_traits_const_default<Container>
+	{};
 
 	template<typename T, std::size_t N>
 	struct container_traits<T[N]>
@@ -111,13 +140,8 @@ namespace sprout {
 	{};
 	template<typename T, std::size_t N>
 	struct container_traits<T const[N]>
-		: public sprout::container_traits<T[N]>
-	{
-	public:
-		typedef typename sprout::container_traits<T[N]>::const_iterator iterator;
-		typedef typename sprout::container_traits<T[N]>::const_reference reference;
-		typedef typename sprout::container_traits<T[N]>::const_pointer pointer;
-	};
+		: public sprout::detail::container_traits_const_default<T[N]>
+	{};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CONTAINER_CONTAINER_TRAITS_HPP
