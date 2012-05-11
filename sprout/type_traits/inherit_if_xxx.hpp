@@ -49,7 +49,12 @@
 	> { \
 	public: \
 		SPROUT_STATIC_CONSTEXPR decltype(T::CONSTANT) ALIAS = T::CONSTANT; \
-	}
+	}; \
+	template<typename T> \
+	SPROUT_CONSTEXPR decltype(T::CONSTANT) NAME< \
+		T, \
+		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
+	>::ALIAS
 #define SPROUT_INHERIT_ALIAS_IF_XXX_CONSTANT_DEF_LAZY(ALIAS, CONSTANT) \
 	SPROUT_INHERIT_ALIAS_IF_XXX_CONSTANT_DEF(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(inherit_, ALIAS), _if_), CONSTANT), ALIAS, CONSTANT)
 

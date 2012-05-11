@@ -28,29 +28,8 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR bool is_reference = std::is_reference<container_type>::value;
 			SPROUT_STATIC_CONSTEXPR bool is_const = std::is_const<internal_type>::value;
 		protected:
-			typedef typename sprout::container_traits<internal_type>::value_type value_type;
-			typedef typename std::conditional<
-				is_const,
-				typename sprout::container_traits<internal_type>::const_iterator,
-				typename sprout::container_traits<internal_type>::iterator
-			>::type iterator;
-			typedef typename sprout::container_traits<internal_type>::const_iterator const_iterator;
-			typedef typename std::conditional<
-				is_const,
-				typename sprout::container_traits<internal_type>::const_reference,
-				typename sprout::container_traits<internal_type>::reference
-			>::type reference;
-			typedef typename sprout::container_traits<internal_type>::const_reference const_reference;
-			typedef typename sprout::container_traits<internal_type>::size_type size_type;
-			typedef typename sprout::container_traits<internal_type>::difference_type difference_type;
-			typedef typename std::conditional<
-				is_const,
-				typename sprout::container_traits<internal_type>::const_pointer,
-				typename sprout::container_traits<internal_type>::pointer
-			>::type pointer;
-			typedef typename sprout::container_traits<internal_type>::const_pointer const_pointer;
-		protected:
-			SPROUT_STATIC_CONSTEXPR size_type static_size = sprout::container_traits<internal_type>::static_size;
+			typedef typename sprout::container_traits<internal_type>::const_iterator impl_const_iterator;
+			typedef typename sprout::container_traits<internal_type>::difference_type impl_difference_type;
 		protected:
 			typedef typename std::conditional<
 				is_reference,
@@ -121,8 +100,8 @@ namespace sprout {
 			}
 		protected:
 			holder_type array_;
-			difference_type first_;
-			difference_type last_;
+			impl_difference_type first_;
+			impl_difference_type last_;
 		public:
 			sub_array_impl() = default;
 		protected:
@@ -131,8 +110,8 @@ namespace sprout {
 				ContainerTag,
 				param_type arr,
 				sprout::index_tuple<Indexes...>,
-				const_iterator first,
-				const_iterator last,
+				impl_const_iterator first,
+				impl_const_iterator last,
 				typename std::enable_if<std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_{to_holder<Container>(arr)[Indexes]...}
@@ -144,8 +123,8 @@ namespace sprout {
 				ContainerTag,
 				param_type arr,
 				sprout::index_tuple<Indexes...>,
-				const_iterator first,
-				const_iterator last,
+				impl_const_iterator first,
+				impl_const_iterator last,
 				typename std::enable_if<!std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_(to_holder<Container>(arr))
@@ -157,8 +136,8 @@ namespace sprout {
 				ContainerTag,
 				param_type arr,
 				sprout::index_tuple<Indexes...>,
-				difference_type first,
-				difference_type last,
+				impl_difference_type first,
+				impl_difference_type last,
 				typename std::enable_if<std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_{to_holder<Container>(arr)[Indexes]...}
@@ -170,8 +149,8 @@ namespace sprout {
 				ContainerTag,
 				param_type arr,
 				sprout::index_tuple<Indexes...>,
-				difference_type first,
-				difference_type last,
+				impl_difference_type first,
+				impl_difference_type last,
 				typename std::enable_if<!std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_(to_holder<Container>(arr))
@@ -187,9 +166,11 @@ namespace sprout {
 	template<typename Container>
 	class sub_array
 		: private sprout::detail::sub_array_impl<Container>
+		, public sprout::container_traits_facade<typename std::remove_reference<Container>::type>
 	{
 	private:
 		typedef sprout::detail::sub_array_impl<Container> impl_type;
+		typedef sprout::container_traits_facade<typename std::remove_reference<Container>::type> facade_type;
 	public:
 		typedef typename impl_type::container_type container_type;
 		typedef typename impl_type::internal_type internal_type;
@@ -197,17 +178,16 @@ namespace sprout {
 		SPROUT_STATIC_CONSTEXPR bool is_reference = impl_type::is_reference;
 		SPROUT_STATIC_CONSTEXPR bool is_const = impl_type::is_const;
 	public:
-		typedef typename impl_type::value_type value_type;
-		typedef typename impl_type::iterator iterator;
-		typedef typename impl_type::const_iterator const_iterator;
-		typedef typename impl_type::reference reference;
-		typedef typename impl_type::const_reference const_reference;
-		typedef typename impl_type::size_type size_type;
-		typedef typename impl_type::difference_type difference_type;
-		typedef typename impl_type::pointer pointer;
-		typedef typename impl_type::const_pointer const_pointer;
+		typedef typename facade_type::iterator iterator;
+		typedef typename facade_type::const_iterator const_iterator;
+		typedef typename facade_type::reference reference;
+		typedef typename facade_type::const_reference const_reference;
+		typedef typename facade_type::size_type size_type;
+		typedef typename facade_type::difference_type difference_type;
+		typedef typename facade_type::pointer pointer;
+		typedef typename facade_type::const_pointer const_pointer;
 	public:
-		SPROUT_STATIC_CONSTEXPR size_type static_size = impl_type::static_size;
+		SPROUT_STATIC_CONSTEXPR size_type static_size = facade_type::static_size;
 	public:
 		typedef typename impl_type::holder_type holder_type;
 		typedef typename impl_type::param_type param_type;
@@ -379,6 +359,14 @@ namespace sprout {
 	SPROUT_CONSTEXPR typename sprout::sub_array<Container>::size_type sprout::sub_array<Container>::static_size;
 
 	//
+	// swap
+	//
+	template<typename Container>
+	inline void swap(sprout::sub_array<Container>& lhs, sprout::sub_array<Container>& rhs) {
+		lhs.swap(rhs);
+	}
+
+	//
 	// operator==
 	// operator!=
 	// operator<
@@ -387,36 +375,37 @@ namespace sprout {
 	// operator>=
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator==(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
 		return NS_SSCRISK_CEL_OR_SPROUT::equal(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator!=(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator<(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
-		return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs), sprout::end(rhs));
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
+		return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(
+			sprout::begin(lhs), sprout::end(lhs),
+			sprout::begin(rhs), sprout::end(rhs)
+			);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator>(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator<=(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator>=(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
 		return !(lhs < rhs);
-	}
-
-	//
-	// swap
-	//
-	template<typename Container>
-	inline void swap(sprout::sub_array<Container>& lhs, sprout::sub_array<Container>& rhs) {
-		lhs.swap(rhs);
 	}
 
 	//

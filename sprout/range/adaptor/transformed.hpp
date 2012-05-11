@@ -28,7 +28,7 @@ namespace sprout {
 					typename sprout::container_traits<RRange>::iterator
 				>
 			>
-			, public sprout::detail::inherit_if_fixed_size<LRange>
+			, public sprout::detail::container_nosy_fixed_size<LRange>
 		{
 		public:
 			typedef BinaryFunction functor_type;
@@ -62,7 +62,7 @@ namespace sprout {
 					typename sprout::container_traits<Range>::iterator
 				>
 			>
-			, public sprout::detail::inherit_if_fixed_size<Range>
+			, public sprout::detail::container_nosy_fixed_size<Range>
 		{
 		public:
 			typedef UnaryFunction functor_type;

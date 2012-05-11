@@ -23,7 +23,7 @@ namespace sprout {
 			: public sprout::range::range_container<
 				sprout::sinusoid_iterator<Value>
 			>
-			, public sprout::detail::inherit_if_fixed_size<Range>
+			, public sprout::detail::container_nosy_fixed_size<Range>
 		{
 		public:
 			typedef Range range_type;
