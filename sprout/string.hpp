@@ -14,5 +14,6 @@
 #include <sprout/string/conversion.hpp>
 #include <sprout/string/type_traits.hpp>
 #include <sprout/string/alias.hpp>
+#include <sprout/string/shrink.hpp>
 
 #endif	// #ifndef SPROUT_STRING_HPP

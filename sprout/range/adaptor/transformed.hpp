@@ -28,6 +28,7 @@ namespace sprout {
 					typename sprout::container_traits<RRange>::iterator
 				>
 			>
+			, public sprout::detail::container_nosy_static_size<LRange>
 			, public sprout::detail::container_nosy_fixed_size<LRange>
 		{
 		public:
@@ -62,6 +63,7 @@ namespace sprout {
 					typename sprout::container_traits<Range>::iterator
 				>
 			>
+			, public sprout::detail::container_nosy_static_size<Range>
 			, public sprout::detail::container_nosy_fixed_size<Range>
 		{
 		public:

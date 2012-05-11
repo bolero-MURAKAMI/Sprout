@@ -15,7 +15,7 @@ namespace sprout {
 		//
 		template<typename Iterator>
 		struct range_container
-			: public sprout::container_traits<Iterator>
+			: public sprout::container_traits_facade<Iterator>
 		{
 		public:
 			typedef Iterator iterator;
