@@ -2,39 +2,23 @@
 #define SPROUT_MATH_FACTORIAL_HPP
 
 #include <cstddef>
-#include <cstdint>
 #include <stdexcept>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
+#include <sprout/type_traits/is_int.hpp>
+#include <sprout/type_traits/is_uint.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<typename T>
+			template<typename T, typename Enable = void>
 			struct factorials;
-			template<>
-			struct factorials<std::int8_t> {
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 1>::type> {
 			public:
-				typedef std::int8_t type;
-			public:
-				SPROUT_STATIC_CONSTEXPR std::size_t limit = 5;
-			public:
-				typedef sprout::array<type, limit + 1> table_type;
-			public:
-				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
-					1,
-					1,
-					2,
-					6,
-					24,
-					120
-				}};
-			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<std::int8_t>::table_type sprout::math::detail::factorials<std::int8_t>::table;
-			template<>
-			struct factorials<std::uint8_t> {
-			public:
-				typedef std::uint8_t type;
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 5;
 			public:
@@ -49,11 +33,42 @@ namespace sprout {
 					120
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<std::uint8_t>::table_type sprout::math::detail::factorials<std::uint8_t>::table;
-			template<>
-			struct factorials<std::int16_t> {
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 1>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 1>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 1>::type> {
 			public:
-				typedef std::int16_t type;
+				typedef T type;
+			public:
+				SPROUT_STATIC_CONSTEXPR std::size_t limit = 5;
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
+					1,
+					1,
+					2,
+					6,
+					24,
+					120
+				}};
+			};
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 1>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 1>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 2>::type> {
+			public:
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 7;
 			public:
@@ -70,11 +85,17 @@ namespace sprout {
 					5040
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<std::int16_t>::table_type sprout::math::detail::factorials<std::int16_t>::table;
-			template<>
-			struct factorials<std::uint16_t> {
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 2>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 2>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 2>::type> {
 			public:
-				typedef std::uint16_t type;
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 8;
 			public:
@@ -92,36 +113,17 @@ namespace sprout {
 					40320
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<std::uint16_t>::table_type sprout::math::detail::factorials<std::uint16_t>::table;
-			template<>
-			struct factorials<std::int32_t> {
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 2>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 2>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 4>::type> {
 			public:
-				typedef std::int32_t type;
-			public:
-				SPROUT_STATIC_CONSTEXPR std::size_t limit = 11;
-			public:
-				typedef sprout::array<type, limit + 1> table_type;
-			public:
-				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
-					1,
-					1,
-					2,
-					6,
-					24,
-					120,
-					720,
-					5040,
-					40320,
-					362880,
-					3628800,
-					39916800
-				}};
-			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<std::int32_t>::table_type sprout::math::detail::factorials<std::int32_t>::table;
-			template<>
-			struct factorials<std::uint32_t> {
-			public:
-				typedef std::uint32_t type;
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 11;
 			public:
@@ -142,11 +144,48 @@ namespace sprout {
 					39916800
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<std::uint32_t>::table_type sprout::math::detail::factorials<std::uint32_t>::table;
-			template<>
-			struct factorials<std::int64_t> {
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 4>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 4>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 4>::type> {
 			public:
-				typedef std::int64_t type;
+				typedef T type;
+			public:
+				SPROUT_STATIC_CONSTEXPR std::size_t limit = 11;
+			public:
+				typedef sprout::array<type, limit + 1> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table = table_type{{
+					1,
+					1,
+					2,
+					6,
+					24,
+					120,
+					720,
+					5040,
+					40320,
+					362880,
+					3628800,
+					39916800
+				}};
+			};
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 4>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 4>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 8>::type> {
+			public:
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 20;
 			public:
@@ -176,11 +215,17 @@ namespace sprout {
 					INT64_C(2432902008176640000)
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<std::int64_t>::table_type sprout::math::detail::factorials<std::int64_t>::table;
-			template<>
-			struct factorials<std::uint64_t> {
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 8>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 8>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 8>::type> {
 			public:
-				typedef std::uint64_t type;
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 20;
 			public:
@@ -210,11 +255,17 @@ namespace sprout {
 					UINT64_C(2432902008176640000)
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<std::uint64_t>::table_type sprout::math::detail::factorials<std::uint64_t>::table;
-			template<>
-			struct factorials<float> {
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 8>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<sprout::is_uint<T>::value && sizeof(T) == 8>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<std::is_same<T, float>::value>::type> {
 			public:
-				typedef float type;
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 34;
 			public:
@@ -258,11 +309,17 @@ namespace sprout {
 					0.29523279903960414084761860964352e39F
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<float>::table_type sprout::math::detail::factorials<float>::table;
-			template<>
-			struct factorials<double> {
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<std::is_same<T, float>::value>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<std::is_same<T, float>::value>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<std::is_same<T, double>::value>::type> {
 			public:
-				typedef double type;
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 170;
 			public:
@@ -442,11 +499,17 @@ namespace sprout {
 					0.7257415615307998967396728211129263114717e307
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<double>::table_type sprout::math::detail::factorials<double>::table;
-			template<>
-			struct factorials<long double> {
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<std::is_same<T, double>::value>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<std::is_same<T, double>::value>::type
+			>::table;
+
+			template<typename T>
+			struct factorials<T, typename std::enable_if<std::is_same<T, long double>::value>::type> {
 			public:
-				typedef long double type;
+				typedef T type;
 			public:
 				SPROUT_STATIC_CONSTEXPR std::size_t limit = 170;
 			public:
@@ -626,22 +689,29 @@ namespace sprout {
 					0.7257415615307998967396728211129263114717e307L
 				}};
 			};
-			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<long double>::table_type sprout::math::detail::factorials<long double>::table;
+			template<typename T>
+			SPROUT_CONSTEXPR typename sprout::math::detail::factorials<
+				T, typename std::enable_if<std::is_same<T, long double>::value>::type
+			>::table_type sprout::math::detail::factorials<
+				T, typename std::enable_if<std::is_same<T, long double>::value>::type
+			>::table;
 		}	// namespace detail
 		//
 		// factorial_limit
 		//
-		template<typename T>
+		template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
 		SPROUT_CONSTEXPR std::size_t factorial_limit() {
-			return sprout::math::detail::factorials<T>::limit;
+			typedef typename std::remove_cv<T>::type type;
+			return sprout::math::detail::factorials<type>::limit;
 		}
 		//
 		// factorial
 		//
-		template<typename T>
+		template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
 		SPROUT_CONSTEXPR T factorial(std::size_t x) {
-			return x <= sprout::math::factorial_limit<T>()
-				? sprout::math::detail::factorials<T>::table[x]
+			typedef typename std::remove_cv<T>::type type;
+			return x <= sprout::math::factorial_limit<type>()
+				? sprout::math::detail::factorials<type>::table[x]
 				: throw std::invalid_argument("factorial(): argument limit exceeded")
 				;
 		}

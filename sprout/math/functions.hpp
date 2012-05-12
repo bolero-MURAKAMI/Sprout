@@ -9,5 +9,6 @@
 #include <sprout/math/power.hpp>
 #include <sprout/math/operations.hpp>
 #include <sprout/math/factorial.hpp>
+#include <sprout/math/bernoulli.hpp>
 
 #endif	// #ifndef SPROUT_MATH_FUNCTIONS_HPP
