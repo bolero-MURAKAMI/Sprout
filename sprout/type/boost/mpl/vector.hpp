@@ -29,14 +29,14 @@ namespace sprout {
 		// tuple_size
 		//
 		template<typename... Types>
-		struct tuple_size<boost::mpl::vector<Types...> >
+		class tuple_size<boost::mpl::vector<Types...> >
 			: public boost::mpl::size<boost::mpl::vector<Types...> >
 		{};
 		//
 		// tuple_element
 		//
 		template<std::size_t I, typename... Types>
-		struct tuple_element<I, boost::mpl::vector<Types...> >
+		class tuple_element<I, boost::mpl::vector<Types...> >
 			: public boost::mpl::at_c<boost::mpl::vector<Types...>, I>
 		{};
 	}	// namespace types

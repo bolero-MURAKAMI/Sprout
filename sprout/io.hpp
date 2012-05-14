@@ -654,7 +654,7 @@ namespace sprout {
 			}
 			template<
 				std::size_t I, typename Left, typename Right,
-				typename sprout::enabler_if<(I >= sprout::io::leaf_count<Left>::value)>::type = sprout::enabler
+				typename sprout::enabler_if<(I >= sprout::io::leaf_count<Left>::value)>::type
 			>
 			inline SPROUT_CONSTEXPR sprout::io::format_holder<
 				typename sprout::io::leaf_at<I, sprout::io::format_expression<Left, Right> >::type
@@ -777,7 +777,7 @@ namespace sprout {
 					);
 			}
 		}	// namespace detail
-		template<std::size_t N, typename Elem = char, typename Expression>
+		template<std::size_t N, typename Elem, typename Expression>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, N>
 		output(Expression const& expr) {
 			return sprout::io::detail::output<Elem, N>(

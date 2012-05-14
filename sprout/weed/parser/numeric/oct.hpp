@@ -1,6 +1,7 @@
 #ifndef SPROUT_WEED_PARSER_NUMERIC_OCT_HPP
 #define SPROUT_WEED_PARSER_NUMERIC_OCT_HPP
 
+#include <cstddef>
 #include <cstdint>
 #include <sprout/config.hpp>
 #include <sprout/integer/integer_digits.hpp>
@@ -11,7 +12,7 @@ namespace sprout {
 		//
 		// oct
 		//
-		SPROUT_STATIC_CONSTEXPR auto oct = sprout::weed::uint_p<std::uintmax_t, 8, -1>();
+		SPROUT_STATIC_CONSTEXPR auto oct = sprout::weed::uint_p<std::uintmax_t, 8, static_cast<std::size_t>(-1)>();
 
 		//
 		// oct8

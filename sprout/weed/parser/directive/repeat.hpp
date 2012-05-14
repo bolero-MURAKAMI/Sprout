@@ -22,6 +22,11 @@ namespace sprout {
 		struct repeat_p
 			: public sprout::weed::parser_base
 		{
+		public:
+			template<typename Context, typename Iterator>
+			struct attribute;
+			template<typename Context, typename Iterator>
+			struct result;
 		private:
 			template<typename Context, typename Iterator>
 			struct eval {

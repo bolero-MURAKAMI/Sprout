@@ -217,7 +217,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename Container>
-	struct tuple_size<sprout::pit<Container> >
+	class tuple_size<sprout::pit<Container> >
 		: public std::tuple_size<Container>
 	{};
 
@@ -225,7 +225,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename Container>
-	struct tuple_element<I, sprout::pit<Container> >
+	class tuple_element<I, sprout::pit<Container> >
 		: public std::tuple_element<I, Container>
 	{};
 }	// namespace std

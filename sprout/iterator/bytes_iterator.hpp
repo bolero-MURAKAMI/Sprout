@@ -100,7 +100,7 @@ namespace sprout {
 			return !(lhs == rhs);
 		}
 		friend SPROUT_CONSTEXPR bool operator<(bytes_iterator const& lhs, bytes_iterator const& rhs) {
-			return lhs.it_ < rhs.it_ || lhs.it_ == rhs.it_ && lhs.i_ < rhs.i_;
+			return lhs.it_ < rhs.it_ || (lhs.it_ == rhs.it_ && lhs.i_ < rhs.i_);
 		}
 		friend SPROUT_CONSTEXPR bool operator>(bytes_iterator const& lhs, bytes_iterator const& rhs) {
 			return rhs < lhs;

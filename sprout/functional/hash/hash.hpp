@@ -148,10 +148,11 @@ namespace sprout {
 	SPROUT_CONSTEXPR std::size_t hash_value(T* v) {
 		return sprout::hash_detail::hash_value_pointer(v);
 	}
-	template<typename T, std::size_t N >
-	SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]) {
-		return sprout::hash_range(&v[0], &v[0] + N);
-	}
+	// !!!
+//	template<typename T, std::size_t N>
+//	SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]) {
+//		return sprout::hash_range(&v[0], &v[0] + N);
+//	}
 
 	//
 	// to_hash
@@ -160,6 +161,10 @@ namespace sprout {
 	SPROUT_CONSTEXPR std::size_t to_hash(T const& v) {
 		using sprout::hash_value;
 		return hash_value(v);
+	}
+	template<typename T, std::size_t N>
+	SPROUT_CONSTEXPR std::size_t to_hash(T const (&v)[N]) {
+		return sprout::hash_range(&v[0], &v[0] + N);
 	}
 
 	//

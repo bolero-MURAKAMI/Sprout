@@ -1,6 +1,7 @@
 #ifndef SPROUT_WEED_PARSER_NUMERIC_HEX_HPP
 #define SPROUT_WEED_PARSER_NUMERIC_HEX_HPP
 
+#include <cstddef>
 #include <cstdint>
 #include <sprout/config.hpp>
 #include <sprout/integer/integer_digits.hpp>
@@ -11,7 +12,7 @@ namespace sprout {
 		//
 		// hex
 		//
-		SPROUT_STATIC_CONSTEXPR auto hex = sprout::weed::uint_p<std::uintmax_t, 16, -1>();
+		SPROUT_STATIC_CONSTEXPR auto hex = sprout::weed::uint_p<std::uintmax_t, 16, static_cast<std::size_t>(-1)>();
 
 		//
 		// hex8

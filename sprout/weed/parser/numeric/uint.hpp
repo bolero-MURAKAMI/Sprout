@@ -1,6 +1,7 @@
 #ifndef SPROUT_WEED_PARSER_NUMERIC_UINT_HPP
 #define SPROUT_WEED_PARSER_NUMERIC_UINT_HPP
 
+#include <cstddef>
 #include <cstdint>
 #include <sprout/config.hpp>
 #include <sprout/integer/integer_digits.hpp>
@@ -11,7 +12,7 @@ namespace sprout {
 		//
 		// uint_
 		//
-		SPROUT_STATIC_CONSTEXPR auto uint_ = sprout::weed::uint_p<std::uintmax_t, 10, 1, -1>();
+		SPROUT_STATIC_CONSTEXPR auto uint_ = sprout::weed::uint_p<std::uintmax_t, 10, 1, static_cast<std::size_t>(-1)>();
 
 		//
 		// uint8

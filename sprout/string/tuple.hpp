@@ -11,7 +11,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename T, std::size_t N, typename Traits>
-	struct tuple_size<sprout::basic_string<T, N, Traits> >
+	class tuple_size<sprout::basic_string<T, N, Traits> >
 		: public std::integral_constant<std::size_t, N>
 	{};
 
@@ -19,7 +19,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename T, std::size_t N, typename Traits>
-	struct tuple_element<I, sprout::basic_string<T, N, Traits> > {
+	class tuple_element<I, sprout::basic_string<T, N, Traits> > {
 	public:
 		static_assert(I < N, "tuple_element<>: index out of range");
 		typedef T type;

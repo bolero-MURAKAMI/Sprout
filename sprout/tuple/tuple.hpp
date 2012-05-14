@@ -221,18 +221,50 @@ namespace sprout {
 				}
 			};
 
-			template<bool Cond, typename... Tail>
-			struct and_impl
+			template<bool Head, bool... Tail>
+			struct and_impl;
+			template<>
+			struct and_impl<true>
+				: public std::true_type
+			{};
+			template<>
+			struct and_impl<false>
 				: public std::false_type
 			{};
-			template<typename... Tail>
+			template<bool... Tail>
 			struct and_impl<true, Tail...>
 				: public std::integral_constant<bool, sprout::tuples::detail::and_impl<Tail...>::value>
 			{};
-
-			template<typename Head, typename... Tail>
+			template<bool... Tail>
+			struct and_impl<false, Tail...>
+				: public std::false_type
+			{};
+			template<typename... Types>
 			struct and_
-				: public sprout::tuples::detail::and_impl<Head::value, Tail...>
+				: public sprout::tuples::detail::and_impl<Types::value...>
+			{};
+
+			template<bool Head, bool... Tail>
+			struct or_impl;
+			template<>
+			struct or_impl<true>
+				: public std::true_type
+			{};
+			template<>
+			struct or_impl<false>
+				: public std::false_type
+			{};
+			template<bool... Tail>
+			struct or_impl<true, Tail...>
+				: public std::true_type
+			{};
+			template<bool... Tail>
+			struct or_impl<false, Tail...>
+				: public std::integral_constant<bool, sprout::tuples::detail::or_impl<Tail...>::value>
+			{};
+			template<typename... Types>
+			struct or_
+				: public sprout::tuples::detail::and_impl<Types::value...>
 			{};
 		}	// namespace detail
 
@@ -384,14 +416,14 @@ namespace sprout {
 
 		namespace detail {
 			template<std::size_t I, typename T>
-			struct tuple_element_impl;
+			class tuple_element_impl;
 			template<typename Head, typename... Tail>
-			struct tuple_element_impl<0, sprout::tuples::tuple<Head, Tail...> > {
+			class tuple_element_impl<0, sprout::tuples::tuple<Head, Tail...> > {
 			public:
 				typedef Head type;
 			};
 			template<std::size_t I, typename Head, typename... Tail>
-			struct tuple_element_impl<I, sprout::tuples::tuple<Head, Tail...> >
+			class tuple_element_impl<I, sprout::tuples::tuple<Head, Tail...> >
 				: public sprout::tuples::detail::tuple_element_impl<I - 1, sprout::tuples::tuple<Tail...> >
 			{};
 		}	// namespace detail
@@ -410,7 +442,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename... Types>
-	struct tuple_size<sprout::tuples::tuple<Types...> >
+	class tuple_size<sprout::tuples::tuple<Types...> >
 		: public std::integral_constant<std::size_t, sizeof...(Types)>
 	{};
 
@@ -418,7 +450,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename... Types>
-	struct tuple_element<I, sprout::tuples::tuple<Types...> >
+	class tuple_element<I, sprout::tuples::tuple<Types...> >
 		: public sprout::tuples::detail::tuple_element_impl<I, sprout::tuples::tuple<Types...> >
 	{};
 }	// namespace std
@@ -429,19 +461,19 @@ namespace sprout {
 		// tuple_size
 		//
 		template<typename T>
-		struct tuple_size
+		class tuple_size
 			: public std::tuple_size<T>
 		{};
 		template<typename T>
-		struct tuple_size<T const>
+		class tuple_size<T const>
 			: public sprout::tuples::tuple_size<T>
 		{};
 		template<typename T>
-		struct tuple_size<T volatile>
+		class tuple_size<T volatile>
 			: public sprout::tuples::tuple_size<T>
 		{};
 		template<typename T>
-		struct tuple_size<T const volatile>
+		class tuple_size<T const volatile>
 			: public sprout::tuples::tuple_size<T>
 		{};
 
@@ -449,19 +481,19 @@ namespace sprout {
 		// tuple_element
 		//
 		template<std::size_t I, typename T>
-		struct tuple_element
+		class tuple_element
 			: public std::tuple_element<I, T>
 		{};
 		template<std::size_t I, typename T>
-		struct tuple_element<I, T const>
+		class tuple_element<I, T const>
 			: public sprout::tuples::tuple_element<I, T>
 		{};
 		template<std::size_t I, typename T>
-		struct tuple_element<I, T volatile>
+		class tuple_element<I, T volatile>
 			: public sprout::tuples::tuple_element<I, T>
 		{};
 		template<std::size_t I, typename T>
-		struct tuple_element<I, T const volatile>
+		class tuple_element<I, T const volatile>
 			: public sprout::tuples::tuple_element<I, T>
 		{};
 

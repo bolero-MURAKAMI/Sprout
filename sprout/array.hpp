@@ -239,8 +239,14 @@ namespace sprout {
 	// make_common_array
 	//
 	template<typename... Types>
-	inline SPROUT_CONSTEXPR sprout::array<typename std::common_type<typename std::decay<Types>::type...>::type, sizeof...(Types)> make_common_array(Types&&... args) {
-		return sprout::array<typename std::common_type<typename std::decay<Types>::type...>::type, sizeof...(Types)>{{sprout::forward<Types>(args)...}};
+	inline SPROUT_CONSTEXPR sprout::array<
+		typename std::decay<typename std::common_type<typename std::decay<Types>::type...>::type>::type,
+		sizeof...(Types)
+	> make_common_array(Types&&... args) {
+		return sprout::array<
+			typename std::decay<typename std::common_type<typename std::decay<Types>::type...>::type>::type,
+			sizeof...(Types)
+		>{{sprout::forward<Types>(args)...}};
 	}
 
 	namespace detail {
@@ -287,7 +293,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename T, std::size_t N>
-	struct tuple_size<sprout::array<T, N> >
+	class tuple_size<sprout::array<T, N> >
 		: public std::integral_constant<std::size_t, N>
 	{};
 
@@ -295,7 +301,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename T, std::size_t N>
-	struct tuple_element<I, sprout::array<T, N> > {
+	class tuple_element<I, sprout::array<T, N> > {
 	public:
 		static_assert(I < N, "tuple_element<>: index out of range");
 		typedef T type;

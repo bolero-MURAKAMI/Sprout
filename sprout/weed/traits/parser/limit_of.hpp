@@ -15,7 +15,7 @@ namespace sprout {
 			//
 			template<typename T, typename Iterator, typename Context, typename = void>
 			struct limit_of
-				: public std::integral_constant<std::size_t, -1>
+				: public std::integral_constant<std::size_t, static_cast<std::size_t>(-1)>
 			{};
 			template<typename T, typename Iterator, typename Context>
 			struct limit_of<T const, Iterator, Context>
