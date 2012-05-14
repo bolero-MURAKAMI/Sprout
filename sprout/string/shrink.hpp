@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
+#include <sprout/string/char_traits.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/utility/value_holder.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
@@ -12,14 +13,12 @@ namespace sprout {
 	//
 	// shrink_string
 	//
-	template<typename T, std::size_t N, typename Traits>
+	template<typename T, std::size_t N, typename Traits = sprout::char_traits<T> >
 	class shrink_string {
 	public:
 		typedef sprout::basic_string<T, N, Traits> string_type;
 	private:
 		typedef sprout::value_holder<string_type const&> holder_type;
-	public:
-		typedef typename holder_type::param_type param_type;
 	private:
 		template<std::size_t M, sprout::index_t... Indexes>
 		static SPROUT_CONSTEXPR sprout::basic_string<T, sizeof...(Indexes), Traits> implicit_conversion_impl(
@@ -35,9 +34,12 @@ namespace sprout {
 	public:
 		shrink_string(shrink_string const&) = default;
 		shrink_string(shrink_string&&) = default;
-		explicit SPROUT_CONSTEXPR shrink_string(param_type p)
-			: holder_(p)
+		SPROUT_CONSTEXPR shrink_string(string_type const& s)
+			: holder_(s)
 		{}
+		SPROUT_CONSTEXPR operator string_type const&() const {
+			return holder_.get();
+		}
 		template<std::size_t N2>
 		SPROUT_CONSTEXPR operator sprout::basic_string<T, N2, Traits>() const {
 			return implicit_conversion_impl(

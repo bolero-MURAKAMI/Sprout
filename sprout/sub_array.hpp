@@ -205,7 +205,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				arr,
-				typename sprout::index_range<0, static_size>::type(),
+				sprout::index_range<0, static_size>::make(),
 				first,
 				last
 				)
@@ -214,7 +214,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				arr,
-				typename sprout::index_range<0, static_size>::type(),
+				sprout::index_range<0, static_size>::make(),
 				first,
 				last
 				)
@@ -223,7 +223,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
-				typename sprout::index_range<0, static_size>::type(),
+				sprout::index_range<0, static_size>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(other.get_array()), first),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(other.get_array()), last)
 				)
@@ -232,7 +232,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
-				typename sprout::index_range<0, static_size>::type(),
+				sprout::index_range<0, static_size>::make(),
 				first + other.first_,
 				last + other.first_
 				)

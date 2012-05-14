@@ -47,8 +47,8 @@ namespace sprout {
 			return sprout::tuples::detail::append_back_impl<typename sprout::tuples::result_of::append_back<Tuple, InputTuple>::type>(
 				t,
 				input,
-				typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type(),
-				typename sprout::index_range<0, sprout::tuples::tuple_size<InputTuple>::value>::type()
+				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make(),
+				sprout::index_range<0, sprout::tuples::tuple_size<InputTuple>::value>::make()
 				);
 		}
 	}	// namespace tuples

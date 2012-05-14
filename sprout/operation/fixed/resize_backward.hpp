@@ -50,7 +50,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size>::make(),
 				sprout::size(cont),
 				static_cast<typename sprout::container_traits<Container>::difference_type>(
 					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
@@ -87,7 +87,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size>::make(),
 				sprout::size(cont),
 				static_cast<typename sprout::container_traits<Container>::difference_type>(
 					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size

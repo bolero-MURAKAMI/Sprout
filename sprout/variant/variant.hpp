@@ -38,7 +38,7 @@ namespace sprout {
 			{}
 			template<typename T, typename Index>
 			SPROUT_CONSTEXPR variant_impl(T&& operand, Index)
-				: tuple_(init(sprout::forward<T>(operand), typename sprout::index_range<0, Index::value>::type()))
+				: tuple_(init(sprout::forward<T>(operand), sprout::index_range<0, Index::value>::make()))
 				, which_(Index::value)
 			{
 				static_assert(Index::value < sizeof...(Types), "variant<>: invalid operand");

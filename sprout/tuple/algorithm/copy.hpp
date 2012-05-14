@@ -47,8 +47,8 @@ namespace sprout {
 				return sprout::tuples::detail::copy_impl<typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type>(
 					t,
 					input,
-					typename sprout::index_range<sprout::tuples::tuple_size<InputTuple>::value, sprout::tuples::tuple_size<Tuple>::value>::type(),
-					typename sprout::index_range<0, sprout::tuples::tuple_size<InputTuple>::value>::type()
+					sprout::index_range<sprout::tuples::tuple_size<InputTuple>::value, sprout::tuples::tuple_size<Tuple>::value>::make(),
+					sprout::index_range<0, sprout::tuples::tuple_size<InputTuple>::value>::make()
 					);
 			}
 			template<typename Tuple, typename InputTuple>
@@ -64,7 +64,7 @@ namespace sprout {
 					t,
 					input,
 					sprout::index_tuple<>(),
-					typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type()
+					sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make()
 					);
 			}
 		}	// namespace detail

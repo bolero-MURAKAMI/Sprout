@@ -32,7 +32,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::insert_n_impl<N, typename sprout::fixed::result_of::push_back_n<N, Container, T, Values...>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::push_back_n<N, Container, T, Values...>::type>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::push_back_n<N, Container, T, Values...>::type>::static_size>::make(),
 				sprout::internal_end_offset(cont),
 				v,
 				values...

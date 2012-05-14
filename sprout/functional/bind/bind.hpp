@@ -180,7 +180,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR auto operator()(CVArg& arg, sprout::tuples::tuple<Args...>& tuple) const volatile
 				-> decltype(arg(std::declval<Args>()...))
 			{
-				return call(arg, tuple, typename sprout::index_range<0, sizeof...(Args)>::type());
+				return call(arg, tuple, sprout::index_range<0, sizeof...(Args)>::make());
 			}
 		};
 		template<typename Arg>

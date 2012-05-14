@@ -112,7 +112,7 @@ namespace sprout {
 	public:
 		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str(value_type const* s, size_type n) {
 			return !(N < n)
-				? from_c_str_impl(s, n, typename sprout::index_range<0, N>::type())
+				? from_c_str_impl(s, n, sprout::index_range<0, N>::make())
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
@@ -357,7 +357,7 @@ namespace sprout {
 			return implicit_conversion_impl(
 				elems,
 				len,
-				typename sprout::index_range<0, N2>::type()
+				sprout::index_range<0, N2>::make()
 				);
 		}
 		pointer c_array() SPROUT_NOEXCEPT {
@@ -522,7 +522,7 @@ namespace sprout {
 	}	// namespace detail
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> to_string(T const(& arr)[N]) {
-		return sprout::detail::to_string_impl(arr, typename sprout::index_range<0, N - 1>::type());
+		return sprout::detail::to_string_impl(arr, sprout::index_range<0, N - 1>::make());
 	}
 
 	//

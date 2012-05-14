@@ -106,12 +106,12 @@ namespace sprout {
 							width,
 							height,
 							depth_max,
-							typename sprout::index_range<
+							sprout::index_range<
 								0,
 								sprout::container_traits<
 									typename sprout::container_traits<Pixels>::value_type
 									>::static_size
-								>::type()
+								>::make()
 							)...
 						);
 				}
@@ -162,10 +162,10 @@ namespace sprout {
 					width,
 					height,
 					depth_max,
-					typename sprout::index_range<
+					sprout::index_range<
 						0,
 						sprout::container_traits<Pixels>::static_size
-						>::type()
+						>::make()
 					);
 			}
 

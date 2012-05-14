@@ -32,7 +32,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign_to<Result, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size>::make(),
 				sprout::size(cont),
 				v
 				);
@@ -48,7 +48,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign_to<Result, Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size>::make(),
 				sprout::size(cont)
 				);
 		}

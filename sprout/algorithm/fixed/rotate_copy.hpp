@@ -53,7 +53,7 @@ namespace sprout {
 					middle,
 					last,
 					result,
-					typename sprout::index_range<0, sprout::container_traits<Result>::static_size>::type(),
+					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
 					sprout::internal_begin_offset(result),
 					sprout::size(result),
 					NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)

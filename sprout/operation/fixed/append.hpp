@@ -62,7 +62,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append<Container, Input>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), pos),
 				sprout::size(input),
 				input
@@ -80,7 +80,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append<Container, Input>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				sprout::size(input),
 				input

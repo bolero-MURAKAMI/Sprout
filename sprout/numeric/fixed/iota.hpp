@@ -41,7 +41,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::iota_impl(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<Container>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
 				value,
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)

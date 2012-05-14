@@ -30,7 +30,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::pop_front<Container>::type>(
 				cont,
-				typename sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::pop_front<Container>::type>::static_size>::type(),
+				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::pop_front<Container>::type>::static_size>::make(),
 				sprout::internal_begin_offset(cont)
 				);
 		}

@@ -46,7 +46,7 @@ namespace sprout {
 			return sprout::tuples::detail::push_front_impl<typename sprout::tuples::result_of::push_front<Tuple, T>::type>(
 				t,
 				v,
-				typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type()
+				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make()
 				);
 		}
 	}	// namespace tuples

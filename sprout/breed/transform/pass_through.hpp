@@ -74,7 +74,7 @@ namespace sprout {
 					typename pass_through_impl::data_param d
 					) const
 				{
-					return call_impl(e, s, d, typename sprout::index_range<0, Arity>::type());
+					return call_impl(e, s, d, sprout::index_range<0, Arity>::make());
 				}
 			};
 			template<typename Grammar, typename Expr, typename State, typename Data>
