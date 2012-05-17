@@ -13,7 +13,6 @@
 // <http://www.boost.org/LICENSE_1_0.txt>
 //
 #include <sprout/string.hpp>
-#include <iostream>
 #include <sstream>
 #include <cassert>
 
@@ -38,7 +37,6 @@ main(){
 	static_assert(str2 == "mado", "");
 	static_assert(str3 == "42", "");
 	static_assert(str1 != str2, "");
-// 	static_assert(str4 == "97", "");
 
 	//
 	// Accessor
