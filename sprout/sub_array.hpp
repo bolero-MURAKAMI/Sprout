@@ -854,7 +854,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename Container>
-	class tuple_size<sprout::sub_array<Container> >
+	struct tuple_size<sprout::sub_array<Container> >
 		: public std::tuple_size<typename std::remove_reference<Container>::type>
 	{};
 
@@ -862,7 +862,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename Container>
-	class tuple_element<I, sprout::sub_array<Container> >
+	struct tuple_element<I, sprout::sub_array<Container> >
 		: public std::tuple_element<I, typename std::remove_reference<Container>::type>
 	{};
 }	// namespace std

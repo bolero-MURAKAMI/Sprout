@@ -169,14 +169,14 @@ namespace sprout {
 	namespace tuples {
 		namespace detail {
 			template<std::size_t I, typename T>
-			class tuple_element_impl;
+			struct tuple_element_impl;
 			template<typename T1, typename T2>
-			class tuple_element_impl<0, sprout::pair<T1, T2> > {
+			struct tuple_element_impl<0, sprout::pair<T1, T2> > {
 			public:
 				typedef T1 type;
 			};
 			template<typename T1, typename T2>
-			class tuple_element_impl<1, sprout::pair<T1, T2> > {
+			struct tuple_element_impl<1, sprout::pair<T1, T2> > {
 			public:
 				typedef T2 type;
 			};
@@ -189,7 +189,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename T1, typename T2>
-	class tuple_size<sprout::pair<T1, T2> >
+	struct tuple_size<sprout::pair<T1, T2> >
 		: public std::integral_constant<std::size_t, 2>
 	{};
 
@@ -197,7 +197,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename T1, typename T2>
-	class tuple_element<I, sprout::pair<T1, T2> >
+	struct tuple_element<I, sprout::pair<T1, T2> >
 		: public sprout::tuples::detail::tuple_element_impl<I, sprout::pair<T1, T2> >
 	{};
 }	// namespace std

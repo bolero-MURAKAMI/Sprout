@@ -26,14 +26,14 @@ namespace sprout {
 		// tuple_size
 		//
 		template<typename T, typename Enable = void>
-		class tuple_size
+		struct tuple_size
 			: public std::tuple_size<T>
 		{};
 		//
 		// tuple_element
 		//
 		template<std::size_t I, typename T, typename Enable = void>
-		class tuple_element
+		struct tuple_element
 			: public std::tuple_element<I, T>
 		{};
 	}	// namespace types

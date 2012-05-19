@@ -23,14 +23,14 @@ namespace sprout {
 
 		namespace detail {
 			template<std::size_t I, typename T>
-			class tuple_element_impl;
+			struct tuple_element_impl;
 			template<typename Head, typename... Tail>
-			class tuple_element_impl<0, sprout::types::type_tuple<Head, Tail...> > {
+			struct tuple_element_impl<0, sprout::types::type_tuple<Head, Tail...> > {
 			public:
 				typedef Head type;
 			};
 			template<std::size_t I, typename Head, typename... Tail>
-			class tuple_element_impl<I, sprout::types::type_tuple<Head, Tail...> >
+			struct tuple_element_impl<I, sprout::types::type_tuple<Head, Tail...> >
 				: public sprout::types::detail::tuple_element_impl<I - 1, sprout::types::type_tuple<Tail...> >
 			{};
 		}	// namespace detail
@@ -44,7 +44,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename... Types>
-	class tuple_size<sprout::types::type_tuple<Types...> >
+	struct tuple_size<sprout::types::type_tuple<Types...> >
 		: public std::integral_constant<std::size_t, sizeof...(Types)>
 	{};
 
@@ -52,7 +52,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename... Types>
-	class tuple_element<I, sprout::types::type_tuple<Types...> >
+	struct tuple_element<I, sprout::types::type_tuple<Types...> >
 		: public sprout::types::detail::tuple_element_impl<I, sprout::types::type_tuple<Types...> >
 	{};
 }	// namespace std

@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
+#include <sprout/cstdlib/abs.hpp>
 #include <sprout/math/abs.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/pow.hpp>

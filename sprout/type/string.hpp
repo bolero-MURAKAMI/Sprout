@@ -24,7 +24,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename T, T... Values>
-	class tuple_size<sprout::types::basic_string<T, Values...> >
+	struct tuple_size<sprout::types::basic_string<T, Values...> >
 		: public std::tuple_size<sprout::types::integral_array<T, Values...> >
 	{};
 
@@ -32,7 +32,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename T, T... Values>
-	class tuple_element<I, sprout::types::basic_string<T, Values...> >
+	struct tuple_element<I, sprout::types::basic_string<T, Values...> >
 		: public std::tuple_element<I, sprout::types::integral_array<T, Values...> >
 	{};
 }	// namespace std

@@ -266,7 +266,7 @@ namespace std {
 	// tuple_size
 	//
 	template<typename... Types>
-	class tuple_size<sprout::variant<Types...> >
+	struct tuple_size<sprout::variant<Types...> >
 		: public std::tuple_size<typename sprout::variant<Types...>::tuple_type>
 	{};
 
@@ -274,7 +274,7 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename... Types>
-	class tuple_element<I, sprout::variant<Types...> >
+	struct tuple_element<I, sprout::variant<Types...> >
 		: public std::tuple_element<I, typename sprout::variant<Types...>::tuple_type>
 	{};
 }	// namespace std

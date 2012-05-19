@@ -35,14 +35,14 @@ namespace sprout {
 		// tuple_size
 		//
 		template<int... Values>
-		class tuple_size<boost::mpl::string<Values...> >
+		struct tuple_size<boost::mpl::string<Values...> >
 			: public boost::mpl::size<boost::mpl::string<Values...> >
 		{};
 		//
 		// tuple_element
 		//
 		template<std::size_t I, int... Values>
-		class tuple_element<I, boost::mpl::string<Values...> >
+		struct tuple_element<I, boost::mpl::string<Values...> >
 			: public boost::mpl::at_c<boost::mpl::string<Values...>, I>
 		{};
 
