@@ -122,7 +122,7 @@ namespace sprout {
 		struct basic_default_generator
 			: public sprout::breed::use_basic_expr<sprout::breed::default_generator>
 		{};
-		
+
 		//
 		// generator
 		//
@@ -146,7 +146,7 @@ namespace sprout {
 			template<typename This, typename Expr>
 			struct result<This(Expr const&)>
 			{
- 			public:
+			public:
 				typedef Extends<Expr> type;
 			};
 		public:

@@ -201,4 +201,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_WEED_PARSER_NUMERIC_UINT_P_HPP
-

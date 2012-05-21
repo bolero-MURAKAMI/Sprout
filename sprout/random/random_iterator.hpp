@@ -323,4 +323,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_RANDOM_ITERATOR_HPP
-

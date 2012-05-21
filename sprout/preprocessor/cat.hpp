@@ -10,4 +10,3 @@
 #define SPROUT_PP_CAT_I(a, b) a ## b
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_CAT_HPP
-

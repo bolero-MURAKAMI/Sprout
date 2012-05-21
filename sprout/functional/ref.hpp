@@ -34,7 +34,7 @@ namespace sprout {
 			typedef typename T::first_argument_type first_argument_type;
 			typedef typename T::second_argument_type second_argument_type;
 		};
-		 template<typename T>
+			template<typename T>
 		struct reference_wrapper_base_impl<true, true, T>
 			: public sprout::weak_result_type<T>
 		{
@@ -152,9 +152,9 @@ namespace sprout {
 		SPROUT_CONSTEXPR T& get() const SPROUT_NOEXCEPT {
 			return *t_;
 		}
-    	SPROUT_CONSTEXPR T* get_pointer() const SPROUT_NOEXCEPT {
-    		return t_;
-    	}
+		SPROUT_CONSTEXPR T* get_pointer() const SPROUT_NOEXCEPT {
+			return t_;
+		}
 		// invocation
 		template<typename... Args>
 		SPROUT_CONSTEXPR typename std::result_of<T& (Args&&...)>::type

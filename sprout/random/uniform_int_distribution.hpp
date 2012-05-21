@@ -543,4 +543,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP
-

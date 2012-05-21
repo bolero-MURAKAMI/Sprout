@@ -110,4 +110,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_STABLE_PARTITION_COPY_CPP
-

@@ -24,7 +24,7 @@ namespace sprout {
 			//
 			// fmtflags
 			//
-			enum fmtflags { 
+			enum fmtflags {
 				boolalpha = 1L << 0,
 				showbase = 1L << 1,
 				showpoint = 1L << 2,

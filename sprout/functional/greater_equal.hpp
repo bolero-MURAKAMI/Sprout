@@ -15,7 +15,7 @@ namespace sprout {
 		typedef bool result_type;
 	public:
 		SPROUT_CONSTEXPR bool operator()(T const& x, T const& y) const {
-			 return x >= y;
+				return x >= y;
 		}
 	};
 }	// namespace sprout

@@ -221,4 +221,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_SET_SYMMETRIC_DIFFERENCE_CPP
-

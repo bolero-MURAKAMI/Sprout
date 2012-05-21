@@ -5,4 +5,3 @@
 #include <sprout/functional/hash/hash_fwd.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_HASH_FWD_HPP
-

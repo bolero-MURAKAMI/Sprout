@@ -13,8 +13,8 @@
 #include <sprout/integer/bit_length.hpp>
 
 namespace sprout {
-	 namespace fixed {
-		 namespace detail {
+		namespace fixed {
+			namespace detail {
 			template<typename Container, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bitrev_table_impl(
 				Container const& cont,

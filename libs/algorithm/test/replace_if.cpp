@@ -78,4 +78,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_REPLACE_IF_CPP
-

@@ -466,4 +466,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_MERSENNE_TWISTER_HPP
-

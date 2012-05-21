@@ -20,4 +20,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_DETAIL_GENERATOR_BITS_HPP
-

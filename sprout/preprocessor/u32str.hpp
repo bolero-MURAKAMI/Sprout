@@ -10,4 +10,3 @@
 #define SPROUT_PP_U32STR_I(str) U ## str
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_U32STR_HPP
-

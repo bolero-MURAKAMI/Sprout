@@ -11,7 +11,7 @@
 
 namespace sprout {
 	namespace breed {
-	    namespace detail {
+		namespace detail {
 			template<
 				typename Grammar,
 				typename Expr,
@@ -32,10 +32,10 @@ namespace sprout {
 				public:
 					typedef sprout::breed::list<
 						typename Grammar::template breed_child<Indexes>::type::template impl<
-				            typename sprout::breed::result_of::child_c<Expr, Indexes>::type,
-				        	State,
-				        	Data
-				        >::result_type...
+							typename sprout::breed::result_of::child_c<Expr, Indexes>::type,
+							State,
+							Data
+						>::result_type...
 					> type;
 				};
 			public:

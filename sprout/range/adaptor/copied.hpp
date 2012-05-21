@@ -6,7 +6,6 @@
 #include <sprout/pit.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/iterator/sinusoid_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/range/range_container.hpp>
 #include <sprout/range/algorithm/copy.hpp>
@@ -33,7 +32,6 @@ namespace sprout {
 			typedef sprout::range::range_container<
 				typename sprout::container_traits<Range>::iterator
 			> base_type;
-			typedef typename base_type::iterator iterator;
 		public:
 			copied_range() = default;
 			copied_range(copied_range const&) = default;
@@ -92,7 +90,7 @@ namespace sprout {
 		// operator|
 		//
 		template<typename Range, typename Result>
-		SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<sprout::pit<Result> >::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<sprout::pit<Result> >::type
 		operator|(Range&& lhs, sprout::adaptors::copy_holder<Result> const& rhs) {
 			return sprout::range::fixed::copy(sprout::lvalue_forward<Range>(lhs), sprout::pit<Result>());
 		}

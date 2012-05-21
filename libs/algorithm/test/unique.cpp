@@ -125,4 +125,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_UNIQUE_CPP
-

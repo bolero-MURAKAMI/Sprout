@@ -17,7 +17,7 @@ namespace sprout {
 			private:
 				SPROUT_CONSTEXPR not_a_valid_type() {}
 			};
-			
+
 			template<typename Tag, typename Arg>
 			struct address_of_hack {
 			public:
@@ -317,12 +317,12 @@ namespace sprout {
 				template<typename... As>
 				SPROUT_CONSTEXPR typename sprout::breed::result_of::funop<
 					expr(As const&...),
-				  	expr,
+					expr,
 					sprout::breed::default_domain
 				>::type operator()(As const&... args) const {
 					return sprout::breed::result_of::funop<
 						expr(As const&...),
-					  	expr,
+						expr,
 						sprout::breed::default_domain
 					>::call(*this, args...);
 				}
@@ -444,12 +444,12 @@ namespace sprout {
 				template<typename... As>
 				SPROUT_CONSTEXPR typename sprout::breed::result_of::funop<
 					expr(As const&...),
-				  	expr,
+					expr,
 					sprout::breed::default_domain
 				>::type operator()(As const&... args) const {
 					return sprout::breed::result_of::funop<
 						expr(As const&...),
-					  	expr,
+						expr,
 						sprout::breed::default_domain
 					>::call(*this, args...);
 				}

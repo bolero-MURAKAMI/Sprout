@@ -4,7 +4,7 @@
 // Copyright (c) 2012
 // bolero-MURAKAMI : http://d.hatena.ne.jp/boleros/
 // osyo-manga : http://d.hatena.ne.jp/osyo-manga/
-// 
+//
 // Readme:
 // https://github.com/osyo-manga/cpp-half/blob/master/README
 //
@@ -22,7 +22,7 @@
 //
 int
 main(){
-	
+
 	//
 	// String literal to Sprout.String
 	//
@@ -66,7 +66,7 @@ main(){
 	static_assert(*(str1.end() - 1)    == 'u', "");
 	static_assert(*(str1.rbegin() + 1) == 'm', "");
 	static_assert(*(str1.rend() - 2)   == 'o', "");
-	
+
 	//
 	// IOStream
 	//

@@ -5,4 +5,3 @@
 #include <sprout/numeric/fft/bitrev_table.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_FFT_HPP
-

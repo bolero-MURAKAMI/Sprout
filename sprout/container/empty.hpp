@@ -10,7 +10,8 @@ namespace sprout {
 	// empty
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool empty(Container const& cont) {
+	inline SPROUT_CONSTEXPR bool
+	empty(Container const& cont) {
 		return sprout::begin(cont) == sprout::end(cont);
 	}
 }	// namespace sprout

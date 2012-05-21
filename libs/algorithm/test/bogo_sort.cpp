@@ -135,4 +135,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_BOGO_SORT_CPP
-

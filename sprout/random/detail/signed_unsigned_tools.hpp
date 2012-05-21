@@ -60,4 +60,3 @@ namespace sprout {
 } // namespace sprout
 
 #endif // SPROUT_RANDOM_DETAIL_SIGNED_UNSIGNED_TOOLS_HPP
-

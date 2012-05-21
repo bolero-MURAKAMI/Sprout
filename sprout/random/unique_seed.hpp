@@ -53,4 +53,3 @@ namespace sprout {
 #define SPROUT_UNIQUE_SEED_SEQ(N) (::sprout::make_seed_seq<N>(SPROUT_PP_UNIQUE_STRING))
 
 #endif	// #ifndef SPROUT_RANDOM_UNIQUE_SEED_HPP
-

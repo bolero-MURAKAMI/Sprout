@@ -6,4 +6,3 @@
 #include <sprout/string/hash.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_HASH_STRING_HPP
-

@@ -11,4 +11,3 @@
 #define SPROUT_PP_WSTRINGIZE_II(str) L ## str
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_WSTRINGIZE_HPP
-

@@ -7,4 +7,3 @@
 #include <sprout/preprocessor/u32str.hpp>
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_STR_ALL_HPP
-

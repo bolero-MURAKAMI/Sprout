@@ -8,4 +8,3 @@
 #include <sprout/preprocessor/u32stringize.hpp>
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_STRINGIZE_ALL_HPP
-

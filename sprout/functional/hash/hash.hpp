@@ -270,4 +270,3 @@ namespace sprout {
 }	//namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_HASH_HASH_HPP
-

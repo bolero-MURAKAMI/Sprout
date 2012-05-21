@@ -27,6 +27,22 @@ namespace sprout {
 				: public sprout::weed::traits::is_c_str<T>
 			{};
 			template<std::size_t N>
+			struct is_c_str<char[N]>
+				: public std::true_type
+			{};
+			template<std::size_t N>
+			struct is_c_str<wchar_t[N]>
+				: public std::true_type
+			{};
+			template<std::size_t N>
+			struct is_c_str<char16_t[N]>
+				: public std::true_type
+			{};
+			template<std::size_t N>
+			struct is_c_str<char32_t[N]>
+				: public std::true_type
+			{};
+			template<std::size_t N>
 			struct is_c_str<char const[N]>
 				: public std::true_type
 			{};

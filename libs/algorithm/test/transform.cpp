@@ -208,4 +208,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_TRANSFORM_CPP
-

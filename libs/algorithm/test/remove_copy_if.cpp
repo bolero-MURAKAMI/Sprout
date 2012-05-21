@@ -110,4 +110,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_REMOVE_COPY_IF_CPP
-

@@ -179,4 +179,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_DETAIL_INTEGER_HPP
-

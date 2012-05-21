@@ -15,7 +15,7 @@ namespace sprout {
 		typedef T result_type;
 	public:
 		SPROUT_CONSTEXPR T operator()(T const& x, T const& y) const {
-			 return x % y;
+				return x % y;
 		}
 	};
 }	// namespace sprout

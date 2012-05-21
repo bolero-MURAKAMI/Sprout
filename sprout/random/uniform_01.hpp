@@ -129,4 +129,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_UNIFORM_01_HPP
-

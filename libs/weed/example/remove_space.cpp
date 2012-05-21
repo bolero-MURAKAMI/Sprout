@@ -4,7 +4,7 @@
 // Copyright (c) 2012
 // bolero-MURAKAMI : http://d.hatena.ne.jp/boleros/
 // osyo-manga : http://d.hatena.ne.jp/osyo-manga/
-// 
+//
 // Readme:
 // https://github.com/osyo-manga/cpp-half/blob/master/README
 //
@@ -18,11 +18,11 @@
 int
 main(){
 	namespace w = sprout::weed;
-	
+
 	static constexpr auto max_string_size = 32;
 	static constexpr auto space = *w::omit[ w::space ];
 	static constexpr auto remove_space = *w::lim<max_string_size>(space >> w::char_);
-	
+
 	static constexpr auto source = sprout::to_string("  homu  :  mami=   10 ");
 	static constexpr auto result = w::parse(
 		sprout::begin(source), sprout::end(source),

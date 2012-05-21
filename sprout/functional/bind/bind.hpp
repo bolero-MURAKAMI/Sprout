@@ -297,7 +297,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR Result call_cv(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>) const volatile {
 			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::volget<Indexes>(bound_args_), args)...);
 		}
-	 public:
+		public:
 		template<typename... Args>
 		explicit SPROUT_CONSTEXPR binder(Functor const& f, Args&&... args)
 			: f_(f)

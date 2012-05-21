@@ -10,4 +10,3 @@
 #define SPROUT_PP_STRINGIZE_I(text) #text
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_STRINGIZE_HPP
-

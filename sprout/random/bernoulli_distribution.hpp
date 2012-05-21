@@ -159,4 +159,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_BERNOULLI_DISTRIBUTION_HPP
-

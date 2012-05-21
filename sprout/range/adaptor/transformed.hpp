@@ -23,7 +23,7 @@ namespace sprout {
 		class transformed_range
 			: public sprout::range::range_container<
 				sprout::transform_iterator<
-					BinaryFunction, 
+					BinaryFunction,
 					typename sprout::container_traits<LRange>::iterator,
 					typename sprout::container_traits<RRange>::iterator
 				>
@@ -37,7 +37,7 @@ namespace sprout {
 			typedef RRange range2_type;
 			typedef sprout::range::range_container<
 				sprout::transform_iterator<
-					BinaryFunction, 
+					BinaryFunction,
 					typename sprout::container_traits<LRange>::iterator,
 					typename sprout::container_traits<RRange>::iterator
 				>
@@ -45,8 +45,8 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::size_type size_type;
 		public:
-			transformed_range() = default;
-			transformed_range(transformed_range const&) = default;
+			SPROUT_CONSTEXPR transformed_range() = default;
+			SPROUT_CONSTEXPR transformed_range(transformed_range const&) = default;
 			SPROUT_CONSTEXPR transformed_range(functor_type func, range_type& range1, range2_type& range2)
 				: base_type(
 					iterator(sprout::begin(range1), sprout::begin(range2), func),
@@ -59,7 +59,7 @@ namespace sprout {
 		class transformed_range<UnaryFunction, Range, void>
 			: public sprout::range::range_container<
 				sprout::transform_iterator<
-					UnaryFunction, 
+					UnaryFunction,
 					typename sprout::container_traits<Range>::iterator
 				>
 			>
@@ -71,14 +71,14 @@ namespace sprout {
 			typedef Range range_type;
 			typedef sprout::range::range_container<
 				sprout::transform_iterator<
-					UnaryFunction, 
+					UnaryFunction,
 					typename sprout::container_traits<Range>::iterator
 				>
 			> base_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			transformed_range() = default;
-			transformed_range(transformed_range const&) = default;
+			SPROUT_CONSTEXPR transformed_range() = default;
+			SPROUT_CONSTEXPR transformed_range(transformed_range const&) = default;
 			SPROUT_CONSTEXPR transformed_range(functor_type func, range_type& range)
 				: base_type(
 					iterator(sprout::begin(range), func),

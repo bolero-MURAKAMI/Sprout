@@ -9,4 +9,3 @@
 #define SPROUT_PP_EMPTY()
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_EMPTY_HPP
-

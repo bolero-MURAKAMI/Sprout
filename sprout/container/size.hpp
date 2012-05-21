@@ -12,7 +12,8 @@ namespace sprout {
 	// size
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type size(Container const& cont) {
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
+	size(Container const& cont) {
 		return NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), sprout::end(cont));
 	}
 }	// namespace sprout

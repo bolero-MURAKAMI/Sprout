@@ -4,7 +4,7 @@
 // Copyright (c) 2012
 // bolero-MURAKAMI : http://d.hatena.ne.jp/boleros/
 // osyo-manga : http://d.hatena.ne.jp/osyo-manga/
-// 
+//
 // Readme:
 // https://github.com/osyo-manga/cpp-half/blob/master/README
 //
@@ -17,7 +17,7 @@
 
 int
 main(){
-	
+
 	//
 	// String literal to Sprout.String
 	//
@@ -30,7 +30,7 @@ main(){
 		static_assert(str2 == L"ほむほむ", "");
 		static_assert(std::is_same<decltype(str2), sprout::wstring<4> const>{}, "");
 	}
-	
+
 	//
 	// Integer literal to Sprout.String
 	//
@@ -38,7 +38,7 @@ main(){
 		static constexpr auto str = sprout::to_string(42);
 		static_assert(str == "42", "");
 	}
-	
+
 	//
 	// Float literal to Sprout.String
 	//

@@ -12,7 +12,7 @@ namespace sprout {
 		typedef bool result_type;
 	public:
 		SPROUT_CONSTEXPR bool operator()(T const& x) const {
-			 return !x;
+				return !x;
 		}
 	};
 }	// namespace sprout

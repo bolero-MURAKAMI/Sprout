@@ -27,7 +27,7 @@ namespace sprout {
 			8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
 			8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8
 		};
-		template<std::size_t Size> 
+		template<std::size_t Size>
 		struct bit_len {
 		private:
 			SPROUT_STATIC_CONSTEXPR std::size_t next_size = Size - 1;

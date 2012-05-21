@@ -14,4 +14,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_HASH_SSCRISK_CEL_ARRAY_HPP
-

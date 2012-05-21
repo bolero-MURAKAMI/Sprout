@@ -131,4 +131,3 @@ namespace sprout {
 } // namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
-

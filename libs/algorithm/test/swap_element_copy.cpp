@@ -116,4 +116,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_SWAP_ELEMENT_COPY_CPP
-

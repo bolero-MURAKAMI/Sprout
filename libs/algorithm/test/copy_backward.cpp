@@ -104,4 +104,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_COPY_BACKWARD_CPP
-

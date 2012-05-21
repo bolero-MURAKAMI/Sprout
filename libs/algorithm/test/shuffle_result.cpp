@@ -97,4 +97,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_SHUFFLE_RESULT_CPP
-

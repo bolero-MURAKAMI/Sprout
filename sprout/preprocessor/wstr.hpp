@@ -10,4 +10,3 @@
 #define SPROUT_PP_WSTR_I(str) L ## str
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_WSTR_HPP
-

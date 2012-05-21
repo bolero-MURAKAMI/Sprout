@@ -24,7 +24,7 @@ namespace sprout {
 			59, 187, 123, 251, 7, 135, 71, 199, 39, 167, 103, 231, 23, 151, 87, 215, 55, 183, 119, 247,
 			15, 143, 79, 207, 47, 175, 111, 239, 31, 159, 95, 223, 63, 191, 127, 255
 		};
-		template<std::size_t Size> 
+		template<std::size_t Size>
 		struct bit_rev {
 		private:
 			SPROUT_STATIC_CONSTEXPR std::size_t next_size = Size / 2;

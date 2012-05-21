@@ -481,7 +481,7 @@ namespace sprout {
 					N < sizeof...(Args),
 					sprout::tppack_at<N, Args...>,
 					sprout::breed::detail::if_vararg<typename sprout::tppack_at<sizeof...(Args) - 1, Args...>::type>
-				>::type::type 
+				>::type::type
 			};
 			template<typename Expr, typename State, typename Data>
 			struct impl
@@ -519,7 +519,7 @@ namespace sprout {
 					N < sizeof...(Args),
 					sprout::tppack_at<N, Args...>,
 					sprout::breed::detail::if_vararg<typename sprout::tppack_at<sizeof...(Args) - 1, Args...>::type>
-				>::type::type 
+				>::type::type
 			};
 			template<typename Expr, typename State, typename Data>
 			struct impl

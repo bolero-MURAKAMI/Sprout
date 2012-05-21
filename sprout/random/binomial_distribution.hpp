@@ -447,4 +447,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_BINOMIAL_DISTRIBUTION_HPP
-

@@ -292,7 +292,7 @@ namespace sprout {
 			}
 		};
 	}	// namespace detail
-	
+
 	//
 	// compressed_pair
 	//

@@ -133,4 +133,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_INPLACE_MERGE_CPP
-

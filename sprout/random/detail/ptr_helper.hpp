@@ -70,4 +70,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_DETAIL_PTR_HELPER_HPP
-

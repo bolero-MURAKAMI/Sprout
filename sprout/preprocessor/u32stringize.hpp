@@ -11,4 +11,3 @@
 #define SPROUT_PP_U32STRINGIZE_II(str) U ## str
 
 #endif	// #ifndef SPROUT_PREPROCESSOR_U32STRINGIZE_HPP
-

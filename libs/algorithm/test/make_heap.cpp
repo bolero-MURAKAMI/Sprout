@@ -125,4 +125,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_MAKE_HEAP_CPP
-

@@ -70,4 +70,3 @@ namespace testspr {
 #endif
 
 #endif	// #ifndef SPROUT_LIBS_ALGORITHM_TEST_POP_HEAP_CPP
-

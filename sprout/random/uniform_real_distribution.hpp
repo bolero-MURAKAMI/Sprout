@@ -335,4 +335,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_RANDOM_UNIFORM_REAL_DISTRIBUTION_HPP
-
