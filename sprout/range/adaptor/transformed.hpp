@@ -45,8 +45,8 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::size_type size_type;
 		public:
-			SPROUT_CONSTEXPR transformed_range() = default;
-			SPROUT_CONSTEXPR transformed_range(transformed_range const&) = default;
+			transformed_range() = default;
+			transformed_range(transformed_range const&) = default;
 			SPROUT_CONSTEXPR transformed_range(functor_type func, range_type& range1, range2_type& range2)
 				: base_type(
 					iterator(sprout::begin(range1), sprout::begin(range2), func),
@@ -77,8 +77,8 @@ namespace sprout {
 			> base_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			SPROUT_CONSTEXPR transformed_range() = default;
-			SPROUT_CONSTEXPR transformed_range(transformed_range const&) = default;
+			transformed_range() = default;
+			transformed_range(transformed_range const&) = default;
 			SPROUT_CONSTEXPR transformed_range(functor_type func, range_type& range)
 				: base_type(
 					iterator(sprout::begin(range), func),
