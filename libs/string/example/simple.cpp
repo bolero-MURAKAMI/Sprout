@@ -6,7 +6,7 @@
 // osyo-manga : http://d.hatena.ne.jp/osyo-manga/
 // 
 // Readme:
-// https://github.com/osyo-manga/cpp-half/blob/master/README
+// https://github.com/bolero-MURAKAMI/Sprout/blob/master/README
 //
 // License:
 // Boost Software License - Version 1.0
