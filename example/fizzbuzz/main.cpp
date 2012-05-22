@@ -4,9 +4,9 @@
 // Copyright (c) 2012
 // bolero-MURAKAMI : http://d.hatena.ne.jp/boleros/
 // osyo-manga : http://d.hatena.ne.jp/osyo-manga/
-//
+// 
 // Readme:
-// https://github.com/osyo-manga/cpp-half/blob/master/README
+// https://github.com/bolero-MURAKAMI/Sprout/blob/master/README
 //
 // License:
 // Boost Software License - Version 1.0
@@ -26,9 +26,9 @@ struct fizzbuzz{
 	constexpr result_type
 	operator ()(int n) const{
 		return n % 15 == 0 ? sprout::to_string("FizzBuzz")
-				: n %  3 == 0 ? sprout::to_string("Fizz")
-				: n %  5 == 0 ? sprout::to_string("Buzz")
-				: sprout::to_string(n);
+			 : n %  3 == 0 ? sprout::to_string("Fizz")
+			 : n %  5 == 0 ? sprout::to_string("Buzz")
+			 : sprout::to_string(n);
 	}
 };
 
@@ -45,7 +45,7 @@ main(){
 	static_assert(fizzbuzz()( 3) == "Fizz", "");
 	static_assert(fizzbuzz()( 5) == "Buzz", "");
 	static_assert(fizzbuzz()(15) == "FizzBuzz", "");
-
+	
 	//
 	// Sequence [1..15]
 	//
@@ -63,7 +63,7 @@ main(){
 		sprout::pit<sprout::array<string, 15> >(),
 		fizzbuzz()
 	);
-
+	
 	//
 	// Check result
 	//
