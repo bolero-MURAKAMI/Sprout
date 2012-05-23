@@ -12,7 +12,7 @@
 #include <sprout/range/adaptor/size_enumed.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
 #include <sprout/range/numeric/partial_sum.hpp>
-#include <sprout/weed/traits/type/is_c_str.hpp>
+#include <sprout/type_traits/is_c_str.hpp>
 
 namespace sprout {
 	namespace algorithm {
@@ -22,7 +22,7 @@ namespace sprout {
 			template<typename String>
 			struct string_size<
 				String,
-				typename std::enable_if<sprout::weed::traits::is_c_str<String>::value>::type
+				typename std::enable_if<sprout::is_c_str<String>::value>::type
 			>
 				: public std::integral_constant<
 					typename sprout::container_traits<String>::size_type,
@@ -32,7 +32,7 @@ namespace sprout {
 			template<typename String>
 			struct string_size<
 				String,
-				typename std::enable_if<!sprout::weed::traits::is_c_str<String>::value>::type
+				typename std::enable_if<!sprout::is_c_str<String>::value>::type
 			>
 				: public std::integral_constant<
 					typename sprout::container_traits<String>::size_type,
@@ -42,7 +42,7 @@ namespace sprout {
 
 			template<
 				typename String,
-				typename sprout::enabler_if<sprout::weed::traits::is_c_str<String>::value>::type = sprout::enabler
+				typename sprout::enabler_if<sprout::is_c_str<String>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR typename sprout::container_traits<String>::difference_type
 			str_size(String const& str) {
@@ -50,7 +50,7 @@ namespace sprout {
 			}
 			template<
 				typename String,
-				typename sprout::enabler_if<!sprout::weed::traits::is_c_str<String>::value>::type = sprout::enabler
+				typename sprout::enabler_if<!sprout::is_c_str<String>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR typename sprout::container_traits<String>::difference_type
 			str_size(String const& str) {

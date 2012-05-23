@@ -14,7 +14,7 @@
 #include <sprout/utility/enabler_if.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
 #include <sprout/range/numeric/partial_sum.hpp>
-#include <sprout/weed/traits/type/is_char_type.hpp>
+#include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/detail/param_at.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
@@ -676,7 +676,7 @@ namespace sprout {
 			typename Elem, std::size_t N, typename T,
 			typename sprout::enabler_if<
 				std::is_integral<T>::value
-					&& !sprout::weed::traits::is_char_type<T>::value
+					&& !sprout::is_char_type<T>::value
 			>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR auto
@@ -697,7 +697,7 @@ namespace sprout {
 		}
 		template<
 			typename Elem, std::size_t N, typename T,
-			typename sprout::enabler_if<sprout::weed::traits::is_char_type<T>::value>::type = sprout::enabler
+			typename sprout::enabler_if<sprout::is_char_type<T>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR auto
 		eval(sprout::io::format_holder<T> const& holder)

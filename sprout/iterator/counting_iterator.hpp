@@ -1,7 +1,7 @@
 #ifndef SPROUT_ITERATOR_COUNTING_ITERATOR_HPP
 #define SPROUT_ITERATOR_COUNTING_ITERATOR_HPP
 
-#include <cstddef>
+#include <limits>
 #include <iterator>
 #include <utility>
 #include <type_traits>
@@ -34,7 +34,9 @@ namespace sprout {
 		value_type current_;
 	private:
 	public:
-		counting_iterator() = default;
+		SPROUT_CONSTEXPR counting_iterator()
+			: current_(std::numeric_limits<value_type>::max())
+		{}
 		counting_iterator(counting_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR counting_iterator(value_type const& v)
 			: current_(v)

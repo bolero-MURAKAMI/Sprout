@@ -1,7 +1,6 @@
 #ifndef SPROUT_RANGE_ADAPTOR_COUNTING_HPP
 #define SPROUT_RANGE_ADAPTOR_COUNTING_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/pit.hpp>
@@ -85,7 +84,7 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR counting_range(value_type const& first)
 				: base_type(
 					iterator(first),
-					iterator(std::numeric_limits<value_type>::max())
+					iterator()
 					)
 			{}
 			SPROUT_CONSTEXPR counting_range(

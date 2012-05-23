@@ -1,8 +1,8 @@
 #ifndef SPROUT_WEED_TRAITS_TYPE_IS_CHAR_TYPE_HPP
 #define SPROUT_WEED_TRAITS_TYPE_IS_CHAR_TYPE_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/is_char_type.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -12,35 +12,7 @@ namespace sprout {
 			//
 			template<typename T>
 			struct is_char_type
-				: public std::false_type
-			{};
-			template<typename T>
-			struct is_char_type<T const>
-				: public sprout::weed::traits::is_char_type<T>
-			{};
-			template<typename T>
-			struct is_char_type<T volatile>
-				: public sprout::weed::traits::is_char_type<T>
-			{};
-			template<typename T>
-			struct is_char_type<T const volatile>
-				: public sprout::weed::traits::is_char_type<T>
-			{};
-			template<>
-			struct is_char_type<char>
-				: public std::true_type
-			{};
-			template<>
-			struct is_char_type<wchar_t>
-				: public std::true_type
-			{};
-			template<>
-			struct is_char_type<char16_t>
-				: public std::true_type
-			{};
-			template<>
-			struct is_char_type<char32_t>
-				: public std::true_type
+				: public sprout::is_char_type<T>
 			{};
 		}	// namespace traits
 	}	// namespace weed

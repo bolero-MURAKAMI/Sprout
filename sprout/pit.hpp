@@ -10,6 +10,7 @@
 #include <sprout/iterator.hpp>
 #include <sprout/iterator/value_iterator.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/array.hpp>
 
 namespace sprout {
 	//
@@ -210,6 +211,20 @@ namespace sprout {
 			> type;
 		};
 	};
+
+	//
+	// blank
+	//
+	struct blank {};
+
+	//
+	// blank_pit
+	//
+	template<std::size_t N>
+	inline SPROUT_CONSTEXPR sprout::pit<sprout::array<sprout::blank, N> >
+	blank_pit() {
+		return sprout::pit<sprout::array<sprout::blank, N> >();
+	}
 }	// namespace sprout
 
 namespace std {
