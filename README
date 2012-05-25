@@ -45,7 +45,15 @@ constexpr 乱数 (Random numbers)
     sprout/random.hpp
     sprout/random/unique_seed.hpp
 
-constexpr 関数オブジェクト (functors)
+constexpr 数学関数 (Mathematical functions)
+    sprout/math/functions.hpp
+    sprout/math/common_factor.hpp
+
+constexpr 複素数/有理数 (Complex numbers, Rational numbers)
+    sprout/complex.hpp
+    sprout/rational.hpp
+
+constexpr 関数オブジェクト (Functors)
     sprout/functional.hpp
 
 constexpr ハッシュ関数 (Hash functions)
@@ -119,6 +127,10 @@ constexpr レイトレーシング (Ray tracing)
 このマクロが定義されているとき、実装の詳細として CEL - ConstExpr Library を使用する。
  (When this macro is defined, you use the CEL - ConstExpr Library as an implementation detail.)
 https://github.com/sscrisk/CEL---ConstExpr-Library
+
+#define SPROUT_CONFIG_DISABLE_BUILTIN_CMATH_FUNCTION
+このマクロが定義されているとき、数学関数の実装にビルトイン関数を使用しない。
+　(When this macro is defined, does not use the built-in function to the implementation of mathematical functions.)
 
 #define SPROUT_CONFIG_DISABLE_SUPPORT_TEMPORARY_CONTAINER_ITERATION
 このマクロが定義されているとき、アルゴリズムへのコンテナの一時オブジェクト渡しをサポートしない。
