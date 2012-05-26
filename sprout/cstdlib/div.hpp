@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)

@@ -85,6 +85,81 @@ namespace sprout {
 	using underlying_type_ = typename std::underlying_type<T>::type;
 	template<typename F, typename... ArgTypes>
 	using result_of_ = typename std::result_of<F(ArgTypes...)>::type;
+
+
+	//
+	// Const-volatility specifiers
+	//
+	template<typename T>
+	using remove_const = sprout::remove_const_<T>;
+	template<typename T>
+	using remove_volatile = sprout::remove_volatile_<T>;
+	template<typename T>
+	using remove_cv = sprout::remove_cv_<T>;
+	template<typename T>
+	using add_const = sprout::add_const_<T>;
+	template<typename T>
+	using add_volatile = sprout::add_volatile_<T>;
+	template<typename T>
+	using add_cv = sprout::add_cv_<T>;
+
+	//
+	// References
+	//
+	template<typename T>
+	using remove_reference = sprout::remove_reference_<T>;
+	template<typename T>
+	using add_lvalue_reference = sprout::add_lvalue_reference_<T>;
+	template<typename T>
+	using add_rvalue_reference = sprout::add_rvalue_reference_<T>;
+
+	//
+	// Pointers
+	//
+	template<typename T>
+	using remove_pointer = sprout::remove_pointer_<T>;
+	template<typename T>
+	using add_pointer = sprout::add_pointer_<T>;
+
+	//
+	// Sign modifiers
+	//
+	template<typename T>
+	using make_signed = sprout::make_signed_<T>;
+	template<typename T>
+	using make_unsigned = sprout::make_unsigned_<T>;
+
+	//
+	// Arrays
+	//
+	template<typename T>
+	using remove_extent = sprout::remove_extent_<T>;
+	template<typename T>
+	using remove_all_extents = sprout::remove_all_extents_<T>;
+
+	//
+	// Miscellaneous transformations
+	//
+	template<
+		std::size_t Len,
+		std::size_t Align = std::alignment_of<typename std::aligned_storage<Len>::type>::value
+	>
+	using aligned_storage = sprout::aligned_storage_<Len, Align>;
+	// !!!
+	//template<std::size_t Len, typename... Types>
+	//using aligned_union = sprout::aligned_union_<Len, Types...>;
+	template<typename T>
+	using decay = sprout::decay_<T>;
+	template<bool B, typename T = void>
+	using enable_if = sprout::enable_if_<B, T>;
+	template<bool B, typename T, typename F>
+	using conditional = sprout::conditional_<B, T, F>;
+	template<typename... Types>
+	using common_type = sprout::common_type_<Types...>;
+	template<typename T>
+	using underlying_type = sprout::underlying_type_<T>;
+	template<typename F, typename... ArgTypes>
+	using result_of = sprout::result_of_<F, ArgTypes...>;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

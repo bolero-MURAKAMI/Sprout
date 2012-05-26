@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/isinf.hpp>
 #include <sprout/math/issubnormal.hpp>

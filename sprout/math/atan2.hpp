@@ -6,7 +6,7 @@
 #include <sprout/math/atan.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/float_promote.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 #	include <cmath>
 #endif

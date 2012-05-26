@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	//

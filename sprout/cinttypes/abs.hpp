@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	SPROUT_CONSTEXPR std::intmax_t imaxabs(std::intmax_t j) {

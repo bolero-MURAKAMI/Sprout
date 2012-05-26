@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/sqrt.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 #	include <cmath>
 #endif

@@ -11,7 +11,7 @@
 #include <sprout/string.hpp>
 #include <sprout/pit.hpp>
 #include <sprout/utility/value_holder.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
 #include <sprout/range/numeric/partial_sum.hpp>
 #include <sprout/type_traits/is_char_type.hpp>

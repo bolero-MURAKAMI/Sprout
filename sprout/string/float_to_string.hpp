@@ -7,7 +7,7 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/string/string.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/int.hpp>
 #include <sprout/detail/float.hpp>

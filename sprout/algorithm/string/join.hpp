@@ -8,7 +8,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/pit.hpp>
 #include <sprout/iterator/traits.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/range/adaptor/size_enumed.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
 #include <sprout/range/numeric/partial_sum.hpp>

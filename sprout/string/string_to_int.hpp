@@ -8,7 +8,7 @@
 #include <sprout/config.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/cstdlib/str_to_int.hpp>
-#include <sprout/utility/enabler_if.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace detail {
