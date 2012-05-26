@@ -29,24 +29,26 @@ namespace sprout {
 		return sprout::llabs(j);
 	}
 
-	template<
-		typename IntType,
-		typename sprout::enabler_if<
-			std::is_integral<IntType>::value && std::is_signed<IntType>::value
-		>::type = sprout::enabler
-	>
-	SPROUT_CONSTEXPR IntType abs(IntType j) {
-		return j < 0 ? -j : j;
-	}
-	template<
-		typename IntType,
-		typename sprout::enabler_if<
-			std::is_integral<IntType>::value && std::is_unsigned<IntType>::value
-		>::type = sprout::enabler
-	>
-	SPROUT_CONSTEXPR IntType abs(IntType j) {
-		return j;
-	}
+	namespace {
+		template<
+			typename IntType,
+			typename sprout::enabler_if<
+				std::is_integral<IntType>::value && std::is_signed<IntType>::value
+			>::type = sprout::enabler
+		>
+		SPROUT_CONSTEXPR IntType abs(IntType j) {
+			return j < 0 ? -j : j;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<
+				std::is_integral<IntType>::value && std::is_unsigned<IntType>::value
+			>::type = sprout::enabler
+		>
+		SPROUT_CONSTEXPR IntType abs(IntType j) {
+			return j;
+		}
+	}	// anonymous-namespace
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CSTDLIB_ABS_HPP

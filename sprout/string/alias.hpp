@@ -2,7 +2,6 @@
 #define SPROUT_STRING_ALIAS_HPP
 
 #include <sprout/config.hpp>
-
 #if SPROUT_USE_TEMPLATE_ALIASES
 #	include <cstddef>
 #	include <sprout/string/string.hpp>
