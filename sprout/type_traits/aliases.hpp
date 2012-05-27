@@ -158,8 +158,9 @@ namespace sprout {
 	using common_type = sprout::common_type_<Types...>;
 	template<typename T>
 	using underlying_type = sprout::underlying_type_<T>;
-	template<typename F, typename... ArgTypes>
-	using result_of = sprout::result_of_<F, ArgTypes...>;
+	// !!!
+	//template<typename F, typename... ArgTypes>
+	//using result_of = sprout::result_of_<F, ArgTypes...>;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
