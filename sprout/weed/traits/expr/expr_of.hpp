@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/weed/expr/expr.hpp>
+#include <sprout/weed/expr/expr_fwd.hpp>
 #include <sprout/weed/traits/expr/terminal_or_expr_of.hpp>
 #include <sprout/weed/detail/uncvref.hpp>
 

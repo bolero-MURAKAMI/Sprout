@@ -245,4 +245,6 @@ namespace std {
 	{};
 }	// namespace std
 
+#include <sprout/tuple/pit.hpp>
+
 #endif	// #ifndef SPROUT_PIT_HPP

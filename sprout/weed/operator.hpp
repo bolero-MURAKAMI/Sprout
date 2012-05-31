@@ -11,5 +11,6 @@
 #include <sprout/weed/operator/modulus.hpp>
 #include <sprout/weed/operator/minus.hpp>
 #include <sprout/weed/operator/bitwise_or.hpp>
+#include <sprout/weed/operator/mem_ptr.hpp>
 
 #endif	// #ifndef SPROUT_WEED_OPERATOR_HPP

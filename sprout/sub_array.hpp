@@ -867,4 +867,6 @@ namespace std {
 	{};
 }	// namespace std
 
+#include <sprout/tuple/sub_array.hpp>
+
 #endif	// #ifndef SPROUT_SUB_ARRAY_HPP

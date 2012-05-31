@@ -308,4 +308,6 @@ namespace std {
 	};
 }	// namespace std
 
+#include <sprout/tuple/array.hpp>
+
 #endif	// #ifndef SPROUT_ARRAY_HPP

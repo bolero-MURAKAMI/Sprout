@@ -8,6 +8,7 @@
 #include <sprout/weed/expr/tag.hpp>
 #include <sprout/weed/traits/type/is_char_type.hpp>
 #include <sprout/weed/traits/type/is_string.hpp>
+#include <sprout/weed/traits/parser/is_parser.hpp>
 #include <sprout/weed/traits/expr/tag_of.hpp>
 #include <sprout/weed/traits/parser/attribute_of.hpp>
 #include <sprout/weed/context/parse_context_fwd.hpp>
@@ -25,6 +26,9 @@ namespace sprout {
 				std::is_same<
 					typename sprout::weed::traits::tag_of<Expr>::type,
 					sprout::weed::tag::terminal
+				>::value
+				&& sprout::weed::traits::is_parser<
+					typename sprout::tuples::tuple_element<0, typename Expr::args_type>::type
 				>::value
 				&& !sprout::weed::traits::is_char_type<
 					typename sprout::tuples::tuple_element<0, typename Expr::args_type>::type

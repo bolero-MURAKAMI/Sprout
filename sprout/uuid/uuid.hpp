@@ -281,4 +281,6 @@ namespace std {
 	};
 }	// namespace std
 
+#include <sprout/tuple/uuid.hpp>
+
 #endif	// #ifndef SPROUT_UUID_UUID_HPP

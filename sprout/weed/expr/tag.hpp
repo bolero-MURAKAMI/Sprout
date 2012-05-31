@@ -16,6 +16,7 @@ namespace sprout {
 			struct modulus {};
 			struct minus {};
 			struct bitwise_or {};
+			struct mem_ptr {};
 		}	// namespace tag
 	}	// namespace weed
 }	// namespace sprout

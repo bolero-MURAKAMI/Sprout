@@ -4,6 +4,9 @@
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/weed/expr/expr_fwd.hpp>
+#include <sprout/weed/expr/tag.hpp>
+#include <sprout/weed/traits/expr/expr_of.hpp>
 
 namespace sprout {
 	namespace weed {

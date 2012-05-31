@@ -8,6 +8,7 @@
 #include <sprout/math/exponential.hpp>
 #include <sprout/math/power.hpp>
 #include <sprout/math/operations.hpp>
+#include <sprout/math/common_factor.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/bernoulli.hpp>
 

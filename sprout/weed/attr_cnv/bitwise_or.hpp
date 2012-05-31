@@ -135,7 +135,7 @@ namespace sprout {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
 				return sprout::make<type>();
 			}
-			// unused >> unused -> unused
+			// unused | unused -> unused
 			template<typename T, typename U, typename X>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_both_unused<T, U>::value,

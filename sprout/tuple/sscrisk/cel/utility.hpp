@@ -3,9 +3,10 @@
 
 #include <cstddef>
 #include <type_traits>
+#include <sscrisk/cel/utility.hpp>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
-#include <sscrisk/cel/utility.hpp>
+#include <sprout/utility/move.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -48,10 +49,10 @@ namespace sprout {
 			template<typename T1, typename T2>
 			struct get_impl<0, sscrisk::cel::pair<T1, T2> > {
 			public:
-				T1& operator()(sscrisk::cel::pair<T1, T2>& t) const {
+				SPROUT_CONSTEXPR T1& operator()(sscrisk::cel::pair<T1, T2>& t) const {
 					return t.first;
 				}
-				T1 const& operator()(sscrisk::cel::pair<T1, T2> const& t) const {
+				SPROUT_CONSTEXPR T1 const& operator()(sscrisk::cel::pair<T1, T2> const& t) const {
 					return t.first;
 				}
 			};
@@ -59,36 +60,30 @@ namespace sprout {
 			struct get_impl<1, sscrisk::cel::pair<T1, T2> > {
 			public:
 			public:
-				T2& operator()(sscrisk::cel::pair<T1, T2>& t) const {
+				SPROUT_CONSTEXPR T2& operator()(sscrisk::cel::pair<T1, T2>& t) const {
 					return t.second;
 				}
-				T2 const& operator()(sscrisk::cel::pair<T1, T2> const& t) const {
+				SPROUT_CONSTEXPR T2 const& operator()(sscrisk::cel::pair<T1, T2> const& t) const {
 					return t.second;
 				}
 			};
 		}	// namespace detail
 		template<std::size_t I, typename T1, typename T2>
-		typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type& get(
-			sscrisk::cel::pair<T1, T2>& t
-			) SPROUT_NOEXCEPT
-		{
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type&
+		get(sscrisk::cel::pair<T1, T2>& t) SPROUT_NOEXCEPT {
 			static_assert(I < 2, "get: index out of range");
 			return sprout::tuples::detail::get_impl<I, sscrisk::cel::pair<T1, T2> >()(t);
 		}
 		template<std::size_t I, typename T1, typename T2>
-		SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type const& get(
-			sscrisk::cel::pair<T1, T2> const& t
-			) SPROUT_NOEXCEPT
-		{
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type const&
+		get(sscrisk::cel::pair<T1, T2> const& t) SPROUT_NOEXCEPT {
 			static_assert(I < 2, "get: index out of range");
 			return sprout::tuples::detail::get_impl<I, sscrisk::cel::pair<T1, T2> >()(t);
 		}
 		template<std::size_t I, typename T1, typename T2>
-		typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type&& get(
-			sscrisk::cel::pair<T1, T2>&& t
-			) SPROUT_NOEXCEPT
-		{
-			return std::move(sprout::tuples::get<I>(t));
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type&&
+		get(sscrisk::cel::pair<T1, T2>&& t) SPROUT_NOEXCEPT {
+			return sprout::move(sprout::tuples::get<I>(t));
 		}
 	}	// namespace tuples
 

@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/weed/expr/expr.hpp>
+#include <sprout/weed/expr/expr_fwd.hpp>
 
 namespace sprout {
 	namespace weed {

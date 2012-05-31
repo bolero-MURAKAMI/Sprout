@@ -2,7 +2,6 @@
 #define SPROUT_TYPE_TRAITS_ALIASES_HPP
 
 #include <sprout/config.hpp>
-
 #if SPROUT_USE_TEMPLATE_ALIASES
 #	include <cstddef>
 #	include <type_traits>
