@@ -14,7 +14,7 @@ namespace testspr {
 		using namespace sprout;
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 1, 4, 2, 3}};
-			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED);
+			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
 
 			// ソート
 			{
@@ -90,7 +90,7 @@ namespace testspr {
 		}
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 1, 4, 2, 3}};
-			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED);
+			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
 
 			// ソート
 			{

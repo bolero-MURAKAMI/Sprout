@@ -12,7 +12,7 @@ namespace sprout {
 		typedef T result_type;
 	public:
 		SPROUT_CONSTEXPR T operator()(T const& x) const {
-				return !x;
+				return ~x;
 		}
 	};
 }	// namespace sprout

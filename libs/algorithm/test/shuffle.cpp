@@ -19,7 +19,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::shuffle(
 					arr1,
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED)
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
 					shuffled,
@@ -29,7 +29,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::fit::shuffle(
 					arr1,
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED)
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
 					shuffled,
@@ -41,7 +41,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::shuffle(
 					sprout::sub(arr1, 2, 8),
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED)
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
 					shuffled,
@@ -55,7 +55,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::fit::shuffle(
 					sprout::sub(arr1, 2, 8),
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED)
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
 					shuffled,

@@ -6,7 +6,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/uuid/uuid.hpp>
-#include <sprout/random/inversive_congruential.hpp>
+#include <sprout/random/default_random_engine.hpp>
 #include <sprout/random/uniform_int_distribution.hpp>
 #include <sprout/random/variate_generator.hpp>
 
@@ -83,7 +83,7 @@ namespace sprout {
 		//
 		// random_generator
 		//
-		typedef sprout::uuids::basic_random_generator<sprout::random::hellekalek1995> random_generator;
+		typedef sprout::uuids::basic_random_generator<sprout::random::default_random_engine> random_generator;
 	}	// namespace uuids
 }	// namespace sprout
 

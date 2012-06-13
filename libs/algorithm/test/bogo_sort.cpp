@@ -19,7 +19,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort(
 					arr1,
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED)
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
 					sorted,
@@ -29,7 +29,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort(
 					arr1,
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED)
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
 					sorted,
@@ -41,7 +41,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort(
 					sprout::sub(arr1, 1, 4),
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED)
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
 					sorted,
@@ -55,7 +55,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort(
 					sprout::sub(arr1, 1, 4),
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED)
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
 					sorted,
@@ -74,7 +74,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort(
 					arr1,
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED),
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED),
 					testspr::less<int>()
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
@@ -85,7 +85,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort(
 					arr1,
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED),
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED),
 					testspr::less<int>()
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
@@ -98,7 +98,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort(
 					sprout::sub(arr1, 1, 4),
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED),
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED),
 					testspr::less<int>()
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(
@@ -113,7 +113,7 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort(
 					sprout::sub(arr1, 1, 4),
-					sprout::random::hellekalek1995(SPROUT_UNIQUE_SEED),
+					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED),
 					testspr::less<int>()
 					);
 				TESTSPR_DOUBLE_ASSERT(testspr::equal(

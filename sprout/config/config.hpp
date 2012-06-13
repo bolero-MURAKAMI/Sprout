@@ -46,11 +46,13 @@
 #ifndef SPROUT_CONFIG_USE_SSCRISK_CEL
 #	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT <sprout/functional/functor.hpp>
 #	define HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT <sprout/algorithm/non_modifying.hpp>
+#	define HDR_NUMERIC_SSCRISK_CEL_OR_SPROUT <sprout/numeric/non_modifying.hpp>
 #	define HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT <sprout/iterator/operation.hpp>
 #	define NS_SSCRISK_CEL_OR_SPROUT sprout
 #else	// #ifndef SPROUT_CONFIG_USE_SSCRISK_CEL
 #	define HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT <sscrisk/cel/functional.hpp>
 #	define HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT <sscrisk/cel/algorithm.hpp>
+#	define HDR_NUMERIC_SSCRISK_CEL_OR_SPROUT <sscrisk/cel/numeric.hpp>
 #	define HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT <sscrisk/cel/iterator.hpp>
 #	define NS_SSCRISK_CEL_OR_SPROUT sscrisk::cel
 #endif	// #ifndef SPROUT_CONFIG_USE_SSCRISK_CEL
