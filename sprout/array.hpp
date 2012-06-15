@@ -184,7 +184,7 @@ namespace sprout {
 		}
 	};
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR typename sprout::array<T, N>::size_type sprout::array<T, N>::static_size;
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::array<T, N>::size_type sprout::array<T, N>::static_size;
 
 	//
 	// operator==

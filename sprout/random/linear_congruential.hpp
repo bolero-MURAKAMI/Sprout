@@ -114,13 +114,13 @@ namespace sprout {
 			}
 		};
 		template<typename IntType, IntType a, IntType c, IntType m>
-		SPROUT_CONSTEXPR IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::multiplier;
+		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::multiplier;
 		template<typename IntType, IntType a, IntType c, IntType m>
-		SPROUT_CONSTEXPR IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::increment;
+		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::increment;
 		template<typename IntType, IntType a, IntType c, IntType m>
-		SPROUT_CONSTEXPR IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::modulus;
+		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::modulus;
 		template<typename IntType, IntType a, IntType c, IntType m>
-		SPROUT_CONSTEXPR IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::default_seed;
+		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::default_seed;
 
 		//
 		// minstd_rand0

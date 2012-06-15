@@ -20,7 +20,7 @@ namespace testspr {
 					testspr::x2<int>(),
 					2
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					generated,
 					array<int, 10>{{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}}
 					));
@@ -31,7 +31,7 @@ namespace testspr {
 					testspr::x2<int>(),
 					2
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					generated,
 					array<int, 10>{{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}}
 					));
@@ -44,11 +44,11 @@ namespace testspr {
 					testspr::x2<int>(),
 					2
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					generated,
 					array<int, 6>{{2, 4, 8, 16, 32, 64}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(generated),
 					array<int, 10>{{1, 2, 2, 4, 8, 16, 32, 64, 9, 10}}
 					));
@@ -59,11 +59,11 @@ namespace testspr {
 					testspr::x2<int>(),
 					2
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					generated,
 					array<int, 6>{{2, 4, 8, 16, 32, 64}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(generated),
 					array<int, 10>{{1, 2, 2, 4, 8, 16, 32, 64, 9, 10}}
 					));

@@ -18,7 +18,7 @@ namespace testspr {
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::make_heap(
 					arr1
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					heap,
 					array<int, 10>{{10, 9, 8, 6, 7, 2, 5, 3, 4, 1}}
 					));
@@ -27,7 +27,7 @@ namespace testspr {
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::fit::make_heap(
 					arr1
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					heap,
 					array<int, 10>{{10, 9, 8, 6, 7, 2, 5, 3, 4, 1}}
 					));
@@ -38,11 +38,11 @@ namespace testspr {
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::make_heap(
 					sprout::sub(arr1, 2, 10)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					heap,
 					array<int, 8>{{9, 6, 8, 2, 5, 3, 4, 1}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(heap),
 					array<int, 10>{{10, 7, 9, 6, 8, 2, 5, 3, 4, 1}}
 					));
@@ -51,11 +51,11 @@ namespace testspr {
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::fit::make_heap(
 					sprout::sub(arr1, 2, 10)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					heap,
 					array<int, 8>{{9, 6, 8, 2, 5, 3, 4, 1}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(heap),
 					array<int, 10>{{10, 7, 9, 6, 8, 2, 5, 3, 4, 1}}
 					));
@@ -70,7 +70,7 @@ namespace testspr {
 					arr1,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					heap,
 					array<int, 10>{{10, 9, 8, 6, 7, 2, 5, 3, 4, 1}}
 					));
@@ -80,7 +80,7 @@ namespace testspr {
 					arr1,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					heap,
 					array<int, 10>{{10, 9, 8, 6, 7, 2, 5, 3, 4, 1}}
 					));
@@ -92,11 +92,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 10),
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					heap,
 					array<int, 8>{{9, 6, 8, 2, 5, 3, 4, 1}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(heap),
 					array<int, 10>{{10, 7, 9, 6, 8, 2, 5, 3, 4, 1}}
 					));
@@ -106,11 +106,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 10),
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					heap,
 					array<int, 8>{{9, 6, 8, 2, 5, 3, 4, 1}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(heap),
 					array<int, 10>{{10, 7, 9, 6, 8, 2, 5, 3, 4, 1}}
 					));

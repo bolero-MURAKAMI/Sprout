@@ -81,9 +81,9 @@ namespace sprout {
 			}
 		};
 		template<typename URNG1, int s1, typename URNG2, int s2>
-		SPROUT_CONSTEXPR int sprout::random::xor_combine_engine<URNG1, s1, URNG2, s2>::shift1;
+		SPROUT_CONSTEXPR_OR_CONST int sprout::random::xor_combine_engine<URNG1, s1, URNG2, s2>::shift1;
 		template<typename URNG1, int s1, typename URNG2, int s2>
-		SPROUT_CONSTEXPR int sprout::random::xor_combine_engine<URNG1, s1, URNG2, s2>::shift2;
+		SPROUT_CONSTEXPR_OR_CONST int sprout::random::xor_combine_engine<URNG1, s1, URNG2, s2>::shift2;
 	} // namespace random
 
 	using sprout::random::xor_combine_engine;

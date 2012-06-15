@@ -16,60 +16,60 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto str1 = to_string(cstr);
 			SPROUT_STATIC_CONSTEXPR auto str2 = to_string("hogehoge");
 
-			TESTSPR_DOUBLE_ASSERT((std::is_same<decltype(str1), sprout::basic_string<char, 10> const>::value));
-			TESTSPR_DOUBLE_ASSERT((std::is_same<decltype(str2), sprout::basic_string<char, 8> const>::value));
+			TESTSPR_BOTH_ASSERT((std::is_same<decltype(str1), sprout::basic_string<char, 10> const>::value));
+			TESTSPR_BOTH_ASSERT((std::is_same<decltype(str2), sprout::basic_string<char, 8> const>::value));
 
 			// begin
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == *str1.begin());
+			TESTSPR_BOTH_ASSERT(cstr[0] == *str1.begin());
 
 			// cbegin
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == *str1.cbegin());
+			TESTSPR_BOTH_ASSERT(cstr[0] == *str1.cbegin());
 
 			// end
-			TESTSPR_DOUBLE_ASSERT(cstr[9] == *(str1.end() - 1));
+			TESTSPR_BOTH_ASSERT(cstr[9] == *(str1.end() - 1));
 
 			// cend
-			TESTSPR_DOUBLE_ASSERT(cstr[9] == *(str1.cend() - 1));
+			TESTSPR_BOTH_ASSERT(cstr[9] == *(str1.cend() - 1));
 
 			// rbegin
-			TESTSPR_DOUBLE_ASSERT(cstr[9] == *str1.rbegin());
+			TESTSPR_BOTH_ASSERT(cstr[9] == *str1.rbegin());
 
 			// crbegin
-			TESTSPR_DOUBLE_ASSERT(cstr[9] == *str1.crbegin());
+			TESTSPR_BOTH_ASSERT(cstr[9] == *str1.crbegin());
 
 			// rend
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == *(str1.rend() - 1));
+			TESTSPR_BOTH_ASSERT(cstr[0] == *(str1.rend() - 1));
 
 			// crend
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == *(str1.crend() - 1));
+			TESTSPR_BOTH_ASSERT(cstr[0] == *(str1.crend() - 1));
 
 			// size
-			TESTSPR_DOUBLE_ASSERT(str1.size() == 10);
+			TESTSPR_BOTH_ASSERT(str1.size() == 10);
 
 			// empty
-			TESTSPR_DOUBLE_ASSERT(!str1.empty());
-			TESTSPR_DOUBLE_ASSERT((string_t<0>::type().empty()));
+			TESTSPR_BOTH_ASSERT(!str1.empty());
+			TESTSPR_BOTH_ASSERT((string_t<0>::type().empty()));
 
 			// max_size
-			TESTSPR_DOUBLE_ASSERT(str1.max_size() == 10);
+			TESTSPR_BOTH_ASSERT(str1.max_size() == 10);
 
 			// operator[]
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == str1[0]);
+			TESTSPR_BOTH_ASSERT(cstr[0] == str1[0]);
 
 			// at
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == str1.at(0));
+			TESTSPR_BOTH_ASSERT(cstr[0] == str1.at(0));
 
 			// front
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == str1.front());
+			TESTSPR_BOTH_ASSERT(cstr[0] == str1.front());
 
 			// back
-			TESTSPR_DOUBLE_ASSERT(cstr[9] == str1.back());
+			TESTSPR_BOTH_ASSERT(cstr[9] == str1.back());
 
 			// data
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == *str1.data());
+			TESTSPR_BOTH_ASSERT(cstr[0] == *str1.data());
 
 			// c_str
-			TESTSPR_DOUBLE_ASSERT(cstr[0] == *str1.c_str());
+			TESTSPR_BOTH_ASSERT(cstr[0] == *str1.c_str());
 
 			// swap
 			{
@@ -132,52 +132,52 @@ namespace testspr {
 			}
 
 			// compare
-			TESTSPR_DOUBLE_ASSERT(str1.compare(cstr) == 0);
-			TESTSPR_DOUBLE_ASSERT(str1.compare("zzzz") < 0);
-			TESTSPR_DOUBLE_ASSERT(str1.compare("aaaa") > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(cstr) == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare("zzzz") < 0);
+			TESTSPR_BOTH_ASSERT(str1.compare("aaaa") > 0);
 
 			// substr
 			{
 				SPROUT_STATIC_CONSTEXPR auto str3 = str1.substr();
-				TESTSPR_DOUBLE_ASSERT(str3 == "foobar1234");
+				TESTSPR_BOTH_ASSERT(str3 == "foobar1234");
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto str3 = str1.substr(6);
-				TESTSPR_DOUBLE_ASSERT(str3 == "1234");
+				TESTSPR_BOTH_ASSERT(str3 == "1234");
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto str3 = str1.substr(0, 6);
-				TESTSPR_DOUBLE_ASSERT(str3 == "foobar");
+				TESTSPR_BOTH_ASSERT(str3 == "foobar");
 			}
 
 			// operator==
-			TESTSPR_DOUBLE_ASSERT(!(str1 == str2));
+			TESTSPR_BOTH_ASSERT(!(str1 == str2));
 
 			// operator!=
-			TESTSPR_DOUBLE_ASSERT(str1 != str2);
+			TESTSPR_BOTH_ASSERT(str1 != str2);
 
 			// operator<
-			TESTSPR_DOUBLE_ASSERT(str1 < str2);
+			TESTSPR_BOTH_ASSERT(str1 < str2);
 
 			// operator>
-			TESTSPR_DOUBLE_ASSERT(!(str1 > str2));
+			TESTSPR_BOTH_ASSERT(!(str1 > str2));
 
 			// operator<=
-			TESTSPR_DOUBLE_ASSERT(str1 <= str2);
+			TESTSPR_BOTH_ASSERT(str1 <= str2);
 
 			// operator>=
-			TESTSPR_DOUBLE_ASSERT(!(str1 >= str2));
+			TESTSPR_BOTH_ASSERT(!(str1 >= str2));
 
 			// operator+
 			{
 #ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
 				// ! Error in GCC4.7
 				SPROUT_STATIC_CONSTEXPR auto str3 = str1 + to_string("hogehoge");
-				TESTSPR_DOUBLE_ASSERT(str3 == "foobar1234hogehoge");
+				TESTSPR_BOTH_ASSERT(str3 == "foobar1234hogehoge");
 #endif
 
 				SPROUT_STATIC_CONSTEXPR auto str4 = str1 + str2;
-				TESTSPR_DOUBLE_ASSERT(str4 == "foobar1234hogehoge");
+				TESTSPR_BOTH_ASSERT(str4 == "foobar1234hogehoge");
 			}
 
 			// operator<<
@@ -198,25 +198,25 @@ namespace testspr {
 			// string_from_c_str
 			{
 				SPROUT_STATIC_CONSTEXPR auto str3 = string_from_c_str<10>(cstr);
-				TESTSPR_DOUBLE_ASSERT(str3 == "foobar1234");
+				TESTSPR_BOTH_ASSERT(str3 == "foobar1234");
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto str3 = string_from_c_str<10>(cstr, 6);
-				TESTSPR_DOUBLE_ASSERT(str3 == "foobar");
+				TESTSPR_BOTH_ASSERT(str3 == "foobar");
 			}
 
 			// make_string
 			{
 				SPROUT_STATIC_CONSTEXPR auto str3 = make_string('f', 'o', 'o', 'b', 'a', 'r');
-				TESTSPR_DOUBLE_ASSERT(str3 == "foobar");
-				TESTSPR_DOUBLE_ASSERT(str3.size() == 6);
+				TESTSPR_BOTH_ASSERT(str3 == "foobar");
+				TESTSPR_BOTH_ASSERT(str3.size() == 6);
 			}
 
 			// operator basic_string
 			{
 				SPROUT_STATIC_CONSTEXPR string_t<10>::type str3 = to_string("foobar");
-				TESTSPR_DOUBLE_ASSERT(str3 == "foobar");
-				TESTSPR_DOUBLE_ASSERT(str3.size() == 6);
+				TESTSPR_BOTH_ASSERT(str3 == "foobar");
+				TESTSPR_BOTH_ASSERT(str3.size() == 6);
 			}
 		}
 	}

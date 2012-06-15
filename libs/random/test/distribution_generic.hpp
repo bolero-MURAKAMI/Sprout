@@ -19,10 +19,10 @@ namespace testspr {
 
 			// min
 			// max
-			TESTSPR_DOUBLE_ASSERT(dist1.min() <= dist1.max());
+			TESTSPR_BOTH_ASSERT(dist1.min() <= dist1.max());
 
 			// param
-			TESTSPR_DOUBLE_ASSERT(parm == dist1.param());
+			TESTSPR_BOTH_ASSERT(parm == dist1.param());
 			{
 				auto dist_temp = Distribution();
 				dist_temp.param(parm);
@@ -31,8 +31,8 @@ namespace testspr {
 
 			// operator==
 			// operator!=
-			TESTSPR_DOUBLE_ASSERT(dist1 == dist2);
-			TESTSPR_DOUBLE_ASSERT(!(dist1 != dist2));
+			TESTSPR_BOTH_ASSERT(dist1 == dist2);
+			TESTSPR_BOTH_ASSERT(!(dist1 != dist2));
 
 			{
 				std::string s;
@@ -65,14 +65,14 @@ namespace testspr {
 					SPROUT_STATIC_CONSTEXPR auto rnd = dist1(eng);
 
 					// result
-					TESTSPR_DOUBLE_ASSERT(dist1.min() <= rnd.result());
-					TESTSPR_DOUBLE_ASSERT(rnd.result() <= dist1.max());
+					TESTSPR_BOTH_ASSERT(dist1.min() <= rnd.result());
+					TESTSPR_BOTH_ASSERT(rnd.result() <= dist1.max());
 
 					// engine
-					TESTSPR_DOUBLE_ASSERT(rnd.engine().min() <= rnd.engine().max());
+					TESTSPR_BOTH_ASSERT(rnd.engine().min() <= rnd.engine().max());
 
 					// distribution
-					TESTSPR_DOUBLE_ASSERT(rnd.distribution().min() <= rnd.distribution().max());
+					TESTSPR_BOTH_ASSERT(rnd.distribution().min() <= rnd.distribution().max());
 				}
 			}
 		}

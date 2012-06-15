@@ -142,13 +142,13 @@ namespace sprout {
 		}
 		bytes_iterator& operator+=(difference_type n) {
 			bytes_iterator temp(it_, i_ + n, ra_tag());
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		bytes_iterator& operator-=(difference_type n) {
 			bytes_iterator temp(it_, i_ - n, ra_tag());
-			temp.swap(this);
-			return this;
+			temp.swap(*this);
+			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return *(*this + n);
@@ -205,6 +205,19 @@ namespace sprout {
 		)
 	{
 		return it - n;
+	}
+
+	//
+	// distance
+	//
+	template<typename Iterator, typename Traits>
+	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::bytes_iterator<Iterator, Traits> >::difference_type
+	distance(
+		sprout::bytes_iterator<Iterator, Traits> first,
+		sprout::bytes_iterator<Iterator, Traits> last
+		)
+	{
+		return last - first;
 	}
 
 	//

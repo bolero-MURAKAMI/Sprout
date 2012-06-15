@@ -21,7 +21,7 @@ namespace testspr {
 					arr1,
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					shuffled,
 					arr1
 					));
@@ -31,7 +31,7 @@ namespace testspr {
 					arr1,
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					shuffled,
 					arr1
 					));
@@ -43,11 +43,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8),
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					shuffled,
 					sprout::sub(arr1, 2, 8)
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					sprout::get_internal(shuffled),
 					arr1
 					));
@@ -57,11 +57,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8),
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					shuffled,
 					sprout::sub(arr1, 2, 8)
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					sprout::get_internal(shuffled),
 					arr1
 					));

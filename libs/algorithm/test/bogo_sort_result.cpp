@@ -22,7 +22,7 @@ namespace testspr {
 					arr1,
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get<0>(sorted),
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
@@ -30,14 +30,14 @@ namespace testspr {
 					sprout::get<0>(sorted),
 					sprout::get<1>(sorted)
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort_result(
 					arr1,
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get<0>(sorted),
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
@@ -45,7 +45,7 @@ namespace testspr {
 					sprout::get<0>(sorted),
 					sprout::get<1>(sorted)
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 			// ソート
 			// 範囲の切り出し
@@ -54,11 +54,11 @@ namespace testspr {
 					sprout::sub(arr1, 1, 4),
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get<0>(sorted),
 					array<int, 3>{{1, 2, 4}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(sprout::get<0>(sorted)),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
@@ -66,18 +66,18 @@ namespace testspr {
 					sprout::get<0>(sorted),
 					sprout::get<1>(sorted)
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort_result(
 					sprout::sub(arr1, 1, 4),
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get<0>(sorted),
 					array<int, 3>{{1, 2, 4}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(sprout::get<0>(sorted)),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
@@ -85,7 +85,7 @@ namespace testspr {
 					sprout::get<0>(sorted),
 					sprout::get<1>(sorted)
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 		}
 		{
@@ -99,7 +99,7 @@ namespace testspr {
 					g,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get<0>(sorted),
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
@@ -107,7 +107,7 @@ namespace testspr {
 					sprout::get<0>(sorted),
 					sprout::get<1>(sorted)
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort_result(
@@ -115,7 +115,7 @@ namespace testspr {
 					g,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get<0>(sorted),
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
@@ -123,7 +123,7 @@ namespace testspr {
 					sprout::get<0>(sorted),
 					sprout::get<1>(sorted)
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 			// ソート
 			// 範囲の切り出し
@@ -133,11 +133,11 @@ namespace testspr {
 					g,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get<0>(sorted),
 					array<int, 3>{{1, 2, 4}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(sprout::get<0>(sorted)),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
@@ -145,7 +145,7 @@ namespace testspr {
 					sprout::get<0>(sorted),
 					sprout::get<1>(sorted)
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort_result(
@@ -153,11 +153,11 @@ namespace testspr {
 					g,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get<0>(sorted),
 					array<int, 3>{{1, 2, 4}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(sprout::get<0>(sorted)),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
@@ -165,7 +165,7 @@ namespace testspr {
 					sprout::get<0>(sorted),
 					sprout::get<1>(sorted)
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 		}
 	}

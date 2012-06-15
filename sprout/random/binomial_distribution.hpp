@@ -18,24 +18,32 @@
 namespace sprout {
 	namespace random {
 		namespace detail {
+#		define SPROUT_BINOMIAL_TABLE_DEF \
+			table_type{{ \
+				1, \
+				1, \
+				2, \
+				6, \
+				24, \
+				120 \
+			}}
+
 			template<typename RealType>
 			struct binomial_table {
-				public:
-				SPROUT_STATIC_CONSTEXPR sprout::array<RealType, 10> table = sprout::array<RealType, 10>{{
-					0.08106146679532726,
-					0.04134069595540929,
-					0.02767792568499834,
-					0.02079067210376509,
-					0.01664469118982119,
-					0.01387612882307075,
-					0.01189670994589177,
-					0.01041126526197209,
-					0.009255462182712733,
-					0.008330563433362871
-				}};
+			public:
+				typedef sprout::array<RealType, 10> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BINOMIAL_TABLE_DEF)
+					;
 			};
 			template<class RealType>
-			SPROUT_CONSTEXPR sprout::array<RealType, 10> sprout::random::detail::binomial_table<RealType>::table;
+			SPROUT_CONSTEXPR_OR_CONST typename sprout::random::detail::binomial_table<RealType>::table_type
+			sprout::random::detail::binomial_table<RealType>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_BINOMIAL_TABLE_DEF)
+				;
+
+#		undef SPROUT_BINOMIAL_TABLE_DEF
 		}	// namespace detail
 		//
 		// binomial_distribution

@@ -18,42 +18,68 @@ namespace sprout {
 			template<>
 			struct xdigits<char> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char, 22> table = sprout::to_string("0123456789abcdefABCDEF");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char, 22> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string("0123456789abcdefABCDEF"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char, 22> sprout::weed::detail::xdigits<char>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char, 22> sprout::weed::detail::xdigits<char>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string("0123456789abcdefABCDEF"))
+				;
 
 			template<>
 			struct xdigits<wchar_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<wchar_t, 22> table = sprout::to_string(L"0123456789abcdefABCDEF");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<wchar_t, 22> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(L"0123456789abcdefABCDEF"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 22> sprout::weed::detail::xdigits<wchar_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<wchar_t, 22> sprout::weed::detail::xdigits<wchar_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(L"0123456789abcdefABCDEF"))
+				;
 
 			template<>
 			struct xdigits<char16_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char16_t, 22> table = sprout::to_string(u"0123456789abcdefABCDEF");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char16_t, 22> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(u"0123456789abcdefABCDEF"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char16_t, 22> sprout::weed::detail::xdigits<char16_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char16_t, 22> sprout::weed::detail::xdigits<char16_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(u"0123456789abcdefABCDEF"))
+				;
 
 			template<>
 			struct xdigits<char32_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char32_t, 22> table = sprout::to_string(U"0123456789abcdefABCDEF");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char32_t, 22> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(U"0123456789abcdefABCDEF"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char32_t, 22> sprout::weed::detail::xdigits<char32_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char32_t, 22> sprout::weed::detail::xdigits<char32_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(U"0123456789abcdefABCDEF"))
+				;
 
 			template<typename Dummy>
 			struct xvalues;
 
+#		define SPROUT_WEED_XDIGITS_TABLE_DEF \
+			table_type{{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 10, 11, 12, 13, 14, 15}}
+
 			template<>
 			struct xvalues<void> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::array<std::uint8_t, 22> table = sprout::array<std::uint8_t, 22>{
-					{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 10, 11, 12, 13, 14, 15}
-					};
+				typedef sprout::array<std::uint8_t, 22> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_WEED_XDIGITS_TABLE_DEF)
+					;
 			};
-			SPROUT_CONSTEXPR sprout::array<std::uint8_t, 22> sprout::weed::detail::xvalues<void>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::weed::detail::xvalues<void>::table_type
+			sprout::weed::detail::xvalues<void>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_WEED_XDIGITS_TABLE_DEF)
+				;
+
+#		undef SPROUT_WEED_XDIGITS_TABLE_DEF
 
 			template<typename IntType>
 			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> xvalue_at(std::size_t i) {

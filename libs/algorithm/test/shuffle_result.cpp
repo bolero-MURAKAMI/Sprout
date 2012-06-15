@@ -22,7 +22,7 @@ namespace testspr {
 					arr1,
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					sprout::get<0>(shuffled),
 					arr1
 					));
@@ -30,14 +30,14 @@ namespace testspr {
 					sprout::get<0>(shuffled),
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::fit::shuffle_result(
 					arr1,
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					sprout::get<0>(shuffled),
 					arr1
 					));
@@ -45,7 +45,7 @@ namespace testspr {
 					sprout::get<0>(shuffled),
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
 			}
 			// シャッフル
 			// 範囲の切り出し
@@ -54,11 +54,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8),
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					sprout::get<0>(shuffled),
 					sprout::sub(arr1, 2, 8)
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					sprout::get_internal(sprout::get<0>(shuffled)),
 					arr1
 					));
@@ -66,18 +66,18 @@ namespace testspr {
 					sprout::get<0>(shuffled),
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::fit::shuffle_result(
 					sprout::sub(arr1, 2, 8),
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					sprout::get<0>(shuffled),
 					sprout::sub(arr1, 2, 8)
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::is_permutation(
+				TESTSPR_BOTH_ASSERT(testspr::is_permutation(
 					sprout::get_internal(sprout::get<0>(shuffled)),
 					arr1
 					));
@@ -85,7 +85,7 @@ namespace testspr {
 					sprout::get<0>(shuffled),
 					g
 					);
-				TESTSPR_DOUBLE_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
 			}
 		}
 	}

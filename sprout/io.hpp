@@ -88,7 +88,7 @@ namespace sprout {
 				field_flag(field_flag const&) = default;
 			};
 			template<sprout::io::flags::fmtflags Flag, sprout::io::flags::fmtflags Mask>
-			SPROUT_CONSTEXPR sprout::io::flags::fmtflags sprout::io::flags::field_flag<Flag, Mask>::mask;
+			SPROUT_CONSTEXPR_OR_CONST sprout::io::flags::fmtflags sprout::io::flags::field_flag<Flag, Mask>::mask;
 
 			//
 			// precision_t

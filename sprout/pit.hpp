@@ -127,7 +127,7 @@ namespace sprout {
 		}
 	};
 	template<typename Container>
-	SPROUT_CONSTEXPR typename sprout::pit<Container>::size_type sprout::pit<Container>::static_size;
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::pit<Container>::size_type sprout::pit<Container>::static_size;
 
 	//
 	// operator==

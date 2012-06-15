@@ -378,7 +378,7 @@ namespace sprout {
 		//
 		// ignore
 		//
-		static SPROUT_CONSTEXPR ignore_t ignore{};
+		SPROUT_STATIC_CONSTEXPR ignore_t ignore{};
 
 		//
 		// make_tuple

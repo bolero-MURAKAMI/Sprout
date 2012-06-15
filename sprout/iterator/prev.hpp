@@ -25,8 +25,7 @@ namespace sprout {
 			void*
 			)
 		{
-			using std::prev;
-			return prev(sprout::forward<BidirectionalIterator>(it));
+			return std::prev(sprout::forward<BidirectionalIterator>(it));
 		}
 
 		template<typename RandomAccessIterator>
@@ -48,8 +47,7 @@ namespace sprout {
 			void*
 			)
 		{
-			using std::prev;
-			return prev(sprout::forward<BidirectionalIterator>(it), n);
+			return std::prev(sprout::forward<BidirectionalIterator>(it), n);
 		}
 	}	// namespace detail
 	//

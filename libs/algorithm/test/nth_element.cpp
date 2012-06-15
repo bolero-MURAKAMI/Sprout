@@ -19,7 +19,7 @@ namespace testspr {
 					arr1,
 					sprout::begin(arr1) + 4
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					nth,
 					array<int, 10>{{2, 4, 1, 3, 5, 10, 9, 8, 7, 6}}
 					));
@@ -29,7 +29,7 @@ namespace testspr {
 					arr1,
 					sprout::begin(arr1) + 4
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					nth,
 					array<int, 5>{{2, 4, 1, 3, 5}}
 					));
@@ -41,11 +41,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8),
 					sprout::begin(arr1) + 4
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					nth,
 					array<int, 6>{{2, 3, 5, 9, 8, 6}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(nth),
 					array<int, 10>{{10, 7, 2, 3, 5, 9, 8, 6, 4, 1}}
 					));
@@ -55,11 +55,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8),
 					sprout::begin(arr1) + 4
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					nth,
 					array<int, 3>{{2, 3, 5}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(nth),
 					array<int, 10>{{10, 7, 2, 3, 5, 9, 8, 6, 4, 1}}
 					));
@@ -75,7 +75,7 @@ namespace testspr {
 					sprout::begin(arr1) + 4,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					nth,
 					array<int, 10>{{2, 4, 1, 3, 5, 10, 9, 8, 7, 6}}
 					));
@@ -86,7 +86,7 @@ namespace testspr {
 					sprout::begin(arr1) + 4,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					nth,
 					array<int, 5>{{2, 4, 1, 3, 5}}
 					));
@@ -99,11 +99,11 @@ namespace testspr {
 					sprout::begin(arr1) + 4,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					nth,
 					array<int, 6>{{2, 3, 5, 9, 8, 6}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(nth),
 					array<int, 10>{{10, 7, 2, 3, 5, 9, 8, 6, 4, 1}}
 					));
@@ -114,11 +114,11 @@ namespace testspr {
 					sprout::begin(arr1) + 4,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					nth,
 					array<int, 3>{{2, 3, 5}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(nth),
 					array<int, 10>{{10, 7, 2, 3, 5, 9, 8, 6, 4, 1}}
 					));

@@ -23,7 +23,7 @@ namespace testspr {
 					arr2,
 					is_odd<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					partitioned,
 					array<int, 10>{{7, 5, 3, 4, 6, 8, 0, 0, 0, 0}}
 					));
@@ -35,7 +35,7 @@ namespace testspr {
 					arr2,
 					is_odd<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					partitioned,
 					array<int, 3>{{7, 5, 3}}
 					));
@@ -49,7 +49,7 @@ namespace testspr {
 					arr3,
 					is_odd<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					partitioned,
 					array<int, 4>{{5, 3, 4, 6}}
 					));
@@ -61,7 +61,7 @@ namespace testspr {
 					arr3,
 					is_odd<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					partitioned,
 					array<int, 2>{{5, 3}}
 					));
@@ -75,11 +75,11 @@ namespace testspr {
 					sprout::sub(arr2, 2, 8),
 					is_odd<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					partitioned,
 					array<int, 6>{{7, 5, 3, 4, 6, 8}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(partitioned),
 					array<int, 10>{{0, 0, 7, 5, 3, 4, 6, 8, 0, 0}}
 					));
@@ -91,11 +91,11 @@ namespace testspr {
 					sprout::sub(arr2, 2, 8),
 					is_odd<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					partitioned,
 					array<int, 3>{{7, 5, 3}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(partitioned),
 					array<int, 10>{{0, 0, 7, 5, 3, 4, 6, 8, 0, 0}}
 					));

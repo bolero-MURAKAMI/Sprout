@@ -19,7 +19,7 @@ namespace testspr {
 					arr1,
 					sprout::begin(arr1) + 5
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					merged,
 					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
@@ -29,7 +29,7 @@ namespace testspr {
 					arr1,
 					sprout::begin(arr1) + 5
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					merged,
 					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
@@ -41,11 +41,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8),
 					sprout::begin(arr1) + 5
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					merged,
 					array<int, 6>{{2, 4, 5, 6, 7, 9}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(merged),
 					array<int, 10>{{1, 3, 2, 4, 5, 6, 7, 9, 8, 10}}
 					));
@@ -55,11 +55,11 @@ namespace testspr {
 					sprout::sub(arr1, 2, 8),
 					sprout::begin(arr1) + 5
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					merged,
 					array<int, 6>{{2, 4, 5, 6, 7, 9}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(merged),
 					array<int, 10>{{1, 3, 2, 4, 5, 6, 7, 9, 8, 10}}
 					));
@@ -75,7 +75,7 @@ namespace testspr {
 					sprout::begin(arr1) + 5,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					merged,
 					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
@@ -86,7 +86,7 @@ namespace testspr {
 					sprout::begin(arr1) + 5,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					merged,
 					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
@@ -99,11 +99,11 @@ namespace testspr {
 					sprout::begin(arr1) + 5,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					merged,
 					array<int, 6>{{2, 4, 5, 6, 7, 9}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(merged),
 					array<int, 10>{{1, 3, 2, 4, 5, 6, 7, 9, 8, 10}}
 					));
@@ -114,11 +114,11 @@ namespace testspr {
 					sprout::begin(arr1) + 5,
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					merged,
 					array<int, 6>{{2, 4, 5, 6, 7, 9}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(merged),
 					array<int, 10>{{1, 3, 2, 4, 5, 6, 7, 9, 8, 10}}
 					));

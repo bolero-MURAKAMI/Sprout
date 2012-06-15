@@ -430,9 +430,9 @@ namespace sprout {
 #endif
 	};
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::npos;
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::npos;
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::static_size;
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::static_size;
 
 	//
 	// swap

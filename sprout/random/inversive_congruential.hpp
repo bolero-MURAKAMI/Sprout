@@ -111,13 +111,13 @@ namespace sprout {
 			}
 		};
 		template<typename IntType, IntType a, IntType b, IntType p>
-		SPROUT_CONSTEXPR IntType sprout::random::inversive_congruential_engine<IntType, a, b, p>::multiplier;
+		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::inversive_congruential_engine<IntType, a, b, p>::multiplier;
 		template<typename IntType, IntType a, IntType b, IntType p>
-		SPROUT_CONSTEXPR IntType sprout::random::inversive_congruential_engine<IntType, a, b, p>::increment;
+		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::inversive_congruential_engine<IntType, a, b, p>::increment;
 		template<typename IntType, IntType a, IntType b, IntType p>
-		SPROUT_CONSTEXPR IntType sprout::random::inversive_congruential_engine<IntType, a, b, p>::modulus;
+		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::inversive_congruential_engine<IntType, a, b, p>::modulus;
 		template<typename IntType, IntType a, IntType b, IntType p>
-		SPROUT_CONSTEXPR IntType sprout::random::inversive_congruential_engine<IntType, a, b, p>::default_seed;
+		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::inversive_congruential_engine<IntType, a, b, p>::default_seed;
 
 		//
 		// hellekalek1995

@@ -62,7 +62,7 @@ namespace sprout {
 			}
 		};
 		template<typename Parser, std::size_t Limit>
-		SPROUT_CONSTEXPR std::size_t limit_p<Parser, Limit>::limit;
+		SPROUT_CONSTEXPR_OR_CONST std::size_t limit_p<Parser, Limit>::limit;
 
 		//
 		// lim

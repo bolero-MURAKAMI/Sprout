@@ -18,42 +18,68 @@ namespace sprout {
 			template<>
 			struct bdigits<char> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char, 2> table = sprout::to_string("01");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char, 2> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string("01"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char, 2> sprout::weed::detail::bdigits<char>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char, 2> sprout::weed::detail::bdigits<char>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string("01"))
+				;
 
 			template<>
 			struct bdigits<wchar_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<wchar_t, 2> table = sprout::to_string(L"01");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<wchar_t, 2> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(L"01"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 2> sprout::weed::detail::bdigits<wchar_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<wchar_t, 2> sprout::weed::detail::bdigits<wchar_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(L"01"))
+				;
 
 			template<>
 			struct bdigits<char16_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char16_t, 2> table = sprout::to_string(u"01");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char16_t, 2> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(u"01"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char16_t, 2> sprout::weed::detail::bdigits<char16_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char16_t, 2> sprout::weed::detail::bdigits<char16_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(u"01"))
+				;
 
 			template<>
 			struct bdigits<char32_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char32_t, 2> table = sprout::to_string(U"01");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char32_t, 2> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(U"01"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char32_t, 2> sprout::weed::detail::bdigits<char32_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char32_t, 2> sprout::weed::detail::bdigits<char32_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(U"01"))
+				;
 
 			template<typename Dummy>
 			struct bvalues;
 
+#		define SPROUT_WEED_BDIGITS_TABLE_DEF \
+			table_type{{0, 1}}
+
 			template<>
 			struct bvalues<void> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::array<std::uint8_t, 2> table = sprout::array<std::uint8_t, 2>{
-					{0, 1}
-					};
+				typedef sprout::array<std::uint8_t, 2> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_WEED_BDIGITS_TABLE_DEF)
+					;
 			};
-			SPROUT_CONSTEXPR sprout::array<std::uint8_t, 2> sprout::weed::detail::bvalues<void>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::weed::detail::bvalues<void>::table_type
+			sprout::weed::detail::bvalues<void>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_WEED_BDIGITS_TABLE_DEF)
+				;
+
+#		undef SPROUT_WEED_BDIGITS_TABLE_DEF
 
 			template<typename IntType>
 			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> bvalue_at(std::size_t i) {

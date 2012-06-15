@@ -406,6 +406,9 @@ namespace sprout {
 				return static_size;
 			}
 		};
+		template<typename T, std::size_t N>
+		SPROUT_CONSTEXPR_OR_CONST typename sprout::detail::container_traits_default<T[N]>::size_type
+		sprout::detail::container_traits_default<T[N]>::static_size;
 
 		//
 		// container_traits_const_default

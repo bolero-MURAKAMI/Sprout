@@ -21,7 +21,7 @@ namespace testspr {
 					arr1,
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sorted,
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
@@ -31,7 +31,7 @@ namespace testspr {
 					arr1,
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sorted,
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
@@ -43,11 +43,11 @@ namespace testspr {
 					sprout::sub(arr1, 1, 4),
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sorted,
 					array<int, 3>{{1, 2, 4}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(sorted),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
@@ -57,11 +57,11 @@ namespace testspr {
 					sprout::sub(arr1, 1, 4),
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED)
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sorted,
 					array<int, 3>{{1, 2, 4}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(sorted),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
@@ -77,7 +77,7 @@ namespace testspr {
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED),
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sorted,
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
@@ -88,7 +88,7 @@ namespace testspr {
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED),
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sorted,
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
@@ -101,11 +101,11 @@ namespace testspr {
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED),
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sorted,
 					array<int, 3>{{1, 2, 4}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(sorted),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));
@@ -116,11 +116,11 @@ namespace testspr {
 					sprout::random::default_random_engine(SPROUT_UNIQUE_SEED),
 					testspr::less<int>()
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sorted,
 					array<int, 3>{{1, 2, 4}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(sorted),
 					array<int, 5>{{5, 1, 2, 4, 3}}
 					));

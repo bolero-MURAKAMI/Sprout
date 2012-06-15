@@ -164,9 +164,9 @@ namespace sprout {
 			}
 		};
 		template<typename UniformRandomNumberGenerator, std::size_t k>
-		SPROUT_CONSTEXPR std::size_t sprout::random::shuffle_order_engine<UniformRandomNumberGenerator, k>::buffer_size;
+		SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::random::shuffle_order_engine<UniformRandomNumberGenerator, k>::buffer_size;
 		template<typename UniformRandomNumberGenerator, std::size_t k>
-		SPROUT_CONSTEXPR std::size_t sprout::random::shuffle_order_engine<UniformRandomNumberGenerator, k>::table_size;
+		SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::random::shuffle_order_engine<UniformRandomNumberGenerator, k>::table_size;
 
 		//
 		// knuth_b

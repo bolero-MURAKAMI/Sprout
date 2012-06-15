@@ -16,14 +16,14 @@ namespace testspr {
 
 			// min
 			// max
-			TESTSPR_DOUBLE_ASSERT(eng1.min() <= eng1.max());
+			TESTSPR_BOTH_ASSERT(eng1.min() <= eng1.max());
 
 			// operator==
 			// operator!=
-//			TESTSPR_DOUBLE_ASSERT(eng1 == eng1);
-//			TESTSPR_DOUBLE_ASSERT(!(eng1 == eng2));
-//			TESTSPR_DOUBLE_ASSERT(eng1 != eng2);
-//			TESTSPR_DOUBLE_ASSERT(!(eng1 != eng1));
+//			TESTSPR_BOTH_ASSERT(eng1 == eng1);
+//			TESTSPR_BOTH_ASSERT(!(eng1 == eng2));
+//			TESTSPR_BOTH_ASSERT(eng1 != eng2);
+//			TESTSPR_BOTH_ASSERT(!(eng1 != eng1));
 			TESTSPR_ASSERT(eng1 == eng1);
 			TESTSPR_ASSERT(!(eng1 == eng2));
 			TESTSPR_ASSERT(eng1 != eng2);
@@ -58,11 +58,11 @@ namespace testspr {
 				SPROUT_STATIC_CONSTEXPR auto rnd = eng1();
 
 				// result
-				TESTSPR_DOUBLE_ASSERT(eng1.min() <= rnd.result());
-				TESTSPR_DOUBLE_ASSERT(rnd.result() <= eng1.max());
+				TESTSPR_BOTH_ASSERT(eng1.min() <= rnd.result());
+				TESTSPR_BOTH_ASSERT(rnd.result() <= eng1.max());
 
 				// engine
-				TESTSPR_DOUBLE_ASSERT(rnd.engine().min() <= rnd.engine().max());
+				TESTSPR_BOTH_ASSERT(rnd.engine().min() <= rnd.engine().max());
 			}
 		}
 	}

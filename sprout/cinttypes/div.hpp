@@ -19,8 +19,8 @@ namespace sprout {
 		struct div_t_traits2<INT_T> { \
 		public: \
 			typedef DIV_T type; \
-			static SPROUT_CONSTEXPR std::size_t offsetof_quot = offsetof(DIV_T, quot); \
-			static SPROUT_CONSTEXPR std::size_t offsetof_rem = offsetof(DIV_T, rem); \
+			SPROUT_STATIC_CONSTEXPR std::size_t offsetof_quot = offsetof(DIV_T, quot); \
+			SPROUT_STATIC_CONSTEXPR std::size_t offsetof_rem = offsetof(DIV_T, rem); \
 		}
 
 		SPROUT_DETAIL_DIV_T_TRAITS2_IMPL(std::intmax_t, std::imaxdiv_t);

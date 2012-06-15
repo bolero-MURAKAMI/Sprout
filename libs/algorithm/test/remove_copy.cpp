@@ -23,7 +23,7 @@ namespace testspr {
 					arr2,
 					0
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					removed,
 					array<int, 10>{{3, 5, 7, 0, 0, 0, 0, 0, 0, 0}}
 					));
@@ -35,7 +35,7 @@ namespace testspr {
 					arr2,
 					0
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					removed,
 					array<int, 3>{{3, 5, 7}}
 					));
@@ -49,7 +49,7 @@ namespace testspr {
 					arr3,
 					0
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					removed,
 					array<int, 2>{{3, 5}}
 					));
@@ -61,7 +61,7 @@ namespace testspr {
 					arr3,
 					0
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					removed,
 					array<int, 2>{{3, 5}}
 					));
@@ -75,11 +75,11 @@ namespace testspr {
 					sprout::sub(arr2, 2, 8),
 					0
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					removed,
 					array<int, 6>{{3, 5, 7, 0, 0, 0}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(removed),
 					array<int, 10>{{0, 0, 3, 5, 7, 0, 0, 0, 0, 0}}
 					));
@@ -91,11 +91,11 @@ namespace testspr {
 					sprout::sub(arr2, 2, 8),
 					0
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					removed,
 					array<int, 3>{{3, 5, 7}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(removed),
 					array<int, 10>{{0, 0, 3, 5, 7, 0, 0, 0, 0, 0}}
 					));

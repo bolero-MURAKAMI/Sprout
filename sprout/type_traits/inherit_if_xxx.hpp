@@ -51,7 +51,7 @@
 		SPROUT_STATIC_CONSTEXPR typename std::decay<decltype(T::CONSTANT)>::type ALIAS = T::CONSTANT; \
 	}; \
 	template<typename T> \
-	SPROUT_CONSTEXPR typename std::decay<decltype(T::CONSTANT)>::type NAME< \
+	SPROUT_CONSTEXPR_OR_CONST typename std::decay<decltype(T::CONSTANT)>::type NAME< \
 		T, \
 		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
 	>::ALIAS

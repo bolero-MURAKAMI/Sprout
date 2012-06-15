@@ -97,15 +97,15 @@ namespace sprout {
 			}
 		};
 		template<typename UIntType, int w, int k, int q, int s>
-		SPROUT_CONSTEXPR int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::word_size;
+		SPROUT_CONSTEXPR_OR_CONST int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::word_size;
 		template<typename UIntType, int w, int k, int q, int s>
-		SPROUT_CONSTEXPR int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::exponent1;
+		SPROUT_CONSTEXPR_OR_CONST int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::exponent1;
 		template<typename UIntType, int w, int k, int q, int s>
-		SPROUT_CONSTEXPR int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::exponent2;
+		SPROUT_CONSTEXPR_OR_CONST int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::exponent2;
 		template<typename UIntType, int w, int k, int q, int s>
-		SPROUT_CONSTEXPR int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::step_size;
+		SPROUT_CONSTEXPR_OR_CONST int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::step_size;
 		template<typename UIntType, int w, int k, int q, int s>
-		SPROUT_CONSTEXPR UIntType sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::default_seed;
+		SPROUT_CONSTEXPR_OR_CONST UIntType sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::default_seed;
 	} // namespace random
 
 	using sprout::random::linear_feedback_shift_engine;

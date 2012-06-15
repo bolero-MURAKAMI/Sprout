@@ -20,7 +20,7 @@ namespace testspr {
 					is_odd<int>(),
 					-1
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					replaced,
 					array<int, 10>{{-1, 0, -1, 0, -1, 0, -1, 0, -1, 0}}
 					));
@@ -31,7 +31,7 @@ namespace testspr {
 					is_odd<int>(),
 					-1
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					replaced,
 					array<int, 10>{{-1, 0, -1, 0, -1, 0, -1, 0, -1, 0}}
 					));
@@ -44,11 +44,11 @@ namespace testspr {
 					is_odd<int>(),
 					-1
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					replaced,
 					array<int, 6>{{-1, 0, -1, 0, -1, 0}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(replaced),
 					array<int, 10>{{1, 0, -1, 0, -1, 0, -1, 0, 9, 0}}
 					));
@@ -59,11 +59,11 @@ namespace testspr {
 					is_odd<int>(),
 					-1
 					);
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					replaced,
 					array<int, 6>{{-1, 0, -1, 0, -1, 0}}
 					));
-				TESTSPR_DOUBLE_ASSERT(testspr::equal(
+				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(replaced),
 					array<int, 10>{{1, 0, -1, 0, -1, 0, -1, 0, 9, 0}}
 					));

@@ -18,42 +18,68 @@ namespace sprout {
 			template<>
 			struct odigits<char> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char, 8> table = sprout::to_string("01234567");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char, 8> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string("01234567"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char, 8> sprout::weed::detail::odigits<char>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char, 8> sprout::weed::detail::odigits<char>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string("01234567"))
+				;
 
 			template<>
 			struct odigits<wchar_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<wchar_t, 8> table = sprout::to_string(L"01234567");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<wchar_t, 8> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(L"01234567"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 8> sprout::weed::detail::odigits<wchar_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<wchar_t, 8> sprout::weed::detail::odigits<wchar_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(L"01234567"))
+				;
 
 			template<>
 			struct odigits<char16_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char16_t, 8> table = sprout::to_string(u"01234567");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char16_t, 8> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(u"01234567"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char16_t, 8> sprout::weed::detail::odigits<char16_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char16_t, 8> sprout::weed::detail::odigits<char16_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(u"01234567"))
+				;
 
 			template<>
 			struct odigits<char32_t> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char32_t, 8> table = sprout::to_string(U"01234567");
+				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char32_t, 8> table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(U"01234567"))
+					;
 			};
-			SPROUT_CONSTEXPR sprout::basic_string<char32_t, 8> sprout::weed::detail::odigits<char32_t>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char32_t, 8> sprout::weed::detail::odigits<char32_t>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(U"01234567"))
+				;
 
 			template<typename Dummy>
 			struct ovalues;
 
+#		define SPROUT_WEED_ODIGITS_TABLE_DEF \
+			table_type{{0, 1, 2, 3, 4, 5, 6, 7}}
+
 			template<>
 			struct ovalues<void> {
 			public:
-				SPROUT_STATIC_CONSTEXPR sprout::array<std::uint8_t, 8> table = sprout::array<std::uint8_t, 8>{
-					{0, 1, 2, 3, 4, 5, 6, 7}
-					};
+				typedef sprout::array<std::uint8_t, 8> table_type;
+			public:
+				SPROUT_STATIC_CONSTEXPR table_type table
+					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_WEED_ODIGITS_TABLE_DEF)
+					;
 			};
-			SPROUT_CONSTEXPR sprout::array<std::uint8_t, 8> sprout::weed::detail::ovalues<void>::table;
+			SPROUT_CONSTEXPR_OR_CONST sprout::weed::detail::ovalues<void>::table_type
+			sprout::weed::detail::ovalues<void>::table
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_WEED_ODIGITS_TABLE_DEF)
+				;
+
+#		undef SPROUT_WEED_ODIGITS_TABLE_DEF
 
 			template<typename IntType>
 			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> ovalue_at(std::size_t i) {
