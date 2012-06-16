@@ -6,6 +6,7 @@
 #include <bitset>
 #include <iostream>
 #include <sprout/container.hpp>
+#include <testspr/typeinfo.hpp>
 
 namespace testspr {
 	//
@@ -35,6 +36,14 @@ namespace testspr {
 	template<typename T>
 	static void print_bits(T const& t) {
 		testspr::print_ln(std::bitset<sizeof(T) * 8>(t).template to_string<char>());
+	}
+
+	//
+	// print_typename
+	//
+	template<typename T>
+	void print_typename() {
+		testspr::print_ln(testspr::typename_of<T>());
 	}
 
 	//

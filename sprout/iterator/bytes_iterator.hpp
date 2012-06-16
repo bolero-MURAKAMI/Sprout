@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
+#include <sprout/iterator/distance.hpp>
 #include <sprout/endian_traits.hpp>
 
 namespace sprout {

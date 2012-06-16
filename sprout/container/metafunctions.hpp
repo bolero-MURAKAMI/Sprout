@@ -14,6 +14,7 @@
 #include <sprout/container/static_size.hpp>
 #include <sprout/container/copied_type.hpp>
 #include <sprout/container/rebind_size.hpp>
+#include <sprout/container/weak_rebind_size.hpp>
 #include <sprout/container/internal.hpp>
 #include <sprout/container/indexes.hpp>
 

@@ -10,10 +10,9 @@ namespace sprout {
 		// rebind_size
 		//
 		template<typename Container, typename sprout::container_traits<Container>::size_type Size>
-		struct rebind_size {
-		public:
-			typedef typename sprout::container_transform_traits<Container>::template rebind_size<Size>::type type;
-		};
+		struct rebind_size
+			: public sprout::container_transform_traits<Container>::template rebind_size<Size>
+		{};
 	}	// namespace containers
 }	// namespace sprout
 

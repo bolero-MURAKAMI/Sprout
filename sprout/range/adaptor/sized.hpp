@@ -7,6 +7,7 @@
 #include <sprout/pit.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/metafunctions.hpp>
 #include <sprout/range/range_container.hpp>
 #include <sprout/range/algorithm/copy.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
@@ -80,7 +81,8 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR sized_range(range_type& range)
 				: base_type(
 					sprout::begin(range),
-					sized_impl_type::static_size < sprout::size(range)
+					sized_impl_type::static_size
+						< static_cast<typename sprout::container_traits<Range>::size_type>(sprout::size(range))
 						? sprout::next(sprout::begin(range), sized_impl_type::static_size)
 						: sprout::end(range)
 					)
@@ -126,8 +128,13 @@ namespace sprout {
 	//
 	template<typename Range, typename sprout::container_traits<Range>::size_type Size>
 	struct container_construct_traits<sprout::adaptors::sized_range<Range, Size> > {
+	private:
+		typedef typename sprout::container_construct_traits<Range>::copied_type range_copied_type;
 	public:
-		typedef typename sprout::container_construct_traits<Range>::copied_type copied_type;
+		typedef typename sprout::containers::weak_rebind_size<
+			range_copied_type,
+			sprout::adaptors::sized_range<Range, Size>::static_size
+		>::type copied_type;
 	public:
 		template<typename Cont>
 		static SPROUT_CONSTEXPR copied_type deep_copy(Cont&& cont) {

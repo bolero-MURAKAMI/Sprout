@@ -9,7 +9,7 @@
 // SPROUT_HAS_XXX_TYPE_DEF
 //
 #define SPROUT_HAS_XXX_TYPE_DEF(NAME, TYPE) \
-	template<typename T, typename Enable = typename T::TYPE> \
+	template<typename T, typename = typename T::TYPE> \
 	std::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), __LINE__)(int); \
 	template<typename T> \
 	std::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), __LINE__)(long); \
