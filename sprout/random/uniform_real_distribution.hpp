@@ -247,10 +247,10 @@ namespace sprout {
 				{
 					return lhs << rhs.min_ << " " << rhs.max_;
 				}
-				SPROUT_CONSTEXPR friend bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
 					return lhs.min_ == rhs.min_ && lhs.max_ == rhs.max_;
 				}
-				SPROUT_CONSTEXPR friend bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
 					return !(lhs == rhs);
 				}
 			};
@@ -322,10 +322,10 @@ namespace sprout {
 			{
 				return lhs << rhs.param();
 			}
-			SPROUT_CONSTEXPR friend bool operator==(uniform_real_distribution const& lhs, uniform_real_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(uniform_real_distribution const& lhs, uniform_real_distribution const& rhs) {
 				return lhs.param() == rhs.param();
 			}
-			SPROUT_CONSTEXPR friend bool operator!=(uniform_real_distribution const& lhs, uniform_real_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(uniform_real_distribution const& lhs, uniform_real_distribution const& rhs) {
 				return !(lhs == rhs);
 			}
 		};

@@ -41,10 +41,10 @@ namespace sprout {
 				{
 					return lhs;
 				}
-				SPROUT_CONSTEXPR friend bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
 					return true;
 				}
-				SPROUT_CONSTEXPR friend bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
 					return !(lhs == rhs);
 				}
 			};
@@ -116,10 +116,10 @@ namespace sprout {
 			{
 				return lhs;
 			}
-			SPROUT_CONSTEXPR friend bool operator==(uniform_01 const& lhs, uniform_01 const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(uniform_01 const& lhs, uniform_01 const& rhs) {
 				return true;
 			}
-			SPROUT_CONSTEXPR friend bool operator!=(uniform_01 const& lhs, uniform_01 const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(uniform_01 const& lhs, uniform_01 const& rhs) {
 				return !(lhs == rhs);
 			}
 		};

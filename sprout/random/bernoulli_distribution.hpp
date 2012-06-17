@@ -73,10 +73,10 @@ namespace sprout {
 				{
 					return lhs << rhs.p_;
 				}
-				SPROUT_CONSTEXPR friend bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
 					return lhs.p_ == rhs.p_;
 				}
-				SPROUT_CONSTEXPR friend bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
 					return !(lhs == rhs);
 				}
 			};
@@ -146,10 +146,10 @@ namespace sprout {
 			{
 				return lhs << rhs.param();
 			}
-			SPROUT_CONSTEXPR friend bool operator==(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) {
 				return lhs.param() == rhs.param();
 			}
-			SPROUT_CONSTEXPR friend bool operator!=(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) {
 				return !(lhs == rhs);
 			}
 		};

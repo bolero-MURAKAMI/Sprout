@@ -131,10 +131,10 @@ namespace sprout {
 				{
 					return lhs << rhs.t_ << " " << rhs.p_;
 				}
-				SPROUT_CONSTEXPR friend bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
 					return lhs.t_ == rhs.t_ && lhs.p_ == rhs.p_;
 				}
-				SPROUT_CONSTEXPR friend bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
 					return !(lhs == rhs);
 				}
 			};
@@ -442,10 +442,10 @@ namespace sprout {
 			{
 				return lhs << rhs.param();
 			}
-			SPROUT_CONSTEXPR friend bool operator==(binomial_distribution const& lhs, binomial_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(binomial_distribution const& lhs, binomial_distribution const& rhs) {
 				return lhs.param() == rhs.param();
 			}
-			SPROUT_CONSTEXPR friend bool operator!=(binomial_distribution const& lhs, binomial_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(binomial_distribution const& lhs, binomial_distribution const& rhs) {
 				return !(lhs == rhs);
 			}
 		};

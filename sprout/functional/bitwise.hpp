@@ -5,5 +5,6 @@
 #include <sprout/functional/bit_and.hpp>
 #include <sprout/functional/bit_or.hpp>
 #include <sprout/functional/bit_xor.hpp>
+#include <sprout/functional/bit_not.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_BITWISE_HPP

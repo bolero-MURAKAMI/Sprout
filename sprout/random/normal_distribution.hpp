@@ -91,10 +91,10 @@ namespace sprout {
 				{
 					return lhs << rhs.mean_ << " " << rhs.sigma_;
 				}
-				SPROUT_CONSTEXPR friend bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
 					return lhs.mean_ == rhs.mean_ && lhs.sigma_ == rhs.sigma_;
 				}
-				SPROUT_CONSTEXPR friend bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
 					return !(lhs == rhs);
 				}
 			};
@@ -239,10 +239,10 @@ namespace sprout {
 			{
 				return lhs << rhs.param() << " " << rhs.valid_ << " " << rhs.cached_rho_ << " " << rhs.r1_ << " " << rhs.r2_;
 			}
-			SPROUT_CONSTEXPR friend bool operator==(normal_distribution const& lhs, normal_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(normal_distribution const& lhs, normal_distribution const& rhs) {
 				return lhs.param() == rhs.param() && lhs.valid_ == rhs.valid_ && lhs.cached_rho_ == rhs.cached_rho_ && lhs.r1_ == rhs.r1_ && lhs.r2_ == rhs.r2_;
 			}
-			SPROUT_CONSTEXPR friend bool operator!=(normal_distribution const& lhs, normal_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(normal_distribution const& lhs, normal_distribution const& rhs) {
 				return !(lhs == rhs);
 			}
 		};
