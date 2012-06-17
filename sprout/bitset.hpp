@@ -263,6 +263,10 @@ namespace sprout {
 			setword(std::size_t pos, word_type word) const SPROUT_NOEXCEPT {
 				return sprout::fixed::set(*this, whichword(pos), word);
 			}
+			SPROUT_CONSTEXPR base_bitset<N>
+			hiword(word_type word) const SPROUT_NOEXCEPT {
+				return sprout::fixed::set(*this, N - 1, word);
+			}
 
 			word_type&
 			getword(std::size_t pos) SPROUT_NOEXCEPT {
@@ -521,9 +525,22 @@ namespace sprout {
 			SPROUT_CONSTEXPR base_bitset(unsigned long long val) SPROUT_NOEXCEPT
 				: w_(val)
 			{}
-			SPROUT_CONSTEXPR base_bitset(base_bitset_from_words_construct_tag, word_type word)
-				: w_{word}
+			SPROUT_CONSTEXPR base_bitset(sprout::detail::base_bitset_from_words_construct_tag, word_type word)
+				: w_(word)
 			{}
+
+			void
+			setword(std::size_t, word_type word) SPROUT_NOEXCEPT {
+				w_ = word;
+			}
+			SPROUT_CONSTEXPR base_bitset<1>
+			setword(std::size_t, word_type word) const SPROUT_NOEXCEPT {
+				return base_bitset(sprout::detail::base_bitset_from_words_construct_tag(), word);
+			}
+			SPROUT_CONSTEXPR base_bitset<1>
+			hiword(word_type word) const SPROUT_NOEXCEPT {
+				return base_bitset(sprout::detail::base_bitset_from_words_construct_tag(), word);
+			}
 
 			word_type&
 			getword(std::size_t) SPROUT_NOEXCEPT {
@@ -679,7 +696,18 @@ namespace sprout {
 		public:
 			SPROUT_CONSTEXPR base_bitset() SPROUT_NOEXCEPT {}
 			SPROUT_CONSTEXPR base_bitset(unsigned long long) SPROUT_NOEXCEPT {}
-			SPROUT_CONSTEXPR base_bitset(base_bitset_from_words_construct_tag) {}
+			SPROUT_CONSTEXPR base_bitset(sprout::detail::base_bitset_from_words_construct_tag) {}
+
+			void
+			setword(std::size_t, word_type) SPROUT_NOEXCEPT {}
+			SPROUT_CONSTEXPR base_bitset<0>
+			setword(std::size_t, word_type) const SPROUT_NOEXCEPT {
+				return *this;
+			}
+			SPROUT_CONSTEXPR base_bitset<0>
+			hiword(word_type) const SPROUT_NOEXCEPT {
+				return *this;
+			}
 
 			word_type&
 			getword(std::size_t) SPROUT_NOEXCEPT {
@@ -787,11 +815,11 @@ namespace sprout {
 		public:
 			static void
 			do_sanitize(word_type& val) SPROUT_NOEXCEPT {
-				val &= ~((~static_cast<word_type>(0)) << Extrabits);
+				val &= ~(~static_cast<word_type>(0) << Extrabits);
 			}
 			static SPROUT_CONSTEXPR word_type
 			do_sanitize_c(word_type val) SPROUT_NOEXCEPT {
-				return val & ~((~static_cast<word_type>(0)) << Extrabits);
+				return val & ~(~static_cast<word_type>(0) << Extrabits);
 			}
 		};
 		template<>
@@ -947,7 +975,11 @@ namespace sprout {
 		SPROUT_CONSTEXPR bitset<N>
 		do_sanitize() const SPROUT_NOEXCEPT {
 			typedef sprout::detail::sanitize<N % (CHAR_BIT * sizeof(unsigned long))> sanitize_type;
-			return sanitize_type::do_sanitize_c(this->hiword());
+			return  bitset(this->hiword(sanitize_type::do_sanitize_c(this->hiword())));
+		}
+		SPROUT_CONSTEXPR bitset<N>
+		do_sanitize_c() const SPROUT_NOEXCEPT {
+			return do_sanitize();
 		}
 
 		bitset<N>&
@@ -957,7 +989,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR bitset<N>
 		unchecked_set(std::size_t pos) const SPROUT_NOEXCEPT {
-			return bitset<N>(this->setword(pos, this->getword(pos) | base_type::maskbit(pos)));
+			return bitset(this->setword(pos, this->getword(pos) | base_type::maskbit(pos)));
 		}
 		bitset<N>&
 		unchecked_set(std::size_t pos, int val) SPROUT_NOEXCEPT {
@@ -970,8 +1002,8 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR bitset<N>
 		unchecked_set(std::size_t pos, int val) const SPROUT_NOEXCEPT {
-			return val ? bitset<N>(this->setword(pos, this->getword(pos) | base_type::maskbit(pos)))
-				: bitset<N>(this->setword(pos, this->getword(pos) & base_type::maskbit(pos)))
+			return val ? bitset(this->setword(pos, this->getword(pos) | base_type::maskbit(pos)))
+				: bitset(this->setword(pos, this->getword(pos) & ~base_type::maskbit(pos)))
 				;
 		}
 		bitset<N>&
@@ -1137,7 +1169,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR bitset<N>
 		set() const SPROUT_NOEXCEPT {
-			return bitset(this->do_set()).do_sanitize();
+			return bitset(this->do_set()).do_sanitize_c();
 		}
 		bitset<N>&
 		set(std::size_t position, bool val = true) {
@@ -1182,7 +1214,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR bitset<N>
 		flip() const SPROUT_NOEXCEPT {
-			return bitset(this->do_flip()).do_sanitize();
+			return bitset(this->do_flip()).do_sanitize_c();
 		}
 		bitset<N>&
 		flip(std::size_t position) {
@@ -1299,14 +1331,14 @@ namespace sprout {
 		SPROUT_CONSTEXPR bitset<N>
 		operator<<(std::size_t position) const SPROUT_NOEXCEPT {
 			return position < N
-				? bitset(this->do_left_shift(position)).do_sanitize()
+				? bitset(this->do_left_shift(position)).do_sanitize_()
 				: bitset(this->do_reset())
 				;
 		}
 		SPROUT_CONSTEXPR bitset<N>
 		operator>>(std::size_t position) const SPROUT_NOEXCEPT {
 			return position < N
-				? bitset(this->do_right_shift(position)).do_sanitize()
+				? bitset(this->do_right_shift(position)).do_sanitize_()
 				: bitset(this->do_reset())
 				;
 		}
