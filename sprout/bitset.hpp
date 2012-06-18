@@ -882,13 +882,13 @@ namespace sprout {
 	template<std::size_t N>
 	inline SPROUT_CONSTEXPR bitset<N>
 	operator|(sprout::bitset<N> const& lhs, sprout::bitset<N> const& rhs) SPROUT_NOEXCEPT;
-	template <std::size_t N>
+	template<std::size_t N>
 	inline SPROUT_CONSTEXPR bitset<N>
 	operator^(sprout::bitset<N> const& lhs, sprout::bitset<N> const& rhs) SPROUT_NOEXCEPT;
 	template<typename Char, typename Traits, std::size_t N>
 	inline std::basic_istream<Char, Traits>&
 	operator>>(std::basic_istream<Char, Traits>& lhs, sprout::bitset<N>& rhs);
-	template <typename Char, typename Traits, std::size_t N>
+	template<typename Char, typename Traits, std::size_t N>
 	inline std::basic_ostream<Char, Traits>&
 	operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::bitset<N> const& rhs);
 
@@ -1349,16 +1349,19 @@ namespace sprout {
 		}
 
 	public:
-		friend sprout::bitset<N>
-		sprout::operator& <N>(sprout::bitset<N> const& lhs, sprout::bitset<N> const& rhs) SPROUT_NOEXCEPT;
-		friend sprout::bitset<N>
-		sprout::operator| <N>(sprout::bitset<N> const& lhs, sprout::bitset<N> const& rhs) SPROUT_NOEXCEPT;
-		friend sprout::bitset<N>
-		sprout::operator^ <N>(sprout::bitset<N> const& lhs, sprout::bitset<N> const& rhs) SPROUT_NOEXCEPT;
+		template<std::size_t M>
+		friend SPROUT_CONSTEXPR sprout::bitset<M>
+		sprout::operator&(sprout::bitset<M> const& lhs, sprout::bitset<M> const& rhs) SPROUT_NOEXCEPT;
+		template<std::size_t M>
+		friend SPROUT_CONSTEXPR sprout::bitset<M>
+		sprout::operator|(sprout::bitset<M> const& lhs, sprout::bitset<M> const& rhs) SPROUT_NOEXCEPT;
+		template<std::size_t M>
+		friend SPROUT_CONSTEXPR sprout::bitset<M>
+		sprout::operator^(sprout::bitset<M> const& lhs, sprout::bitset<M> const& rhs) SPROUT_NOEXCEPT;
 		template<typename Char, typename Traits, std::size_t M>
 		friend std::basic_istream<Char, Traits>&
 		sprout::operator>>(std::basic_istream<Char, Traits>& lhs, sprout::bitset<M>& rhs);
-		template <typename Char, typename Traits, std::size_t M>
+		template<typename Char, typename Traits, std::size_t M>
 		friend std::basic_ostream<Char, Traits>&
 		sprout::operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::bitset<M> const& rhs);
 
@@ -1370,17 +1373,17 @@ namespace sprout {
 	template<std::size_t N>
 	inline SPROUT_CONSTEXPR bitset<N>
 	operator&(sprout::bitset<N> const& lhs, sprout::bitset<N> const& rhs) SPROUT_NOEXCEPT {
-		return bitset<N>(lhs.do_and(rhs));
+		return sprout::bitset<N>(lhs.do_and(rhs));
 	}
 	template<std::size_t N>
 	inline SPROUT_CONSTEXPR bitset<N>
 	operator|(sprout::bitset<N> const& lhs, sprout::bitset<N> const& rhs) SPROUT_NOEXCEPT {
-		return bitset<N>(lhs.do_or(rhs));
+		return sprout::bitset<N>(lhs.do_or(rhs));
 	}
-	template <std::size_t N>
+	template<std::size_t N>
 	inline SPROUT_CONSTEXPR bitset<N>
 	operator^(sprout::bitset<N> const& lhs, sprout::bitset<N> const& rhs) SPROUT_NOEXCEPT {
-		return bitset<N>(lhs.do_xor(rhs));
+		return sprout::bitset<N>(lhs.do_xor(rhs));
 	}
 	template<typename Char, typename Traits, std::size_t N>
 	inline std::basic_istream<Char, Traits>&
@@ -1430,7 +1433,7 @@ namespace sprout {
 		}
 		return lhs;
 	}
-	template <typename Char, typename Traits, std::size_t N>
+	template<typename Char, typename Traits, std::size_t N>
 	inline std::basic_ostream<Char, Traits>&
 	operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::bitset<N> const& rhs) {
 		std::basic_string<Char, Traits> tmp;
