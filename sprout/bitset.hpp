@@ -12,7 +12,6 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/iterator/index_iterator.hpp>
-#include <sprout/iterator/next.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
 #include <sprout/algorithm/fixed/fill.hpp>
@@ -74,7 +73,7 @@ namespace sprout {
 			public:
 				SPROUT_CONSTEXPR bool
 				operator()(word_type t) const SPROUT_NOEXCEPT {
-					return t != ~static_cast<word_type>(0);
+					return t == ~static_cast<word_type>(0);
 				}
 			};
 			struct is_any_pred {
@@ -127,7 +126,7 @@ namespace sprout {
 				return first == last ? not_found
 					: *first != static_cast<word_type>(0)
 						? i * (CHAR_BIT * sizeof(unsigned long)) + sprout::detail::ctz(*first)
-					: find_first_impl(not_found, sprout::next(first), last, i + 1)
+					: find_first_impl(not_found, first + 1, last, i + 1)
 					;
 			}
 			SPROUT_CONSTEXPR std::size_t
@@ -139,7 +138,7 @@ namespace sprout {
 				return first == last ? not_found
 					: *first != static_cast<word_type>(0)
 						? i * (CHAR_BIT * sizeof(unsigned long)) + sprout::detail::ctz(*first)
-					: find_next_impl_2(not_found, sprout::next(first), last)
+					: find_next_impl_2(not_found, first + 1, last)
 					;
 			}
 			SPROUT_CONSTEXPR std::size_t
@@ -167,8 +166,7 @@ namespace sprout {
 						: Indexes == wshift ? w_[0] << offset
 						: static_cast<word_type>(0)
 						)...
-					)
-					;
+					);
 			}
 			template<sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR base_bitset<N>
@@ -182,8 +180,7 @@ namespace sprout {
 					(static_cast<std::size_t>(Indexes) >= wshift ? w_[Indexes - wshift]
 						: static_cast<word_type>(0)
 						)...
-					)
-					;
+					);
 			}
 			SPROUT_CONSTEXPR base_bitset<N>
 			do_left_shift_impl(std::size_t wshift, std::size_t offset) const SPROUT_NOEXCEPT {
@@ -212,8 +209,7 @@ namespace sprout {
 						: Indexes == limit ? w_[N-1] >> offset
 						: static_cast<word_type>(0)
 						)...
-					)
-					;
+					);
 			}
 			template<sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR base_bitset<N>
@@ -421,7 +417,7 @@ namespace sprout {
 			template<std::size_t N2>
 			SPROUT_CONSTEXPR bool
 			are_all() const SPROUT_NOEXCEPT {
-				return NS_SSCRISK_CEL_OR_SPROUT::all_of(begin(), end(), are_all_pred())
+				return NS_SSCRISK_CEL_OR_SPROUT::all_of(begin(), end() - 1, are_all_pred())
 					&& hiword() == (~static_cast<word_type>(0) >> (N * (CHAR_BIT * sizeof(unsigned long)) - N2))
 					;
 			}
@@ -430,19 +426,19 @@ namespace sprout {
 				return NS_SSCRISK_CEL_OR_SPROUT::any_of(begin(), end(), is_any_pred());
 			}
 			SPROUT_CONSTEXPR std::size_t
-			count() const SPROUT_NOEXCEPT {
+			do_count() const SPROUT_NOEXCEPT {
 				return NS_SSCRISK_CEL_OR_SPROUT::accumulate(begin(), end(),static_cast<std::size_t>(0), count_op());
 			}
 
 			SPROUT_CONSTEXPR unsigned long
-			to_ulong() const {
+			do_to_ulong() const {
 				return NS_SSCRISK_CEL_OR_SPROUT::find_if(begin() + 1, end(), to_ulong_pred()) != end()
-					? throw std::overflow_error("base_bitset::to_ulong")
+					? throw std::overflow_error("base_bitset::do_to_ulong")
 					: w_[0]
 					;
 			}
 			SPROUT_CONSTEXPR unsigned long long
-			to_ullong() const {
+			do_to_ullong() const {
 				return NS_SSCRISK_CEL_OR_SPROUT::find_if(
 					sizeof(unsigned long long) > sizeof(unsigned long) ? begin() + 2
 						: begin() + 1
@@ -642,16 +638,16 @@ namespace sprout {
 				return w_ != 0;
 			}
 			SPROUT_CONSTEXPR std::size_t
-			count() const SPROUT_NOEXCEPT {
+			do_count() const SPROUT_NOEXCEPT {
 				return sprout::detail::popcount(w_);
 			}
 
 			SPROUT_CONSTEXPR unsigned long
-			to_ulong() const SPROUT_NOEXCEPT {
+			do_to_ulong() const SPROUT_NOEXCEPT {
 				return w_;
 			}
 			SPROUT_CONSTEXPR unsigned long long
-			to_ullong() const SPROUT_NOEXCEPT {
+			do_to_ullong() const SPROUT_NOEXCEPT {
 				return w_;
 			}
 
@@ -785,16 +781,16 @@ namespace sprout {
 				return false;
 			}
 			SPROUT_CONSTEXPR std::size_t
-			count() const SPROUT_NOEXCEPT {
+			do_count() const SPROUT_NOEXCEPT {
 				return 0;
 			}
 
 			SPROUT_CONSTEXPR unsigned long
-			to_ulong() const SPROUT_NOEXCEPT {
+			do_to_ulong() const SPROUT_NOEXCEPT {
 				return 0;
 			}
 			SPROUT_CONSTEXPR unsigned long long
-			to_ullong() const SPROUT_NOEXCEPT {
+			do_to_ullong() const SPROUT_NOEXCEPT {
 				return 0;
 			}
 
@@ -1245,11 +1241,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR unsigned long
 		to_ulong() const {
-			return this->to_ulong();
+			return this->do_to_ulong();
 		}
 		SPROUT_CONSTEXPR unsigned long long
 		to_ullong() const {
-			return this->to_ullong();
+			return this->do_to_ullong();
 		}
 		template<typename Char, typename Traits, typename Alloc>
 		std::basic_string<Char, Traits, Alloc>
@@ -1296,7 +1292,7 @@ namespace sprout {
 
 		SPROUT_CONSTEXPR std::size_t
 		count() const SPROUT_NOEXCEPT {
-			return this->count();
+			return this->do_count();
 		}
 		SPROUT_CONSTEXPR std::size_t
 		size() const SPROUT_NOEXCEPT {
@@ -1331,14 +1327,14 @@ namespace sprout {
 		SPROUT_CONSTEXPR bitset<N>
 		operator<<(std::size_t position) const SPROUT_NOEXCEPT {
 			return position < N
-				? bitset(this->do_left_shift(position)).do_sanitize_()
+				? bitset(this->do_left_shift(position)).do_sanitize_c()
 				: bitset(this->do_reset())
 				;
 		}
 		SPROUT_CONSTEXPR bitset<N>
 		operator>>(std::size_t position) const SPROUT_NOEXCEPT {
 			return position < N
-				? bitset(this->do_right_shift(position)).do_sanitize_()
+				? bitset(this->do_right_shift(position)).do_sanitize_c()
 				: bitset(this->do_reset())
 				;
 		}
