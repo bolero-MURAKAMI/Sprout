@@ -919,11 +919,10 @@ namespace sprout {
 		private:
 			reference() = delete;
 		public:
-			reference(bitset& b, std::size_t pos) SPROUT_NOEXCEPT
+			SPROUT_CONSTEXPR reference(bitset& b, std::size_t pos) SPROUT_NOEXCEPT
 				: wp_(&b.getword(pos))
 				, bpos_(base_type::whichbit(pos))
 			{}
-			~reference() SPROUT_NOEXCEPT {}
 
 			reference&
 			operator=(bool x) SPROUT_NOEXCEPT {
@@ -944,10 +943,11 @@ namespace sprout {
 				return *this;
 			}
 
-			bool
+			SPROUT_CONSTEXPR bool
 			operator~() const SPROUT_NOEXCEPT {
 				return (*wp_ & base_type::maskbit(bpos_)) == 0;
 			}
+			SPROUT_CONSTEXPR
 			operator bool() const SPROUT_NOEXCEPT {
 				return (*wp_ & base_type::maskbit(bpos_)) != 0;
 			}
