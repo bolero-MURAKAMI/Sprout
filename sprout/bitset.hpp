@@ -61,8 +61,8 @@ namespace sprout {
 		public:
 			typedef unsigned long word_type;
 			typedef word_type value_type;
-			typedef sprout::index_iterator<base_bitset<N>&> iterator;
-			typedef sprout::index_iterator<base_bitset<N> const&> const_iterator;
+			typedef sprout::index_iterator<base_bitset&> iterator;
+			typedef sprout::index_iterator<base_bitset const&> const_iterator;
 			typedef value_type& reference;
 			typedef value_type const& const_reference;
 			typedef std::size_t size_type;
@@ -464,6 +464,10 @@ namespace sprout {
 					;
 			}
 
+			SPROUT_CONSTEXPR std::size_t do_to_hash() const {
+				return sprout::hash_range(begin(), end());
+			}
+
 			word_type& operator[](std::size_t i) {
 				return w_[i];
 			}
@@ -663,6 +667,10 @@ namespace sprout {
 					: find_next_impl(prev + 1, not_found, w_ >> (prev + 1))
 					;
 			}
+
+			SPROUT_CONSTEXPR std::size_t do_to_hash() const {
+				return sprout::hash_value(w_);
+			}
 		};
 
 		template<>
@@ -800,6 +808,10 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR std::size_t
 			find_next(std::size_t, std::size_t) const SPROUT_NOEXCEPT {
+				return 0;
+			}
+
+			SPROUT_CONSTEXPR std::size_t do_to_hash() const {
 				return 0;
 			}
 		};
@@ -1068,6 +1080,10 @@ namespace sprout {
 		void
 		copy_to_string(std::basic_string<Char, Traits,Alloc>& s) const {
 			copy_to_string(s, Char('0'), Char('1'));
+		}
+
+		SPROUT_CONSTEXPR std::size_t to_hash() const {
+			return this->do_to_hash();
 		}
 	public:
 		// 20.5.1 constructors:
@@ -1365,8 +1381,9 @@ namespace sprout {
 		friend std::basic_ostream<Char, Traits>&
 		sprout::operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::bitset<M> const& rhs);
 
-		friend std::size_t
-		hash_value<N>(sprout::bitset<N> const& v);
+		template<std::size_t M>
+		friend SPROUT_CONSTEXPR std::size_t
+		hash_value(sprout::bitset<M> const& v);
 	};
 
 	// 20.5.4 bitset operators:
@@ -1445,10 +1462,8 @@ namespace sprout {
 	// 20.5.3 hash support
 	template<std::size_t N>
 	inline SPROUT_CONSTEXPR std::size_t
-	hash_value(sprout::bitset<N> const& v); // !!!
-	inline SPROUT_CONSTEXPR std::size_t
-	hash_value(sprout::bitset<0> const& v) {
-		return 0;
+	hash_value(sprout::bitset<N> const& v) {
+		return v.to_hash();
 	}
 }	// namespace sprout
 

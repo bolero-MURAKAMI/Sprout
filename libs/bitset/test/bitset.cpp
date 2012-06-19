@@ -192,6 +192,11 @@ namespace testspr {
 				is >> bits;
 				TESTSPR_ASSERT(bits == bitset_t(0xDEADBEEF));
 			}
+
+			// 20.5.3 hash support
+
+			// sprout::to_hash, sprout::hash
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(bits1) == sprout::hash<bitset_t>()(bits1));
 		}
 	}
 }	// namespace testspr
