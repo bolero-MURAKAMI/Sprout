@@ -3,9 +3,11 @@
 
 #include <cstddef>
 #include <limits>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	//
@@ -29,8 +31,11 @@ namespace sprout {
 	//inline SPROUT_CONSTEXPR std::size_t hash_value(float v);
 	//inline SPROUT_CONSTEXPR std::size_t hash_value(double v);
 	//inline SPROUT_CONSTEXPR std::size_t hash_value(long double v);
-	template<typename T>
-	SPROUT_CONSTEXPR std::size_t hash_value(T*);
+	template<
+		typename T,
+		typename sprout::enabler_if<std::is_pointer<typename std::remove_reference<T>::type>::value>::type
+	>
+	SPROUT_CONSTEXPR std::size_t hash_value(T&& v);
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]);
 
@@ -144,15 +149,17 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long long v) {
 		return sprout::hash_detail::hash_value_unsigned(v);
 	}
-	template<typename T>
-	SPROUT_CONSTEXPR std::size_t hash_value(T* v) {
+	template<
+		typename T,
+		typename sprout::enabler_if<std::is_pointer<typename std::remove_reference<T>::type>::value>::type = sprout::enabler
+	>
+	SPROUT_CONSTEXPR std::size_t hash_value(T&& v) {
 		return sprout::hash_detail::hash_value_pointer(v);
 	}
-	// !!!
-//	template<typename T, std::size_t N>
-//	SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]) {
-//		return sprout::hash_range(&v[0], &v[0] + N);
-//	}
+	template<typename T, std::size_t N>
+	SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]) {
+		return sprout::hash_range(&v[0], &v[0] + N);
+	}
 
 	//
 	// to_hash
@@ -161,10 +168,6 @@ namespace sprout {
 	SPROUT_CONSTEXPR std::size_t to_hash(T const& v) {
 		using sprout::hash_value;
 		return hash_value(v);
-	}
-	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR std::size_t to_hash(T const (&v)[N]) {
-		return sprout::hash_range(&v[0], &v[0] + N);
 	}
 
 	//
@@ -203,6 +206,18 @@ namespace sprout {
 			return sprout::to_hash(v);
 		}
 	};
+	template<typename T>
+	struct hash<T const>
+		: public sprout::hash<T>
+	{};
+	template<typename T>
+	struct hash<T volatile>
+		: public sprout::hash<T>
+	{};
+	template<typename T>
+	struct hash<T const volatile>
+		: public sprout::hash<T>
+	{};
 
 #define SPROUT_HASH_SPECIALIZE(type) \
 	template<> \
@@ -212,7 +227,7 @@ namespace sprout {
 		typedef std::size_t result_type; \
 	public: \
 		SPROUT_CONSTEXPR std::size_t operator()(type v) const { \
-			return sprout::hash_value(v); \
+			return sprout::to_hash(v); \
 		} \
 	}
 #define SPROUT_HASH_SPECIALIZE_REF(type) \
@@ -223,7 +238,7 @@ namespace sprout {
 		typedef std::size_t result_type; \
 	public: \
 		SPROUT_CONSTEXPR std::size_t operator()(type const& v) const { \
-			return sprout::hash_value(v); \
+			return sprout::to_hash(v); \
 		} \
 	}
 
@@ -247,23 +262,12 @@ namespace sprout {
 #undef SPROUT_HASH_SPECIALIZE_REF
 
 	template<typename T>
-	struct hash<T const> {
+	struct hash<T*> {
 	public:
-		typedef T argument_type;
+		typedef T* argument_type;
 		typedef std::size_t result_type;
 	public:
-		SPROUT_CONSTEXPR std::size_t operator()(T const& v) const {
-			using sprout::hash_value;
-			return hash_value(v);
-		}
-	};
-	template<typename T>
-	struct hash<T const*> {
-	public:
-		typedef T const* argument_type;
-		typedef std::size_t result_type;
-	public:
-		std::size_t operator()(T const* v) const {
+		std::size_t operator()(T* v) const {
 			return sprout::to_hash(v);
 		}
 	};
