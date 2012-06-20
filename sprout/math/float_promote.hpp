@@ -7,36 +7,31 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<bool IsArithmetic, typename Current, typename Head, typename... Tail>
-			struct float_promote_impl {};
-			template<typename Current, typename Head>
-			struct float_promote_impl<true, Current, Head>
+			template<typename T, typename U>
+			struct float_promote2
 				: public std::conditional<
-					(std::is_same<Current, long double>::value || std::is_same<Head, long double>::value),
-					long double,
-					double
-				>
-			{};
-			template<typename Current, typename Head, typename... Tail>
-			struct float_promote_impl<true, Current, Head, Tail...>
-				: public sprout::math::detail::float_promote_impl<
-					std::is_arithmetic<Head>::value,
+					(std::is_same<T, long double>::value || std::is_same<U, long double>::value),
+					std::common_type<long double>,
 					typename std::conditional<
-						(std::is_same<Current, long double>::value || std::is_same<Head, long double>::value),
-						long double,
+						(std::is_same<T, float>::value && std::is_same<U, float>::value),
+						float,
 						double
-					>::type,
+					>
+				>::type
+			{
+				static_assert(std::is_arithmetic<U>::value, "float_promote requires arithmetic type.");
+			};
+
+			template<typename Current, typename Head, typename... Tail>
+			struct float_promote_impl
+				: public sprout::math::detail::float_promote_impl<
+					typename sprout::math::detail::float_promote2<Current, Head>::type,
 					Tail...
 				>
 			{};
-
-			template<typename Head, typename... Tail>
-			struct float_promote
-				: public sprout::math::detail::float_promote_impl<
-					std::is_arithmetic<Head>::value,
-					double,
-					Head, Tail...
-				>
+			template<typename Current, typename Head>
+			struct float_promote_impl<Current, Head>
+				: public sprout::math::detail::float_promote2<Current, Head>
 			{};
 		}	// namespace detail
 
@@ -45,8 +40,8 @@ namespace sprout {
 		//
 		template<typename... Types>
 		struct float_promote
-			: public sprout::math::detail::float_promote<
-				typename std::remove_cv<Types>::type...
+			: public sprout::math::detail::float_promote_impl<
+				float, typename std::remove_cv<Types>::type...
 			>
 		{};
 	}	// namespace math
