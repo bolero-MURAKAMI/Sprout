@@ -12,6 +12,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/utility/move.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
@@ -286,6 +287,31 @@ namespace sprout {
 	struct is_array<sprout::array<T, N> >
 		: public std::true_type
 	{};
+
+	namespace tuples {
+		//
+		// get
+		//
+		template<std::size_t I, typename T, std::size_t N>
+		inline SPROUT_CONSTEXPR T&
+		get(sprout::array<T, N>& t) SPROUT_NOEXCEPT {
+			static_assert(I < N, "get: index out of range");
+			return t[I];
+		}
+		template<std::size_t I, typename T, std::size_t N>
+		inline SPROUT_CONSTEXPR T const&
+		get(sprout::array<T, N> const& t) SPROUT_NOEXCEPT {
+			static_assert(I < N, "get: index out of range");
+			return t[I];
+		}
+		template<std::size_t I, typename T, std::size_t N>
+		inline SPROUT_CONSTEXPR T&&
+		get(sprout::array<T, N>&& t) SPROUT_NOEXCEPT {
+			return sprout::move(sprout::tuples::get<I>(t));
+		}
+	}	// namespace tuples
+
+	using sprout::tuples::get;
 }	// namespace sprout
 
 namespace std {
@@ -307,7 +333,5 @@ namespace std {
 		typedef T type;
 	};
 }	// namespace std
-
-#include <sprout/tuple/array.hpp>
 
 #endif	// #ifndef SPROUT_ARRAY_HPP
