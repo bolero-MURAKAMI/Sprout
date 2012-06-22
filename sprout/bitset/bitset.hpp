@@ -15,42 +15,12 @@
 #include <sprout/algorithm/fixed/fill.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/bit/operation.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_NUMERIC_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
-	namespace detail {
-		template<typename T>
-		inline SPROUT_CONSTEXPR std::size_t
-		popcount(T n) {
-			return n == 0 ? 0
-				: 1 + sprout::detail::popcount(n & (n - 1))
-				;
-		}
-
-		template<typename T>
-		inline SPROUT_CONSTEXPR std::size_t
-		clz_impl(T n, T m = 1 << (CHAR_BIT * sizeof(T))) {
-			return m == 0 || n & m ? 0
-				: 1 + sprout::detail::clz_impl(n, m >> 1)
-				;
-		}
-		template<typename T>
-		inline SPROUT_CONSTEXPR std::size_t
-		clz(T n) {
-			return sprout::detail::clz_impl(n >> 1);
-		}
-
-		template<typename T>
-		inline SPROUT_CONSTEXPR std::size_t
-		ctz(T n) {
-			return n & 1 ? 0
-				: 1 + sprout::detail::ctz(n >> 1)
-				;
-		}
-	}	// namespace detail
-
 	namespace detail {
 		struct base_bitset_from_words_construct_tag {};
 
@@ -92,7 +62,7 @@ namespace sprout {
 			public:
 				SPROUT_CONSTEXPR std::size_t
 				operator()(std::size_t lhs, std::size_t rhs) const SPROUT_NOEXCEPT {
-					return lhs + sprout::detail::popcount(rhs);
+					return lhs + sprout::popcount(rhs);
 				}
 			};
 		public:
@@ -123,7 +93,7 @@ namespace sprout {
 			{
 				return first == last ? not_found
 					: *first != static_cast<word_type>(0)
-						? i * (CHAR_BIT * sizeof(unsigned long)) + sprout::detail::ctz(*first)
+						? i * (CHAR_BIT * sizeof(unsigned long)) + sprout::ctz(*first)
 					: find_first_impl(not_found, first + 1, last, i + 1)
 					;
 			}
@@ -135,14 +105,14 @@ namespace sprout {
 			{
 				return first == last ? not_found
 					: *first != static_cast<word_type>(0)
-						? i * (CHAR_BIT * sizeof(unsigned long)) + sprout::detail::ctz(*first)
+						? i * (CHAR_BIT * sizeof(unsigned long)) + sprout::ctz(*first)
 					: find_next_impl_2(not_found, first + 1, last)
 					;
 			}
 			SPROUT_CONSTEXPR std::size_t
 			find_next_impl_1(std::size_t not_found, std::size_t i, word_type thisword) const SPROUT_NOEXCEPT {
 				return thisword != static_cast<word_type>(0)
-					? i * (CHAR_BIT * sizeof(unsigned long)) + sprout::detail::ctz(thisword)
+					? i * (CHAR_BIT * sizeof(unsigned long)) + sprout::ctz(thisword)
 					: find_next_impl_2(not_found, begin() + (i + 1), end(), i + 1)
 					;
 			}
@@ -512,7 +482,7 @@ namespace sprout {
 		private:
 			SPROUT_CONSTEXPR std::size_t
 			find_next_impl(std::size_t prev, std::size_t not_found, word_type x) const SPROUT_NOEXCEPT {
-				return x != 0 ? sprout::detail::ctz(x) + prev
+				return x != 0 ? sprout::ctz(x) + prev
 					: not_found
 					;
 			}
@@ -641,7 +611,7 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR std::size_t
 			do_count() const SPROUT_NOEXCEPT {
-				return sprout::detail::popcount(w_);
+				return sprout::popcount(w_);
 			}
 
 			SPROUT_CONSTEXPR unsigned long
@@ -655,7 +625,7 @@ namespace sprout {
 
 			SPROUT_CONSTEXPR std::size_t
 			find_first(std::size_t not_found) const SPROUT_NOEXCEPT {
-				return w_ != 0 ? sprout::detail::ctz(w_)
+				return w_ != 0 ? sprout::ctz(w_)
 					: not_found
 					;
 			}
