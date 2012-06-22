@@ -259,28 +259,4 @@ namespace sprout {
 	using sprout::uuids::uuid;
 }	// namespace sprout
 
-namespace std {
-	//
-	// tuple_size
-	//
-	template<>
-	struct tuple_size<sprout::uuids::uuid> {
-	public:
-		typedef std::integral_constant<std::size_t, 16> type;
-		SPROUT_STATIC_CONSTEXPR std::size_t value = type::value;
-	};
-
-	//
-	// tuple_element
-	//
-	template<std::size_t I>
-	struct tuple_element<I, sprout::uuids::uuid> {
-	public:
-		static_assert(I < 16, "tuple_element<>: index out of range");
-		typedef sprout::uuids::uuid::value_type type;
-	};
-}	// namespace std
-
-#include <sprout/tuple/uuid.hpp>
-
 #endif	// #ifndef SPROUT_UUID_UUID_HPP

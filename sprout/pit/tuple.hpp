@@ -1,11 +1,11 @@
-#ifndef SPROUT_TUPLE_PIT_HPP
-#define SPROUT_TUPLE_PIT_HPP
+#ifndef SPROUT_PIT_TUPLE_HPP
+#define SPROUT_PIT_TUPLE_HPP
 
 #include <cstddef>
+#include <tuple>
 #include <type_traits>
-#include <sprout/config.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/utility/move.hpp>
-#include <sprout/pit.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -36,4 +36,22 @@ namespace sprout {
 	using sprout::tuples::get;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TUPLE_PIT_HPP
+namespace std {
+	//
+	// tuple_size
+	//
+	template<typename Container>
+	struct tuple_size<sprout::pit<Container> >
+		: public std::tuple_size<Container>
+	{};
+
+	//
+	// tuple_element
+	//
+	template<std::size_t I, typename Container>
+	struct tuple_element<I, sprout::pit<Container> >
+		: public std::tuple_element<I, Container>
+	{};
+}	// namespace std
+
+#endif	// #ifndef SPROUT_PIT_TUPLE_HPP

@@ -1,10 +1,9 @@
-#ifndef SPROUT_FUNCTIONAL_HASH_SUB_ARRAY_HPP
-#define SPROUT_FUNCTIONAL_HASH_SUB_ARRAY_HPP
+#ifndef SPROUT_SUB_ARRAY_HASH_HPP
+#define SPROUT_SUB_ARRAY_HASH_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/functional/hash/hash.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
 
 namespace sprout {
 	template<typename Container>
@@ -13,4 +12,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_HASH_SUB_ARRAY_HPP
+#endif	// #ifndef SPROUT_SUB_ARRAY_HASH_HPP

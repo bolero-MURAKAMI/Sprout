@@ -1,9 +1,10 @@
-#ifndef SPROUT_FUNCTIONAL_HASH_PIT_HPP
-#define SPROUT_FUNCTIONAL_HASH_PIT_HPP
+#ifndef SPROUT_PIT_HASH_HPP
+#define SPROUT_PIT_HASH_HPP
 
+#include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/functional/hash/hash.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 
 namespace sprout {
 	template<typename Container>
@@ -12,4 +13,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_HASH_PIT_HPP
+#endif	// #ifndef SPROUT_PIT_HASH_HPP

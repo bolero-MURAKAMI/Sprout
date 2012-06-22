@@ -35,9 +35,9 @@ namespace sprout {
 		typename T,
 		typename sprout::enabler_if<std::is_pointer<typename std::remove_reference<T>::type>::value>::type
 	>
-	SPROUT_CONSTEXPR std::size_t hash_value(T&& v);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(T&& v);
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]);
+	inline SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]);
 
 	namespace hash_detail {
 		template<typename T>
@@ -153,11 +153,11 @@ namespace sprout {
 		typename T,
 		typename sprout::enabler_if<std::is_pointer<typename std::remove_reference<T>::type>::value>::type = sprout::enabler
 	>
-	SPROUT_CONSTEXPR std::size_t hash_value(T&& v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(T&& v) {
 		return sprout::hash_detail::hash_value_pointer(v);
 	}
 	template<typename T, std::size_t N>
-	SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(T const (&v)[N]) {
 		return sprout::hash_range(&v[0], &v[0] + N);
 	}
 
@@ -165,7 +165,7 @@ namespace sprout {
 	// to_hash
 	//
 	template<typename T>
-	SPROUT_CONSTEXPR std::size_t to_hash(T const& v) {
+	inline SPROUT_CONSTEXPR std::size_t to_hash(T const& v) {
 		using sprout::hash_value;
 		return hash_value(v);
 	}
@@ -174,7 +174,7 @@ namespace sprout {
 	// hash_combine
 	//
 	template<typename T>
-	SPROUT_CONSTEXPR std::size_t hash_combine(std::size_t seed, T const& v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_combine(std::size_t seed, T const& v) {
 		return seed ^ (sprout::to_hash(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2));
 	}
 
@@ -182,11 +182,11 @@ namespace sprout {
 	// hash_range
 	//
 	template<typename Iterator>
-	SPROUT_CONSTEXPR std::size_t hash_range(Iterator first, Iterator last) {
+	inline SPROUT_CONSTEXPR std::size_t hash_range(Iterator first, Iterator last) {
 		return sprout::hash_range(0, first, last);
 	}
 	template<typename Iterator>
-	SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, Iterator first, Iterator last) {
+	inline SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, Iterator first, Iterator last) {
 		return first != last
 			? sprout::hash_range(sprout::hash_combine(seed, *first), sprout::next(first), last)
 			: seed

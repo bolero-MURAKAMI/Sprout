@@ -7,10 +7,6 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/string.hpp>
-//#include <sprout/operation/fixed/push_back.hpp>
-//#include <sprout/operation/fixed/push_front.hpp>
-//#include <sprout/operation/fixed/append_back.hpp>
-//#include <sprout/operation/fixed/append_front.hpp>
 
 namespace sprout {
 	namespace detail {
