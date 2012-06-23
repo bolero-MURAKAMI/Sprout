@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/unique_copy.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/detail/overlap_count.hpp>
+#include <sprout/detail/algorithm/overlap_count.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 

@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/set_union.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/detail/set_overlap_count.hpp>
+#include <sprout/detail/algorithm/set_overlap_count.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 

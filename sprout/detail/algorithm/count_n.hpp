@@ -1,5 +1,5 @@
-#ifndef SPROUT_DETAIL_COUNT_N_HPP
-#define SPROUT_DETAIL_COUNT_N_HPP
+#ifndef SPROUT_DETAIL_ALGORITHM_COUNT_N_HPP
+#define SPROUT_DETAIL_ALGORITHM_COUNT_N_HPP
 
 #include <iterator>
 #include <sprout/config.hpp>
@@ -24,4 +24,4 @@ namespace sprout {
 	}	// namespace detail
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_DETAIL_COUNT_N_HPP
+#endif	// #ifndef SPROUT_DETAIL_ALGORITHM_COUNT_N_HPP

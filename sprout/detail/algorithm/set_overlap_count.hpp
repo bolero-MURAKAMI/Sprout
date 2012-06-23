@@ -1,5 +1,5 @@
-#ifndef SPROUT_DETAIL_SET_OVERLAP_COUNT_HPP
-#define SPROUT_DETAIL_SET_OVERLAP_COUNT_HPP
+#ifndef SPROUT_DETAIL_ALGORITHM_SET_OVERLAP_COUNT_HPP
+#define SPROUT_DETAIL_ALGORITHM_SET_OVERLAP_COUNT_HPP
 
 #include <iterator>
 #include <sprout/config.hpp>
@@ -51,4 +51,4 @@ namespace sprout {
 	}	// namespace detail
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_DETAIL_SET_OVERLAP_COUNT_HPP
+#endif	// #ifndef SPROUT_DETAIL_ALGORITHM_SET_OVERLAP_COUNT_HPP

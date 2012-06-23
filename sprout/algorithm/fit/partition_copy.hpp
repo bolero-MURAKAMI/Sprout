@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/partition_copy.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/detail/count_n_if.hpp>
+#include <sprout/detail/algorithm/count_n_if.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 

@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/unique.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/detail/overlap_count.hpp>
+#include <sprout/detail/algorithm/overlap_count.hpp>
 
 namespace sprout {
 	namespace fit {

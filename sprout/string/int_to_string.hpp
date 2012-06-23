@@ -9,7 +9,7 @@
 #include <sprout/integer/integer_digits.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/detail/char_conversion.hpp>
-#include <sprout/detail/int.hpp>
+#include <sprout/detail/math/int.hpp>
 
 namespace sprout {
 	//

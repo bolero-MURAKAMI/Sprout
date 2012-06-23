@@ -269,7 +269,7 @@ namespace sprout {
 	// binder
 	//
 	template<typename Signature>
-	struct binder;
+	class binder;
 	template<typename Functor, typename... BoundArgs>
 	class binder<Functor(BoundArgs...)>
 		: public sprout::weak_result_type<Functor>
@@ -379,7 +379,7 @@ namespace sprout {
 	// bind_result
 	//
 	template<typename Result, typename Signature>
-	struct bind_result;
+	class bind_result;
 	template<typename Result, typename Functor, typename... BoundArgs>
 	class bind_result<Result, Functor(BoundArgs...)> {
 	private:
