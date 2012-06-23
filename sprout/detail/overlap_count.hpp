@@ -7,12 +7,12 @@
 
 namespace sprout {
 	namespace detail {
-		template<typename Iterator>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type overlap_count_impl(
-			Iterator first,
-			Iterator last,
-			typename std::iterator_traits<Iterator>::value_type const& value,
-			typename std::iterator_traits<Iterator>::difference_type current = 0
+		template<typename InputIterator>
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type overlap_count_impl(
+			InputIterator first,
+			InputIterator last,
+			typename std::iterator_traits<InputIterator>::value_type const& value,
+			typename std::iterator_traits<InputIterator>::difference_type current = 0
 			)
 		{
 			return first == last
@@ -25,10 +25,10 @@ namespace sprout {
 		//
 		// overlap_count
 		//
-		template<typename Iterator>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type overlap_count(
-			Iterator first,
-			Iterator last
+		template<typename InputIterator>
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type overlap_count(
+			InputIterator first,
+			InputIterator last
 			)
 		{
 			return first == last
@@ -37,12 +37,12 @@ namespace sprout {
 				;
 		}
 
-		template<typename Iterator, typename Predicate>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type overlap_count_impl(
-			Iterator first,
-			Iterator last,
+		template<typename InputIterator, typename Predicate>
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type overlap_count_impl(
+			InputIterator first,
+			InputIterator last,
 			Predicate pred,
-			typename std::iterator_traits<Iterator>::value_type const& value
+			typename std::iterator_traits<InputIterator>::value_type const& value
 			)
 		{
 			return first == last
@@ -55,10 +55,10 @@ namespace sprout {
 		//
 		// overlap_count
 		//
-		template<typename Iterator, typename Predicate>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<Iterator>::difference_type overlap_count(
-			Iterator first,
-			Iterator last,
+		template<typename InputIterator, typename Predicate>
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type overlap_count(
+			InputIterator first,
+			InputIterator last,
 			Predicate pred
 			)
 		{

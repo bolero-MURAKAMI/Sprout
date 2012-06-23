@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/set_intersection.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/detail/overlap_count_2.hpp>
+#include <sprout/detail/set_overlap_count.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -28,7 +28,7 @@ namespace sprout {
 					sprout::get_internal(sprout::fixed::set_intersection(first1, last1, first2, last2, result, comp)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
-						sprout::detail::overlap_count_2(first1, last1, first2, last2, comp),
+						sprout::detail::set_overlap_count(first1, last1, first2, last2, comp),
 						sprout::size(result)
 						)
 					);
@@ -65,7 +65,7 @@ namespace sprout {
 					sprout::get_internal(sprout::fixed::set_intersection(first1, last1, first2, last2, result)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
-						sprout::detail::overlap_count_2(first1, last1, first2, last2),
+						sprout::detail::set_overlap_count(first1, last1, first2, last2),
 						sprout::size(result)
 						)
 					);

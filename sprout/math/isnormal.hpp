@@ -4,12 +4,10 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/isinf.hpp>
 #include <sprout/math/issubnormal.hpp>
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-#	include <cmath>
-#endif
 
 namespace sprout {
 	namespace math {
@@ -27,11 +25,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-#	if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-		using std::isnormal;
-#	else
-		using sprout::math::detail::isnormal;
-#	endif
+		using NS_SPROUT_MATH_DETAIL::isnormal;
 	}	// namespace math
 
 	using sprout::math::isnormal;

@@ -4,9 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-#	include <cmath>
-#endif
+#include <sprout/math/detail/config.hpp>
 
 namespace sprout {
 	namespace math {
@@ -27,12 +25,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR FloatType
 		abs(FloatType x) {
-#		if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-			using std::abs;
-#		else
-			using sprout::math::detail::abs;
-#		endif
-			return abs(x);
+			return NS_SPROUT_MATH_DETAIL::abs(x);
 		}
 	}	// namespace math
 

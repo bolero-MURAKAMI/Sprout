@@ -7,7 +7,7 @@
 #include <sprout/algorithm/fixed/set_symmetric_difference.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/detail/overlap_count_2.hpp>
+#include <sprout/detail/set_overlap_count.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
@@ -31,7 +31,7 @@ namespace sprout {
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
 						NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1)
 							+ NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2)
-							- 2 * sprout::detail::overlap_count_2(first1, last1, first2, last2, comp)
+							- 2 * sprout::detail::set_overlap_count(first1, last1, first2, last2, comp)
 							,
 						sprout::size(result)
 						)
@@ -71,7 +71,7 @@ namespace sprout {
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
 						NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1)
 							+ NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2)
-							- 2 * sprout::detail::overlap_count_2(first1, last1, first2, last2)
+							- 2 * sprout::detail::set_overlap_count(first1, last1, first2, last2)
 							,
 						sprout::size(result)
 						)

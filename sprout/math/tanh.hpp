@@ -3,12 +3,10 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/math/detail/config.hpp>
 #include <sprout/math/sinh.hpp>
 #include <sprout/math/cosh.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-#	include <cmath>
-#endif
 
 namespace sprout {
 	namespace math {
@@ -32,11 +30,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-#	if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-		using std::tanh;
-#	else
-		using sprout::math::detail::tanh;
-#	endif
+		using NS_SPROUT_MATH_DETAIL::tanh;
 	}	// namespace math
 
 	using sprout::math::tanh;

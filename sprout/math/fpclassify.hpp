@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/isinf.hpp>
 #include <sprout/math/iszero.hpp>
@@ -28,11 +29,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-#	if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-		using std::fpclassify;
-#	else
-		using sprout::math::detail::fpclassify;
-#	endif
+		using NS_SPROUT_MATH_DETAIL::fpclassify;
 	}	// namespace math
 
 	using sprout::math::fpclassify;

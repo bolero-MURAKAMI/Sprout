@@ -4,11 +4,9 @@
 #include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/math/detail/config.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-#	include <cmath>
-#endif
 
 namespace sprout {
 	namespace math {
@@ -51,11 +49,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-#	if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-		using std::exp;
-#	else
-		using sprout::math::detail::exp;
-#	endif
+		using NS_SPROUT_MATH_DETAIL::exp;
 	}	// namespace math
 
 	using sprout::math::exp;

@@ -3,12 +3,10 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/math/detail/config.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-#	include <cmath>
-#endif
 
 namespace sprout {
 	namespace math {
@@ -32,11 +30,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-#	if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-		using std::log2;
-#	else
-		using sprout::math::detail::log2;
-#	endif
+		using NS_SPROUT_MATH_DETAIL::log2;
 	}	// namespace math
 
 	using sprout::math::log2;
