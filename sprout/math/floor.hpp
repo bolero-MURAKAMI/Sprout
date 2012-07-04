@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isinf.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -15,8 +16,7 @@ namespace sprout {
 			template<typename FloatType>
 			inline SPROUT_CONSTEXPR FloatType
 			floor_impl(FloatType x, FloatType x0) {
-				return x0 - x < std::numeric_limits<FloatType>::epsilon()
-					? x0
+				return x0 - x < std::numeric_limits<FloatType>::epsilon() ? x0
 					: x0 - 1
 					;
 			}
@@ -26,11 +26,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			floor(FloatType x) {
-				return std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
-					? throw std::domain_error("floor: Sorry, not implemented.")
-					: x < 0
-						? sprout::math::detail::floor_impl(x, -static_cast<FloatType>(static_cast<std::uintmax_t>(-x)))
-						: static_cast<FloatType>(static_cast<std::uintmax_t>(x))
+				return sprout::math::isinf(x) ? x
+					: std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
+						? throw std::domain_error("floor: Sorry, not implemented.")
+					: x < 0 ? sprout::math::detail::floor_impl(x, -static_cast<FloatType>(static_cast<std::uintmax_t>(-x)))
+					: static_cast<FloatType>(static_cast<std::uintmax_t>(x))
 					;
 			}
 

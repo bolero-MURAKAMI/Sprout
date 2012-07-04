@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isinf.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -18,11 +19,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			trunc(FloatType x) {
-				return std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
-					? throw std::domain_error("trunc: Sorry, not implemented.")
-					: x < 0
-						? -static_cast<FloatType>(static_cast<std::uintmax_t>(-x))
-						: static_cast<FloatType>(static_cast<std::uintmax_t>(x))
+				return sprout::math::isinf(x) ? x
+					: std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
+						? throw std::domain_error("trunc: Sorry, not implemented.")
+					: x < 0 ? -static_cast<FloatType>(static_cast<std::uintmax_t>(-x))
+					: static_cast<FloatType>(static_cast<std::uintmax_t>(x))
 					;
 			}
 
