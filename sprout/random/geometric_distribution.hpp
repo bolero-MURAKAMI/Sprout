@@ -1,12 +1,12 @@
 #ifndef SPROUT_RANDOM_GEOMETRIC_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_GEOMETRIC_DISTRIBUTION_HPP
 
-#include <cmath>
 #include <ios>
 #include <limits>
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/log.hpp>
+#include <sprout/math/floor.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
 
@@ -98,7 +98,7 @@ namespace sprout {
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> generate_1(Random const& rnd) const {
 				using sprout::log;
-				using std::floor;
+				using sprout::floor;
 				return sprout::random::random_result<Engine, geometric_distribution>(
 					static_cast<IntType>(floor(log(RealType(1) - rnd.result()) / log_1mp_)),
 					rnd.engine(),

@@ -8,5 +8,6 @@
 #include <sprout/math/exponential.hpp>
 #include <sprout/math/power.hpp>
 #include <sprout/math/operations.hpp>
+#include <sprout/math/nearest.hpp>
 
 #endif	// #ifndef SPROUT_CMATH_HPP

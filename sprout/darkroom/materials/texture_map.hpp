@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <cmath>
 #include <sprout/config.hpp>
+#include <sprout/math/floor.hpp>
 #include <sprout/utility/value_holder.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 
@@ -121,7 +121,7 @@ namespace sprout {
 				}
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type calc_bilinear(Unit const& x, Unit const& y) const {
-					using std::floor;
+					using sprout::floor;
 					return calc_bilinear_1(x, floor(x - 0.5), floor(x + 0.5), y, floor(y - 0.5), floor(y + 0.5));
 				}
 				template<typename Unit>

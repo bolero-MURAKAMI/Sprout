@@ -1,7 +1,6 @@
 #ifndef SPROUT_RANDOM_BINOMIAL_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_BINOMIAL_DISTRIBUTION_HPP
 
-#include <cmath>
 #include <iosfwd>
 #include <istream>
 #include <stdexcept>
@@ -12,6 +11,7 @@
 #include <sprout/math/log.hpp>
 #include <sprout/math/pow.hpp>
 #include <sprout/math/sqrt.hpp>
+#include <sprout/math/floor.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
 
@@ -307,7 +307,7 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> generate_4(Engine const& eng, RealType v, RealType u, RealType us) const {
-				using std::floor;
+				using sprout::floor;
 				return generate_5(eng, v, u, us, static_cast<IntType>(floor((2 * btrd_.a / us + btrd_.b) * u + btrd_.c)));
 			}
 			template<typename Engine>
@@ -332,7 +332,7 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> generate_1_1(Engine const& eng, RealType u) const {
-				using std::floor;
+				using sprout::floor;
 				using sprout::abs;
 				return sprout::random::random_result<Engine, binomial_distribution>(
 					static_cast<IntType>(floor((2 * btrd_.a / (RealType(0.5) - abs(u)) + btrd_.b) * u + btrd_.c)),

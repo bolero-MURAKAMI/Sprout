@@ -1,9 +1,11 @@
 #ifndef SPROUT_DETAIL_FLOAT_HPP
 #define SPROUT_DETAIL_FLOAT_HPP
 
-#include <cmath>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/math/abs.hpp>
+#include <sprout/math/floor.hpp>
+#include <sprout/math/round.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -89,7 +91,7 @@ namespace sprout {
 		template<typename FloatType, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
 		inline SPROUT_CONSTEXPR int
 		float_digit_of_impl(FloatType val) {
-			using std::floor;
+			using sprout::floor;
 			return static_cast<int>((val - floor(val)) * 10);
 		}
 		template<typename FloatType>
@@ -104,7 +106,7 @@ namespace sprout {
 		template<typename FloatType, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
 		inline SPROUT_CONSTEXPR FloatType
 		float_round_impl(FloatType val, FloatType p10) {
-			using std::round;
+			using sprout::round;
 			return round(val * p10) / p10;
 		}
 		template<typename FloatType>

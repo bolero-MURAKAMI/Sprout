@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <cstdlib>
 #include <limits>
-#include <cmath>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
