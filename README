@@ -132,6 +132,10 @@ https://github.com/sscrisk/CEL---ConstExpr-Library
 このマクロが定義されているとき、数学関数の実装にビルトイン関数を使用しない。
 　(When this macro is defined, does not use the built-in function to the implementation of mathematical functions.)
 
+#define SPROUT_CONFIG_DISABLE_BUILTIN_BIT_OPERATION
+このマクロが定義されているとき、ビット処理の実装にビルトイン関数を使用しない。
+　(When this macro is defined, does not use the built-in function to the implementation of bit operations.)
+
 #define SPROUT_CONFIG_DISABLE_SUPPORT_TEMPORARY_CONTAINER_ITERATION
 このマクロが定義されているとき、アルゴリズムへのコンテナの一時オブジェクト渡しをサポートしない。
 　(When this macro is defined, does not support passing a temporary object of the container to the algorithm.)

@@ -21,7 +21,7 @@
 #	define SPROUT_NO_DELEGATING_CONSTRUCTORS
 #endif
 
-#if ((__GNUC__ >= 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__))
+#if (__has_feature(cxx_constexpr) && (__GNUC__ >= 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__))
 #	define SPROUT_HAS_CONSTEXPR_CMATH_FUNCTION
 #endif
 
