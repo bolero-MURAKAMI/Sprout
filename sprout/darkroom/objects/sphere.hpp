@@ -251,7 +251,7 @@ namespace sprout {
 					: pos_(pos)
 					, rad_(rad)
 					, mat_(mat)
-				{};
+				{}
 				template<typename Ray>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect(Ray const& ray) const {
 					return intersect_1(
