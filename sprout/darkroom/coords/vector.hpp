@@ -63,8 +63,7 @@ namespace sprout {
 			template<typename Vector>
 			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Vector>::type
 			length(Vector const& vec) {
-				using sprout::sqrt;
-				return sqrt(sprout::darkroom::coords::length_sq(vec));
+				return sprout::sqrt(sprout::darkroom::coords::length_sq(vec));
 			}
 			//
 			// add

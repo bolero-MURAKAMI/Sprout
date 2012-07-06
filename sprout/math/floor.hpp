@@ -8,6 +8,7 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isinf.hpp>
+#include <sprout/math/equal_to.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -16,7 +17,7 @@ namespace sprout {
 			template<typename FloatType>
 			inline SPROUT_CONSTEXPR FloatType
 			floor_impl(FloatType x, FloatType x0) {
-				return x0 - x < std::numeric_limits<FloatType>::epsilon() ? x0
+				return sprout::math::equal_to(x, x0) ? x0
 					: x0 - 1
 					;
 			}

@@ -51,14 +51,11 @@ namespace sprout {
 					unit_type const& v
 					) const
 				{
-					using sprout::sqrt;
-					using sprout::sin;
-					using sprout::cos;
 					return transform_1(
 						c,
-						u * cos(rotate_) - v * sin(rotate_),
-						u * sin(rotate_) + v * cos(rotate_),
-						sqrt(
+						u * sprout::cos(rotate_) - v * sprout::sin(rotate_),
+						u * sprout::sin(rotate_) + v * sprout::cos(rotate_),
+						sprout::sqrt(
 							sprout::darkroom::coords::x(c) * sprout::darkroom::coords::x(c)
 								+ sprout::darkroom::coords::z(c) * sprout::darkroom::coords::z(c)
 							)

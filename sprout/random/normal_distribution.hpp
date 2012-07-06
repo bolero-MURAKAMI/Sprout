@@ -124,13 +124,11 @@ namespace sprout {
 			{}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate_2(Engine const& eng, RealType r1, RealType r2, RealType cached_rho, bool valid) const {
-				using sprout::sin;
-				using sprout::cos;
 				return sprout::random::random_result<Engine, normal_distribution>(
 					cached_rho
 						* (valid
-							? cos(result_type(2) * sprout::math::pi<result_type>() * r1)
-							: sin(result_type(2) * sprout::math::pi<result_type>() * r1)
+							? sprout::cos(result_type(2) * sprout::math::pi<result_type>() * r1)
+							: sprout::sin(result_type(2) * sprout::math::pi<result_type>() * r1)
 							)
 						* sigma_ + mean_,
 					eng,
@@ -147,9 +145,7 @@ namespace sprout {
 			}
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate_1_1(RealType r1, Random const& rnd) const {
-				using sprout::sqrt;
-				using sprout::log;
-				return generate_2(rnd.engine(), r1, rnd.result(), sqrt(-result_type(2) * log(result_type(1) - rnd.result())), true);
+				return generate_2(rnd.engine(), r1, rnd.result(), sprout::sqrt(-result_type(2) * sprout::log(result_type(1) - rnd.result())), true);
 			}
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate_1(Random const& rnd) const {

@@ -121,8 +121,10 @@ namespace sprout {
 				}
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type calc_bilinear(Unit const& x, Unit const& y) const {
-					using sprout::floor;
-					return calc_bilinear_1(x, floor(x - 0.5), floor(x + 0.5), y, floor(y - 0.5), floor(y + 0.5));
+					return calc_bilinear_1(
+						x, sprout::floor(x - 0.5), sprout::floor(x + 0.5),
+						y, sprout::floor(y - 0.5), sprout::floor(y + 0.5)
+						);
 				}
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type calc(Unit const& x, Unit const& y) const {

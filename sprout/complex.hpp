@@ -290,13 +290,11 @@ namespace sprout {
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR T abs(sprout::complex<T> const& x) {
-		using sprout::sqrt;
-		return sqrt(sprout::norm(x));
+		return sprout::sqrt(sprout::norm(x));
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR T arg(sprout::complex<T> const& x) {
-		using sprout::atan2;
-		return atan2(x.imag(), x.real());
+		return sprout::atan2(x.imag(), x.real());
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR T norm(sprout::complex<T> const& x) {
@@ -324,9 +322,7 @@ namespace sprout {
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> polar(T const& rho, T const& theta = 0) {
-		using sprout::cos;
-		using sprout::sin;
-		return sprout::complex<T>(rho * cos(theta), rho * sin(theta));
+		return sprout::complex<T>(rho * sprout::cos(theta), rho * sprout::sin(theta));
 	}
 	// 26.4.8, transcendentals:
 	template<typename T>
@@ -397,11 +393,9 @@ namespace sprout {
 			T const& den
 			)
 		{
-			using sprout::atan2;
-			using sprout::log;
 			return sprout::complex<T>(
-				T(0.5) * atan2(T(2) * x.real(), z),
-				T(0.25) * log((r2 + num * num) / (r2 + den * den))
+				T(0.5) * sprout::atan2(T(2) * x.real(), z),
+				T(0.25) * sprout::log((r2 + num * num) / (r2 + den * den))
 				);
 		}
 		template<typename T>
@@ -449,11 +443,9 @@ namespace sprout {
 			T const& den
 			)
 		{
-			using sprout::atan2;
-			using sprout::log;
 			return sprout::complex<T>(
-				T(0.25) * (log(i2 + num * num) - log(i2 + den * den)),
-				T(0.5) * atan2(T(2) * x.imag(), z)
+				T(0.25) * (sprout::log(i2 + num * num) - sprout::log(i2 + den * den)),
+				T(0.5) * sprout::atan2(T(2) * x.imag(), z)
 				);
 		}
 		template<typename T>
@@ -477,30 +469,21 @@ namespace sprout {
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> cos(sprout::complex<T> const& x) {
-		using sprout::cos;
-		using sprout::sin;
-		using sprout::cosh;
-		using sprout::sinh;
 		return sprout::complex<T>(
-			cos(x.real()) * cosh(x.imag()),
-			-(sin(x.real()) * sinh(x.imag()))
+			sprout::cos(x.real()) * sprout::cosh(x.imag()),
+			-(sprout::sin(x.real()) * sprout::sinh(x.imag()))
 			);
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> cosh(sprout::complex<T> const& x) {
-		using sprout::cos;
-		using sprout::sin;
-		using sprout::cosh;
-		using sprout::sinh;
 		return sprout::complex<T>(
-			cosh(x.real()) * cos(x.imag()),
-			sinh(x.real()) * sin(x.imag())
+			sprout::cosh(x.real()) * sprout::cos(x.imag()),
+			sprout::sinh(x.real()) * sprout::sin(x.imag())
 			);
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> exp(sprout::complex<T> const& x) {
-		using sprout::exp;
-		return sprout::polar(exp(x.real()), x.imag());
+		return sprout::polar(sprout::exp(x.real()), x.imag());
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> log(sprout::complex<T> const& x) {
@@ -508,21 +491,18 @@ namespace sprout {
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> log10(sprout::complex<T> const& x) {
-		using sprout::log;
-		return sprout::log(x) / log(T(10));
+		return sprout::log(x) / sprout::log(T(10));
 	}
 	namespace detail {
 		template<typename T>
 		SPROUT_CONSTEXPR sprout::complex<T> pow_impl(sprout::complex<T> const& t, T const& y) {
-			using sprout::exp;
-			return sprout::polar(exp(y * t.real()), y * t.imag());
+			return sprout::polar(sprout::exp(y * t.real()), y * t.imag());
 		}
 	}	// namespace detail
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> pow(sprout::complex<T> const& x, T const& y) {
-		using sprout::pow;
 		return x == T() ? T()
-			: x.imag() == T() && x.real() > T() ? pow(x.real(), y)
+			: x.imag() == T() && x.real() > T() ? sprout::pow(x.real(), y)
 			: sprout::detail::pow_impl(sprout::log(x), y)
 			;
 	}
@@ -534,31 +514,22 @@ namespace sprout {
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> pow(T const& x, sprout::complex<T> const& y) {
-		using sprout::log;
-		return x > T() ? sprout::polar(sprout::pow(x, y.real()), y.imag() * log(x))
+		return x > T() ? sprout::polar(sprout::pow(x, y.real()), y.imag() * sprout::log(x))
 			: sprout::pow(sprout::complex<T>(x), y)
 			;
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> sin(sprout::complex<T> const& x) {
-		using sprout::cos;
-		using sprout::sin;
-		using sprout::cosh;
-		using sprout::sinh;
 		return sprout::complex<T>(
-			sin(x.real()) * cosh(x.imag()),
-			cos(x.real()) * sinh(x.imag())
+			sprout::sin(x.real()) * sprout::cosh(x.imag()),
+			sprout::cos(x.real()) * sprout::sinh(x.imag())
 			);
 	}
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> sinh(sprout::complex<T> const& x) {
-		using sprout::cos;
-		using sprout::sin;
-		using sprout::cosh;
-		using sprout::sinh;
 		return sprout::complex<T>(
-			sinh(x.real()) * cos(x.imag()),
-			cosh(x.real()) * sin(x.imag())
+			sprout::sinh(x.real()) * sprout::cos(x.imag()),
+			sprout::cosh(x.real()) * sprout::sin(x.imag())
 			);
 	}
 	namespace detail {
@@ -568,9 +539,8 @@ namespace sprout {
 		}
 		template<typename T>
 		SPROUT_CONSTEXPR sprout::complex<T> sqrt_impl_2_1(sprout::complex<T> const& x, T const& t, T const& u) {
-			using sprout::abs;
 			return x.real() > T() ? sprout::complex<T>(u, x.imag() / t)
-				: sprout::complex<T>(abs(x.imag()) / t, x.imag() < T() ? -u : u)
+				: sprout::complex<T>(sprout::abs(x.imag()) / t, x.imag() < T() ? -u : u)
 				;
 		}
 		template<typename T>
@@ -580,10 +550,8 @@ namespace sprout {
 	}	// namespace detail
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> sqrt(sprout::complex<T> const& x) {
-		using sprout::sqrt;
-		using sprout::abs;
-		return x.real() == T() ? sprout::detail::sqrt_impl_1(x, sqrt(abs(x.imag()) / 2))
-			: sprout::detail::sqrt_impl_2(x, sqrt(2 * (sprout::abs(x) + abs(x.real()))))
+		return x.real() == T() ? sprout::detail::sqrt_impl_1(x, sprout::sqrt(abs(x.imag()) / 2))
+			: sprout::detail::sqrt_impl_2(x, sprout::sqrt(2 * (sprout::abs(x) + sprout::abs(x.real()))))
 			;
 	}
 	template<typename T>

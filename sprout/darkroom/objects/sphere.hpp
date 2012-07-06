@@ -143,8 +143,6 @@ namespace sprout {
 					Vec const& normal
 					) const
 				{
-					using sprout::atan2;
-					using sprout::sqrt;
 					return typename intersection<Ray>::type(
 						sprout::tuples::get<zw::does_intersect>(zwo),
 						sprout::tuples::get<zw::distance>(zwo),
@@ -152,15 +150,15 @@ namespace sprout {
 						sprout::tuples::get<dr::normal>(drei),
 						sprout::darkroom::materials::calc_material(	// ! Spherical
 							mat_,
-							atan2(
+							sprout::atan2(
 								sprout::darkroom::coords::z(normal),
 								sprout::darkroom::coords::x(normal)
 								)
 								/ sprout::math::pi<unit_type>()
 								,
-							atan2(
+							sprout::atan2(
 								sprout::darkroom::coords::y(normal),
-								sqrt(
+								sprout::sqrt(
 									sprout::darkroom::coords::x(normal) * sprout::darkroom::coords::x(normal)
 										+ sprout::darkroom::coords::z(normal) * sprout::darkroom::coords::z(normal)
 									)
@@ -206,14 +204,13 @@ namespace sprout {
 					unit_type const& det_sq
 					) const
 				{
-					using sprout::sqrt;
 					return intersect_4(
 						ray,
 						zweitens(
 							ray,
 							det_sq > 0,
 							b,
-							sqrt(det_sq)
+							sprout::sqrt(det_sq)
 							)
 						);
 				}
