@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
-#include <sprout/math/float_promote.hpp>
+#include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -29,11 +29,11 @@ namespace sprout {
 						&& std::is_arithmetic<ArithmeticType3>::value
 				>::type = sprout::enabler
 			>
-			inline SPROUT_CONSTEXPR typename sprout::math::float_promote<
+			inline SPROUT_CONSTEXPR typename sprout::float_promote<
 				ArithmeticType1, ArithmeticType2, ArithmeticType3
 			>::type
 			fma(ArithmeticType1 x, ArithmeticType2 y, ArithmeticType3 z) {
-				typedef typename sprout::math::float_promote<
+				typedef typename sprout::float_promote<
 					ArithmeticType1, ArithmeticType2, ArithmeticType3
 				>::type type;
 				return sprout::math::detail::fma(static_cast<type>(x), static_cast<type>(y), static_cast<type>(z));

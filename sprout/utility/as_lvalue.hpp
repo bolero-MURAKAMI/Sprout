@@ -8,11 +8,13 @@ namespace sprout {
 	// as_lvalue
 	//
 	template<typename T>
-	inline T& as_lvalue(T& t) {
+	inline SPROUT_CONSTEXPR T&
+	as_lvalue(T& t) {
 		return t;
 	}
 	template<typename T>
-	inline SPROUT_CONSTEXPR T const& as_lvalue(T const& t) {
+	inline SPROUT_CONSTEXPR T const&
+	as_lvalue(T const& t) {
 		return t;
 	}
 }	// namespace sprout

@@ -6,7 +6,7 @@
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/atan.hpp>
 #include <sprout/math/constants.hpp>
-#include <sprout/math/float_promote.hpp>
+#include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -31,9 +31,9 @@ namespace sprout {
 					std::is_arithmetic<ArithmeticType1>::value && std::is_arithmetic<ArithmeticType2>::value
 				>::type = sprout::enabler
 			>
-			inline SPROUT_CONSTEXPR typename sprout::math::float_promote<ArithmeticType1, ArithmeticType2>::type
+			inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type
 			atan2(ArithmeticType1 y, ArithmeticType2 x) {
-				typedef typename sprout::math::float_promote<ArithmeticType1, ArithmeticType2>::type type;
+				typedef typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type type;
 				return sprout::math::detail::atan2(static_cast<type>(y), static_cast<type>(x));
 			}
 		}	// namespace detail

@@ -4,42 +4,73 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/not_equal_to.hpp>
-#include <sprout/math/float_promote.hpp>
+#include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
 			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+				typename FloatType1, typename FloatType2,
+				typename sprout::enabler_if<
+					std::is_floating_point<typename sprout::arithmetic_promote<FloatType1, FloatType2>::type>::value
+				>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR bool
-			greater(FloatType x, FloatType y) {
+			greater(FloatType1 x, FloatType2 y) {
 				return sprout::math::not_equal_to(x, y) && x > y;
 			}
 
 			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+				typename IntType1, typename IntType2,
+				typename sprout::enabler_if<
+					std::is_integral<typename sprout::arithmetic_promote<IntType1, IntType2>::type>::value
+					&& (std::is_unsigned<IntType1>::value == std::is_unsigned<IntType2>::value)
+				>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR bool
-			greater(IntType x, IntType y) {
+			greater(IntType1 x, IntType2 y) {
 				return x > y;
+			}
+			template<
+				typename IntType1, typename IntType2,
+				typename sprout::enabler_if<
+					std::is_integral<typename sprout::arithmetic_promote<IntType1, IntType2>::type>::value
+					&& std::is_signed<IntType1>::value && std::is_unsigned<IntType2>::value
+				>::type = sprout::enabler
+			>
+			inline SPROUT_CONSTEXPR bool
+			greater(IntType1 x, IntType2 y) {
+				typedef typename std::make_unsigned<typename sprout::arithmetic_promote<IntType1, IntType2>::type>::type type;
+				return x < 0 ? false
+					: static_cast<type>(x) > static_cast<type>(y)
+					;
+			}
+			template<
+				typename IntType1, typename IntType2,
+				typename sprout::enabler_if<
+					std::is_integral<typename sprout::arithmetic_promote<IntType1, IntType2>::type>::value
+					&& std::is_unsigned<IntType1>::value && std::is_signed<IntType2>::value
+				>::type = sprout::enabler
+			>
+			inline SPROUT_CONSTEXPR bool
+			greater(IntType1 x, IntType2 y) {
+				typedef typename std::make_unsigned<typename sprout::arithmetic_promote<IntType1, IntType2>::type>::type type;
+				return y < 0 ? true
+					: static_cast<type>(x) > static_cast<type>(y)
+					;
 			}
 		}	// namespace detail
 		//
 		// greater
 		//
 		template<
-			typename T1,
-			typename T2,
-			typename sprout::enabler_if<std::is_arithmetic<T1>::value && std::is_arithmetic<T2>::value>::type = sprout::enabler
+			typename T, typename U,
+			typename sprout::enabler_if<std::is_arithmetic<T>::value && std::is_arithmetic<U>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR bool
-		greater(T1 x, T2 y) {
-			typedef typename sprout::math::float_promote<T1, T2>::type promoted;
-			return sprout::math::detail::greater<promoted>(x, y);
+		greater(T x, U y) {
+			return sprout::math::detail::greater(x, y);
 		}
 	}	// namespace math
 }	// namespace sprout

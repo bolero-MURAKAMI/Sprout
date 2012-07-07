@@ -12,12 +12,11 @@ namespace sprout {
 		// not_equal_to
 		//
 		template<
-			typename T1,
-			typename T2,
-			typename sprout::enabler_if<std::is_arithmetic<T1>::value && std::is_arithmetic<T2>::value>::type = sprout::enabler
+			typename T, typename U,
+			typename sprout::enabler_if<std::is_arithmetic<T>::value && std::is_arithmetic<U>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR bool
-		not_equal_to(T1 x, T2 y) {
+		not_equal_to(T x, U y) {
 			return !sprout::math::equal_to(x, y);
 		}
 	}	// namespace math

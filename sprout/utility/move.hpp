@@ -9,7 +9,8 @@ namespace sprout {
 	// move
 	//
 	template<typename T>
-	inline SPROUT_CONSTEXPR typename std::remove_reference<T>::type&& move(T&& x) SPROUT_NOEXCEPT {
+	inline SPROUT_CONSTEXPR typename std::remove_reference<T>::type&&
+	move(T&& x) SPROUT_NOEXCEPT {
 		return static_cast<typename std::remove_reference<T>::type&&>(x);
 	}
 
@@ -21,7 +22,8 @@ namespace sprout {
 		!std::is_nothrow_move_constructible<T>::value && std::is_copy_constructible<T>::value,
 		T const&,
 		T&&
-	>::type move_if_noexcept(T& x) SPROUT_NOEXCEPT {
+	>::type
+	move_if_noexcept(T& x) SPROUT_NOEXCEPT {
 		return sprout::move(x);
 	}
 }	// namespace sprout
