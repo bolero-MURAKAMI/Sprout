@@ -15,6 +15,10 @@
 #include <sprout/math/log.hpp>
 #include <sprout/math/pow.hpp>
 #include <sprout/math/sqrt.hpp>
+#include <sprout/math/ceil.hpp>
+#include <sprout/math/floor.hpp>
+#include <sprout/math/trunc.hpp>
+#include <sprout/math/round.hpp>
 
 namespace sprout {
 	template<typename T>
@@ -545,7 +549,7 @@ namespace sprout {
 		}
 		template<typename T>
 		SPROUT_CONSTEXPR sprout::complex<T> sqrt_impl_2(sprout::complex<T> const& x, T const& t) {
-			return sqrt_impl_2(x, t, t / 2);
+			return sprout::detail::sqrt_impl_2_1(x, t, t / 2);
 		}
 	}	// namespace detail
 	template<typename T>
@@ -561,6 +565,23 @@ namespace sprout {
 	template<typename T>
 	SPROUT_CONSTEXPR sprout::complex<T> tanh(sprout::complex<T> const& x) {
 		return sprout::sinh(x) / sprout::cosh(x);
+	}
+
+	template<typename T>
+	SPROUT_CONSTEXPR sprout::complex<T> ceil(sprout::complex<T> const& x) {
+		return sprout::complex<T>(sprout::ceil(x.real()), sprout::ceil(x.imag()));
+	}
+	template<typename T>
+	SPROUT_CONSTEXPR sprout::complex<T> floor(sprout::complex<T> const& x) {
+		return sprout::complex<T>(sprout::floor(x.real()), sprout::floor(x.imag()));
+	}
+	template<typename T>
+	SPROUT_CONSTEXPR sprout::complex<T> trunc(sprout::complex<T> const& x) {
+		return sprout::complex<T>(sprout::trunc(x.real()), sprout::trunc(x.imag()));
+	}
+	template<typename T>
+	SPROUT_CONSTEXPR sprout::complex<T> round(sprout::complex<T> const& x) {
+		return sprout::complex<T>(sprout::round(x.real()), sprout::round(x.imag()));
 	}
 }	// namespace sprout
 
