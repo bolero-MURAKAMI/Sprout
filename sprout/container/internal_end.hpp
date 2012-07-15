@@ -22,7 +22,7 @@ namespace sprout {
 		return sprout::end(sprout::get_internal(cont));
 	}
 	template<typename Container>
-	SPROUT_CONSTEXPR typename sprout::container_traits<
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<
 		typename std::remove_reference<
 			typename sprout::containers::internal<Container const&>::type
 		>::type
@@ -34,7 +34,7 @@ namespace sprout {
 	// internal_cend
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR typename sprout::container_traits<
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<
 		typename std::remove_reference<
 			typename sprout::containers::internal<Container const&>::type
 		>::type

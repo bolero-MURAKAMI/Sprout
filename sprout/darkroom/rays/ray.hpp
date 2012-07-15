@@ -15,17 +15,15 @@ namespace sprout {
 			// direction
 			//
 			template<typename T>
-			SPROUT_CONSTEXPR auto position(
-				T&& t
-				) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<0>(sprout::forward<T>(t))))
+			inline SPROUT_CONSTEXPR auto position(T&& t)
+				SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<0>(sprout::forward<T>(t))))
 				-> decltype(sprout::darkroom::access::get<0>(sprout::forward<T>(t)))
 			{
 				return sprout::darkroom::access::get<0>(sprout::forward<T>(t));
 			}
 			template<typename T>
-			SPROUT_CONSTEXPR auto direction(
-				T&& t
-				) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<1>(sprout::forward<T>(t))))
+			inline SPROUT_CONSTEXPR auto direction(T&& t)
+				SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<1>(sprout::forward<T>(t))))
 				-> decltype(sprout::darkroom::access::get<1>(sprout::forward<T>(t)))
 			{
 				return sprout::darkroom::access::get<1>(sprout::forward<T>(t));
@@ -35,7 +33,7 @@ namespace sprout {
 			// make_ray
 			//
 			template<typename Position, typename Direction>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<Position, Direction>
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<Position, Direction>
 			make_ray(Position const& pos, Direction const& dir) {
 				return sprout::tuples::make_tuple(pos, dir);
 			}

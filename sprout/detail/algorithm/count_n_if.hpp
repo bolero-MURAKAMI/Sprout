@@ -11,7 +11,7 @@ namespace sprout {
 		// count_n_if
 		//
 		template<typename InputIterator, typename Size, typename Predicate>
-		SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type count_n_if(
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type count_n_if(
 			InputIterator first,
 			Size n,
 			Predicate pred

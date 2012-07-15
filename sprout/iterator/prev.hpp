@@ -9,7 +9,7 @@
 namespace sprout {
 	namespace detail {
 		template<typename RandomAccessIterator>
-		SPROUT_CONSTEXPR typename std::enable_if<
+		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_literal_type<typename std::decay<RandomAccessIterator>::type>::value,
 			typename std::decay<RandomAccessIterator>::type
 		>::type prev_impl(
@@ -20,7 +20,7 @@ namespace sprout {
 			return sprout::forward<RandomAccessIterator>(it) - 1;
 		}
 		template<typename BidirectionalIterator>
-		SPROUT_CONSTEXPR typename std::decay<BidirectionalIterator>::type prev_impl(
+		inline SPROUT_CONSTEXPR typename std::decay<BidirectionalIterator>::type prev_impl(
 			BidirectionalIterator&& it,
 			void*
 			)
@@ -29,7 +29,7 @@ namespace sprout {
 		}
 
 		template<typename RandomAccessIterator>
-		SPROUT_CONSTEXPR typename std::enable_if<
+		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_literal_type<typename std::decay<RandomAccessIterator>::type>::value,
 			typename std::decay<RandomAccessIterator>::type
 		>::type prev_impl(
@@ -41,7 +41,7 @@ namespace sprout {
 			return sprout::forward<RandomAccessIterator>(it) - n;
 		}
 		template<typename BidirectionalIterator>
-		SPROUT_CONSTEXPR typename std::decay<BidirectionalIterator>::type prev_impl(
+		inline SPROUT_CONSTEXPR typename std::decay<BidirectionalIterator>::type prev_impl(
 			BidirectionalIterator it,
 			typename std::iterator_traits<typename std::decay<BidirectionalIterator>::type>::difference_type n,
 			void*
@@ -54,7 +54,8 @@ namespace sprout {
 	// prev
 	//
 	template<typename BidirectionalIterator>
-	SPROUT_CONSTEXPR typename std::decay<BidirectionalIterator>::type prev(BidirectionalIterator&& it) {
+	inline SPROUT_CONSTEXPR typename std::decay<BidirectionalIterator>::type
+	prev(BidirectionalIterator&& it) {
 		typedef typename std::iterator_traits<typename std::decay<BidirectionalIterator>::type>::iterator_category* category;
 		return sprout::detail::prev_impl(
 			sprout::forward<BidirectionalIterator>(it),
@@ -62,11 +63,8 @@ namespace sprout {
 			);
 	}
 	template<typename BidirectionalIterator>
-	SPROUT_CONSTEXPR typename std::decay<BidirectionalIterator>::type prev(
-		BidirectionalIterator&& it,
-		typename std::iterator_traits<typename std::decay<BidirectionalIterator>::type>::difference_type n
-		)
-	{
+	inline SPROUT_CONSTEXPR typename std::decay<BidirectionalIterator>::type
+	prev(BidirectionalIterator&& it, typename std::iterator_traits<typename std::decay<BidirectionalIterator>::type>::difference_type n) {
 		typedef typename std::iterator_traits<typename std::decay<BidirectionalIterator>::type>::iterator_category* category;
 		return sprout::detail::prev_impl(
 			sprout::forward<BidirectionalIterator>(it),

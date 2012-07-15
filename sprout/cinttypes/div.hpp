@@ -32,7 +32,7 @@ namespace sprout {
 				sprout::detail::div_t_traits2<T>::offsetof_quot == 0
 			>::type = sprout::enabler
 		>
-		SPROUT_CONSTEXPR typename sprout::detail::div_t_traits2<T>::type div_impl2(T const& numer, T const& denom) {
+		inline SPROUT_CONSTEXPR typename sprout::detail::div_t_traits2<T>::type div_impl2(T const& numer, T const& denom) {
 			return {numer / denom, numer % denom};
 		}
 
@@ -42,7 +42,7 @@ namespace sprout {
 				sprout::detail::div_t_traits2<T>::offsetof_rem == 0
 			>::type = sprout::enabler
 		>
-		SPROUT_CONSTEXPR typename sprout::detail::div_t_traits2<T>::type div_impl2(T const &numer, T const& denom) {
+		inline SPROUT_CONSTEXPR typename sprout::detail::div_t_traits2<T>::type div_impl2(T const &numer, T const& denom) {
 			return {numer % denom, numer / denom};
 		}
 	}	// namespace detail
@@ -55,7 +55,7 @@ namespace sprout {
 		typename T,
 		typename sprout::enabler_if<std::is_same<T, std::intmax_t>::value>::type = sprout::enabler
 	>
-	SPROUT_CONSTEXPR std::imaxdiv_t div(T numer, T denom) {
+	inline SPROUT_CONSTEXPR std::imaxdiv_t div(T numer, T denom) {
 		return sprout::imaxdiv(numer, denom);
 	}
 }	// namespace sprout

@@ -171,7 +171,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	void swap(sprout::index_iterator<Container>& lhs, sprout::index_iterator<Container>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void swap(sprout::index_iterator<Container>& lhs, sprout::index_iterator<Container>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
 		lhs.swap(rhs);
 	}
 
@@ -199,14 +199,14 @@ namespace sprout {
 	// next
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR sprout::index_iterator<Container> next(
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> next(
 		sprout::index_iterator<Container> const& it
 		)
 	{
 		return it.next();
 	}
 	template<typename Container>
-	SPROUT_CONSTEXPR sprout::index_iterator<Container> next(
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> next(
 		sprout::index_iterator<Container> const& it,
 		typename sprout::index_iterator<Container>::difference_type n
 		)
@@ -218,14 +218,14 @@ namespace sprout {
 	// prev
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR sprout::index_iterator<Container> prev(
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> prev(
 		sprout::index_iterator<Container> const& it
 		)
 	{
 		return it.prev();
 	}
 	template<typename Container>
-	SPROUT_CONSTEXPR sprout::index_iterator<Container> prev(
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> prev(
 		sprout::index_iterator<Container> const& it,
 		typename sprout::index_iterator<Container>::difference_type n
 		)
@@ -237,7 +237,7 @@ namespace sprout {
 	// distance
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::index_iterator<Container> >::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::index_iterator<Container> >::difference_type
 	distance(
 		sprout::index_iterator<Container> first,
 		sprout::index_iterator<Container> last

@@ -184,7 +184,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Incrementable>
-	void swap(sprout::counting_iterator<Incrementable>& lhs, sprout::counting_iterator<Incrementable>& rhs)
+	inline void swap(sprout::counting_iterator<Incrementable>& lhs, sprout::counting_iterator<Incrementable>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
@@ -194,14 +194,14 @@ namespace sprout {
 	// next
 	//
 	template<typename Incrementable>
-	SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> next(
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> next(
 		sprout::counting_iterator<Incrementable> const& it
 		)
 	{
 		return it.next();
 	}
 	template<typename Incrementable>
-	SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> next(
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> next(
 		sprout::counting_iterator<Incrementable> const& it,
 		typename sprout::counting_iterator<Incrementable>::difference_type n
 		)
@@ -213,14 +213,14 @@ namespace sprout {
 	// prev
 	//
 	template<typename Incrementable>
-	SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> prev(
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> prev(
 		sprout::counting_iterator<Incrementable> const& it
 		)
 	{
 		return it.prev();
 	}
 	template<typename Incrementable>
-	SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> prev(
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> prev(
 		sprout::counting_iterator<Incrementable> const& it,
 		typename sprout::counting_iterator<Incrementable>::difference_type n
 		)
@@ -232,7 +232,7 @@ namespace sprout {
 	// distance
 	//
 	template<typename Incrementable>
-	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::counting_iterator<Incrementable> >::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::counting_iterator<Incrementable> >::difference_type
 	distance(
 		sprout::counting_iterator<Incrementable> first,
 		sprout::counting_iterator<Incrementable> last

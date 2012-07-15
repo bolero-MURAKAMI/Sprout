@@ -54,7 +54,7 @@ namespace sprout {
 	// shrink
 	//
 	template<typename T, std::size_t N, typename Traits>
-	SPROUT_CONSTEXPR sprout::shrink_string<T, N, Traits>
+	inline SPROUT_CONSTEXPR sprout::shrink_string<T, N, Traits>
 	shrink(sprout::basic_string<T, N, Traits> const& s) {
 		return sprout::shrink_string<T, N, Traits>(s);
 	}

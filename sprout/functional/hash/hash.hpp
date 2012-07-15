@@ -41,7 +41,7 @@ namespace sprout {
 
 	namespace hash_detail {
 		template<typename T>
-		SPROUT_CONSTEXPR std::size_t hash_value_signed_2(T val, int length, std::size_t seed, T positive, std::size_t i) {
+		inline SPROUT_CONSTEXPR std::size_t hash_value_signed_2(T val, int length, std::size_t seed, T positive, std::size_t i) {
 			return i > 0
 				? hash_value_signed_2(
 					val,
@@ -54,11 +54,11 @@ namespace sprout {
 				;
 		}
 		template<typename T>
-		SPROUT_CONSTEXPR std::size_t hash_value_signed_1(T val, int length, std::size_t seed, T positive) {
+		inline SPROUT_CONSTEXPR std::size_t hash_value_signed_1(T val, int length, std::size_t seed, T positive) {
 			return hash_value_signed_2(val, length, seed, positive, length * std::numeric_limits<std::size_t>::digits);
 		}
 		template<typename T>
-		SPROUT_CONSTEXPR std::size_t hash_value_signed(T val) {
+		inline SPROUT_CONSTEXPR std::size_t hash_value_signed(T val) {
 			return sprout::hash_detail::hash_value_signed_1(
 				val,
 				(std::numeric_limits<T>::digits - 1) / std::numeric_limits<std::size_t>::digits,
@@ -68,7 +68,7 @@ namespace sprout {
 		}
 
 		template<typename T>
-		SPROUT_CONSTEXPR std::size_t hash_value_unsigned_2(T val, int length, std::size_t seed, std::size_t i) {
+		inline SPROUT_CONSTEXPR std::size_t hash_value_unsigned_2(T val, int length, std::size_t seed, std::size_t i) {
 			return i > 0
 				? hash_value_unsigned_2(
 					val,
@@ -80,11 +80,11 @@ namespace sprout {
 				;
 		}
 		template<typename T>
-		SPROUT_CONSTEXPR std::size_t hash_value_unsigned_1(T val, int length, std::size_t seed) {
+		inline SPROUT_CONSTEXPR std::size_t hash_value_unsigned_1(T val, int length, std::size_t seed) {
 			return hash_value_unsigned_2(val, length, seed, length * std::numeric_limits<std::size_t>::digits);
 		}
 		template<typename T>
-		SPROUT_CONSTEXPR std::size_t hash_value_unsigned(T val) {
+		inline SPROUT_CONSTEXPR std::size_t hash_value_unsigned(T val) {
 			return sprout::hash_detail::hash_value_unsigned_1(
 				val,
 				(std::numeric_limits<T>::digits - 1) / std::numeric_limits<std::size_t>::digits,

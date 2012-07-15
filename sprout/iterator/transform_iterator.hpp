@@ -277,7 +277,7 @@ namespace sprout {
 		typename UnaryOrBinaryFunction1, typename LIterator1, typename RIterator1,
 		typename UnaryOrBinaryFunction2, typename LIterator2, typename RIterator2
 	>
-	SPROUT_CONSTEXPR bool operator==(
+	inline SPROUT_CONSTEXPR bool operator==(
 		sprout::transform_iterator<UnaryOrBinaryFunction1, LIterator1, RIterator1> const& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction2, LIterator2, RIterator2> const& rhs
 		)
@@ -288,7 +288,7 @@ namespace sprout {
 		typename UnaryOrBinaryFunction1, typename LIterator1, typename RIterator1,
 		typename UnaryOrBinaryFunction2, typename LIterator2, typename RIterator2
 	>
-	SPROUT_CONSTEXPR bool operator!=(
+	inline SPROUT_CONSTEXPR bool operator!=(
 		sprout::transform_iterator<UnaryOrBinaryFunction1, LIterator1, RIterator1> const& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction2, LIterator2, RIterator2> const& rhs
 		)
@@ -299,7 +299,7 @@ namespace sprout {
 		typename UnaryOrBinaryFunction1, typename LIterator1, typename RIterator1,
 		typename UnaryOrBinaryFunction2, typename LIterator2, typename RIterator2
 	>
-	SPROUT_CONSTEXPR bool operator<(
+	inline SPROUT_CONSTEXPR bool operator<(
 		sprout::transform_iterator<UnaryOrBinaryFunction1, LIterator1, RIterator1> const& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction2, LIterator2, RIterator2> const& rhs
 		)
@@ -310,7 +310,7 @@ namespace sprout {
 		typename UnaryOrBinaryFunction1, typename LIterator1, typename RIterator1,
 		typename UnaryOrBinaryFunction2, typename LIterator2, typename RIterator2
 	>
-	SPROUT_CONSTEXPR bool operator>(
+	inline SPROUT_CONSTEXPR bool operator>(
 		sprout::transform_iterator<UnaryOrBinaryFunction1, LIterator1, RIterator1> const& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction2, LIterator2, RIterator2> const& rhs
 		)
@@ -321,7 +321,7 @@ namespace sprout {
 		typename UnaryOrBinaryFunction1, typename LIterator1, typename RIterator1,
 		typename UnaryOrBinaryFunction2, typename LIterator2, typename RIterator2
 	>
-	SPROUT_CONSTEXPR bool operator<=(
+	inline SPROUT_CONSTEXPR bool operator<=(
 		sprout::transform_iterator<UnaryOrBinaryFunction1, LIterator1, RIterator1> const& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction2, LIterator2, RIterator2> const& rhs
 		)
@@ -332,7 +332,7 @@ namespace sprout {
 		typename UnaryOrBinaryFunction1, typename LIterator1, typename RIterator1,
 		typename UnaryOrBinaryFunction2, typename LIterator2, typename RIterator2
 	>
-	SPROUT_CONSTEXPR bool operator>=(
+	inline SPROUT_CONSTEXPR bool operator>=(
 		sprout::transform_iterator<UnaryOrBinaryFunction1, LIterator1, RIterator1> const& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction2, LIterator2, RIterator2> const& rhs
 		)
@@ -343,7 +343,7 @@ namespace sprout {
 		typename UnaryOrBinaryFunction1, typename LIterator1, typename RIterator1,
 		typename UnaryOrBinaryFunction2, typename LIterator2, typename RIterator2
 	>
-	SPROUT_CONSTEXPR decltype(std::declval<LIterator1>() - std::declval<LIterator2>()) operator-(
+	inline SPROUT_CONSTEXPR decltype(std::declval<LIterator1>() - std::declval<LIterator2>()) operator-(
 		sprout::transform_iterator<UnaryOrBinaryFunction1, LIterator1, RIterator1> const& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction2, LIterator2, RIterator2> const& rhs
 		)
@@ -351,7 +351,7 @@ namespace sprout {
 		return lhs.base() - rhs.base();
 	}
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> operator+(
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> operator+(
 		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n,
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
 		)
@@ -363,12 +363,12 @@ namespace sprout {
 	// make_transform_iterator
 	//
 	template<typename BinaryFunction, typename LIterator, typename RIterator>
-	SPROUT_CONSTEXPR sprout::transform_iterator<BinaryFunction, LIterator, RIterator>
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<BinaryFunction, LIterator, RIterator>
 	make_transform_iterator(LIterator it1, RIterator it2, BinaryFunction func) {
 		return sprout::transform_iterator<BinaryFunction, LIterator, RIterator>(it1, it2, func);
 	}
 	template<typename UnaryFunction, typename Iterator>
-	SPROUT_CONSTEXPR sprout::transform_iterator<UnaryFunction, Iterator>
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryFunction, Iterator>
 	make_transform_iterator(Iterator it, UnaryFunction func) {
 		return sprout::transform_iterator<UnaryFunction, Iterator>(it, func);
 	}
@@ -390,14 +390,14 @@ namespace sprout {
 	// next
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> next(
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> next(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
 		)
 	{
 		return it.next();
 	}
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> next(
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> next(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
 		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
 		)
@@ -409,14 +409,14 @@ namespace sprout {
 	// prev
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> prev(
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> prev(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
 		)
 	{
 		return it.prev();
 	}
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> prev(
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> prev(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
 		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
 		)
@@ -428,7 +428,7 @@ namespace sprout {
 	// distance
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> >::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> >::difference_type
 	distance(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> first,
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> last

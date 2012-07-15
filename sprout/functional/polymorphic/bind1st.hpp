@@ -29,7 +29,7 @@ namespace sprout {
 		}
 	};
 	template<typename Fn, typename T>
-	SPROUT_CONSTEXPR sprout::binder1st_<typename std::decay<Fn>::type, typename std::decay<T>::type>
+	inline SPROUT_CONSTEXPR sprout::binder1st_<typename std::decay<Fn>::type, typename std::decay<T>::type>
 	bind1st_(Fn&& fn, T&& x) {
 		typedef sprout::binder1st_<typename std::decay<Fn>::type, typename std::decay<T>::type> type;
 		return type(sprout::forward<Fn>(fn), sprout::forward<T>(x));

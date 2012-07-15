@@ -63,7 +63,7 @@ namespace sprout {
 	// bit_reverse_in
 	//
 	template <typename IntType>
-	SPROUT_CONSTEXPR typename std::enable_if<
+	inline SPROUT_CONSTEXPR typename std::enable_if<
 		std::is_integral<IntType>::value,
 		IntType
 	>::type bit_reverse_in(IntType x, std::size_t length) {

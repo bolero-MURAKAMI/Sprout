@@ -12,7 +12,8 @@ namespace sprout {
 	// internal_begin_offset
 	//
 	template<typename Container>
-	SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type internal_begin_offset(Container const& cont) {
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
+	internal_begin_offset(Container const& cont) {
 		return NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::begin(cont));
 	}
 }	// namespace sprout

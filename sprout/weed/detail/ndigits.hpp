@@ -14,7 +14,7 @@ namespace sprout {
 	namespace weed {
 		namespace detail {
 			template<std::size_t Radix, typename IntType, typename Elem>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_ndigit(
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_ndigit(
 				Elem c,
 				typename std::enable_if<Radix == 10>::type* = 0
 				)
@@ -22,7 +22,7 @@ namespace sprout {
 				return sprout::weed::detail::from_digit<IntType>(c);
 			}
 			template<std::size_t Radix, typename IntType, typename Elem>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_ndigit(
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_ndigit(
 				Elem c,
 				typename std::enable_if<Radix == 2>::type* = 0
 				)
@@ -30,7 +30,7 @@ namespace sprout {
 				return sprout::weed::detail::from_bdigit<IntType>(c);
 			}
 			template<std::size_t Radix, typename IntType, typename Elem>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_ndigit(
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_ndigit(
 				Elem c,
 				typename std::enable_if<Radix == 8>::type* = 0
 				)
@@ -38,7 +38,7 @@ namespace sprout {
 				return sprout::weed::detail::from_odigit<IntType>(c);
 			}
 			template<std::size_t Radix, typename IntType, typename Elem>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_ndigit(
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_ndigit(
 				Elem c,
 				typename std::enable_if<Radix == 16>::type* = 0
 				)

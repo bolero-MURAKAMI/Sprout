@@ -34,9 +34,8 @@ namespace sprout {
 			// get
 			//
 			template<std::size_t I, typename T>
-			SPROUT_CONSTEXPR auto get(
-				T&& t
-				) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::get<I>(sprout::forward<T>(t))))
+			inline SPROUT_CONSTEXPR auto get(T&& t)
+				SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::get<I>(sprout::forward<T>(t))))
 				-> decltype(sprout::tuples::get<I>(sprout::forward<T>(t)))
 			{
 				return sprout::tuples::get<I>(sprout::forward<T>(t));

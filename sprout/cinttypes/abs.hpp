@@ -7,7 +7,7 @@
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
-	SPROUT_CONSTEXPR std::intmax_t imaxabs(std::intmax_t j) {
+	inline SPROUT_CONSTEXPR std::intmax_t imaxabs(std::intmax_t j) {
 		return j < 0 ? -j : j;
 	}
 }	// namespace sprout

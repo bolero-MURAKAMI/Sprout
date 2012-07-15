@@ -26,7 +26,7 @@ namespace sprout {
 
 	// D.9.4 bind2nd
 	template<typename Fn, typename T>
-	SPROUT_CONSTEXPR sprout::binder2nd<Fn> bind2nd(Fn const& op, T const& x) {
+	inline SPROUT_CONSTEXPR sprout::binder2nd<Fn> bind2nd(Fn const& op, T const& x) {
 		return sprout::binder2nd<Fn>(op, typename Fn::second_argument_type(x));
 	}
 }	// namespace sprout

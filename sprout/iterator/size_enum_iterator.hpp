@@ -266,7 +266,7 @@ namespace sprout {
 		typename Iterator1, bool Separated1,
 		typename Iterator2, bool Separated2
 	>
-	SPROUT_CONSTEXPR bool operator==(
+	inline SPROUT_CONSTEXPR bool operator==(
 		sprout::size_enum_iterator<Iterator1, Separated1> const& lhs,
 		sprout::size_enum_iterator<Iterator2, Separated2> const& rhs
 		)
@@ -277,7 +277,7 @@ namespace sprout {
 		typename Iterator1, bool Separated1,
 		typename Iterator2, bool Separated2
 	>
-	SPROUT_CONSTEXPR bool operator!=(
+	inline SPROUT_CONSTEXPR bool operator!=(
 		sprout::size_enum_iterator<Iterator1, Separated1> const& lhs,
 		sprout::size_enum_iterator<Iterator2, Separated2> const& rhs
 		)
@@ -288,7 +288,7 @@ namespace sprout {
 		typename Iterator1, bool Separated1,
 		typename Iterator2, bool Separated2
 	>
-	SPROUT_CONSTEXPR bool operator<(
+	inline SPROUT_CONSTEXPR bool operator<(
 		sprout::size_enum_iterator<Iterator1, Separated1> const& lhs,
 		sprout::size_enum_iterator<Iterator2, Separated2> const& rhs
 		)
@@ -301,7 +301,7 @@ namespace sprout {
 		typename Iterator1, bool Separated1,
 		typename Iterator2, bool Separated2
 	>
-	SPROUT_CONSTEXPR bool operator>(
+	inline SPROUT_CONSTEXPR bool operator>(
 		sprout::size_enum_iterator<Iterator1, Separated1> const& lhs,
 		sprout::size_enum_iterator<Iterator2, Separated2> const& rhs
 		)
@@ -312,7 +312,7 @@ namespace sprout {
 		typename Iterator1, bool Separated1,
 		typename Iterator2, bool Separated2
 	>
-	SPROUT_CONSTEXPR bool operator<=(
+	inline SPROUT_CONSTEXPR bool operator<=(
 		sprout::size_enum_iterator<Iterator1, Separated1> const& lhs,
 		sprout::size_enum_iterator<Iterator2, Separated2> const& rhs
 		)
@@ -323,7 +323,7 @@ namespace sprout {
 		typename Iterator1, bool Separated1,
 		typename Iterator2, bool Separated2
 	>
-	SPROUT_CONSTEXPR bool operator>=(
+	inline SPROUT_CONSTEXPR bool operator>=(
 		sprout::size_enum_iterator<Iterator1, Separated1> const& lhs,
 		sprout::size_enum_iterator<Iterator2, Separated2> const& rhs
 		)
@@ -331,7 +331,7 @@ namespace sprout {
 		return !(lhs < rhs);
 	}
 	template<typename Iterator1, typename Iterator2>
-	SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>()) operator-(
+	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>()) operator-(
 		sprout::size_enum_iterator<Iterator1> const& lhs,
 		sprout::size_enum_iterator<Iterator2> const& rhs
 		)
@@ -339,7 +339,7 @@ namespace sprout {
 		return lhs.base() - rhs.base();
 	}
 	template<typename Iterator1, typename Iterator2>
-	SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>()) operator-(
+	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>()) operator-(
 		sprout::size_enum_iterator<Iterator1, true> const& lhs,
 		sprout::size_enum_iterator<Iterator2, true> const& rhs
 		)
@@ -352,7 +352,7 @@ namespace sprout {
 		;
 	}
 	template<typename Iterator, bool Separated>
-	SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> operator+(
+	inline SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> operator+(
 		typename sprout::size_enum_iterator<Iterator, Separated>::difference_type n,
 		sprout::size_enum_iterator<Iterator, Separated> const& it
 		)
@@ -364,12 +364,12 @@ namespace sprout {
 	// make_size_enum_iterator
 	//
 	template<typename Iterator>
-	SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator>
+	inline SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator>
 	make_size_enum_iterator(Iterator it) {
 		return sprout::size_enum_iterator<Iterator>(it);
 	}
 	template<typename Iterator>
-	SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, true>
+	inline SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, true>
 	make_size_enum_iterator(
 		Iterator it,
 		typename sprout::size_enum_iterator<Iterator, true>::value_type sep_size,
@@ -396,14 +396,14 @@ namespace sprout {
 	// next
 	//
 	template<typename Iterator, bool Separated>
-	SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> next(
+	inline SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> next(
 		sprout::size_enum_iterator<Iterator, Separated> const& it
 		)
 	{
 		return it.next();
 	}
 	template<typename Iterator, bool Separated>
-	SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> next(
+	inline SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> next(
 		sprout::size_enum_iterator<Iterator, Separated> const& it,
 		typename sprout::size_enum_iterator<Iterator, Separated>::difference_type n
 		)
@@ -415,14 +415,14 @@ namespace sprout {
 	// prev
 	//
 	template<typename Iterator, bool Separated>
-	SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> prev(
+	inline SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> prev(
 		sprout::size_enum_iterator<Iterator, Separated> const& it
 		)
 	{
 		return it.prev();
 	}
 	template<typename Iterator, bool Separated>
-	SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> prev(
+	inline SPROUT_CONSTEXPR sprout::size_enum_iterator<Iterator, Separated> prev(
 		sprout::size_enum_iterator<Iterator, Separated> const& it,
 		typename sprout::size_enum_iterator<Iterator, Separated>::difference_type n
 		)
@@ -434,7 +434,7 @@ namespace sprout {
 	// distance
 	//
 	template<typename Iterator, bool Separated>
-	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::size_enum_iterator<Iterator, Separated> >::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::size_enum_iterator<Iterator, Separated> >::difference_type
 	distance(
 		sprout::size_enum_iterator<Iterator, Separated> first,
 		sprout::size_enum_iterator<Iterator, Separated> last

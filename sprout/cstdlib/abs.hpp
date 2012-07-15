@@ -9,23 +9,23 @@ namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
 	// 7.20.6.1  absÅClabsÅCãyÇ— llabs ä÷êî
-	SPROUT_CONSTEXPR int abs(int j) {
+	inline SPROUT_CONSTEXPR int abs(int j) {
 		return j < 0 ? -j : j;
 	}
 
-	SPROUT_CONSTEXPR long labs(long j) {
+	inline SPROUT_CONSTEXPR long labs(long j) {
 		return j < 0 ? -j : j;
 	}
 
-	SPROUT_CONSTEXPR long long llabs(long long j) {
+	inline SPROUT_CONSTEXPR long long llabs(long long j) {
 		return j < 0 ? -j : j;
 	}
 
-	SPROUT_CONSTEXPR long abs(long j) {
+	inline SPROUT_CONSTEXPR long abs(long j) {
 		return sprout::labs(j);
 	}
 
-	SPROUT_CONSTEXPR long long abs(long long j) {
+	inline SPROUT_CONSTEXPR long long abs(long long j) {
 		return sprout::llabs(j);
 	}
 
@@ -36,7 +36,7 @@ namespace sprout {
 				std::is_integral<IntType>::value && std::is_signed<IntType>::value
 			>::type = sprout::enabler
 		>
-		SPROUT_CONSTEXPR IntType abs(IntType j) {
+		inline SPROUT_CONSTEXPR IntType abs(IntType j) {
 			return j < 0 ? -j : j;
 		}
 		template<
@@ -45,7 +45,7 @@ namespace sprout {
 				std::is_integral<IntType>::value && std::is_unsigned<IntType>::value
 			>::type = sprout::enabler
 		>
-		SPROUT_CONSTEXPR IntType abs(IntType j) {
+		inline SPROUT_CONSTEXPR IntType abs(IntType j) {
 			return j;
 		}
 	}	// anonymous-namespace

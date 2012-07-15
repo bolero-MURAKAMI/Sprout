@@ -757,7 +757,7 @@ namespace sprout {
 		// factorial_limit
 		//
 		template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
-		SPROUT_CONSTEXPR std::size_t factorial_limit() {
+		inline SPROUT_CONSTEXPR std::size_t factorial_limit() {
 			typedef typename std::remove_cv<T>::type type;
 			return sprout::math::detail::factorials<type>::limit;
 		}
@@ -765,7 +765,7 @@ namespace sprout {
 		// factorial
 		//
 		template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
-		SPROUT_CONSTEXPR T factorial(std::size_t x) {
+		inline SPROUT_CONSTEXPR T factorial(std::size_t x) {
 			typedef typename std::remove_cv<T>::type type;
 			return x <= sprout::math::factorial_limit<type>()
 				? sprout::math::detail::factorials<type>::table[x]

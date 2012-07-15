@@ -160,7 +160,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T>
-	void swap(sprout::value_iterator<T>& lhs, sprout::value_iterator<T>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void swap(sprout::value_iterator<T>& lhs, sprout::value_iterator<T>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
 		lhs.swap(rhs);
 	}
 
@@ -168,14 +168,14 @@ namespace sprout {
 	// next
 	//
 	template<typename T>
-	SPROUT_CONSTEXPR sprout::value_iterator<T> next(
+	inline SPROUT_CONSTEXPR sprout::value_iterator<T> next(
 		sprout::value_iterator<T> const& it
 		)
 	{
 		return it.next();
 	}
 	template<typename T>
-	SPROUT_CONSTEXPR sprout::value_iterator<T> next(
+	inline SPROUT_CONSTEXPR sprout::value_iterator<T> next(
 		sprout::value_iterator<T> const& it,
 		typename sprout::value_iterator<T>::difference_type n
 		)
@@ -187,14 +187,14 @@ namespace sprout {
 	// prev
 	//
 	template<typename T>
-	SPROUT_CONSTEXPR sprout::value_iterator<T> prev(
+	inline SPROUT_CONSTEXPR sprout::value_iterator<T> prev(
 		sprout::value_iterator<T> const& it
 		)
 	{
 		return it.prev();
 	}
 	template<typename T>
-	SPROUT_CONSTEXPR sprout::value_iterator<T> prev(
+	inline SPROUT_CONSTEXPR sprout::value_iterator<T> prev(
 		sprout::value_iterator<T> const& it,
 		typename sprout::value_iterator<T>::difference_type n
 		)
@@ -206,7 +206,7 @@ namespace sprout {
 	// distance
 	//
 	template<typename T>
-	SPROUT_CONSTEXPR typename std::iterator_traits<sprout::value_iterator<T> >::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::value_iterator<T> >::difference_type
 	distance(sprout::value_iterator<T> first, sprout::value_iterator<T> last) {
 		return last - first;
 	}

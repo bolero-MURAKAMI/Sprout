@@ -501,7 +501,7 @@ namespace sprout {
 		// get
 		//
 		template<std::size_t I, typename T>
-		SPROUT_CONSTEXPR auto
+		inline SPROUT_CONSTEXPR auto
 		get(T&& t) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::get<I>(sprout::forward<T>(t))))
 			-> decltype(std::get<I>(sprout::forward<T>(t)))
 		{
@@ -512,30 +512,30 @@ namespace sprout {
 		//
 		namespace detail {
 			template<std::size_t I, typename Head, typename... Tail>
-			SPROUT_CONSTEXPR typename std::add_lvalue_reference<Head>::type
+			inline SPROUT_CONSTEXPR typename std::add_lvalue_reference<Head>::type
 			get_helper(sprout::tuples::detail::tuple_impl<I, Head, Tail...>& t) SPROUT_NOEXCEPT {
 				return sprout::tuples::detail::tuple_impl<I, Head, Tail...>::head(t);
 			}
 			template<std::size_t I, typename Head, typename... Tail>
-			SPROUT_CONSTEXPR typename std::add_lvalue_reference<typename std::add_const<Head>::type>::type
+			inline SPROUT_CONSTEXPR typename std::add_lvalue_reference<typename std::add_const<Head>::type>::type
 			get_helper(sprout::tuples::detail::tuple_impl<I, Head, Tail...> const& t) SPROUT_NOEXCEPT {
 				return sprout::tuples::detail::tuple_impl<I, Head, Tail...>::head(t);
 			}
 		}	// namespace detail
 		template<std::size_t I, typename... Types>
-		SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&
 		get(sprout::tuples::tuple<Types...>& t) SPROUT_NOEXCEPT {
 			return sprout::tuples::detail::get_helper<I>(t);
 		}
 		template<std::size_t I, typename... Types>
-		SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&&
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&&
 		get(sprout::tuples::tuple<Types...>&& t) SPROUT_NOEXCEPT {
 			return sprout::forward<typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&&>(
 				sprout::tuples::get<I>(t)
 				);
 		}
 		template<std::size_t I, typename... Types>
-		SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const&
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const&
 		get(sprout::tuples::tuple<Types...> const& t) SPROUT_NOEXCEPT {
 			return sprout::tuples::detail::get_helper<I>(t);
 		}

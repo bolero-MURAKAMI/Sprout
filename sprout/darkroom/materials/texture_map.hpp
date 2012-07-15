@@ -162,12 +162,12 @@ namespace sprout {
 			// make_texture_map
 			//
 			template<typename Texture>
-			SPROUT_CONSTEXPR sprout::darkroom::materials::texture_map<Texture>
+			inline SPROUT_CONSTEXPR sprout::darkroom::materials::texture_map<Texture>
 			make_texture_map(Texture const& texture) {
 				return sprout::darkroom::materials::texture_map<Texture>(texture);
 			}
 			template<typename Texture, typename Unit>
-			SPROUT_CONSTEXPR sprout::darkroom::materials::texture_map<Texture, Unit>
+			inline SPROUT_CONSTEXPR sprout::darkroom::materials::texture_map<Texture, Unit>
 			make_texture_map(
 				Texture const& texture,
 				Unit const& scale,

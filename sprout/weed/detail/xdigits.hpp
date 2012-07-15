@@ -82,7 +82,7 @@ namespace sprout {
 #		undef SPROUT_WEED_XDIGITS_TABLE_DEF
 
 			template<typename IntType>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> xvalue_at(std::size_t i) {
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> xvalue_at(std::size_t i) {
 				return i < 22
 					? sprout::tuples::tuple<IntType, bool>(
 						static_cast<IntType>(sprout::weed::detail::xvalues<void>::table[i]),
@@ -95,7 +95,7 @@ namespace sprout {
 					;
 			}
 			template<typename IntType, typename Elem>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_xdigit(Elem c) {
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_xdigit(Elem c) {
 				return sprout::weed::detail::xvalue_at<IntType>(
 					NS_SSCRISK_CEL_OR_SPROUT::distance(
 						sprout::weed::detail::xdigits<Elem>::table.begin(),

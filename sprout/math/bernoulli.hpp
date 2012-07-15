@@ -223,7 +223,7 @@ namespace sprout {
 		// bernoulli_number_limit
 		//
 		template<typename T, typename = typename std::enable_if<std::is_floating_point<T>::value>::type>
-		SPROUT_CONSTEXPR std::size_t bernoulli_number_limit() {
+		inline SPROUT_CONSTEXPR std::size_t bernoulli_number_limit() {
 			typedef typename std::remove_cv<T>::type type;
 			return sprout::math::detail::bernoulli_numbers<type>::limit;
 		}
@@ -231,7 +231,7 @@ namespace sprout {
 		// bernoulli_number
 		//
 		template<typename T, typename = typename std::enable_if<std::is_floating_point<T>::value>::type>
-		SPROUT_CONSTEXPR T bernoulli_number(std::size_t x) {
+		inline SPROUT_CONSTEXPR T bernoulli_number(std::size_t x) {
 			typedef typename std::remove_cv<T>::type type;
 			return x <= sprout::math::bernoulli_number_limit<type>()
 				? x == 1 ? type(-1) / 2

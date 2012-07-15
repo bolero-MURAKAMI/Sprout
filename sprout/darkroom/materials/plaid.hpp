@@ -63,12 +63,12 @@ namespace sprout {
 			// make_plaid
 			//
 			template<typename Element>
-			SPROUT_CONSTEXPR sprout::darkroom::materials::plaid_element<Element>
+			inline SPROUT_CONSTEXPR sprout::darkroom::materials::plaid_element<Element>
 			make_plaid(Element const& elem1, Element const& elem2) {
 				return sprout::darkroom::materials::plaid_element<Element>(elem1, elem2);
 			}
 			template<typename Element, typename Unit>
-			SPROUT_CONSTEXPR sprout::darkroom::materials::plaid_element<Element>
+			inline SPROUT_CONSTEXPR sprout::darkroom::materials::plaid_element<Element>
 			make_plaid(Element const& elem1, Element const& elem2, Unit const& scale) {
 				return sprout::darkroom::materials::plaid_element<Element, Unit>(elem1, elem2, scale);
 			}
@@ -76,7 +76,7 @@ namespace sprout {
 			// make_plaid_material_image
 			//
 			template<typename Color, typename Reflection>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::darkroom::materials::plaid_element<Color>,
 				sprout::darkroom::materials::plaid_element<Reflection>
 			> make_plaid_material_image(
@@ -92,7 +92,7 @@ namespace sprout {
 					);
 			}
 			template<typename Color, typename Reflection, typename Unit>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::darkroom::materials::plaid_element<Color, Unit>,
 				sprout::darkroom::materials::plaid_element<Reflection, Unit>
 			> make_plaid_material_image(

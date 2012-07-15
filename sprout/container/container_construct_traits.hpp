@@ -14,7 +14,7 @@ namespace sprout {
 
 	namespace detail {
 		template<typename Container, typename... Args>
-		SPROUT_CONSTEXPR typename sprout::container_construct_traits<Container>::copied_type
+		inline SPROUT_CONSTEXPR typename sprout::container_construct_traits<Container>::copied_type
 		default_make_container(Args&&... args) {
 			typedef typename sprout::container_construct_traits<Container>::copied_type copied_type;
 			return copied_type{{sprout::forward<Args>(args)...}};

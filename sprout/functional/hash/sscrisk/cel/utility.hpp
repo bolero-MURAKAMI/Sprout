@@ -8,7 +8,7 @@
 
 namespace sprout {
 	template<typename T1, typename T2>
-	SPROUT_CONSTEXPR std::size_t hash_value(sscrisk::cel::pair<T1, T2> const& v) {
+	inline SPROUT_CONSTEXPR std::size_t hash_value(sscrisk::cel::pair<T1, T2> const& v) {
 		return sprout::hash_combine(sprout::hash_combine(0, v.first), v.second);
 	}
 }	// namespace sprout

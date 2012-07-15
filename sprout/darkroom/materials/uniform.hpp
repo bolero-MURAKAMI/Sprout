@@ -29,7 +29,7 @@ namespace sprout {
 			// make_uniform
 			//
 			template<typename Element>
-			SPROUT_CONSTEXPR sprout::darkroom::materials::uniform_element<Element>
+			inline SPROUT_CONSTEXPR sprout::darkroom::materials::uniform_element<Element>
 			make_uniform(Element const& elem) {
 				return sprout::darkroom::materials::uniform_element<Element>(elem);
 			}
@@ -37,7 +37,7 @@ namespace sprout {
 			// make_uniform_material_image
 			//
 			template<typename Color, typename Reflection>
-			SPROUT_CONSTEXPR sprout::tuples::tuple<
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::darkroom::materials::uniform_element<Color>,
 				sprout::darkroom::materials::uniform_element<Reflection>
 			> make_uniform_material_image(Color const& col, Reflection const& ref) {
