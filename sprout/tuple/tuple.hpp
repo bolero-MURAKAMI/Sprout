@@ -9,5 +9,6 @@
 #include <sprout/tuple/tuple/make_tuple.hpp>
 #include <sprout/tuple/tuple/comparison.hpp>
 #include <sprout/tuple/tuple/type_traits.hpp>
+#include <sprout/tuple/tuple/hash.hpp>
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_HPP

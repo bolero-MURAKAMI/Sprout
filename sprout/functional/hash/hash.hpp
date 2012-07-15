@@ -182,15 +182,42 @@ namespace sprout {
 	// hash_range
 	//
 	template<typename Iterator>
-	inline SPROUT_CONSTEXPR std::size_t hash_range(Iterator first, Iterator last) {
-		return sprout::hash_range(0, first, last);
-	}
-	template<typename Iterator>
 	inline SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, Iterator first, Iterator last) {
 		return first != last
 			? sprout::hash_range(sprout::hash_combine(seed, *first), sprout::next(first), last)
 			: seed
 			;
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR std::size_t hash_range(Iterator first, Iterator last) {
+		return sprout::hash_range(0, first, last);
+	}
+
+	namespace detail {
+		template<typename T>
+		inline SPROUT_CONSTEXPR std::size_t hash_values_combine_impl(std::size_t seed, T const& v) {
+			return sprout::hash_combine(seed, v);
+		}
+		template<typename Head, typename... Tail>
+		inline SPROUT_CONSTEXPR std::size_t hash_values_combine_impl(std::size_t seed, Head const& head, Tail const&... tail) {
+			return sprout::detail::hash_values_combine_impl(sprout::hash_combine(seed, head), tail...);
+		}
+	}	// namespace detail
+
+	//
+	// hash_values_combine
+	//
+	template<typename... Args>
+	inline SPROUT_CONSTEXPR std::size_t hash_values_combine(std::size_t seed, Args const&... args) {
+		return sprout::detail::hash_values_combine_impl(seed, args...);
+	}
+
+	//
+	// hash_values
+	//
+	template<typename... Args>
+	inline SPROUT_CONSTEXPR std::size_t hash_values(Args const&... args) {
+		return sprout::hash_values_combine(0, args...);
 	}
 
 	//
