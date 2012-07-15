@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/string.hpp>
-#include <sprout/type/string.hpp>
+#include <sprout/type/string/string.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/size.hpp>

@@ -5,7 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/string.hpp>
-#include <sprout/type/string.hpp>
+#include <sprout/type/string/string.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/seq/algorithm/find_if.hpp>
 #include <sprout/type/iterator/distance.hpp>

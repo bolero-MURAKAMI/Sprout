@@ -3,7 +3,8 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
 	namespace tuples {

@@ -1,5 +1,5 @@
-#ifndef SPROUT_UUID_UUID_TUPLE_HPP
-#define SPROUT_UUID_UUID_TUPLE_HPP
+#ifndef SPROUT_UUID_TUPLE_HPP
+#define SPROUT_UUID_TUPLE_HPP
 
 #include <cstddef>
 #include <tuple>
@@ -57,4 +57,4 @@ namespace std {
 	};
 }	// namespace std
 
-#endif	// #ifndef SPROUT_UUID_UUID_TUPLE_HPP
+#endif	// #ifndef SPROUT_UUID_TUPLE_HPP

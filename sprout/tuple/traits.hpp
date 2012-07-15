@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/type/rebind_types.hpp>
+#include <sprout/utility/forward.hpp>
 
 namespace sprout {
 	namespace types {

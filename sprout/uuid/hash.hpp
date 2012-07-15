@@ -1,5 +1,5 @@
-#ifndef SPROUT_UUID_UUID_HASH_HPP
-#define SPROUT_UUID_UUID_HASH_HPP
+#ifndef SPROUT_UUID_HASH_HPP
+#define SPROUT_UUID_HASH_HPP
 
 #include <cstddef>
 #include <sprout/config.hpp>
@@ -12,4 +12,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_UUID_UUID_HASH_HPP
+#endif	// #ifndef SPROUT_UUID_HASH_HPP

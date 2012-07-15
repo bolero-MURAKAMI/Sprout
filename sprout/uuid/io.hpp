@@ -1,5 +1,5 @@
-#ifndef SPROUT_UUID_UUID_IO_HPP
-#define SPROUT_UUID_UUID_IO_HPP
+#ifndef SPROUT_UUID_IO_HPP
+#define SPROUT_UUID_IO_HPP
 
 #include <cstddef>
 #include <algorithm>
@@ -181,4 +181,4 @@ namespace sprout {
 	}	// namespace uuids
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_UUID_UUID_IO_HPP
+#endif	// #ifndef SPROUT_UUID_IO_HPP
