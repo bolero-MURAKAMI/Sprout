@@ -12,7 +12,8 @@ namespace sprout {
 	// operator<<
 	//
 	template<typename T, std::size_t N, typename Traits, typename StreamTraits>
-	inline std::basic_istream<T, StreamTraits>& operator>>(std::basic_istream<T, StreamTraits>& lhs, sprout::basic_string<T, N, Traits>& rhs) {
+	inline std::basic_istream<T, StreamTraits>&
+	operator>>(std::basic_istream<T, StreamTraits>& lhs, sprout::basic_string<T, N, Traits>& rhs) {
 		typedef T elem_type;
 		typedef StreamTraits traits_type;
 		typedef std::basic_istream<T, StreamTraits> istream_type;
@@ -57,7 +58,8 @@ namespace sprout {
 		return lhs;
 	}
 	template<typename T, std::size_t N, typename Traits, typename StreamTraits>
-	inline std::basic_ostream<T, StreamTraits>& operator<<(std::basic_ostream<T, StreamTraits>& lhs, sprout::basic_string<T, N, Traits> const& rhs) {
+	inline std::basic_ostream<T, StreamTraits>&
+	operator<<(std::basic_ostream<T, StreamTraits>& lhs, sprout::basic_string<T, N, Traits> const& rhs) {
 		return lhs << rhs.c_str();
 	}
 }	// namespace sprout

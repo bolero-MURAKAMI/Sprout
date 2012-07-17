@@ -25,4 +25,6 @@ namespace sprout {
 	using sprout::fixed::spectrum;
 }	// namespace sprout
 
+#include <sprout/numeric/dft/fixed/phase_spectrum.hpp>
+
 #endif	// #ifndef SPROUT_NUMERIC_DFT_FIXED_SPECTRUM_HPP

@@ -22,4 +22,6 @@ namespace sprout {
 	}	// namespace fit
 }	// namespace sprout
 
+#include <sprout/numeric/dft/fit/phase_spectrum.hpp>
+
 #endif	// #ifndef SPROUT_NUMERIC_DFT_FIT_SPECTRUM_HPP
