@@ -13,40 +13,40 @@ namespace sprout {
 			//
 			// push_back
 			//
-			template<typename Tuple, typename T>
+			template<typename Tuple, typename... Args>
 			struct push_back
-				: public sprout::types::push_back<Tuple, T>
+				: public sprout::types::push_back<Tuple, Args...>
 			{};
 		}	// namespace result_of
 
 		namespace detail {
-			template<typename Result, typename Tuple, typename T, sprout::index_t... Indexes>
+			template<typename Result, typename Tuple, typename... Args, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR Result push_back_impl(
 				Tuple const& t,
-				T const& v,
-				sprout::index_tuple<Indexes...>
+				sprout::index_tuple<Indexes...>,
+				Args const&... args
 				)
 			{
 				return sprout::tuples::remake<Result>(
 					t,
 					sprout::tuples::get<Indexes>(t)...,
-					v
+					args...
 					);
 			}
 		}	// namespace detail
 		//
 		// push_back
 		//
-		template<typename Tuple, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::push_back<Tuple, T>::type push_back(
+		template<typename Tuple, typename... Args>
+		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::push_back<Tuple, Args...>::type push_back(
 			Tuple const& t,
-			T const& v
+			Args const&... args
 			)
 		{
-			return sprout::tuples::detail::push_back_impl<typename sprout::tuples::result_of::push_back<Tuple, T>::type>(
+			return sprout::tuples::detail::push_back_impl<typename sprout::tuples::result_of::push_back<Tuple, Args...>::type>(
 				t,
-				v,
-				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make()
+				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make(),
+				args...
 				);
 		}
 	}	// namespace tuples

@@ -8,6 +8,7 @@
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/iterator.hpp>
 #include <sprout/type/iterator/index_iterator.hpp>
+#include <sprout/type/rebind_types.hpp>
 
 namespace sprout {
 	namespace types {
@@ -19,6 +20,19 @@ namespace sprout {
 		public:
 			typedef sprout::types::index_iterator<type_tuple, 0> begin;
 			typedef sprout::types::index_iterator<type_tuple, sizeof...(Types)> end;
+		};
+
+		//
+		// rebind_types
+		//
+		template<typename... Ts>
+		struct rebind_types<sprout::types::type_tuple<Ts...> > {
+		public:
+			template<typename... Types>
+			struct apply {
+			public:
+				typedef sprout::types::type_tuple<Types...> type;
+			};
 		};
 
 		namespace detail {
@@ -37,6 +51,7 @@ namespace sprout {
 	}	// namespace types
 
 	using sprout::types::type_tuple;
+	using sprout::types::rebind_types;
 }	// namespace sprout
 
 namespace std {

@@ -2,7 +2,6 @@
 #define SPROUT_TYPE_REBIND_TYPES_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/type/type_tuple.hpp>
 
 namespace sprout {
 	namespace types {
@@ -26,13 +25,31 @@ namespace sprout {
 			};
 		};
 
-		template<typename... Ts>
-		struct rebind_types<sprout::types::type_tuple<Ts...> > {
+		template<typename Tuple>
+		struct rebind_types<Tuple volatile> {
 		public:
 			template<typename... Types>
 			struct apply {
 			public:
-				typedef sprout::types::type_tuple<Types...> type;
+				typedef typename sprout::types::rebind_types<
+					Tuple
+				>::template apply<
+					Types...
+				>::type volatile type;
+			};
+		};
+
+		template<typename Tuple>
+		struct rebind_types<Tuple const volatile> {
+		public:
+			template<typename... Types>
+			struct apply {
+			public:
+				typedef typename sprout::types::rebind_types<
+					Tuple
+				>::template apply<
+					Types...
+				>::type const volatile type;
 			};
 		};
 	}	// namespace types

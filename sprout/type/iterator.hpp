@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type/iterator/next.hpp>
 #include <sprout/type/iterator/prev.hpp>
+#include <sprout/type/iterator/advance.hpp>
 #include <sprout/type/iterator/deref.hpp>
 #include <sprout/type/iterator/distance.hpp>
 

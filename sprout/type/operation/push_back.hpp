@@ -11,8 +11,9 @@ namespace sprout {
 		//
 		// push_back
 		//
-		template<typename Tuple, typename T>
+		template<typename Tuple, typename... Ts>
 		struct push_back {
+			static_assert(sizeof...(Ts) >= 1, "sizeof...(Ts) >= 1");
 		private:
 			template<typename IndexTuple>
 			struct apply_impl;
@@ -22,7 +23,7 @@ namespace sprout {
 					Tuple
 				>::template apply<
 					typename sprout::types::tuple_element<Indexes, Tuple>::type...,
-					T
+					Ts...
 				>
 			{};
 		public:

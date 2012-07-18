@@ -1,5 +1,5 @@
-#ifndef SPROUT_TYPE_OPERATION_PUSH_FRONT_HPP
-#define SPROUT_TYPE_OPERATION_PUSH_FRONT_HPP
+#ifndef SPROUT_TYPE_OPERATION_POP_FRONT_HPP
+#define SPROUT_TYPE_OPERATION_POP_FRONT_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
@@ -9,11 +9,10 @@
 namespace sprout {
 	namespace types {
 		//
-		// push_front
+		// pop_front
 		//
-		template<typename Tuple, typename... Ts>
-		struct push_front {
-			static_assert(sizeof...(Ts) >= 1, "sizeof...(Ts) >= 1");
+		template<typename Tuple>
+		struct pop_front {
 		private:
 			template<typename IndexTuple>
 			struct apply_impl;
@@ -22,16 +21,15 @@ namespace sprout {
 				: public sprout::types::rebind_types<
 					Tuple
 				>::template apply<
-					Ts...,
 					typename sprout::types::tuple_element<Indexes, Tuple>::type...
 				>
 			{};
 		public:
 			typedef typename apply_impl<
-				typename sprout::index_range<0, sprout::types::tuple_size<Tuple>::value>::type
+				typename sprout::index_range<1, sprout::types::tuple_size<Tuple>::value>::type
 			>::type type;
 		};
 	}	// namespace types
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TYPE_OPERATION_PUSH_FRONT_HPP
+#endif	// #ifndef SPROUT_TYPE_OPERATION_POP_FRONT_HPP

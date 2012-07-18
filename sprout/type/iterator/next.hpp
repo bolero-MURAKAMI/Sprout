@@ -13,6 +13,19 @@ namespace sprout {
 		public:
 			typedef typename Iterator::next type;
 		};
+
+		template<typename Iterator>
+		struct next<Iterator const>
+			: public sprout::types::next<Iterator>
+		{};
+		template<typename Iterator>
+		struct next<Iterator volatile>
+			: public sprout::types::next<Iterator>
+		{};
+		template<typename Iterator>
+		struct next<Iterator const volatile>
+			: public sprout::types::next<Iterator>
+		{};
 	}	// namespace types
 }	// namespace sprout
 

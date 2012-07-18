@@ -13,23 +13,23 @@ namespace sprout {
 			//
 			// push_front
 			//
-			template<typename Tuple, typename T>
+			template<typename Tuple, typename... Args>
 			struct push_front
-				: public sprout::types::push_front<Tuple, T>
+				: public sprout::types::push_front<Tuple, Args...>
 			{};
 		}	// namespace result_of
 
 		namespace detail {
-			template<typename Result, typename Tuple, typename T, sprout::index_t... Indexes>
+			template<typename Result, typename Tuple, typename... Args, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR Result push_front_impl(
 				Tuple const& t,
-				T const& v,
-				sprout::index_tuple<Indexes...>
+				sprout::index_tuple<Indexes...>,
+				Args const&... args
 				)
 			{
 				return sprout::tuples::remake<Result>(
 					t,
-					v,
+					args...,
 					sprout::tuples::get<Indexes>(t)...
 					);
 			}
@@ -37,16 +37,16 @@ namespace sprout {
 		//
 		// push_front
 		//
-		template<typename Tuple, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::push_front<Tuple, T>::type push_front(
+		template<typename Tuple, typename... Args>
+		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::push_front<Tuple, Args...>::type push_front(
 			Tuple const& t,
-			T const& v
+			Args const&... args
 			)
 		{
-			return sprout::tuples::detail::push_front_impl<typename sprout::tuples::result_of::push_front<Tuple, T>::type>(
+			return sprout::tuples::detail::push_front_impl<typename sprout::tuples::result_of::push_front<Tuple, Args...>::type>(
 				t,
-				v,
-				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make()
+				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make(),
+				args...
 				);
 		}
 	}	// namespace tuples

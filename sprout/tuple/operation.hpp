@@ -5,5 +5,7 @@
 #include <sprout/tuple/operation/append_front.hpp>
 #include <sprout/tuple/operation/push_back.hpp>
 #include <sprout/tuple/operation/push_front.hpp>
+#include <sprout/tuple/operation/pop_back.hpp>
+#include <sprout/tuple/operation/pop_front.hpp>
 
 #endif	// #ifndef SPROUT_TUPLE_OPERATION_HPP
