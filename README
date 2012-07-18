@@ -6,6 +6,12 @@ C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray traci
 
 
 
+*ドキュメント (Document)
+
+Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
+
+
+
 *インストール (Install)
 
 <sprout/*> にライブラリのディレクトリにパスを通す。
@@ -153,7 +159,7 @@ https://github.com/sscrisk/CEL---ConstExpr-Library
 
 Bolero MURAKAMI
 Blog: http://d.hatena.ne.jp/boleros/
-Twitter: https://twitter.com/#!/bolero_MURAKAMI
+Twitter: https://twitter.com/bolero_murakami
 Mail: contact-lib@boleros.x0.com
 
 
