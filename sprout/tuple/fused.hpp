@@ -1,6 +1,7 @@
 #ifndef SPROUT_TUPLE_FUSED_HPP
 #define SPROUT_TUPLE_FUSED_HPP
 
+#include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
@@ -17,13 +18,31 @@ namespace sprout {
 		public:
 			typedef F functor_type;
 		private:
+			template<typename Tuple, typename IndexTuple>
+			struct result_impl;
+			template<typename Tuple, sprout::index_t... Indexes>
+			struct result_impl<Tuple, sprout::index_tuple<Indexes...> > {
+			public:
+				typedef decltype(
+					std::declval<functor_type const&>()(
+						sprout::tuples::get<Indexes>(std::declval<Tuple>())...
+						)
+				) type;
+			};
+		public:
+			template<typename Tuple>
+			struct result
+				: public result_impl<
+					Tuple,
+					typename sprout::index_range<0, sprout::tuples::tuple_size<typename std::remove_reference<Tuple>::type>::value>::type
+				>
+			{};
+		private:
 			functor_type f_;
 		private:
-			template<typename Tuple, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR auto
-			call(Tuple&& t, sprout::index_tuple<Indexes...>) const
-				-> decltype(f_(sprout::tuples::get<Indexes>(sprout::forward<Tuple>(t))...))
-			{
+			template<typename Result, typename Tuple, sprout::index_t... Indexes>
+			SPROUT_CONSTEXPR Result
+			call(Tuple&& t, sprout::index_tuple<Indexes...>) const {
 				return f_(sprout::tuples::get<Indexes>(sprout::forward<Tuple>(t))...);
 			}
 		public:
@@ -36,16 +55,11 @@ namespace sprout {
 				return f_;
 			}
 			template<typename Tuple>
-			SPROUT_CONSTEXPR auto
-			operator()(Tuple&& t) const
-				-> decltype(this->call(
+			SPROUT_CONSTEXPR typename result<Tuple>::type
+			operator()(Tuple&& t) const {
+				return call<typename result<Tuple>::type>(
 					sprout::forward<Tuple>(t),
-					sprout::index_range<0, sprout::tuples::tuple_size<typename std::decay<Tuple>::type>::value>::make()
-					))
-			{
-				return call(
-					sprout::forward<Tuple>(t),
-					sprout::index_range<0, sprout::tuples::tuple_size<typename std::decay<Tuple>::type>::value>::make()
+					sprout::index_range<0, sprout::tuples::tuple_size<typename std::remove_reference<Tuple>::type>::value>::make()
 					);
 			}
 		};
