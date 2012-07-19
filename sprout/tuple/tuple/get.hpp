@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 
@@ -50,19 +51,6 @@ namespace sprout {
 			: public sprout::tuples::tuple_element<I, T>
 		{};
 
-		//
-		// get
-		//
-		template<std::size_t I, typename T>
-		inline SPROUT_CONSTEXPR auto
-		get(T&& t) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::get<I>(sprout::forward<T>(t))))
-			-> decltype(std::get<I>(sprout::forward<T>(t)))
-		{
-			return std::get<I>(sprout::forward<T>(t));
-		}
-		//
-		// get
-		//
 		namespace detail {
 			template<std::size_t I, typename Head, typename... Tail>
 			inline SPROUT_CONSTEXPR typename std::add_lvalue_reference<Head>::type
@@ -75,6 +63,9 @@ namespace sprout {
 				return sprout::tuples::detail::tuple_impl<I, Head, Tail...>::head(t);
 			}
 		}	// namespace detail
+		//
+		// get
+		//
 		template<std::size_t I, typename... Types>
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&
 		get(sprout::tuples::tuple<Types...>& t) SPROUT_NOEXCEPT {
@@ -91,6 +82,104 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const&
 		get(sprout::tuples::tuple<Types...> const& t) SPROUT_NOEXCEPT {
 			return sprout::tuples::detail::get_helper<I>(t);
+		}
+	}	// namespace tuples
+
+	namespace tuple_detail {
+		struct not_found_adl_get {};
+
+		template<std::size_t I>
+		sprout::tuple_detail::not_found_adl_get get(...);
+
+		template<std::size_t I, typename T>
+		struct has_std_get_test {
+		public:
+			template<
+				typename U = T,
+				typename = decltype(std::get<I>(std::declval<U>()))
+			>
+			static std::true_type test(int);
+			static std::false_type test(...);
+		};
+		template<std::size_t I, typename T>
+		struct has_std_get
+			: public decltype(sprout::tuple_detail::has_std_get_test<I, T>::test(0))
+		{};
+
+		template<std::size_t I, typename T>
+		struct has_adl_get_test {
+		public:
+			template<
+				typename U = T,
+				typename sprout::enabler_if<
+					!std::is_same<decltype(get<I>(std::declval<U>())), sprout::tuple_detail::not_found_adl_get>::value
+					&& !sprout::tuple_detail::has_std_get<I, T>::value
+				>::type = sprout::enabler
+			>
+			static std::true_type test(int);
+			static std::false_type test(...);
+		};
+		template<std::size_t I, typename T>
+		struct has_adl_get
+			: public decltype(sprout::tuple_detail::has_adl_get_test<I, T>::test(0))
+		{};
+
+		template<std::size_t I, typename T, typename = void>
+		struct noexcept_get;
+		template<std::size_t I, typename T>
+		struct noexcept_get<I, T, typename std::enable_if<sprout::tuple_detail::has_adl_get<I, T>::value>::type>
+			: public std::integral_constant<bool, SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(get<I>(std::declval<T>()), false)>
+		{};
+		template<std::size_t I, typename T>
+		struct noexcept_get<I, T, typename std::enable_if<sprout::tuple_detail::has_std_get<I, T>::value>::type>
+			: public std::integral_constant<bool, SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(std::get<I>(std::declval<T>()), false)>
+		{};
+
+		template<std::size_t I, typename T, typename = void>
+		struct get_result;
+		template<std::size_t I, typename T>
+		struct get_result<I, T, typename std::enable_if<sprout::tuple_detail::has_adl_get<I, T>::value>::type> {
+		public:
+			typedef decltype(get<I>(std::declval<T>())) type;
+		};
+		template<std::size_t I, typename T>
+		struct get_result<I, T, typename std::enable_if<sprout::tuple_detail::has_std_get<I, T>::value>::type> {
+		public:
+			typedef decltype(std::get<I>(std::declval<T>())) type;
+		};
+
+		template<
+			std::size_t I, typename T,
+			typename sprout::enabler_if<sprout::tuple_detail::has_adl_get<I, T>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR typename sprout::tuple_detail::get_result<I, T>::type
+		get_impl(T&& t)
+			SPROUT_NOEXCEPT_EXPR((sprout::tuple_detail::noexcept_get<I, T>::value))
+		{
+			return get<I>(sprout::forward<T>(t));
+		}
+		template<
+			std::size_t I, typename T,
+			typename sprout::enabler_if<sprout::tuple_detail::has_std_get<I, T>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR typename sprout::tuple_detail::get_result<I, T>::type
+		get_impl(T&& t)
+			SPROUT_NOEXCEPT_EXPR((sprout::tuple_detail::noexcept_get<I, T>::value))
+		{
+			return std::get<I>(sprout::forward<T>(t));
+		}
+	}	// namespace tuple_detail
+
+	namespace tuples {
+		//
+		// get
+		//
+		template<std::size_t I, typename T>
+		inline SPROUT_CONSTEXPR typename sprout::tuple_detail::get_result<I, T>::type
+		get(T&& t)
+			SPROUT_NOEXCEPT_EXPR((sprout::tuple_detail::noexcept_get<I, T>::value))
+		{
+			return sprout::tuple_detail::get_impl<I>(sprout::forward<T>(t));
 		}
 	}	// namespace tuples
 
