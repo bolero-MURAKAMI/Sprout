@@ -6,92 +6,89 @@ C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray traci
 
 
 
-*ドキュメント (Document)
+* ドキュメント (Document)
 
 Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 
 
 
-*インストール (Install)
+* インストール (Install)
 
-<sprout/*> にライブラリのディレクトリにパスを通す。
+ディレクトリ /path/to/sprout にパスを通す。
 このライブラリはヘッダオンリーで使える。
- (Trough the path to the directory of the library to <sprout/*>.
+ (Through the path to the directory. /path/to/sprout
   This library can be used in the header only.)
 
 
 
-*主なコンテンツ (Main contents)
+* コンテンツ (contents)
 
-constexpr コンテナ (Containers)
-    sprout/array.hpp
-    sprout/string.hpp
+- コンテナとデータ構造 (Containers and Data structures)
+-- sprout/array.hpp - std::array 互換の固定長コンテナ
+-- sprout/string.hpp - 固定長バッファの文字列クラス
+-- sprout/tuple.hpp - std::tuple 互換のタプル
+-- sprout/variant.hpp - バリアント
 
-constexpr タプル (Tuples)
-    sprout/tuple.hpp
+- アルゴリズム (Algorithms)
+-- sprout/algorithm.hpp - STL 互換の非変更アルゴリズムと、変更アルゴリズム
+-- sprout/algorithm/string.hpp - 文字列用アルゴリズム
+-- sprout/numeric.hpp - STL 互換の非変更数値アルゴリズムと、変更数値アルゴリズム
+-- sprout/range/algorithm.hpp - Rangeベースのアルゴリズム
+-- sprout/range/numeric.hpp - Rangeベースの数値アルゴリズム
+-- sprout/range/adaptor.hpp - Rangeアダプタ
+-- sprout/numeric/dft.hpp - 離散フーリエ変換
+-- sprout/range/numeric/dft.hpp - Rangeベースの離散フーリエ変換
 
-constexpr バリアント (Variants)
-    sprout/variant.hpp
+- コンテナサポート (Container supports)
+-- sprout/sub_array.hpp - 切り出された部分コンテナ
+-- sprout/pit.hpp - 処理結果のコンテナを返す関数に与えるダミーコンテナ &color(red,white){ ← new!};
+-- sprout/operation.hpp - コンテナを変更する操作
+-- sprout/container.hpp - コンテナ特性を定義するトレイトと関数
 
-constexpr アルゴリズム (Algorithms)
-    sprout/algorithm.hpp
-    sprout/numeric.hpp
+- 関数オブジェクト (Function Objects)
+-- sprout/functional.hpp - STL 互換の関数オブジェクトとハッシュ関数
 
-constexpr 範囲アルゴリズム (Range algorithms)
-    sprout/range/algorithm.hpp
-    sprout/range/numeric.hpp
+- イテレータ (Iterators)
+-- sprout/iterator.hpp - STL 互換のイテレータと、いくつかの定義済みイテレータ
 
-constexpr Rangeアダプタ (Range adaptors)
-    sprout/range/adaptor.hpp
+- 数学 (Mathematics)
+-- sprout/math/functions.hpp - 数学関数
+-- sprout/random.hpp - 乱数
+-- sprout/complex.hpp - 複素数
+-- sprout/rational.hpp - 有理数
 
-constexpr コンテナ操作 (Container operations)
-    sprout/operation.hpp
+- テンプレートメタプログラミング (Template Metaprogramming)
+-- sprout/index_tuple.hpp - IndexTuple イディオム
+-- sprout/type_traits.hpp - 型特性
+-- sprout/type.hpp - 型リスト
 
-constexpr 乱数 (Random numbers)
-    sprout/random.hpp
-    sprout/random/unique_seed.hpp
+- プリプロセッサメタプログラミング (Preprocessor Metaprogramming)
+-- /sprout/preprocessor.hpp - プリプロセッサメタプログラミングツール
 
-constexpr 数学関数 (Mathematical functions)
-    sprout/math/functions.hpp
-    sprout/math/common_factor.hpp
+- ドメイン固有 (Domain specific)
+-- sprout/uuid.hpp - UUID
+-- sprout/checksum/sha1.hpp - SHA-1
 
-constexpr 複素数/有理数 (Complex numbers, Rational numbers)
-    sprout/complex.hpp
-    sprout/rational.hpp
+- 構文解析 (Parsing)
+-- sprout/weed.hpp - Boost.Spirit.Qi ライクなコンパイル時パーサコンビネータ
 
-constexpr 関数オブジェクト (Functors)
-    sprout/functional.hpp
+- レイトレーシング (Ray tracing)
+-- sprout/darkroom.hpp - コンパイル時レイトレーサ
 
-constexpr ハッシュ関数 (Hash functions)
-    sprout/checksum/sha1.hpp
-    sprout/functional/hash.hpp
+- その他 (Miscellaneous)
+-- sprout/utility.hpp - <utility> 互換の機能と、雑多なユーティリティ
+-- sprout/bit.hpp - ビット操作
 
-constexpr UUID (UUID)
-    sprout/uuid.hpp
-
-型リスト (Type lists)
-    sprout/type.hpp
-
-コンテナアダプタ (Container adopters)
-    sprout/sub_array.hpp
-    sprout/pit.hpp
-
-コンテナ特性 (Container traits)
-    sprout/container.hpp
-
-constexpr 離散フーリエ変換 (Discrete Fourier transforms)
-    sprout/numeric/dft.hpp
-    sprout/range/numeric/dft.hpp
-
-constexpr 構文解析 (Parsing)
-    sprout/weed.hpp
-
-constexpr レイトレーシング (Ray tracing)
-    sprout/darkroom.hpp
+- C互換 (C-compatible)
+-- sprout/cstdlib.hpp - <cstdlib> 互換の機能
+-- sprout/cstring.hpp - <cstring> 互換の機能
+-- sprout/cwchar.hpp - <cwchar> 互換の機能
+-- sprout/cctype.hpp - <cctype> 互換の機能
+-- sprout/cinttypes.hpp - <cinttypes> 互換の機能
 
 
 
-*コンフィグ用ユーザマクロ (User macros for configuration)
+* コンフィグ用ユーザマクロ (User macros for configuration)
 
 #define SPROUT_CONFIG_DISABLE_CONSTEXPR
 このマクロが定義されているとき、関数は constexpr 指定されない。
@@ -155,7 +152,7 @@ https://github.com/sscrisk/CEL---ConstExpr-Library
 
 
 
-*作者 (Author)
+* 作者 (Author)
 
 Bolero MURAKAMI
 Blog: http://d.hatena.ne.jp/boleros/
@@ -164,7 +161,7 @@ Mail: contact-lib@boleros.x0.com
 
 
 
-*著作権等 (Copyrights)
+* 著作権等 (Copyrights)
 
 このライブラリは Boost Software License の元で公開されています。
 
