@@ -28,6 +28,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 -- sprout/string.hpp - 固定長バッファの文字列クラス
 -- sprout/tuple.hpp - std::tuple 互換のタプル
 -- sprout/variant.hpp - バリアント
+-- sprout/bitset.hpp - std::bitset 互換のビットセット
 
 - アルゴリズム (Algorithms)
 -- sprout/algorithm.hpp - STL 互換の非変更アルゴリズムと、変更アルゴリズム
@@ -77,7 +78,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 
 - その他 (Miscellaneous)
 -- sprout/utility.hpp - <utility> 互換の機能と、雑多なユーティリティ
--- sprout/bit.hpp - ビット操作
+-- sprout/bit/operation.hpp - ビット操作
 
 - C互換 (C-compatible)
 -- sprout/cstdlib.hpp - <cstdlib> 互換の機能
@@ -133,15 +134,15 @@ https://github.com/sscrisk/CEL---ConstExpr-Library
 
 #define SPROUT_CONFIG_DISABLE_BUILTIN_CMATH_FUNCTION
 このマクロが定義されているとき、数学関数の実装にビルトイン関数を使用しない。
-　(When this macro is defined, does not use the built-in function to the implementation of mathematical functions.)
+ (When this macro is defined, does not use the built-in function to the implementation of mathematical functions.)
 
 #define SPROUT_CONFIG_DISABLE_BUILTIN_BIT_OPERATION
 このマクロが定義されているとき、ビット処理の実装にビルトイン関数を使用しない。
-　(When this macro is defined, does not use the built-in function to the implementation of bit operations.)
+ (When this macro is defined, does not use the built-in function to the implementation of bit operations.)
 
 #define SPROUT_CONFIG_DISABLE_SUPPORT_TEMPORARY_CONTAINER_ITERATION
 このマクロが定義されているとき、アルゴリズムへのコンテナの一時オブジェクト渡しをサポートしない。
-　(When this macro is defined, does not support passing a temporary object of the container to the algorithm.)
+ (When this macro is defined, does not support passing a temporary object of the container to the algorithm.)
 
 #define SPROUT_CONFIG_SUPPORT_TEMPORARY_CONTAINER_ITERATION
 このマクロは非推奨です。
