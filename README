@@ -31,11 +31,11 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 -- sprout/bitset.hpp - std::bitset 互換のビットセット
 
 - アルゴリズム (Algorithms)
--- sprout/algorithm.hpp - STL 互換の非変更アルゴリズムと、変更アルゴリズム
+-- sprout/algorithm.hpp - STL 互換のアルゴリズム
 -- sprout/algorithm/string.hpp - 文字列用アルゴリズム
--- sprout/numeric.hpp - STL 互換の非変更数値アルゴリズムと、変更数値アルゴリズム
+-- sprout/numeric.hpp - STL 互換の数値シーケンスアルゴリズム
 -- sprout/range/algorithm.hpp - Rangeベースのアルゴリズム
--- sprout/range/numeric.hpp - Rangeベースの数値アルゴリズム
+-- sprout/range/numeric.hpp - Rangeベースの数値シーケンスアルゴリズム
 -- sprout/range/adaptor.hpp - Rangeアダプタ
 -- sprout/numeric/dft.hpp - 離散フーリエ変換
 -- sprout/range/numeric/dft.hpp - Rangeベースの離散フーリエ変換
