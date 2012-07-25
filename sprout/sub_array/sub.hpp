@@ -10,7 +10,6 @@
 #include <sprout/sub_array/type_traits.hpp>
 
 namespace sprout {
-
 	//
 	// sub
 	//

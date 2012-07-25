@@ -50,6 +50,8 @@
 #include "./make_heap.cpp"
 #include "./make_partial_heap.cpp"
 #include "./sort_heap.cpp"
+#include "./next_permutation.cpp"
+#include "./prev_permutation.cpp"
 #include "./swap_element.cpp"
 #include "./swap_element_copy.cpp"
 #include "./bogo_sort.cpp"
@@ -105,6 +107,8 @@ namespace testspr {
 		testspr::algorithm_make_heap_test();
 		testspr::algorithm_make_partial_heap_test();
 		testspr::algorithm_sort_heap_test();
+		testspr::algorithm_next_permutation_test();
+		testspr::algorithm_prev_permutation_test();
 		testspr::algorithm_swap_element_test();
 		testspr::algorithm_swap_element_copy_test();
 		testspr::algorithm_bogo_sort_test();

@@ -46,6 +46,8 @@
 #include <sprout/algorithm/fixed/make_heap.hpp>
 #include <sprout/algorithm/fixed/make_partial_heap.hpp>
 #include <sprout/algorithm/fixed/sort_heap.hpp>
+#include <sprout/algorithm/fixed/next_permutation.hpp>
+#include <sprout/algorithm/fixed/prev_permutation.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/swap_element_copy.hpp>
 #include <sprout/algorithm/fixed/bogo_sort.hpp>

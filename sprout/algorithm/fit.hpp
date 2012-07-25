@@ -46,6 +46,8 @@
 #include <sprout/algorithm/fit/make_heap.hpp>
 #include <sprout/algorithm/fit/make_partial_heap.hpp>
 #include <sprout/algorithm/fit/sort_heap.hpp>
+#include <sprout/algorithm/fit/next_permutation.hpp>
+#include <sprout/algorithm/fit/prev_permutation.hpp>
 #include <sprout/algorithm/fit/swap_element.hpp>
 #include <sprout/algorithm/fit/swap_element_copy.hpp>
 #include <sprout/algorithm/fit/bogo_sort.hpp>
