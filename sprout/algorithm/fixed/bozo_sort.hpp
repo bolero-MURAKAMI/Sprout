@@ -1,5 +1,5 @@
-#ifndef SPROUT_ALGORITHM_FIXED_BOGO_SORT_HPP
-#define SPROUT_ALGORITHM_FIXED_BOGO_SORT_HPP
+#ifndef SPROUT_ALGORITHM_FIXED_BOZO_SORT_HPP
+#define SPROUT_ALGORITHM_FIXED_BOZO_SORT_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
@@ -8,7 +8,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/algorithm/fixed/shuffle_result.hpp>
+#include <sprout/algorithm/fixed/random_swap_result.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
@@ -16,7 +16,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Shuffled, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bogo_sort_impl_1(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bozo_sort_impl_1(
 				Shuffled const& shuffled,
 				Compare comp
 				)
@@ -27,8 +27,8 @@ namespace sprout {
 					comp
 					)
 					? sprout::tuples::get<0>(shuffled)
-					: sprout::fixed::detail::bogo_sort_impl_1<Container>(
-						sprout::fixed::shuffle_result(
+					: sprout::fixed::detail::bozo_sort_impl_1<Container>(
+						sprout::fixed::random_swap_result(
 							sprout::tuples::get<0>(shuffled),
 							sprout::tuples::get<1>(shuffled)
 							),
@@ -37,7 +37,7 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bogo_sort_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bozo_sort_impl(
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
 				Compare comp
@@ -49,8 +49,8 @@ namespace sprout {
 					comp
 					)
 					? sprout::deep_copy(cont)
-					: sprout::fixed::detail::bogo_sort_impl_1<Container>(
-						sprout::fixed::shuffle_result(
+					: sprout::fixed::detail::bozo_sort_impl_1<Container>(
+						sprout::fixed::random_swap_result(
 							cont,
 							sprout::forward<UniformRandomNumberGenerator>(g)
 							),
@@ -60,31 +60,31 @@ namespace sprout {
 			}
 		}	// namespace detail
 		//
-		// bogo_sort
+		// bozo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bogo_sort(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bozo_sort(
 			Container const& cont,
 			UniformRandomNumberGenerator&& g,
 			Compare comp
 			)
 		{
-			return sprout::fixed::detail::bogo_sort_impl(
+			return sprout::fixed::detail::bozo_sort_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				comp
 				);
 		}
 		//
-		// bogo_sort
+		// bozo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bogo_sort(
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bozo_sort(
 			Container const& cont,
 			UniformRandomNumberGenerator&& g
 			)
 		{
-			return sprout::fixed::detail::bogo_sort_impl(
+			return sprout::fixed::detail::bozo_sort_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>()
@@ -92,7 +92,7 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::bogo_sort;
+	using sprout::fixed::bozo_sort;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_ALGORITHM_FIXED_BOGO_SORT_HPP
+#endif	// #ifndef SPROUT_ALGORITHM_FIXED_BOZO_SORT_HPP

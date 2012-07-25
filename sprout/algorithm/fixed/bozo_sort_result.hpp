@@ -1,5 +1,5 @@
-#ifndef SPROUT_ALGORITHM_FIXED_BOGO_SORT_RESULT_HPP
-#define SPROUT_ALGORITHM_FIXED_BOGO_SORT_RESULT_HPP
+#ifndef SPROUT_ALGORITHM_FIXED_BOZO_SORT_RESULT_HPP
+#define SPROUT_ALGORITHM_FIXED_BOZO_SORT_RESULT_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -9,7 +9,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/algorithm/fixed/shuffle_result.hpp>
+#include <sprout/algorithm/fixed/random_swap_result.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
@@ -20,7 +20,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fixed::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> bogo_sort_result_impl_1(
+			> bozo_sort_result_impl_1(
 				Shuffled const& shuffled,
 				Compare comp
 				)
@@ -31,8 +31,8 @@ namespace sprout {
 					comp
 					)
 					? shuffled
-					: sprout::fixed::detail::bogo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
-						sprout::fixed::shuffle_result(
+					: sprout::fixed::detail::bozo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
+						sprout::fixed::random_swap_result(
 							sprout::tuples::get<0>(shuffled),
 							sprout::tuples::get<1>(shuffled)
 							),
@@ -44,7 +44,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fixed::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> bogo_sort_result_impl(
+			> bozo_sort_result_impl(
 				Container const& cont,
 				UniformRandomNumberGenerator&& g,
 				Compare comp
@@ -63,8 +63,8 @@ namespace sprout {
 						sprout::deep_copy(cont),
 						sprout::forward<UniformRandomNumberGenerator>(g)
 						)
-					: sprout::fixed::detail::bogo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
-						sprout::fixed::shuffle_result(
+					: sprout::fixed::detail::bozo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
+						sprout::fixed::random_swap_result(
 							cont,
 							sprout::forward<UniformRandomNumberGenerator>(g)
 							),
@@ -74,37 +74,37 @@ namespace sprout {
 			}
 		}	// namespace detail
 		//
-		// bogo_sort_result
+		// bozo_sort_result
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fixed::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
-		> bogo_sort_result(
+		> bozo_sort_result(
 			Container const& cont,
 			UniformRandomNumberGenerator&& g,
 			Compare comp
 			)
 		{
-			return sprout::fixed::detail::bogo_sort_result_impl(
+			return sprout::fixed::detail::bozo_sort_result_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				comp
 				);
 		}
 		//
-		// bogo_sort_result
+		// bozo_sort_result
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fixed::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
-		> bogo_sort_result(
+		> bozo_sort_result(
 			Container const& cont,
 			UniformRandomNumberGenerator&& g
 			)
 		{
-			return sprout::fixed::detail::bogo_sort_result_impl(
+			return sprout::fixed::detail::bozo_sort_result_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>()
@@ -112,7 +112,7 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::bogo_sort_result;
+	using sprout::fixed::bozo_sort_result;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_ALGORITHM_FIXED_BOGO_SORT_RESULT_HPP
+#endif	// #ifndef SPROUT_ALGORITHM_FIXED_BOZO_SORT_RESULT_HPP

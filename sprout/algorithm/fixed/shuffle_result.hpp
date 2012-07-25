@@ -61,7 +61,7 @@ namespace sprout {
 					sprout::array<std::ptrdiff_t, N>,
 					typename std::decay<UniformRandomNumberGenerator>::type
 				> result_type;
-				return n > 0
+				return n > 1
 					? sprout::fixed::detail::make_shuffle_result_indexes_1<UniformRandomNumberGenerator>(
 						n,
 						sprout::random::uniform_int_distribution<std::ptrdiff_t>(0, n - 1)(sprout::forward<UniformRandomNumberGenerator>(g)),

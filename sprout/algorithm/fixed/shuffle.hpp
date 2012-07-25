@@ -2,7 +2,6 @@
 #define SPROUT_ALGORITHM_FIXED_SHUFFLE_HPP
 
 #include <cstddef>
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/array.hpp>
@@ -43,7 +42,7 @@ namespace sprout {
 				UniformRandomNumberGenerator&& g
 				)
 			{
-				return n > 0
+				return n > 1
 					? sprout::fixed::detail::make_shuffle_indexes_1(
 						n,
 						sprout::random::uniform_int_distribution<std::ptrdiff_t>(0, n - 1)(sprout::forward<UniformRandomNumberGenerator>(g)),

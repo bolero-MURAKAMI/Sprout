@@ -50,7 +50,11 @@
 #include <sprout/algorithm/fixed/prev_permutation.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/swap_element_copy.hpp>
+#include <sprout/algorithm/fixed/random_swap.hpp>
+#include <sprout/algorithm/fixed/random_swap_result.hpp>
 #include <sprout/algorithm/fixed/bogo_sort.hpp>
 #include <sprout/algorithm/fixed/bogo_sort_result.hpp>
+#include <sprout/algorithm/fixed/bozo_sort.hpp>
+#include <sprout/algorithm/fixed/bozo_sort_result.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_HPP

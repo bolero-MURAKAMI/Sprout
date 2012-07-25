@@ -48,9 +48,11 @@
 #include <sprout/algorithm/fit/sort_heap.hpp>
 #include <sprout/algorithm/fit/next_permutation.hpp>
 #include <sprout/algorithm/fit/prev_permutation.hpp>
-#include <sprout/algorithm/fit/swap_element.hpp>
-#include <sprout/algorithm/fit/swap_element_copy.hpp>
+#include <sprout/algorithm/fit/random_swap.hpp>
+#include <sprout/algorithm/fit/random_swap_result.hpp>
 #include <sprout/algorithm/fit/bogo_sort.hpp>
 #include <sprout/algorithm/fit/bogo_sort_result.hpp>
+#include <sprout/algorithm/fit/bozo_sort.hpp>
+#include <sprout/algorithm/fit/bozo_sort_result.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIT_HPP
