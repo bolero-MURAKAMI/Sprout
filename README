@@ -41,7 +41,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 -- sprout/range/numeric/dft.hpp - Rangeベースの離散フーリエ変換
 
 - コンテナサポート (Container supports)
--- sprout/sub_array.hpp - 切り出された部分コンテナ
+-- sprout/sub_array.hpp - コンテナから一部の範囲を切り出す部分コンテナ
 -- sprout/pit.hpp - 処理結果のコンテナを返す関数に与えるダミーコンテナ
 -- sprout/operation.hpp - コンテナを変更する操作
 -- sprout/container.hpp - コンテナ特性を定義するトレイトと関数

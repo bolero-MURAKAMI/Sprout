@@ -26,6 +26,15 @@ namespace sprout {
 				).presult()
 				;
 		}
+		template<typename Range, typename Parser>
+		inline SPROUT_CONSTEXPR typename sprout::weed::parse_context<
+			typename sprout::container_traits<Range>::const_iterator
+		>::template eval<
+			typename sprout::weed::traits::terminal_or_expr_of<Parser>::type
+		>::result_type::presult_type
+		parse(Range const& range, Parser const& parser) {
+			return sprout::weed::parse(sprout::begin(range), sprout::end(range), parser);
+		}
 
 		//
 		// parse_range
@@ -37,7 +46,7 @@ namespace sprout {
 			typename sprout::weed::traits::terminal_or_expr_of<Parser>::type
 		>::result_type::presult_type
 		parse_range(Range const& range, Parser const& parser) {
-			return sprout::weed::parse(sprout::begin(range), sprout::end(range), parser);
+			return sprout::weed::parse(range, parser);
 		}
 	}	// namespace weed
 }	// namespace sprout
