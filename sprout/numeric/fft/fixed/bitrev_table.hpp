@@ -9,8 +9,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/integer/bit_reverse.hpp>
-#include <sprout/integer/bit_length.hpp>
+#include <sprout/bit/reverse.hpp>
+#include <sprout/bit/length.hpp>
 
 namespace sprout {
 		namespace fixed {
