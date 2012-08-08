@@ -68,7 +68,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 
 - ドメイン固有 (Domain specific)
 -- sprout/uuid.hpp - UUID
--- sprout/checksum/sha1.hpp - SHA-1
+-- sprout/checksum.hpp - チェックサム (SHA-1, MD5, etc)
 
 - 構文解析 (Parsing)
 -- sprout/weed.hpp - Boost.Spirit.Qi ライクなコンパイル時パーサコンビネータ
