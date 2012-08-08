@@ -15,7 +15,7 @@ namespace sprout {
 	//
 	template<
 		typename Iterator,
-		typename Traits = sprout::big_endian_traits<typename std::iterator_traits<Iterator>::value_type>
+		typename Traits = sprout::endian_traits<typename std::iterator_traits<Iterator>::value_type>
 	>
 	class bytes_iterator
 		: public std::iterator<

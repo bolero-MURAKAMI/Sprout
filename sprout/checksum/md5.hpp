@@ -12,7 +12,6 @@
 #include <sprout/iterator/bytes_iterator.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/bit/rotate.hpp>
-#include <sprout/bit/reverse.hpp>
 
 namespace sprout {
 	static_assert(CHAR_BIT == 8, "CHAR_BIT == 8");
