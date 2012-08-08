@@ -6,7 +6,6 @@
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
 #include <sprout/container/functions.hpp>
@@ -15,16 +14,10 @@
 #include <sprout/algorithm/fixed/fill.hpp>
 #include <sprout/range/algorithm/fixed/copy.hpp>
 #include <sprout/operation/fixed/set.hpp>
+#include <sprout/bit/rotate.hpp>
 
 namespace sprout {
 	static_assert(CHAR_BIT == 8, "CHAR_BIT == 8");
-
-	namespace detail {
-		inline SPROUT_CONSTEXPR std::uint32_t
-		sha1_left_rotate(std::uint32_t x, std::size_t n) {
-			return (x << n) ^ (x >> (32 - n));
-		}
-	}	// namespace detail
 
 	//
 	// sha1
@@ -32,6 +25,7 @@ namespace sprout {
 	class sha1 {
 	public:
 		typedef sprout::array<std::uint8_t, 20> value_type;
+		typedef sha1 const const_type;
 	private:
 		sprout::array<std::uint32_t, 5> h_;
 		sprout::array<std::uint8_t, 64> block_;
@@ -55,7 +49,7 @@ namespace sprout {
 					| (block_[i * 4 + 1] << 16)
 					| (block_[i * 4 + 2] << 8)
 					| (block_[i * 4 + 3])
-				: sprout::detail::sha1_left_rotate(
+				: sprout::left_rotate(
 					calc_w(i - 3) ^ calc_w(i - 8) ^ calc_w(i - 14) ^ calc_w(i - 16),
 					1
 					)
@@ -69,18 +63,8 @@ namespace sprout {
 			) const
 		{
 			return block_byte_index != 64
-				? sha1(
-					h,
-					block,
-					block_byte_index,
-					bit_count
-					)
-				: sha1(
-					h,
-					block,
-					0,
-					bit_count
-					).process_block_0()
+				? const_type(h, block, block_byte_index, bit_count)
+				: const_type(h, block, 0, bit_count).process_block()
 				;
 		}
 		SPROUT_CONSTEXPR sha1 const process_block_2(
@@ -95,9 +79,9 @@ namespace sprout {
 			) const
 		{
 			return process_block_1(
-				sprout::detail::sha1_left_rotate(a, 5) + f + e + k + calc_w(i),
+				sprout::left_rotate(a, 5) + f + e + k + calc_w(i),
 				a,
-				sprout::detail::sha1_left_rotate(b, 30),
+				sprout::left_rotate(b, 30),
 				c,
 				d,
 				i + 1
@@ -138,7 +122,7 @@ namespace sprout {
 					)
 				;
 		}
-		SPROUT_CONSTEXPR sha1 const process_block_0() const {
+		SPROUT_CONSTEXPR sha1 const process_block() const {
 			return process_block_1(h_[0], h_[1], h_[2], h_[3], h_[4]);
 		}
 		template<typename Iterator, typename... Args>
@@ -224,7 +208,7 @@ namespace sprout {
 					)
 				;
 		}
-		SPROUT_CONSTEXPR sha1 const process_append() const {
+		SPROUT_CONSTEXPR sha1 const process_length() const {
 			return process(
 				h_,
 				sprout::get_internal(sprout::range::fixed::copy(
@@ -277,7 +261,7 @@ namespace sprout {
 				w[i] |= (block_[i * 4 + 3]);
 			}
 			for (std::size_t i = 16; i < 80; ++i) {
-				w[i] = sprout::detail::sha1_left_rotate((w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]), 1);
+				w[i] = sprout::left_rotate((w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]), 1);
 			}
 			std::uint32_t a = h_[0];
 			std::uint32_t b = h_[1];
@@ -300,10 +284,10 @@ namespace sprout {
 					f = b ^ c ^ d;
 					k = 0xCA62C1D6;
 				}
-				unsigned temp = sprout::detail::sha1_left_rotate(a, 5) + f + e + k + w[i];
+				unsigned temp = sprout::left_rotate(a, 5) + f + e + k + w[i];
 				e = d;
 				d = c;
-				c = sprout::detail::sha1_left_rotate(b, 30);
+				c = sprout::left_rotate(b, 30);
 				b = a;
 				a = temp;
 			}
@@ -320,6 +304,12 @@ namespace sprout {
 				process_block();
 			}
 		}
+		template<typename Iterator>
+		void process_block_impl(Iterator first, Iterator last) {
+			for(; first != last; ++first) {
+				process_byte(*first);
+			}
+		}
 	public:
 		SPROUT_CONSTEXPR sha1()
 			: h_{{0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0}}
@@ -327,6 +317,15 @@ namespace sprout {
 			, block_byte_index_()
 			, bit_count_()
 		{}
+		void reset() {
+			h_[0] = 0x67452301;
+			h_[1] = 0xEFCDAB89;
+			h_[2] = 0x98BADCFE;
+			h_[3] = 0x10325476;
+			h_[4] = 0xC3D2E1F0;
+			block_byte_index_ = 0;
+			bit_count_ = 0;
+		}
 
 		SPROUT_CONSTEXPR sha1 const process_byte(std::uint8_t byte) const {
 			return process(
@@ -358,9 +357,10 @@ namespace sprout {
 		}
 		template<typename Iterator>
 		void process_block(Iterator bytes_begin, Iterator bytes_end) {
-			for(; bytes_begin != bytes_end; ++bytes_begin) {
-				process_byte(*bytes_begin);
-			}
+			process_block_impl(
+				sprout::make_bytes_iterator(bytes_begin),
+				sprout::make_bytes_iterator(bytes_end)
+				);
 		}
 		template<typename Iterator>
 		void process_bytes(Iterator buffer, std::size_t byte_count) {
@@ -372,7 +372,7 @@ namespace sprout {
 		}
 
 		SPROUT_CONSTEXPR value_type checksum() const {
-			return process_one().process_padding().process_append().make_value();
+			return process_one().process_padding().process_length().make_value();
 		}
 		SPROUT_CONSTEXPR value_type operator()() const {
 			return checksum();

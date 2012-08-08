@@ -15,7 +15,6 @@ namespace sprout {
 		public:
 			typedef sprout::uuids::uuid result_type;
 		private:
-			typedef sprout::sha1 const sha1_const_type;
 			typedef typename result_type::value_type value_type;
 		private:
 			sprout::sha1 sha_;
@@ -45,10 +44,10 @@ namespace sprout {
 			}
 		public:
 			SPROUT_CONSTEXPR name_generator()
-				: sha_(sha1_const_type().process_range(sprout::uuids::uuid{{0}}))
+				: sha_(sprout::sha1::const_type().process_range(sprout::uuids::uuid{{0}}))
 			{}
 			explicit SPROUT_CONSTEXPR name_generator(sprout::uuids::uuid const& namespace_uuid)
-				: sha_(sha1_const_type().process_range(namespace_uuid))
+				: sha_(sprout::sha1::const_type().process_range(namespace_uuid))
 			{}
 			template<typename Elem, std::size_t N, typename Traits>
 			SPROUT_CONSTEXPR result_type operator()(sprout::basic_string<Elem, N, Traits> const& name) const {
