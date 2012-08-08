@@ -64,7 +64,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 -- sprout/type.hpp - 型リスト
 
 - プリプロセッサメタプログラミング (Preprocessor Metaprogramming)
--- /sprout/preprocessor.hpp - プリプロセッサメタプログラミングツール
+-- sprout/preprocessor.hpp - プリプロセッサメタプログラミングツール
 
 - ドメイン固有 (Domain specific)
 -- sprout/uuid.hpp - UUID
