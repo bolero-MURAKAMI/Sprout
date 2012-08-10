@@ -53,7 +53,6 @@ namespace sprout {
 			engine_type engine_;
 			distribution_type distribution_;
 		public:
-			//random_result() = default;	// ???
 			SPROUT_CONSTEXPR random_result()
 				: result_()
 				, engine_()
@@ -165,7 +164,6 @@ namespace sprout {
 			result_type result_;
 			engine_type engine_;
 		public:
-			//random_result() = default;	// ???
 			SPROUT_CONSTEXPR random_result()
 				: result_()
 				, engine_()

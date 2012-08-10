@@ -55,7 +55,7 @@ namespace sprout {
 									reflect_dir,
 									std::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256
 									)
-								// !!!
+								// ???
 //								sprout::darkroom::coords::scale(
 //									sprout::darkroom::intersects::normal(inter),
 //									std::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256

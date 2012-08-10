@@ -69,7 +69,7 @@ namespace sprout {
 		std::size_t Align = std::alignment_of<typename std::aligned_storage<Len>::type>::value
 	>
 	using aligned_storage_ = typename std::aligned_storage<Len, Align>::type;
-	// !!!
+	// ???
 	//template<std::size_t Len, typename... Types>
 	//using aligned_union_ = typename std::aligned_union<Len, Types...>::type;
 	template<typename T>
@@ -144,7 +144,7 @@ namespace sprout {
 		std::size_t Align = std::alignment_of<typename std::aligned_storage<Len>::type>::value
 	>
 	using aligned_storage = sprout::aligned_storage_<Len, Align>;
-	// !!!
+	// ???
 	//template<std::size_t Len, typename... Types>
 	//using aligned_union = sprout::aligned_union_<Len, Types...>;
 	template<typename T>
@@ -157,7 +157,7 @@ namespace sprout {
 	using common_type = sprout::common_type_<Types...>;
 	template<typename T>
 	using underlying_type = sprout::underlying_type_<T>;
-	// !!!
+	// ???
 	//template<typename F, typename... ArgTypes>
 	//using result_of = sprout::result_of_<F, ArgTypes...>;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES

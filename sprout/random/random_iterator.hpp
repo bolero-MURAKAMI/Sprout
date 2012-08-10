@@ -46,7 +46,6 @@ namespace sprout {
 			random_result_type random_;
 			difference_type count_;
 		public:
-			//random_iterator() = default;	// ???
 			SPROUT_CONSTEXPR random_iterator()
 				: random_()
 				, count_()
@@ -166,7 +165,6 @@ namespace sprout {
 			random_result_type random_;
 			difference_type count_;
 		public:
-			//random_iterator() = default;	// ???
 			SPROUT_CONSTEXPR random_iterator()
 				: random_()
 				, count_()

@@ -26,7 +26,6 @@ namespace sprout {
 			private:
 				base_type rng_;
 			public:
-				//uniform_int_float = default;	// ???
 				SPROUT_CONSTEXPR uniform_int_float()
 					: rng_()
 				{}

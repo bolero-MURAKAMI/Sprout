@@ -114,8 +114,7 @@ namespace sprout {
 				return has_dashes
 					? is_dash(nc.c)
 						? generate_2_2(nc.next(), open_brace, has_dashes, args...)
-						//: throw std::domain_error("string_generator: invalid uuid string (dashes not found)") // ???
-						: generate_2_2(nc, open_brace, has_dashes, args...)
+						: throw std::domain_error("string_generator: invalid uuid string (dashes not found)")
 					: generate_2_2(nc, open_brace, has_dashes, args...)
 					;
 			}
