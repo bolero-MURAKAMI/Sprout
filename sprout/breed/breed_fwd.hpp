@@ -24,7 +24,7 @@ namespace sprout {
 
 			struct private_type_ {
 			public:
-				SPROUT_CONSTEXPR private_type_ operator,(int) const;	//???
+				SPROUT_CONSTEXPR private_type_ operator,(int) const;	// ???
 			};
 
 			template<typename T>

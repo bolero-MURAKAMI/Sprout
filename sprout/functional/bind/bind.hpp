@@ -554,6 +554,26 @@ namespace sprout {
 		typedef typename helper_type::type result_type;
 		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
 	}
+
+	//
+	// cbind
+	//
+	template<typename F, typename... BoundArgs>
+	inline SPROUT_CONSTEXPR typename sprout::detail::bind_helper<F, BoundArgs...>::type const
+	cbind(F&& f, BoundArgs&&... args) {
+		typedef sprout::detail::bind_helper<F, BoundArgs...> helper_type;
+		typedef typename helper_type::maybe_type maybe_type;
+		typedef typename helper_type::type result_type;
+		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
+	}
+	template<typename R, typename F, typename... BoundArgs>
+	inline SPROUT_CONSTEXPR typename sprout::detail::bindres_helper<R, F, BoundArgs...>::type const
+	cbind(F&& f, BoundArgs&&... args) {
+		typedef sprout::detail::bindres_helper<R, F, BoundArgs...> helper_type;
+		typedef typename helper_type::maybe_type maybe_type;
+		typedef typename helper_type::type result_type;
+		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_BIND_BIND_HPP

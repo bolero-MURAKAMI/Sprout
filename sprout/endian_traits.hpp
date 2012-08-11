@@ -13,7 +13,22 @@ namespace sprout {
 		template<typename T>
 		class default_big_endian_traits<
 			T,
-			typename std::enable_if<std::is_integral<T>::value>::type
+			typename std::enable_if<std::is_integral<T>::value && sizeof(T) == 1>::type
+		> {
+		public:
+			typedef T type;
+		public:
+			static SPROUT_CONSTEXPR std::size_t size() {
+				return sizeof(type);
+			}
+			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t i) {
+				return static_cast<unsigned char>(t);
+			}
+		};
+		template<typename T>
+		class default_big_endian_traits<
+			T,
+			typename std::enable_if<std::is_integral<T>::value && !(sizeof(T) == 1)>::type
 		> {
 		public:
 			typedef T type;
@@ -34,7 +49,22 @@ namespace sprout {
 		template<typename T>
 		class default_little_endian_traits<
 			T,
-			typename std::enable_if<std::is_integral<T>::value>::type
+			typename std::enable_if<std::is_integral<T>::value && sizeof(T) == 1>::type
+		> {
+		public:
+			typedef T type;
+		public:
+			static SPROUT_CONSTEXPR std::size_t size() {
+				return sizeof(type);
+			}
+			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t i) {
+				return static_cast<unsigned char>(t);
+			}
+		};
+		template<typename T>
+		class default_little_endian_traits<
+			T,
+			typename std::enable_if<std::is_integral<T>::value && !(sizeof(T) == 1)>::type
 		> {
 		public:
 			typedef T type;
