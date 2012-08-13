@@ -3,6 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/darkroom/materials/material.hpp>
+#include <sprout/darkroom/materials/interpolation.hpp>
 #include <sprout/darkroom/materials/uniform.hpp>
 #include <sprout/darkroom/materials/plaid.hpp>
 #include <sprout/darkroom/materials/texture_map.hpp>

@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/math/floor.hpp>
 #include <sprout/utility/value_holder.hpp>
-#include <sprout/darkroom/colors/rgb.hpp>
+#include <sprout/darkroom/materials/interpolation.hpp>
 
 namespace sprout {
 	namespace darkroom {
@@ -14,14 +14,7 @@ namespace sprout {
 			//
 			// texture_map_interpolation
 			//
-			struct texture_map_interpolation {
-			public:
-				enum values {
-					nearest_neighbor,
-					bilinear,
-					bicubic
-				};
-			};
+			typedef sprout::darkroom::materials::interpolation_type texture_map_interpolation;
 			//
 			// texture_map_placement
 			//
@@ -41,29 +34,25 @@ namespace sprout {
 				typedef Texture texture_type;
 				typedef typename texture_type::value_type result_type;
 				typedef Scale unit_type;
-				typedef sprout::darkroom::materials::texture_map_interpolation texture_map_interpolation;
+				typedef sprout::darkroom::materials::interpolation_type interpolation_type;
 				typedef sprout::darkroom::materials::texture_map_placement texture_map_placement;
-			private:
-				static SPROUT_CONSTEXPR unit_type fmod(unit_type const& n, unit_type const& d) {
-					return n - std::intmax_t(n / d) * d;
-				}
 			private:
 				sprout::value_holder<texture_type const&> texture_;
 				unit_type scale_;
 				unit_type offset_u_;
 				unit_type offset_v_;
 				result_type default_color_;
-				texture_map_interpolation::values interpolation_value_;
+				interpolation_type::values interpolation_value_;
 				texture_map_placement::values placement_value_;
 			private:
 				SPROUT_CONSTEXPR bool is_nearest() const {
-					return interpolation_value_ == texture_map_interpolation::nearest_neighbor;
+					return interpolation_value_ == interpolation_type::nearest_neighbor;
 				}
 				SPROUT_CONSTEXPR bool is_bilinear() const {
-					return interpolation_value_ == texture_map_interpolation::bilinear;
+					return interpolation_value_ == interpolation_type::bilinear;
 				}
 				SPROUT_CONSTEXPR bool is_bicubic() const {
-					return interpolation_value_ == texture_map_interpolation::bicubic;
+					return interpolation_value_ == interpolation_type::bicubic;
 				}
 				SPROUT_CONSTEXPR bool is_tile() const {
 					return placement_value_ == texture_map_placement::tile;
@@ -94,36 +83,21 @@ namespace sprout {
 				}
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type calc_bilinear_1(
-					Unit const& x,
-					Unit const& xf,
-					Unit const& xc,
-					Unit const& y,
-					Unit const& yf,
-					Unit const& yc
+					Unit const& x, Unit const& x0,
+					Unit const& y, Unit const& y0
 					) const
 				{
-					return sprout::darkroom::colors::add(
-						sprout::darkroom::colors::mul(
-							sprout::darkroom::colors::add(
-								sprout::darkroom::colors::mul(get_color(xf, yf), 1 - (x - xf)),
-								sprout::darkroom::colors::mul(get_color(xc, yf), 1 - (xc - x))
-								),
-							1 - (y - yf)
-							),
-						sprout::darkroom::colors::mul(
-							sprout::darkroom::colors::add(
-								sprout::darkroom::colors::mul(get_color(xf, yc), 1 - (x - xf)),
-								sprout::darkroom::colors::mul(get_color(xc, yc), 1 - (xc - x))
-								),
-							1 - (yc - y)
-							)
+					return sprout::darkroom::materials::bilinear_interpolate(
+						get_color(x0, y0), get_color(x0 + 1, y0),
+						get_color(x0, y0 + 1), get_color(x0 + 1, y0 + 1),
+						1 - (x - x0), 1 - (y - y0)
 						);
 				}
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type calc_bilinear(Unit const& x, Unit const& y) const {
 					return calc_bilinear_1(
-						x, sprout::floor(x - 0.5), sprout::floor(x + 0.5),
-						y, sprout::floor(y - 0.5), sprout::floor(y + 0.5)
+						x, sprout::floor(x),
+						y, sprout::floor(y)
 						);
 				}
 				template<typename Unit>
@@ -139,7 +113,7 @@ namespace sprout {
 					unit_type const& offset_u = 0,
 					unit_type const& offset_v = 0,
 					result_type const& default_color = result_type(),
-					texture_map_interpolation::values interpolation_value = texture_map_interpolation::nearest_neighbor,
+					interpolation_type::values interpolation_value = interpolation_type::nearest_neighbor,
 					texture_map_placement::values placement_value = texture_map_placement::tile
 					)
 					: texture_(texture)
@@ -171,17 +145,13 @@ namespace sprout {
 			make_texture_map(
 				Texture const& texture,
 				Unit const& scale,
-				Unit const& offset_u
-					= 0
-					,
-				Unit const& offset_v
-					= 0
-					,
+				Unit const& offset_u = 0,
+				Unit const& offset_v = 0,
 				typename sprout::darkroom::materials::texture_map<Texture, Unit>::result_type const& default_color
 					= typename sprout::darkroom::materials::texture_map<Texture, Unit>::result_typ()
 					,
-				sprout::darkroom::materials::texture_map_interpolation::values interpolation_value
-					= sprout::darkroom::materials::texture_map_interpolation::nearest_neighbor
+				sprout::darkroom::materials::interpolation_type::values interpolation_value
+					= sprout::darkroom::materials::interpolation_type::nearest_neighbor
 					,
 				sprout::darkroom::materials::texture_map_placement::values placement_value
 					= sprout::darkroom::materials::texture_map_placement::tile

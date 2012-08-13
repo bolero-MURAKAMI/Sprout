@@ -157,8 +157,7 @@ namespace sprout {
 		public:
 			template<typename CVRef, typename Tuple>
 			SPROUT_CONSTEXPR result_type operator()(CVRef& arg, Tuple&) const volatile {
-				// ???
-				//return arg.get();
+				//return arg.get();	// ???
 				return const_cast<typename std::remove_volatile<typename std::remove_reference<CVRef>::type>::type&>(arg).get();
 			}
 		};
@@ -561,18 +560,12 @@ namespace sprout {
 	template<typename F, typename... BoundArgs>
 	inline SPROUT_CONSTEXPR typename sprout::detail::bind_helper<F, BoundArgs...>::type const
 	cbind(F&& f, BoundArgs&&... args) {
-		typedef sprout::detail::bind_helper<F, BoundArgs...> helper_type;
-		typedef typename helper_type::maybe_type maybe_type;
-		typedef typename helper_type::type result_type;
-		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
+		sprout::bind(sprout::forward<F>(f), sprout::forward<BoundArgs>(args)...);
 	}
 	template<typename R, typename F, typename... BoundArgs>
 	inline SPROUT_CONSTEXPR typename sprout::detail::bindres_helper<R, F, BoundArgs...>::type const
 	cbind(F&& f, BoundArgs&&... args) {
-		typedef sprout::detail::bindres_helper<R, F, BoundArgs...> helper_type;
-		typedef typename helper_type::maybe_type maybe_type;
-		typedef typename helper_type::type result_type;
-		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
+		sprout::bind<R>(sprout::forward<F>(f), sprout::forward<BoundArgs>(args)...);
 	}
 }	// namespace sprout
 

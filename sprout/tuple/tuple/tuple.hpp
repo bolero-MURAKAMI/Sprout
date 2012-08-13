@@ -15,7 +15,6 @@ namespace sprout {
 		namespace detail {
 			template<std::size_t Index, typename Head, bool IsEmpty>
 			class head_base;
-			// ???
 			// EBO disabled
 //			template<std::size_t Index, typename Head>
 //			class head_base<Index, Head, true>

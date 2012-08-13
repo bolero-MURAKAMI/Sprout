@@ -22,6 +22,9 @@ SPROUT_STATIC_CONSTEXPR sprout::darkroom::textures::version_type DARKROOM_LOAD_D
 #	include DARKROOM_DEF_LOAD_TEXTURE_FILE
 #	undef DARKROOM_LOADING_TEXTURE_VERSION
 	;
+
+static_assert(DARKROOM_LOAD_DETAIL_IDENTIFIER(version) <= 0, "Unsupported darkroom tex version");
+
 SPROUT_STATIC_CONSTEXPR sprout::darkroom::textures::info_type DARKROOM_LOAD_DETAIL_IDENTIFIER(info) = {
 #	define DARKROOM_LOADING_TEXTURE_INFO
 #	include DARKROOM_DEF_LOAD_TEXTURE_FILE
