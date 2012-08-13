@@ -32,17 +32,17 @@ namespace sprout {
 				return sprout::darkroom::colors::add(
 					sprout::darkroom::colors::mul(
 						sprout::darkroom::colors::add(
-							sprout::darkroom::colors::mul(c00, u),
-							sprout::darkroom::colors::mul(c01, 1 - u)
+							sprout::darkroom::colors::mul(c00, 1 - u),
+							sprout::darkroom::colors::mul(c01, u)
 							),
-						v
+						1 - v
 						),
 					sprout::darkroom::colors::mul(
 						sprout::darkroom::colors::add(
-							sprout::darkroom::colors::mul(c10, u),
-							sprout::darkroom::colors::mul(c11, 1 - u)
+							sprout::darkroom::colors::mul(c10, 1 - u),
+							sprout::darkroom::colors::mul(c11, u)
 							),
-						1 - v
+						v
 						)
 					);
 			}

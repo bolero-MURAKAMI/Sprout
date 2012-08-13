@@ -171,18 +171,6 @@ namespace sprout {
 					sprout::darkroom::coords::scale(nor, sprout::darkroom::coords::dot(incid, nor) * 2)
 					);
 			}
-
-			//
-			// normal_to_color
-			//
-			template<typename Color, typename Normal>
-			inline SPROUT_CONSTEXPR Color normal_to_color(Normal const& nor) {
-				return sprout::tuples::make<Color>(
-					0.5 + sprout::darkroom::coords::x(nor) * 0.5,
-					0.5 + sprout::darkroom::coords::y(nor) * 0.5,
-					0.5 + sprout::darkroom::coords::z(nor) * 0.5
-					);
-			}
 		}	// namespace coords
 	}	// namespace darkroom
 }	// namespace sprout

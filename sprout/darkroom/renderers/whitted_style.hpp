@@ -13,6 +13,7 @@
 #include <sprout/darkroom/materials/material.hpp>
 #include <sprout/darkroom/intersects/intersection.hpp>
 #include <sprout/darkroom/objects/intersect.hpp>
+#include <sprout/darkroom/renderers/infinity.hpp>
 
 namespace sprout {
 	namespace darkroom {
@@ -113,7 +114,12 @@ namespace sprout {
 			//
 			// whitted_style
 			//
+			template<typename InfinityColor = sprout::darkroom::renderers::direction_gradation>
 			class whitted_style {
+			public:
+				typedef InfinityColor infinity_color_type;
+			private:
+				infinity_color_type infinity_color_;
 			private:
 				template<
 					typename Color,
@@ -141,7 +147,7 @@ namespace sprout {
 								sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
 								)
 							)
-						: sprout::darkroom::coords::normal_to_color<Color>(sprout::darkroom::rays::direction(ray))
+						: infinity_color_.template operator()<Color>(sprout::darkroom::rays::direction(ray))
 						;
 				}
 				template<
@@ -205,6 +211,13 @@ namespace sprout {
 						);
 				}
 			public:
+				SPROUT_CONSTEXPR whitted_style()
+					: infinity_color_()
+				{}
+				SPROUT_CONSTEXPR whitted_style(whitted_style const&) = default;
+				explicit SPROUT_CONSTEXPR whitted_style(infinity_color_type const& infinity_color)
+					: infinity_color_(infinity_color)
+				{}
 				template<
 					typename Color,
 					typename Camera,
@@ -230,6 +243,18 @@ namespace sprout {
 						);
 				}
 			};
+			//
+			// make_whitted_style
+			//
+			inline SPROUT_CONSTEXPR sprout::darkroom::renderers::whitted_style<>
+			make_whitted_style() {
+				return sprout::darkroom::renderers::whitted_style<>();
+			}
+			template<typename InfinityColor>
+			inline SPROUT_CONSTEXPR sprout::darkroom::renderers::whitted_style<InfinityColor>
+			make_whitted_style(InfinityColor const& infinity_color) {
+				return sprout::darkroom::renderers::whitted_style<InfinityColor>(infinity_color);
+			}
 		}	// namespace renderers
 	}	// namespace darkroom
 }	// namespace sprout

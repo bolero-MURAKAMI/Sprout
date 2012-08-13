@@ -90,7 +90,7 @@ namespace sprout {
 					return sprout::darkroom::materials::bilinear_interpolate(
 						get_color(x0, y0), get_color(x0 + 1, y0),
 						get_color(x0, y0 + 1), get_color(x0 + 1, y0 + 1),
-						1 - (x - x0), 1 - (y - y0)
+						x - x0, y - y0
 						);
 				}
 				template<typename Unit>

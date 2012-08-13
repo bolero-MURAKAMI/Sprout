@@ -560,12 +560,12 @@ namespace sprout {
 	template<typename F, typename... BoundArgs>
 	inline SPROUT_CONSTEXPR typename sprout::detail::bind_helper<F, BoundArgs...>::type const
 	cbind(F&& f, BoundArgs&&... args) {
-		sprout::bind(sprout::forward<F>(f), sprout::forward<BoundArgs>(args)...);
+		return sprout::bind(sprout::forward<F>(f), sprout::forward<BoundArgs>(args)...);
 	}
 	template<typename R, typename F, typename... BoundArgs>
 	inline SPROUT_CONSTEXPR typename sprout::detail::bindres_helper<R, F, BoundArgs...>::type const
 	cbind(F&& f, BoundArgs&&... args) {
-		sprout::bind<R>(sprout::forward<F>(f), sprout::forward<BoundArgs>(args)...);
+		return sprout::bind<R>(sprout::forward<F>(f), sprout::forward<BoundArgs>(args)...);
 	}
 }	// namespace sprout
 

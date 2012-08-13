@@ -44,6 +44,18 @@ namespace sprout {
 						);
 				}
 			};
+			//
+			// make_raytracer
+			//
+			inline SPROUT_CONSTEXPR sprout::darkroom::tracers::raytracer<>
+			make_raytracer() {
+				return sprout::darkroom::tracers::raytracer<>();
+			}
+			template<typename Color>
+			inline SPROUT_CONSTEXPR sprout::darkroom::tracers::raytracer<Color>
+			make_raytracer() {
+				return sprout::darkroom::tracers::raytracer<Color>();
+			}
 		}	// namespace tracers
 	}	// namespace darkroom
 }	// namespace sprout
