@@ -64,18 +64,21 @@ namespace sprout {
 					return direction_value_ == aa_plane_direction::z;
 				}
 				template<typename Ray>
-				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_6(
+				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_5(
+					int hit_side,
 					bool does_intersect,
 					unit_type distance,
-					position_type const& point_of_intersection,
-					position_type const& normal
+					position_type const& point_of_intersection
 					) const
 				{
 					return typename intersection<Ray>::type(
 						does_intersect,
 						distance,
 						point_of_intersection,
-						normal,
+						is_x() ? position_type(hit_side > 0 ? 1 : -1, 0, 0)
+							: is_y() ? position_type(0, hit_side > 0 ? 1 : -1, 0)
+							: position_type(0, 0, hit_side > 0 ? 1 : -1)
+							,
 						is_x() ? sprout::darkroom::materials::calc_material(
 							mat_,
 							sprout::darkroom::coords::z(point_of_intersection),
@@ -91,23 +94,6 @@ namespace sprout {
 								sprout::darkroom::coords::x(point_of_intersection),
 								sprout::darkroom::coords::y(point_of_intersection)
 								)
-						);
-				}
-				template<typename Ray>
-				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_5(
-					int hit_side,
-					bool does_intersect,
-					unit_type distance,
-					position_type const& point_of_intersection
-					) const
-				{
-					return intersect_6<Ray>(
-						does_intersect,
-						distance,
-						point_of_intersection,
-						is_x() ? position_type(hit_side > 0 ? 1 : -1, 0, 0)
-							: is_y() ? position_type(0, hit_side > 0 ? 1 : -1, 0)
-							: position_type(0, 0, hit_side > 0 ? 1 : -1)
 						);
 				}
 				template<typename Ray>

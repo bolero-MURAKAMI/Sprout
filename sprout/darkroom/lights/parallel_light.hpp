@@ -3,9 +3,6 @@
 
 #include <limits>
 #include <sprout/config.hpp>
-#include <sprout/tuple/tuple.hpp>
-#include <sprout/tuple/functions.hpp>
-#include <sprout/utility/forward.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
@@ -35,7 +32,7 @@ namespace sprout {
 				color_type col_;
 			private:
 				template<typename Intersection>
-				SPROUT_CONSTEXPR color_type shade_4(
+				SPROUT_CONSTEXPR color_type shade_2(
 					Intersection const& inter,
 					unit_type const& intensity
 					) const
@@ -49,69 +46,24 @@ namespace sprout {
 						);
 				}
 				template<typename Intersection, typename LightRayIntersection>
-				SPROUT_CONSTEXPR color_type shade_3(
+				SPROUT_CONSTEXPR color_type shade_1(
 					Intersection const& inter,
-					position_type const& diff,
-					position_type const& direction,
 					LightRayIntersection const& light_ray_inter
 					) const
 				{
-					return shade_4(
+					return shade_2(
 						inter,
 						!sprout::darkroom::intersects::does_intersect(light_ray_inter)
-							|| sprout::darkroom::intersects::distance(light_ray_inter)
-								> sprout::darkroom::coords::length(diff)
 							|| sprout::darkroom::intersects::distance(light_ray_inter)
 								< std::numeric_limits<unit_type>::epsilon()
 							? NS_SSCRISK_CEL_OR_SPROUT::max(
 								std::numeric_limits<unit_type>::epsilon(),
 								sprout::darkroom::coords::dot(
-									direction,
+									dir_,
 									sprout::darkroom::intersects::normal(inter)
 									)
 								)
 							: 0
-						);
-				}
-				template<typename Intersection, typename Objects>
-				SPROUT_CONSTEXPR color_type shade_2(
-					Intersection const& inter,
-					Objects const& objs,
-					position_type const& diff,
-					position_type const& direction
-					) const
-				{
-					return shade_3(
-						inter,
-						diff,
-						direction,
-						sprout::darkroom::objects::intersect_list(
-							objs,
-							sprout::darkroom::rays::make_ray(
-								sprout::darkroom::coords::add(
-									sprout::darkroom::coords::scale(
-										direction,
-										std::numeric_limits<unit_type>::epsilon() * 256
-										),
-									sprout::darkroom::intersects::point_of_intersection(inter)
-									),
-								direction
-								)
-							)
-						);
-				}
-				template<typename Intersection, typename Objects>
-				SPROUT_CONSTEXPR color_type shade_1(
-					Intersection const& inter,
-					Objects const& objs,
-					position_type const& diff
-					) const
-				{
-					return shade_2(
-						inter,
-						objs,
-						diff,
-						sprout::darkroom::coords::normalize(diff)
 						);
 				}
 			public:
@@ -119,15 +71,26 @@ namespace sprout {
 					position_type const& dir,
 					color_type const& col
 					)
-					: dir_(dir)
+					: dir_(sprout::darkroom::coords::normalize(dir))
 					, col_(col)
 				{}
 				template<typename Intersection, typename Objects>
 				SPROUT_CONSTEXPR color_type operator()(Intersection const& inter, Objects const& objs) const {
 					return shade_1(
 						inter,
-						objs,
-						dir_
+						sprout::darkroom::objects::intersect_list(
+							objs,
+							sprout::darkroom::rays::make_ray(
+								sprout::darkroom::coords::add(
+									sprout::darkroom::coords::scale(
+										dir_,
+										std::numeric_limits<unit_type>::epsilon() * 256
+										),
+									sprout::darkroom::intersects::point_of_intersection(inter)
+									),
+								dir_
+								)
+							)
 						);
 				}
 			};

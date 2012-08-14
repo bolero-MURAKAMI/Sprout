@@ -3,9 +3,6 @@
 
 #include <limits>
 #include <sprout/config.hpp>
-#include <sprout/tuple/tuple.hpp>
-#include <sprout/tuple/functions.hpp>
-#include <sprout/utility/forward.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
