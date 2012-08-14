@@ -140,10 +140,7 @@ namespace sprout {
 								1 - sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
 								),
 							sprout::darkroom::colors::mul(
-								sprout::darkroom::colors::filter(
-									sprout::darkroom::materials::color(sprout::darkroom::intersects::material(inter)),
-									mirror_color
-									),
+								mirror_color,
 								sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
 								)
 							)
@@ -169,10 +166,10 @@ namespace sprout {
 					) const
 				{
 					return color_3<Color>(
-					ray,
-					inter,
-					diffuse_color,
-					sprout::darkroom::renderers::whitted_mirror().template operator()<Color>(
+						ray,
+						inter,
+						diffuse_color,
+						sprout::darkroom::renderers::whitted_mirror().template operator()<Color>(
 							camera,
 							objs,
 							lights,

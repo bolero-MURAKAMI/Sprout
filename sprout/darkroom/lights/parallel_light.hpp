@@ -1,5 +1,5 @@
-#ifndef SPROUT_DARKROOM_LIGHTS_POINT_LIGHT_HPP
-#define SPROUT_DARKROOM_LIGHTS_POINT_LIGHT_HPP
+#ifndef SPROUT_DARKROOM_LIGHTS_PARALLEL_LIGHT_HPP
+#define SPROUT_DARKROOM_LIGHTS_PARALLEL_LIGHT_HPP
 
 #include <limits>
 #include <sprout/config.hpp>
@@ -19,19 +19,19 @@ namespace sprout {
 	namespace darkroom {
 		namespace lights {
 			//
-			// basic_point_light
+			// basic_parallel_light
 			//
 			template<
 				typename Position = sprout::darkroom::coords::vector3d,
 				typename Color = sprout::darkroom::colors::rgb_f
 			>
-			class basic_point_light {
+			class basic_parallel_light {
 			public:
 				typedef Position position_type;
 				typedef typename sprout::darkroom::access::unit<position_type>::type unit_type;
 				typedef Color color_type;
 			private:
-				position_type pos_;
+				position_type dir_;
 				color_type col_;
 			private:
 				template<typename Intersection>
@@ -69,7 +69,6 @@ namespace sprout {
 									direction,
 									sprout::darkroom::intersects::normal(inter)
 									)
-									/ (sprout::darkroom::coords::length(diff) + 1)
 								)
 							: 0
 						);
@@ -116,11 +115,11 @@ namespace sprout {
 						);
 				}
 			public:
-				SPROUT_CONSTEXPR basic_point_light(
-					position_type const& pos,
+				SPROUT_CONSTEXPR basic_parallel_light(
+					position_type const& dir,
 					color_type const& col
 					)
-					: pos_(pos)
+					: dir_(dir)
 					, col_(col)
 				{}
 				template<typename Intersection, typename Objects>
@@ -128,23 +127,20 @@ namespace sprout {
 					return shade_1(
 						inter,
 						objs,
-						sprout::darkroom::coords::sub(
-							pos_,
-							sprout::darkroom::intersects::point_of_intersection(inter)
-							)
+						dir_
 						);
 				}
 			};
 			//
-			// make_point_light
+			// make_parallel_light
 			//
 			template<typename Position, typename Color>
-			inline SPROUT_CONSTEXPR sprout::darkroom::lights::basic_point_light<Position, Color>
-			make_point_light(Position const& pos, Color const& col) {
-				return sprout::darkroom::lights::basic_point_light<Position, Color>(pos, col);
+			inline SPROUT_CONSTEXPR sprout::darkroom::lights::basic_parallel_light<Position, Color>
+			make_parallel_light(Position const& pos, Color const& col) {
+				return sprout::darkroom::lights::basic_parallel_light<Position, Color>(pos, col);
 			}
 		}	// namespace lights
 	}	// namespace darkroom
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_DARKROOM_LIGHTS_POINT_LIGHT_HPP
+#endif	// #ifndef SPROUT_DARKROOM_LIGHTS_PARALLEL_LIGHT_HPP

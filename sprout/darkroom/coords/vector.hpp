@@ -99,6 +99,18 @@ namespace sprout {
 					);
 			}
 			//
+			// negate
+			//
+			template<typename Vector>
+			inline SPROUT_CONSTEXPR Vector negate(Vector const& vec) {
+				return sprout::tuples::remake<Vector>(
+					vec,
+					-sprout::darkroom::coords::x(vec),
+					-sprout::darkroom::coords::y(vec),
+					-sprout::darkroom::coords::z(vec)
+					);
+			}
+			//
 			// dot
 			//
 			template<typename Vector>
