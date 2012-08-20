@@ -25,7 +25,8 @@ namespace sprout {
 			void*
 			)
 		{
-			return std::next(sprout::forward<ForwardIterator>(it));
+			using std::next;
+			return next(sprout::forward<ForwardIterator>(it));
 		}
 
 		template<typename RandomAccessIterator>
@@ -47,7 +48,8 @@ namespace sprout {
 			void*
 			)
 		{
-			return std::next(sprout::forward<ForwardIterator>(it), n);
+			using std::next;
+			return next(sprout::forward<ForwardIterator>(it), n);
 		}
 	}	// namespace detail
 	//

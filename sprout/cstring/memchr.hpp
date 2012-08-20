@@ -12,7 +12,7 @@ namespace sprout {
 			return !n ? 0
 				: *s == c ? s
 				: sprout::detail::memchr_impl(s + 1, c, n - 1)
-			;
+				;
 		}
 	}	// namespace detail
 
