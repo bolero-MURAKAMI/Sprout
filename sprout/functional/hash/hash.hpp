@@ -10,27 +10,76 @@
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
+	namespace hash_detail {
+		struct enable_hash_value {
+		public:
+			typedef std::size_t type;
+		};
+
+		template<typename T, typename Enable = void>
+		struct basic_numbers {};
+		template<typename T>
+		struct basic_numbers<
+			T,
+			typename std::enable_if<
+				(std::is_integral<T>::value && sizeof(T) <= sizeof(std::size_t))
+			>::type
+		>
+			: public sprout::hash_detail::enable_hash_value
+		{};
+
+		template<typename T, typename Enable = void>
+		struct long_numbers {};
+		template<typename T>
+		struct long_numbers<
+			T,
+			typename std::enable_if<
+				(std::is_integral<T>::value && std::is_signed<T>::value && sizeof(T) > sizeof(std::size_t))
+			>::type
+		>
+			: public sprout::hash_detail::enable_hash_value
+		{};
+
+		template<typename T, typename Enable = void>
+		struct ulong_numbers {};
+		template<typename T>
+		struct ulong_numbers<
+			T,
+			typename std::enable_if<
+				(std::is_integral<T>::value && std::is_unsigned<T>::value && sizeof(T) > sizeof(std::size_t))
+			>::type
+		>
+			: public sprout::hash_detail::enable_hash_value
+		{};
+
+		template<typename T, typename Enable = void>
+		struct float_numbers {};
+		template<typename T>
+		struct float_numbers<
+			T,
+			typename std::enable_if<
+				(std::is_floating_point<T>::value)
+			>::type
+		>
+			: public sprout::hash_detail::enable_hash_value
+		{};
+	}	// namespace hash_detail
+
 	//
 	// hash_value
 	//
-	inline SPROUT_CONSTEXPR std::size_t hash_value(bool v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(char v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned char v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(signed char v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(char16_t v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(char32_t v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(wchar_t v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(short v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned short v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(int v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned int v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(long v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(long long v);
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long long v);
-	//inline SPROUT_CONSTEXPR std::size_t hash_value(float v);
-	//inline SPROUT_CONSTEXPR std::size_t hash_value(double v);
-	//inline SPROUT_CONSTEXPR std::size_t hash_value(long double v);
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::hash_detail::basic_numbers<T>::type
+	hash_value(T);
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::hash_detail::long_numbers<T>::type
+	hash_value(T);
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::hash_detail::ulong_numbers<T>::type
+	hash_value(T);
+//	template<typename T>
+//	inline SPROUT_CONSTEXPR typename sprout::hash_detail::float_numbers<T>::type
+//	hash_value(T);
 	template<
 		typename T,
 		typename sprout::enabler_if<std::is_pointer<typename std::remove_reference<T>::type>::value>::type
@@ -104,51 +153,26 @@ namespace sprout {
 	//
 	// hash_value
 	//
-	inline SPROUT_CONSTEXPR std::size_t hash_value(bool v) {
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::hash_detail::basic_numbers<T>::type
+	hash_value(T v) {
 		return static_cast<std::size_t>(v);
 	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(char v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned char v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(signed char v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(char16_t v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(char32_t v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(wchar_t v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(short v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned short v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(int v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned int v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(long v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long v) {
-		return static_cast<std::size_t>(v);
-	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(long long v) {
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::hash_detail::long_numbers<T>::type
+	hash_value(T v) {
 		return sprout::hash_detail::hash_value_signed(v);
 	}
-	inline SPROUT_CONSTEXPR std::size_t hash_value(unsigned long long v) {
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::hash_detail::ulong_numbers<T>::type
+	hash_value(T v) {
 		return sprout::hash_detail::hash_value_unsigned(v);
 	}
+//	template<typename T>
+//	inline SPROUT_CONSTEXPR typename sprout::hash_detail::float_numbers<T>::type
+//	hash_value(T v) {
+//		return sprout::hash_detail::hash_value_float(v);
+//	}
 	template<
 		typename T,
 		typename sprout::enabler_if<std::is_pointer<typename std::remove_reference<T>::type>::value>::type = sprout::enabler

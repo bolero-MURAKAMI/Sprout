@@ -1,6 +1,7 @@
 #ifndef SPROUT_UTILITY_PAIR_HPP
 #define SPROUT_UTILITY_PAIR_HPP
 
+#include <cstddef>
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -9,6 +10,7 @@
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/functional/ref.hpp>
+#include <sprout/functional/hash/hash.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
@@ -143,7 +145,7 @@ namespace sprout {
 	// swap
 	//
 	template<class T1, class T2>
-	inline void swap(pair<T1, T2>& x, pair<T1, T2>& y) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(x.swap(y))) {
+	inline void swap(sprout::pair<T1, T2>& x, sprout::pair<T1, T2>& y) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(x.swap(y))) {
 		x.swap(y);
 	}
 
@@ -163,6 +165,14 @@ namespace sprout {
 			sprout::forward<T1>(x),
 			sprout::forward<T2>(y)
 			);
+	}
+
+	//
+	// hash_value
+	//
+	template<typename T1, typename T2>
+	inline SPROUT_CONSTEXPR std::size_t hash_value(sprout::pair<T1, T2> const& v) {
+		return sprout::hash_values(v.first, v.second);
 	}
 }	// namespace sprout
 
