@@ -219,4 +219,4 @@ namespace sprout {
 	}	// namespace detail
 } // namespace sprout
 
-#endif  // SPROUT_RATIONAL_RATIONAL_HPP
+#endif	// SPROUT_RATIONAL_RATIONAL_HPP

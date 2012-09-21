@@ -3,7 +3,11 @@
 
 #include <sprout/config.hpp>
 #include <sprout/range/adaptor/copied.hpp>
+#include <sprout/range/adaptor/reversed.hpp>
 #include <sprout/range/adaptor/transformed.hpp>
+#include <sprout/range/adaptor/replaced.hpp>
+#include <sprout/range/adaptor/replaced_if.hpp>
+#include <sprout/range/adaptor/filtered.hpp>
 #include <sprout/range/adaptor/counting.hpp>
 #include <sprout/range/adaptor/deep_copied.hpp>
 #include <sprout/range/adaptor/sized.hpp>

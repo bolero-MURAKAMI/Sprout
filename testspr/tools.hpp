@@ -143,6 +143,29 @@ namespace testspr {
 	};
 
 	//
+	// gen_iota
+	//
+	template<typename T>
+	struct gen_iota {
+	public:
+		struct result {
+		public:
+			T val;
+			gen_iota gen;
+		public:
+			SPROUT_CONSTEXPR T const& generated_value() const { return val; }
+			SPROUT_CONSTEXPR gen_iota const& next_generator() const { return gen; }
+		};
+	private:
+		T val;
+	public:
+		explicit SPROUT_CONSTEXPR gen_iota(T const& val = T())
+			: val(val)
+		{}
+		SPROUT_CONSTEXPR result operator()() const { return result{val, gen_iota(val + 1)}; }
+	};
+
+	//
 	// distance
 	//
 	template<typename InputIterator>

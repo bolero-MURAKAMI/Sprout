@@ -6,7 +6,8 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/iterator.hpp>
+#include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/iterator/value_iterator.hpp>
 
 namespace sprout {

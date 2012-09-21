@@ -15,6 +15,8 @@
 #include <sprout/algorithm/fixed/fill_n.hpp>
 #include <sprout/algorithm/fixed/generate.hpp>
 #include <sprout/algorithm/fixed/generate_n.hpp>
+#include <sprout/algorithm/fixed/unfold.hpp>
+#include <sprout/algorithm/fixed/unfold_n.hpp>
 #include <sprout/algorithm/fixed/remove.hpp>
 #include <sprout/algorithm/fixed/remove_if.hpp>
 #include <sprout/algorithm/fixed/remove_copy.hpp>

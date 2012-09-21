@@ -11,15 +11,10 @@ namespace sprout {
 		//
 		// generate_n
 		//
-		template<typename Container, typename Size, typename Generator, typename... Inits>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type generate_n(
-			Container const& cont,
-			Size n,
-			Generator gen,
-			Inits const&... inits
-			)
-		{
-			return sprout::fixed::detail::generate_impl(cont, gen, n, inits...);
+		template<typename Container, typename Size, typename Generator>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		generate_n(Container const& cont, Size n, Generator gen) {
+			return sprout::fixed::detail::generate_impl(cont, gen, n);
 		}
 	}	// namespace fixed
 

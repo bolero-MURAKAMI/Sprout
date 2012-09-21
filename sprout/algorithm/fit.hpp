@@ -15,6 +15,8 @@
 #include <sprout/algorithm/fit/fill_n.hpp>
 #include <sprout/algorithm/fit/generate.hpp>
 #include <sprout/algorithm/fit/generate_n.hpp>
+#include <sprout/algorithm/fit/unfold.hpp>
+#include <sprout/algorithm/fit/unfold_n.hpp>
 #include <sprout/algorithm/fit/remove.hpp>
 #include <sprout/algorithm/fit/remove_if.hpp>
 #include <sprout/algorithm/fit/remove_copy.hpp>

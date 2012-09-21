@@ -19,6 +19,8 @@
 #include "./fill_n.cpp"
 #include "./generate.cpp"
 #include "./generate_n.cpp"
+#include "./unfold.cpp"
+#include "./unfold_n.cpp"
 #include "./remove.cpp"
 #include "./remove_if.cpp"
 #include "./remove_copy.cpp"
@@ -76,10 +78,12 @@ namespace testspr {
 		testspr::algorithm_replace_if_test();
 		testspr::algorithm_replace_copy_test();
 		testspr::algorithm_replace_copy_if_test();
-		testspr::algorithm_fill_test();
-		testspr::algorithm_fill_n_test();
 		testspr::algorithm_generate_test();
 		testspr::algorithm_generate_n_test();
+		testspr::algorithm_fill_test();
+		testspr::algorithm_fill_n_test();
+		testspr::algorithm_unfold_test();
+		testspr::algorithm_unfold_n_test();
 		testspr::algorithm_remove_test();
 		testspr::algorithm_remove_if_test();
 		testspr::algorithm_remove_copy_test();

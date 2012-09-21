@@ -69,7 +69,7 @@ namespace sprout {
 							: position_type(0, 0, 0)
 							,
 						hit_side > 0 ? normal_ : sprout::darkroom::coords::negate(normal_),
-						sprout::darkroom::materials::calc_material(mat_, unit_type(0), unit_type(0))	// !
+						sprout::darkroom::materials::calc_material(mat_, unit_type(0), unit_type(0))	// ???
 						);
 				}
 				template<typename Ray>
@@ -132,7 +132,7 @@ namespace sprout {
 							sprout::darkroom::coords::scale(sprout::darkroom::rays::direction(ray), t)
 							),
 						hit_side,
-						// !!!
+						// ???
 //						hit_side > 0 && t >= 0
 						t >= 0
 						);

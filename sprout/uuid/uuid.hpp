@@ -7,7 +7,8 @@
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/iterator.hpp>
+#include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/reverse_iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>

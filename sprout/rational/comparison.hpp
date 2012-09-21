@@ -193,4 +193,4 @@ namespace sprout {
 	}
 } // namespace sprout
 
-#endif  // SPROUT_RATIONAL_COMPARISON_HPP
+#endif	// SPROUT_RATIONAL_COMPARISON_HPP

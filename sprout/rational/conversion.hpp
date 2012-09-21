@@ -15,4 +15,4 @@ namespace sprout {
 	}
 } // namespace sprout
 
-#endif  // SPROUT_RATIONAL_CONVERSION_HPP
+#endif	// SPROUT_RATIONAL_CONVERSION_HPP

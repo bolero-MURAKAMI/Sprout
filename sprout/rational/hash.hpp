@@ -16,4 +16,4 @@ namespace sprout {
 	}
 } // namespace sprout
 
-#endif  // SPROUT_RATIONAL_HASH_HPP
+#endif	// SPROUT_RATIONAL_HASH_HPP

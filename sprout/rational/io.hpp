@@ -38,4 +38,4 @@ namespace sprout {
 	}
 } // namespace sprout
 
-#endif  // SPROUT_RATIONAL_IO_HPP
+#endif	// SPROUT_RATIONAL_IO_HPP

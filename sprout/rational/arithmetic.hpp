@@ -255,4 +255,4 @@ namespace sprout {
 	}
 } // namespace sprout
 
-#endif  // SPROUT_RATIONAL_ARITHMETIC_HPP
+#endif	// SPROUT_RATIONAL_ARITHMETIC_HPP

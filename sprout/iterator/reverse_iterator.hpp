@@ -183,6 +183,15 @@ namespace sprout {
 	}
 
 	//
+	// make_reverse_iterator
+	//
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator>
+	make_reverse_iterator(Iterator it) {
+		return sprout::reverse_iterator<Iterator>(it);
+	}
+
+	//
 	// swap
 	//
 	template<typename Iterator>

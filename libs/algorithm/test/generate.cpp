@@ -11,29 +11,27 @@ namespace testspr {
 	static void algorithm_generate_test() {
 		using namespace sprout;
 		{
-			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
+			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{0}};
 
 			// ê∂ê¨
 			{
 				SPROUT_STATIC_CONSTEXPR auto generated = sprout::generate(
 					arr1,
-					testspr::x2<int>(),
-					2
+					testspr::gen_iota<int>(1)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					generated,
-					array<int, 10>{{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}}
+					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto generated = sprout::fit::generate(
 					arr1,
-					testspr::x2<int>(),
-					2
+					testspr::gen_iota<int>(1)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					generated,
-					array<int, 10>{{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}}
+					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
 			}
 			// ê∂ê¨
@@ -41,31 +39,29 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto generated = sprout::generate(
 					sprout::sub(arr1, 2, 8),
-					testspr::x2<int>(),
-					2
+					testspr::gen_iota<int>(1)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					generated,
-					array<int, 6>{{2, 4, 8, 16, 32, 64}}
+					array<int, 6>{{1, 2, 3, 4, 5, 6}}
 					));
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(generated),
-					array<int, 10>{{1, 2, 2, 4, 8, 16, 32, 64, 9, 10}}
+					array<int, 10>{{0, 0, 1, 2, 3, 4, 5, 6, 0, 0}}
 					));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto generated = sprout::fit::generate(
 					sprout::sub(arr1, 2, 8),
-					testspr::x2<int>(),
-					2
+					testspr::gen_iota<int>(1)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					generated,
-					array<int, 6>{{2, 4, 8, 16, 32, 64}}
+					array<int, 6>{{1, 2, 3, 4, 5, 6}}
 					));
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(generated),
-					array<int, 10>{{1, 2, 2, 4, 8, 16, 32, 64, 9, 10}}
+					array<int, 10>{{0, 0, 1, 2, 3, 4, 5, 6, 0, 0}}
 					));
 			}
 		}
