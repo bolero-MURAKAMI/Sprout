@@ -11,7 +11,7 @@ namespace testspr {
 	static void algorithm_generate_n_test() {
 		using namespace sprout;
 		{
-			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{0}};
+			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{}};
 
 			// ê∂ê¨
 			{

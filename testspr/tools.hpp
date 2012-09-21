@@ -67,6 +67,18 @@ namespace testspr {
 	public:
 		SPROUT_CONSTEXPR bool operator()(T const& t) const { return t % 2 != 0; }
 	};
+	//
+	// is_multiple_of
+	//
+	template<typename T, typename U = T>
+	struct is_multiple_of {
+	public:
+		typedef T first_argument_type;
+		typedef U second_argument_type;
+		typedef bool result_type;
+	public:
+		SPROUT_CONSTEXPR bool operator()(T const& t, U const& u) const { return t % u == 0; }
+	};
 
 	//
 	// less

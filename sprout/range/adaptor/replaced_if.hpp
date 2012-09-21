@@ -30,8 +30,8 @@ namespace sprout {
 					: pred_(pred)
 					, new_(new_value)
 				{}
-				T const& operator()(T const& value) const {
-					return pred(value) ? new_ : value;
+				SPROUT_CONSTEXPR T const& operator()(T const& value) const {
+					return pred_(value) ? new_ : value;
 				}
 			};
 		}	// namespace detail

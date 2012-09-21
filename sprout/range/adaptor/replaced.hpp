@@ -29,7 +29,7 @@ namespace sprout {
 					: old_(old_value)
 					, new_(new_value)
 				{}
-				T const& operator()(T const& value) const {
+				SPROUT_CONSTEXPR T const& operator()(T const& value) const {
 					return (value == old_) ? new_ : value;
 				}
 			};

@@ -55,13 +55,13 @@ namespace sprout {
 		iterator_type last;
 		predicate_type pred;
 	private:
-		iterator_type satisfy_predicate() {
-			while (current != last && !pred(current)) {
+		void satisfy_predicate() {
+			while (current != last && !pred(*current)) {
 				++current;
 			}
 		}
-		iterator_type satisfy_predicate_backward() {
-			while (!pred(current)) {
+		void satisfy_predicate_backward() {
+			while (!pred(*current)) {
 				--current;
 			}
 		}
