@@ -387,44 +387,6 @@ namespace sprout {
 	}
 
 	//
-	// next
-	//
-	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> next(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
-		)
-	{
-		return it.next();
-	}
-	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> next(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
-		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
-		)
-	{
-		return it + n;
-	}
-
-	//
-	// prev
-	//
-	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> prev(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
-		)
-	{
-		return it.prev();
-	}
-	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> prev(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
-		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
-		)
-	{
-		return it - n;
-	}
-
-	//
 	// distance
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
@@ -435,6 +397,44 @@ namespace sprout {
 		)
 	{
 		return last - first;
+	}
+
+	//
+	// iterator_next
+	//
+	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> iterator_next(
+		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
+		)
+	{
+		return it.next();
+	}
+	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> iterator_next(
+		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
+		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
+		)
+	{
+		return it + n;
+	}
+
+	//
+	// iterator_prev
+	//
+	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> iterator_prev(
+		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
+		)
+	{
+		return it.prev();
+	}
+	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> iterator_prev(
+		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
+		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
+		)
+	{
+		return it - n;
 	}
 }	// namespace sprout
 

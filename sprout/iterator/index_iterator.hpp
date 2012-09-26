@@ -196,44 +196,6 @@ namespace sprout {
 	{};
 
 	//
-	// next
-	//
-	template<typename Container>
-	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> next(
-		sprout::index_iterator<Container> const& it
-		)
-	{
-		return it.next();
-	}
-	template<typename Container>
-	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> next(
-		sprout::index_iterator<Container> const& it,
-		typename sprout::index_iterator<Container>::difference_type n
-		)
-	{
-		return it + n;
-	}
-
-	//
-	// prev
-	//
-	template<typename Container>
-	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> prev(
-		sprout::index_iterator<Container> const& it
-		)
-	{
-		return it.prev();
-	}
-	template<typename Container>
-	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> prev(
-		sprout::index_iterator<Container> const& it,
-		typename sprout::index_iterator<Container>::difference_type n
-		)
-	{
-		return it - n;
-	}
-
-	//
 	// distance
 	//
 	template<typename Container>
@@ -244,6 +206,44 @@ namespace sprout {
 		)
 	{
 		return last - first;
+	}
+
+	//
+	// iterator_next
+	//
+	template<typename Container>
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> iterator_next(
+		sprout::index_iterator<Container> const& it
+		)
+	{
+		return it.next();
+	}
+	template<typename Container>
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> iterator_next(
+		sprout::index_iterator<Container> const& it,
+		typename sprout::index_iterator<Container>::difference_type n
+		)
+	{
+		return it + n;
+	}
+
+	//
+	// iterator_prev
+	//
+	template<typename Container>
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> iterator_prev(
+		sprout::index_iterator<Container> const& it
+		)
+	{
+		return it.prev();
+	}
+	template<typename Container>
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container> iterator_prev(
+		sprout::index_iterator<Container> const& it,
+		typename sprout::index_iterator<Container>::difference_type n
+		)
+	{
+		return it - n;
 	}
 }	// namespace sprout
 

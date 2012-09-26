@@ -4,73 +4,94 @@
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/utility/forward.hpp>
 
 namespace sprout {
-	namespace detail {
+	namespace iterator_detail {
 		template<typename RandomAccessIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<typename std::decay<RandomAccessIterator>::type>::value,
-			typename std::decay<RandomAccessIterator>::type
+			std::is_literal_type<RandomAccessIterator>::value,
+			RandomAccessIterator
 		>::type next_impl(
-			RandomAccessIterator&& it,
+			RandomAccessIterator const& it,
 			std::random_access_iterator_tag*
 			)
 		{
-			return sprout::forward<RandomAccessIterator>(it) + 1;
+			return it + 1;
 		}
 		template<typename ForwardIterator>
-		inline SPROUT_CONSTEXPR typename std::decay<ForwardIterator>::type next_impl(
-			ForwardIterator&& it,
+		inline SPROUT_CONSTEXPR ForwardIterator next_impl(
+			ForwardIterator const& it,
 			void*
 			)
 		{
-			return std::next(sprout::forward<ForwardIterator>(it));
+			return std::next(it);
 		}
 
 		template<typename RandomAccessIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<typename std::decay<RandomAccessIterator>::type>::value,
-			typename std::decay<RandomAccessIterator>::type
+			std::is_literal_type<RandomAccessIterator>::value,
+			RandomAccessIterator
 		>::type next_impl(
-			RandomAccessIterator&& it,
-			typename std::iterator_traits<typename std::decay<RandomAccessIterator>::type>::difference_type n,
+			RandomAccessIterator const& it,
+			typename std::iterator_traits<RandomAccessIterator>::difference_type n,
 			std::random_access_iterator_tag*
 			)
 		{
-			return sprout::forward<RandomAccessIterator>(it) + n;
+			return it + n;
 		}
 		template<typename ForwardIterator>
-		inline SPROUT_CONSTEXPR typename std::decay<ForwardIterator>::type next_impl(
-			ForwardIterator it,
-			typename std::iterator_traits<typename std::decay<ForwardIterator>::type>::difference_type n,
+		inline SPROUT_CONSTEXPR ForwardIterator next_impl(
+			ForwardIterator const& it,
+			typename std::iterator_traits<ForwardIterator>::difference_type n,
 			void*
 			)
 		{
-			return std::next(sprout::forward<ForwardIterator>(it), n);
+			return std::next(it, n);
 		}
-	}	// namespace detail
+
+		template<typename ForwardIterator>
+		inline SPROUT_CONSTEXPR ForwardIterator
+		iterator_next(ForwardIterator const& it) {
+			typedef typename std::iterator_traits<ForwardIterator>::iterator_category* category;
+			return sprout::iterator_detail::next_impl(it, category());
+		}
+		template<typename ForwardIterator>
+		inline SPROUT_CONSTEXPR ForwardIterator
+		iterator_next(ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n) {
+			typedef typename std::iterator_traits<ForwardIterator>::iterator_category* category;
+			return sprout::iterator_detail::next_impl(it, n, category());
+		}
+	}	// namespace iterator_detail
+}	// namespace sprout
+
+namespace sprout_iterator_detail {
+	template<typename ForwardIterator>
+	inline SPROUT_CONSTEXPR ForwardIterator
+	next(ForwardIterator const& it) {
+		using sprout::iterator_detail::iterator_next;
+		return iterator_next(it);
+	}
+	template<typename ForwardIterator>
+	inline SPROUT_CONSTEXPR ForwardIterator
+	next(ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n) {
+		using sprout::iterator_detail::iterator_next;
+		return iterator_next(it, n);
+	}
+}	// namespace sprout_iterator_detail
+
+namespace sprout {
 	//
 	// next
 	//
 	template<typename ForwardIterator>
-	inline SPROUT_CONSTEXPR typename std::decay<ForwardIterator>::type
-	next(ForwardIterator&& it) {
-		typedef typename std::iterator_traits<typename std::decay<ForwardIterator>::type>::iterator_category* category;
-		return sprout::detail::next_impl(
-			sprout::forward<ForwardIterator>(it),
-			category()
-			);
+	inline SPROUT_CONSTEXPR ForwardIterator
+	next(ForwardIterator const& it) {
+		return sprout_iterator_detail::next(it);
 	}
 	template<typename ForwardIterator>
-	inline SPROUT_CONSTEXPR typename std::decay<ForwardIterator>::type
-	next(ForwardIterator&& it, typename std::iterator_traits<typename std::decay<ForwardIterator>::type>::difference_type n) {
-		typedef typename std::iterator_traits<typename std::decay<ForwardIterator>::type>::iterator_category* category;
-		return sprout::detail::next_impl(
-			sprout::forward<ForwardIterator>(it),
-			n,
-			category()
-			);
+	inline SPROUT_CONSTEXPR ForwardIterator
+	next(ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n) {
+		return sprout_iterator_detail::next(it, n);
 	}
 }	// namespace sprout
 

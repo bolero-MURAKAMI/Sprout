@@ -230,6 +230,7 @@ namespace sprout {
 				return result;
 			}
 		};
+
 		//
 		// swap
 		//
@@ -241,18 +242,18 @@ namespace sprout {
 		{
 			lhs.swap(rhs);
 		}
-	}	// namespace random
 
-	//
-	// next
-	//
-	template<typename Engine, typename Distribution>
-	SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution> next(
-		sprout::random::random_result<Engine, Distribution> const& it
-		)
-	{
-		return it();
-	}
+		//
+		// next
+		//
+		template<typename Engine, typename Distribution>
+		SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution> next(
+			sprout::random::random_result<Engine, Distribution> const& it
+			)
+		{
+			return it();
+		}
+	}	// namespace random
 
 	using sprout::random::random_result;
 }	// namespace sprout

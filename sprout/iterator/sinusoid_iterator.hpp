@@ -228,44 +228,6 @@ namespace sprout {
 	}
 
 	//
-	// next
-	//
-	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sinusoid_iterator<Value> next(
-		sprout::sinusoid_iterator<Value> const& it
-		)
-	{
-		return it.next();
-	}
-	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sinusoid_iterator<Value> next(
-		sprout::sinusoid_iterator<Value> const& it,
-		typename sprout::sinusoid_iterator<Value>::difference_type n
-		)
-	{
-		return it + n;
-	}
-
-	//
-	// prev
-	//
-	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sinusoid_iterator<Value> prev(
-		sprout::sinusoid_iterator<Value> const& it
-		)
-	{
-		return it.prev();
-	}
-	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sinusoid_iterator<Value> prev(
-		sprout::sinusoid_iterator<Value> const& it,
-		typename sprout::sinusoid_iterator<Value>::difference_type n
-		)
-	{
-		return it - n;
-	}
-
-	//
 	// distance
 	//
 	template<typename Value>
@@ -276,6 +238,44 @@ namespace sprout {
 		)
 	{
 		return last - first;
+	}
+
+	//
+	// iterator_next
+	//
+	template<typename Value>
+	inline SPROUT_CONSTEXPR sprout::sinusoid_iterator<Value> iterator_next(
+		sprout::sinusoid_iterator<Value> const& it
+		)
+	{
+		return it.next();
+	}
+	template<typename Value>
+	inline SPROUT_CONSTEXPR sprout::sinusoid_iterator<Value> iterator_next(
+		sprout::sinusoid_iterator<Value> const& it,
+		typename sprout::sinusoid_iterator<Value>::difference_type n
+		)
+	{
+		return it + n;
+	}
+
+	//
+	// iterator_prev
+	//
+	template<typename Value>
+	inline SPROUT_CONSTEXPR sprout::sinusoid_iterator<Value> iterator_prev(
+		sprout::sinusoid_iterator<Value> const& it
+		)
+	{
+		return it.prev();
+	}
+	template<typename Value>
+	inline SPROUT_CONSTEXPR sprout::sinusoid_iterator<Value> iterator_prev(
+		sprout::sinusoid_iterator<Value> const& it,
+		typename sprout::sinusoid_iterator<Value>::difference_type n
+		)
+	{
+		return it - n;
 	}
 }	// namespace sprout
 

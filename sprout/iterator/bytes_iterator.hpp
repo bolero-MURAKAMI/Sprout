@@ -163,49 +163,23 @@ namespace sprout {
 	};
 
 	//
+	// make_bytes_iterator
+	//
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator> make_bytes_iterator(Iterator it) {
+		return sprout::bytes_iterator<Iterator>(it);
+	}
+	template<typename Iterator, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> make_bytes_iterator(Iterator it, Traits) {
+		return sprout::bytes_iterator<Iterator, Traits>(it);
+	}
+
+	//
 	// swap
 	//
 	template<typename Iterator, typename Traits>
 	inline void swap(sprout::bytes_iterator<Iterator, Traits>& lhs, sprout::bytes_iterator<Iterator, Traits>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
 		lhs.swap(rhs);
-	}
-
-	//
-	// next
-	//
-	template<typename Iterator, typename Traits>
-	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> next(
-		sprout::bytes_iterator<Iterator, Traits> const& it
-		)
-	{
-		return it.next();
-	}
-	template<typename Iterator, typename Traits>
-	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> next(
-		sprout::bytes_iterator<Iterator, Traits> const& it,
-		typename sprout::bytes_iterator<Iterator, Traits>::difference_type n
-		)
-	{
-		return it + n;
-	}
-
-	//
-	// prev
-	//
-	template<typename Iterator, typename Traits>
-	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> prev(
-		sprout::bytes_iterator<Iterator, Traits> const& it
-		)
-	{
-		return it.prev();
-	}
-	template<typename Iterator, typename Traits>
-	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> prev(
-		sprout::bytes_iterator<Iterator, Traits> const& it,
-		typename sprout::bytes_iterator<Iterator, Traits>::difference_type n
-		)
-	{
-		return it - n;
 	}
 
 	//
@@ -222,15 +196,41 @@ namespace sprout {
 	}
 
 	//
-	// make_bytes_iterator
+	// iterator_next
 	//
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator> make_bytes_iterator(Iterator it) {
-		return sprout::bytes_iterator<Iterator>(it);
+	template<typename Iterator, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> iterator_next(
+		sprout::bytes_iterator<Iterator, Traits> const& it
+		)
+	{
+		return it.next();
 	}
 	template<typename Iterator, typename Traits>
-	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> make_bytes_iterator(Iterator it, Traits) {
-		return sprout::bytes_iterator<Iterator, Traits>(it);
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> iterator_next(
+		sprout::bytes_iterator<Iterator, Traits> const& it,
+		typename sprout::bytes_iterator<Iterator, Traits>::difference_type n
+		)
+	{
+		return it + n;
+	}
+
+	//
+	// iterator_prev
+	//
+	template<typename Iterator, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> iterator_prev(
+		sprout::bytes_iterator<Iterator, Traits> const& it
+		)
+	{
+		return it.prev();
+	}
+	template<typename Iterator, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits> iterator_prev(
+		sprout::bytes_iterator<Iterator, Traits> const& it,
+		typename sprout::bytes_iterator<Iterator, Traits>::difference_type n
+		)
+	{
+		return it - n;
 	}
 }	// namespace sprout
 

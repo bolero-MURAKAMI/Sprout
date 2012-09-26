@@ -191,44 +191,6 @@ namespace sprout {
 	}
 
 	//
-	// next
-	//
-	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> next(
-		sprout::counting_iterator<Incrementable> const& it
-		)
-	{
-		return it.next();
-	}
-	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> next(
-		sprout::counting_iterator<Incrementable> const& it,
-		typename sprout::counting_iterator<Incrementable>::difference_type n
-		)
-	{
-		return it + n;
-	}
-
-	//
-	// prev
-	//
-	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> prev(
-		sprout::counting_iterator<Incrementable> const& it
-		)
-	{
-		return it.prev();
-	}
-	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> prev(
-		sprout::counting_iterator<Incrementable> const& it,
-		typename sprout::counting_iterator<Incrementable>::difference_type n
-		)
-	{
-		return it - n;
-	}
-
-	//
 	// distance
 	//
 	template<typename Incrementable>
@@ -239,6 +201,44 @@ namespace sprout {
 		)
 	{
 		return last - first;
+	}
+
+	//
+	// iterator_next
+	//
+	template<typename Incrementable>
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> iterator_next(
+		sprout::counting_iterator<Incrementable> const& it
+		)
+	{
+		return it.next();
+	}
+	template<typename Incrementable>
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> iterator_next(
+		sprout::counting_iterator<Incrementable> const& it,
+		typename sprout::counting_iterator<Incrementable>::difference_type n
+		)
+	{
+		return it + n;
+	}
+
+	//
+	// iterator_prev
+	//
+	template<typename Incrementable>
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> iterator_prev(
+		sprout::counting_iterator<Incrementable> const& it
+		)
+	{
+		return it.prev();
+	}
+	template<typename Incrementable>
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> iterator_prev(
+		sprout::counting_iterator<Incrementable> const& it,
+		typename sprout::counting_iterator<Incrementable>::difference_type n
+		)
+	{
+		return it - n;
 	}
 }	// namespace sprout
 

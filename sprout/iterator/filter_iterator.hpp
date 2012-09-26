@@ -129,10 +129,10 @@ namespace sprout {
 			return temp;
 		}
 		SPROUT_CONSTEXPR filter_iterator next() const {
-			return filter_iterator(pred, find_next(sprout::next(current)), last, private_constructor_tag());
+			return filter_iterator(pred, find_next(sprout::next(current), last, pred), last, private_constructor_tag());
 		}
 		SPROUT_CONSTEXPR filter_iterator prev() const {
-			return filter_iterator(pred, find_prev(sprout::prev(current)), last, private_constructor_tag());
+			return filter_iterator(pred, find_prev(sprout::prev(current), pred), last, private_constructor_tag());
 		}
 		void swap(filter_iterator& other) {
 			using std::swap;
@@ -177,10 +177,10 @@ namespace sprout {
 	}
 
 	//
-	// next
+	// iterator_next
 	//
 	template<typename Predicate, typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator> next(
+	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator> iterator_next(
 		sprout::filter_iterator<Predicate, Iterator> const& it
 		)
 	{
@@ -188,10 +188,10 @@ namespace sprout {
 	}
 
 	//
-	// prev
+	// iterator_prev
 	//
 	template<typename Predicate, typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator> prev(
+	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator> iterator_prev(
 		sprout::filter_iterator<Predicate, Iterator> const& it
 		)
 	{

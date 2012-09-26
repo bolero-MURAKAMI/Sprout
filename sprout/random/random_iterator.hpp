@@ -306,10 +306,10 @@ namespace sprout {
 		}
 
 		//
-		// next
+		// iterator_next
 		//
 		template<typename Engine, typename Distribution>
-		SPROUT_CONSTEXPR sprout::random::random_iterator<Engine, Distribution> next(
+		SPROUT_CONSTEXPR sprout::random::random_iterator<Engine, Distribution> iterator_next(
 			sprout::random::random_iterator<Engine, Distribution> const& it
 			)
 		{
