@@ -6,30 +6,36 @@
 #include <sprout/iterator/next.hpp>
 
 namespace sprout {
-	namespace detail {
+	namespace iterator_detail {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
-		distance(InputIterator first, InputIterator last) {
+		iterator_distance(InputIterator first, InputIterator last) {
 			return first == last ? 0
-				: 1 + sprout::detail::distance(sprout::next(first), last)
+				: 1 + sprout::iterator_detail::iterator_distance(sprout::next(first), last)
 				;
 		}
-		template<typename InputIterator>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
-		distance_impl(InputIterator first, InputIterator last) {
-			using sprout::detail::distance;
-			return distance(first, last);
-		}
-	}	// namespace detail
+	}	// namespace iterator_detail
+}	// namespace sprout
+
+namespace sprout_iterator_detail {
+	template<typename InputIterator>
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last) {
+		using sprout::iterator_detail::iterator_distance;
+		return iterator_distance(first, last);
+	}
+}	// namespace sprout_iterator_detail
+
+namespace sprout {
 	//
 	// distance
 	//
 	template<typename InputIterator>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 	distance(InputIterator first, InputIterator last) {
-		return sprout::detail::distance_impl(first, last);
+		return sprout_iterator_detail::distance(first, last);
 	}
 }	// namespace sprout
 

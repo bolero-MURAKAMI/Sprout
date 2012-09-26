@@ -387,11 +387,11 @@ namespace sprout {
 	}
 
 	//
-	// distance
+	// iterator_distance
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> >::difference_type
-	distance(
+	iterator_distance(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> first,
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> last
 		)

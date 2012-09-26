@@ -183,11 +183,11 @@ namespace sprout {
 	}
 
 	//
-	// distance
+	// iterator_distance
 	//
 	template<typename Iterator, typename Traits>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::bytes_iterator<Iterator, Traits> >::difference_type
-	distance(
+	iterator_distance(
 		sprout::bytes_iterator<Iterator, Traits> first,
 		sprout::bytes_iterator<Iterator, Traits> last
 		)

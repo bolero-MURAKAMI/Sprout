@@ -191,11 +191,11 @@ namespace sprout {
 	}
 
 	//
-	// distance
+	// iterator_distance
 	//
 	template<typename Incrementable>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::counting_iterator<Incrementable> >::difference_type
-	distance(
+	iterator_distance(
 		sprout::counting_iterator<Incrementable> first,
 		sprout::counting_iterator<Incrementable> last
 		)

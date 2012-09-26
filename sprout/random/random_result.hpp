@@ -187,10 +187,22 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type const& result() const {
 				return result_;
 			}
+			result_type& generated_value() {
+				return result_;
+			}
+			SPROUT_CONSTEXPR result_type const& generated_value() const {
+				return result_;
+			}
 			engine_type& engine() {
 				return engine_;
 			}
 			SPROUT_CONSTEXPR engine_type const& engine() const {
+				return engine_;
+			}
+			engine_type& next_generator() {
+				return engine_;
+			}
+			SPROUT_CONSTEXPR engine_type const& next_generator() const {
 				return engine_;
 			}
 			SPROUT_CONSTEXPR result_type min() const {
@@ -244,14 +256,40 @@ namespace sprout {
 		}
 
 		//
-		// next
+		// iterator_next
 		//
 		template<typename Engine, typename Distribution>
-		SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution> next(
-			sprout::random::random_result<Engine, Distribution> const& it
-			)
-		{
+		SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution>
+		iterator_next(sprout::random::random_result<Engine, Distribution> const& it) {
 			return it();
+		}
+
+		//
+		// generated_value
+		//
+		template<typename Engine, typename Distribution>
+		inline SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::result_type const&
+		generated_value(sprout::random::random_result<Engine, Distribution> const& t) {
+			return t.generated_value();
+		}
+		template<typename Engine, typename Distribution>
+		inline typename sprout::random::random_result<Engine, Distribution>::result_type&
+		generated_value(sprout::random::random_result<Engine, Distribution>& t) {
+			return t.generated_value();
+		}
+
+		//
+		// next_generator
+		//
+		template<typename Engine, typename Distribution>
+		inline SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::engine_type const&
+		next_generator(sprout::random::random_result<Engine, Distribution> const& t) {
+			return t.next_generator();
+		}
+		template<typename Engine, typename Distribution>
+		inline typename sprout::random::random_result<Engine, Distribution>::engine_type&
+		next_generator(sprout::random::random_result<Engine, Distribution>& t) {
+			return t.next_generator();
 		}
 	}	// namespace random
 

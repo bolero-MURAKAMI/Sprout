@@ -200,11 +200,11 @@ namespace sprout {
 	}
 
 	//
-	// distance
+	// iterator_distance
 	//
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::reverse_iterator<Iterator> >::difference_type
-	distance(
+	iterator_distance(
 		sprout::reverse_iterator<Iterator> first,
 		sprout::reverse_iterator<Iterator> last
 		)
