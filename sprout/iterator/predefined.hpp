@@ -2,9 +2,8 @@
 #define SPROUT_ITERATOR_PREDEFINED_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/iterator/reverse_iterator.hpp>
-#include <sprout/iterator/index_iterator.hpp>
-#include <sprout/iterator/value_iterator.hpp>
-#include <sprout/iterator/bytes_iterator.hpp>
+#include <sprout/iterator/various.hpp>
+#include <sprout/iterator/adaptor.hpp>
+#include <sprout/iterator/wave.hpp>
 
 #endif	// #ifndef SPROUT_ITERATOR_PREDEFINED_HPP
