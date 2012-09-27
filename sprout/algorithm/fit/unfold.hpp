@@ -14,7 +14,7 @@ namespace sprout {
 			template<typename Container, typename Generator, typename... Inits>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unfold_impl(
 				Container const& cont,
-				Generator gen,
+				Generator const& gen,
 				typename sprout::container_traits<Container>::difference_type offset,
 				Inits const&... inits
 				)
@@ -32,7 +32,7 @@ namespace sprout {
 		template<typename Container, typename Generator, typename... Inits>
 		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unfold(
 			Container const& cont,
-			Generator gen,
+			Generator const& gen,
 			Inits const&... inits
 			)
 		{

@@ -16,7 +16,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unfold_n_impl(
 				Container const& cont,
 				Size n,
-				Generator gen,
+				Generator const& gen,
 				typename sprout::container_traits<Container>::difference_type offset,
 				Inits const&... inits
 				)
@@ -35,7 +35,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unfold_n(
 			Container const& cont,
 			Size n,
-			Generator gen,
+			Generator const& gen,
 			Inits const&... inits
 			)
 		{

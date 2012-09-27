@@ -49,7 +49,7 @@ namespace sprout {
 				sprout::container_traits<Container>::static_size == 0,
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl(
-				Container const& cont, Generator gen,
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
@@ -61,7 +61,7 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type
 			generate_impl(
-				Container const& cont, Generator gen,
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
@@ -76,7 +76,7 @@ namespace sprout {
 		//
 		template<typename Container, typename Generator>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
-		generate(Container const& cont, Generator gen) {
+		generate(Container const& cont, Generator const& gen) {
 			return sprout::fixed::detail::generate_impl(cont, gen, sprout::size(cont));
 		}
 	}	// namespace fixed

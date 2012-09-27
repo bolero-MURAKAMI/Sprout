@@ -15,7 +15,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type unfold_n(
 			Container const& cont,
 			Size n,
-			Generator gen,
+			Generator const& gen,
 			Inits const&... inits
 			)
 		{

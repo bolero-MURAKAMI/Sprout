@@ -15,7 +15,7 @@ namespace sprout {
 			template<typename Container, typename Size, typename Generator>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
 			generate_n_impl(
-				Container const& cont, Size n, Generator gen,
+				Container const& cont, Size n, Generator const& gen,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -31,7 +31,7 @@ namespace sprout {
 		//
 		template<typename Container, typename Size, typename Generator>
 		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
-		generate_n(Container const& cont, Size n, Generator gen) {
+		generate_n(Container const& cont, Size n, Generator const& gen) {
 			return sprout::fit::detail::generate_n_impl(cont, n, gen, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit
