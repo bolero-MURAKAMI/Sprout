@@ -8,6 +8,8 @@
 #include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout_generator_detail {
+	using sprout::tuples::get;
+
 	struct not_found_adl_next_generator {};
 
 	sprout_generator_detail::not_found_adl_next_generator next_generator(...);
@@ -45,18 +47,18 @@ namespace sprout_generator_detail {
 	{};
 
 	template<typename T>
-	struct has_tuple_get_next_generator_test {
+	struct has_get_next_generator_test {
 	public:
 		template<
 			typename U = T,
-			typename = decltype(sprout::tuples::get<1>(std::declval<U>()))
+			typename = decltype(get<1>(std::declval<U>()))
 		>
 		static std::true_type test(int);
 		static std::false_type test(...);
 	};
 	template<typename T>
-	struct has_tuple_get_next_generator
-		: public decltype(sprout_generator_detail::has_tuple_get_next_generator_test<T>::test(0))
+	struct has_get_next_generator
+		: public decltype(sprout_generator_detail::has_get_next_generator_test<T>::test(0))
 	{};
 
 	template<typename T, typename Enable = void>
@@ -100,12 +102,12 @@ namespace sprout_generator_detail {
 	{};
 
 	template<typename T, typename Enable = void>
-	struct select_tuple_get_next_generator;
+	struct select_get_next_generator;
 	template<typename T>
-	struct select_tuple_get_next_generator<
+	struct select_get_next_generator<
 		T,
 		typename std::enable_if<
-			sprout_generator_detail::has_tuple_get_next_generator<T>::value
+			sprout_generator_detail::has_get_next_generator<T>::value
 			&& !sprout_generator_detail::has_mem_next_generator<T>::value
 			&& !sprout_generator_detail::has_adl_next_generator<T>::value
 		>::type
@@ -113,10 +115,10 @@ namespace sprout_generator_detail {
 		: public std::true_type
 	{};
 	template<typename T>
-	struct select_tuple_get_next_generator<
+	struct select_get_next_generator<
 		T,
 		typename std::enable_if<!(
-			sprout_generator_detail::has_tuple_get_next_generator<T>::value
+			sprout_generator_detail::has_get_next_generator<T>::value
 			&& !sprout_generator_detail::has_mem_next_generator<T>::value
 			&& !sprout_generator_detail::has_adl_next_generator<T>::value
 		)>::type
@@ -135,8 +137,8 @@ namespace sprout_generator_detail {
 		: public std::integral_constant<bool, SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(next_generator(std::declval<T>()), false)>
 	{};
 	template<typename T>
-	struct noexcept_next_generator<T, typename std::enable_if<sprout_generator_detail::select_tuple_get_next_generator<T>::value>::type>
-		: public std::integral_constant<bool, SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(sprout::tuples::get<1>(std::declval<T>()), false)>
+	struct noexcept_next_generator<T, typename std::enable_if<sprout_generator_detail::select_get_next_generator<T>::value>::type>
+		: public std::integral_constant<bool, SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(get<1>(std::declval<T>()), false)>
 	{};
 
 	template<typename T, typename = void>
@@ -152,9 +154,9 @@ namespace sprout_generator_detail {
 		typedef decltype(next_generator(std::declval<T>())) type;
 	};
 	template<typename T>
-	struct next_generator_result<T, typename std::enable_if<sprout_generator_detail::select_tuple_get_next_generator<T>::value>::type> {
+	struct next_generator_result<T, typename std::enable_if<sprout_generator_detail::select_get_next_generator<T>::value>::type> {
 	public:
-		typedef decltype(sprout::tuples::get<1>(std::declval<T>())) type;
+		typedef decltype(get<1>(std::declval<T>())) type;
 	};
 
 	template<
@@ -179,13 +181,13 @@ namespace sprout_generator_detail {
 	}
 	template<
 		typename T,
-		typename sprout::enabler_if<sprout_generator_detail::select_tuple_get_next_generator<T>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout_generator_detail::select_get_next_generator<T>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout_generator_detail::next_generator_result<T>::type
 	next_generator_impl(T&& t)
 		SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_next_generator<T>::value))
 	{
-		return sprout::tuples::get<1>(sprout::forward<T>(t));
+		return get<1>(sprout::forward<T>(t));
 	}
 }	// namespace sprout_generator_detail
 

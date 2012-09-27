@@ -70,7 +70,7 @@ namespace sprout {
 			, last(last)
 			, pred(pred)
 		{}
-	 public:
+		public:
 		filter_iterator() = default;
 		filter_iterator(filter_iterator const&) = default;
 		SPROUT_CONSTEXPR filter_iterator(predicate_type pred, iterator_type it, iterator_type last = iterator_type())
