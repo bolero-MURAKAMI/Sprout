@@ -67,12 +67,18 @@ namespace sprout {
 		// combine
 		//
 		template<typename Engine, typename Distribution>
-		SPROUT_CONSTEXPR sprout::random::variate_generator<Engine const&, Distribution const&> combine(
-			Engine const& engine,
-			Distribution const& distribution
-			)
-		{
+		inline SPROUT_CONSTEXPR sprout::random::variate_generator<Engine const&, Distribution const&>
+		combine(Engine const& engine, Distribution const& distribution) {
 			return sprout::random::variate_generator<Engine const&, Distribution const&>(engine, distribution);
+		}
+
+		//
+		// combine_copy
+		//
+		template<typename Engine, typename Distribution>
+		inline SPROUT_CONSTEXPR sprout::random::variate_generator<Engine, Distribution>
+		combine_copy(Engine const& engine, Distribution const& distribution) {
+			return sprout::random::variate_generator<Engine, Distribution>(engine, distribution);
 		}
 	}	// namespace random
 

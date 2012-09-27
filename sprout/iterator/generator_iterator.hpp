@@ -17,16 +17,16 @@ namespace sprout {
 	class generator_iterator
 		: public std::iterator<
 			std::forward_iterator_tag,
-			typename std::remove_reference<decltype(sprout::generators::generated_value(std::declval<Generator>()))>::type,
+			typename std::remove_reference<decltype(sprout::generators::generated_value(std::declval<Generator const>()))>::type,
 			std::ptrdiff_t,
-			typename std::remove_reference<decltype(sprout::generators::generated_value(std::declval<Generator>()))>::type*,
-			decltype(sprout::generators::generated_value(std::declval<Generator>()))
+			typename std::remove_reference<decltype(sprout::generators::generated_value(std::declval<Generator const>()))>::type*,
+			decltype(sprout::generators::generated_value(std::declval<Generator const>()))
 		>
 	{
 	public:
 		typedef Generator generator_type;
 		typedef std::forward_iterator_tag iterator_category;
-		typedef decltype(sprout::generators::generated_value(std::declval<Generator>())) reference;
+		typedef decltype(sprout::generators::generated_value(std::declval<Generator const>())) reference;
 		typedef typename std::remove_reference<reference>::type value_type;
 		typedef std::ptrdiff_t difference_type;
 		typedef value_type* pointer;
@@ -96,7 +96,10 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator*() const {
 			return count_ != 0
 				? sprout::generators::generated_value(gen_)
-				: (throw std::out_of_range("generator_iterator<>: dereference at out of range"), gen_.result())
+				: (
+					throw std::out_of_range("generator_iterator<>: dereference at out of range"),
+					sprout::generators::generated_value(gen_)
+					)
 				;
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {

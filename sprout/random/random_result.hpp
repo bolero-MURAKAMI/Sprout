@@ -280,13 +280,13 @@ namespace sprout {
 		// generated_value
 		//
 		template<typename Engine, typename Distribution>
-		inline SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::result_type const&
-		generated_value(sprout::random::random_result<Engine, Distribution> const& t) {
+		inline typename sprout::random::random_result<Engine, Distribution>::result_type&
+		generated_value(sprout::random::random_result<Engine, Distribution>& t) {
 			return t.generated_value();
 		}
 		template<typename Engine, typename Distribution>
-		inline typename sprout::random::random_result<Engine, Distribution>::result_type&
-		generated_value(sprout::random::random_result<Engine, Distribution>& t) {
+		inline SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::result_type const&
+		generated_value(sprout::random::random_result<Engine, Distribution> const& t) {
 			return t.generated_value();
 		}
 
@@ -294,13 +294,13 @@ namespace sprout {
 		// next_generator
 		//
 		template<typename Engine, typename Distribution>
-		inline SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution> const&
-		next_generator(sprout::random::random_result<Engine, Distribution> const& t) {
+		inline typename sprout::random::random_result<Engine, Distribution>&
+		next_generator(sprout::random::random_result<Engine, Distribution>& t) {
 			return t.next_generator();
 		}
 		template<typename Engine, typename Distribution>
-		inline typename sprout::random::random_result<Engine, Distribution>&
-		next_generator(sprout::random::random_result<Engine, Distribution>& t) {
+		inline SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution> const&
+		next_generator(sprout::random::random_result<Engine, Distribution> const& t) {
 			return t.next_generator();
 		}
 	}	// namespace random
