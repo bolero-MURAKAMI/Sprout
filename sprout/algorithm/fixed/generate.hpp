@@ -8,40 +8,39 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/generator/functions.hpp>
 #include <sprout/detail/container_complate.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename Container, typename Gen, typename... Args>
+			template<typename Container, typename Next, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size == sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl_1(
-				Container const& cont, Gen const& gen,
+				Container const& cont, Next const& next,
 				typename sprout::container_traits<Container>::size_type size,
 				Args const&... args
 				)
 			{
-				return sprout::remake<Container>(cont, size, args..., sprout::generators::generated_value(gen));
+				return sprout::remake<Container>(cont, size, args..., sprout::generators::generated_value(next));
 			}
-			template<typename Container, typename Gen, typename... Args>
+			template<typename Container, typename Next, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size != sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type
 			generate_impl_1(
-				Container const& cont, Gen const& gen,
+				Container const& cont, Next const& next,
 				typename sprout::container_traits<Container>::size_type size,
 				Args const&... args
 				)
 			{
 				return sizeof...(Args) + 1 < size
 					? sprout::fixed::detail::generate_impl_1(
-						cont, sprout::generators::next_generator(gen)(), size,
-						args..., sprout::generators::generated_value(gen)
+						cont, sprout::generators::next_generator(next)(), size,
+						args..., sprout::generators::generated_value(next)
 						)
-					: sprout::detail::container_complate(cont, args..., sprout::generators::generated_value(gen))
+					: sprout::detail::container_complate(cont, args..., sprout::generators::generated_value(next))
 					;
 			}
 			template<typename Container, typename Generator>
@@ -49,7 +48,7 @@ namespace sprout {
 				sprout::container_traits<Container>::static_size == 0,
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type generate_impl(
-				Container const& cont, Generator const& gen,
+				Container const& cont, Generator const& next,
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
@@ -65,7 +64,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
-				return size != 0
+				return size > 0
 					? sprout::fixed::detail::generate_impl_1(cont, gen(), size)
 					: sprout::detail::container_complate(cont)
 					;

@@ -11,16 +11,16 @@
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename Container, typename Generator, typename... Inits>
+			template<typename Container, typename Generator, typename Init>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unfold_impl(
 				Container const& cont,
 				Generator const& gen,
 				typename sprout::container_traits<Container>::difference_type offset,
-				Inits const&... inits
+				Init const& init
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_internal(sprout::fixed::unfold(cont, gen, inits...)),
+					sprout::get_internal(sprout::fixed::unfold(cont, gen, init)),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -29,14 +29,14 @@ namespace sprout {
 		//
 		// unfold
 		//
-		template<typename Container, typename Generator, typename... Inits>
+		template<typename Container, typename Generator, typename Init>
 		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unfold(
 			Container const& cont,
 			Generator const& gen,
-			Inits const&... inits
+			Init const& init
 			)
 		{
-			return sprout::fit::detail::unfold_impl(cont, gen, sprout::internal_begin_offset(cont), inits...);
+			return sprout::fit::detail::unfold_impl(cont, gen, sprout::internal_begin_offset(cont), init);
 		}
 	}	// namespace fit
 }	// namespace sprout

@@ -21,6 +21,8 @@
 #include "./generate_n.cpp"
 #include "./unfold.cpp"
 #include "./unfold_n.cpp"
+#include "./recurrence.cpp"
+#include "./recurrence_n.cpp"
 #include "./remove.cpp"
 #include "./remove_if.cpp"
 #include "./remove_copy.cpp"
@@ -84,6 +86,8 @@ namespace testspr {
 		testspr::algorithm_fill_n_test();
 		testspr::algorithm_unfold_test();
 		testspr::algorithm_unfold_n_test();
+		testspr::algorithm_recurrence_test();
+		testspr::algorithm_recurrence_n_test();
 		testspr::algorithm_remove_test();
 		testspr::algorithm_remove_if_test();
 		testspr::algorithm_remove_copy_test();

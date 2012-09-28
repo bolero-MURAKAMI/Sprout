@@ -11,29 +11,29 @@ namespace testspr {
 	static void algorithm_unfold_test() {
 		using namespace sprout;
 		{
-			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
+			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{}};
 
 			// ê∂ê¨
 			{
 				SPROUT_STATIC_CONSTEXPR auto unfolded = sprout::unfold(
 					arr1,
-					testspr::x2<int>(),
-					2
+					testspr::unf_iota<int>(),
+					1
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					unfolded,
-					array<int, 10>{{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}}
+					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto unfolded = sprout::fit::unfold(
 					arr1,
-					testspr::x2<int>(),
-					2
+					testspr::unf_iota<int>(),
+					1
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					unfolded,
-					array<int, 10>{{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}}
+					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
 			}
 			// ê∂ê¨
@@ -41,31 +41,31 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto unfolded = sprout::unfold(
 					sprout::sub(arr1, 2, 8),
-					testspr::x2<int>(),
-					2
+					testspr::unf_iota<int>(),
+					1
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					unfolded,
-					array<int, 6>{{2, 4, 8, 16, 32, 64}}
+					array<int, 6>{{1, 2, 3, 4, 5, 6}}
 					));
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(unfolded),
-					array<int, 10>{{1, 2, 2, 4, 8, 16, 32, 64, 9, 10}}
+					array<int, 10>{{0, 0, 1, 2, 3, 4, 5, 6, 0, 0}}
 					));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto unfolded = sprout::fit::unfold(
 					sprout::sub(arr1, 2, 8),
-					testspr::x2<int>(),
-					2
+					testspr::unf_iota<int>(),
+					1
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					unfolded,
-					array<int, 6>{{2, 4, 8, 16, 32, 64}}
+					array<int, 6>{{1, 2, 3, 4, 5, 6}}
 					));
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(unfolded),
-					array<int, 10>{{1, 2, 2, 4, 8, 16, 32, 64, 9, 10}}
+					array<int, 10>{{0, 0, 1, 2, 3, 4, 5, 6, 0, 0}}
 					));
 			}
 		}

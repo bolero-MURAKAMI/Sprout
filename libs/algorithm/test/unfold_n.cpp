@@ -11,31 +11,31 @@ namespace testspr {
 	static void algorithm_unfold_n_test() {
 		using namespace sprout;
 		{
-			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
+			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{}};
 
 			// ê∂ê¨
 			{
 				SPROUT_STATIC_CONSTEXPR auto unfolded = sprout::unfold_n(
 					arr1,
 					4,
-					testspr::x2<int>(),
+					testspr::unf_iota<int>(),
 					1
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					unfolded,
-					array<int, 10>{{1, 2, 4, 8, 5, 6, 7, 8, 9, 10}}
+					array<int, 10>{{1, 2, 3, 4, 0, 0, 0, 0, 0, 0}}
 					));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto unfolded = sprout::fit::unfold_n(
 					arr1,
 					4,
-					testspr::x2<int>(),
+					testspr::unf_iota<int>(),
 					1
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					unfolded,
-					array<int, 4>{{1, 2, 4, 8}}
+					array<int, 4>{{1, 2, 3, 4}}
 					));
 			}
 			// ê∂ê¨
@@ -44,32 +44,32 @@ namespace testspr {
 				SPROUT_STATIC_CONSTEXPR auto unfolded = sprout::unfold_n(
 					sprout::sub(arr1, 2, 8),
 					4,
-					testspr::x2<int>(),
+					testspr::unf_iota<int>(),
 					1
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					unfolded,
-					array<int, 6>{{1, 2, 4, 8, 7, 8}}
+					array<int, 6>{{1, 2, 3, 4, 0, 0}}
 					));
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(unfolded),
-					array<int, 10>{{1, 2, 1, 2, 4, 8, 7, 8, 9, 10}}
+					array<int, 10>{{0, 0, 1, 2, 3, 4, 0, 0, 0, 0}}
 					));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto unfolded = sprout::fit::unfold_n(
 					sprout::sub(arr1, 2, 8),
 					4,
-					testspr::x2<int>(),
+					testspr::unf_iota<int>(),
 					1
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					unfolded,
-					array<int, 4>{{1, 2, 4, 8}}
+					array<int, 4>{{1, 2, 3, 4}}
 					));
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(unfolded),
-					array<int, 10>{{1, 2, 1, 2, 4, 8, 7, 8, 9, 10}}
+					array<int, 10>{{0, 0, 1, 2, 3, 4, 0, 0, 0, 0}}
 					));
 			}
 		}

@@ -176,6 +176,22 @@ namespace testspr {
 		{}
 		SPROUT_CONSTEXPR result operator()() const { return result{val, gen_iota(val + 1)}; }
 	};
+	//
+	// unf_iota
+	//
+	template<typename T>
+	struct unf_iota {
+	public:
+		struct result {
+		public:
+			T val;
+		public:
+			SPROUT_CONSTEXPR T const& generated_value() const { return val; }
+			SPROUT_CONSTEXPR T const& next_generator() const { return val; }
+		};
+	public:
+		SPROUT_CONSTEXPR result operator()(T const& val) const { return result{val + 1}; }
+	};
 
 	//
 	// distance
