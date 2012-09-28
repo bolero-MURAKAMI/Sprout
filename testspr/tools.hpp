@@ -187,10 +187,10 @@ namespace testspr {
 			T val;
 		public:
 			SPROUT_CONSTEXPR T const& generated_value() const { return val; }
-			SPROUT_CONSTEXPR T const& next_generator() const { return val; }
+			SPROUT_CONSTEXPR T next_generator() const { return val + 1; }
 		};
 	public:
-		SPROUT_CONSTEXPR result operator()(T const& val) const { return result{val + 1}; }
+		SPROUT_CONSTEXPR result operator()(T const& val) const { return result{val}; }
 	};
 
 	//

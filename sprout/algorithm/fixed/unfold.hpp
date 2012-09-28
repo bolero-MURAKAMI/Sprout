@@ -65,9 +65,7 @@ namespace sprout {
 				)
 			{
 				return size > 0
-					? size > 1
-						? sprout::fixed::detail::unfold_impl_1(cont, gen, gen(init), size, init)
-						: sprout::detail::container_complate(cont, init)
+					? sprout::fixed::detail::unfold_impl_1(cont, gen, gen(init), size)
 					: sprout::detail::container_complate(cont)
 					;
 			}

@@ -214,21 +214,20 @@ namespace sprout {
 			template<typename T1, typename T2>
 			struct get_impl<0, sprout::pair<T1, T2> > {
 			public:
-				T1& operator()(sprout::pair<T1, T2>& t) const {
+				SPROUT_CONSTEXPR T1& operator()(sprout::pair<T1, T2>& t) const {
 					return t.first;
 				}
-				T1 const& operator()(sprout::pair<T1, T2> const& t) const {
+				SPROUT_CONSTEXPR T1 const& operator()(sprout::pair<T1, T2> const& t) const {
 					return t.first;
 				}
 			};
 			template<typename T1, typename T2>
 			struct get_impl<1, sprout::pair<T1, T2> > {
 			public:
-			public:
-				T2& operator()(sprout::pair<T1, T2>& t) const {
+				SPROUT_CONSTEXPR T2& operator()(sprout::pair<T1, T2>& t) const {
 					return t.second;
 				}
-				T2 const& operator()(sprout::pair<T1, T2> const& t) const {
+				SPROUT_CONSTEXPR T2 const& operator()(sprout::pair<T1, T2> const& t) const {
 					return t.second;
 				}
 			};
