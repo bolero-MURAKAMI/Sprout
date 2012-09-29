@@ -93,7 +93,7 @@ namespace sprout {
 
 namespace sprout_adl {
 	template<std::size_t I>
-	sprout::adl_not_found tuple_get(...);
+	sprout::not_found_via_adl tuple_get(...);
 }	// namespace sprout_adl
 
 namespace sprout_tuple_detail {
@@ -105,7 +105,7 @@ namespace sprout_tuple_detail {
 		template<
 			typename U = T,
 			typename sprout::enabler_if<
-				!std::is_same<decltype(tuple_get<I>(std::declval<U>())), sprout::adl_not_found>::value
+				sprout::is_found_via_adl<decltype(tuple_get<I>(std::declval<U>()))>::value
 			>::type = sprout::enabler
 		>
 		static std::true_type test(int);

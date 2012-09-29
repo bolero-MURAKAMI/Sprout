@@ -7,7 +7,7 @@
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
-	sprout::adl_not_found range_begin(...);
+	sprout::not_found_via_adl range_begin(...);
 }	// namespace sprout_adl
 
 namespace sprout {

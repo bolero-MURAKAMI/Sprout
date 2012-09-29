@@ -9,7 +9,7 @@
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
-	sprout::adl_not_found generated_value(...);
+	sprout::not_found_via_adl generated_value(...);
 }	// namespace sprout_adl
 
 namespace sprout_generator_detail {
@@ -37,7 +37,7 @@ namespace sprout_generator_detail {
 		template<
 			typename U = T,
 			typename sprout::enabler_if<
-				!std::is_same<decltype(generated_value(std::declval<U>())), sprout::adl_not_found>::value
+				sprout::is_found_via_adl<decltype(generated_value(std::declval<U>()))>::value
 			>::type = sprout::enabler
 		>
 		static std::true_type test(int);

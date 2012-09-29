@@ -7,7 +7,7 @@
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
-	sprout::adl_not_found iterator_prev(...);
+	sprout::not_found_via_adl iterator_prev(...);
 }	// namespace sprout_adl
 
 namespace sprout {
