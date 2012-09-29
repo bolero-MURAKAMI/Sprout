@@ -16,7 +16,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size == sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type unfold_impl_1(
+			>::type
+			unfold_impl_1(
 				Container const& cont, Generator const& gen, Next const& next,
 				typename sprout::container_traits<Container>::size_type size,
 				Args const&... args

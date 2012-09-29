@@ -15,7 +15,8 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_lr(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_lr(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end,
@@ -25,7 +26,8 @@ namespace sprout {
 				typename sprout::container_traits<Container>::value_type const& p
 				);
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_start(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_start(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end,
@@ -33,7 +35,8 @@ namespace sprout {
 				);
 
 			template<typename Container, typename Iterator>
-			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::value_type const& sort_select_pivot(
+			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::value_type const&
+			sort_select_pivot(
 				Iterator origin,
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end
@@ -42,7 +45,8 @@ namespace sprout {
 				return *sprout::next(origin, (end + start) / 2);
 			}
 			template<typename Container, typename Iterator, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type sort_find_l(
+			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
+			sort_find_l(
 				Iterator origin,
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type l,
@@ -55,7 +59,8 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Iterator, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type sort_find_r(
+			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
+			sort_find_r(
 				Iterator origin,
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type r,
@@ -68,13 +73,15 @@ namespace sprout {
 					;
 			}
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type swap_lr(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			swap_lr(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type l,
 				typename sprout::container_traits<Container>::difference_type r
 				);
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_part_l(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_part_l(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type start,
 				Compare comp,
@@ -87,7 +94,8 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_part_r(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_part_r(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type end,
 				Compare comp,
@@ -100,7 +108,8 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_part_lr(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_part_lr(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end,
@@ -117,7 +126,8 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_next(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_next(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end,
@@ -145,7 +155,8 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_lr(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_lr(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end,
@@ -166,7 +177,8 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_start(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_start(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end,
@@ -187,22 +199,16 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size <= 1),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type sort(
-				Container const& cont,
-				Compare comp
-				)
-			{
+			>::type
+			sort(Container const& cont, Compare comp) {
 				return sprout::deep_copy(cont);
 			}
 			template<typename Container, typename Compare>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size > 1),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type sort(
-				Container const& cont,
-				Compare comp
-				)
-			{
+			>::type
+			sort(Container const& cont, Compare comp) {
 				return sprout::fixed::detail::sort_start(
 					cont,
 					sprout::internal_begin_offset(cont),
@@ -214,20 +220,16 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size <= 1),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type sort(
-				Container const& cont
-				)
-			{
+			>::type
+			sort(Container const& cont) {
 				return sprout::deep_copy(cont);
 			}
 			template<typename Container>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size > 1),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type sort(
-				Container const& cont
-				)
-			{
+			>::type
+			sort(Container const& cont) {
 				return sprout::fixed::detail::sort_start(
 					cont,
 					sprout::internal_begin_offset(cont),
@@ -240,21 +242,13 @@ namespace sprout {
 		// sort
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort(
-			Container const& cont,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		sort(Container const& cont, Compare comp) {
 			return sprout::fixed::detail::sort(cont, comp);
 		}
-		//
-		// sort
-		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		sort(Container const& cont) {
 			return sprout::fixed::detail::sort(cont);
 		}
 	}	// namespace fixed

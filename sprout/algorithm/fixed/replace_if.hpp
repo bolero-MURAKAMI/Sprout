@@ -13,12 +13,8 @@ namespace sprout {
 		// replace_if
 		//
 		template<typename Container, typename T, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type replace_if(
-			Container const& cont,
-			Predicate pred,
-			T const& new_value
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		replace_if(Container const& cont, Predicate pred, T const& new_value) {
 			return sprout::fixed::replace_copy_if(sprout::begin(cont), sprout::end(cont), cont, pred, new_value);
 		}
 	}	// namespace fixed

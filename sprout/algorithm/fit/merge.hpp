@@ -14,13 +14,11 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type merge_impl(
-				InputIterator1 first1,
-				InputIterator1 last1,
-				InputIterator2 first2,
-				InputIterator2 last2,
-				Result const& result,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			merge_impl(
+				InputIterator1 first1, InputIterator1 last1,
+				InputIterator2 first2, InputIterator2 last2,
+				Result const& result, Compare comp,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -38,13 +36,11 @@ namespace sprout {
 		// merge
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type merge(
-			InputIterator1 first1,
-			InputIterator1 last1,
-			InputIterator2 first2,
-			InputIterator2 last2,
-			Result const& result,
-			Compare comp
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		merge(
+			InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, InputIterator2 last2,
+			Result const& result, Compare comp
 			)
 		{
 			return sprout::fit::detail::merge_impl(first1, last1, first2, last2, result, comp, sprout::internal_begin_offset(result));
@@ -52,11 +48,10 @@ namespace sprout {
 
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type merge_impl(
-				InputIterator1 first1,
-				InputIterator1 last1,
-				InputIterator2 first2,
-				InputIterator2 last2,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			merge_impl(
+				InputIterator1 first1, InputIterator1 last1,
+				InputIterator2 first2, InputIterator2 last2,
 				Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
@@ -75,11 +70,10 @@ namespace sprout {
 		// merge
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type merge(
-			InputIterator1 first1,
-			InputIterator1 last1,
-			InputIterator2 first2,
-			InputIterator2 last2,
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		merge(
+			InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, InputIterator2 last2,
 			Result const& result
 			)
 		{

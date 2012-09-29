@@ -15,6 +15,51 @@ namespace sprout {
 
 	namespace detail {
 		//
+		// is_array_like
+		//
+		template<typename Container>
+		struct is_array_like
+			: public std::false_type
+		{};
+		template<template<typename, std::size_t> class Array, typename T, std::size_t N>
+		struct is_array_like<Array<T, N> >
+			: public std::true_type
+		{};
+		template<typename Container>
+		struct is_array_like<Container const>
+			: public sprout::detail::is_array_like<Container>
+		{};
+		template<typename Container>
+		struct is_array_like<Container volatile>
+			: public sprout::detail::is_array_like<Container>
+		{};
+		template<typename Container>
+		struct is_array_like<Container const volatile>
+			: public sprout::detail::is_array_like<Container>
+		{};
+		//
+		// array_like_static_size
+		//
+		template<typename Container>
+		struct array_like_static_size {};
+		template<template<typename, std::size_t> class Array, typename T, std::size_t N>
+		struct array_like_static_size<Array<T, N> >
+			: public std::integral_constant<std::size_t, N>
+		{};
+		template<typename Container>
+		struct array_like_static_size<Container const>
+			: public sprout::detail::array_like_static_size<Container>
+		{};
+		template<typename Container>
+		struct array_like_static_size<Container volatile>
+			: public sprout::detail::array_like_static_size<Container>
+		{};
+		template<typename Container>
+		struct array_like_static_size<Container const volatile>
+			: public sprout::detail::array_like_static_size<Container>
+		{};
+
+		//
 		// has_value_type
 		// has_iterator
 		// has_const_iterator
@@ -95,6 +140,17 @@ namespace sprout {
 				bool,
 				sprout::detail::has_value_type<Container>::value
 					|| sprout::detail::has_container_nosy_iterator<Container>::value
+			>
+		{};
+		//
+		// has_container_nosy_static_size
+		//
+		template<typename Container>
+		struct has_container_nosy_static_size
+			: public std::integral_constant<
+				bool,
+				sprout::detail::has_static_size<Container>::value
+					|| sprout::detail::is_array_like<Container>::value
 			>
 		{};
 
@@ -346,27 +402,51 @@ namespace sprout {
 		//
 		// container_nosy_static_size
 		//
-		template<typename Container>
-		struct container_nosy_static_size
+		template<typename Container, bool HasStaticSize, bool IsArrayLike>
+		struct container_nosy_static_size_impl {};
+		template<typename Container, bool IsArrayLike>
+		struct container_nosy_static_size_impl<Container, true, IsArrayLike>
 			: public sprout::detail::inherit_if_static_size<Container>
 		{};
+		template<typename Container>
+		struct container_nosy_static_size_impl<Container, false, true>
+			: public sprout::detail::inherit_if_static_size<Container>
+		{
+		public:
+			SPROUT_STATIC_CONSTEXPR typename sprout::detail::array_like_static_size<Container>::value_type static_size
+				= sprout::detail::array_like_static_size<Container>::value
+				;
+		};
+		template<typename Container>
+		SPROUT_CONSTEXPR_OR_CONST typename sprout::detail::array_like_static_size<Container>::value_type
+			sprout::detail::container_nosy_static_size_impl<Container, false, true>::static_size
+			;
+		template<typename Container>
+		struct container_nosy_static_size
+			: public sprout::detail::container_nosy_static_size_impl<
+				Container,
+				sprout::detail::has_static_size<Container>::value,
+				sprout::detail::is_array_like<Container>::value
+			>
+		{};
+
 		//
 		// container_nosy_fixed_size
 		//
-		template<typename Container, bool HasStaticSize>
+		template<typename Container, bool HasContainerNosyStaticSize>
 		struct container_nosy_fixed_size_impl {};
 		template<typename Container>
 		struct container_nosy_fixed_size_impl<Container, true> {
 		public:
-			static SPROUT_CONSTEXPR decltype(Container::static_size) fixed_size() {
-				return Container::static_size;
+			static SPROUT_CONSTEXPR decltype(sprout::detail::container_nosy_static_size<Container>::static_size) fixed_size() {
+				return sprout::detail::container_nosy_static_size<Container>::static_size;
 			}
 		};
 		template<typename Container>
 		struct container_nosy_fixed_size
 			: public sprout::detail::container_nosy_fixed_size_impl<
 				Container,
-				sprout::detail::has_static_size<Container>::value
+				sprout::detail::has_container_nosy_static_size<Container>::value
 				>
 		{};
 

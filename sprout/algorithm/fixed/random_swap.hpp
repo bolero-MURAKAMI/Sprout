@@ -16,29 +16,21 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Random>
-			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, 2> make_random_swap_indexes_2(
-				Random const& rnd,
-				std::ptrdiff_t i0
-				)
-			{
+			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, 2>
+			make_random_swap_indexes_2(Random const& rnd, std::ptrdiff_t i0) {
 				return sprout::array<std::ptrdiff_t, 2>{{i0, rnd.result()}};
 			}
 			template<typename Random>
-			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, 2> make_random_swap_indexes_1(
-				Random const& rnd
-				)
-			{
+			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, 2>
+			make_random_swap_indexes_1(Random const& rnd) {
 				return sprout::fixed::detail::make_random_swap_indexes_2(
 					rnd(),
 					rnd.result()
 					);
 			}
 			template<typename UniformRandomNumberGenerator>
-			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, 2> make_random_swap_indexes(
-				std::ptrdiff_t n,
-				UniformRandomNumberGenerator&& g
-				)
-			{
+			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, 2>
+			make_random_swap_indexes(std::ptrdiff_t n, UniformRandomNumberGenerator&& g) {
 				return n > 1
 					? sprout::fixed::detail::make_random_swap_indexes_1(
 						sprout::random::uniform_int_distribution<std::ptrdiff_t>(0, n - 1)(sprout::forward<UniformRandomNumberGenerator>(g))
@@ -47,11 +39,8 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename RandomSwapped>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type random_swap_impl_1(
-				Container const& cont,
-				RandomSwapped const& random_swapped
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			random_swap_impl_1(Container const& cont, RandomSwapped const& random_swapped) {
 				return random_swapped[0] == random_swapped[1]
 					? sprout::deep_copy(cont)
 					: sprout::fixed::swap_element(
@@ -62,9 +51,9 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename UniformRandomNumberGenerator>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type random_swap_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			random_swap_impl(
+				Container const& cont, UniformRandomNumberGenerator&& g,
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
@@ -81,14 +70,10 @@ namespace sprout {
 		// random_swap
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type random_swap(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		random_swap(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::random_swap_impl(
-				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, sprout::forward<UniformRandomNumberGenerator>(g),
 				sprout::size(cont)
 				);
 		}

@@ -6,13 +6,15 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/tuple/tuple/get.hpp>
+#include <sprout/adl/not_found.hpp>
+
+namespace sprout_adl {
+	sprout::adl_not_found generated_value(...);
+}	// namespace sprout_adl
 
 namespace sprout_generator_detail {
 	using sprout::tuples::get;
-
-	struct not_found_adl_generated_value {};
-
-	sprout_generator_detail::not_found_adl_generated_value generated_value(...);
+	using sprout_adl::generated_value;
 
 	template<typename T>
 	struct has_mem_generated_value_test {
@@ -35,7 +37,7 @@ namespace sprout_generator_detail {
 		template<
 			typename U = T,
 			typename sprout::enabler_if<
-				!std::is_same<decltype(generated_value(std::declval<U>())), sprout_generator_detail::not_found_adl_generated_value>::value
+				!std::is_same<decltype(generated_value(std::declval<U>())), sprout::adl_not_found>::value
 			>::type = sprout::enabler
 		>
 		static std::true_type test(int);

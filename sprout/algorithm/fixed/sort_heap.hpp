@@ -14,9 +14,9 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_heap_impl(
-				Container const& cont,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			sort_heap_impl(
+				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::difference_type size
 				)
@@ -41,29 +41,19 @@ namespace sprout {
 		// sort_heap
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_heap(
-			Container const& cont,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		sort_heap(Container const& cont, Compare comp) {
 			return sprout::fixed::detail::sort_heap_impl(
-				cont,
-				comp,
+				cont, comp,
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)
 				);
 		}
-		//
-		// sort_heap
-		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type sort_heap(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		sort_heap(Container const& cont) {
 			return sprout::fixed::detail::sort_heap_impl(
-				cont,
-				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
+				cont, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)
 				);

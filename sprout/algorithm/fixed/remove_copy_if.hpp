@@ -16,11 +16,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type remove_copy_if_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				Predicate pred,
+			>::type
+			remove_copy_if_impl(
+				InputIterator first, InputIterator last,
+				Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -31,11 +30,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type remove_copy_if_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				Predicate pred,
+			>::type
+			remove_copy_if_impl(
+				InputIterator first, InputIterator last,
+				Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -52,13 +50,8 @@ namespace sprout {
 		// remove_copy_if
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type remove_copy_if(
-			InputIterator first,
-			InputIterator last,
-			Result const& result,
-			Predicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		remove_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 			return sprout::fixed::detail::remove_copy_if_impl(first, last, result, pred, sprout::size(result));
 		}
 	}	// namespace fixed

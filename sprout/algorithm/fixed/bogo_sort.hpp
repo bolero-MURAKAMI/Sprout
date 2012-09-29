@@ -16,11 +16,8 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Shuffled, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bogo_sort_impl_1(
-				Shuffled const& shuffled,
-				Compare comp
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			bogo_sort_impl_1(Shuffled const& shuffled, Compare comp) {
 				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
 					sprout::begin(sprout::tuples::get<0>(shuffled)),
 					sprout::end(sprout::tuples::get<0>(shuffled)),
@@ -37,12 +34,8 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bogo_sort_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
-				Compare comp
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			bogo_sort_impl(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
 					sprout::begin(cont),
 					sprout::end(cont),
@@ -63,27 +56,17 @@ namespace sprout {
 		// bogo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bogo_sort(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		bogo_sort(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fixed::detail::bogo_sort_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				comp
 				);
 		}
-		//
-		// bogo_sort
-		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type bogo_sort(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		bogo_sort(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::bogo_sort_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),

@@ -12,10 +12,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			bogo_sort_impl(
+				Container const& cont, UniformRandomNumberGenerator&& g, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -30,25 +29,19 @@ namespace sprout {
 		// bogo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bogo_sort(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		bogo_sort(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fit::detail::bogo_sort_impl(
-				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
-				comp,
+				cont, sprout::forward<UniformRandomNumberGenerator>(g), comp,
 				sprout::internal_begin_offset(cont)
 				);
 		}
 
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bogo_sort_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			bogo_sort_impl(
+				Container const& cont, UniformRandomNumberGenerator&& g,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -63,14 +56,10 @@ namespace sprout {
 		// bogo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bogo_sort(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		bogo_sort(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::bogo_sort_impl(
-				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, sprout::forward<UniformRandomNumberGenerator>(g),
 				sprout::internal_begin_offset(cont)
 				);
 		}

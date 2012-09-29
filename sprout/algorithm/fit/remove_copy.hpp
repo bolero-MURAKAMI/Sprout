@@ -14,18 +14,19 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename T>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type remove_copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				T const& value,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			remove_copy_impl(
+				InputIterator first, InputIterator last, Result const& result, T const& value,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::remove_copy(first, last, result, value)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - NS_SSCRISK_CEL_OR_SPROUT::count(first, last, value), sprout::size(result))
+					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
+						NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - NS_SSCRISK_CEL_OR_SPROUT::count(first, last, value),
+						sprout::size(result)
+						)
 					);
 			}
 		}	// namespace detail
@@ -33,13 +34,8 @@ namespace sprout {
 		// remove_copy
 		//
 		template<typename InputIterator, typename Result, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type remove_copy(
-			InputIterator first,
-			InputIterator last,
-			Result const& result,
-			T const& value
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		remove_copy(InputIterator first, InputIterator last, Result const& result, T const& value) {
 			return sprout::fit::detail::remove_copy_impl(first, last, result, value, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

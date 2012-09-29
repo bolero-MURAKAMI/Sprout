@@ -15,11 +15,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type partition_copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				Predicate pred,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			partition_copy_impl(
+				InputIterator first, InputIterator last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -41,13 +39,8 @@ namespace sprout {
 		// partition_copy
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type partition_copy(
-			InputIterator first,
-			InputIterator last,
-			Result const& result,
-			Predicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		partition_copy(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 			return sprout::fit::detail::partition_copy_impl(first, last, result, pred, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

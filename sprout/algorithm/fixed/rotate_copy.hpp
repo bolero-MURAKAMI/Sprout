@@ -16,10 +16,9 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type rotate_copy_impl_ra(
-				RandomAccessIterator first,
-				RandomAccessIterator middle,
-				RandomAccessIterator last,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			rotate_copy_impl_ra(
+				RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last,
 				Result const& result,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
@@ -40,10 +39,9 @@ namespace sprout {
 					);
 			}
 			template<typename RandomAccessIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type rotate_copy(
-				RandomAccessIterator first,
-				RandomAccessIterator middle,
-				RandomAccessIterator last,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			rotate_copy(
+				RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last,
 				Result const& result,
 				std::random_access_iterator_tag*
 				)
@@ -63,9 +61,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type rotate_copy_impl_1(
-				ForwardIterator first,
-				ForwardIterator last,
+			>::type
+			rotate_copy_impl_1(
+				ForwardIterator first, ForwardIterator last,
 				Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
@@ -77,9 +75,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type rotate_copy_impl_1(
-				ForwardIterator first,
-				ForwardIterator last,
+			>::type
+			rotate_copy_impl_1(
+				ForwardIterator first, ForwardIterator last,
 				Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
@@ -94,11 +92,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type rotate_copy_impl(
-				ForwardIterator first,
-				ForwardIterator middle,
-				ForwardIterator middle_first,
-				ForwardIterator last,
+			>::type
+			rotate_copy_impl(
+				ForwardIterator first, ForwardIterator middle,
+				ForwardIterator middle_first, ForwardIterator last,
 				Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
@@ -110,11 +107,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type rotate_copy_impl(
-				ForwardIterator first,
-				ForwardIterator middle,
-				ForwardIterator middle_first,
-				ForwardIterator last,
+			>::type
+			rotate_copy_impl(
+				ForwardIterator first, ForwardIterator middle,
+				ForwardIterator middle_first, ForwardIterator last,
 				Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
@@ -126,11 +122,9 @@ namespace sprout {
 					;
 			}
 			template<typename ForwardIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type rotate_copy(
-				ForwardIterator first,
-				ForwardIterator middle,
-				ForwardIterator last,
-				Result const& result,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			rotate_copy(
+				ForwardIterator first, ForwardIterator middle, ForwardIterator last, Result const& result,
 				void*
 				)
 			{
@@ -141,13 +135,8 @@ namespace sprout {
 		// rotate_copy
 		//
 		template<typename ForwardIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type rotate_copy(
-			ForwardIterator first,
-			ForwardIterator middle,
-			ForwardIterator last,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		rotate_copy(ForwardIterator first, ForwardIterator middle, ForwardIterator last, Result const& result) {
 			typedef typename std::iterator_traits<ForwardIterator>::iterator_category* category;
 			return sprout::fixed::detail::rotate_copy(first, middle, last, result, category());
 		}

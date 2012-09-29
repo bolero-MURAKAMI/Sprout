@@ -13,9 +13,9 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_heap_impl(
-				Container const& cont,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			make_heap_impl(
+				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::difference_type size,
 				typename sprout::container_traits<Container>::difference_type n = 0,
@@ -23,9 +23,9 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type r = 2
 				);
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_heap_impl_1(
-				Container const& cont,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			make_heap_impl_1(
+				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::difference_type size,
 				typename sprout::container_traits<Container>::difference_type n,
@@ -42,11 +42,7 @@ namespace sprout {
 								sprout::next(sprout::internal_begin(cont), offset + r)
 								),
 							comp,
-							offset,
-							size,
-							r,
-							r * 2 + 1,
-							r * 2 + 2
+							offset, size, r, r * 2 + 1, r * 2 + 2
 							)
 						: sprout::deep_copy(cont)
 					: comp(*sprout::next(sprout::internal_begin(cont), offset + n), *sprout::next(sprout::internal_begin(cont), offset + l))
@@ -57,19 +53,15 @@ namespace sprout {
 								sprout::next(sprout::internal_begin(cont), offset + l)
 								),
 							comp,
-							offset,
-							size,
-							l,
-							l * 2 + 1,
-							l * 2 + 2
+							offset, size, l, l * 2 + 1, l * 2 + 2
 							)
 						: sprout::deep_copy(cont)
 					;
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_heap_impl(
-				Container const& cont,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			make_heap_impl(
+				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::difference_type size,
 				typename sprout::container_traits<Container>::difference_type n,
@@ -91,18 +83,11 @@ namespace sprout {
 							sprout::fixed::detail::make_heap_impl(
 								sprout::fixed::detail::make_heap_impl(cont, comp, offset, size, l, l * 2 + 1, l * 2 + 2),
 								comp,
-								offset,
-								size,
-								r,
-								r * 2 + 1,
-								r * 2 + 2
+								offset, size,
+								r, r * 2 + 1, r * 2 + 2
 								),
 							comp,
-							offset,
-							size,
-							n,
-							l,
-							r
+							offset, size, n, l, r
 							)
 					;
 			}
@@ -111,29 +96,19 @@ namespace sprout {
 		// make_heap
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_heap(
-			Container const& cont,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		make_heap(Container const& cont, Compare comp) {
 			return sprout::fixed::detail::make_heap_impl(
-				cont,
-				comp,
+				cont, comp,
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)
 				);
 		}
-		//
-		// make_heap
-		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_heap(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		make_heap(Container const& cont) {
 			return sprout::fixed::detail::make_heap_impl(
-				cont,
-				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
+				cont, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)
 				);

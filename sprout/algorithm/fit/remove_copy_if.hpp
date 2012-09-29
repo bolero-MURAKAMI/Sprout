@@ -14,18 +14,19 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type remove_copy_if_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				Predicate pred,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			remove_copy_if_impl(
+				InputIterator first, InputIterator last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::remove_copy_if(first, last, result, pred)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - NS_SSCRISK_CEL_OR_SPROUT::count_if(first, last, pred), sprout::size(result))
+					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
+						NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - NS_SSCRISK_CEL_OR_SPROUT::count_if(first, last, pred),
+						sprout::size(result)
+						)
 					);
 			}
 		}	// namespace detail
@@ -33,13 +34,8 @@ namespace sprout {
 		// remove_copy_if
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type remove_copy_if(
-			InputIterator first,
-			InputIterator last,
-			Result const& result,
-			Predicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		remove_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 			return sprout::fit::detail::remove_copy_if_impl(first, last, result, pred, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

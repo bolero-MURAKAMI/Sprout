@@ -12,13 +12,8 @@ namespace sprout {
 		// unfold_n
 		//
 		template<typename Container, typename Size, typename Generator, typename Init>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type unfold_n(
-			Container const& cont,
-			Size n,
-			Generator const& gen,
-			Init const& init
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		unfold_n(Container const& cont, Size n, Generator const& gen, Init const& init) {
 			return sprout::fixed::detail::unfold_impl(cont, gen, init, n);
 		}
 	}	// namespace fixed

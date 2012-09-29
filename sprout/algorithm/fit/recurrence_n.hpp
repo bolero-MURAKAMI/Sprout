@@ -13,10 +13,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Size, typename Generator, typename... Inits>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type recurrence_n_impl(
-				Container const& cont,
-				Size n,
-				Generator const& gen,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			recurrence_n_impl(
+				Container const& cont, Size n, Generator const& gen,
 				typename sprout::container_traits<Container>::difference_type offset,
 				Inits const&... inits
 				)
@@ -32,13 +31,8 @@ namespace sprout {
 		// recurrence_n
 		//
 		template<typename Container, typename Size, typename Generator, typename... Inits>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type recurrence_n(
-			Container const& cont,
-			Size n,
-			Generator const& gen,
-			Inits const&... inits
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		recurrence_n(Container const& cont, Size n, Generator const& gen, Inits const&... inits) {
 			return sprout::fit::detail::recurrence_n_impl(cont, n, gen, sprout::internal_begin_offset(cont), inits...);
 		}
 	}	// namespace fit

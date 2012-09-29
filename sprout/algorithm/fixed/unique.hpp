@@ -12,22 +12,13 @@ namespace sprout {
 		// unique
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type unique(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		unique(Container const& cont) {
 			return sprout::fixed::unique_copy(sprout::begin(cont), sprout::end(cont), cont);
 		}
-
-		//
-		// unique
-		//
 		template<typename Container, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type unique(
-			Container const& cont,
-			BinaryPredicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		unique(Container const& cont, BinaryPredicate pred) {
 			return sprout::fixed::unique_copy(sprout::begin(cont), sprout::end(cont), cont, pred);
 		}
 	}	// namespace fixed

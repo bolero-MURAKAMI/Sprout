@@ -15,17 +15,19 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type unique_copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			unique_copy_impl(
+				InputIterator first, InputIterator last, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::unique_copy(first, last, result)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - sprout::detail::overlap_count(first, last), sprout::size(result))
+					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
+						NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - sprout::detail::overlap_count(first, last),
+						sprout::size(result)
+						)
 					);
 			}
 		}	// namespace detail
@@ -33,29 +35,26 @@ namespace sprout {
 		// unique_copy
 		//
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type unique_copy(
-			InputIterator first,
-			InputIterator last,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		unique_copy(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fit::detail::unique_copy_impl(first, last, result, sprout::internal_begin_offset(result));
 		}
 
 		namespace detail {
 			template<typename InputIterator, typename Result, typename BinaryPredicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type unique_copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				BinaryPredicate pred,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			unique_copy_impl(
+				InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::unique_copy(first, last, result, pred)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - sprout::detail::overlap_count(first, last, pred), sprout::size(result))
+					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
+						NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - sprout::detail::overlap_count(first, last, pred),
+						sprout::size(result)
+						)
 					);
 			}
 		}	// namespace detail
@@ -63,13 +62,8 @@ namespace sprout {
 		// unique_copy
 		//
 		template<typename InputIterator, typename Result, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type unique_copy(
-			InputIterator first,
-			InputIterator last,
-			Result const& result,
-			BinaryPredicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
 			return sprout::fit::detail::unique_copy_impl(first, last, result, pred, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

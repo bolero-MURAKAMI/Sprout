@@ -83,9 +83,6 @@ namespace sprout {
 				sprout::begin(cont), sprout::end(cont)
 				);
 		}
-		//
-		// next_permutation
-		//
 		template<typename Container>
 		inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fixed::result_of::algorithm<Container>::type, bool>
 		next_permutation(Container const& cont) {

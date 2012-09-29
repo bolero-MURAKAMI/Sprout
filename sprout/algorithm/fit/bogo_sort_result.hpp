@@ -17,7 +17,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fit::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> bogo_sort_result_impl_1(
+			>
+			bogo_sort_result_impl_1(
 				Sorted const& sorted,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
@@ -39,10 +40,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fit::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> bogo_sort_result_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
-				Compare comp,
+			>
+			bogo_sort_result_impl(
+				Container const& cont, UniformRandomNumberGenerator&& g, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -59,16 +59,9 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fit::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
-		> bogo_sort_result(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g,
-			Compare comp
-			)
-		{
+		> bogo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fit::detail::bogo_sort_result_impl(
-				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
-				comp,
+				cont, sprout::forward<UniformRandomNumberGenerator>(g), comp,
 				sprout::internal_begin_offset(cont)
 				);
 		}
@@ -78,9 +71,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fit::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> bogo_sort_result_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
+			>
+			bogo_sort_result_impl(
+				Container const& cont, UniformRandomNumberGenerator&& g,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -97,14 +90,10 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fit::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
-		> bogo_sort_result(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g
-			)
-		{
+		>
+		bogo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::bogo_sort_result_impl(
-				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, sprout::forward<UniformRandomNumberGenerator>(g),
 				sprout::internal_begin_offset(cont)
 				);
 		}

@@ -13,11 +13,8 @@ namespace sprout {
 		// remove
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type remove(
-			Container const& cont,
-			T const& value
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		remove(Container const& cont, T const& value) {
 			return sprout::fixed::remove_copy(sprout::begin(cont), sprout::end(cont), cont, value);
 		}
 	}	// namespace fixed

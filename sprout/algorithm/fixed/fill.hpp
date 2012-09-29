@@ -12,9 +12,9 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename T, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type fill_impl(
-				Container const& cont,
-				T const& value,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			fill_impl(
+				Container const& cont, T const& value,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::size_type size
@@ -34,14 +34,10 @@ namespace sprout {
 		// fill
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type fill(
-			Container const& cont,
-			T const& value
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		fill(Container const& cont, T const& value) {
 			return sprout::fixed::detail::fill_impl(
-				cont,
-				value,
+				cont, value,
 				sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)

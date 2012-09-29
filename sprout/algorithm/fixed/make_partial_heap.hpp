@@ -16,9 +16,9 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_partial_heap_impl_1(
-				Container const& cont,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			make_partial_heap_impl_1(
+				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::difference_type size,
 				typename sprout::container_traits<Container>::difference_type middle_size,
@@ -35,35 +35,27 @@ namespace sprout {
 									sprout::next(sprout::internal_begin(cont), offset)
 									),
 								comp,
-								offset,
-								middle_size
+								offset, middle_size
 								),
 							comp,
-							offset,
-							size,
-							middle_size,
-							n + 1
+							offset, size, middle_size, n + 1
 							)
 						: sprout::fixed::detail::make_partial_heap_impl_1(cont, comp, offset, size, middle_size, n + 1)
 					: sprout::deep_copy(cont)
 					;
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_partial_heap_impl(
-				Container const& cont,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			make_partial_heap_impl(
+				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::difference_type size,
 				typename sprout::container_traits<Container>::difference_type middle_size
 				)
 			{
 				return sprout::fixed::detail::make_partial_heap_impl_1(
-					sprout::fixed::detail::make_heap_impl(cont, comp, offset, middle_size),
-					comp,
-					offset,
-					size,
-					middle_size,
-					middle_size
+					sprout::fixed::detail::make_heap_impl(cont, comp, offset, middle_size), comp,
+					offset, size, middle_size, middle_size
 					);
 			}
 		}	// namespace detail
@@ -71,15 +63,10 @@ namespace sprout {
 		// make_partial_heap
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_partial_heap(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator middle,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		make_partial_heap(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle, Compare comp) {
 			return sprout::fixed::detail::make_partial_heap_impl(
-				cont,
-				comp,
+				cont, comp,
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), middle)
@@ -89,14 +76,10 @@ namespace sprout {
 		// make_partial_heap
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type make_partial_heap(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator middle
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		make_partial_heap(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle) {
 			return sprout::fixed::detail::make_partial_heap_impl(
-				cont,
-				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
+				cont, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), middle)

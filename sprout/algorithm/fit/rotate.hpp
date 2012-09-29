@@ -12,9 +12,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type rotate_impl(
-				Container const& cont,
-				typename sprout::container_traits<Container>::const_iterator middle,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			rotate_impl(
+				Container const& cont, typename sprout::container_traits<Container>::const_iterator middle,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -29,11 +29,8 @@ namespace sprout {
 		// rotate
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type rotate(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator middle
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		rotate(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle) {
 			return sprout::fit::detail::rotate_impl(cont, middle, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit

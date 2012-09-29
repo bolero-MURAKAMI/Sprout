@@ -4,6 +4,11 @@
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/adl/not_found.hpp>
+
+namespace sprout_adl {
+	sprout::adl_not_found iterator_prev(...);
+}	// namespace sprout_adl
 
 namespace sprout {
 	namespace iterator_detail {
@@ -69,12 +74,14 @@ namespace sprout_iterator_detail {
 	inline SPROUT_CONSTEXPR BidirectionalIterator
 	prev(BidirectionalIterator const& it) {
 		using sprout::iterator_detail::iterator_prev;
+		using sprout_adl::iterator_prev;
 		return iterator_prev(it);
 	}
 	template<typename BidirectionalIterator>
 	inline SPROUT_CONSTEXPR BidirectionalIterator
 	prev(BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n) {
 		using sprout::iterator_detail::iterator_prev;
+		using sprout_adl::iterator_prev;
 		return iterator_prev(it, n);
 	}
 }	// namespace sprout_iterator_detail

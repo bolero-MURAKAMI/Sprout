@@ -13,12 +13,10 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Size, typename Generator, typename Init>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unfold_n_impl(
-				Container const& cont,
-				Size n,
-				Generator const& gen,
-				typename sprout::container_traits<Container>::difference_type offset,
-				Init const& init
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			unfold_n_impl(
+				Container const& cont, Size n, Generator const& gen, Init const& init,
+				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
 				return sprout::sub_copy(
@@ -32,14 +30,9 @@ namespace sprout {
 		// unfold_n
 		//
 		template<typename Container, typename Size, typename Generator, typename Init>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unfold_n(
-			Container const& cont,
-			Size n,
-			Generator const& gen,
-			Init const& init
-			)
-		{
-			return sprout::fit::detail::unfold_n_impl(cont, n, gen, sprout::internal_begin_offset(cont), init);
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		unfold_n(Container const& cont, Size n, Generator const& gen, Init const& init) {
+			return sprout::fit::detail::unfold_n_impl(cont, n, gen, init, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit
 }	// namespace sprout

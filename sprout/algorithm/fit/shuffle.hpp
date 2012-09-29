@@ -13,9 +13,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type shuffle_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			shuffle_impl(
+				Container const& cont, UniformRandomNumberGenerator&& g,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -30,14 +30,10 @@ namespace sprout {
 		// shuffle
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type shuffle(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		shuffle(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::shuffle_impl(
-				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, sprout::forward<UniformRandomNumberGenerator>(g),
 				sprout::internal_begin_offset(cont)
 				);
 		}

@@ -13,9 +13,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename T>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type remove_impl(
-				Container const& cont,
-				T const& value,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			remove_impl(
+				Container const& cont, T const& value,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -30,11 +30,8 @@ namespace sprout {
 		// remove
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type remove(
-			Container const& cont,
-			T const& value
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		remove(Container const& cont, T const& value) {
 			return sprout::fit::detail::remove_impl(cont, value, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit

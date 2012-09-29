@@ -4,6 +4,11 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
+#include <sprout/adl/not_found.hpp>
+
+namespace sprout_adl {
+	sprout::adl_not_found iterator_distance(...);
+}	// namespace sprout_adl
 
 namespace sprout {
 	namespace iterator_detail {
@@ -24,6 +29,7 @@ namespace sprout_iterator_detail {
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 	distance(InputIterator first, InputIterator last) {
 		using sprout::iterator_detail::iterator_distance;
+		using sprout_adl::iterator_distance;
 		return iterator_distance(first, last);
 	}
 }	// namespace sprout_iterator_detail

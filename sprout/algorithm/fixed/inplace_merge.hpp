@@ -13,35 +13,23 @@ namespace sprout {
 		// inplace_merge
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type inplace_merge(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator middle,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inplace_merge(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle, Compare comp) {
 			return sprout::fixed::merge(
-				sprout::begin(cont),
-				middle,
-				middle,
-				sprout::end(cont),
-				cont,
-				comp
+				sprout::begin(cont), middle,
+				middle, sprout::end(cont),
+				cont, comp
 				);
 		}
 		//
 		// inplace_merge
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type inplace_merge(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator middle
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inplace_merge(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle) {
 			return sprout::fixed::merge(
-				sprout::begin(cont),
-				middle,
-				middle,
-				sprout::end(cont),
+				sprout::begin(cont), middle,
+				middle, sprout::end(cont),
 				cont
 				);
 		}

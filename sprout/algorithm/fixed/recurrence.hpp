@@ -17,41 +17,30 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				InitSize == 0,
 				typename sprout::container_traits<Container>::value_type
-			>::type call_gen(
-				Generator const& gen,
-				Args const&... args
-				)
-			{
+			>::type
+			call_gen(Generator const& gen, Args const&... args) {
 				return gen();
 			}
 			template<std::size_t InitSize, typename Container, typename Generator, typename Head, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				InitSize != 0 && InitSize == sizeof...(Args) + 1,
 				typename sprout::container_traits<Container>::value_type
-			>::type call_gen(
-				Generator const& gen,
-				Head const& head,
-				Args const&... args
-				)
-			{
+			>::type
+			call_gen(Generator const& gen, Head const& head, Args const&... args) {
 				return gen(head, args...);
 			}
 			template<std::size_t InitSize, typename Container, typename Generator, typename Head, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				InitSize != 0 && InitSize != sizeof...(Args) + 1,
 				typename sprout::container_traits<Container>::value_type
-			>::type call_gen(
-				Generator const& gen,
-				Head const& head,
-				Args const&... args
-				)
-			{
+			>::type
+			call_gen(Generator const& gen, Head const& head, Args const&... args) {
 				return call_gen<InitSize, Container>(gen, args...);
 			}
 			template<typename Container, typename Generator>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type recurrence_impl_drop(
-				Container const& cont,
-				Generator const& gen,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			recurrence_impl_drop(
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
@@ -61,12 +50,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size >= sizeof...(Inits) + 1),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type recurrence_impl_drop(
-				Container const& cont,
-				Generator const& gen,
+			>::type
+			recurrence_impl_drop(
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size,
-				Head const& head,
-				Inits const&... inits
+				Head const& head, Inits const&... inits
 				)
 			{
 				return size < sizeof...(Inits) + 1
@@ -78,12 +66,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size < sizeof...(Inits) + 1),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type recurrence_impl_drop(
-				Container const& cont,
-				Generator const& gen,
+			>::type
+			recurrence_impl_drop(
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size,
-				Head const& head,
-				Inits const&... inits
+				Head const& head, Inits const&... inits
 				)
 			{
 				return sprout::fixed::detail::recurrence_impl_drop(cont, gen, size, inits...);
@@ -92,9 +79,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type recurrence_impl_1(
-				Container const& cont,
-				Generator const& gen,
+			>::type
+			recurrence_impl_1(
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size,
 				Args const&... args
 				)
@@ -105,15 +92,19 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type recurrence_impl_1(
-				Container const& cont,
-				Generator const& gen,
+			>::type
+			recurrence_impl_1(
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size,
 				Args const&... args
 				)
 			{
 				return sizeof...(Args) < size
-					? sprout::fixed::detail::recurrence_impl_1<InitSize>(cont, gen, size, args..., sprout::fixed::detail::call_gen<InitSize, Container>(gen, args...))
+					? sprout::fixed::detail::recurrence_impl_1<InitSize>(
+						cont, gen,
+						size,
+						args..., sprout::fixed::detail::call_gen<InitSize, Container>(gen, args...)
+						)
 					: sprout::detail::container_complate(cont, args...)
 					;
 			}
@@ -121,9 +112,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size > sizeof...(Inits)),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type recurrence_impl(
-				Container const& cont,
-				Generator const& gen,
+			>::type
+			recurrence_impl(
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size,
 				Inits const&... inits
 				)
@@ -137,9 +128,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::container_traits<Container>::static_size <= sizeof...(Inits)),
 				typename sprout::fixed::result_of::algorithm<Container>::type
-			>::type recurrence_impl(
-				Container const& cont,
-				Generator const& gen,
+			>::type
+			recurrence_impl(
+				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::size_type size,
 				Inits const&... inits
 				)
@@ -151,12 +142,8 @@ namespace sprout {
 		// recurrence
 		//
 		template<typename Container, typename Generator, typename... Inits>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type recurrence(
-			Container const& cont,
-			Generator const& gen,
-			Inits const&... inits
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		recurrence(Container const& cont, Generator const& gen, Inits const&... inits) {
 			return sprout::fixed::detail::recurrence_impl(cont, gen, sprout::size(cont), inits...);
 		}
 	}	// namespace fixed

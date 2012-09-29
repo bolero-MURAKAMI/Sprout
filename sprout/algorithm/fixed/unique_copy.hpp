@@ -16,9 +16,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type unique_copy_impl(
-				InputIterator first,
-				InputIterator last,
+			>::type
+			unique_copy_impl(
+				InputIterator first, InputIterator last,
 				Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Head const& head,
@@ -31,9 +31,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type unique_copy_impl(
-				InputIterator first,
-				InputIterator last,
+			>::type
+			unique_copy_impl(
+				InputIterator first, InputIterator last,
 				Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Head const& head,
@@ -52,12 +52,8 @@ namespace sprout {
 		// unique_copy
 		//
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
-			InputIterator first,
-			InputIterator last,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		unique_copy(InputIterator first, InputIterator last, Result const& result) {
 			return first != last
 				? sprout::fixed::detail::unique_copy_impl(sprout::next(first), last, result, sprout::size(result), *first)
 				: sprout::detail::container_complate(result)
@@ -69,11 +65,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type unique_copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				BinaryPredicate pred,
+			>::type
+			unique_copy_impl(
+				InputIterator first, InputIterator last,
+				Result const& result, BinaryPredicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Head const& head,
 				Args const&... args
@@ -85,11 +80,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type unique_copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				BinaryPredicate pred,
+			>::type
+			unique_copy_impl(
+				InputIterator first, InputIterator last,
+				Result const& result, BinaryPredicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Head const& head,
 				Args const&... args
@@ -107,13 +101,8 @@ namespace sprout {
 		// unique_copy
 		//
 		template<typename InputIterator, typename Result, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
-			InputIterator first,
-			InputIterator last,
-			Result const& result,
-			BinaryPredicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
 			return first != last
 				? sprout::fixed::detail::unique_copy_impl(sprout::next(first), last, result, pred, sprout::size(result), *first)
 				: sprout::detail::container_complate(result)

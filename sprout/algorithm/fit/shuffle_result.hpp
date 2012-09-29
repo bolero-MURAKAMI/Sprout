@@ -17,7 +17,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fit::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> shuffle_result_impl_1(
+			>
+			shuffle_result_impl_1(
 				Shuffled const& shuffled,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
@@ -39,9 +40,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fit::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> shuffle_result_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
+			>
+			shuffle_result_impl(
+				Container const& cont, UniformRandomNumberGenerator&& g,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -58,14 +59,10 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fit::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
-		> shuffle_result(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g
-			)
-		{
+		>
+		shuffle_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::shuffle_result_impl(
-				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, sprout::forward<UniformRandomNumberGenerator>(g),
 				sprout::internal_begin_offset(cont)
 				);
 		}

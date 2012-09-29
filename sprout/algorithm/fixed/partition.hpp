@@ -13,11 +13,8 @@ namespace sprout {
 		// partition
 		//
 		template<typename Container, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type partition(
-			Container const& cont,
-			Predicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		partition(Container const& cont, Predicate pred) {
 			return sprout::fixed::partition_copy(sprout::begin(cont), sprout::end(cont), cont, pred);
 		}
 	}	// namespace fixed

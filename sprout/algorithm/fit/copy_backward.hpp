@@ -14,10 +14,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename BidirectionalIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type copy_backward_impl(
-				BidirectionalIterator first,
-				BidirectionalIterator last,
-				Result const& result,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			copy_backward_impl(
+				BidirectionalIterator first, BidirectionalIterator last, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -32,12 +31,8 @@ namespace sprout {
 		// copy_backward
 		//
 		template<typename BidirectionalIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type copy_backward(
-			BidirectionalIterator first,
-			BidirectionalIterator last,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		copy_backward(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
 			return sprout::fit::detail::copy_backward_impl(first, last, result, sprout::internal_end_offset(result));
 		}
 	}	// namespace fit

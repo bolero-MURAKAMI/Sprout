@@ -12,13 +12,8 @@ namespace sprout {
 		// recurrence_n
 		//
 		template<typename Container, typename Size, typename Generator, typename... Inits>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type recurrence_n(
-			Container const& cont,
-			Size n,
-			Generator const& gen,
-			Inits const&... inits
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		recurrence_n(Container const& cont, Size n, Generator const& gen, Inits const&... inits) {
 			return sprout::fixed::detail::recurrence_impl(cont, gen, n, inits...);
 		}
 	}	// namespace fixed

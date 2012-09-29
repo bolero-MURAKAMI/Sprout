@@ -14,11 +14,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Iterator, typename Result, typename UnaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type transform_impl(
-				Iterator first,
-				Iterator last,
-				Result const& result,
-				UnaryOperation op,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			transform_impl(
+				Iterator first, Iterator last, Result const& result, UnaryOperation op,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -33,24 +31,16 @@ namespace sprout {
 		// transform
 		//
 		template<typename Iterator, typename Result, typename UnaryOperation>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type transform(
-			Iterator first,
-			Iterator last,
-			Result const& result,
-			UnaryOperation op
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		transform(Iterator first, Iterator last, Result const& result, UnaryOperation op) {
 			return sprout::fit::detail::transform_impl(first, last, result, op, sprout::internal_begin_offset(result));
 		}
 
 		namespace detail {
 			template<typename Iterator1, typename Iterator2, typename Result, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type transform_impl(
-				Iterator1 first1,
-				Iterator1 last1,
-				Iterator2 first2,
-				Result const& result,
-				BinaryOperation op,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			transform_impl(
+				Iterator1 first1, Iterator1 last1, Iterator2 first2, Result const& result, BinaryOperation op,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -65,14 +55,8 @@ namespace sprout {
 		// transform
 		//
 		template<typename Iterator1, typename Iterator2, typename Result, typename BinaryOperation>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type transform(
-			Iterator1 first1,
-			Iterator1 last1,
-			Iterator2 first2,
-			Result const& result,
-			BinaryOperation op
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		transform(Iterator1 first1, Iterator1 last1, Iterator2 first2, Result const& result, BinaryOperation op) {
 			return sprout::fit::detail::transform_impl(first1, last1, first2, result, op, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

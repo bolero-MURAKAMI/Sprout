@@ -21,11 +21,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::array<std::ptrdiff_t, 2>,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> make_random_swap_result_indexes_2(
-				Random const& rnd,
-				std::ptrdiff_t i0
-				)
-			{
+			>
+			make_random_swap_result_indexes_2(Random const& rnd, std::ptrdiff_t i0) {
 				typedef sprout::tuples::tuple<
 					sprout::array<std::ptrdiff_t, 2>,
 					typename std::decay<UniformRandomNumberGenerator>::type
@@ -39,10 +36,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::array<std::ptrdiff_t, 2>,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> make_random_swap_result_indexes_1(
-				Random const& rnd
-				)
-			{
+			>
+			make_random_swap_result_indexes_1(Random const& rnd) {
 				return sprout::fixed::detail::make_random_swap_result_indexes_2<UniformRandomNumberGenerator>(
 					rnd(),
 					rnd.result()
@@ -52,11 +47,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::array<std::ptrdiff_t, 2>,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> make_random_swap_result_indexes(
-				std::ptrdiff_t n,
-				UniformRandomNumberGenerator&& g
-				)
-			{
+			>
+			make_random_swap_result_indexes(std::ptrdiff_t n, UniformRandomNumberGenerator&& g) {
 				typedef sprout::tuples::tuple<
 					sprout::array<std::ptrdiff_t, 2>,
 					typename std::decay<UniformRandomNumberGenerator>::type
@@ -75,11 +67,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fixed::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> random_swap_result_impl_1(
-				Container const& cont,
-				RandomSwapped const& random_swapped
-				)
-			{
+			>
+			random_swap_result_impl_1(Container const& cont, RandomSwapped const& random_swapped) {
 				typedef sprout::tuples::tuple<
 					typename sprout::fixed::result_of::algorithm<Container>::type,
 					typename std::decay<UniformRandomNumberGenerator>::type
@@ -103,9 +92,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fixed::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> random_swap_result_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
+			>
+			random_swap_result_impl(
+				Container const& cont, UniformRandomNumberGenerator&& g,
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
@@ -125,14 +114,10 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fixed::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
-		> random_swap_result(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g
-			)
-		{
+		>
+		random_swap_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::random_swap_result_impl(
-				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, sprout::forward<UniformRandomNumberGenerator>(g),
 				sprout::size(cont)
 				);
 		}

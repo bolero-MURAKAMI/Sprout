@@ -13,10 +13,8 @@ namespace sprout {
 		// reverse
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type reverse(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		reverse(Container const& cont) {
 			return sprout::fixed::reverse_copy(sprout::begin(cont), sprout::end(cont), cont);
 		}
 	}	// namespace fixed

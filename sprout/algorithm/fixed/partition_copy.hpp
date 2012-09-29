@@ -16,11 +16,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type partition_copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				Predicate pred,
+			>::type
+			partition_copy_impl(
+				InputIterator first, InputIterator last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -31,11 +29,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type partition_copy_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				Predicate pred,
+			>::type
+			partition_copy_impl(
+				InputIterator first, InputIterator last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -52,18 +48,10 @@ namespace sprout {
 		// partition_copy
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type partition_copy(
-			InputIterator first,
-			InputIterator last,
-			Result const& result,
-			Predicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		partition_copy(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 			return sprout::fixed::detail::partition_copy_impl(
-				first,
-				last,
-				result,
-				pred,
+				first, last, result, pred,
 				sprout::size(result)
 				);
 		}

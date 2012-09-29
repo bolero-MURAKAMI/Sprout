@@ -13,11 +13,8 @@ namespace sprout {
 		// rotate
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type rotate(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator middle
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		rotate(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle) {
 			return sprout::fixed::rotate_copy(sprout::begin(cont), middle, sprout::end(cont), cont);
 		}
 	}	// namespace fixed

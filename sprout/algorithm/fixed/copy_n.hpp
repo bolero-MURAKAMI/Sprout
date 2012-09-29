@@ -9,16 +9,16 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
+#include <sprout/math/comparison.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Size, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_n(
-				RandomAccessIterator first,
-				Size n,
-				Result const& result,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			copy_n(
+				RandomAccessIterator first, Size n, Result const& result,
 				std::random_access_iterator_tag*
 				)
 			{
@@ -28,10 +28,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_n_impl(
-				InputIterator first,
-				Size n,
-				Result const& result,
+			>::type
+			copy_n_impl(InputIterator first, Size n, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset,
 				Args const&... args
 				)
@@ -42,24 +40,22 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type copy_n_impl(
-				InputIterator first,
-				Size n,
-				Result const& result,
+			>::type
+			copy_n_impl(
+				InputIterator first, Size n, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset,
 				Args const&... args
 				)
 			{
-				return n != 0 && sizeof...(Args) < static_cast<std::size_t>(offset)
+				return n != 0 && sprout::math::less(sizeof...(Args), offset)
 					? sprout::fixed::detail::copy_n_impl(sprout::next(first), n - 1, result, offset, args..., *first)
 					: sprout::detail::container_complate(result, args...)
 					;
 			}
 			template<typename InputIterator, typename Size, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_n(
-				InputIterator first,
-				Size n,
-				Result const& result,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			copy_n(
+				InputIterator first, Size n, Result const& result,
 				void*
 				)
 			{
@@ -70,12 +66,8 @@ namespace sprout {
 		// copy_n
 		//
 		template<typename InputIterator, typename Size, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy_n(
-			InputIterator first,
-			Size n,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		copy_n(InputIterator first, Size n, Result const& result) {
 			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 			return sprout::fixed::detail::copy_n(first, n, result, category());
 		}

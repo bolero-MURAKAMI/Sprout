@@ -4,6 +4,11 @@
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/adl/not_found.hpp>
+
+namespace sprout_adl {
+	sprout::adl_not_found iterator_next(...);
+}	// namespace sprout_adl
 
 namespace sprout {
 	namespace iterator_detail {
@@ -69,12 +74,14 @@ namespace sprout_iterator_detail {
 	inline SPROUT_CONSTEXPR ForwardIterator
 	next(ForwardIterator const& it) {
 		using sprout::iterator_detail::iterator_next;
+		using sprout_adl::iterator_next;
 		return iterator_next(it);
 	}
 	template<typename ForwardIterator>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	next(ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n) {
 		using sprout::iterator_detail::iterator_next;
+		using sprout_adl::iterator_next;
 		return iterator_next(it, n);
 	}
 }	// namespace sprout_iterator_detail

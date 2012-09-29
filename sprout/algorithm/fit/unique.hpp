@@ -13,7 +13,8 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unique_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			unique_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
@@ -29,18 +30,16 @@ namespace sprout {
 		// unique
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unique(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		unique(Container const& cont) {
 			return sprout::fit::detail::unique_impl(cont, sprout::internal_begin_offset(cont));
 		}
 
 		namespace detail {
 			template<typename Container, typename BinaryPredicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unique_impl(
-				Container const& cont,
-				BinaryPredicate pred,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			unique_impl(
+				Container const& cont, BinaryPredicate pred,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -55,11 +54,8 @@ namespace sprout {
 		// unique
 		//
 		template<typename Container, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type unique(
-			Container const& cont,
-			BinaryPredicate pred
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		unique(Container const& cont, BinaryPredicate pred) {
 			return sprout::fit::detail::unique_impl(cont, pred, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit

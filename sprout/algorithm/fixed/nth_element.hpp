@@ -15,7 +15,8 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type nth_element_impl_1(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			nth_element_impl_1(
 				Container const& cont,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::difference_type nth_size
@@ -28,9 +29,9 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type nth_element_impl(
-				Container const& cont,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			nth_element_impl(
+				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::difference_type size,
 				typename sprout::container_traits<Container>::difference_type nth_size
@@ -47,32 +48,20 @@ namespace sprout {
 		// nth_element
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type nth_element(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator nth,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		nth_element(Container const& cont, typename sprout::container_traits<Container>::const_iterator nth, Compare comp) {
 			return sprout::fixed::detail::nth_element_impl(
-				cont,
-				comp,
+				cont, comp,
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), nth)
 				);
 		}
-		//
-		// nth_element
-		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type nth_element(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator nth
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		nth_element(Container const& cont, typename sprout::container_traits<Container>::const_iterator nth) {
 			return sprout::fixed::detail::nth_element_impl(
-				cont,
-				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
+				cont, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), nth)

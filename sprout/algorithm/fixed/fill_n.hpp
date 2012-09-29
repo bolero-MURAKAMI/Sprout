@@ -14,15 +14,10 @@ namespace sprout {
 		// fill_n
 		//
 		template<typename Container, typename Size, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type fill_n(
-			Container const& cont,
-			Size n,
-			T const& value
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		fill_n(Container const& cont, Size n, T const& value) {
 			return sprout::fixed::detail::fill_impl(
-				cont,
-				value,
+				cont, value,
 				sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
 				sprout::internal_begin_offset(cont),
 				n

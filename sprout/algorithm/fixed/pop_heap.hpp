@@ -13,7 +13,8 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type pop_heap_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			pop_heap_impl(
 				Container const& cont,
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -23,7 +24,8 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type r = 2
 				)
 			{
-				return r < size && comp(*sprout::next(sprout::internal_begin(cont), offset + l), *sprout::next(sprout::internal_begin(cont), offset + r))
+				return r < size
+					&& comp(*sprout::next(sprout::internal_begin(cont), offset + l), *sprout::next(sprout::internal_begin(cont), offset + r))
 					? comp(*sprout::next(sprout::internal_begin(cont), offset + n), *sprout::next(sprout::internal_begin(cont), offset + r))
 						? sprout::fixed::detail::pop_heap_impl(
 							sprout::fixed::swap_element(
@@ -63,11 +65,8 @@ namespace sprout {
 		// pop_heap
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type pop_heap(
-			Container const& cont,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		pop_heap(Container const& cont, Compare comp) {
 			return sprout::fixed::detail::pop_heap_impl(
 				sprout::fixed::swap_element(cont, sprout::begin(cont), sprout::end(cont) - 1),
 				comp,
@@ -75,14 +74,9 @@ namespace sprout {
 				sprout::size(cont) - 1
 				);
 		}
-		//
-		// pop_heap
-		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type pop_heap(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		pop_heap(Container const& cont) {
 			return sprout::fixed::detail::pop_heap_impl(
 				sprout::fixed::swap_element(cont, sprout::begin(cont), sprout::end(cont) - 1),
 				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),

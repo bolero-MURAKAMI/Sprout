@@ -20,11 +20,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fixed::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> bozo_sort_result_impl_1(
-				Shuffled const& shuffled,
-				Compare comp
-				)
-			{
+			>
+			bozo_sort_result_impl_1(Shuffled const& shuffled, Compare comp) {
 				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
 					sprout::begin(sprout::tuples::get<0>(shuffled)),
 					sprout::end(sprout::tuples::get<0>(shuffled)),
@@ -44,12 +41,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				typename sprout::fixed::result_of::algorithm<Container>::type,
 				typename std::decay<UniformRandomNumberGenerator>::type
-			> bozo_sort_result_impl(
-				Container const& cont,
-				UniformRandomNumberGenerator&& g,
-				Compare comp
-				)
-			{
+			>
+			bozo_sort_result_impl(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 				typedef sprout::tuples::tuple<
 					typename sprout::fixed::result_of::algorithm<Container>::type,
 					typename std::decay<UniformRandomNumberGenerator>::type
@@ -80,30 +73,20 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fixed::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
-		> bozo_sort_result(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g,
-			Compare comp
-			)
-		{
+		>
+		bozo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fixed::detail::bozo_sort_result_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				comp
 				);
 		}
-		//
-		// bozo_sort_result
-		//
 		template<typename Container, typename UniformRandomNumberGenerator>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 			typename sprout::fixed::result_of::algorithm<Container>::type,
 			typename std::decay<UniformRandomNumberGenerator>::type
-		> bozo_sort_result(
-			Container const& cont,
-			UniformRandomNumberGenerator&& g
-			)
-		{
+		>
+		bozo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::bozo_sort_result_impl(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),

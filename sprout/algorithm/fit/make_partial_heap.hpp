@@ -13,10 +13,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap_impl(
-				Container const& cont,
-				typename sprout::container_traits<Container>::const_iterator middle,
-				Compare comp,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			make_partial_heap_impl(
+				Container const& cont, typename sprout::container_traits<Container>::const_iterator middle, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -31,20 +30,16 @@ namespace sprout {
 		// make_partial_heap
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator middle,
-			Compare comp
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		make_partial_heap(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle, Compare comp) {
 			return sprout::fit::detail::make_partial_heap_impl(cont, middle, comp, sprout::internal_begin_offset(cont));
 		}
 
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap_impl(
-				Container const& cont,
-				typename sprout::container_traits<Container>::const_iterator middle,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			make_partial_heap_impl(
+				Container const& cont, typename sprout::container_traits<Container>::const_iterator middle,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -59,11 +54,8 @@ namespace sprout {
 		// make_partial_heap
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type make_partial_heap(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator middle
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		make_partial_heap(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle) {
 			return sprout::fit::detail::make_partial_heap_impl(cont, middle, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit

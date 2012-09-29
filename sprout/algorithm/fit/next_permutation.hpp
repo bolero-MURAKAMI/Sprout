@@ -33,8 +33,7 @@ namespace sprout {
 			template<typename Container, typename Compare>
 			inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fit::result_of::algorithm<Container>::type, bool>
 			next_permutation_impl(
-				Container const& cont,
-				Compare comp,
+				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset
 				)
 			{
@@ -46,11 +45,7 @@ namespace sprout {
 		//
 		template<typename Container, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fit::result_of::algorithm<Container>::type, bool>
-		next_permutation(
-			Container const& cont,
-			Compare comp
-			)
-		{
+		next_permutation(Container const& cont, Compare comp) {
 			return sprout::fit::detail::next_permutation_impl(cont, comp, sprout::internal_begin_offset(cont));
 		}
 
@@ -70,10 +65,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fit::result_of::algorithm<Container>::type, bool>
-		next_permutation(
-			Container const& cont
-			)
-		{
+		next_permutation(Container const& cont) {
 			return sprout::fit::detail::next_permutation_impl(cont, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit
