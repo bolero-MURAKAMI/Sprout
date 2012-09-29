@@ -6,35 +6,32 @@
 #include <type_traits>
 #include <sprout/pit/pit.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 
-namespace sprout {
-	namespace tuples {
-		//
-		// get
-		//
-		template<std::size_t I, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type&
-		get(sprout::pit<Container>& t) SPROUT_NOEXCEPT {
-			static_assert(I < sprout::container_traits<sprout::pit<Container> >::static_size, "get: index out of range");
-			return t[I];
-		}
-		template<std::size_t I, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type const&
-		get(sprout::pit<Container> const& t) SPROUT_NOEXCEPT {
-			static_assert(I < sprout::container_traits<sprout::pit<Container> >::static_size, "get: index out of range");
-			return t[I];
-		}
-		template<std::size_t I, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type&&
-		get(sprout::pit<Container>&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::move(sprout::tuples::get<I>(t))))
-		{
-			return sprout::move(sprout::tuples::get<I>(t));
-		}
-	}	// namespace tuples
-
-	using sprout::tuples::get;
-}	// namespace sprout
+namespace sprout_adl {
+	//
+	// tuple_get
+	//
+	template<std::size_t I, typename Container>
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type&
+	tuple_get(sprout::pit<Container>& t) SPROUT_NOEXCEPT {
+		static_assert(I < sprout::container_traits<sprout::pit<Container> >::static_size, "tuple_get: index out of range");
+		return t[I];
+	}
+	template<std::size_t I, typename Container>
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type const&
+	tuple_get(sprout::pit<Container> const& t) SPROUT_NOEXCEPT {
+		static_assert(I < sprout::container_traits<sprout::pit<Container> >::static_size, "tuple_get: index out of range");
+		return t[I];
+	}
+	template<std::size_t I, typename Container>
+	inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type&&
+	tuple_get(sprout::pit<Container>&& t)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::move(sprout::tuples::get<I>(t))))
+	{
+		return sprout::move(sprout::tuples::get<I>(t));
+	}
+}	// namespace sprout_adl
 
 namespace std {
 	//

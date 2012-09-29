@@ -181,34 +181,7 @@ namespace sprout {
 			public:
 				typedef T2 type;
 			};
-		}	// namespace detail
-	}	// namespace tuples
-}	// namespace sprout
 
-namespace std {
-	//
-	// tuple_size
-	//
-	template<typename T1, typename T2>
-	struct tuple_size<sprout::pair<T1, T2> >
-		: public std::integral_constant<std::size_t, 2>
-	{};
-
-	//
-	// tuple_element
-	//
-	template<std::size_t I, typename T1, typename T2>
-	struct tuple_element<I, sprout::pair<T1, T2> >
-		: public sprout::tuples::detail::tuple_element_impl<I, sprout::pair<T1, T2> >
-	{};
-}	// namespace std
-
-namespace sprout {
-	namespace tuples {
-		//
-		// get
-		//
-		namespace detail {
 			template<std::size_t I, typename T>
 			struct get_impl;
 			template<typename T1, typename T2>
@@ -232,26 +205,48 @@ namespace sprout {
 				}
 			};
 		}	// namespace detail
-		template<std::size_t I, typename T1, typename T2>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::pair<T1, T2> >::type&
-		get(sprout::pair<T1, T2>& t) SPROUT_NOEXCEPT {
-			static_assert(I < 2, "get: index out of range");
-			return sprout::tuples::detail::get_impl<I, sprout::pair<T1, T2> >()(t);
-		}
-		template<std::size_t I, typename T1, typename T2>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::pair<T1, T2> >::type const&
-		get(sprout::pair<T1, T2> const& t) SPROUT_NOEXCEPT {
-			static_assert(I < 2, "get: index out of range");
-			return sprout::tuples::detail::get_impl<I, sprout::pair<T1, T2> >()(t);
-		}
-		template<std::size_t I, typename T1, typename T2>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::pair<T1, T2> >::type&&
-		get(sprout::pair<T1, T2>&& t) SPROUT_NOEXCEPT {
-			return sprout::move(sprout::tuples::get<I>(t));
-		}
 	}	// namespace tuples
-
-	using sprout::tuples::get;
 }	// namespace sprout
+
+namespace std {
+	//
+	// tuple_size
+	//
+	template<typename T1, typename T2>
+	struct tuple_size<sprout::pair<T1, T2> >
+		: public std::integral_constant<std::size_t, 2>
+	{};
+
+	//
+	// tuple_element
+	//
+	template<std::size_t I, typename T1, typename T2>
+	struct tuple_element<I, sprout::pair<T1, T2> >
+		: public sprout::tuples::detail::tuple_element_impl<I, sprout::pair<T1, T2> >
+	{};
+}	// namespace std
+
+namespace sprout_adl {
+	//
+	// tuple_get
+	//
+	template<std::size_t I, typename T1, typename T2>
+	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::pair<T1, T2> >::type&
+	tuple_get(sprout::pair<T1, T2>& t) SPROUT_NOEXCEPT {
+		static_assert(I < 2, "tuple_get: index out of range");
+		return sprout::tuples::detail::get_impl<I, sprout::pair<T1, T2> >()(t);
+	}
+	template<std::size_t I, typename T1, typename T2>
+	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::pair<T1, T2> >::type const&
+	tuple_get(sprout::pair<T1, T2> const& t) SPROUT_NOEXCEPT {
+		static_assert(I < 2, "tuple_get: index out of range");
+		return sprout::tuples::detail::get_impl<I, sprout::pair<T1, T2> >()(t);
+	}
+	template<std::size_t I, typename T1, typename T2>
+	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::pair<T1, T2> >::type&&
+	tuple_get(sprout::pair<T1, T2>&& t) SPROUT_NOEXCEPT {
+		return sprout::move(sprout::tuples::get<I>(t));
+	}
+}	// namespace sprout_adl
 
 #endif	// #ifndef SPROUT_UTILITY_PAIR_HPP

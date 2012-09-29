@@ -6,32 +6,29 @@
 #include <type_traits>
 #include <sprout/array/array.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
-	namespace tuples {
-		//
-		// get
-		//
-		template<std::size_t I, typename T, std::size_t N>
-		inline SPROUT_CONSTEXPR T&
-		get(sprout::array<T, N>& t) SPROUT_NOEXCEPT {
-			static_assert(I < N, "get: index out of range");
-			return t[I];
-		}
-		template<std::size_t I, typename T, std::size_t N>
-		inline SPROUT_CONSTEXPR T const&
-		get(sprout::array<T, N> const& t) SPROUT_NOEXCEPT {
-			static_assert(I < N, "get: index out of range");
-			return t[I];
-		}
-		template<std::size_t I, typename T, std::size_t N>
-		inline SPROUT_CONSTEXPR T&&
-		get(sprout::array<T, N>&& t) SPROUT_NOEXCEPT {
-			return sprout::move(sprout::tuples::get<I>(t));
-		}
-	}	// namespace tuples
-
-	using sprout::tuples::get;
+	//
+	// tuple_get
+	//
+	template<std::size_t I, typename T, std::size_t N>
+	inline SPROUT_CONSTEXPR T&
+	tuple_get(sprout::array<T, N>& t) SPROUT_NOEXCEPT {
+		static_assert(I < N, "tuple_get: index out of range");
+		return t[I];
+	}
+	template<std::size_t I, typename T, std::size_t N>
+	inline SPROUT_CONSTEXPR T const&
+	tuple_get(sprout::array<T, N> const& t) SPROUT_NOEXCEPT {
+		static_assert(I < N, "tuple_get: index out of range");
+		return t[I];
+	}
+	template<std::size_t I, typename T, std::size_t N>
+	inline SPROUT_CONSTEXPR T&&
+	tuple_get(sprout::array<T, N>&& t) SPROUT_NOEXCEPT {
+		return sprout::move(sprout::tuples::get<I>(t));
+	}
 }	// namespace sprout
 
 namespace std {
