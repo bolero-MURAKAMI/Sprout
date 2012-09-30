@@ -23,7 +23,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_found_via_adl
-		: public std::integral_constant<bool, sprout::is_not_found_via_adl<T>::value>
+		: public std::integral_constant<bool, !sprout::is_not_found_via_adl<T>::value>
 	{};
 }	// namespace sprout
 
