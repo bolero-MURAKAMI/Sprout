@@ -17,6 +17,18 @@ namespace sprout {
 	struct is_not_found_via_adl
 		: public std::is_same<T, sprout::not_found_via_adl>
 	{};
+	template<typename T>
+	struct is_not_found_via_adl<T const>
+		: public sprout::is_not_found_via_adl<T>
+	{};
+	template<typename T>
+	struct is_not_found_via_adl<T volatile>
+		: public sprout::is_not_found_via_adl<T>
+	{};
+	template<typename T>
+	struct is_not_found_via_adl<T const volatile>
+		: public sprout::is_not_found_via_adl<T>
+	{};
 
 	//
 	// is_found_via_adl
