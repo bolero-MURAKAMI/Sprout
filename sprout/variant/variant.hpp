@@ -252,31 +252,11 @@ namespace sprout {
 	// swap
 	//
 	template<typename... Types>
-	inline void swap(
-		sprout::variant<Types...>& lhs,
-		sprout::variant<Types...>& rhs
-		) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	inline void swap(sprout::variant<Types...>& lhs, sprout::variant<Types...>& rhs)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
 	}
 }	// namespace sprout
-
-namespace std {
-	//
-	// tuple_size
-	//
-	template<typename... Types>
-	struct tuple_size<sprout::variant<Types...> >
-		: public std::tuple_size<typename sprout::variant<Types...>::tuple_type>
-	{};
-
-	//
-	// tuple_element
-	//
-	template<std::size_t I, typename... Types>
-	struct tuple_element<I, sprout::variant<Types...> >
-		: public std::tuple_element<I, typename sprout::variant<Types...>::tuple_type>
-	{};
-}	// namespace std
 
 #endif	// #ifndef SPROUT_VARIANT_VARIANT_HPP

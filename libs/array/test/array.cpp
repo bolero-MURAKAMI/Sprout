@@ -90,17 +90,19 @@ namespace testspr {
 			}
 
 			// assign
+			TESTSPR_BOTH_ASSERT(testspr::equal(arr1.assign(-1), array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
 			{
 				auto arr = arr1;
 				arr.assign(-1);
-				TESTSPR_ASSERT(arr[0] == -1);
+				TESTSPR_ASSERT(testspr::equal(arr, array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
 			}
 
 			// fill
+			TESTSPR_BOTH_ASSERT(testspr::equal(arr1.fill(-1), array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
 			{
 				auto arr = arr1;
 				arr.fill(-1);
-				TESTSPR_ASSERT(arr[0] == -1);
+				TESTSPR_ASSERT(testspr::equal(arr, array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
 			}
 
 			// swap

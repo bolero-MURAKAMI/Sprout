@@ -3,6 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/variant/variant.hpp>
+#include <sprout/variant/tuple.hpp>
 #include <sprout/variant/get.hpp>
 #include <sprout/variant/static_visitor.hpp>
 #include <sprout/variant/apply_visitor.hpp>

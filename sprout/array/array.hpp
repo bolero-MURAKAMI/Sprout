@@ -17,6 +17,19 @@
 #endif
 
 namespace sprout {
+	namespace detail {
+		template<sprout::index_t Index, typename T>
+		inline SPROUT_CONSTEXPR T const&
+		array_dummy_get(T const& value) {
+			return value;
+		}
+		template<typename Array, typename T, sprout::index_t... Indexes>
+		inline SPROUT_CONSTEXPR Array
+		array_fill_impl(T const& value, sprout::index_tuple<Indexes...>) {
+			return Array{{array_dummy_get<Indexes>(value)...}};
+		}
+	}	// namespace detail
+
 	//
 	// array
 	//
@@ -46,6 +59,9 @@ namespace sprout {
 	public:
 		void fill(const_reference value) {
 			std::fill_n(begin(), size(), value);
+		}
+		SPROUT_CONSTEXPR array fill(const_reference value) const {
+			return sprout::detail::array_fill_impl<array>(value, sprout::index_n<0, N>::make());
 		}
 		void swap(array<T, N>& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>()))) {
 			std::swap_ranges(other.begin(), other.end(), begin());
@@ -176,6 +192,9 @@ namespace sprout {
 		void assign(const_reference value) {
 			fill(value);
 		}
+		SPROUT_CONSTEXPR array assign(const_reference value) const {
+			return fill(value);
+		}
 		void rangecheck(size_type i) const {
 			if (i >= size()) {
 				throw std::out_of_range("array<>: index out of range");
@@ -189,17 +208,16 @@ namespace sprout {
 	// swap
 	//
 	template<typename T, std::size_t N>
-	inline void swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
 		lhs.swap(rhs);
 	}
 
 	namespace detail {
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		inline SPROUT_CONSTEXPR sprout::array<T, N> to_array_impl(
-			T const (& arr)[N],
-			sprout::index_tuple<Indexes...>
-			)
-		{
+		inline SPROUT_CONSTEXPR sprout::array<T, N>
+		to_array_impl(T const (& arr)[N], sprout::index_tuple<Indexes...>) {
 			return sprout::array<T, N>{{arr[Indexes]...}};
 		}
 	}	// namespace detail
@@ -207,7 +225,8 @@ namespace sprout {
 	// to_array
 	//
 	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR sprout::array<T, N> to_array(T const (& arr)[N]) {
+	inline SPROUT_CONSTEXPR sprout::array<T, N>
+	to_array(T const (& arr)[N]) {
 		return sprout::detail::to_array_impl(arr, sprout::index_range<0, N>::make());
 	}
 }	// namespace sprout

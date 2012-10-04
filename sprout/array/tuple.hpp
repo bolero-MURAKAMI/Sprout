@@ -4,11 +4,12 @@
 #include <cstddef>
 #include <tuple>
 #include <type_traits>
+#include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 
-namespace sprout {
+namespace sprout_adl {
 	//
 	// tuple_get
 	//
@@ -29,7 +30,7 @@ namespace sprout {
 	tuple_get(sprout::array<T, N>&& t) SPROUT_NOEXCEPT {
 		return sprout::move(sprout::tuples::get<I>(t));
 	}
-}	// namespace sprout
+}	// namespace sprout_adl
 
 namespace std {
 	//
