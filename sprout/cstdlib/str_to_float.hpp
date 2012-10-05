@@ -24,7 +24,6 @@ namespace sprout {
 			FloatType p10 = FloatType(10)
 			)
 		{
-			typedef typename std::iterator_traits<CStrIterator>::value_type char_type;
 			return n ? sprout::detail::str_to_float_impl_scale<FloatType>(
 					str,
 					negative,
@@ -49,7 +48,6 @@ namespace sprout {
 			long n = 0
 			)
 		{
-			typedef typename std::iterator_traits<CStrIterator>::value_type char_type;
 			return exponent >= std::numeric_limits<FloatType>::min_exponent
 				&& exponent <= std::numeric_limits<FloatType>::max_exponent
 				? sprout::detail::str_to_float_impl_scale<FloatType>(
@@ -145,7 +143,6 @@ namespace sprout {
 			long exponent = 0
 			)
 		{
-			typedef typename std::iterator_traits<CStrIterator>::value_type char_type;
 			return num_digits == 0 ? FloatType()
 				: sprout::detail::str_to_float_impl_exponent<FloatType>(
 					str,
