@@ -20,7 +20,7 @@ namespace sprout {
 			Engine const& engine, Distribution const& distribution,
 			typename sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>::difference_type count = -1
 			)
-			-> sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>
+		-> sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>
 		{
 			return sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>(distribution(engine), count);
 		}
@@ -30,7 +30,7 @@ namespace sprout {
 			Engine const& engine,
 			typename sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>::difference_type count = -1
 			)
-			-> sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>
+		-> sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>
 		{
 			return sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>(engine(), count);
 		}
@@ -44,14 +44,14 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR auto
 		end(Engine const& engine, Distribution const& distribution)
-			-> sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>
+		-> sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>
 		{
 			return sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>();
 		}
 		template<typename Engine>
 		inline SPROUT_CONSTEXPR auto
 		end(Engine const& engine)
-			-> sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>
+		-> sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>
 		{
 			return sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>();
 		}

@@ -7,6 +7,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/utility/swap.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/functional/ref.hpp>
 
@@ -88,9 +89,8 @@ namespace sprout {
 			second = p.second;
 			return *this;
 		}
-		pair& operator=(pair&& p) SPROUT_NOEXCEPT_EXPR(
-			std::is_nothrow_move_assignable<T1>::value && std::is_nothrow_move_assignable<T2>::value
-			)
+		pair& operator=(pair&& p)
+		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<T1>::value && std::is_nothrow_move_assignable<T2>::value)
 		{
 			first = sprout::forward<T1>(p.first);
 			second = std::forward<T2>(p.second);
@@ -102,40 +102,45 @@ namespace sprout {
 			second = std::forward<V>(p.second);
 			return *this;
 		}
-		void swap(pair& p) SPROUT_NOEXCEPT_EXPR(
-			SPROUT_NOEXCEPT_EXPR(swap(first, p.first)) && SPROUT_NOEXCEPT_EXPR(swap(second, p.second))
+		void swap(pair& p)
+		SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_EXPR(swap(first, p.first))
+			&& SPROUT_NOEXCEPT_EXPR(swap(second, p.second))
 			)
 		{
-			using std::swap;
-			swap(first, p.first);
-			swap(second, p.second);
+			sprout::swap(first, p.first);
+			sprout::swap(second, p.second);
 		}
 	};
 
 	template<class T1, class T2>
-	inline SPROUT_CONSTEXPR bool operator==(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return x.first == y.first && x.second == y.second;
 	}
 	template<class T1, class T2>
-	inline SPROUT_CONSTEXPR bool operator!=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return !(x == y);
 	}
 	template<class T1, class T2>
-	inline SPROUT_CONSTEXPR bool operator<(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
-		return x.first < y.first
-			|| (!(y.first < x.first) && x.second < y.second)
-			;
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
+		return x.first < y.first || (!(y.first < x.first) && x.second < y.second);
 	}
 	template<class T1, class T2>
-	inline SPROUT_CONSTEXPR bool operator>(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return y < x;
 	}
 	template<class T1, class T2>
-	inline SPROUT_CONSTEXPR bool operator<=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return !(y < x);
 	}
 	template<class T1, class T2>
-	inline SPROUT_CONSTEXPR bool operator>=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return !(x < y);
 	}
 
@@ -143,15 +148,18 @@ namespace sprout {
 	// swap
 	//
 	template<class T1, class T2>
-	inline void swap(pair<T1, T2>& x, pair<T1, T2>& y) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(x.swap(y))) {
-		x.swap(y);
+	inline void
+	swap(sprout::pair<T1, T2>& lhs, sprout::pair<T1, T2>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
+		lhs.swap(rhs);
 	}
 
 	//
 	// make_pair
 	//
 	template<typename T1, typename T2>
-	SPROUT_CONSTEXPR sprout::pair<
+	inline SPROUT_CONSTEXPR sprout::pair<
 		typename sprout::strip_reference<typename std::decay<T1>::type>::type,
 		typename sprout::strip_reference<typename std::decay<T2>::type>::type
 	>
@@ -226,7 +234,7 @@ namespace std {
 	{};
 }	// namespace std
 
-namespace sprout_adl {
+namespace sprout {
 	//
 	// tuple_get
 	//
@@ -247,6 +255,6 @@ namespace sprout_adl {
 	tuple_get(sprout::pair<T1, T2>&& t) SPROUT_NOEXCEPT {
 		return sprout::move(sprout::tuples::get<I>(t));
 	}
-}	// namespace sprout_adl
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_PAIR_HPP

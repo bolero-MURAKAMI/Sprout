@@ -20,7 +20,8 @@ namespace sprout {
 		// operator>>
 		//
 		template<typename Elem, typename Traits>
-		std::basic_istream<Elem, Traits>& operator>>(std::basic_istream<Elem, Traits>& lhs, sprout::uuids::uuid& rhs) {
+		inline std::basic_istream<Elem, Traits>&
+		operator>>(std::basic_istream<Elem, Traits>& lhs, sprout::uuids::uuid& rhs) {
 			typedef typename std::basic_ios<Elem, Traits>::char_type char_type;
 			typename std::basic_istream<Elem, Traits>::sentry const ok(lhs);
 			typedef std::ctype<Elem> ctype_type;
@@ -73,7 +74,8 @@ namespace sprout {
 		// operator<<
 		//
 		template<typename Elem, typename Traits>
-		std::basic_ostream<Elem, Traits>& operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::uuids::uuid const& rhs) {
+		inline std::basic_ostream<Elem, Traits>&
+		operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::uuids::uuid const& rhs) {
 			sprout::detail::io::ios_flags_saver flags_saver(lhs);
 			sprout::detail::io::basic_ios_fill_saver<Elem, Traits> fill_saver(lhs);
 			typename std::basic_ostream<Elem, Traits>::sentry const ok(lhs);

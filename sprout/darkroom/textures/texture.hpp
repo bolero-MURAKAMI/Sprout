@@ -61,11 +61,7 @@ namespace sprout {
 				pixels_type pixels_;
 			public:
 				template<typename... Elems>
-				SPROUT_CONSTEXPR image_type(
-					unsigned long image_format,
-					unsigned long pixel_format,
-					Elems const&... elems
-					)
+				SPROUT_CONSTEXPR image_type(unsigned long image_format, unsigned long pixel_format, Elems const&... elems)
 					: pixels_{{
 						color_type(
 							static_cast<color_component_type>((elems >> 16) & 0xFF) / 0xFF,
@@ -76,16 +72,20 @@ namespace sprout {
 				{
 					static_assert(sizeof...(Elems) == static_width * static_height, "image_type<>: unmatch image size");
 				}
-				SPROUT_CONSTEXPR value_type const& operator()(size_type x, size_type y) const {
+				SPROUT_CONSTEXPR value_type const&
+				operator()(size_type x, size_type y) const {
 					return pixels_[y * static_width + x];
 				}
-				SPROUT_CONSTEXPR size_type width() const {
+				SPROUT_CONSTEXPR size_type
+				width() const {
 					return static_width;
 				}
-				SPROUT_CONSTEXPR size_type height() const {
+				SPROUT_CONSTEXPR size_type
+				height() const {
 					return static_height;
 				}
-				SPROUT_CONSTEXPR pixels_type const& pixels() const {
+				SPROUT_CONSTEXPR pixels_type const&
+				pixels() const {
 					return pixels_;
 				}
 			};

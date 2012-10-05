@@ -11,6 +11,7 @@
 #include <sprout/array.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/utility/swap.hpp>
 #include <sprout/string/char_traits.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
@@ -46,14 +47,16 @@ namespace sprout {
 		SPROUT_STATIC_CONSTEXPR size_type npos = -1;
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
 	private:
-		static SPROUT_CONSTEXPR int compare_impl_2(int compared, size_type n1, size_type n2) {
+		static SPROUT_CONSTEXPR int
+		compare_impl_2(int compared, size_type n1, size_type n2) {
 			return compared != 0 ? compared
 				: n1 < n2 ? -1
 				: n2 < n1 ? 1
 				: 0
 				;
 		}
-		static SPROUT_CONSTEXPR int compare_impl_1(value_type const* dest, size_type pos1, size_type n1, value_type const* s, size_type n2) {
+		static SPROUT_CONSTEXPR int
+		compare_impl_1(value_type const* dest, size_type pos1, size_type n1, value_type const* s, size_type n2) {
 			return compare_impl_2(
 				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1,
@@ -61,12 +64,8 @@ namespace sprout {
 				);
 		}
 		template<sprout::index_t... Indexes>
-		static SPROUT_CONSTEXPR basic_string<T, N, Traits> from_c_str_impl(
-			value_type const* s,
-			size_type n,
-			sprout::index_tuple<Indexes...>
-			)
-		{
+		static SPROUT_CONSTEXPR basic_string<T, N, Traits>
+		from_c_str_impl(value_type const* s, size_type n, sprout::index_tuple<Indexes...>) {
 			return sprout::basic_string<T, N, Traits>{{(Indexes < n ? s[Indexes] : T())...}, n};
 		}
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
@@ -74,14 +73,16 @@ namespace sprout {
 		static SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::is_index_iterator<ConstIterator>::value,
 			int
-		>::type compare_impl_1(value_type const* dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
+		>::type
+		compare_impl_1(value_type const* dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
 			return compare_impl_2(
 				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1,
 				n2
 				);
 		}
-		static SPROUT_CONSTEXPR int compare_impl_1(const_iterator dest, size_type pos1, size_type n1, value_type const* s, size_type n2) {
+		static SPROUT_CONSTEXPR int
+		compare_impl_1(const_iterator dest, size_type pos1, size_type n1, value_type const* s, size_type n2) {
 			return compare_impl_2(
 				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1,
@@ -92,7 +93,8 @@ namespace sprout {
 		static SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::is_index_iterator<ConstIterator>::value,
 			int
-		>::type compare_impl_1(const_iterator dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
+		>::type
+		compare_impl_1(const_iterator dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
 			return compare_impl_2(
 				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1,
@@ -101,12 +103,8 @@ namespace sprout {
 		}
 #endif
 		template<std::size_t M, sprout::index_t... Indexes>
-		static SPROUT_CONSTEXPR basic_string<T, sizeof...(Indexes), Traits> implicit_conversion_impl(
-			T const(& elems)[M],
-			size_type len,
-			sprout::index_tuple<Indexes...>
-			)
-		{
+		static SPROUT_CONSTEXPR basic_string<T, sizeof...(Indexes), Traits>
+		implicit_conversion_impl(T const(& elems)[M], size_type len, sprout::index_tuple<Indexes...>) {
 			return sprout::basic_string<T, sizeof...(Indexes), Traits>{{(Indexes < M - 1 ? elems[Indexes] : T())...}, len};
 		}
 	public:
@@ -299,12 +297,11 @@ namespace sprout {
 			len = n;
 			return *this;
 		}
-		void swap(basic_string<T, N, Traits>& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>()))) {
+		void swap(basic_string<T, N, Traits>& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())))
+		{
 			std::swap_ranges(other.begin(), other.begin() + other.max_size(), begin());
-			{
-				using std::swap;
-				swap(len, other.len);
-			}
+			sprout::swap(len, other.len);
 		}
 		// string operations:
 		SPROUT_CONSTEXPR const_pointer c_str() const SPROUT_NOEXCEPT {
@@ -438,10 +435,9 @@ namespace sprout {
 	// swap
 	//
 	template<typename T, std::size_t N, typename Traits>
-	inline void swap(
-		sprout::basic_string<T, N, Traits>& lhs,
-		sprout::basic_string<T, N, Traits>& rhs
-		) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	inline void
+	swap(sprout::basic_string<T, N, Traits>& lhs, sprout::basic_string<T, N, Traits>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
 	}
@@ -456,19 +452,16 @@ namespace sprout {
 			typedef sprout::basic_string<T, N, Traits> copied_type;
 		private:
 			template<std::size_t M>
-			static SPROUT_CONSTEXPR typename copied_type::size_type length_impl(sprout::array<T, M> const& arr) {
+			static SPROUT_CONSTEXPR typename copied_type::size_type
+			length_impl(sprout::array<T, M> const& arr) {
 				return NS_SSCRISK_CEL_OR_SPROUT::distance(
 					arr.begin(),
 					NS_SSCRISK_CEL_OR_SPROUT::find(arr.begin(), arr.end(), T())
 					);
 			}
 			template<typename... Args, sprout::index_t... Indexes>
-			static SPROUT_CONSTEXPR copied_type make_impl(
-				typename copied_type::size_type size,
-				sprout::index_tuple<Indexes...>,
-				Args&&... args
-				)
-			{
+			static SPROUT_CONSTEXPR copied_type
+			make_impl(typename copied_type::size_type size, sprout::index_tuple<Indexes...>, Args&&... args) {
 				return copied_type{
 					{(Indexes < size ? sprout::forward<Args>(args) : T())...},
 					size
@@ -476,11 +469,13 @@ namespace sprout {
 			}
 		public:
 			template<typename... Args>
-			static SPROUT_CONSTEXPR typename copied_type::size_type length(Args&&... args) {
+			static SPROUT_CONSTEXPR typename copied_type::size_type
+			length(Args&&... args) {
 				return length_impl(sprout::make_array<T>(sprout::forward<Args>(args)...));
 			}
 			template<typename... Args>
-			static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
+			static SPROUT_CONSTEXPR copied_type
+			make(Args&&... args) {
 				return make_impl(
 					length(args...),
 					sprout::index_range<0, sizeof...(Args)>::make(),
@@ -488,7 +483,8 @@ namespace sprout {
 					);
 			}
 			template<typename... Args>
-			static SPROUT_CONSTEXPR copied_type make(typename copied_type::size_type size, Args&&... args) {
+			static SPROUT_CONSTEXPR copied_type
+			make(typename copied_type::size_type size, Args&&... args) {
 				return make_impl(
 					size,
 					sprout::index_range<0, sizeof...(Args)>::make(),
@@ -503,25 +499,23 @@ namespace sprout {
 	//
 	namespace detail {
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> to_string_impl_1(
-			T const(& arr)[N],
-			typename sprout::basic_string<T, N - 1>::size_type n,
+		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
+		to_string_impl_1(
+			T const(& arr)[N], typename sprout::basic_string<T, N - 1>::size_type n,
 			sprout::index_tuple<Indexes...>
 			)
 		{
 			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
 		}
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> to_string_impl(
-			T const(& arr)[N],
-			sprout::index_tuple<Indexes...>
-			)
-		{
+		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
+		to_string_impl(T const(& arr)[N], sprout::index_tuple<Indexes...>) {
 			return to_string_impl_1(arr, sprout::char_traits<T>::length(arr), sprout::index_tuple<Indexes...>());
 		}
 	}	// namespace detail
 	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1> to_string(T const(& arr)[N]) {
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
+	to_string(T const(& arr)[N]) {
 		return sprout::detail::to_string_impl(arr, sprout::index_range<0, N - 1>::make());
 	}
 
@@ -529,11 +523,13 @@ namespace sprout {
 	// string_from_c_str
 	//
 	template<std::size_t N, typename T>
-	inline SPROUT_CONSTEXPR sprout::basic_string<T, N> string_from_c_str(T const* s, std::size_t n) {
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, N>
+	string_from_c_str(T const* s, std::size_t n) {
 		return sprout::basic_string<T, N>::from_c_str(s, n);
 	}
 	template<std::size_t N, typename T>
-	inline SPROUT_CONSTEXPR sprout::basic_string<T, N> string_from_c_str(T const* s) {
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, N>
+	string_from_c_str(T const* s) {
 		return sprout::basic_string<T, N>::from_c_str(s);
 	}
 }	// namespace sprout

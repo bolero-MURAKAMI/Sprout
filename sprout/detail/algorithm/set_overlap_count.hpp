@@ -11,11 +11,10 @@ namespace sprout {
 		// set_overlap_count
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Compare>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator1>::difference_type set_overlap_count(
-			InputIterator1 first1,
-			InputIterator1 last1,
-			InputIterator2 first2,
-			InputIterator2 last2,
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator1>::difference_type
+		set_overlap_count(
+			InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, InputIterator2 last2,
 			Compare comp
 			)
 		{
@@ -32,11 +31,10 @@ namespace sprout {
 		// set_overlap_count
 		//
 		template<typename InputIterator1, typename InputIterator2>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator1>::difference_type set_overlap_count(
-			InputIterator1 first1,
-			InputIterator1 last1,
-			InputIterator2 first2,
-			InputIterator2 last2
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator1>::difference_type
+		set_overlap_count(
+			InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, InputIterator2 last2
 			)
 		{
 			return first1 != last1 && first2 != last2

@@ -21,7 +21,8 @@ namespace sprout {
 					: elem_(elem)
 				{}
 				template<typename Unit>
-				SPROUT_CONSTEXPR result_type operator()(Unit const&, Unit const&) const {
+				SPROUT_CONSTEXPR result_type
+				operator()(Unit const&, Unit const&) const {
 					return elem_;
 				}
 			};
@@ -40,7 +41,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::darkroom::materials::uniform_element<Color>,
 				sprout::darkroom::materials::uniform_element<Reflection>
-			> make_uniform_material_image(Color const& col, Reflection const& ref) {
+			>
+			make_uniform_material_image(Color const& col, Reflection const& ref) {
 				return sprout::tuples::make_tuple(
 					sprout::darkroom::materials::make_uniform(col),
 					sprout::darkroom::materials::make_uniform(ref)

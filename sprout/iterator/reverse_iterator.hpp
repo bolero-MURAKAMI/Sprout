@@ -7,6 +7,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
@@ -110,71 +111,55 @@ namespace sprout {
 		SPROUT_CONSTEXPR reverse_iterator prev() const {
 			return reverse_iterator(sprout::next(current));
 		}
-		void swap(reverse_iterator& other) {
-			using std::swap;
+		void swap(reverse_iterator& other)
+		SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
+			&& SPROUT_NOEXCEPT_EXPR(swap(deref_tmp, other.deref_tmp))
+			)
+		{
 			swap(current, other.current);
 			swap(deref_tmp, other.deref_tmp);
 		}
 	};
 
 	template<typename Iterator1, typename Iterator2>
-	inline SPROUT_CONSTEXPR bool operator==(
-		sprout::reverse_iterator<Iterator1> const& lhs,
-		sprout::reverse_iterator<Iterator2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::reverse_iterator<Iterator1> const& lhs, sprout::reverse_iterator<Iterator2> const& rhs) {
 		return lhs.base() == rhs.base();
 	}
 	template<typename Iterator1, typename Iterator2>
-	inline SPROUT_CONSTEXPR bool operator!=(
-		sprout::reverse_iterator<Iterator1> const& lhs,
-		sprout::reverse_iterator<Iterator2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::reverse_iterator<Iterator1> const& lhs, sprout::reverse_iterator<Iterator2> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename Iterator1, typename Iterator2>
-	inline SPROUT_CONSTEXPR bool operator<(
-		sprout::reverse_iterator<Iterator1> const& lhs,
-		sprout::reverse_iterator<Iterator2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::reverse_iterator<Iterator1> const& lhs, sprout::reverse_iterator<Iterator2> const& rhs) {
 		return lhs.base() < rhs.base();
 	}
 	template<typename Iterator1, typename Iterator2>
-	inline SPROUT_CONSTEXPR bool operator>(
-		sprout::reverse_iterator<Iterator1> const& lhs,
-		sprout::reverse_iterator<Iterator2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::reverse_iterator<Iterator1> const& lhs, sprout::reverse_iterator<Iterator2> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename Iterator1, typename Iterator2>
-	inline SPROUT_CONSTEXPR bool operator<=(
-		sprout::reverse_iterator<Iterator1> const& lhs,
-		sprout::reverse_iterator<Iterator2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::reverse_iterator<Iterator1> const& lhs, sprout::reverse_iterator<Iterator2> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename Iterator1, typename Iterator2>
-	inline SPROUT_CONSTEXPR bool operator>=(
-		sprout::reverse_iterator<Iterator1> const& lhs,
-		sprout::reverse_iterator<Iterator2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::reverse_iterator<Iterator1> const& lhs, sprout::reverse_iterator<Iterator2> const& rhs) {
 		return !(lhs < rhs);
 	}
 	template<typename Iterator1, typename Iterator2>
-	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>()) operator-(
-		sprout::reverse_iterator<Iterator1> const& lhs,
-		sprout::reverse_iterator<Iterator2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>())
+	operator-(sprout::reverse_iterator<Iterator1> const& lhs, sprout::reverse_iterator<Iterator2> const& rhs) {
 		return lhs.base() - rhs.base();
 	}
 	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator> operator+(
+	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator>
+	operator+(
 		typename sprout::reverse_iterator<Iterator>::difference_type n,
 		sprout::reverse_iterator<Iterator> const& it
 		)
@@ -195,7 +180,10 @@ namespace sprout {
 	// swap
 	//
 	template<typename Iterator>
-	inline void swap(sprout::reverse_iterator<Iterator>& lhs, sprout::reverse_iterator<Iterator>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void
+	swap(sprout::reverse_iterator<Iterator>& lhs, sprout::reverse_iterator<Iterator>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
 		lhs.swap(rhs);
 	}
 
@@ -204,11 +192,7 @@ namespace sprout {
 	//
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::reverse_iterator<Iterator> >::difference_type
-	iterator_distance(
-		sprout::reverse_iterator<Iterator> first,
-		sprout::reverse_iterator<Iterator> last
-		)
-	{
+	iterator_distance(sprout::reverse_iterator<Iterator> first, sprout::reverse_iterator<Iterator> last) {
 		return last - first;
 	}
 
@@ -216,14 +200,13 @@ namespace sprout {
 	// iterator_next
 	//
 	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator> iterator_next(
-		sprout::reverse_iterator<Iterator> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator>
+	iterator_next(sprout::reverse_iterator<Iterator> const& it) {
 		return it.next();
 	}
 	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator> iterator_next(
+	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator>
+	iterator_next(
 		sprout::reverse_iterator<Iterator> const& it,
 		typename sprout::reverse_iterator<Iterator>::difference_type n
 		)
@@ -235,14 +218,13 @@ namespace sprout {
 	// iterator_prev
 	//
 	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator> iterator_prev(
-		sprout::reverse_iterator<Iterator> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator>
+	iterator_prev(sprout::reverse_iterator<Iterator> const& it) {
 		return it.prev();
 	}
 	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator> iterator_prev(
+	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator>
+	iterator_prev(
 		sprout::reverse_iterator<Iterator> const& it,
 		typename sprout::reverse_iterator<Iterator>::difference_type n
 		)

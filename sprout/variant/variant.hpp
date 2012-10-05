@@ -7,7 +7,9 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/utility/operation.hpp>
+#include <sprout/utility/forward.hpp>
+#include <sprout/utility/move.hpp>
+#include <sprout/utility/swap.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/type/type_tuple.hpp>
@@ -43,13 +45,11 @@ namespace sprout {
 			{
 				static_assert(Index::value < sizeof...(Types), "variant<>: invalid operand");
 			}
-			void swap(variant_impl& other) SPROUT_NOEXCEPT_EXPR(
-				SPROUT_NOEXCEPT_EXPR(swap(std::declval<tuple_type&>(), std::declval<tuple_type&>()))
-				)
+			void swap(variant_impl& other)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(tuple_, other.tuple_)))
 			{
-				using std::swap;
-				swap(tuple_, other.tuple_);
-				swap(which_, other.which_);
+				sprout::swap(tuple_, other.tuple_);
+				sprout::swap(which_, other.which_);
 			}
 			variant_impl& operator=(variant_impl const&) = default;
 		};
@@ -153,14 +153,18 @@ namespace sprout {
 				)
 		{}
 		// modifiers
-		void swap(variant& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(impl_type::swap(other))) {
+		void swap(variant& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(impl_type::swap(other)))
+		{
 			impl_type::swap(other);
 		}
 		variant& operator=(variant const& rhs) {
 			static_cast<impl_type&>(*this) = rhs;
 			return *this;
 		}
-		variant& operator=(variant&& rhs) SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<impl_type>::value) {
+		variant& operator=(variant&& rhs)
+		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<impl_type>::value)
+		{
 			static_cast<impl_type&>(*this) = sprout::move(rhs);
 			return *this;
 		}
@@ -252,8 +256,9 @@ namespace sprout {
 	// swap
 	//
 	template<typename... Types>
-	inline void swap(sprout::variant<Types...>& lhs, sprout::variant<Types...>& rhs)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	inline void
+	swap(sprout::variant<Types...>& lhs, sprout::variant<Types...>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
 	}

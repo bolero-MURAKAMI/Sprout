@@ -25,7 +25,7 @@ namespace sprout {
 	};
 }	// namespace sprout
 
-namespace sprout_adl {
+namespace sprout {
 	//
 	// range_begin
 	//
@@ -53,7 +53,7 @@ namespace sprout_adl {
 	range_end(sscrisk::cel::array<T, N> const& cont) {
 		return typename sprout::container_traits<sscrisk::cel::array<T, N> >::const_iterator(cont, cont.size());
 	}
-}	// namespace sprout_adl
+}	// namespace sprout
 #endif
 
 #endif	// #ifndef SPROUT_ADAPT_SSCRISK_CEL_ARRAY_HPP

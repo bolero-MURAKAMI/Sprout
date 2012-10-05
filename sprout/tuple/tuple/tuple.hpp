@@ -6,7 +6,9 @@
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
-#include <sprout/utility/operation.hpp>
+#include <sprout/utility/forward.hpp>
+#include <sprout/utility/move.hpp>
+#include <sprout/utility/swap.hpp>
 #include <sprout/tuple/tuple/tuple_fwd.hpp>
 #include <sprout/tuple/tuple/type_traits.hpp>
 
@@ -141,13 +143,13 @@ namespace sprout {
 					return t;
 				}
 			protected:
-				void swap(tuple_impl& t) SPROUT_NOEXCEPT_EXPR(
-					SPROUT_NOEXCEPT_EXPR(swap(std::declval<Head&>(), std::declval<Head&>()))
-					&& SPROUT_NOEXCEPT_EXPR(tail(t).swap(tail(t)))
+				void swap(tuple_impl& t)
+				SPROUT_NOEXCEPT_EXPR(
+					SPROUT_NOEXCEPT_EXPR(sprout::swap(head(std::declval<Head&>()), head(t)))
+					&& SPROUT_NOEXCEPT_EXPR(inherited_type::swap(tail(t)))
 					)
 				{
-					using std::swap;
-					swap(head(*this), head(t));
+					sprout::swap(head(*this), head(t));
 					inherited_type::swap(tail(t));
 				}
 			public:
@@ -318,7 +320,9 @@ namespace sprout {
 				static_cast<inherited_type&>(*this) = rhs;
 				return *this;
 			}
-			tuple& operator=(tuple&& rhs) SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<inherited_type>::value) {
+			tuple& operator=(tuple&& rhs)
+			SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<inherited_type>::value)
+			{
 				static_cast<inherited_type&>(*this) = sprout::move(rhs);
 				return *this;
 			}
@@ -333,7 +337,9 @@ namespace sprout {
 				return *this;
 			}
 			// tuple swap
-			void swap(tuple& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(inherited_type::swap(other))) {
+			void swap(tuple& other)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(inherited_type::swap(other)))
+			{
 				inherited_type::swap(other);
 			}
 		};
@@ -348,10 +354,9 @@ namespace sprout {
 		// swap
 		//
 		template<typename... Types>
-		inline void swap(
-			sprout::tuples::tuple<Types...>& lhs,
-			sprout::tuples::tuple<Types...>& rhs
-			) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		inline void
+		swap(sprout::tuples::tuple<Types...>& lhs, sprout::tuples::tuple<Types...>& rhs)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 		{
 			lhs.swap(rhs);
 		}

@@ -8,11 +8,13 @@ namespace sprout {
 	//
 	// atoi
 	//
-	inline SPROUT_CONSTEXPR int atoi(char const* str) {
+	inline SPROUT_CONSTEXPR int
+	atoi(char const* str) {
 		return sprout::ascii_to_int<int>(str);
 	}
 	template<typename Char>
-	inline SPROUT_CONSTEXPR int atoi(Char const* str) {
+	inline SPROUT_CONSTEXPR int
+	atoi(Char const* str) {
 		return sprout::ascii_to_int<int>(str);
 	}
 }	// namespace sprout

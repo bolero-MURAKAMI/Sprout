@@ -107,12 +107,8 @@ namespace sprout {
 			bool valid_;
 		private:
 			SPROUT_CONSTEXPR normal_distribution(
-				RealType mean,
-				RealType sigma,
-				RealType r1,
-				RealType r2,
-				RealType cached_rho,
-				bool valid,
+				RealType mean, RealType sigma, RealType r1, RealType r2,
+				RealType cached_rho, bool valid,
 				private_constructor_tag
 				)
 				: mean_(mean)
@@ -123,7 +119,8 @@ namespace sprout {
 				, valid_(valid)
 			{}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate_2(Engine const& eng, RealType r1, RealType r2, RealType cached_rho, bool valid) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution>
+			generate_2(Engine const& eng, RealType r1, RealType r2, RealType cached_rho, bool valid) const {
 				return sprout::random::random_result<Engine, normal_distribution>(
 					cached_rho
 						* (valid
@@ -144,15 +141,21 @@ namespace sprout {
 					);
 			}
 			template<typename Engine, typename Random>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate_1_1(RealType r1, Random const& rnd) const {
-				return generate_2(rnd.engine(), r1, rnd.result(), sprout::sqrt(-result_type(2) * sprout::log(result_type(1) - rnd.result())), true);
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution>
+			generate_1_1(RealType r1, Random const& rnd) const {
+				return generate_2(
+					rnd.engine(), r1, rnd.result(),
+					sprout::sqrt(-result_type(2) * sprout::log(result_type(1) - rnd.result())), true
+					);
 			}
 			template<typename Engine, typename Random>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate_1(Random const& rnd) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution>
+			generate_1(Random const& rnd) const {
 				return generate_1_1<Engine>(rnd.result(), rnd());
 			}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> generate(Engine const& eng) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution>
+			generate(Engine const& eng) const {
 				return !valid_
 					? generate_1<Engine>(sprout::random::uniform_01<RealType>()(eng))
 					: generate_2(eng, r1_, r2_, cached_rho_, false)
@@ -236,7 +239,11 @@ namespace sprout {
 				return lhs << rhs.param() << " " << rhs.valid_ << " " << rhs.cached_rho_ << " " << rhs.r1_ << " " << rhs.r2_;
 			}
 			friend SPROUT_CONSTEXPR bool operator==(normal_distribution const& lhs, normal_distribution const& rhs) {
-				return lhs.param() == rhs.param() && lhs.valid_ == rhs.valid_ && lhs.cached_rho_ == rhs.cached_rho_ && lhs.r1_ == rhs.r1_ && lhs.r2_ == rhs.r2_;
+				return lhs.param() == rhs.param()
+					&& lhs.valid_ == rhs.valid_
+					&& lhs.cached_rho_ == rhs.cached_rho_
+					&& lhs.r1_ == rhs.r1_ && lhs.r2_ == rhs.r2_
+					;
 			}
 			friend SPROUT_CONSTEXPR bool operator!=(normal_distribution const& lhs, normal_distribution const& rhs) {
 				return !(lhs == rhs);

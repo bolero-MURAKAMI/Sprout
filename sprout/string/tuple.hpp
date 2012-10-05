@@ -4,11 +4,12 @@
 #include <cstddef>
 #include <tuple>
 #include <type_traits>
+#include <sprout/config.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 
-namespace sprout_adl {
+namespace sprout {
 	//
 	// tuple_get
 	//
@@ -29,7 +30,7 @@ namespace sprout_adl {
 	tuple_get(sprout::basic_string<T, N, Traits>&& t) SPROUT_NOEXCEPT {
 		return sprout::move(sprout::tuples::get<I>(t));
 	}
-}	// namespace sprout_adl
+}	// namespace sprout
 
 namespace std {
 	//

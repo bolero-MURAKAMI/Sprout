@@ -7,7 +7,8 @@
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
-	inline SPROUT_CONSTEXPR int wcsncmp(wchar_t const* s1, wchar_t const* s2, std::size_t n) {
+	inline SPROUT_CONSTEXPR int
+	wcsncmp(wchar_t const* s1, wchar_t const* s2, std::size_t n) {
 		return !n || (!*s1 && !*s2) ? 0
 			: !*s1 ? -1
 			: !*s2 ? 1

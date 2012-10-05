@@ -8,6 +8,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/algorithm/find_if.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
@@ -134,11 +135,16 @@ namespace sprout {
 		SPROUT_CONSTEXPR filter_iterator prev() const {
 			return filter_iterator(pred, find_prev(sprout::prev(current), pred), last, private_constructor_tag());
 		}
-		void swap(filter_iterator& other) {
-			using std::swap;
-			swap(current, other.current);
-			swap(last, other.last);
-			swap(pred, other.pred);
+		void swap(filter_iterator& other)
+		SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(last, other.last))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(pred, other.pred))
+			)
+		{
+			sprout::swap(current, other.current);
+			sprout::swap(last, other.last);
+			sprout::swap(pred, other.pred);
 		}
 	};
 
@@ -172,7 +178,10 @@ namespace sprout {
 	// swap
 	//
 	template<typename Predicate, typename Iterator>
-	inline void swap(sprout::filter_iterator<Predicate, Iterator>& lhs, sprout::filter_iterator<Predicate, Iterator>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void
+	swap(sprout::filter_iterator<Predicate, Iterator>& lhs, sprout::filter_iterator<Predicate, Iterator>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
 		lhs.swap(rhs);
 	}
 
@@ -180,10 +189,8 @@ namespace sprout {
 	// iterator_next
 	//
 	template<typename Predicate, typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator> iterator_next(
-		sprout::filter_iterator<Predicate, Iterator> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator>
+	iterator_next(sprout::filter_iterator<Predicate, Iterator> const& it) {
 		return it.next();
 	}
 
@@ -191,10 +198,8 @@ namespace sprout {
 	// iterator_prev
 	//
 	template<typename Predicate, typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator> iterator_prev(
-		sprout::filter_iterator<Predicate, Iterator> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator>
+	iterator_prev(sprout::filter_iterator<Predicate, Iterator> const& it) {
 		return it.prev();
 	}
 }	// namespace sprout

@@ -20,9 +20,12 @@ namespace sprout {
 		//
 		// nil_uuid
 		//
-		inline SPROUT_CONSTEXPR sprout::uuids::uuid nil_uuid() {
-			return sprout::uuids::nil_generator()();
-		}
+		namespace {
+			inline SPROUT_CONSTEXPR sprout::uuids::uuid
+			nil_uuid() {
+				return sprout::uuids::nil_generator()();
+			}
+		}	// anonymous-namespace
 	}	// namespace uuids
 }	// namespace sprout
 

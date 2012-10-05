@@ -14,27 +14,33 @@ namespace sprout {
 	// operator>=
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator==(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return lhs.front() == rhs.front();
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator!=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator<(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return lhs.front() < rhs.front();
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator>(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator<=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR bool operator>=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::pit<Container> const& lhs, sprout::pit<Container> const& rhs) {
 		return !(lhs < rhs);
 	}
 }	// namespace sprout

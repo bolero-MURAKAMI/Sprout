@@ -17,20 +17,18 @@ namespace sprout {
 		typedef typename sprout::container_construct_traits<Container>::copied_type copied_type;
 	public:
 		template<typename Cont>
-		static SPROUT_CONSTEXPR copied_type deep_copy(Cont&& cont) {
+		static SPROUT_CONSTEXPR copied_type
+		deep_copy(Cont&& cont) {
 			return copied_type();
 		}
 		template<typename... Args>
-		static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
+		static SPROUT_CONSTEXPR copied_type
+		make(Args&&... args) {
 			return sprout::make<copied_type>(sprout::forward<Args>(args)...);
 		}
 		template<typename Cont, typename... Args>
-		static SPROUT_CONSTEXPR copied_type remake(
-			Cont&& cont,
-			typename sprout::container_traits<sprout::pit<Container> >::difference_type size,
-			Args&&... args
-			)
-		{
+		static SPROUT_CONSTEXPR copied_type
+		remake(Cont&& cont, typename sprout::container_traits<sprout::pit<Container> >::difference_type size, Args&&... args) {
 			return sprout::remake<copied_type>(sprout::forward<Cont>(cont), size, sprout::forward<Args>(args)...);
 		}
 	};

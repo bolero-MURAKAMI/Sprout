@@ -7,6 +7,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	namespace random {
@@ -109,11 +110,16 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const {
 				return distribution_.max();
 			}
-			void swap(random_result& other) {
-				using std::swap;
-				swap(result_, other.result_);
-				swap(engine_, other.engine_);
-				swap(distribution_, other.distribution_);
+			void swap(random_result& other)
+			SPROUT_NOEXCEPT_EXPR(
+				SPROUT_NOEXCEPT_EXPR(sprout::swap(result_, other.result_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(engine_, other.engine_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(distribution_, other.distribution_))
+				)
+			{
+				sprout::swap(result_, other.result_);
+				sprout::swap(engine_, other.engine_);
+				sprout::swap(distribution_, other.distribution_);
 			}
 			friend SPROUT_CONSTEXPR bool operator==(random_result const& lhs, random_result const& rhs) {
 				return lhs.result_ == rhs.result_
@@ -231,10 +237,14 @@ namespace sprout {
 			friend SPROUT_CONSTEXPR bool operator!=(random_result const& lhs, random_result const& rhs) {
 				return !(lhs == rhs);
 			}
-			void swap(random_result& other) {
-				using std::swap;
-				swap(result_, other.result_);
-				swap(engine_, other.engine_);
+			void swap(random_result& other)
+			SPROUT_NOEXCEPT_EXPR(
+				SPROUT_NOEXCEPT_EXPR(sprout::swap(result_, other.result_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(engine_, other.engine_))
+				)
+			{
+				sprout::swap(result_, other.result_);
+				sprout::swap(engine_, other.engine_);
 			}
 			SPROUT_CONSTEXPR reference operator*() const {
 				return result_;
@@ -259,10 +269,9 @@ namespace sprout {
 		// swap
 		//
 		template<typename Engine, typename Distribution>
-		void swap(
-			sprout::random::random_result<Engine, Distribution>& lhs,
-			sprout::random::random_result<Engine, Distribution>& rhs
-			)
+		inline void
+		swap(sprout::random::random_result<Engine, Distribution>& lhs, sprout::random::random_result<Engine, Distribution>& rhs)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 		{
 			lhs.swap(rhs);
 		}
@@ -271,7 +280,7 @@ namespace sprout {
 		// iterator_next
 		//
 		template<typename Engine, typename Distribution>
-		SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution>
+		inline SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution>
 		iterator_next(sprout::random::random_result<Engine, Distribution> const& it) {
 			return it();
 		}

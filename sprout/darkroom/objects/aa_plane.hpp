@@ -54,23 +54,21 @@ namespace sprout {
 				unit_type val_;
 				material_type mat_;
 			private:
-				SPROUT_CONSTEXPR bool is_x() const {
+				SPROUT_CONSTEXPR bool
+				is_x() const {
 					return direction_value_ == aa_plane_direction::x;
 				}
-				SPROUT_CONSTEXPR bool is_y() const {
+				SPROUT_CONSTEXPR bool
+				is_y() const {
 					return direction_value_ == aa_plane_direction::y;
 				}
-				SPROUT_CONSTEXPR bool is_z() const {
+				SPROUT_CONSTEXPR bool
+				is_z() const {
 					return direction_value_ == aa_plane_direction::z;
 				}
 				template<typename Ray>
-				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_5(
-					int hit_side,
-					bool does_intersect,
-					unit_type distance,
-					position_type const& point_of_intersection
-					) const
-				{
+				SPROUT_CONSTEXPR typename intersection<Ray>::type
+				intersect_5(int hit_side, bool does_intersect, unit_type distance, position_type const& point_of_intersection) const {
 					return typename intersection<Ray>::type(
 						does_intersect,
 						distance,
@@ -97,13 +95,8 @@ namespace sprout {
 						);
 				}
 				template<typename Ray>
-				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_4(
-					Ray const& ray,
-					int hit_side,
-					bool does_intersect,
-					unit_type distance
-					) const
-				{
+				SPROUT_CONSTEXPR typename intersection<Ray>::type
+				intersect_4(Ray const& ray, int hit_side, bool does_intersect, unit_type distance) const {
 					return intersect_5<Ray>(
 						hit_side,
 						does_intersect,
@@ -114,14 +107,8 @@ namespace sprout {
 						);
 				}
 				template<typename Ray>
-				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_3(
-					Ray const& ray,
-					unit_type pos_v,
-					unit_type dir_v,
-					int hit_side,
-					bool does_intersect
-					) const
-				{
+				SPROUT_CONSTEXPR typename intersection<Ray>::type
+				intersect_3(Ray const& ray, unit_type pos_v, unit_type dir_v, int hit_side, bool does_intersect) const {
 					return intersect_4(
 						ray,
 						hit_side,
@@ -132,13 +119,8 @@ namespace sprout {
 						);
 				}
 				template<typename Ray>
-				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_2(
-					Ray const& ray,
-					unit_type pos_v,
-					unit_type dir_v,
-					int hit_side
-					) const
-				{
+				SPROUT_CONSTEXPR typename intersection<Ray>::type
+				intersect_2(Ray const& ray, unit_type pos_v, unit_type dir_v, int hit_side) const {
 					return intersect_3(
 						ray,
 						pos_v,
@@ -148,12 +130,8 @@ namespace sprout {
 						);
 				}
 				template<typename Ray>
-				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect_1(
-					Ray const& ray,
-					unit_type pos_v,
-					unit_type dir_v
-					) const
-				{
+				SPROUT_CONSTEXPR typename intersection<Ray>::type
+				intersect_1(Ray const& ray, unit_type pos_v, unit_type dir_v) const {
 					return intersect_2(
 						ray,
 						pos_v,
@@ -162,17 +140,14 @@ namespace sprout {
 						);
 				}
 			public:
-				SPROUT_CONSTEXPR basic_aa_plane(
-					aa_plane_direction::values direction_value,
-					unit_type val,
-					material_type const& mat
-					)
+				SPROUT_CONSTEXPR basic_aa_plane(aa_plane_direction::values direction_value, unit_type val, material_type const& mat)
 					: direction_value_(direction_value)
 					, val_(val)
 					, mat_(mat)
 				{}
 				template<typename Ray>
-				SPROUT_CONSTEXPR typename intersection<Ray>::type intersect(Ray const& ray) const {
+				SPROUT_CONSTEXPR typename intersection<Ray>::type
+				intersect(Ray const& ray) const {
 					return intersect_1(
 						ray,
 						(is_x() ? sprout::darkroom::coords::x(sprout::darkroom::rays::position(ray))
@@ -191,12 +166,7 @@ namespace sprout {
 			//
 			template<typename Material, typename Unit>
 			inline SPROUT_CONSTEXPR sprout::darkroom::objects::basic_aa_plane<Material>
-			make_aa_plane(
-				sprout::darkroom::objects::aa_plane_direction::values dir_val,
-				Unit const& val,
-				Material const& mat
-				)
-			{
+			make_aa_plane(sprout::darkroom::objects::aa_plane_direction::values dir_val, Unit const& val, Material const& mat) {
 				return sprout::darkroom::objects::basic_aa_plane<Material>(dir_val, val, mat);
 			}
 		}	// namespace objects

@@ -99,18 +99,21 @@ namespace sprout {
 				return open_brace == U'{' && c == U'}';
 			}
 			template<typename Iterator, typename Char, typename... Args>
-			SPROUT_CONSTEXPR result_type generate_2_3(next_char<Iterator> nc, Char open_brace, bool has_dashes, std::uint8_t byte, Args... args) const {
+			SPROUT_CONSTEXPR result_type
+			generate_2_3(next_char<Iterator> nc, Char open_brace, bool has_dashes, std::uint8_t byte, Args... args) const {
 				return generate_2(nc, open_brace, has_dashes, args..., static_cast<std::uint8_t>((byte << 4) | get_value(nc.c)));
 			}
 			template<typename Iterator, typename Char, typename... Args>
-			SPROUT_CONSTEXPR result_type generate_2_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			SPROUT_CONSTEXPR result_type
+			generate_2_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
 				return generate_2_3(nc.next(), open_brace, has_dashes, get_value(nc.c), args...);
 			}
 			template<typename Iterator, typename Char, typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == 6 || sizeof...(Args) == 8 || sizeof...(Args) == 10,
 				result_type
-			>::type generate_2_1(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			>::type
+			generate_2_1(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
 				return has_dashes
 					? is_dash(nc.c)
 						? generate_2_2(nc.next(), open_brace, has_dashes, args...)
@@ -122,7 +125,8 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == 4,
 				result_type
-			>::type generate_2_1(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			>::type
+			generate_2_1(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
 				return is_dash(nc.c)
 					? generate_2_2(nc.next(), open_brace, true, args...)
 					: generate_2_2(nc, open_brace, false, args...)
@@ -132,14 +136,16 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) != 4 && sizeof...(Args) != 6 && sizeof...(Args) != 8 && sizeof...(Args) != 10,
 				result_type
-			>::type generate_2_1(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			>::type
+			generate_2_1(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
 				return generate_2_2(nc, open_brace, has_dashes, args...);
 			}
 			template<typename Iterator, typename Char, typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == 16,
 				result_type
-			>::type generate_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			>::type
+			generate_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
 				return !open_brace || (open_brace && is_close_brace(nc.next().c, open_brace))
 					? result_type{{args...}}
 					: throw std::domain_error("string_generator: invalid uuid string (brace not closed)")
@@ -149,18 +155,21 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == 0,
 				result_type
-			>::type generate_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			>::type
+			generate_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
 				return generate_2_2(nc, open_brace, has_dashes, args...);
 			}
 			template<typename Iterator, typename Char, typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) != 0 && sizeof...(Args) != 16,
 				result_type
-			>::type generate_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			>::type
+			generate_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
 				return generate_2_1(nc.next(), open_brace, has_dashes, args...);
 			}
 			template<typename Iterator>
-			SPROUT_CONSTEXPR result_type generate_1(next_char<Iterator> nc) const {
+			SPROUT_CONSTEXPR result_type
+			generate_1(next_char<Iterator> nc) const {
 				return is_open_brace(nc.c)
 					? generate_2(nc.next(), nc.c, false)
 					: generate_2(nc, typename next_char<Iterator>::char_type(), false)

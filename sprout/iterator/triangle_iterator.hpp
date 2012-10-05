@@ -10,6 +10,7 @@
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/numeric/dft/fixed/triangle.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
@@ -136,12 +137,11 @@ namespace sprout {
 		SPROUT_CONSTEXPR triangle_iterator prev() const {
 			return triangle_iterator(*this, index_ - 1);
 		}
-		void swap(triangle_iterator& other) {
-			using std::swap;
-			swap(index_, other.index_);
-			swap(frequency_, other.frequency_);
-			swap(amplitude_, other.amplitude_);
-			swap(phase_, other.phase_);
+		void swap(triangle_iterator& other) SPROUT_NOEXCEPT {
+			sprout::swap(index_, other.index_);
+			sprout::swap(frequency_, other.frequency_);
+			sprout::swap(amplitude_, other.amplitude_);
+			sprout::swap(phase_, other.phase_);
 		}
 	};
 
@@ -214,7 +214,10 @@ namespace sprout {
 	// swap
 	//
 	template<typename Value>
-	inline void swap(sprout::triangle_iterator<Value>& lhs, sprout::triangle_iterator<Value>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void
+	swap(sprout::triangle_iterator<Value>& lhs, sprout::triangle_iterator<Value>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
 		lhs.swap(rhs);
 	}
 
@@ -223,11 +226,7 @@ namespace sprout {
 	//
 	template<typename Value>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::triangle_iterator<Value> >::difference_type
-	iterator_distance(
-		sprout::triangle_iterator<Value> first,
-		sprout::triangle_iterator<Value> last
-		)
-	{
+	iterator_distance(sprout::triangle_iterator<Value> first, sprout::triangle_iterator<Value> last) {
 		return last - first;
 	}
 
@@ -235,18 +234,13 @@ namespace sprout {
 	// iterator_next
 	//
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::triangle_iterator<Value> iterator_next(
-		sprout::triangle_iterator<Value> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::triangle_iterator<Value>
+	iterator_next(sprout::triangle_iterator<Value> const& it) {
 		return it.next();
 	}
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::triangle_iterator<Value> iterator_next(
-		sprout::triangle_iterator<Value> const& it,
-		typename sprout::triangle_iterator<Value>::difference_type n
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::triangle_iterator<Value>
+	iterator_next(sprout::triangle_iterator<Value> const& it, typename sprout::triangle_iterator<Value>::difference_type n) {
 		return it + n;
 	}
 
@@ -254,18 +248,13 @@ namespace sprout {
 	// iterator_prev
 	//
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::triangle_iterator<Value> iterator_prev(
-		sprout::triangle_iterator<Value> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::triangle_iterator<Value>
+	iterator_prev(sprout::triangle_iterator<Value> const& it) {
 		return it.prev();
 	}
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::triangle_iterator<Value> iterator_prev(
-		sprout::triangle_iterator<Value> const& it,
-		typename sprout::triangle_iterator<Value>::difference_type n
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::triangle_iterator<Value>
+	iterator_prev(sprout::triangle_iterator<Value> const& it, typename sprout::triangle_iterator<Value>::difference_type n) {
 		return it - n;
 	}
 }	// namespace sprout

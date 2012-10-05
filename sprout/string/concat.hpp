@@ -13,8 +13,7 @@ namespace sprout {
 		template<typename T, std::size_t N, typename Traits, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N + 1, Traits>
 		string_concat(
-			sprout::basic_string<T, N, Traits> const& lhs,
-			std::size_t lsize,
+			sprout::basic_string<T, N, Traits> const& lhs, std::size_t lsize,
 			T const& rhs,
 			sprout::index_tuple<Indexes...>
 			)
@@ -33,8 +32,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, 1 + N, Traits>
 		string_concat(
 			T const& lhs,
-			sprout::basic_string<T, N, Traits> const& rhs,
-			std::size_t rsize,
+			sprout::basic_string<T, N, Traits> const& rhs, std::size_t rsize,
 			sprout::index_tuple<Indexes...>
 			)
 		{
@@ -51,10 +49,8 @@ namespace sprout {
 		template<typename T, std::size_t N, typename Traits, std::size_t M, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N + (M - 1), Traits>
 		string_concat(
-			sprout::basic_string<T, N, Traits> const& lhs,
-			std::size_t lsize,
-			T const (& rhs)[M],
-			std::size_t rsize,
+			sprout::basic_string<T, N, Traits> const& lhs, std::size_t lsize,
+			T const (& rhs)[M], std::size_t rsize,
 			sprout::index_tuple<Indexes...>
 			)
 		{
@@ -71,10 +67,8 @@ namespace sprout {
 		template<typename T, std::size_t N, typename Traits, std::size_t M, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, (M - 1) + N, Traits>
 		string_concat(
-			T const (& lhs)[M],
-			std::size_t lsize,
-			sprout::basic_string<T, N, Traits> const& rhs,
-			std::size_t rsize,
+			T const (& lhs)[M], std::size_t lsize,
+			sprout::basic_string<T, N, Traits> const& rhs, std::size_t rsize,
 			sprout::index_tuple<Indexes...>
 			)
 		{
@@ -91,10 +85,8 @@ namespace sprout {
 		template<typename T, std::size_t N1, std::size_t N2, typename Traits, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N1 + N2, Traits>
 		string_concat(
-			sprout::basic_string<T, N1, Traits> const& lhs,
-			std::size_t lsize,
-			sprout::basic_string<T, N2, Traits> const& rhs,
-			std::size_t rsize,
+			sprout::basic_string<T, N1, Traits> const& lhs, std::size_t lsize,
+			sprout::basic_string<T, N2, Traits> const& rhs, std::size_t rsize,
 			sprout::index_tuple<Indexes...>
 			)
 		{

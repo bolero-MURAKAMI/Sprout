@@ -11,7 +11,8 @@ namespace sprout {
 	// hash_value
 	//
 	template<typename T>
-	inline SPROUT_CONSTEXPR std::size_t hash_value(sprout::rational<T> const& v) {
+	inline SPROUT_CONSTEXPR std::size_t
+	hash_value(sprout::rational<T> const& v) {
 		return sprout::hash_values(v.numerator(), v.denominator());
 	}
 } // namespace sprout

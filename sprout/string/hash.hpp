@@ -11,7 +11,8 @@ namespace sprout {
 	// hash_value
 	//
 	template<typename T, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR std::size_t hash_value(sprout::basic_string<T, N, Traits> const& v) {
+	inline SPROUT_CONSTEXPR std::size_t
+	hash_value(sprout::basic_string<T, N, Traits> const& v) {
 		return sprout::hash_range(v.begin(), v.end());
 	}
 }	// namespace sprout

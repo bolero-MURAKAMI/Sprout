@@ -15,8 +15,12 @@ namespace sprout {
 
 			template<result_type n>
 			struct choose_initial_n {
-				SPROUT_STATIC_CONSTEXPR bool c = (sprout::detail::static_log2_impl::argument_type(1) << n << n) != 0;
-				SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_impl::result_type value = !c * n + choose_initial_n<2 * c * n>::value;
+				SPROUT_STATIC_CONSTEXPR bool c
+					= (sprout::detail::static_log2_impl::argument_type(1) << n << n) != 0
+					;
+				SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_impl::result_type value
+					= !c * n + choose_initial_n<2 * c * n>::value
+					;
 			};
 			template<>
 			struct choose_initial_n<0> {
@@ -24,7 +28,9 @@ namespace sprout {
 			};
 
 			SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_impl::result_type n_zero = 16;
-			SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_impl::result_type initial_n = sprout::detail::static_log2_impl::choose_initial_n<n_zero>::value;
+			SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_impl::result_type initial_n
+				= sprout::detail::static_log2_impl::choose_initial_n<n_zero>::value
+				;
 
 			template<
 				sprout::detail::static_log2_impl::argument_type x,
@@ -32,7 +38,9 @@ namespace sprout {
 			>
 			struct static_log2_impl {
 				SPROUT_STATIC_CONSTEXPR bool c = (x >> n) > 0;
-				SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_impl::result_type value = c * n + (static_log2_impl<(x >> c * n), n / 2>::value);
+				SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_impl::result_type value
+					= c * n + (static_log2_impl<(x >> c * n), n / 2>::value)
+					;
 			};
 			template<>
 			struct static_log2_impl<1, 0> {
@@ -42,7 +50,9 @@ namespace sprout {
 
 		template<sprout::detail::static_log2_argument_type x>
 		struct static_log2 {
-			SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_result_type value = sprout::detail::static_log2_impl::static_log2_impl<x>::value;
+			SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_result_type value
+				= sprout::detail::static_log2_impl::static_log2_impl<x>::value
+				;
 		};
 		template<>
 		struct static_log2<0> {};

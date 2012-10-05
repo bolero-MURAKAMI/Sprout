@@ -170,14 +170,14 @@ namespace sprout {
 				sprout::tuples::tuple<Args...>& tuple,
 				sprout::index_tuple<Indexes...>
 				) const volatile
-				-> decltype(arg(std::declval<Args>()...))
+			-> decltype(arg(std::declval<Args>()...))
 			{
 				return arg(sprout::forward<Args>(sprout::tuples::get<Indexes>(tuple))...);
 			}
 		public:
 			template<typename CVArg, typename... Args>
 			SPROUT_CONSTEXPR auto operator()(CVArg& arg, sprout::tuples::tuple<Args...>& tuple) const volatile
-				-> decltype(arg(std::declval<Args>()...))
+			-> decltype(arg(std::declval<Args>()...))
 			{
 				return call(arg, tuple, sprout::index_range<0, sizeof...(Args)>::make());
 			}
@@ -252,13 +252,13 @@ namespace sprout {
 
 		template<std::size_t I, typename... Types>
 		inline auto volget(sprout::tuples::tuple<Types...> volatile& tuple)
-			-> typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type volatile&
+		-> typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type volatile&
 		{
 			return sprout::tuples::get<I>(const_cast<sprout::tuples::tuple<Types...>&>(tuple));
 		}
 		template<std::size_t I, typename... Types>
 		inline SPROUT_CONSTEXPR auto volget(sprout::tuples::tuple<Types...> const volatile& tuple)
-			-> typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const volatile&
+		-> typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const volatile&
 		{
 			return sprout::tuples::get<I>(const_cast<sprout::tuples::tuple<Types...> const&>(tuple));
 		}

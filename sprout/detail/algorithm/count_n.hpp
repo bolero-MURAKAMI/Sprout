@@ -11,12 +11,8 @@ namespace sprout {
 		// count_n
 		//
 		template<typename InputIterator, typename Size, typename T>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type count_n(
-			InputIterator first,
-			Size n,
-			T const& value
-			)
-		{
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+		count_n(InputIterator first, Size n, T const& value) {
 			return n == 0 ? 0
 				: (*first == value ? 1 : 0) + sprout::detail::count_n(sprout::next(first), n - 1, value)
 				;

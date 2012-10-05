@@ -9,7 +9,7 @@
 #include <sprout/tuple/tuple/get.hpp>
 #include <sprout/uuid/uuid.hpp>
 
-namespace sprout_adl {
+namespace sprout {
 	//
 	// tuple_get
 	//

@@ -19,7 +19,8 @@ namespace sprout {
 		typename std::remove_reference<
 			typename sprout::containers::internal<Container>::type
 		>::type
-	>::copied_type internal_deep_copy(Container&& cont) {
+	>::copied_type
+	internal_deep_copy(Container&& cont) {
 		return sprout::deep_copy(
 			sprout::get_internal(sprout::forward<Container>(cont))
 			);

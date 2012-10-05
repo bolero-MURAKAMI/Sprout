@@ -8,7 +8,8 @@ namespace sprout {
 	// make_indexes
 	//
 	template<typename IndexTupleType>
-	inline SPROUT_CONSTEXPR typename IndexTupleType::type make_indexes() {
+	inline SPROUT_CONSTEXPR typename IndexTupleType::type
+	make_indexes() {
 		return typename IndexTupleType::type();
 	}
 }	// namespace sprout

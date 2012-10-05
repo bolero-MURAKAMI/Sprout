@@ -15,7 +15,7 @@ namespace sprout {
 			: public std::integral_constant<
 				typename sprout::container_traits<Container>::size_type,
 				sprout::container_traits<Container>::static_size
-				>
+			>
 		{};
 	}	// namespace containers
 }	// namespace sprout

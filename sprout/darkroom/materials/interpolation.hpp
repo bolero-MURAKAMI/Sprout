@@ -24,7 +24,8 @@ namespace sprout {
 			// bilinear_interpolate
 			//
 			template<typename Color, typename Unit>
-			inline SPROUT_CONSTEXPR Color bilinear_interpolate(
+			inline SPROUT_CONSTEXPR Color
+			bilinear_interpolate(
 				Color const& c00, Color const& c01, Color const& c10, Color const& c11,
 				Unit const& u, Unit const& v
 				)

@@ -22,11 +22,13 @@ namespace sprout {
 	public:
 		typedef sprout::sub_array<internal_copied_type> copied_type;
 	private:
-		static SPROUT_CONSTEXPR copied_type make_impl(internal_copied_type const& internal_copied) {
+		static SPROUT_CONSTEXPR copied_type
+		make_impl(internal_copied_type const& internal_copied) {
 			return copied_type(internal_copied, sprout::begin(internal_copied), sprout::end(internal_copied));
 		}
 		template<typename Cont>
-		static SPROUT_CONSTEXPR copied_type remake_impl(
+		static SPROUT_CONSTEXPR copied_type
+		remake_impl(
 			Cont&& cont,
 			typename sprout::container_traits<sprout::sub_array<Container> >::difference_type size,
 			internal_copied_type const& internal_copied
@@ -40,7 +42,8 @@ namespace sprout {
 		}
 	public:
 		template<typename Cont>
-		static SPROUT_CONSTEXPR copied_type deep_copy(Cont&& cont) {
+		static SPROUT_CONSTEXPR copied_type
+		deep_copy(Cont&& cont) {
 			return copied_type(
 				sprout::deep_copy(sprout::get_internal(cont)),
 				sprout::internal_begin_offset(cont),
@@ -48,18 +51,15 @@ namespace sprout {
 				);
 		}
 		template<typename... Args>
-		static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
+		static SPROUT_CONSTEXPR copied_type
+		make(Args&&... args) {
 			return make_impl(
 				sprout::make<internal_type>(sprout::forward<Args>(args)...)
 				);
 		}
 		template<typename Cont, typename... Args>
-		static SPROUT_CONSTEXPR copied_type remake(
-			Cont&& cont,
-			typename sprout::container_traits<sprout::sub_array<Container> >::difference_type size,
-			Args&&... args
-			)
-		{
+		static SPROUT_CONSTEXPR copied_type
+		remake(Cont&& cont, typename sprout::container_traits<sprout::sub_array<Container> >::difference_type size, Args&&... args) {
 			return remake_impl(
 				sprout::forward<Cont>(cont),
 				size,
@@ -107,7 +107,8 @@ namespace sprout {
 		};
 	public:
 		template<typename Cont>
-		static SPROUT_CONSTEXPR typename internal<Cont>::type get_internal(Cont&& cont) {
+		static SPROUT_CONSTEXPR typename internal<Cont>::type
+		get_internal(Cont&& cont) {
 			return call(sprout::forward<Cont>(cont));
 		}
 	};

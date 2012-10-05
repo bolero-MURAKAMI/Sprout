@@ -17,7 +17,8 @@ namespace sprout {
 				typedef Element result_type;
 				typedef Scale unit_type;
 			private:
-				static SPROUT_CONSTEXPR unit_type fmod(unit_type const& n, unit_type const& d) {
+				static SPROUT_CONSTEXPR unit_type
+				fmod(unit_type const& n, unit_type const& d) {
 					return n - std::intmax_t(n / d) * d;
 				}
 			private:
@@ -26,24 +27,19 @@ namespace sprout {
 				unit_type scale_;
 			private:
 				template<typename Unit>
-				SPROUT_CONSTEXPR result_type calc_1(Unit const& u, Unit const& v) const {
-					return (u >= 0 && v >= 0) || (u < 0 && v < 0)
-						? elem1_
-						: elem2_
-						;
+				SPROUT_CONSTEXPR result_type
+				calc_1(Unit const& u, Unit const& v) const {
+					return (u >= 0 && v >= 0) || (u < 0 && v < 0) ? elem1_ : elem2_;
 				}
 			public:
-				SPROUT_CONSTEXPR plaid_element(
-					result_type const& elem1,
-					result_type const& elem2,
-					unit_type const& scale = 1
-					)
+				SPROUT_CONSTEXPR plaid_element(result_type const& elem1, result_type const& elem2, unit_type const& scale = 1)
 					: elem1_(elem1)
 					, elem2_(elem2)
 					, scale_(scale)
 				{}
 				template<typename Unit>
-				SPROUT_CONSTEXPR result_type operator()(Unit const& u, Unit const& v) const {
+				SPROUT_CONSTEXPR result_type
+				operator()(Unit const& u, Unit const& v) const {
 					return calc_1(
 						(u < 0
 							? scale_ + fmod(u, scale_)
@@ -79,11 +75,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::darkroom::materials::plaid_element<Color>,
 				sprout::darkroom::materials::plaid_element<Reflection>
-			> make_plaid_material_image(
-				Color const& col1,
-				Color const& col2,
-				Reflection const& ref1,
-				Reflection const& ref2
+			>
+			make_plaid_material_image(
+				Color const& col1, Color const& col2,
+				Reflection const& ref1, Reflection const& ref2
 				)
 			{
 				return sprout::tuples::make_tuple(
@@ -95,11 +90,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
 				sprout::darkroom::materials::plaid_element<Color, Unit>,
 				sprout::darkroom::materials::plaid_element<Reflection, Unit>
-			> make_plaid_material_image(
-				Color const& col1,
-				Color const& col2,
-				Reflection const& ref1,
-				Reflection const& ref2,
+			>
+			make_plaid_material_image(
+				Color const& col1, Color const& col2,
+				Reflection const& ref1, Reflection const& ref2,
 				Unit const& scale
 				)
 			{

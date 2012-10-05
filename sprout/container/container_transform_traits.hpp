@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/container_traits.hpp>
+#include <sprout/container/detail/array_like.hpp>
 
 namespace sprout {
 	//
@@ -14,31 +15,6 @@ namespace sprout {
 	struct container_transform_traits;
 
 	namespace detail {
-		template<typename Container>
-		struct is_like_array_class
-			: public std::false_type
-		{};
-		template<
-			template<typename, std::size_t> class Array,
-			typename T,
-			std::size_t N
-		>
-		struct is_like_array_class<Array<T, N> >
-			: public std::true_type
-		{};
-		template<typename Container>
-		struct is_like_array_class<Container const>
-			: public sprout::detail::is_like_array_class<Container>
-		{};
-		template<typename Container>
-		struct is_like_array_class<Container volatile>
-			: public sprout::detail::is_like_array_class<Container>
-		{};
-		template<typename Container>
-		struct is_like_array_class<Container const volatile>
-			: public sprout::detail::is_like_array_class<Container>
-		{};
-
 		template<typename Container, typename sprout::container_traits<Container>::size_type Size>
 		struct default_array_rebind_size;
 		template<
@@ -57,7 +33,7 @@ namespace sprout {
 		template<typename Container>
 		struct inherit_default_rebind_size<
 			Container,
-			typename std::enable_if<sprout::detail::is_like_array_class<Container>::value>::type
+			typename std::enable_if<sprout::detail::is_array_like<Container>::value>::type
 		> {
 		public:
 			template<typename sprout::container_traits<Container>::size_type Size>

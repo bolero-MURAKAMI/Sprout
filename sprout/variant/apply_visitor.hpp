@@ -6,11 +6,8 @@
 
 namespace sprout {
 	template<typename Visitor, typename Visitable>
-	inline SPROUT_CONSTEXPR typename Visitor::result_type apply_visitor(
-		Visitor&& visitor,
-		Visitable&& visitable
-		)
-	{
+	inline SPROUT_CONSTEXPR typename Visitor::result_type
+	apply_visitor(Visitor&& visitor, Visitable&& visitable) {
 		return sprout::forward<Visitable>(visitable).apply_visitor(sprout::forward<Visitor>(visitor));
 	}
 }	// namespace sprout

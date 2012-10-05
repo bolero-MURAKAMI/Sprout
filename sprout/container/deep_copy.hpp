@@ -13,7 +13,8 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_construct_traits<
 		typename std::remove_reference<Container>::type
-	>::copied_type deep_copy(Container&& cont) {
+	>::copied_type
+	deep_copy(Container&& cont) {
 		typedef typename std::remove_reference<Container>::type container_type;
 		return sprout::container_construct_traits<container_type>::deep_copy(sprout::forward<Container>(cont));
 	}

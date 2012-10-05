@@ -26,7 +26,8 @@ namespace sprout {
 					: col_(col)
 				{}
 				template<typename Intersection, typename Objects>
-				SPROUT_CONSTEXPR color_type operator()(Intersection const& inter, Objects const&) const {
+				SPROUT_CONSTEXPR color_type
+				operator()(Intersection const& inter, Objects const&) const {
 					return sprout::darkroom::colors::filter(
 						col_,
 						sprout::darkroom::materials::color(sprout::darkroom::intersects::material(inter))

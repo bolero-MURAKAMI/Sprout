@@ -14,29 +14,24 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size == sizeof...(Args),
 			typename sprout::fixed::result_of::algorithm<Result>::type
-		>::type container_complate_2(
-			Result const& result,
-			Args const&... args
-			)
-		{
+		>::type
+		container_complate_2(Result const& result, Args const&... args) {
 			return sprout::remake<Result>(result, sprout::size(result), args...);
 		}
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size != sizeof...(Args),
 			typename sprout::fixed::result_of::algorithm<Result>::type
-		>::type container_complate_2(
-			Result const& result,
-			Args const&... args
-			)
-		{
+		>::type
+		container_complate_2(Result const& result, Args const&... args) {
 			return container_complate_2(result, args..., *sprout::next(sprout::internal_begin(result), sizeof...(Args)));
 		}
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size == sizeof...(Args),
 			typename sprout::fixed::result_of::algorithm<Result>::type
-		>::type container_complate_1(
+		>::type
+		container_complate_1(
 			Result const& result,
 			typename sprout::container_traits<Result>::difference_type remain,
 			Args const&... args
@@ -48,7 +43,8 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size != sizeof...(Args),
 			typename sprout::fixed::result_of::algorithm<Result>::type
-		>::type container_complate_1(
+		>::type
+		container_complate_1(
 			Result const& result,
 			typename sprout::container_traits<Result>::difference_type remain,
 			Args const&... args
@@ -63,22 +59,16 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size == sizeof...(Args),
 			typename sprout::fixed::result_of::algorithm<Result>::type
-		>::type container_complate(
-			Result const& result,
-			Args const&... args
-			)
-		{
+		>::type
+		container_complate(Result const& result, Args const&... args) {
 			return sprout::remake<Result>(result, sprout::size(result), args...);
 		}
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size != sizeof...(Args),
 			typename sprout::fixed::result_of::algorithm<Result>::type
-		>::type container_complate(
-			Result const& result,
-			Args const&... args
-			)
-		{
+		>::type
+		container_complate(Result const& result, Args const&... args) {
 			return container_complate_1(result, sprout::internal_begin_offset(result), args...);
 		}
 	}	// namespace detail

@@ -42,28 +42,25 @@ namespace sprout {
 	//
 	namespace detail {
 		template<
-			std::size_t N,
-			typename R,
-			typename Head,
-			typename... Tail,
+			std::size_t N, typename R, typename Head, typename... Tail,
 			typename sprout::enabler_if<N == 0>::type = sprout::enabler
 		>
-		inline SPROUT_CONSTEXPR R fppack_at_impl(Head&& head, Tail&&... tail) {
+		inline SPROUT_CONSTEXPR R
+		fppack_at_impl(Head&& head, Tail&&... tail) {
 			return sprout::forward<Head>(head);
 		}
 		template<
-			std::size_t N,
-			typename R,
-			typename Head,
-			typename... Tail,
+			std::size_t N, typename R, typename Head, typename... Tail,
 			typename sprout::enabler_if<N != 0>::type = sprout::enabler
 		>
-		inline SPROUT_CONSTEXPR R fppack_at_impl(Head&& head, Tail&&... tail) {
+		inline SPROUT_CONSTEXPR R
+		fppack_at_impl(Head&& head, Tail&&... tail) {
 			return sprout::detail::fppack_at_impl<N - 1, R>(sprout::forward<Tail>(tail)...);
 		}
 	}	// namespace detail
 	template<std::size_t N, typename... Args>
-	inline SPROUT_CONSTEXPR typename sprout::tppack_at<N, Args&&...>::type fppack_at(Args&&... args) {
+	inline SPROUT_CONSTEXPR typename sprout::tppack_at<N, Args&&...>::type
+	fppack_at(Args&&... args) {
 		return sprout::detail::fppack_at_impl<
 			N,
 			typename sprout::tppack_at<N, Args&&...>::type

@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/rational/exceptions.hpp>
 #include <sprout/math/gcd.hpp>
+#include <sprout/utility/swap.hpp>
 #include <sprout/detail/call_traits.hpp>
 
 namespace sprout {
@@ -101,9 +102,8 @@ namespace sprout {
 			return assign(n, 1);
 		}
 		rational& assign(param_type n, param_type d) {
-			using std::swap;
 			rational temp(n, d);
-			swap(temp, *this);
+			sprout::swap(temp, *this);
 			return *this;
 		}
 
@@ -194,7 +194,6 @@ namespace sprout {
 		SPROUT_CONSTEXPR operator bool() const {
 			return num_ != 0;
 		}
-
 	public:
 		friend sprout::rational<IntType> sprout::detail::make_rational<IntType>(
 			typename sprout::detail::call_traits<IntType>::param_type n,
@@ -205,7 +204,8 @@ namespace sprout {
 
 	namespace detail {
 		template<typename IntType>
-		inline SPROUT_CONSTEXPR sprout::rational<IntType> make_rational(
+		inline SPROUT_CONSTEXPR sprout::rational<IntType>
+		make_rational(
 			typename sprout::detail::call_traits<IntType>::param_type n,
 			typename sprout::detail::call_traits<IntType>::param_type d,
 			sprout::detail::rational_private_constructor_tag

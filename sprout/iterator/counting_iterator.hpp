@@ -9,6 +9,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
@@ -100,70 +101,51 @@ namespace sprout {
 		SPROUT_CONSTEXPR counting_iterator prev() const {
 			return counting_iterator(current_ - 1);
 		}
-		void swap(counting_iterator& other) {
-			using std::swap;
-			swap(current_, other.current_);
+		void swap(counting_iterator& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(current_, other.current_)))
+		{
+			sprout::swap(current_, other.current_);
 		}
 	};
 
 	template<typename Incrementable1, typename Incrementable2>
-	SPROUT_CONSTEXPR bool operator==(
-		sprout::counting_iterator<Incrementable1> const& lhs,
-		sprout::counting_iterator<Incrementable2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::counting_iterator<Incrementable1> const& lhs, sprout::counting_iterator<Incrementable2> const& rhs) {
 		return *lhs == *rhs;
 	}
 	template<typename Incrementable1, typename Incrementable2>
-	SPROUT_CONSTEXPR bool operator!=(
-		sprout::counting_iterator<Incrementable1> const& lhs,
-		sprout::counting_iterator<Incrementable2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::counting_iterator<Incrementable1> const& lhs, sprout::counting_iterator<Incrementable2> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename Incrementable1, typename Incrementable2>
-	SPROUT_CONSTEXPR bool operator<(
-		sprout::counting_iterator<Incrementable1> const& lhs,
-		sprout::counting_iterator<Incrementable2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::counting_iterator<Incrementable1> const& lhs, sprout::counting_iterator<Incrementable2> const& rhs) {
 		return *lhs < *rhs;
 	}
 	template<typename Incrementable1, typename Incrementable2>
-	SPROUT_CONSTEXPR bool operator>(
-		sprout::counting_iterator<Incrementable1> const& lhs,
-		sprout::counting_iterator<Incrementable2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::counting_iterator<Incrementable1> const& lhs, sprout::counting_iterator<Incrementable2> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename Incrementable1, typename Incrementable2>
-	SPROUT_CONSTEXPR bool operator<=(
-		sprout::counting_iterator<Incrementable1> const& lhs,
-		sprout::counting_iterator<Incrementable2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::counting_iterator<Incrementable1> const& lhs, sprout::counting_iterator<Incrementable2> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename Incrementable1, typename Incrementable2>
-	SPROUT_CONSTEXPR bool operator>=(
-		sprout::counting_iterator<Incrementable1> const& lhs,
-		sprout::counting_iterator<Incrementable2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::counting_iterator<Incrementable1> const& lhs, sprout::counting_iterator<Incrementable2> const& rhs) {
 		return !(lhs < rhs);
 	}
 	template<typename Incrementable1, typename Incrementable2>
-	SPROUT_CONSTEXPR typename sprout::counting_iterator<Incrementable1>::difference_type operator-(
-		sprout::counting_iterator<Incrementable1> const& lhs,
-		sprout::counting_iterator<Incrementable2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR typename sprout::counting_iterator<Incrementable1>::difference_type
+	operator-(sprout::counting_iterator<Incrementable1> const& lhs, sprout::counting_iterator<Incrementable2> const& rhs) {
 		return static_cast<typename sprout::counting_iterator<Incrementable1>::difference_type>(*lhs - *rhs);
 	}
 	template<typename Incrementable>
-	SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> operator+(
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
+	operator+(
 		typename sprout::counting_iterator<Incrementable>::difference_type n,
 		sprout::counting_iterator<Incrementable> const& it
 		)
@@ -175,7 +157,7 @@ namespace sprout {
 	// make_counting_iterator
 	//
 	template<typename Incrementable>
-	SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
 	make_counting_iterator(Incrementable const& v) {
 		return sprout::counting_iterator<Incrementable>(v);
 	}
@@ -184,7 +166,8 @@ namespace sprout {
 	// swap
 	//
 	template<typename Incrementable>
-	inline void swap(sprout::counting_iterator<Incrementable>& lhs, sprout::counting_iterator<Incrementable>& rhs)
+	inline void
+	swap(sprout::counting_iterator<Incrementable>& lhs, sprout::counting_iterator<Incrementable>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
@@ -195,11 +178,7 @@ namespace sprout {
 	//
 	template<typename Incrementable>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::counting_iterator<Incrementable> >::difference_type
-	iterator_distance(
-		sprout::counting_iterator<Incrementable> first,
-		sprout::counting_iterator<Incrementable> last
-		)
-	{
+	iterator_distance(sprout::counting_iterator<Incrementable> first, sprout::counting_iterator<Incrementable> last) {
 		return last - first;
 	}
 
@@ -207,14 +186,13 @@ namespace sprout {
 	// iterator_next
 	//
 	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> iterator_next(
-		sprout::counting_iterator<Incrementable> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
+	iterator_next(sprout::counting_iterator<Incrementable> const& it) {
 		return it.next();
 	}
 	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> iterator_next(
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
+	iterator_next(
 		sprout::counting_iterator<Incrementable> const& it,
 		typename sprout::counting_iterator<Incrementable>::difference_type n
 		)
@@ -226,14 +204,13 @@ namespace sprout {
 	// iterator_prev
 	//
 	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> iterator_prev(
-		sprout::counting_iterator<Incrementable> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
+	iterator_prev(sprout::counting_iterator<Incrementable> const& it) {
 		return it.prev();
 	}
 	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable> iterator_prev(
+	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
+	iterator_prev(
 		sprout::counting_iterator<Incrementable> const& it,
 		typename sprout::counting_iterator<Incrementable>::difference_type n
 		)

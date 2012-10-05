@@ -21,9 +21,9 @@ namespace sprout {
 		typedef sprout::value_holder<string_type const&> holder_type;
 	private:
 		template<std::size_t M, sprout::index_t... Indexes>
-		static SPROUT_CONSTEXPR sprout::basic_string<T, sizeof...(Indexes), Traits> implicit_conversion_impl(
-			T const(& elems)[M],
-			std::size_t len,
+		static SPROUT_CONSTEXPR sprout::basic_string<T, sizeof...(Indexes), Traits>
+		implicit_conversion_impl(
+			T const(& elems)[M], std::size_t len,
 			sprout::index_tuple<Indexes...>
 			)
 		{

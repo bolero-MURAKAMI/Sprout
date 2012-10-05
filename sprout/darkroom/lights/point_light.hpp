@@ -32,11 +32,8 @@ namespace sprout {
 				color_type col_;
 			private:
 				template<typename Intersection>
-				SPROUT_CONSTEXPR color_type shade_4(
-					Intersection const& inter,
-					unit_type const& intensity
-					) const
-				{
+				SPROUT_CONSTEXPR color_type
+				shade_4(Intersection const& inter, unit_type const& intensity) const {
 					return sprout::darkroom::colors::mul(
 						sprout::darkroom::colors::filter(
 							col_,
@@ -46,10 +43,9 @@ namespace sprout {
 						);
 				}
 				template<typename Intersection, typename LightRayIntersection>
-				SPROUT_CONSTEXPR color_type shade_3(
-					Intersection const& inter,
-					position_type const& diff,
-					position_type const& direction,
+				SPROUT_CONSTEXPR color_type
+				shade_3(
+					Intersection const& inter, position_type const& diff, position_type const& direction,
 					LightRayIntersection const& light_ray_inter
 					) const
 				{
@@ -72,13 +68,8 @@ namespace sprout {
 						);
 				}
 				template<typename Intersection, typename Objects>
-				SPROUT_CONSTEXPR color_type shade_2(
-					Intersection const& inter,
-					Objects const& objs,
-					position_type const& diff,
-					position_type const& direction
-					) const
-				{
+				SPROUT_CONSTEXPR color_type
+				shade_2(Intersection const& inter, Objects const& objs, position_type const& diff, position_type const& direction) const {
 					return shade_3(
 						inter,
 						diff,
@@ -99,12 +90,8 @@ namespace sprout {
 						);
 				}
 				template<typename Intersection, typename Objects>
-				SPROUT_CONSTEXPR color_type shade_1(
-					Intersection const& inter,
-					Objects const& objs,
-					position_type const& diff
-					) const
-				{
+				SPROUT_CONSTEXPR color_type
+				shade_1(Intersection const& inter, Objects const& objs, position_type const& diff) const {
 					return shade_2(
 						inter,
 						objs,
@@ -113,15 +100,13 @@ namespace sprout {
 						);
 				}
 			public:
-				SPROUT_CONSTEXPR basic_point_light(
-					position_type const& pos,
-					color_type const& col
-					)
+				SPROUT_CONSTEXPR basic_point_light(position_type const& pos, color_type const& col)
 					: pos_(pos)
 					, col_(col)
 				{}
 				template<typename Intersection, typename Objects>
-				SPROUT_CONSTEXPR color_type operator()(Intersection const& inter, Objects const& objs) const {
+				SPROUT_CONSTEXPR color_type
+				operator()(Intersection const& inter, Objects const& objs) const {
 					return shade_1(
 						inter,
 						objs,

@@ -32,11 +32,8 @@ namespace sprout {
 				color_type col_;
 			private:
 				template<typename Intersection>
-				SPROUT_CONSTEXPR color_type shade_2(
-					Intersection const& inter,
-					unit_type const& intensity
-					) const
-				{
+				SPROUT_CONSTEXPR color_type
+				shade_2(Intersection const& inter, unit_type const& intensity) const {
 					return sprout::darkroom::colors::mul(
 						sprout::darkroom::colors::filter(
 							col_,
@@ -46,11 +43,8 @@ namespace sprout {
 						);
 				}
 				template<typename Intersection, typename LightRayIntersection>
-				SPROUT_CONSTEXPR color_type shade_1(
-					Intersection const& inter,
-					LightRayIntersection const& light_ray_inter
-					) const
-				{
+				SPROUT_CONSTEXPR color_type
+				shade_1(Intersection const& inter, LightRayIntersection const& light_ray_inter) const {
 					return shade_2(
 						inter,
 						!sprout::darkroom::intersects::does_intersect(light_ray_inter)
@@ -67,15 +61,13 @@ namespace sprout {
 						);
 				}
 			public:
-				SPROUT_CONSTEXPR basic_parallel_light(
-					position_type const& dir,
-					color_type const& col
-					)
+				SPROUT_CONSTEXPR basic_parallel_light(position_type const& dir, color_type const& col)
 					: dir_(sprout::darkroom::coords::normalize(dir))
 					, col_(col)
 				{}
 				template<typename Intersection, typename Objects>
-				SPROUT_CONSTEXPR color_type operator()(Intersection const& inter, Objects const& objs) const {
+				SPROUT_CONSTEXPR color_type
+				operator()(Intersection const& inter, Objects const& objs) const {
 					return shade_1(
 						inter,
 						sprout::darkroom::objects::intersect_list(

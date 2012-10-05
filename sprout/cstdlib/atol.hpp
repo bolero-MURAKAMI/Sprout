@@ -8,11 +8,13 @@ namespace sprout {
 	//
 	// atol
 	//
-	inline SPROUT_CONSTEXPR long atol(char const* str) {
+	inline SPROUT_CONSTEXPR long
+	atol(char const* str) {
 		return sprout::ascii_to_int<long>(str);
 	}
 	template<typename Char>
-	inline SPROUT_CONSTEXPR long atol(Char const* str) {
+	inline SPROUT_CONSTEXPR long
+	atol(Char const* str) {
 		return sprout::ascii_to_int<long>(str);
 	}
 }	// namespace sprout

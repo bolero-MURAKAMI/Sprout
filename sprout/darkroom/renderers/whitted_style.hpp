@@ -25,29 +25,20 @@ namespace sprout {
 			private:
 				template<
 					typename Color,
-					typename Camera,
-					typename Objects,
-					typename Lights,
-					typename Ray,
-					typename Intersection,
-					typename Tracer,
+					typename Camera, typename Objects, typename Lights,
+					typename Ray, typename Intersection, typename Tracer,
 					typename Direction
 				>
-				SPROUT_CONSTEXPR Color color_1(
-					Camera const& camera,
-					Objects const& objs,
-					Lights const& lights,
-					Ray const& ray,
-					Intersection const& inter,
-					Tracer const& tracer,
+				SPROUT_CONSTEXPR Color
+				color_1(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, Intersection const& inter, Tracer const& tracer,
 					std::size_t depth_max,
 					Direction const& reflect_dir
 					) const
 				{
 					return tracer.template operator()<Color>(
-						camera,
-						objs,
-						lights,
+						camera, objs, lights,
 						sprout::tuples::remake<Ray>(
 							ray,
 							sprout::darkroom::coords::add(
@@ -70,20 +61,13 @@ namespace sprout {
 			public:
 				template<
 					typename Color,
-					typename Camera,
-					typename Objects,
-					typename Lights,
-					typename Ray,
-					typename Intersection,
-					typename Tracer
+					typename Camera, typename Objects, typename Lights,
+					typename Ray, typename Intersection, typename Tracer
 				>
-				SPROUT_CONSTEXPR Color operator()(
-					Camera const& camera,
-					Objects const& objs,
-					Lights const& lights,
-					Ray const& ray,
-					Intersection const& inter,
-					Tracer const& tracer,
+				SPROUT_CONSTEXPR Color
+				operator()(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, Intersection const& inter, Tracer const& tracer,
 					std::size_t depth_max
 					) const
 				{
@@ -95,12 +79,8 @@ namespace sprout {
 						&& sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
 							> std::numeric_limits<reflection_type>::epsilon()
 						? color_1<Color>(
-							camera,
-							objs,
-							lights,
-							ray,
-							inter,
-							tracer,
+							camera, objs, lights,
+							ray, inter, tracer,
 							depth_max,
 							sprout::darkroom::coords::reflect(
 								sprout::darkroom::rays::direction(ray),
@@ -121,16 +101,11 @@ namespace sprout {
 			private:
 				infinity_color_type infinity_color_;
 			private:
-				template<
-					typename Color,
-					typename Ray,
-					typename Intersection
-				>
-				SPROUT_CONSTEXPR Color color_3(
-					Ray const& ray,
-					Intersection const& inter,
-					Color const& diffuse_color,
-					Color const& mirror_color
+				template<typename Color, typename Ray, typename Intersection>
+				SPROUT_CONSTEXPR Color
+				color_3(
+					Ray const& ray, Intersection const& inter,
+					Color const& diffuse_color, Color const& mirror_color
 					) const
 				{
 					return sprout::darkroom::intersects::does_intersect(inter)
@@ -149,61 +124,40 @@ namespace sprout {
 				}
 				template<
 					typename Color,
-					typename Camera,
-					typename Objects,
-					typename Lights,
-					typename Ray,
-					typename Intersection
+					typename Camera, typename Objects, typename Lights,
+					typename Ray, typename Intersection
 				>
-				SPROUT_CONSTEXPR Color color_2(
-					Camera const& camera,
-					Objects const& objs,
-					Lights const& lights,
-					Ray const& ray,
-					std::size_t depth_max,
-					Intersection const& inter,
+				SPROUT_CONSTEXPR Color
+				color_2(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, std::size_t depth_max, Intersection const& inter,
 					Color const& diffuse_color
 					) const
 				{
 					return color_3<Color>(
-						ray,
-						inter,
+						ray, inter,
 						diffuse_color,
 						sprout::darkroom::renderers::whitted_mirror().template operator()<Color>(
-							camera,
-							objs,
-							lights,
-							ray,
-							inter,
-							*this,
+							camera, objs, lights,
+							ray, inter, *this,
 							depth_max
 							)
 						);
 				}
 				template<
 					typename Color,
-					typename Camera,
-					typename Objects,
-					typename Lights,
-					typename Ray,
-					typename Intersection
+					typename Camera, typename Objects, typename Lights,
+					typename Ray, typename Intersection
 				>
-				SPROUT_CONSTEXPR Color color_1(
-					Camera const& camera,
-					Objects const& objs,
-					Lights const& lights,
-					Ray const& ray,
-					std::size_t depth_max,
-					Intersection const& inter
+				SPROUT_CONSTEXPR Color
+				color_1(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, std::size_t depth_max, Intersection const& inter
 					) const
 				{
 					return color_2<Color>(
-						camera,
-						objs,
-						lights,
-						ray,
-						depth_max,
-						inter,
+						camera, objs, lights,
+						ray, depth_max, inter,
 						lights.template operator()(inter, objs)
 						);
 				}
@@ -215,27 +169,16 @@ namespace sprout {
 				explicit SPROUT_CONSTEXPR whitted_style(infinity_color_type const& infinity_color)
 					: infinity_color_(infinity_color)
 				{}
-				template<
-					typename Color,
-					typename Camera,
-					typename Objects,
-					typename Lights,
-					typename Ray
-				>
-				SPROUT_CONSTEXPR Color operator()(
-					Camera const& camera,
-					Objects const& objs,
-					Lights const& lights,
-					Ray const& ray,
-					std::size_t depth_max
+				template<typename Color, typename Camera, typename Objects, typename Lights, typename Ray>
+				SPROUT_CONSTEXPR Color
+				operator()(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, std::size_t depth_max
 					) const
 				{
 					return color_1<Color>(
-						camera,
-						objs,
-						lights,
-						ray,
-						depth_max,
+						camera, objs, lights,
+						ray, depth_max,
 						sprout::darkroom::objects::intersect_list(objs, ray)
 						);
 				}

@@ -7,6 +7,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/range/lvalue_iterator.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	namespace range {
@@ -39,10 +40,14 @@ namespace sprout {
 			{}
 
 			template<typename Iterator2>
-			void swap(range_container<Iterator2>& other) {
-				using std::swap;
-				swap(other.first_, first_);
-				swap(other.last_, last_);
+			void swap(range_container<Iterator2>& other)
+			SPROUT_NOEXCEPT_EXPR(
+				SPROUT_NOEXCEPT_EXPR(sprout::swap(other.first_, first_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(other.last_, last_))
+				)
+			{
+				sprout::swap(other.first_, first_);
+				sprout::swap(other.last_, last_);
 			}
 			// iterators:
 			SPROUT_CONSTEXPR iterator begin() const {

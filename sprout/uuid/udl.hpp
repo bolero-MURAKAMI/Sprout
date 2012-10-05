@@ -15,16 +15,20 @@ namespace sprout {
 			//
 			// _uuid
 			//
-			SPROUT_CONSTEXPR sprout::uuids::uuid operator "" _uuid(char const* s, std::size_t size) {
+			inline SPROUT_CONSTEXPR sprout::uuids::uuid
+			operator "" _uuid(char const* s, std::size_t size) {
 				return sprout::uuids::string_generator()(s, s + size);
 			}
-			SPROUT_CONSTEXPR sprout::uuids::uuid operator "" _uuid(wchar_t const* s, std::size_t size) {
+			inline SPROUT_CONSTEXPR sprout::uuids::uuid
+			operator "" _uuid(wchar_t const* s, std::size_t size) {
 				return sprout::uuids::string_generator()(s, s + size);
 			}
-			SPROUT_CONSTEXPR sprout::uuids::uuid operator "" _uuid(char16_t const* s, std::size_t size) {
+			inline SPROUT_CONSTEXPR sprout::uuids::uuid
+			operator "" _uuid(char16_t const* s, std::size_t size) {
 				return sprout::uuids::string_generator()(s, s + size);
 			}
-			SPROUT_CONSTEXPR sprout::uuids::uuid operator "" _uuid(char32_t const* s, std::size_t size) {
+			inline SPROUT_CONSTEXPR sprout::uuids::uuid
+			operator "" _uuid(char32_t const* s, std::size_t size) {
 				return sprout::uuids::string_generator()(s, s + size);
 			}
 		}	// namespace uuids

@@ -10,6 +10,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/utility/swap.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -240,11 +241,12 @@ namespace sprout {
 			std::fill_n(begin(), size(), value);
 		}
 		template<typename Container2>
-		void swap(sub_array<Container2>& other) {
-			using std::swap;
-			swap(other.array_, array_);
-			swap(other.first_, first_);
-			swap(other.last_, last_);
+		void swap(sub_array<Container2>& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(other.array_, array_)))
+		{
+			sprout::swap(other.array_, array_);
+			sprout::swap(other.first_, first_);
+			sprout::swap(other.last_, last_);
 		}
 		// iterators:
 		iterator begin() {
@@ -360,7 +362,10 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	inline void swap(sprout::sub_array<Container>& lhs, sprout::sub_array<Container>& rhs) {
+	inline void
+	swap(sprout::sub_array<Container>& lhs, sprout::sub_array<Container>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
 		lhs.swap(rhs);
 	}
 }	// namespace sprout

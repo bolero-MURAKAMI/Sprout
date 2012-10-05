@@ -18,7 +18,8 @@ namespace sprout {
 		typename std::remove_reference<
 			typename sprout::containers::internal<Container&>::type
 		>::type
-	>::iterator internal_begin(Container& cont) {
+	>::iterator
+	internal_begin(Container& cont) {
 		return sprout::begin(sprout::get_internal(cont));
 	}
 	template<typename Container>
@@ -26,7 +27,8 @@ namespace sprout {
 		typename std::remove_reference<
 			typename sprout::containers::internal<Container const&>::type
 		>::type
-	>::const_iterator internal_begin(Container const& cont) {
+	>::const_iterator
+	internal_begin(Container const& cont) {
 		return sprout::begin(sprout::get_internal(cont));
 	}
 
@@ -38,7 +40,8 @@ namespace sprout {
 		typename std::remove_reference<
 			typename sprout::containers::internal<Container const&>::type
 		>::type
-	>::const_iterator internal_cbegin(Container const& cont) {
+	>::const_iterator
+	internal_cbegin(Container const& cont) {
 		return sprout::begin(sprout::get_internal(cont));
 	}
 }	// namespace sprout

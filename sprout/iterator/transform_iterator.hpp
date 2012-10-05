@@ -8,6 +8,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
@@ -146,11 +147,16 @@ namespace sprout {
 		SPROUT_CONSTEXPR transform_iterator prev() const {
 			return transform_iterator(sprout::prev(current), sprout::prev(current2), func);
 		}
-		void swap(transform_iterator& other) {
-			using std::swap;
-			swap(current, other.current);
-			swap(current2, other.current2);
-			swap(func, other.func);
+		void swap(transform_iterator& other)
+		SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(current2, other.current2))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(func, other.func))
+			)
+		{
+			sprout::swap(current, other.current);
+			sprout::swap(current2, other.current2);
+			sprout::swap(func, other.func);
 		}
 	};
 
@@ -266,10 +272,14 @@ namespace sprout {
 		SPROUT_CONSTEXPR transform_iterator prev() const {
 			return transform_iterator(sprout::prev(current), func);
 		}
-		void swap(transform_iterator& other) {
-			using std::swap;
-			swap(current, other.current);
-			swap(func, other.func);
+		void swap(transform_iterator& other)
+		SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(func, other.func))
+			)
+		{
+			sprout::swap(current, other.current);
+			sprout::swap(func, other.func);
 		}
 	};
 
@@ -377,11 +387,12 @@ namespace sprout {
 	// swap
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	void swap(
+	inline void
+	swap(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>& rhs
 		)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
 	}
@@ -403,14 +414,13 @@ namespace sprout {
 	// iterator_next
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> iterator_next(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>
+	iterator_next(sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it) {
 		return it.next();
 	}
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> iterator_next(
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>
+	iterator_next(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
 		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
 		)
@@ -422,14 +432,13 @@ namespace sprout {
 	// iterator_prev
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> iterator_prev(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>
+	iterator_prev(sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it) {
 		return it.prev();
 	}
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> iterator_prev(
+	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>
+	iterator_prev(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
 		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
 		)

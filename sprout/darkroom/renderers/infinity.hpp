@@ -13,7 +13,8 @@ namespace sprout {
 			// normal_to_color
 			//
 			template<typename Color, typename Normal>
-			inline SPROUT_CONSTEXPR Color normal_to_color(Normal const& nor) {
+			inline SPROUT_CONSTEXPR Color
+			normal_to_color(Normal const& nor) {
 				return sprout::tuples::make<Color>(
 					0.5 + sprout::darkroom::coords::x(nor) * 0.5,
 					0.5 + sprout::darkroom::coords::y(nor) * 0.5,
@@ -27,7 +28,8 @@ namespace sprout {
 			class direction_gradation {
 			public:
 				template<typename TargetColor, typename Vector>
-				SPROUT_CONSTEXPR TargetColor operator()(Vector const& dir) const {
+				SPROUT_CONSTEXPR TargetColor
+				operator()(Vector const& dir) const {
 					return sprout::darkroom::renderers::normal_to_color<TargetColor>(dir);
 				}
 			};
@@ -57,7 +59,8 @@ namespace sprout {
 					: color_(color)
 				{}
 				template<typename TargetColor, typename Vector>
-				SPROUT_CONSTEXPR TargetColor operator()(Vector const&) const {
+				SPROUT_CONSTEXPR TargetColor
+				operator()(Vector const&) const {
 					return color_;
 				}
 			};

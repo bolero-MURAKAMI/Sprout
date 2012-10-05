@@ -162,18 +162,20 @@ namespace sprout {
 		// width
 		// fill
 		//
-		inline SPROUT_CONSTEXPR sprout::io::flags::precision_t
-		precision(sprout::io::flags::precision_t::type value) {
-			return sprout::io::flags::precision_t(value);
-		}
-		inline SPROUT_CONSTEXPR sprout::io::flags::width_t
-		width(sprout::io::flags::width_t::type value) {
-			return sprout::io::flags::width_t(value);
-		}
-		inline SPROUT_CONSTEXPR sprout::io::flags::fill_t
-		fill(sprout::io::flags::fill_t::type value) {
-			return sprout::io::flags::fill_t(value);
-		}
+		namespace {
+			inline SPROUT_CONSTEXPR sprout::io::flags::precision_t
+			precision(sprout::io::flags::precision_t::type value) {
+				return sprout::io::flags::precision_t(value);
+			}
+			inline SPROUT_CONSTEXPR sprout::io::flags::width_t
+			width(sprout::io::flags::width_t::type value) {
+				return sprout::io::flags::width_t(value);
+			}
+			inline SPROUT_CONSTEXPR sprout::io::flags::fill_t
+			fill(sprout::io::flags::fill_t::type value) {
+				return sprout::io::flags::fill_t(value);
+			}
+		}	// anonymous-namespace
 
 		//
 		// format_settings
@@ -525,10 +527,10 @@ namespace sprout {
 		template<typename Left, typename Right, typename T>
 		inline SPROUT_CONSTEXPR auto
 		operator<<(sprout::io::format_expression<Left, Right> const& lhs, sprout::io::format_holder<T> const& rhs)
-			-> sprout::io::format_expression<
-				sprout::io::format_expression<Left, Right>,
-				decltype(std::declval<sprout::io::root_t>() << rhs.value())
-			>
+		-> sprout::io::format_expression<
+			sprout::io::format_expression<Left, Right>,
+			decltype(std::declval<sprout::io::root_t>() << rhs.value())
+		>
 		{
 			typedef decltype(sprout::io::root << rhs.value()) type;
 			return sprout::io::format_expression<sprout::io::format_expression<Left, Right>, type>(
@@ -681,7 +683,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR auto
 		eval(sprout::io::format_holder<T> const& holder)
-			-> decltype(sprout::int_to_string<Elem>(holder.value()))
+		-> decltype(sprout::int_to_string<Elem>(holder.value()))
 		{
 			return sprout::int_to_string<Elem>(holder.value());
 		}
@@ -691,7 +693,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR auto
 		eval(sprout::io::format_holder<T> const& holder)
-			-> decltype(sprout::float_to_string<Elem>(holder.value()))
+		-> decltype(sprout::float_to_string<Elem>(holder.value()))
 		{
 			return sprout::float_to_string<Elem>(holder.value());
 		}
@@ -701,7 +703,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR auto
 		eval(sprout::io::format_holder<T> const& holder)
-			-> decltype(sprout::basic_string<Elem, 1>{{static_cast<Elem>(holder.value())}, 1})
+		-> decltype(sprout::basic_string<Elem, 1>{{static_cast<Elem>(holder.value())}, 1})
 		{
 			return sprout::basic_string<Elem, 1>{{static_cast<Elem>(holder.value())}, 1};
 		}
@@ -711,7 +713,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR auto
 		eval(sprout::io::format_holder<T> const& holder)
-			-> decltype(sprout::to_string(holder.value()))
+		-> decltype(sprout::to_string(holder.value()))
 		{
 			return sprout::to_string(holder.value());
 		}
@@ -721,7 +723,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR auto
 		eval(sprout::io::format_holder<T> const& holder)
-			-> decltype(holder.value())
+		-> decltype(holder.value())
 		{
 			return holder.value();
 		}

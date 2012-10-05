@@ -9,6 +9,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/iterator/value_iterator.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
@@ -35,9 +36,10 @@ namespace sprout {
 		value_type elem;
 	public:
 		pit() = default;
-		void swap(pit& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<value_type&>(), std::declval<value_type&>()))) {
-			using std::swap;
-			swap(elem, other.elem);
+		void swap(pit& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(elem, other.elem)))
+		{
+			sprout::swap(elem, other.elem);
 		}
 		// iterators:
 		iterator begin() {
@@ -131,7 +133,10 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	inline void swap(sprout::pit<Container>& lhs, sprout::pit<Container>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void
+	swap(sprout::pit<Container>& lhs, sprout::pit<Container>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
 		lhs.swap(rhs);
 	}
 }	// namespace sprout

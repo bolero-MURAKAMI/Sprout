@@ -16,29 +16,15 @@ namespace sprout {
 			public:
 				typedef Color color_type;
 			public:
-				template<
-					typename Renderer,
-					typename Camera,
-					typename Objects,
-					typename Lights,
-					typename Unit2D
-				>
+				template<typename Renderer, typename Camera, typename Objects, typename Lights, typename Unit2D>
 				SPROUT_CONSTEXPR color_type operator()(
-					Renderer const& renderer,
-					Camera const& camera,
-					Objects const& objs,
-					Lights const& lights,
-					Unit2D const& x,
-					Unit2D const& y,
-					Unit2D const& width,
-					Unit2D const& height,
+					Renderer const& renderer, Camera const& camera, Objects const& objs, Lights const& lights,
+					Unit2D const& x, Unit2D const& y, Unit2D const& width, Unit2D const& height,
 					std::size_t depth_max = 8
 					) const
 				{
 					return renderer.template operator()<color_type>(
-						camera,
-						objs,
-						lights,
+						camera, objs, lights,
 						camera.template operator()(x, y, width, height),
 						depth_max
 						);

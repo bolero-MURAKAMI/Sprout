@@ -14,7 +14,8 @@ namespace sprout {
 	// sub
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type
+	sub(
 		Container& arr,
 		typename sprout::container_traits<sprout::sub_array<Container&> >::const_iterator first,
 		typename sprout::container_traits<sprout::sub_array<Container&> >::const_iterator last
@@ -23,7 +24,8 @@ namespace sprout {
 		return sprout::sub_array<Container&>(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type
+	sub(
 		Container& arr,
 		typename sprout::container_traits<sprout::sub_array<Container&> >::difference_type first,
 		typename sprout::container_traits<sprout::sub_array<Container&> >::difference_type last
@@ -32,7 +34,8 @@ namespace sprout {
 		return sprout::sub_array<Container&>(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type
+	sub(
 		Container& arr,
 		typename sprout::container_traits<sprout::sub_array<Container&> >::const_iterator first
 		)
@@ -40,7 +43,8 @@ namespace sprout {
 		return sprout::sub(arr, first, sprout::end(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type
+	sub(
 		Container& arr,
 		typename sprout::container_traits<sprout::sub_array<Container&> >::difference_type first
 		)
@@ -48,7 +52,8 @@ namespace sprout {
 		return sprout::sub(arr, first, sprout::size(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type
+	sub(
 		Container& arr
 		)
 	{
@@ -58,7 +63,8 @@ namespace sprout {
 	// sub
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	sub(
 		Container const& arr,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::const_iterator first,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::const_iterator last
@@ -67,7 +73,8 @@ namespace sprout {
 		return sprout::sub_array<Container const&>(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	sub(
 		Container const& arr,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::difference_type first,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::difference_type last
@@ -76,7 +83,8 @@ namespace sprout {
 		return sprout::sub_array<Container const&>(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	sub(
 		Container const& arr,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::const_iterator first
 		)
@@ -84,7 +92,8 @@ namespace sprout {
 		return sprout::sub(arr, first, sprout::end(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	sub(
 		Container const& arr,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::difference_type first
 		)
@@ -92,7 +101,8 @@ namespace sprout {
 		return sprout::sub(arr, first, sprout::size(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	sub(
 		Container const& arr
 		)
 	{
@@ -102,7 +112,8 @@ namespace sprout {
 	// sub
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type
+	sub(
 		Container const& arr,
 		typename sprout::container_traits<Container>::const_iterator first,
 		typename sprout::container_traits<Container>::const_iterator last
@@ -111,7 +122,8 @@ namespace sprout {
 		return Container(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type
+	sub(
 		Container const& arr,
 		typename sprout::container_traits<Container>::difference_type first,
 		typename sprout::container_traits<Container>::difference_type last
@@ -120,7 +132,8 @@ namespace sprout {
 		return Container(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type
+	sub(
 		Container const& arr,
 		typename sprout::container_traits<Container>::const_iterator first
 		)
@@ -128,7 +141,8 @@ namespace sprout {
 		return sprout::sub(arr, first, sprout::end(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type
+	sub(
 		Container const& arr,
 		typename sprout::container_traits<Container>::difference_type first
 		)
@@ -136,7 +150,8 @@ namespace sprout {
 		return sprout::sub(arr, first, sprout::size(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type sub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, Container>::type
+	sub(
 		Container const& arr
 		)
 	{
@@ -147,7 +162,8 @@ namespace sprout {
 	// csub
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	csub(
 		Container const& arr,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::const_iterator first,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::const_iterator last
@@ -156,7 +172,8 @@ namespace sprout {
 		return sprout::sub_array<Container const&>(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	csub(
 		Container const& arr,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::difference_type first,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::difference_type last
@@ -165,7 +182,8 @@ namespace sprout {
 		return sprout::sub_array<Container const&>(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	csub(
 		Container const& arr,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::const_iterator first
 		)
@@ -173,7 +191,8 @@ namespace sprout {
 		return sprout::csub(arr, first, sprout::end(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	csub(
 		Container const& arr,
 		typename sprout::container_traits<sprout::sub_array<Container const&> >::difference_type first
 		)
@@ -181,7 +200,8 @@ namespace sprout {
 		return sprout::csub(arr, first, sprout::size(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	csub(
 		Container const& arr
 		)
 	{
@@ -191,7 +211,8 @@ namespace sprout {
 	// csub
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type
+	csub(
 		Container const& arr,
 		typename sprout::container_traits<Container>::const_iterator first,
 		typename sprout::container_traits<Container>::const_iterator last
@@ -200,7 +221,8 @@ namespace sprout {
 		return sprout::sub_array<typename Container::internal_type const&>(arr.get_array(), first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type
+	csub(
 		Container const& arr,
 		typename sprout::container_traits<Container>::difference_type first,
 		typename sprout::container_traits<Container>::difference_type last
@@ -213,7 +235,8 @@ namespace sprout {
 		);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type
+	csub(
 		Container const& arr,
 		typename sprout::container_traits<Container>::const_iterator first
 		)
@@ -221,7 +244,8 @@ namespace sprout {
 		return sprout::csub(arr, first, sprout::end(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type
+	csub(
 		Container const& arr,
 		typename sprout::container_traits<Container>::difference_type first
 		)
@@ -229,7 +253,8 @@ namespace sprout {
 		return sprout::csub(arr, first, sprout::size(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type csub(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type const&> >::type
+	csub(
 		Container const& arr
 		)
 	{
@@ -240,7 +265,8 @@ namespace sprout {
 	// sub_copy
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type
+	sub_copy(
 		Container const& arr,
 		typename sprout::container_traits<Container>::const_iterator first,
 		typename sprout::container_traits<Container>::const_iterator last
@@ -249,7 +275,8 @@ namespace sprout {
 		return sprout::sub_array<Container>(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type
+	sub_copy(
 		Container const& arr,
 		typename sprout::container_traits<Container>::difference_type first,
 		typename sprout::container_traits<Container>::difference_type last
@@ -258,7 +285,8 @@ namespace sprout {
 		return sprout::sub_array<Container>(arr, first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type
+	sub_copy(
 		Container const& arr,
 		typename sprout::container_traits<Container>::const_iterator first
 		)
@@ -266,7 +294,8 @@ namespace sprout {
 		return sprout::sub_copy(arr, first, sprout::end(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type
+	sub_copy(
 		Container const& arr,
 		typename sprout::container_traits<Container>::difference_type first
 		)
@@ -274,7 +303,8 @@ namespace sprout {
 		return sprout::sub_copy(arr, first, sprout::size(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type
+	ub_copy(
 		Container const& arr
 		)
 	{
@@ -284,7 +314,8 @@ namespace sprout {
 	// sub_copy
 	//
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type
+	sub_copy(
 		Container const& arr,
 		typename sprout::container_traits<Container>::const_iterator first,
 		typename sprout::container_traits<Container>::const_iterator last
@@ -293,7 +324,8 @@ namespace sprout {
 		return sprout::sub_array<typename Container::internal_type>(arr.get_array(), first, last);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type
+	sub_copy(
 		Container const& arr,
 		typename sprout::container_traits<Container>::difference_type first,
 		typename sprout::container_traits<Container>::difference_type last
@@ -306,7 +338,8 @@ namespace sprout {
 			);
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type
+	sub_copy(
 		Container const& arr,
 		typename sprout::container_traits<Container>::const_iterator first
 		)
@@ -314,7 +347,8 @@ namespace sprout {
 		return sprout::sub_copy(arr, first, sprout::end(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type
+	sub_copy(
 		Container const& arr,
 		typename sprout::container_traits<Container>::difference_type first
 		)
@@ -322,7 +356,8 @@ namespace sprout {
 		return sprout::sub_copy(arr, first, sprout::size(arr));
 	}
 	template<typename Container>
-	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type sub_copy(
+	inline SPROUT_CONSTEXPR typename std::enable_if<sprout::is_sub_array<Container>::value, sprout::sub_array<typename Container::internal_type> >::type
+	sub_copy(
 		Container const& arr
 		)
 	{

@@ -8,7 +8,8 @@ namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
 	// 7.21.4.4  strncmp ä÷êî
-	inline SPROUT_CONSTEXPR int strncmp(char const* s1, char const* s2, std::size_t n) {
+	inline SPROUT_CONSTEXPR int
+	strncmp(char const* s1, char const* s2, std::size_t n) {
 		return !n || (!*s1 && !*s2) ? 0
 			: !*s1 ? -1
 			: !*s2 ? 1

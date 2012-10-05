@@ -9,7 +9,8 @@ namespace sprout {
 
 	namespace detail {
 		template<typename T>
-		inline SPROUT_CONSTEXPR T complex_norm(sprout::complex<T> const& x) {
+		inline SPROUT_CONSTEXPR T
+		complex_norm(sprout::complex<T> const& x) {
 			return x.real() * x.real() + x.imag() * x.imag();
 		}
 	}	// namespace detail
@@ -47,59 +48,59 @@ namespace sprout {
 		void imag(T im) {
 			im_ = im;
 		}
-		complex<T>& operator=(T const& rhs) {
+		complex& operator=(T const& rhs) {
 			re_ = rhs;
 			im_ = T();
 			return *this;
 		}
-		complex<T>& operator+=(T const& rhs) {
+		complex& operator+=(T const& rhs) {
 			re_ += rhs;
 			return *this;
 		}
-		complex<T>& operator-=(T const& rhs) {
+		complex& operator-=(T const& rhs) {
 			re_ -= rhs;
 			return *this;
 		}
-		complex<T>& operator*=(T const& rhs) {
+		complex& operator*=(T const& rhs) {
 			re_ *= rhs;
 			im_ *= rhs;
 			return *this;
 		}
-		complex<T>& operator/=(T const& rhs) {
+		complex& operator/=(T const& rhs) {
 			re_ /= rhs;
 			im_ /= rhs;
 			return *this;
 		}
 		complex& operator=(complex const&) = default;
 		template<typename X>
-		complex<T>& operator=(complex<X> const& rhs) {
+		complex& operator=(complex<X> const& rhs) {
 			re_ = rhs.real();
 			im_ = rhs.imag();
 			return *this;
 		}
 		template<typename X>
-		complex<T>& operator+=(complex<X> const& rhs) {
+		complex& operator+=(complex<X> const& rhs) {
 			re_ += rhs.real();
 			im_ += rhs.imag();
 			return *this;
 		}
 		template<typename X>
-		complex<T>& operator-=(complex<X> const& rhs) {
+		complex& operator-=(complex<X> const& rhs) {
 			re_ -= rhs.real();
 			im_ -= rhs.imag();
 			return *this;
 		}
 		template<typename X>
-		complex<T>& operator*=(complex<X> const& rhs) {
-			return *this = complex<T>(
+		complex& operator*=(complex<X> const& rhs) {
+			return *this = complex(
 				re_ * rhs.real() - im_ * rhs.imag(),
 				re_ * rhs.imag() + im_ * rhs.real()
 				);
 		}
 		template<typename X>
-		complex<T>& operator/=(complex<X> const& rhs) {
+		complex& operator/=(complex<X> const& rhs) {
 			T n = sprout::detail::complex_norm(rhs);
-			return *this = complex<T>(
+			return *this = complex(
 				(re_ * rhs.real() + im_ * rhs.imag()) / n,
 				(im_ * rhs.real() - re_ * rhs.imag()) / n
 				);

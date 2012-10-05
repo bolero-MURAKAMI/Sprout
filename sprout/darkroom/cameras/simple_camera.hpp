@@ -29,13 +29,8 @@ namespace sprout {
 				position_type fixation_point_;
 				unit_type rotate_;
 			private:
-				SPROUT_CONSTEXPR position_type transform_1(
-					position_type const& c,
-					unit_type const& u,
-					unit_type const& v,
-					unit_type const& l
-					) const
-				{
+				SPROUT_CONSTEXPR position_type
+				transform_1(position_type const& c, unit_type const& u, unit_type const& v, unit_type const& l) const {
 					return sprout::darkroom::coords::add(
 						c,
 						position_type(
@@ -45,12 +40,8 @@ namespace sprout {
 							)
 						);
 				}
-				SPROUT_CONSTEXPR position_type transform(
-					position_type const& c,
-					unit_type const& u,
-					unit_type const& v
-					) const
-				{
+				SPROUT_CONSTEXPR position_type
+				transform(position_type const& c, unit_type const& u, unit_type const& v) const {
 					return transform_1(
 						c,
 						u * sprout::cos(rotate_) - v * sprout::sin(rotate_),
@@ -62,11 +53,10 @@ namespace sprout {
 						);
 				}
 				template<typename Unit2D>
-				SPROUT_CONSTEXPR position_type reference_width(
-					Unit2D const& x,
-					Unit2D const& y,
-					Unit2D const& width,
-					Unit2D const& height,
+				SPROUT_CONSTEXPR position_type
+				reference_width(
+					Unit2D const& x, Unit2D const& y,
+					Unit2D const& width, Unit2D const& height,
 					unit_type const& rate
 					) const
 				{
@@ -80,11 +70,10 @@ namespace sprout {
 						);
 				}
 				template<typename Unit2D>
-				SPROUT_CONSTEXPR position_type reference_height(
-					Unit2D const& x,
-					Unit2D const& y,
-					Unit2D const& width,
-					Unit2D const& height,
+				SPROUT_CONSTEXPR position_type
+				reference_height(
+					Unit2D const& x, Unit2D const& y,
+					Unit2D const& width, Unit2D const& height,
 					unit_type const& rate
 					) const
 				{
@@ -112,13 +101,8 @@ namespace sprout {
 					, rotate_(rotate)
 				{}
 				template<typename Unit2D>
-				SPROUT_CONSTEXPR ray_type operator()(
-					Unit2D const& x,
-					Unit2D const& y,
-					Unit2D const& width,
-					Unit2D const& height
-					) const
-				{
+				SPROUT_CONSTEXPR ray_type
+				operator()(Unit2D const& x, Unit2D const& y, Unit2D const& width, Unit2D const& height) const {
 					return ray_type(
 						position_,
 						sprout::darkroom::coords::normalize(

@@ -16,19 +16,13 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_literal_type<RandomAccessIterator>::value,
 			RandomAccessIterator
-		>::type prev_impl(
-			RandomAccessIterator const& it,
-			std::random_access_iterator_tag*
-			)
-		{
+		>::type
+		prev_impl(RandomAccessIterator const& it, std::random_access_iterator_tag*) {
 			return it - 1;
 		}
 		template<typename BidirectionalIterator>
-		inline SPROUT_CONSTEXPR BidirectionalIterator prev_impl(
-			BidirectionalIterator const& it,
-			void*
-			)
-		{
+		inline SPROUT_CONSTEXPR BidirectionalIterator
+		prev_impl(BidirectionalIterator const& it, void*) {
 			return std::prev(it);
 		}
 
@@ -36,18 +30,18 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_literal_type<RandomAccessIterator>::value,
 			RandomAccessIterator
-		>::type prev_impl(
-			RandomAccessIterator const& it,
-			typename std::iterator_traits<RandomAccessIterator>::difference_type n,
+		>::type
+		prev_impl(
+			RandomAccessIterator const& it, typename std::iterator_traits<RandomAccessIterator>::difference_type n,
 			std::random_access_iterator_tag*
 			)
 		{
 			return it - n;
 		}
 		template<typename BidirectionalIterator>
-		inline SPROUT_CONSTEXPR BidirectionalIterator prev_impl(
-			BidirectionalIterator const& it,
-			typename std::iterator_traits<BidirectionalIterator>::difference_type n,
+		inline SPROUT_CONSTEXPR BidirectionalIterator
+		prev_impl(
+			BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n,
 			void*
 			)
 		{

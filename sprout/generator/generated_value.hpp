@@ -171,7 +171,7 @@ namespace sprout_generator_detail {
 	>
 	inline SPROUT_CONSTEXPR typename sprout_generator_detail::generated_value_result<T>::type
 	generated_value_impl(T&& t)
-		SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_generated_value<T>::value))
+	SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_generated_value<T>::value))
 	{
 		return generated_value(sprout::forward<T>(t));
 	}
@@ -181,7 +181,7 @@ namespace sprout_generator_detail {
 	>
 	inline SPROUT_CONSTEXPR typename sprout_generator_detail::generated_value_result<T>::type
 	generated_value_impl(T&& t)
-		SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_generated_value<T>::value))
+	SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_generated_value<T>::value))
 	{
 		return sprout::forward<T>(t).generated_value();
 	}
@@ -191,7 +191,7 @@ namespace sprout_generator_detail {
 	>
 	inline SPROUT_CONSTEXPR typename sprout_generator_detail::generated_value_result<T>::type
 	generated_value_impl(T&& t)
-		SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_generated_value<T>::value))
+	SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_generated_value<T>::value))
 	{
 		return get<0>(sprout::forward<T>(t));
 	}
@@ -205,7 +205,7 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR typename sprout_generator_detail::generated_value_result<T>::type
 		generated_value(T&& t)
-			SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_generated_value<T>::value))
+		SPROUT_NOEXCEPT_EXPR((sprout_generator_detail::noexcept_generated_value<T>::value))
 		{
 			return sprout_generator_detail::generated_value_impl(sprout::forward<T>(t));
 		}

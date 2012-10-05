@@ -34,7 +34,8 @@ namespace sprout {
 				sprout::detail::div_t_traits<T>::offsetof_quot == 0
 			>::type = sprout::enabler
 		>
-		inline SPROUT_CONSTEXPR typename sprout::detail::div_t_traits<T>::type div_impl(T const& numer, T const& denom) {
+		inline SPROUT_CONSTEXPR typename sprout::detail::div_t_traits<T>::type
+		div_impl(T const& numer, T const& denom) {
 			return {numer / denom, numer % denom};
 		}
 
@@ -44,29 +45,35 @@ namespace sprout {
 				sprout::detail::div_t_traits<T>::offsetof_rem == 0
 			>::type = sprout::enabler
 		>
-		inline SPROUT_CONSTEXPR typename sprout::detail::div_t_traits<T>::type div_impl(T const &numer, T const& denom) {
+		inline SPROUT_CONSTEXPR typename sprout::detail::div_t_traits<T>::type
+		div_impl(T const &numer, T const& denom) {
 			return {numer % denom, numer / denom};
 		}
 	}	// namespace detail
 
 	// 7.20.6.2  divÅCldivÅCãyÇ— lldiv ä÷êî
-	inline SPROUT_CONSTEXPR std::div_t div(int numer, int denom) {
+	inline SPROUT_CONSTEXPR std::div_t
+	div(int numer, int denom) {
 		return sprout::detail::div_impl(numer, denom);
 	}
 
-	inline SPROUT_CONSTEXPR std::ldiv_t ldiv(long numer, long denom) {
+	inline SPROUT_CONSTEXPR std::ldiv_t
+	ldiv(long numer, long denom) {
 		return sprout::detail::div_impl(numer, denom);
 	}
 
-	inline SPROUT_CONSTEXPR std::lldiv_t lldiv(long long numer, long long denom) {
+	inline SPROUT_CONSTEXPR std::lldiv_t
+	lldiv(long long numer, long long denom) {
 		return sprout::detail::div_impl(numer, denom);
 	}
 
-	inline SPROUT_CONSTEXPR std::ldiv_t div(long numer, long denom) {
+	inline SPROUT_CONSTEXPR std::ldiv_t
+	div(long numer, long denom) {
 		return sprout::ldiv(numer, denom);
 	}
 
-	inline SPROUT_CONSTEXPR std::lldiv_t div(long long numer, long long denom) {
+	inline SPROUT_CONSTEXPR std::lldiv_t
+	div(long long numer, long long denom) {
 		return sprout::lldiv(numer, denom);
 	}
 }	// namespace sprout

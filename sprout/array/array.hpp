@@ -63,7 +63,9 @@ namespace sprout {
 		SPROUT_CONSTEXPR array fill(const_reference value) const {
 			return sprout::detail::array_fill_impl<array>(value, sprout::index_n<0, N>::make());
 		}
-		void swap(array<T, N>& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>()))) {
+		void swap(array<T, N>& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())))
+		{
 			std::swap_ranges(other.begin(), other.end(), begin());
 		}
 		// iterators:
@@ -208,8 +210,9 @@ namespace sprout {
 	// swap
 	//
 	template<typename T, std::size_t N>
-	inline void swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	inline void
+	swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
 	}

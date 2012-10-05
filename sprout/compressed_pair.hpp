@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/utility/swap.hpp>
 #include <sprout/detail/call_traits.hpp>
 
 namespace sprout {
@@ -37,8 +38,7 @@ namespace sprout {
 		template<typename T1, typename T2, int Version>
 		class compressed_pair_impl;
 		template<typename T1, typename T2>
-		class compressed_pair_impl<T1, T2, 0>
-		{
+		class compressed_pair_impl<T1, T2, 0> {
 		public:
 			typedef T1 first_type;
 			typedef T2 second_type;
@@ -75,10 +75,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return second_;
 			}
-			void swap(compressed_pair_impl& other) {
-				using std::swap;
-				swap(first_, other.first_);
-				swap(second_, other.second_);
+			void swap(compressed_pair_impl& other)
+			SPROUT_NOEXCEPT_EXPR(
+				SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_))
+				)
+			{
+				sprout::swap(first_, other.first_);
+				sprout::swap(second_, other.second_);
 			}
 		};
 		template<typename T1, typename T2>
@@ -120,9 +124,10 @@ namespace sprout {
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return second_;
 			}
-			void swap(compressed_pair_impl& other) {
-				using std::swap;
-				swap(second_, other.second_);
+			void swap(compressed_pair_impl& other)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_)))
+			{
+				sprout::swap(second_, other.second_);
 			}
 		};
 		template<typename T1, typename T2>
@@ -164,9 +169,10 @@ namespace sprout {
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return *this;
 			}
-			void swap(compressed_pair_impl& other) {
-				using std::swap;
-				swap(first_, other.first_);
+			void swap(compressed_pair_impl& other)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_)))
+			{
+				sprout::swap(first_, other.first_);
 			}
 		};
 		template<typename T1, typename T2>
@@ -285,10 +291,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return second_;
 			}
-			void swap(compressed_pair_impl& other) {
-				using std::swap;
-				swap(first_, other.first_);
-				swap(second_, other.second_);
+			void swap(compressed_pair_impl& other)
+			SPROUT_NOEXCEPT_EXPR(
+				SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_))
+				)
+			{
+				sprout::swap(first_, other.first_);
+				sprout::swap(second_, other.second_);
 			}
 		};
 	}	// namespace detail
@@ -299,27 +309,21 @@ namespace sprout {
 	template<typename T1, typename T2>
 	class compressed_pair
 		: private sprout::detail::compressed_pair_impl<
-			T1,
-			T2,
+			T1, T2,
 			sprout::detail::compressed_pair_switch<
-				T1,
-				T2,
+				T1, T2,
 				std::is_same<typename std::remove_cv<T1>::type, typename std::remove_cv<T2>::type>::value,
-				std::is_empty<T1>::value,
-				std::is_empty<T2>::value
+				std::is_empty<T1>::value, std::is_empty<T2>::value
 			>::value
 		>
 	{
 	private:
 		typedef sprout::detail::compressed_pair_impl<
-			T1,
-			T2,
+			T1, T2,
 			sprout::detail::compressed_pair_switch<
-				T1,
-				T2,
+				T1, T2,
 				std::is_same<typename std::remove_cv<T1>::type, typename std::remove_cv<T2>::type>::value,
-				std::is_empty<T1>::value,
-				std::is_empty<T2>::value
+				std::is_empty<T1>::value, std::is_empty<T2>::value
 			>::value
 		> base_type;
 	public:
@@ -363,27 +367,21 @@ namespace sprout {
 	template<typename T>
 	class compressed_pair<T, T>
 		: private sprout::detail::compressed_pair_impl<
-			T,
-			T,
+			T, T,
 			sprout::detail::compressed_pair_switch<
-				T,
-				T,
+				T, T,
 				std::is_same<typename std::remove_cv<T>::type, typename std::remove_cv<T>::type>::value,
-				std::is_empty<T>::value,
-				std::is_empty<T>::value
+				std::is_empty<T>::value, std::is_empty<T>::value
 			>::value
 		>
 	{
 	private:
 		typedef sprout::detail::compressed_pair_impl<
-			T,
-			T,
+			T, T,
 			sprout::detail::compressed_pair_switch<
-				T,
-				T,
+				T, T,
 				std::is_same<typename std::remove_cv<T>::type, typename std::remove_cv<T>::type>::value,
-				std::is_empty<T>::value,
-				std::is_empty<T>::value
+				std::is_empty<T>::value, std::is_empty<T>::value
 			>::value
 		> base_type;
 	public:
@@ -421,8 +419,14 @@ namespace sprout {
 			base_type::swap(other);
 		}
 	};
+	//
+	// swap
+	//
 	template<typename T1, typename T2>
-	inline void swap(sprout::compressed_pair<T1, T2>& lhs, sprout::compressed_pair<T1, T2>& rhs) {
+	inline void
+	swap(sprout::compressed_pair<T1, T2>& lhs, sprout::compressed_pair<T1, T2>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
 		lhs.swap(rhs);
 	}
 }	// namespace sprout

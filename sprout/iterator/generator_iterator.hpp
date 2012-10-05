@@ -8,6 +8,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/generator/functions.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
@@ -69,10 +70,11 @@ namespace sprout {
 		SPROUT_CONSTEXPR generator_iterator next_generator() const {
 			return (*this)();
 		}
-		void swap(generator_iterator& other) {
-			using std::swap;
-			swap(gen_, other.gen_);
-			swap(count_, other.count_);
+		void swap(generator_iterator& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(gen_, other.gen_)))
+		{
+			sprout::swap(gen_, other.gen_);
+			sprout::swap(count_, other.count_);
 		}
 		friend SPROUT_CONSTEXPR bool operator==(generator_iterator const& lhs, generator_iterator const& rhs) {
 			return lhs.count_ == rhs.count_;
@@ -124,10 +126,9 @@ namespace sprout {
 	// swap
 	//
 	template<typename Generator>
-	void swap(
-		sprout::generator_iterator<Generator>& lhs,
-		sprout::generator_iterator<Generator>& rhs
-		)
+	inline void
+	swap(sprout::generator_iterator<Generator>& lhs, sprout::generator_iterator<Generator>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
 	}
@@ -137,11 +138,7 @@ namespace sprout {
 	//
 	template<typename Generator>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::generator_iterator<Generator> >::difference_type
-	iterator_distance(
-		sprout::generator_iterator<Generator> first,
-		sprout::generator_iterator<Generator> last
-		)
-	{
+	iterator_distance(sprout::generator_iterator<Generator> first, sprout::generator_iterator<Generator> last) {
 		return last - first;
 	}
 
@@ -149,10 +146,8 @@ namespace sprout {
 	// iterator_next
 	//
 	template<typename Generator>
-	SPROUT_CONSTEXPR sprout::generator_iterator<Generator> iterator_next(
-		sprout::generator_iterator<Generator> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::generator_iterator<Generator>
+	iterator_next(sprout::generator_iterator<Generator> const& it) {
 		return it.next();
 	}
 }	// namespace sprout

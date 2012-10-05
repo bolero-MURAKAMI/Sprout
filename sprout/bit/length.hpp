@@ -34,7 +34,8 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t shift_bits = next_size * CHAR_BIT;
 		private:
 			template <typename IntType>
-			SPROUT_CONSTEXPR IntType impl(IntType x, unsigned char i) const {
+			SPROUT_CONSTEXPR IntType
+			impl(IntType x, unsigned char i) const {
 				return bit_len_8_table[i]
 					? bit_len_8_table[i] + next_size * CHAR_BIT
 					: sprout::detail::bit_len<next_size>().template operator()(x)
@@ -42,7 +43,8 @@ namespace sprout {
 			}
 		public:
 			template <typename IntType>
-			SPROUT_CONSTEXPR IntType operator()(IntType x) const {
+			SPROUT_CONSTEXPR IntType
+			operator()(IntType x) const {
 				return impl(x, static_cast<unsigned char>((x >> shift_bits) & UCHAR_MAX));
 			}
 		};
@@ -50,7 +52,8 @@ namespace sprout {
 		struct bit_len<1> {
 		public:
 			template<typename IntType>
-			SPROUT_CONSTEXPR IntType operator()(IntType x) const {
+			SPROUT_CONSTEXPR IntType
+			operator()(IntType x) const {
 				return bit_len_8_table[static_cast<unsigned char>(x & UCHAR_MAX)];
 			}
 		};
@@ -62,7 +65,8 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR typename std::enable_if<
 		std::is_integral<IntType>::value,
 		IntType
-	>::type bit_length(IntType x) {
+	>::type
+	bit_length(IntType x) {
 		return sprout::detail::bit_len<sizeof(IntType)>().template operator()(x);
 	}
 }	// namespace sprout

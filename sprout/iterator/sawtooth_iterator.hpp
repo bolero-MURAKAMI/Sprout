@@ -10,6 +10,7 @@
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/numeric/dft/fixed/sawtooth.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
@@ -136,77 +137,52 @@ namespace sprout {
 		SPROUT_CONSTEXPR sawtooth_iterator prev() const {
 			return sawtooth_iterator(*this, index_ - 1);
 		}
-		void swap(sawtooth_iterator& other) {
-			using std::swap;
-			swap(index_, other.index_);
-			swap(frequency_, other.frequency_);
-			swap(amplitude_, other.amplitude_);
-			swap(phase_, other.phase_);
+		void swap(sawtooth_iterator& other) SPROUT_NOEXCEPT {
+			sprout::swap(index_, other.index_);
+			sprout::swap(frequency_, other.frequency_);
+			sprout::swap(amplitude_, other.amplitude_);
+			sprout::swap(phase_, other.phase_);
 		}
 	};
 
 	template<typename Value1, typename Value2>
-	inline SPROUT_CONSTEXPR bool operator==(
-		sprout::sawtooth_iterator<Value1> const& lhs,
-		sprout::sawtooth_iterator<Value2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::sawtooth_iterator<Value1> const& lhs, sprout::sawtooth_iterator<Value2> const& rhs) {
 		return lhs.index() == rhs.index();
 	}
 	template<typename Value1, typename Value2>
-	inline SPROUT_CONSTEXPR bool operator!=(
-		sprout::sawtooth_iterator<Value1> const& lhs,
-		sprout::sawtooth_iterator<Value2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::sawtooth_iterator<Value1> const& lhs, sprout::sawtooth_iterator<Value2> const& rhs) {
 		return !(lhs == rhs);
 	}
 	template<typename Value1, typename Value2>
-	inline SPROUT_CONSTEXPR bool operator<(
-		sprout::sawtooth_iterator<Value1> const& lhs,
-		sprout::sawtooth_iterator<Value2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::sawtooth_iterator<Value1> const& lhs, sprout::sawtooth_iterator<Value2> const& rhs) {
 		return lhs.index() < rhs.index();
 	}
 	template<typename Value1, typename Value2>
-	inline SPROUT_CONSTEXPR bool operator>(
-		sprout::sawtooth_iterator<Value1> const& lhs,
-		sprout::sawtooth_iterator<Value2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::sawtooth_iterator<Value1> const& lhs, sprout::sawtooth_iterator<Value2> const& rhs) {
 		return rhs < lhs;
 	}
 	template<typename Value1, typename Value2>
-	inline SPROUT_CONSTEXPR bool operator<=(
-		sprout::sawtooth_iterator<Value1> const& lhs,
-		sprout::sawtooth_iterator<Value2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::sawtooth_iterator<Value1> const& lhs, sprout::sawtooth_iterator<Value2> const& rhs) {
 		return !(rhs < lhs);
 	}
 	template<typename Value1, typename Value2>
-	inline SPROUT_CONSTEXPR bool operator>=(
-		sprout::sawtooth_iterator<Value1> const& lhs,
-		sprout::sawtooth_iterator<Value2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::sawtooth_iterator<Value1> const& lhs, sprout::sawtooth_iterator<Value2> const& rhs) {
 		return !(lhs < rhs);
 	}
 	template<typename Value1, typename Value2>
-	inline SPROUT_CONSTEXPR typename sprout::sawtooth_iterator<Value1>::difference_type operator-(
-		sprout::sawtooth_iterator<Value1> const& lhs,
-		sprout::sawtooth_iterator<Value2> const& rhs
-		)
-	{
+	inline SPROUT_CONSTEXPR typename sprout::sawtooth_iterator<Value1>::difference_type
+	operator-(sprout::sawtooth_iterator<Value1> const& lhs, sprout::sawtooth_iterator<Value2> const& rhs) {
 		return lhs.index() - rhs.index();
 	}
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value> operator+(
-		typename sprout::sawtooth_iterator<Value>::difference_type n,
-		sprout::sawtooth_iterator<Value> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value>
+	operator+(typename sprout::sawtooth_iterator<Value>::difference_type n, sprout::sawtooth_iterator<Value> const& it) {
 		return it + n;
 	}
 
@@ -214,7 +190,10 @@ namespace sprout {
 	// swap
 	//
 	template<typename Value>
-	inline void swap(sprout::sawtooth_iterator<Value>& lhs, sprout::sawtooth_iterator<Value>& rhs) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs))) {
+	inline void
+	swap(sprout::sawtooth_iterator<Value>& lhs, sprout::sawtooth_iterator<Value>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
 		lhs.swap(rhs);
 	}
 
@@ -223,11 +202,7 @@ namespace sprout {
 	//
 	template<typename Value>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::sawtooth_iterator<Value> >::difference_type
-	iterator_distance(
-		sprout::sawtooth_iterator<Value> first,
-		sprout::sawtooth_iterator<Value> last
-		)
-	{
+	iterator_distance(sprout::sawtooth_iterator<Value> first, sprout::sawtooth_iterator<Value> last) {
 		return last - first;
 	}
 
@@ -235,18 +210,13 @@ namespace sprout {
 	// iterator_next
 	//
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value> iterator_next(
-		sprout::sawtooth_iterator<Value> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value>
+	iterator_next(sprout::sawtooth_iterator<Value> const& it) {
 		return it.next();
 	}
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value> iterator_next(
-		sprout::sawtooth_iterator<Value> const& it,
-		typename sprout::sawtooth_iterator<Value>::difference_type n
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value>
+	iterator_next(sprout::sawtooth_iterator<Value> const& it, typename sprout::sawtooth_iterator<Value>::difference_type n) {
 		return it + n;
 	}
 
@@ -254,18 +224,13 @@ namespace sprout {
 	// iterator_prev
 	//
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value> iterator_prev(
-		sprout::sawtooth_iterator<Value> const& it
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value>
+	iterator_prev(sprout::sawtooth_iterator<Value> const& it) {
 		return it.prev();
 	}
 	template<typename Value>
-	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value> iterator_prev(
-		sprout::sawtooth_iterator<Value> const& it,
-		typename sprout::sawtooth_iterator<Value>::difference_type n
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::sawtooth_iterator<Value>
+	iterator_prev(sprout::sawtooth_iterator<Value> const& it, typename sprout::sawtooth_iterator<Value>::difference_type n) {
 		return it - n;
 	}
 }	// namespace sprout

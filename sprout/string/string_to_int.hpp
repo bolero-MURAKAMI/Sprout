@@ -12,13 +12,9 @@
 
 namespace sprout {
 	namespace detail {
-		template<
-			typename IntType,
-			typename Elem,
-			std::size_t N,
-			typename Traits
-		>
-		inline IntType string_to_int_dynamic(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+		template<typename IntType, typename Elem, std::size_t N, typename Traits>
+		inline IntType
+		string_to_int_dynamic(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 			Elem* endptr = nullptr;
 			IntType result = sprout::detail::str_to_int<IntType>(str.c_str(), &endptr, base);
 			*idx = endptr - str.c_str();
@@ -30,25 +26,21 @@ namespace sprout {
 	// string_to_int
 	//
 	template<
-		typename IntType,
-		typename Elem,
-		std::size_t N,
-		typename Traits,
+		typename IntType, typename Elem, std::size_t N, typename Traits,
 		typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR IntType string_to_int(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+	inline SPROUT_CONSTEXPR IntType
+	string_to_int(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 		return !idx ? sprout::detail::str_to_int<IntType>(str.begin(), base)
 			: sprout::detail::string_to_int_dynamic<IntType>(str, idx, base)
 			;
 	}
 	template<
-		typename IntType,
-		typename Elem,
-		std::size_t N,
-		typename Traits,
+		typename IntType, typename Elem, std::size_t N, typename Traits,
 		typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR IntType string_to_int(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+	inline SPROUT_CONSTEXPR IntType
+	string_to_int(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::detail::str_to_int<IntType>(str.begin(), base);
 	}
 
@@ -56,11 +48,13 @@ namespace sprout {
 	// stoi
 	//
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR int stoi(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+	inline SPROUT_CONSTEXPR int
+	stoi(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 		return sprout::string_to_int<int>(str, idx, base);
 	}
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR int stoi(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+	inline SPROUT_CONSTEXPR int
+	stoi(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::string_to_int<int>(str, base);
 	}
 
@@ -68,11 +62,13 @@ namespace sprout {
 	// stol
 	//
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR long stol(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+	inline SPROUT_CONSTEXPR long
+	stol(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 		return sprout::string_to_int<long>(str, idx, base);
 	}
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR long stol(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+	inline SPROUT_CONSTEXPR long
+	stol(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::string_to_int<long>(str, base);
 	}
 
@@ -80,11 +76,13 @@ namespace sprout {
 	// stoul
 	//
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR unsigned long stoul(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+	inline SPROUT_CONSTEXPR unsigned long
+	stoul(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 		return sprout::string_to_int<unsigned long>(str, idx, base);
 	}
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR unsigned long stoul(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+	inline SPROUT_CONSTEXPR unsigned long
+	stoul(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::string_to_int<unsigned long>(str, base);
 	}
 
@@ -92,11 +90,13 @@ namespace sprout {
 	// stoll
 	//
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR long long stoll(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+	inline SPROUT_CONSTEXPR long long
+	stoll(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 		return sprout::string_to_int<long long>(str, idx, base);
 	}
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR long long stoll(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+	inline SPROUT_CONSTEXPR long long
+	stoll(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::string_to_int<long long>(str, base);
 	}
 
@@ -104,11 +104,13 @@ namespace sprout {
 	// stoull
 	//
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR unsigned long long stoull(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+	inline SPROUT_CONSTEXPR unsigned long long
+	stoull(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 		return sprout::string_to_int<unsigned long long>(str, idx, base);
 	}
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR unsigned long long stoull(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+	inline SPROUT_CONSTEXPR unsigned long long
+	stoull(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::string_to_int<unsigned long long>(str, base);
 	}
 
@@ -116,11 +118,13 @@ namespace sprout {
 	// stoimax
 	//
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR std::intmax_t stoimax(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+	inline SPROUT_CONSTEXPR std::intmax_t
+	stoimax(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 		return sprout::string_to_int<std::intmax_t>(str, idx, base);
 	}
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR std::intmax_t stoimax(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+	inline SPROUT_CONSTEXPR std::intmax_t
+	stoimax(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::string_to_int<std::intmax_t>(str, base);
 	}
 
@@ -128,11 +132,13 @@ namespace sprout {
 	// stoumax
 	//
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR std::uintmax_t stoumax(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
+	inline SPROUT_CONSTEXPR std::uintmax_t
+	stoumax(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx, int base = 10) {
 		return sprout::string_to_int<std::uintmax_t>(str, idx, base);
 	}
 	template<typename Elem, std::size_t N, typename Traits>
-	inline SPROUT_CONSTEXPR std::uintmax_t stoumax(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
+	inline SPROUT_CONSTEXPR std::uintmax_t
+	stoumax(sprout::basic_string<Elem, N, Traits> const& str, int base = 10) {
 		return sprout::string_to_int<std::uintmax_t>(str, base);
 	}
 
@@ -140,23 +146,19 @@ namespace sprout {
 	// from_string
 	//
 	template<
-		typename IntType,
-		typename Elem,
-		std::size_t N,
-		typename Traits,
+		typename IntType, typename Elem, std::size_t N, typename Traits,
 		typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR IntType from_string(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx) {
+	inline SPROUT_CONSTEXPR IntType
+	from_string(sprout::basic_string<Elem, N, Traits> const& str, std::size_t* idx) {
 		return sprout::string_to_int<IntType>(str, idx, 0);
 	}
 	template<
-		typename IntType,
-		typename Elem,
-		std::size_t N,
-		typename Traits,
+		typename IntType, typename Elem, std::size_t N, typename Traits,
 		typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR IntType from_string(sprout::basic_string<Elem, N, Traits> const& str) {
+	inline SPROUT_CONSTEXPR IntType
+	from_string(sprout::basic_string<Elem, N, Traits> const& str) {
 		return sprout::string_to_int<IntType>(str, 0);
 	}
 }	// namespace sprout

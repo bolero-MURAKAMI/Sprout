@@ -26,8 +26,7 @@ namespace sprout {
 				struct intersect_list_impl {
 				private:
 					template<typename Objects, typename Ray, typename A, typename B>
-					SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type
-						::template intersection<Ray>::type
+					SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type::template intersection<Ray>::type
 					comp(A const& a, B const& b) const {
 						return sprout::darkroom::intersects::does_intersect(a)
 								&& sprout::darkroom::intersects::does_intersect(b)
@@ -41,8 +40,7 @@ namespace sprout {
 					}
 				public:
 					template<typename Objects, typename Ray>
-					SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type
-						::template intersection<Ray>::type
+					SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type ::template intersection<Ray>::type
 					operator()(Objects const& objs, Ray const& ray) const {
 						return comp<Objects, Ray>(
 							sprout::darkroom::objects::intersect(sprout::darkroom::access::get<N>(objs), ray),
@@ -54,16 +52,14 @@ namespace sprout {
 				struct intersect_list_impl<0> {
 				public:
 					template<typename Objects, typename Ray>
-					SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type
-						::template intersection<Ray>::type
+					SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type::template intersection<Ray>::type
 					operator()(Objects const& objs, Ray const& ray) const {
 						return sprout::darkroom::objects::intersect(sprout::darkroom::access::get<0>(objs), ray);
 					}
 				};
 			}	// namespace detail
 			template<typename Objects, typename Ray>
-			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type
-				::template intersection<Ray>::type
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type::template intersection<Ray>::type
 			intersect_list(Objects const& objs, Ray const& ray) {
 				return sprout::darkroom::objects::detail::intersect_list_impl<
 					sprout::darkroom::access::size<Objects>::value - 1

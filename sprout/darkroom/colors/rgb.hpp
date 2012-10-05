@@ -19,30 +19,34 @@ namespace sprout {
 			// a
 			//
 			template<typename T>
-			inline SPROUT_CONSTEXPR auto r(T&& t)
-				SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<0>(sprout::forward<T>(t))))
-				-> decltype(sprout::darkroom::access::get<0>(sprout::forward<T>(t)))
+			inline SPROUT_CONSTEXPR auto
+			r(T&& t)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<0>(sprout::forward<T>(t))))
+			-> decltype(sprout::darkroom::access::get<0>(sprout::forward<T>(t)))
 			{
 				return sprout::darkroom::access::get<0>(sprout::forward<T>(t));
 			}
 			template<typename T>
-			inline SPROUT_CONSTEXPR auto g(T&& t)
-				SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<1>(sprout::forward<T>(t))))
-				-> decltype(sprout::darkroom::access::get<1>(sprout::forward<T>(t)))
+			inline SPROUT_CONSTEXPR auto
+			g(T&& t)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<1>(sprout::forward<T>(t))))
+			-> decltype(sprout::darkroom::access::get<1>(sprout::forward<T>(t)))
 			{
 				return sprout::darkroom::access::get<1>(sprout::forward<T>(t));
 			}
 			template<typename T>
-			inline SPROUT_CONSTEXPR auto b(T&& t)
-				SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<2>(sprout::forward<T>(t))))
-				-> decltype(sprout::darkroom::access::get<2>(sprout::forward<T>(t)))
+			inline SPROUT_CONSTEXPR auto
+			b(T&& t)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<2>(sprout::forward<T>(t))))
+			-> decltype(sprout::darkroom::access::get<2>(sprout::forward<T>(t)))
 			{
 				return sprout::darkroom::access::get<2>(sprout::forward<T>(t));
 			}
 			template<typename T>
-			inline SPROUT_CONSTEXPR auto a(T&& t)
-				SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<3>(sprout::forward<T>(t))))
-				-> decltype(sprout::darkroom::access::get<3>(sprout::forward<T>(t)))
+			inline SPROUT_CONSTEXPR auto
+			a(T&& t)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<3>(sprout::forward<T>(t))))
+			-> decltype(sprout::darkroom::access::get<3>(sprout::forward<T>(t)))
 			{
 				return sprout::darkroom::access::get<3>(sprout::forward<T>(t));
 			}
@@ -58,7 +62,8 @@ namespace sprout {
 			// mul
 			//
 			template<typename Color, typename Fac>
-			inline SPROUT_CONSTEXPR Color mul(Color const& lhs, Fac const& rhs) {
+			inline SPROUT_CONSTEXPR Color
+			mul(Color const& lhs, Fac const& rhs) {
 				return sprout::tuples::remake<Color>(
 					lhs,
 					sprout::darkroom::colors::r(lhs) * rhs,
@@ -70,7 +75,8 @@ namespace sprout {
 			// add
 			//
 			template<typename Color1, typename Color2>
-			inline SPROUT_CONSTEXPR Color1 add(Color1 const& lhs, Color2 const& rhs) {
+			inline SPROUT_CONSTEXPR Color1
+			add(Color1 const& lhs, Color2 const& rhs) {
 				return sprout::tuples::remake<Color1>(
 					lhs,
 					sprout::darkroom::colors::r(lhs) + sprout::darkroom::colors::r(rhs),
@@ -82,7 +88,8 @@ namespace sprout {
 			// filter
 			//
 			template<typename Color1, typename Color2>
-			inline SPROUT_CONSTEXPR Color1 filter(Color1 const& lhs, Color2 const& rhs) {
+			inline SPROUT_CONSTEXPR Color1
+			filter(Color1 const& lhs, Color2 const& rhs) {
 				return sprout::tuples::remake<Color1>(
 					lhs,
 					sprout::darkroom::colors::r(lhs) * sprout::darkroom::colors::r(rhs),
@@ -95,7 +102,8 @@ namespace sprout {
 			// rgb_f_to_rgb
 			//
 			template<typename RGB, typename RGB_F>
-			inline SPROUT_CONSTEXPR RGB rgb_f_to_rgb(RGB_F const& col) {
+			inline SPROUT_CONSTEXPR RGB
+			rgb_f_to_rgb(RGB_F const& col) {
 				typedef typename sprout::darkroom::access::unit<RGB>::type unit_type;
 				return sprout::tuples::make<RGB>(
 					sprout::darkroom::colors::r(col) < 0 ? std::numeric_limits<unit_type>::min()

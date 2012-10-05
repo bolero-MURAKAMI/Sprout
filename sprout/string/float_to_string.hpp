@@ -33,7 +33,8 @@ namespace sprout {
 		template<typename Elem, typename FloatType, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
 		float_to_string(FloatType val, bool negative, int digits, sprout::index_tuple<Indexes...>) {
-			return negative ? sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>{
+			return negative
+				? sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>{
 					{
 						static_cast<Elem>('-'),
 						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
@@ -62,8 +63,7 @@ namespace sprout {
 	// float_to_string
 	//
 	template<
-		typename Elem,
-		typename FloatType,
+		typename Elem, typename FloatType,
 		typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
@@ -101,7 +101,8 @@ namespace sprout {
 		template<typename Elem, typename FloatType, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>
 		float_to_string_exp(FloatType val, bool negative, int exponent10, int e10_digits, sprout::index_tuple<Indexes...>) {
-			return negative ? sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>{
+			return negative
+				? sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>{
 					{
 						static_cast<Elem>('-'),
 						(Indexes == 0 ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 0))
@@ -140,8 +141,7 @@ namespace sprout {
 	// float_to_string_exp
 	//
 	template<
-		typename Elem,
-		typename FloatType,
+		typename Elem, typename FloatType,
 		typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>
@@ -170,18 +170,6 @@ namespace sprout {
 	//
 	// to_string
 	//
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_float_digits<float>::value>
-//	to_string(float val) {
-//		return sprout::to_string_of<char>(val);
-//	}
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_float_digits<double>::value>
-//	to_string(double val) {
-//		return sprout::to_string_of<char>(val);
-//	}
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_float_digits<long double>::value>
-//	to_string(long double val) {
-//		return sprout::to_string_of<char>(val);
-//	}
 	template<typename FloatType, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
 	inline SPROUT_CONSTEXPR sprout::basic_string<char, sprout::printed_float_digits<FloatType>::value>
 	to_string(FloatType val) {
@@ -191,18 +179,6 @@ namespace sprout {
 	//
 	// to_wstring
 	//
-//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_float_digits<float>::value>
-//	to_wstring(float val) {
-//		return sprout::to_string_of<wchar_t>(val);
-//	}
-//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_float_digits<double>::value>
-//	to_wstring(double val) {
-//		return sprout::to_string_of<wchar_t>(val);
-//	}
-//	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_float_digits<long double>::value>
-//	to_wstring(long double val) {
-//		return sprout::to_string_of<wchar_t>(val);
-//	}
 	template<typename FloatType, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
 	inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, sprout::printed_float_digits<FloatType>::value>
 	to_wstring(FloatType val) {
@@ -212,18 +188,6 @@ namespace sprout {
 	//
 	// to_u16string
 	//
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_float_digits<float>::value>
-//	to_u16string(float val) {
-//		return sprout::to_string_of<char16_t>(val);
-//	}
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_float_digits<double>::value>
-//	to_u16string(double val) {
-//		return sprout::to_string_of<char16_t>(val);
-//	}
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_float_digits<long double>::value>
-//	to_u16string(long double val) {
-//		return sprout::to_string_of<char16_t>(val);
-//	}
 	template<typename FloatType, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
 	inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, sprout::printed_float_digits<FloatType>::value>
 	to_u16string(FloatType val) {
@@ -233,18 +197,6 @@ namespace sprout {
 	//
 	// to_u32string
 	//
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_float_digits<float>::value>
-//	to_u32string(float val) {
-//		return sprout::to_string_of<char32_t>(val);
-//	}
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_float_digits<double>::value>
-//	to_u32string(double val) {
-//		return sprout::to_string_of<char32_t>(val);
-//	}
-//	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_float_digits<long double>::value>
-//	to_u32string(long double val) {
-//		return sprout::to_string_of<char32_t>(val);
-//	}
 	template<typename FloatType, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
 	inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, sprout::printed_float_digits<FloatType>::value>
 	to_u32string(FloatType val) {

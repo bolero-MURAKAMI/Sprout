@@ -7,7 +7,8 @@
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
-	inline SPROUT_CONSTEXPR int wcscoll(wchar_t const* s1, wchar_t const* s2) {
+	inline SPROUT_CONSTEXPR int
+	wcscoll(wchar_t const* s1, wchar_t const* s2) {
 		return sprout::wcscmp(s1, s2);
 	}
 }	// namespace sprout

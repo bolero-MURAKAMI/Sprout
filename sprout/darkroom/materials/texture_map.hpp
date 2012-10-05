@@ -45,22 +45,28 @@ namespace sprout {
 				interpolation_type::values interpolation_value_;
 				texture_map_placement::values placement_value_;
 			private:
-				SPROUT_CONSTEXPR bool is_nearest() const {
+				SPROUT_CONSTEXPR bool
+				is_nearest() const {
 					return interpolation_value_ == interpolation_type::nearest_neighbor;
 				}
-				SPROUT_CONSTEXPR bool is_bilinear() const {
+				SPROUT_CONSTEXPR bool
+				is_bilinear() const {
 					return interpolation_value_ == interpolation_type::bilinear;
 				}
-				SPROUT_CONSTEXPR bool is_bicubic() const {
+				SPROUT_CONSTEXPR bool
+				is_bicubic() const {
 					return interpolation_value_ == interpolation_type::bicubic;
 				}
-				SPROUT_CONSTEXPR bool is_tile() const {
+				SPROUT_CONSTEXPR bool
+				is_tile() const {
 					return placement_value_ == texture_map_placement::tile;
 				}
-				SPROUT_CONSTEXPR bool is_once() const {
+				SPROUT_CONSTEXPR bool
+				is_once() const {
 					return placement_value_ == texture_map_placement::once;
 				}
-				SPROUT_CONSTEXPR result_type get_color(unit_type const& x, unit_type const& y) const {
+				SPROUT_CONSTEXPR result_type
+				get_color(unit_type const& x, unit_type const& y) const {
 					return is_tile()
 						? texture_.get()(
 							x < 0
@@ -78,11 +84,13 @@ namespace sprout {
 						;
 				}
 				template<typename Unit>
-				SPROUT_CONSTEXPR result_type calc_nearest(Unit const& x, Unit const& y) const {
+				SPROUT_CONSTEXPR result_type
+				calc_nearest(Unit const& x, Unit const& y) const {
 					return get_color(x, y);
 				}
 				template<typename Unit>
-				SPROUT_CONSTEXPR result_type calc_bilinear_1(
+				SPROUT_CONSTEXPR result_type
+					calc_bilinear_1(
 					Unit const& x, Unit const& x0,
 					Unit const& y, Unit const& y0
 					) const
@@ -94,24 +102,24 @@ namespace sprout {
 						);
 				}
 				template<typename Unit>
-				SPROUT_CONSTEXPR result_type calc_bilinear(Unit const& x, Unit const& y) const {
+				SPROUT_CONSTEXPR result_type
+				calc_bilinear(Unit const& x, Unit const& y) const {
 					return calc_bilinear_1(
 						x, sprout::floor(x),
 						y, sprout::floor(y)
 						);
 				}
 				template<typename Unit>
-				SPROUT_CONSTEXPR result_type calc(Unit const& x, Unit const& y) const {
+				SPROUT_CONSTEXPR result_type
+				calc(Unit const& x, Unit const& y) const {
 					return is_nearest() ? calc_nearest(x, y)
 						: calc_bilinear(x, y)
 						;
 				}
 			public:
 				explicit SPROUT_CONSTEXPR texture_map(
-					texture_type const& texture,
-					unit_type const& scale = 1,
-					unit_type const& offset_u = 0,
-					unit_type const& offset_v = 0,
+					texture_type const& texture, unit_type const& scale = 1,
+					unit_type const& offset_u = 0, unit_type const& offset_v = 0,
 					result_type const& default_color = result_type(),
 					interpolation_type::values interpolation_value = interpolation_type::nearest_neighbor,
 					texture_map_placement::values placement_value = texture_map_placement::tile
@@ -125,7 +133,8 @@ namespace sprout {
 					, placement_value_(placement_value)
 				{}
 				template<typename Unit>
-				SPROUT_CONSTEXPR result_type operator()(Unit const& u, Unit const& v) const {
+				SPROUT_CONSTEXPR result_type
+				operator()(Unit const& u, Unit const& v) const {
 					return calc(
 						(u - offset_u_ + scale_ / 2) / scale_ * texture_.get().width(),
 						(-(v - offset_v_) + scale_ / 2) / scale_ * texture_.get().height()
@@ -143,10 +152,8 @@ namespace sprout {
 			template<typename Texture, typename Unit>
 			inline SPROUT_CONSTEXPR sprout::darkroom::materials::texture_map<Texture, Unit>
 			make_texture_map(
-				Texture const& texture,
-				Unit const& scale,
-				Unit const& offset_u = 0,
-				Unit const& offset_v = 0,
+				Texture const& texture, Unit const& scale,
+				Unit const& offset_u = 0, Unit const& offset_v = 0,
 				typename sprout::darkroom::materials::texture_map<Texture, Unit>::result_type const& default_color
 					= typename sprout::darkroom::materials::texture_map<Texture, Unit>::result_typ()
 					,

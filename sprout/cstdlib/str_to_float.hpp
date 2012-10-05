@@ -13,7 +13,8 @@
 namespace sprout {
 	namespace detail {
 		template<typename FloatType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR FloatType str_to_float_impl_scale(
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float_impl_scale(
 			CStrIterator str,
 			bool negative,
 			FloatType number = FloatType(),
@@ -38,7 +39,8 @@ namespace sprout {
 				;
 		}
 		template<typename FloatType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR FloatType str_to_float_impl_exponent_2(
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float_impl_exponent_2(
 			CStrIterator str,
 			bool negative,
 			FloatType number = FloatType(),
@@ -63,7 +65,8 @@ namespace sprout {
 				;
 		}
 		template<typename FloatType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR FloatType str_to_float_impl_exponent_1(
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float_impl_exponent_1(
 			CStrIterator str,
 			bool negative,
 			FloatType number = FloatType(),
@@ -95,7 +98,8 @@ namespace sprout {
 				;
 		}
 		template<typename FloatType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR FloatType str_to_float_impl_exponent(
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float_impl_exponent(
 			CStrIterator str,
 			bool negative,
 			FloatType number = FloatType(),
@@ -134,7 +138,8 @@ namespace sprout {
 				;
 		}
 		template<typename FloatType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR FloatType str_to_float_impl_decimal_1(
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float_impl_decimal_1(
 			CStrIterator str,
 			bool negative,
 			FloatType number = FloatType(),
@@ -155,7 +160,8 @@ namespace sprout {
 				;
 		}
 		template<typename FloatType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR FloatType str_to_float_impl_decimal(
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float_impl_decimal(
 			CStrIterator str,
 			bool negative,
 			FloatType number = FloatType(),
@@ -185,7 +191,8 @@ namespace sprout {
 		}
 
 		template<typename FloatType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR FloatType str_to_float_impl(
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float_impl(
 			CStrIterator str,
 			bool negative,
 			FloatType number = FloatType(),
@@ -214,7 +221,8 @@ namespace sprout {
 				;
 		}
 		template<typename FloatType, typename CStrIterator>
-		inline SPROUT_CONSTEXPR FloatType str_to_float(CStrIterator str) {
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float(CStrIterator str) {
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::str_to_float<FloatType>(sprout::next(str))
 				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('-')
@@ -225,7 +233,8 @@ namespace sprout {
 				;
 		}
 		template<typename FloatType, typename CStrIterator, typename CharPtr>
-		inline SPROUT_CONSTEXPR FloatType str_to_float(CStrIterator str, CharPtr* endptr) {
+		inline SPROUT_CONSTEXPR FloatType
+		str_to_float(CStrIterator str, CharPtr* endptr) {
 			return !endptr ? sprout::detail::str_to_float<FloatType>(str)
 				: std::is_same<typename std::remove_cv<FloatType>::type, float>::value ? std::strtof(&*str, endptr)
 				: std::is_same<typename std::remove_cv<FloatType>::type, double>::value ? std::strtod(&*str, endptr)
@@ -238,15 +247,18 @@ namespace sprout {
 	// str_to_float
 	//
 	template<typename FloatType, typename Char, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR FloatType str_to_float(Char const* str, Char** endptr) {
+	inline SPROUT_CONSTEXPR FloatType
+	str_to_float(Char const* str, Char** endptr) {
 		return sprout::detail::str_to_float<FloatType>(str, endptr);
 	}
 	template<typename FloatType, typename Char, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR FloatType str_to_float(Char const* str, std::nullptr_t endptr) {
+	inline SPROUT_CONSTEXPR FloatType
+	str_to_float(Char const* str, std::nullptr_t endptr) {
 		return sprout::detail::str_to_float<FloatType>(str);
 	}
 	template<typename FloatType, typename Char, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR FloatType str_to_float(Char const* str) {
+	inline SPROUT_CONSTEXPR FloatType
+	str_to_float(Char const* str) {
 		return sprout::detail::str_to_float<FloatType>(str);
 	}
 }	// namespace sprout

@@ -8,7 +8,7 @@
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 
-namespace sprout_adl {
+namespace sprout {
 	//
 	// tuple_get
 	//
@@ -27,11 +27,11 @@ namespace sprout_adl {
 	template<std::size_t I, typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type&&
 	tuple_get(sprout::pit<Container>&& t)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::move(sprout::tuples::get<I>(t))))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::move(sprout::tuples::get<I>(t))))
 	{
 		return sprout::move(sprout::tuples::get<I>(t));
 	}
-}	// namespace sprout_adl
+}	// namespace sprout
 
 namespace std {
 	//

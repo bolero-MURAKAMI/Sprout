@@ -23,18 +23,21 @@ namespace sprout {
 				lights_type lights_;
 			private:
 				template<typename Color>
-				SPROUT_CONSTEXPR color_type shade_2(Color const& col) const {
+				SPROUT_CONSTEXPR color_type
+				shade_2(Color const& col) const {
 					return col;
 				}
 				template<typename Color1, typename Color2, typename... Tail>
-				SPROUT_CONSTEXPR color_type shade_2(Color1 const& col1, Color2 const& col2, Tail const&... tail) const {
+				SPROUT_CONSTEXPR color_type
+				shade_2(Color1 const& col1, Color2 const& col2, Tail const&... tail) const {
 					return shade_2(
 						sprout::darkroom::colors::add(col1, col2),
 						tail...
 						);
 				}
 				template<typename Intersection, typename Objects, sprout::index_t... Indexes>
-				SPROUT_CONSTEXPR color_type shade_1(
+				SPROUT_CONSTEXPR color_type
+					shade_1(
 					Intersection const& inter, Objects const& objs,
 					sprout::index_tuple<Indexes...>
 					) const
@@ -46,7 +49,8 @@ namespace sprout {
 					: lights_(lights...)
 				{}
 				template<typename Intersection, typename Objects>
-				SPROUT_CONSTEXPR color_type operator()(Intersection const& inter, Objects const& objs) const {
+				SPROUT_CONSTEXPR color_type
+				operator()(Intersection const& inter, Objects const& objs) const {
 					return shade_1(inter, objs, sprout::index_range<0, sizeof...(Lights)>::make());
 				}
 			};

@@ -10,15 +10,18 @@ namespace sprout {
 	// strtold
 	//
 	template<typename Char>
-	inline SPROUT_CONSTEXPR long double strtold(Char const* str, Char** endptr){
+	inline SPROUT_CONSTEXPR long double
+	strtold(Char const* str, Char** endptr) {
 		return sprout::str_to_float<long double>(str, endptr);
 	}
 	template<typename Char>
-	inline SPROUT_CONSTEXPR long double strtold(Char const* str, std::nullptr_t endptr){
+	inline SPROUT_CONSTEXPR long double
+	strtold(Char const* str, std::nullptr_t endptr) {
 		return sprout::str_to_float<long double>(str);
 	}
 	template<typename Char>
-	inline SPROUT_CONSTEXPR long double strtold(Char const* str){
+	inline SPROUT_CONSTEXPR long double
+	strtold(Char const* str) {
 		return sprout::str_to_float<long double>(str);
 	}
 }	// namespace sprout

@@ -31,7 +31,8 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t shift_bits = next_size * CHAR_BIT;
 		public:
 			template <typename IntType>
-			SPROUT_CONSTEXPR IntType operator()(IntType x) const {
+			SPROUT_CONSTEXPR IntType
+			operator()(IntType x) const {
 				return (sprout::detail::bit_rev<next_size>().template operator()(x) << shift_bits)
 					| (sprout::detail::bit_rev<next_size>().template operator()(x >> shift_bits))
 					;
@@ -41,7 +42,8 @@ namespace sprout {
 		struct bit_rev<1> {
 		public:
 			template<typename IntType>
-			SPROUT_CONSTEXPR IntType operator()(IntType x) const {
+			SPROUT_CONSTEXPR IntType
+			operator()(IntType x) const {
 				return sprout::detail::bit_rev_8_table[static_cast<unsigned char>(x & UCHAR_MAX)];
 			}
 		};
@@ -53,7 +55,8 @@ namespace sprout {
 	SPROUT_CONSTEXPR typename std::enable_if<
 		std::is_integral<IntType>::value,
 		IntType
-	>::type bit_reverse(IntType x) {
+	>::type
+	bit_reverse(IntType x) {
 		typedef typename std::make_unsigned<IntType>::type unsigned_type;
 		return static_cast<IntType>(
 			sprout::detail::bit_rev<sizeof(IntType)>().template operator()<unsigned_type>(x)
@@ -66,7 +69,8 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR typename std::enable_if<
 		std::is_integral<IntType>::value,
 		IntType
-	>::type bit_reverse_in(IntType x, std::size_t length) {
+	>::type
+	bit_reverse_in(IntType x, std::size_t length) {
 		typedef typename std::make_unsigned<IntType>::type unsigned_type;
 		return length <= sizeof(IntType) * CHAR_BIT
 			? static_cast<IntType>(
