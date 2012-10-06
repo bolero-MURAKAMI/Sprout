@@ -15,11 +15,7 @@ namespace sprout {
 			//
 			template<typename Input, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			dft(
-				Input const& input,
-				Result const& result
-				)
-			{
+			dft(Input const& input, Result const& result) {
 				return sprout::fixed::dft(sprout::begin(input), sprout::end(input), result);
 			}
 		}	// namespace fixed

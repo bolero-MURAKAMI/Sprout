@@ -261,7 +261,8 @@ namespace sprout {
 	// mem_fn
 	//
 	template<typename T, typename Class>
-	inline SPROUT_CONSTEXPR sprout::mem_fn_adaptor<T Class::*> mem_fn(T Class::* pm) {
+	inline SPROUT_CONSTEXPR sprout::mem_fn_adaptor<T Class::*>
+	mem_fn(T Class::* pm) {
 		return sprout::mem_fn_adaptor<T Class::*>(pm);
 	}
 }	// namespace sprout

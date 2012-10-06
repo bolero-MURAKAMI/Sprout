@@ -29,28 +29,17 @@ namespace sprout {
 		// set
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::set<Container, T>::type set(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator pos,
-			T const& v
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::set<Container, T>::type
+		set(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos, T const& v) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::set(cont, pos, v)),
 				sprout::internal_begin_offset(cont),
 				sprout::internal_end_offset(cont)
 				);
 		}
-		//
-		// set
-		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::set<Container, T>::type set(
-			Container const& cont,
-			typename sprout::container_traits<Container>::difference_type pos,
-			T const& v
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::set<Container, T>::type
+		set(Container const& cont, typename sprout::container_traits<Container>::difference_type pos, T const& v) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::set(cont, pos, v)),
 				sprout::internal_begin_offset(cont),

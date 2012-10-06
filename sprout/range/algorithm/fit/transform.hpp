@@ -14,26 +14,13 @@ namespace sprout {
 			// transform
 			//
 			template<typename Input, typename Result, typename UnaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type transform(
-				Input const& input,
-				Result const& result,
-				UnaryOperation op
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			transform(Input const& input, Result const& result, UnaryOperation op) {
 				return sprout::fit::transform(sprout::begin(input), sprout::end(input), result, op);
 			}
-
-			//
-			// transform
-			//
 			template<typename Input1, typename Input2, typename Result, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type transform(
-				Input1 const& input1,
-				Input2 const& input2,
-				Result const& result,
-				BinaryOperation op
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			transform(Input1 const& input1, Input2 const& input2, Result const& result, BinaryOperation op) {
 				return sprout::fit::transform(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), result, op);
 			}
 		}	// namespace fit

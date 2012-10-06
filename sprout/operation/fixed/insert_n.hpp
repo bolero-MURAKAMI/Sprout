@@ -31,22 +31,21 @@ namespace sprout {
 
 		namespace detail {
 			template<std::size_t N, typename Result, typename Container, typename T, typename... Values, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR Result insert_n_impl(
-				Container const& cont,
-				sprout::index_tuple<Indexes...>,
-				typename sprout::container_traits<Container>::difference_type pos,
-				T const& v,
-				Values const&... values
+			inline SPROUT_CONSTEXPR Result
+			insert_n_impl(
+				Container const& cont, sprout::index_tuple<Indexes...>,
+				typename sprout::container_traits<Container>::difference_type pos, T const& v, Values const&... values
 				)
 			{
 				return sprout::remake<Result>(
 					cont,
 					sprout::size(cont) + (1 + sizeof...(Values)) * N,
 					(Indexes < sprout::container_traits<Container>::static_size + (1 + sizeof...(Values)) * N
-						? (Indexes < pos
-							? *(sprout::internal_begin(cont) + Indexes)
+						? (Indexes < pos ? *(sprout::internal_begin(cont) + Indexes)
 							: Indexes < pos + (1 + sizeof...(Values)) * N
-							? sprout::detail::param_at<typename sprout::container_traits<Result>::value_type>((Indexes - pos) % (1 + sizeof...(Values)), v, values...)
+								? sprout::detail::param_at<typename sprout::container_traits<Result>::value_type>(
+									(Indexes - pos) % (1 + sizeof...(Values)), v, values...
+									)
 							: *sprout::next(sprout::internal_begin(cont), Indexes - (1 + sizeof...(Values)) * N)
 							)
 						: typename sprout::container_traits<Result>::value_type()
@@ -58,16 +57,18 @@ namespace sprout {
 		// insert_n
 		//
 		template<std::size_t N, typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type insert_n(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator pos,
-			T const& v,
-			Values const&... values
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type
+		insert_n(
+			Container const& cont, typename sprout::container_traits<Container>::const_iterator pos,
+			T const& v, Values const&... values
 			)
 		{
 			return sprout::fixed::detail::insert_n_impl<N, typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type>::static_size
+					>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), pos),
 				v,
 				values...
@@ -77,16 +78,18 @@ namespace sprout {
 		// insert_n
 		//
 		template<std::size_t N, typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type insert_n(
-			Container const& cont,
-			typename sprout::container_traits<Container>::difference_type pos,
-			T const& v,
-			Values const&... values
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type
+		insert_n(
+			Container const& cont, typename sprout::container_traits<Container>::difference_type pos,
+			T const& v, Values const&... values
 			)
 		{
 			return sprout::fixed::detail::insert_n_impl<N, typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::insert_n<N, Container, T, Values...>::type>::static_size
+					>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				v,
 				values...

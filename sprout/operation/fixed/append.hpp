@@ -27,9 +27,9 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, typename Input, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR Result append_impl(
-				Container const& cont,
-				sprout::index_tuple<Indexes...>,
+			inline SPROUT_CONSTEXPR Result
+			append_impl(
+				Container const& cont, sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Container>::difference_type pos,
 				typename sprout::container_traits<Container>::difference_type size,
 				Input const& input
@@ -54,33 +54,36 @@ namespace sprout {
 		// append
 		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append<Container, Input>::type append(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator pos,
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append<Container, Input>::type
+		append(
+			Container const& cont, typename sprout::container_traits<Container>::const_iterator pos,
 			Input const& input
 			)
 		{
 			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append<Container, Input>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size
+					>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), pos),
 				sprout::size(input),
 				input
 				);
 		}
-		//
-		// append
-		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append<Container, Input>::type append(
-			Container const& cont,
-			typename sprout::container_traits<Container>::difference_type pos,
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append<Container, Input>::type
+		append(
+			Container const& cont, typename sprout::container_traits<Container>::difference_type pos,
 			Input const& input
 			)
 		{
 			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append<Container, Input>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size
+					>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				sprout::size(input),
 				input

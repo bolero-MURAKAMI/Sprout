@@ -68,22 +68,26 @@ namespace sprout {
 	};
 
 	template<typename Ret, typename T>
-	inline SPROUT_CONSTEXPR sprout::mem_fun_ref_t<Ret, T> mem_fun_ref(Ret (T::*f)()) {
+	inline SPROUT_CONSTEXPR sprout::mem_fun_ref_t<Ret, T>
+	mem_fun_ref(Ret (T::*f)()) {
 		return sprout::mem_fun_ref_t<Ret, T>(f);
 	}
 
 	template<typename Ret, typename T>
-	inline SPROUT_CONSTEXPR sprout::const_mem_fun_ref_t<Ret, T> mem_fun_ref(Ret (T::*f)() const) {
+	inline SPROUT_CONSTEXPR sprout::const_mem_fun_ref_t<Ret, T>
+	mem_fun_ref(Ret (T::*f)() const) {
 		return sprout::const_mem_fun_ref_t<Ret, T>(f);
 	}
 
 	template<typename Ret, typename T, typename Arg>
-	inline SPROUT_CONSTEXPR sprout::mem_fun1_ref_t<Ret, T, Arg> mem_fun_ref(Ret (T::*f)(Arg)) {
+	inline SPROUT_CONSTEXPR sprout::mem_fun1_ref_t<Ret, T, Arg>
+	mem_fun_ref(Ret (T::*f)(Arg)) {
 		return sprout::mem_fun1_ref_t<Ret, T, Arg>(f);
 	}
 
 	template<typename Ret, typename T, typename Arg>
-	inline SPROUT_CONSTEXPR sprout::const_mem_fun1_ref_t<Ret, T, Arg> mem_fun_ref(Ret (T::*f)(Arg) const) {
+	inline SPROUT_CONSTEXPR sprout::const_mem_fun1_ref_t<Ret, T, Arg>
+	mem_fun_ref(Ret (T::*f)(Arg) const) {
 		return sprout::const_mem_fun1_ref_t<Ret, T, Arg>(f);
 	}
 }	// namespace sprout

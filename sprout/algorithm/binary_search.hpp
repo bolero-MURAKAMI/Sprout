@@ -10,7 +10,8 @@ namespace sprout {
 
 	// 25.4.3.4 binary_search
 	template<typename ForwardIterator, typename T>
-	inline SPROUT_CONSTEXPR bool binary_search(ForwardIterator first, ForwardIterator last, T const& value) {
+	inline SPROUT_CONSTEXPR bool
+	binary_search(ForwardIterator first, ForwardIterator last, T const& value) {
 		return first == last ? false
 			: sprout::next(first) == last ? !(*first < value) && !(value < *first) ? true : false
 			: *sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2) < value
@@ -22,7 +23,8 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator, typename T, typename Compare>
-	inline SPROUT_CONSTEXPR bool binary_search(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
+	inline SPROUT_CONSTEXPR bool
+	binary_search(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
 		return first == last ? false
 			: sprout::next(first) == last ? !comp(*first, value) && !comp(value, *first) ? true : false
 			: comp(*sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value)

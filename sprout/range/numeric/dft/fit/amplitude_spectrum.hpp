@@ -14,11 +14,8 @@ namespace sprout {
 			// amplitude_spectrum
 			//
 			template<typename Input, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type amplitude_spectrum(
-				Input const& input,
-				Result const& result
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			amplitude_spectrum(Input const& input, Result const& result) {
 				return sprout::fit::amplitude_spectrum(sprout::begin(input), sprout::end(input), result);
 			}
 		}	// namespace fit

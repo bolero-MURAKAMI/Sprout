@@ -24,7 +24,8 @@ namespace sprout {
 	};
 
 	template<typename Predicate>
-	inline SPROUT_CONSTEXPR sprout::binary_negate<Predicate> not2(Predicate const& pred) {
+	inline SPROUT_CONSTEXPR sprout::binary_negate<Predicate>
+	not2(Predicate const& pred) {
 		return sprout::binary_negate<Predicate>(pred);
 	}
 }	// namespace sprout

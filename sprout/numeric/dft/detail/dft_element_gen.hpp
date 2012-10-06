@@ -11,13 +11,15 @@
 namespace sprout {
 	namespace detail {
 		template<typename InputIterator>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type dft_element_gen(
-			InputIterator first,
-			InputIterator last,
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type
+		dft_element_gen(
+			InputIterator first, InputIterator last,
 			typename std::iterator_traits<InputIterator>::value_type::value_type arg,
 			typename std::iterator_traits<InputIterator>::difference_type k = 0,
-			typename std::iterator_traits<InputIterator>::value_type value = typename std::iterator_traits<InputIterator>::value_type(),
-			typename std::iterator_traits<InputIterator>::value_type::value_type theta = typename std::iterator_traits<InputIterator>::value_type::value_type()
+			typename std::iterator_traits<InputIterator>::value_type value
+				= typename std::iterator_traits<InputIterator>::value_type(),
+			typename std::iterator_traits<InputIterator>::value_type::value_type theta
+				= typename std::iterator_traits<InputIterator>::value_type::value_type()
 			)
 		{
 			typedef typename std::iterator_traits<InputIterator>::value_type value_type;

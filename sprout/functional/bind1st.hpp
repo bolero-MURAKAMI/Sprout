@@ -26,7 +26,8 @@ namespace sprout {
 
 	// D.9.2 bind1st
 	template<typename Fn, typename T>
-	inline SPROUT_CONSTEXPR sprout::binder1st<Fn> bind1st(Fn const& fn, T const& x) {
+	inline SPROUT_CONSTEXPR sprout::binder1st<Fn>
+	bind1st(Fn const& fn, T const& x) {
 		return sprout::binder1st<Fn>(fn, typename Fn::first_argument_type(x));
 	}
 }	// namespace sprout

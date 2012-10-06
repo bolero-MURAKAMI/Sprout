@@ -9,7 +9,8 @@ namespace sprout {
 
 	// 25.2.1 All of
 	template<typename InputIterator, typename Predicate>
-	inline SPROUT_CONSTEXPR bool all_of(InputIterator first, InputIterator last, Predicate pred) {
+	inline SPROUT_CONSTEXPR bool
+	all_of(InputIterator first, InputIterator last, Predicate pred) {
 		return first == last ? true
 			: pred(*first) == true && sprout::all_of(sprout::next(first), last, pred)
 			;

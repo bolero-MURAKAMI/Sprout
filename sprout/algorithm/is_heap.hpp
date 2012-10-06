@@ -9,12 +9,14 @@ namespace sprout {
 
 	// 25.4.6.5 is_heap
 	template<typename RandomAccessIterator>
-	inline SPROUT_CONSTEXPR bool is_heap(RandomAccessIterator first, RandomAccessIterator last) {
+	inline SPROUT_CONSTEXPR bool
+	is_heap(RandomAccessIterator first, RandomAccessIterator last) {
 		return sprout::is_heap_until(first, last) == last;
 	}
 
 	template<typename RandomAccessIterator, typename Compare>
-	inline SPROUT_CONSTEXPR bool is_heap(RandomAccessIterator first, RandomAccessIterator last, Compare comp) {
+	inline SPROUT_CONSTEXPR bool
+	is_heap(RandomAccessIterator first, RandomAccessIterator last, Compare comp) {
 		return sprout::is_heap_until(first, last, comp) == last;
 	}
 }	// namespace sprout

@@ -21,12 +21,8 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Tuple, typename... Args, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR Result push_front_impl(
-				Tuple const& t,
-				sprout::index_tuple<Indexes...>,
-				Args const&... args
-				)
-			{
+			inline SPROUT_CONSTEXPR Result
+			push_front_impl(Tuple const& t, sprout::index_tuple<Indexes...>, Args const&... args) {
 				return sprout::tuples::remake<Result>(
 					t,
 					args...,
@@ -38,11 +34,8 @@ namespace sprout {
 		// push_front
 		//
 		template<typename Tuple, typename... Args>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::push_front<Tuple, Args...>::type push_front(
-			Tuple const& t,
-			Args const&... args
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::push_front<Tuple, Args...>::type
+		push_front(Tuple const& t, Args const&... args) {
 			return sprout::tuples::detail::push_front_impl<typename sprout::tuples::result_of::push_front<Tuple, Args...>::type>(
 				t,
 				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make(),

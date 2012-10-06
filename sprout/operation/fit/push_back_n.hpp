@@ -28,12 +28,8 @@ namespace sprout {
 		// push_back_n
 		//
 		template<std::size_t N, typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::push_back_n<N, Container, T, Values...>::type push_back_n(
-			Container const& cont,
-			T const& v,
-			Values const&... values
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::push_back_n<N, Container, T, Values...>::type
+		push_back_n(Container const& cont, T const& v, Values const&... values) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::push_back_n<N>(cont, v, values...)),
 				sprout::internal_begin_offset(cont),

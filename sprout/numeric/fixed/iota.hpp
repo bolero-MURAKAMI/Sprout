@@ -12,9 +12,9 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename T, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type iota_impl(
-				Container const& cont,
-				sprout::index_tuple<Indexes...>,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			iota_impl(
+				Container const& cont, sprout::index_tuple<Indexes...>,
 				T value,
 				typename sprout::container_traits<Container>::difference_type offset,
 				typename sprout::container_traits<Container>::size_type size
@@ -34,11 +34,8 @@ namespace sprout {
 		// iota
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type iota(
-			Container const& cont,
-			T value
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		iota(Container const& cont, T value) {
 			return sprout::fixed::detail::iota_impl(
 				cont,
 				sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),

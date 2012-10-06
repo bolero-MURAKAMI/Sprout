@@ -23,11 +23,10 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR Result set_impl(
-				Container const& cont,
-				sprout::index_tuple<Indexes...>,
-				typename sprout::container_traits<Container>::difference_type pos,
-				T const& v
+			inline SPROUT_CONSTEXPR Result
+			set_impl(
+				Container const& cont, sprout::index_tuple<Indexes...>,
+				typename sprout::container_traits<Container>::difference_type pos, T const& v
 				)
 			{
 				return sprout::remake<Result>(
@@ -44,32 +43,27 @@ namespace sprout {
 		// set
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::set<Container, T>::type set(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator pos,
-			T const& v
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::set<Container, T>::type
+		set(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos, T const& v) {
 			return sprout::fixed::detail::set_impl<typename sprout::fixed::result_of::set<Container, T>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::set<Container, T>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::set<Container, T>::type>::static_size
+					>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), pos),
 				v
 				);
 		}
-		//
-		// set
-		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::set<Container, T>::type set(
-			Container const& cont,
-			typename sprout::container_traits<Container>::difference_type pos,
-			T const& v
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::set<Container, T>::type
+		set(Container const& cont, typename sprout::container_traits<Container>::difference_type pos, T const& v) {
 			return sprout::fixed::detail::set_impl<typename sprout::fixed::result_of::set<Container, T>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::set<Container, T>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::set<Container, T>::type>::static_size
+					>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				v
 				);

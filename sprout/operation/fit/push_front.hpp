@@ -28,12 +28,8 @@ namespace sprout {
 		// push_front
 		//
 		template<typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::push_front<Container, T, Values...>::type push_front(
-			Container const& cont,
-			T const& v,
-			Values const&... values
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::push_front<Container, T, Values...>::type
+		push_front(Container const& cont, T const& v, Values const&... values) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::push_front(cont, v, values...)),
 				sprout::internal_begin_offset(cont),

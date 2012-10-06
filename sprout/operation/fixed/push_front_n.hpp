@@ -24,15 +24,14 @@ namespace sprout {
 		// push_front_n
 		//
 		template<std::size_t N, typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::push_front_n<N, Container, T, Values...>::type push_front_n(
-			Container const& cont,
-			T const& v,
-			Values const&... values
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::push_front_n<N, Container, T, Values...>::type
+		push_front_n(Container const& cont, T const& v, Values const&... values) {
 			return sprout::fixed::detail::insert_n_impl<N, typename sprout::fixed::result_of::push_front_n<N, Container, T, Values...>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::push_front_n<N, Container, T, Values...>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::push_front_n<N, Container, T, Values...>::type>::static_size
+					>::make(),
 				sprout::internal_begin_offset(cont),
 				v,
 				values...

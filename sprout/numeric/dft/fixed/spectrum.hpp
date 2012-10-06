@@ -12,12 +12,7 @@ namespace sprout {
 		//
 		template<typename InputIterator, typename Result>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-		spectrum(
-			InputIterator first,
-			InputIterator last,
-			Result const& result
-			)
-		{
+		spectrum(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fixed::amplitude_spectrum(first, last, result);
 		}
 	}	// namespace fixed

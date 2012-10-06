@@ -24,7 +24,8 @@ namespace sprout {
 	};
 
 	template<typename Arg, typename Result>
-	inline SPROUT_CONSTEXPR sprout::pointer_to_unary_function<Arg, Result> ptr_fun(Result (*x)(Arg)) {
+	inline SPROUT_CONSTEXPR sprout::pointer_to_unary_function<Arg, Result>
+	ptr_fun(Result (*x)(Arg)) {
 		return sprout::pointer_to_unary_function<Arg, Result>(x);
 	}
 
@@ -45,7 +46,8 @@ namespace sprout {
 	};
 
 	template<typename Arg1, typename Arg2, typename Result>
-	inline SPROUT_CONSTEXPR sprout::pointer_to_binary_function<Arg1, Arg2, Result> ptr_fun(Result (*x)(Arg1, Arg2)) {
+	inline SPROUT_CONSTEXPR sprout::pointer_to_binary_function<Arg1, Arg2, Result>
+	ptr_fun(Result (*x)(Arg1, Arg2)) {
 		return sprout::pointer_to_binary_function<Arg1, Arg2, Result>(x);
 	}
 }	// namespace sprout

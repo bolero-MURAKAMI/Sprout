@@ -10,18 +10,15 @@ namespace sprout {
 
 	namespace detail {
 		template<typename ForwardIterator, typename Predicate>
-		inline SPROUT_CONSTEXPR ForwardIterator partition_point_impl(ForwardIterator first, ForwardIterator last, Predicate pred, ForwardIterator mid) {
+		inline SPROUT_CONSTEXPR ForwardIterator
+		partition_point_impl(ForwardIterator first, ForwardIterator last, Predicate pred, ForwardIterator mid) {
 			return mid == last ? mid
 				: pred(*mid) ? sprout::detail::partition_point_impl(
-					sprout::next(mid),
-					last,
-					pred,
+					sprout::next(mid), last, pred,
 					sprout::next(mid, 1 + NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::next(mid), last) / 2)
 					)
 				: sprout::detail::partition_point_impl(
-					first,
-					mid,
-					pred,
+					first, mid, pred,
 					sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, mid) / 2)
 					)
 				;
@@ -30,8 +27,12 @@ namespace sprout {
 
 	// 25.3.13 Partitions
 	template<typename ForwardIterator, typename Predicate>
-	inline SPROUT_CONSTEXPR ForwardIterator partition_point(ForwardIterator first, ForwardIterator last, Predicate pred) {
-		return sprout::detail::partition_point_impl(first, last, pred, sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2));
+	inline SPROUT_CONSTEXPR ForwardIterator
+	partition_point(ForwardIterator first, ForwardIterator last, Predicate pred) {
+		return sprout::detail::partition_point_impl(
+			first, last, pred,
+			sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2)
+			);
 	}
 }	// namespace sprout
 

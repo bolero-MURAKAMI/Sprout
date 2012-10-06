@@ -11,12 +11,14 @@ namespace sprout {
 
 		// 25.4.5.1 includes
 		template<typename Range1, typename Range2>
-		inline SPROUT_CONSTEXPR bool includes(Range1 const& range1, Range2 const& range2) {
+		inline SPROUT_CONSTEXPR bool
+		includes(Range1 const& range1, Range2 const& range2) {
 			return sprout::includes(sprout::begin(range1), sprout::end(range1), sprout::begin(range2), sprout::end(range2));
 		}
 
 		template<typename Range1, typename Range2, typename Compare>
-		inline SPROUT_CONSTEXPR bool includes(Range1 const& range1, Range2 const& range2, Compare comp) {
+		inline SPROUT_CONSTEXPR bool
+		includes(Range1 const& range1, Range2 const& range2, Compare comp) {
 			return sprout::includes(sprout::begin(range1), sprout::end(range1), sprout::begin(range2), sprout::end(range2), comp);
 		}
 	}	// namespace range

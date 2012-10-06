@@ -11,12 +11,14 @@ namespace sprout {
 
 		// 25.4.1.5 is_sorted
 		template<typename Range>
-		inline SPROUT_CONSTEXPR bool is_sorted(Range const& range) {
+		inline SPROUT_CONSTEXPR bool
+		is_sorted(Range const& range) {
 			return sprout::is_sorted(sprout::begin(range), sprout::end(range));
 		}
 
 		template<typename Range, typename Compare>
-		inline SPROUT_CONSTEXPR bool is_sorted(Range const& range, Compare comp) {
+		inline SPROUT_CONSTEXPR bool
+		is_sorted(Range const& range, Compare comp) {
 			return sprout::is_sorted(sprout::begin(range), sprout::end(range), comp);
 		}
 	}	// namespace range

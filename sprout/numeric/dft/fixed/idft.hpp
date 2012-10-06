@@ -14,10 +14,9 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename InputIterator, typename Result, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type idft_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			idft_impl(
+				InputIterator first, InputIterator last, Result const& result,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
 				typename sprout::container_traits<Result>::size_type size,
@@ -34,12 +33,8 @@ namespace sprout {
 					);
 			}
 			template<typename InputIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type idft(
-				InputIterator first,
-				InputIterator last,
-				Result const& result
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			idft(InputIterator first, InputIterator last, Result const& result) {
 				return sprout::fixed::detail::idft_impl(
 					first,
 					last,
@@ -55,12 +50,8 @@ namespace sprout {
 		// idft
 		//
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type idft(
-			InputIterator first,
-			InputIterator last,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		idft(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fixed::detail::idft(first, last, result);
 		}
 	}	// namespace fixed

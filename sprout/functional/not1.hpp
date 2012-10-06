@@ -23,7 +23,8 @@ namespace sprout {
 	};
 
 	template<typename Predicate>
-	inline SPROUT_CONSTEXPR sprout::unary_negate<Predicate> not1(Predicate const& pred) {
+	inline SPROUT_CONSTEXPR sprout::unary_negate<Predicate>
+	not1(Predicate const& pred) {
 		return sprout::unary_negate<Predicate>(pred);
 	}
 }	// namespace sprout

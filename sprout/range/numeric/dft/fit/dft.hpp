@@ -14,11 +14,8 @@ namespace sprout {
 			// dft
 			//
 			template<typename Input, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type dft(
-				Input const& input,
-				Result const& result
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			dft(Input const& input, Result const& result) {
 				return sprout::fit::dft(sprout::begin(input), sprout::end(input), result);
 			}
 		}	// namespace fit

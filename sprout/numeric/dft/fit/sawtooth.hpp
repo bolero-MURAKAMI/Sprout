@@ -12,7 +12,8 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type sawtooth_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			sawtooth_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& frequency,
 				typename sprout::container_traits<Container>::value_type const& amplitude,
@@ -31,7 +32,8 @@ namespace sprout {
 		// sawtooth
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type sawtooth(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		sawtooth(
 			Container const& cont,
 			typename sprout::container_traits<Container>::value_type const& frequency = 1,
 			typename sprout::container_traits<Container>::value_type const& amplitude = 1,

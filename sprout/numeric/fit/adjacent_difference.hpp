@@ -14,10 +14,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			adjacent_difference_impl(
+				InputIterator first, InputIterator last, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -32,22 +31,16 @@ namespace sprout {
 		// adjacent_difference
 		//
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
-			InputIterator first,
-			InputIterator last,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		adjacent_difference(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fit::detail::adjacent_difference_impl(first, last, result, sprout::internal_begin_offset(result));
 		}
 
 		namespace detail {
 			template<typename InputIterator, typename Result, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
-				BinaryOperation binary_op,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			adjacent_difference_impl(
+				InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -62,13 +55,8 @@ namespace sprout {
 		// adjacent_difference
 		//
 		template<typename InputIterator, typename Result, typename BinaryOperation>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type adjacent_difference(
-			InputIterator first,
-			InputIterator last,
-			Result const& result,
-			BinaryOperation binary_op
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		adjacent_difference(InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op) {
 			return sprout::fit::detail::adjacent_difference_impl(first, last, result, binary_op, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

@@ -11,40 +11,25 @@ namespace sprout {
 
 	// 26.7.3 Inner product
 	template<typename InputIterator1, typename InputIterator2, typename T, typename BinaryOperation1, typename BinaryOperation2>
-	inline SPROUT_CONSTEXPR T inner_product(
-		InputIterator1 first1,
-		InputIterator1 last1,
-		InputIterator2 first2,
-		T init,
-		BinaryOperation1 binary_op1,
-		BinaryOperation2 binary_op2
+	inline SPROUT_CONSTEXPR T
+	inner_product(
+		InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, T init,
+		BinaryOperation1 binary_op1, BinaryOperation2 binary_op2
 		)
 	{
 		return first1 == last1 ? init
 			: sprout::inner_product(
-				sprout::next(first1),
-				last1,
-				sprout::next(first2),
-				binary_op1(init, binary_op2(*first1, *first2)),
-				binary_op1,
-				binary_op2
+				sprout::next(first1), last1, sprout::next(first2), binary_op1(init, binary_op2(*first1, *first2)),
+				binary_op1, binary_op2
 				)
 			;
 	}
 
 	template<typename InputIterator1, typename InputIterator2, typename T>
-	inline SPROUT_CONSTEXPR T inner_product(
-		InputIterator1 first1,
-		InputIterator1 last1,
-		InputIterator2 first2,
-		T init
-		)
-	{
+	inline SPROUT_CONSTEXPR T
+	inner_product(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, T init) {
 		return sprout::inner_product(
-			first1,
-			last1,
-			first2,
-			init,
+			first1, last1, first2, init,
 			sprout::plus<typename std::iterator_traits<InputIterator1>::value_type>(),
 			NS_SSCRISK_CEL_OR_SPROUT::multiplies<typename std::iterator_traits<InputIterator1>::value_type>()
 			);

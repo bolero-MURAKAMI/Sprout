@@ -27,11 +27,8 @@ namespace sprout {
 		// append_back
 		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append_back<Container, Input>::type append_back(
-			Container const& cont,
-			Input const& input
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append_back<Container, Input>::type
+		append_back(Container const& cont, Input const& input) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::append_back(cont, input)),
 				sprout::internal_begin_offset(cont),

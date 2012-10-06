@@ -29,10 +29,8 @@ namespace sprout {
 		// pop_back_n
 		//
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::pop_back_n<N, Container>::type pop_back_n(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::pop_back_n<N, Container>::type
+		pop_back_n(Container const& cont) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::pop_back_n<N>(cont)),
 				sprout::internal_begin_offset(cont),

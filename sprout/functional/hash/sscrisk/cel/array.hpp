@@ -7,8 +7,12 @@
 #include <sscrisk/cel/array.hpp>
 
 namespace sprout {
+	//
+	// hash_value
+	//
 	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR std::size_t hash_value(sscrisk::cel::array<T, N> const& v) {
+	inline SPROUT_CONSTEXPR std::size_t
+	hash_value(sscrisk::cel::array<T, N> const& v) {
 		return sprout::hash_range(v.begin(), v.end());
 	}
 }	// namespace sprout

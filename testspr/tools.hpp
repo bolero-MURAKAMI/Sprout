@@ -208,7 +208,8 @@ namespace testspr {
 	// equal
 	//
 	template<typename InputIterator1, typename InputIterator2>
-	inline SPROUT_CONSTEXPR bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2) {
+	inline SPROUT_CONSTEXPR bool
+	equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2) {
 		return first1 == last1 ? first2 == last2
 			: first2 == last2 ? false
 			: !(*first1 == *first2) ? false
@@ -216,7 +217,8 @@ namespace testspr {
 			;
 	}
 	template<typename Range1, typename Range2>
-	SPROUT_CONSTEXPR bool equal(Range1 const& range1, Range2 const& range2) {
+	SPROUT_CONSTEXPR bool
+	equal(Range1 const& range1, Range2 const& range2) {
 		return testspr::equal(sprout::begin(range1), sprout::end(range1), sprout::begin(range2), sprout::end(range2));
 	}
 
@@ -224,14 +226,16 @@ namespace testspr {
 	// is_found
 	//
 	template<class InputIterator, typename T>
-	SPROUT_CONSTEXPR bool is_found(InputIterator first, InputIterator last, T const& value) {
+	SPROUT_CONSTEXPR bool
+	is_found(InputIterator first, InputIterator last, T const& value) {
 		return first == last ? false
 			: *first == value ? true
 			: testspr::is_found(first + 1, last, value)
 			;
 	}
 	template<typename Range, typename T>
-	SPROUT_CONSTEXPR bool is_found(Range const& range, T const& value) {
+	SPROUT_CONSTEXPR bool
+	is_found(Range const& range, T const& value) {
 		return testspr::is_found(sprout::begin(range), sprout::end(range), value);
 	}
 
@@ -253,13 +257,11 @@ namespace testspr {
 
 	namespace detail {
 		template<typename ForwardIterator1, typename ForwardIterator2>
-		SPROUT_CONSTEXPR bool is_permutation_impl(
-			ForwardIterator1 first1,
-			ForwardIterator1 last1,
-			ForwardIterator2 first2,
-			ForwardIterator2 last2,
-			ForwardIterator1 first1_,
-			ForwardIterator2 first2_
+		SPROUT_CONSTEXPR bool
+		is_permutation_impl(
+			ForwardIterator1 first1, ForwardIterator1 last1,
+			ForwardIterator2 first2, ForwardIterator2 last2,
+			ForwardIterator1 first1_, ForwardIterator2 first2_
 			)
 		{
 			return first1_ == last1 && first2_ == last2 ? true
@@ -272,18 +274,21 @@ namespace testspr {
 	// is_permutation
 	//
 	template<typename ForwardIterator1, typename ForwardIterator2>
-	SPROUT_CONSTEXPR bool is_permutation(
-		ForwardIterator1 first1,
-		ForwardIterator1 last1,
-		ForwardIterator2 first2,
-		ForwardIterator2 last2
+	SPROUT_CONSTEXPR bool
+	is_permutation(
+		ForwardIterator1 first1, ForwardIterator1 last1,
+		ForwardIterator2 first2, ForwardIterator2 last2
 		)
 	{
 		return testspr::detail::is_permutation_impl(first1, last1, first2, last2, first1, first2);
 	}
 	template<typename Range1, typename Range2>
-	SPROUT_CONSTEXPR bool is_permutation(Range1 const& range1, Range2 const& range2) {
-		return testspr::is_permutation(sprout::begin(range1), sprout::end(range1), sprout::begin(range2), sprout::end(range2));
+	SPROUT_CONSTEXPR bool
+	is_permutation(Range1 const& range1, Range2 const& range2) {
+		return testspr::is_permutation(
+			sprout::begin(range1), sprout::end(range1),
+			sprout::begin(range2), sprout::end(range2)
+			);
 	}
 }	// namespace testspr
 

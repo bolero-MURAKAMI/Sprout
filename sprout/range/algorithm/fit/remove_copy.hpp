@@ -14,12 +14,8 @@ namespace sprout {
 			// remove_copy
 			//
 			template<typename Input, typename Result, typename T>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type remove_copy(
-				Input const& input,
-				Result const& result,
-				T const& value
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			remove_copy(Input const& input, Result const& result, T const& value) {
 				return sprout::fit::remove_copy(sprout::begin(input), sprout::end(input), result, value);
 			}
 		}	// namespace fit

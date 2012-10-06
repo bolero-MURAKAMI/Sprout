@@ -14,11 +14,8 @@ namespace sprout {
 			// phase_spectrum
 			//
 			template<typename Input, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type phase_spectrum(
-				Input const& input,
-				Result const& result
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			phase_spectrum(Input const& input, Result const& result) {
 				return sprout::fit::phase_spectrum(sprout::begin(input), sprout::end(input), result);
 			}
 		}	// namespace fit

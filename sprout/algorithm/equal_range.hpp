@@ -11,23 +11,14 @@ namespace sprout {
 
 	// 25.4.3.3 equal_range
 	template<typename ForwardIterator, typename T>
-	inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> equal_range(
-		ForwardIterator first,
-		ForwardIterator last,
-		T const& value
-		)
-	{
+	inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
+	equal_range(ForwardIterator first, ForwardIterator last, T const& value) {
 		return {sprout::lower_bound(first, last, value), sprout::upper_bound(first, last, value)};
 	}
 
 	template<typename ForwardIterator, typename T, typename Compare>
-	inline SPROUT_CONSTEXPR pair<ForwardIterator, ForwardIterator> equal_range(
-		ForwardIterator first,
-		ForwardIterator last,
-		T const& value,
-		Compare comp
-		)
-	{
+	inline SPROUT_CONSTEXPR pair<ForwardIterator, ForwardIterator>
+	equal_range(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
 		return {sprout::lower_bound(first, last, value, comp), sprout::upper_bound(first, last, value, comp)};
 	}
 }	// namespace sprout

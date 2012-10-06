@@ -168,11 +168,13 @@ namespace sprout {
 	// cref
 	//
 	template<typename T>
-	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T> ref(T& t) SPROUT_NOEXCEPT {
+	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T>
+	ref(T& t) SPROUT_NOEXCEPT {
 		return sprout::reference_wrapper<T>(t);
 	}
 	template<typename T>
-	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T const> cref(T const& t) SPROUT_NOEXCEPT {
+	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T const>
+	cref(T const& t) SPROUT_NOEXCEPT {
 		return sprout::reference_wrapper<T const>(t);
 	}
 	template<typename T>
@@ -180,11 +182,13 @@ namespace sprout {
 	template<typename T>
 	void cref(T const&&) = delete;
 	template<typename T>
-	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T> ref(sprout::reference_wrapper<T> t) SPROUT_NOEXCEPT {
+	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T>
+	ref(sprout::reference_wrapper<T> t) SPROUT_NOEXCEPT {
 		return t;
 	}
 	template<typename T>
-	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T const> cref(sprout::reference_wrapper<T> t) SPROUT_NOEXCEPT {
+	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T const>
+	ref(sprout::reference_wrapper<T> t) SPROUT_NOEXCEPT {
 		return sprout::reference_wrapper<T const>(t.get());
 	}
 
@@ -268,11 +272,13 @@ namespace sprout {
 	// unwrap_ref
 	//
 	template<typename T>
-	inline typename sprout::unwrap_reference<T>::type& unwrap_ref(T& t) {
+	inline typename sprout::unwrap_reference<T>::type&
+	unwrap_ref(T& t) {
 		return t;
 	}
 	template<typename T>
-	inline SPROUT_CONSTEXPR typename sprout::unwrap_reference<T const>::type& unwrap_ref(T const& t) {
+	inline SPROUT_CONSTEXPR typename sprout::unwrap_reference<T const>::type&
+	unwrap_ref(T const& t) {
 		return t;
 	}
 
@@ -280,7 +286,8 @@ namespace sprout {
 	// get_pointer
 	//
 	template<typename T>
-	inline SPROUT_CONSTEXPR T* get_pointer(sprout::reference_wrapper<T> const& r) {
+	inline SPROUT_CONSTEXPR T*
+	get_pointer(sprout::reference_wrapper<T> const& r) {
 		return r.get_pointer();
 	}
 }	// namespace sprout

@@ -14,26 +14,13 @@ namespace sprout {
 			// set_difference
 			//
 			template<typename Input1, typename Input2, typename Result, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set_difference(
-				Input1 const& input1,
-				Input2 const& input2,
-				Result const& result,
-				Compare comp
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			set_difference(Input1 const& input1, Input2 const& input2, Result const& result, Compare comp) {
 				return sprout::fixed::set_difference(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), sprout::end(input2), result, comp);
 			}
-
-			//
-			// set_difference
-			//
 			template<typename Input1, typename Input2, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set_difference(
-				Input1 const& input1,
-				Input2 const& input2,
-				Result const& result
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			set_difference(Input1 const& input1, Input2 const& input2, Result const& result) {
 				return sprout::fixed::set_difference(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), sprout::end(input2), result);
 			}
 		}	// namespace fixed

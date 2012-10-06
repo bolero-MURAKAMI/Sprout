@@ -29,9 +29,9 @@ namespace sprout {
 
 		namespace detail {
 			template<std::size_t N, typename Result, typename Container, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR Result erase_n_impl(
-				Container const& cont,
-				sprout::index_tuple<Indexes...>,
+			inline SPROUT_CONSTEXPR Result
+			erase_n_impl(
+				Container const& cont, sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Container>::difference_type pos
 				)
 			{
@@ -52,29 +52,26 @@ namespace sprout {
 		// erase_n
 		//
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::erase_n<N, Container>::type erase_n(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator pos
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::erase_n<N, Container>::type
+		erase_n(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos) {
 			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::result_of::erase_n<N, Container>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::static_size
+					>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), pos)
 				);
 		}
-		//
-		// erase_n
-		//
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::erase_n<N, Container>::type erase_n(
-			Container const& cont,
-			typename sprout::container_traits<Container>::difference_type pos
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::erase_n<N, Container>::type
+		erase_n(Container const& cont, typename sprout::container_traits<Container>::difference_type pos) {
 			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::result_of::erase_n<N, Container>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::erase_n<N, Container>::type>::static_size
+					>::make(),
 				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos))
 				);
 		}

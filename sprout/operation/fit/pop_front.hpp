@@ -29,10 +29,8 @@ namespace sprout {
 		// pop_front
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::pop_front<Container>::type pop_front(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::pop_front<Container>::type
+		pop_front(Container const& cont) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::pop_front(cont)),
 				sprout::internal_begin_offset(cont),

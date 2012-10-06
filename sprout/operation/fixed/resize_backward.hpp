@@ -23,9 +23,9 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR Result resize_backward_impl(
-				Container const& cont,
-				sprout::index_tuple<Indexes...>,
+			inline SPROUT_CONSTEXPR Result
+			resize_backward_impl(
+				Container const& cont, sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type size,
 				typename sprout::container_traits<Result>::difference_type offset,
 				T const& v
@@ -43,14 +43,14 @@ namespace sprout {
 		// resize_backward
 		//
 		template<std::size_t N, typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::resize_backward<N, Container>::type resize_backward(
-			Container const& cont,
-			T const& v
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::resize_backward<N, Container>::type
+		resize_backward(Container const& cont, T const& v) {
 			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
+					>::make(),
 				sprout::size(cont),
 				static_cast<typename sprout::container_traits<Container>::difference_type>(
 					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
@@ -62,9 +62,9 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Container, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR Result resize_backward_impl(
-				Container const& cont,
-				sprout::index_tuple<Indexes...>,
+			inline SPROUT_CONSTEXPR Result
+			resize_backward_impl(
+				Container const& cont, sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type size,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
@@ -81,13 +81,14 @@ namespace sprout {
 		// resize_backward
 		//
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::resize_backward<N, Container>::type resize_backward(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::resize_backward<N, Container>::type
+		resize_backward(Container const& cont) {
 			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
+					>::make(),
 				sprout::size(cont),
 				static_cast<typename sprout::container_traits<Container>::difference_type>(
 					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size

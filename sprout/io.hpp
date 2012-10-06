@@ -162,20 +162,18 @@ namespace sprout {
 		// width
 		// fill
 		//
-		namespace {
-			inline SPROUT_CONSTEXPR sprout::io::flags::precision_t
-			precision(sprout::io::flags::precision_t::type value) {
-				return sprout::io::flags::precision_t(value);
-			}
-			inline SPROUT_CONSTEXPR sprout::io::flags::width_t
-			width(sprout::io::flags::width_t::type value) {
-				return sprout::io::flags::width_t(value);
-			}
-			inline SPROUT_CONSTEXPR sprout::io::flags::fill_t
-			fill(sprout::io::flags::fill_t::type value) {
-				return sprout::io::flags::fill_t(value);
-			}
-		}	// anonymous-namespace
+		inline SPROUT_CONSTEXPR sprout::io::flags::precision_t
+		precision(sprout::io::flags::precision_t::type value) {
+			return sprout::io::flags::precision_t(value);
+		}
+		inline SPROUT_CONSTEXPR sprout::io::flags::width_t
+		width(sprout::io::flags::width_t::type value) {
+			return sprout::io::flags::width_t(value);
+		}
+		inline SPROUT_CONSTEXPR sprout::io::flags::fill_t
+		fill(sprout::io::flags::fill_t::type value) {
+			return sprout::io::flags::fill_t(value);
+		}
 
 		//
 		// format_settings

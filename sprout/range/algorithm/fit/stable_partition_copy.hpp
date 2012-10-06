@@ -14,12 +14,8 @@ namespace sprout {
 			// stable_partition_copy
 			//
 			template<typename Input, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type stable_partition_copy(
-				Input const& input,
-				Result const& result,
-				Predicate pred
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			stable_partition_copy(Input const& input, Result const& result, Predicate pred) {
 				return sprout::fit::stable_partition_copy(sprout::begin(input), sprout::end(input), result, pred);
 			}
 		}	// namespace fit

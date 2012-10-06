@@ -29,26 +29,17 @@ namespace sprout {
 		// erase
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase<Container>::type erase(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator pos
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase<Container>::type
+		erase(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::erase(cont, pos)),
 				sprout::internal_begin_offset(cont),
 				sprout::internal_end_offset(cont) - 1
 				);
 		}
-		//
-		// erase
-		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase<Container>::type erase(
-			Container const& cont,
-			typename sprout::container_traits<Container>::difference_type pos
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase<Container>::type
+		erase(Container const& cont, typename sprout::container_traits<Container>::difference_type pos) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::erase(cont, pos)),
 				sprout::internal_begin_offset(cont),

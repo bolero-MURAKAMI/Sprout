@@ -28,26 +28,17 @@ namespace sprout {
 		// realign_to
 		//
 		template<typename Result, typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::realign_to<Result, Container>::type realign_to(
-			Container const& cont,
-			T const& v
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::realign_to<Result, Container>::type
+		realign_to(Container const& cont, T const& v) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::realign_to<Result>(cont, v)),
 				0,
 				sprout::size(cont)
 				);
 		}
-
-		//
-		// realign_to
-		//
 		template<typename Result, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::realign_to<Result, Container>::type realign_to(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::realign_to<Result, Container>::type
+		realign_to(Container const& cont) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::realign_to<Result>(cont)),
 				0,

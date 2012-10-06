@@ -13,26 +13,15 @@ namespace sprout {
 			//
 			// unique_copy
 			//
-			template<typename Input, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
-				Input const& input,
-				Result const& result
-				)
-			{
-				return sprout::fixed::unique_copy(sprout::begin(input), sprout::end(input), result);
-			}
-
-			//
-			// unique_copy
-			//
 			template<typename Input, typename Result, typename BinaryPredicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type unique_copy(
-				Input const& input,
-				Result const& result,
-				BinaryPredicate pred
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			unique_copy(Input const& input, Result const& result, BinaryPredicate pred) {
 				return sprout::fixed::unique_copy(sprout::begin(input), sprout::end(input), result, pred);
+			}
+			template<typename Input, typename Result>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			unique_copy(Input const& input, Result const& result) {
+				return sprout::fixed::unique_copy(sprout::begin(input), sprout::end(input), result);
 			}
 		}	// namespace fixed
 

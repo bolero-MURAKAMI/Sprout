@@ -11,12 +11,8 @@ namespace sprout {
 		// spectrum
 		//
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type spectrum(
-			InputIterator first,
-			InputIterator last,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		spectrum(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fit::amplitude_spectrum(first, last, result);
 		}
 	}	// namespace fit

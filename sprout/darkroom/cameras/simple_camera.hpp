@@ -123,14 +123,11 @@ namespace sprout {
 			make_simple_camera(
 				Unit const& far_plane,
 				typename sprout::darkroom::cameras::basic_simple_camera<Unit>::angle_of_view_reference::values reference_value
-					= sprout::darkroom::cameras::basic_simple_camera<Unit>::angle_of_view_reference::long_side
-					,
+					= sprout::darkroom::cameras::basic_simple_camera<Unit>::angle_of_view_reference::long_side,
 				typename sprout::darkroom::cameras::basic_simple_camera<Unit>::position_type const& position
-					= typename sprout::darkroom::cameras::basic_simple_camera<Unit>::position_type(0, 0, -1)
-					,
+					= typename sprout::darkroom::cameras::basic_simple_camera<Unit>::position_type(0, 0, -1),
 				typename sprout::darkroom::cameras::basic_simple_camera<Unit>::position_type const& fixation_point
-					= typename sprout::darkroom::cameras::basic_simple_camera<Unit>::position_type(0, 0, 0)
-					,
+					= typename sprout::darkroom::cameras::basic_simple_camera<Unit>::position_type(0, 0, 0),
 				Unit const& rotate = 0
 				)
 			{

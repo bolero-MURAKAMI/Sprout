@@ -12,7 +12,8 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type sinusoid_impl(
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			sinusoid_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& frequency,
 				typename sprout::container_traits<Container>::value_type const& amplitude,
@@ -31,7 +32,8 @@ namespace sprout {
 		// sinusoid
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type sinusoid(
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		sinusoid(
 			Container const& cont,
 			typename sprout::container_traits<Container>::value_type const& frequency = 1,
 			typename sprout::container_traits<Container>::value_type const& amplitude = 1,

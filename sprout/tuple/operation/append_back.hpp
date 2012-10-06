@@ -21,11 +21,10 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Tuple, typename InputTuple, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
-			inline SPROUT_CONSTEXPR Result append_back_impl(
-				Tuple const& t,
-				InputTuple const& input,
-				sprout::index_tuple<Indexes1...>,
-				sprout::index_tuple<Indexes2...>
+			inline SPROUT_CONSTEXPR Result
+			append_back_impl(
+				Tuple const& t, InputTuple const& input,
+				sprout::index_tuple<Indexes1...>, sprout::index_tuple<Indexes2...>
 				)
 			{
 				return sprout::tuples::remake<Result>(
@@ -39,14 +38,10 @@ namespace sprout {
 		// append_back
 		//
 		template<typename Tuple, typename InputTuple>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::append_back<Tuple, InputTuple>::type append_back(
-			Tuple const& t,
-			InputTuple const& input
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::append_back<Tuple, InputTuple>::type
+		append_back(Tuple const& t, InputTuple const& input) {
 			return sprout::tuples::detail::append_back_impl<typename sprout::tuples::result_of::append_back<Tuple, InputTuple>::type>(
-				t,
-				input,
+				t, input,
 				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make(),
 				sprout::index_range<0, sprout::tuples::tuple_size<InputTuple>::value>::make()
 				);

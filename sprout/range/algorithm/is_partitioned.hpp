@@ -11,7 +11,8 @@ namespace sprout {
 
 		// 25.3.13 partitions
 		template<typename Range, typename Predicate>
-		inline SPROUT_CONSTEXPR bool is_partitioned(Range const& range, Predicate pred) {
+		inline SPROUT_CONSTEXPR bool
+		is_partitioned(Range const& range, Predicate pred) {
 			return sprout::is_partitioned(sprout::begin(range), sprout::end(range), pred);
 		}
 	}	// namespace range

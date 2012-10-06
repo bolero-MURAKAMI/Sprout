@@ -14,10 +14,9 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type amplitude_spectrum_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			amplitude_spectrum_impl(
+				InputIterator first, InputIterator last, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -32,12 +31,8 @@ namespace sprout {
 		// amplitude_spectrum
 		//
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type amplitude_spectrum(
-			InputIterator first,
-			InputIterator last,
-			Result const& result
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		amplitude_spectrum(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fit::detail::amplitude_spectrum_impl(first, last, result, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

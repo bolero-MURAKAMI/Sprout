@@ -11,10 +11,9 @@ namespace sprout {
 
 	namespace detail {
 		template<typename ForwardIterator, typename Compare>
-		inline SPROUT_CONSTEXPR ForwardIterator min_element_impl(
-			ForwardIterator first,
-			ForwardIterator last,
-			Compare comp,
+		inline SPROUT_CONSTEXPR ForwardIterator
+		min_element_impl(
+			ForwardIterator first, ForwardIterator last, Compare comp,
 			ForwardIterator min
 			)
 		{
@@ -26,13 +25,18 @@ namespace sprout {
 
 	// 25.4.7 Minimum and maximum
 	template<typename ForwardIterator, typename Compare>
-	inline SPROUT_CONSTEXPR ForwardIterator min_element(ForwardIterator first, ForwardIterator last, Compare comp) {
+	inline SPROUT_CONSTEXPR ForwardIterator
+	min_element(ForwardIterator first, ForwardIterator last, Compare comp) {
 		return sprout::detail::min_element_impl(first, last, comp, first);
 	}
 
 	template<typename ForwardIterator>
-	inline SPROUT_CONSTEXPR ForwardIterator min_element(ForwardIterator first, ForwardIterator last) {
-		return sprout::min_element(first, last, NS_SSCRISK_CEL_OR_SPROUT::less<typename std::iterator_traits<ForwardIterator>::value_type>());
+	inline SPROUT_CONSTEXPR ForwardIterator
+	min_element(ForwardIterator first, ForwardIterator last) {
+		return sprout::min_element(
+			first, last,
+			NS_SSCRISK_CEL_OR_SPROUT::less<typename std::iterator_traits<ForwardIterator>::value_type>()
+			);
 	}
 }	// namespace sprout
 

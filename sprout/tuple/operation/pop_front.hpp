@@ -21,11 +21,8 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Result, typename Tuple, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR Result pop_front_impl(
-				Tuple const& t,
-				sprout::index_tuple<Indexes...>
-				)
-			{
+			inline SPROUT_CONSTEXPR Result
+			pop_front_impl(Tuple const& t, sprout::index_tuple<Indexes...>) {
 				return sprout::tuples::remake<Result>(
 					t,
 					sprout::tuples::get<Indexes>(t)...
@@ -36,10 +33,8 @@ namespace sprout {
 		// pop_front
 		//
 		template<typename Tuple>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::pop_front<Tuple::type pop_front(
-			Tuple const& t,
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::pop_front<Tuple>::type
+		pop_front(Tuple const& t) {
 			return sprout::tuples::detail::pop_front_impl<typename sprout::tuples::result_of::pop_front<Tuple>::type>(
 				t,
 				sprout::index_range<1, sprout::tuples::tuple_size<Tuple>::value>::make()

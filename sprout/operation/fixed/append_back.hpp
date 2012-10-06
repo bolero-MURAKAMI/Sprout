@@ -24,14 +24,14 @@ namespace sprout {
 		// append_back
 		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append_back<Container, Input>::type append_back(
-			Container const& cont,
-			Input const& input
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append_back<Container, Input>::type
+		append_back(Container const& cont, Input const& input) {
 			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append_back<Container, Input>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::append_back<Container, Input>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::append_back<Container, Input>::type>::static_size
+					>::make(),
 				sprout::internal_end_offset(cont),
 				sprout::size(input),
 				input

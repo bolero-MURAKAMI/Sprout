@@ -10,10 +10,9 @@
 namespace sprout {
 	namespace detail {
 		template<typename InputIterator, typename Size>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type dft_element_impl(
-			InputIterator first,
-			InputIterator last,
-			typename std::iterator_traits<InputIterator>::difference_type i,
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type
+		dft_element_impl(
+			InputIterator first, InputIterator last, typename std::iterator_traits<InputIterator>::difference_type i,
 			Size size
 			)
 		{
@@ -30,16 +29,10 @@ namespace sprout {
 	// dft_element
 	//
 	template<typename InputIterator>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type dft_element(
-		InputIterator first,
-		InputIterator last,
-		typename std::iterator_traits<InputIterator>::difference_type i
-		)
-	{
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type
+	dft_element(InputIterator first, InputIterator last, typename std::iterator_traits<InputIterator>::difference_type i) {
 		return sprout::detail::dft_element_impl(
-			first,
-			last,
-			i,
+			first, last, i,
 			NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)
 			);
 	}

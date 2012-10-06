@@ -14,11 +14,8 @@ namespace sprout {
 			// copy
 			//
 			template<typename Input, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type copy(
-				Input const& input,
-				Result const& result
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			copy(Input const& input, Result const& result) {
 				return sprout::fixed::copy(sprout::begin(input), sprout::end(input), result);
 			}
 		}	// namespace fixed

@@ -231,44 +231,40 @@ namespace sprout {
 		// operator<=
 		// operator>=
 		//
-		namespace {
-			inline SPROUT_CONSTEXPR bool
-			operator==(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-				return NS_SSCRISK_CEL_OR_SPROUT::equal(lhs.begin(), lhs.end(), rhs.begin());
-			}
-			inline SPROUT_CONSTEXPR bool
-			operator!=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-				return !(lhs == rhs);
-			}
-			inline SPROUT_CONSTEXPR bool
-			operator<(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-				return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-			}
-			inline SPROUT_CONSTEXPR bool
-			operator>(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-				return rhs < lhs;
-			}
-			inline SPROUT_CONSTEXPR bool
-			operator<=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-				return !(rhs < lhs);
-			}
-			inline SPROUT_CONSTEXPR bool
-			operator>=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-				return !(lhs < rhs);
-			}
-		}	// anonymous-namespace
+		inline SPROUT_CONSTEXPR bool
+		operator==(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+			return NS_SSCRISK_CEL_OR_SPROUT::equal(lhs.begin(), lhs.end(), rhs.begin());
+		}
+		inline SPROUT_CONSTEXPR bool
+		operator!=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+			return !(lhs == rhs);
+		}
+		inline SPROUT_CONSTEXPR bool
+		operator<(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+			return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		}
+		inline SPROUT_CONSTEXPR bool
+		operator>(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+			return rhs < lhs;
+		}
+		inline SPROUT_CONSTEXPR bool
+		operator<=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+			return !(rhs < lhs);
+		}
+		inline SPROUT_CONSTEXPR bool
+		operator>=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
+			return !(lhs < rhs);
+		}
 
 		//
 		// swap
 		//
-		namespace {
-			inline void
-			swap(sprout::uuids::uuid& lhs, sprout::uuids::uuid& rhs)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
-			{
-				lhs.swap(rhs);
-			}
-		}	// anonymous-namespace
+		inline void
+		swap(sprout::uuids::uuid& lhs, sprout::uuids::uuid& rhs)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		{
+			lhs.swap(rhs);
+		}
 	}	// namespace uuids
 
 	using sprout::uuids::uuid;

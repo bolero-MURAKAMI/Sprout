@@ -24,13 +24,14 @@ namespace sprout {
 		// pop_back
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::pop_back<Container>::type pop_back(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::pop_back<Container>::type
+		pop_back(Container const& cont) {
 			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::pop_back<Container>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::pop_back<Container>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::pop_back<Container>::type>::static_size
+					>::make(),
 				sprout::internal_end_offset(cont) - 1
 				);
 		}

@@ -155,11 +155,9 @@ namespace sprout {
 				Texture const& texture, Unit const& scale,
 				Unit const& offset_u = 0, Unit const& offset_v = 0,
 				typename sprout::darkroom::materials::texture_map<Texture, Unit>::result_type const& default_color
-					= typename sprout::darkroom::materials::texture_map<Texture, Unit>::result_typ()
-					,
+					= typename sprout::darkroom::materials::texture_map<Texture, Unit>::result_typ(),
 				sprout::darkroom::materials::interpolation_type::values interpolation_value
-					= sprout::darkroom::materials::interpolation_type::nearest_neighbor
-					,
+					= sprout::darkroom::materials::interpolation_type::nearest_neighbor,
 				sprout::darkroom::materials::texture_map_placement::values placement_value
 					= sprout::darkroom::materials::texture_map_placement::tile
 				)

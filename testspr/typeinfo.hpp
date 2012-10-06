@@ -25,12 +25,12 @@ namespace testspr {
 		}
 	}	// namespace detail
 	template<typename T>
-	std::string typename_of() {
+	inline std::string typename_of() {
 		return testspr::detail::gcc_demangle(typeid(T).name());
 	}
 #else
 	template<typename T>
-	std::string typename_of() {
+	inline std::string typename_of() {
 		return std::string(typeid(T).name());
 	}
 #endif

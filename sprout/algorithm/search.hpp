@@ -10,11 +10,10 @@ namespace sprout {
 
 	// 25.2.13 Search
 	template<typename ForwardIterator1, typename ForwardIterator2>
-	inline SPROUT_CONSTEXPR ForwardIterator1 search(
-		ForwardIterator1 first1,
-		ForwardIterator1 last1,
-		ForwardIterator2 first2,
-		ForwardIterator2 last2
+	inline SPROUT_CONSTEXPR ForwardIterator1
+	search(
+		ForwardIterator1 first1, ForwardIterator1 last1,
+		ForwardIterator2 first2, ForwardIterator2 last2
 		)
 	{
 		return first1 == last1 || first2 == last2 ? first1
@@ -27,11 +26,10 @@ namespace sprout {
 	}
 
 	template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
-	inline SPROUT_CONSTEXPR ForwardIterator1 search(
-		ForwardIterator1 first1,
-		ForwardIterator1 last1,
-		ForwardIterator2 first2,
-		ForwardIterator2 last2,
+	inline SPROUT_CONSTEXPR ForwardIterator1
+	search(
+		ForwardIterator1 first1, ForwardIterator1 last1,
+		ForwardIterator2 first2, ForwardIterator2 last2,
 		BinaryPredicate pred
 		)
 	{

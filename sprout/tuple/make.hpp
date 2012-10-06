@@ -12,7 +12,8 @@ namespace sprout {
 		// make
 		//
 		template<typename Tuple, typename... Args>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type make(Args&&... args) {
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type
+		make(Args&&... args) {
 			return sprout::tuples::tuple_construct_traits<Tuple>::make(
 				sprout::forward<Args>(args)...
 				);

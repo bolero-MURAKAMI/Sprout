@@ -27,11 +27,8 @@ namespace sprout {
 		// append_front
 		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append_front<Container, Input>::type append_front(
-			Container const& cont,
-			Input const& input
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append_front<Container, Input>::type
+		append_front(Container const& cont, Input const& input) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::append_front(cont, input)),
 				sprout::internal_begin_offset(cont),

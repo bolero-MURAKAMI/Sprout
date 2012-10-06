@@ -22,22 +22,26 @@ namespace sprout {
 			template<std::size_t I, typename T, typename U>
 			struct tuple_compare<0, I, I, T, U> {
 			public:
-				static SPROUT_CONSTEXPR bool eq(T const&, U const&) {
+				static SPROUT_CONSTEXPR bool
+				eq(T const&, U const&) {
 					return true;
 				}
-				static SPROUT_CONSTEXPR bool less(T const&, U const&) {
+				static SPROUT_CONSTEXPR bool
+				less(T const&, U const&) {
 					return false;
 				}
 			};
 			template<std::size_t I, std::size_t J, typename T, typename U>
 			struct tuple_compare<0, I, J, T, U> {
 			public:
-				static SPROUT_CONSTEXPR bool eq(T const& t, U const& u) {
+				static SPROUT_CONSTEXPR bool
+				eq(T const& t, U const& u) {
 					return (sprout::tuples::get<I>(t) == sprout::tuples::get<I>(u)
 						&& sprout::tuples::detail::tuple_compare<0, I + 1, J, T, U>::eq(t, u))
 						;
 				}
-				static SPROUT_CONSTEXPR bool less(T const& t, U const& u) {
+				static SPROUT_CONSTEXPR bool
+				less(T const& t, U const& u) {
 					return (sprout::tuples::get<I>(t) < sprout::tuples::get<I>(u))
 						|| (!(sprout::tuples::get<I>(u) < sprout::tuples::get<I>(t))
 							&& sprout::tuples::detail::tuple_compare<0, I + 1, J, T, U>::less(t, u)
@@ -47,11 +51,8 @@ namespace sprout {
 			};
 		}	// namespace detail
 		template<typename... TTypes, typename... UTypes>
-		inline SPROUT_CONSTEXPR bool operator==(
-			sprout::tuples::tuple<TTypes...> const& lhs,
-			sprout::tuples::tuple<UTypes...> const& rhs
-			)
-		{
+		inline SPROUT_CONSTEXPR bool
+		operator==(sprout::tuples::tuple<TTypes...> const& lhs, sprout::tuples::tuple<UTypes...> const& rhs) {
 			typedef sprout::tuples::tuple<TTypes...> T;
 			typedef sprout::tuples::tuple<UTypes...> U;
 			return sprout::tuples::detail::tuple_compare<
@@ -63,11 +64,8 @@ namespace sprout {
 				>::eq(lhs, rhs);
 		}
 		template<typename... TTypes, typename... UTypes>
-		inline SPROUT_CONSTEXPR bool operator<(
-			sprout::tuples::tuple<TTypes...> const& lhs,
-			sprout::tuples::tuple<UTypes...> const& rhs
-			)
-		{
+		inline SPROUT_CONSTEXPR bool
+		operator<(sprout::tuples::tuple<TTypes...> const& lhs, sprout::tuples::tuple<UTypes...> const& rhs) {
 			typedef sprout::tuples::tuple<TTypes...> T;
 			typedef sprout::tuples::tuple<UTypes...> U;
 			return sprout::tuples::detail::tuple_compare<
@@ -79,35 +77,23 @@ namespace sprout {
 				>::less(lhs, rhs);
 		}
 		template<typename... TTypes, typename... UTypes>
-		inline SPROUT_CONSTEXPR bool operator!=(
-			sprout::tuples::tuple<TTypes...> const& lhs,
-			sprout::tuples::tuple<UTypes...> const& rhs
-			)
-		{
+		inline SPROUT_CONSTEXPR bool
+		operator!=(sprout::tuples::tuple<TTypes...> const& lhs, sprout::tuples::tuple<UTypes...> const& rhs) {
 			return !(lhs == rhs);
 		}
 		template<typename... TTypes, typename... UTypes>
-		inline SPROUT_CONSTEXPR bool operator>(
-			sprout::tuples::tuple<TTypes...> const& lhs,
-			sprout::tuples::tuple<UTypes...> const& rhs
-			)
-		{
+		inline SPROUT_CONSTEXPR bool
+		operator>(sprout::tuples::tuple<TTypes...> const& lhs, sprout::tuples::tuple<UTypes...> const& rhs) {
 			return rhs < lhs;
 		}
 		template<typename... TTypes, typename... UTypes>
-		inline SPROUT_CONSTEXPR bool operator<=(
-			sprout::tuples::tuple<TTypes...> const& lhs,
-			sprout::tuples::tuple<UTypes...> const& rhs
-			)
-		{
+		inline SPROUT_CONSTEXPR bool
+		operator<=(sprout::tuples::tuple<TTypes...> const& lhs, sprout::tuples::tuple<UTypes...> const& rhs) {
 			return !(rhs < lhs);
 		}
 		template<typename... TTypes, typename... UTypes>
-		inline SPROUT_CONSTEXPR bool operator>=(
-			sprout::tuples::tuple<TTypes...> const& lhs,
-			sprout::tuples::tuple<UTypes...> const& rhs
-			)
-		{
+		inline SPROUT_CONSTEXPR bool
+		operator>=(sprout::tuples::tuple<TTypes...> const& lhs, sprout::tuples::tuple<UTypes...> const& rhs) {
 			return !(lhs < rhs);
 		}
 	}	// namespace tuples

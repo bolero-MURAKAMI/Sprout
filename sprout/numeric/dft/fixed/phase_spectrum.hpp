@@ -18,9 +18,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			phase_spectrum_impl(
-				InputIterator first,
-				InputIterator last,
-				Result const& result,
+				InputIterator first, InputIterator last, Result const& result,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
 				typename sprout::container_traits<Result>::size_type size,
@@ -43,16 +41,9 @@ namespace sprout {
 			}
 			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			phase_spectrum(
-				InputIterator first,
-				InputIterator last,
-				Result const& result
-				)
-			{
+			phase_spectrum(InputIterator first, InputIterator last, Result const& result) {
 				return sprout::fixed::detail::phase_spectrum_impl(
-					first,
-					last,
-					result,
+					first, last, result,
 					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
 					sprout::internal_begin_offset(result),
 					sprout::size(result),
@@ -65,12 +56,7 @@ namespace sprout {
 		//
 		template<typename InputIterator, typename Result>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-		phase_spectrum(
-			InputIterator first,
-			InputIterator last,
-			Result const& result
-			)
-		{
+		phase_spectrum(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fixed::detail::phase_spectrum(first, last, result);
 		}
 	}	// namespace fixed

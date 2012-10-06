@@ -14,12 +14,8 @@ namespace sprout {
 			// remove_copy_if
 			//
 			template<typename Input, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type remove_copy_if(
-				Input const& input,
-				Result const& result,
-				Predicate pred
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			remove_copy_if(Input const& input, Result const& result, Predicate pred) {
 				return sprout::fixed::remove_copy_if(sprout::begin(input), sprout::end(input), result, pred);
 			}
 		}	// namespace fixed

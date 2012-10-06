@@ -13,11 +13,8 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bitrev_table_impl(
-				Container const& cont,
-				typename sprout::container_traits<Container>::difference_type offset
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			bitrev_table_impl(Container const& cont, typename sprout::container_traits<Container>::difference_type offset) {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::bitrev_table(cont)),
 					offset,
@@ -29,10 +26,8 @@ namespace sprout {
 		// bitrev_table
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type bitrev_table(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		bitrev_table(Container const& cont) {
 			return sprout::fit::detail::bitrev_table_impl(cont, sprout::internal_begin_offset(cont));
 		}
 	}	// namespace fit

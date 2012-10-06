@@ -25,14 +25,14 @@ namespace sprout {
 		// realign_to
 		//
 		template<typename Result, typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::realign_to<Result, Container>::type realign_to(
-			Container const& cont,
-			T const& v
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::realign_to<Result, Container>::type
+		realign_to(Container const& cont, T const& v) {
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign_to<Result, Container>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size
+					>::make(),
 				sprout::size(cont),
 				v
 				);
@@ -42,13 +42,14 @@ namespace sprout {
 		// realign_to
 		//
 		template<typename Result, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::realign_to<Result, Container>::type realign_to(
-			Container const& cont
-			)
-		{
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::realign_to<Result, Container>::type
+		realign_to(Container const& cont) {
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign_to<Result, Container>::type>(
 				cont,
-				sprout::index_range<0, sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size>::make(),
+				sprout::index_range<
+					0,
+					sprout::container_traits<typename sprout::fixed::result_of::realign_to<Result, Container>::type>::static_size
+					>::make(),
 				sprout::size(cont)
 				);
 		}

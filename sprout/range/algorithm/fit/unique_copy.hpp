@@ -14,24 +14,13 @@ namespace sprout {
 			// unique_copy
 			//
 			template<typename Input, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type unique_copy(
-				Input const& input,
-				Result const& result
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			unique_copy(Input const& input, Result const& result) {
 				return sprout::fit::unique_copy(sprout::begin(input), sprout::end(input), result);
 			}
-
-			//
-			// unique_copy
-			//
 			template<typename Input, typename Result, typename BinaryPredicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type unique_copy(
-				Input const& input,
-				Result const& result,
-				BinaryPredicate pred
-				)
-			{
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			unique_copy(Input const& input, Result const& result, BinaryPredicate pred) {
 				return sprout::fit::unique_copy(sprout::begin(input), sprout::end(input), result, pred);
 			}
 		}	// namespace fit

@@ -28,13 +28,11 @@ namespace sprout {
 					Objects const& objs, Lights const& lights,
 					typename sprout::container_traits<
 						typename sprout::container_traits<Pixels>::value_type
-						>::size_type x
-						,
+						>::size_type x,
 					typename sprout::container_traits<Pixels>::size_type y,
 					typename sprout::container_traits<
 						typename sprout::container_traits<Pixels>::value_type
-						>::size_type width
-						,
+						>::size_type width,
 					typename sprout::container_traits<Pixels>::size_type height,
 					std::size_t depth_max,
 					sprout::index_tuple<XIndexes...>
@@ -100,21 +98,17 @@ namespace sprout {
 				typename sprout::container_traits<
 					typename sprout::container_traits<Pixels>::value_type
 					>::size_type x
-					= 0
-					,
+					= 0,
 				typename sprout::container_traits<Pixels>::size_type y
-					= 0
-					,
+					= 0,
 				typename sprout::container_traits<
 					typename sprout::container_traits<Pixels>::value_type
 					>::size_type width
 					= sprout::container_traits<
 						typename sprout::container_traits<Pixels>::value_type
-						>::static_size
-					,
+						>::static_size,
 				typename sprout::container_traits<Pixels>::size_type height
-					= sprout::container_traits<Pixels>::static_size
-					,
+					= sprout::container_traits<Pixels>::static_size,
 				std::size_t depth_max = 8
 				)
 			{

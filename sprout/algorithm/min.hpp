@@ -9,12 +9,14 @@ namespace sprout {
 
 	// 25.4.7 Minimum and maximum
 	template<typename T, typename Compare>
-	inline SPROUT_CONSTEXPR T const& min(T const& a, T const& b, Compare comp) {
+	inline SPROUT_CONSTEXPR T const&
+	min(T const& a, T const& b, Compare comp) {
 		return comp(b, a) ? b : a;
 	}
 
 	template<typename T>
-	inline SPROUT_CONSTEXPR T const& min(T const& a, T const& b) {
+	inline SPROUT_CONSTEXPR T const&
+	min(T const& a, T const& b) {
 		return sprout::min(a, b, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
 	}
 }	// namespace sprout

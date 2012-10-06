@@ -29,11 +29,10 @@ namespace sprout {
 		// insert_n
 		//
 		template<std::size_t N, typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::insert_n<N, Container, T, Values...>::type insert_n(
-			Container const& cont,
-			typename sprout::container_traits<Container>::const_iterator pos,
-			T const& v,
-			Values const&... values
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::insert_n<N, Container, T, Values...>::type
+		insert_n(
+			Container const& cont, typename sprout::container_traits<Container>::const_iterator pos,
+			T const& v, Values const&... values
 			)
 		{
 			return sprout::sub_copy(
@@ -42,15 +41,11 @@ namespace sprout {
 				sprout::internal_end_offset(cont) + (1 + sizeof...(Values)) * N
 				);
 		}
-		//
-		// insert_n
-		//
 		template<std::size_t N, typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::insert_n<N, Container, T, Values...>::type insert_n(
-			Container const& cont,
-			typename sprout::container_traits<Container>::difference_type pos,
-			T const& v,
-			Values const&... values
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::insert_n<N, Container, T, Values...>::type
+		insert_n(
+			Container const& cont, typename sprout::container_traits<Container>::difference_type pos,
+			T const& v, Values const&... values
 			)
 		{
 			return sprout::sub_copy(
