@@ -105,7 +105,7 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
-			return !n ? s + 1
+			return !n ? s
 				: eq(*s, a) ? s
 				: find(s + 1, n - 1, a)
 				;
@@ -141,10 +141,23 @@ namespace sprout {
 		typedef typename traits_type::pos_type pos_type;
 		typedef typename traits_type::state_type state_type;
 	public:
+		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
+			return !n ? s
+				: traits_type::eq(*s, a) ? s
+				: find(s + 1, n - 1, a)
+				;
+		}
 		static SPROUT_CONSTEXPR bool is_found(char_type const* found, char_type const* last) {
-			return found;
+			return found != last;
 		}
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
+		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
+			return !n ? s
+				: traits_type::eq(*s, a) ? s
+				: find(s + 1, n - 1, a)
+				;
+		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR bool is_found(ConstIterator found, ConstIterator last) {
 			return found != last;

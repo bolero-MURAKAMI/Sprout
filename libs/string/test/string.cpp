@@ -149,6 +149,24 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT(str1.rfind("barbar", decltype(str1)::npos, 3) == 3);
 			TESTSPR_BOTH_ASSERT(str1.rfind('b') == 3);
 
+			// find_first_of
+			TESTSPR_BOTH_ASSERT(str1.find_first_of(to_string("vwxyz")) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of(to_string("rab")) == 3);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of("vwxyz") == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of("rab") == 3);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of("vwxyz", 0, 3) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of("rabrab", 0, 3) == 3);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of('b') == 3);
+
+			// find_last_of
+			TESTSPR_BOTH_ASSERT(str1.find_last_of(to_string("vwxyz")) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of(to_string("rab")) == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of("vwxyz") == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of("rab") == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of("vwxyz", decltype(str1)::npos, 3) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of("rabrab", decltype(str1)::npos, 3) == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of('r') == 5);
+
 			// substr
 			{
 				SPROUT_STATIC_CONSTEXPR auto str3 = str1.substr();
