@@ -72,6 +72,30 @@ namespace sprout {
 				: npos
 				;
 		}
+		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR size_type
+		rfind_impl_2(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+			return traits_type::compare(data + pos, s, n) == 0 ? pos
+				: pos > 0 ? rfind_impl_2(data, len, s, pos - 1, n)
+				: npos
+				;
+		}
+		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR size_type
+		rfind_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+			return n <= len ? rfind_impl_2(data, len, s, NS_SSCRISK_CEL_OR_SPROUT::min(size_type(len - n), pos), n)
+				: npos
+				;
+		}
+		static SPROUT_CONSTEXPR size_type
+		rfind_c_impl(const_iterator data, size_type len, value_type c) {
+			return len > 0
+				? traits_type::eq(data[len - 1], c)
+					? len - 1
+					: rfind_c_impl(data, len - 1, c)
+				: npos
+				;
+		}
 		static SPROUT_CONSTEXPR int
 		compare_impl_2(int compared, size_type n1, size_type n2) {
 			return compared != 0 ? compared
@@ -369,6 +393,24 @@ namespace sprout {
 				: npos
 				;
 		}
+		SPROUT_CONSTEXPR size_type
+		rfind(basic_string const& str, size_type pos = npos) const SPROUT_NOEXCEPT {
+			return rfind_impl_1(begin(), len, str.begin(), pos, str.size());
+		}
+		SPROUT_CONSTEXPR size_type
+		rfind(value_type const* s, size_type pos, size_type n) const {
+			return rfind_impl_1(begin(), len, s, pos, n);
+		}
+		SPROUT_CONSTEXPR size_type
+		rfind(value_type const* s, size_type pos = npos) const {
+			return rfind(s, pos, traits_type::length(s));
+		}
+		SPROUT_CONSTEXPR size_type
+		rfind(value_type c, size_type pos = npos) const {
+			return len ? rfind_c_impl(begin(), len - 1 > pos ? pos + 1 : len, c)
+				: npos
+				;
+		}
 		SPROUT_CONSTEXPR basic_string
 		substr(size_type pos = 0, size_type n = npos) const {
 			return !(size() < pos)
@@ -485,6 +527,22 @@ namespace sprout {
 		>::type
 		find(ConstIterator s, size_type pos = 0) const {
 			return find(s, pos, traits_type::length(s));
+		}
+		template<typename ConstIterator>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_index_iterator<ConstIterator>::value,
+			size_type
+		>::type
+		rfind(ConstIterator s, size_type pos, size_type n) const {
+			return rfind_impl_1(begin(), len, s, pos, n);
+		}
+		template<typename ConstIterator>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_index_iterator<ConstIterator>::value,
+			size_type
+		>::type
+		rfind(ConstIterator s, size_type pos = npos) const {
+			return rfind(s, pos, traits_type::length(s));
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<

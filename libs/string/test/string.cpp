@@ -133,12 +133,21 @@ namespace testspr {
 
 			// find
 			TESTSPR_BOTH_ASSERT(str1.find(str2) == decltype(str1)::npos);
-			TESTSPR_BOTH_ASSERT(str1.find(to_string("1234")) == 6);
+			TESTSPR_BOTH_ASSERT(str1.find(to_string("bar")) == 3);
 			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str()) == decltype(str1)::npos);
-			TESTSPR_BOTH_ASSERT(str1.find("1234") == 6);
-			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str(), 0, 4) == decltype(str1)::npos);
-			TESTSPR_BOTH_ASSERT(str1.find("12341234", 0, 4) == 6);
-			TESTSPR_BOTH_ASSERT(str1.find('1') == 6);
+			TESTSPR_BOTH_ASSERT(str1.find("bar") == 3);
+			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str(), 0, 3) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find("barbar", 0, 3) == 3);
+			TESTSPR_BOTH_ASSERT(str1.find('b') == 3);
+
+			// rfind
+			TESTSPR_BOTH_ASSERT(str1.rfind(str2) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.rfind(to_string("bar")) == 3);
+			TESTSPR_BOTH_ASSERT(str1.rfind(str2.c_str()) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.rfind("bar") == 3);
+			TESTSPR_BOTH_ASSERT(str1.rfind(str2.c_str(), decltype(str1)::npos, 3) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.rfind("barbar", decltype(str1)::npos, 3) == 3);
+			TESTSPR_BOTH_ASSERT(str1.rfind('b') == 3);
 
 			// substr
 			{
