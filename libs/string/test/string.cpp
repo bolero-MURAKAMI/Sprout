@@ -132,57 +132,57 @@ namespace testspr {
 			}
 
 			// find
-			TESTSPR_BOTH_ASSERT(str1.find(str2) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find(str2) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find(to_string("bar")) == 3);
-			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str()) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str()) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find("bar") == 3);
-			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str(), 0, 3) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str(), 0, 3) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find("barbar", 0, 3) == 3);
 			TESTSPR_BOTH_ASSERT(str1.find('b') == 3);
 
 			// rfind
-			TESTSPR_BOTH_ASSERT(str1.rfind(str2) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.rfind(str2) == npos);
 			TESTSPR_BOTH_ASSERT(str1.rfind(to_string("bar")) == 3);
-			TESTSPR_BOTH_ASSERT(str1.rfind(str2.c_str()) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.rfind(str2.c_str()) == npos);
 			TESTSPR_BOTH_ASSERT(str1.rfind("bar") == 3);
-			TESTSPR_BOTH_ASSERT(str1.rfind(str2.c_str(), decltype(str1)::npos, 3) == decltype(str1)::npos);
-			TESTSPR_BOTH_ASSERT(str1.rfind("barbar", decltype(str1)::npos, 3) == 3);
+			TESTSPR_BOTH_ASSERT(str1.rfind(str2.c_str(), npos, 3) == npos);
+			TESTSPR_BOTH_ASSERT(str1.rfind("barbar", npos, 3) == 3);
 			TESTSPR_BOTH_ASSERT(str1.rfind('b') == 3);
 
 			// find_first_of
-			TESTSPR_BOTH_ASSERT(str1.find_first_of(to_string("vwxyz")) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of(to_string("vwxyz")) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_first_of(to_string("rab")) == 3);
-			TESTSPR_BOTH_ASSERT(str1.find_first_of("vwxyz") == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of("vwxyz") == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_first_of("rab") == 3);
-			TESTSPR_BOTH_ASSERT(str1.find_first_of("vwxyz", 0, 3) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of("vwxyz", 0, 3) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_first_of("rabrab", 0, 3) == 3);
 			TESTSPR_BOTH_ASSERT(str1.find_first_of('b') == 3);
 
 			// find_last_of
-			TESTSPR_BOTH_ASSERT(str1.find_last_of(to_string("vwxyz")) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of(to_string("vwxyz")) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_last_of(to_string("rab")) == 5);
-			TESTSPR_BOTH_ASSERT(str1.find_last_of("vwxyz") == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of("vwxyz") == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_last_of("rab") == 5);
-			TESTSPR_BOTH_ASSERT(str1.find_last_of("vwxyz", decltype(str1)::npos, 3) == decltype(str1)::npos);
-			TESTSPR_BOTH_ASSERT(str1.find_last_of("rabrab", decltype(str1)::npos, 3) == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of("vwxyz", npos, 3) == npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of("rabrab", npos, 3) == 5);
 			TESTSPR_BOTH_ASSERT(str1.find_last_of('r') == 5);
 
 			// find_first_not_of
-			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(to_string("foo")) == 3);
-			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1.c_str()) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1.c_str()) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_first_not_of("foo") == 3);
-			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1.c_str(), 0, 10) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1.c_str(), 0, 10) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_first_not_of("foofoo", 0, 3) == 3);
 			TESTSPR_BOTH_ASSERT(str1.find_first_not_of('f') == 1);
 
 			// find_last_not_of
-			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(to_string("4321")) == 5);
-			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1.c_str()) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1.c_str()) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_last_not_of("4321") == 5);
-			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1.c_str(), decltype(str1)::npos, 10) == decltype(str1)::npos);
-			TESTSPR_BOTH_ASSERT(str1.find_last_not_of("43214321", decltype(str1)::npos, 4) == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1.c_str(), npos, 10) == npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of("43214321", npos, 4) == 5);
 			TESTSPR_BOTH_ASSERT(str1.find_last_not_of('4') == 8);
 
 			// substr

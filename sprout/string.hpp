@@ -2,6 +2,7 @@
 #define SPROUT_STRING_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/string/npos.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/string/comparison.hpp>

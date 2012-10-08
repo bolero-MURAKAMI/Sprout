@@ -13,6 +13,7 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/string/char_traits.hpp>
+#include <sprout/string/npos.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
@@ -44,25 +45,52 @@ namespace sprout {
 		typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 		typedef Traits traits_type;
 		typedef sprout::char_traits_helper<traits_type> traits_helper_type;
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
+	private:
+		template<typename Iterator>
+		class is_string_iterator
+			: public std::false_type
+		{};
+		template<typename Iterator>
+		class is_string_iterator<Iterator const>
+			: public is_string_iterator<Iterator>
+		{};
+		template<typename Iterator>
+		class is_string_iterator<Iterator volatile>
+			: public is_string_iterator<Iterator>
+		{};
+		template<typename Iterator>
+		class is_string_iterator<Iterator const volatile>
+			: public is_string_iterator<Iterator>
+		{};
+		template<std::size_t N2>
+		class is_string_iterator<sprout::index_iterator<basic_string<T, N2, Traits>&> >
+			: public std::true_type
+		{};
+		template<std::size_t N2>
+		class is_string_iterator<sprout::index_iterator<basic_string<T, N2, Traits> const&> >
+			: public std::true_type
+		{};
+#endif
 	public:
-		SPROUT_STATIC_CONSTEXPR size_type npos = -1;
+		SPROUT_STATIC_CONSTEXPR size_type npos = sprout::npos;
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
 	private:
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
-		find_impl_2(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+		find_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
 			return pos <= len - n
 				? traits_type::eq(data[pos], *s) && traits_type::compare(data + (pos + 1), s + 1, n - 1) == 0
 					? pos
-					: find_impl_2(data, len, s, pos + 1, n)
+					: find_impl_1(data, len, s, pos + 1, n)
 				: npos
 				;
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
-		find_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+		find_impl(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
 			return n == 0 ? (pos <= len ? pos : npos)
-				: n <= len ? find_impl_2(data, len, s, pos, n)
+				: n <= len ? find_impl_1(data, len, s, pos, n)
 				: npos
 				;
 		}
@@ -74,16 +102,16 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
-		rfind_impl_2(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+		rfind_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
 			return traits_type::compare(data + pos, s, n) == 0 ? pos
-				: pos > 0 ? rfind_impl_2(data, len, s, pos - 1, n)
+				: pos > 0 ? rfind_impl_1(data, len, s, pos - 1, n)
 				: npos
 				;
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
-		rfind_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
-			return n <= len ? rfind_impl_2(data, len, s, NS_SSCRISK_CEL_OR_SPROUT::min(size_type(len - n), pos), n)
+		rfind_impl(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+			return n <= len ? rfind_impl_1(data, len, s, NS_SSCRISK_CEL_OR_SPROUT::min(size_type(len - n), pos), n)
 				: npos
 				;
 		}
@@ -98,51 +126,51 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
-		find_first_of_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+		find_first_of_impl(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
 			return n && pos < len
 				? traits_helper_type::is_found(traits_helper_type::find(s, n, data[pos]), s + n)
 					? pos
-					: find_first_of_impl_1(data, len, s, pos + 1, n)
-				: npos
-				;
-		}
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR size_type
-		find_last_of_impl_2(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
-			return traits_helper_type::is_found(traits_helper_type::find(s, n, data[len]), s + n) ? len
-				: len ? find_last_of_impl_2(data, len - 1, s, pos, n)
+					: find_first_of_impl(data, len, s, pos + 1, n)
 				: npos
 				;
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
 		find_last_of_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
-			return len && n ? find_last_of_impl_2(data, len - 1 > pos ? pos : len - 1, s, pos, n)
+			return traits_helper_type::is_found(traits_helper_type::find(s, n, data[len]), s + n) ? len
+				: len ? find_last_of_impl_1(data, len - 1, s, pos, n)
 				: npos
 				;
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
-		find_first_not_of_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+		find_last_of_impl(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+			return len && n ? find_last_of_impl_1(data, len - 1 > pos ? pos : len - 1, s, pos, n)
+				: npos
+				;
+		}
+		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR size_type
+		find_first_not_of_impl(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
 			return pos < len
 				? !traits_helper_type::is_found(traits_helper_type::find(s, n, data[pos]), s + n)
 					? pos
-					: find_first_not_of_impl_1(data, len, s, pos + 1, n)
-				: npos
-				;
-		}
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR size_type
-		find_last_not_of_impl_2(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
-			return !traits_helper_type::is_found(traits_helper_type::find(s, n, data[len]), s + n) ? len
-				: len ? find_last_not_of_impl_2(data, len - 1, s, pos, n)
+					: find_first_not_of_impl(data, len, s, pos + 1, n)
 				: npos
 				;
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
 		find_last_not_of_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
-			return len ? find_last_not_of_impl_2(data, len - 1 > pos ? pos : len - 1, s, pos, n)
+			return !traits_helper_type::is_found(traits_helper_type::find(s, n, data[len]), s + n) ? len
+				: len ? find_last_not_of_impl_1(data, len - 1, s, pos, n)
+				: npos
+				;
+		}
+		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR size_type
+		find_last_not_of_impl(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+			return len ? find_last_not_of_impl_1(data, len - 1 > pos ? pos : len - 1, s, pos, n)
 				: npos
 				;
 		}
@@ -154,7 +182,7 @@ namespace sprout {
 				;
 		}
 		static SPROUT_CONSTEXPR int
-		compare_impl_2(int compared, size_type n1, size_type n2) {
+		compare_impl_1(int compared, size_type n1, size_type n2) {
 			return compared != 0 ? compared
 				: n1 < n2 ? -1
 				: n2 < n1 ? 1
@@ -163,8 +191,8 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR int
-		compare_impl_1(const_iterator dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
-			return compare_impl_2(
+		compare_impl(const_iterator dest, size_type pos1, size_type n1, ConstIterator s, size_type n2) {
+			return compare_impl_1(
 				traits_type::compare(dest + pos1, s, NS_SSCRISK_CEL_OR_SPROUT::min(n1, n2)),
 				n1, n2
 				);
@@ -434,11 +462,11 @@ namespace sprout {
 		template<std::size_t N2>
 		SPROUT_CONSTEXPR size_type
 		find(basic_string<T, N2, Traits> const& str, size_type pos = 0) const SPROUT_NOEXCEPT {
-			return find_impl_1(begin(), len, str.begin(), pos, str.size());
+			return find_impl(begin(), len, str.begin(), pos, str.size());
 		}
 		SPROUT_CONSTEXPR size_type
 		find(value_type const* s, size_type pos, size_type n) const {
-			return find_impl_1(begin(), len, s, pos, n);
+			return find_impl(begin(), len, s, pos, n);
 		}
 		SPROUT_CONSTEXPR size_type
 		find(value_type const* s, size_type pos = 0) const {
@@ -452,11 +480,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		rfind(basic_string const& str, size_type pos = npos) const SPROUT_NOEXCEPT {
-			return rfind_impl_1(begin(), len, str.begin(), pos, str.size());
+			return rfind_impl(begin(), len, str.begin(), pos, str.size());
 		}
 		SPROUT_CONSTEXPR size_type
 		rfind(value_type const* s, size_type pos, size_type n) const {
-			return rfind_impl_1(begin(), len, s, pos, n);
+			return rfind_impl(begin(), len, s, pos, n);
 		}
 		SPROUT_CONSTEXPR size_type
 		rfind(value_type const* s, size_type pos = npos) const {
@@ -470,11 +498,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_of(basic_string const& str, size_type pos = 0) const SPROUT_NOEXCEPT {
-			return find_first_of_impl_1(begin(), len, str.begin(), pos, str.size());
+			return find_first_of_impl(begin(), len, str.begin(), pos, str.size());
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_of(value_type const* s, size_type pos, size_type n) const {
-			return find_first_of_impl_1(begin(), len, s, pos, n);
+			return find_first_of_impl(begin(), len, s, pos, n);
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_of(value_type const* s, size_type pos = 0) const {
@@ -486,11 +514,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_of(basic_string const& str, size_type pos = npos) const SPROUT_NOEXCEPT {
-			return find_last_of_impl_1(begin(), len, str.begin(), pos, str.size());
+			return find_last_of_impl(begin(), len, str.begin(), pos, str.size());
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_of(value_type const* s, size_type pos, size_type n) const {
-			return find_last_of_impl_1(begin(), len, s, pos, n);
+			return find_last_of_impl(begin(), len, s, pos, n);
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_of(value_type const* s, size_type pos = npos) const {
@@ -502,11 +530,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_not_of(basic_string const& str, size_type pos = 0) const SPROUT_NOEXCEPT {
-			return find_first_not_of_impl_1(begin(), len, str.begin(), pos, str.size());
+			return find_first_not_of_impl(begin(), len, str.begin(), pos, str.size());
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_not_of(value_type const* s, size_type pos, size_type n) const {
-			return find_first_not_of_impl_1(begin(), len, s, pos, n);
+			return find_first_not_of_impl(begin(), len, s, pos, n);
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_not_of(value_type const* s, size_type pos = 0) const {
@@ -523,11 +551,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_not_of(basic_string const& str, size_type pos = npos) const SPROUT_NOEXCEPT {
-			return find_last_not_of_impl_1(begin(), len, str.begin(), pos, str.size());
+			return find_last_not_of_impl(begin(), len, str.begin(), pos, str.size());
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_not_of(value_type const* s, size_type pos, size_type n) const {
-			return find_last_not_of_impl_1(begin(), len, s, pos, n);
+			return find_last_not_of_impl(begin(), len, s, pos, n);
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_not_of(value_type const* s, size_type pos = npos) const {
@@ -577,7 +605,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR int
 		compare(size_type pos1, size_type n1, value_type const* s, size_type n2) const {
 			return !(size() < pos1)
-				? compare_impl_1(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT::min(n1, size() - pos1), s, n2)
+				? compare_impl(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT::min(n1, size() - pos1), s, n2)
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
@@ -609,7 +637,7 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename ConstIterator>
 		typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			basic_string&
 		>::type
 		assign(ConstIterator s, size_type n) {
@@ -625,7 +653,7 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			basic_string&
 		>::type
 		assign(ConstIterator s) {
@@ -633,7 +661,7 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			basic_string&
 		>::type
 		operator=(ConstIterator rhs) {
@@ -642,15 +670,15 @@ namespace sprout {
 
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find(ConstIterator s, size_type pos, size_type n) const {
-			return find_impl_1(begin(), len, s, pos, n);
+			return find_impl(begin(), len, s, pos, n);
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find(ConstIterator s, size_type pos = 0) const {
@@ -658,15 +686,15 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		rfind(ConstIterator s, size_type pos, size_type n) const {
-			return rfind_impl_1(begin(), len, s, pos, n);
+			return rfind_impl(begin(), len, s, pos, n);
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		rfind(ConstIterator s, size_type pos = npos) const {
@@ -674,15 +702,15 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find_first_of(ConstIterator s, size_type pos, size_type n) const {
-			return find_first_of_impl_1(begin(), len, s, pos, n);
+			return find_first_of_impl(begin(), len, s, pos, n);
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find_first_of(ConstIterator s, size_type pos = 0) const {
@@ -690,15 +718,15 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find_last_of(ConstIterator s, size_type pos, size_type n) const {
-			return find_last_of_impl_1(begin(), len, s, pos, n);
+			return find_last_of_impl(begin(), len, s, pos, n);
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find_last_of(ConstIterator s, size_type pos = 0) const {
@@ -706,39 +734,39 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find_first_not_of(ConstIterator s, size_type pos, size_type n) const {
-			return find_first_not_of_impl_1(begin(), len, s, pos, n);
+			return find_first_not_of_impl(begin(), len, s, pos, n);
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find_first_not_of(ConstIterator s, size_type pos = 0) const {
-			return find_first_not_of_impl_1(s, pos, traits_type::length(s));
+			return find_first_not_of_impl(s, pos, traits_type::length(s));
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find_last_not_of(ConstIterator s, size_type pos, size_type n) const {
-			return find_last_not_of_impl_1(begin(), len, s, pos, n);
+			return find_last_not_of_impl(begin(), len, s, pos, n);
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			size_type
 		>::type
 		find_last_not_of(ConstIterator s, size_type pos = npos) const {
-			return find_last_not_of_impl_1(s, pos, traits_type::length(s));
+			return find_last_not_of_impl(s, pos, traits_type::length(s));
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			int
 		>::type
 		compare(ConstIterator s) const {
@@ -746,7 +774,7 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			int
 		>::type
 		compare(size_type pos1, size_type n1, ConstIterator s) const {
@@ -754,12 +782,12 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_index_iterator<ConstIterator>::value,
+			is_string_iterator<ConstIterator>::value,
 			int
 		>::type
 		compare(size_type pos1, size_type n1, ConstIterator s, size_type n2) const {
 			return !(size() < pos1)
-				? compare_impl_1(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT::min(n1, size() - pos1), s, n2)
+				? compare_impl(begin(), pos1, NS_SSCRISK_CEL_OR_SPROUT::min(n1, size() - pos1), s, n2)
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
