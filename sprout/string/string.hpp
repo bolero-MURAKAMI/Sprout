@@ -110,14 +110,46 @@ namespace sprout {
 		static SPROUT_CONSTEXPR size_type
 		find_last_of_impl_2(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
 			return traits_helper_type::is_found(traits_helper_type::find(s, n, data[len]), s + n) ? len
-				: len != 0 ? find_last_of_impl_2(data, len - 1, s, pos, n)
+				: len ? find_last_of_impl_2(data, len - 1, s, pos, n)
 				: npos
 				;
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR size_type
 		find_last_of_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
-			return len && n ? find_last_of_impl_2(data, len - 1 > pos ? pos : len, s, pos, n)
+			return len && n ? find_last_of_impl_2(data, len - 1 > pos ? pos : len - 1, s, pos, n)
+				: npos
+				;
+		}
+		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR size_type
+		find_first_not_of_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+			return pos < len
+				? !traits_helper_type::is_found(traits_helper_type::find(s, n, data[pos]), s + n)
+					? pos
+					: find_first_not_of_impl_1(data, len, s, pos + 1, n)
+				: npos
+				;
+		}
+		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR size_type
+		find_last_not_of_impl_2(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+			return !traits_helper_type::is_found(traits_helper_type::find(s, n, data[len]), s + n) ? len
+				: len ? find_last_not_of_impl_2(data, len - 1, s, pos, n)
+				: npos
+				;
+		}
+		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR size_type
+		find_last_not_of_impl_1(const_iterator data, size_type len, ConstIterator s, size_type pos, size_type n) {
+			return len ? find_last_not_of_impl_2(data, len - 1 > pos ? pos : len - 1, s, pos, n)
+				: npos
+				;
+		}
+		static SPROUT_CONSTEXPR size_type
+		find_last_not_of_c_impl(const_iterator data, size_type len, value_type c, size_type pos) {
+			return !traits_type::eq(data[len], c) ? len
+				: len ? find_last_not_of_c_impl(data, len - 1, c, pos)
 				: npos
 				;
 		}
@@ -468,6 +500,45 @@ namespace sprout {
 		find_last_of(value_type c, size_type pos = npos) const {
 			return rfind(c, pos);
 		}
+		SPROUT_CONSTEXPR size_type
+		find_first_not_of(basic_string const& str, size_type pos = 0) const SPROUT_NOEXCEPT {
+			return find_first_not_of_impl_1(begin(), len, str.begin(), pos, str.size());
+		}
+		SPROUT_CONSTEXPR size_type
+		find_first_not_of(value_type const* s, size_type pos, size_type n) const {
+			return find_first_not_of_impl_1(begin(), len, s, pos, n);
+		}
+		SPROUT_CONSTEXPR size_type
+		find_first_not_of(value_type const* s, size_type pos = 0) const {
+			return find_first_not_of(s, pos, traits_type::length(s));
+		}
+		SPROUT_CONSTEXPR size_type
+		find_first_not_of(value_type c, size_type pos = 0) const {
+			return pos < len
+				? !traits_type::eq(elems[pos], c)
+					? pos
+					: find_first_not_of(c, pos + 1)
+				: npos
+				;
+		}
+		SPROUT_CONSTEXPR size_type
+		find_last_not_of(basic_string const& str, size_type pos = npos) const SPROUT_NOEXCEPT {
+			return find_last_not_of_impl_1(begin(), len, str.begin(), pos, str.size());
+		}
+		SPROUT_CONSTEXPR size_type
+		find_last_not_of(value_type const* s, size_type pos, size_type n) const {
+			return find_last_not_of_impl_1(begin(), len, s, pos, n);
+		}
+		SPROUT_CONSTEXPR size_type
+		find_last_not_of(value_type const* s, size_type pos = npos) const {
+			return find_last_not_of(s, pos, traits_type::length(s));
+		}
+		SPROUT_CONSTEXPR size_type
+		find_last_not_of(value_type c, size_type pos = npos) const {
+			return len ? find_last_not_of_c_impl(begin(), len - 1 > pos ? pos : len - 1, c, pos)
+				: npos
+				;
+		}
 		SPROUT_CONSTEXPR basic_string
 		substr(size_type pos = 0, size_type n = npos) const {
 			return !(size() < pos)
@@ -632,6 +703,38 @@ namespace sprout {
 		>::type
 		find_last_of(ConstIterator s, size_type pos = 0) const {
 			return find_last_of(s, pos, traits_type::length(s));
+		}
+		template<typename ConstIterator>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_index_iterator<ConstIterator>::value,
+			size_type
+		>::type
+		find_first_not_of(ConstIterator s, size_type pos, size_type n) const {
+			return find_first_not_of_impl_1(begin(), len, s, pos, n);
+		}
+		template<typename ConstIterator>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_index_iterator<ConstIterator>::value,
+			size_type
+		>::type
+		find_first_not_of(ConstIterator s, size_type pos = 0) const {
+			return find_first_not_of_impl_1(s, pos, traits_type::length(s));
+		}
+		template<typename ConstIterator>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_index_iterator<ConstIterator>::value,
+			size_type
+		>::type
+		find_last_not_of(ConstIterator s, size_type pos, size_type n) const {
+			return find_last_not_of_impl_1(begin(), len, s, pos, n);
+		}
+		template<typename ConstIterator>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_index_iterator<ConstIterator>::value,
+			size_type
+		>::type
+		find_last_not_of(ConstIterator s, size_type pos = npos) const {
+			return find_last_not_of_impl_1(s, pos, traits_type::length(s));
 		}
 		template<typename ConstIterator>
 		SPROUT_CONSTEXPR typename std::enable_if<

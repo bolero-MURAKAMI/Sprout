@@ -167,6 +167,24 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT(str1.find_last_of("rabrab", decltype(str1)::npos, 3) == 5);
 			TESTSPR_BOTH_ASSERT(str1.find_last_of('r') == 5);
 
+			// find_first_not_of
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(to_string("foo")) == 3);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1.c_str()) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of("foo") == 3);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1.c_str(), 0, 10) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of("foofoo", 0, 3) == 3);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of('f') == 1);
+
+			// find_last_not_of
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(to_string("4321")) == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1.c_str()) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of("4321") == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1.c_str(), decltype(str1)::npos, 10) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of("43214321", decltype(str1)::npos, 4) == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of('4') == 8);
+
 			// substr
 			{
 				SPROUT_STATIC_CONSTEXPR auto str3 = str1.substr();
