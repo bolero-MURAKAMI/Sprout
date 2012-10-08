@@ -17,19 +17,6 @@
 #endif
 
 namespace sprout {
-	namespace detail {
-		template<sprout::index_t Index, typename T>
-		inline SPROUT_CONSTEXPR T const&
-		array_dummy_get(T const& value) {
-			return value;
-		}
-		template<typename Array, typename T, sprout::index_t... Indexes>
-		inline SPROUT_CONSTEXPR Array
-		array_fill_impl(T const& value, sprout::index_tuple<Indexes...>) {
-			return Array{{array_dummy_get<Indexes>(value)...}};
-		}
-	}	// namespace detail
-
 	//
 	// array
 	//
@@ -54,6 +41,17 @@ namespace sprout {
 		typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
+	private:
+		template<sprout::index_t Index>
+		static SPROUT_CONSTEXPR value_type const&
+		dummy_get(value_type const& value) {
+			return value;
+		}
+		template<sprout::index_t... Indexes>
+		static SPROUT_CONSTEXPR array
+		fill_impl(value_type const& value, sprout::index_tuple<Indexes...>) {
+			return array{{dummy_get<Indexes>(value)...}};
+		}
 	public:
 		value_type elems[static_size ? static_size : 1];
 	public:
@@ -61,7 +59,7 @@ namespace sprout {
 			std::fill_n(begin(), size(), value);
 		}
 		SPROUT_CONSTEXPR array fill(const_reference value) const {
-			return sprout::detail::array_fill_impl<array>(value, sprout::index_n<0, N>::make());
+			return fill_impl(value, sprout::index_n<0, N>::make());
 		}
 		void swap(array<T, N>& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())))

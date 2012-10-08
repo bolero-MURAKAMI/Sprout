@@ -131,10 +131,14 @@ namespace testspr {
 				TESTSPR_ASSERT(s[0] == 'A');
 			}
 
-			// compare
-			TESTSPR_BOTH_ASSERT(str1.compare(cstr) == 0);
-			TESTSPR_BOTH_ASSERT(str1.compare("zzzz") < 0);
-			TESTSPR_BOTH_ASSERT(str1.compare("aaaa") > 0);
+			// find
+			TESTSPR_BOTH_ASSERT(str1.find(str2) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find(to_string("1234")) == 6);
+			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str()) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find("1234") == 6);
+			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str(), 0, 4) == decltype(str1)::npos);
+			TESTSPR_BOTH_ASSERT(str1.find("12341234", 0, 4) == 6);
+			TESTSPR_BOTH_ASSERT(str1.find('1') == 6);
 
 			// substr
 			{
@@ -149,6 +153,26 @@ namespace testspr {
 				SPROUT_STATIC_CONSTEXPR auto str3 = str1.substr(0, 6);
 				TESTSPR_BOTH_ASSERT(str3 == "foobar");
 			}
+
+			// compare
+			TESTSPR_BOTH_ASSERT(str1.compare(str1) == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(to_string("zzzz")) < 0);
+			TESTSPR_BOTH_ASSERT(str2.compare(to_string("aaaa")) > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, to_string("foo")) == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, to_string("zzzz")) < 0);
+			TESTSPR_BOTH_ASSERT(str2.compare(0, 3, to_string("aaaa")) > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, to_string("foo"), 0, 3) == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, to_string("zzzz"), 0, 3) < 0);
+			TESTSPR_BOTH_ASSERT(str2.compare(0, 3, to_string("aaaa"), 0, 3) > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(str1.c_str()) == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare("zzzz") < 0);
+			TESTSPR_BOTH_ASSERT(str1.compare("aaaa") > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, "foo") == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, "zzzz") < 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, "aaaa") > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, "foo", 3) == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, "zzzz", 3) < 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, "aaaa", 3) > 0);
 
 			// operator==
 			TESTSPR_BOTH_ASSERT(!(str1 == str2));

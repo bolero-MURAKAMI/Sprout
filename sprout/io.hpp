@@ -726,9 +726,6 @@ namespace sprout {
 			return holder.value();
 		}
 
-		//
-		// output
-		//
 		namespace detail {
 			template<typename Elem, typename Iterator, std::size_t K, typename... Args>
 			inline SPROUT_CONSTEXPR Elem
@@ -741,7 +738,9 @@ namespace sprout {
 						)
 					;
 			}
+		}	// namespace detail
 
+		namespace detail {
 			template<typename Elem, std::size_t N, sprout::index_t... Indexes, std::size_t K, typename... Args>
 			inline SPROUT_CONSTEXPR sprout::basic_string<Elem, N>
 			output_impl_1(sprout::index_tuple<Indexes...>, sprout::array<std::size_t, K> const& sizes, Args const&... args) {
@@ -777,6 +776,9 @@ namespace sprout {
 					);
 			}
 		}	// namespace detail
+		//
+		// output
+		//
 		template<std::size_t N, typename Elem, typename Expression>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, N>
 		output(Expression const& expr) {
