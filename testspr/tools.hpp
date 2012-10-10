@@ -265,7 +265,8 @@ namespace testspr {
 			)
 		{
 			return first1_ == last1 && first2_ == last2 ? true
-				: testspr::count(first1, last1, *first1_) != testspr::count(first2, first2 + testspr::distance(first1, last1), *first1_) ? false
+				: testspr::count(first1, last1, *first1_) != testspr::count(first2, first2 + testspr::distance(first1, last1), *first1_)
+					? false
 				: testspr::detail::is_permutation_impl(first1, last1, first2, last2, first1_ + 1, first2_ + 1)
 				;
 		}

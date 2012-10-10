@@ -113,7 +113,8 @@ namespace sprout {
 		// to_string_of
 		//
 		template<typename Elem, typename Traits = sprout::char_traits<Elem> >
-		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, 36, Traits> to_string_of(sprout::uuids::uuid const& u) {
+		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, 36, Traits>
+		to_string_of(sprout::uuids::uuid const& u) {
 			return sprout::basic_string<Elem, 36, Traits>{
 				{
 					sprout::uuids::detail::digits<Elem>::table[(u[0] >> 4) & 0x0F],
@@ -158,26 +159,24 @@ namespace sprout {
 		}
 		//
 		// to_string
-		//
-		inline SPROUT_CONSTEXPR sprout::basic_string<char, 36> to_string(sprout::uuids::uuid const& u) {
-			return sprout::uuids::to_string_of<char>(u);
-		}
-		//
 		// to_wstring
-		//
-		inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 36> to_wstring(sprout::uuids::uuid const& u) {
-			return sprout::uuids::to_string_of<wchar_t>(u);
-		}
-		//
 		// to_u16string
-		//
-		inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, 36> to_u16string(sprout::uuids::uuid const& u) {
-			return sprout::uuids::to_string_of<char16_t>(u);
-		}
-		//
 		// to_u32string
 		//
-		inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, 36> to_u32string(sprout::uuids::uuid const& u) {
+		inline SPROUT_CONSTEXPR sprout::basic_string<char, 36>
+		to_string(sprout::uuids::uuid const& u) {
+			return sprout::uuids::to_string_of<char>(u);
+		}
+		inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 36>
+		to_wstring(sprout::uuids::uuid const& u) {
+			return sprout::uuids::to_string_of<wchar_t>(u);
+		}
+		inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, 36>
+		to_u16string(sprout::uuids::uuid const& u) {
+			return sprout::uuids::to_string_of<char16_t>(u);
+		}
+		inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, 36>
+		to_u32string(sprout::uuids::uuid const& u) {
 			return sprout::uuids::to_string_of<char32_t>(u);
 		}
 	}	// namespace uuids
