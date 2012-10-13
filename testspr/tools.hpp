@@ -130,6 +130,35 @@ namespace testspr {
 	};
 
 	//
+	// less_than
+	//
+	template<typename T>
+	struct less_than {
+	public:
+		typedef T argument_type;
+		typedef bool result_type;
+	public:
+		T value;
+	public:
+		explicit SPROUT_CONSTEXPR less_than(T const& value) : value(value) {}
+		SPROUT_CONSTEXPR bool operator()(T const& x) const { return x < value; }
+	};
+	//
+	// greater_than
+	//
+	template<typename T>
+	struct greater_than {
+	public:
+		typedef T argument_type;
+		typedef bool result_type;
+	public:
+		T value;
+	public:
+		explicit SPROUT_CONSTEXPR greater_than(T const& value) : value(value) {}
+		SPROUT_CONSTEXPR bool operator()(T const& x) const { return x > value; }
+	};
+
+	//
 	// x2
 	//
 	template<typename T>

@@ -56,6 +56,8 @@
 #include "./sort_heap.cpp"
 #include "./next_permutation.cpp"
 #include "./prev_permutation.cpp"
+#include "./copy_while.cpp"
+#include "./copy_until.cpp"
 #include "./clamp_range_copy.cpp"
 #include "./clamp_range.cpp"
 #include "./swap_element.cpp"
@@ -123,6 +125,8 @@ namespace testspr {
 		testspr::algorithm_sort_heap_test();
 		testspr::algorithm_next_permutation_test();
 		testspr::algorithm_prev_permutation_test();
+		testspr::algorithm_copy_while_test();
+		testspr::algorithm_copy_until_test();
 		testspr::algorithm_clamp_range_copy_test();
 		testspr::algorithm_clamp_range_test();
 		testspr::algorithm_swap_element_test();

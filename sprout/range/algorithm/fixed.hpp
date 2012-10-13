@@ -20,6 +20,8 @@
 #include <sprout/range/algorithm/fixed/set_intersection.hpp>
 #include <sprout/range/algorithm/fixed/set_difference.hpp>
 #include <sprout/range/algorithm/fixed/set_symmetric_difference.hpp>
+#include <sprout/range/algorithm/fixed/copy_while.hpp>
+#include <sprout/range/algorithm/fixed/copy_until.hpp>
 #include <sprout/range/algorithm/fixed/clamp_range_copy.hpp>
 #include <sprout/range/algorithm/fixed/swap_element_copy.hpp>
 

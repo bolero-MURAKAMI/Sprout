@@ -52,6 +52,8 @@
 #include <sprout/algorithm/fixed/sort_heap.hpp>
 #include <sprout/algorithm/fixed/next_permutation.hpp>
 #include <sprout/algorithm/fixed/prev_permutation.hpp>
+#include <sprout/algorithm/fixed/copy_while.hpp>
+#include <sprout/algorithm/fixed/copy_until.hpp>
 #include <sprout/algorithm/fixed/clamp_range_copy.hpp>
 #include <sprout/algorithm/fixed/clamp_range.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
