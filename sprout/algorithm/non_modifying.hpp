@@ -5,6 +5,7 @@
 #include <sprout/algorithm/all_of.hpp>
 #include <sprout/algorithm/any_of.hpp>
 #include <sprout/algorithm/none_of.hpp>
+#include <sprout/algorithm/one_of.hpp>
 #include <sprout/algorithm/find.hpp>
 #include <sprout/algorithm/find_if.hpp>
 #include <sprout/algorithm/find_if_not.hpp>
@@ -36,5 +37,13 @@
 #include <sprout/algorithm/max_element.hpp>
 #include <sprout/algorithm/minmax_element.hpp>
 #include <sprout/algorithm/lexicographical_compare.hpp>
+#include <sprout/algorithm/all_of_equal.hpp>
+#include <sprout/algorithm/any_of_equal.hpp>
+#include <sprout/algorithm/none_of_equal.hpp>
+#include <sprout/algorithm/one_of_equal.hpp>
+#include <sprout/algorithm/is_increasing.hpp>
+#include <sprout/algorithm/is_decreasing.hpp>
+#include <sprout/algorithm/is_strictly_increasing.hpp>
+#include <sprout/algorithm/is_strictly_decreasing.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_NON_MODIFYIING_HPP

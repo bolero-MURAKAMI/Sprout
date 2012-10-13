@@ -5,6 +5,7 @@
 #include <sprout/range/algorithm/all_of.hpp>
 #include <sprout/range/algorithm/any_of.hpp>
 #include <sprout/range/algorithm/none_of.hpp>
+#include <sprout/range/algorithm/one_of.hpp>
 #include <sprout/range/algorithm/find.hpp>
 #include <sprout/range/algorithm/find_if.hpp>
 #include <sprout/range/algorithm/find_if_not.hpp>
@@ -33,5 +34,13 @@
 #include <sprout/range/algorithm/max_element.hpp>
 #include <sprout/range/algorithm/minmax_element.hpp>
 #include <sprout/range/algorithm/lexicographical_compare.hpp>
+#include <sprout/range/algorithm/all_of_equal.hpp>
+#include <sprout/range/algorithm/any_of_equal.hpp>
+#include <sprout/range/algorithm/none_of_equal.hpp>
+#include <sprout/range/algorithm/one_of_equal.hpp>
+#include <sprout/range/algorithm/is_increasing.hpp>
+#include <sprout/range/algorithm/is_decreasing.hpp>
+#include <sprout/range/algorithm/is_strictly_increasing.hpp>
+#include <sprout/range/algorithm/is_strictly_decreasing.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_ALGORITHM_NON_MODIFYIING_HPP

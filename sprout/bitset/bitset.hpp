@@ -395,7 +395,7 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR std::size_t
 			do_count() const SPROUT_NOEXCEPT {
-				return NS_SSCRISK_CEL_OR_SPROUT::accumulate(begin(), end(),static_cast<std::size_t>(0), count_op());
+				return NS_SSCRISK_CEL_OR_SPROUT::accumulate(begin(), end(), static_cast<std::size_t>(0), count_op());
 			}
 
 			SPROUT_CONSTEXPR unsigned long
@@ -1046,7 +1046,7 @@ namespace sprout {
 		}
 		template<typename Char, typename Traits, typename Alloc>
 		void
-		copy_to_string(std::basic_string<Char, Traits,Alloc>& s) const {
+		copy_to_string(std::basic_string<Char, Traits, Alloc>& s) const {
 			copy_to_string(s, Char('0'), Char('1'));
 		}
 

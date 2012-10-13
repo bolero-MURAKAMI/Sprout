@@ -20,7 +20,7 @@ namespace sprout {
 			}
 			template<typename Input, typename Result, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			partial_sum(Input const& input, Result const& result,BinaryOperation binary_op) {
+			partial_sum(Input const& input, Result const& result, BinaryOperation binary_op) {
 				return sprout::fixed::partial_sum(sprout::begin(input), sprout::end(input), result, binary_op);
 			}
 		}	// namespace fixed
