@@ -172,7 +172,7 @@ namespace sprout {
 					} else {
 						if (falsename_ok) {
 							rhs = false;
-						} else if (truename_ok)	{ 
+						} else if (truename_ok)	{
 							rhs = true;
 						} else if (othername_ok) {
 							rhs = indeterminate;
