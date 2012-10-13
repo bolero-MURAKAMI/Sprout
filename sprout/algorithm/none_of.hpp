@@ -12,7 +12,7 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR bool
 	none_of(InputIterator first, InputIterator last, Predicate pred) {
 		return first == last ? true
-			: pred(*first) == false && sprout::none_of(sprout::next(first), last, pred)
+			: !pred(*first) && sprout::none_of(sprout::next(first), last, pred)
 			;
 	}
 }	// namespace sprout

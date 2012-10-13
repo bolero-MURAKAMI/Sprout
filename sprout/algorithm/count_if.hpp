@@ -13,7 +13,7 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 	count_if(InputIterator first, InputIterator last, Predicate pred) {
 		return first == last ? 0
-			: (pred(*first) != false ? 1 : 0) + sprout::count_if(sprout::next(first), last, pred)
+			: (pred(*first) ? 1 : 0) + sprout::count_if(sprout::next(first), last, pred)
 			;
 	}
 }	// namespace sprout

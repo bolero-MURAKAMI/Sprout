@@ -47,7 +47,7 @@ namespace sprout {
 			return sprout::find_if(first, last, pred);
 		}
 		static SPROUT_CONSTEXPR iterator_type find_prev(iterator_type first, predicate_type pred) {
-			return pred(*first) != false ? first
+			return pred(*first) ? first
 				: find_prev(sprout::prev(first), pred)
 				;
 		}

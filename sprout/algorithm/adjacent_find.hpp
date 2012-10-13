@@ -14,7 +14,7 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR ForwardIterator
 	adjacent_find(ForwardIterator first, ForwardIterator last, BinaryPredicate pred) {
 		return first == last || sprout::next(first) == last ? last
-			: pred(*first, *(sprout::next(first))) != false ? first
+			: pred(*first, *(sprout::next(first))) ? first
 			: sprout::adjacent_find(sprout::next(first), last, pred)
 			;
 	}

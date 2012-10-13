@@ -45,5 +45,6 @@
 #include <sprout/algorithm/is_decreasing.hpp>
 #include <sprout/algorithm/is_strictly_increasing.hpp>
 #include <sprout/algorithm/is_strictly_decreasing.hpp>
+#include <sprout/algorithm/clamp.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_NON_MODIFYIING_HPP

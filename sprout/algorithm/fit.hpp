@@ -52,6 +52,8 @@
 #include <sprout/algorithm/fit/sort_heap.hpp>
 #include <sprout/algorithm/fit/next_permutation.hpp>
 #include <sprout/algorithm/fit/prev_permutation.hpp>
+#include <sprout/algorithm/fit/clamp_range_copy.hpp>
+#include <sprout/algorithm/fit/clamp_range.hpp>
 #include <sprout/algorithm/fit/random_swap.hpp>
 #include <sprout/algorithm/fit/random_swap_result.hpp>
 #include <sprout/algorithm/fit/bogo_sort.hpp>

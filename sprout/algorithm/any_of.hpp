@@ -12,7 +12,7 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR bool
 	any_of(InputIterator first, InputIterator last, Predicate pred) {
 		return first == last ? false
-			: pred(*first) == true || sprout::any_of(sprout::next(first), last, pred)
+			: pred(*first) || sprout::any_of(sprout::next(first), last, pred)
 			;
 	}
 }	// namespace sprout

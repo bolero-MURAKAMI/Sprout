@@ -11,7 +11,7 @@ namespace sprout {
 	template<typename InputIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR InputIterator
 	find_if_not(InputIterator first, InputIterator last, Predicate pred) {
-		return first == last || pred(*first) == false ? first
+		return first == last || !pred(*first) ? first
 			: sprout::find_if_not(sprout::next(first), last, pred)
 			;
 	}

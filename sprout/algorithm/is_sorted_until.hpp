@@ -21,7 +21,7 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR ForwardIterator
 	is_sorted_until(ForwardIterator first, ForwardIterator last, Compare comp) {
 		return first == last || sprout::next(first) == last ? last
-			: comp(*(sprout::next(first)), *first) != false ? sprout::next(first)
+			: comp(*(sprout::next(first)), *first) ? sprout::next(first)
 			: sprout::is_sorted_until(sprout::next(first), last)
 			;
 	}
