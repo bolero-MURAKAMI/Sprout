@@ -47,4 +47,6 @@
 #	include <sprout/config/compiler/visualc.hpp>
 #endif
 
+#include <sprout/config/compiler/cxx11.hpp>
+
 #endif	// #ifndef SPROUT_CONFIG_COMPILER_HPP

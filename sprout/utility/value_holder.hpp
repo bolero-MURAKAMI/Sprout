@@ -129,6 +129,11 @@ namespace sprout {
 		typedef typename helper_type::const_pointer const_pointer;
 		typedef typename helper_type::mutable_or_const_pointer mutable_or_const_pointer;
 		typedef typename helper_type::param_type param_type;
+		typedef reference reference_type;
+		typedef const_reference reference_const_type;
+		typedef pointer pointer_type;
+		typedef const_pointer pointer_const_type;
+		typedef param_type argument_type;
 	private:
 		holder_type holder_;
 	public:
@@ -153,6 +158,12 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR mutable_or_const_pointer get_pointer() const {
 			return helper_type::ptr(holder_);
+		}
+		pointer get_ptr() {
+			return get_pointer();
+		}
+		SPROUT_CONSTEXPR mutable_or_const_pointer get_ptr() const {
+			return get_pointer();
 		}
 	};
 }	// namespace sprout
