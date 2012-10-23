@@ -2,6 +2,7 @@
 #define SPROUT_UTILITY_VALUE_HOLDER_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -130,29 +131,45 @@ namespace sprout {
 		typedef typename helper_type::mutable_or_const_pointer mutable_or_const_pointer;
 		typedef typename helper_type::param_type param_type;
 		typedef reference reference_type;
-		typedef const_reference reference_const_type;
+		typedef mutable_or_const_reference reference_const_type;
 		typedef pointer pointer_type;
-		typedef const_pointer pointer_const_type;
+		typedef mutable_or_const_pointer pointer_const_type;
 		typedef param_type argument_type;
 	private:
 		holder_type holder_;
 	public:
 		value_holder() = default;
+		value_holder(value_holder const&) = default;
 		explicit SPROUT_CONSTEXPR value_holder(param_type p)
 			: holder_(helper_type::hold(p))
 		{}
+
+		void swap(value_holder& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(holder_, other.holder_)))
+		{
+			sprout::swap(holder_, other.holder_);
+		}
+
 		operator reference() {
 			return helper_type::ref(holder_);
 		}
-		SPROUT_CONSTEXPR operator const_reference() const {
+		SPROUT_CONSTEXPR operator mutable_or_const_reference() const {
 			return helper_type::ref(holder_);
 		}
+		pointer operator->() {
+			return helper_type::ptr(holder_);
+		}
+		SPROUT_CONSTEXPR mutable_or_const_pointer operator->() const {
+			return helper_type::ptr(holder_);
+		}
+
 		reference get() {
 			return helper_type::ref(holder_);
 		}
 		SPROUT_CONSTEXPR mutable_or_const_reference get() const {
 			return helper_type::ref(holder_);
 		}
+
 		pointer get_pointer() {
 			return helper_type::ptr(holder_);
 		}
@@ -166,6 +183,55 @@ namespace sprout {
 			return get_pointer();
 		}
 	};
+
+	//
+	// swap
+	//
+	template<typename T>
+	inline void
+	swap(sprout::value_holder<T>& lhs, sprout::value_holder<T>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
+		lhs.swap(rhs);
+	}
+
+	//
+	// get
+	//
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::value_holder<T>::reference_const_type
+	get(sprout::value_holder<T> const& x) {
+		return x.get();
+	}
+	template<typename T>
+	inline typename sprout::value_holder<T>::reference_type
+	get(sprout::value_holder<T>& x) {
+		return x.get();
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::value_holder<T>::pointer_const_type
+	get(sprout::value_holder<T> const* x) {
+		return x->get_pointer();
+	}
+	template<typename T>
+	inline typename sprout::value_holder<T>::pointer_type
+	get(sprout::value_holder<T>* x) {
+		return x->get_pointer();
+	}
+
+	//
+	// get_pointer
+	//
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::value_holder<T>::pointer_const_type
+	get_pointer(sprout::value_holder<T> const& x) {
+		return x.get_pointer();
+	}
+	template<typename T>
+	inline typename sprout::value_holder<T>::pointer_type
+	get_pointer(sprout::value_holder<T>& x) {
+		return x.get_pointer();
+	}
 }	// namespace sprout
 
 #endif // #ifndef SPROUT_UTILITY_VALUE_HOLDER_HPP

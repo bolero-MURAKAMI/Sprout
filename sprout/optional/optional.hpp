@@ -108,6 +108,7 @@ namespace sprout {
 		void swap(optional& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(storage_, other.storage_)))
 		{
+			sprout::swap(initialized_, other.initialized_);
 			sprout::swap(storage_, other.storage_);
 		}
 
@@ -180,7 +181,6 @@ namespace sprout {
 	{
 		lhs.swap(rhs);
 	}
-
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPTIONAL_OPTIONAL_HPP

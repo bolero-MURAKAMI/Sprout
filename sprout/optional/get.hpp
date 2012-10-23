@@ -21,12 +21,12 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR typename sprout::optional<T>::pointer_const_type
 	get(sprout::optional<T> const* x) {
-		return x->get_ptr();
+		return x->get_pointer();
 	}
 	template<typename T>
 	inline typename sprout::optional<T>::pointer_type
 	get(sprout::optional<T>* x) {
-		return x->get_ptr();
+		return x->get_pointer();
 	}
 
 	//
