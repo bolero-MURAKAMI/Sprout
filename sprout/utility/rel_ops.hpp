@@ -5,24 +5,33 @@
 
 namespace sprout {
 	namespace rel_ops {
+		//
+		// operator!=
+		//
 		template <typename T>
 		inline SPROUT_CONSTEXPR bool
 		operator!=(T const& x, T const& y) {
 			return !(x == y);
 		}
-
+		//
+		// operator>
+		//
 		template <typename T>
 		inline SPROUT_CONSTEXPR bool
 		operator>(T const& x, T const& y) {
 			return y < x;
 		}
-
+		//
+		// operator<=
+		//
 		template <typename T>
 		inline SPROUT_CONSTEXPR bool
 		operator<=(T const& x, T const& y) {
 			return !(y < x);
 		}
-
+		//
+		// operator>=
+		//
 		template <typename T>
 		inline SPROUT_CONSTEXPR bool
 		operator>=(T const& x, T const& y) {

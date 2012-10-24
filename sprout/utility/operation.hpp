@@ -2,6 +2,7 @@
 #define SPROUT_UTILITY_OPERATION_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/utility/rel_ops.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
