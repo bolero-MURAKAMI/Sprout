@@ -7,6 +7,7 @@
 #include <sprout/functional/polymorphic/logical.hpp>
 #include <sprout/functional/polymorphic/bitwise.hpp>
 #include <sprout/functional/polymorphic/inc_dec.hpp>
+#include <sprout/functional/polymorphic/reference.hpp>
 #include <sprout/functional/polymorphic/assignment.hpp>
 #include <sprout/functional/polymorphic/members.hpp>
 #include <sprout/functional/polymorphic/various.hpp>
