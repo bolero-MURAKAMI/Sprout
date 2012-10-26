@@ -2,8 +2,9 @@
 #define SPROUT_OPTIONAL_COMPARISON_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/optional/optional.hpp>
 #include <sprout/utility/compare_pointees.hpp>
+#include <sprout/optional/optional.hpp>
+#include <sprout/optional/nullopt.hpp>
 
 namespace sprout {
 	//
@@ -43,6 +44,75 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR bool
 	operator>=(sprout::optional<T> const& lhs, sprout::optional<T> const& rhs) {
 		return !(lhs < rhs);
+	}
+
+	//
+	// operator==
+	// operator!=
+	// operator<
+	// operator>
+	// operator<=
+	// operator>=
+	//
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::optional<T> const& lhs, sprout::nullopt_t) SPROUT_NOEXCEPT {
+		return !lhs;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::nullopt_t, sprout::optional<T> const& rhs) SPROUT_NOEXCEPT {
+		return !rhs;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::optional<T> const& lhs, sprout::nullopt_t) SPROUT_NOEXCEPT {
+		return bool(lhs);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::nullopt_t, sprout::optional<T> const& rhs) SPROUT_NOEXCEPT {
+		return bool(rhs);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::optional<T> const& lhs, sprout::nullopt_t) SPROUT_NOEXCEPT {
+		return false;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::nullopt_t, sprout::optional<T> const& rhs) SPROUT_NOEXCEPT {
+		return bool(rhs);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::optional<T> const& lhs, sprout::nullopt_t) SPROUT_NOEXCEPT {
+		return bool(lhs);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::nullopt_t, sprout::optional<T> const& rhs) SPROUT_NOEXCEPT {
+		return false;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::optional<T> const& lhs, sprout::nullopt_t) SPROUT_NOEXCEPT {
+		return !lhs;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::nullopt_t, sprout::optional<T> const& rhs) SPROUT_NOEXCEPT {
+		return true;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::optional<T> const& lhs, sprout::nullopt_t) SPROUT_NOEXCEPT {
+		return true;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::nullopt_t, sprout::optional<T> const& rhs) SPROUT_NOEXCEPT {
+		return !rhs;
 	}
 }	// namespace sprout
 

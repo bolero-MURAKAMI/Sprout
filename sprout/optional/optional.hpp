@@ -6,6 +6,7 @@
 #include <sprout/utility/value_holder.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/none.hpp>
+#include <sprout/optional/nullopt.hpp>
 
 namespace sprout {
 	//
@@ -29,38 +30,38 @@ namespace sprout {
 		typedef typename holder_type::pointer_const_type pointer_const_type;
 		typedef typename holder_type::argument_type argument_type;
 	private:
-		bool initialized_;
-		holder_type storage_;
+		bool init;
+		holder_type val;
 	private:
-		void destroy() {
-			initialized_ = false;
+		void destroy() SPROUT_NOEXCEPT {
+			init = false;
 		}
 	public:
-		SPROUT_CONSTEXPR optional()
-			: initialized_(false)
+		SPROUT_CONSTEXPR optional() SPROUT_NOEXCEPT
+			: init(false)
 		{}
-		SPROUT_CONSTEXPR optional(sprout::none_t)
-			: initialized_(false)
+		SPROUT_CONSTEXPR optional(sprout::nullopt_t) SPROUT_NOEXCEPT
+			: init(false)
 		{}
 		SPROUT_CONSTEXPR optional(argument_type v)
-			: initialized_(true)
-			, storage_(v)
+			: init(true)
+			, val(v)
 		{}
 		SPROUT_CONSTEXPR optional(bool cond, argument_type v)
-			: initialized_(cond)
-			, storage_(cond ? holder_type(v) : holder_type())
+			: init(cond)
+			, val(cond ? holder_type(v) : holder_type())
 		{}
 		SPROUT_CONSTEXPR optional(optional const& v)
-			: initialized_(v.initialized_)
-			, storage_(v.storage_)
+			: init(v.init)
+			, val(v.val)
 		{}
 		template<class U>
 		explicit SPROUT_CONSTEXPR optional(optional<U> const& v)
-			: initialized_(v.initialized_)
-			, storage_(v.storage_.get())
+			: init(v.init)
+			, val(v.val.get())
 		{}
 
-		optional& operator=(sprout::none_t v) {
+		optional& operator=(sprout::nullopt_t v) SPROUT_NOEXCEPT {
 			assign(v);
 			return *this;
 		}
@@ -78,7 +79,7 @@ namespace sprout {
 			return *this;
 		}
 
-		void assign(sprout::none_t) {
+		void assign(sprout::nullopt_t) SPROUT_NOEXCEPT {
 			destroy();
 		}
 		void assign(argument_type v) {
@@ -95,10 +96,10 @@ namespace sprout {
 			temp.swap(v);
 		}
 
-		void reset() {
+		void reset() SPROUT_NOEXCEPT {
 			destroy();
 		}
-		void reset(sprout::none_t v) {
+		void reset(sprout::nullopt_t v) SPROUT_NOEXCEPT {
 			assign(v);
 		}
 		void reset(argument_type v) {
@@ -106,50 +107,50 @@ namespace sprout {
 		}
 
 		void swap(optional& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(storage_, other.storage_)))
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(val, other.val)))
 		{
-			sprout::swap(initialized_, other.initialized_);
-			sprout::swap(storage_, other.storage_);
+			sprout::swap(init, other.init);
+			sprout::swap(val, other.val);
 		}
 
 		SPROUT_CONSTEXPR reference_const_type get() const {
-			return is_initialized() ? storage_.get()
+			return is_initialized() ? val.get()
 				: throw std::domain_error("optional: value not initialized")
 				;
 		}
 		reference_type get() {
-			return is_initialized() ? storage_.get()
+			return is_initialized() ? val.get()
 				: throw std::domain_error("optional: value not initialized")
 				;
 		}
 		SPROUT_CONSTEXPR reference_const_type get_value_or(reference_const_type& v) const {
-			return is_initialized() ? storage_.get()
+			return is_initialized() ? val.get()
 				: v
 				;
 		}
 		reference_type get_value_or(reference_type& v) {
-			return is_initialized() ? storage_.get()
+			return is_initialized() ? val.get()
 				: v
 				;
 		}
 
 		SPROUT_CONSTEXPR pointer_const_type operator->() const {
-			return is_initialized() ? storage_.get_pointer()
+			return is_initialized() ? val.get_pointer()
 				: throw std::domain_error("optional: value not initialized")
 				;
 		}
 		pointer_type operator->() {
-			return is_initialized() ? storage_.get_pointer()
+			return is_initialized() ? val.get_pointer()
 				: throw std::domain_error("optional: value not initialized")
 				;
 		}
 		SPROUT_CONSTEXPR pointer_const_type get_pointer() const {
-			return is_initialized() ? storage_.get_pointer()
+			return is_initialized() ? val.get_pointer()
 				: throw std::domain_error("optional: value not initialized")
 				;
 		}
 		pointer_type get_pointer() {
-			return is_initialized() ? storage_.get_pointer()
+			return is_initialized() ? val.get_pointer()
 				: throw std::domain_error("optional: value not initialized")
 				;
 		}
@@ -160,14 +161,14 @@ namespace sprout {
 			return get_pointer();
 		}
 
-		SPROUT_CONSTEXPR operator bool() const {
+		SPROUT_CONSTEXPR operator bool() const SPROUT_NOEXCEPT {
 			return is_initialized();
 		}
-		SPROUT_CONSTEXPR bool operator!() const {
+		SPROUT_CONSTEXPR bool operator!() const SPROUT_NOEXCEPT {
 			return !is_initialized();
 		}
-		SPROUT_CONSTEXPR bool is_initialized() const {
-			return initialized_;
+		SPROUT_CONSTEXPR bool is_initialized() const SPROUT_NOEXCEPT {
+			return init;
 		}
 	};
 
@@ -184,4 +185,3 @@ namespace sprout {
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_OPTIONAL_OPTIONAL_HPP
-#include <boost/none.hpp>

@@ -19,7 +19,7 @@ namespace sprout {
 			typedef T const& param_type;
 			typedef T holder_type;
 		public:
-			static SPROUT_CONSTEXPR holder_type const& hold(param_type p) {
+			static SPROUT_CONSTEXPR holder_type const& hold(param_type p) SPROUT_NOEXCEPT {
 				return p;
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type& r) {
@@ -28,10 +28,10 @@ namespace sprout {
 			static SPROUT_CONSTEXPR const_reference ref(holder_type const& r) {
 				return r;
 			}
-			static SPROUT_CONSTEXPR pointer ptr(holder_type& r) {
+			static SPROUT_CONSTEXPR pointer ptr(holder_type& r) SPROUT_NOEXCEPT {
 				return &r;
 			}
-			static SPROUT_CONSTEXPR const_pointer ptr(holder_type const& r) {
+			static SPROUT_CONSTEXPR const_pointer ptr(holder_type const& r) SPROUT_NOEXCEPT {
 				return &r;
 			}
 		};
@@ -48,7 +48,7 @@ namespace sprout {
 			typedef T const& param_type;
 			typedef T holder_type;
 		public:
-			static SPROUT_CONSTEXPR holder_type const& hold(param_type p) {
+			static SPROUT_CONSTEXPR holder_type const& hold(param_type p) SPROUT_NOEXCEPT {
 				return &p;
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type& r) {
@@ -57,10 +57,10 @@ namespace sprout {
 			static SPROUT_CONSTEXPR const_reference ref(holder_type const& r) {
 				return *r;
 			}
-			static SPROUT_CONSTEXPR pointer ptr(holder_type& r) {
+			static SPROUT_CONSTEXPR pointer ptr(holder_type& r) SPROUT_NOEXCEPT {
 				return &r;
 			}
-			static SPROUT_CONSTEXPR const_pointer ptr(holder_type const& r) {
+			static SPROUT_CONSTEXPR const_pointer ptr(holder_type const& r) SPROUT_NOEXCEPT {
 				return &r;
 			}
 		};
@@ -77,13 +77,13 @@ namespace sprout {
 			typedef T& param_type;
 			typedef T* holder_type;
 		public:
-			static SPROUT_CONSTEXPR holder_type hold(param_type p) {
+			static SPROUT_CONSTEXPR holder_type hold(param_type p) SPROUT_NOEXCEPT {
 				return &p;
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type r) {
 				return *r;
 			}
-			static SPROUT_CONSTEXPR pointer ptr(holder_type r) {
+			static SPROUT_CONSTEXPR pointer ptr(holder_type r) SPROUT_NOEXCEPT {
 				return r;
 			}
 		};
@@ -100,13 +100,13 @@ namespace sprout {
 			typedef T const& param_type;
 			typedef T const* holder_type;
 		public:
-			static SPROUT_CONSTEXPR holder_type hold(param_type p) {
+			static SPROUT_CONSTEXPR holder_type hold(param_type p) SPROUT_NOEXCEPT {
 				return &p;
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type r) {
 				return *r;
 			}
-			static SPROUT_CONSTEXPR pointer ptr(holder_type r) {
+			static SPROUT_CONSTEXPR pointer ptr(holder_type r) SPROUT_NOEXCEPT {
 				return r;
 			}
 		};
@@ -176,22 +176,22 @@ namespace sprout {
 			return helper_type::ref(holder_);
 		}
 
-		pointer operator->() {
+		pointer operator->() SPROUT_NOEXCEPT {
 			return helper_type::ptr(holder_);
 		}
-		SPROUT_CONSTEXPR mutable_or_const_pointer operator->() const {
+		SPROUT_CONSTEXPR mutable_or_const_pointer operator->() const SPROUT_NOEXCEPT {
 			return helper_type::ptr(holder_);
 		}
-		pointer get_pointer() {
+		pointer get_pointer() SPROUT_NOEXCEPT {
 			return helper_type::ptr(holder_);
 		}
-		SPROUT_CONSTEXPR mutable_or_const_pointer get_pointer() const {
+		SPROUT_CONSTEXPR mutable_or_const_pointer get_pointer() const SPROUT_NOEXCEPT {
 			return helper_type::ptr(holder_);
 		}
-		pointer get_ptr() {
+		pointer get_ptr() SPROUT_NOEXCEPT {
 			return get_pointer();
 		}
-		SPROUT_CONSTEXPR mutable_or_const_pointer get_ptr() const {
+		SPROUT_CONSTEXPR mutable_or_const_pointer get_ptr() const SPROUT_NOEXCEPT {
 			return get_pointer();
 		}
 	};
