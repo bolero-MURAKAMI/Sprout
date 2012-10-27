@@ -304,7 +304,6 @@ namespace testspr {
 				TESTSPR_ASSERT(!opt3);
 			}
 
-
 			// get
 			TESTSPR_BOTH_ASSERT(sprout::get(opt1) == 1234);
 			{

@@ -93,6 +93,8 @@ namespace sprout {
 			template<std::size_t Index>
 			class tuple_impl<Index> {
 			public:
+				template<typename...>
+				friend class tuple;
 				template<std::size_t, typename...>
 				friend class sprout::tuples::detail::tuple_impl;
 			protected:
@@ -124,6 +126,8 @@ namespace sprout {
 				, private sprout::tuples::detail::head_base<Index, Head, std::is_empty<Head>::value>
 			{
 			public:
+				template<typename...>
+				friend class tuple;
 				template<std::size_t, typename...>
 				friend class sprout::tuples::detail::tuple_impl;
 			public:
@@ -142,11 +146,11 @@ namespace sprout {
 				static SPROUT_CONSTEXPR inherited_type const& tail(tuple_impl const& t) SPROUT_NOEXCEPT {
 					return t;
 				}
-			protected:
+			public:
 				void swap(tuple_impl& t)
 				SPROUT_NOEXCEPT_EXPR(
-					SPROUT_NOEXCEPT_EXPR(sprout::swap(head(std::declval<Head&>()), head(t)))
-					&& SPROUT_NOEXCEPT_EXPR(inherited_type::swap(tail(t)))
+					SPROUT_NOEXCEPT_EXPR(sprout::swap(head(std::declval<tuple_impl&>()), head(t)))
+					&& SPROUT_NOEXCEPT_EXPR(std::declval<inherited_type&>().swap(tail(t)))
 					)
 				{
 					sprout::swap(head(*this), head(t));
@@ -223,52 +227,6 @@ namespace sprout {
 					return *this;
 				}
 			};
-
-			template<bool Head, bool... Tail>
-			struct and_impl;
-			template<>
-			struct and_impl<true>
-				: public std::true_type
-			{};
-			template<>
-			struct and_impl<false>
-				: public std::false_type
-			{};
-			template<bool... Tail>
-			struct and_impl<true, Tail...>
-				: public std::integral_constant<bool, sprout::tuples::detail::and_impl<Tail...>::value>
-			{};
-			template<bool... Tail>
-			struct and_impl<false, Tail...>
-				: public std::false_type
-			{};
-			template<typename... Types>
-			struct and_
-				: public sprout::tuples::detail::and_impl<Types::value...>
-			{};
-
-			template<bool Head, bool... Tail>
-			struct or_impl;
-			template<>
-			struct or_impl<true>
-				: public std::true_type
-			{};
-			template<>
-			struct or_impl<false>
-				: public std::false_type
-			{};
-			template<bool... Tail>
-			struct or_impl<true, Tail...>
-				: public std::true_type
-			{};
-			template<bool... Tail>
-			struct or_impl<false, Tail...>
-				: public std::integral_constant<bool, sprout::tuples::detail::or_impl<Tail...>::value>
-			{};
-			template<typename... Types>
-			struct or_
-				: public sprout::tuples::detail::and_impl<Types::value...>
-			{};
 		}	// namespace detail
 
 		//
@@ -278,7 +236,7 @@ namespace sprout {
 		class tuple
 			: public sprout::tuples::detail::tuple_impl<0, Types...>
 		{
-		public:
+		private:
 			typedef sprout::tuples::detail::tuple_impl<0, Types...> inherited_type;
 		public:
 			// tuple construction
@@ -338,7 +296,7 @@ namespace sprout {
 			}
 			// tuple swap
 			void swap(tuple& other)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(inherited_type::swap(other)))
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<inherited_type&>().swap(other)))
 			{
 				inherited_type::swap(other);
 			}

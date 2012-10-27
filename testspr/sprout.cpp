@@ -9,6 +9,7 @@
 #include "../libs/array/test/array.cpp"
 #include "../libs/string/test/string.cpp"
 #include "../libs/bitset/test/bitset.cpp"
+#include "../libs/tuple/test/tuple.cpp"
 #include "../libs/optional/test/optional.cpp"
 #include "../libs/algorithm/test/algorithm.cpp"
 #include "../libs/random/test/random.cpp"
@@ -22,6 +23,7 @@ namespace testspr {
 		testspr::array_test();
 		testspr::string_test();
 		testspr::bitset_test();
+		testspr::tuple_test();
 		testspr::optional_test();
 		testspr::algorithm_test();
 		testspr::random_test();

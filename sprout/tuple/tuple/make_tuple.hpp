@@ -14,7 +14,8 @@ namespace sprout {
 		// make_tuple
 		//
 		template<typename... Types>
-		inline SPROUT_CONSTEXPR sprout::tuples::tuple<typename std::decay<Types>::type...> make_tuple(Types&&... args) {
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<typename std::decay<Types>::type...>
+		make_tuple(Types&&... args) {
 			return sprout::tuples::tuple<typename std::decay<Types>::type...>(sprout::forward<Types>(args)...);
 		}
 
@@ -22,7 +23,8 @@ namespace sprout {
 		// forward_as_tuple
 		//
 		template<typename... Types>
-		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types&&...> forward_as_tuple(Types&&... args) SPROUT_NOEXCEPT {
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types&&...>
+		forward_as_tuple(Types&&... args) SPROUT_NOEXCEPT {
 			return sprout::tuples::tuple<Types&&...>(sprout::forward<Types>(args)...);
 		}
 
@@ -30,7 +32,8 @@ namespace sprout {
 		// tie
 		//
 		template<typename... Types>
-		inline sprout::tuples::tuple<Types&...> tie(Types&... args) SPROUT_NOEXCEPT {
+		inline sprout::tuples::tuple<Types&...>
+		tie(Types&... args) SPROUT_NOEXCEPT {
 			return sprout::tuples::tuple<Types&...>(args...);
 		}
 
@@ -86,7 +89,7 @@ namespace sprout {
 			template<typename... Tuples>
 			struct tuple_cat
 				: public sprout::tuples::result_of::detail::tuple_cat_impl<
-					typename std::remove_reference<Tuples>::type...
+					typename std::decay<Tuples>::type...
 				>
 			{};
 		}	// namespace result_of
@@ -109,23 +112,6 @@ namespace sprout {
 
 			template<typename Result, typename IndexTuple, typename... Tuples>
 			struct tuple_cat_impl;
-			template<typename Result, sprout::index_t... Indexes, typename Head, typename... Tail>
-			struct tuple_cat_impl<Result, sprout::index_tuple<Indexes...>, Head, Tail...> {
-			public:
-				template<typename... Args>
-				static SPROUT_CONSTEXPR Result
-				call(Head&& head, Tail&&... tail, Args&&... args) {
-					return sprout::tuples::detail::tuple_cat_impl<
-						Result,
-						typename sprout::tuples::detail::tuple_cat_1st_indexes<Tail...>::type,
-						Tail...
-					>::call(
-						sprout::forward<Tail>(tail)...,
-						sprout::forward<Args>(args)...,
-						sprout::tuples::get<Indexes>(sprout::forward<Head>(head))...
-						);
-				}
-			};
 			template<typename Result>
 			struct tuple_cat_impl<Result, sprout::index_tuple<> > {
 			public:
@@ -133,6 +119,22 @@ namespace sprout {
 				static SPROUT_CONSTEXPR Result
 				call(Args&&... args) {
 					return Result(sprout::forward<Args>(args)...);
+				}
+			};
+			template<typename Result, sprout::index_t... Indexes, typename Head, typename... Tail>
+			struct tuple_cat_impl<Result, sprout::index_tuple<Indexes...>, Head, Tail...> {
+			public:
+				template<typename T, typename... Args>
+				static SPROUT_CONSTEXPR Result
+				call(T&& t, Args&&... args) {
+					return sprout::tuples::detail::tuple_cat_impl<
+						Result,
+						typename sprout::tuples::detail::tuple_cat_1st_indexes<Tail...>::type,
+						Tail...
+					>::call(
+						sprout::forward<Args>(args)...,
+						sprout::tuples::get<Indexes>(sprout::forward<T>(t))...
+						);
 				}
 			};
 		}	// namespace detail

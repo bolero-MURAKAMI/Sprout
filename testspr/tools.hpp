@@ -46,6 +46,15 @@
 
 namespace testspr {
 	//
+	// do_nothing
+	//
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	do_nothing(T const&) SPROUT_NOEXCEPT {
+		return true;
+	}
+
+	//
 	// is_even
 	//
 	template<typename T>
@@ -226,7 +235,7 @@ namespace testspr {
 	// distance
 	//
 	template<typename InputIterator>
-	SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 	distance(InputIterator first, InputIterator last) {
 		return first == last ? 0
 			: 1 + testspr::distance(first + 1, last)
@@ -246,7 +255,7 @@ namespace testspr {
 			;
 	}
 	template<typename Range1, typename Range2>
-	SPROUT_CONSTEXPR bool
+	inline SPROUT_CONSTEXPR bool
 	equal(Range1 const& range1, Range2 const& range2) {
 		return testspr::equal(sprout::begin(range1), sprout::end(range1), sprout::begin(range2), sprout::end(range2));
 	}
@@ -255,7 +264,7 @@ namespace testspr {
 	// is_found
 	//
 	template<class InputIterator, typename T>
-	SPROUT_CONSTEXPR bool
+	inline SPROUT_CONSTEXPR bool
 	is_found(InputIterator first, InputIterator last, T const& value) {
 		return first == last ? false
 			: *first == value ? true
@@ -263,7 +272,7 @@ namespace testspr {
 			;
 	}
 	template<typename Range, typename T>
-	SPROUT_CONSTEXPR bool
+	inline SPROUT_CONSTEXPR bool
 	is_found(Range const& range, T const& value) {
 		return testspr::is_found(sprout::begin(range), sprout::end(range), value);
 	}
@@ -272,21 +281,21 @@ namespace testspr {
 	// count
 	//
 	template<typename InputIterator, typename T>
-	SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 	count(InputIterator first, InputIterator last, T const& value) {
 		return first == last ? 0
 			: (*first == value ? 1 : 0) + testspr::count(first + 1, last, value)
 			;
 	}
 	template<typename Range, typename T>
-	SPROUT_CONSTEXPR typename std::iterator_traits<typename Range::const_iterator>::difference_type
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<typename Range::const_iterator>::difference_type
 	count(Range const& range, T const& value) {
 		return testspr::count(sprout::begin(range), sprout::end(range), value);
 	}
 
 	namespace detail {
 		template<typename ForwardIterator1, typename ForwardIterator2>
-		SPROUT_CONSTEXPR bool
+		inline SPROUT_CONSTEXPR bool
 		is_permutation_impl(
 			ForwardIterator1 first1, ForwardIterator1 last1,
 			ForwardIterator2 first2, ForwardIterator2 last2,
@@ -304,7 +313,7 @@ namespace testspr {
 	// is_permutation
 	//
 	template<typename ForwardIterator1, typename ForwardIterator2>
-	SPROUT_CONSTEXPR bool
+	inline SPROUT_CONSTEXPR bool
 	is_permutation(
 		ForwardIterator1 first1, ForwardIterator1 last1,
 		ForwardIterator2 first2, ForwardIterator2 last2
@@ -313,7 +322,7 @@ namespace testspr {
 		return testspr::detail::is_permutation_impl(first1, last1, first2, last2, first1, first2);
 	}
 	template<typename Range1, typename Range2>
-	SPROUT_CONSTEXPR bool
+	inline SPROUT_CONSTEXPR bool
 	is_permutation(Range1 const& range1, Range2 const& range2) {
 		return testspr::is_permutation(
 			sprout::begin(range1), sprout::end(range1),

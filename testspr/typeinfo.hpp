@@ -12,6 +12,15 @@
 
 namespace testspr {
 	//
+	// id
+	//
+	template<typename T>
+	struct id {
+	public:
+		typedef T type;
+	};
+
+	//
 	// typename_of
 	//
 #if defined(__GNUC__)

@@ -47,6 +47,14 @@ namespace testspr {
 	}
 
 	//
+	// print_type
+	//
+	template<typename T>
+	void print_type() {
+		testspr::print_typename<testspr::id<T> >();
+	}
+
+	//
 	// print_hl
 	//
 	void print_hl() {
