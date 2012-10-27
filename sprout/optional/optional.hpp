@@ -58,7 +58,7 @@ namespace sprout {
 		template<typename U>
 		explicit SPROUT_CONSTEXPR optional(optional<U> const& v)
 			: init(v.is_initialized())
-			, val(v.get())
+			, val(v.is_initialized() ? v.get() : holder_type())
 		{}
 
 		optional& operator=(sprout::nullopt_t v) SPROUT_NOEXCEPT {

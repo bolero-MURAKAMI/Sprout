@@ -303,6 +303,41 @@ namespace testspr {
 				is >> opt3;
 				TESTSPR_ASSERT(!opt3);
 			}
+
+
+			// get
+			TESTSPR_BOTH_ASSERT(sprout::get(opt1) == 1234);
+			{
+				auto opt3 = sprout::optional<int>(1234);
+				TESTSPR_ASSERT(sprout::get(opt3) == 1234);
+
+				opt3.get() = 12345;
+				TESTSPR_ASSERT(sprout::get(opt3) == 12345);
+			}
+
+			// get_pointer
+			TESTSPR_BOTH_ASSERT(*sprout::get_pointer(opt1) == 1234);
+			{
+				auto opt3 = sprout::optional<int>(1234);
+				TESTSPR_ASSERT(*sprout::get_pointer(opt3) == 1234);
+
+				opt3.get() = 12345;
+				TESTSPR_ASSERT(*sprout::get_pointer(opt3) == 12345);
+			}
+
+			// get_optional_value_or
+			TESTSPR_BOTH_ASSERT(sprout::get_optional_value_or(opt1, 12345) == 1234);
+			TESTSPR_BOTH_ASSERT(sprout::get_optional_value_or(opt2, 12345) == 12345);
+			{
+				auto opt3 = sprout::optional<int>(1234);
+				int v = 12345;
+				TESTSPR_ASSERT(sprout::get_optional_value_or(opt3, v) == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				int v = 12345;
+				TESTSPR_ASSERT(sprout::get_optional_value_or(opt3, v) == 12345);
+			}
 		}
 	}
 }	// namespace testspr
