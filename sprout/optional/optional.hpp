@@ -55,10 +55,10 @@ namespace sprout {
 			: init(v.init)
 			, val(v.val)
 		{}
-		template<class U>
+		template<typename U>
 		explicit SPROUT_CONSTEXPR optional(optional<U> const& v)
-			: init(v.init)
-			, val(v.val.get())
+			: init(v.is_initialized())
+			, val(v.get())
 		{}
 
 		optional& operator=(sprout::nullopt_t v) SPROUT_NOEXCEPT {
@@ -73,7 +73,7 @@ namespace sprout {
 			assign(v);
 			return *this;
 		}
-		template<class U>
+		template<typename U>
 		optional& operator=(optional<U> const& v) {
 			assign(v);
 			return *this;
@@ -84,16 +84,16 @@ namespace sprout {
 		}
 		void assign(argument_type v) {
 			optional temp(v);
-			temp.swap(v);
+			temp.swap(*this);
 		}
 		void assign(optional const& v) {
 			optional temp(v);
-			temp.swap(v);
+			temp.swap(*this);
 		}
-		template<class U>
+		template<typename U>
 		void assign(optional<U> const& v) {
 			optional temp(v);
-			temp.swap(v);
+			temp.swap(*this);
 		}
 
 		void reset() SPROUT_NOEXCEPT {
@@ -113,14 +113,20 @@ namespace sprout {
 			sprout::swap(val, other.val);
 		}
 
+		SPROUT_CONSTEXPR reference_const_type operator*() const {
+			return get();
+		}
+		reference_type operator*() {
+			return get();
+		}
 		SPROUT_CONSTEXPR reference_const_type get() const {
 			return is_initialized() ? val.get()
-				: throw std::domain_error("optional: value not initialized")
+				: (throw std::domain_error("optional: value not initialized"), val.get())
 				;
 		}
 		reference_type get() {
 			return is_initialized() ? val.get()
-				: throw std::domain_error("optional: value not initialized")
+				: (throw std::domain_error("optional: value not initialized"), val.get())
 				;
 		}
 		SPROUT_CONSTEXPR reference_const_type get_value_or(reference_const_type& v) const {

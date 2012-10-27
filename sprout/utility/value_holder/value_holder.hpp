@@ -138,8 +138,10 @@ namespace sprout {
 	private:
 		holder_type holder_;
 	public:
-		value_holder() = default;
-		value_holder(value_holder const&) = default;
+		SPROUT_CONSTEXPR value_holder()
+			: holder_()
+		{}
+		SPROUT_CONSTEXPR value_holder(value_holder const&) = default;
 		explicit SPROUT_CONSTEXPR value_holder(param_type p)
 			: holder_(helper_type::hold(p))
 		{}

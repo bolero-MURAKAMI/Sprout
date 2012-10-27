@@ -13,7 +13,7 @@ namespace sprout {
 	//
 	template<typename Elem, typename Traits, typename T>
 	inline std::basic_istream<Elem, Traits>&
-	operator<<(std::basic_istream<Elem, Traits>& lhs, sprout::optional<T>& rhs) {
+	operator>>(std::basic_istream<Elem, Traits>& lhs, sprout::optional<T>& rhs) {
 		if (lhs.good()) {
 			int d = lhs.get();
 			if (d == ' ') {
