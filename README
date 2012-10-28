@@ -27,6 +27,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 -- sprout/array.hpp - std::array 互換の固定長コンテナ
 -- sprout/string.hpp - 固定長バッファの文字列クラス
 -- sprout/tuple.hpp - std::tuple 互換のタプル
+-- sprout/optional.hpp - 無効値の表現
 -- sprout/variant.hpp - バリアント
 -- sprout/bitset.hpp - std::bitset 互換のビットセット
 
