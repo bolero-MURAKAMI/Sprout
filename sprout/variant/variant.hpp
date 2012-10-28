@@ -16,9 +16,14 @@
 #include <sprout/type/algorithm/find_index.hpp>
 
 namespace sprout {
+	template<typename... Types>
+	class variant;
+
 	namespace detail {
 		template<typename... Types>
 		class variant_impl {
+			template<typename...>
+			friend class variant;
 		protected:
 			typedef sprout::tuples::tuple<Types...> tuple_type;
 			typedef sprout::types::type_tuple<typename std::decay<Types>::type...> uncvref_tuple_type;
@@ -45,6 +50,7 @@ namespace sprout {
 			{
 				static_assert(Index::value < sizeof...(Types), "variant<>: invalid operand");
 			}
+		public:
 			void swap(variant_impl& other)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(tuple_, other.tuple_)))
 			{
@@ -154,7 +160,7 @@ namespace sprout {
 		{}
 		// modifiers
 		void swap(variant& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(impl_type::swap(other)))
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<impl_type&>().swap(other)))
 		{
 			impl_type::swap(other);
 		}
@@ -244,11 +250,11 @@ namespace sprout {
 		// visitation support
 		template<typename Visitor>
 		SPROUT_CONSTEXPR typename Visitor::result_type apply_visitor(Visitor&& visitor) const {
-			return visit(tuple_, sprout::forward<Visitor>(visitor), which_);
+			return visit<0>(tuple_, sprout::forward<Visitor>(visitor), which_);
 		}
 		template<typename Visitor>
 		typename Visitor::result_type apply_visitor(Visitor&& visitor) {
-			return visit(tuple_, sprout::forward<Visitor>(visitor), which_);
+			return visit<0>(tuple_, sprout::forward<Visitor>(visitor), which_);
 		}
 	};
 

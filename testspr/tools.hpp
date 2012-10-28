@@ -232,6 +232,29 @@ namespace testspr {
 	};
 
 	//
+	// x2_visitor
+	//
+	template<typename R = void>
+	class x2_visitor {
+	public:
+		typedef R result_type;
+	public:
+		template<typename T>
+		SPROUT_CONSTEXPR result_type operator()(T const& t) const { return static_cast<result_type>(t + t); }
+	};
+	//
+	// x2_assign_visitor
+	//
+	template<typename R = void>
+	class x2_assign_visitor {
+	public:
+		typedef R result_type;
+	public:
+		template<typename T>
+		SPROUT_CONSTEXPR result_type operator()(T& t) const { return static_cast<result_type>(t += t); }
+	};
+
+	//
 	// distance
 	//
 	template<typename InputIterator>

@@ -31,9 +31,9 @@ namespace sprout {
 	template<typename Elem, typename Traits, typename... Types>
 	inline std::basic_ostream<Elem, Traits>&
 	operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::variant<Types...> const& rhs) {
-	    sprout::detail::variant_output_visitor<std::basic_ostream<Elem, Traits> > visitor(lhs);
+		sprout::detail::variant_output_visitor<std::basic_ostream<Elem, Traits> > visitor(lhs);
 		rhs.apply_visitor(visitor);
-	    return lhs;
+		return lhs;
 	}
 }	// namespace sprout
 

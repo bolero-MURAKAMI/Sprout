@@ -11,6 +11,7 @@
 #include "../libs/bitset/test/bitset.cpp"
 #include "../libs/tuple/test/tuple.cpp"
 #include "../libs/optional/test/optional.cpp"
+#include "../libs/variant/test/variant.cpp"
 #include "../libs/algorithm/test/algorithm.cpp"
 #include "../libs/random/test/random.cpp"
 
@@ -25,6 +26,7 @@ namespace testspr {
 		testspr::bitset_test();
 		testspr::tuple_test();
 		testspr::optional_test();
+		testspr::variant_test();
 		testspr::algorithm_test();
 		testspr::random_test();
 	}
