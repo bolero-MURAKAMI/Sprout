@@ -7,8 +7,12 @@
 namespace sprout {
 	namespace tpp {
 		namespace detail {
-			template<bool Head, bool... Tail>
+			template<bool... Values>
 			struct all_of_impl;
+			template<>
+			struct all_of_impl<>
+				: public std::true_type
+			{};
 			template<>
 			struct all_of_impl<true>
 				: public std::true_type
@@ -27,11 +31,18 @@ namespace sprout {
 			{};
 		}	// namespace detail
 		//
-		// all_of
+		// all_of_c
 		//
 		template<bool... Values>
-		struct all_of
+		struct all_of_c
 			: public sprout::tpp::detail::all_of_impl<Values...>
+		{};
+		//
+		// all_of
+		//
+		template<typename... Types>
+		struct all_of
+			: public sprout::tpp::all_of_c<Types::value...>
 		{};
 	}	// namespace tpp
 }	// namespace sprout
