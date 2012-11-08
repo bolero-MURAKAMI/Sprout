@@ -29,6 +29,7 @@ namespace sprout {
 			typedef Engine engine_type;
 			typedef Distribution distribution_type;
 			typedef typename distribution_value_type::result_type result_type;
+			typedef sprout::random::random_result<engine_value_type, distribution_value_type> random_result_type;
 		private:
 			engine_type engine_;
 			distribution_type distribution_;
@@ -40,7 +41,7 @@ namespace sprout {
 				: engine_(engine)
 				, distribution_(distribution)
 			{}
-			SPROUT_CONSTEXPR sprout::random::random_result<engine_value_type, distribution_value_type> operator()() const {
+			SPROUT_CONSTEXPR random_result_type operator()() const {
 				return distribution_(engine_);
 			}
 			engine_reference_type engine() {

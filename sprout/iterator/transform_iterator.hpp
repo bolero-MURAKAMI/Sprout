@@ -8,6 +8,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/iterator/traits.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {
@@ -17,7 +18,10 @@ namespace sprout {
 	template<typename BinaryFunction, typename LIterator, typename RIterator = void>
 	class transform_iterator
 		: public std::iterator<
-			typename std::iterator_traits<LIterator>::iterator_category,
+			typename sprout::min_iterator_category<
+				typename std::iterator_traits<LIterator>::iterator_category,
+				typename std::iterator_traits<RIterator>::iterator_category
+			>::type,
 			typename std::remove_reference<
 				typename std::result_of<
 					BinaryFunction (
@@ -47,7 +51,10 @@ namespace sprout {
 		typedef BinaryFunction functor_type;
 		typedef LIterator iterator_type;
 		typedef RIterator iterator2_type;
-		typedef typename std::iterator_traits<iterator_type>::iterator_category iterator_category;
+		typedef typename sprout::min_iterator_category<
+			typename std::iterator_traits<LIterator>::iterator_category,
+			typename std::iterator_traits<RIterator>::iterator_category
+		>::type iterator_category;
 		typedef typename std::result_of<
 			BinaryFunction (
 				typename std::iterator_traits<LIterator>::reference,

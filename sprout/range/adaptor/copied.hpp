@@ -62,7 +62,7 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR copy_holder(result_type& result)
 				: result_(result)
 			{}
-			SPROUT_CONSTEXPR result_type result() const {
+			SPROUT_CONSTEXPR result_type const& result() const {
 				return result_;
 			}
 		};
@@ -90,9 +90,9 @@ namespace sprout {
 		// operator|
 		//
 		template<typename Range, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<sprout::pit<Result> >::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		operator|(Range&& lhs, sprout::adaptors::copy_holder<Result> const& rhs) {
-			return sprout::range::fixed::copy(sprout::lvalue_forward<Range>(lhs), sprout::pit<Result>());
+			return sprout::range::fixed::copy(sprout::lvalue_forward<Range>(lhs), rhs.result());
 		}
 		template<typename Range>
 		inline SPROUT_CONSTEXPR sprout::adaptors::copied_range<

@@ -143,7 +143,7 @@ namespace sprout {
 				return sprout::adaptors::transform_holder<
 					BinaryFunction,
 					typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
-				> (
+				>(
 					func,
 					sprout::lvalue_forward<RRange>(range)
 					);

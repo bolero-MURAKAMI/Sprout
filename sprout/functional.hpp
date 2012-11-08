@@ -9,6 +9,7 @@
 #include <sprout/functional/mem_fn.hpp>
 #include <sprout/functional/bind.hpp>
 #include <sprout/functional/hash.hpp>
+#include <sprout/functional/type_traits.hpp>
 #include <sprout/functional/polymorphic.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_HPP
