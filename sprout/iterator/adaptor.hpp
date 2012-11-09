@@ -5,6 +5,8 @@
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/iterator/transform_iterator.hpp>
 #include <sprout/iterator/filter_iterator.hpp>
+#include <sprout/iterator/indexed_iterator.hpp>
+#include <sprout/iterator/valued_iterator.hpp>
 #include <sprout/iterator/size_enum_iterator.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
 

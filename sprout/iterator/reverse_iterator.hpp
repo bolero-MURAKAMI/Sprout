@@ -46,8 +46,8 @@ namespace sprout {
 		{}
 		template<typename U>
 		SPROUT_CONSTEXPR reverse_iterator(reverse_iterator<U> const& it)
-			: current(it)
-			, deref_tmp(sprout::prev(it))
+			: current(it.base())
+			, deref_tmp(sprout::prev(it.base()))
 		{}
 		template<typename U>
 		reverse_iterator& operator=(reverse_iterator<U> const& it) {

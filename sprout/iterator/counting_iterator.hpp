@@ -10,6 +10,7 @@
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	//
@@ -32,11 +33,21 @@ namespace sprout {
 		typedef value_type* pointer;
 		typedef value_type reference;
 	private:
-		value_type current_;
+		template<typename T, typename sprout::enabler_if<std::is_integral<T>::value>::type = sprout::enabler>
+		static SPROUT_CONSTEXPR T
+		default_value() {
+			return std::numeric_limits<value_type>::max();
+		}
+		template<typename T, typename sprout::enabler_if<!std::is_integral<T>::value>::type = sprout::enabler>
+		static SPROUT_CONSTEXPR T
+		default_value() {
+			return T();
+		}
 	private:
+		value_type current_;
 	public:
 		SPROUT_CONSTEXPR counting_iterator()
-			: current_(std::numeric_limits<value_type>::max())
+			: current_(default_value<value_type>())
 		{}
 		counting_iterator(counting_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR counting_iterator(value_type const& v)
