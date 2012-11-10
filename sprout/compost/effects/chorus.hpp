@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_EFFECTS_VIBRATO_HPP
-#define SPROUT_COMPOST_EFFECTS_VIBRATO_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_CHORUS_HPP
+#define SPROUT_COMPOST_EFFECTS_CHORUS_HPP
 
 #include <iterator>
 #include <sprout/config.hpp>
@@ -15,10 +15,10 @@
 namespace sprout {
 	namespace compost {
 		//
-		// vibrato_outdirected_value
+		// chorus_outdirected_value
 		//
 		template<typename Value, typename IntType>
-		struct vibrato_outdirected_value {
+		struct chorus_outdirected_value {
 		public:
 			typedef Value value_type;
 			typedef IntType int_type;
@@ -31,9 +31,10 @@ namespace sprout {
 			template<typename Outdirected>
 			SPROUT_CONSTEXPR typename std::iterator_traits<Outdirected>::value_type
 			calc_2(Outdirected const& x, typename Outdirected::index_type m, value_type const& delta) const {
-				return m >= 0 && (m + 1 < x.base().get() || x.base().get() < 0)
+				return *x + (m >= 0 && (m + 1 < x.base().get() || x.base().get() < 0)
 					? delta * x[m + 1 - x.index()] + (1 - delta) * x[m - x.index()]
 					: 0
+					)
 					;
 			}
 			template<typename Outdirected>
@@ -47,7 +48,7 @@ namespace sprout {
 				return calc_1(x, tau, x.index() - tau);
 			}
 		public:
-			SPROUT_CONSTEXPR vibrato_outdirected_value(
+			SPROUT_CONSTEXPR chorus_outdirected_value(
 				value_type const& d, value_type const& depth, value_type const& rate,
 				int_type samples_per_sec = 44100
 				)
@@ -62,10 +63,10 @@ namespace sprout {
 
 		namespace effects {
 			//
-			// vibrato_holder
+			// chorus_holder
 			//
 			template<typename T, typename IntType = int>
-			class vibrato_holder {
+			class chorus_holder {
 			public:
 				typedef T value_type;
 				typedef IntType int_type;
@@ -75,9 +76,9 @@ namespace sprout {
 				value_type rate_;
 				int_type samples_per_sec_;
 			public:
-				vibrato_holder() = default;
-				vibrato_holder(vibrato_holder const&) = default;
-				SPROUT_CONSTEXPR vibrato_holder(
+				chorus_holder() = default;
+				chorus_holder(chorus_holder const&) = default;
+				SPROUT_CONSTEXPR chorus_holder(
 					value_type const& d, value_type const& depth, value_type const& rate,
 					int_type samples_per_sec = 44100
 					)
@@ -98,27 +99,27 @@ namespace sprout {
 			};
 
 			//
-			// vibrato_forwarder
+			// chorus_forwarder
 			//
-			class vibrato_forwarder {
+			class chorus_forwarder {
 			public:
 				template<typename T, typename IntType>
-				SPROUT_CONSTEXPR sprout::compost::effects::vibrato_holder<T, IntType>
+				SPROUT_CONSTEXPR sprout::compost::effects::chorus_holder<T, IntType>
 				operator()(T const& d, T const& depth, T const& rate, IntType samples_per_sec) {
-					return sprout::compost::effects::vibrato_holder<T, IntType>(d, depth, rate, samples_per_sec);
+					return sprout::compost::effects::chorus_holder<T, IntType>(d, depth, rate, samples_per_sec);
 				}
 				template<typename T>
-				SPROUT_CONSTEXPR sprout::compost::effects::vibrato_holder<T>
+				SPROUT_CONSTEXPR sprout::compost::effects::chorus_holder<T>
 				operator()(T const& d, T const& depth, T const& rate) {
-					return sprout::compost::effects::vibrato_holder<T>(d, depth, rate);
+					return sprout::compost::effects::chorus_holder<T>(d, depth, rate);
 				}
 			};
 
 			//
-			// vibrato
+			// chorus
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::vibrato_forwarder vibrato{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::chorus_forwarder chorus{};
 			}	// anonymous-namespace
 
 			//
@@ -126,13 +127,13 @@ namespace sprout {
 			//
 			template<typename Range, typename T, typename IntType>
 			inline SPROUT_CONSTEXPR auto
-			operator|(Range&& lhs, sprout::compost::effects::vibrato_holder<T, IntType> const& rhs)
+			operator|(Range&& lhs, sprout::compost::effects::chorus_holder<T, IntType> const& rhs)
 			-> decltype(
 				sprout::forward<Range>(lhs)
 					| sprout::adaptors::valued(sprout::size(sprout::forward<Range>(lhs)))
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
-						sprout::compost::vibrato_outdirected_value<T, IntType>(
+						sprout::compost::chorus_outdirected_value<T, IntType>(
 							rhs.d(), rhs.depth(), rhs.rate(), rhs.samples_per_sec()
 							)
 						)
@@ -142,7 +143,7 @@ namespace sprout {
 					| sprout::adaptors::valued(sprout::size(sprout::forward<Range>(lhs)))
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
-						sprout::compost::vibrato_outdirected_value<T, IntType>(
+						sprout::compost::chorus_outdirected_value<T, IntType>(
 							rhs.d(), rhs.depth(), rhs.rate(), rhs.samples_per_sec()
 							)
 						)
@@ -152,4 +153,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_VIBRATO_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_CHORUS_HPP

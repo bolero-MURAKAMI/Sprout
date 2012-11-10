@@ -12,6 +12,7 @@
 #include <sprout/compost/effects/compress.hpp>
 #include <sprout/compost/effects/tremolo.hpp>
 #include <sprout/compost/effects/vibrato.hpp>
+#include <sprout/compost/effects/chorus.hpp>
 #include <sprout/compost/effects/noise_gate.hpp>
 #include <sprout/compost/effects/synthesize.hpp>
 
