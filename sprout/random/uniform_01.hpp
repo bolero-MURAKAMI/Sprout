@@ -6,6 +6,10 @@
 #include <limits>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+#	include <stdexcept>
+#	include <sprout/workaround/recursive_function_template.hpp>
+#endif
 
 namespace sprout {
 	namespace random {
@@ -49,24 +53,57 @@ namespace sprout {
 				}
 			};
 		private:
-			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> generate_1(
-				Engine const& eng,
-				sprout::random::random_result<Engine> const& rnd,
-				result_type result
-				) const
-			{
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
+			generate_1(Engine const& eng, sprout::random::random_result<Engine> const& rnd, result_type result) const {
 				return result < result_type(1)
 					? sprout::random::random_result<Engine, uniform_01>(result, rnd.engine(), *this)
-					: operator()(rnd.engine())
+					: generate<D + 1>(rnd.engine(), rnd.engine()())
+					;
+			}
+			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
+			generate_1(Engine const& eng, sprout::random::random_result<Engine> const& rnd, result_type result) const {
+				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
+					sprout::random::random_result<Engine, uniform_01>()
+					;
+			}
+			template<int D = 0, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
+			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
+				typedef typename Engine::result_type base_result;
+				return generate_1<D + 1>(
+					eng,
+					rnd,
+					result_type(rnd.result() - eng.min()) * (
+						result_type(1) / (
+							result_type(eng.max() - eng.min()) + result_type(
+								std::numeric_limits<base_result>::is_integer ? 1 : 0
+								)
+							)
+						)
+					);
+			}
+			template<int D = 0, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
+			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
+				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
+					sprout::random::random_result<Engine, uniform_01>()
+					;
+			}
+#else
+			template<typename Engine>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
+			generate_1(Engine const& eng, sprout::random::random_result<Engine> const& rnd, result_type result) const {
+				return result < result_type(1)
+					? sprout::random::random_result<Engine, uniform_01>(result, rnd.engine(), *this)
+					: generate(rnd.engine(), rnd.engine()())
 					;
 			}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> generate(
-				Engine const& eng,
-				sprout::random::random_result<Engine> const& rnd
-				) const
-			{
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
+			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
 				typedef typename Engine::result_type base_result;
 				return generate_1(
 					eng,
@@ -80,6 +117,7 @@ namespace sprout {
 						)
 					);
 			}
+#endif
 		public:
 			explicit SPROUT_CONSTEXPR uniform_01()
 			{}

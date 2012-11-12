@@ -21,8 +21,8 @@
 #	define SPROUT_NO_DELEGATING_CONSTRUCTORS
 #endif
 
-//#if (__has_feature(cxx_constexpr) && (__GNUC__ >= 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__))
-//#	define SPROUT_HAS_CONSTEXPR_CMATH_FUNCTION
-//#endif
+#if !defined(SPROUT_NO_CONSTEXPR)
+#	define SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+#endif
 
 #endif	// #ifndef SPROUT_CONFIG_COMPILER_CLANG_HPP

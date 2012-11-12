@@ -6,6 +6,10 @@
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
 #include <sprout/cstdlib/abs.hpp>
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+#	include <stdexcept>
+#	include <sprout/workaround/recursive_function_template.hpp>
+#endif
 
 namespace sprout {
 	namespace math {
@@ -31,28 +35,45 @@ namespace sprout {
 					sprout::math::detail::gcd_euclidean(a, b)
 					);
 			}
-
-			template<typename BuiltInUnsigned>
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+			template<int D = 0, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			inline SPROUT_CONSTEXPR BuiltInUnsigned
 			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which);
-			template<typename BuiltInUnsigned>
+			template<int D = 0, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			inline SPROUT_CONSTEXPR BuiltInUnsigned
+			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which);
+			template<int D, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			inline SPROUT_CONSTEXPR BuiltInUnsigned
 			gcd_binary_2_2(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which) {
-				return !(r[ which ] & 1u) ? sprout::math::detail::gcd_binary_2_2(
+				return r[which] ? sprout::math::detail::gcd_binary_2_1<D + 1>(shifts, r, which)
+					: r[!which] << shifts
+					;
+			}
+			template<int D, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			inline SPROUT_CONSTEXPR BuiltInUnsigned
+			gcd_binary_2_2(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which) {
+				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
+					BuiltInUnsigned()
+					;
+			}
+			template<int D, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE_DECL(D)>
+			inline SPROUT_CONSTEXPR BuiltInUnsigned
+			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which) {
+				return !(r[which] & 1u) ? sprout::math::detail::gcd_binary_2_1<D + 2>(
 						shifts,
 						which ? sprout::array<BuiltInUnsigned, 2>{{r[0], BuiltInUnsigned(r[1] >> 1)}}
 							: sprout::array<BuiltInUnsigned, 2>{{BuiltInUnsigned(r[0] >> 1), r[1]}}
 							,
 						which
 						)
-					: r[!which] > r[which] ? sprout::math::detail::gcd_binary_2_1(
+					: r[!which] > r[which] ? sprout::math::detail::gcd_binary_2_2<D + 1>(
 						shifts,
 						which ^ 1u ? sprout::array<BuiltInUnsigned, 2>{{r[0], BuiltInUnsigned(r[1] - r[0])}}
 							: sprout::array<BuiltInUnsigned, 2>{{BuiltInUnsigned(r[0] - r[1]), r[1]}}
 							,
 						which ^ 1u
 						)
-					: sprout::math::detail::gcd_binary_2_1(
+					: sprout::math::detail::gcd_binary_2_2<D + 1>(
 						shifts,
 						which ? sprout::array<BuiltInUnsigned, 2>{{r[0], BuiltInUnsigned(r[1] - r[0])}}
 							: sprout::array<BuiltInUnsigned, 2>{{BuiltInUnsigned(r[0] - r[1]), r[1]}}
@@ -61,18 +82,56 @@ namespace sprout {
 						)
 					;
 			}
-			template<typename BuiltInUnsigned>
+			template<int D, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
 			inline SPROUT_CONSTEXPR BuiltInUnsigned
 			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which) {
-				return r[which] ? sprout::math::detail::gcd_binary_2_2(shifts, r, which)
+				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
+					BuiltInUnsigned()
+					;
+			}
+#else
+			template<typename BuiltInUnsigned>
+			inline SPROUT_CONSTEXPR BuiltInUnsigned
+			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which);
+			template<typename BuiltInUnsigned>
+			inline SPROUT_CONSTEXPR BuiltInUnsigned
+			gcd_binary_2_2(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which) {
+				return r[which] ? sprout::math::detail::gcd_binary_2_1(shifts, r, which)
 					: r[!which] << shifts
 					;
 			}
 			template<typename BuiltInUnsigned>
 			inline SPROUT_CONSTEXPR BuiltInUnsigned
+			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which) {
+				return !(r[which] & 1u) ? sprout::math::detail::gcd_binary_2_1(
+						shifts,
+						which ? sprout::array<BuiltInUnsigned, 2>{{r[0], BuiltInUnsigned(r[1] >> 1)}}
+							: sprout::array<BuiltInUnsigned, 2>{{BuiltInUnsigned(r[0] >> 1), r[1]}}
+							,
+						which
+						)
+					: r[!which] > r[which] ? sprout::math::detail::gcd_binary_2_2(
+						shifts,
+						which ^ 1u ? sprout::array<BuiltInUnsigned, 2>{{r[0], BuiltInUnsigned(r[1] - r[0])}}
+							: sprout::array<BuiltInUnsigned, 2>{{BuiltInUnsigned(r[0] - r[1]), r[1]}}
+							,
+						which ^ 1u
+						)
+					: sprout::math::detail::gcd_binary_2_2(
+						shifts,
+						which ? sprout::array<BuiltInUnsigned, 2>{{r[0], BuiltInUnsigned(r[1] - r[0])}}
+							: sprout::array<BuiltInUnsigned, 2>{{BuiltInUnsigned(r[0] - r[1]), r[1]}}
+							,
+						which
+						)
+					;
+			}
+#endif
+			template<typename BuiltInUnsigned>
+			inline SPROUT_CONSTEXPR BuiltInUnsigned
 			gcd_binary_1(BuiltInUnsigned u, BuiltInUnsigned v, unsigned shifts = 0) {
 				return (!(u & 1u) && !(v & 1u)) ? sprout::math::detail::gcd_binary_1(u >> 1, v >> 1, shifts + 1)
-					: sprout::math::detail::gcd_binary_2_2(
+					: sprout::math::detail::gcd_binary_2_1(
 						shifts, sprout::array<BuiltInUnsigned, 2>{{u, v}}, static_cast<bool>(u & 1u)
 						)
 					;
