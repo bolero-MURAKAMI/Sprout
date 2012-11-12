@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/algorithm/max.hpp>
-#include <sprout/math/abs.hpp>
+#include <sprout/math/fabs.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -22,8 +22,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR bool
 			equal_to_impl(FloatType x, FloatType y) {
 				return x == y
-					|| sprout::abs(x - y)
-						<= std::numeric_limits<FloatType>::epsilon() * sprout::math::detail::max3(std::abs(x), std::abs(y), FloatType(1.0))
+					|| sprout::fabs(x - y)
+						<= std::numeric_limits<FloatType>::epsilon() * sprout::math::detail::max3(sprout::fabs(x), sprout::fabs(y), FloatType(1))
 					;
 			}
 
