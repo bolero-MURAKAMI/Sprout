@@ -43,7 +43,7 @@ namespace sprout {
 			ceil(IntType x) {
 				return sprout::math::detail::ceil(static_cast<double>(x));
 			}
-		}	// namespacedetailmath
+		}	// namespace detail
 
 		using NS_SPROUT_MATH_DETAIL::ceil;
 	}	// namespace math

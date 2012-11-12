@@ -36,10 +36,10 @@ namespace sprout {
 					);
 			}
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
-			template<int D = 0, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			template<int D = 16, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			inline SPROUT_CONSTEXPR BuiltInUnsigned
 			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which);
-			template<int D = 0, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			template<int D = 16, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			inline SPROUT_CONSTEXPR BuiltInUnsigned
 			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which);
 			template<int D, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>

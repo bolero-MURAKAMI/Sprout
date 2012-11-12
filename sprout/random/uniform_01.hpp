@@ -69,7 +69,7 @@ namespace sprout {
 					sprout::random::random_result<Engine, uniform_01>()
 					;
 			}
-			template<int D = 2, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
 			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
 				typedef typename Engine::result_type base_result;
@@ -85,7 +85,7 @@ namespace sprout {
 						)
 					);
 			}
-			template<int D = 2, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
 			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
 				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),

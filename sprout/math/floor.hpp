@@ -43,7 +43,7 @@ namespace sprout {
 			floor(IntType x) {
 				return sprout::math::detail::floor(static_cast<double>(x));
 			}
-		}	// namespacedetailmath
+		}	// namespace detail
 
 		using NS_SPROUT_MATH_DETAIL::floor;
 	}	// namespace math

@@ -35,7 +35,7 @@ namespace sprout {
 			trunc(IntType x) {
 				return sprout::math::detail::trunc(static_cast<double>(x));
 			}
-		}	// namespacedetailmath
+		}	// namespace detail
 
 		using NS_SPROUT_MATH_DETAIL::trunc;
 	}	// namespace math

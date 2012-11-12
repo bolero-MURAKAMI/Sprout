@@ -49,7 +49,7 @@ namespace sprout {
 			round(IntType x) {
 				return sprout::math::detail::round(static_cast<double>(x));
 			}
-		}	// namespacedetailmath
+		}	// namespace detail
 
 		using NS_SPROUT_MATH_DETAIL::round;
 	}	// namespace math

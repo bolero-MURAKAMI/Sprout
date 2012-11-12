@@ -44,7 +44,7 @@ namespace sprout {
 			llround(IntType x) {
 				return static_cast<long long>(x);
 			}
-		}	// namespacedetailmath
+		}	// namespace detail
 
 		using NS_SPROUT_MATH_DETAIL::llround;
 	}	// namespace math
