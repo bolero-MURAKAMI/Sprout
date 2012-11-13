@@ -15,7 +15,6 @@
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
-#	include <stdexcept>
 #	include <sprout/workaround/recursive_function_template.hpp>
 #endif
 
@@ -273,9 +272,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_10(Engine const& eng, RealType v, IntType k, IntType nm, RealType h, IntType nk) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -287,9 +284,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_9(Engine const& eng, RealType v, IntType k, IntType nm) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -302,9 +297,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_8(Engine const& eng, RealType v, IntType k, RealType rho, RealType t) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -317,9 +310,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_7_3(Engine const& eng, RealType v, IntType k, RealType f) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -332,9 +323,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_7_2(Engine const& eng, RealType v, IntType k, RealType f, IntType i) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -347,9 +336,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_7_1(Engine const& eng, RealType v, IntType k, RealType f, IntType i) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -362,9 +349,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_7(Engine const& eng, RealType v, IntType k, RealType f = RealType(1)) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -380,9 +365,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_6(Engine const& eng, RealType v, IntType k, RealType km) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -395,9 +378,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_5(Engine const& eng, RealType v, RealType u, RealType us, IntType k) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -407,9 +388,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_4(Engine const& eng, RealType v, RealType u, RealType us) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -419,9 +398,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_3(Engine const& eng, RealType v, RealType u) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, typename Random, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -440,9 +417,7 @@ namespace sprout {
 			template<int D, typename Engine, typename Random, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_2(Random const& rnd, RealType v) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -455,9 +430,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_1_1(Engine const& eng, RealType u) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -470,9 +443,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_1(Engine const& eng, RealType v) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Engine, typename Random, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -482,9 +453,7 @@ namespace sprout {
 			template<int D, typename Engine, typename Random, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_0(Random const& rnd) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -494,9 +463,7 @@ namespace sprout {
 			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate(Engine const& eng) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, binomial_distribution>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 #else
 			template<typename Engine>

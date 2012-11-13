@@ -7,7 +7,6 @@
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
-#	include <stdexcept>
 #	include <sprout/workaround/recursive_function_template.hpp>
 #endif
 
@@ -65,9 +64,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
 			generate_1(Engine const& eng, sprout::random::random_result<Engine> const& rnd, result_type result) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, uniform_01>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
@@ -88,9 +85,7 @@ namespace sprout {
 			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
 			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
-				return throw std::runtime_error(SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_EXCEEDED_MESSAGE),
-					sprout::random::random_result<Engine, uniform_01>()
-					;
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 #else
 			template<typename Engine>
