@@ -12,7 +12,13 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
-#include <sprout/random/uniform_int_distribution.hpp>
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+#	include <sprout/random/uniform_smallint.hpp>
+#	define SPROUT_WORKAROUND_UNIFORM_INT_DISTRIBUTION sprout::random::uniform_smallint
+#else
+#	include <sprout/random/uniform_int_distribution.hpp>
+#	define SPROUT_WORKAROUND_UNIFORM_INT_DISTRIBUTION sprout::random::uniform_int_distribution
+#endif
 
 namespace sprout {
 	namespace fixed {
@@ -55,7 +61,7 @@ namespace sprout {
 				> result_type;
 				return n > 1
 					? sprout::fixed::detail::make_random_swap_result_indexes_1<UniformRandomNumberGenerator>(
-						sprout::random::uniform_int_distribution<std::ptrdiff_t>(0, n - 1)(sprout::forward<UniformRandomNumberGenerator>(g))
+						SPROUT_WORKAROUND_UNIFORM_INT_DISTRIBUTION<std::ptrdiff_t>(0, n - 1)(sprout::forward<UniformRandomNumberGenerator>(g))
 						)
 					: result_type(
 						sprout::array<std::ptrdiff_t, 2>{{}},
@@ -125,5 +131,7 @@ namespace sprout {
 
 	using sprout::fixed::random_swap_result;
 }	// namespace sprout
+
+#undef SPROUT_WORKAROUND_UNIFORM_INT_DISTRIBUTION
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_RANDOM_SWAP_RESULT_HPP

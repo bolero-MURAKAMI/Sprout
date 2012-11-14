@@ -15,7 +15,13 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/numeric/fixed/iota.hpp>
-#include <sprout/random/uniform_int_distribution.hpp>
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+#	include <sprout/random/uniform_smallint.hpp>
+#	define SPROUT_WORKAROUND_UNIFORM_INT_DISTRIBUTION sprout::random::uniform_smallint
+#else
+#	include <sprout/random/uniform_int_distribution.hpp>
+#	define SPROUT_WORKAROUND_UNIFORM_INT_DISTRIBUTION sprout::random::uniform_int_distribution
+#endif
 
 namespace sprout {
 	namespace fixed {
@@ -56,7 +62,7 @@ namespace sprout {
 				return n > 1
 					? sprout::fixed::detail::make_shuffle_result_indexes_1<UniformRandomNumberGenerator>(
 						n,
-						sprout::random::uniform_int_distribution<std::ptrdiff_t>(0, n - 1)(sprout::forward<UniformRandomNumberGenerator>(g)),
+						SPROUT_WORKAROUND_UNIFORM_INT_DISTRIBUTION<std::ptrdiff_t>(0, n - 1)(sprout::forward<UniformRandomNumberGenerator>(g)),
 						sprout::fixed::iota(sprout::pit<sprout::array<std::ptrdiff_t, N> >(), 0),
 						0
 						)
@@ -141,5 +147,7 @@ namespace sprout {
 
 	using sprout::fixed::shuffle_result;
 }	// namespace sprout
+
+#undef SPROUT_WORKAROUND_UNIFORM_INT_DISTRIBUTION
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_SHUFFLE_RESULT_HPP
