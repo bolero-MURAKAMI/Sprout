@@ -85,7 +85,8 @@ namespace sprout {
 				: member_type{rng, v, y}
 			{}
 			template<typename Random, typename BaseUnsigned>
-			SPROUT_CONSTEXPR sprout::random::random_result<shuffle_order_engine> generate_1(Random const& rnd, BaseUnsigned j) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<shuffle_order_engine>
+			generate_1(Random const& rnd, BaseUnsigned j) const {
 				return sprout::random::random_result<shuffle_order_engine>(
 					v_[j],
 					shuffle_order_engine(
@@ -97,12 +98,14 @@ namespace sprout {
 					);
 			}
 			template<typename BaseUnsigned>
-			SPROUT_CONSTEXPR sprout::random::random_result<shuffle_order_engine> generate(BaseUnsigned brange, BaseUnsigned off) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<shuffle_order_engine>
+			generate(BaseUnsigned brange, BaseUnsigned off) const {
 				return generate_1(
 					rng_(),
 					k == 1 ? BaseUnsigned(0)
 						: brange < std::numeric_limits<BaseUnsigned>::max() / k ? BaseUnsigned(k * off / (brange + 1))
-						: brange < std::numeric_limits<std::uintmax_t>::max() / k ? static_cast<BaseUnsigned>(static_cast<std::uintmax_t>(off) * k / (static_cast<std::uintmax_t>(brange) + 1))
+						: brange < std::numeric_limits<std::uintmax_t>::max() / k
+							? static_cast<BaseUnsigned>(static_cast<std::uintmax_t>(off) * k / (static_cast<std::uintmax_t>(brange) + 1))
 						//: static_cast<BaseUnsigned>(sprout::random::detail::muldiv(off, k, static_cast<std::uintmax_t>(brange) + 1)) // ???
 						: throw std::domain_error("shuffle_order_engine<>: Sorry, not implemented.")
 					);

@@ -58,7 +58,8 @@ namespace sprout {
 			SPROUT_CONSTEXPR inversive_congruential_engine(IntType const& x, private_constructor_tag)
 				: x_(x)
 			{}
-			SPROUT_CONSTEXPR sprout::random::random_result<inversive_congruential_engine> generate(result_type result) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<inversive_congruential_engine>
+			generate(result_type result) const {
 				return sprout::random::random_result<inversive_congruential_engine>(
 					result,
 					inversive_congruential_engine(result, private_constructor_tag())

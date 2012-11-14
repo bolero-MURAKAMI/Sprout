@@ -72,13 +72,6 @@ namespace sprout {
 					: r
 					;
 			}
-			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
-			swap_lr(
-				Container const& cont,
-				typename sprout::container_traits<Container>::difference_type l,
-				typename sprout::container_traits<Container>::difference_type r
-				);
 			template<typename Container, typename Compare>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 			sort_part_l(
