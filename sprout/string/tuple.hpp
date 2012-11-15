@@ -33,6 +33,10 @@ namespace sprout {
 }	// namespace sprout
 
 namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
 	//
 	// tuple_size
 	//
@@ -50,6 +54,9 @@ namespace std {
 		static_assert(I < N, "tuple_element<>: index out of range");
 		typedef T type;
 	};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
 }	// namespace std
 
 #endif	// #ifndef SPROUT_STRING_TUPLE_HPP

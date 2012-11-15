@@ -339,6 +339,10 @@ namespace sprout {
 }	// namespace sprout
 
 namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
 	//
 	// tuple_size
 	//
@@ -354,6 +358,9 @@ namespace std {
 	struct tuple_element<I, sprout::tuples::tuple<Types...> >
 		: public sprout::tuples::detail::tuple_element_impl<I, sprout::tuples::tuple<Types...> >
 	{};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
 }	// namespace std
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_TUPLE_HPP

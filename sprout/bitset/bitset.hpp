@@ -16,6 +16,7 @@
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/bit/operation.hpp>
+#include <sprout/math/comparison.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_NUMERIC_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
@@ -129,7 +130,7 @@ namespace sprout {
 			{
 				return base_bitset(
 					sprout::detail::base_bitset_from_words_construct_tag(),
-					(static_cast<std::size_t>(Indexes) > wshift
+					(sprout::math::greater(Indexes, wshift)
 							? (w_[Indexes - wshift] << offset) | (w_[Indexes - wshift - 1] >> sub_offset)
 						: Indexes == wshift ? w_[0] << offset
 						: static_cast<word_type>(0)
@@ -145,7 +146,7 @@ namespace sprout {
 			{
 				return base_bitset(
 					sprout::detail::base_bitset_from_words_construct_tag(),
-					(static_cast<std::size_t>(Indexes) >= wshift ? w_[Indexes - wshift]
+					(sprout::math::greater_equal(Indexes, wshift) ? w_[Indexes - wshift]
 						: static_cast<word_type>(0)
 						)...
 					);
@@ -172,7 +173,7 @@ namespace sprout {
 			{
 				return base_bitset(
 					sprout::detail::base_bitset_from_words_construct_tag(),
-					(static_cast<std::size_t>(Indexes) < limit
+					(sprout::math::less(Indexes, limit)
 							? (w_[Indexes + wshift] >> offset) | (w_[Indexes + wshift + 1] << sub_offset)
 						: Indexes == limit ? w_[N-1] >> offset
 						: static_cast<word_type>(0)
@@ -188,7 +189,7 @@ namespace sprout {
 			{
 				return base_bitset(
 					sprout::detail::base_bitset_from_words_construct_tag(),
-					(static_cast<std::size_t>(Indexes) <= limit ? w_[Indexes + wshift]
+					(sprout::math::less_equal(Indexes, limit) ? w_[Indexes + wshift]
 						: static_cast<word_type>(0)
 						)...
 					)

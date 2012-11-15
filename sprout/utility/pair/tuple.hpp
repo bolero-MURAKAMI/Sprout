@@ -50,6 +50,10 @@ namespace sprout {
 }	// namespace sprout
 
 namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
 	//
 	// tuple_size
 	//
@@ -65,6 +69,9 @@ namespace std {
 	struct tuple_element<I, sprout::pair<T1, T2> >
 		: public sprout::tuples::detail::tuple_element_impl<I, sprout::pair<T1, T2> >
 	{};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
 }	// namespace std
 
 namespace sprout {

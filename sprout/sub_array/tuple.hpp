@@ -43,6 +43,10 @@ namespace sprout {
 }	// namespace sprout
 
 namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
 	//
 	// tuple_size
 	//
@@ -58,6 +62,9 @@ namespace std {
 	struct tuple_element<I, sprout::sub_array<Container> >
 		: public std::tuple_element<I, typename std::remove_reference<Container>::type>
 	{};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
 }	// namespace std
 
 #endif	// #ifndef SPROUT_SUB_ARRAY_TUPLE_HPP

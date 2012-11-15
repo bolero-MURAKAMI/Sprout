@@ -5,6 +5,7 @@
 #include <limits>
 #include <ios>
 #include <stdexcept>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/random_result.hpp>
@@ -36,12 +37,18 @@ namespace sprout {
 			static SPROUT_CONSTEXPR result_type static_max() {
 				return modulus - 1;
 			}
-			static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType const& x0) {
+			template<typename T>
+			static SPROUT_CONSTEXPR typename std::enable_if<!(c == 0) && std::is_unsigned<T>::value, bool>::type
+			arg_check_nothrow(T const& x0) {
+				return x0 <= static_max();
+			}
+			template<typename T>
+			static SPROUT_CONSTEXPR typename std::enable_if<!(!(c == 0) && std::is_unsigned<T>::value), bool>::type
+			arg_check_nothrow(T const& x0) {
 				return x0 >= static_min() && x0 <= static_max();
 			}
 			static SPROUT_CONSTEXPR IntType arg_check(IntType const& x0) {
-				return arg_check_nothrow(x0)
-					? x0
+				return arg_check_nothrow(x0) ? x0
 					: throw std::invalid_argument("linear_congruential_engine<>: invalid argument (x0 >= static_min() && x0 <= static_max())")
 					;
 			}
