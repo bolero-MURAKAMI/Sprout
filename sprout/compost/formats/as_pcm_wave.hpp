@@ -13,10 +13,7 @@
 
 namespace sprout {
 	namespace compost {
-		namespace formats {
-			//
-			// normalized_to_pcm_wave
-			//
+		namespace detail {
 			template<typename IntType, typename = void>
 			struct normalized_to_pcm_wave;
 			template<typename IntType>
@@ -45,7 +42,16 @@ namespace sprout {
 					return static_cast<result_type>(sprout::clamp((x + 1) / 2, 0, 1) * std::numeric_limits<result_type>::max());
 				}
 			};
+		}	// namespace detail
+		//
+		// normalized_to_pcm_wave
+		//
+		template<typename IntType>
+		struct normalized_to_pcm_wave
+			: public sprout::compost::detail::normalized_to_pcm_wave<IntType>
+		{};
 
+		namespace formats {
 			//
 			// as_pcm_wave_forwarder
 			//
@@ -69,11 +75,11 @@ namespace sprout {
 			operator|(Range&& lhs, sprout::compost::formats::as_pcm_wave_forwarder<IntType> const& rhs)
 			-> decltype(
 				sprout::forward<Range>(lhs)
-					| sprout::adaptors::transformed(sprout::compost::formats::normalized_to_pcm_wave<IntType>())
+					| sprout::adaptors::transformed(sprout::compost::normalized_to_pcm_wave<IntType>())
 				)
 			{
 				return sprout::forward<Range>(lhs)
-					| sprout::adaptors::transformed(sprout::compost::formats::normalized_to_pcm_wave<IntType>())
+					| sprout::adaptors::transformed(sprout::compost::normalized_to_pcm_wave<IntType>())
 					;
 			}
 

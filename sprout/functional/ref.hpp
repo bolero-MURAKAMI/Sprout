@@ -7,7 +7,7 @@
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>
 #include <sprout/functional/base.hpp>
-#include <sprout/functional/weak_result_type.hpp>
+#include <sprout/functional/type_traits/weak_result_type.hpp>
 
 namespace sprout {
 	// 20.8.3 reference_wrapper
@@ -46,9 +46,9 @@ namespace sprout {
 		template<typename T>
 		struct reference_wrapper_base
 			: public sprout::detail::reference_wrapper_base_impl<
-				sprout::detail::has_argument_type<T>::value,
-				sprout::detail::has_first_argument_type<T>::value
-					&& sprout::detail::has_second_argument_type<T>::value
+				sprout::has_argument_type<T>::value,
+				sprout::has_first_argument_type<T>::value
+					&& sprout::has_second_argument_type<T>::value
 					,
 				T
 			>

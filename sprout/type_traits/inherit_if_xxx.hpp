@@ -12,7 +12,7 @@
 //
 #define SPROUT_INHERIT_ALIAS_IF_XXX_TYPE_DEF(NAME, ALIAS, TYPE) \
 	SPROUT_HAS_XXX_TYPE_DEF(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_type_def_impl_has_, TYPE), __LINE__), TYPE); \
-	template<typename T, typename Enable = void> \
+	template<typename T, typename = void> \
 	struct NAME {}; \
 	template<typename T> \
 	struct NAME< \
@@ -40,7 +40,7 @@
 //
 #define SPROUT_INHERIT_ALIAS_IF_XXX_CONSTANT_DEF(NAME, ALIAS, CONSTANT) \
 	SPROUT_HAS_XXX_VALUE_DEF(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__), CONSTANT); \
-	template<typename T, typename Enable = void> \
+	template<typename T, typename = void> \
 	struct NAME {}; \
 	template<typename T> \
 	struct NAME< \

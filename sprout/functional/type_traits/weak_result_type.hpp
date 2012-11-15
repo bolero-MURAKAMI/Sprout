@@ -1,38 +1,15 @@
-#ifndef SPROUT_FUNCTIONAL_WEAK_RESULT_TYPE_HPP
-#define SPROUT_FUNCTIONAL_WEAK_RESULT_TYPE_HPP
+#ifndef SPROUT_FUNCTIONAL_TYPE_TRAITS_WEAK_RESULT_TYPE_HPP
+#define SPROUT_FUNCTIONAL_TYPE_TRAITS_WEAK_RESULT_TYPE_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/has_xxx.hpp>
-#include <sprout/type_traits/inherit_if_xxx.hpp>
+#include <sprout/functional/type_traits/inherit_if_type.hpp>
 
 namespace sprout {
 	namespace detail {
-		//
-		// has_result_type
-		// has_argument_type
-		// has_first_argument_type
-		// has_second_argument_type
-		//
-		SPROUT_HAS_XXX_TYPE_DEF_LAZY(result_type);
-		SPROUT_HAS_XXX_TYPE_DEF_LAZY(argument_type);
-		SPROUT_HAS_XXX_TYPE_DEF_LAZY(first_argument_type);
-		SPROUT_HAS_XXX_TYPE_DEF_LAZY(second_argument_type);
-
-		//
-		// inherit_if_result_type
-		// inherit_if_argument_type
-		// inherit_if_first_argument_type
-		// inherit_if_second_argument_type
-		//
-		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(result_type);
-		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(argument_type);
-		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(first_argument_type);
-		SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(second_argument_type);
-
 		template<typename F>
 		struct weak_result_type_impl
-			: public sprout::detail::inherit_if_result_type<F>
+			: public sprout::inherit_if_result_type<F>
 		{};
 		template<typename F>
 		struct weak_result_type_impl<F const>
@@ -97,4 +74,4 @@ namespace sprout {
 	{};
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_WEAK_RESULT_TYPE_HPP
+#endif	// #ifndef SPROUT_FUNCTIONAL_TYPE_TRAITS_WEAK_RESULT_TYPE_HPP
