@@ -59,10 +59,13 @@ namespace sprout {
 					: mean_(arg_check(mean_arg, sigma_arg))
 					, sigma_(sigma_arg)
 				{}
-				SPROUT_CONSTEXPR RealType mean() const {
+				SPROUT_CONSTEXPR RealType mean() const SPROUT_NOEXCEPT {
 					return mean_;
 				}
-				SPROUT_CONSTEXPR RealType sigma() const {
+				SPROUT_CONSTEXPR RealType sigma() const SPROUT_NOEXCEPT {
+					return sigma_;
+				}
+				SPROUT_CONSTEXPR RealType stddev() const SPROUT_NOEXCEPT {
 					return sigma_;
 				}
 				template<typename Elem, typename Traits>
@@ -91,10 +94,10 @@ namespace sprout {
 				{
 					return lhs << rhs.mean_ << " " << rhs.sigma_;
 				}
-				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return lhs.mean_ == rhs.mean_ && lhs.sigma_ == rhs.sigma_;
 				}
-				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return !(lhs == rhs);
 				}
 			};
@@ -186,19 +189,22 @@ namespace sprout {
 				, cached_rho_(0)
 				, valid_(false)
 			{}
-			SPROUT_CONSTEXPR result_type mean() const {
+			SPROUT_CONSTEXPR result_type mean() const SPROUT_NOEXCEPT {
 				return mean_;
 			}
-			SPROUT_CONSTEXPR result_type sigma() const {
+			SPROUT_CONSTEXPR result_type sigma() const SPROUT_NOEXCEPT {
 				return sigma_;
 			}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type stddev() const SPROUT_NOEXCEPT {
+				return sigma_;
+			}
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return -std::numeric_limits<RealType>::infinity();
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return std::numeric_limits<RealType>::infinity();
 			}
-			SPROUT_CONSTEXPR param_type param() const {
+			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(mean_, sigma_);
 			}
 			void param(param_type const& parm) {
@@ -238,14 +244,14 @@ namespace sprout {
 			{
 				return lhs << rhs.param() << " " << rhs.valid_ << " " << rhs.cached_rho_ << " " << rhs.r1_ << " " << rhs.r2_;
 			}
-			friend SPROUT_CONSTEXPR bool operator==(normal_distribution const& lhs, normal_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(normal_distribution const& lhs, normal_distribution const& rhs) SPROUT_NOEXCEPT {
 				return lhs.param() == rhs.param()
 					&& lhs.valid_ == rhs.valid_
 					&& lhs.cached_rho_ == rhs.cached_rho_
 					&& lhs.r1_ == rhs.r1_ && lhs.r2_ == rhs.r2_
 					;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(normal_distribution const& lhs, normal_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(normal_distribution const& lhs, normal_distribution const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 		};

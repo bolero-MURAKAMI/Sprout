@@ -44,22 +44,22 @@ namespace sprout {
 			SPROUT_CONSTEXPR random_result_type operator()() const {
 				return distribution_(engine_);
 			}
-			engine_reference_type engine() {
+			engine_reference_type engine() SPROUT_NOEXCEPT {
 				return engine_helper_type::ref(engine_);
 			}
-			SPROUT_CONSTEXPR engine_const_reference_type engine() const {
+			SPROUT_CONSTEXPR engine_const_reference_type engine() const SPROUT_NOEXCEPT {
 				return engine_helper_type::ref(engine_);
 			}
-			distribution_reference_type distribution() {
+			distribution_reference_type distribution() SPROUT_NOEXCEPT {
 				return distribution_helper_type::ref(distribution_);
 			}
-			SPROUT_CONSTEXPR distribution_const_reference_type distribution() const {
+			SPROUT_CONSTEXPR distribution_const_reference_type distribution() const SPROUT_NOEXCEPT {
 				return distribution_helper_type::ref(distribution_);
 			}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return distribution_.min();
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return distribution_.max();
 			}
 		};

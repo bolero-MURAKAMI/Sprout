@@ -26,13 +26,14 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR IntType increment = b;
 			SPROUT_STATIC_CONSTEXPR IntType modulus = p;
 			SPROUT_STATIC_CONSTEXPR IntType default_seed = 1;
-		private:
-			static SPROUT_CONSTEXPR result_type static_min() {
+		public:
+			static SPROUT_CONSTEXPR result_type static_min() SPROUT_NOEXCEPT {
 				return b == 0 ? 1 : 0;
 			}
-			static SPROUT_CONSTEXPR result_type static_max() {
+			static SPROUT_CONSTEXPR result_type static_max() SPROUT_NOEXCEPT {
 				return modulus - 1;
 			}
+		private:
 			template<typename T>
 			static SPROUT_CONSTEXPR typename std::enable_if<!(b == 0) && std::is_unsigned<T>::value, bool>::type
 			arg_check_nothrow(T const& x0) {
@@ -80,20 +81,20 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR inversive_congruential_engine(IntType const& x0)
 				: x_(init_seed(x0))
 			{}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return static_min();
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return static_max();
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<inversive_congruential_engine> operator()() const {
 				typedef sprout::random::detail::const_mod<IntType, p> do_mod;
 				return generate(do_mod::mult_add(a, do_mod::invert(x_), b));
 			}
-			friend SPROUT_CONSTEXPR bool operator==(inversive_congruential_engine const& lhs, inversive_congruential_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(inversive_congruential_engine const& lhs, inversive_congruential_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.x_ == rhs.x_;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(inversive_congruential_engine const& lhs, inversive_congruential_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(inversive_congruential_engine const& lhs, inversive_congruential_engine const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 			template<typename Elem, typename Traits>

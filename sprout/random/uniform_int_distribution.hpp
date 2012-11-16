@@ -320,10 +320,10 @@ namespace sprout {
 					: min_(arg_check(min_arg, max_arg))
 					, max_(max_arg)
 				{}
-				SPROUT_CONSTEXPR IntType a() const {
+				SPROUT_CONSTEXPR IntType a() const SPROUT_NOEXCEPT {
 					return min_;
 				}
-				SPROUT_CONSTEXPR IntType b() const {
+				SPROUT_CONSTEXPR IntType b() const SPROUT_NOEXCEPT {
 					return max_;
 				}
 				template<typename Elem, typename Traits>
@@ -352,10 +352,10 @@ namespace sprout {
 				{
 					return lhs << rhs.min_ << " " << rhs.max_;
 				}
-				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return lhs.min_ == rhs.min_ && lhs.max_ == rhs.max_;
 				}
-				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return !(lhs == rhs);
 				}
 			};
@@ -384,19 +384,19 @@ namespace sprout {
 				: min_(parm.a())
 				, max_(parm.b())
 			{}
-			SPROUT_CONSTEXPR result_type a() const {
+			SPROUT_CONSTEXPR result_type a() const SPROUT_NOEXCEPT {
 				return min_;
 			}
-			SPROUT_CONSTEXPR result_type b() const {
+			SPROUT_CONSTEXPR result_type b() const SPROUT_NOEXCEPT {
 				return max_;
 			}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return min_;
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return max_;
 			}
-			SPROUT_CONSTEXPR param_type param() const {
+			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(min_, max_);
 			}
 			void param(param_type const& parm) {
@@ -427,10 +427,10 @@ namespace sprout {
 			{
 				return lhs << rhs.param();
 			}
-			friend SPROUT_CONSTEXPR bool operator==(uniform_int_distribution const& lhs, uniform_int_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(uniform_int_distribution const& lhs, uniform_int_distribution const& rhs) SPROUT_NOEXCEPT {
 				return lhs.param() == rhs.param();
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(uniform_int_distribution const& lhs, uniform_int_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(uniform_int_distribution const& lhs, uniform_int_distribution const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 		};

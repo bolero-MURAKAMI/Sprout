@@ -31,9 +31,9 @@
 #	include <sprout/config/compiler/codegear.hpp>
 #elif defined(__BORLANDC__)
 #	include <sprout/config/compiler/borland.hpp>
-#elif defined( __MWERKS__)
+#elif defined(__MWERKS__)
 #	include <sprout/config/compiler/metrowerks.hpp>
-#elif defined( __SUNPRO_CC)
+#elif defined(__SUNPRO_CC)
 #	include <sprout/config/compiler/sunpro_cc.hpp>
 #elif defined(__HP_aCC)
 #	include <sprout/config/compiler/hp_acc.hpp>

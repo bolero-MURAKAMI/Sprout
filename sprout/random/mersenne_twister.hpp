@@ -46,6 +46,13 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t unroll_factor = 6;
 			SPROUT_STATIC_CONSTEXPR std::size_t unroll_extra1 = (n - m) % unroll_factor;
 			SPROUT_STATIC_CONSTEXPR std::size_t unroll_extra2 = (m - 1) % unroll_factor;
+		public:
+			static SPROUT_CONSTEXPR result_type static_min() SPROUT_NOEXCEPT {
+				return 0;
+			}
+			static SPROUT_CONSTEXPR result_type static_max() SPROUT_NOEXCEPT {
+				return sprout::detail::low_bits_mask_t<w>::sig_bits;
+			}
 		private:
 			template<typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
@@ -67,13 +74,6 @@ namespace sprout {
 			}
 			static SPROUT_CONSTEXPR sprout::array<UIntType, n> init_seed(UIntType const& value) {
 				return init_seed_1(value & static_max());
-			}
-		public:
-			static SPROUT_CONSTEXPR result_type static_min() {
-				return 0;
-			}
-			static SPROUT_CONSTEXPR result_type static_max() {
-				return sprout::detail::low_bits_mask_t<w>::sig_bits;
 			}
 		private:
 			sprout::array<UIntType, n> x_;
@@ -373,10 +373,10 @@ namespace sprout {
 				: x_(init_seed(value))
 				, i_(n)
 			{}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return static_min();
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return static_max();
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<mersenne_twister_engine> operator()() const {
@@ -385,13 +385,13 @@ namespace sprout {
 					: generate()
 					;
 			}
-			friend SPROUT_CONSTEXPR bool operator==(mersenne_twister_engine const& lhs, mersenne_twister_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(mersenne_twister_engine const& lhs, mersenne_twister_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.i_ < rhs.i_
 					? lhs.equal_impl(rhs)
 					: rhs.equal_impl(lhs)
 					;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(mersenne_twister_engine const& lhs, mersenne_twister_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(mersenne_twister_engine const& lhs, mersenne_twister_engine const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 			template<typename Elem, typename Traits>

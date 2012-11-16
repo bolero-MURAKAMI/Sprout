@@ -44,10 +44,10 @@ namespace sprout {
 				{
 					return lhs;
 				}
-				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return true;
 				}
-				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return !(lhs == rhs);
 				}
 			};
@@ -118,13 +118,13 @@ namespace sprout {
 			{}
 			explicit SPROUT_CONSTEXPR uniform_01(param_type const& parm)
 			{}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return result_type(0);
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return result_type(1);
 			}
-			SPROUT_CONSTEXPR param_type param() const {
+			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type();
 			}
 			void param(param_type const& parm) {
@@ -149,10 +149,10 @@ namespace sprout {
 			{
 				return lhs;
 			}
-			friend SPROUT_CONSTEXPR bool operator==(uniform_01 const& lhs, uniform_01 const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(uniform_01 const& lhs, uniform_01 const& rhs) SPROUT_NOEXCEPT {
 				return true;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(uniform_01 const& lhs, uniform_01 const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(uniform_01 const& lhs, uniform_01 const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 		};

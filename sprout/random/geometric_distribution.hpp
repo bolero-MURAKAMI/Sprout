@@ -50,7 +50,7 @@ namespace sprout {
 				explicit SPROUT_CONSTEXPR param_type(RealType p_arg)
 					: p_(arg_check(p_arg))
 				{}
-				SPROUT_CONSTEXPR RealType p() const {
+				SPROUT_CONSTEXPR RealType p() const SPROUT_NOEXCEPT {
 					return p_;
 				}
 				template<typename Elem, typename Traits>
@@ -77,10 +77,10 @@ namespace sprout {
 				{
 					return lhs << rhs.p_;
 				}
-				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return lhs.p_ == rhs.p_;
 				}
-				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return !(lhs == rhs);
 				}
 			};
@@ -119,16 +119,16 @@ namespace sprout {
 				: p_(parm.p())
 				, log_1mp_(init_log_1mp(parm.p()))
 			{}
-			SPROUT_CONSTEXPR result_type p() const {
+			SPROUT_CONSTEXPR result_type p() const SPROUT_NOEXCEPT {
 				return p_;
 			}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return 0;
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return std::numeric_limits<result_type>::max();
 			}
-			SPROUT_CONSTEXPR param_type param() const {
+			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(p_);
 			}
 			void param(param_type const& parm) {
@@ -159,10 +159,10 @@ namespace sprout {
 			{
 				return lhs << rhs.param();
 			}
-			friend SPROUT_CONSTEXPR bool operator==(geometric_distribution const& lhs, geometric_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(geometric_distribution const& lhs, geometric_distribution const& rhs) SPROUT_NOEXCEPT {
 				return lhs.param() == rhs.param();
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(geometric_distribution const& lhs, geometric_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(geometric_distribution const& lhs, geometric_distribution const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 		};

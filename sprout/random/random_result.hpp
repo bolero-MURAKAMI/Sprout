@@ -68,46 +68,46 @@ namespace sprout {
 				, engine_(engine)
 				, distribution_(distribution)
 			{}
-			SPROUT_CONSTEXPR operator result_type() const {
+			SPROUT_CONSTEXPR operator result_type() const SPROUT_NOEXCEPT {
 				return result_;
 			}
 			SPROUT_CONSTEXPR random_result operator()() const {
 				return distribution_(engine_);
 			}
-			result_type& result() {
+			result_type& result() SPROUT_NOEXCEPT {
 				return result_;
 			}
-			SPROUT_CONSTEXPR result_type const& result() const {
+			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			result_type& generated_value() {
+			result_type& generated_value() SPROUT_NOEXCEPT {
 				return result_;
 			}
-			SPROUT_CONSTEXPR result_type const& generated_value() const {
+			SPROUT_CONSTEXPR result_type const& generated_value() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			engine_type& engine() {
+			engine_type& engine() SPROUT_NOEXCEPT {
 				return engine_;
 			}
-			SPROUT_CONSTEXPR engine_type const& engine() const {
+			SPROUT_CONSTEXPR engine_type const& engine() const SPROUT_NOEXCEPT {
 				return engine_;
 			}
-			random_result& next_generator() {
+			random_result& next_generator() SPROUT_NOEXCEPT {
 				return *this;
 			}
-			SPROUT_CONSTEXPR random_result const& next_generator() const {
+			SPROUT_CONSTEXPR random_result const& next_generator() const SPROUT_NOEXCEPT {
 				return *this;
 			}
-			distribution_type& distribution() {
+			distribution_type& distribution() SPROUT_NOEXCEPT {
 				return distribution_;
 			}
-			SPROUT_CONSTEXPR distribution_type const& distribution() const {
+			SPROUT_CONSTEXPR distribution_type const& distribution() const SPROUT_NOEXCEPT {
 				return distribution_;
 			}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return distribution_.min();
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return distribution_.max();
 			}
 			void swap(random_result& other)
@@ -121,19 +121,19 @@ namespace sprout {
 				sprout::swap(engine_, other.engine_);
 				sprout::swap(distribution_, other.distribution_);
 			}
-			friend SPROUT_CONSTEXPR bool operator==(random_result const& lhs, random_result const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
 				return lhs.result_ == rhs.result_
 					&& lhs.engine_ == rhs.engine_
 					&& lhs.distribution_ == rhs.distribution_
 					;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(random_result const& lhs, random_result const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
-			SPROUT_CONSTEXPR reference operator*() const {
+			SPROUT_CONSTEXPR reference operator*() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			SPROUT_CONSTEXPR pointer operator->() const {
+			SPROUT_CONSTEXPR pointer operator->() const SPROUT_NOEXCEPT {
 				return &result_;
 			}
 			random_result& operator++() {
@@ -193,48 +193,48 @@ namespace sprout {
 				: result_(result)
 				, engine_(engine)
 			{}
-			SPROUT_CONSTEXPR operator result_type() const {
+			SPROUT_CONSTEXPR operator result_type() const SPROUT_NOEXCEPT {
 				return result_;
 			}
 			SPROUT_CONSTEXPR random_result operator()() const {
 				return engine_();
 			}
-			result_type& result() {
+			result_type& result() SPROUT_NOEXCEPT {
 				return result_;
 			}
-			SPROUT_CONSTEXPR result_type const& result() const {
+			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			result_type& generated_value() {
+			result_type& generated_value() SPROUT_NOEXCEPT {
 				return result_;
 			}
-			SPROUT_CONSTEXPR result_type const& generated_value() const {
+			SPROUT_CONSTEXPR result_type const& generated_value() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			engine_type& engine() {
+			engine_type& engine() SPROUT_NOEXCEPT {
 				return engine_;
 			}
-			SPROUT_CONSTEXPR engine_type const& engine() const {
+			SPROUT_CONSTEXPR engine_type const& engine() const SPROUT_NOEXCEPT {
 				return engine_;
 			}
-			random_result& next_generator() {
+			random_result& next_generator() SPROUT_NOEXCEPT {
 				return *this;
 			}
-			SPROUT_CONSTEXPR random_result const& next_generator() const {
+			SPROUT_CONSTEXPR random_result const& next_generator() const SPROUT_NOEXCEPT {
 				return *this;
 			}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return engine_.min();
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return engine_.max();
 			}
-			friend SPROUT_CONSTEXPR bool operator==(random_result const& lhs, random_result const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
 				return lhs.result_ == rhs.result_
 					&& lhs.engine_ == rhs.engine_
 					;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(random_result const& lhs, random_result const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 			void swap(random_result& other)
@@ -246,10 +246,10 @@ namespace sprout {
 				sprout::swap(result_, other.result_);
 				sprout::swap(engine_, other.engine_);
 			}
-			SPROUT_CONSTEXPR reference operator*() const {
+			SPROUT_CONSTEXPR reference operator*() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			SPROUT_CONSTEXPR pointer operator->() const {
+			SPROUT_CONSTEXPR pointer operator->() const SPROUT_NOEXCEPT {
 				return &result_;
 			}
 			random_result& operator++() {

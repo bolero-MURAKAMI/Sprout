@@ -46,7 +46,7 @@ namespace sprout {
 				explicit SPROUT_CONSTEXPR param_type(RealType p_arg)
 					: p_(arg_check(p_arg))
 				{}
-				SPROUT_CONSTEXPR RealType p() const {
+				SPROUT_CONSTEXPR RealType p() const SPROUT_NOEXCEPT {
 					return p_;
 				}
 				template<typename Elem, typename Traits>
@@ -73,10 +73,10 @@ namespace sprout {
 				{
 					return lhs << rhs.p_;
 				}
-				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return lhs.p_ == rhs.p_;
 				}
-				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) {
+				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
 					return !(lhs == rhs);
 				}
 			};
@@ -104,16 +104,16 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR bernoulli_distribution(param_type const& parm)
 				: p_(parm.p())
 			{}
-			SPROUT_CONSTEXPR RealType p() const {
+			SPROUT_CONSTEXPR RealType p() const SPROUT_NOEXCEPT {
 				return p_;
 			}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return false;
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return true;
 			}
-			SPROUT_CONSTEXPR param_type param() const {
+			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(p_);
 			}
 			void param(param_type const& parm) {
@@ -146,10 +146,10 @@ namespace sprout {
 			{
 				return lhs << rhs.param();
 			}
-			friend SPROUT_CONSTEXPR bool operator==(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) SPROUT_NOEXCEPT {
 				return lhs.param() == rhs.param();
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(bernoulli_distribution const& lhs, bernoulli_distribution const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 		};

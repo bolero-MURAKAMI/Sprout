@@ -17,10 +17,19 @@ namespace sprout {
 		public:
 			typedef URNG1 base1_type;
 			typedef URNG2 base2_type;
+			typedef base1_type first_base;
+			typedef base2_type second_base;
 			typedef typename base1_type::result_type result_type;
 		public:
 			SPROUT_STATIC_CONSTEXPR int shift1 = s1;
 			SPROUT_STATIC_CONSTEXPR int shift2 = s2;
+		public:
+			static SPROUT_CONSTEXPR result_type static_min() SPROUT_NOEXCEPT {
+				return NS_SSCRISK_CEL_OR_SPROUT::min(base1_type::static_min(), base2_type::static_min());
+			}
+			static SPROUT_CONSTEXPR result_type static_max() SPROUT_NOEXCEPT {
+				return NS_SSCRISK_CEL_OR_SPROUT::max(base1_type::static_max(), base2_type::static_max());
+			}
 		private:
 			base1_type rng1_;
 			base2_type rng2_;
@@ -48,19 +57,25 @@ namespace sprout {
 				: rng1_(rng1)
 				, rng2_(rng2)
 			{}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return NS_SSCRISK_CEL_OR_SPROUT::min(rng1_.min(), rng2_.min());
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return NS_SSCRISK_CEL_OR_SPROUT::max(rng1_.max(), rng2_.max());
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<xor_combine_engine> operator()() const {
 				return generate(rng1_(), rng2_());
 			}
-			friend SPROUT_CONSTEXPR bool operator==(xor_combine_engine const& lhs, xor_combine_engine const& rhs) {
+			SPROUT_CONSTEXPR base1_type const& base1() const SPROUT_NOEXCEPT {
+				return rng1_;
+			}
+			SPROUT_CONSTEXPR base2_type const& base2() const SPROUT_NOEXCEPT {
+				return rng2_;
+			}
+			friend SPROUT_CONSTEXPR bool operator==(xor_combine_engine const& lhs, xor_combine_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.rng1_ == rhs.rng1_ && lhs.rng2_ == rhs.rng2_;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(xor_combine_engine const& lhs, xor_combine_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(xor_combine_engine const& lhs, xor_combine_engine const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 			template<typename Elem, typename Traits>

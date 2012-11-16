@@ -36,6 +36,11 @@ namespace sprout {
 		class shuffle_order_engine
 			: private sprout::random::detail::shuffle_order_engine_member<UniformRandomNumberGenerator, k>
 		{
+			static_assert(
+				std::numeric_limits<typename UniformRandomNumberGenerator::result_type>::is_integer,
+				"std::numeric_limits<typename UniformRandomNumberGenerator::result_type>::is_integer"
+				);
+			static_assert(k > 0, "k > 0");
 		private:
 			typedef sprout::random::detail::shuffle_order_engine_member<UniformRandomNumberGenerator, k> member_type;
 		public:
@@ -47,8 +52,12 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t buffer_size = k;
 			SPROUT_STATIC_CONSTEXPR std::size_t table_size = k;
 		public:
-			static_assert(std::numeric_limits<result_type>::is_integer, "std::numeric_limits<result_type>::is_integer");
-			static_assert(k > 0, "k > 0");
+			static SPROUT_CONSTEXPR result_type static_min() SPROUT_NOEXCEPT {
+				return base_type::static_min();
+			}
+			static SPROUT_CONSTEXPR result_type static_max() SPROUT_NOEXCEPT {
+				return base_type::static_max();
+			}
 		private:
 			template<typename Random, typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
@@ -120,10 +129,10 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR shuffle_order_engine(base_type const& rng)
 				: member_type(init_member(rng))
 			{}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return rng_.min();
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return rng_.max();
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<shuffle_order_engine> operator()() const {
@@ -133,10 +142,13 @@ namespace sprout {
 					base_unsigned(sprout::random::detail::subtract<result_type>()(y_, min()))
 					);
 			}
-			friend SPROUT_CONSTEXPR bool operator==(shuffle_order_engine const& lhs, shuffle_order_engine const& rhs) {
+			SPROUT_CONSTEXPR base_type const& base() const SPROUT_NOEXCEPT {
+				return rng_;
+			}
+			friend SPROUT_CONSTEXPR bool operator==(shuffle_order_engine const& lhs, shuffle_order_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.rng_ == rhs.rng_ && lhs.y_ == rhs.y_ && lhs.v_ == rhs.v_;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(shuffle_order_engine const& lhs, shuffle_order_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(shuffle_order_engine const& lhs, shuffle_order_engine const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 			template<typename Elem, typename Traits>

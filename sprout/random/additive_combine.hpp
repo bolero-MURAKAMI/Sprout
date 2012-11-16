@@ -16,18 +16,27 @@ namespace sprout {
 		template<typename MLCG1, typename MLCG2>
 		class additive_combine_engine {
 		public:
-			typedef MLCG1 first_base;
-			typedef MLCG2 second_base;
-			typedef typename first_base::result_type result_type;
+			typedef MLCG1 base1_type;
+			typedef MLCG2 base2_type;
+			typedef base1_type first_base;
+			typedef base2_type second_base;
+			typedef typename base1_type::result_type result_type;
 		private:
+			static SPROUT_CONSTEXPR result_type static_min() SPROUT_NOEXCEPT {
+				return 1;
+			}
+			static SPROUT_CONSTEXPR result_type static_max() SPROUT_NOEXCEPT {
+				return base1_type::modulus - 1;
+			}
+		public:
 			struct private_constructor_tag {};
 		private:
-			first_base mlcg1_;
-			second_base mlcg2_;
+			base1_type mlcg1_;
+			base2_type mlcg2_;
 		private:
 			SPROUT_CONSTEXPR additive_combine_engine(
-				first_base const& mlcg1,
-				second_base const& mlcg2,
+				base1_type const& mlcg1,
+				base2_type const& mlcg2,
 				private_constructor_tag
 				)
 				: mlcg1_(mlcg1)
@@ -38,7 +47,7 @@ namespace sprout {
 				return sprout::random::random_result<additive_combine_engine>(
 					rnd2.result() < rnd1.result()
 						? rnd1.result() - rnd2.result()
-						: rnd1.result() - rnd2.result() + first_base::modulus - 1
+						: rnd1.result() - rnd2.result() + base1_type::modulus - 1
 						,
 					additive_combine_engine(
 						rnd1.engine(),
@@ -60,19 +69,25 @@ namespace sprout {
 				: mlcg1_(seed1)
 				, mlcg2_(seed2)
 			{}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return 1;
 			}
-			SPROUT_CONSTEXPR result_type max() const {
-				return first_base::modulus - 1;
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
+				return base1_type::modulus - 1;
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<additive_combine_engine> operator()() const {
 				return generate(mlcg1_(), mlcg2_());
 			}
-			friend SPROUT_CONSTEXPR bool operator==(additive_combine_engine const& lhs, additive_combine_engine const& rhs) {
+			SPROUT_CONSTEXPR base1_type const& base1() const SPROUT_NOEXCEPT {
+				return mlcg1_;
+			}
+			SPROUT_CONSTEXPR base2_type const& base2() const SPROUT_NOEXCEPT {
+				return mlcg2_;
+			}
+			friend SPROUT_CONSTEXPR bool operator==(additive_combine_engine const& lhs, additive_combine_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.mlcg1_ == rhs.mlcg1_ && lhs.mlcg2_ == rhs.mlcg2_;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(additive_combine_engine const& lhs, additive_combine_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(additive_combine_engine const& lhs, additive_combine_engine const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 			template<typename Elem, typename Traits>

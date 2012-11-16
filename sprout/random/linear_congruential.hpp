@@ -15,28 +15,28 @@ namespace sprout {
 		//
 		// linear_congruential_engine
 		//
-		template<typename IntType, IntType a, IntType c, IntType m>
+		template<typename UIntType, UIntType a, UIntType c, UIntType m>
 		class linear_congruential_engine {
+			static_assert(std::numeric_limits<UIntType>::is_integer, "std::numeric_limits<UIntType>::is_integer");
+			static_assert(m == 0 || a < m, "m == 0 || a < m");
+			static_assert(m == 0 || c < m, "m == 0 || c < m");
 		public:
-			typedef IntType result_type;
+			typedef UIntType result_type;
 		private:
 			struct private_constructor_tag {};
 		public:
-			SPROUT_STATIC_CONSTEXPR IntType multiplier = a;
-			SPROUT_STATIC_CONSTEXPR IntType increment = c;
-			SPROUT_STATIC_CONSTEXPR IntType modulus = m;
-			SPROUT_STATIC_CONSTEXPR IntType default_seed = 1;
+			SPROUT_STATIC_CONSTEXPR UIntType multiplier = a;
+			SPROUT_STATIC_CONSTEXPR UIntType increment = c;
+			SPROUT_STATIC_CONSTEXPR UIntType modulus = m;
+			SPROUT_STATIC_CONSTEXPR UIntType default_seed = 1;
 		public:
-			static_assert(std::numeric_limits<IntType>::is_integer, "std::numeric_limits<IntType>::is_integer");
-			static_assert(m == 0 || a < m, "m == 0 || a < m");
-			static_assert(m == 0 || c < m, "m == 0 || c < m");
-		private:
-			static SPROUT_CONSTEXPR result_type static_min() {
+			static SPROUT_CONSTEXPR result_type static_min() SPROUT_NOEXCEPT {
 				return c == 0 ? 1 : 0;
 			}
-			static SPROUT_CONSTEXPR result_type static_max() {
-				return modulus - 1;
+			static SPROUT_CONSTEXPR result_type static_max() SPROUT_NOEXCEPT {
+				return m - 1;
 			}
+		private:
 			template<typename T>
 			static SPROUT_CONSTEXPR typename std::enable_if<!(c == 0) && std::is_unsigned<T>::value, bool>::type
 			arg_check_nothrow(T const& x0) {
@@ -47,24 +47,24 @@ namespace sprout {
 			arg_check_nothrow(T const& x0) {
 				return x0 >= static_min() && x0 <= static_max();
 			}
-			static SPROUT_CONSTEXPR IntType arg_check(IntType const& x0) {
+			static SPROUT_CONSTEXPR UIntType arg_check(UIntType const& x0) {
 				return arg_check_nothrow(x0) ? x0
 					: throw std::invalid_argument("linear_congruential_engine<>: invalid argument (x0 >= static_min() && x0 <= static_max())")
 					;
 			}
-			static SPROUT_CONSTEXPR IntType init_seed_2(IntType const& x0) {
+			static SPROUT_CONSTEXPR UIntType init_seed_2(UIntType const& x0) {
 				return arg_check(increment == 0 && x0 == 0 ? 1 : x0);
 			}
-			static SPROUT_CONSTEXPR IntType init_seed_1(IntType const& x0) {
+			static SPROUT_CONSTEXPR UIntType init_seed_1(UIntType const& x0) {
 				return init_seed_2(x0 <= 0 && x0 != 0 ? x0 + modulus : x0);
 			}
-			static SPROUT_CONSTEXPR IntType init_seed(IntType const& x0) {
+			static SPROUT_CONSTEXPR UIntType init_seed(UIntType const& x0) {
 				return init_seed_1(modulus == 0 ? x0 : x0 % modulus);
 			}
 		private:
-			IntType x_;
+			UIntType x_;
 		private:
-			SPROUT_CONSTEXPR linear_congruential_engine(IntType const& x, private_constructor_tag)
+			SPROUT_CONSTEXPR linear_congruential_engine(UIntType const& x, private_constructor_tag)
 				: x_(x)
 			{}
 			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> generate(result_type result) const {
@@ -77,22 +77,22 @@ namespace sprout {
 			SPROUT_CONSTEXPR linear_congruential_engine()
 				: x_(init_seed(default_seed))
 			{}
-			explicit SPROUT_CONSTEXPR linear_congruential_engine(IntType const& x0)
+			explicit SPROUT_CONSTEXPR linear_congruential_engine(UIntType const& x0)
 				: x_(init_seed(x0))
 			{}
-			SPROUT_CONSTEXPR result_type min() const {
+			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return static_min();
 			}
-			SPROUT_CONSTEXPR result_type max() const {
+			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return static_max();
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> operator()() const {
-				return generate(sprout::random::detail::const_mod<IntType, m>::mult_add(a, x_, c));
+				return generate(sprout::random::detail::const_mod<UIntType, m>::mult_add(a, x_, c));
 			}
-			friend SPROUT_CONSTEXPR bool operator==(linear_congruential_engine const& lhs, linear_congruential_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator==(linear_congruential_engine const& lhs, linear_congruential_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.x_ == rhs.x_;
 			}
-			friend SPROUT_CONSTEXPR bool operator!=(linear_congruential_engine const& lhs, linear_congruential_engine const& rhs) {
+			friend SPROUT_CONSTEXPR bool operator!=(linear_congruential_engine const& lhs, linear_congruential_engine const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
 			template<typename Elem, typename Traits>
@@ -101,7 +101,7 @@ namespace sprout {
 				linear_congruential_engine& rhs
 				)
 			{
-				IntType x;
+				UIntType x;
 				if (lhs >> x) {
 					if(arg_check_nothrow(x)) {
 						rhs.x_ = x;
@@ -120,14 +120,14 @@ namespace sprout {
 				return lhs << rhs.x_;
 			}
 		};
-		template<typename IntType, IntType a, IntType c, IntType m>
-		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::multiplier;
-		template<typename IntType, IntType a, IntType c, IntType m>
-		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::increment;
-		template<typename IntType, IntType a, IntType c, IntType m>
-		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::modulus;
-		template<typename IntType, IntType a, IntType c, IntType m>
-		SPROUT_CONSTEXPR_OR_CONST IntType sprout::random::linear_congruential_engine<IntType, a, c, m>::default_seed;
+		template<typename UIntType, UIntType a, UIntType c, UIntType m>
+		SPROUT_CONSTEXPR_OR_CONST UIntType sprout::random::linear_congruential_engine<UIntType, a, c, m>::multiplier;
+		template<typename UIntType, UIntType a, UIntType c, UIntType m>
+		SPROUT_CONSTEXPR_OR_CONST UIntType sprout::random::linear_congruential_engine<UIntType, a, c, m>::increment;
+		template<typename UIntType, UIntType a, UIntType c, UIntType m>
+		SPROUT_CONSTEXPR_OR_CONST UIntType sprout::random::linear_congruential_engine<UIntType, a, c, m>::modulus;
+		template<typename UIntType, UIntType a, UIntType c, UIntType m>
+		SPROUT_CONSTEXPR_OR_CONST UIntType sprout::random::linear_congruential_engine<UIntType, a, c, m>::default_seed;
 
 		//
 		// minstd_rand0
