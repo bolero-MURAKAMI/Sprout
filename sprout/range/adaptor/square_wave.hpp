@@ -49,16 +49,16 @@ namespace sprout {
 					iterator(sprout::size(range), frequency, amplitude, phase, duty)
 					)
 			{}
-			SPROUT_CONSTEXPR value_type const& frequency() const {
+			SPROUT_CONSTEXPR value_type frequency() const {
 				return base_type::begin().frequency();
 			}
-			SPROUT_CONSTEXPR value_type const& amplitude() const {
+			SPROUT_CONSTEXPR value_type amplitude() const {
 				return base_type::begin().amplitude();
 			}
-			SPROUT_CONSTEXPR value_type const& phase() const {
+			SPROUT_CONSTEXPR value_type phase() const {
 				return base_type::begin().phase();
 			}
-			SPROUT_CONSTEXPR value_type const& duty() const {
+			SPROUT_CONSTEXPR value_type duty() const {
 				return base_type::begin().duty();
 			}
 		};
@@ -90,16 +90,16 @@ namespace sprout {
 					iterator(-1, frequency, amplitude, phase, duty)
 					)
 			{}
-			SPROUT_CONSTEXPR value_type const& frequency() const {
+			SPROUT_CONSTEXPR value_type frequency() const {
 				return base_type::begin().frequency();
 			}
-			SPROUT_CONSTEXPR value_type const& amplitude() const {
+			SPROUT_CONSTEXPR value_type amplitude() const {
 				return base_type::begin().amplitude();
 			}
-			SPROUT_CONSTEXPR value_type const& phase() const {
+			SPROUT_CONSTEXPR value_type phase() const {
 				return base_type::begin().phase();
 			}
-			SPROUT_CONSTEXPR value_type const& duty() const {
+			SPROUT_CONSTEXPR value_type duty() const {
 				return base_type::begin().duty();
 			}
 		};

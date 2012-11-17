@@ -10,6 +10,7 @@
 #include <sprout/iterator/distance.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/arithmetic_promote.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -254,7 +255,7 @@ namespace sprout {
 		typename LIterator1, typename RIterator1,
 		typename LIterator2, typename RIterator2
 	>
-	inline SPROUT_CONSTEXPR typename std::common_type<
+	inline SPROUT_CONSTEXPR typename sprout::arithmetic_promote<
 		typename sprout::joint_iterator<LIterator1, RIterator1>::difference_type,
 		typename sprout::joint_iterator<LIterator2, RIterator2>::difference_type
 	>::type

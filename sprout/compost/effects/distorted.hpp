@@ -1,10 +1,10 @@
-#ifndef SPROUT_COMPOST_EFFECTS_DISTORT_HPP
-#define SPROUT_COMPOST_EFFECTS_DISTORT_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_DISTORTED_HPP
+#define SPROUT_COMPOST_EFFECTS_DISTORTED_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/compost/effects/clip.hpp>
-#include <sprout/compost/effects/change_volume.hpp>
+#include <sprout/compost/effects/clipped.hpp>
+#include <sprout/compost/effects/changed_volume.hpp>
 
 namespace sprout {
 	namespace compost {
@@ -75,4 +75,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_DISTORT_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_DISTORTED_HPP

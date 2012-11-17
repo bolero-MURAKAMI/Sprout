@@ -2,18 +2,20 @@
 #define SPROUT_COMPOST_EFFECTS_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/compost/effects/clip.hpp>
-#include <sprout/compost/effects/rectify.hpp>
-#include <sprout/compost/effects/change_volume.hpp>
-#include <sprout/compost/effects/reverb.hpp>
-#include <sprout/compost/effects/distort.hpp>
-#include <sprout/compost/effects/overdrive.hpp>
-#include <sprout/compost/effects/fuzz.hpp>
-#include <sprout/compost/effects/compress.hpp>
+#include <sprout/compost/effects/clipped.hpp>
+#include <sprout/compost/effects/rectified.hpp>
+#include <sprout/compost/effects/changed_volume.hpp>
+#include <sprout/compost/effects/reverbed.hpp>
+#include <sprout/compost/effects/distorted.hpp>
+#include <sprout/compost/effects/overdrived.hpp>
+#include <sprout/compost/effects/fuzzed.hpp>
+#include <sprout/compost/effects/compressed.hpp>
 #include <sprout/compost/effects/tremolo.hpp>
 #include <sprout/compost/effects/vibrato.hpp>
 #include <sprout/compost/effects/chorus.hpp>
-#include <sprout/compost/effects/noise_gate.hpp>
-#include <sprout/compost/effects/synthesize.hpp>
+#include <sprout/compost/effects/noise_gated.hpp>
+#include <sprout/compost/effects/synthesized.hpp>
+#include <sprout/compost/effects/jointed.hpp>
+#include <sprout/compost/effects/copied.hpp>
 
 #endif	// #ifndef SPROUT_COMPOST_EFFECTS_HPP

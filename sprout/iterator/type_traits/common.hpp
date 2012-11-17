@@ -106,10 +106,10 @@ namespace sprout {
 								)
 							,
 						T,
-						typename std::common_type<typename std::decay<T>::type, typename std::decay<U>::type>::type
+						typename std::decay<typename std::common_type<typename std::decay<T>::type, typename std::decay<U>::type>::type>::type
 					>::type
 				>::type,
-				typename std::common_type<typename std::decay<T>::type, typename std::decay<U>::type>::type
+				typename std::decay<typename std::common_type<typename std::decay<T>::type, typename std::decay<U>::type>::type>::type
 			>
 		{};
 		template<typename T, typename U, typename... Tail>
@@ -155,8 +155,8 @@ namespace sprout {
 	//
 	template<typename... Iterators>
 	struct common_iterator_difference_type
-		: public std::common_type<
-			typename std::iterator_traits<Iterators>::difference_type...
+		: public std::decay<
+			typename std::common_type<typename std::iterator_traits<Iterators>::difference_type...>::type
 		>
 	{};
 }	// namespace sprout

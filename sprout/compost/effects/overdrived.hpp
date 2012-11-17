@@ -1,12 +1,12 @@
-#ifndef SPROUT_COMPOST_EFFECTS_OVERDRIVE_HPP
-#define SPROUT_COMPOST_EFFECTS_OVERDRIVE_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_OVERDRIVED_HPP
+#define SPROUT_COMPOST_EFFECTS_OVERDRIVED_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/atan.hpp>
 #include <sprout/range/adaptor/transformed.hpp>
-#include <sprout/compost/effects/change_volume.hpp>
+#include <sprout/compost/effects/changed_volume.hpp>
 
 namespace sprout {
 	namespace compost {
@@ -103,4 +103,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_OVERDRIVE_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_OVERDRIVED_HPP

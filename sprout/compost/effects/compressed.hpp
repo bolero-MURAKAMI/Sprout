@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_EFFECTS_COMPRESS_HPP
-#define SPROUT_COMPOST_EFFECTS_COMPRESS_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_COMPRESEDS_HPP
+#define SPROUT_COMPOST_EFFECTS_COMPRESEDS_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
@@ -123,4 +123,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_COMPRESS_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_COMPRESEDS_HPP

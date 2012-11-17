@@ -49,10 +49,10 @@ namespace sprout {
 			return const_iterator(elem, static_size);
 		}
 		iterator end() SPROUT_NOEXCEPT {
-			return iterator();
+			return iterator(elem, 0);
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
-			return const_iterator();
+			return const_iterator(elem, 0);
 		}
 		reverse_iterator rbegin() SPROUT_NOEXCEPT {
 			return reverse_iterator(end());
@@ -70,7 +70,7 @@ namespace sprout {
 			return const_iterator(elem, static_size);
 		}
 		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
-			return const_iterator();
+			return const_iterator(elem, 0);
 		}
 		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());

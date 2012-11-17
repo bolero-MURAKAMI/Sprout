@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_EFFECTS_CHANGE_VOLUME_HPP
-#define SPROUT_COMPOST_EFFECTS_CHANGE_VOLUME_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_CHANGED_VOLUME_HPP
+#define SPROUT_COMPOST_EFFECTS_CHANGED_VOLUME_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/functional/multiplies.hpp>
@@ -68,4 +68,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_CHANGE_VOLUME_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_CHANGED_VOLUME_HPP

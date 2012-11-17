@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_EFFECTS_REVERB_HPP
-#define SPROUT_COMPOST_EFFECTS_REVERB_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_REVERBED_HPP
+#define SPROUT_COMPOST_EFFECTS_REVERBED_HPP
 
 #include <cstddef>
 #include <iterator>
@@ -146,4 +146,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_REVERB_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_REVERBED_HPP

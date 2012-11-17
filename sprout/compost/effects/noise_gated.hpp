@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_EFFECTS_NOISE_GATE_HPP
-#define SPROUT_COMPOST_EFFECTS_NOISE_GATE_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_NOISE_GATED_HPP
+#define SPROUT_COMPOST_EFFECTS_NOISE_GATED_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
@@ -113,4 +113,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_NOISE_GATE_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_NOISE_GATED_HPP

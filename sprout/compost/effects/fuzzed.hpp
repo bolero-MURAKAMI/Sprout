@@ -1,11 +1,11 @@
-#ifndef SPROUT_COMPOST_EFFECTS_FUZZ_HPP
-#define SPROUT_COMPOST_EFFECTS_FUZZ_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_FUZZED_HPP
+#define SPROUT_COMPOST_EFFECTS_FUZZED_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/range/adaptor/transformed.hpp>
-#include <sprout/compost/effects/rectify.hpp>
-#include <sprout/compost/effects/distort.hpp>
+#include <sprout/compost/effects/rectified.hpp>
+#include <sprout/compost/effects/distorted.hpp>
 
 namespace sprout {
 	namespace compost {
@@ -74,4 +74,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_FUZZ_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_FUZZED_HPP
