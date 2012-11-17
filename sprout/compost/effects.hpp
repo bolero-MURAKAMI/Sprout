@@ -14,7 +14,7 @@
 #include <sprout/compost/effects/vibrato.hpp>
 #include <sprout/compost/effects/chorus.hpp>
 #include <sprout/compost/effects/noise_gated.hpp>
-#include <sprout/compost/effects/synthesized.hpp>
+#include <sprout/compost/effects/superposed.hpp>
 #include <sprout/compost/effects/jointed.hpp>
 #include <sprout/compost/effects/copied.hpp>
 

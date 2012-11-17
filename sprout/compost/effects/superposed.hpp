@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_EFFECTS_SYNTHESIZED_HPP
-#define SPROUT_COMPOST_EFFECTS_SYNTHESIZED_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_SUPERPOSED_HPP
+#define SPROUT_COMPOST_EFFECTS_SUPERPOSED_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/functional/plus.hpp>
@@ -11,18 +11,18 @@ namespace sprout {
 	namespace compost {
 		namespace effects {
 			//
-			// synthesize_holder
+			// superpose_holder
 			//
 			template<typename RRange>
-			class synthesize_holder {
+			class superpose_holder {
 			public:
 				typedef RRange range2_type;
 			private:
 				sprout::value_holder<range2_type&> range_;
 			public:
-				synthesize_holder() = default;
-				synthesize_holder(synthesize_holder const&) = default;
-				explicit SPROUT_CONSTEXPR synthesize_holder(range2_type& range)
+				superpose_holder() = default;
+				superpose_holder(superpose_holder const&) = default;
+				explicit SPROUT_CONSTEXPR superpose_holder(range2_type& range)
 					: range_(range)
 				{}
 				SPROUT_CONSTEXPR range2_type& range() const {
@@ -31,16 +31,16 @@ namespace sprout {
 			};
 
 			//
-			// synthesized_forwarder
+			// superposed_forwarder
 			//
-			class synthesized_forwarder {
+			class superposed_forwarder {
 			public:
 				template<typename RRange>
-				SPROUT_CONSTEXPR sprout::compost::effects::synthesize_holder<
+				SPROUT_CONSTEXPR sprout::compost::effects::superpose_holder<
 					typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 				>
 				operator()(RRange&& range) {
-					return sprout::compost::effects::synthesize_holder<
+					return sprout::compost::effects::superpose_holder<
 						typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 					>(
 						sprout::lvalue_forward<RRange>(range)
@@ -49,10 +49,10 @@ namespace sprout {
 			};
 
 			//
-			// synthesized
+			// superposed
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::synthesized_forwarder synthesized{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::superposed_forwarder superposed{};
 			}	// anonymous-namespace
 
 			//
@@ -60,7 +60,7 @@ namespace sprout {
 			//
 			template<typename Range, typename T>
 			inline SPROUT_CONSTEXPR auto
-			operator|(Range&& lhs, sprout::compost::effects::synthesize_holder<T> const& rhs)
+			operator|(Range&& lhs, sprout::compost::effects::superpose_holder<T> const& rhs)
 			-> decltype(
 				sprout::forward<Range>(lhs)
 					| sprout::adaptors::transformed(rhs.range(), sprout::plus<>())
@@ -74,4 +74,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_SYNTHESIZED_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_SUPERPOSED_HPP
