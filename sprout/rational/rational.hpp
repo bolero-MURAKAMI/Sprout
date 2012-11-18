@@ -35,21 +35,17 @@ namespace sprout {
 			IntType den_;
 		protected:
 			SPROUT_CONSTEXPR rational_impl()
-				: num_(0)
-				, den_(1)
+				: num_(0) , den_(1)
 			{}
 			rational_impl(rational_impl const&) = default;
 			SPROUT_CONSTEXPR rational_impl(param_type n)
-				: num_(n)
-				, den_(1)
+				: num_(n) , den_(1)
 			{}
 			SPROUT_CONSTEXPR rational_impl(param_type n, param_type d)
-				: num_(n)
-				, den_(d)
+				: num_(n) , den_(d)
 			{}
 			SPROUT_CONSTEXPR rational_impl(param_type n, param_type d, param_type g)
-				: num_(n / g)
-				, den_(d / g)
+				: num_(n / g) , den_(d / g)
 			{}
 		};
 	}	// namespace detail
@@ -86,11 +82,11 @@ namespace sprout {
 			: base_type(n, d)
 		{}
 	public:
-		SPROUT_CONSTEXPR rational()
+		SPROUT_CONSTEXPR rational() SPROUT_NOEXCEPT
 			: base_type()
 		{}
 		rational(rational const&) = default;
-		SPROUT_CONSTEXPR rational(param_type n)
+		SPROUT_CONSTEXPR rational(param_type n) SPROUT_NOEXCEPT
 			: base_type(n)
 		{}
 		SPROUT_CONSTEXPR rational(param_type n, param_type d)
@@ -98,7 +94,7 @@ namespace sprout {
 		{}
 
 		rational& operator=(rational const&) = default;
-		rational& operator=(param_type n) {
+		rational& operator=(param_type n) SPROUT_NOEXCEPT {
 			return assign(n, 1);
 		}
 		rational& assign(param_type n, param_type d) {
@@ -107,10 +103,10 @@ namespace sprout {
 			return *this;
 		}
 
-		SPROUT_CONSTEXPR IntType numerator() const {
+		SPROUT_CONSTEXPR IntType numerator() const SPROUT_NOEXCEPT {
 			return num_;
 		}
-		SPROUT_CONSTEXPR IntType denominator() const {
+		SPROUT_CONSTEXPR IntType denominator() const SPROUT_NOEXCEPT {
 			return den_;
 		}
 
@@ -169,29 +165,29 @@ namespace sprout {
 			return *this /= rational(rhs);
 		}
 
-		rational& operator++() {
+		rational& operator++() SPROUT_NOEXCEPT {
 			num_ += den_;
 			return *this;
 		}
-		rational& operator--() {
+		rational& operator--() SPROUT_NOEXCEPT {
 			num_ -= den_;
 			return *this;
 		}
-		rational operator++(int) {
+		rational operator++(int) SPROUT_NOEXCEPT {
 			rational result(*this);
 			++*this;
 			return result;
 		}
-		rational operator--(int) {
+		rational operator--(int) SPROUT_NOEXCEPT {
 			rational result(*this);
 			--*this;
 			return result;
 		}
 
-		SPROUT_CONSTEXPR bool operator!() const {
+		SPROUT_CONSTEXPR bool operator!() const SPROUT_NOEXCEPT {
 			return !num_;
 		}
-		SPROUT_CONSTEXPR operator bool() const {
+		SPROUT_CONSTEXPR operator bool() const SPROUT_NOEXCEPT {
 			return num_ != 0;
 		}
 	public:

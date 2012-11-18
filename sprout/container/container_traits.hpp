@@ -395,7 +395,7 @@ namespace sprout {
 		struct container_nosy_fixed_size_impl<Container, true> {
 		public:
 			static SPROUT_CONSTEXPR decltype(sprout::detail::container_nosy_static_size<Container>::static_size)
-			fixed_size() {
+			fixed_size() SPROUT_NOEXCEPT {
 				return sprout::detail::container_nosy_static_size<Container>::static_size;
 			}
 		};
@@ -440,7 +440,7 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR size_type static_size = N ;
 		public:
 			static SPROUT_CONSTEXPR size_type
-			fixed_size() {
+			fixed_size() SPROUT_NOEXCEPT {
 				return static_size;
 			}
 		};

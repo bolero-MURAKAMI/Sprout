@@ -31,21 +31,21 @@ namespace sprout {
 						first, last,
 						*sprout::weed::lim<sprout::container_traits<Result>::static_size>(
 							sprout::weed::replace('>')
-								[sprout::weed::lit('>') | "→" | "～" | "ー"]
+								[sprout::weed::lit('>') | "\x81\xA8"/*"→"*/ | "\x81\x60"/*"～"*/ | "\x81\5B"/*"ー"*/]
 							| sprout::weed::replace('<')
-								[sprout::weed::lit('<') | "←" | "★" | "☆"]
+								[sprout::weed::lit('<') | "\x81\xA9"/*"←"*/ | "\x81\x9A"/*"★"*/ | "\x81\x99"/*"☆"*/]
 							| sprout::weed::replace('+')
-								[sprout::weed::lit('+') | "あ" | "ぁ" | "お" | "ぉ"]
+								[sprout::weed::lit('+') | "\x82\xA0"/*"あ"*/ | "\x82\x9F"/*"ぁ"*/ | "\x82\xA8"/*"お"*/ | "\x82\xA7"/*"ぉ"*/]
 							| sprout::weed::replace('-')
-								[sprout::weed::lit('-') | "っ" | "ッ"]
+								[sprout::weed::lit('-') | "\x82\xC1"/*"っ"*/ | "\x83\x62"/*"ッ"*/]
 							| sprout::weed::replace('.')
-								[sprout::weed::lit('.') | "！"]
+								[sprout::weed::lit('.') | "\x81\x49"/*"！"*/]
 							| sprout::weed::replace(',')
-								[sprout::weed::lit(',') | "？"]
+								[sprout::weed::lit(',') | "\x81\x48"/*"？"*/]
 							| sprout::weed::replace('[')
-								[sprout::weed::lit('[') | "「" | "『"]
+								[sprout::weed::lit('[') | "\x81\x75"/*"「"*/ | "\x81\x77"/*"『"*/]
 							| sprout::weed::replace(']')
-								[sprout::weed::lit(']') | "」" | "』"]
+								[sprout::weed::lit(']') | "\x81\x76"/*"」"*/ | "\x81\x78"/*"』"*/]
 							| sprout::weed::replace(' ')
 								[sprout::weed::char_]
 							)

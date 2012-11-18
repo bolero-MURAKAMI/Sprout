@@ -15,6 +15,9 @@
 #include <sprout/range/algorithm/fixed/copy.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/bit/rotate.hpp>
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+#	include <sprout/workaround/recursive_function_template.hpp>
+#endif
 
 namespace sprout {
 	static_assert(CHAR_BIT == 8, "CHAR_BIT == 8");
@@ -55,6 +58,133 @@ namespace sprout {
 					)
 				;
 		}
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+		template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+		SPROUT_CONSTEXPR sha1 const process(
+			sprout::array<std::uint32_t, 5> const& h,
+			sprout::array<std::uint8_t, 64> const& block,
+			std::size_t block_byte_index,
+			std::uint64_t bit_count
+			) const
+		{
+			return block_byte_index != 64
+				? const_type(h, block, block_byte_index, bit_count)
+				: const_type(h, block, 0, bit_count).process_block<D + 1>()
+				;
+		}
+		template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+		SPROUT_CONSTEXPR sha1 const process(
+			sprout::array<std::uint32_t, 5> const& h,
+			sprout::array<std::uint8_t, 64> const& block,
+			std::size_t block_byte_index,
+			std::uint64_t bit_count
+			) const
+		{
+			return sprout::throw_recursive_function_template_instantiation_exeeded();
+		}
+		template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+		SPROUT_CONSTEXPR sha1 const process_block_2(
+			std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t e,
+			std::size_t i, std::uint32_t f, std::uint32_t k
+			) const
+		{
+			return process_block_1<D + 1>(
+				sprout::left_rotate(a, 5) + f + e + k + calc_w(i),
+				a,
+				sprout::left_rotate(b, 30),
+				c,
+				d,
+				i + 1
+				);
+		}
+		template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+		SPROUT_CONSTEXPR sha1 const process_block_2(
+			std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t e,
+			std::size_t i, std::uint32_t f, std::uint32_t k
+			) const
+		{
+			return sprout::throw_recursive_function_template_instantiation_exeeded();
+		}
+		template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+		SPROUT_CONSTEXPR sha1 const process_block_1(
+			std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t e,
+			std::size_t i = 0
+			) const
+		{
+			return i < 80
+				? process_block_2<D + 1>(
+					a, b, c, d, e,
+					i,
+					i < 20 ? (b & c) | (~b & d)
+						: i < 40 ? b ^ c ^ d
+						: i < 60 ? (b & c) | (b & d) | (c & d)
+						: b ^ c ^ d
+						,
+					i < 20 ? 0x5A827999
+						: i < 40 ? 0x6ED9EBA1
+						: i < 60 ? 0x8F1BBCDC
+						: 0xCA62C1D6
+					)
+				: sha1(
+					sprout::array<std::uint32_t, 5>{{h_[0] + a, h_[1] + b, h_[2] + c, h_[3] + d, h_[4] + e}},
+					block_,
+					block_byte_index_,
+					bit_count_
+					)
+				;
+		}
+		template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+		SPROUT_CONSTEXPR sha1 const process_block_1(
+			std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t e,
+			std::size_t i = 0
+			) const
+		{
+			return sprout::throw_recursive_function_template_instantiation_exeeded();
+		}
+		template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+		SPROUT_CONSTEXPR sha1 const process_block() const {
+			return process_block_1<D + 1>(h_[0], h_[1], h_[2], h_[3], h_[4]);
+		}
+		template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+		SPROUT_CONSTEXPR sha1 const process_block() const {
+			return sprout::throw_recursive_function_template_instantiation_exeeded();
+		}
+		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
+		process_block_impl(Iterator first, Iterator last, Args... args) const {
+			return first == last ? process<D + 1>(
+					h_,
+					sprout::make_array<std::uint8_t>(args...),
+					64,
+					bit_count_ + 64 * 8
+					)
+				: sprout::throw_recursive_function_template_instantiation_exeeded()
+				;
+		}
+		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
+		process_block_impl(Iterator first, Iterator last, Args... args) const {
+			return sprout::throw_recursive_function_template_instantiation_exeeded();
+		}
+		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
+		process_block_impl(Iterator first, Iterator last, Args... args) const {
+			return first == last ? process<D + 1>(
+					h_,
+					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
+					block_byte_index_ + sizeof...(Args),
+					bit_count_ + sizeof...(Args) * 8
+					)
+				: block_byte_index_ + sizeof...(Args) == 64 ? sprout::throw_recursive_function_template_instantiation_exeeded()
+				: process_block_impl<D + 1>(sprout::next(first), last, args..., *first)
+				;
+		}
+		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
+		process_block_impl(Iterator first, Iterator last, Args... args) const {
+			return sprout::throw_recursive_function_template_instantiation_exeeded();
+		}
+#else
 		SPROUT_CONSTEXPR sha1 const process(
 			sprout::array<std::uint32_t, 5> const& h,
 			sprout::array<std::uint8_t, 64> const& block,
@@ -68,14 +198,8 @@ namespace sprout {
 				;
 		}
 		SPROUT_CONSTEXPR sha1 const process_block_2(
-			std::uint32_t a,
-			std::uint32_t b,
-			std::uint32_t c,
-			std::uint32_t d,
-			std::uint32_t e,
-			std::size_t i,
-			std::uint32_t f,
-			std::uint32_t k
+			std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t e,
+			std::size_t i, std::uint32_t f, std::uint32_t k
 			) const
 		{
 			return process_block_1(
@@ -88,21 +212,13 @@ namespace sprout {
 				);
 		}
 		SPROUT_CONSTEXPR sha1 const process_block_1(
-			std::uint32_t a,
-			std::uint32_t b,
-			std::uint32_t c,
-			std::uint32_t d,
-			std::uint32_t e,
+			std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t e,
 			std::size_t i = 0
 			) const
 		{
 			return i < 80
 				? process_block_2(
-					a,
-					b,
-					c,
-					d,
-					e,
+					a, b, c, d, e,
 					i,
 					i < 20 ? (b & c) | (~b & d)
 						: i < 40 ? b ^ c ^ d
@@ -126,15 +242,8 @@ namespace sprout {
 			return process_block_1(h_[0], h_[1], h_[2], h_[3], h_[4]);
 		}
 		template<typename Iterator, typename... Args>
-		SPROUT_CONSTEXPR typename std::enable_if<
-			sizeof...(Args) == 64,
-			sha1 const
-		>::type process_block_impl(
-			Iterator first,
-			Iterator last,
-			Args... args
-			) const
-		{
+		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
+		process_block_impl(Iterator first, Iterator last, Args... args) const {
 			return first == last ? process(
 					h_,
 					sprout::make_array<std::uint8_t>(args...),
@@ -150,15 +259,8 @@ namespace sprout {
 				;
 		}
 		template<typename Iterator, typename... Args>
-		SPROUT_CONSTEXPR typename std::enable_if<
-			sizeof...(Args) != 64,
-			sha1 const
-		>::type process_block_impl(
-			Iterator first,
-			Iterator last,
-			Args... args
-			) const
-		{
+		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
+		process_block_impl(Iterator first, Iterator last, Args... args) const {
 			return first == last ? process(
 					h_,
 					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
@@ -174,6 +276,7 @@ namespace sprout {
 				: process_block_impl(sprout::next(first), last, args..., *first)
 				;
 		}
+#endif
 		SPROUT_CONSTEXPR sha1 const process_one() const {
 			return process(
 				h_,
