@@ -7,7 +7,7 @@
 #include <sprout/compost/effects/changed_volume.hpp>
 #include <sprout/compost/effects/reverbed.hpp>
 #include <sprout/compost/effects/distorted.hpp>
-#include <sprout/compost/effects/overdrived.hpp>
+#include <sprout/compost/effects/overdriven.hpp>
 #include <sprout/compost/effects/fuzzed.hpp>
 #include <sprout/compost/effects/compressed.hpp>
 #include <sprout/compost/effects/tremolo.hpp>

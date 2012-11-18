@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_EFFECTS_OVERDRIVED_HPP
-#define SPROUT_COMPOST_EFFECTS_OVERDRIVED_HPP
+#ifndef SPROUT_COMPOST_EFFECTS_OVERDRIVEN_HPP
+#define SPROUT_COMPOST_EFFECTS_OVERDRIVEN_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
@@ -103,4 +103,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_EFFECTS_OVERDRIVED_HPP
+#endif	// #ifndef SPROUT_COMPOST_EFFECTS_OVERDRIVEN_HPP
