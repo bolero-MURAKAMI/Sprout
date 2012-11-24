@@ -58,9 +58,9 @@ namespace sprout {
 		};
 
 		//
-		// adapt_offset_forwarder
+		// adapted_offset_forwarder
 		//
-		class adapt_offset_forwarder {
+		class adapted_offset_forwarder {
 		public:
 			template<typename Adaptor, typename Difference1, typename Difference2>
 			SPROUT_CONSTEXPR sprout::adaptors::adapt_offset_holder<Adaptor, Difference1, Difference2>
@@ -75,10 +75,10 @@ namespace sprout {
 		};
 
 		//
-		// adapt_offset
+		// adapted_offset
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::adapt_offset_forwarder adapt_offset{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::adapted_offset_forwarder adapted_offset{};
 		}	// anonymous-namespace
 
 		//

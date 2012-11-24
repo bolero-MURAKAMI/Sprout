@@ -1,0 +1,283 @@
+#ifndef SPROUT_ITERATOR_STEP_ITERATOR_HPP
+#define SPROUT_ITERATOR_STEP_ITERATOR_HPP
+
+#include <iterator>
+#include <utility>
+#include <sprout/config.hpp>
+#include <sprout/iterator/next.hpp>
+#include <sprout/iterator/prev.hpp>
+#include <sprout/iterator/distance.hpp>
+#include <sprout/utility/swap.hpp>
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+
+namespace sprout {
+	//
+	// step_iterator
+	//
+	template<typename Iterator>
+	class step_iterator
+		: public std::iterator<
+			typename std::iterator_traits<Iterator>::iterator_category,
+			typename std::iterator_traits<Iterator>::value_type,
+			typename std::iterator_traits<Iterator>::difference_type,
+			typename std::iterator_traits<Iterator>::pointer,
+			typename std::iterator_traits<Iterator>::reference
+		>
+	{
+	public:
+		typedef Iterator iterator_type;
+		typedef typename std::iterator_traits<iterator_type>::iterator_category iterator_category;
+		typedef typename std::iterator_traits<iterator_type>::value_type value_type;
+		typedef typename std::iterator_traits<iterator_type>::difference_type difference_type;
+		typedef typename std::iterator_traits<iterator_type>::pointer pointer;
+		typedef typename std::iterator_traits<iterator_type>::reference reference;
+	private:
+		static SPROUT_CONSTEXPR iterator_type get_back(iterator_type it, difference_type wid, iterator_type last) {
+			return sprout::next(it, (NS_SSCRISK_CEL_OR_SPROUT::distance(it, last) - 1) / wid * wid);
+		}
+		static SPROUT_CONSTEXPR difference_type next_distance(step_iterator const& it, difference_type n) {
+			return n >= 0 ? NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::distance(it.current, it.back), n * it.wid)
+				: it.is_last ? 0
+				: NS_SSCRISK_CEL_OR_SPROUT::max(-NS_SSCRISK_CEL_OR_SPROUT::distance(it.current, it.back), n * it.wid)
+				;
+		}
+	protected:
+		iterator_type current;
+		iterator_type last;
+		difference_type wid;
+	private:
+		iterator_type back;
+		bool is_last;
+	private:
+		SPROUT_CONSTEXPR step_iterator(step_iterator const& other, difference_type n)
+			: current(sprout::next(other.current, next_distance(other, n))), last(other.last), wid(other.wid)
+			, back(other.back), is_last(next_distance(other, n) == 0)
+		{}
+	public:
+		SPROUT_CONSTEXPR step_iterator()
+			: current(), last(), wid(1)
+			, back(), is_last()
+		{}
+		SPROUT_CONSTEXPR step_iterator(step_iterator const& other)
+			: current(other.current), last(other.last), wid(other.wid)
+			, back(other.back), is_last(other.is_last)
+		{}
+		explicit SPROUT_CONSTEXPR step_iterator(iterator_type it, difference_type wid = 1, iterator_type last = iterator_type())
+			: current(it), last(last), wid(wid)
+			, back(get_back(it, wid, last)), is_last(it == last)
+		{}
+		template<typename U>
+		SPROUT_CONSTEXPR step_iterator(step_iterator<U> const& it)
+			: current(it.base()), last(it.end()), wid(it.width())
+			, back(get_back(it.base(), it.width(), it.end())), is_last(it.is_end())
+		{}
+		template<typename U>
+		step_iterator& operator=(step_iterator<U> const& it) {
+			step_iterator temp(it);
+			temp.swap(*this);
+			return *this;
+		}
+		SPROUT_CONSTEXPR iterator_type base() const {
+			return current;
+		}
+		SPROUT_CONSTEXPR difference_type width() const {
+			return wid;
+		}
+		SPROUT_CONSTEXPR iterator_type end() const {
+			return last;
+		}
+		SPROUT_CONSTEXPR bool is_end() const {
+			return is_last;
+		}
+		SPROUT_CONSTEXPR reference operator*() const {
+			return *current;
+		}
+		SPROUT_CONSTEXPR pointer operator->() const {
+			return &*current;
+		}
+		step_iterator& operator++() {
+			if (current == back) {
+				is_last = true;
+			}
+			current += next_distance(*this, 1);
+			return *this;
+		}
+		step_iterator operator++(int) {
+			step_iterator result(*this);
+			if (current == back) {
+				is_last = true;
+			}
+			current += next_distance(*this, 1);
+			return result;
+		}
+		step_iterator& operator--() {
+			current += next_distance(*this, -1);
+			if (current != back) {
+				is_last = false;
+			}
+			return *this;
+		}
+		step_iterator operator--(int) {
+			step_iterator temp(*this);
+			current += next_distance(*this, -1);
+			if (current != back) {
+				is_last = false;
+			}
+			return temp;
+		}
+		SPROUT_CONSTEXPR step_iterator operator+(difference_type n) const {
+			return step_iterator(*this, n);
+		}
+		SPROUT_CONSTEXPR step_iterator operator-(difference_type n) const {
+			return step_iterator(*this, -n);
+		}
+		step_iterator& operator+=(difference_type n) {
+			step_iterator temp(*this, n);
+			temp.swap(*this);
+			return *this;
+		}
+		step_iterator& operator-=(difference_type n) {
+			step_iterator temp(*this, -n);
+			temp.swap(*this);
+			return *this;
+		}
+		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
+			return *(current + n * wid);
+		}
+		SPROUT_CONSTEXPR step_iterator next() const {
+			return step_iterator(*this, 1);
+		}
+		SPROUT_CONSTEXPR step_iterator prev() const {
+			return step_iterator(*this, -1);
+		}
+		void swap(step_iterator& other)
+		SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
+			&& SPROUT_NOEXCEPT_EXPR(swap(last, other.last))
+			&& SPROUT_NOEXCEPT_EXPR(swap(wid, other.wid))
+			&& SPROUT_NOEXCEPT_EXPR(swap(back, other.back))
+			&& SPROUT_NOEXCEPT_EXPR(swap(wid, other.wid))
+			&& SPROUT_NOEXCEPT_EXPR(swap(is_last, other.is_last))
+			)
+		{
+			swap(current, other.current);
+			swap(last, other.last);
+			swap(wid, other.wid);
+			swap(back, other.back);
+			swap(is_last, other.is_last);
+		}
+	};
+
+	template<typename Iterator1, typename Iterator2>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::step_iterator<Iterator1> const& lhs, sprout::step_iterator<Iterator2> const& rhs) {
+		return lhs.base() == rhs.base() && lhs.is_end() == rhs.is_end();
+	}
+	template<typename Iterator1, typename Iterator2>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::step_iterator<Iterator1> const& lhs, sprout::step_iterator<Iterator2> const& rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename Iterator1, typename Iterator2>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::step_iterator<Iterator1> const& lhs, sprout::step_iterator<Iterator2> const& rhs) {
+		return lhs.base() < rhs.base() || (lhs.base() == rhs.base() && !lhs.is_end() && rhs.is_end());
+	}
+	template<typename Iterator1, typename Iterator2>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::step_iterator<Iterator1> const& lhs, sprout::step_iterator<Iterator2> const& rhs) {
+		return rhs < lhs;
+	}
+	template<typename Iterator1, typename Iterator2>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::step_iterator<Iterator1> const& lhs, sprout::step_iterator<Iterator2> const& rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename Iterator1, typename Iterator2>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::step_iterator<Iterator1> const& lhs, sprout::step_iterator<Iterator2> const& rhs) {
+		return !(lhs < rhs);
+	}
+	template<typename Iterator1, typename Iterator2>
+	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>())
+	operator-(sprout::step_iterator<Iterator1> const& lhs, sprout::step_iterator<Iterator2> const& rhs) {
+		return (lhs.base() - rhs.base()) / lhs.width() + (lhs.is_end() ? 1 : 0) - (rhs.is_end() ? 1 : 0);
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
+	operator+(
+		typename sprout::step_iterator<Iterator>::difference_type n,
+		sprout::step_iterator<Iterator> const& it
+		)
+	{
+		return it + n;
+	}
+
+	//
+	// make_step_iterator
+	//
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
+	make_step_iterator(Iterator it, typename sprout::step_iterator<Iterator>::difference_type wid = 1) {
+		return sprout::step_iterator<Iterator>(it, wid);
+	}
+
+	//
+	// swap
+	//
+	template<typename Iterator>
+	inline void
+	swap(sprout::step_iterator<Iterator>& lhs, sprout::step_iterator<Iterator>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
+		lhs.swap(rhs);
+	}
+
+	//
+	// iterator_distance
+	//
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::step_iterator<Iterator> >::difference_type
+	iterator_distance(sprout::step_iterator<Iterator> first, sprout::step_iterator<Iterator> last) {
+		return last - first;
+	}
+
+	//
+	// iterator_next
+	//
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
+	iterator_next(sprout::step_iterator<Iterator> const& it) {
+		return it.next();
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
+	iterator_next(
+		sprout::step_iterator<Iterator> const& it,
+		typename sprout::step_iterator<Iterator>::difference_type n
+		)
+	{
+		return it + n;
+	}
+
+	//
+	// iterator_prev
+	//
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
+	iterator_prev(sprout::step_iterator<Iterator> const& it) {
+		return it.prev();
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
+	iterator_prev(
+		sprout::step_iterator<Iterator> const& it,
+		typename sprout::step_iterator<Iterator>::difference_type n
+		)
+	{
+		return it - n;
+	}
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_ITERATOR_STEP_ITERATOR_HPP

@@ -23,6 +23,7 @@
 #include <sprout/range/adaptor/adapted_dropped_end.hpp>
 #include <sprout/range/adaptor/adapted_window.hpp>
 #include <sprout/range/adaptor/adapted_offset.hpp>
+#include <sprout/range/adaptor/steps.hpp>
 #include <sprout/range/adaptor/jointed.hpp>
 #include <sprout/range/adaptor/deep_copied.hpp>
 #include <sprout/range/adaptor/indexed.hpp>

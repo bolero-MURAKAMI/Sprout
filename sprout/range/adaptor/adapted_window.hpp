@@ -58,9 +58,9 @@ namespace sprout {
 		};
 
 		//
-		// adapt_window_forwarder
+		// adapted_window_forwarder
 		//
-		class adapt_window_forwarder {
+		class adapted_window_forwarder {
 		public:
 			template<typename Adaptor, typename Difference1, typename Difference2>
 			SPROUT_CONSTEXPR sprout::adaptors::adapt_window_holder<Adaptor, Difference1, Difference2>
@@ -75,10 +75,10 @@ namespace sprout {
 		};
 
 		//
-		// adapt_window
+		// adapted_window
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::adapt_window_forwarder adapt_window{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::adapted_window_forwarder adapted_window{};
 		}	// anonymous-namespace
 
 		//

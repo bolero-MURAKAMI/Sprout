@@ -60,7 +60,7 @@ namespace sprout {
 		public:
 			valued_holder() = default;
 			valued_holder(valued_holder const&) = default;
-			SPROUT_CONSTEXPR valued_holder(param_type param)
+			explicit SPROUT_CONSTEXPR valued_holder(param_type param)
 				: holder_(param)
 			{}
 			SPROUT_CONSTEXPR get_type get() const {

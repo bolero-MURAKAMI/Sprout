@@ -63,10 +63,10 @@ namespace sprout {
 		public:
 			indexed_holder() = default;
 			indexed_holder(indexed_holder const&) = default;
-			SPROUT_CONSTEXPR indexed_holder(index_type index)
+			explicit SPROUT_CONSTEXPR indexed_holder(index_type index)
 				: index_(index)
 			{}
-			SPROUT_CONSTEXPR index_type index() const {
+			SPROUT_CONSTEXPR index_type const& index() const {
 				return index_;
 			}
 		};

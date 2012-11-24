@@ -33,10 +33,11 @@ namespace sprout {
 			iterator last_;
 		public:
 			// construct/copy/destroy:
-			range_container() = default;
-			SPROUT_CONSTEXPR range_container(iterator first, iterator last)
-				: first_(first)
-				, last_(last)
+			SPROUT_CONSTEXPR range_container()
+				: first_(), last_()
+			{}
+			SPROUT_CONSTEXPR range_container(iterator const& first, iterator const& last)
+				: first_(first), last_(last)
 			{}
 
 			template<typename Iterator2>
