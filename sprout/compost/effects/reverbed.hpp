@@ -143,6 +143,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::reverbed;
 	}	// namespace compost
 }	// namespace sprout
 

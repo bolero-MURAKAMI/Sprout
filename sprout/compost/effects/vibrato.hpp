@@ -149,6 +149,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::vibrato;
 	}	// namespace compost
 }	// namespace sprout
 

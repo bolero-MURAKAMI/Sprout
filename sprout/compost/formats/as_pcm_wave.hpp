@@ -92,6 +92,10 @@ namespace sprout {
 				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::as_pcm_wave_forwarder<std::int16_t> as_pcm_wave16{};
 			}	// anonymous-namespace
 		}	// namespace formats
+
+		using sprout::compost::formats::as_pcm_wave;
+		using sprout::compost::formats::as_pcm_wave8;
+		using sprout::compost::formats::as_pcm_wave16;
 	}	// namespace compost
 }	// namespace sprout
 

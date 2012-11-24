@@ -146,6 +146,8 @@ namespace sprout {
 					);
 			}
 		}	// namespace waves
+
+		using sprout::compost::waves::white_noise;
 	}	// namespace compost
 
 	//

@@ -10,10 +10,10 @@ namespace sprout {
 			//
 			// sinusoidal
 			//
-			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::adaptors::sinusoidal_forwarder sinusoidal{};
-			}	// anonymous-namespace
+			using sprout::adaptors::sinusoidal;
 		}	// namespace waves
+
+		using sprout::compost::waves::sinusoidal;
 	}	// namespace compost
 }	// namespace sprout
 

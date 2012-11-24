@@ -22,7 +22,10 @@ namespace sprout {
 			)
 		-> sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>
 		{
-			return sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>(distribution(engine), count);
+			return count >= 0
+				? sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>(distribution(engine), count)
+				: sprout::generator_iterator<typename std::remove_reference<decltype(distribution(engine))>::type>(distribution(engine))
+				;
 		}
 		template<typename Engine>
 		inline SPROUT_CONSTEXPR auto
@@ -32,7 +35,10 @@ namespace sprout {
 			)
 		-> sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>
 		{
-			return sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>(engine(), count);
+			return count >= 0
+				? sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>(engine(), count)
+				: sprout::generator_iterator<typename std::remove_reference<decltype(engine())>::type>(engine())
+				;
 		}
 
 		//

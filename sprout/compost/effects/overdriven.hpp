@@ -100,6 +100,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::overdriven;
 	}	// namespace compost
 }	// namespace sprout
 

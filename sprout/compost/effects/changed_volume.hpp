@@ -65,6 +65,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::changed_volume;
 	}	// namespace compost
 }	// namespace sprout
 

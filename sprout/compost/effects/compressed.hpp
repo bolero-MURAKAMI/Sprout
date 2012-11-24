@@ -120,6 +120,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::compressed;
 	}	// namespace compost
 }	// namespace sprout
 

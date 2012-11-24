@@ -2,6 +2,7 @@
 #define SPROUT_ITERATOR_VALUE_ITERATOR_HPP
 
 #include <cstddef>
+#include <limits>
 #include <iterator>
 #include <utility>
 #include <stdexcept>
@@ -52,19 +53,19 @@ namespace sprout {
 		sprout::value_holder<T> holder_;
 		difference_type count_;
 	private:
-		SPROUT_CONSTEXPR value_iterator(sprout::value_holder<T> const& r, std::size_t count)
-			: holder_(r)
-			, count_(count)
+		SPROUT_CONSTEXPR value_iterator(sprout::value_holder<T> const& r, difference_type count)
+			: holder_(r), count_(count)
 		{}
 	public:
 		SPROUT_CONSTEXPR value_iterator()
-			: holder_()
-			, count_()
+			: holder_(), count_()
 		{}
 		value_iterator(value_iterator const&) = default;
-		explicit SPROUT_CONSTEXPR value_iterator(typename sprout::value_holder<T>::param_type p, std::size_t count = -1)
-			: holder_(p)
-			, count_(count)
+		explicit SPROUT_CONSTEXPR value_iterator(
+			typename sprout::value_holder<T>::param_type p,
+			difference_type count = std::numeric_limits<difference_type>::max()
+			)
+			: holder_(p), count_(count)
 		{}
 		operator value_iterator<const_type>() const {
 			return value_iterator<const_type>(holder_.get(), count_);

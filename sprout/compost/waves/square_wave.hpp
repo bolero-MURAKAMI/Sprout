@@ -10,10 +10,10 @@ namespace sprout {
 			//
 			// square_wave
 			//
-			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::adaptors::square_wave_forwarder square_wave{};
-			}	// anonymous-namespace
+			using sprout::adaptors::square_wave;
 		}	// namespace waves
+
+		using sprout::compost::waves::square_wave;
 	}	// namespace compost
 }	// namespace sprout
 

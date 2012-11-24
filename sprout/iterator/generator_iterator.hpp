@@ -2,6 +2,7 @@
 #define SPROUT_ITERATOR_GENERATOR_ITERATOR_HPP
 
 #include <cstddef>
+#include <limits>
 #include <iterator>
 #include <utility>
 #include <stdexcept>
@@ -36,15 +37,13 @@ namespace sprout {
 		difference_type count_;
 	public:
 		SPROUT_CONSTEXPR generator_iterator()
-			: gen_()
-			, count_()
+			: gen_(), count_()
 		{}
 		explicit SPROUT_CONSTEXPR generator_iterator(
 			generator_type const& gen,
-			difference_type count = -1
+			difference_type count = std::numeric_limits<difference_type>::max()
 			)
-			: gen_(gen)
-			, count_(count)
+			: gen_(gen), count_(count)
 		{}
 		generator_type& generator() {
 			return gen_;

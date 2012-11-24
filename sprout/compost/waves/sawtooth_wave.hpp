@@ -10,10 +10,10 @@ namespace sprout {
 			//
 			// sawtooth_wave
 			//
-			namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::sawtooth_wave_forwarder sawtooth_wave{};
-			}	// anonymous-namespace
+			using sprout::adaptors::sawtooth_wave;
 		}	// namespace waves
+
+		using sprout::compost::waves::sawtooth_wave;
 	}	// namespace compost
 }	// namespace sprout
 

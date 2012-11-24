@@ -15,7 +15,5 @@
 #include <sprout/compost/effects/chorus.hpp>
 #include <sprout/compost/effects/noise_gated.hpp>
 #include <sprout/compost/effects/superposed.hpp>
-#include <sprout/compost/effects/jointed.hpp>
-#include <sprout/compost/effects/copied.hpp>
 
 #endif	// #ifndef SPROUT_COMPOST_EFFECTS_HPP

@@ -150,6 +150,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::chorus;
 	}	// namespace compost
 }	// namespace sprout
 

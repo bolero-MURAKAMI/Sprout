@@ -110,6 +110,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::noise_gated;
 	}	// namespace compost
 }	// namespace sprout
 

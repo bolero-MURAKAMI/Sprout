@@ -60,6 +60,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::rectified;
 	}	// namespace compost
 }	// namespace sprout
 

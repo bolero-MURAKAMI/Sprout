@@ -81,8 +81,7 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR sized_range(range_type& range)
 				: base_type(
 					sprout::begin(range),
-					sized_impl_type::static_size
-						< static_cast<typename sprout::container_traits<Range>::size_type>(sprout::size(range))
+					sized_impl_type::static_size < static_cast<typename sprout::container_traits<Range>::size_type>(sprout::size(range))
 						? sprout::next(sprout::begin(range), sized_impl_type::static_size)
 						: sprout::end(range)
 					)

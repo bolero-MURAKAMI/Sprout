@@ -5,6 +5,7 @@
 #include <sprout/compost/waves.hpp>
 #include <sprout/compost/effects.hpp>
 #include <sprout/compost/formats.hpp>
+#include <sprout/compost/ranges.hpp>
 #include <sprout/compost/sources.hpp>
 
 #endif	// #ifndef SPROUT_COMPOST_HPP

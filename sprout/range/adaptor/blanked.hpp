@@ -55,7 +55,7 @@ namespace sprout {
 				difference_type n
 				)
 				: base_type(
-					iterator(value_type(), static_cast<difference_type>(NS_SSCRISK_CEL_OR_SPROUT::min<size_type>(n, sprout::size(range)))),
+					iterator(value_type(), NS_SSCRISK_CEL_OR_SPROUT::min(n, sprout::size(range))),
 					iterator(value_type(), 0)
 					)
 			{}
@@ -65,7 +65,7 @@ namespace sprout {
 				value_type const& value
 				)
 				: base_type(
-					iterator(value, static_cast<difference_type>(NS_SSCRISK_CEL_OR_SPROUT::min<size_type>(n, sprout::size(range)))),
+					iterator(value, NS_SSCRISK_CEL_OR_SPROUT::min(n, sprout::size(range))),
 					iterator(value, 0)
 					)
 			{}

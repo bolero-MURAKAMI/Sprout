@@ -158,7 +158,12 @@ namespace sprout {
 					64,
 					bit_count_ + 64 * 8
 					)
-				: sprout::throw_recursive_function_template_instantiation_exeeded()
+				: /*process<D + 1>(
+					h_,
+					sprout::make_array<std::uint8_t>(args...),
+					64,
+					bit_count_ + 64 * 8
+					).template process_block_impl<D + 1>(first, last)*/ sprout::throw_recursive_function_template_instantiation_exeeded()
 				;
 		}
 		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
@@ -175,7 +180,12 @@ namespace sprout {
 					block_byte_index_ + sizeof...(Args),
 					bit_count_ + sizeof...(Args) * 8
 					)
-				: block_byte_index_ + sizeof...(Args) == 64 ? sprout::throw_recursive_function_template_instantiation_exeeded()
+				: block_byte_index_ + sizeof...(Args) == 64 ? /*process<D + 1>(
+					h_,
+					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
+					block_byte_index_ + sizeof...(Args),
+					bit_count_ + sizeof...(Args) * 8
+					).template process_block_impl<D + 1>(first, last)*/ sprout::throw_recursive_function_template_instantiation_exeeded()
 				: process_block_impl<D + 1>(sprout::next(first), last, args..., *first)
 				;
 		}

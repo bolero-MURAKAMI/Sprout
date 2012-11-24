@@ -111,6 +111,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::tremolo;
 	}	// namespace compost
 }	// namespace sprout
 

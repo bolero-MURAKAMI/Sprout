@@ -79,6 +79,8 @@ namespace sprout {
 					;
 			}
 		}	// namespace effects
+
+		using sprout::compost::effects::clipped;
 	}	// namespace compost
 }	// namespace sprout
 

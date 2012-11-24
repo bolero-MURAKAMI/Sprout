@@ -10,10 +10,10 @@ namespace sprout {
 			//
 			// triangle_wave
 			//
-			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::adaptors::triangle_wave_forwarder triangle_wave{};
-			}	// anonymous-namespace
+			using sprout::adaptors::triangle_wave;
 		}	// namespace waves
+
+		using sprout::compost::waves::triangle_wave;
 	}	// namespace compost
 }	// namespace sprout
 
