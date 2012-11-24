@@ -52,7 +52,9 @@ namespace sprout {
 				template<typename... Elems>
 				SPROUT_CONSTEXPR sound_type(info_type const& info, Elems const&... elems)
 					: elements_{{
-						(static_cast<typename std::make_signed<Elems>::type>(elems) / static_cast<value_type>(32768.0))...
+						(info.bits_per_sample == 8 ? elems / static_cast<value_type>(0x80) - 1
+							: elems / static_cast<value_type>(0x8000)
+							)...
 						}}
 				{
 					static_assert(sizeof...(Elems) == static_size, "sound_type<>: unmatch source size");

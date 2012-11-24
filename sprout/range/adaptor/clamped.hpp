@@ -52,13 +52,13 @@ namespace sprout {
 					iterator(sprout::end(range), low, up, comp)
 					)
 			{}
-			SPROUT_CONSTEXPR compare_type const& compare() const {
+			SPROUT_CONSTEXPR compare_type compare() const {
 				return base_type::begin().compare();
 			}
-			SPROUT_CONSTEXPR value_type const& lower() const {
+			SPROUT_CONSTEXPR value_type lower() const {
 				return base_type::begin().lower();
 			}
-			SPROUT_CONSTEXPR value_type const& upper() const {
+			SPROUT_CONSTEXPR value_type upper() const {
 				return base_type::begin().upper();
 			}
 		};

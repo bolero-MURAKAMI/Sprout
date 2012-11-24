@@ -30,7 +30,7 @@ namespace sprout {
 					: pred_(pred)
 					, new_(new_value)
 				{}
-				SPROUT_CONSTEXPR T const& operator()(T const& value) const {
+				SPROUT_CONSTEXPR T operator()(T const& value) const {
 					return pred_(value) ? new_ : value;
 				}
 			};
@@ -86,10 +86,10 @@ namespace sprout {
 				: pred_(pred)
 				, new_(new_value)
 			{}
-			SPROUT_CONSTEXPR predicate_type predicate() const {
+			SPROUT_CONSTEXPR predicate_type const& predicate() const {
 				return pred_;
 			}
-			SPROUT_CONSTEXPR value_type new_value() const {
+			SPROUT_CONSTEXPR value_type const& new_value() const {
 				return new_;
 			}
 		};

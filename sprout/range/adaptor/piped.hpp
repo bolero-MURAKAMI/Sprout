@@ -2,6 +2,7 @@
 #define SPROUT_RANGE_ADAPTOR_PIPED_HPP
 
 #include <type_traits>
+#include <utility>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/utility/forward.hpp>
@@ -88,9 +89,9 @@ namespace sprout {
 			template<typename Range>
 			SPROUT_CONSTEXPR auto
 			apply(Range&& range) const
-			-> decltype(sprout::adaptors::detail::apply_adaptors_tuple(sprout::forward<Range>(range), adaptors_))
+			-> decltype(sprout::adaptors::detail::apply_adaptors_tuple(sprout::forward<Range>(range), std::declval<pipe_holder const&>().adaptors()))
 			{
-				return sprout::adaptors::detail::apply_adaptors_tuple(sprout::forward<Range>(range), adaptors_);
+				return sprout::adaptors::detail::apply_adaptors_tuple(sprout::forward<Range>(range), adaptors());
 			}
 		};
 
