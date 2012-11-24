@@ -21,7 +21,7 @@ namespace sprout {
 			adaptor_type adaptor_;
 			difference_type distance_;
 		public:
-			explicit SPROUT_CONSTEXPR adapt_take_holder(adaptor_type const& adaptor, difference_type distance)
+			SPROUT_CONSTEXPR adapt_take_holder(adaptor_type const& adaptor, difference_type distance)
 				: adaptor_(adaptor), distance_(distance)
 			{}
 			SPROUT_CONSTEXPR adaptor_type const& adaptor() const {
