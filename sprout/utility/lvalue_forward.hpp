@@ -5,7 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/as_lvalue.hpp>
-#include <sprout/type_traits.hpp>
+#include <sprout/type_traits/lvalue_reference.hpp>
 
 namespace sprout {
 	//
