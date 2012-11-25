@@ -13,8 +13,10 @@
 #include <sprout/compost/effects/tremolo.hpp>
 #include <sprout/compost/effects/vibrato.hpp>
 #include <sprout/compost/effects/chorus.hpp>
+#include <sprout/compost/effects/auto_pan.hpp>
 #include <sprout/compost/effects/pseudo_stereo.hpp>
 #include <sprout/compost/effects/noise_gated.hpp>
+#include <sprout/compost/effects/vocal_cancelled.hpp>
 #include <sprout/compost/effects/superposed.hpp>
 
 #endif	// #ifndef SPROUT_COMPOST_EFFECTS_HPP
