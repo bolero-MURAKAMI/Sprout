@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_FORMATS_EFFECTED_EACH_CHANNEL_HPP
-#define SPROUT_COMPOST_FORMATS_EFFECTED_EACH_CHANNEL_HPP
+#ifndef SPROUT_COMPOST_FORMATS_EFFECTED_EACH_HPP
+#define SPROUT_COMPOST_FORMATS_EFFECTED_EACH_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
@@ -11,10 +11,10 @@ namespace sprout {
 	namespace compost {
 		namespace formats {
 			//
-			// effect_each_channel_holder
+			// effect_each_holder
 			//
 			template<typename LAdaptor, typename RAdaptor = void>
-			class effect_each_channel_holder {
+			class effect_each_holder {
 			public:
 				typedef LAdaptor left_adaptor_type;
 				typedef RAdaptor right_adaptor_type;
@@ -22,7 +22,7 @@ namespace sprout {
 				left_adaptor_type left_adaptor_;
 				right_adaptor_type right_adaptor_;
 			public:
-				SPROUT_CONSTEXPR effect_each_channel_holder(left_adaptor_type const& left_adaptor, right_adaptor_type const& right_adaptor)
+				SPROUT_CONSTEXPR effect_each_holder(left_adaptor_type const& left_adaptor, right_adaptor_type const& right_adaptor)
 					: left_adaptor_(left_adaptor), right_adaptor_(right_adaptor)
 				{}
 				SPROUT_CONSTEXPR left_adaptor_type const& left_adaptor() const {
@@ -33,13 +33,13 @@ namespace sprout {
 				}
 			};
 			template<typename Adaptor>
-			class effect_each_channel_holder<Adaptor, void> {
+			class effect_each_holder<Adaptor, void> {
 			public:
 				typedef Adaptor adaptor_type;
 			private:
 				adaptor_type adaptor_;
 			public:
-				explicit SPROUT_CONSTEXPR effect_each_channel_holder(adaptor_type const& adaptor)
+				explicit SPROUT_CONSTEXPR effect_each_holder(adaptor_type const& adaptor)
 					: adaptor_(adaptor)
 				{}
 				SPROUT_CONSTEXPR adaptor_type const& adaptor() const {
@@ -53,14 +53,14 @@ namespace sprout {
 			class effected_each_cannel_forwarder {
 			public:
 				template<typename LAdaptor, typename RAdaptor>
-				SPROUT_CONSTEXPR sprout::compost::formats::effect_each_channel_holder<LAdaptor, RAdaptor>
+				SPROUT_CONSTEXPR sprout::compost::formats::effect_each_holder<LAdaptor, RAdaptor>
 				operator()(LAdaptor const& left_adaptor, RAdaptor const& right_adaptor) {
-					return sprout::compost::formats::effect_each_channel_holder<LAdaptor, RAdaptor>(left_adaptor, right_adaptor);
+					return sprout::compost::formats::effect_each_holder<LAdaptor, RAdaptor>(left_adaptor, right_adaptor);
 				}
 				template<typename Adaptor>
-				SPROUT_CONSTEXPR sprout::compost::formats::effect_each_channel_holder<Adaptor>
+				SPROUT_CONSTEXPR sprout::compost::formats::effect_each_holder<Adaptor>
 				operator()(Adaptor const& adaptor) {
-					return sprout::compost::formats::effect_each_channel_holder<Adaptor>(adaptor);
+					return sprout::compost::formats::effect_each_holder<Adaptor>(adaptor);
 				}
 			};
 
@@ -76,7 +76,7 @@ namespace sprout {
 			//
 			template<typename Range, typename LAdaptor, typename RAdaptor>
 			inline SPROUT_CONSTEXPR auto
-			operator|(Range&& lhs, sprout::compost::formats::effect_each_channel_holder<LAdaptor, RAdaptor> const& rhs)
+			operator|(Range&& lhs, sprout::compost::formats::effect_each_holder<LAdaptor, RAdaptor> const& rhs)
 			-> decltype(
 				sprout::lvalue_forward<Range>(lhs) | sprout::compost::formats::left_channel | rhs.left_adaptor()
 					| sprout::compost::formats::stereo(sprout::lvalue_forward<Range>(lhs) | sprout::compost::formats::right_channel | rhs.right_adaptor())
@@ -88,7 +88,7 @@ namespace sprout {
 			}
 			template<typename Range, typename Adaptor>
 			inline SPROUT_CONSTEXPR auto
-			operator|(Range&& lhs, sprout::compost::formats::effect_each_channel_holder<Adaptor> const& rhs)
+			operator|(Range&& lhs, sprout::compost::formats::effect_each_holder<Adaptor> const& rhs)
 			-> decltype(
 				sprout::lvalue_forward<Range>(lhs) | sprout::compost::formats::left_channel | rhs.adaptor()
 					| sprout::compost::formats::stereo(sprout::lvalue_forward<Range>(lhs) | sprout::compost::formats::right_channel | rhs.adaptor())
@@ -104,4 +104,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_FORMATS_EFFECTED_EACH_CHANNEL_HPP
+#endif	// #ifndef SPROUT_COMPOST_FORMATS_EFFECTED_EACH_HPP

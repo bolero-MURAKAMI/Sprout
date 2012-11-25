@@ -1,5 +1,5 @@
-#ifndef SPROUT_COMPOST_FORMATS_EFFECTED_RIGHT_CHANNEL_HPP
-#define SPROUT_COMPOST_FORMATS_EFFECTED_RIGHT_CHANNEL_HPP
+#ifndef SPROUT_COMPOST_FORMATS_EFFECTED_RIGHT_HPP
+#define SPROUT_COMPOST_FORMATS_EFFECTED_RIGHT_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
@@ -11,16 +11,16 @@ namespace sprout {
 	namespace compost {
 		namespace formats {
 			//
-			// effect_right_channel_holder
+			// effect_right_holder
 			//
 			template<typename Adaptor>
-			class effect_right_channel_holder {
+			class effect_right_holder {
 			public:
 				typedef Adaptor adaptor_type;
 			private:
 				adaptor_type adaptor_;
 			public:
-				explicit SPROUT_CONSTEXPR effect_right_channel_holder(adaptor_type const& adaptor)
+				explicit SPROUT_CONSTEXPR effect_right_holder(adaptor_type const& adaptor)
 					: adaptor_(adaptor)
 				{}
 				SPROUT_CONSTEXPR adaptor_type const& adaptor() const {
@@ -34,9 +34,9 @@ namespace sprout {
 			class effected_right_cannel_forwarder {
 			public:
 				template<typename Adaptor>
-				SPROUT_CONSTEXPR sprout::compost::formats::effect_right_channel_holder<Adaptor>
+				SPROUT_CONSTEXPR sprout::compost::formats::effect_right_holder<Adaptor>
 				operator()(Adaptor const& adaptor) {
-					return sprout::compost::formats::effect_right_channel_holder<Adaptor>(adaptor);
+					return sprout::compost::formats::effect_right_holder<Adaptor>(adaptor);
 				}
 			};
 
@@ -52,7 +52,7 @@ namespace sprout {
 			//
 			template<typename Range, typename Adaptor>
 			inline SPROUT_CONSTEXPR auto
-			operator|(Range&& lhs, sprout::compost::formats::effect_right_channel_holder<Adaptor> const& rhs)
+			operator|(Range&& lhs, sprout::compost::formats::effect_right_holder<Adaptor> const& rhs)
 			-> decltype(
 				sprout::lvalue_forward<Range>(lhs) | sprout::compost::formats::left_channel
 					| sprout::compost::formats::stereo(sprout::lvalue_forward<Range>(lhs) | sprout::compost::formats::right_channel | rhs.adaptor())
@@ -68,4 +68,4 @@ namespace sprout {
 	}	// namespace compost
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_COMPOST_FORMATS_EFFECTED_RIGHT_CHANNEL_HPP
+#endif	// #ifndef SPROUT_COMPOST_FORMATS_EFFECTED_RIGHT_HPP

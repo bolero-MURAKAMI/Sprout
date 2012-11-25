@@ -6,8 +6,8 @@
 #include <sprout/compost/formats/left_channel.hpp>
 #include <sprout/compost/formats/right_channel.hpp>
 #include <sprout/compost/formats/stereo.hpp>
-#include <sprout/compost/formats/effected_each_cannel.hpp>
-#include <sprout/compost/formats/effected_left_cannel.hpp>
-#include <sprout/compost/formats/effected_right_cannel.hpp>
+#include <sprout/compost/formats/effected_each.hpp>
+#include <sprout/compost/formats/effected_left.hpp>
+#include <sprout/compost/formats/effected_right.hpp>
 
 #endif	// #ifndef SPROUT_COMPOST_FORMATS_HPP
