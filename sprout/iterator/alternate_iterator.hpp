@@ -41,7 +41,7 @@ namespace sprout {
 		bool in_left;
 	private:
 		SPROUT_CONSTEXPR alternate_iterator advance_impl_1(difference_type n) const {
-			return alternate_iterator(sprout::next(current1, n / 2), sprout::next(current2, n / 2), n % 2);
+			return alternate_iterator(sprout::next(current1, n / 2), sprout::next(current2, n / 2), !(n % 2));
 		}
 		SPROUT_CONSTEXPR alternate_iterator advance_impl(difference_type n) const {
 			return advance_impl_1(n + (!is_in_left() ? 1 : 0));
