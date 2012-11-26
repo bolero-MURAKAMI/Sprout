@@ -1,7 +1,7 @@
 # Sprout C++ Library
 
-*C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, and others.*  
-このライブラリは、C++11 の constexpr に対応したコンテナ、アルゴリズム、乱数、構文解析、レイトレーシング、その他の機能を提供する。  
+*C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, Synthesizer, and others.*  
+このライブラリは、C++11 の constexpr に対応したコンテナ、アルゴリズム、乱数、構文解析、レイトレーシング、シンセサイザー、その他の機能を提供する。  
 
 
 
@@ -20,7 +20,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 
 
 
-## コンテンツ *(contents)*
+## コンテンツ *(Contents)*
 
 ### コンテナとデータ構造 *(Containers and Data structures)*
 * `sprout/array.hpp` - std::array 互換の固定長コンテナ  
@@ -76,16 +76,19 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 ### レイトレーシング *(Ray tracing)*
 * `sprout/darkroom.hpp` - コンパイル時レイトレーサ  
 
+### シンセサイザー *(Synthesizer)*
+* `sprout/compost.hpp` - コンパイル時シンセサイザー  
+
 ### その他 *(Miscellaneous)*
-* `sprout/utility.hpp` - &lt;utility&gt; 互換の機能と、雑多なユーティリティ  
+* `sprout/utility.hpp` - 標準ヘッダ utility 互換の機能と、雑多なユーティリティ  
 * `sprout/bit/operation.hpp` - ビット操作  
 
 ### C互換 *(C-compatible)*
-* `sprout/cstdlib.hpp` - &lt;cstdlib&gt; 互換の機能  
-* `sprout/cstring.hpp` - &lt;cstring&gt; 互換の機能  
-* `sprout/cwchar.hpp` - &lt;cwchar&gt; 互換の機能  
-* `sprout/cctype.hpp` - &lt;cctype&gt; 互換の機能  
-* `sprout/cinttypes.hpp` - &lt;cinttypes&gt; 互換の機能  
+* `sprout/cstdlib.hpp` - 標準ヘッダ cstdlib 互換の機能  
+* `sprout/cstring.hpp` - 標準ヘッダ cstring 互換の機能  
+* `sprout/cwchar.hpp` - 標準ヘッダ cwchar 互換の機能  
+* `sprout/cctype.hpp` - 標準ヘッダ cctype 互換の機能  
+* `sprout/cinttypes.hpp` - 標準ヘッダ cinttypes 互換の機能  
 
 
 
@@ -128,7 +131,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 `#define SPROUT_CONFIG_DISABLE_DELEGATING_CONSTRUCTORS`  
 このマクロが定義されているとき、Delegating constructors による実装は行われない。  
 コンパイラが Delegating constructors に対応していない場合、これを定義すべき。  
-通常、これはコンパイラに応じて自動的に定義される。
+通常、これはコンパイラに応じて自動的に定義される。  
 *(When this macro is defined, the implementation is not done by Delegating constructors.*  
 *If the compiler does not support Delegating constructors, should define it.*  
 *Usually, it defined automatically depending to the compiler.)*  
@@ -145,7 +148,7 @@ Sprout C++ Library Wiki: http://www.boleros.x0.com/doc/sproutwiki/
 `#define SPROUT_CONFIG_USE_SSCRISK_CEL`  
 このマクロが定義されているとき、実装の詳細として CEL - ConstExpr Library を使用する。  
 *(When this macro is defined, you use the CEL - ConstExpr Library as an implementation detail.)*  
-https://github.com/sscrisk/CEL---ConstExpr-Library  
+See: https://github.com/sscrisk/CEL---ConstExpr-Library  
 
 * ビルトイン数学関数 *(Built-in mathematical functions)*  
 `#define SPROUT_CONFIG_DISABLE_BUILTIN_CMATH_FUNCTION`  
