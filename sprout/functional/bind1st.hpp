@@ -2,6 +2,7 @@
 #define SPROUT_FUNCTIONAL_BIND1ST_HPP
 
 #include <type_traits>
+#include <utility>
 #include <sprout/config.hpp>
 #include <sprout/functional/base.hpp>
 #include <sprout/functional/type_traits/is_strict_function.hpp>
@@ -53,7 +54,7 @@ namespace sprout {
 				: op(x), value(y)
 			{}
 			template<typename U>
-			SPROUT_CONSTEXPR decltype(op(value, std::declval<U const&>()))
+			SPROUT_CONSTEXPR decltype(std::declval<Fn const&>()(std::declval<value_type const&>(), std::declval<U const&>()))
 			operator()(U const& x) const {
 				return op(value, x);
 			}
