@@ -21,18 +21,6 @@ namespace sprout {
 			struct is_parser<
 				T,
 				typename std::enable_if<
-					std::is_const<T>::value
-					&& !std::is_array<T>::value
-				>::type
-			>
-				: public sprout::weed::traits::is_parser<
-					typename std::remove_const<T>::type
-				>
-			{};
-			template<typename T>
-			struct is_parser<
-				T,
-				typename std::enable_if<
 					std::is_base_of<sprout::weed::parser_base, T>::value
 					&& !std::is_const<T>::value
 				>::type
@@ -67,6 +55,18 @@ namespace sprout {
 				>::type
 			>
 				: public std::true_type
+			{};
+			template<typename T>
+			struct is_parser<
+				T,
+				typename std::enable_if<
+					std::is_const<T>::value
+					&& !std::is_array<T>::value
+				>::type
+			>
+				: public sprout::weed::traits::is_parser<
+					typename std::remove_const<T>::type
+				>
 			{};
 		}	// namespace traits
 	}	// namespace weed

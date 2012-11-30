@@ -10,7 +10,7 @@
 #include <sprout/iterator/distance.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/utility/swap.hpp>
-#include <sprout/type_traits/arithmetic_promote.hpp>
+#include <sprout/utility/limited.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -242,7 +242,10 @@ namespace sprout {
 		sprout::alternate_iterator<LIterator2, RIterator2> const& rhs
 		)
 	{
-		return lhs.base() - rhs.base() + (lhs.is_in_left() ? (rhs.is_in_left() ? 0 : 1) : (rhs.is_in_left() ? 1 : 0));
+		return sprout::limited::plus(
+			sprout::limited::multiplies(lhs.base() - rhs.base(), 2),
+			lhs.is_in_left() ? (rhs.is_in_left() ? 0 : 1) : (rhs.is_in_left() ? 1 : 0)
+			);
 	}
 	template<typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR sprout::alternate_iterator<LIterator, RIterator> operator+(

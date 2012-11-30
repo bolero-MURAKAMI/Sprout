@@ -45,7 +45,6 @@ namespace sprout {
 				) const
 			{
 				typedef typename result<Context, Iterator>::type result_type;
-				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return res.success()
 					? result_type(true, res.current(), value_)
 					: result_type(false, first, value_)

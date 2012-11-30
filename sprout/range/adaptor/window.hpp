@@ -6,7 +6,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/next.hpp>
-#include <sprout/range/range_container.hpp>
+#include <sprout/range/adaptor/detail/adapted_range_default.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
@@ -78,15 +78,15 @@ namespace sprout {
 		// operator|
 		//
 		template<typename Range, typename Difference1, typename Difference2>
-		inline SPROUT_CONSTEXPR sprout::range::range_container<
-			typename sprout::container_traits<typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type>::iterator
+		inline SPROUT_CONSTEXPR sprout::adaptors::detail::adapted_range_default<
+			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 		>
 		operator|(Range&& lhs, sprout::adaptors::window_holder<Difference1, Difference2> const& rhs) {
 			typedef typename sprout::container_traits<
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>::difference_type difference_type;
-			return sprout::range::range_container<
-				typename sprout::container_traits<typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type>::iterator
+			return sprout::adaptors::detail::adapted_range_default<
+				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>(
 				sprout::next(
 					sprout::begin(sprout::lvalue_forward<Range>(lhs)),
@@ -99,15 +99,15 @@ namespace sprout {
 				);
 		}
 		template<typename Range, typename Difference>
-		inline SPROUT_CONSTEXPR sprout::range::range_container<
-			typename sprout::container_traits<typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type>::iterator
+		inline SPROUT_CONSTEXPR sprout::adaptors::detail::adapted_range_default<
+			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 		>
 		operator|(Range&& lhs, sprout::adaptors::window_holder<Difference> const& rhs) {
 			typedef typename sprout::container_traits<
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>::difference_type difference_type;
-			return sprout::range::range_container<
-				typename sprout::container_traits<typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type>::iterator
+			return sprout::adaptors::detail::adapted_range_default<
+				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>(
 				sprout::next(
 					sprout::begin(sprout::lvalue_forward<Range>(lhs)),

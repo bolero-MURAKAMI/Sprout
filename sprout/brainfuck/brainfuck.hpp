@@ -14,6 +14,7 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/operation/fixed/set.hpp>
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace brainfuck {
@@ -68,7 +69,12 @@ namespace sprout {
 			{
 				typedef typename std::iterator_traits<SourceBidirectionalIterator>::value_type value_type;
 				typedef typename sprout::container_traits<OutputBuffer>::value_type out_value_type;
-				return first == last ? sprout::fixed::copy(out_buffer.begin(), out_buffer.end(), output)
+				return first == last
+					? sprout::fixed::copy(
+						sprout::begin(out_buffer),
+						sprout::next(sprout::begin(out_buffer), NS_SSCRISK_CEL_OR_SPROUT::min(out_pos, sprout::size(out_buffer))),
+						output
+						)
 					: *first == value_type('>')
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(first), last, output, in_first, in_last,
