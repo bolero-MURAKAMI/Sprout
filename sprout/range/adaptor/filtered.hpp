@@ -7,7 +7,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/filter_iterator.hpp>
-#include <sprout/range/range_container.hpp>
+#include <sprout/range/adaptor/detail/adapted_range_default.hpp>
 #include <sprout/range/algorithm/copy.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
@@ -20,24 +20,24 @@ namespace sprout {
 		//
 		template<typename Predicate, typename Range>
 		class filtered_range
-			: public sprout::range::range_container<
+			: public sprout::adaptors::detail::adapted_range_default<
+				Range,
 				sprout::filter_iterator<
 					Predicate,
 					typename sprout::container_traits<Range>::iterator
 				>
 			>
-			, public sprout::detail::container_nosy_static_size<Range>
-			, public sprout::detail::container_nosy_fixed_size<Range>
 		{
 		public:
 			typedef Predicate predicate_type;
-			typedef Range range_type;
-			typedef sprout::range::range_container<
+			typedef sprout::adaptors::detail::adapted_range_default<
+				Range,
 				sprout::filter_iterator<
 					Predicate,
 					typename sprout::container_traits<Range>::iterator
 				>
 			> base_type;
+			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
 			filtered_range() = default;
@@ -112,28 +112,9 @@ namespace sprout {
 	// container_construct_traits
 	//
 	template<typename Predicate, typename Range>
-	struct container_construct_traits<sprout::adaptors::filtered_range<Predicate, Range> > {
-	public:
-		typedef typename sprout::container_construct_traits<Range>::copied_type copied_type;
-	public:
-		template<typename Cont>
-		static SPROUT_CONSTEXPR copied_type deep_copy(Cont&& cont) {
-			return sprout::range::fixed::copy(sprout::forward<Cont>(cont), sprout::pit<copied_type>());
-		}
-		template<typename... Args>
-		static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
-			return sprout::make<copied_type>(sprout::forward<Args>(args)...);
-		}
-		template<typename Cont, typename... Args>
-		static SPROUT_CONSTEXPR copied_type remake(
-			Cont&& cont,
-			typename sprout::container_traits<sprout::adaptors::filtered_range<Predicate, Range> >::difference_type size,
-			Args&&... args
-			)
-		{
-			return sprout::remake<copied_type>(sprout::forward<Cont>(cont), size, sprout::forward<Args>(args)...);
-		}
-	};
+	struct container_construct_traits<sprout::adaptors::filtered_range<Predicate, Range> >
+		: public sprout::container_construct_traits<typename sprout::adaptors::filtered_range<Predicate, Range>::base_type>
+	{};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_RANGE_ADAPTOR_FILTERED_HPP
