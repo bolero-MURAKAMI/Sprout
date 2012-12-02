@@ -29,7 +29,7 @@ namespace sprout {
 			floor(FloatType x) {
 				return sprout::math::isinf(x) ? x
 					: std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
-						? throw std::domain_error("floor: Sorry, not implemented.")
+						? SPROUT_MATH_DETAIL_INT_CONVERSION_OVERFLOW(std::domain_error("floor: Sorry, not implemented."), x)
 					: x < 0 ? sprout::math::detail::floor_impl(x, -static_cast<FloatType>(static_cast<std::uintmax_t>(-x)))
 					: static_cast<FloatType>(static_cast<std::uintmax_t>(x))
 					;

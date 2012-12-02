@@ -8,5 +8,6 @@
 #include <sprout/math/fmax.hpp>
 #include <sprout/math/fmin.hpp>
 #include <sprout/math/fdim.hpp>
+#include <sprout/math/fmod.hpp>
 
 #endif	// #ifndef SPROUT_MATH_OPERATIONS_HPP

@@ -21,7 +21,7 @@ namespace sprout {
 			trunc(FloatType x) {
 				return sprout::math::isinf(x) ? x
 					: std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
-						? throw std::domain_error("trunc: Sorry, not implemented.")
+						? SPROUT_MATH_DETAIL_INT_CONVERSION_OVERFLOW(std::domain_error("trunc: Sorry, not implemented."), x)
 					: x < 0 ? -static_cast<FloatType>(static_cast<std::uintmax_t>(-x))
 					: static_cast<FloatType>(static_cast<std::uintmax_t>(x))
 					;

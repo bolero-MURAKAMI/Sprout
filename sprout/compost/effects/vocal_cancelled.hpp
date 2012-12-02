@@ -26,6 +26,8 @@ namespace sprout {
 			//
 			// operator|
 			//
+			// ???
+#if !defined(__clang__)
 			template<typename Range>
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::vocal_cancelled_forwarder const& rhs)
@@ -44,6 +46,7 @@ namespace sprout {
 						)
 					;
 			}
+#endif
 		}	// namespace effects
 
 		using sprout::compost::effects::vocal_cancelled;

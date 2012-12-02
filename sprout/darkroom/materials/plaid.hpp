@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/math/fmod.hpp>
 
 namespace sprout {
 	namespace darkroom {
@@ -16,11 +17,6 @@ namespace sprout {
 			public:
 				typedef Element result_type;
 				typedef Scale unit_type;
-			private:
-				static SPROUT_CONSTEXPR unit_type
-				fmod(unit_type const& n, unit_type const& d) {
-					return n - std::intmax_t(n / d) * d;
-				}
 			private:
 				result_type elem1_;
 				result_type elem2_;
@@ -42,14 +38,14 @@ namespace sprout {
 				operator()(Unit const& u, Unit const& v) const {
 					return calc_1(
 						(u < 0
-							? scale_ + fmod(u, scale_)
-							: fmod(u, scale_)
+							? scale_ + sprout::fmod(u, scale_)
+							: sprout::fmod(u, scale_)
 							)
 							- scale_ / 2
 							,
 						(v < 0
-							? scale_ + fmod(v, scale_)
-							: fmod(v, scale_)
+							? scale_ + sprout::fmod(v, scale_)
+							: sprout::fmod(v, scale_)
 							)
 							- scale_ / 2
 						);

@@ -16,7 +16,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			sawtooth_value(T const& t) {
 				using sprout::floor;
-				return T(2) * (t - floor(t + T(0.5)));
+				return 2 * (t - floor(t + T(0.5)));
 			}
 
 			template<typename Container, sprout::index_t... Indexes>
