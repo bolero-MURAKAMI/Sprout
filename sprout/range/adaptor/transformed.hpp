@@ -46,7 +46,7 @@ namespace sprout {
 		public:
 			transformed_range() = default;
 			transformed_range(transformed_range const&) = default;
-			SPROUT_CONSTEXPR transformed_range(functor_type func, range1_type& range1, range2_type& range2)
+			SPROUT_CONSTEXPR transformed_range(BinaryFunction func, range1_type& range1, range2_type& range2)
 				: base_type(
 					iterator(sprout::begin(range1), sprout::begin(range2), func),
 					iterator(sprout::end(range1), sprout::end(range2), func)
@@ -78,7 +78,7 @@ namespace sprout {
 		public:
 			transformed_range() = default;
 			transformed_range(transformed_range const&) = default;
-			SPROUT_CONSTEXPR transformed_range(functor_type func, range1_type& range)
+			SPROUT_CONSTEXPR transformed_range(UnaryFunction func, range1_type& range)
 				: base_type(
 					iterator(sprout::begin(range), func),
 					iterator(sprout::end(range), func)
@@ -95,16 +95,16 @@ namespace sprout {
 			typedef BinaryFunction functor_type;
 			typedef RRange range2_type;
 		private:
-			functor_type func_;
+			BinaryFunction func_;
 			sprout::value_holder<range2_type&> range_;
 		public:
 			transform_holder() = default;
 			transform_holder(transform_holder const&) = default;
-			SPROUT_CONSTEXPR transform_holder(functor_type func, range2_type& range)
+			SPROUT_CONSTEXPR transform_holder(BinaryFunction func, range2_type& range)
 				: func_(func)
 				, range_(range)
 			{}
-			SPROUT_CONSTEXPR functor_type functor() const {
+			SPROUT_CONSTEXPR BinaryFunction functor() const {
 				return func_;
 			}
 			SPROUT_CONSTEXPR range2_type& range() const {
@@ -116,14 +116,14 @@ namespace sprout {
 		public:
 			typedef UnaryFunction functor_type;
 		private:
-			functor_type func_;
+			UnaryFunction func_;
 		public:
 			transform_holder() = default;
 			transform_holder(transform_holder const&) = default;
-			explicit SPROUT_CONSTEXPR transform_holder(functor_type func)
+			explicit SPROUT_CONSTEXPR transform_holder(UnaryFunction func)
 				: func_(func)
 			{}
-			SPROUT_CONSTEXPR functor_type functor() const {
+			SPROUT_CONSTEXPR UnaryFunction functor() const {
 				return func_;
 			}
 		};

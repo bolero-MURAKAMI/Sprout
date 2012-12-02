@@ -61,7 +61,7 @@ namespace sprout {
 	protected:
 		iterator_type current;
 		iterator2_type current2;
-		functor_type func;
+		BinaryFunction func;
 	public:
 		transform_iterator() = default;
 		transform_iterator(transform_iterator const&) = default;
@@ -69,7 +69,7 @@ namespace sprout {
 			: current(it)
 			, current2(it2)
 		{}
-		SPROUT_CONSTEXPR transform_iterator(iterator_type it, iterator2_type it2, functor_type func)
+		SPROUT_CONSTEXPR transform_iterator(iterator_type it, iterator2_type it2, BinaryFunction func)
 			: current(it)
 			, current2(it2)
 			, func(func)
@@ -92,7 +92,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR iterator_type base2() const {
 			return current2;
 		}
-		SPROUT_CONSTEXPR functor_type functor() const {
+		SPROUT_CONSTEXPR BinaryFunction functor() const {
 			return func;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
@@ -196,14 +196,14 @@ namespace sprout {
 		typedef value_type* pointer;
 	protected:
 		iterator_type current;
-		functor_type func;
+		UnaryFunction func;
 	public:
 		transform_iterator() = default;
 		transform_iterator(transform_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR transform_iterator(iterator_type it)
 			: current(it)
 		{}
-		SPROUT_CONSTEXPR transform_iterator(iterator_type it, functor_type func)
+		SPROUT_CONSTEXPR transform_iterator(iterator_type it, UnaryFunction func)
 			: current(it)
 			, func(func)
 		{}
@@ -221,7 +221,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR iterator_type base() const {
 			return current;
 		}
-		SPROUT_CONSTEXPR functor_type functor() const {
+		SPROUT_CONSTEXPR UnaryFunction functor() const {
 			return func;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
