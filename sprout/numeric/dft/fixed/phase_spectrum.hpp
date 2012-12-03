@@ -7,9 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/complex.hpp>
-#include <sprout/math/atan2.hpp>
-#include <sprout/math/llround.hpp>
+#include <sprout/numeric/dft/phase_spectrum_value.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -31,10 +29,7 @@ namespace sprout {
 					result,
 					size,
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? sprout::atan2(
-							sprout::llround(imag(*sprout::next(first, Indexes))),
-							sprout::llround(real(*sprout::next(first, Indexes)))
-							)
+						? sprout::phase_spectrum_value(*sprout::next(first, Indexes))
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);

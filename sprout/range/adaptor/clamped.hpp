@@ -45,14 +45,14 @@ namespace sprout {
 				range_type& range,
 				value_type const& low,
 				value_type const& up,
-				compare_type comp = compare_type()
+				Compare comp = Compare()
 				)
 				: base_type(
 					iterator(sprout::begin(range), low, up, comp),
 					iterator(sprout::end(range), low, up, comp)
 					)
 			{}
-			SPROUT_CONSTEXPR compare_type compare() const {
+			SPROUT_CONSTEXPR Compare compare() const {
 				return base_type::begin().compare();
 			}
 			SPROUT_CONSTEXPR value_type lower() const {
@@ -72,14 +72,14 @@ namespace sprout {
 			typedef Value value_type;
 			typedef Compare compare_type;
 		private:
-			compare_type comp_;
+			Compare comp_;
 			value_type low_;
 			value_type up_;
 		public:
-			SPROUT_CONSTEXPR clamp_holder(value_type const& low, value_type const& up, compare_type comp = compare_type())
+			SPROUT_CONSTEXPR clamp_holder(value_type const& low, value_type const& up, Compare comp = Compare())
 				: comp_(comp), low_(low), up_(up)
 			{}
-			SPROUT_CONSTEXPR compare_type const& compare() const {
+			SPROUT_CONSTEXPR Compare const& compare() const {
 				return comp_;
 			}
 			SPROUT_CONSTEXPR value_type const& lower() const {

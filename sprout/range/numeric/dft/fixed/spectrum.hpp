@@ -24,4 +24,7 @@ namespace sprout {
 	}	// namespace range
 }	// namespace sprout
 
+#include <sprout/range/numeric/dft/fixed/amplitude_spectrum.hpp>
+#include <sprout/range/numeric/dft/fixed/phase_spectrum.hpp>
+
 #endif	// #ifndef SPROUT_RANGE_NUMERIC_DFT_FIXED_SPECTRUM_HPP

@@ -34,14 +34,14 @@ namespace sprout {
 		typedef typename std::iterator_traits<iterator_type>::reference reference;
 	protected:
 		iterator_type current;
-		compare_type comp;
+		Compare comp;
 		value_type low;
 		value_type up;
 	private:
 		public:
 		clamp_iterator() = default;
 		clamp_iterator(clamp_iterator const&) = default;
-		SPROUT_CONSTEXPR clamp_iterator(iterator_type it, value_type const& low, value_type const& up, compare_type comp = compare_type())
+		SPROUT_CONSTEXPR clamp_iterator(iterator_type it, value_type const& low, value_type const& up, Compare comp = Compare())
 			: current(it), comp(comp), low(low), up(up)
 		{}
 		template<typename U, typename V>
@@ -57,7 +57,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR iterator_type const& base() const {
 			return current;
 		}
-		SPROUT_CONSTEXPR compare_type const& compare() const {
+		SPROUT_CONSTEXPR Compare const& compare() const {
 			return comp;
 		}
 		SPROUT_CONSTEXPR value_type const& lower() const {

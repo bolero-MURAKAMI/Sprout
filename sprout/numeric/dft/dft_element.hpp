@@ -1,5 +1,5 @@
-#ifndef SPROUT_NUMERIC_DFT_FIXED_DFT_ELEMENT_HPP
-#define SPROUT_NUMERIC_DFT_FIXED_DFT_ELEMENT_HPP
+#ifndef SPROUT_NUMERIC_DFT_DFT_ELEMENT_HPP
+#define SPROUT_NUMERIC_DFT_DFT_ELEMENT_HPP
 
 #include <iterator>
 #include <sprout/config.hpp>
@@ -38,4 +38,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_NUMERIC_DFT_FIXED_DFT_ELEMENT_HPP
+#endif	// #ifndef SPROUT_NUMERIC_DFT_DFT_ELEMENT_HPP

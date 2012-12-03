@@ -9,5 +9,8 @@
 #include <sprout/compost/formats/effected_each.hpp>
 #include <sprout/compost/formats/effected_left.hpp>
 #include <sprout/compost/formats/effected_right.hpp>
+#include <sprout/compost/formats/as_complex.hpp>
+#include <sprout/compost/formats/as_real.hpp>
+#include <sprout/compost/formats/as_imag.hpp>
 
 #endif	// #ifndef SPROUT_COMPOST_FORMATS_HPP

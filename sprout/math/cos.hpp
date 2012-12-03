@@ -7,8 +7,8 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/factorial.hpp>
-#include <sprout/math/fmod.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/fmod.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {

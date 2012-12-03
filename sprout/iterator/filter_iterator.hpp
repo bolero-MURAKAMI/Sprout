@@ -43,10 +43,10 @@ namespace sprout {
 	private:
 		struct private_constructor_tag {};
 	private:
-		static SPROUT_CONSTEXPR iterator_type find_next(iterator_type first, iterator_type last, predicate_type pred) {
+		static SPROUT_CONSTEXPR iterator_type find_next(iterator_type first, iterator_type last, Predicate pred) {
 			return sprout::find_if(first, last, pred);
 		}
-		static SPROUT_CONSTEXPR iterator_type find_prev(iterator_type first, predicate_type pred) {
+		static SPROUT_CONSTEXPR iterator_type find_prev(iterator_type first, Predicate pred) {
 			return pred(*first) ? first
 				: find_prev(sprout::prev(first), pred)
 				;
@@ -54,7 +54,7 @@ namespace sprout {
 	protected:
 		iterator_type current;
 		iterator_type last;
-		predicate_type pred;
+		Predicate pred;
 	private:
 		void satisfy_predicate() {
 			while (current != last && !pred(*current)) {
@@ -66,7 +66,7 @@ namespace sprout {
 				--current;
 			}
 		}
-		SPROUT_CONSTEXPR filter_iterator(predicate_type pred, iterator_type it, iterator_type last, private_constructor_tag)
+		SPROUT_CONSTEXPR filter_iterator(Predicate pred, iterator_type it, iterator_type last, private_constructor_tag)
 			: current(it)
 			, last(last)
 			, pred(pred)
@@ -74,7 +74,7 @@ namespace sprout {
 	public:
 		filter_iterator() = default;
 		filter_iterator(filter_iterator const&) = default;
-		SPROUT_CONSTEXPR filter_iterator(predicate_type pred, iterator_type it, iterator_type last = iterator_type())
+		SPROUT_CONSTEXPR filter_iterator(Predicate pred, iterator_type it, iterator_type last = iterator_type())
 			: current(find_next(it, last, pred))
 			, last(last)
 			, pred(pred)
@@ -97,7 +97,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR iterator_type end() const {
 			return last;
 		}
-		SPROUT_CONSTEXPR predicate_type predicate() const {
+		SPROUT_CONSTEXPR Predicate predicate() const {
 			return pred;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {

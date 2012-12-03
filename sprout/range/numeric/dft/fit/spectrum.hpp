@@ -22,4 +22,7 @@ namespace sprout {
 	}	// namespace range
 }	// namespace sprout
 
+#include <sprout/range/numeric/dft/fit/amplitude_spectrum.hpp>
+#include <sprout/range/numeric/dft/fit/phase_spectrum.hpp>
+
 #endif	// #ifndef SPROUT_RANGE_NUMERIC_DFT_FIT_SPECTRUM_HPP

@@ -42,7 +42,7 @@ namespace sprout {
 		public:
 			filtered_range() = default;
 			filtered_range(filtered_range const&) = default;
-			SPROUT_CONSTEXPR filtered_range(predicate_type pred, range_type& range)
+			SPROUT_CONSTEXPR filtered_range(Predicate pred, range_type& range)
 				: base_type(
 					iterator(pred, sprout::begin(range), sprout::end(range)),
 					iterator(pred, sprout::end(range), sprout::end(range))
@@ -58,14 +58,14 @@ namespace sprout {
 		public:
 			typedef Predicate predicate_type;
 		private:
-			predicate_type pred_;
+			Predicate pred_;
 		public:
 			filter_holder() = default;
 			filter_holder(filter_holder const&) = default;
-			SPROUT_CONSTEXPR filter_holder(predicate_type pred)
+			SPROUT_CONSTEXPR filter_holder(Predicate pred)
 				: pred_(pred)
 			{}
-			SPROUT_CONSTEXPR predicate_type predicate() const {
+			SPROUT_CONSTEXPR Predicate predicate() const {
 				return pred_;
 			}
 		};

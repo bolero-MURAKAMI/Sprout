@@ -48,7 +48,7 @@ namespace sprout {
 	private:
 		typedef Res (Class::*functor)(Args...);
 	private:
-		functor pmf_;
+		Res (Class::*pmf_)(Args...);
 	private:
 		template<typename T>
 		Res call(T& object, Class const volatile*, Args... args) const {
@@ -59,7 +59,7 @@ namespace sprout {
 			return ((*ptr).*pmf_)(sprout::forward<Args>(args)...);
 		}
 	public:
-		explicit SPROUT_CONSTEXPR mem_fn_adaptor(functor pmf)
+		explicit SPROUT_CONSTEXPR mem_fn_adaptor(Res (Class::*pmf)(Args...))
 			: pmf_(pmf)
 		{}
 		Res operator()(Class& object, Args... args) const {
@@ -82,7 +82,7 @@ namespace sprout {
 	private:
 		typedef Res (Class::*functor)(Args...) const;
 	private:
-		functor pmf_;
+		Res (Class::*pmf_)(Args...) const;
 	private:
 		template<typename T>
 		SPROUT_CONSTEXPR Res call(T const& object, Class const volatile*, Args... args) const {
@@ -93,7 +93,7 @@ namespace sprout {
 			return ((*ptr).*pmf_)(sprout::forward<Args>(args)...);
 		}
 	public:
-		explicit SPROUT_CONSTEXPR mem_fn_adaptor(functor pmf)
+		explicit SPROUT_CONSTEXPR mem_fn_adaptor(Res (Class::*pmf)(Args...) const)
 			: pmf_(pmf)
 		{}
 		SPROUT_CONSTEXPR Res operator()(Class const& object, Args... args) const {
@@ -116,7 +116,7 @@ namespace sprout {
 	private:
 		typedef Res (Class::*functor)(Args...) volatile;
 	private:
-		functor pmf_;
+		Res (Class::*pmf_)(Args...) volatile;
 	private:
 		template<typename T>
 		Res call(T& object, Class const volatile*, Args... args) const {
@@ -127,7 +127,7 @@ namespace sprout {
 			return ((*ptr).*pmf_)(sprout::forward<Args>(args)...);
 		}
 	public:
-		explicit SPROUT_CONSTEXPR mem_fn_adaptor(functor pmf)
+		explicit SPROUT_CONSTEXPR mem_fn_adaptor(Res (Class::*pmf)(Args...) volatile)
 			: pmf_(pmf)
 		{}
 		Res operator()(Class volatile& object, Args... args) const {
@@ -150,7 +150,7 @@ namespace sprout {
 	private:
 		typedef Res (Class::*functor)(Args...) const volatile;
 	private:
-		functor pmf_;
+		Res (Class::*pmf_)(Args...) const volatile;
 	private:
 		template<typename T>
 		SPROUT_CONSTEXPR Res call(T const& object, Class const volatile*, Args... args) const {
@@ -161,7 +161,7 @@ namespace sprout {
 			return ((*ptr).*pmf_)(sprout::forward<Args>(args)...);
 		}
 	public:
-		explicit SPROUT_CONSTEXPR mem_fn_adaptor(functor pmf)
+		explicit SPROUT_CONSTEXPR mem_fn_adaptor(Res (Class::*pmf)(Args...) const volatile)
 			: pmf_(pmf)
 		{}
 		SPROUT_CONSTEXPR Res operator()(Class const volatile& object, Args... args) const {

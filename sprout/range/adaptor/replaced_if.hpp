@@ -21,7 +21,7 @@ namespace sprout {
 			public:
 				typedef Predicate predicate_type;
 				typedef T const& result_type;
-				typedef T const& first_argument_type;
+				typedef T const& argument_type;
 			private:
 				Predicate pred_;
 				T new_;
@@ -63,7 +63,7 @@ namespace sprout {
 		public:
 			replaced_if_range() = default;
 			replaced_if_range(replaced_if_range const&) = default;
-			explicit SPROUT_CONSTEXPR replaced_if_range(range_type& range, predicate_type pred, value_type const& new_value)
+			SPROUT_CONSTEXPR replaced_if_range(range_type& range, Predicate pred, value_type const& new_value)
 				: base_type(
 					iterator(sprout::begin(range), typename iterator::functor_type(pred, new_value)),
 					iterator(sprout::end(range), typename iterator::functor_type(pred, new_value))
@@ -80,14 +80,14 @@ namespace sprout {
 			typedef Predicate predicate_type;
 			typedef T value_type;
 		private:
-			predicate_type pred_;
+			Predicate pred_;
 			value_type new_;
 		public:
-			SPROUT_CONSTEXPR replace_if_holder(predicate_type pred, value_type const& new_value)
+			SPROUT_CONSTEXPR replace_if_holder(Predicate pred, value_type const& new_value)
 				: pred_(pred)
 				, new_(new_value)
 			{}
-			SPROUT_CONSTEXPR predicate_type const& predicate() const {
+			SPROUT_CONSTEXPR Predicate const& predicate() const {
 				return pred_;
 			}
 			SPROUT_CONSTEXPR value_type const& new_value() const {

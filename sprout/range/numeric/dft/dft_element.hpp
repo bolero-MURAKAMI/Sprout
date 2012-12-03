@@ -1,0 +1,22 @@
+#ifndef SPROUT_RANGE_NUMERIC_DFT_DFT_ELEMENT_HPP
+#define SPROUT_RANGE_NUMERIC_DFT_DFT_ELEMENT_HPP
+
+#include <sprout/config.hpp>
+#include <sprout/container/traits.hpp>
+#include <sprout/container/functions.hpp>
+#include <sprout/numeric/dft/dft_element.hpp>
+
+namespace sprout {
+	namespace range {
+		//
+		// dft_element
+		//
+		template<typename Input>
+		inline SPROUT_CONSTEXPR typename sprout::container_traits<Input>::value_type
+		dft_element(Input const& input, typename sprout::container_traits<Input>::difference_type i) {
+			return sprout::dft_element(sprout::begin(input), sprout::end(input), i);
+		}
+	}	// namespace range
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_RANGE_NUMERIC_DFT_DFT_ELEMENT_HPP

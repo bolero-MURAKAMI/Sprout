@@ -20,7 +20,7 @@ namespace sprout {
 			class replace_value {
 			public:
 				typedef T const& result_type;
-				typedef T const& first_argument_type;
+				typedef T const& argument_type;
 			private:
 				T old_;
 				T new_;
@@ -61,7 +61,7 @@ namespace sprout {
 		public:
 			replaced_range() = default;
 			replaced_range(replaced_range const&) = default;
-			explicit SPROUT_CONSTEXPR replaced_range(range_type& range, value_type const& old_value, value_type const& new_value)
+			SPROUT_CONSTEXPR replaced_range(range_type& range, value_type const& old_value, value_type const& new_value)
 				: base_type(
 					iterator(sprout::begin(range), typename iterator::functor_type(old_value, new_value)),
 					iterator(sprout::end(range), typename iterator::functor_type(old_value, new_value))

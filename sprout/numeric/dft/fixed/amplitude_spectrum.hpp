@@ -7,8 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/complex.hpp>
-#include <sprout/math/sqrt.hpp>
+#include <sprout/numeric/dft/amplitude_spectrum_value.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -24,16 +23,11 @@ namespace sprout {
 				typename sprout::container_traits<Result>::size_type input_size
 				)
 			{
-				using sprout::real;
-				using sprout::imag;
 				return sprout::remake<Result>(
 					result,
 					size,
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? sprout::sqrt(
-							real(*sprout::next(first, Indexes)) * real(*sprout::next(first, Indexes))
-							+ imag(*sprout::next(first, Indexes)) * imag(*sprout::next(first, Indexes))
-							)
+						? sprout::amplitude_spectrum_value(*sprout::next(first, Indexes))
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);
