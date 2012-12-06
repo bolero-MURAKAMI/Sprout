@@ -89,7 +89,9 @@ namespace sprout {
 			return phase_;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
-			return amplitude_ * sprout::fixed::detail::sawtooth_value(frequency_ * value_type(index_) + phase_);
+			return amplitude_ == 0 ? 0
+				: amplitude_ * sprout::fixed::detail::sawtooth_value(frequency_ * value_type(index_) + phase_)
+				;
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &operator*()();
@@ -129,7 +131,9 @@ namespace sprout {
 			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
-			return amplitude_ * sprout::fixed::detail::sawtooth_value(frequency_ * value_type(index_ + n) + phase_);
+			return amplitude_ == 0 ? 0
+				: amplitude_ * sprout::fixed::detail::sawtooth_value(frequency_ * value_type(index_ + n) + phase_)
+				;
 		}
 		SPROUT_CONSTEXPR sawtooth_iterator next() const {
 			return sawtooth_iterator(*this, index_ + 1);

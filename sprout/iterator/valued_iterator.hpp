@@ -164,7 +164,7 @@ namespace sprout {
 		return !(lhs < rhs);
 	}
 	template<typename Iterator1, typename T1, typename Iterator2, typename T2>
-	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1, T1>() - std::declval<Iterator2, T2>())
+	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>())
 	operator-(sprout::valued_iterator<Iterator1, T1> const& lhs, sprout::valued_iterator<Iterator2, T2> const& rhs) {
 		return lhs.base() - rhs.base();
 	}

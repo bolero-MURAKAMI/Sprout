@@ -1,6 +1,7 @@
 #ifndef SPROUT_RANGE_ADAPTOR_SAWTOOTH_WAVE_HPP
 #define SPROUT_RANGE_ADAPTOR_SAWTOOTH_WAVE_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/pit.hpp>
@@ -71,6 +72,7 @@ namespace sprout {
 			> base_type;
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
+			typedef typename base_type::difference_type difference_type;
 		public:
 			sawtooth_wave_range() = default;
 			sawtooth_wave_range(sawtooth_wave_range const&) = default;
@@ -81,7 +83,7 @@ namespace sprout {
 				)
 				: base_type(
 					iterator(0, frequency, amplitude, phase),
-					iterator(-1, frequency, amplitude, phase)
+					iterator(std::numeric_limits<difference_type>::max(), frequency, amplitude, phase)
 					)
 			{}
 			SPROUT_CONSTEXPR value_type const& frequency() const {

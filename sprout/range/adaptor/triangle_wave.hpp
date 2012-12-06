@@ -1,6 +1,7 @@
 #ifndef SPROUT_RANGE_ADAPTOR_TRIANGLE_WAVE_HPP
 #define SPROUT_RANGE_ADAPTOR_TRIANGLE_WAVE_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/pit.hpp>
@@ -71,6 +72,7 @@ namespace sprout {
 			> base_type;
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
+			typedef typename base_type::difference_type difference_type;
 		public:
 			triangle_wave_range() = default;
 			triangle_wave_range(triangle_wave_range const&) = default;
@@ -81,7 +83,7 @@ namespace sprout {
 				)
 				: base_type(
 					iterator(0, frequency, amplitude, phase),
-					iterator(-1, frequency, amplitude, phase)
+					iterator(std::numeric_limits<difference_type>::max(), frequency, amplitude, phase)
 					)
 			{}
 			SPROUT_CONSTEXPR value_type frequency() const {
