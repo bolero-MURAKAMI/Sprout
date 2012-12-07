@@ -522,8 +522,8 @@ namespace sprout {
 				return Result(
 					sample,
 					typename Result::second_type(
-						sprout::remake<DelayA>(da, 2, sprout::tuples::get<1>(da), sample),
-						sprout::remake<DelayB>(db, 2, sprout::tuples::get<1>(db), base)
+						sprout::remake<DelayA>(da, 2, sample, sprout::tuples::get<0>(da)),
+						sprout::remake<DelayB>(db, 2, base, sprout::tuples::get<0>(db))
 						)
 					);
 			}

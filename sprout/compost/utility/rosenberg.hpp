@@ -16,9 +16,9 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::float_promote<T>::type
 		rosenberg_value(T x, T tau1, T tau2) {
 			typedef typename sprout::float_promote<T>::type type;
-			return x >= 0 && sprout::math::less_equal(x, tau1)
+			return x >= 0 && x <= tau1
 					? 3 * sprout::detail::pow2<type>(x / tau1) - 2 * sprout::detail::pow3<type>(x / tau1)
-				: sprout::math::greater(x, tau1) && sprout::math::less_equal(x, tau1 + tau2)
+				: x > tau1 && x <= tau1 + tau2
 					? 1 - sprout::detail::pow2<type>((x - tau1) / tau2)
 				: 0
 				;
