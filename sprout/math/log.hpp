@@ -5,6 +5,7 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
@@ -16,30 +17,18 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			log_impl_2(T x, T tmp, std::size_t n, T xn) {
-				return n > sprout::math::factorial_limit<T>() ? tmp
-					: sprout::math::detail::log_impl_2(
-						x,
-						tmp + (n % 2 ? 1 : -1) * xn / n,
-						n + 1,
-						xn * x
-						)
+			log_impl_1(T x, std::size_t n, std::size_t last) {
+				return last - n == 1
+					? (n % 2 ? 1 : -1) * sprout::detail::pow_n(x, n) / n
+					: sprout::math::detail::log_impl_1(x, n, n + (last - n) / 2)
+						+ sprout::math::detail::log_impl_1(x, n + (last - n) / 2, last)
 					;
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			log_impl_1(T x) {
-				return sprout::math::detail::log_impl_2(
-					x,
-					x,
-					2,
-					x * x
-					);
-			}
-			template<typename T>
-			inline SPROUT_CONSTEXPR T
 			log_impl(T x) {
-				return !(x > sprout::math::root_two<T>()) ? sprout::math::detail::log_impl_1(x - 1)
+				return !(x > sprout::math::root_two<T>())
+					? sprout::math::detail::log_impl_1(x - 1, 1, sprout::math::factorial_limit<T>() + 1)
 					: 2 * sprout::math::detail::log_impl(sprout::math::sqrt(x))
 					;
 			}

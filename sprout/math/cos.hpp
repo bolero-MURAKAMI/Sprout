@@ -17,11 +17,11 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			cos_impl_1(T x2, std::size_t first, std::size_t last) {
-				return last - first == 1
-					? (first % 2 ? -1 : 1) * sprout::detail::pow_n(x2, first) / sprout::math::factorial<T>(2 * first)
-					: sprout::math::detail::cos_impl_1(x2, first, first + (last - first) / 2)
-						+ sprout::math::detail::cos_impl_1(x2, first + (last - first) / 2, last)
+			cos_impl_1(T x2, std::size_t n, std::size_t last) {
+				return last - n == 1
+					? (n % 2 ? -1 : 1) * sprout::detail::pow_n(x2, n) / sprout::math::factorial<T>(2 * n)
+					: sprout::math::detail::cos_impl_1(x2, n, n + (last - n) / 2)
+						+ sprout::math::detail::cos_impl_1(x2, n + (last - n) / 2, last)
 					;
 			}
 			template<typename FloatType>

@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -13,14 +14,11 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			cosh_impl(T x, T tmp, std::size_t n, T x2n) {
-				return 2 * n > sprout::math::factorial_limit<T>() ? tmp
-					: sprout::math::detail::cosh_impl(
-						x,
-						tmp + x2n / sprout::math::factorial<T>(2 * n),
-						n + 1,
-						x2n * x * x
-						)
+			cosh_impl(T x2, std::size_t n, std::size_t last) {
+				return last - n == 1
+					? sprout::detail::pow_n(x2, n) / sprout::math::factorial<T>(2 * n)
+					: sprout::math::detail::cosh_impl(x2, n, n + (last - n) / 2)
+						+ sprout::math::detail::cosh_impl(x2, n + (last - n) / 2, last)
 					;
 			}
 
@@ -31,12 +29,12 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			cosh(FloatType x) {
 				typedef double type;
-				return static_cast<FloatType>(sprout::math::detail::cosh_impl(
-					static_cast<type>(x),
-					type(1),
-					1,
-					static_cast<type>(x) * static_cast<type>(x)
-					));
+				return static_cast<FloatType>(
+					type(1) + sprout::math::detail::cosh_impl(
+						static_cast<type>(x) * static_cast<type>(x),
+						1, sprout::math::factorial_limit<type>() / 2 + 1
+						)
+					);
 			}
 
 			template<

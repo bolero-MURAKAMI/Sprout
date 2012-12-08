@@ -5,6 +5,7 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
@@ -16,37 +17,21 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			asin_impl_2(T x, T tmp, std::size_t n, T x2n1, T _4n) {
-				return 2 * n > sprout::math::factorial_limit<T>() ? tmp
-					: sprout::math::detail::asin_impl_2(
-						x,
-						tmp + sprout::math::factorial<T>(2 * n)
-							/ _4n / sprout::math::factorial<T>(n) / sprout::math::factorial<T>(n) / (2 * n + 1)
-							* x2n1
-							,
-						n + 1,
-						x2n1 * x * x,
-						_4n * 4
-						)
+			asin_impl_1(T x, std::size_t n, std::size_t last) {
+				return last - n == 1
+					? sprout::math::factorial<T>(2 * n)
+						/ sprout::detail::pow_n(T(4), n) / sprout::detail::pow2(sprout::math::factorial<T>(n)) / (2 * n + 1)
+						* sprout::detail::pow_n(x, 2 * n + 1)
+					: sprout::math::detail::asin_impl_1(x, n, n + (last - n) / 2)
+						+ sprout::math::detail::asin_impl_1(x, n + (last - n) / 2, last)
 					;
-			}
-			template<typename T>
-			inline SPROUT_CONSTEXPR T
-			asin_impl_1(T x) {
-				return sprout::math::detail::asin_impl_2(
-					x,
-					x,
-					1,
-					x * x * x,
-					T(4)
-					);
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			asin_impl(T x) {
 				return x > sprout::math::half_root_two<T>()
-						? sprout::math::half_pi<T>() - sprout::math::detail::asin_impl_1(sprout::math::sqrt(1 - x * x))
-					: sprout::math::detail::asin_impl_1(x)
+					? sprout::math::half_pi<T>() - sprout::math::detail::asin_impl_1(sprout::math::sqrt(1 - x * x), 0, sprout::math::factorial_limit<T>() / 2 + 1)
+					: x + sprout::math::detail::asin_impl_1(x, 1, sprout::math::factorial_limit<T>() / 2 + 1)
 					;
 			}
 

@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
@@ -14,34 +15,21 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			atan_impl_2(T x, T tmp, std::size_t n, T x2n1) {
-				return n > sprout::math::factorial_limit<T>() ? tmp
-					: sprout::math::detail::atan_impl_2(
-						x,
-						tmp + (n % 2 ? -1 : 1) * x2n1 / (2 * n + 1),
-						n + 1,
-						x2n1 * x * x
-						)
+			atan_impl_1(T x, std::size_t n, std::size_t last) {
+				return last - n == 1
+					? (n % 2 ? -1 : 1) * sprout::detail::pow_n(x, 2 * n + 1) / (2 * n + 1)
+					: sprout::math::detail::atan_impl_1(x, n, n + (last - n) / 2)
+						+ sprout::math::detail::atan_impl_1(x, n + (last - n) / 2, last)
 					;
-			}
-			template<typename T>
-			inline SPROUT_CONSTEXPR T
-			atan_impl_1(T x) {
-				return sprout::math::detail::atan_impl_2(
-					x,
-					x,
-					1,
-					x * x * x
-					);
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			atan_impl(T x) {
 				return x > sprout::math::root_two<T>() + 1
-						? sprout::math::half_pi<T>() - sprout::math::detail::atan_impl_1(1 / x)
+						? sprout::math::half_pi<T>() - sprout::math::detail::atan_impl_1(1 / x, 0, sprout::math::factorial_limit<T>() + 1)
 					: x > sprout::math::root_two<T>() - 1
-						? sprout::math::quarter_pi<T>() + sprout::math::detail::atan_impl_1((x - 1) / (x + 1))
-					: sprout::math::detail::atan_impl_1(x)
+						? sprout::math::quarter_pi<T>() + sprout::math::detail::atan_impl_1((x - 1) / (x + 1), 0, sprout::math::factorial_limit<T>() + 1)
+					: x + sprout::math::detail::atan_impl_1(x, 1, sprout::math::factorial_limit<T>() + 1)
 					;
 			}
 

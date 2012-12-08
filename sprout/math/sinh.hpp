@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -13,14 +14,11 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			sinh_impl(T x, T tmp, std::size_t n, T x2n1) {
-				return 2 * n + 1 > sprout::math::factorial_limit<T>() ? tmp
-					: sprout::math::detail::sinh_impl(
-						x,
-						tmp + x2n1 / sprout::math::factorial<T>(2 * n + 1),
-						n + 1,
-						x2n1 * x * x
-						)
+			sinh_impl(T x, std::size_t n, std::size_t last) {
+				return last - n == 1
+					? sprout::detail::pow_n(x, 2 * n + 1) / sprout::math::factorial<T>(2 * n + 1)
+					: sprout::math::detail::sinh_impl(x, n, n + (last - n) / 2)
+						+ sprout::math::detail::sinh_impl(x, n + (last - n) / 2, last)
 					;
 			}
 
@@ -31,12 +29,12 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			sinh(FloatType x) {
 				typedef double type;
-				return static_cast<FloatType>(sprout::math::detail::sinh_impl(
-					static_cast<type>(x),
-					static_cast<type>(x),
-					1,
-					static_cast<type>(x) * static_cast<type>(x) * static_cast<type>(x)
-					));
+				return static_cast<FloatType>(
+					static_cast<type>(x) + sprout::math::detail::sinh_impl(
+						static_cast<type>(x),
+						1, (sprout::math::factorial_limit<type>() - 1) / 2 + 1
+						)
+					);
 			}
 
 			template<
