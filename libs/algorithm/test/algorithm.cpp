@@ -6,6 +6,7 @@
 #	define TESTSPR_CPP_INCLUDE
 #endif
 
+#include "./non_modifying.cpp"
 #include "./modifying.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_ALGORITHM_CPP
@@ -14,6 +15,7 @@
 
 namespace testspr {
 	static void algorithm_test() {
+		testspr::algorithm_non_modifying_test();
 		testspr::algorithm_modifying_test();
 	}
 }	// namespace testspr

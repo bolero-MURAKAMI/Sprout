@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/find_if.hpp>
+#include <sprout/algorithm/none_of.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -11,7 +12,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		one_of_impl(InputIterator found, InputIterator last, Predicate pred) {
 			return found != last
-				&& NS_SSCRISK_CEL_OR_SPROUT::none_of(sprout::next(found), last, pred)
+				&& sprout::none_of(sprout::next(found), last, pred)
 				;
 		}
 	}	// namespace detail
@@ -21,10 +22,7 @@ namespace sprout {
 	template<typename InputIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR bool
 	one_of(InputIterator first, InputIterator last, Predicate pred) {
-		return sprout::detail::one_of_impl(
-			sprout::find_if(first, last, pred), last,
-			pred
-			);
+		return sprout::detail::one_of_impl(sprout::find_if(first, last, pred), last, pred);
 	}
 }	// namespace sprout
 
