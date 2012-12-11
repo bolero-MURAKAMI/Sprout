@@ -13,6 +13,9 @@
 #include "./find.cpp"
 #include "./find_if.cpp"
 #include "./find_if_not.cpp"
+#include "./find_end.cpp"
+#include "./find_first_of.cpp"
+#include "./adjacent_find.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -27,6 +30,9 @@ namespace testspr {
 		testspr::algorithm_find_test();
 		testspr::algorithm_find_if_test();
 		testspr::algorithm_find_if_not_test();
+		testspr::algorithm_find_end_test();
+		testspr::algorithm_find_first_of_test();
+		testspr::algorithm_adjacent_find_test();
 	}
 }	// namespace testspr
 

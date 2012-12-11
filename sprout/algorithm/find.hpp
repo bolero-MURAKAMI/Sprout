@@ -35,7 +35,7 @@ namespace sprout {
 			std::random_access_iterator_tag*
 			)
 		{
-			return first == last ? first
+			return first == last ? last
 				: sprout::detail::find_impl_ra(first, last, value, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, first)
 				;
 		}
