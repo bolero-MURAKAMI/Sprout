@@ -16,6 +16,11 @@
 #include "./find_end.cpp"
 #include "./find_first_of.cpp"
 #include "./adjacent_find.cpp"
+#include "./count.cpp"
+#include "./count_if.cpp"
+#include "./mismatch.cpp"
+#include "./equal.cpp"
+#include "./is_permutation.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -33,6 +38,11 @@ namespace testspr {
 		testspr::algorithm_find_end_test();
 		testspr::algorithm_find_first_of_test();
 		testspr::algorithm_adjacent_find_test();
+		testspr::algorithm_count_test();
+		testspr::algorithm_count_if_test();
+		testspr::algorithm_mismatch_test();
+		testspr::algorithm_equal_test();
+		testspr::algorithm_is_permutation_test();
 	}
 }	// namespace testspr
 

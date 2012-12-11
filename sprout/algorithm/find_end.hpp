@@ -4,25 +4,9 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/search.hpp>
+#include <sprout/functional/equal_to.hpp>
 
 namespace sprout {
-	namespace detail {
-		// Copyright (C) 2011 RiSK (sscrisk)
-
-		template<typename Iterator1, typename Iterator2>
-		struct iter_equal_to {
-		public:
-			SPROUT_CONSTEXPR bool
-			operator()(
-				typename std::iterator_traits<Iterator1>::value_type const& x,
-				typename std::iterator_traits<Iterator2>::value_type const& y
-				) const
-			{
-				return x == y;
-			}
-		};
-	}	// namespace detail
-
 	namespace detail {
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR ForwardIterator1
@@ -81,7 +65,7 @@ namespace sprout {
 		return sprout::find_end(
 			first1, last1,
 			first2, last2,
-			sprout::detail::iter_equal_to<ForwardIterator1, ForwardIterator2>()
+			sprout::equal_to<>()
 			);
 	}
 }	// namespace sprout

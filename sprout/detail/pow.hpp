@@ -1,5 +1,6 @@
 #ifndef SPROUT_DETAIL_POW_HPP
 #define SPROUT_DETAIL_POW_HPP
+
 #include <sprout/config.hpp>
 
 namespace sprout {

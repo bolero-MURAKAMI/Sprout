@@ -5,8 +5,9 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/functional/equal_to.hpp>
+#include <sprout/functional/bind2nd.hpp>
+#include <sprout/algorithm/find_if.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -20,7 +21,7 @@ namespace sprout {
 			)
 		{
 			return found != first1 ? found
-				: pivot == 0 ? sprout::find_if(first2, last2, NS_SSCRISK_CEL_OR_SPROUT::bind2nd(pred, *first1)) != last2 ? first1 : last1
+				: pivot == 0 ? sprout::find_if(first2, last2, sprout::bind2nd(pred, *first1)) != last2 ? first1 : last1
 				: sprout::detail::find_first_of_impl_ra(
 					sprout::next(first1, pivot), last1, first2, last2, pred,
 					(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2,
@@ -58,7 +59,7 @@ namespace sprout {
 			BinaryPredicate pred
 			)
 		{
-			return first1 == last1 || sprout::find_if(first2, last2, NS_SSCRISK_CEL_OR_SPROUT::bind2nd(pred, *first1)) != last2 ? first1
+			return first1 == last1 || sprout::find_if(first2, last2, sprout::bind2nd(pred, *first1)) != last2 ? first1
 				: sprout::detail::find_first_of_impl(sprout::next(first1), last1, first2, last2, pred)
 				;
 		}
