@@ -58,6 +58,11 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.2.2 Any of
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename InputIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR bool
 	any_of(InputIterator first, InputIterator last, Predicate pred) {

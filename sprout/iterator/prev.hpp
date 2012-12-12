@@ -4,6 +4,8 @@
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/iterator/next_fwd.hpp>
+#include <sprout/iterator/prev_fwd.hpp>
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
@@ -38,8 +40,48 @@ namespace sprout {
 		{
 			return it - n;
 		}
+
 		template<typename BidirectionalIterator>
 		inline SPROUT_CONSTEXPR BidirectionalIterator
+		prev_impl_1_neg(BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n) {
+			return n == -1 ? sprout::next(it)
+				: sprout::iterator_detail::prev_impl_1_neg(
+					sprout::iterator_detail::prev_impl_1_neg(it, n / 2),
+					n - (n / 2)
+					)
+				;
+		}
+		template<typename BidirectionalIterator>
+		inline SPROUT_CONSTEXPR BidirectionalIterator
+		prev_impl_1(BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n) {
+			return n == 1 ? sprout::prev(it)
+				: sprout::iterator_detail::prev_impl_1(
+					sprout::iterator_detail::prev_impl_1(it, n / 2),
+					n - (n / 2)
+					)
+				;
+		}
+
+		template<typename BidirectionalIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_literal_type<BidirectionalIterator>::value,
+			BidirectionalIterator
+		>::type
+		prev_impl(
+			BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n,
+			void*
+			)
+		{
+			return n == 0 ? it
+				: n > 0 ? sprout::iterator_detail::prev_impl_1(it, n)
+				: sprout::iterator_detail::prev_impl_1_neg(it, n)
+				;
+		}
+		template<typename BidirectionalIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!std::is_literal_type<BidirectionalIterator>::value,
+			BidirectionalIterator
+		>::type
 		prev_impl(
 			BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n,
 			void*
@@ -84,11 +126,23 @@ namespace sprout {
 	//
 	// prev
 	//
+	//	effect:
+	//		ADL callable iterator_prev(it) -> iterator_prev(it)
+	//		it is RandomAccessIterator && LiteralType -> it - 1
+	//		otherwise -> std::prev(it)
+	//
 	template<typename BidirectionalIterator>
 	inline SPROUT_CONSTEXPR BidirectionalIterator
 	prev(BidirectionalIterator const& it) {
 		return sprout_iterator_detail::prev(it);
 	}
+	//
+	//	effect:
+	//		ADL callable iterator_prev(it, n) -> iterator_prev(it, n)
+	//		it is RandomAccessIterator && LiteralType -> it - n
+	//		it is LiteralType -> sprout::prev(it)... || sprout::next(it)...
+	//		otherwise -> std::prev(it, n)
+	//
 	template<typename BidirectionalIterator>
 	inline SPROUT_CONSTEXPR BidirectionalIterator
 	prev(BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n) {

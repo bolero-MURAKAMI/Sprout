@@ -58,6 +58,11 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.2.9 Count
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename InputIterator, typename T>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 	count(InputIterator first, InputIterator last, T const& value) {

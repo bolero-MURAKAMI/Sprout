@@ -60,6 +60,11 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.2.5 Find
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename InputIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR InputIterator
 	find_if(InputIterator first, InputIterator last, Predicate pred) {

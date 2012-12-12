@@ -77,6 +77,13 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.2.7 Find first
+	//
+	//	recursion depth:
+	//		[first1, last1) is RandomAccessIterator -> O(log N1)
+	//		otherwise -> O(N1)
+	//		[first2, last2) is RandomAccessIterator -> O(log N2)
+	//		otherwise -> O(N2)
+	//
 	template<typename InputIterator1, typename ForwardIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR InputIterator1
 	find_first_of(

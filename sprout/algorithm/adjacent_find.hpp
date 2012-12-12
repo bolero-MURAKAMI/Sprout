@@ -76,6 +76,11 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.2.8 Adjacent find
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename ForwardIterator, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	adjacent_find(ForwardIterator first, ForwardIterator last, BinaryPredicate pred) {

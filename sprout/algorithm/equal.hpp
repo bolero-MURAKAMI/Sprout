@@ -62,6 +62,11 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.2.11 Equal
+	//
+	//	recursion depth:
+	//		[first1, last1), first2 are RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR bool
 	equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred) {

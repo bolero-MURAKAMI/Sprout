@@ -76,6 +76,11 @@ namespace sprout {
 	}	// namespace detail
 
 	// 25.2.12 Is permutation
+	//
+	//	recursion depth:
+	//		[first1, last1), first2 are RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N^2)
+	//
 	template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR bool
 	is_permutation(ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2, BinaryPredicate pred) {

@@ -3,7 +3,10 @@
 
 #include <iterator>
 #include <type_traits>
+#include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/iterator/next_fwd.hpp>
+#include <sprout/iterator/prev_fwd.hpp>
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
@@ -38,8 +41,71 @@ namespace sprout {
 		{
 			return it + n;
 		}
+
+		template<typename BidirectionalIterator>
+		inline SPROUT_CONSTEXPR BidirectionalIterator
+		next_impl_2_neg(BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n) {
+			return n == -1 ? sprout::prev(it)
+				: sprout::iterator_detail::next_impl_2_neg(
+					sprout::iterator_detail::next_impl_2_neg(it, n / 2),
+					n - (n / 2)
+					)
+				;
+		}
 		template<typename ForwardIterator>
 		inline SPROUT_CONSTEXPR ForwardIterator
+		next_impl_2(ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n) {
+			return n == 1 ? sprout::next(it)
+				: sprout::iterator_detail::next_impl_2(
+					sprout::iterator_detail::next_impl_2(it, n / 2),
+					n - (n / 2)
+					)
+				;
+		}
+
+		template<typename BidirectionalIterator>
+		inline SPROUT_CONSTEXPR BidirectionalIterator
+		next_impl_1(
+			BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n,
+			std::bidirectional_iterator_tag*
+			)
+		{
+			return n == 0 ? it
+				: n > 0 ? sprout::iterator_detail::next_impl_2(it, n)
+				: sprout::iterator_detail::next_impl_2_neg(it, n)
+				;
+		}
+		template<typename ForwardIterator>
+		inline SPROUT_CONSTEXPR ForwardIterator
+		next_impl_1(
+			ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n,
+			void*
+			)
+		{
+			return n == 0 ? it
+				: n > 0 ? sprout::iterator_detail::next_impl_2(it, n)
+				: throw std::domain_error("next: nagative distance is invalid ForwardIterator")
+				;
+		}
+
+		template<typename ForwardIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_literal_type<ForwardIterator>::value,
+			ForwardIterator
+		>::type
+		next_impl(
+			ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n,
+			void*
+			)
+		{
+			typedef typename std::iterator_traits<ForwardIterator>::iterator_category* category;
+			return sprout::iterator_detail::next_impl_1(it, n, category());
+		}
+		template<typename ForwardIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!std::is_literal_type<ForwardIterator>::value,
+			ForwardIterator
+		>::type
 		next_impl(
 			ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n,
 			void*
@@ -84,11 +150,23 @@ namespace sprout {
 	//
 	// next
 	//
+	//	effect:
+	//		ADL callable iterator_next(it) -> iterator_next(it)
+	//		it is RandomAccessIterator && LiteralType -> it + 1
+	//		otherwise -> std::next(it)
+	//
 	template<typename ForwardIterator>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	next(ForwardIterator const& it) {
 		return sprout_iterator_detail::next(it);
 	}
+	//
+	//	effect:
+	//		ADL callable iterator_next(it, n) -> iterator_next(it, n)
+	//		it is RandomAccessIterator && LiteralType -> it + n
+	//		it is LiteralType -> sprout::next(it)... || sprout::prev(it)...
+	//		otherwise -> std::next(it, n)
+	//
 	template<typename ForwardIterator>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	next(ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n) {

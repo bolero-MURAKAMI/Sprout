@@ -77,6 +77,11 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.2.10 Mismatch
+	//
+	//	recursion depth:
+	//		[first1, last1), first2 are RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, InputIterator2>
 	mismatch(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred) {

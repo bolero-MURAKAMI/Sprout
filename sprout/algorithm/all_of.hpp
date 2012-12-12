@@ -58,6 +58,11 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.2.1 All of
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename InputIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR bool
 	all_of(InputIterator first, InputIterator last, Predicate pred) {
