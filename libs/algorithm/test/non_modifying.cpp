@@ -21,6 +21,7 @@
 #include "./mismatch.cpp"
 #include "./equal.cpp"
 #include "./is_permutation.cpp"
+#include "./search.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -43,6 +44,7 @@ namespace testspr {
 		testspr::algorithm_mismatch_test();
 		testspr::algorithm_equal_test();
 		testspr::algorithm_is_permutation_test();
+		testspr::algorithm_search_test();
 	}
 }	// namespace testspr
 

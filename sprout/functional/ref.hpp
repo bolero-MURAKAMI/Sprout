@@ -8,6 +8,7 @@
 #include <sprout/type_traits/inherit_if_xxx.hpp>
 #include <sprout/functional/base.hpp>
 #include <sprout/functional/type_traits/weak_result_type.hpp>
+#include <sprout/functional/type_traits/has_type.hpp>
 
 namespace sprout {
 	// 20.8.3 reference_wrapper
