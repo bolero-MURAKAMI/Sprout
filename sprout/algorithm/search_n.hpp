@@ -3,33 +3,33 @@
 
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/value_iterator.hpp>
+#include <sprout/functional/equal_to.hpp>
+#include <sprout/algorithm/search.hpp>
 
 namespace sprout {
-	// Copyright (C) 2011 RiSK (sscrisk)
-
 	// 25.2.13 Search
-	template<typename ForwardIterator, typename Size, typename T>
-	inline SPROUT_CONSTEXPR ForwardIterator
-	search_n(ForwardIterator first, ForwardIterator last, Size count, T const& value) {
-		return first == last || count == 0 ? first
-			: sprout::next(first) == last && count > 1 ? last
-			: *first == value
-				&& sprout::search_n(sprout::next(first), last, count - 1, value) == sprout::next(first)
-				? first
-			: sprout::search_n(sprout::next(first), last, count, value)
-			;
-	}
-
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename ForwardIterator, typename Size, typename T, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	search_n(ForwardIterator first, ForwardIterator last, Size count, T const& value, BinaryPredicate pred) {
-		return first == last || count == 0 ? first
-			: sprout::next(first) == last && count > 1 ? last
-			: *first == value
-				&& sprout::search_n(sprout::next(first), last, count - 1, value, pred) == sprout::next(first)
-				? first
-			: sprout::search_n(sprout::next(first), last, count, value, pred)
-			;
+		typedef sprout::value_iterator<T const&> iterator;
+		typedef typename iterator::difference_type difference_type;
+		return sprout::search(
+			first, last,
+			iterator(value, static_cast<difference_type>(count)), iterator(value, 0),
+			pred
+			);
+	}
+
+	template<typename ForwardIterator, typename Size, typename T>
+	inline SPROUT_CONSTEXPR ForwardIterator
+	search_n(ForwardIterator first, ForwardIterator last, Size count, T const& value) {
+		return sprout::search_n(first, last, count, value, sprout::equal_to<>());
 	}
 }	// namespace sprout
 
