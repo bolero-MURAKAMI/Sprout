@@ -10,8 +10,8 @@ namespace testspr {
 	static void algorithm_find_end_test() {
 		using namespace sprout;
 		{
-			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 3>{{4, 5, 6}};
+			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 3, 4, 5}};
+			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 3>{{3, 4, 5}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 3>{{6, 5, 4}};
 
 			{
@@ -21,7 +21,7 @@ namespace testspr {
 					sprout::begin(arr2),
 					sprout::end(arr2)
 					);
-				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 7);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::find_end(
@@ -39,7 +39,7 @@ namespace testspr {
 					sprout::begin(arr2),
 					sprout::end(arr2)
 					);
-				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 2);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::find_end(
@@ -59,7 +59,7 @@ namespace testspr {
 					sprout::end(arr2),
 					testspr::equal_to<int>()
 					);
-				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 7);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::find_end(
@@ -79,7 +79,7 @@ namespace testspr {
 					sprout::end(arr2),
 					testspr::equal_to<int>()
 					);
-				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 2);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::find_end(
