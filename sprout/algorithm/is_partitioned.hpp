@@ -2,28 +2,20 @@
 #define SPROUT_ALGORITHM_IS_PARTITIONED_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/none_of.hpp>
+#include <sprout/algorithm/find_if_not.hpp>
 
 namespace sprout {
-	// Copyright (C) 2011 RiSK (sscrisk)
-
-	namespace detail {
-		template<typename InputIterator, typename Predicate>
-		inline SPROUT_CONSTEXPR bool
-		is_partitioned_impl(InputIterator first, InputIterator last, Predicate pred, bool cond = true) {
-			return first == last ? true
-				: cond ? sprout::detail::is_partitioned_impl(sprout::next(first), last, pred, pred(*first))
-				: pred(*first) ? false
-				: sprout::detail::is_partitioned_impl(sprout::next(first), last, pred, false)
-				;
-		}
-	}	// namespace detail
-
 	// 25.3.13 Partitions
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename InputIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR bool
 	is_partitioned(InputIterator first, InputIterator last, Predicate pred) {
-		return sprout::detail::is_partitioned_impl(first, last, pred);
+		return sprout::none_of(sprout::find_if_not(first, last, pred), last, pred);
 	}
 }	// namespace sprout
 

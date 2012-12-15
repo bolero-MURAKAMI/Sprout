@@ -23,6 +23,10 @@
 #include "./is_permutation.cpp"
 #include "./search.cpp"
 #include "./search_n.cpp"
+#include "./is_partitioned.cpp"
+#include "./partition_point.cpp"
+#include "./is_sorted.cpp"
+#include "./is_sorted_until.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -47,6 +51,10 @@ namespace testspr {
 		testspr::algorithm_is_permutation_test();
 		testspr::algorithm_search_test();
 		testspr::algorithm_search_n_test();
+		testspr::algorithm_is_partitioned_test();
+		testspr::algorithm_partition_point_test();
+		testspr::algorithm_is_sorted_test();
+		testspr::algorithm_is_sorted_until_test();
 	}
 }	// namespace testspr
 

@@ -4,6 +4,7 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {

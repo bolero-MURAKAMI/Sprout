@@ -6,9 +6,17 @@
 #include <sprout/algorithm/search.hpp>
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/detail/algorithm/search_one.hpp>
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
+		template<typename RandomAccessIterator1>
+		inline SPROUT_CONSTEXPR RandomAccessIterator1
+		find_end_impl_ra_1(RandomAccessIterator1 first1, RandomAccessIterator1 result, RandomAccessIterator1 searched) {
+			return searched == first1 ? searched
+				: result
+				;
+		}
 		template<typename RandomAccessIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR RandomAccessIterator1
 		find_end_impl_ra(
@@ -19,16 +27,21 @@ namespace sprout {
 			RandomAccessIterator1 searched
 			)
 		{
-			return searched < first1 ? sprout::detail::find_end_impl_ra(
-					sprout::next(first1, pivot), last1, first2, last2, pred,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2, last1_, searched,
-					sprout::detail::find_end_impl_ra(
-						first1, sprout::next(first1, pivot), first2, last2, pred,
-						pivot / 2, last1_, searched,
-						first1
+			return searched == last1_ ? result
+				: searched < first1 ? pivot == 0
+					? sprout::detail::find_end_impl_ra_1(
+						first1, searched,
+						sprout::detail::search_one(first1, last1_, first2, last2, pred)
 						)
-					)
-				: searched == last1_ ? result
+					: sprout::detail::find_end_impl_ra(
+						sprout::next(first1, pivot), last1, first2, last2, pred,
+						(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2, last1_, searched,
+						sprout::detail::find_end_impl_ra(
+							first1, sprout::next(first1, pivot), first2, last2, pred,
+							pivot / 2, last1_, searched,
+							first1
+							)
+						)
 				: pivot == 0 ? sprout::detail::search_one(first1, last1_, first2, last2, pred)
 				: sprout::detail::find_end_impl_ra(
 					sprout::next(first1, pivot), last1, first2, last2, pred,

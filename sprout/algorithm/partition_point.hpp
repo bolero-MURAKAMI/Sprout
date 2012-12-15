@@ -26,6 +26,11 @@ namespace sprout {
 	}	// namespace detail
 
 	// 25.3.13 Partitions
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename ForwardIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	partition_point(ForwardIterator first, ForwardIterator last, Predicate pred) {
