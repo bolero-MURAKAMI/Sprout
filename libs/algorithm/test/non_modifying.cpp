@@ -27,6 +27,11 @@
 #include "./partition_point.cpp"
 #include "./is_sorted.cpp"
 #include "./is_sorted_until.cpp"
+#include "./lower_bound.cpp"
+#include "./upper_bound.cpp"
+#include "./equal_range.cpp"
+#include "./binary_search.cpp"
+#include "./includes.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -55,6 +60,11 @@ namespace testspr {
 		testspr::algorithm_partition_point_test();
 		testspr::algorithm_is_sorted_test();
 		testspr::algorithm_is_sorted_until_test();
+		testspr::algorithm_lower_bound_test();
+		testspr::algorithm_upper_bound_test();
+		testspr::algorithm_equal_range_test();
+		testspr::algorithm_binary_search_test();
+		testspr::algorithm_includes_test();
 	}
 }	// namespace testspr
 

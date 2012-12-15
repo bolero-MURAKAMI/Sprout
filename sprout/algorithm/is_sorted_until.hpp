@@ -69,6 +69,11 @@ namespace sprout {
 	}	//namespace detail
 
 	// 25.4.1.5 is_sorted
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename ForwardIterator, typename Compare>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	is_sorted_until(ForwardIterator first, ForwardIterator last, Compare comp) {

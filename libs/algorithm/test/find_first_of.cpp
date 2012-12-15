@@ -12,7 +12,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 3>{{4, 5, 6}};
-			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 3>{{11, 12 ,13}};
+			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 3>{{11, 12, 13}};
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::find_first_of(
