@@ -32,6 +32,8 @@
 #include "./equal_range.cpp"
 #include "./binary_search.cpp"
 #include "./includes.cpp"
+#include "./is_heap.cpp"
+#include "./is_heap_until.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -65,6 +67,8 @@ namespace testspr {
 		testspr::algorithm_equal_range_test();
 		testspr::algorithm_binary_search_test();
 		testspr::algorithm_includes_test();
+		testspr::algorithm_is_heap_test();
+		testspr::algorithm_is_heap_until_test();
 	}
 }	// namespace testspr
 
