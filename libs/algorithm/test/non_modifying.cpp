@@ -41,6 +41,10 @@
 #include "./max_element.cpp"
 #include "./minmax_element.cpp"
 #include "./lexicographical_compare.cpp"
+#include "./all_of_equal.cpp"
+#include "./any_of_equal.cpp"
+#include "./none_of_equal.cpp"
+#include "./one_of_equal.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -83,6 +87,10 @@ namespace testspr {
 		testspr::algorithm_max_element_test();
 		testspr::algorithm_minmax_element_test();
 		testspr::algorithm_lexicographical_compare_test();
+		testspr::algorithm_all_of_equal_test();
+		testspr::algorithm_any_of_equal_test();
+		testspr::algorithm_none_of_equal_test();
+		testspr::algorithm_one_of_equal_test();
 	}
 }	// namespace testspr
 

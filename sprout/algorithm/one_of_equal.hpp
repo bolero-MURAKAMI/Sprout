@@ -16,8 +16,13 @@ namespace sprout {
 				;
 		}
 	}	// namespace detail
+
 	//
 	// one_of_equal
+	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
 	//
 	template<typename InputIterator, typename T>
 	inline SPROUT_CONSTEXPR bool

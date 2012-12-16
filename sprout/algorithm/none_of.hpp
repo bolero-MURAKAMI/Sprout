@@ -1,8 +1,10 @@
 #ifndef SPROUT_ALGORITHM_NONE_OF_HPP
 #define SPROUT_ALGORITHM_NONE_OF_HPP
 
+#include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
