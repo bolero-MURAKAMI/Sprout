@@ -10,6 +10,10 @@ namespace sprout {
 	//
 	// is_decreasing
 	//
+	//	recursion depth:
+	//		[first, last) is RandomAccessIterator -> O(log N)
+	//		otherwise -> O(N)
+	//
 	template<typename ForwardIterator>
 	inline SPROUT_CONSTEXPR bool
 	is_decreasing(ForwardIterator first, ForwardIterator last) {

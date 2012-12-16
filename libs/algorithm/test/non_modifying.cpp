@@ -45,6 +45,11 @@
 #include "./any_of_equal.cpp"
 #include "./none_of_equal.cpp"
 #include "./one_of_equal.cpp"
+#include "./is_increasing.cpp"
+#include "./is_decreasing.cpp"
+#include "./is_strictly_increasing.cpp"
+#include "./is_strictly_decreasing.cpp"
+#include "./clamp.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -91,6 +96,11 @@ namespace testspr {
 		testspr::algorithm_any_of_equal_test();
 		testspr::algorithm_none_of_equal_test();
 		testspr::algorithm_one_of_equal_test();
+		testspr::algorithm_is_increasing_test();
+		testspr::algorithm_is_decreasing_test();
+		testspr::algorithm_is_strictly_increasing_test();
+		testspr::algorithm_is_strictly_decreasing_test();
+		testspr::algorithm_clamp_test();
 	}
 }	// namespace testspr
 
