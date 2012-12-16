@@ -34,6 +34,12 @@
 #include "./includes.cpp"
 #include "./is_heap.cpp"
 #include "./is_heap_until.cpp"
+#include "./min.cpp"
+#include "./max.cpp"
+#include "./minmax.cpp"
+#include "./min_element.cpp"
+#include "./max_element.cpp"
+#include "./minmax_element.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_NON_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -69,6 +75,12 @@ namespace testspr {
 		testspr::algorithm_includes_test();
 		testspr::algorithm_is_heap_test();
 		testspr::algorithm_is_heap_until_test();
+		testspr::algorithm_min_test();
+		testspr::algorithm_max_test();
+		testspr::algorithm_minmax_test();
+		testspr::algorithm_min_element_test();
+		testspr::algorithm_max_element_test();
+		testspr::algorithm_minmax_element_test();
 	}
 }	// namespace testspr
 
