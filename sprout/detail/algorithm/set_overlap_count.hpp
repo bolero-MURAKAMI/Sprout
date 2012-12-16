@@ -4,6 +4,7 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/functional/less.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -27,9 +28,7 @@ namespace sprout {
 				: 0
 				;
 		}
-		//
-		// set_overlap_count
-		//
+
 		template<typename InputIterator1, typename InputIterator2>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator1>::difference_type
 		set_overlap_count(
@@ -37,14 +36,7 @@ namespace sprout {
 			InputIterator2 first2, InputIterator2 last2
 			)
 		{
-			return first1 != last1 && first2 != last2
-				? *first1 < *first2
-					? sprout::detail::set_overlap_count(sprout::next(first1), last1, first2, last2)
-					: *first2 < *first1
-						? sprout::detail::set_overlap_count(first1, last1, sprout::next(first2), last2)
-						: 1 + sprout::detail::set_overlap_count(sprout::next(first1), last1, sprout::next(first2), last2)
-				: 0
-				;
+			return sprout::detail::set_overlap_count(first1, last1, first2, last2, sprout::less<>());
 		}
 	}	// namespace detail
 }	// namespace sprout
