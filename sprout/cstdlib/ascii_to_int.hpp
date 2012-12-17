@@ -7,7 +7,6 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -27,8 +26,11 @@ namespace sprout {
 					)
 				;
 		}
-		template<typename IntType, typename CStrIterator, typename sprout::enabler_if<std::is_unsigned<IntType>::value>::type = sprout::enabler>
-		inline SPROUT_CONSTEXPR IntType
+		template<typename IntType, typename CStrIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_unsigned<IntType>::value,
+			IntType
+		>::type
 		ascii_to_int(CStrIterator str) {
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
@@ -37,8 +39,11 @@ namespace sprout {
 				: sprout::detail::ascii_to_int_impl<IntType>(str, IntType(), false)
 				;
 		}
-		template<typename IntType, typename CStrIterator, typename sprout::enabler_if<std::is_signed<IntType>::value>::type = sprout::enabler>
-		inline SPROUT_CONSTEXPR IntType
+		template<typename IntType, typename CStrIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_signed<IntType>::value,
+			IntType
+		>::type
 		ascii_to_int(CStrIterator str) {
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
@@ -54,8 +59,11 @@ namespace sprout {
 	//
 	// ascii_to_int
 	//
-	template<typename IntType, typename Char, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR IntType
+	template<typename IntType, typename Char>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<IntType>::value,
+		IntType
+	>::type
 	ascii_to_int(Char const* str) {
 		return sprout::detail::ascii_to_int<IntType>(str);
 	}

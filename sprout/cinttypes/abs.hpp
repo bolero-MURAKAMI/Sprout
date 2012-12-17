@@ -2,9 +2,7 @@
 #define SPROUT_CINTTYPES_ABS_HPP
 
 #include <cstdint>
-#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	inline SPROUT_CONSTEXPR std::intmax_t

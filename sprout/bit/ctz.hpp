@@ -20,15 +20,21 @@ namespace sprout {
 			return __builtin_ctzll(n);
 		}
 #	endif
-		template<typename T, typename sprout::enabler_if<std::is_unsigned<T>::value>::type = sprout::enabler>
-		inline SPROUT_CONSTEXPR int
+		template<typename T>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_unsigned<T>::value,
+			int
+		>::type
 		ctz(T n) {
 			return n & 1 ? 0
 				: 1 + sprout::detail::ctz(static_cast<T>(n >> 1))
 				;
 		}
-		template<typename T, typename sprout::enabler_if<std::is_signed<T>::value>::type = sprout::enabler>
-		inline SPROUT_CONSTEXPR int
+		template<typename T>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_signed<T>::value,
+			int
+		>::type
 		ctz(T n) {
 			return sprout::detail::ctz(static_cast<typename std::make_unsigned<T>::type>(n));
 		}
@@ -36,8 +42,11 @@ namespace sprout {
 	//
 	// ctz
 	//
-	template<typename T, typename sprout::enabler_if<std::is_integral<T>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR int
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<T>::value,
+		int
+	>::type
 	ctz(T n) {
 		return sprout::detail::ctz(n);
 	}

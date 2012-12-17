@@ -3,7 +3,6 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
@@ -35,23 +34,20 @@ namespace sprout {
 	}
 
 	namespace {
-		template<
-			typename IntType,
-			typename sprout::enabler_if<
-				std::is_integral<IntType>::value && std::is_signed<IntType>::value
-			>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR IntType
+		template<typename IntType>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_integral<IntType>::value && std::is_signed<IntType>::value,
+			IntType
+		>::type
 		abs(IntType j) {
 			return j < 0 ? -j : j;
 		}
-		template<
-			typename IntType,
-			typename sprout::enabler_if<
-				std::is_integral<IntType>::value && std::is_unsigned<IntType>::value
-			>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR IntType
+
+		template<typename IntType>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_integral<IntType>::value && std::is_unsigned<IntType>::value,
+			IntType
+		>::type
 		abs(IntType j) {
 			return j;
 		}

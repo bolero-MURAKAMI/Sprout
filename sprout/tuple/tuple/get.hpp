@@ -120,10 +120,17 @@ namespace sprout_tuple_detail {
 		static std::true_type test(int);
 		static std::false_type test(...);
 	};
+#if defined(_MSC_VER)
+	template<std::size_t I, typename T, typename Base_ = decltype(sprout_tuple_detail::has_adl_tuple_get_test<I, T>::test(0))>
+	struct has_adl_tuple_get
+		: public Base_
+	{};
+#else
 	template<std::size_t I, typename T>
 	struct has_adl_tuple_get
 		: public decltype(sprout_tuple_detail::has_adl_tuple_get_test<I, T>::test(0))
 	{};
+#endif
 
 	template<std::size_t I, typename T>
 	struct has_std_get_test {
@@ -135,10 +142,17 @@ namespace sprout_tuple_detail {
 		static std::true_type test(int);
 		static std::false_type test(...);
 	};
+#if defined(_MSC_VER)
+	template<std::size_t I, typename T, typename Base_ = decltype(sprout_tuple_detail::has_std_get_test<I, T>::test(0))>
+	struct has_std_get
+		: public Base_
+	{};
+#else
 	template<std::size_t I, typename T>
 	struct has_std_get
 		: public decltype(sprout_tuple_detail::has_std_get_test<I, T>::test(0))
 	{};
+#endif
 
 	template<std::size_t I, typename T, typename Enable = void>
 	struct select_adl_tuple_get;

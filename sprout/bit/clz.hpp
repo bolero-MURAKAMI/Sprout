@@ -28,13 +28,19 @@ namespace sprout {
 				: 1 + sprout::detail::clz_impl(n, static_cast<T>(m >> 1))
 				;
 		}
-		template<typename T, typename sprout::enabler_if<std::is_unsigned<T>::value>::type = sprout::enabler>
-		inline SPROUT_CONSTEXPR int
+		template<typename T>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_unsigned<T>::value,
+			int
+		>::type
 		clz(T n) {
 			return sprout::detail::clz_impl(static_cast<T>(n));
 		}
-		template<typename T, typename sprout::enabler_if<std::is_signed<T>::value>::type = sprout::enabler>
-		inline SPROUT_CONSTEXPR int
+		template<typename T>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_signed<T>::value,
+			int
+		>::type
 		clz(T n) {
 			return sprout::detail::clz(static_cast<typename std::make_unsigned<T>::type>(n));
 		}
@@ -42,8 +48,11 @@ namespace sprout {
 	//
 	// clz
 	//
-	template<typename T, typename sprout::enabler_if<std::is_integral<T>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR int
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<T>::value,
+		int
+	>::type
 	clz(T n) {
 		return sprout::detail::clz(n);
 	}

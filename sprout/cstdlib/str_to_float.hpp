@@ -8,7 +8,6 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -246,18 +245,29 @@ namespace sprout {
 	//
 	// str_to_float
 	//
-	template<typename FloatType, typename Char, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR FloatType
+	template<typename FloatType, typename Char>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_floating_point<FloatType>::value,
+		FloatType
+	>::type
 	str_to_float(Char const* str, Char** endptr) {
 		return sprout::detail::str_to_float<FloatType>(str, endptr);
 	}
-	template<typename FloatType, typename Char, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR FloatType
+
+	template<typename FloatType, typename Char>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_floating_point<FloatType>::value,
+		FloatType
+	>::type
 	str_to_float(Char const* str, std::nullptr_t endptr) {
 		return sprout::detail::str_to_float<FloatType>(str);
 	}
-	template<typename FloatType, typename Char, typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR FloatType
+
+	template<typename FloatType, typename Char>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_floating_point<FloatType>::value,
+		FloatType
+	>::type
 	str_to_float(Char const* str) {
 		return sprout::detail::str_to_float<FloatType>(str);
 	}

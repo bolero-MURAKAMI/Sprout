@@ -28,10 +28,17 @@ namespace sprout_generator_detail {
 		static std::true_type test(int);
 		static std::false_type test(...);
 	};
+#if defined(_MSC_VER)
+	template<typename T, typename Base_ = decltype(sprout_generator_detail::has_adl_next_generator_test<T>::test(0))>
+	struct has_adl_next_generator
+		: public Base_
+	{};
+#else
 	template<typename T>
 	struct has_adl_next_generator
 		: public decltype(sprout_generator_detail::has_adl_next_generator_test<T>::test(0))
 	{};
+#endif
 
 	template<typename T>
 	struct has_mem_next_generator_test {
@@ -43,10 +50,17 @@ namespace sprout_generator_detail {
 		static std::true_type test(int);
 		static std::false_type test(...);
 	};
+#if defined(_MSC_VER)
+	template<typename T, typename Base_ = decltype(sprout_generator_detail::has_mem_next_generator_test<T>::test(0))>
+	struct has_mem_next_generator
+		: public Base_
+	{};
+#else
 	template<typename T>
 	struct has_mem_next_generator
 		: public decltype(sprout_generator_detail::has_mem_next_generator_test<T>::test(0))
 	{};
+#endif
 
 	template<typename T>
 	struct has_get_next_generator_test {
@@ -58,10 +72,17 @@ namespace sprout_generator_detail {
 		static std::true_type test(int);
 		static std::false_type test(...);
 	};
+#if defined(_MSC_VER)
+	template<typename T, typename Base_ = decltype(sprout_generator_detail::has_get_next_generator_test<T>::test(0))>
+	struct has_get_next_generator
+		: public Base_
+	{};
+#else
 	template<typename T>
 	struct has_get_next_generator
 		: public decltype(sprout_generator_detail::has_get_next_generator_test<T>::test(0))
 	{};
+#endif
 
 	template<typename T, typename Enable = void>
 	struct select_adl_next_generator;

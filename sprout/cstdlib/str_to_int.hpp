@@ -3,13 +3,14 @@
 
 #include <cstddef>
 #include <cstdlib>
-#include <cinttypes>
+#if !defined(_MSC_VER)
+#	include <cinttypes>
+#endif
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/detail/char_conversion.hpp>
 
 namespace sprout {
@@ -60,8 +61,11 @@ namespace sprout {
 					)
 				;
 		}
-		template<typename IntType, typename CStrIterator, typename sprout::enabler_if<std::is_unsigned<IntType>::value>::type = sprout::enabler>
-		inline SPROUT_CONSTEXPR IntType
+		template<typename IntType, typename CStrIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_unsigned<IntType>::value,
+			IntType
+		>::type
 		str_to_int(CStrIterator str, int base) {
 			return sprout::ascii::isspace(*str)
 					? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
@@ -70,8 +74,11 @@ namespace sprout {
 				: sprout::detail::str_to_int_impl<IntType>(str, base, false)
 				;
 		}
-		template<typename IntType, typename CStrIterator, typename sprout::enabler_if<std::is_signed<IntType>::value>::type = sprout::enabler>
-		inline SPROUT_CONSTEXPR IntType
+		template<typename IntType, typename CStrIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_signed<IntType>::value,
+			IntType
+		>::type
 		str_to_int(CStrIterator str, int base) {
 			return sprout::ascii::isspace(*str)
 					? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
@@ -85,6 +92,13 @@ namespace sprout {
 		template<typename IntType, typename CStrIterator, typename CharPtr>
 		inline SPROUT_CONSTEXPR IntType
 		str_to_int(CStrIterator str, CharPtr* endptr, int base) {
+#if defined(_MSC_VER)
+			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
+				: std::is_signed<IntType>::value
+					? static_cast<IntType>(std::strtol(&*str, endptr, base))
+					: static_cast<IntType>(std::strtoul(&*str, endptr, base))
+				;
+#else
 			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
 				: std::is_signed<IntType>::value
 					? sizeof(IntType) <= sizeof(long) ? static_cast<IntType>(std::strtol(&*str, endptr, base))
@@ -94,24 +108,36 @@ namespace sprout {
 						: sizeof(IntType) <= sizeof(unsigned long long) ? static_cast<IntType>(std::strtoull(&*str, endptr, base))
 						: static_cast<IntType>(std::strtoumax(&*str, endptr, base))
 				;
+#endif
 		}
 	}	// namespace detail
 
 	//
 	// str_to_int
 	//
-	template<typename IntType, typename Char, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR IntType
+	template<typename IntType, typename Char>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<IntType>::value,
+		IntType
+	>::type
 	str_to_int(Char const* str, Char** endptr, int base = 10) {
 		return sprout::detail::str_to_int<IntType>(str, endptr, base);
 	}
-	template<typename IntType, typename Char, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR IntType
+
+	template<typename IntType, typename Char>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<IntType>::value,
+		IntType
+	>::type
 	str_to_int(Char const* str, std::nullptr_t endptr, int base = 10) {
 		return sprout::detail::str_to_int<IntType>(str, base);
 	}
-	template<typename IntType, typename Char, typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR IntType
+
+	template<typename IntType, typename Char>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<IntType>::value,
+		IntType
+	>::type
 	str_to_int(Char const* str, int base = 10) {
 		return sprout::detail::str_to_int<IntType>(str, base);
 	}

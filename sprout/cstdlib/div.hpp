@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
@@ -28,26 +27,32 @@ namespace sprout {
 		SPROUT_DETAIL_DIV_T_TRAITS_IMPL(long long, std::lldiv_t);
 #	undef SPROUT_DETAIL_DIV_T_TRAITS_IMPL
 
-		template<
-			typename T,
-			typename sprout::enabler_if<
-				sprout::detail::div_t_traits<T>::offsetof_quot == 0
-			>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::detail::div_t_traits<T>::type
+		template<typename T>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::detail::div_t_traits<T>::offsetof_quot == 0,
+			typename sprout::detail::div_t_traits<T>::type
+		>::type
 		div_impl(T const& numer, T const& denom) {
+#if defined(_MSC_VER)
+			typename sprout::detail::div_t_traits<T>::type result = {numer / denom, numer % denom};
+			return result;
+#else
 			return {numer / denom, numer % denom};
+#endif
 		}
 
-		template<
-			typename T,
-			typename sprout::enabler_if<
-				sprout::detail::div_t_traits<T>::offsetof_rem == 0
-			>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::detail::div_t_traits<T>::type
+		template<typename T>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::detail::div_t_traits<T>::offsetof_rem == 0,
+			typename sprout::detail::div_t_traits<T>::type
+		>::type
 		div_impl(T const &numer, T const& denom) {
+#if defined(_MSC_VER)
+			typename sprout::detail::div_t_traits<T>::type result = {numer % denom, numer / denom};
+			return result;
+#else
 			return {numer % denom, numer / denom};
+#endif
 		}
 	}	// namespace detail
 

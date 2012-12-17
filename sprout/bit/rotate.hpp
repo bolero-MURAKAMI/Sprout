@@ -5,14 +5,16 @@
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	//
 	// left_rotate
 	//
-	template<typename T, typename sprout::enabler_if<std::is_integral<T>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR T
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<T>::value,
+		T
+	>::type
 	left_rotate(T x, std::size_t n) {
 		return (x << n) ^ (x >> (sizeof(T) * CHAR_BIT - n));
 	}
@@ -20,8 +22,11 @@ namespace sprout {
 	//
 	// right_rotate
 	//
-	template<typename T, typename sprout::enabler_if<std::is_integral<T>::value>::type = sprout::enabler>
-	inline SPROUT_CONSTEXPR T
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<T>::value,
+		T
+	>::type
 	right_rotate(T x, std::size_t n) {
 		return (x >> n) ^ (x << (sizeof(T) * CHAR_BIT - n));
 	}

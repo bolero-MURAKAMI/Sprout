@@ -8,7 +8,6 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/pit.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/range/adaptor/size_enumed.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
 #include <sprout/range/numeric/partial_sum.hpp>
@@ -40,19 +39,19 @@ namespace sprout {
 				>
 			{};
 
-			template<
-				typename String,
-				typename sprout::enabler_if<sprout::is_c_str<String>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR typename sprout::container_traits<String>::difference_type
+			template<typename String>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_c_str<String>::value,
+				typename sprout::container_traits<String>::difference_type
+			>::type
 			str_size(String const& str) {
 				return sprout::size(str) - 1;
 			}
-			template<
-				typename String,
-				typename sprout::enabler_if<!sprout::is_c_str<String>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR typename sprout::container_traits<String>::difference_type
+			template<typename String>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_c_str<String>::value,
+				typename sprout::container_traits<String>::difference_type
+			>::type
 			str_size(String const& str) {
 				return sprout::size(str);
 			}
@@ -230,38 +229,36 @@ namespace sprout {
 					;
 			}
 
-			template<
-				typename ContainerContainer,
-				typename sprout::enabler_if<
-					sprout::is_random_access_iterator<
-						typename sprout::container_traits<ContainerContainer const>::iterator
-					>::value
+			template<typename ContainerContainer>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_random_access_iterator<
+					typename sprout::container_traits<ContainerContainer const>::iterator
+				>::value
 					&& sprout::is_random_access_iterator<
 						typename sprout::container_traits<
 							typename sprout::container_traits<ContainerContainer const>::value_type
 						>::iterator
 					>::value
-				>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR typename sprout::algorithm::result_of::join<ContainerContainer>::type
+					,
+				typename sprout::algorithm::result_of::join<ContainerContainer>::type
+			>::type
 			join(ContainerContainer const& cont_cont) {
 				typedef typename sprout::algorithm::result_of::join<ContainerContainer>::type result_type;
 				return sprout::algorithm::detail::join_impl_ra<result_type>(cont_cont);
 			}
-			template<
-				typename ContainerContainer,
-				typename sprout::enabler_if<!(
-					sprout::is_random_access_iterator<
-						typename sprout::container_traits<ContainerContainer const>::iterator
-					>::value
+			template<typename ContainerContainer>
+			inline SPROUT_CONSTEXPR typename std::enable_if<!(
+				sprout::is_random_access_iterator<
+					typename sprout::container_traits<ContainerContainer const>::iterator
+				>::value
 					&& sprout::is_random_access_iterator<
 						typename sprout::container_traits<
 							typename sprout::container_traits<ContainerContainer const>::value_type
 						>::iterator
 					>::value
-				)>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR typename sprout::algorithm::result_of::join<ContainerContainer>::type
+					),
+				typename sprout::algorithm::result_of::join<ContainerContainer>::type
+			>::type
 			join(ContainerContainer const& cont_cont) {
 				typedef typename sprout::algorithm::result_of::join<ContainerContainer>::type result_type;
 				return sprout::algorithm::detail::join_impl<result_type>(
@@ -457,13 +454,11 @@ namespace sprout {
 					;
 			}
 
-			template<
-				typename ContainerContainer,
-				typename Separator,
-				typename sprout::enabler_if<
-					sprout::is_random_access_iterator<
-						typename sprout::container_traits<ContainerContainer const>::iterator
-					>::value
+			template<typename ContainerContainer, typename Separator>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_random_access_iterator<
+					typename sprout::container_traits<ContainerContainer const>::iterator
+				>::value
 					&& sprout::is_random_access_iterator<
 						typename sprout::container_traits<
 							typename sprout::container_traits<ContainerContainer const>::value_type
@@ -472,20 +467,18 @@ namespace sprout {
 					&& sprout::is_random_access_iterator<
 						typename sprout::container_traits<Separator const>::iterator
 					>::value
-				>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR typename sprout::algorithm::result_of::join<ContainerContainer>::type
+					,
+				typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type
+			>::type
 			join(ContainerContainer const& cont_cont, Separator const& separator) {
-				typedef typename sprout::algorithm::result_of::join<ContainerContainer>::type result_type;
+				typedef typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type result_type;
 				return sprout::algorithm::detail::join_impl_ra<result_type>(cont_cont, separator);
 			}
-			template<
-				typename ContainerContainer,
-				typename Separator,
-				typename sprout::enabler_if<!(
-					sprout::is_random_access_iterator<
-						typename sprout::container_traits<ContainerContainer const>::iterator
-					>::value
+			template<typename ContainerContainer, typename Separator>
+			inline SPROUT_CONSTEXPR typename std::enable_if<!(
+				sprout::is_random_access_iterator<
+					typename sprout::container_traits<ContainerContainer const>::iterator
+				>::value
 					&& sprout::is_random_access_iterator<
 						typename sprout::container_traits<
 							typename sprout::container_traits<ContainerContainer const>::value_type
@@ -494,11 +487,11 @@ namespace sprout {
 					&& sprout::is_random_access_iterator<
 						typename sprout::container_traits<Separator const>::iterator
 					>::value
-				)>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR typename sprout::algorithm::result_of::join<ContainerContainer>::type
+					),
+				typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type
+			>::type
 			join(ContainerContainer const& cont_cont, Separator const& separator) {
-				typedef typename sprout::algorithm::result_of::join<ContainerContainer>::type result_type;
+				typedef typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type result_type;
 				return sprout::algorithm::detail::join_impl<result_type>(
 					sprout::begin(cont_cont),
 					sprout::end(cont_cont),

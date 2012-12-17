@@ -15,10 +15,17 @@ namespace sprout {
 			std::true_type sprout_has_xxx_impl_check_template_rebind_size(int);
 			template<typename T>
 			std::false_type sprout_has_xxx_impl_check_template_rebind_size(long);
+#if defined(_MSC_VER)
+			template<typename T, typename Base_ = decltype(sprout::containers::detail::sprout_has_xxx_impl_check_template_rebind_size<T>(0))>
+			struct has_rebind_size
+				: public Base_
+			{};
+#else
 			template<typename T>
 			struct has_rebind_size
-				: decltype(sprout::containers::detail::sprout_has_xxx_impl_check_template_rebind_size<T>(0))
+				: public decltype(sprout::containers::detail::sprout_has_xxx_impl_check_template_rebind_size<T>(0))
 			{};
+#endif
 		}	// namespace detail
 		//
 		// is_rebindable_size
