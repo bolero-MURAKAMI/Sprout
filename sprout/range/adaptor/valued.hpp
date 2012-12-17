@@ -83,7 +83,7 @@ namespace sprout {
 		// valued
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::valued_forwarder valued{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::valued_forwarder valued = {};
 		}	// anonymous-namespace
 
 		//

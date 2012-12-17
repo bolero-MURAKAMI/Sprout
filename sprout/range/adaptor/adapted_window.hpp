@@ -78,7 +78,7 @@ namespace sprout {
 		// adapted_window
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::adapted_window_forwarder adapted_window{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::adapted_window_forwarder adapted_window = {};
 		}	// anonymous-namespace
 
 		//

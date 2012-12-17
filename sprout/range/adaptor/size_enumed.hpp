@@ -126,7 +126,7 @@ namespace sprout {
 		// size_enumed
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::size_enumed_forwarder size_enumed{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::size_enumed_forwarder size_enumed = {};
 		}	// anonymous-namespace
 
 		//

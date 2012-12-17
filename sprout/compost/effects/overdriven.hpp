@@ -77,7 +77,7 @@ namespace sprout {
 			// overdriven
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::overdriven_forwarder overdriven{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::overdriven_forwarder overdriven = {};
 			}	// anonymous-namespace
 
 			//

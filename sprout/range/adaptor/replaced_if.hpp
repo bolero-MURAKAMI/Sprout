@@ -111,7 +111,7 @@ namespace sprout {
 		// replaced_if
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::replaced_if_forwarder replaced_if{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::replaced_if_forwarder replaced_if = {};
 		}	// anonymous-namespace
 
 		//

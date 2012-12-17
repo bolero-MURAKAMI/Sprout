@@ -10,7 +10,7 @@ namespace sprout {
 	//
 	struct none_t {};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR none_t none{};
+		SPROUT_STATIC_CONSTEXPR none_t none = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 

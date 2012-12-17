@@ -86,7 +86,7 @@ namespace sprout {
 			// tremolo
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::tremolo_forwarder tremolo{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::tremolo_forwarder tremolo = {};
 			}	// anonymous-namespace
 
 			//

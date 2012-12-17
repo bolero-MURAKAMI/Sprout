@@ -114,7 +114,7 @@ namespace sprout {
 			// reverbed
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::reverbed_forwarder reverbed{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::reverbed_forwarder reverbed = {};
 			}	// anonymous-namespace
 
 			//

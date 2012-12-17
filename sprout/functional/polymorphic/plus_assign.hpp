@@ -21,7 +21,7 @@ namespace sprout {
 		}
 	};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::plus_assign_t plus_assign_{};
+		SPROUT_STATIC_CONSTEXPR sprout::plus_assign_t plus_assign_ = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 

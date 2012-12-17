@@ -21,7 +21,7 @@ namespace sprout {
 		}
 	};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::call_fun_t call_fun_{};
+		SPROUT_STATIC_CONSTEXPR sprout::call_fun_t call_fun_ = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 

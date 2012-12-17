@@ -111,7 +111,7 @@ namespace sprout {
 		// clamped
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::clamped_forwarder clamped{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::clamped_forwarder clamped = {};
 		}	// anonymous-namespace
 
 		//

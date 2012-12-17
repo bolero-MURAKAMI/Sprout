@@ -21,7 +21,7 @@ namespace sprout {
 		}
 	};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::not_equal_to_t not_equal_to_{};
+		SPROUT_STATIC_CONSTEXPR sprout::not_equal_to_t not_equal_to_ = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 

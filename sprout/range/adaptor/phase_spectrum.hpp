@@ -72,7 +72,7 @@ namespace sprout {
 		// phase_spectrum
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::phase_spectrum_forwarder phase_spectrum{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::phase_spectrum_forwarder phase_spectrum = {};
 		}	// anonymous-namespace
 
 		//

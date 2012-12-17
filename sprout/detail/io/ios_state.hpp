@@ -19,6 +19,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				ios_flags_saver& operator=(ios_flags_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit ios_flags_saver(state_type& s)
 					: s_save_(s)
@@ -28,7 +30,6 @@ namespace sprout {
 					: s_save_(s)
 					, a_save_(s.flags(a))
 				{}
-				ios_flags_saver& operator=(ios_flags_saver const&) = delete;
 				~ios_flags_saver() {
 					this->restore();
 				}
@@ -44,6 +45,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				ios_precision_saver& operator=(ios_precision_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit ios_precision_saver(state_type& s)
 					: s_save_(s)
@@ -53,7 +56,6 @@ namespace sprout {
 					: s_save_(s)
 					, a_save_(s.precision(a))
 				{}
-				ios_precision_saver& operator=(ios_precision_saver const&) = delete;
 				~ios_precision_saver() {
 					this->restore();
 				}
@@ -69,6 +71,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				ios_width_saver& operator=(ios_width_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit ios_width_saver(state_type& s)
 					: s_save_(s)
@@ -78,7 +82,6 @@ namespace sprout {
 					: s_save_(s)
 					, a_save_(s.width(a))
 				{}
-				ios_width_saver& operator=(ios_width_saver const&) = delete;
 				~ios_width_saver() {
 					this->restore();
 				}
@@ -95,6 +98,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				basic_ios_iostate_saver& operator=(basic_ios_iostate_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit basic_ios_iostate_saver(state_type& s)
 					: s_save_(s)
@@ -106,7 +111,6 @@ namespace sprout {
 				{
 					s.clear(a);
 				}
-				basic_ios_iostate_saver& operator=(basic_ios_iostate_saver const&) = delete;
 				~basic_ios_iostate_saver() {
 					this->restore();
 				}
@@ -123,6 +127,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				basic_ios_exception_saver& operator=(basic_ios_exception_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit basic_ios_exception_saver(state_type& s)
 					: s_save_(s)
@@ -134,7 +140,6 @@ namespace sprout {
 				{
 					s.exceptions(a);
 				}
-				basic_ios_exception_saver& operator=(basic_ios_exception_saver const&) = delete;
 				~basic_ios_exception_saver() {
 					this->restore();
 				}
@@ -151,6 +156,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				basic_ios_tie_saver& operator=(basic_ios_tie_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit basic_ios_tie_saver(state_type& s)
 					: s_save_(s)
@@ -160,7 +167,6 @@ namespace sprout {
 					: s_save_(s)
 					, a_save_(s.tie(a))
 				{}
-				basic_ios_tie_saver& operator=(basic_ios_tie_saver const&) = delete;
 				~basic_ios_tie_saver() {
 					this->restore();
 				}
@@ -177,6 +183,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				basic_ios_rdbuf_saver& operator=(basic_ios_rdbuf_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit basic_ios_rdbuf_saver(state_type& s)
 					: s_save_(s)
@@ -186,7 +194,6 @@ namespace sprout {
 					: s_save_(s)
 					, a_save_(s.rdbuf(a))
 				{}
-				basic_ios_rdbuf_saver& operator=(basic_ios_rdbuf_saver const&) = delete;
 				~basic_ios_rdbuf_saver() {
 					this->restore();
 				}
@@ -203,6 +210,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				basic_ios_fill_saver& operator=(basic_ios_fill_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit basic_ios_fill_saver(state_type& s)
 					: s_save_(s)
@@ -212,7 +221,6 @@ namespace sprout {
 					: s_save_(s)
 					, a_save_(s.fill(a))
 				{}
-				basic_ios_fill_saver& operator=(basic_ios_fill_saver const&) = delete;
 				~basic_ios_fill_saver() {
 					this->restore();
 				}
@@ -229,6 +237,8 @@ namespace sprout {
 			private:
 				state_type& s_save_;
 				aspect_type const a_save_;
+			private:
+				basic_ios_locale_saver& operator=(basic_ios_locale_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit basic_ios_locale_saver(state_type& s)
 					: s_save_(s)
@@ -238,7 +248,6 @@ namespace sprout {
 					: s_save_(s)
 					, a_save_(s.imbue(a))
 				{}
-				basic_ios_locale_saver& operator=(basic_ios_locale_saver const&) = delete;
 				~basic_ios_locale_saver() {
 					this->restore();
 				}
@@ -256,6 +265,8 @@ namespace sprout {
 				state_type& s_save_;
 				aspect_type const a_save_;
 				index_type const i_save_;
+			private:
+				ios_iword_saver& operator=(ios_iword_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit ios_iword_saver(state_type& s, index_type i)
 					: s_save_(s)
@@ -269,7 +280,6 @@ namespace sprout {
 				{
 					s.iword(i) = a;
 				}
-				ios_iword_saver& operator=(ios_iword_saver const&) = delete;
 				~ios_iword_saver() {
 					this->restore();
 				}
@@ -287,6 +297,8 @@ namespace sprout {
 				state_type& s_save_;
 				aspect_type const a_save_;
 				index_type const i_save_;
+			private:
+				ios_pword_saver& operator=(ios_pword_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit ios_pword_saver(state_type& s, index_type i)
 					: s_save_(s)
@@ -300,7 +312,6 @@ namespace sprout {
 				{
 					s.pword(i) = a;
 				}
-				ios_pword_saver& operator=(ios_pword_saver const&) = delete;
 				~ios_pword_saver() {
 					this->restore();
 				}
@@ -317,6 +328,8 @@ namespace sprout {
 				state_type::fmtflags const a1_save_;
 				std::streamsize const a2_save_;
 				std::streamsize const a3_save_;
+			private:
+				ios_base_all_saver& operator=(ios_base_all_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit ios_base_all_saver(state_type& s)
 					: s_save_(s)
@@ -324,7 +337,6 @@ namespace sprout {
 					, a2_save_(s.precision())
 					, a3_save_(s.width())
 				{}
-				ios_base_all_saver& operator=(ios_base_all_saver const&) = delete;
 				~ios_base_all_saver() {
 					this->restore();
 				}
@@ -350,6 +362,8 @@ namespace sprout {
 				std::basic_streambuf<Elem, Traits>* const a7_save_;
 				typename state_type::char_type const a8_save_;
 				std::locale const a9_save_;
+			private:
+				basic_ios_all_saver& operator=(basic_ios_all_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				explicit basic_ios_all_saver(state_type& s)
 					: s_save_(s)
@@ -363,7 +377,6 @@ namespace sprout {
 					, a8_save_(s.fill())
 					, a9_save_(s.getloc())
 				{}
-				basic_ios_all_saver& operator=(basic_ios_all_saver const&) = delete;
 				~basic_ios_all_saver() {
 					this->restore();
 				}
@@ -389,6 +402,8 @@ namespace sprout {
 				index_type const i_save_;
 				long const a1_save_;
 				void* const a2_save_;
+			private:
+				ios_all_word_saver& operator=(ios_all_word_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
 				ios_all_word_saver(state_type& s, index_type i)
 					: s_save_(s)
@@ -396,7 +411,6 @@ namespace sprout {
 					, a1_save_(s.iword(i))
 					, a2_save_(s.pword(i))
 				{}
-				ios_all_word_saver& operator=(ios_all_word_saver const&) = delete;
 				~ios_all_word_saver() {
 					this->restore();
 				}

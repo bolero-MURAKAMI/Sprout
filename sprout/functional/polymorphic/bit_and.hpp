@@ -21,7 +21,7 @@ namespace sprout {
 		}
 	};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::bit_and_t bit_and_{};
+		SPROUT_STATIC_CONSTEXPR sprout::bit_and_t bit_and_ = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 

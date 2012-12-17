@@ -5,6 +5,14 @@
 #	define SPROUT_NO_CONSTEXPR
 #endif
 
+#if !__has_feature(cxx_defaulted_functions)
+#	define SPROUT_NO_DEFAULTED_FUNCTIONS
+#endif
+
+#if !__has_feature(cxx_deleted_functions)
+#	define SPROUT_NO_DELETED_FUNCTIONS
+#endif
+
 #if !__has_feature(cxx_noexcept)
 #	define SPROUT_NO_NOEXCEPT
 #endif
@@ -19,6 +27,10 @@
 
 #if !__has_feature(cxx_delegating_constructors)
 #	define SPROUT_NO_DELEGATING_CONSTRUCTORS
+#endif
+
+#if !__has_feature(cxx_unicode_literals)
+#	define SPROUT_NO_UNICODE_LITERALS
 #endif
 
 #if !defined(SPROUT_NO_CONSTEXPR)

@@ -107,7 +107,7 @@ namespace sprout {
 			// pseudo_stereo
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::pseudo_stereo_forwarder pseudo_stereo{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::pseudo_stereo_forwarder pseudo_stereo = {};
 			}	// anonymous-namespace
 
 			//

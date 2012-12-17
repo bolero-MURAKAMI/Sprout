@@ -21,7 +21,7 @@ namespace sprout {
 		}
 	};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::shift_right_t shift_right_{};
+		SPROUT_STATIC_CONSTEXPR sprout::shift_right_t shift_right_ = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 

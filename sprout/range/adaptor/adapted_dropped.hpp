@@ -48,7 +48,7 @@ namespace sprout {
 		// adapted_dropped
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::adapted_dropped_forwarder adapted_dropped{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::adapted_dropped_forwarder adapted_dropped = {};
 		}	// anonymous-namespace
 
 		//

@@ -93,7 +93,7 @@ namespace sprout {
 		// jointed
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::jointed_forwarder jointed{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::jointed_forwarder jointed = {};
 		}	// anonymous-namespace
 
 		//

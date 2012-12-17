@@ -41,7 +41,7 @@ namespace sprout {
 			// rectified
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::rectified_forwarder rectified{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::rectified_forwarder rectified = {};
 			}	// anonymous-namespace
 
 			//

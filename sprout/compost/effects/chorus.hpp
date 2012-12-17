@@ -119,7 +119,7 @@ namespace sprout {
 			// chorus
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::chorus_forwarder chorus{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::chorus_forwarder chorus = {};
 			}	// anonymous-namespace
 
 			//

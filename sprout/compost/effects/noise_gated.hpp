@@ -91,7 +91,7 @@ namespace sprout {
 			// noise_gated
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::noise_gated_forwarder noise_gated{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::noise_gated_forwarder noise_gated = {};
 			}	// anonymous-namespace
 
 			//

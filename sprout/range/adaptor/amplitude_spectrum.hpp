@@ -72,7 +72,7 @@ namespace sprout {
 		// amplitude_spectrum
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::amplitude_spectrum_forwarder amplitude_spectrum{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::amplitude_spectrum_forwarder amplitude_spectrum = {};
 		}	// anonymous-namespace
 
 		//

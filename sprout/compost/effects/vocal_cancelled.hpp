@@ -20,7 +20,7 @@ namespace sprout {
 			// vocal_cancelled
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::vocal_cancelled_forwarder vocal_cancelled{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::vocal_cancelled_forwarder vocal_cancelled = {};
 			}	// anonymous-namespace
 
 			//

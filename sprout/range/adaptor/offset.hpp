@@ -71,7 +71,7 @@ namespace sprout {
 		// offset
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::offset_forwarder offset{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::offset_forwarder offset = {};
 		}	// anonymous-namespace
 
 		//

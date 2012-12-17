@@ -68,7 +68,7 @@ namespace sprout {
 			// effected_each_cannel
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::effected_each_cannel_forwarder effected_each_cannel{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::effected_each_cannel_forwarder effected_each_cannel = {};
 			}	// anonymous-namespace
 
 			//

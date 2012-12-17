@@ -47,7 +47,7 @@ namespace sprout {
 		// dropped_end
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::dropped_end_forwarder dropped_end{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::dropped_end_forwarder dropped_end = {};
 		}	// anonymous-namespace
 
 		//

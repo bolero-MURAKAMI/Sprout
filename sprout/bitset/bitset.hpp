@@ -898,7 +898,7 @@ namespace sprout {
 			word_type* wp_;
 			std::size_t bpos_;
 		private:
-			reference() = delete;
+			reference() SPROUT_DELETED_FUNCTION_DECL
 		public:
 			SPROUT_CONSTEXPR reference(bitset& b, std::size_t pos) SPROUT_NOEXCEPT
 				: wp_(&b.getword(pos))

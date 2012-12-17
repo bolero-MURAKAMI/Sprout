@@ -148,14 +148,14 @@ namespace sprout {
 		SPROUT_STATIC_CONSTEXPR sprout::io::flags::boolean_flag<sprout::io::flags::showpos> showpos = true;
 		SPROUT_STATIC_CONSTEXPR sprout::io::flags::boolean_flag<sprout::io::flags::uppercase> uppercase = true;
 		SPROUT_STATIC_CONSTEXPR sprout::io::flags::boolean_flag<sprout::io::flags::skipws> skipws = true;
-		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::right, sprout::io::flags::adjustfield> right{};
-		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::left, sprout::io::flags::adjustfield> left{};
-		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::internal, sprout::io::flags::adjustfield> internal{};
-		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::dec, sprout::io::flags::basefield> dec{};
-		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::hex, sprout::io::flags::basefield> hex{};
-		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::oct, sprout::io::flags::basefield> oct{};
-		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::fixed, sprout::io::flags::floatfield> fixed{};
-		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::scientific, sprout::io::flags::floatfield> scientific{};
+		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::right, sprout::io::flags::adjustfield> right = {};
+		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::left, sprout::io::flags::adjustfield> left = {};
+		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::internal, sprout::io::flags::adjustfield> internal = {};
+		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::dec, sprout::io::flags::basefield> dec = {};
+		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::hex, sprout::io::flags::basefield> hex = {};
+		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::oct, sprout::io::flags::basefield> oct = {};
+		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::fixed, sprout::io::flags::floatfield> fixed = {};
+		SPROUT_STATIC_CONSTEXPR sprout::io::flags::field_flag<sprout::io::flags::scientific, sprout::io::flags::floatfield> scientific = {};
 
 		//
 		// precision
@@ -520,7 +520,9 @@ namespace sprout {
 		//
 		// root
 		//
-		SPROUT_STATIC_CONSTEXPR sprout::io::root_t root{};
+		namespace {
+			SPROUT_STATIC_CONSTEXPR sprout::io::root_t root = {};
+		}	// anonymous-namespace
 
 		template<typename Left, typename Right, typename T>
 		inline SPROUT_CONSTEXPR auto

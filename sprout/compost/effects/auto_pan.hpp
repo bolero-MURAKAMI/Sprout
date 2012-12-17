@@ -111,7 +111,7 @@ namespace sprout {
 			// auto_pan
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::auto_pan_forwarder auto_pan{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::auto_pan_forwarder auto_pan = {};
 			}	// anonymous-namespace
 
 			//

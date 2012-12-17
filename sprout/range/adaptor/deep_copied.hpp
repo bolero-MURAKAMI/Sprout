@@ -17,7 +17,7 @@ namespace sprout {
 		// deep_copied
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::deep_copied_forwarder deep_copied{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::deep_copied_forwarder deep_copied = {};
 		}	// anonymous-namespace
 
 		//

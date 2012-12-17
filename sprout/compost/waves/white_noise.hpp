@@ -124,7 +124,7 @@ namespace sprout {
 			// white_noise
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::waves::white_noise_forwarder white_noise{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::waves::white_noise_forwarder white_noise = {};
 			}	// anonymous-namespace
 
 			//

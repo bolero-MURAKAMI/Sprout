@@ -32,7 +32,7 @@ namespace sprout {
 			// blanked
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::waves::blanked_forwarder blanked{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::waves::blanked_forwarder blanked = {};
 			}	// anonymous-namespace
 		}	// namespace waves
 

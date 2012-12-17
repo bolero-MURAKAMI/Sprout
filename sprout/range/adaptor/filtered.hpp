@@ -86,7 +86,7 @@ namespace sprout {
 		// filtered
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::filtered_forwarder filtered{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::filtered_forwarder filtered = {};
 		}	// anonymous-namespace
 
 		//

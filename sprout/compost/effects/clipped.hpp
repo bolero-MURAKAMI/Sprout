@@ -48,7 +48,7 @@ namespace sprout {
 			// clipped
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::clipped_forwarder clipped{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::clipped_forwarder clipped = {};
 			}	// anonymous-namespace
 
 			//

@@ -54,7 +54,7 @@ namespace sprout {
 			// superposed
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::superposed_forwarder superposed{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::superposed_forwarder superposed = {};
 			}	// anonymous-namespace
 
 			//

@@ -18,7 +18,7 @@ namespace sprout {
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR typename sprout::lvalue_reference<T>::type
-	lvalue_forward(typename std::remove_reference<T>::type&& t) = delete;
+	lvalue_forward(typename std::remove_reference<T>::type&& t) SPROUT_DELETED_FUNCTION_DECL
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_LVALUE_FORWARD_HPP

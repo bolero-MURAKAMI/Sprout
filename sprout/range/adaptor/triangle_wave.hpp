@@ -118,7 +118,7 @@ namespace sprout {
 		// triangle_wave
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::triangle_wave_forwarder triangle_wave{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::triangle_wave_forwarder triangle_wave = {};
 		}	// anonymous-namespace
 
 		//

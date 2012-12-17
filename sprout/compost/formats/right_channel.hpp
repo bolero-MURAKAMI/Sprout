@@ -17,7 +17,7 @@ namespace sprout {
 			// right_channel
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::right_channel_forwarder right_channel{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::right_channel_forwarder right_channel = {};
 			}	// anonymous-namespace
 
 			//

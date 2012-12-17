@@ -52,7 +52,7 @@ namespace sprout {
 		// outdirected
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::outdirected_forwarder outdirected{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::outdirected_forwarder outdirected = {};
 		}	// anonymous-namespace
 
 		//

@@ -102,7 +102,7 @@ namespace sprout {
 		// steps
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::steps_forwarder steps{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::steps_forwarder steps = {};
 		}	// anonymous-namespace
 
 		//

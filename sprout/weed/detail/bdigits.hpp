@@ -37,6 +37,7 @@ namespace sprout {
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(L"01"))
 				;
 
+#ifndef SPROUT_NO_UNICODE_LITERALS
 			template<>
 			struct bdigits<char16_t> {
 			public:
@@ -58,6 +59,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char32_t, 2> sprout::weed::detail::bdigits<char32_t>::table
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(U"01"))
 				;
+#endif
 
 			template<typename Dummy>
 			struct bvalues;

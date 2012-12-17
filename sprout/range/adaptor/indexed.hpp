@@ -86,7 +86,7 @@ namespace sprout {
 		// indexed
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::indexed_forwarder indexed{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::indexed_forwarder indexed = {};
 		}	// anonymous-namespace
 
 		//

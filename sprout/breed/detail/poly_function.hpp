@@ -44,7 +44,7 @@ namespace sprout {
 					return *this;
 				}
 			private:
-				arg& operator=(arg const&) = delete;
+				arg& operator=(arg const&) SPROUT_DELETED_FUNCTION_DECL
 			};
 			template<typename T>
 			struct arg<T&> {
@@ -63,7 +63,7 @@ namespace sprout {
 					return *this;
 				}
 			private:
-				arg& operator=(arg const&) = delete;
+				arg& operator=(arg const&) SPROUT_DELETED_FUNCTION_DECL
 			};
 
 			template<typename T, typename Void = void>

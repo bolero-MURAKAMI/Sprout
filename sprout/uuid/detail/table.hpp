@@ -38,6 +38,7 @@ namespace sprout {
 				;
 			SPROUT_CONSTEXPR_OR_CONST wchar_t sprout::uuids::detail::digits<wchar_t>::dash;
 
+#ifndef SPROUT_NO_UNICODE_LITERALS
 			template<>
 			struct digits<char16_t> {
 			public:
@@ -63,6 +64,7 @@ namespace sprout {
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(U"0123456789abcdefABCDEF"))
 				;
 			SPROUT_CONSTEXPR_OR_CONST char32_t sprout::uuids::detail::digits<char32_t>::dash;
+#endif
 
 			template<typename Dummy>
 			struct values;

@@ -52,7 +52,7 @@ namespace sprout {
 		// dft
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::dft_forwarder dft{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::dft_forwarder dft = {};
 		}	// anonymous-namespace
 
 		//

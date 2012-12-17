@@ -30,7 +30,7 @@ namespace sprout {
 			// as_imag
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::as_imag_forwarder as_imag{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::as_imag_forwarder as_imag = {};
 			}	// anonymous-namespace
 
 			//

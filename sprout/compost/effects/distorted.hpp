@@ -49,7 +49,7 @@ namespace sprout {
 			// distorted
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::distorted_forwarder distorted{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::distorted_forwarder distorted = {};
 			}	// anonymous-namespace
 
 			//

@@ -21,7 +21,7 @@ namespace sprout {
 		}
 	};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::dereference_t dereference_{};
+		SPROUT_STATIC_CONSTEXPR sprout::dereference_t dereference_ = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 

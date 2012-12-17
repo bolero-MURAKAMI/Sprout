@@ -11,7 +11,7 @@ namespace sprout {
 			// stereo
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::adaptors::alternated_forwarder stereo{};
+				SPROUT_STATIC_CONSTEXPR sprout::adaptors::alternated_forwarder stereo = {};
 			}	// anonymous-namespace
 		}	// namespace formats
 

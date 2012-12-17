@@ -101,7 +101,7 @@ namespace sprout {
 			// compressed
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::compressed_forwarder compressed{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::compressed_forwarder compressed = {};
 			}	// anonymous-namespace
 
 			//

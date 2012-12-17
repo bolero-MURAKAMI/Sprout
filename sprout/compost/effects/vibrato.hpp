@@ -118,7 +118,7 @@ namespace sprout {
 			// vibrato
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::vibrato_forwarder vibrato{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::vibrato_forwarder vibrato = {};
 			}	// anonymous-namespace
 
 			//

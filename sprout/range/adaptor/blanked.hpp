@@ -134,7 +134,7 @@ namespace sprout {
 		// blanked
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::blanked_forwarder blanked{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::blanked_forwarder blanked = {};
 		}	// anonymous-namespace
 
 		//

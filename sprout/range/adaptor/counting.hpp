@@ -118,7 +118,7 @@ namespace sprout {
 		// counting
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::counting_forwarder counting{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::counting_forwarder counting = {};
 		}	// anonymous-namespace
 
 		//

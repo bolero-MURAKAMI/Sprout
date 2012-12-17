@@ -44,7 +44,7 @@ namespace sprout {
 			// effected_left_cannel
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::effected_left_cannel_forwarder effected_left_cannel{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::effected_left_cannel_forwarder effected_left_cannel = {};
 			}	// anonymous-namespace
 
 			//

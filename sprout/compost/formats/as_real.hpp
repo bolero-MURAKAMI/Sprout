@@ -30,7 +30,7 @@ namespace sprout {
 			// as_real
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::as_real_forwarder as_real{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::as_real_forwarder as_real = {};
 			}	// anonymous-namespace
 
 			//

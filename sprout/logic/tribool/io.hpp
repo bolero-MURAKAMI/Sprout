@@ -27,6 +27,7 @@ namespace sprout {
 		get_default_indeterminate_name<wchar_t>() {
 			return L"indeterminate";
 		}
+#ifndef SPROUT_NO_UNICODE_LITERALS
 		template<>
 		inline std::basic_string<char16_t>
 		get_default_indeterminate_name<char16_t>() {
@@ -37,6 +38,7 @@ namespace sprout {
 		get_default_indeterminate_name<char32_t>() {
 			return U"indeterminate";
 		}
+#endif
 
 		//
 		// indeterminate_name

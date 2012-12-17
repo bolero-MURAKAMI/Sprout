@@ -137,12 +137,13 @@ namespace sprout {
 		typedef T type;
 	private:
 		T* t_;
+	private:
+		reference_wrapper(T&&) SPROUT_DELETED_FUNCTION_DECL
 	public:
 		// construct/copy/destroy
 		SPROUT_CONSTEXPR reference_wrapper(T& t) SPROUT_NOEXCEPT
 			: t_(&t)
 		{}
-		reference_wrapper(T&&) = delete;
 		reference_wrapper(reference_wrapper<T> const&) SPROUT_NOEXCEPT = default;
 		// assignment
 		reference_wrapper& operator=(reference_wrapper<T> const&) SPROUT_NOEXCEPT = default;
@@ -179,9 +180,9 @@ namespace sprout {
 		return sprout::reference_wrapper<T const>(t);
 	}
 	template<typename T>
-	void ref(T const&&) = delete;
+	void ref(T const&&) SPROUT_DELETED_FUNCTION_DECL
 	template<typename T>
-	void cref(T const&&) = delete;
+	void cref(T const&&) SPROUT_DELETED_FUNCTION_DECL
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T>
 	ref(sprout::reference_wrapper<T> t) SPROUT_NOEXCEPT {

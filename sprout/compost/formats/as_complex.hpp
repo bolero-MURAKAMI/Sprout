@@ -29,7 +29,7 @@ namespace sprout {
 			// as_complex
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::as_complex_forwarder as_complex{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::formats::as_complex_forwarder as_complex = {};
 			}	// anonymous-namespace
 
 			//

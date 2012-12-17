@@ -18,7 +18,7 @@ namespace sprout {
 		//
 		// ignore
 		//
-		SPROUT_STATIC_CONSTEXPR ignore_t ignore{};
+		SPROUT_STATIC_CONSTEXPR ignore_t ignore = {};
 	}	// namespace tuples
 
 	using sprout::tuples::ignore_t;

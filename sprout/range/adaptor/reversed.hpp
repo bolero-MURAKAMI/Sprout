@@ -52,7 +52,7 @@ namespace sprout {
 		// reversed
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::reversed_forwarder reversed{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::reversed_forwarder reversed = {};
 		}	// anonymous-namespace
 
 		//

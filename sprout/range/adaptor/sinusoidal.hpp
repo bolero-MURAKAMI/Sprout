@@ -118,7 +118,7 @@ namespace sprout {
 		// sinusoidal
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::sinusoidal_forwarder sinusoidal{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::sinusoidal_forwarder sinusoidal = {};
 		}	// anonymous-namespace
 
 		//

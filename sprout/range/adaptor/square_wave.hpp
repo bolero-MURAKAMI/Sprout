@@ -127,7 +127,7 @@ namespace sprout {
 		// square_wave
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::square_wave_forwarder square_wave{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::square_wave_forwarder square_wave = {};
 		}	// anonymous-namespace
 
 		//

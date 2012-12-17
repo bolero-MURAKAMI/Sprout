@@ -111,7 +111,7 @@ namespace sprout {
 		// piped
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::piped_forwarder piped{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::piped_forwarder piped = {};
 		}	// anonymous-namespace
 
 		//

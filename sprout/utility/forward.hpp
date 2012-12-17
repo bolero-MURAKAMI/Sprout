@@ -15,7 +15,7 @@ namespace sprout {
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR T&&
-	forward(typename std::remove_reference<T>::type&& t) SPROUT_NOEXCEPT = delete;
+	forward(typename std::remove_reference<T>::type&& t) SPROUT_NOEXCEPT SPROUT_DELETED_FUNCTION_DECL
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_FORWARD_HPP

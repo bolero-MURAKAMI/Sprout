@@ -46,7 +46,7 @@ namespace sprout {
 			// changed_volume
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::changed_volume_forwarder changed_volume{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::changed_volume_forwarder changed_volume = {};
 			}	// anonymous-namespace
 
 			//

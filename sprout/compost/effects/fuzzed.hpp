@@ -50,7 +50,7 @@ namespace sprout {
 			// fuzzed
 			//
 			namespace {
-				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::fuzzed_forwarder fuzzed{};
+				SPROUT_STATIC_CONSTEXPR sprout::compost::effects::fuzzed_forwarder fuzzed = {};
 			}	// anonymous-namespace
 
 			//

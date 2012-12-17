@@ -158,7 +158,7 @@ namespace sprout {
 		// transformed
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::transformed_forwarder transformed{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::transformed_forwarder transformed = {};
 		}	// anonymous-namespace
 
 		//

@@ -118,7 +118,7 @@ namespace sprout {
 		// sawtooth_wave
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::sawtooth_wave_forwarder sawtooth_wave{};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::sawtooth_wave_forwarder sawtooth_wave = {};
 		}	// anonymous-namespace
 
 		//

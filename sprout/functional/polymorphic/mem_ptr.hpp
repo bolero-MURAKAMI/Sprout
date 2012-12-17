@@ -21,7 +21,7 @@ namespace sprout {
 		}
 	};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::mem_ptr_t mem_ptr_{};
+		SPROUT_STATIC_CONSTEXPR sprout::mem_ptr_t mem_ptr_ = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 

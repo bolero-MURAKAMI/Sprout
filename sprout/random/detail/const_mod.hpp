@@ -209,7 +209,7 @@ namespace sprout {
 						;
 				}
 			private:
-				const_mod() = delete;
+				const_mod() SPROUT_DELETED_FUNCTION_DECL
 			};
 		} // namespace detail
 	} // namespace random
