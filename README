@@ -167,6 +167,14 @@ See: https://github.com/sscrisk/CEL---ConstExpr-Library
 
 
 
+## サポートするコンパイラ *(Supported Compilers)*
+
+Linux:  
+* GCC, C++11 mode: 4.7.2  
+* Clang, C++11 mode: 3.2(trunk)  
+
+
+
 ## 作者 *(Author)*
 
 Bolero MURAKAMI  
