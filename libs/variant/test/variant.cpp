@@ -170,6 +170,18 @@ namespace testspr {
 				TESTSPR_ASSERT(var3.which() == 0);
 				TESTSPR_ASSERT(sprout::get<int>(var3) == 0);
 			}
+			{
+				testspr::x2_visitor<double> visitor1 = {};
+				TESTSPR_BOTH_ASSERT(sprout::apply_visitor(visitor1, var1) == 2.0);
+				TESTSPR_BOTH_ASSERT(sprout::apply_visitor(visitor1, var2) == 0.0);
+			}
+			{
+				auto var3 = var2;
+				testspr::x2_assign_visitor<double> visitor1 = {};
+				TESTSPR_ASSERT(sprout::apply_visitor(visitor1, var3) == 0.0);
+				TESTSPR_ASSERT(var3.which() == 0);
+				TESTSPR_ASSERT(sprout::get<int>(var3) == 0);
+			}
 
 			// operator<<
 			{
