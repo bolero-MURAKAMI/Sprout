@@ -127,14 +127,14 @@ namespace sprout {
 		template<int I, typename Tuple, typename Visitor>
 		static SPROUT_CONSTEXPR typename std::enable_if<
 			I == sizeof...(Types),
-			typename Visitor::result_type
+			typename std::decay<Visitor>::type::result_type
 		>::type visit(Tuple&& t, Visitor&& v, int which) {
-			return typename Visitor::result_type();
+			return typename std::decay<Visitor>::type::result_type();
 		}
 		template<int I, typename Tuple, typename Visitor>
 		static SPROUT_CONSTEXPR typename std::enable_if<
 			I != sizeof...(Types),
-			typename Visitor::result_type
+			typename std::decay<Visitor>::type::result_type
 		>::type visit(Tuple&& t, Visitor&& v, int which) {
 			return I == which
 				? sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)))
@@ -249,11 +249,11 @@ namespace sprout {
 		}
 		// visitation support
 		template<typename Visitor>
-		SPROUT_CONSTEXPR typename Visitor::result_type apply_visitor(Visitor&& visitor) const {
+		SPROUT_CONSTEXPR typename std::decay<Visitor>::type::result_type apply_visitor(Visitor&& visitor) const {
 			return visit<0>(tuple_, sprout::forward<Visitor>(visitor), which_);
 		}
 		template<typename Visitor>
-		typename Visitor::result_type apply_visitor(Visitor&& visitor) {
+		typename std::decay<Visitor>::type::result_type apply_visitor(Visitor&& visitor) {
 			return visit<0>(tuple_, sprout::forward<Visitor>(visitor), which_);
 		}
 	};
