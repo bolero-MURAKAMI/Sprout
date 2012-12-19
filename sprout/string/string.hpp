@@ -861,9 +861,6 @@ namespace sprout {
 		};
 	}	// namespace detail
 
-	//
-	// to_string
-	//
 	namespace detail {
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
@@ -880,6 +877,14 @@ namespace sprout {
 			return to_string_impl_1(arr, sprout::char_traits<T>::length(arr), sprout::index_tuple<Indexes...>());
 		}
 	}	// namespace detail
+	//
+	// to_string
+	//
+	template<typename T, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
+	to_string(sprout::basic_string<T, N, Traits> const& s) {
+		return s;
+	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
 	to_string(T const(& arr)[N]) {

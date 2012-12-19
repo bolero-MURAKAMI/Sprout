@@ -58,6 +58,22 @@ namespace sprout {
 	shrink(sprout::basic_string<T, N, Traits> const& s) {
 		return sprout::shrink_string<T, N, Traits>(s);
 	}
+	template<std::size_t To, typename T, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, To, Traits>
+	shrink(sprout::basic_string<T, N, Traits> const& s) {
+		return sprout::shrink(s);
+	}
+
+	template<typename T, std::size_t N>
+	inline SPROUT_CONSTEXPR sprout::shrink_string<T, N>
+	shrink(T const(& arr)[N]) {
+		return sprout::shrink(sprout::to_string(arr));
+	}
+	template<std::size_t To, typename T, std::size_t N>
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, To>
+	shrink(T const(& arr)[N]) {
+		return sprout::shrink<To>(sprout::to_string(arr));
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_STRING_SHRINK_HPP

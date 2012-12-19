@@ -8,6 +8,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/math/floor.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>
 #include <sprout/detail/math/float.hpp>
@@ -32,14 +33,15 @@ namespace sprout {
 	namespace detail {
 		template<typename Elem, typename FloatType, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
-		float_to_string(FloatType val, bool negative, int digits, sprout::index_tuple<Indexes...>) {
+		float_to_string_impl(FloatType val, bool negative, int digits, int v, sprout::index_tuple<Indexes...>) {
 			return negative
 				? sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>{
 					{
 						static_cast<Elem>('-'),
 						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
 							: Indexes == digits ? static_cast<Elem>('.')
-							: Indexes < digits + 1 + sprout::detail::decimal_places_length ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - Indexes))
+							: Indexes < digits + 1 + sprout::detail::decimal_places_length
+								? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at(v, digits + sprout::detail::decimal_places_length - Indexes))
 							: Elem()
 							)...
 						},
@@ -49,13 +51,22 @@ namespace sprout {
 					{
 						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
 							: Indexes == digits ? static_cast<Elem>('.')
-							: Indexes < digits + 1 + sprout::detail::decimal_places_length ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - Indexes))
+							: Indexes < digits + 1 + sprout::detail::decimal_places_length
+								? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at(v, digits + sprout::detail::decimal_places_length - Indexes))
 							: Elem()
 							)...
 						},
 						static_cast<std::size_t>(digits + 1 + sprout::detail::decimal_places_length)
 					}
 				;
+		}
+		template<typename Elem, typename FloatType>
+		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
+		float_to_string(FloatType val, bool negative, int digits) {
+			return sprout::detail::float_to_string_impl<Elem>(
+				val, negative, digits, static_cast<int>((val - sprout::floor(val)) * sprout::detail::int_pow<int>(sprout::detail::decimal_places_length)),
+				sprout::index_range<0, sprout::printed_float_digits<FloatType>::value - 1>::make()
+				);
 		}
 	}	// namespace detail
 
@@ -71,8 +82,7 @@ namespace sprout {
 		return sprout::detail::float_to_string<Elem>(
 			sprout::detail::float_round_at(val < 0 ? -val : val, sprout::detail::decimal_places_length),
 			val < 0,
-			sprout::detail::float_digits(val),
-			sprout::index_range<0, sprout::printed_float_digits<FloatType>::value - 1>::make()
+			sprout::detail::float_digits(val)
 			);
 	}
 

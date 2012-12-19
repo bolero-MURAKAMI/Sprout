@@ -14,6 +14,8 @@
 #include <sprout/tuple/functions.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type/algorithm/find_index.hpp>
+#include <sprout/functional/type_traits/has_type.hpp>
+#include <sprout/functional/type_traits/weak_result_type.hpp>
 
 namespace sprout {
 	template<typename... Types>
@@ -73,6 +75,52 @@ namespace sprout {
 	public:
 		typedef typename impl_type::tuple_type tuple_type;
 	private:
+		template<typename Visitor, typename Tuple, typename IndexTuple>
+		struct visitor_result_impl_1;
+		template<typename Visitor, typename Tuple, sprout::index_t... Indexes>
+		struct visitor_result_impl_1<Visitor, Tuple, sprout::index_tuple<Indexes...> > {
+		public:
+			typedef typename std::decay<
+				typename std::common_type<
+					decltype((std::declval<Visitor>())(sprout::tuples::get<Indexes>(std::declval<Tuple>())))...
+				>::type
+			>::type type;
+		};
+		template<typename Visitor, typename Tuple, typename = void>
+		struct visitor_result_impl;
+		template<typename Visitor, typename Tuple>
+		struct visitor_result_impl<
+			Visitor, Tuple,
+			typename std::enable_if<!sprout::has_result_type<sprout::weak_result_type<Visitor> >::value>::type
+		>
+			: public visitor_result_impl_1<Visitor, Tuple, typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type>
+		{};
+		template<typename Visitor, typename Tuple>
+		struct visitor_result_impl<
+			Visitor, Tuple,
+			typename std::enable_if<sprout::has_result_type<sprout::weak_result_type<Visitor> >::value>::type
+		> {
+		public:
+			typedef typename sprout::weak_result_type<Visitor>::result_type type;
+		};
+	public:
+		template<typename Visitor, typename Visitable>
+		struct visitor_result
+			: public visitor_result_impl<Visitor, typename Visitable::tuple_type>
+		{};
+		template<typename Visitor, typename Visitable>
+		struct visitor_result<Visitor, Visitable const>
+			: public visitor_result_impl<Visitor, typename Visitable::tuple_type const>
+		{};
+		template<typename Visitor, typename Visitable>
+		struct visitor_result<Visitor, Visitable volatile>
+			: public visitor_result_impl<Visitor, typename Visitable::tuple_type volatile>
+		{};
+		template<typename Visitor, typename Visitable>
+		struct visitor_result<Visitor, Visitable const volatile>
+			: public visitor_result_impl<Visitor, typename Visitable::tuple_type const volatile>
+		{};
+	private:
 		template<int I>
 		static SPROUT_CONSTEXPR typename std::enable_if<
 			I == sizeof...(Types),
@@ -124,21 +172,24 @@ namespace sprout {
 				: output<I + 1>(os, t, which)
 				;
 		}
-		template<int I, typename Tuple, typename Visitor>
+		template<typename Result, int I, typename Tuple, typename Visitor>
 		static SPROUT_CONSTEXPR typename std::enable_if<
-			I == sizeof...(Types),
-			typename std::decay<Visitor>::type::result_type
-		>::type visit(Tuple&& t, Visitor&& v, int which) {
-			return typename std::decay<Visitor>::type::result_type();
-		}
-		template<int I, typename Tuple, typename Visitor>
-		static SPROUT_CONSTEXPR typename std::enable_if<
-			I != sizeof...(Types),
-			typename std::decay<Visitor>::type::result_type
+			I == sizeof...(Types) - 1,
+			Result
 		>::type visit(Tuple&& t, Visitor&& v, int which) {
 			return I == which
 				? sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)))
-				: visit<I + 1>(sprout::forward<Tuple>(t), sprout::forward<Visitor>(v), which)
+				: throw std::domain_error("variant<>: bad visit")
+				;
+		}
+		template<typename Result, int I, typename Tuple, typename Visitor>
+		static SPROUT_CONSTEXPR typename std::enable_if<
+			I != sizeof...(Types) - 1,
+			Result
+		>::type visit(Tuple&& t, Visitor&& v, int which) {
+			return I == which
+				? sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)))
+				: visit<Result, I + 1>(sprout::forward<Tuple>(t), sprout::forward<Visitor>(v), which)
 				;
 		}
 	private:
@@ -249,12 +300,16 @@ namespace sprout {
 		}
 		// visitation support
 		template<typename Visitor>
-		SPROUT_CONSTEXPR typename std::decay<Visitor>::type::result_type apply_visitor(Visitor&& visitor) const {
-			return visit<0>(tuple_, sprout::forward<Visitor>(visitor), which_);
+		SPROUT_CONSTEXPR typename visitor_result<typename std::remove_reference<Visitor>::type, variant const>::type
+		apply_visitor(Visitor&& visitor) const {
+			typedef typename visitor_result<typename std::remove_reference<Visitor>::type, variant const>::type result_type;
+			return visit<result_type, 0>(tuple_, sprout::forward<Visitor>(visitor), which_);
 		}
 		template<typename Visitor>
-		typename std::decay<Visitor>::type::result_type apply_visitor(Visitor&& visitor) {
-			return visit<0>(tuple_, sprout::forward<Visitor>(visitor), which_);
+		typename visitor_result<typename std::remove_reference<Visitor>::type, variant>::type
+		apply_visitor(Visitor&& visitor) {
+			typedef typename visitor_result<typename std::remove_reference<Visitor>::type, variant>::type result_type;
+			return visit<result_type, 0>(tuple_, sprout::forward<Visitor>(visitor), which_);
 		}
 	};
 
