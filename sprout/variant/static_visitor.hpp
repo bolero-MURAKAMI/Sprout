@@ -4,6 +4,9 @@
 #include <sprout/config.hpp>
 
 namespace sprout {
+	//
+	// static_visitor
+	//
 	template<typename R = void>
 	class static_visitor {
 	public:

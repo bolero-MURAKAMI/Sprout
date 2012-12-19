@@ -16,6 +16,7 @@
 #include <sprout/type/algorithm/find_index.hpp>
 #include <sprout/functional/type_traits/has_type.hpp>
 #include <sprout/functional/type_traits/weak_result_type.hpp>
+#include <sprout/variant/visitor_result.hpp>
 
 namespace sprout {
 	template<typename... Types>
@@ -76,6 +77,15 @@ namespace sprout {
 		typedef typename impl_type::tuple_type tuple_type;
 	private:
 		template<typename Visitor, typename Tuple, typename IndexTuple>
+		struct visitor_result_impl_2;
+		template<typename Visitor, typename Tuple, sprout::index_t... Indexes>
+		struct visitor_result_impl_2<Visitor, Tuple, sprout::index_tuple<Indexes...> > {
+		public:
+			typedef typename Visitor::template visitor_result<
+				decltype((std::declval<Visitor>())(sprout::tuples::get<Indexes>(std::declval<Tuple>())))...
+			>::type type;
+		};
+		template<typename Visitor, typename Tuple, typename IndexTuple>
 		struct visitor_result_impl_1;
 		template<typename Visitor, typename Tuple, sprout::index_t... Indexes>
 		struct visitor_result_impl_1<Visitor, Tuple, sprout::index_tuple<Indexes...> > {
@@ -91,19 +101,35 @@ namespace sprout {
 		template<typename Visitor, typename Tuple>
 		struct visitor_result_impl<
 			Visitor, Tuple,
-			typename std::enable_if<!sprout::has_result_type<sprout::weak_result_type<Visitor> >::value>::type
-		>
-			: public visitor_result_impl_1<Visitor, Tuple, typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type>
-		{};
-		template<typename Visitor, typename Tuple>
-		struct visitor_result_impl<
-			Visitor, Tuple,
-			typename std::enable_if<sprout::has_result_type<sprout::weak_result_type<Visitor> >::value>::type
+			typename std::enable_if<
+				sprout::has_result_type<sprout::weak_result_type<Visitor> >::value
+			>::type
 		> {
 		public:
 			typedef typename sprout::weak_result_type<Visitor>::result_type type;
 		};
+		template<typename Visitor, typename Tuple>
+		struct visitor_result_impl<
+			Visitor, Tuple,
+			typename std::enable_if<
+				sprout::has_visitor_result<Visitor>::value
+					&& !sprout::has_result_type<sprout::weak_result_type<Visitor> >::value
+			>::type
+		>
+			: public visitor_result_impl_2<Visitor, Tuple, typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type>
+		{};
+		template<typename Visitor, typename Tuple>
+		struct visitor_result_impl<
+			Visitor, Tuple,
+			typename std::enable_if<
+				!sprout::has_visitor_result<Visitor>::value
+					&& !sprout::has_result_type<sprout::weak_result_type<Visitor> >::value
+			>::type
+		>
+			: public visitor_result_impl_1<Visitor, Tuple, typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type>
+		{};
 	public:
+		// visitation support
 		template<typename Visitor, typename Visitable>
 		struct visitor_result
 			: public visitor_result_impl<Visitor, typename Visitable::tuple_type>
