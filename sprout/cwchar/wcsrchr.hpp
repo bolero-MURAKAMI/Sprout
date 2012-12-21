@@ -7,6 +7,9 @@
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
+	//
+	// wcsrchr
+	//
 	inline SPROUT_CONSTEXPR wchar_t const*
 	wcsrchr(wchar_t const* s, int c) {
 		return *s == static_cast<wchar_t>(c) && (!*s || !sprout::wcsrchr(s + 1, c))? s

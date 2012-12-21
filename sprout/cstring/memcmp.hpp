@@ -3,27 +3,16 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/iterator/ptr_index_iterator.hpp>
+#include <sprout/algorithm/tristate_lexicographical_compare.hpp>
 
 namespace sprout {
-	// Copyright (C) 2011 RiSK (sscrisk)
-
-	namespace detail {
-		inline SPROUT_CONSTEXPR int
-		memcmp_impl(unsigned char const* s1, unsigned char const* s2, std::size_t n) {
-			return !n ? 0
-				: *s1 == *s2 ? sprout::detail::memcmp_impl(s1 + 1, s2 + 1, n - 1)
-				: *s1 - *s2
-				;
-		}
-	}	// namespace detail
-
 	// 7.21.4.1  memcmp ä÷êî
 	inline SPROUT_CONSTEXPR int
 	memcmp(void const* s1, void const* s2, std::size_t n) {
-		return sprout::detail::memcmp_impl(
-			static_cast<unsigned char const*>(s1),
-			static_cast<unsigned char const*>(s2),
-			n
+		return sprout::tristate_lexicographical_compare(
+			sprout::as_iterator(static_cast<unsigned char const*>(s1)), sprout::as_iterator(static_cast<unsigned char const*>(s1), n),
+			sprout::as_iterator(static_cast<unsigned char const*>(s2)), sprout::as_iterator(static_cast<unsigned char const*>(s2), n)
 			);
 	}
 }	// namespace sprout

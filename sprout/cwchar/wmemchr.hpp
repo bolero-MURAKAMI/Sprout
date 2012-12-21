@@ -3,28 +3,52 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/iterator/ptr_index_iterator.hpp>
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
-	// Copyright (C) 2011 RiSK (sscrisk)
-
 	namespace detail {
 		inline SPROUT_CONSTEXPR wchar_t const*
-		wmemchr_impl(wchar_t const* s, wchar_t c, std::size_t n) {
-			return !n ? 0
-				: *s == c ? s
-				: sprout::detail::wmemchr_impl(s + 1, c, n - 1)
-			;
+		wmemchr_impl(wchar_t const* found, wchar_t const* last) {
+			return found == last ? nullptr
+				: found
+				;
+		}
+		inline SPROUT_CONSTEXPR wchar_t*
+		wmemchr_impl(wchar_t* found, wchar_t* last) {
+			return found == last ? nullptr
+				: found
+				;
 		}
 	}	// namespace detail
 
+	//
+	// wmemchr
+	//
 	inline SPROUT_CONSTEXPR wchar_t const*
 	wmemchr(wchar_t const* s, wchar_t c, size_t n) {
-		return sprout::detail::wmemchr_impl(s, c, n);
+		return sprout::detail::wmemchr_impl(
+			sprout::as_iterator_base(
+				NS_SSCRISK_CEL_OR_SPROUT::find(
+					sprout::as_iterator(s), sprout::as_iterator(s, n),
+					c
+					)
+				),
+			s + n
+			);
 	}
 
 	inline SPROUT_CONSTEXPR wchar_t*
 	wmemchr(wchar_t* s, wchar_t c, size_t n) {
-		return const_cast<wchar_t*>(sprout::detail::wmemchr_impl(s, c, n));
+		return sprout::detail::wmemchr_impl(
+			sprout::as_iterator_base(
+				NS_SSCRISK_CEL_OR_SPROUT::find(
+					sprout::as_iterator(s), sprout::as_iterator(s, n),
+					c
+					)
+				),
+			s + n
+			);
 	}
 }	// namespace sprout
 

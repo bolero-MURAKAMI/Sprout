@@ -3,11 +3,14 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/cstring/strchr.hpp>
+#include <sprout/cwchar/wcschr.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
+	//
+	// wcspbrk
+	//
 	inline SPROUT_CONSTEXPR wchar_t const*
 	wcspbrk(wchar_t const* s1, wchar_t const* s2) {
 		return !*s1 ? nullptr

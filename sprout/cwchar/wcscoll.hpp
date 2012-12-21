@@ -2,11 +2,14 @@
 #define SPROUT_CWCHAR_WCSCOLL_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/cstring/strcmp.hpp>
+#include <sprout/cwchar/wcscmp.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
+	//
+	// wcscoll
+	//
 	inline SPROUT_CONSTEXPR int
 	wcscoll(wchar_t const* s1, wchar_t const* s2) {
 		return sprout::wcscmp(s1, s2);
