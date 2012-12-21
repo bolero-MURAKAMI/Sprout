@@ -38,6 +38,7 @@
 #include <sprout/range/algorithm/any_of_equal.hpp>
 #include <sprout/range/algorithm/none_of_equal.hpp>
 #include <sprout/range/algorithm/one_of_equal.hpp>
+#include <sprout/range/algorithm/tristate_lexicographical_compare.hpp>
 #include <sprout/range/algorithm/is_increasing.hpp>
 #include <sprout/range/algorithm/is_decreasing.hpp>
 #include <sprout/range/algorithm/is_strictly_increasing.hpp>
