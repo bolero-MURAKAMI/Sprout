@@ -20,27 +20,27 @@ namespace sprout {
 	class index_iterator
 		: public std::iterator<
 			std::random_access_iterator_tag,
-			typename sprout::container_traits<typename std::decay<Container>::type>::value_type,
-			typename sprout::container_traits<typename std::decay<Container>::type>::difference_type,
+			typename sprout::container_traits<typename std::remove_reference<Container>::type>::value_type,
+			typename sprout::container_traits<typename std::remove_reference<Container>::type>::difference_type,
 			typename std::conditional<
 				std::is_const<typename std::remove_reference<Container>::type>::value,
-				typename sprout::container_traits<typename std::decay<Container>::type>::const_pointer,
-				typename sprout::container_traits<typename std::decay<Container>::type>::pointer
+				typename sprout::container_traits<typename std::remove_reference<Container>::type>::const_pointer,
+				typename sprout::container_traits<typename std::remove_reference<Container>::type>::pointer
 			>::type,
 			typename std::conditional<
 				std::is_const<typename std::remove_reference<Container>::type>::value,
-				typename sprout::container_traits<typename std::decay<Container>::type>::const_reference,
-				typename sprout::container_traits<typename std::decay<Container>::type>::reference
+				typename sprout::container_traits<typename std::remove_reference<Container>::type>::const_reference,
+				typename sprout::container_traits<typename std::remove_reference<Container>::type>::reference
 			>::type
 		>
 	{
 	public:
 		typedef Container container_type;
-		typedef typename sprout::container_traits<typename std::decay<container_type>::type> traits_type;
+		typedef typename sprout::container_traits<typename std::remove_reference<container_type>::type> traits_type;
 		typedef typename std::conditional<
 			std::is_reference<container_type>::value,
-			typename std::decay<container_type>::type const&,
-			typename std::decay<container_type>::type const
+			typename std::remove_reference<container_type>::type const&,
+			typename std::remove_reference<container_type>::type const
 		>::type const_container_type;
 	private:
 		typedef std::iterator<
@@ -58,6 +58,7 @@ namespace sprout {
 				typename traits_type::reference
 			>::type
 		> base_type;
+		typedef sprout::value_holder<container_type> holder_type;
 	public:
 		typedef typename base_type::iterator_category iterator_category;
 		typedef typename base_type::value_type value_type;
@@ -66,10 +67,10 @@ namespace sprout {
 		typedef typename base_type::reference reference;
 		typedef typename traits_type::size_type size_type;
 	private:
-		sprout::value_holder<container_type> holder_;
+		holder_type holder_;
 		size_type index_;
 	private:
-		SPROUT_CONSTEXPR index_iterator(sprout::value_holder<container_type> const& r, size_type index)
+		SPROUT_CONSTEXPR index_iterator(holder_type const& r, size_type index)
 			: holder_(r)
 			, index_(index)
 		{}
@@ -79,12 +80,22 @@ namespace sprout {
 			, index_()
 		{}
 		index_iterator(index_iterator const&) = default;
-		SPROUT_CONSTEXPR index_iterator(typename sprout::value_holder<container_type>::param_type p, size_type index)
+		explicit SPROUT_CONSTEXPR index_iterator(typename holder_type::param_type p)
+			: holder_(p)
+			, index_(0)
+		{}
+		SPROUT_CONSTEXPR index_iterator(typename holder_type::param_type p, size_type index)
 			: holder_(p)
 			, index_(index)
 		{}
 		operator index_iterator<const_container_type>() const {
 			return index_iterator<const_container_type>(holder_.get(), index_);
+		}
+		SPROUT_CONSTEXPR typename holder_type::mutable_or_const_reference base() const {
+			return holder_.get();
+		}
+		SPROUT_CONSTEXPR size_type index() const {
+			return index_;
 		}
 		SPROUT_CONSTEXPR index_iterator next() const {
 			return index_iterator(holder_, index_ + 1);

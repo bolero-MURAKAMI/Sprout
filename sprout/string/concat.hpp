@@ -126,17 +126,19 @@ namespace sprout {
 	template<typename T, std::size_t N, typename Traits, std::size_t M>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N + (M - 1), Traits>
 	operator+(sprout::basic_string<T, N, Traits> const& lhs, T const (& rhs)[M]) {
+		typedef sprout::char_traits_helper<Traits> traits_type;
 		return sprout::detail::string_concat(
 			lhs, lhs.size(),
-			rhs, sprout::char_traits<T>::length(rhs),
+			rhs, traits_type::length(rhs, M - 1),
 			sprout::index_range<0, N + (M - 1)>::make()
 			);
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t M>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, (M - 1) + N, Traits>
 	operator+(T const (& lhs)[M], sprout::basic_string<T, N, Traits> const& rhs) {
+		typedef sprout::char_traits_helper<Traits> traits_type;
 		return sprout::detail::string_concat(
-			lhs, sprout::char_traits<T>::length(lhs),
+			lhs, traits_type::length(lhs, M - 1),
 			rhs, rhs.size(),
 			sprout::index_range<0, (M - 1) + N>::make()
 			);

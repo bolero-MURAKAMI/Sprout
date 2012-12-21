@@ -5,6 +5,10 @@
 #include <algorithm>
 #include <string>
 #include <sprout/config.hpp>
+#include <sprout/functional/bind2nd.hpp>
+#include <sprout/iterator/ptr_index_iterator.hpp>
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	//
@@ -20,6 +24,19 @@ namespace sprout {
 		typedef typename impl_type::off_type off_type;
 		typedef typename impl_type::pos_type pos_type;
 		typedef typename impl_type::state_type state_type;
+	private:
+		struct eq_ {
+		public:
+			SPROUT_CONSTEXPR bool operator()(char_type c1, char_type c2) const SPROUT_NOEXCEPT {
+				return eq(c1, c2);
+			}
+		};
+	private:
+		static SPROUT_CONSTEXPR char_type const* find_impl(char_type const* found, char_type const* last) {
+			return found == last ? nullptr
+				: found
+				;
+		}
 	public:
 		static void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT {
 			impl_type::assign(c1, c2);
@@ -43,10 +60,15 @@ namespace sprout {
 				;
 		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
-			return !n ? nullptr
-				: eq(*s, a) ? s
-				: find(s + 1, n - 1, a)
-				;
+			return find_impl(
+				sprout::as_iterator_base(
+					NS_SSCRISK_CEL_OR_SPROUT::find_if(
+						sprout::as_iterator(s), sprout::as_iterator(s, n),
+						sprout::bind2nd(eq_(), a)
+						)
+					),
+				s + n
+				);
 		}
 		static char_type* move(char_type* s1, char_type const* s2, std::size_t n) {
 			return impl_type::move(s1, s2, n);
@@ -105,10 +127,12 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
-			return !n ? s
-				: eq(*s, a) ? s
-				: find(s + 1, n - 1, a)
-				;
+			return sprout::as_iterator_base(
+				NS_SSCRISK_CEL_OR_SPROUT::find_if(
+					s, s + n,
+					sprout::bind2nd(eq_(), a)
+					)
+				);
 		}
 		template<typename Iterator, typename ConstIterator>
 		static Iterator move(Iterator s1, ConstIterator s2, std::size_t n) {
@@ -140,23 +164,45 @@ namespace sprout {
 		typedef typename traits_type::off_type off_type;
 		typedef typename traits_type::pos_type pos_type;
 		typedef typename traits_type::state_type state_type;
+	private:
+		struct eq_ {
+		public:
+			SPROUT_CONSTEXPR bool operator()(char_type c1, char_type c2) const SPROUT_NOEXCEPT {
+				return traits_type::eq(c1, c2);
+			}
+		};
 	public:
+		static SPROUT_CONSTEXPR std::size_t length(char_type const* s, std::size_t n) {
+			return NS_SSCRISK_CEL_OR_SPROUT::distance(
+				sprout::as_iterator(s),
+				find(sprout::as_iterator(s), n, char_type())
+				);
+		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
-			return !n ? s
-				: traits_type::eq(*s, a) ? s
-				: find(s + 1, n - 1, a)
-				;
+			return sprout::as_iterator_base(
+				NS_SSCRISK_CEL_OR_SPROUT::find_if(
+					sprout::as_iterator(s), sprout::as_iterator(s, n),
+					sprout::bind2nd(eq_(), a)
+					)
+				);
 		}
 		static SPROUT_CONSTEXPR bool is_found(char_type const* found, char_type const* last) {
 			return found != last;
 		}
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename ConstIterator>
+		static SPROUT_CONSTEXPR std::size_t length(ConstIterator s, std::size_t n) {
+			return NS_SSCRISK_CEL_OR_SPROUT::distance(
+				s,
+				find(s, n, char_type())
+				);
+		}
+		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
-			return !n ? s
-				: traits_type::eq(*s, a) ? s
-				: find(s + 1, n - 1, a)
-				;
+			return NS_SSCRISK_CEL_OR_SPROUT::find_if(
+				s, s + n,
+				sprout::bind2nd(eq_(), a)
+				);
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR bool is_found(ConstIterator found, ConstIterator last) {

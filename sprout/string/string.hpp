@@ -874,7 +874,8 @@ namespace sprout {
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
 		to_string_impl(T const(& arr)[N], sprout::index_tuple<Indexes...>) {
-			return to_string_impl_1(arr, sprout::char_traits<T>::length(arr), sprout::index_tuple<Indexes...>());
+			typedef sprout::char_traits_helper<sprout::char_traits<T> > traits_type;
+			return to_string_impl_1(arr, traits_type::length(arr, N - 1), sprout::index_tuple<Indexes...>());
 		}
 	}	// namespace detail
 	//

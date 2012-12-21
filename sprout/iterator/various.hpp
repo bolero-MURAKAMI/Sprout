@@ -3,6 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/iterator/index_iterator.hpp>
+#include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/iterator/value_iterator.hpp>
 #include <sprout/iterator/counting_iterator.hpp>
 #include <sprout/iterator/generator_iterator.hpp>

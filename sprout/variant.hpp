@@ -8,6 +8,7 @@
 #include <sprout/variant/get.hpp>
 #include <sprout/variant/static_visitor.hpp>
 #include <sprout/variant/static_variant_visitor.hpp>
+#include <sprout/variant/as_visitor.hpp>
 #include <sprout/variant/as_variant_visitor.hpp>
 #include <sprout/variant/visitor_result.hpp>
 #include <sprout/variant/apply_visitor.hpp>

@@ -22,6 +22,19 @@ namespace sprout {
 		range_begin(Container const& cont) {
 			return cont.begin();
 		}
+
+		template<typename T, std::size_t N>
+		inline typename sprout::container_traits<T[N]>::iterator
+		range_begin(T (& arr)[N]) {
+			typedef typename sprout::container_traits<T[N]>::iterator iterator;
+			return iterator(arr);
+		}
+		template<typename T, std::size_t N>
+		inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::const_iterator
+		range_begin(T const (& arr)[N]) {
+			typedef typename sprout::container_traits<T const[N]>::const_iterator iterator;
+			return iterator(arr);
+		}
 	}	// namespace container_detail
 }	// namespace sprout
 
@@ -46,12 +59,12 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline typename sprout::container_traits<T[N]>::iterator
 	begin(T (& arr)[N]) {
-		return arr;
+		return sprout::container_detail::range_begin(arr);
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::const_iterator
 	begin(T const (& arr)[N]) {
-		return arr;
+		return sprout::container_detail::range_begin(arr);
 	}
 
 	//
@@ -67,7 +80,7 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::const_iterator
 	cbegin(T const (& arr)[N]) {
-		return arr;
+		return sprout::container_detail::range_begin(arr);
 	}
 }	// namespace sprout
 

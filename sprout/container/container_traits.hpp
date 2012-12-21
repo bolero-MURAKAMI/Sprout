@@ -9,6 +9,9 @@
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>
 #include <sprout/container/detail/array_like.hpp>
+#if SPROUT_USE_PTR_INDEX_ITERATOR_IMPLEMENTATION
+#	include <sprout/iterator/ptr_index_iterator.hpp>
+#endif
 
 namespace sprout {
 	template<typename Container>
@@ -428,8 +431,13 @@ namespace sprout {
 		struct container_traits_default<T[N]> {
 		public:
 			typedef T value_type;
+#if SPROUT_USE_PTR_INDEX_ITERATOR_IMPLEMENTATION
+			typedef sprout::ptr_index_iterator<T> iterator;
+			typedef sprout::ptr_index_iterator<T const> const_iterator;
+#else
 			typedef T* iterator;
 			typedef T const* const_iterator;
+#endif
 			typedef T& reference;
 			typedef T const& const_reference;
 			typedef std::size_t size_type;
