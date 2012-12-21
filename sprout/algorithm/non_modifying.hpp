@@ -41,6 +41,7 @@
 #include <sprout/algorithm/any_of_equal.hpp>
 #include <sprout/algorithm/none_of_equal.hpp>
 #include <sprout/algorithm/one_of_equal.hpp>
+#include <sprout/algorithm/tristate_lexicographical_compare.hpp>
 #include <sprout/algorithm/is_increasing.hpp>
 #include <sprout/algorithm/is_decreasing.hpp>
 #include <sprout/algorithm/is_strictly_increasing.hpp>

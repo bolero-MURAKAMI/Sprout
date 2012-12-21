@@ -4,6 +4,7 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/algorithm/mismatch.hpp>
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT

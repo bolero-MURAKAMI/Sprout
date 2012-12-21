@@ -7,6 +7,7 @@
 #include <sprout/config.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
+#include <sprout/algorithm/tristate_lexicographical_compare.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
@@ -31,6 +32,12 @@ namespace sprout {
 				return eq(c1, c2);
 			}
 		};
+		struct lt_ {
+		public:
+			SPROUT_CONSTEXPR bool operator()(char_type c1, char_type c2) const SPROUT_NOEXCEPT {
+				return lt(c1, c2);
+			}
+		};
 	private:
 		static SPROUT_CONSTEXPR char_type const* find_impl(char_type const* found, char_type const* last) {
 			return found == last ? nullptr
@@ -48,11 +55,11 @@ namespace sprout {
 			return impl_type::lt(c1, c2);
 		}
 		static SPROUT_CONSTEXPR int compare(char_type const* s1, char_type const* s2, std::size_t n) {
-			return !n ? 0
-				: lt(*s1, *s2) ? -1
-				: lt(*s2, *s1) ? 1
-				: compare(s1 + 1, s2 + 1, n - 1)
-				;
+			return sprout::tristate_lexicographical_compare(
+				sprout::as_iterator(s1), sprout::as_iterator(s1, n),
+				sprout::as_iterator(s2), sprout::as_iterator(s2, n),
+				lt_()
+				);
 		}
 		static SPROUT_CONSTEXPR std::size_t length(char_type const* s) {
 			return !*s ? 0
@@ -97,27 +104,27 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstIterator s2, std::size_t n) {
-			return !n ? 0
-				: lt(*s1, *s2) ? -1
-				: lt(*s2, *s1) ? 1
-				: compare(s1 + 1, s2 + 1, n - 1)
-				;
+			return sprout::tristate_lexicographical_compare(
+				sprout::as_iterator(s1), sprout::as_iterator(s1, n),
+				s2, s2 + n,
+				lt_()
+				);
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR int compare(ConstIterator s1, char_type const* s2, std::size_t n) {
-			return !n ? 0
-				: lt(*s1, *s2) ? -1
-				: lt(*s2, *s1) ? 1
-				: compare(s1 + 1, s2 + 1, n - 1)
-				;
+			return sprout::tristate_lexicographical_compare(
+				s1, s1 + n,
+				sprout::as_iterator(s2), sprout::as_iterator(s2, n),
+				lt_()
+				);
 		}
 		template<typename ConstIterator1, typename ConstIterator2>
 		static SPROUT_CONSTEXPR int compare(ConstIterator1 s1, ConstIterator2 s2, std::size_t n) {
-			return !n ? 0
-				: lt(*s1, *s2) ? -1
-				: lt(*s2, *s1) ? 1
-				: compare(s1 + 1, s2 + 1, n - 1)
-				;
+			return sprout::tristate_lexicographical_compare(
+				s1, s1 + n,
+				s2, s2 + n,
+				lt_()
+				);
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR std::size_t length(ConstIterator s) {
