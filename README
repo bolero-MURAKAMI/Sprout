@@ -165,13 +165,18 @@ See: https://github.com/sscrisk/CEL---ConstExpr-Library
 このマクロが定義されているとき、アルゴリズムへのコンテナの一時オブジェクト渡しをサポートしない。  
 *(When this macro is defined, does not support passing a temporary object of the container to the algorithm.)*  
 
+* 効率的な配列走査のサポート *(Support efficient iteration of the array)*  
+`#define SPROUT_CONFIG_DISABLE_SUPPORT_EFFICIENT_ARRAY_ITERATION`  
+このマクロが定義されているとき、効率的な配列走査をサポートしない。  
+*(When this macro is defined, does not support efficient iteration of the array.)*  
+
 
 
 ## サポートするコンパイラ *(Supported Compilers)*
 
 Linux:  
 * GCC, C++11 mode: 4.7.2  
-* Clang, C++11 mode: 3.2(trunk)  
+* Clang, C++11 mode: 3.2  
 
 
 
