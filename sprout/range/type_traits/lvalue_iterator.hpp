@@ -1,5 +1,5 @@
-#ifndef SPROUT_RANGE_LVALUE_ITERATOR_HPP
-#define SPROUT_RANGE_LVALUE_ITERATOR_HPP
+#ifndef SPROUT_RANGE_TYPE_TRAITS_LVALUE_ITERATOR_HPP
+#define SPROUT_RANGE_TYPE_TRAITS_LVALUE_ITERATOR_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -21,4 +21,4 @@ namespace sprout {
 	}	// namespace range
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_RANGE_LVALUE_ITERATOR_HPP
+#endif	// #ifndef SPROUT_RANGE_TYPE_TRAITS_LVALUE_ITERATOR_HPP

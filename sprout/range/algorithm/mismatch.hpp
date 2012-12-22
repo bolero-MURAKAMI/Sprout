@@ -5,7 +5,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/pair.hpp>
-#include <sprout/range/lvalue_iterator.hpp>
+#include <sprout/range/type_traits/lvalue_iterator.hpp>
 #include <sprout/algorithm/mismatch.hpp>
 
 namespace sprout {

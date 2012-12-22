@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/range/lvalue_iterator.hpp>
+#include <sprout/range/type_traits/lvalue_iterator.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {

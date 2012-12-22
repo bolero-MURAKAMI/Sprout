@@ -1,9 +1,9 @@
-#ifndef SPROUT_RANGE_LVALUE_RANGE_HPP
-#define SPROUT_RANGE_LVALUE_RANGE_HPP
+#ifndef SPROUT_RANGE_TYPE_TRAITS_LVALUE_RANGE_HPP
+#define SPROUT_RANGE_TYPE_TRAITS_LVALUE_RANGE_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/range/range_container.hpp>
-#include <sprout/range/lvalue_iterator.hpp>
+#include <sprout/range/type_traits/lvalue_iterator.hpp>
 
 namespace sprout {
 	namespace range {
@@ -18,4 +18,4 @@ namespace sprout {
 	}	// namespace range
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_RANGE_LVALUE_RANGE_HPP
+#endif	// #ifndef SPROUT_RANGE_TYPE_TRAITS_LVALUE_RANGE_HPP

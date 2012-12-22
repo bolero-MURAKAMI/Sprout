@@ -4,7 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/range/lvalue_range.hpp>
+#include <sprout/range/type_traits/lvalue_range.hpp>
 #include <sprout/algorithm/equal_range.hpp>
 
 namespace sprout {
