@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
+#include <sprout/utility/pair.hpp>
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
@@ -22,18 +23,48 @@ namespace sprout {
 			return last - first;
 		}
 
-		// Copyright (C) 2011 RiSK (sscrisk)
 		template<typename InputIterator>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
-		iterator_distance_impl(InputIterator first, InputIterator last) {
-			return first == last ? 0
-				: 1 + sprout::iterator_detail::iterator_distance_impl(sprout::next(first), last)
+		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type>
+		iterator_distance_impl_1(
+			sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> const& current,
+			InputIterator last, typename std::iterator_traits<InputIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
+			return current.first == last ? current
+				: n == 1 ? type(sprout::next(current.first), current.second + 1)
+				: sprout::iterator_detail::iterator_distance_impl_1(
+					sprout::iterator_detail::iterator_distance_impl_1(
+						current,
+						last, n / 2
+						),
+					last, n - n / 2
+					)
+				;
+		}
+		template<typename InputIterator>
+		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type>
+		iterator_distance_impl(
+			sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> const& current,
+			InputIterator last, typename std::iterator_traits<InputIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
+			return current.first == last ? current
+				: sprout::iterator_detail::iterator_distance_impl(
+					sprout::iterator_detail::iterator_distance_impl_1(
+						current,
+						last, n
+						),
+					last, n * 2
+					)
 				;
 		}
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 		iterator_distance(InputIterator first, InputIterator last, void*) {
-			return sprout::iterator_detail::iterator_distance_impl(first, last);
+			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
+			return sprout::iterator_detail::iterator_distance_impl(type(first, 0), last, 1).second;
 		}
 
 		template<typename InputIterator>
