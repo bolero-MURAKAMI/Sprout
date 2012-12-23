@@ -68,10 +68,21 @@ namespace sprout {
 		}
 
 		template<typename InputIterator>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_literal_type<InputIterator>::value,
+			typename std::iterator_traits<InputIterator>::difference_type
+		>::type
 		iterator_distance(InputIterator first, InputIterator last) {
 			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 			return sprout::iterator_detail::iterator_distance(first, last, category());
+		}
+		template<typename InputIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!std::is_literal_type<InputIterator>::value,
+			typename std::iterator_traits<InputIterator>::difference_type
+		>::type
+		iterator_distance(InputIterator first, InputIterator last) {
+			return std::distance(first, last);
 		}
 	}	// namespace iterator_detail
 }	// namespace sprout
@@ -92,7 +103,8 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_distance(first, last) -> iterator_distance(first, last)
-	//		[first, last) is RandomAccessIterator && not Pointer -> last - first
+	//		otherwise, [first, last) is LiteralType -> std::distance(first, last)
+	//		otherwise, [first, last) is RandomAccessIterator && not Pointer -> last - first
 	//		otherwise -> linearly count: first to last
 	//
 	template<typename InputIterator>
