@@ -2,6 +2,7 @@
 #define SPROUT_ALGORITHM_ADJACENT_FIND_HPP
 
 #include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>

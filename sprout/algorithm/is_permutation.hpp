@@ -2,6 +2,7 @@
 #define SPROUT_ALGORITHM_IS_PERMUTATION_HPP
 
 #include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
@@ -35,7 +36,10 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR bool
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator1>::value && sprout::is_constant_distance_iterator<RandomAccessIterator2>::value,
+			bool
+		>::type
 		is_permutation(
 			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, BinaryPredicate pred,
 			std::random_access_iterator_tag*

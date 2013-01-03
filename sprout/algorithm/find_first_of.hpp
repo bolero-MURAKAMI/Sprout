@@ -2,6 +2,7 @@
 #define SPROUT_ALGORITHM_FIND_FIRST_OF_HPP
 
 #include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
