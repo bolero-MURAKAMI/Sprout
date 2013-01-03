@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/utility/pair.hpp>
 #include <sprout/adl/not_found.hpp>
 
@@ -16,7 +17,7 @@ namespace sprout {
 	namespace iterator_detail {
 		template<typename RandomAccessIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!std::is_pointer<RandomAccessIterator>::value,
+			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type
 		>::type
 		iterator_distance(RandomAccessIterator first, RandomAccessIterator last, std::random_access_iterator_tag*) {
@@ -103,7 +104,7 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_distance(first, last) -> iterator_distance(first, last)
-	//		otherwise, [first, last) is LiteralType -> std::distance(first, last)
+	//		otherwise, [first, last) is not LiteralType -> std::distance(first, last)
 	//		otherwise, [first, last) is RandomAccessIterator && not Pointer -> last - first
 	//		otherwise -> linearly count: first to last
 	//

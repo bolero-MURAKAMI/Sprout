@@ -11,7 +11,6 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/clamp.hpp>
 #include <sprout/detail/container_complate.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -54,7 +53,7 @@ namespace sprout {
 					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
 					sprout::internal_begin_offset(result),
 					sprout::size(result),
-					NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)
+					sprout::distance(first, last)
 					);
 			}
 			template<typename InputIterator, typename Result, typename Compare, typename... Args>

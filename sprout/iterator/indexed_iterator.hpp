@@ -191,30 +191,12 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::indexed_iterator<Iterator> >::difference_type
-	iterator_distance(sprout::indexed_iterator<Iterator> first, sprout::indexed_iterator<Iterator> last) {
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR sprout::indexed_iterator<Iterator>
 	iterator_next(sprout::indexed_iterator<Iterator> const& it) {
 		return it.next();
-	}
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::indexed_iterator<Iterator>
-	iterator_next(
-		sprout::indexed_iterator<Iterator> const& it,
-		typename sprout::indexed_iterator<Iterator>::difference_type n
-		)
-	{
-		return it + n;
 	}
 
 	//
@@ -224,15 +206,6 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::indexed_iterator<Iterator>
 	iterator_prev(sprout::indexed_iterator<Iterator> const& it) {
 		return it.prev();
-	}
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::indexed_iterator<Iterator>
-	iterator_prev(
-		sprout::indexed_iterator<Iterator> const& it,
-		typename sprout::indexed_iterator<Iterator>::difference_type n
-		)
-	{
-		return it - n;
 	}
 }	// namespace sprout
 

@@ -5,7 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	// 7.21.6.3  strlen ä÷êî
@@ -18,7 +18,7 @@ namespace sprout {
 
 	inline SPROUT_CONSTEXPR std::size_t
 	strlen(char const* s, std::size_t n) {
-		return NS_SSCRISK_CEL_OR_SPROUT::distance(
+		return sprout::distance(
 			sprout::as_iterator(s),
 			NS_SSCRISK_CEL_OR_SPROUT::find(sprout::as_iterator(s), sprout::as_iterator(s, n), '\0')
 			);

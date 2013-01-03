@@ -3,7 +3,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
@@ -15,11 +14,11 @@ namespace sprout {
 			return mid == last ? mid
 				: pred(*mid) ? sprout::detail::partition_point_impl(
 					sprout::next(mid), last, pred,
-					sprout::next(mid, 1 + NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::next(mid), last) / 2)
+					sprout::next(mid, 1 + sprout::distance(sprout::next(mid), last) / 2)
 					)
 				: sprout::detail::partition_point_impl(
 					first, mid, pred,
-					sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, mid) / 2)
+					sprout::next(first, sprout::distance(first, mid) / 2)
 					)
 				;
 		}
@@ -36,7 +35,7 @@ namespace sprout {
 	partition_point(ForwardIterator first, ForwardIterator last, Predicate pred) {
 		return sprout::detail::partition_point_impl(
 			first, last, pred,
-			sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2)
+			sprout::next(first, sprout::distance(first, last) / 2)
 			);
 	}
 }	// namespace sprout

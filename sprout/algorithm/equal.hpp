@@ -5,8 +5,8 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
+#include <sprout/tuple/tuple.hpp>
 #include <sprout/functional/equal_to.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -24,7 +24,7 @@ namespace sprout {
 					)
 					&& sprout::detail::equal_impl_ra(
 						sprout::next(first1, pivot), last1, sprout::next(first2, pivot), pred,
-						(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2
+						(sprout::distance(first1, last1) - pivot) / 2
 						)
 				;
 		}
@@ -38,17 +38,48 @@ namespace sprout {
 			return first1 == last1 ? true
 				: sprout::detail::equal_impl_ra(
 					first1, last1, first2, pred,
-					NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) / 2
+					sprout::distance(first1, last1) / 2
 					)
 				;
 		}
 
-		// Copyright (C) 2011 RiSK (sscrisk)
 		template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR bool
-		equal_impl(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred) {
-			return first1 == last1 ? true
-				: pred(*first1, *first2) && sprout::detail::equal_impl(sprout::next(first1), last1, sprout::next(first2), pred)
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<InputIterator1, InputIterator2, bool>
+		equal_impl_1(
+			sprout::tuples::tuple<InputIterator1, InputIterator2, bool> const& current,
+			InputIterator1 last1, BinaryPredicate pred, typename std::iterator_traits<InputIterator1>::difference_type n
+			)
+		{
+			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, bool> type;
+			return !sprout::tuples::get<2>(current) || sprout::tuples::get<0>(current) == last1 ? current
+				: n == 1 ? pred(*sprout::tuples::get<0>(current), *sprout::tuples::get<1>(current))
+					? type(sprout::next(sprout::tuples::get<0>(current)), sprout::next(sprout::tuples::get<1>(current)), true)
+					: type(sprout::tuples::get<0>(current), sprout::tuples::get<1>(current), false)
+				: sprout::detail::equal_impl_1(
+					sprout::detail::equal_impl_1(
+						current,
+						last1, pred, n / 2
+						),
+					last1, pred, n - n / 2
+					)
+				;
+		}
+		template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<InputIterator1, InputIterator2, bool>
+		equal_impl(
+			sprout::tuples::tuple<InputIterator1, InputIterator2, bool> const& current,
+			InputIterator1 last1, BinaryPredicate pred, typename std::iterator_traits<InputIterator1>::difference_type n
+			)
+		{
+			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, bool> type;
+			return !sprout::tuples::get<2>(current) || sprout::tuples::get<0>(current) == last1 ? current
+				: sprout::detail::equal_impl(
+					sprout::detail::equal_impl_1(
+						current,
+						last1, pred, n
+						),
+					last1, pred, n * 2
+					)
 				;
 		}
 		template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
@@ -58,15 +89,17 @@ namespace sprout {
 			void*
 			)
 		{
-			return sprout::detail::equal_impl(first1, last1, first2, pred);
+			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, bool> type;
+			return sprout::tuples::get<2>(
+				sprout::detail::equal_impl(type(first1, first2, true), last1, pred, 1)
+				);
 		}
 	}	//namespace detail
 
 	// 25.2.11 Equal
 	//
 	//	recursion depth:
-	//		[first1, last1), first2 are RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR bool

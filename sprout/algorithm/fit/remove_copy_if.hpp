@@ -8,7 +8,7 @@
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace fit {
@@ -24,7 +24,7 @@ namespace sprout {
 					sprout::get_internal(sprout::fixed::remove_copy_if(first, last, result, pred)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
-						NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - NS_SSCRISK_CEL_OR_SPROUT::count_if(first, last, pred),
+						sprout::distance(first, last) - NS_SSCRISK_CEL_OR_SPROUT::count_if(first, last, pred),
 						sprout::size(result)
 						)
 					);

@@ -9,7 +9,6 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -205,7 +204,7 @@ namespace sprout {
 				return sprout::fixed::detail::sort_start(
 					cont,
 					sprout::internal_begin_offset(cont),
-					NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::end(cont) - 1),
+					sprout::distance(sprout::internal_begin(cont), sprout::end(cont) - 1),
 					comp
 					);
 			}
@@ -226,7 +225,7 @@ namespace sprout {
 				return sprout::fixed::detail::sort_start(
 					cont,
 					sprout::internal_begin_offset(cont),
-					NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::end(cont) - 1),
+					sprout::distance(sprout::internal_begin(cont), sprout::end(cont) - 1),
 					NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>()
 					);
 			}

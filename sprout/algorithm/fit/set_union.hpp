@@ -9,7 +9,7 @@
 #include <sprout/sub_array.hpp>
 #include <sprout/detail/algorithm/set_overlap_count.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace fit {
@@ -27,8 +27,8 @@ namespace sprout {
 					sprout::get_internal(sprout::fixed::set_union(first1, last1, first2, last2, result, comp)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
-						NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1)
-							+ NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2)
+						sprout::distance(first1, last1)
+							+ sprout::distance(first2, last2)
 							- sprout::detail::set_overlap_count(first1, last1, first2, last2, comp)
 							,
 						sprout::size(result)
@@ -64,8 +64,8 @@ namespace sprout {
 					sprout::get_internal(sprout::fixed::set_union(first1, last1, first2, last2, result)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
-						NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1)
-							+ NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2)
+						sprout::distance(first1, last1)
+							+ sprout::distance(first2, last2)
 							- sprout::detail::set_overlap_count(first1, last1, first2, last2)
 							,
 						sprout::size(result)

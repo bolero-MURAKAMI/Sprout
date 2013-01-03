@@ -7,7 +7,7 @@
 #include <sprout/array.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -99,7 +99,7 @@ namespace sprout {
 			template<typename IntType, typename Elem>
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_xdigit(Elem c) {
 				return sprout::weed::detail::xvalue_at<IntType>(
-					NS_SSCRISK_CEL_OR_SPROUT::distance(
+					sprout::distance(
 						sprout::weed::detail::xdigits<Elem>::table.begin(),
 						NS_SSCRISK_CEL_OR_SPROUT::find(
 							sprout::weed::detail::xdigits<Elem>::table.begin(),

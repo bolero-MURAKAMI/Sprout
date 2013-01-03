@@ -10,7 +10,6 @@
 #include <sprout/algorithm/fixed/pop_heap.hpp>
 #include <sprout/algorithm/fixed/make_heap.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -69,7 +68,7 @@ namespace sprout {
 				cont, comp,
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont),
-				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), middle)
+				sprout::distance(sprout::begin(cont), middle)
 				);
 		}
 		//
@@ -82,7 +81,7 @@ namespace sprout {
 				cont, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont),
-				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), middle)
+				sprout::distance(sprout::begin(cont), middle)
 				);
 		}
 	}	// namespace fixed

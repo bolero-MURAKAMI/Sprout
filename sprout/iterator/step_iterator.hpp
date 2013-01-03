@@ -8,7 +8,7 @@
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/utility/swap.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -34,12 +34,12 @@ namespace sprout {
 		typedef typename std::iterator_traits<iterator_type>::reference reference;
 	private:
 		static SPROUT_CONSTEXPR iterator_type get_back(iterator_type it, difference_type wid, iterator_type last) {
-			return sprout::next(it, (NS_SSCRISK_CEL_OR_SPROUT::distance(it, last) - 1) / wid * wid);
+			return sprout::next(it, (sprout::distance(it, last) - 1) / wid * wid);
 		}
 		static SPROUT_CONSTEXPR difference_type next_distance(step_iterator const& it, difference_type n) {
-			return n >= 0 ? NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::distance(it.current, it.back), n * it.wid)
+			return n >= 0 ? NS_SSCRISK_CEL_OR_SPROUT::min(sprout::distance(it.current, it.back), n * it.wid)
 				: it.is_last ? 0
-				: NS_SSCRISK_CEL_OR_SPROUT::max(-NS_SSCRISK_CEL_OR_SPROUT::distance(it.current, it.back), n * it.wid)
+				: NS_SSCRISK_CEL_OR_SPROUT::max(-sprout::distance(it.current, it.back), n * it.wid)
 				;
 		}
 	protected:
@@ -235,30 +235,12 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::step_iterator<Iterator> >::difference_type
-	iterator_distance(sprout::step_iterator<Iterator> first, sprout::step_iterator<Iterator> last) {
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
 	iterator_next(sprout::step_iterator<Iterator> const& it) {
 		return it.next();
-	}
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
-	iterator_next(
-		sprout::step_iterator<Iterator> const& it,
-		typename sprout::step_iterator<Iterator>::difference_type n
-		)
-	{
-		return it + n;
 	}
 
 	//
@@ -268,15 +250,6 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
 	iterator_prev(sprout::step_iterator<Iterator> const& it) {
 		return it.prev();
-	}
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::step_iterator<Iterator>
-	iterator_prev(
-		sprout::step_iterator<Iterator> const& it,
-		typename sprout::step_iterator<Iterator>::difference_type n
-		)
-	{
-		return it - n;
 	}
 }	// namespace sprout
 

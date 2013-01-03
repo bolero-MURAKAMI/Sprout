@@ -7,7 +7,6 @@
 #include <sprout/utility/pair.hpp>
 #include <sprout/algorithm/min.hpp>
 #include <sprout/functional/less.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -34,7 +33,7 @@ namespace sprout {
 				: pivot == 0 ? (comp(*first1, *first2) || comp(*first2, *first1) ? found_type(first1, first2) : found_type(last1, last2))
 				: sprout::detail::lexicographical_compare_impl_ra_1(
 					sprout::next(first1, pivot), last1, sprout::next(first2, pivot), last2, comp,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2,
+					(sprout::distance(first1, last1) - pivot) / 2,
 					sprout::detail::lexicographical_compare_impl_ra_1(
 						first1, sprout::next(first1, pivot), first2, sprout::next(first2, pivot), comp,
 						pivot / 2,
@@ -70,7 +69,7 @@ namespace sprout {
 				: first1 == last1 ? true
 				: sprout::detail::lexicographical_compare_impl_ra(
 					first1, last1, first2, last2, comp,
-					sprout::min(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1), NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2))
+					sprout::min(sprout::distance(first1, last1), sprout::distance(first2, last2))
 					)
 				;
 		}

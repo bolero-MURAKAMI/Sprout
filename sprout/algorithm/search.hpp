@@ -5,7 +5,6 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/detail/algorithm/search_one.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -22,7 +21,7 @@ namespace sprout {
 				: pivot == 0 ? sprout::detail::search_one(first1, last1_, first2, last2, pred)
 				: sprout::detail::search_impl_ra(
 					sprout::next(first1, pivot), last1, first2, last2, pred,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2, last1_,
+					(sprout::distance(first1, last1) - pivot) / 2, last1_,
 					sprout::detail::search_impl_ra(
 						first1, sprout::next(first1, pivot), first2, last2, pred,
 						pivot / 2, last1_,
@@ -43,7 +42,7 @@ namespace sprout {
 			return first1 == last1 ? last1
 				: sprout::detail::search_impl_ra(
 					first1, last1, first2, last2, pred,
-					NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) / 2, last1, first1
+					sprout::distance(first1, last1) / 2, last1, first1
 					)
 				;
 		}

@@ -2,9 +2,11 @@
 #define SPROUT_ALGORITHM_FIND_HPP
 
 #include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/utility/pair.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -19,7 +21,7 @@ namespace sprout {
 				: pivot == 0 ? (*first == value ? first : last)
 				: sprout::detail::find_impl_ra(
 					sprout::next(first, pivot), last, value,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - pivot) / 2,
+					(sprout::distance(first, last) - pivot) / 2,
 					sprout::detail::find_impl_ra(
 						first, sprout::next(first, pivot), value,
 						pivot / 2,
@@ -29,23 +31,55 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator, typename T>
-		inline SPROUT_CONSTEXPR RandomAccessIterator
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
+			RandomAccessIterator
+		>::type
 		find(
 			RandomAccessIterator first, RandomAccessIterator last, T const& value,
 			std::random_access_iterator_tag*
 			)
 		{
 			return first == last ? last
-				: sprout::detail::find_impl_ra(first, last, value, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2, first)
+				: sprout::detail::find_impl_ra(first, last, value, sprout::distance(first, last) / 2, first)
 				;
 		}
 
-		// Copyright (C) 2011 RiSK (sscrisk)
 		template<typename InputIterator, typename T>
-		inline SPROUT_CONSTEXPR InputIterator
-		find_impl(InputIterator first, InputIterator last, T const& value) {
-			return first == last || *first == value ? first
-				: sprout::detail::find_impl(sprout::next(first), last, value)
+		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, bool>
+		find_impl_1(
+			sprout::pair<InputIterator, bool> const& current,
+			InputIterator last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<InputIterator, bool> type;
+			return current.second || current.first == last ? current
+				: n == 1 ? *current.first == value ? type(current.first, true) : type(sprout::next(current.first), false)
+				: sprout::detail::find_impl_1(
+					sprout::detail::find_impl_1(
+						current,
+						last, value, n / 2
+						),
+					last, value, n - n / 2
+					)
+				;
+		}
+		template<typename InputIterator, typename T>
+		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, bool>
+		find_impl(
+			sprout::pair<InputIterator, bool> const& current,
+			InputIterator last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<InputIterator, bool> type;
+			return current.second || current.first == last ? current
+				: sprout::detail::find_impl(
+					sprout::detail::find_impl_1(
+						current,
+						last, value, n
+						),
+					last, value, n * 2
+					)
 				;
 		}
 		template<typename InputIterator, typename T>
@@ -55,15 +89,15 @@ namespace sprout {
 			void*
 			)
 		{
-			return sprout::detail::find_impl(first, last, value);
+			typedef sprout::pair<InputIterator, bool> type;
+			return sprout::detail::find_impl(type(first, false), last, value, 1).first;
 		}
 	}	//namespace detail
 
 	// 25.2.5 Find
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename InputIterator, typename T>
 	inline SPROUT_CONSTEXPR InputIterator

@@ -6,7 +6,6 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -66,7 +65,7 @@ namespace sprout {
 					0,
 					sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size
 					>::make(),
-				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), pos),
+				sprout::distance(sprout::internal_begin(cont), pos),
 				sprout::size(input),
 				input
 				);
@@ -84,7 +83,7 @@ namespace sprout {
 					0,
 					sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size
 					>::make(),
-				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
+				sprout::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				sprout::size(input),
 				input
 				);

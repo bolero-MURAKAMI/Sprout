@@ -11,7 +11,7 @@
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/limited.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//
@@ -280,34 +280,12 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::alternate_iterator<LIterator, RIterator> >::difference_type
-	iterator_distance(
-		sprout::alternate_iterator<LIterator, RIterator> first,
-		sprout::alternate_iterator<LIterator, RIterator> last
-		)
-	{
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR sprout::alternate_iterator<LIterator, RIterator>
 	iterator_next(sprout::alternate_iterator<LIterator, RIterator> const& it) {
 		return it.next();
-	}
-	template<typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::alternate_iterator<LIterator, RIterator>
-	iterator_next(
-		sprout::alternate_iterator<LIterator, RIterator> const& it,
-		typename sprout::alternate_iterator<LIterator, RIterator>::difference_type n
-		)
-	{
-		return it + n;
 	}
 
 	//
@@ -317,15 +295,6 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::alternate_iterator<LIterator, RIterator>
 	iterator_prev(sprout::alternate_iterator<LIterator, RIterator> const& it) {
 		return it.prev();
-	}
-	template<typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::alternate_iterator<LIterator, RIterator>
-	iterator_prev(
-		sprout::alternate_iterator<LIterator, RIterator> const& it,
-		typename sprout::alternate_iterator<LIterator, RIterator>::difference_type n
-		)
-	{
-		return it - n;
 	}
 }	// namespace sprout
 

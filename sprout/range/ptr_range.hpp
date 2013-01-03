@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/range/range_container.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace range {
@@ -27,7 +27,7 @@ namespace sprout {
 		make_ptr_range(T* first, T* last) {
 			return sprout::range::range_container<sprout::ptr_index_iterator<T> >(
 				sprout::ptr_index_iterator<T>(first),
-				sprout::ptr_index_iterator<T>(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last))
+				sprout::ptr_index_iterator<T>(first, sprout::distance(first, last))
 				);
 		}
 

@@ -133,15 +133,6 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename Generator>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::generator_iterator<Generator> >::difference_type
-	iterator_distance(sprout::generator_iterator<Generator> first, sprout::generator_iterator<Generator> last) {
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename Generator>

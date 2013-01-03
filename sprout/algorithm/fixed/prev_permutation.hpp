@@ -11,7 +11,6 @@
 #include <sprout/sub_array.hpp>
 #include <sprout/utility/pair.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -33,7 +32,7 @@ namespace sprout {
 						)
 					: sprout::fixed::detail::prev_permutation_impl_4<Result>(
 						sprout::fixed::swap_element(cont, i, sprout::prev(j)),
-						NS_SSCRISK_CEL_OR_SPROUT::distance(first, ii)
+						sprout::distance(first, ii)
 						)
 					;
 			}

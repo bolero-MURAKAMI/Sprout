@@ -4,7 +4,6 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -54,7 +53,7 @@ namespace sprout {
 	is_heap_until(RandomAccessIterator first, RandomAccessIterator last, Compare comp) {
 		return sprout::detail::is_heap_until_impl(
 			first, last, comp,
-			NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)
+			sprout::distance(first, last)
 			);
 	}
 

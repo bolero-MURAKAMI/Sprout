@@ -5,7 +5,6 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/is_sorted_until.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -24,7 +23,7 @@ namespace sprout {
 					)
 					&& sprout::detail::is_sorted_impl_ra(
 						sprout::next(first, pivot), last, comp,
-						(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - pivot) / 2
+						(sprout::distance(first, last) - pivot) / 2
 						)
 				;
 		}
@@ -35,10 +34,10 @@ namespace sprout {
 			std::random_access_iterator_tag*
 			)
 		{
-			return first == last || NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) == 1 ? true
+			return first == last || sprout::distance(first, last) == 1 ? true
 				: sprout::detail::is_sorted_impl_ra(
-					first, sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - 1), comp,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - 1) / 2
+					first, sprout::next(first, sprout::distance(first, last) - 1), comp,
+					(sprout::distance(first, last) - 1) / 2
 					)
 				;
 		}

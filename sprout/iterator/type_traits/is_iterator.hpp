@@ -92,6 +92,17 @@ namespace sprout {
 	struct is_random_access_iterator
 		: public sprout::is_random_access_iterator_category<typename std::iterator_traits<Iterator>::iterator_category>
 	{};
+
+	//
+	// is_constant_distance_iterator
+	//
+	template<typename Iterator>
+	struct is_constant_distance_iterator
+		: public std::integral_constant<
+			bool,
+			sprout::is_random_access_iterator<Iterator>::value && !std::is_pointer<Iterator>::value
+		>
+	{};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ITERATOR_TYPE_TRAITS_IS_ITERATOR_HPP

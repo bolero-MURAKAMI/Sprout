@@ -4,10 +4,11 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/algorithm/find_if.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/utility/pair.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -24,7 +25,7 @@ namespace sprout {
 				: pivot == 0 ? sprout::find_if(first2, last2, sprout::bind2nd(pred, *first1)) != last2 ? first1 : last1
 				: sprout::detail::find_first_of_impl_ra(
 					sprout::next(first1, pivot), last1, first2, last2, pred,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2,
+					(sprout::distance(first1, last1) - pivot) / 2,
 					sprout::detail::find_first_of_impl_ra(
 						first1, sprout::next(first1, pivot), first2, last2, pred,
 						pivot / 2,
@@ -34,7 +35,10 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR RandomAccessIterator1
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator1>::value,
+			RandomAccessIterator1
+		>::type
 		find_first_of(
 			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
 			ForwardIterator2 first2, ForwardIterator2 last2,
@@ -45,22 +49,50 @@ namespace sprout {
 			return first1 == last1 ? last1
 				: sprout::detail::find_first_of_impl_ra(
 					first1, last1, first2, last2,
-					pred, NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) / 2, first1
+					pred, sprout::distance(first1, last1) / 2, first1
 					)
 				;
 		}
 
-		// Copyright (C) 2011 RiSK (sscrisk)
 		template<typename InputIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR InputIterator1
-		find_first_of_impl(
-			InputIterator1 first1, InputIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2,
-			BinaryPredicate pred
+		inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, bool>
+		find_first_of_impl_1(
+			sprout::pair<InputIterator1, bool> current,
+			InputIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
+			typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			return first1 == last1 || sprout::find_if(first2, last2, sprout::bind2nd(pred, *first1)) != last2 ? first1
-				: sprout::detail::find_first_of_impl(sprout::next(first1), last1, first2, last2, pred)
+			typedef sprout::pair<InputIterator1, bool> type;
+			return current.second || current.first == last1 ? current
+				: n == 1 ? sprout::find_if(first2, last2, sprout::bind2nd(pred, *current.first)) != last2
+					? type(current.first, true)
+					: type(sprout::next(current.first), false)
+				: sprout::detail::find_first_of_impl_1(
+					sprout::detail::find_first_of_impl_1(
+						current,
+						last1, first2, last2, pred, n / 2
+						),
+					last1, first2, last2, pred, n - n / 2
+					)
+				;
+		}
+		template<typename InputIterator1, typename ForwardIterator2, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, bool>
+		find_first_of_impl(
+			sprout::pair<InputIterator1, bool> current,
+			InputIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
+			typename std::iterator_traits<InputIterator1>::difference_type n
+			)
+		{
+			typedef sprout::pair<InputIterator1, bool> type;
+			return current.second || current.first == last1 ? current
+				: sprout::detail::find_first_of_impl(
+					sprout::detail::find_first_of_impl_1(
+						current,
+						last1, first2, last2, pred, n
+						),
+					last1, first2, last2, pred, n * 2
+					)
 				;
 		}
 		template<typename InputIterator1, typename ForwardIterator2, typename BinaryPredicate>
@@ -72,17 +104,15 @@ namespace sprout {
 			void*
 			)
 		{
-			return sprout::detail::find_first_of_impl(first1, last1, first2, last2, pred);
+			typedef sprout::pair<InputIterator1, bool> type;
+			return sprout::detail::find_first_of_impl(type(first1, false), last1, first2, last2, pred, 1).first;
 		}
 	}	//namespace detail
 
 	// 25.2.7 Find first
 	//
 	//	recursion depth:
-	//		[first1, last1) is RandomAccessIterator -> O(log N1)
-	//		otherwise -> O(N1)
-	//		[first2, last2) is RandomAccessIterator -> O(log N2)
-	//		otherwise -> O(N2)
+	//		O(log (N1+N2))
 	//
 	template<typename InputIterator1, typename ForwardIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR InputIterator1

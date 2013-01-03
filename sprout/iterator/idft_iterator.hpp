@@ -11,7 +11,7 @@
 #include <sprout/iterator/distance.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/numeric/dft/idft_element.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//
@@ -60,7 +60,7 @@ namespace sprout {
 		idft_iterator(idft_iterator const&) = default;
 		SPROUT_CONSTEXPR idft_iterator(iterator_type first, iterator_type last, difference_type index = 0)
 			: first_(first), last_(last), index_(index)
-			, size_(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last))
+			, size_(sprout::distance(first, last))
 		{}
 		SPROUT_CONSTEXPR idft_iterator next() const {
 			return idft_iterator(first_, last_, index_, index_ + 1, size_);
@@ -165,30 +165,12 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::idft_iterator<Iterator> >::difference_type
-	iterator_distance(sprout::idft_iterator<Iterator> first, sprout::idft_iterator<Iterator> last) {
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR sprout::idft_iterator<Iterator>
 	iterator_next(sprout::idft_iterator<Iterator> const& it) {
 		return it.next();
-	}
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::idft_iterator<Iterator>
-	iterator_next(
-		sprout::idft_iterator<Iterator> const& it,
-		typename sprout::idft_iterator<Iterator>::difference_type n
-		)
-	{
-		return it + n;
 	}
 
 	//
@@ -198,15 +180,6 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::idft_iterator<Iterator>
 	iterator_prev(sprout::idft_iterator<Iterator> const& it) {
 		return it.prev();
-	}
-	template<typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::idft_iterator<Iterator>
-	iterator_prev(
-		sprout::idft_iterator<Iterator> const& it,
-		typename sprout::idft_iterator<Iterator>::difference_type n
-		)
-	{
-		return it - n;
 	}
 }	// namespace sprout
 

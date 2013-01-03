@@ -9,7 +9,7 @@
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//
@@ -180,7 +180,7 @@ namespace sprout {
 		};
 	public:
 		static SPROUT_CONSTEXPR std::size_t length(char_type const* s, std::size_t n) {
-			return NS_SSCRISK_CEL_OR_SPROUT::distance(
+			return sprout::distance(
 				sprout::as_iterator(s),
 				find(sprout::as_iterator(s), n, char_type())
 				);
@@ -199,7 +199,7 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR std::size_t length(ConstIterator s, std::size_t n) {
-			return NS_SSCRISK_CEL_OR_SPROUT::distance(
+			return sprout::distance(
 				s,
 				find(s, n, char_type())
 				);

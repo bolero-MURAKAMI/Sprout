@@ -185,30 +185,12 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::counting_iterator<Incrementable> >::difference_type
-	iterator_distance(sprout::counting_iterator<Incrementable> first, sprout::counting_iterator<Incrementable> last) {
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename Incrementable>
 	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
 	iterator_next(sprout::counting_iterator<Incrementable> const& it) {
 		return it.next();
-	}
-	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
-	iterator_next(
-		sprout::counting_iterator<Incrementable> const& it,
-		typename sprout::counting_iterator<Incrementable>::difference_type n
-		)
-	{
-		return it + n;
 	}
 
 	//
@@ -218,15 +200,6 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
 	iterator_prev(sprout::counting_iterator<Incrementable> const& it) {
 		return it.prev();
-	}
-	template<typename Incrementable>
-	inline SPROUT_CONSTEXPR sprout::counting_iterator<Incrementable>
-	iterator_prev(
-		sprout::counting_iterator<Incrementable> const& it,
-		typename sprout::counting_iterator<Incrementable>::difference_type n
-		)
-	{
-		return it - n;
 	}
 }	// namespace sprout
 

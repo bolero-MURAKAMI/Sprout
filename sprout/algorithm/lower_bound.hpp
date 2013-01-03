@@ -4,7 +4,6 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -21,9 +20,9 @@ namespace sprout {
 	lower_bound(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
 		return first == last ? last
 			: sprout::next(first) == last ? comp(*first, value) ? last : first
-			: comp(*sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value)
-				? sprout::lower_bound(sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), last, value, comp)
-			: sprout::lower_bound(first, sprout::next(first, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2), value, comp)
+			: comp(*sprout::next(first, sprout::distance(first, last) / 2), value)
+				? sprout::lower_bound(sprout::next(first, sprout::distance(first, last) / 2), last, value, comp)
+			: sprout::lower_bound(first, sprout::next(first, sprout::distance(first, last) / 2), value, comp)
 			;
 	}
 

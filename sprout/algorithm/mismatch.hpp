@@ -3,11 +3,11 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
-#include <sprout/utility/pair.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
+#include <sprout/tuple/tuple.hpp>
 #include <sprout/functional/equal_to.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/utility/pair.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -15,7 +15,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<RandomAccessIterator1, RandomAccessIterator2>
 		mismatch_impl_ra_1(RandomAccessIterator1 first1, RandomAccessIterator2 first2, RandomAccessIterator1 found) {
 			return sprout::pair<RandomAccessIterator1, RandomAccessIterator2>{
-				found, sprout::next(first2, NS_SSCRISK_CEL_OR_SPROUT::distance(first1, found))
+				found, sprout::next(first2, sprout::distance(first1, found))
 				};
 		}
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
@@ -29,7 +29,7 @@ namespace sprout {
 				: pivot == 0 ? (!pred(*first1, *first2) ? first1 : last1)
 				: sprout::detail::mismatch_impl_ra(
 					sprout::next(first1, pivot), last1, sprout::next(first2, pivot), pred,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2,
+					(sprout::distance(first1, last1) - pivot) / 2,
 					sprout::detail::mismatch_impl_ra(
 						first1, sprout::next(first1, pivot), first2, pred,
 						pivot / 2,
@@ -50,19 +50,57 @@ namespace sprout {
 					first1, first2,
 					sprout::detail::mismatch_impl_ra(
 						first1, last1, first2, pred,
-						NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) / 2, first1
+						sprout::distance(first1, last1) / 2, first1
 						)
 					)
 				;
 		}
 
-		// Copyright (C) 2011 RiSK (sscrisk)
-		template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
+		template<typename InputIterator1, typename InputIterator2>
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, InputIterator2>
-		mismatch_impl(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred) {
-			return first1 == last1 || !pred(*first1, *first2)
-				? sprout::pair<InputIterator1, InputIterator2>{first1, first2}
-				: sprout::detail::mismatch_impl(sprout::next(first1), last1, sprout::next(first2))
+		mismatch_impl_check(sprout::tuples::tuple<InputIterator1, InputIterator2, bool> const& current) {
+			return sprout::pair<InputIterator1, InputIterator2>(
+				sprout::tuples::get<0>(current),
+				sprout::tuples::get<1>(current)
+				);
+		}
+		template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<InputIterator1, InputIterator2, bool>
+		mismatch_impl_1(
+			sprout::tuples::tuple<InputIterator1, InputIterator2, bool> const& current,
+			InputIterator1 last1, BinaryPredicate pred, typename std::iterator_traits<InputIterator1>::difference_type n
+			)
+		{
+			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, bool> type;
+			return sprout::tuples::get<2>(current) || sprout::tuples::get<0>(current) == last1 ? current
+				: n == 1 ? !pred(*sprout::tuples::get<0>(current), *sprout::tuples::get<1>(current))
+					? type(sprout::tuples::get<0>(current), sprout::tuples::get<1>(current), true)
+					: type(sprout::next(sprout::tuples::get<0>(current)), sprout::next(sprout::tuples::get<1>(current)), false)
+				: sprout::detail::mismatch_impl_1(
+					sprout::detail::mismatch_impl_1(
+						current,
+						last1, pred, n / 2
+						),
+					last1, pred, n - n / 2
+					)
+				;
+		}
+		template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<InputIterator1, InputIterator2, bool>
+		mismatch_impl(
+			sprout::tuples::tuple<InputIterator1, InputIterator2, bool> const& current,
+			InputIterator1 last1, BinaryPredicate pred, typename std::iterator_traits<InputIterator1>::difference_type n
+			)
+		{
+			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, bool> type;
+			return sprout::tuples::get<2>(current) || sprout::tuples::get<0>(current) == last1 ? current
+				: sprout::detail::mismatch_impl(
+					sprout::detail::mismatch_impl_1(
+						current,
+						last1, pred, n
+						),
+					last1, pred, n * 2
+					)
 				;
 		}
 		template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
@@ -72,15 +110,17 @@ namespace sprout {
 			void*
 			)
 		{
-			return sprout::detail::mismatch_impl(first1, last1, first2, pred);
+			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, bool> type;
+			return sprout::detail::mismatch_impl_check(
+				sprout::detail::mismatch_impl(type(first1, first2, false), last1, pred, 1)
+				);
 		}
 	}	//namespace detail
 
 	// 25.2.10 Mismatch
 	//
 	//	recursion depth:
-	//		[first1, last1), first2 are RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, InputIterator2>

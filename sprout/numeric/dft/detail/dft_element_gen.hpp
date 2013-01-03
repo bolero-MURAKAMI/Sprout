@@ -7,7 +7,6 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/math/sin.hpp>
 #include <sprout/math/cos.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -28,7 +27,7 @@ namespace sprout {
 					first, sprout::next(first, pivot), arg, pivot / 2, k
 					)
 					+ sprout::detail::dft_element_gen_impl_ra(
-						sprout::next(first, pivot), last, arg, (NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - pivot) / 2, k + pivot
+						sprout::next(first, pivot), last, arg, (sprout::distance(first, last) - pivot) / 2, k + pivot
 						)
 				;
 		}
@@ -42,7 +41,7 @@ namespace sprout {
 		{
 			typedef typename std::iterator_traits<RandomAccessIterator>::value_type value_type;
 			return first == last ? value_type()
-				: sprout::detail::dft_element_gen_impl_ra(first, last, arg, NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2)
+				: sprout::detail::dft_element_gen_impl_ra(first, last, arg, sprout::distance(first, last) / 2)
 				;
 		}
 

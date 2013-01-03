@@ -5,7 +5,7 @@
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/begin.hpp>
 #include <sprout/container/end.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//
@@ -14,7 +14,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
 	size(Container const& cont) {
-		return NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(cont), sprout::end(cont));
+		return sprout::distance(sprout::begin(cont), sprout::end(cont));
 	}
 }	// namespace sprout
 

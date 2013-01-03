@@ -5,7 +5,6 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/pair.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -34,7 +33,7 @@ namespace sprout {
 						),
 					sprout::detail::minmax_element_impl_ra(
 						sprout::next(first, pivot), last, comp,
-						(NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) - pivot) / 2
+						(sprout::distance(first, last) - pivot) / 2
 						),
 					comp
 					)
@@ -50,7 +49,7 @@ namespace sprout {
 			return first == last ? sprout::pair<RandomAccessIterator, RandomAccessIterator>(last, last)
 				: sprout::detail::minmax_element_impl_ra(
 					first, last, comp,
-					NS_SSCRISK_CEL_OR_SPROUT::distance(first, last) / 2
+					sprout::distance(first, last) / 2
 					)
 				;
 		}

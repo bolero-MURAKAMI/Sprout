@@ -5,7 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/numeric/dft/detail/dft_element_gen.hpp>
 #include <sprout/math/constants.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -35,7 +35,7 @@ namespace sprout {
 	idft_element(	InputIterator first, InputIterator last, typename std::iterator_traits<InputIterator>::difference_type i) {
 		return sprout::detail::idft_element_impl(
 			first, last, i,
-			NS_SSCRISK_CEL_OR_SPROUT::distance(first, last)
+			sprout::distance(first, last)
 			);
 	}
 }	// namespace sprout

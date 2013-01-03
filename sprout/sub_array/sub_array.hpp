@@ -11,7 +11,6 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/swap.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -114,8 +113,8 @@ namespace sprout {
 				typename std::enable_if<std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_{to_holder<Container>(arr)[Indexes]...}
-				, first_(NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::cbegin(arr), first))
-				, last_(NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::cbegin(arr), last))
+				, first_(sprout::distance(sprout::cbegin(arr), first))
+				, last_(sprout::distance(sprout::cbegin(arr), last))
 			{}
 			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
@@ -127,8 +126,8 @@ namespace sprout {
 				typename std::enable_if<!std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_(to_holder<Container>(arr))
-				, first_(NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::cbegin(arr), first))
-				, last_(NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::cbegin(arr), last))
+				, first_(sprout::distance(sprout::cbegin(arr), first))
+				, last_(sprout::distance(sprout::cbegin(arr), last))
 			{}
 			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
@@ -223,8 +222,8 @@ namespace sprout {
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
 				sprout::index_range<0, static_size>::make(),
-				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(other.get_array()), first),
-				NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::begin(other.get_array()), last)
+				sprout::distance(sprout::begin(other.get_array()), first),
+				sprout::distance(sprout::begin(other.get_array()), last)
 				)
 		{}
 		SPROUT_CONSTEXPR sub_array(sub_array<Container> const& other, difference_type first, difference_type last)

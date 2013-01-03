@@ -12,7 +12,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/limited.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//
@@ -55,11 +55,11 @@ namespace sprout {
 		SPROUT_CONSTEXPR joint_iterator advance_impl(difference_type n) const {
 			return n >= 0
 				? is_in_left()
-					? advance_impl_posite(n, NS_SSCRISK_CEL_OR_SPROUT::distance(current1, last1))
+					? advance_impl_posite(n, sprout::distance(current1, last1))
 					: joint_iterator(current1, last1, first2, sprout::next(current2, n))
 				: first2 == current2
 					? joint_iterator(sprout::next(current1, n), last1, first2, current2)
-					: advance_impl_negate(n, -NS_SSCRISK_CEL_OR_SPROUT::distance(first2, current2))
+					: advance_impl_negate(n, -sprout::distance(first2, current2))
 				;
 		}
 	public:
@@ -314,34 +314,12 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::joint_iterator<LIterator, RIterator> >::difference_type
-	iterator_distance(
-		sprout::joint_iterator<LIterator, RIterator> first,
-		sprout::joint_iterator<LIterator, RIterator> last
-		)
-	{
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR sprout::joint_iterator<LIterator, RIterator>
 	iterator_next(sprout::joint_iterator<LIterator, RIterator> const& it) {
 		return it.next();
-	}
-	template<typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::joint_iterator<LIterator, RIterator>
-	iterator_next(
-		sprout::joint_iterator<LIterator, RIterator> const& it,
-		typename sprout::joint_iterator<LIterator, RIterator>::difference_type n
-		)
-	{
-		return it + n;
 	}
 
 	//
@@ -351,15 +329,6 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::joint_iterator<LIterator, RIterator>
 	iterator_prev(sprout::joint_iterator<LIterator, RIterator> const& it) {
 		return it.prev();
-	}
-	template<typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::joint_iterator<LIterator, RIterator>
-	iterator_prev(
-		sprout::joint_iterator<LIterator, RIterator> const& it,
-		typename sprout::joint_iterator<LIterator, RIterator>::difference_type n
-		)
-	{
-		return it - n;
 	}
 }	// namespace sprout
 

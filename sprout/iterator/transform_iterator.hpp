@@ -399,34 +399,12 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> >::difference_type
-	iterator_distance(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> first,
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> last
-		)
-	{
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>
 	iterator_next(sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it) {
 		return it.next();
-	}
-	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>
-	iterator_next(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
-		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
-		)
-	{
-		return it + n;
 	}
 
 	//
@@ -436,15 +414,6 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>
 	iterator_prev(sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it) {
 		return it.prev();
-	}
-	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline SPROUT_CONSTEXPR sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>
-	iterator_prev(
-		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator> const& it,
-		typename sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>::difference_type n
-		)
-	{
-		return it - n;
 	}
 }	// namespace sprout
 

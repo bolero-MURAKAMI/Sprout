@@ -15,7 +15,7 @@
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/npos.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -821,7 +821,7 @@ namespace sprout {
 			template<std::size_t M>
 			static SPROUT_CONSTEXPR typename copied_type::size_type
 			length_impl(sprout::array<T, M> const& arr) {
-				return NS_SSCRISK_CEL_OR_SPROUT::distance(
+				return sprout::distance(
 					arr.begin(),
 					NS_SSCRISK_CEL_OR_SPROUT::find(arr.begin(), arr.end(), T())
 					);

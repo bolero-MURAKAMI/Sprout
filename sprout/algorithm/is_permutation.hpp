@@ -5,10 +5,11 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
+#include <sprout/utility/pair.hpp>
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/algorithm/count_if.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/detail/algorithm/count_n_if.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -16,20 +17,20 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		is_permutation_impl_ra(
 			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
-			RandomAccessIterator2 first2, RandomAccessIterator2 last2,
+			RandomAccessIterator2 first2, typename std::iterator_traits<RandomAccessIterator2>::difference_type d2,
 			BinaryPredicate pred,
 			typename std::iterator_traits<RandomAccessIterator1>::difference_type pivot
 			)
 		{
 			return pivot == 0 ? sprout::count_if(first1, last1, sprout::bind2nd(pred, *first1))
-					<= sprout::count_if(first2, last2, sprout::bind2nd(pred, *first1))
+					<= sprout::detail::count_n_if(first2, d2, sprout::bind2nd(pred, *first1))
 				: sprout::detail::is_permutation_impl_ra(
-					first1, last1, first2, last2,
+					first1, last1, first2, d2,
 					pred, pivot / 2
 					)
 					&& sprout::detail::is_permutation_impl_ra(
-						sprout::next(first1, pivot), last1, first2, last2,
-						pred, (NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2
+						sprout::next(first1, pivot), last1, first2, d2,
+						pred, (sprout::distance(first1, last1) - pivot) / 2
 						)
 				;
 		}
@@ -42,25 +43,52 @@ namespace sprout {
 		{
 			return first1 == last1 ? true
 				: sprout::detail::is_permutation_impl_ra(
-					first1, last1, first2, sprout::next(first2, NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1)),
-					pred, NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) / 2
+					first1, last1, first2, sprout::distance(first1, last1),
+					pred, sprout::distance(first1, last1) / 2
 					)
 				;
 		}
 
-		// Copyright (C) 2011 RiSK (sscrisk)
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR bool
-		is_permutation_impl(
-			ForwardIterator1 first1, ForwardIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2,
-			BinaryPredicate pred
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, bool>
+		is_permutation_impl_1(
+			sprout::pair<ForwardIterator1, bool> const& current,
+			ForwardIterator1 last1, ForwardIterator2 first2, typename std::iterator_traits<ForwardIterator2>::difference_type d2,
+			BinaryPredicate pred, typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
-			return first1 == last1 ? true
-				: sprout::count_if(first1, last1, sprout::bind2nd(pred, *first1))
-					<= sprout::count_if(first2, last2, sprout::bind2nd(pred, *first1))
-					&& sprout::detail::is_permutation_impl(sprout::next(first1), last1, first2, last2, pred)
+			typedef sprout::pair<ForwardIterator1, bool> type;
+			return !current.second || current.first == last1 ? current
+				: n == 1 ? sprout::count_if(current.first, last1, sprout::bind2nd(pred, *current.first))
+					<= sprout::detail::count_n_if(first2, d2, sprout::bind2nd(pred, *current.first))
+					? type(sprout::next(current.first), true)
+					: type(current.first, false)
+				: sprout::detail::is_permutation_impl_1(
+					sprout::detail::is_permutation_impl_1(
+						current,
+						last1, first2, d2, pred, n / 2
+						),
+					last1, first2, d2, pred, n - n / 2
+					)
+				;
+		}
+		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, bool>
+		is_permutation_impl(
+			sprout::pair<ForwardIterator1, bool> const& current,
+			ForwardIterator1 last1, ForwardIterator2 first2, typename std::iterator_traits<ForwardIterator2>::difference_type d2,
+			BinaryPredicate pred, typename std::iterator_traits<ForwardIterator1>::difference_type n
+			)
+		{
+			typedef sprout::pair<ForwardIterator1, bool> type;
+			return !current.second || current.first == last1 ? current
+				: sprout::detail::is_permutation_impl(
+					sprout::detail::is_permutation_impl_1(
+						current,
+						last1, first2, d2, pred, n
+						),
+					last1, first2, d2, pred, n * 2
+					)
 				;
 		}
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
@@ -70,17 +98,15 @@ namespace sprout {
 			void*
 			)
 		{
-			return sprout::detail::is_permutation_impl(
-				first1, last1, first2, sprout::next(first2, NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1)), pred
-				);
+			typedef sprout::pair<ForwardIterator1, bool> type;
+			return sprout::detail::is_permutation_impl(type(first1, true), last1, first2, sprout::distance(first1, last1), pred, 1).second;
 		}
 	}	// namespace detail
 
 	// 25.2.12 Is permutation
 	//
 	//	recursion depth:
-	//		[first1, last1), first2 are RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N^2)
+	//		O(log N)
 	//
 	template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR bool

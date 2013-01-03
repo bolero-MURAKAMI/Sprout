@@ -7,7 +7,7 @@
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/algorithm/mismatch.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/tuple/tuple.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -17,12 +17,7 @@ namespace sprout {
 			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred
 			)
 		{
-			return sprout::detail::mismatch_impl_ra(
-					first1, last1, first2, pred,
-					NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) / 2, first1
-					)
-					== last1
-				? first1
+			return sprout::mismatch(first1, last1, first2, pred).first == last1 ? first1
 				: last1
 				;
 		}
@@ -33,25 +28,57 @@ namespace sprout {
 			std::random_access_iterator_tag*
 			)
 		{
-			return NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) < NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2) ? last1
+			return sprout::distance(first1, last1) < sprout::distance(first2, last2) ? last1
 				: first1 == last1 ? first1
 				: sprout::detail::search_one_impl_ra(
-					first1, sprout::next(first1, NS_SSCRISK_CEL_OR_SPROUT::distance(first2, last2)), first2, last2, pred
+					first1, sprout::next(first1, sprout::distance(first2, last2)), first2, last2, pred
 					)
 				;
 		}
 
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR ForwardIterator1
-		search_one_impl(
-			ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
-			ForwardIterator1 first1_
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool>
+		search_one_impl_1(
+			sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool> const& current,
+			ForwardIterator1 last1, ForwardIterator2 last2, BinaryPredicate pred,
+			ForwardIterator1 first1_, typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
-			return first2 == last2 ? first1_
-				: first1 == last1 ? last1
-				: !pred(*first1, *first2) ? first1
-				: sprout::detail::search_one_impl(sprout::next(first1), last1, sprout::next(first2), last2, pred, first1_)
+			typedef sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool> type;
+			return sprout::tuples::get<2>(current) ? current
+				: sprout::tuples::get<1>(current) == last2 ? type(first1_, last2, true)
+				: sprout::tuples::get<0>(current) == last1 ? type(last1, last2, true)
+				: n == 1 ? !pred(*sprout::tuples::get<0>(current), *sprout::tuples::get<1>(current))
+						? type(sprout::next(sprout::tuples::get<0>(current)), last2, true)
+						: type(sprout::next(sprout::tuples::get<0>(current)), sprout::next(sprout::tuples::get<1>(current)), false)
+				: sprout::detail::search_one_impl_1(
+					sprout::detail::search_one_impl_1(
+						current,
+						last1, last2, pred, first1_, n / 2
+						),
+					last1, last2, pred, first1_, n - n / 2
+					)
+				;
+		}
+		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool>
+		search_one_impl(
+			sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool> const& current,
+			ForwardIterator1 last1, ForwardIterator2 last2, BinaryPredicate pred,
+			ForwardIterator1 first1_, typename std::iterator_traits<ForwardIterator1>::difference_type n
+			)
+		{
+			typedef sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool> type;
+			return sprout::tuples::get<2>(current) ? current
+				: sprout::tuples::get<1>(current) == last2 ? type(first1_, last2, true)
+				: sprout::tuples::get<0>(current) == last1 ? type(last1, last2, true)
+				: sprout::detail::search_one_impl(
+					sprout::detail::search_one_impl_1(
+						current,
+						last1, last2, pred, first1_, n
+						),
+					last1, last2, pred, first1_, n * 2
+					)
 				;
 		}
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
@@ -61,11 +88,17 @@ namespace sprout {
 			void*
 			)
 		{
-			return sprout::detail::search_one_impl(first1, last1, first2, last2, pred, first1);
+			typedef sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool> type;
+			return sprout::tuples::get<0>(
+				sprout::detail::search_one_impl(type(first1, first2, false), last1, last2, pred, first1, 1)
+				);
 		}
 
 		//
 		// search_one
+		//
+		//	recursion depth:
+		//		O(log (N1+N2))
 		//
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR ForwardIterator1

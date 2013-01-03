@@ -3,16 +3,16 @@
 
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/search.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/functional/equal_to.hpp>
+#include <sprout/utility/pair.hpp>
 #include <sprout/detail/algorithm/search_one.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
 		template<typename RandomAccessIterator1>
 		inline SPROUT_CONSTEXPR RandomAccessIterator1
-		find_end_impl_ra_1(RandomAccessIterator1 first1, RandomAccessIterator1 result, RandomAccessIterator1 searched) {
+		find_end_impl_check_ra(RandomAccessIterator1 first1, RandomAccessIterator1 result, RandomAccessIterator1 searched) {
 			return searched == first1 ? searched
 				: result
 				;
@@ -29,13 +29,13 @@ namespace sprout {
 		{
 			return searched == last1_ ? result
 				: searched < first1 ? pivot == 0
-					? sprout::detail::find_end_impl_ra_1(
+					? sprout::detail::find_end_impl_check_ra(
 						first1, searched,
 						sprout::detail::search_one(first1, last1_, first2, last2, pred)
 						)
 					: sprout::detail::find_end_impl_ra(
 						sprout::next(first1, pivot), last1, first2, last2, pred,
-						(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2, last1_, searched,
+						(sprout::distance(first1, last1) - pivot) / 2, last1_, searched,
 						sprout::detail::find_end_impl_ra(
 							first1, sprout::next(first1, pivot), first2, last2, pred,
 							pivot / 2, last1_, searched,
@@ -45,7 +45,7 @@ namespace sprout {
 				: pivot == 0 ? sprout::detail::search_one(first1, last1_, first2, last2, pred)
 				: sprout::detail::find_end_impl_ra(
 					sprout::next(first1, pivot), last1, first2, last2, pred,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2, last1_, result,
+					(sprout::distance(first1, last1) - pivot) / 2, last1_, result,
 					sprout::detail::find_end_impl_ra(
 						first1, sprout::next(first1, pivot), first2, last2, pred,
 						pivot / 2, last1_, result,
@@ -55,7 +55,10 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR RandomAccessIterator1
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator1>::value,
+			RandomAccessIterator1
+		>::type
 		find_end(
 			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
 			ForwardIterator2 first2, ForwardIterator2 last2,
@@ -66,25 +69,60 @@ namespace sprout {
 			return first1 == last1 ? last1
 				: sprout::detail::find_end_impl_ra(
 					first1, last1, first2, last2, pred,
-					NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) / 2, last1, last1,
+					sprout::distance(first1, last1) / 2, last1, last1,
 					first1
 					)
 				;
 		}
 
+		template<typename ForwardIterator1>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, ForwardIterator1>
+		find_end_impl_check(sprout::pair<ForwardIterator1, ForwardIterator1> const& current, ForwardIterator1 last1, ForwardIterator1 searched) {
+			typedef sprout::pair<ForwardIterator1, ForwardIterator1> type;
+			return searched == current.first ? type(sprout::next(current.first), searched)
+				: searched == last1 ? type(last1, current.second)
+				: type(sprout::next(current.first), current.second)
+				;
+		}
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR ForwardIterator1
-		find_end_impl(
-			ForwardIterator1 first1, ForwardIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2,
-			BinaryPredicate pred,
-			ForwardIterator1 result
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, ForwardIterator1>
+		find_end_impl_1(
+			sprout::pair<ForwardIterator1, ForwardIterator1> const& current,
+			ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
+			typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
-			return first1 == last1 ? result
+			typedef sprout::pair<ForwardIterator1, ForwardIterator1> type;
+			return current.first == last1 ? current
+				: n == 1 ? sprout::detail::find_end_impl_check(
+					current, last1,
+					sprout::detail::search_one(current.first, last1, first2, last2, pred)
+					)
+				: sprout::detail::find_end_impl_1(
+					sprout::detail::find_end_impl_1(
+						current,
+						last1, first2, last2, pred, n / 2
+						),
+					last1, first2, last2, pred, n - n / 2
+					)
+				;
+		}
+		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, ForwardIterator1>
+		find_end_impl(
+			sprout::pair<ForwardIterator1, ForwardIterator1> const& current,
+			ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
+			typename std::iterator_traits<ForwardIterator1>::difference_type n
+			)
+		{
+			typedef sprout::pair<ForwardIterator1, ForwardIterator1> type;
+			return current.first == last1 ? current
 				: sprout::detail::find_end_impl(
-					sprout::search(sprout::next(first1), last1, first2, last2, pred), last1, first2, last2, pred,
-					first1
+					sprout::detail::find_end_impl_1(
+						current,
+						last1, first2, last2, pred, n
+						),
+					last1, first2, last2, pred, n * 2
 					)
 				;
 		}
@@ -97,22 +135,15 @@ namespace sprout {
 			void*
 			)
 		{
-			return first2 == last2 ? last1
-				: sprout::detail::find_end_impl(
-					sprout::search(first1, last1, first2, last2, pred), last1, first2, last2, pred,
-					last1
-					)
-				;
+			typedef sprout::pair<ForwardIterator1, ForwardIterator1> type;
+			return sprout::detail::find_end_impl(type(first1, last1), last1, first2, last2, pred, 1).second;
 		}
 	}	// namespace detail
 
 	// 25.2.6 Find end
 	//
 	//	recursion depth:
-	//		[first1, last1) is RandomAccessIterator -> O(log N1)
-	//		otherwise -> O(N1)
-	//		[first2, last2) is RandomAccessIterator -> O(log N2)
-	//		otherwise -> O(N2)
+	//		O(log (N1+N2))
 	//
 	template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR ForwardIterator1

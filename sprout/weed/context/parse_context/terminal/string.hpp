@@ -15,7 +15,7 @@
 #include <sprout/weed/traits/parser/attribute_of.hpp>
 #include <sprout/weed/context/parse_context_fwd.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -48,7 +48,7 @@ namespace sprout {
 				context_type const& ctx
 				) const
 			{
-				return NS_SSCRISK_CEL_OR_SPROUT::distance(ctx.begin(), ctx.end()) >= sprout::size(arg)
+				return sprout::distance(ctx.begin(), ctx.end()) >= sprout::size(arg)
 					&&NS_SSCRISK_CEL_OR_SPROUT::equal(sprout::begin(arg), sprout::end(arg), ctx.begin())
 					? result_type(
 						true,

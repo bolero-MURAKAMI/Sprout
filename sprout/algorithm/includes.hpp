@@ -5,7 +5,6 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/functional/less.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -27,7 +26,7 @@ namespace sprout {
 						pivot / 2
 						),
 					last2, comp,
-					(NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) - pivot) / 2
+					(sprout::distance(first1, last1) - pivot) / 2
 					)
 				;
 		}
@@ -41,7 +40,7 @@ namespace sprout {
 			return first1 == last1 ? first2 == last2
 				: sprout::detail::includes_impl_ra(
 					first1, last1, first2, last2, comp,
-					NS_SSCRISK_CEL_OR_SPROUT::distance(first1, last1) / 2
+					sprout::distance(first1, last1) / 2
 					)
 					== last2
 				;

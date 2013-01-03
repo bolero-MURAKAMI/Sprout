@@ -216,30 +216,12 @@ namespace sprout {
 	}
 
 	//
-	// iterator_distance
-	//
-	template<typename Iterator, typename Compare>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<sprout::clamp_iterator<Iterator, Compare> >::difference_type
-	iterator_distance(sprout::clamp_iterator<Iterator, Compare> first, sprout::clamp_iterator<Iterator, Compare> last) {
-		return last - first;
-	}
-
-	//
 	// iterator_next
 	//
 	template<typename Iterator, typename Compare>
 	inline SPROUT_CONSTEXPR sprout::clamp_iterator<Iterator, Compare>
 	iterator_next(sprout::clamp_iterator<Iterator, Compare> const& it) {
 		return it.next();
-	}
-	template<typename Iterator, typename Compare>
-	inline SPROUT_CONSTEXPR sprout::clamp_iterator<Iterator, Compare>
-	iterator_next(
-		sprout::clamp_iterator<Iterator, Compare> const& it,
-		typename sprout::clamp_iterator<Iterator, Compare>::difference_type n
-		)
-	{
-		return it + n;
 	}
 
 	//
@@ -249,15 +231,6 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::clamp_iterator<Iterator, Compare>
 	iterator_prev(sprout::clamp_iterator<Iterator, Compare> const& it) {
 		return it.prev();
-	}
-	template<typename Iterator, typename Compare>
-	inline SPROUT_CONSTEXPR sprout::clamp_iterator<Iterator, Compare>
-	iterator_prev(
-		sprout::clamp_iterator<Iterator, Compare> const& it,
-		typename sprout::clamp_iterator<Iterator, Compare>::difference_type n
-		)
-	{
-		return it - n;
 	}
 }	// namespace sprout
 

@@ -5,7 +5,7 @@
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/end.hpp>
 #include <sprout/container/internal_end.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//
@@ -14,7 +14,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
 	internal_end_offset_backward(Container const& cont) {
-		return NS_SSCRISK_CEL_OR_SPROUT::distance(sprout::end(cont), sprout::internal_end(cont));
+		return sprout::distance(sprout::end(cont), sprout::internal_end(cont));
 	}
 }	// namespace sprout
 

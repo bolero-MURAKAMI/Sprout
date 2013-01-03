@@ -8,7 +8,7 @@
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
 #include <sprout/detail/algorithm/count_n_if.hpp>
-#include HDR_ITERATOR_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/operation.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
@@ -28,7 +28,7 @@ namespace sprout {
 					offset + sprout::detail::count_n_if(
 						first,
 						NS_SSCRISK_CEL_OR_SPROUT::min(
-							NS_SSCRISK_CEL_OR_SPROUT::distance(first, last),
+							sprout::distance(first, last),
 							sprout::size(result)
 							),
 						pred
