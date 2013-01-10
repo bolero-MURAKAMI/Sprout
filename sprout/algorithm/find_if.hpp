@@ -92,7 +92,7 @@ namespace sprout {
 			typedef sprout::pair<InputIterator, bool> type;
 			return sprout::detail::find_if_impl(type(first, false), last, pred, 1).first;
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.2.5 Find
 	//

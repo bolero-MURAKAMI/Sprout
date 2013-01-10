@@ -44,6 +44,74 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_partitioned(
+					testspr::reduct_input(sprout::begin(arr1)),
+					testspr::reduct_input(sprout::end(arr1)),
+					testspr::is_odd<int>()
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_partitioned(
+					testspr::reduct_input(sprout::begin(arr1)),
+					testspr::reduct_input(sprout::end(arr1)),
+					testspr::less_than<int>(6)
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_partitioned(
+					testspr::reduct_input(sprout::begin(arr1)),
+					testspr::reduct_input(sprout::begin(arr1) + 5),
+					testspr::is_odd<int>()
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_partitioned(
+					testspr::reduct_input(sprout::begin(arr1)),
+					testspr::reduct_input(sprout::begin(arr1) + 5),
+					testspr::less_than<int>(6)
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+
+#if defined(__clang__)
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_partitioned(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					testspr::is_odd<int>()
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_partitioned(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					testspr::less_than<int>(6)
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_partitioned(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					testspr::is_odd<int>()
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_partitioned(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					testspr::less_than<int>(6)
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+#endif
 		}
 	}
 }	// namespace testspr

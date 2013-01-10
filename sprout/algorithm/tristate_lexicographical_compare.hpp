@@ -96,7 +96,7 @@ namespace sprout {
 		{
 			return sprout::detail::tristate_lexicographical_compare_impl(first1, last1, first2, last2, comp);
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	//
 	// tristate_lexicographical_compare
@@ -233,7 +233,7 @@ namespace sprout {
 		{
 			return sprout::detail::tristate_lexicographical_compare_2_impl(first1, last1, delim1, first2, last2, delim2, comp);
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	//
 	// tristate_lexicographical_compare

@@ -145,7 +145,7 @@ namespace sprout {
 	// 25.2.6 Find end
 	//
 	//	recursion depth:
-	//		O(log (N1+N2))
+	//		O(log(N1+N2))
 	//
 	template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR ForwardIterator1

@@ -98,7 +98,7 @@ namespace sprout {
 		// search_one
 		//
 		//	recursion depth:
-		//		O(log (N1+N2))
+		//		O(log(N1+N2))
 		//
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR ForwardIterator1
@@ -111,7 +111,7 @@ namespace sprout {
 		search_one(ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2) {
 			return sprout::detail::search_one(first1, last1, first2, last2, sprout::equal_to<>());
 		}
-	}	//namespace detail
+	}	// namespace detail
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_DETAIL_ALGORITHM_SEARCH_ONE_HPP

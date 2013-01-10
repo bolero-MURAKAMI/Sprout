@@ -98,7 +98,7 @@ namespace sprout {
 				sprout::detail::equal_impl(type(first1, first2, true), last1, pred, 1)
 				);
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.2.11 Equal
 	//

@@ -2,8 +2,11 @@
 #define SPROUT_ALGORITHM_IS_SORTED_UNTIL_HPP
 
 #include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/utility/pair.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -29,7 +32,10 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator, typename Compare>
-		inline SPROUT_CONSTEXPR RandomAccessIterator
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
+			RandomAccessIterator
+		>::type
 		is_sorted_until(
 			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
 			std::random_access_iterator_tag*
@@ -45,13 +51,43 @@ namespace sprout {
 				;
 		}
 
-		// Copyright (C) 2011 RiSK (sscrisk)
 		template<typename ForwardIterator, typename Compare>
-		inline SPROUT_CONSTEXPR ForwardIterator
-		is_sorted_until_impl(ForwardIterator first, ForwardIterator next, ForwardIterator last, Compare comp) {
-			return next == last ? last
-				: comp(*next, *first) ? first
-				: sprout::detail::is_sorted_until_impl(next, sprout::next(next), last, comp)
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> 
+		is_sorted_until_impl_1(
+			sprout::pair<ForwardIterator, ForwardIterator> const& current,
+			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
+			return current.second == last ? current
+				: n == 1 ? comp(*current.second, *current.first)
+					? type(current.first, last)
+					: type(current.second, sprout::next(current.second))
+				: sprout::detail::is_sorted_until_impl_1(
+					sprout::detail::is_sorted_until_impl_1(
+						current,
+						last, comp, n / 2
+						),
+					last, comp, n - n / 2
+					)
+				;
+		}
+		template<typename ForwardIterator, typename Compare>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> 
+		is_sorted_until_impl(
+			sprout::pair<ForwardIterator, ForwardIterator> const& current,
+			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
+			return current.second == last ? current
+				: sprout::detail::is_sorted_until_impl(
+					sprout::detail::is_sorted_until_impl_1(
+						current,
+						last, comp, n
+						),
+					last, comp, n * 2
+					)
 				;
 		}
 		template<typename ForwardIterator, typename Compare>
@@ -61,17 +97,19 @@ namespace sprout {
 			void*
 			)
 		{
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
 			return first == last ? last
-				: sprout::detail::is_sorted_until_impl(first, sprout::next(first), last, comp)
+				: sprout::next(
+					sprout::detail::is_sorted_until_impl(type(first, sprout::next(first)), last, comp, 1).first
+					)
 				;
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.4.1.5 is_sorted
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename ForwardIterator, typename Compare>
 	inline SPROUT_CONSTEXPR ForwardIterator

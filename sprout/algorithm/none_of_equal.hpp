@@ -53,7 +53,7 @@ namespace sprout {
 		{
 			return sprout::detail::none_of_equal_impl(first, last, value);
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	//
 	// none_of_equal

@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/utility/pair.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -61,23 +61,23 @@ namespace sprout {
 
 		template<typename ForwardIterator>
 		inline SPROUT_CONSTEXPR ForwardIterator
-		adjacent_find_impl_check(sprout::tuples::tuple<ForwardIterator, ForwardIterator, bool> const& current) {
-			return !sprout::tuples::get<2>(current) ? sprout::tuples::get<1>(current)
-				: sprout::tuples::get<0>(current)
+		adjacent_find_impl_check(ForwardIterator found, ForwardIterator last) {
+			return sprout::next(found) == last ? last
+				: found
 				;
 		}
 		template<typename ForwardIterator, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR sprout::tuples::tuple<ForwardIterator, ForwardIterator, bool>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> 
 		adjacent_find_impl_1(
-			sprout::tuples::tuple<ForwardIterator, ForwardIterator, bool> const& current,
+			sprout::pair<ForwardIterator, ForwardIterator> const& current,
 			ForwardIterator last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
-			typedef sprout::tuples::tuple<ForwardIterator, ForwardIterator, bool> type;
-			return sprout::tuples::get<2>(current) || sprout::tuples::get<1>(current) == last ? current
-				: n == 1 ? pred(*sprout::tuples::get<0>(current), *sprout::tuples::get<1>(current))
-					? type(sprout::tuples::get<0>(current), sprout::tuples::get<1>(current), true)
-					: type(sprout::tuples::get<1>(current), sprout::next(sprout::tuples::get<1>(current)), false)
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
+			return current.second == last ? current
+				: n == 1 ? pred(*current.first, *current.second)
+					? type(current.first, last)
+					: type(current.second, sprout::next(current.second))
 				: sprout::detail::adjacent_find_impl_1(
 					sprout::detail::adjacent_find_impl_1(
 						current,
@@ -88,14 +88,14 @@ namespace sprout {
 				;
 		}
 		template<typename ForwardIterator, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR sprout::tuples::tuple<ForwardIterator, ForwardIterator, bool>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> 
 		adjacent_find_impl(
-			sprout::tuples::tuple<ForwardIterator, ForwardIterator, bool> const& current,
+			sprout::pair<ForwardIterator, ForwardIterator> const& current,
 			ForwardIterator last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
-			typedef sprout::tuples::tuple<ForwardIterator, ForwardIterator, bool> type;
-			return sprout::tuples::get<2>(current) || sprout::tuples::get<1>(current) == last ? current
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
+			return current.second == last ? current
 				: sprout::detail::adjacent_find_impl(
 					sprout::detail::adjacent_find_impl_1(
 						current,
@@ -112,14 +112,15 @@ namespace sprout {
 			void*
 			)
 		{
-			typedef sprout::tuples::tuple<ForwardIterator, ForwardIterator, bool> type;
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
 			return first == last ? last
 				: sprout::detail::adjacent_find_impl_check(
-					sprout::detail::adjacent_find_impl(type(first, sprout::next(first), false), last, pred, 1)
+					sprout::detail::adjacent_find_impl(type(first, sprout::next(first)), last, pred, 1).first,
+					last
 					)
 				;
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.2.8 Adjacent find
 	//

@@ -108,12 +108,12 @@ namespace sprout {
 			typedef sprout::pair<InputIterator1, bool> type;
 			return sprout::detail::find_first_of_impl(type(first1, false), last1, first2, last2, pred, 1).first;
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.2.7 Find first
 	//
 	//	recursion depth:
-	//		O(log (N1+N2))
+	//		O(log(N1+N2))
 	//
 	template<typename InputIterator1, typename ForwardIterator2, typename BinaryPredicate>
 	inline SPROUT_CONSTEXPR InputIterator1

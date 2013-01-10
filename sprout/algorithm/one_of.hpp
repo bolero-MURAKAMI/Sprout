@@ -1,10 +1,12 @@
 #ifndef SPROUT_ALGORITHM_ONE_OF_HPP
 #define SPROUT_ALGORITHM_ONE_OF_HPP
 
+#include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/find_if.hpp>
-#include <sprout/algorithm/none_of.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/utility/pair.hpp>
 
 namespace sprout {
 	namespace detail {

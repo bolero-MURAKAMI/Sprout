@@ -119,7 +119,7 @@ namespace sprout {
 				sprout::detail::mismatch_impl(type(first1, first2, false), last1, pred, 1)
 				);
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.2.10 Mismatch
 	//

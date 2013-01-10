@@ -14,7 +14,7 @@ namespace sprout {
 			return mid == last ? mid
 				: pred(*mid) ? sprout::detail::partition_point_impl(
 					sprout::next(mid), last, pred,
-					sprout::next(mid, 1 + sprout::distance(sprout::next(mid), last) / 2)
+					sprout::next(mid, 1 + (sprout::distance(mid, last) - 1) / 2)
 					)
 				: sprout::detail::partition_point_impl(
 					first, mid, pred,
@@ -27,8 +27,7 @@ namespace sprout {
 	// 25.3.13 Partitions
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename ForwardIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR ForwardIterator

@@ -93,7 +93,7 @@ namespace sprout {
 		{
 			return sprout::detail::lexicographical_compare_impl(first1, last1, first2, last2, comp);
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.4.8 Lexicographical comparison
 	//

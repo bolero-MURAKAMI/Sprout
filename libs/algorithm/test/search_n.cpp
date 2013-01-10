@@ -89,6 +89,164 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
 			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1)),
+					2,
+					5
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1)),
+					4,
+					5
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5),
+					2,
+					5
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5),
+					4,
+					5
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1)),
+					2,
+					5,
+					testspr::equal_to<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1)),
+					4,
+					5,
+					testspr::equal_to<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5),
+					2,
+					5,
+					testspr::equal_to<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5),
+					4,
+					5,
+					testspr::equal_to<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+			}
+
+#if defined(__clang__)
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					2,
+					5
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					4,
+					5
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					2,
+					5
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					4,
+					5
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					2,
+					5,
+					testspr::equal_to<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					4,
+					5,
+					testspr::equal_to<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					2,
+					5,
+					testspr::equal_to<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::search_n(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					4,
+					5,
+					testspr::equal_to<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+			}
+#endif
 		}
 	}
 }	// namespace testspr

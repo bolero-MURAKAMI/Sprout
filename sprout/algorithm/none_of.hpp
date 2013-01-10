@@ -90,7 +90,7 @@ namespace sprout {
 			typedef sprout::pair<InputIterator, bool> type;
 			return sprout::detail::none_of_impl(type(first, true), last, pred, 1).second;
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.2.3 None of
 	//

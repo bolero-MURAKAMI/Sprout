@@ -90,7 +90,7 @@ namespace sprout {
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
 			return sprout::detail::count_impl(type(first, 0), last, value, 1).second;
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.2.9 Count
 	//

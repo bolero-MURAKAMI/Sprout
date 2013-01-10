@@ -66,7 +66,7 @@ namespace sprout {
 		{
 			return sprout::detail::includes_impl(first1, last1, first2, comp);
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.4.5.1 includes
 	//

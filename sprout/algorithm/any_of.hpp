@@ -90,7 +90,7 @@ namespace sprout {
 			typedef sprout::pair<InputIterator, bool> type;
 			return sprout::detail::any_of_impl(type(first, false), last, pred, 1).second;
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.2.2 Any of
 	//

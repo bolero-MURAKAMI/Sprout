@@ -2,8 +2,10 @@
 #define SPROUT_ALGORITHM_IS_SORTED_HPP
 
 #include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/algorithm/is_sorted_until.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
@@ -28,7 +30,10 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator, typename Compare>
-		inline SPROUT_CONSTEXPR bool
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
+			bool
+		>::type
 		is_sorted(
 			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
 			std::random_access_iterator_tag*
@@ -52,13 +57,12 @@ namespace sprout {
 		{
 			return sprout::is_sorted_until(first, last, comp) == last;
 		}
-	}	//namespace detail
+	}	// namespace detail
 
 	// 25.4.1.5 is_sorted
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename ForwardIterator, typename Compare>
 	inline SPROUT_CONSTEXPR bool
