@@ -4,6 +4,7 @@
 #include <sprout/algorithm/equal_range.hpp>
 #include <sprout/array.hpp>
 #include <sprout/container.hpp>
+#include <sprout/iterator.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -20,7 +21,7 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(found.first == sprout::begin(arr1) + 6);
 				TESTSPR_BOTH_ASSERT(found.second == sprout::begin(arr1) + 9);
-				TESTSPR_BOTH_ASSERT(found.second - found.first == 3);
+				TESTSPR_BOTH_ASSERT(sprout::distance(found.first, found.second) == 3);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::equal_range(
@@ -31,8 +32,54 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(found.first == sprout::begin(arr1) + 5);
 				TESTSPR_BOTH_ASSERT(found.second == sprout::begin(arr1) + 5);
-				TESTSPR_BOTH_ASSERT(found.second - found.first == 0);
+				TESTSPR_BOTH_ASSERT(sprout::distance(found.first, found.second) == 0);
 			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::equal_range(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1)),
+					7
+					);
+				TESTSPR_BOTH_ASSERT(found.first.base() == sprout::begin(arr1) + 6);
+				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr1) + 9);
+				TESTSPR_BOTH_ASSERT(sprout::distance(found.first.base(), found.second.base()) == 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::equal_range(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5),
+					7,
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(found.first.base() == sprout::begin(arr1) + 5);
+				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr1) + 5);
+				TESTSPR_BOTH_ASSERT(sprout::distance(found.first.base(), found.second.base()) == 0);
+			}
+
+#if defined(__clang__)
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::equal_range(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					7
+					);
+				TESTSPR_BOTH_ASSERT(found.first.base() == sprout::begin(arr1) + 6);
+				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr1) + 9);
+				TESTSPR_BOTH_ASSERT(sprout::distance(found.first.base(), found.second.base()) == 3);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::equal_range(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					7,
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(found.first.base() == sprout::begin(arr1) + 5);
+				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr1) + 5);
+				TESTSPR_BOTH_ASSERT(sprout::distance(found.first.base(), found.second.base()) == 0);
+			}
+#endif
 		}
 	}
 }	// namespace testspr

@@ -29,6 +29,44 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
 			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::lower_bound(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1)),
+					7
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 6);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::lower_bound(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5),
+					7,
+					testspr::less<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+			}
+
+#if defined(__clang__)
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::lower_bound(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					7
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 6);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::lower_bound(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					7,
+					testspr::less<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+			}
+#endif
 		}
 	}
 }	// namespace testspr

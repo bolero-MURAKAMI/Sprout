@@ -1,6 +1,7 @@
 #ifndef SPROUT_ALGORITHM_BINARY_SEARCH_HPP
 #define SPROUT_ALGORITHM_BINARY_SEARCH_HPP
 
+#include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/algorithm/lower_bound.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
@@ -17,8 +18,7 @@ namespace sprout {
 	// 25.4.3.4 binary_search
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename ForwardIterator, typename T, typename Compare>
 	inline SPROUT_CONSTEXPR bool

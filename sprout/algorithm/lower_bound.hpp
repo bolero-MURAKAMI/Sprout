@@ -12,8 +12,7 @@ namespace sprout {
 	// 25.4.3.1 lower_bound
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename ForwardIterator, typename T, typename Compare>
 	inline SPROUT_CONSTEXPR ForwardIterator

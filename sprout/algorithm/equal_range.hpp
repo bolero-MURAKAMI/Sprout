@@ -1,6 +1,7 @@
 #ifndef SPROUT_ALGORITHM_EQUAL_RANGE_HPP
 #define SPROUT_ALGORITHM_EQUAL_RANGE_HPP
 
+#include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/algorithm/lower_bound.hpp>
 #include <sprout/algorithm/upper_bound.hpp>
@@ -13,13 +14,15 @@ namespace sprout {
 	// 25.4.3.3 equal_range
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename ForwardIterator, typename T, typename Compare>
-	inline SPROUT_CONSTEXPR pair<ForwardIterator, ForwardIterator>
+	inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 	equal_range(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
-		return {sprout::lower_bound(first, last, value, comp), sprout::upper_bound(first, last, value, comp)};
+		return sprout::pair<ForwardIterator, ForwardIterator>{
+			sprout::lower_bound(first, last, value, comp),
+			sprout::upper_bound(first, last, value, comp)
+			};
 	}
 
 	template<typename ForwardIterator, typename T>
