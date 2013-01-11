@@ -7,9 +7,9 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/algorithm/is_sorted.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/random_swap_result.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -18,7 +18,7 @@ namespace sprout {
 			template<typename Container, typename Shuffled, typename Compare>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 			bozo_sort_impl_1(Shuffled const& shuffled, Compare comp) {
-				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
+				return sprout::is_sorted(
 					sprout::begin(sprout::tuples::get<0>(shuffled)),
 					sprout::end(sprout::tuples::get<0>(shuffled)),
 					comp
@@ -36,7 +36,7 @@ namespace sprout {
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 			bozo_sort_impl(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
-				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
+				return sprout::is_sorted(
 					sprout::begin(cont),
 					sprout::end(cont),
 					comp

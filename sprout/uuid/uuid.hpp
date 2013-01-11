@@ -9,7 +9,8 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include <sprout/algorithm/equal.hpp>
+#include <sprout/algorithm/lexicographical_compare.hpp>
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -233,7 +234,7 @@ namespace sprout {
 		//
 		inline SPROUT_CONSTEXPR bool
 		operator==(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-			return NS_SSCRISK_CEL_OR_SPROUT::equal(lhs.begin(), lhs.end(), rhs.begin());
+			return sprout::equal(lhs.begin(), lhs.end(), rhs.begin());
 		}
 		inline SPROUT_CONSTEXPR bool
 		operator!=(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
@@ -241,7 +242,7 @@ namespace sprout {
 		}
 		inline SPROUT_CONSTEXPR bool
 		operator<(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {
-			return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+			return sprout::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 		}
 		inline SPROUT_CONSTEXPR bool
 		operator>(sprout::uuids::uuid const& lhs, sprout::uuids::uuid const& rhs) {

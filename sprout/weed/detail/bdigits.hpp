@@ -6,8 +6,8 @@
 #include <sprout/string.hpp>
 #include <sprout/array.hpp>
 #include <sprout/tuple/tuple.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/find.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -101,7 +101,7 @@ namespace sprout {
 				return sprout::weed::detail::bvalue_at<IntType>(
 					sprout::distance(
 						sprout::weed::detail::bdigits<Elem>::table.begin(),
-						NS_SSCRISK_CEL_OR_SPROUT::find(
+						sprout::find(
 							sprout::weed::detail::bdigits<Elem>::table.begin(),
 							sprout::weed::detail::bdigits<Elem>::table.end(),
 							c

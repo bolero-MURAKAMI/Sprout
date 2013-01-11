@@ -9,8 +9,8 @@
 #include <sprout/string.hpp>
 #include <sprout/uuid/uuid.hpp>
 #include <sprout/uuid/detail/table.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/find.hpp>
 
 namespace sprout {
 	namespace uuids {
@@ -54,7 +54,7 @@ namespace sprout {
 				return value_at(
 					sprout::distance(
 						sprout::uuids::detail::digits<Elem>::table.begin(),
-						NS_SSCRISK_CEL_OR_SPROUT::find(
+						sprout::find(
 							sprout::uuids::detail::digits<Elem>::table.begin(),
 							sprout::uuids::detail::digits<Elem>::table.end(),
 							c

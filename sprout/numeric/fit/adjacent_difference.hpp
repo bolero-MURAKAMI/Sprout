@@ -7,8 +7,8 @@
 #include <sprout/numeric/fixed/adjacent_difference.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/operation.hpp>
+#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fit {

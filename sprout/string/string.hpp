@@ -10,12 +10,13 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/array.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
+#include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/find.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/npos.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include <sprout/iterator/operation.hpp>
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -823,7 +824,7 @@ namespace sprout {
 			length_impl(sprout::array<T, M> const& arr) {
 				return sprout::distance(
 					arr.begin(),
-					NS_SSCRISK_CEL_OR_SPROUT::find(arr.begin(), arr.end(), T())
+					sprout::find(arr.begin(), arr.end(), T())
 					);
 			}
 			template<typename... Args, sprout::index_t... Indexes>

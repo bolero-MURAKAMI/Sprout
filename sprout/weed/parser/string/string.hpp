@@ -7,15 +7,14 @@
 #include <sprout/container/begin.hpp>
 #include <sprout/container/end.hpp>
 #include <sprout/container/size.hpp>
-#include <sprout/iterator/next.hpp>
+#include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/equal.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
 #include <sprout/weed/parser/lit.hpp>
 #include <sprout/weed/traits/type/is_c_str.hpp>
 #include <sprout/weed/traits/type/is_string.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -54,7 +53,7 @@ namespace sprout {
 				typedef typename result<Context, Iterator>::type result_type;
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return sprout::distance(first, last) >= sprout::size(t_)
-					&&NS_SSCRISK_CEL_OR_SPROUT::equal(sprout::begin(t_), sprout::end(t_), first)
+					&& sprout::equal(sprout::begin(t_), sprout::end(t_), first)
 					? result_type(true, sprout::next(first, sprout::size(t_)), attribute_type())
 					: result_type(false, first, typename attribute<Context, Iterator>::type())
 					;
@@ -129,7 +128,7 @@ namespace sprout {
 				typedef typename result<Context, Iterator>::type result_type;
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return sprout::distance(first, last) >= sprout::size(t_)
-					&&NS_SSCRISK_CEL_OR_SPROUT::equal(sprout::begin(t_), sprout::end(t_), first)
+					&& sprout::equal(sprout::begin(t_), sprout::end(t_), first)
 					? result_type(true, sprout::next(first, sprout::size(t_)), attribute_type())
 					: result_type(false, first, typename attribute<Context, Iterator>::type())
 					;

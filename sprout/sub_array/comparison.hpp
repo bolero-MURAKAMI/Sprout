@@ -4,7 +4,8 @@
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/sub_array/sub_array.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include <sprout/algorithm/equal.hpp>
+#include <sprout/algorithm/lexicographical_compare.hpp>
 
 namespace sprout {
 	//
@@ -18,7 +19,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR bool
 	operator==(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
-		return NS_SSCRISK_CEL_OR_SPROUT::equal(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs));
+		return sprout::equal(sprout::begin(lhs), sprout::end(lhs), sprout::begin(rhs));
 	}
 	template<typename Container>
 	inline SPROUT_CONSTEXPR bool
@@ -28,7 +29,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR bool
 	operator<(sprout::sub_array<Container> const& lhs, sprout::sub_array<Container> const& rhs) {
-		return NS_SSCRISK_CEL_OR_SPROUT::lexicographical_compare(
+		return sprout::lexicographical_compare(
 			sprout::begin(lhs), sprout::end(lhs),
 			sprout::begin(rhs), sprout::end(rhs)
 			);

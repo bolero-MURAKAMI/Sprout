@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include <sprout/algorithm/find.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -29,7 +29,7 @@ namespace sprout {
 	wmemchr(wchar_t const* s, wchar_t c, size_t n) {
 		return sprout::detail::wmemchr_impl(
 			sprout::as_iterator_base(
-				NS_SSCRISK_CEL_OR_SPROUT::find(
+				sprout::find(
 					sprout::as_iterator(s), sprout::as_iterator(s, n),
 					c
 					)
@@ -42,7 +42,7 @@ namespace sprout {
 	wmemchr(wchar_t* s, wchar_t c, size_t n) {
 		return sprout::detail::wmemchr_impl(
 			sprout::as_iterator_base(
-				NS_SSCRISK_CEL_OR_SPROUT::find(
+				sprout::find(
 					sprout::as_iterator(s), sprout::as_iterator(s, n),
 					c
 					)

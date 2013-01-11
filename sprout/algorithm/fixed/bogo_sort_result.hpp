@@ -8,9 +8,9 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/algorithm/is_sorted.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/shuffle_result.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -22,7 +22,7 @@ namespace sprout {
 				typename std::decay<UniformRandomNumberGenerator>::type
 			>
 			bogo_sort_result_impl_1(Shuffled const& shuffled, Compare comp) {
-				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
+				return sprout::is_sorted(
 					sprout::begin(sprout::tuples::get<0>(shuffled)),
 					sprout::end(sprout::tuples::get<0>(shuffled)),
 					comp
@@ -47,7 +47,7 @@ namespace sprout {
 					typename sprout::fixed::result_of::algorithm<Container>::type,
 					typename std::decay<UniformRandomNumberGenerator>::type
 				> result_type;
-				return NS_SSCRISK_CEL_OR_SPROUT::is_sorted(
+				return sprout::is_sorted(
 					sprout::begin(cont),
 					sprout::end(cont),
 					comp

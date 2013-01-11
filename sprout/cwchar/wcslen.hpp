@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/find.hpp>
 
 namespace sprout {
 	//
@@ -22,7 +22,7 @@ namespace sprout {
 	wcslen(wchar_t const* s, std::size_t n) {
 		return sprout::distance(
 			sprout::as_iterator(s),
-			NS_SSCRISK_CEL_OR_SPROUT::find(sprout::as_iterator(s), sprout::as_iterator(s, n), L'\0')
+			sprout::find(sprout::as_iterator(s), sprout::as_iterator(s, n), L'\0')
 			);
 	}
 }	// namespace sprout

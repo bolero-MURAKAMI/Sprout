@@ -5,7 +5,6 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	// 7.21.4.4  strncmp ä÷êî

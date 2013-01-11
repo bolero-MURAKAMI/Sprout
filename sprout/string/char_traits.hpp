@@ -7,8 +7,8 @@
 #include <sprout/config.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
+#include <sprout/algorithm/find_if.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
@@ -69,7 +69,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
 			return find_impl(
 				sprout::as_iterator_base(
-					NS_SSCRISK_CEL_OR_SPROUT::find_if(
+					sprout::find_if(
 						sprout::as_iterator(s), sprout::as_iterator(s, n),
 						sprout::bind2nd(eq_(), a)
 						)
@@ -135,7 +135,7 @@ namespace sprout {
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
 			return sprout::as_iterator_base(
-				NS_SSCRISK_CEL_OR_SPROUT::find_if(
+				sprout::find_if(
 					s, s + n,
 					sprout::bind2nd(eq_(), a)
 					)
@@ -187,7 +187,7 @@ namespace sprout {
 		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
 			return sprout::as_iterator_base(
-				NS_SSCRISK_CEL_OR_SPROUT::find_if(
+				sprout::find_if(
 					sprout::as_iterator(s), sprout::as_iterator(s, n),
 					sprout::bind2nd(eq_(), a)
 					)
@@ -206,7 +206,7 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
-			return NS_SSCRISK_CEL_OR_SPROUT::find_if(
+			return sprout::find_if(
 				s, s + n,
 				sprout::bind2nd(eq_(), a)
 				);

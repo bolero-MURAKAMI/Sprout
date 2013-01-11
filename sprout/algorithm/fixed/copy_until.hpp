@@ -7,10 +7,10 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/find_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/detail/container_complate.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -22,7 +22,7 @@ namespace sprout {
 				std::random_access_iterator_tag*
 				)
 			{
-				return sprout::fixed::copy(first, NS_SSCRISK_CEL_OR_SPROUT::find_if(first, last, pred), result);
+				return sprout::fixed::copy(first, sprout::find_if(first, last, pred), result);
 			}
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<

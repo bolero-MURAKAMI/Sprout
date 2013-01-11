@@ -11,14 +11,17 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/iterator/index_iterator.hpp>
 #include <sprout/functional/hash/hash.hpp>
+#include <sprout/algorithm/all_of.hpp>
+#include <sprout/algorithm/any_of.hpp>
+#include <sprout/algorithm/find_if.hpp>
+#include <sprout/algorithm/equal.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
 #include <sprout/algorithm/fixed/fill.hpp>
+#include <sprout/numeric/accumulate.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/bit/operation.hpp>
 #include <sprout/math/comparison.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include HDR_NUMERIC_SSCRISK_CEL_OR_SPROUT
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -381,34 +384,34 @@ namespace sprout {
 
 			SPROUT_CONSTEXPR bool
 			is_equal(base_bitset<N> const& x) const SPROUT_NOEXCEPT {
-				return NS_SSCRISK_CEL_OR_SPROUT::equal(begin(), end(), x.begin());
+				return sprout::equal(begin(), end(), x.begin());
 			}
 			template<std::size_t N2>
 			SPROUT_CONSTEXPR bool
 			are_all() const SPROUT_NOEXCEPT {
-				return NS_SSCRISK_CEL_OR_SPROUT::all_of(begin(), end() - 1, are_all_pred())
+				return sprout::all_of(begin(), end() - 1, are_all_pred())
 					&& hiword() == (~static_cast<word_type>(0) >> (N * (CHAR_BIT * sizeof(unsigned long)) - N2))
 					;
 			}
 			SPROUT_CONSTEXPR bool
 			is_any() const SPROUT_NOEXCEPT {
-				return NS_SSCRISK_CEL_OR_SPROUT::any_of(begin(), end(), is_any_pred());
+				return sprout::any_of(begin(), end(), is_any_pred());
 			}
 			SPROUT_CONSTEXPR std::size_t
 			do_count() const SPROUT_NOEXCEPT {
-				return NS_SSCRISK_CEL_OR_SPROUT::accumulate(begin(), end(), static_cast<std::size_t>(0), count_op());
+				return sprout::accumulate(begin(), end(), static_cast<std::size_t>(0), count_op());
 			}
 
 			SPROUT_CONSTEXPR unsigned long
 			do_to_ulong() const {
-				return NS_SSCRISK_CEL_OR_SPROUT::find_if(begin() + 1, end(), to_ulong_pred()) != end()
+				return sprout::find_if(begin() + 1, end(), to_ulong_pred()) != end()
 					? throw std::overflow_error("base_bitset::do_to_ulong")
 					: w_[0]
 					;
 			}
 			SPROUT_CONSTEXPR unsigned long long
 			do_to_ullong() const {
-				return NS_SSCRISK_CEL_OR_SPROUT::find_if(
+				return sprout::find_if(
 					sizeof(unsigned long long) > sizeof(unsigned long) ? begin() + 2
 						: begin() + 1
 						,

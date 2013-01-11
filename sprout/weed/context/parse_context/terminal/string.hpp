@@ -6,7 +6,8 @@
 #include <sprout/container/begin.hpp>
 #include <sprout/container/end.hpp>
 #include <sprout/container/size.hpp>
-#include <sprout/iterator/next.hpp>
+#include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/equal.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/weed/eval_result.hpp>
 #include <sprout/weed/expr/tag.hpp>
@@ -14,8 +15,6 @@
 #include <sprout/weed/traits/expr/tag_of.hpp>
 #include <sprout/weed/traits/parser/attribute_of.hpp>
 #include <sprout/weed/context/parse_context_fwd.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -49,7 +48,7 @@ namespace sprout {
 				) const
 			{
 				return sprout::distance(ctx.begin(), ctx.end()) >= sprout::size(arg)
-					&&NS_SSCRISK_CEL_OR_SPROUT::equal(sprout::begin(arg), sprout::end(arg), ctx.begin())
+					&&sprout::equal(sprout::begin(arg), sprout::end(arg), ctx.begin())
 					? result_type(
 						true,
 						sprout::next(ctx.begin(),
