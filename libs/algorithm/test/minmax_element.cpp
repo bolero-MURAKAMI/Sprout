@@ -46,6 +46,78 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(result.first == sprout::begin(arr1) + 3);
 				TESTSPR_BOTH_ASSERT(result.second == sprout::begin(arr1) + 4);
 			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1))
+					);
+				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 9);
+				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 8);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5)
+					);
+				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 3);
+				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 4);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1)),
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 9);
+				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 8);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5),
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 3);
+				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 4);
+			}
+
+#if defined(__clang__)
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1))
+					);
+				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 9);
+				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 8);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5)
+					);
+				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 3);
+				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 4);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 9);
+				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 8);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 3);
+				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 4);
+			}
+#endif
 		}
 	}
 }	// namespace testspr

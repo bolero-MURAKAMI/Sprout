@@ -45,6 +45,7 @@
 #include "./any_of_equal.cpp"
 #include "./none_of_equal.cpp"
 #include "./one_of_equal.cpp"
+#include "./tristate_lexicographical_compare.cpp"
 #include "./is_increasing.cpp"
 #include "./is_decreasing.cpp"
 #include "./is_strictly_increasing.cpp"
@@ -96,6 +97,7 @@ namespace testspr {
 		testspr::algorithm_any_of_equal_test();
 		testspr::algorithm_none_of_equal_test();
 		testspr::algorithm_one_of_equal_test();
+		testspr::algorithm_tristate_lexicographical_compare_test();
 		testspr::algorithm_is_increasing_test();
 		testspr::algorithm_is_decreasing_test();
 		testspr::algorithm_is_strictly_increasing_test();

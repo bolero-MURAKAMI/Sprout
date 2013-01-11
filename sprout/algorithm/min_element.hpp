@@ -2,15 +2,18 @@
 #define SPROUT_ALGORITHM_MIN_ELEMENT_HPP
 
 #include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/utility/pair.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
-		template<typename InputIterator, typename Compare>
-		inline SPROUT_CONSTEXPR InputIterator
-		iter_min(InputIterator a, InputIterator b, Compare comp) {
+		template<typename ForwardIterator, typename Compare>
+		inline SPROUT_CONSTEXPR ForwardIterator
+		iter_min(ForwardIterator a, ForwardIterator b, Compare comp) {
 			return comp(*b, *a) ? b : a;
 		}
 
@@ -36,7 +39,10 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator, typename Compare>
-		inline SPROUT_CONSTEXPR RandomAccessIterator
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
+			RandomAccessIterator
+		>::type
 		min_element(
 			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
 			std::random_access_iterator_tag*
@@ -50,16 +56,41 @@ namespace sprout {
 				;
 		}
 
-		// Copyright (C) 2011 RiSK (sscrisk)
 		template<typename ForwardIterator, typename Compare>
-		inline SPROUT_CONSTEXPR ForwardIterator
-		min_element_impl(
-			ForwardIterator first, ForwardIterator last, Compare comp,
-			ForwardIterator found
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
+		min_element_impl_1(
+			sprout::pair<ForwardIterator, ForwardIterator> const& current,
+			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
-			return first == last ? found
-				: sprout::detail::min_element_impl(sprout::next(first), last, comp, sprout::detail::iter_min(found, first, comp))
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
+			return current.first == last ? current
+				: n == 1 ? type(sprout::next(current.first), sprout::detail::iter_min(current.second, current.first, comp))
+				: sprout::detail::min_element_impl_1(
+					sprout::detail::min_element_impl_1(
+						current,
+						last, comp, n / 2
+						),
+					last, comp, n - n / 2
+					)
+				;
+		}
+		template<typename ForwardIterator, typename Compare>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
+		min_element_impl(
+			sprout::pair<ForwardIterator, ForwardIterator> const& current,
+			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
+			return current.first == last ? current
+				: sprout::detail::min_element_impl(
+					sprout::detail::min_element_impl_1(
+						current,
+						last, comp, n
+						),
+					last, comp, n * 2
+					)
 				;
 		}
 		template<typename ForwardIterator, typename Compare>
@@ -69,8 +100,9 @@ namespace sprout {
 			void*
 			)
 		{
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
 			return first == last ? last
-				: sprout::detail::min_element_impl(sprout::next(first), last, comp, first)
+				: sprout::detail::min_element_impl(type(sprout::next(first), first), last, comp, 1).second
 				;
 		}
 	}	// namespace detail
@@ -78,8 +110,7 @@ namespace sprout {
 	// 25.4.7 Minimum and maximum
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename ForwardIterator, typename Compare>
 	inline SPROUT_CONSTEXPR ForwardIterator

@@ -73,6 +73,69 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr2) + 5);
 			}
+
+#if defined(__clang__)
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_heap_until(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1))
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::end(arr1));
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_heap_until(
+					testspr::reduct_random_access(sprout::begin(arr2)),
+					testspr::reduct_random_access(sprout::end(arr2))
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 7);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_heap_until(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5)
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_heap_until(
+					testspr::reduct_random_access(sprout::begin(arr2)),
+					testspr::reduct_random_access(sprout::begin(arr2) + 5)
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr2) + 5);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_heap_until(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1)),
+					testspr::less<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::end(arr1));
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_heap_until(
+					testspr::reduct_random_access(sprout::begin(arr2)),
+					testspr::reduct_random_access(sprout::end(arr2)),
+					testspr::less<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr2) + 7);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_heap_until(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					testspr::less<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_heap_until(
+					testspr::reduct_random_access(sprout::begin(arr2)),
+					testspr::reduct_random_access(sprout::begin(arr2) + 5),
+					testspr::less<int>()
+					).base();
+				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr2) + 5);
+			}
+#endif
 		}
 	}
 }	// namespace testspr
