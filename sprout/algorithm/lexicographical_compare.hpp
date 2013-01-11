@@ -13,11 +13,11 @@
 
 namespace sprout {
 	namespace detail {
-		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename Compare>
+		template<typename InputIterator1, typename InputIterator2, typename Compare>
 		inline SPROUT_CONSTEXPR bool
 		lexicographical_compare_impl_check(
-			RandomAccessIterator1 last1, RandomAccessIterator2 last2, Compare comp,
-			sprout::pair<RandomAccessIterator1, RandomAccessIterator2> const& found
+			InputIterator1 last1, InputIterator2 last2, Compare comp,
+			sprout::pair<InputIterator1, InputIterator2> const& found
 			)
 		{
 			return found.second == last2 ? false

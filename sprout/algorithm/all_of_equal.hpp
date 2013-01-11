@@ -2,8 +2,11 @@
 #define SPROUT_ALGORITHM_ALL_OF_EQUAL_HPP
 
 #include <iterator>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/utility/pair.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -26,7 +29,10 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator, typename T>
-		inline SPROUT_CONSTEXPR bool
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
+			bool
+		>::type
 		all_of_equal(
 			RandomAccessIterator first, RandomAccessIterator last, T const& value,
 			std::random_access_iterator_tag*
@@ -38,10 +44,40 @@ namespace sprout {
 		}
 
 		template<typename InputIterator, typename T>
-		inline SPROUT_CONSTEXPR bool
-		all_of_equal_impl(InputIterator first, InputIterator last, T const& value) {
-			return first == last ? true
-				:  *first == value && sprout::detail::all_of_equal_impl(sprout::next(first), last, value)
+		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, bool>
+		all_of_equal_impl_1(
+			sprout::pair<InputIterator, bool> const& current,
+			InputIterator last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<InputIterator, bool> type;
+			return !current.second || current.first == last ? current
+				: n == 1 ? *current.first == value ? type(sprout::next(current.first), true) : type(current.first, false)
+				: sprout::detail::all_of_equal_impl_1(
+					sprout::detail::all_of_equal_impl_1(
+						current,
+						last, value, n / 2
+						),
+					last, value, n - n / 2
+					)
+				;
+		}
+		template<typename InputIterator, typename T>
+		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, bool>
+		all_of_equal_impl(
+			sprout::pair<InputIterator, bool> const& current,
+			InputIterator last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
+			)
+		{
+			typedef sprout::pair<InputIterator, bool> type;
+			return !current.second || current.first == last ? current
+				: sprout::detail::all_of_equal_impl(
+					sprout::detail::all_of_equal_impl_1(
+						current,
+						last, value, n
+						),
+					last, value, n * 2
+					)
 				;
 		}
 		template<typename InputIterator, typename T>
@@ -51,7 +87,8 @@ namespace sprout {
 			void*
 			)
 		{
-			return sprout::detail::all_of_equal_impl(first, last, value);
+			typedef sprout::pair<InputIterator, bool> type;
+			return sprout::detail::all_of_equal_impl(type(first, true), last, value, 1).second;
 		}
 	}	// namespace detail
 
@@ -59,8 +96,7 @@ namespace sprout {
 	// all_of_equal
 	//
 	//	recursion depth:
-	//		[first, last) is RandomAccessIterator -> O(log N)
-	//		otherwise -> O(N)
+	//		O(log N)
 	//
 	template<typename InputIterator, typename T>
 	inline SPROUT_CONSTEXPR bool

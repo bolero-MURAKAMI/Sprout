@@ -41,6 +41,68 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
+
+#if defined(__clang__)
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_strictly_increasing(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::end(arr1))
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_strictly_increasing(
+					testspr::reduct_forward(sprout::begin(arr2)),
+					testspr::reduct_forward(sprout::end(arr2))
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_strictly_increasing(
+					testspr::reduct_forward(sprout::begin(arr1)),
+					testspr::reduct_forward(sprout::begin(arr1) + 5)
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_strictly_increasing(
+					testspr::reduct_forward(sprout::begin(arr2)),
+					testspr::reduct_forward(sprout::begin(arr2) + 5)
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+#endif
+
+#if defined(__clang__)
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_strictly_increasing(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::end(arr1))
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_strictly_increasing(
+					testspr::reduct_random_access(sprout::begin(arr2)),
+					testspr::reduct_random_access(sprout::end(arr2))
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_strictly_increasing(
+					testspr::reduct_random_access(sprout::begin(arr1)),
+					testspr::reduct_random_access(sprout::begin(arr1) + 5)
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_strictly_increasing(
+					testspr::reduct_random_access(sprout::begin(arr2)),
+					testspr::reduct_random_access(sprout::begin(arr2) + 5)
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+#endif
 		}
 	}
 }	// namespace testspr
