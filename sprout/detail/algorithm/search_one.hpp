@@ -89,9 +89,7 @@ namespace sprout {
 			)
 		{
 			typedef sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool> type;
-			return sprout::tuples::get<0>(
-				sprout::detail::search_one_impl(type(first1, first2, false), last1, last2, pred, first1, 1)
-				);
+			return sprout::tuples::get<0>(sprout::detail::search_one_impl(type(first1, first2, false), last1, last2, pred, first1, 1));
 		}
 
 		//

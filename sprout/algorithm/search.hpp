@@ -56,7 +56,7 @@ namespace sprout {
 
 		template<typename ForwardIterator1>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, bool>
-		search_impl_check(sprout::pair<ForwardIterator1, bool> const& current, ForwardIterator1 last1, ForwardIterator1 searched) {
+		search_impl_fork(sprout::pair<ForwardIterator1, bool> const& current, ForwardIterator1 last1, ForwardIterator1 searched) {
 			typedef sprout::pair<ForwardIterator1, bool> type;
 			return searched == current.first || searched == last1 ? type(searched, true)
 				: type(sprout::next(current.first), false)
@@ -72,7 +72,7 @@ namespace sprout {
 		{
 			typedef sprout::pair<ForwardIterator1, bool> type;
 			return current.second || current.first == last1 ? current
-				: n == 1 ? sprout::detail::search_impl_check(
+				: n == 1 ? sprout::detail::search_impl_fork(
 					current, last1,
 					sprout::detail::search_one(current.first, last1, first2, last2, pred)
 					)

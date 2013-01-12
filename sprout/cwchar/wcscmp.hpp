@@ -2,21 +2,18 @@
 #define SPROUT_CWCHAR_WCSCMP_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/cstring/strcmp.hpp>
 
 namespace sprout {
-	// Copyright (C) 2011 RiSK (sscrisk)
-
 	//
 	// wcscmp
 	//
+	//	recursion depth:
+	//		O(log(N1+N2))
+	//
 	inline SPROUT_CONSTEXPR int
 	wcscmp(wchar_t const* s1, wchar_t const* s2) {
-		return !*s1 && !*s2 ? 0
-			: !*s1 ? -1
-			: !*s2 ? 1
-			: *s1 == *s2 ? sprout::wcscmp(s1 + 1, s2 + 1)
-			: *s1 - *s2
-			;
+		return sprout::strcmp(s1, s2);
 	}
 }	// namespace sprout
 

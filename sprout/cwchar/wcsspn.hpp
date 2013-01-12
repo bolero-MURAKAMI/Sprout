@@ -3,17 +3,18 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/cwchar/wcschr.hpp>
+#include <sprout/cstring/strspn.hpp>
 
 namespace sprout {
 	//
 	// wcsspn
 	//
+	//	recursion depth:
+	//		O(log(N1+N2))
+	//
 	inline SPROUT_CONSTEXPR std::size_t
 	wcsspn(wchar_t const* s1, wchar_t const* s2) {
-		return !*s1 || !sprout::wcschr(s2, *s1) ? 0
-			: 1 + sprout::wcsspn(s1 + 1, s2)
-			;
+		return sprout::strspn(s1, s2);
 	}
 }	// namespace sprout
 

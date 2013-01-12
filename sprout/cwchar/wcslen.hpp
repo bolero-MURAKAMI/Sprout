@@ -3,27 +3,22 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/iterator/ptr_index_iterator.hpp>
-#include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/find.hpp>
+#include <sprout/cstring/strlen.hpp>
 
 namespace sprout {
 	//
 	// wcslen
 	//
+	//	recursion depth:
+	//		O(log N)
+	//
 	inline SPROUT_CONSTEXPR std::size_t
 	wcslen(wchar_t const* s) {
-		return !*s ? 0
-			: 1 + sprout::wcslen(s + 1)
-			;
+		return sprout::strlen(s);
 	}
-
 	inline SPROUT_CONSTEXPR std::size_t
 	wcslen(wchar_t const* s, std::size_t n) {
-		return sprout::distance(
-			sprout::as_iterator(s),
-			sprout::find(sprout::as_iterator(s), sprout::as_iterator(s, n), L'\0')
-			);
+		return sprout::strlen(s, n);
 	}
 }	// namespace sprout
 

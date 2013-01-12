@@ -10,6 +10,7 @@
 #include <sprout/algorithm/find_if.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/cstring/strlen.hpp>
 
 namespace sprout {
 	//
@@ -62,9 +63,7 @@ namespace sprout {
 				);
 		}
 		static SPROUT_CONSTEXPR std::size_t length(char_type const* s) {
-			return !*s ? 0
-				: 1 + length(s + 1)
-				;
+			return sprout::detail::strlen(s);
 		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
 			return find_impl(
@@ -128,9 +127,7 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR std::size_t length(ConstIterator s) {
-			return !*s ? 0
-				: 1 + length(s + 1)
-				;
+			return sprout::detail::strlen(s);
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {

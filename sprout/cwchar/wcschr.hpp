@@ -3,21 +3,22 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/cstring/strchr.hpp>
 
 namespace sprout {
-	// Copyright (C) 2011 RiSK (sscrisk)
-
+	//
+	// wcschr
+	//
+	//	recursion depth:
+	//		O(log N)
+	//
 	inline SPROUT_CONSTEXPR wchar_t const*
-	wcschr(wchar_t const* s, int c) {
-		return *s == static_cast<wchar_t>(c) ? s
-			: !*s ? nullptr
-			: sprout::wcschr(s + 1, c)
-			;
+	wcschr(wchar_t const* s, wchar_t c) {
+		return sprout::strchr(s, c);
 	}
-
 	inline SPROUT_CONSTEXPR wchar_t*
-	wcschr(wchar_t* s, int c) {
-		return const_cast<wchar_t*>(sprout::wcschr(const_cast<wchar_t const*>(s), c));
+	wcschr(wchar_t* s, wchar_t c) {
+		return sprout::strchr(s, c);
 	}
 }	// namespace sprout
 

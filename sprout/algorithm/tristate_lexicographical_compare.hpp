@@ -87,7 +87,7 @@ namespace sprout {
 		template<typename InputIterator1, typename InputIterator2, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, InputIterator2>
 		tristate_lexicographical_compare_impl_1(
-			sprout::pair<InputIterator1, InputIterator2> current,
+			sprout::pair<InputIterator1, InputIterator2> const& current,
 			InputIterator1 last1, InputIterator2 last2, Compare comp,
 			typename std::iterator_traits<InputIterator1>::difference_type n
 			)
@@ -109,7 +109,7 @@ namespace sprout {
 		template<typename InputIterator1, typename InputIterator2, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, InputIterator2>
 		tristate_lexicographical_compare_impl(
-			sprout::pair<InputIterator1, InputIterator2> current,
+			sprout::pair<InputIterator1, InputIterator2> const& current,
 			InputIterator1 last1, InputIterator2 last2, Compare comp,
 			typename std::iterator_traits<InputIterator1>::difference_type n
 			)
@@ -252,7 +252,7 @@ namespace sprout {
 		template<typename InputIterator1, typename T1, typename InputIterator2, typename T2, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, InputIterator2>
 		tristate_lexicographical_compare_impl_1(
-			sprout::pair<InputIterator1, InputIterator2> current,
+			sprout::pair<InputIterator1, InputIterator2> const& current,
 			InputIterator1 last1, T1 const& delim1, InputIterator2 last2, T2 const& delim2, Compare comp,
 			typename std::iterator_traits<InputIterator1>::difference_type n
 			)
@@ -276,7 +276,7 @@ namespace sprout {
 		template<typename InputIterator1, typename T1, typename InputIterator2, typename T2, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator1, InputIterator2>
 		tristate_lexicographical_compare_impl(
-			sprout::pair<InputIterator1, InputIterator2> current,
+			sprout::pair<InputIterator1, InputIterator2> const& current,
 			InputIterator1 last1, T1 const& delim1, InputIterator2 last2, T2 const& delim2, Compare comp,
 			typename std::iterator_traits<InputIterator1>::difference_type n
 			)

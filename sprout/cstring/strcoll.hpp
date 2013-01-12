@@ -1,15 +1,28 @@
 #ifndef SPROUT_CSTRING_STRCOLL_HPP
 #define SPROUT_CSTRING_STRCOLL_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/cstring/strcmp.hpp>
 
 namespace sprout {
-	// Copyright (C) 2011 RiSK (sscrisk)
-
 	// 7.21.4.3  strcoll ä÷êî
+	//
+	//	recursion depth:
+	//		O(log(N1+N2))
+	//
 	inline SPROUT_CONSTEXPR int
 	strcoll(char const* s1, char const* s2) {
+		return sprout::strcmp(s1, s2);
+	}
+
+	template<typename Elem>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		sprout::is_char_type<Elem>::value,
+		int
+	>::type
+	strcoll(Elem* s1, Elem* s2) {
 		return sprout::strcmp(s1, s2);
 	}
 }	// namespace sprout
