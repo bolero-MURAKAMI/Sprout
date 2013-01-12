@@ -14,6 +14,7 @@
 #include "../libs/variant/test/variant.cpp"
 #include "../libs/algorithm/test/algorithm.cpp"
 #include "../libs/random/test/random.cpp"
+#include "../libs/cstring/test/cstring.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_TESTSPR_SPROUT_HPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -29,6 +30,7 @@ namespace testspr {
 		testspr::variant_test();
 		testspr::algorithm_test();
 		testspr::random_test();
+		testspr::cstring_test();
 	}
 }	// namespace testspr
 
