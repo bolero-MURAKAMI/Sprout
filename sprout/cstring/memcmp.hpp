@@ -8,6 +8,10 @@
 
 namespace sprout {
 	// 7.21.4.1  memcmp ä÷êî
+	//
+	//	recursion depth:
+	//		O(log(N1+N2))
+	//
 	inline SPROUT_CONSTEXPR int
 	memcmp(void const* s1, void const* s2, std::size_t n) {
 		return sprout::tristate_lexicographical_compare(

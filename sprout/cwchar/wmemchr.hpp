@@ -25,6 +25,9 @@ namespace sprout {
 	//
 	// wmemchr
 	//
+	//	recursion depth:
+	//		O(log N)
+	//
 	inline SPROUT_CONSTEXPR wchar_t const*
 	wmemchr(wchar_t const* s, wchar_t c, size_t n) {
 		return sprout::detail::wmemchr_impl(

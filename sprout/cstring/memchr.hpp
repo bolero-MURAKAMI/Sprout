@@ -23,6 +23,10 @@ namespace sprout {
 	}	// namespace detail
 
 	// 7.21.5.1  memchr ä÷êî
+	//
+	//	recursion depth:
+	//		O(log N)
+	//
 	inline SPROUT_CONSTEXPR void const*
 	memchr(void const* s, int c, std::size_t n) {
 		return sprout::detail::memchr_impl(

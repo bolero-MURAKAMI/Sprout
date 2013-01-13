@@ -10,6 +10,9 @@ namespace sprout {
 	//
 	// wmemcmp
 	//
+	//	recursion depth:
+	//		O(log(N1+N2))
+	//
 	inline SPROUT_CONSTEXPR int
 	wmemcmp(wchar_t const* s1, wchar_t const* s2, std::size_t n) {
 		return sprout::tristate_lexicographical_compare(
