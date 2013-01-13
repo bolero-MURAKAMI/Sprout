@@ -49,6 +49,7 @@ namespace sprout {
 					sprout::distance(first, last)
 					);
 			}
+
 			template<typename InputIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
@@ -87,6 +88,30 @@ namespace sprout {
 			{
 				return sprout::fixed::detail::copy_impl(first, last, result, sprout::size(result));
 			}
+
+			template<typename InputIterator, typename Result>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy(InputIterator first, InputIterator last, Result const& result)
+			{
+				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
+				return sprout::fixed::detail::copy(first, last, result, category());
+			}
+			template<typename InputIterator, typename Result>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy(InputIterator first, InputIterator last, Result const& result)
+			{
+				return sprout::remake<Result>(
+					result,
+					sprout::size(result),
+					first, last
+					);
+			}
 		}	// namespace detail
 		//
 		// copy
@@ -94,8 +119,7 @@ namespace sprout {
 		template<typename InputIterator, typename Result>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		copy(InputIterator first, InputIterator last, Result const& result) {
-			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-			return sprout::fixed::detail::copy(first, last, result, category());
+			return sprout::fixed::detail::copy(first, last, result);
 		}
 	}	// namespace fixed
 

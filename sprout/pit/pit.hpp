@@ -16,22 +16,24 @@ namespace sprout {
 	// pit
 	//
 	template<typename Container>
-	class pit {
+	class pit
+		: public sprout::container_traits_facade<Container>
+	{
 	public:
 		typedef Container container_type;
-		typedef typename sprout::container_traits<container_type>::value_type value_type;
-		typedef typename sprout::container_traits<container_type>::reference reference;
-		typedef typename sprout::container_traits<container_type>::const_reference const_reference;
+		typedef typename sprout::container_traits_facade<Container>::value_type value_type;
+		typedef typename sprout::container_traits_facade<Container>::reference reference;
+		typedef typename sprout::container_traits_facade<Container>::const_reference const_reference;
 		typedef typename sprout::value_iterator<reference> iterator;
 		typedef typename sprout::value_iterator<const_reference> const_iterator;
-		typedef typename sprout::container_traits<container_type>::size_type size_type;
-		typedef typename sprout::container_traits<container_type>::difference_type difference_type;
-		typedef typename sprout::container_traits<container_type>::pointer pointer;
-		typedef typename sprout::container_traits<container_type>::const_pointer const_pointer;
+		typedef typename sprout::container_traits_facade<Container>::size_type size_type;
+		typedef typename sprout::container_traits_facade<Container>::difference_type difference_type;
+		typedef typename sprout::container_traits_facade<Container>::pointer pointer;
+		typedef typename sprout::container_traits_facade<Container>::const_pointer const_pointer;
 		typedef typename sprout::reverse_iterator<iterator> reverse_iterator;
 		typedef typename sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
-		SPROUT_STATIC_CONSTEXPR size_type static_size = sprout::container_traits<container_type>::static_size;
+		SPROUT_STATIC_CONSTEXPR size_type enumerable_size = sprout::detail::static_size_or_zero<sprout::container_traits_facade<Container> >::value;
 	public:
 		value_type elem;
 	public:
@@ -43,10 +45,10 @@ namespace sprout {
 		}
 		// iterators:
 		iterator begin() {
-			return iterator(elem, static_size);
+			return iterator(elem, enumerable_size);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
-			return const_iterator(elem, static_size);
+			return const_iterator(elem, enumerable_size);
 		}
 		iterator end() SPROUT_NOEXCEPT {
 			return iterator(elem, 0);
@@ -67,7 +69,7 @@ namespace sprout {
 			return const_reverse_iterator(begin());
 		}
 		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
-			return const_iterator(elem, static_size);
+			return const_iterator(elem, enumerable_size);
 		}
 		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
 			return const_iterator(elem, 0);
@@ -80,13 +82,13 @@ namespace sprout {
 		}
 		// capacity:
 		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
-			return static_size;
+			return enumerable_size;
 		}
 		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
 			return size();
 		}
 		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
-			return static_size == 0;
+			return enumerable_size == 0;
 		}
 		// element access:
 		reference operator[](size_type i) {
@@ -127,7 +129,7 @@ namespace sprout {
 		}
 	};
 	template<typename Container>
-	SPROUT_CONSTEXPR_OR_CONST typename sprout::pit<Container>::size_type sprout::pit<Container>::static_size;
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::pit<Container>::size_type sprout::pit<Container>::enumerable_size;
 
 	//
 	// swap

@@ -513,6 +513,42 @@ namespace sprout {
 		, public sprout::detail::inherit_if_static_size<sprout::container_traits<Container> >
 		, public sprout::detail::container_nosy_fixed_size<sprout::container_traits<Container> >
 	{};
+
+	//
+	// is_fixed_container
+	//
+	template<typename Container>
+	struct is_fixed_container
+		: public sprout::detail::has_static_size<sprout::container_traits<Container> >
+	{};
+
+	namespace detail {
+		//
+		// static_size_or_zero
+		//
+		template<typename Container, typename = void>
+		struct static_size_or_zero;
+		template<typename Container>
+		struct static_size_or_zero<
+			Container,
+			typename std::enable_if<sprout::is_fixed_container<sprout::container_traits<Container> >::value>::type
+		>
+			: public std::integral_constant<
+				typename sprout::container_traits<Container>::size_type,
+				sprout::container_traits<Container>::static_size
+			>
+		{};
+		template<typename Container>
+		struct static_size_or_zero<
+			Container,
+			typename std::enable_if<!sprout::is_fixed_container<sprout::container_traits<Container> >::value>::type
+		>
+			: public std::integral_constant<
+				typename sprout::container_traits<Container>::size_type,
+				0
+			>
+		{};
+	}	// namespace sprout
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CONTAINER_CONTAINER_TRAITS_HPP
