@@ -19,21 +19,23 @@ namespace sprout {
 	class pit
 		: public sprout::container_traits_facade<Container>
 	{
+	private:
+		typedef sprout::container_traits_facade<typename std::remove_reference<Container>::type> facade_type;
 	public:
 		typedef Container container_type;
-		typedef typename sprout::container_traits_facade<Container>::value_type value_type;
-		typedef typename sprout::container_traits_facade<Container>::reference reference;
-		typedef typename sprout::container_traits_facade<Container>::const_reference const_reference;
+		typedef typename facade_type::value_type value_type;
+		typedef typename facade_type::reference reference;
+		typedef typename facade_type::const_reference const_reference;
 		typedef typename sprout::value_iterator<reference> iterator;
 		typedef typename sprout::value_iterator<const_reference> const_iterator;
-		typedef typename sprout::container_traits_facade<Container>::size_type size_type;
-		typedef typename sprout::container_traits_facade<Container>::difference_type difference_type;
-		typedef typename sprout::container_traits_facade<Container>::pointer pointer;
-		typedef typename sprout::container_traits_facade<Container>::const_pointer const_pointer;
+		typedef typename facade_type::size_type size_type;
+		typedef typename facade_type::difference_type difference_type;
+		typedef typename facade_type::pointer pointer;
+		typedef typename facade_type::const_pointer const_pointer;
 		typedef typename sprout::reverse_iterator<iterator> reverse_iterator;
 		typedef typename sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
-		SPROUT_STATIC_CONSTEXPR size_type enumerable_size = sprout::detail::static_size_or_zero<sprout::container_traits_facade<Container> >::value;
+		SPROUT_STATIC_CONSTEXPR size_type enumerable_size = sprout::detail::static_size_or_zero<facade_type>::value;
 	public:
 		value_type elem;
 	public:

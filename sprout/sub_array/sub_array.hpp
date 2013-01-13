@@ -185,7 +185,7 @@ namespace sprout {
 		typedef typename facade_type::pointer pointer;
 		typedef typename facade_type::const_pointer const_pointer;
 	public:
-		SPROUT_STATIC_CONSTEXPR size_type static_size = facade_type::static_size;
+		SPROUT_STATIC_CONSTEXPR size_type enumerable_size = sprout::detail::static_size_or_zero<facade_type>::value;
 	public:
 		typedef typename impl_type::holder_type holder_type;
 		typedef typename impl_type::param_type param_type;
@@ -203,7 +203,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				arr,
-				sprout::index_range<0, static_size>::make(),
+				sprout::index_range<0, enumerable_size>::make(),
 				first,
 				last
 				)
@@ -212,7 +212,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				arr,
-				sprout::index_range<0, static_size>::make(),
+				sprout::index_range<0, enumerable_size>::make(),
 				first,
 				last
 				)
@@ -221,7 +221,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
-				sprout::index_range<0, static_size>::make(),
+				sprout::index_range<0, enumerable_size>::make(),
 				sprout::distance(sprout::begin(other.get_array()), first),
 				sprout::distance(sprout::begin(other.get_array()), last)
 				)
@@ -230,7 +230,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
-				sprout::index_range<0, static_size>::make(),
+				sprout::index_range<0, enumerable_size>::make(),
 				first + other.first_,
 				last + other.first_
 				)
@@ -355,7 +355,7 @@ namespace sprout {
 		}
 	};
 	template<typename Container>
-	SPROUT_CONSTEXPR_OR_CONST typename sprout::sub_array<Container>::size_type sprout::sub_array<Container>::static_size;
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::sub_array<Container>::size_type sprout::sub_array<Container>::enumerable_size;
 
 	//
 	// swap
