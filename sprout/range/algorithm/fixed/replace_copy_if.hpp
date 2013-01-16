@@ -18,6 +18,12 @@ namespace sprout {
 			replace_copy_if(Input const& input, Result const& result, Predicate pred, T const& new_value) {
 				return sprout::fixed::replace_copy_if(sprout::begin(input), sprout::end(input), result, pred, new_value);
 			}
+
+			template<typename Result, typename Input, typename T, typename Predicate>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			replace_copy_if(Input const& input, Predicate pred, T const& new_value) {
+				return sprout::fixed::replace_copy_if<Result>(sprout::begin(input), sprout::end(input), pred, new_value);
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::replace_copy_if;

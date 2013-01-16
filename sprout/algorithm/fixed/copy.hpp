@@ -9,6 +9,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/math/comparison.hpp>
 #include <sprout/detail/container_complate.hpp>
 
@@ -94,18 +95,17 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
-			copy(InputIterator first, InputIterator last, Result const& result)
-			{
+			copy(InputIterator first, InputIterator last, Result const& result) {
 				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 				return sprout::fixed::detail::copy(first, last, result, category());
 			}
+
 			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
-			copy(InputIterator first, InputIterator last, Result const& result)
-			{
+			copy(InputIterator first, InputIterator last, Result const& result) {
 				return sprout::remake<Result>(
 					result,
 					sprout::size(result),
@@ -120,6 +120,12 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		copy(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fixed::detail::copy(first, last, result);
+		}
+
+		template<typename Result, typename InputIterator>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		copy(InputIterator first, InputIterator last) {
+			return sprout::fixed::copy(first, last, sprout::pit<Result>());
 		}
 	}	// namespace fixed
 

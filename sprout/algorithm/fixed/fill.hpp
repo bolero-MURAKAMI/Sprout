@@ -6,6 +6,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/value_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 
 namespace sprout {
@@ -29,6 +30,33 @@ namespace sprout {
 						)...
 					);
 			}
+
+			template<typename Container, typename T>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Container>::value,
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type
+			fill(Container const& cont, T const& value) {
+				return sprout::fixed::detail::fill_impl(
+					cont, value,
+					sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
+					sprout::internal_begin_offset(cont),
+					sprout::size(cont)
+					);
+			}
+
+			template<typename Container, typename T>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Container>::value,
+				typename sprout::fixed::result_of::algorithm<Container>::type
+			>::type
+			fill(Container const& cont, T const& value) {
+				return sprout::remake<Container>(
+					cont,
+					sprout::size(cont),
+					sprout::value_iterator<T const&>(value), sprout::value_iterator<T const&>(value, 0)
+					);
+			}
 		}	// namespace detail
 		//
 		// fill
@@ -36,12 +64,7 @@ namespace sprout {
 		template<typename Container, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 		fill(Container const& cont, T const& value) {
-			return sprout::fixed::detail::fill_impl(
-				cont, value,
-				sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
-				sprout::internal_begin_offset(cont),
-				sprout::size(cont)
-				);
+			return sprout::fixed::detail::fill(cont, value);
 		}
 	}	// namespace fixed
 

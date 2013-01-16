@@ -3,7 +3,6 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/pit.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
@@ -37,7 +36,7 @@ namespace sprout {
 			{}
 			template<typename Result>
 			SPROUT_CONSTEXPR operator Result() const {
-				return sprout::range::fixed::copy(*this, sprout::pit<Result>());
+				return sprout::range::fixed::copy<Result>(*this);
 			}
 		};
 

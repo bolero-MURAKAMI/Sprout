@@ -9,6 +9,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/math/comparison.hpp>
 #include <sprout/detail/container_complate.hpp>
 
@@ -24,6 +25,7 @@ namespace sprout {
 			{
 				return sprout::fixed::copy(first, sprout::next(first, n), result);
 			}
+
 			template<typename InputIterator, typename Size, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
@@ -61,6 +63,35 @@ namespace sprout {
 			{
 				return sprout::fixed::detail::copy_n_impl(first, n, result, sprout::size(result));
 			}
+
+			template<typename InputIterator, typename Size, typename Result>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy_n(InputIterator first, Size n, Result const& result) {
+				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
+				return sprout::fixed::detail::copy_n(first, n, result, category());
+			}
+
+			template<typename ForwardIterator, typename Size, typename Result>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			copy_n_dyn(
+				ForwardIterator first, Size n, Result const& result,
+				std::forward_iterator_tag*
+				)
+			{
+				return sprout::fixed::copy(first, sprout::next(first, n), result);
+			}
+			template<typename InputIterator, typename Size, typename Result>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy_n(InputIterator first, Size n, Result const& result) {
+				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
+				return sprout::fixed::detail::copy_n_dyn(first, n, result, category());
+			}
 		}	// namespace detail
 		//
 		// copy_n
@@ -68,8 +99,13 @@ namespace sprout {
 		template<typename InputIterator, typename Size, typename Result>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		copy_n(InputIterator first, Size n, Result const& result) {
-			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-			return sprout::fixed::detail::copy_n(first, n, result, category());
+			return sprout::fixed::detail::copy_n(first, n, result);
+		}
+
+		template<typename Result, typename InputIterator, typename Size>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		copy_n(InputIterator first, Size n) {
+			return sprout::fixed::copy_n(first, n, sprout::pit<Result>());
 		}
 	}	// namespace fixed
 

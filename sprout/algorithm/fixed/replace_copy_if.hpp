@@ -8,7 +8,9 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/replace_if_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -96,6 +98,30 @@ namespace sprout {
 			{
 				return sprout::fixed::detail::replace_copy_if_impl(first, last, result, pred, new_value, sprout::size(result));
 			}
+
+			template<typename InputIterator, typename Result, typename T, typename Predicate>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			replace_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value) {
+				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
+				return sprout::fixed::detail::replace_copy_if(first, last, result, pred, new_value, category());
+			}
+
+			template<typename InputIterator, typename Result, typename T, typename Predicate>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			replace_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value) {
+				return sprout::remake<Result>(
+					result,
+					sprout::size(result),
+					sprout::make_replace_if_iterator(first, pred, new_value),
+					sprout::make_replace_if_iterator(last, pred, new_value)
+					);
+			}
 		}	// namespace detail
 		//
 		// replace_copy_if
@@ -103,8 +129,13 @@ namespace sprout {
 		template<typename InputIterator, typename Result, typename T, typename Predicate>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		replace_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value) {
-			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-			return sprout::fixed::detail::replace_copy_if(first, last, result, pred, new_value, category());
+			return sprout::fixed::detail::replace_copy_if(first, last, result, pred, new_value);
+		}
+
+		template<typename Result, typename InputIterator, typename T, typename Predicate>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		replace_copy_if(InputIterator first, InputIterator last, Predicate pred, T const& new_value) {
+			return sprout::fixed::replace_copy_if(first, last, sprout::pit<Result>(), pred, new_value);
 		}
 	}	// namespace fixed
 

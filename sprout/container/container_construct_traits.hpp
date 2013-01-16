@@ -4,6 +4,13 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/container_traits.hpp>
+#include <sprout/container/internal_begin.hpp>
+#include <sprout/container/internal_end.hpp>
+#include <sprout/container/internal_begin_offset.hpp>
+#include <sprout/container/internal_end_offset.hpp>
+#include <sprout/container/internal_begin_offset_backward.hpp>
+#include <sprout/container/internal_end_offset_backward.hpp>
+#include <sprout/iterator/remake_iterator.hpp>
 #include <sprout/utility/forward.hpp>
 
 namespace sprout {
@@ -33,6 +40,43 @@ namespace sprout {
 			return copied_type{sprout::forward<Args>(args)...};
 		}
 
+		template<typename Container, typename Cont, typename... Args>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_fixed_container<Container>::value,
+			typename sprout::container_construct_traits<Container>::copied_type
+		>::type
+		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
+			return sprout::container_construct_traits<Container>::make(sprout::forward<Args>(args)...);
+		}
+		template<typename Container, typename Cont, typename... Args>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::is_fixed_container<Container>::value,
+			typename sprout::container_construct_traits<Container>::copied_type
+		>::type
+		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
+			return sprout::container_construct_traits<Container>::make(sprout::forward<Args>(args)...);
+		}
+		template<typename Container, typename Cont, typename InputIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::is_fixed_container<Container>::value,
+			typename sprout::container_construct_traits<Container>::copied_type
+		>::type
+		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, InputIterator first, InputIterator last) {
+			typedef typename sprout::container_construct_traits<Container>::copied_type copied_type;
+			return copied_type(
+				sprout::make_remake_iterator(
+					sprout::internal_begin(cont), first,
+					first, last,
+					sprout::internal_begin_offset(cont), sprout::internal_end_offset(cont)
+					),
+				sprout::make_remake_iterator(
+					sprout::internal_end(cont), last,
+					first, last,
+					sprout::internal_begin_offset_backward(cont), sprout::internal_end_offset_backward(cont)
+					)
+				);
+		}
+
 		template<typename Container>
 		struct container_construct_traits_impl {
 		public:
@@ -51,7 +95,10 @@ namespace sprout {
 			template<typename Cont, typename... Args>
 			static SPROUT_CONSTEXPR copied_type
 			remake(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
-				return make(sprout::forward<Args>(args)...);
+				return sprout::detail::default_remake_container<Container>(
+					sprout::forward<Cont>(cont), size,
+					sprout::forward<Args>(args)...
+					);
 			}
 		};
 	}	// namespace detail

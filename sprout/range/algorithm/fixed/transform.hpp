@@ -23,6 +23,17 @@ namespace sprout {
 			transform(Input1 const& input1, Input2 const& input2, Result const& result, BinaryOperation op) {
 				return sprout::fixed::transform(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), result, op);
 			}
+
+			template<typename Result, typename Input, typename UnaryOperation>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			transform(Input const& input, UnaryOperation op) {
+				return sprout::fixed::transform<Result>(sprout::begin(input), sprout::end(input), op);
+			}
+			template<typename Result, typename Input1, typename Input2, typename BinaryOperation>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			transform(Input1 const& input1, Input2 const& input2, BinaryOperation op) {
+				return sprout::fixed::transform<Result>(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), op);
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::transform;

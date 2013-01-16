@@ -13,6 +13,7 @@
 #include <sprout/container/get_internal.hpp>
 #include <sprout/container/internal_begin.hpp>
 #include <sprout/container/internal_end.hpp>
+#include <sprout/container/internal_size.hpp>
 #include <sprout/container/internal_begin_offset.hpp>
 #include <sprout/container/internal_end_offset.hpp>
 #include <sprout/container/internal_begin_offset_backward.hpp>

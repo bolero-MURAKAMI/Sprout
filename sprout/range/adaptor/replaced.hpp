@@ -7,6 +7,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/transform_iterator.hpp>
+#include <sprout/iterator/replace_iterator.hpp>
 #include <sprout/range/adaptor/detail/adapted_range_default.hpp>
 #include <sprout/range/algorithm/copy.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
@@ -15,25 +16,6 @@
 
 namespace sprout {
 	namespace adaptors {
-		namespace detail {
-			template<typename T>
-			class replace_value {
-			public:
-				typedef T const& result_type;
-				typedef T const& argument_type;
-			private:
-				T old_;
-				T new_;
-			public:
-				SPROUT_CONSTEXPR replace_value(T const& old_value, T const& new_value)
-					: old_(old_value)
-					, new_(new_value)
-				{}
-				SPROUT_CONSTEXPR T operator()(T const& value) const {
-					return (value == old_) ? new_ : value;
-				}
-			};
-		}	// namespace detail
 		//
 		// replaced_range
 		//
@@ -42,7 +24,7 @@ namespace sprout {
 			: public sprout::adaptors::detail::adapted_range_default<
 				Range,
 				sprout::transform_iterator<
-					sprout::adaptors::detail::replace_value<typename sprout::container_traits<Range>::value_type>,
+					sprout::replace_value<typename sprout::container_traits<Range>::value_type>,
 					typename sprout::container_traits<Range>::iterator
 				>
 			>
@@ -51,7 +33,7 @@ namespace sprout {
 			typedef sprout::adaptors::detail::adapted_range_default<
 				Range,
 				sprout::transform_iterator<
-					sprout::adaptors::detail::replace_value<typename sprout::container_traits<Range>::value_type>,
+					sprout::replace_value<typename sprout::container_traits<Range>::value_type>,
 					typename sprout::container_traits<Range>::iterator
 				>
 			> base_type;

@@ -10,7 +10,6 @@
 #include <sprout/container/functions.hpp>
 
 namespace sprout {
-
 	//
 	// container_construct_traits
 	//
@@ -63,7 +62,7 @@ namespace sprout {
 			return remake_impl(
 				sprout::forward<Cont>(cont),
 				size,
-				sprout::make<internal_type>(sprout::forward<Args>(args)...)
+				sprout::remake<internal_type>(cont, size, sprout::forward<Args>(args)...)
 				);
 		}
 	};
