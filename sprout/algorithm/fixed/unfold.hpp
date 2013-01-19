@@ -7,6 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/generator/functions.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -78,6 +79,12 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 		unfold(Container const& cont, Generator const& gen, Init const& init) {
 			return sprout::fixed::detail::unfold_impl(cont, gen, init, sprout::size(cont));
+		}
+
+		template<typename Container, typename Generator, typename Init>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		unfold(Generator const& gen, Init const& init) {
+			return sprout::fixed::unfold(sprout::pit<Container>(), gen, init);
 		}
 	}	// namespace fixed
 

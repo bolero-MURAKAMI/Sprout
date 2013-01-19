@@ -5,8 +5,10 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/iterator/value_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/fill.hpp>
+#include <sprout/pit.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -32,9 +34,9 @@ namespace sprout {
 			>::type
 			fill_n(Container const& cont, Size n, T const& value) {
 				return sprout::remake<Container>(
-					cont,
-					n,
-					sprout::value_iterator<T const&>(value, n), sprout::value_iterator<T const&>(value, 0)
+					cont, n,
+					sprout::value_iterator<T const&>(value, n),
+					sprout::value_iterator<T const&>(value, 0)
 					);
 			}
 		}	// namespace detail
@@ -45,6 +47,12 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 		fill_n(Container const& cont, Size n, T const& value) {
 			return sprout::fixed::detail::fill_n(cont, n, value);
+		}
+
+		template<typename Container, typename Size, typename T>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		fill_n(Size n, T const& value) {
+			return sprout::fixed::fill_n(sprout::pit<Container>(), n, value);
 		}
 	}	// namespace fixed
 

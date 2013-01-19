@@ -8,7 +8,9 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -48,6 +50,7 @@ namespace sprout {
 					sprout::distance(first, last)
 					);
 			}
+
 			template<typename BidirectionalIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
@@ -86,6 +89,29 @@ namespace sprout {
 			{
 				return sprout::fixed::detail::reverse_copy_impl(first, last, result, sprout::size(result));
 			}
+
+			template<typename BidirectionalIterator, typename Result>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			reverse_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
+				typedef typename std::iterator_traits<BidirectionalIterator>::iterator_category* category;
+				return sprout::fixed::detail::reverse_copy(first, last, result, category());
+			}
+
+			template<typename BidirectionalIterator, typename Result>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			reverse_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
+				return sprout::remake<Result>(
+					result, sprout::size(result),
+					sprout::make_reverse_iterator(last),
+					sprout::make_reverse_iterator(first)
+					);
+			}
 		}	// namespace detail
 		//
 		// reverse_copy
@@ -93,8 +119,13 @@ namespace sprout {
 		template<typename BidirectionalIterator, typename Result>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		reverse_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
-			typedef typename std::iterator_traits<BidirectionalIterator>::iterator_category* category;
-			return sprout::fixed::detail::reverse_copy(first, last, result, category());
+			return sprout::fixed::detail::reverse_copy(first, last, result);
+		}
+
+		template<typename Result, typename BidirectionalIterator>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		reverse_copy(BidirectionalIterator first, BidirectionalIterator last) {
+			return sprout::fixed::reverse_copy(first, last, sprout::pit<Result>());
 		}
 	}	// namespace fixed
 

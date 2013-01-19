@@ -27,8 +27,7 @@ namespace sprout {
 				)
 			{
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					(Indexes < offset && sprout::math::greater_equal(Indexes + size, offset) && sprout::math::greater_equal(Indexes + input_size, offset)
 						? last[Indexes - offset]
 						: *sprout::next(sprout::internal_begin(result), Indexes)
@@ -100,19 +99,6 @@ namespace sprout {
 			copy_backward(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
 				typedef typename std::iterator_traits<BidirectionalIterator>::iterator_category* category;
 				return sprout::fixed::detail::copy_backward(first, last, result, category());
-			}
-
-			template<typename BidirectionalIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename std::enable_if<
-				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
-			>::type
-			copy_backward(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
-				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
-					first, last
-					);
 			}
 		}	// namespace detail
 		//

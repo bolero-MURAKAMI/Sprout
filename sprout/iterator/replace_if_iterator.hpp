@@ -12,7 +12,7 @@ namespace sprout {
 	class replace_value_if {
 	public:
 		typedef Predicate predicate_type;
-		typedef T const& result_type;
+		typedef T result_type;
 		typedef T const& argument_type;
 	private:
 		Predicate pred_;

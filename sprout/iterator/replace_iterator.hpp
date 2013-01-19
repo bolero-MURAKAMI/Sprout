@@ -11,7 +11,7 @@ namespace sprout {
 	template<typename T>
 	class replace_value {
 	public:
-		typedef T const& result_type;
+		typedef T result_type;
 		typedef T const& argument_type;
 	private:
 		T old_;

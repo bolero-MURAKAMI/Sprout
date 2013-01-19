@@ -6,7 +6,9 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/remove_if_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -45,6 +47,28 @@ namespace sprout {
 					: sprout::detail::container_complate(result, args...)
 					;
 			}
+
+			template<typename InputIterator, typename Result, typename Predicate>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			remove_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+				return sprout::fixed::detail::remove_copy_if_impl(first, last, result, pred, sprout::size(result));
+			}
+
+			template<typename InputIterator, typename Result, typename Predicate>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			remove_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+				return sprout::remake<Result>(
+					result, sprout::size(result),
+					sprout::make_remove_if_iterator(pred, first, last),
+					sprout::make_remove_if_iterator(pred, last, last)
+					);
+			}
 		}	// namespace detail
 		//
 		// remove_copy_if
@@ -52,7 +76,13 @@ namespace sprout {
 		template<typename InputIterator, typename Result, typename Predicate>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		remove_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
-			return sprout::fixed::detail::remove_copy_if_impl(first, last, result, pred, sprout::size(result));
+			return sprout::fixed::detail::remove_copy_if(first, last, result, pred);
+		}
+
+		template<typename Result, typename InputIterator, typename Predicate>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		remove_copy_if(InputIterator first, InputIterator last, Predicate pred) {
+			return sprout::fixed::remove_copy_if(first, last, sprout::pit<Result>(), pred);
 		}
 	}	// namespace fixed
 

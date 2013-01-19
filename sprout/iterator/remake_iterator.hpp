@@ -178,14 +178,14 @@ namespace sprout {
 		SPROUT_CONSTEXPR remake_iterator next() const {
 			return remake_iterator(
 				sprout::next(current), (is_in_copying() ? sprout::next(current2) : current2),
-				fst, last,
+				fst, lst,
 				begin_off - 1, end_off - 1
 				);
 		}
 		SPROUT_CONSTEXPR remake_iterator prev() const {
 			return remake_iterator(
 				sprout::prev(current), (begin_off < 0 && end_off >= 0 ? sprout::prev(current2) : current2),
-				fst, last,
+				fst, lst,
 				begin_off + 1, end_off + 1
 				);
 		}

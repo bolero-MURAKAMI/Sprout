@@ -28,8 +28,7 @@ namespace sprout {
 				)
 			{
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? pred(first[Indexes - offset]) ? new_value : first[Indexes - offset]
 						: *sprout::next(sprout::internal_begin(result), Indexes)
@@ -116,8 +115,7 @@ namespace sprout {
 			>::type
 			replace_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value) {
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					sprout::make_replace_if_iterator(first, pred, new_value),
 					sprout::make_replace_if_iterator(last, pred, new_value)
 					);

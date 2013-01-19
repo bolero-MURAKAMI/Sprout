@@ -8,6 +8,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/value_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -22,8 +23,7 @@ namespace sprout {
 				)
 			{
 				return sprout::remake<Container>(
-					cont,
-					sprout::size(cont),
+					cont, sprout::size(cont),
 					(Indexes >= offset && Indexes < offset + size
 						? value
 						: *sprout::next(sprout::internal_begin(cont), Indexes)
@@ -52,9 +52,9 @@ namespace sprout {
 			>::type
 			fill(Container const& cont, T const& value) {
 				return sprout::remake<Container>(
-					cont,
-					sprout::size(cont),
-					sprout::value_iterator<T const&>(value), sprout::value_iterator<T const&>(value, 0)
+					cont, sprout::size(cont),
+					sprout::value_iterator<T const&>(value, sprout::size(cont)),
+					sprout::value_iterator<T const&>(value, 0)
 					);
 			}
 		}	// namespace detail
@@ -65,6 +65,12 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 		fill(Container const& cont, T const& value) {
 			return sprout::fixed::detail::fill(cont, value);
+		}
+
+		template<typename Container, typename T>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		fill(T const& value) {
+			return sprout::fixed::fill(sprout::pit<Container>(), value);
 		}
 	}	// namespace fixed
 

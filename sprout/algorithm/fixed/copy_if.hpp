@@ -61,9 +61,9 @@ namespace sprout {
 			>::type
 			copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
-					sprout::make_filter_iterator(pred, first, last), sprout::make_filter_iterator(pred, last, last)
+					result, sprout::size(result),
+					sprout::make_filter_iterator(pred, first, last),
+					sprout::make_filter_iterator(pred, last, last)
 					);
 			}
 		}	// namespace detail

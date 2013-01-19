@@ -7,9 +7,11 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/while_iterator.hpp>
 #include <sprout/algorithm/find_if_not.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -24,6 +26,7 @@ namespace sprout {
 			{
 				return sprout::fixed::copy(first, sprout::find_if_not(first, last, pred), result);
 			}
+
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
@@ -62,6 +65,29 @@ namespace sprout {
 			{
 				return sprout::fixed::detail::copy_while_impl(first, last, result, pred, sprout::size(result));
 			}
+
+			template<typename InputIterator, typename Result, typename Predicate>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
+				return sprout::fixed::detail::copy_while(first, last, result, pred, category());
+			}
+
+			template<typename InputIterator, typename Result, typename Predicate>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+				return sprout::remake<Result>(
+					result, sprout::size(result),
+					sprout::make_while_iterator(pred, first, last),
+					sprout::make_while_iterator(pred, last, last)
+					);
+			}
 		}	// namespace detail
 		//
 		// copy_while
@@ -69,8 +95,13 @@ namespace sprout {
 		template<typename InputIterator, typename Result, typename Predicate>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
-			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-			return sprout::fixed::detail::copy_while(first, last, result, pred, category());
+			return sprout::fixed::detail::copy_while(first, last, result, pred);
+		}
+
+		template< typename Result, typename InputIterator,typename Predicate>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		copy_while(InputIterator first, InputIterator last, Predicate pred) {
+			return sprout::fixed::copy_while(first, last, sprout::pit<Result>(), pred);
 		}
 	}	// namespace fixed
 

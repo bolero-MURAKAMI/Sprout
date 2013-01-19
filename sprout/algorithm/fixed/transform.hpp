@@ -29,8 +29,7 @@ namespace sprout {
 				)
 			{
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? op(first[Indexes - offset])
 						: *sprout::next(sprout::internal_begin(result), Indexes)
@@ -114,9 +113,9 @@ namespace sprout {
 			>::type
 			transform(InputIterator first, InputIterator last, Result const& result, UnaryOperation op) {
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
-					sprout::make_transform_iterator(first, op), sprout::make_transform_iterator(last, op)
+					result, sprout::size(result),
+					sprout::make_transform_iterator(first, op),
+					sprout::make_transform_iterator(last, op)
 					);
 			}
 		}	// namespace detail
@@ -148,8 +147,7 @@ namespace sprout {
 				)
 			{
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? op(first1[Indexes - offset], first2[Indexes - offset])
 						: *sprout::next(sprout::internal_begin(result), Indexes)
@@ -232,8 +230,7 @@ namespace sprout {
 			>::type
 			transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, Result const& result, BinaryOperation op) {
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					sprout::make_transform_iterator(first1, first2, op),
 					sprout::make_transform_iterator(last1, first2, op)
 					);

@@ -8,8 +8,10 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/clamp_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/clamp.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
@@ -56,6 +58,7 @@ namespace sprout {
 					sprout::distance(first, last)
 					);
 			}
+
 			template<typename InputIterator, typename Result, typename Compare, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
@@ -107,6 +110,41 @@ namespace sprout {
 			{
 				return sprout::fixed::detail::clamp_range_copy_impl(first, last, result, low, high, comp, sprout::size(result));
 			}
+
+			template<typename InputIterator, typename Result, typename Compare>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			clamp_range_copy(
+				InputIterator first, InputIterator last, Result const& result,
+				typename std::iterator_traits<InputIterator>::value_type const& low,
+				typename std::iterator_traits<InputIterator>::value_type const& high,
+				Compare comp
+				)
+			{
+				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
+				return sprout::fixed::detail::clamp_range_copy(first, last, result, low, high, comp, category());
+			}
+
+			template<typename InputIterator, typename Result, typename Compare>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			clamp_range_copy(
+				InputIterator first, InputIterator last, Result const& result,
+				typename std::iterator_traits<InputIterator>::value_type const& low,
+				typename std::iterator_traits<InputIterator>::value_type const& high,
+				Compare comp
+				)
+			{
+				return sprout::remake<Result>(
+					result, sprout::size(result),
+					sprout::make_clamp_iterator(first, low, high, comp),
+					sprout::make_clamp_iterator(last, low, high, comp)
+					);
+			}
 		}	// namespace detail
 		//
 		// clamp_range_copy
@@ -120,8 +158,7 @@ namespace sprout {
 			Compare comp
 			)
 		{
-			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-			return sprout::fixed::detail::clamp_range_copy(first, last, result, low, high, comp, category());
+			return sprout::fixed::detail::clamp_range_copy(first, last, result, low, high, comp);
 		}
 		template<typename InputIterator, typename Result>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
@@ -135,6 +172,28 @@ namespace sprout {
 				first, last, result, low, high,
 				NS_SSCRISK_CEL_OR_SPROUT::less<typename std::iterator_traits<InputIterator>::value_type>()
 				);
+		}
+
+		template<typename Result, typename InputIterator, typename Compare>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		clamp_range_copy(
+			InputIterator first, InputIterator last,
+			typename std::iterator_traits<InputIterator>::value_type const& low,
+			typename std::iterator_traits<InputIterator>::value_type const& high,
+			Compare comp
+			)
+		{
+			return sprout::fixed::clamp_range_copy(first, last, sprout::pit<Result>(), low, high, comp);
+		}
+		template<typename Result, typename InputIterator>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		clamp_range_copy(
+			InputIterator first, InputIterator last,
+			typename std::iterator_traits<InputIterator>::value_type const& low,
+			typename std::iterator_traits<InputIterator>::value_type const& high
+			)
+		{
+			return sprout::fixed::clamp_range_copy(first, last, sprout::pit<Result>(), low, high);
 		}
 	}	// namespace fixed
 

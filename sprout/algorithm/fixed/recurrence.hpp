@@ -8,6 +8,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -145,6 +146,12 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 		recurrence(Container const& cont, Generator const& gen, Inits const&... inits) {
 			return sprout::fixed::detail::recurrence_impl(cont, gen, sprout::size(cont), inits...);
+		}
+
+		template<typename Container, typename Generator, typename... Inits>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		recurrence(Generator const& gen, Inits const&... inits) {
+			return sprout::fixed::recurrence(sprout::pit<Container>(), gen, inits...);
 		}
 	}	// namespace fixed
 

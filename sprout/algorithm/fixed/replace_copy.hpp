@@ -29,8 +29,7 @@ namespace sprout {
 				)
 			{
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
 						? NS_SSCRISK_CEL_OR_SPROUT::equal_to<T>()(first[Indexes - offset], old_value) ? new_value : first[Indexes - offset]
 						: *sprout::next(sprout::internal_begin(result), Indexes)
@@ -117,8 +116,7 @@ namespace sprout {
 			>::type
 			replace_copy(InputIterator first, InputIterator last, Result const& result, T const& old_value, T const& new_value) {
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					sprout::make_replace_iterator(first, old_value, new_value),
 					sprout::make_replace_iterator(last, old_value, new_value)
 					);

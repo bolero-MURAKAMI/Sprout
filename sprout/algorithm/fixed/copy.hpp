@@ -27,8 +27,7 @@ namespace sprout {
 				)
 			{
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					(Indexes >= offset && sprout::math::less(Indexes, offset + size) && sprout::math::less(Indexes, offset + input_size)
 						? first[Indexes - offset]
 						: *sprout::next(sprout::internal_begin(result), Indexes)
@@ -107,8 +106,7 @@ namespace sprout {
 			>::type
 			copy(InputIterator first, InputIterator last, Result const& result) {
 				return sprout::remake<Result>(
-					result,
-					sprout::size(result),
+					result, sprout::size(result),
 					first, last
 					);
 			}

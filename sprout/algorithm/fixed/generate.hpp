@@ -7,6 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/generator/functions.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -79,6 +80,12 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 		generate(Container const& cont, Generator const& gen) {
 			return sprout::fixed::detail::generate_impl(cont, gen, sprout::size(cont));
+		}
+
+		template<typename Container, typename Generator>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		generate(Generator const& gen) {
+			return sprout::fixed::generate(sprout::pit<Container>());
 		}
 	}	// namespace fixed
 

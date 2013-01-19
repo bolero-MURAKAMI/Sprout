@@ -58,6 +58,7 @@ namespace sprout {
 					sprout::distance(first, last)
 					);
 			}
+
 			template<typename ForwardIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),

@@ -32,22 +32,17 @@ namespace sprout {
 		typedef typename std::iterator_traits<iterator_type>::reference reference;
 	protected:
 		iterator_type current;
-	private:
-		iterator_type deref_tmp;
 	public:
 		reverse_iterator() = default;
 		SPROUT_CONSTEXPR reverse_iterator(reverse_iterator const& other)
 			: current(other.current)
-			, deref_tmp(other.deref_tmp)
 		{}
 		explicit SPROUT_CONSTEXPR reverse_iterator(iterator_type it)
 			: current(it)
-			, deref_tmp(sprout::prev(it))
 		{}
 		template<typename U>
 		SPROUT_CONSTEXPR reverse_iterator(reverse_iterator<U> const& it)
 			: current(it.base())
-			, deref_tmp(sprout::prev(it.base()))
 		{}
 		template<typename U>
 		reverse_iterator& operator=(reverse_iterator<U> const& it) {
@@ -59,31 +54,27 @@ namespace sprout {
 			return current;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
-			return *deref_tmp;
+			return *sprout::prev(current);
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
-			return &*deref_tmp;
+			return &*(*this);
 		}
 		reverse_iterator& operator++() {
 			--current;
-			--deref_tmp;
 			return *this;
 		}
 		reverse_iterator operator++(int) {
 			reverse_iterator result(*this);
 			--current;
-			--deref_tmp;
 			return result;
 		}
 		reverse_iterator& operator--() {
 			++current;
-			++deref_tmp;
 			return *this;
 		}
 		reverse_iterator operator--(int) {
 			reverse_iterator temp(*this);
 			++current;
-			++deref_tmp;
 			return temp;
 		}
 		SPROUT_CONSTEXPR reverse_iterator operator+(difference_type n) const {
@@ -103,7 +94,7 @@ namespace sprout {
 			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
-			return *(deref_tmp - n);
+			return *(current - (n + 1));
 		}
 		SPROUT_CONSTEXPR reverse_iterator next() const {
 			return reverse_iterator(sprout::prev(current));
@@ -114,11 +105,9 @@ namespace sprout {
 		void swap(reverse_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
-			&& SPROUT_NOEXCEPT_EXPR(swap(deref_tmp, other.deref_tmp))
 			)
 		{
 			swap(current, other.current);
-			swap(deref_tmp, other.deref_tmp);
 		}
 	};
 
@@ -155,7 +144,7 @@ namespace sprout {
 	template<typename Iterator1, typename Iterator2>
 	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>())
 	operator-(sprout::reverse_iterator<Iterator1> const& lhs, sprout::reverse_iterator<Iterator2> const& rhs) {
-		return lhs.base() - rhs.base();
+		return rhs.base() - lhs.base();
 	}
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator>

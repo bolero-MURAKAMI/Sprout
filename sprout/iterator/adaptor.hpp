@@ -7,6 +7,9 @@
 #include <sprout/iterator/replace_iterator.hpp>
 #include <sprout/iterator/replace_if_iterator.hpp>
 #include <sprout/iterator/filter_iterator.hpp>
+#include <sprout/iterator/remove_iterator.hpp>
+#include <sprout/iterator/remove_if_iterator.hpp>
+#include <sprout/iterator/while_iterator.hpp>
 #include <sprout/iterator/step_iterator.hpp>
 #include <sprout/iterator/indexed_iterator.hpp>
 #include <sprout/iterator/valued_iterator.hpp>
