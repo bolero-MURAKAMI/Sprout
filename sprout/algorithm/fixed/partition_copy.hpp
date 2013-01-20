@@ -7,6 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -50,10 +51,13 @@ namespace sprout {
 		template<typename InputIterator, typename Result, typename Predicate>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		partition_copy(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
-			return sprout::fixed::detail::partition_copy_impl(
-				first, last, result, pred,
-				sprout::size(result)
-				);
+			return sprout::fixed::detail::partition_copy_impl(first, last, result, pred, sprout::size(result));
+		}
+
+		template<typename Result, typename InputIterator, typename Predicate>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		partition_copy(InputIterator first, InputIterator last, Predicate pred) {
+			return sprout::fixed::partition_copy(first, last, sprout::pit<Result>(), pred);
 		}
 	}	// namespace fixed
 

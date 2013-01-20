@@ -7,6 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
@@ -104,6 +105,26 @@ namespace sprout {
 				result, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Result>::value_type>(),
 				sprout::size(result)
 				);
+		}
+
+		template<typename Result, typename InputIterator1, typename InputIterator2, typename Compare>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		set_difference(
+			InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, InputIterator2 last2,
+			Compare comp
+			)
+		{
+			return sprout::fixed::set_difference(first1, last1, first2, last2, sprout::pit<Result>(), comp);
+		}
+		template<typename Result, typename InputIterator1, typename InputIterator2>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		set_difference(
+			InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2, InputIterator2 last2
+			)
+		{
+			return sprout::fixed::set_difference(first1, last1, first2, last2, sprout::pit<Result>());
 		}
 	}	// namespace fixed
 

@@ -48,9 +48,7 @@ namespace sprout {
 				)
 			{
 				return sprout::fixed::detail::rotate_copy_impl_ra(
-					first,
-					middle,
-					last,
+					first, middle, last,
 					result,
 					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
 					sprout::internal_begin_offset(result),

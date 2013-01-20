@@ -7,6 +7,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
@@ -107,6 +108,12 @@ namespace sprout {
 				? sprout::fixed::detail::unique_copy_impl(sprout::next(first), last, result, pred, sprout::size(result), *first)
 				: sprout::detail::container_complate(result)
 				;
+		}
+
+		template<typename Result, typename InputIterator, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		unique_copy(InputIterator first, InputIterator last, BinaryPredicate pred) {
+			return sprout::fixed::unique_copy(first, last, sprout::pit<Result>(), pred);
 		}
 	}	// namespace fixed
 
