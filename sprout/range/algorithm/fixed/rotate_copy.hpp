@@ -22,6 +22,15 @@ namespace sprout {
 			{
 				return sprout::fixed::rotate_copy(sprout::begin(input), middle, sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			rotate_copy(
+				Input const& input, typename sprout::container_traits<Input>::const_iterator middle
+				)
+			{
+				return sprout::fixed::rotate_copy<Result>(sprout::begin(input), middle, sprout::end(input));
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::rotate_copy;

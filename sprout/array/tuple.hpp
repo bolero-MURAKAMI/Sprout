@@ -50,8 +50,8 @@ namespace std {
 	//
 	template<std::size_t I, typename T, std::size_t N>
 	struct tuple_element<I, sprout::array<T, N> > {
-	public:
 		static_assert(I < N, "tuple_element<>: index out of range");
+	public:
 		typedef T type;
 	};
 #if defined(__clang__)

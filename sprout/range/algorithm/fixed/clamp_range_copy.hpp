@@ -34,6 +34,28 @@ namespace sprout {
 			{
 				return sprout::fixed::clamp_range_copy(sprout::begin(input), sprout::end(input), result, low, high);
 			}
+
+			template<typename Result, typename Input, typename Compare>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			clamp_range_copy(
+				Input const& input,
+				typename sprout::container_traits<Input>::value_type const& low,
+				typename sprout::container_traits<Input>::value_type const& high,
+				Compare comp
+				)
+			{
+				return sprout::fixed::clamp_range_copy<Result>(sprout::begin(input), sprout::end(input), low, high, comp);
+			}
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			clamp_range_copy(
+				Input const& input,
+				typename sprout::container_traits<Input>::value_type const& low,
+				typename sprout::container_traits<Input>::value_type const& high
+				)
+			{
+				return sprout::fixed::clamp_range_copy<Result>(sprout::begin(input), sprout::end(input), low, high);
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::clamp_range_copy;

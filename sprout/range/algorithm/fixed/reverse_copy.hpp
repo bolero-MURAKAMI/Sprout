@@ -18,6 +18,12 @@ namespace sprout {
 			reverse_copy(Input const& input, Result const& result) {
 				return sprout::fixed::reverse_copy(sprout::begin(input), sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			reverse_copy(Input const& input) {
+				return sprout::fixed::reverse_copy<Result>(sprout::begin(input), sprout::end(input));
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::reverse_copy;

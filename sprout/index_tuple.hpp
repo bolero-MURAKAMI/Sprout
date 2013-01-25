@@ -3,6 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
+#include <sprout/index_tuple/tuple.hpp>
 #include <sprout/index_tuple/make_indexes.hpp>
 #include <sprout/index_tuple/index_range.hpp>
 #include <sprout/index_tuple/index_n.hpp>

@@ -32,8 +32,7 @@ namespace sprout {
 		struct index_n_impl;
 		template<sprout::index_t I, std::size_t N>
 		struct index_n_impl<
-			I,
-			N,
+			I, N,
 			typename std::enable_if<(N == 0)>::type
 		> {
 		public:
@@ -41,8 +40,7 @@ namespace sprout {
 		};
 		template<sprout::index_t I, std::size_t N>
 		struct index_n_impl<
-			I,
-			N,
+			I, N,
 			typename std::enable_if<(N == 1)>::type
 		> {
 		public:
@@ -50,8 +48,7 @@ namespace sprout {
 		};
 		template<sprout::index_t I, std::size_t N>
 		struct index_n_impl<
-			I,
-			N,
+			I, N,
 			typename std::enable_if<(N > 1 && N % 2 == 0)>::type
 		>
 			: public sprout::detail::index_n_next<
@@ -60,8 +57,7 @@ namespace sprout {
 		{};
 		template<sprout::index_t I, std::size_t N>
 		struct index_n_impl<
-			I,
-			N,
+			I, N,
 			typename std::enable_if<(N > 1 && N % 2 == 1)>::type
 		>
 			: public sprout::detail::index_n_next2<

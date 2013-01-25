@@ -2,6 +2,7 @@
 #define SPROUT_INDEX_TUPLE_PACK_INDEXES_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/index_tuple/index_range.hpp>
 #include <sprout/index_tuple/detail/make_indexes_helper.hpp>
 
 namespace sprout {

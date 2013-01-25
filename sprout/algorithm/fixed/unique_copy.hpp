@@ -61,6 +61,12 @@ namespace sprout {
 				;
 		}
 
+		template<typename Result, typename InputIterator>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		unique_copy(InputIterator first, InputIterator last) {
+			return sprout::fixed::unique_copy(first, last, sprout::pit<Result>());
+		}
+
 		namespace detail {
 			template<typename InputIterator, typename Result, typename BinaryPredicate, typename Head, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<

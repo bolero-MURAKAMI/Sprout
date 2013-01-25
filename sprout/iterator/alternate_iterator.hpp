@@ -11,7 +11,6 @@
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/limited.hpp>
-#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//

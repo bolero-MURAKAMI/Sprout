@@ -18,6 +18,12 @@ namespace sprout {
 			remove_copy(Input const& input, Result const& result, T const& value) {
 				return sprout::fixed::remove_copy(sprout::begin(input), sprout::end(input), result, value);
 			}
+
+			template<typename Result, typename Input, typename T>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			remove_copy(Input const& input, Result const& result, T const& value) {
+				return sprout::fixed::remove_copy<Result>(sprout::begin(input), sprout::end(input), value);
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::remove_copy;

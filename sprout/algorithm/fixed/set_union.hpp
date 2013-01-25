@@ -6,10 +6,11 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/set_union_iterator.hpp>
+#include <sprout/functional/less.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fixed {
@@ -72,6 +73,43 @@ namespace sprout {
 					: sprout::detail::container_complate(result, args...)
 					;
 			}
+
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			set_union(
+				InputIterator1 first1, InputIterator1 last1,
+				InputIterator2 first2, InputIterator2 last2,
+				Result const& result, Compare comp
+				)
+			{
+				return sprout::fixed::detail::set_union_impl(
+					first1, last1,
+					first2, last2,
+					result, comp,
+					sprout::size(result)
+					);
+			}
+
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			set_union(
+				InputIterator1 first1, InputIterator1 last1,
+				InputIterator2 first2, InputIterator2 last2,
+				Result const& result, Compare comp
+				)
+			{
+				return sprout::remake<Result>(
+					result, sprout::size(result),
+					sprout::make_set_union_iterator(first1, last1, first2, last2, comp),
+					sprout::make_set_union_iterator(last1, last1, last2, last2, comp)
+					);
+			}
 		}	// namespace detail
 		//
 		// set_union
@@ -84,12 +122,7 @@ namespace sprout {
 			Result const& result, Compare comp
 			)
 		{
-			return sprout::fixed::detail::set_union_impl(
-				first1, last1,
-				first2, last2,
-				result, comp,
-				sprout::size(result)
-				);
+			return sprout::fixed::detail::set_union(first1, last1, first2, last2, result, comp);
 		}
 		template<typename InputIterator1, typename InputIterator2, typename Result>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
@@ -99,12 +132,7 @@ namespace sprout {
 			Result const& result
 			)
 		{
-			return sprout::fixed::detail::set_union_impl(
-				first1, last1,
-				first2, last2,
-				result, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Result>::value_type>(),
-				sprout::size(result)
-				);
+			return sprout::fixed::set_union(first1, last1, first2, last2, result, sprout::less<>());
 		}
 
 		template<typename Result, typename InputIterator1, typename InputIterator2, typename Compare>

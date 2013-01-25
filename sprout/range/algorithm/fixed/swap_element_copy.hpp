@@ -23,6 +23,17 @@ namespace sprout {
 			{
 				return sprout::fixed::swap_element_copy(sprout::begin(input), sprout::end(input), result, pos1, pos2);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			swap_element_copy(
+				Input const& input,
+				typename sprout::container_traits<Input>::const_iterator pos1,
+				typename sprout::container_traits<Input>::const_iterator pos2
+				)
+			{
+				return sprout::fixed::swap_element_copy<Result>(sprout::begin(input), sprout::end(input), pos1, pos2);
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::swap_element_copy;

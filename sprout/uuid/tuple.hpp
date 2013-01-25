@@ -52,8 +52,8 @@ namespace std {
 	//
 	template<std::size_t I>
 	struct tuple_element<I, sprout::uuids::uuid> {
-	public:
 		static_assert(I < 16, "tuple_element<>: index out of range");
+	public:
 		typedef sprout::uuids::uuid::value_type type;
 	};
 #if defined(__clang__)

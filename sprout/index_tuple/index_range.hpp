@@ -32,9 +32,7 @@ namespace sprout {
 		struct index_range_impl;
 		template<sprout::index_t First, sprout::index_t Step, std::size_t N>
 		struct index_range_impl<
-			First,
-			Step,
-			N,
+			First, Step, N,
 			typename std::enable_if<(N == 0)>::type
 		> {
 		public:
@@ -42,9 +40,7 @@ namespace sprout {
 		};
 		template<sprout::index_t First, sprout::index_t Step, std::size_t N>
 		struct index_range_impl<
-			First,
-			Step,
-			N,
+			First, Step, N,
 			typename std::enable_if<(N == 1)>::type
 		> {
 		public:
@@ -52,9 +48,7 @@ namespace sprout {
 		};
 		template<sprout::index_t First, sprout::index_t Step, std::size_t N>
 		struct index_range_impl<
-			First,
-			Step,
-			N,
+			First, Step, N,
 			typename std::enable_if<(N > 1 && N % 2 == 0)>::type
 		>
 			: public sprout::detail::index_range_next<
@@ -64,9 +58,7 @@ namespace sprout {
 		{};
 		template<sprout::index_t First, sprout::index_t Step, std::size_t N>
 		struct index_range_impl<
-			First,
-			Step,
-			N,
+			First, Step, N,
 			typename std::enable_if<(N > 1 && N % 2 == 1)>::type
 		>
 			: public sprout::detail::index_range_next2<
@@ -80,9 +72,7 @@ namespace sprout {
 	struct index_range
 		: public sprout::detail::make_indexes_helper<
 			sprout::detail::index_range_impl<
-				First,
-				Step,
-				((Last - First) + (Step - 1)) / Step
+				First, Step, ((Last - First) + (Step - 1)) / Step
 			>
 		>
 	{};

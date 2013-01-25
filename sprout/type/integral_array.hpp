@@ -18,6 +18,7 @@ namespace sprout {
 			: public sprout::types::type_tuple<std::integral_constant<T, Values>...>
 		{
 		public:
+			typedef integral_array type;
 			typedef T value_type;
 		};
 	}	// namespace types

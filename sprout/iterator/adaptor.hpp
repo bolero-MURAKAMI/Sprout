@@ -15,6 +15,7 @@
 #include <sprout/iterator/valued_iterator.hpp>
 #include <sprout/iterator/joint_iterator.hpp>
 #include <sprout/iterator/alternate_iterator.hpp>
+#include <sprout/iterator/merge_iterator.hpp>
 #include <sprout/iterator/size_enum_iterator.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
 #include <sprout/iterator/remake_iterator.hpp>

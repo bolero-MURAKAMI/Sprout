@@ -6,7 +6,9 @@
 namespace sprout {
 	namespace detail {
 		template<typename IndexTupleType>
-		struct make_indexes_helper {
+		struct make_indexes_helper
+			: public IndexTupleType::type
+		{
 		public:
 			typedef typename IndexTupleType::type type;
 		public:

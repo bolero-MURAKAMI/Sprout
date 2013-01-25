@@ -23,6 +23,17 @@ namespace sprout {
 			set_symmetric_difference(Input1 const& input1, Input2 const& input2, Result const& result) {
 				return sprout::fixed::set_symmetric_difference(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), sprout::end(input2), result);
 			}
+
+			template<typename Result, typename Input1, typename Input2, typename Compare>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			set_symmetric_difference(Input1 const& input1, Input2 const& input2, Compare comp) {
+				return sprout::fixed::set_symmetric_difference<Result>(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), sprout::end(input2), comp);
+			}
+			template<typename Result, typename Input1, typename Input2>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			set_symmetric_difference(Input1 const& input1, Input2 const& input2) {
+				return sprout::fixed::set_symmetric_difference<Result>(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), sprout::end(input2));
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::set_symmetric_difference;

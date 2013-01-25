@@ -7,6 +7,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
+#include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -79,6 +81,12 @@ namespace sprout {
 			return sprout::fixed::detail::adjacent_difference_impl(first, last, result, sprout::size(result));
 		}
 
+		template<typename Result, typename InputIterator>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		adjacent_difference(InputIterator first, InputIterator last) {
+			return sprout::fixed::adjacent_difference(first, last, sprout::pit<Result>());
+		}
+
 		namespace detail {
 			template<typename InputIterator, typename Result, typename BinaryOperation, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -146,6 +154,12 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		adjacent_difference(InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op) {
 			return sprout::fixed::detail::adjacent_difference_impl(first, last, result, binary_op, sprout::size(result));
+		}
+
+		template<typename Result, typename InputIterator, typename BinaryOperation>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		adjacent_difference(InputIterator first, InputIterator last, BinaryOperation binary_op) {
+			return sprout::fixed::adjacent_difference(first, last, sprout::pit<Result>(), binary_op);
 		}
 	}	// namespace fixed
 

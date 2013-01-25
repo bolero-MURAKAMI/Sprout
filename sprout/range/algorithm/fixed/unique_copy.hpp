@@ -23,6 +23,17 @@ namespace sprout {
 			unique_copy(Input const& input, Result const& result) {
 				return sprout::fixed::unique_copy(sprout::begin(input), sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input, typename BinaryPredicate>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			unique_copy(Input const& input, BinaryPredicate pred) {
+				return sprout::fixed::unique_copy<Result>(sprout::begin(input), sprout::end(input), pred);
+			}
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			unique_copy(Input const& input) {
+				return sprout::fixed::unique_copy<Result>(sprout::begin(input), sprout::end(input));
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::unique_copy;

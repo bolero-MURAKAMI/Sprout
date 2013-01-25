@@ -18,6 +18,12 @@ namespace sprout {
 			copy_while(Input const& input, Result const& result, Predicate pred) {
 				return sprout::fixed::copy_while(sprout::begin(input), sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input, typename Predicate>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			copy_while(Input const& input, Predicate pred) {
+				return sprout::fixed::copy_while<Result>(sprout::begin(input), sprout::end(input));
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::copy_while;

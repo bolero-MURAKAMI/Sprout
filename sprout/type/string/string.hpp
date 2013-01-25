@@ -15,7 +15,10 @@ namespace sprout {
 		template<typename T, T... Values>
 		struct basic_string
 			: public sprout::types::integral_array<T, Values...>
-		{};
+		{
+		public:
+			typedef basic_string type;
+		};
 	}	// namespace types
 }	// namespace sprout
 

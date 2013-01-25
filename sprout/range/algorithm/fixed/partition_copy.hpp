@@ -18,6 +18,12 @@ namespace sprout {
 			partition_copy(Input const& input, Result const& result, Predicate pred) {
 				return sprout::fixed::partition_copy(sprout::begin(input), sprout::end(input), result, pred);
 			}
+
+			template<typename Result, typename Input, typename Predicate>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			partition_copy(Input const& input, Predicate pred) {
+				return sprout::fixed::partition_copy<Result>(sprout::begin(input), sprout::end(input), pred);
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::partition_copy;
