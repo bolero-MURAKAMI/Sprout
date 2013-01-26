@@ -43,5 +43,12 @@
 #include <sprout/range/algorithm/is_decreasing.hpp>
 #include <sprout/range/algorithm/is_strictly_increasing.hpp>
 #include <sprout/range/algorithm/is_strictly_decreasing.hpp>
+#include <sprout/range/algorithm/find_intersection.hpp>
+#include <sprout/range/algorithm/find_difference.hpp>
+#include <sprout/range/algorithm/find_symmetric_difference.hpp>
+#include <sprout/range/algorithm/next_union.hpp>
+#include <sprout/range/algorithm/next_intersection.hpp>
+#include <sprout/range/algorithm/next_difference.hpp>
+#include <sprout/range/algorithm/next_symmetric_difference.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_ALGORITHM_NON_MODIFYIING_HPP
