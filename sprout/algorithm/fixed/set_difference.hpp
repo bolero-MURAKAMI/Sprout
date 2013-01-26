@@ -6,6 +6,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/set_difference_iterator.hpp>
 #include <sprout/functional/less.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit.hpp>
@@ -63,12 +64,7 @@ namespace sprout {
 								sprout::next(first1), last1, first2, last2, result, comp,
 								size, args..., *first1
 								)
-						: first2 != last2
-							? sprout::fixed::detail::set_difference_impl(
-								first1, last1, sprout::next(first2), last2, result, comp,
-								size, args...
-								)
-							: sprout::detail::container_complate(result, args...)
+						: sprout::detail::container_complate(result, args...)
 					: sprout::detail::container_complate(result, args...)
 					;
 			}
@@ -89,6 +85,24 @@ namespace sprout {
 					first2, last2,
 					result, comp,
 					sprout::size(result)
+					);
+			}
+
+			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::is_fixed_container<Result>::value,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			set_difference(
+				InputIterator1 first1, InputIterator1 last1,
+				InputIterator2 first2, InputIterator2 last2,
+				Result const& result, Compare comp
+				)
+			{
+				return sprout::remake<Result>(
+					result, sprout::size(result),
+					sprout::make_set_difference_iterator(first1, last1, first2, last2, comp),
+					sprout::make_set_difference_iterator(last1, last1, last2, last2, comp)
 					);
 			}
 		}	// namespace detail

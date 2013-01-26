@@ -16,6 +16,10 @@
 #include <sprout/iterator/joint_iterator.hpp>
 #include <sprout/iterator/alternate_iterator.hpp>
 #include <sprout/iterator/merge_iterator.hpp>
+#include <sprout/iterator/set_union_iterator.hpp>
+#include <sprout/iterator/set_intersection_iterator.hpp>
+#include <sprout/iterator/set_difference_iterator.hpp>
+#include <sprout/iterator/set_symmetric_difference_iterator.hpp>
 #include <sprout/iterator/size_enum_iterator.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
 #include <sprout/iterator/remake_iterator.hpp>
