@@ -59,7 +59,7 @@ namespace sprout {
 			, comp(other.comp)
 		{}
 	public:
-		set_difference_iterator()
+		SPROUT_CONSTEXPR set_difference_iterator()
 			: current(), lst1(), lst2(), comp()
 		{}
 		set_difference_iterator(set_difference_iterator const&) = default;

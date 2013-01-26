@@ -15,7 +15,7 @@ namespace sprout {
 	private:
 		Predicate pred_;
 	public:
-		SPROUT_CONSTEXPR remove_if_filter(Predicate pred)
+		explicit SPROUT_CONSTEXPR remove_if_filter(Predicate pred)
 			: pred_(pred)
 		{}
 		template<typename U>

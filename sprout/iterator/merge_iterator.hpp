@@ -7,6 +7,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
+#include <sprout/functional/less.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {

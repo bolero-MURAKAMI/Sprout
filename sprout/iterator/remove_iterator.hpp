@@ -15,7 +15,7 @@ namespace sprout {
 	private:
 		T value_;
 	public:
-		SPROUT_CONSTEXPR remove_filter(T const& value)
+		explicit SPROUT_CONSTEXPR remove_filter(T const& value)
 			: value_(value)
 		{}
 		template<typename U>

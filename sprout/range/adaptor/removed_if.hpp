@@ -1,5 +1,5 @@
-#ifndef SPROUT_RANGE_ADAPTOR_FILTERED_HPP
-#define SPROUT_RANGE_ADAPTOR_FILTERED_HPP
+#ifndef SPROUT_RANGE_ADAPTOR_REMOVED_IF_HPP
+#define SPROUT_RANGE_ADAPTOR_REMOVED_IF_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -7,6 +7,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/filter_iterator.hpp>
+#include <sprout/iterator/remove_if_iterator.hpp>
 #include <sprout/range/adaptor/detail/adapted_range_default.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
@@ -15,14 +16,14 @@
 namespace sprout {
 	namespace adaptors {
 		//
-		// filtered_range
+		// removed_if_range
 		//
 		template<typename Predicate, typename Range>
-		class filtered_range
+		class removed_if_range
 			: public sprout::adaptors::detail::adapted_range_default<
 				Range,
 				sprout::filter_iterator<
-					Predicate,
+					sprout::remove_if_filter<Predicate>,
 					typename sprout::container_traits<Range>::iterator
 				>
 			>
@@ -32,77 +33,75 @@ namespace sprout {
 			typedef sprout::adaptors::detail::adapted_range_default<
 				Range,
 				sprout::filter_iterator<
-					Predicate,
+					sprout::remove_if_filter<Predicate>,
 					typename sprout::container_traits<Range>::iterator
 				>
 			> base_type;
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			filtered_range() = default;
-			filtered_range(filtered_range const&) = default;
-			SPROUT_CONSTEXPR filtered_range(Predicate pred, range_type& range)
+			removed_if_range() = default;
+			removed_if_range(removed_if_range const&) = default;
+			SPROUT_CONSTEXPR removed_if_range(range_type& range, Predicate pred)
 				: base_type(
-					iterator(pred, sprout::begin(range), sprout::end(range)),
-					iterator(pred, sprout::end(range), sprout::end(range))
+					iterator(sprout::begin(range), typename iterator::predicate_type(pred)),
+					iterator(sprout::end(range), typename iterator::predicate_type(pred))
 					)
 			{}
 		};
 
 		//
-		// filter_holder
+		// remove_if_holder
 		//
 		template<typename Predicate>
-		class filter_holder {
+		class remove_if_holder {
 		public:
 			typedef Predicate predicate_type;
 		private:
 			Predicate pred_;
 		public:
-			filter_holder() = default;
-			filter_holder(filter_holder const&) = default;
-			SPROUT_CONSTEXPR filter_holder(Predicate pred)
+			explicit SPROUT_CONSTEXPR remove_if_holder(Predicate pred)
 				: pred_(pred)
 			{}
-			SPROUT_CONSTEXPR Predicate predicate() const {
+			SPROUT_CONSTEXPR Predicate const& predicate() const {
 				return pred_;
 			}
 		};
 
 		//
-		// filtered_forwarder
+		// removed_if_forwarder
 		//
-		class filtered_forwarder {
+		class removed_if_forwarder {
 		public:
 			template<typename Predicate>
-			SPROUT_CONSTEXPR sprout::adaptors::filter_holder<Predicate>
+			SPROUT_CONSTEXPR sprout::adaptors::remove_if_holder<Predicate>
 			operator()(Predicate pred) {
-				return sprout::adaptors::filter_holder<Predicate>(pred);
+				return sprout::adaptors::remove_if_holder<Predicate>(pred);
 			}
 		};
 
 		//
-		// filtered
+		// removed_if
 		//
 		namespace {
-			SPROUT_STATIC_CONSTEXPR sprout::adaptors::filtered_forwarder filtered = {};
+			SPROUT_STATIC_CONSTEXPR sprout::adaptors::removed_if_forwarder removed_if = {};
 		}	// anonymous-namespace
 
 		//
 		// operator|
 		//
 		template<typename Range, typename Predicate>
-		inline SPROUT_CONSTEXPR sprout::adaptors::filtered_range<
+		inline SPROUT_CONSTEXPR sprout::adaptors::removed_if_range<
 			Predicate,
 			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 		>
-		operator|(Range&& lhs, sprout::adaptors::filter_holder<Predicate> const& rhs) {
-			return sprout::adaptors::filtered_range<
+		operator|(Range&& lhs, sprout::adaptors::remove_if_holder<Predicate> const& rhs) {
+			return sprout::adaptors::removed_if_range<
 				Predicate,
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>(
-				rhs.predicate(),
-				sprout::lvalue_forward<Range>(lhs)
+				sprout::lvalue_forward<Range>(lhs),
+				rhs.predicate()
 				);
 		}
 	}	// namespace adaptors
@@ -111,9 +110,9 @@ namespace sprout {
 	// container_construct_traits
 	//
 	template<typename Predicate, typename Range>
-	struct container_construct_traits<sprout::adaptors::filtered_range<Predicate, Range> >
-		: public sprout::container_construct_traits<typename sprout::adaptors::filtered_range<Predicate, Range>::base_type>
+	struct container_construct_traits<sprout::adaptors::removed_if_range<Predicate, Range> >
+		: public sprout::container_construct_traits<typename sprout::adaptors::removed_if_range<Predicate, Range>::base_type>
 	{};
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_RANGE_ADAPTOR_FILTERED_HPP
+#endif	// #ifndef SPROUT_RANGE_ADAPTOR_REMOVED_IF_HPP

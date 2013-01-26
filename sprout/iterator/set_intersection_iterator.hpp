@@ -59,7 +59,7 @@ namespace sprout {
 			, comp(other.comp)
 		{}
 	public:
-		set_intersection_iterator()
+		SPROUT_CONSTEXPR set_intersection_iterator()
 			: current(), lst1(), lst2(), comp()
 		{}
 		set_intersection_iterator(set_intersection_iterator const&) = default;

@@ -9,7 +9,6 @@
 #include <sprout/iterator/counting_iterator.hpp>
 #include <sprout/range/range_container.hpp>
 #include <sprout/range/adaptor/detail/adapted_range_default.hpp>
-#include <sprout/range/algorithm/copy.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>

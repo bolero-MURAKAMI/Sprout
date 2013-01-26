@@ -53,7 +53,7 @@ namespace sprout {
 		protected:
 			bool in_left;
 		protected:
-			set_symmetric_difference_iterator_impl()
+			SPROUT_CONSTEXPR set_symmetric_difference_iterator_impl()
 				: current(), lst1(), lst2(), comp(), in_left(true)
 			{}
 			set_symmetric_difference_iterator_impl(set_symmetric_difference_iterator_impl const&) = default;
@@ -128,7 +128,7 @@ namespace sprout {
 			: impl_type(next, other.lst1, other.lst2, other.comp)
 		{}
 	public:
-		set_symmetric_difference_iterator()
+		SPROUT_CONSTEXPR set_symmetric_difference_iterator()
 			: impl_type()
 		{}
 		set_symmetric_difference_iterator(set_symmetric_difference_iterator const&) = default;

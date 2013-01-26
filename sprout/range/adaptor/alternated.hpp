@@ -9,7 +9,6 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/alternate_iterator.hpp>
 #include <sprout/range/adaptor/detail/jointed_range_default.hpp>
-#include <sprout/range/algorithm/copy.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>

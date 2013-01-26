@@ -69,10 +69,10 @@ namespace sprout {
 			: current(next)
 			, lst1(other.lst1), lst2(other.lst2)
 			, comp(other.comp)
-			, in_left(check_in_left(next.first, lst1, next.second, lst2, comp))
+			, in_left(check_in_left(next.first, other.lst1, next.second, other.lst2, other.comp))
 		{}
 	public:
-		set_union_iterator()
+		SPROUT_CONSTEXPR set_union_iterator()
 			: current(), lst1(), lst2(), comp(), in_left(true)
 		{}
 		set_union_iterator(set_union_iterator const&) = default;
