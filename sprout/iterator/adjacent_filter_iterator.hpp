@@ -1,24 +1,23 @@
-#ifndef SPROUT_ITERATOR_FILTER_ITERATOR_HPP
-#define SPROUT_ITERATOR_FILTER_ITERATOR_HPP
+#ifndef SPROUT_ITERATOR_ADJACENT_FILTER_ITERATOR_HPP
+#define SPROUT_ITERATOR_ADJACENT_FILTER_ITERATOR_HPP
 
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
-#include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
-#include <sprout/algorithm/find_if.hpp>
+#include <sprout/algorithm/adjacent_find.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
-	// filter_iterator
+	// adjacent_filter_iterator
 	//
 	template<typename Predicate, typename Iterator>
-	class filter_iterator
+	class adjacent_filter_iterator
 		: public std::iterator<
 			typename sprout::min_iterator_category<
 				typename std::iterator_traits<Iterator>::iterator_category,
-				std::bidirectional_iterator_tag
+				std::forward_iterator_tag
 			>::type,
 			typename std::iterator_traits<Iterator>::value_type,
 			typename std::iterator_traits<Iterator>::difference_type,
@@ -31,7 +30,7 @@ namespace sprout {
 		typedef Iterator iterator_type;
 		typedef typename sprout::min_iterator_category<
 			typename std::iterator_traits<Iterator>::iterator_category,
-			std::bidirectional_iterator_tag
+			std::forward_iterator_tag
 		>::type iterator_category;
 		typedef typename std::iterator_traits<Iterator>::value_type value_type;
 		typedef typename std::iterator_traits<Iterator>::difference_type difference_type;
@@ -41,11 +40,11 @@ namespace sprout {
 		struct private_constructor_tag {};
 	private:
 		static SPROUT_CONSTEXPR iterator_type find_next(iterator_type first, iterator_type last, Predicate pred) {
-			return sprout::find_if(first, last, pred);
+			return sprout::adjacent_find(first, last, pred);
 		}
-		static SPROUT_CONSTEXPR iterator_type find_prev(iterator_type first, Predicate pred) {
-			return pred(*first) ? first
-				: find_prev(sprout::prev(first), pred)
+		static SPROUT_CONSTEXPR iterator_type checked_next(iterator_type found, iterator_type last) {
+			return found == last ? last
+				: sprout::next(found)
 				;
 		}
 	protected:
@@ -54,35 +53,30 @@ namespace sprout {
 		Predicate pred;
 	private:
 		void satisfy_predicate() {
-			current = sprout::find_if(current, last, pred);
+			current = sprout::adjacent_find(current, last, pred);
 		}
-		void satisfy_predicate_backward() {
-			while (!pred(*current)) {
-				--current;
-			}
-		}
-		SPROUT_CONSTEXPR filter_iterator(Predicate pred, iterator_type it, iterator_type last, private_constructor_tag)
+		SPROUT_CONSTEXPR adjacent_filter_iterator(Predicate pred, iterator_type it, iterator_type last, private_constructor_tag)
 			: current(it)
 			, last(last)
 			, pred(pred)
 		{}
 	public:
-		filter_iterator() = default;
-		filter_iterator(filter_iterator const&) = default;
-		SPROUT_CONSTEXPR filter_iterator(Predicate pred, iterator_type it, iterator_type last = iterator_type())
+		adjacent_filter_iterator() = default;
+		adjacent_filter_iterator(adjacent_filter_iterator const&) = default;
+		SPROUT_CONSTEXPR adjacent_filter_iterator(Predicate pred, iterator_type it, iterator_type last = iterator_type())
 			: current(find_next(it, last, pred))
 			, last(last)
 			, pred(pred)
 		{}
 		template<typename U>
-		SPROUT_CONSTEXPR filter_iterator(filter_iterator<Predicate, U> const& it)
+		SPROUT_CONSTEXPR adjacent_filter_iterator(adjacent_filter_iterator<Predicate, U> const& it)
 			: current(it.current)
 			, last(it.last)
 			, pred(it.pred)
 		{}
 		template<typename U>
-		filter_iterator& operator=(filter_iterator<Predicate, U> const& it) {
-			filter_iterator temp(it);
+		adjacent_filter_iterator& operator=(adjacent_filter_iterator<Predicate, U> const& it) {
+			adjacent_filter_iterator temp(it);
 			temp.swap(*this);
 			return *this;
 		}
@@ -102,35 +96,25 @@ namespace sprout {
 			return &*current;
 		}
 
-		filter_iterator& operator++() {
-			++current;
+		adjacent_filter_iterator& operator++() {
 			satisfy_predicate();
+			if (current != last) {
+				++current;
+			}
 			return *this;
 		}
-		filter_iterator operator++(int) {
-			filter_iterator result(*this);
-			++current;
+		adjacent_filter_iterator operator++(int) {
+			adjacent_filter_iterator result(*this);
 			satisfy_predicate();
+			if (current != last) {
+				++current;
+			}
 			return result;
 		}
-		filter_iterator& operator--() {
-			--current;
-			satisfy_predicate_backward();
-			return *this;
+		SPROUT_CONSTEXPR adjacent_filter_iterator next() const {
+			return adjacent_filter_iterator(pred, checked_next(find_next(current, last, pred), last), last, private_constructor_tag());
 		}
-		filter_iterator operator--(int) {
-			filter_iterator temp(*this);
-			--current;
-			satisfy_predicate_backward();
-			return temp;
-		}
-		SPROUT_CONSTEXPR filter_iterator next() const {
-			return filter_iterator(pred, find_next(sprout::next(current), last, pred), last, private_constructor_tag());
-		}
-		SPROUT_CONSTEXPR filter_iterator prev() const {
-			return filter_iterator(pred, find_prev(sprout::prev(current), pred), last, private_constructor_tag());
-		}
-		void swap(filter_iterator& other)
+		void swap(adjacent_filter_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(last, other.last))
@@ -145,28 +129,28 @@ namespace sprout {
 
 	template<typename Predicate, typename Iterator1, typename Iterator2>
 	inline SPROUT_CONSTEXPR bool operator==(
-		sprout::filter_iterator<Predicate, Iterator1> const& lhs,
-		sprout::filter_iterator<Predicate, Iterator2> const& rhs
+		sprout::adjacent_filter_iterator<Predicate, Iterator1> const& lhs,
+		sprout::adjacent_filter_iterator<Predicate, Iterator2> const& rhs
 		)
 	{
 		return lhs.base() == rhs.base();
 	}
 	template<typename Predicate, typename Iterator1, typename Iterator2>
 	inline SPROUT_CONSTEXPR bool operator!=(
-		sprout::filter_iterator<Predicate, Iterator1> const& lhs,
-		sprout::filter_iterator<Predicate, Iterator2> const& rhs
+		sprout::adjacent_filter_iterator<Predicate, Iterator1> const& lhs,
+		sprout::adjacent_filter_iterator<Predicate, Iterator2> const& rhs
 		)
 	{
 		return !(lhs == rhs);
 	}
 
 	//
-	// make_filter_iterator
+	// make_adjacent_filter_iterator
 	//
 	template<typename Predicate, typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator>
-	make_filter_iterator(Predicate pred, Iterator it, Iterator last = Iterator()) {
-		return sprout::filter_iterator<Predicate, Iterator>(pred, it, last);
+	inline SPROUT_CONSTEXPR sprout::adjacent_filter_iterator<Predicate, Iterator>
+	make_adjacent_filter_iterator(Predicate pred, Iterator it, Iterator last = Iterator()) {
+		return sprout::adjacent_filter_iterator<Predicate, Iterator>(pred, it, last);
 	}
 
 	//
@@ -174,7 +158,7 @@ namespace sprout {
 	//
 	template<typename Predicate, typename Iterator>
 	inline void
-	swap(sprout::filter_iterator<Predicate, Iterator>& lhs, sprout::filter_iterator<Predicate, Iterator>& rhs)
+	swap(sprout::adjacent_filter_iterator<Predicate, Iterator>& lhs, sprout::adjacent_filter_iterator<Predicate, Iterator>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
@@ -184,19 +168,10 @@ namespace sprout {
 	// iterator_next
 	//
 	template<typename Predicate, typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator>
-	iterator_next(sprout::filter_iterator<Predicate, Iterator> const& it) {
+	inline SPROUT_CONSTEXPR sprout::adjacent_filter_iterator<Predicate, Iterator>
+	iterator_next(sprout::adjacent_filter_iterator<Predicate, Iterator> const& it) {
 		return it.next();
-	}
-
-	//
-	// iterator_prev
-	//
-	template<typename Predicate, typename Iterator>
-	inline SPROUT_CONSTEXPR sprout::filter_iterator<Predicate, Iterator>
-	iterator_prev(sprout::filter_iterator<Predicate, Iterator> const& it) {
-		return it.prev();
 	}
 }	// namespace sprout
 
-#endif	// SPROUT_ITERATOR_FILTER_ITERATOR_HPP
+#endif	// SPROUT_ITERATOR_ADJACENT_FILTER_ITERATOR_HPP

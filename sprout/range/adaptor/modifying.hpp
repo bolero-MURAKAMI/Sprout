@@ -10,6 +10,8 @@
 #include <sprout/range/adaptor/filtered.hpp>
 #include <sprout/range/adaptor/removed.hpp>
 #include <sprout/range/adaptor/removed_if.hpp>
+#include <sprout/range/adaptor/adjacent_filtered.hpp>
+#include <sprout/range/adaptor/uniqued.hpp>
 #include <sprout/range/adaptor/reversed.hpp>
 #include <sprout/range/adaptor/merged.hpp>
 #include <sprout/range/adaptor/set_union.hpp>

@@ -4,7 +4,6 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/pit.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/square_iterator.hpp>
