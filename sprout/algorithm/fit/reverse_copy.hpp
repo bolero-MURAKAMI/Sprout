@@ -2,13 +2,13 @@
 #define SPROUT_ALGORITHM_FIT_REVERSE_COPY_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/iterator/distance.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/reverse_copy.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace fit {

@@ -67,7 +67,7 @@ namespace sprout {
 				;
 		}
 		template<typename ForwardIterator, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> 
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		adjacent_find_impl_1(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
 			ForwardIterator last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n
@@ -88,7 +88,7 @@ namespace sprout {
 				;
 		}
 		template<typename ForwardIterator, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> 
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		adjacent_find_impl(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
 			ForwardIterator last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n

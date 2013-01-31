@@ -2,13 +2,14 @@
 #define SPROUT_ALGORITHM_FIT_CLAMP_RANGE_COPY_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/iterator/distance.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/clamp_range_copy.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/iterator/operation.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 
 namespace sprout {
 	namespace fit {
@@ -42,6 +43,7 @@ namespace sprout {
 			Compare comp
 			)
 		{
+			static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
 			return sprout::fit::detail::clamp_range_copy_impl(first, last, result, low, high, comp, sprout::internal_begin_offset(result));
 		}
 
@@ -73,6 +75,7 @@ namespace sprout {
 			typename std::iterator_traits<InputIterator>::value_type const& high
 			)
 		{
+			static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
 			return sprout::fit::detail::clamp_range_copy_impl(first, last, result, low, high, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

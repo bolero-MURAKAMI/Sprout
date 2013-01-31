@@ -2,6 +2,7 @@
 #define SPROUT_ALGORITHM_FIT_SET_UNION_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/iterator/distance.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/set_union.hpp>
@@ -9,7 +10,7 @@
 #include <sprout/sub_array.hpp>
 #include <sprout/detail/algorithm/set_overlap_count.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
-#include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 
 namespace sprout {
 	namespace fit {
@@ -27,8 +28,7 @@ namespace sprout {
 					sprout::get_internal(sprout::fixed::set_union(first1, last1, first2, last2, result, comp)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
-						sprout::distance(first1, last1)
-							+ sprout::distance(first2, last2)
+						sprout::distance(first1, last1) + sprout::distance(first2, last2)
 							- sprout::detail::set_overlap_count(first1, last1, first2, last2, comp)
 							,
 						sprout::size(result)
@@ -47,6 +47,10 @@ namespace sprout {
 			Result const& result, Compare comp
 			)
 		{
+			static_assert(
+				sprout::is_forward_iterator<InputIterator1>::value && sprout::is_forward_iterator<InputIterator2>::value,
+				"Sorry, not implemented."
+				);
 			return sprout::fit::detail::set_union_impl(first1, last1, first2, last2, result, comp, sprout::internal_begin_offset(result));
 		}
 
@@ -64,8 +68,7 @@ namespace sprout {
 					sprout::get_internal(sprout::fixed::set_union(first1, last1, first2, last2, result)),
 					offset,
 					offset + NS_SSCRISK_CEL_OR_SPROUT::min(
-						sprout::distance(first1, last1)
-							+ sprout::distance(first2, last2)
+						sprout::distance(first1, last1) + sprout::distance(first2, last2)
 							- sprout::detail::set_overlap_count(first1, last1, first2, last2)
 							,
 						sprout::size(result)
@@ -84,6 +87,10 @@ namespace sprout {
 			Result const& result
 			)
 		{
+			static_assert(
+				sprout::is_forward_iterator<InputIterator1>::value && sprout::is_forward_iterator<InputIterator2>::value,
+				"Sorry, not implemented."
+				);
 			return sprout::fit::detail::set_union_impl(first1, last1, first2, last2, result, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit

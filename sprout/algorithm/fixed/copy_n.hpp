@@ -12,6 +12,7 @@
 #include <sprout/pit.hpp>
 #include <sprout/math/comparison.hpp>
 #include <sprout/detail/container_complate.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -74,23 +75,14 @@ namespace sprout {
 				return sprout::fixed::detail::copy_n(first, n, result, category());
 			}
 
-			template<typename ForwardIterator, typename Size, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			copy_n_dyn(
-				ForwardIterator first, Size n, Result const& result,
-				std::forward_iterator_tag*
-				)
-			{
-				return sprout::fixed::copy(first, sprout::next(first, n), result);
-			}
 			template<typename InputIterator, typename Size, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			copy_n(InputIterator first, Size n, Result const& result) {
-				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-				return sprout::fixed::detail::copy_n_dyn(first, n, result, category());
+				static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
+				return sprout::fixed::copy(first, sprout::next(first, n), result);
 			}
 		}	// namespace detail
 		//

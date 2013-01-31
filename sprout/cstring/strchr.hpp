@@ -24,7 +24,7 @@ namespace sprout {
 				: sprout::detail::strchr_impl_1(
 					sprout::detail::strchr_impl_1(
 						current,
-						 value, n / 2
+						value, n / 2
 						),
 					value, n - n / 2
 					)

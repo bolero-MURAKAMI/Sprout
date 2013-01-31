@@ -2,12 +2,12 @@
 #define SPROUT_ALGORITHM_FIT_NTH_ELEMENT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/iterator/distance.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/nth_element.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
-#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	namespace fit {

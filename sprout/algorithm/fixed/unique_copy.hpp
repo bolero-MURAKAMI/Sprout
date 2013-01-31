@@ -1,7 +1,6 @@
 #ifndef SPROUT_ALGORITHM_FIXED_UNIQUE_COPY_HPP
 #define SPROUT_ALGORITHM_FIXED_UNIQUE_COPY_HPP
 
-#include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
@@ -11,6 +10,7 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -64,26 +64,17 @@ namespace sprout {
 			}
 
 			template<typename InputIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			unique_copy_dyn(
-				InputIterator first, InputIterator last, Result const& result,
-				std::forward_iterator_tag*
-				)
-			{
-				return sprout::remake<Result>(
-					result, sprout::size(result),
-					sprout::make_unique_iterator(first, last),
-					sprout::make_unique_iterator(last, last)
-					);
-			}
-			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			unique_copy(InputIterator first, InputIterator last, Result const& result) {
-				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-				return sprout::fixed::detail::unique_copy_dyn(first, last, result, category());
+				static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
+				return sprout::remake<Result>(
+					result, sprout::size(result),
+					sprout::make_unique_iterator(first, last),
+					sprout::make_unique_iterator(last, last)
+					);
 			}
 		}	// namespace detail
 		//
@@ -151,26 +142,17 @@ namespace sprout {
 			}
 
 			template<typename InputIterator, typename Result, typename BinaryPredicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			unique_copy_dyn(
-				InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred,
-				std::forward_iterator_tag*
-				)
-			{
-				return sprout::remake<Result>(
-					result, sprout::size(result),
-					sprout::make_unique_iterator(pred, first, last),
-					sprout::make_unique_iterator(pred, last, last)
-					);
-			}
-			template<typename InputIterator, typename Result, typename BinaryPredicate>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
-				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-				return sprout::fixed::detail::unique_copy_dyn(first, last, result, pred, category());
+				static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
+				return sprout::remake<Result>(
+					result, sprout::size(result),
+					sprout::make_unique_iterator(pred, first, last),
+					sprout::make_unique_iterator(pred, last, last)
+					);
 			}
 		}	// namespace detail
 		//

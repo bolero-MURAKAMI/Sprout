@@ -52,7 +52,7 @@ namespace sprout {
 		}
 
 		template<typename ForwardIterator, typename Compare>
-		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> 
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		is_sorted_until_impl_1(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
 			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
@@ -73,7 +73,7 @@ namespace sprout {
 				;
 		}
 		template<typename ForwardIterator, typename Compare>
-		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator> 
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		is_sorted_until_impl(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
 			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
