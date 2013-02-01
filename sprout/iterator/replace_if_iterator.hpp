@@ -1,5 +1,5 @@
-#ifndef SPROUT_ITERATOR_REPLACE_ITERATOR_HPP
-#define SPROUT_ITERATOR_REPLACE_ITERATOR_HPP
+#ifndef SPROUT_ITERATOR_REPLACE_IF_ITERATOR_HPP
+#define SPROUT_ITERATOR_REPLACE_IF_ITERATOR_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/iterator/transform_iterator.hpp>
@@ -13,7 +13,7 @@ namespace sprout {
 	public:
 		typedef Predicate predicate_type;
 		typedef T result_type;
-		typedef T const& argument_type;
+		typedef T argument_type;
 	private:
 		Predicate pred_;
 		T new_;
@@ -39,4 +39,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_ITERATOR_REPLACE_ITERATOR_HPP
+#endif	// #ifndef SPROUT_ITERATOR_REPLACE_IF_ITERATOR_HPP

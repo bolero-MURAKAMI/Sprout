@@ -18,6 +18,12 @@ namespace sprout {
 			amplitude_spectrum(Input const& input, Result const& result) {
 				return sprout::fixed::amplitude_spectrum(sprout::begin(input), sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			amplitude_spectrum(Input const& input) {
+				return sprout::fixed::amplitude_spectrum<Result>(sprout::begin(input), sprout::end(input));
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::amplitude_spectrum;

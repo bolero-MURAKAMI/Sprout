@@ -7,6 +7,7 @@
 #include <sprout/numeric/dft/fixed/square.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
+#include <sprout/pit.hpp>
 
 namespace sprout {
 	namespace fit {
@@ -42,7 +43,19 @@ namespace sprout {
 			typename sprout::container_traits<Container>::value_type const& duty = 0.5
 			)
 		{
-			return sprout::fit::detail::square_impl(cont, frequency, amplitude, duty, sprout::internal_begin_offset(cont));
+			return sprout::fit::detail::square_impl(cont, frequency, amplitude, phase, duty, sprout::internal_begin_offset(cont));
+		}
+
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		square(
+			typename sprout::container_traits<Container>::value_type const& frequency = 1,
+			typename sprout::container_traits<Container>::value_type const& amplitude = 1,
+			typename sprout::container_traits<Container>::value_type const& phase = 0,
+			typename sprout::container_traits<Container>::value_type const& duty = 0.5
+			)
+		{
+			return sprout::fit::square(sprout::pit<Container>(), frequency, amplitude, phase, duty);
 		}
 	}	// namespace fit
 }	// namespace sprout

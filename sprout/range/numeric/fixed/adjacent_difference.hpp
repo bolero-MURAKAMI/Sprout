@@ -23,6 +23,17 @@ namespace sprout {
 			adjacent_difference(Input const& input, Result const& result, BinaryOperation binary_op) {
 				return sprout::fixed::adjacent_difference(sprout::begin(input), sprout::end(input), result, binary_op);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			adjacent_difference(Input const& input) {
+				return sprout::fixed::adjacent_difference<Result>(sprout::begin(input), sprout::end(input));
+			}
+			template<typename Result, typename Input, typename BinaryOperation>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			adjacent_difference(Input const& input, BinaryOperation binary_op) {
+				return sprout::fixed::adjacent_difference<Result>(sprout::begin(input), sprout::end(input), binary_op);
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::adjacent_difference;

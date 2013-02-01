@@ -3,9 +3,9 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
-#include <sprout/numeric/dft/detail/dft_element_gen.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/numeric/dft/detail/dft_element_gen.hpp>
 
 namespace sprout {
 	namespace detail {

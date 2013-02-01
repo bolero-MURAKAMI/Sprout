@@ -18,6 +18,12 @@ namespace sprout {
 			idft(Input const& input, Result const& result) {
 				return sprout::fit::idft(sprout::begin(input), sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			idft(Input const& input) {
+				return sprout::fit::idft<Result>(sprout::begin(input), sprout::end(input));
+			}
 		}	// namespace fit
 	}	// namespace range
 }	// namespace sprout

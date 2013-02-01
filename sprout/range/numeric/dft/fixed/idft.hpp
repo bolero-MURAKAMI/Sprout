@@ -18,6 +18,12 @@ namespace sprout {
 			idft(Input const& input, Result const& result) {
 				return sprout::fixed::idft(sprout::begin(input), sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			idft(Input const& input) {
+				return sprout::fixed::idft<Result>(sprout::begin(input), sprout::end(input));
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::idft;

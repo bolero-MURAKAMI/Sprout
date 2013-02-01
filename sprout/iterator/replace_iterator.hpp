@@ -1,5 +1,5 @@
-#ifndef SPROUT_ITERATOR_REPLACE_IF_ITERATOR_HPP
-#define SPROUT_ITERATOR_REPLACE_IF_ITERATOR_HPP
+#ifndef SPROUT_ITERATOR_REPLACE_ITERATOR_HPP
+#define SPROUT_ITERATOR_REPLACE_ITERATOR_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/iterator/transform_iterator.hpp>
@@ -38,4 +38,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_ITERATOR_REPLACE_IF_ITERATOR_HPP
+#endif	// #ifndef SPROUT_ITERATOR_REPLACE_ITERATOR_HPP

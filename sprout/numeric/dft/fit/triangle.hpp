@@ -7,6 +7,7 @@
 #include <sprout/numeric/dft/fixed/triangle.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array.hpp>
+#include <sprout/pit.hpp>
 
 namespace sprout {
 	namespace fit {
@@ -40,7 +41,18 @@ namespace sprout {
 			typename sprout::container_traits<Container>::value_type const& phase = 0
 			)
 		{
-			return sprout::fit::detail::triangle_impl(cont, frequency, amplitude, sprout::internal_begin_offset(cont));
+			return sprout::fit::detail::triangle_impl(cont, frequency, amplitude, phase, sprout::internal_begin_offset(cont));
+		}
+
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		triangle(
+			typename sprout::container_traits<Container>::value_type const& frequency = 1,
+			typename sprout::container_traits<Container>::value_type const& amplitude = 1,
+			typename sprout::container_traits<Container>::value_type const& phase = 0
+			)
+		{
+			return sprout::fit::triangle(sprout::pit<Container>(), frequency, amplitude, phase);
 		}
 	}	// namespace fit
 }	// namespace sprout

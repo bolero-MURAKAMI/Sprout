@@ -18,6 +18,12 @@ namespace sprout {
 			dft(Input const& input, Result const& result) {
 				return sprout::fixed::dft(sprout::begin(input), sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			dft(Input const& input) {
+				return sprout::fixed::dft<Result>(sprout::begin(input), sprout::end(input));
+			}
 		}	// namespace fixed
 
 		using sprout::range::fixed::dft;

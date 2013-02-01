@@ -7,8 +7,11 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/pit.hpp>
+#include <sprout/math/comparison.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/sin.hpp>
+#include <sprout/detail/container_complate.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -28,8 +31,7 @@ namespace sprout {
 				typedef typename sprout::container_traits<Container>::value_type value_type;
 				using sprout::sin;
 				return sprout::remake<Container>(
-					cont,
-					size,
+					cont, size,
 					(Indexes >= offset && Indexes < offset + size
 						? amplitude * sin(d * value_type(Indexes) + phase)
 						: *sprout::next(sprout::internal_begin(cont), Indexes)
@@ -70,6 +72,17 @@ namespace sprout {
 			)
 		{
 			return sprout::fixed::detail::sinusoid(cont, frequency, amplitude, phase);
+		}
+
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		sinusoid(
+			typename sprout::container_traits<Container>::value_type const& frequency = 1,
+			typename sprout::container_traits<Container>::value_type const& amplitude = 1,
+			typename sprout::container_traits<Container>::value_type const& phase = 0
+			)
+		{
+			return sprout::fixed::sinusoid(sprout::pit<Container>(), frequency, amplitude, phase);
 		}
 	}	// namespace fixed
 

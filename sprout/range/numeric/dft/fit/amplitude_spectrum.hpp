@@ -18,6 +18,12 @@ namespace sprout {
 			amplitude_spectrum(Input const& input, Result const& result) {
 				return sprout::fit::amplitude_spectrum(sprout::begin(input), sprout::end(input), result);
 			}
+
+			template<typename Result, typename Input>
+			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			amplitude_spectrum(Input const& input) {
+				return sprout::fit::amplitude_spectrum<Result>(sprout::begin(input), sprout::end(input));
+			}
 		}	// namespace fit
 	}	// namespace range
 }	// namespace sprout
