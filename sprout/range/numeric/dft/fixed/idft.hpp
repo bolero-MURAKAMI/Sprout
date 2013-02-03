@@ -13,16 +13,16 @@ namespace sprout {
 			//
 			// idft
 			//
-			template<typename Input, typename Result>
+			template<typename ForwardRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			idft(Input const& input, Result const& result) {
-				return sprout::fixed::idft(sprout::begin(input), sprout::end(input), result);
+			idft(ForwardRange const& rng, Result const& result) {
+				return sprout::fixed::idft(sprout::begin(rng), sprout::end(rng), result);
 			}
 
-			template<typename Result, typename Input>
+			template<typename Result, typename ForwardRange>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			idft(Input const& input) {
-				return sprout::fixed::idft<Result>(sprout::begin(input), sprout::end(input));
+			idft(ForwardRange const& rng) {
+				return sprout::fixed::idft<Result>(sprout::begin(rng), sprout::end(rng));
 			}
 		}	// namespace fixed
 

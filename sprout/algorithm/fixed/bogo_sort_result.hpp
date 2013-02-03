@@ -3,11 +3,11 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/tuple/tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/utility/pair.hpp>
 #include <sprout/algorithm/is_sorted.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/shuffle_result.hpp>
@@ -16,53 +16,56 @@
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename Container, typename UniformRandomNumberGenerator, typename Shuffled, typename Compare>
-			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
-				typename sprout::fixed::result_of::algorithm<Container>::type,
-				typename std::decay<UniformRandomNumberGenerator>::type
-			>
-			bogo_sort_result_impl_1(Shuffled const& shuffled, Compare comp) {
-				return sprout::is_sorted(
-					sprout::begin(sprout::tuples::get<0>(shuffled)),
-					sprout::end(sprout::tuples::get<0>(shuffled)),
-					comp
+			template<typename ResultType, typename Compare, typename Difference>
+			inline SPROUT_CONSTEXPR sprout::pair<ResultType, bool>
+			bogo_sort_result_impl_1(
+				sprout::pair<ResultType, bool> const& current,
+				Compare comp, Difference n
+				)
+			{
+				typedef sprout::pair<ResultType, bool> type;
+			return current.second ? current
+				: n == 1 ? sprout::is_sorted(sprout::begin(sprout::first(current.first)), sprout::end(sprout::first(current.first)), comp)
+					? type(current.first, true)
+					: type(sprout::fixed::shuffle_result(sprout::first(current.first), sprout::second(current.first)), false)
+				: sprout::fixed::detail::bogo_sort_result_impl_1<ResultType>(
+					sprout::fixed::detail::bogo_sort_result_impl_1<ResultType>(
+						current,
+						comp, n / 2
+						),
+					comp, n - n / 2
 					)
-					? shuffled
-					: sprout::fixed::detail::bogo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
-						sprout::fixed::shuffle_result(
-							sprout::tuples::get<0>(shuffled),
-							sprout::tuples::get<1>(shuffled)
+				;
+			}
+			template<typename ResultType, typename Compare, typename Difference>
+			inline SPROUT_CONSTEXPR sprout::pair<ResultType, bool>
+			bogo_sort_result_impl(
+				sprout::pair<ResultType, bool> const& current,
+				Compare comp, Difference n
+				)
+			{
+				typedef sprout::pair<ResultType, bool> type;
+				return current.second ? current
+					: sprout::fixed::detail::bogo_sort_result_impl<ResultType>(
+						sprout::fixed::detail::bogo_sort_result_impl_1<ResultType>(
+							current,
+							comp, n
 							),
-						comp
+						comp, n * 2
 						)
 					;
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
-				typename sprout::fixed::result_of::algorithm<Container>::type,
-				typename std::decay<UniformRandomNumberGenerator>::type
-			>
-			bogo_sort_result_impl(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
-				typedef sprout::tuples::tuple<
-					typename sprout::fixed::result_of::algorithm<Container>::type,
-					typename std::decay<UniformRandomNumberGenerator>::type
-				> result_type;
-				return sprout::is_sorted(
-					sprout::begin(cont),
-					sprout::end(cont),
-					comp
-					)
-					? result_type(
-						sprout::deep_copy(cont),
-						sprout::forward<UniformRandomNumberGenerator>(g)
-						)
-					: sprout::fixed::detail::bogo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
-						sprout::fixed::shuffle_result(
-							cont,
-							sprout::forward<UniformRandomNumberGenerator>(g)
-							),
-						comp
-						)
+			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
+			bogo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
+				typedef typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type result_type;
+				typedef sprout::pair<result_type, bool> type;
+				return sprout::is_sorted(sprout::begin(cont), sprout::end(cont), comp)
+					? result_type(sprout::deep_copy(cont), sprout::forward<UniformRandomNumberGenerator>(g))
+					: sprout::fixed::detail::bogo_sort_result_impl<result_type>(
+						type(sprout::fixed::shuffle_result(cont, sprout::forward<UniformRandomNumberGenerator>(g)), false),
+						comp, static_cast<typename sprout::container_traits<Container>::difference_type>(1)
+						).first
 					;
 			}
 		}	// namespace detail
@@ -70,24 +73,18 @@ namespace sprout {
 		// bogo_sort_result
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
-			typename sprout::fixed::result_of::algorithm<Container>::type,
-			typename std::decay<UniformRandomNumberGenerator>::type
-		>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
 		bogo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
-			return sprout::fixed::detail::bogo_sort_result_impl(
+			return sprout::fixed::detail::bogo_sort_result(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				comp
 				);
 		}
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR sprout::tuples::tuple<
-			typename sprout::fixed::result_of::algorithm<Container>::type,
-			typename std::decay<UniformRandomNumberGenerator>::type
-		>
+		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
 		bogo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g) {
-			return sprout::fixed::detail::bogo_sort_result_impl(
+			return sprout::fixed::detail::bogo_sort_result(
 				cont,
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>()

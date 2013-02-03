@@ -57,30 +57,30 @@ namespace sprout {
 			//
 			// exec_range
 			//
-			template<std::size_t BufferSize = 32, typename Source, typename Output, typename Input>
+			template<std::size_t BufferSize = 32, typename BidirectionalRangeSource, typename Output, typename InputRangeInput>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
-			exec_range(Source const& source, Output const& output, Input const& input) {
-				typedef typename sprout::container_construct_traits<Source>::copied_type copied_type;
+			exec_range(BidirectionalRangeSource const& source, Output const& output, InputRangeInput const& input) {
+				typedef typename sprout::container_construct_traits<BidirectionalRangeSource>::copied_type copied_type;
 				return sprout::brainfuck::exec_range<BufferSize>(
 					sprout::brainfuck::misa::to_brainfuck(sprout::begin(source), sprout::end(source), sprout::pit<copied_type>()).first,
 					output, input
 					);
 			}
-			template<std::size_t BufferSize = 32, typename Source, typename Output>
+			template<std::size_t BufferSize = 32, typename BidirectionalRangeSource, typename Output>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
-			exec_range(Source const& source, Output const& output) {
-				typedef typename sprout::container_construct_traits<Source>::copied_type copied_type;
+			exec_range(BidirectionalRangeSource const& source, Output const& output) {
+				typedef typename sprout::container_construct_traits<BidirectionalRangeSource>::copied_type copied_type;
 				return sprout::brainfuck::exec_range<BufferSize>(
 					sprout::brainfuck::misa::to_brainfuck(sprout::begin(source), sprout::end(source), sprout::pit<copied_type>()).first,
 					output
 					);
 			}
-			template<std::size_t BufferSize = 32, typename Source>
+			template<std::size_t BufferSize = 32, typename BidirectionalRangeSource>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<
-				sprout::array<typename sprout::container_traits<Source>::value_type, BufferSize>
+				sprout::array<typename sprout::container_traits<BidirectionalRangeSource>::value_type, BufferSize>
 			>::type
-			exec_range(Source const& source) {
-				typedef typename sprout::container_construct_traits<Source>::copied_type copied_type;
+			exec_range(BidirectionalRangeSource const& source) {
+				typedef typename sprout::container_construct_traits<BidirectionalRangeSource>::copied_type copied_type;
 				return sprout::brainfuck::exec_range<BufferSize>(
 					sprout::brainfuck::misa::to_brainfuck(sprout::begin(source), sprout::end(source), sprout::pit<copied_type>()).first
 					);

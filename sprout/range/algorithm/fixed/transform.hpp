@@ -13,26 +13,26 @@ namespace sprout {
 			//
 			// transform
 			//
-			template<typename Input, typename Result, typename UnaryOperation>
+			template<typename InputRange, typename Result, typename UnaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			transform(Input const& input, Result const& result, UnaryOperation op) {
-				return sprout::fixed::transform(sprout::begin(input), sprout::end(input), result, op);
+			transform(InputRange const& rng, Result const& result, UnaryOperation op) {
+				return sprout::fixed::transform(sprout::begin(rng), sprout::end(rng), result, op);
 			}
-			template<typename Input1, typename Input2, typename Result, typename BinaryOperation>
+			template<typename InputRange1, typename InputRange2, typename Result, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			transform(Input1 const& input1, Input2 const& input2, Result const& result, BinaryOperation op) {
-				return sprout::fixed::transform(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), result, op);
+			transform(InputRange1 const& rng1, InputRange2 const& rng2, Result const& result, BinaryOperation op) {
+				return sprout::fixed::transform(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), result, op);
 			}
 
-			template<typename Result, typename Input, typename UnaryOperation>
+			template<typename Result, typename InputRange, typename UnaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			transform(Input const& input, UnaryOperation op) {
-				return sprout::fixed::transform<Result>(sprout::begin(input), sprout::end(input), op);
+			transform(InputRange const& rng, UnaryOperation op) {
+				return sprout::fixed::transform<Result>(sprout::begin(rng), sprout::end(rng), op);
 			}
-			template<typename Result, typename Input1, typename Input2, typename BinaryOperation>
+			template<typename Result, typename InputRange1, typename InputRange2, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			transform(Input1 const& input1, Input2 const& input2, BinaryOperation op) {
-				return sprout::fixed::transform<Result>(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), op);
+			transform(InputRange1 const& rng1, InputRange2 const& rng2, BinaryOperation op) {
+				return sprout::fixed::transform<Result>(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), op);
 			}
 		}	// namespace fixed
 

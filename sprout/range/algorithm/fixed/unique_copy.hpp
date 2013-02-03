@@ -13,26 +13,26 @@ namespace sprout {
 			//
 			// unique_copy
 			//
-			template<typename Input, typename Result, typename BinaryPredicate>
+			template<typename InputRange, typename Result, typename BinaryPredicate>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			unique_copy(Input const& input, Result const& result, BinaryPredicate pred) {
-				return sprout::fixed::unique_copy(sprout::begin(input), sprout::end(input), result, pred);
+			unique_copy(InputRange const& rng, Result const& result, BinaryPredicate pred) {
+				return sprout::fixed::unique_copy(sprout::begin(rng), sprout::end(rng), result, pred);
 			}
-			template<typename Input, typename Result>
+			template<typename InputRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			unique_copy(Input const& input, Result const& result) {
-				return sprout::fixed::unique_copy(sprout::begin(input), sprout::end(input), result);
+			unique_copy(InputRange const& rng, Result const& result) {
+				return sprout::fixed::unique_copy(sprout::begin(rng), sprout::end(rng), result);
 			}
 
-			template<typename Result, typename Input, typename BinaryPredicate>
+			template<typename Result, typename InputRange, typename BinaryPredicate>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			unique_copy(Input const& input, BinaryPredicate pred) {
-				return sprout::fixed::unique_copy<Result>(sprout::begin(input), sprout::end(input), pred);
+			unique_copy(InputRange const& rng, BinaryPredicate pred) {
+				return sprout::fixed::unique_copy<Result>(sprout::begin(rng), sprout::end(rng), pred);
 			}
-			template<typename Result, typename Input>
+			template<typename Result, typename InputRange>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			unique_copy(Input const& input) {
-				return sprout::fixed::unique_copy<Result>(sprout::begin(input), sprout::end(input));
+			unique_copy(InputRange const& rng) {
+				return sprout::fixed::unique_copy<Result>(sprout::begin(rng), sprout::end(rng));
 			}
 		}	// namespace fixed
 

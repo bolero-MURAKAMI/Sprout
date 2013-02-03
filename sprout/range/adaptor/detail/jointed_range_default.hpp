@@ -142,9 +142,11 @@ namespace sprout {
 				>::type
 			> {
 			public:
-				typedef typename sprout::containers::weak_rebind_size<
-					typename sprout::container_construct_traits<LRange>::copied_type,
-					sprout::adaptors::detail::jointed_range_size<LRange, RRange>::static_size
+				typedef typename sprout::container_construct_traits<
+					typename sprout::containers::weak_rebind_size<
+						typename sprout::container_construct_traits<LRange>::copied_type,
+						sprout::adaptors::detail::jointed_range_size<LRange, RRange>::static_size
+					>::type
 				>::type copied_type;
 			};
 

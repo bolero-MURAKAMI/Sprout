@@ -13,16 +13,16 @@ namespace sprout {
 			//
 			// remove_copy
 			//
-			template<typename Input, typename Result, typename T>
+			template<typename InputRange, typename Result, typename T>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			remove_copy(Input const& input, Result const& result, T const& value) {
-				return sprout::fixed::remove_copy(sprout::begin(input), sprout::end(input), result, value);
+			remove_copy(InputRange const& rng, Result const& result, T const& value) {
+				return sprout::fixed::remove_copy(sprout::begin(rng), sprout::end(rng), result, value);
 			}
 
-			template<typename Result, typename Input, typename T>
+			template<typename Result, typename InputRange, typename T>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			remove_copy(Input const& input, Result const& result, T const& value) {
-				return sprout::fixed::remove_copy<Result>(sprout::begin(input), sprout::end(input), value);
+			remove_copy(InputRange const& rng, Result const& result, T const& value) {
+				return sprout::fixed::remove_copy<Result>(sprout::begin(rng), sprout::end(rng), value);
 			}
 		}	// namespace fixed
 

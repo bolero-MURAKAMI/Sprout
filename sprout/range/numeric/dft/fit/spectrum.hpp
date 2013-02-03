@@ -13,16 +13,16 @@ namespace sprout {
 			//
 			// spectrum
 			//
-			template<typename Input, typename Result>
+			template<typename InputRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			spectrum(Input const& input, Result const& result) {
-				return sprout::fit::spectrum(sprout::begin(input), sprout::end(input), result);
+			spectrum(InputRange const& rng, Result const& result) {
+				return sprout::fit::spectrum(sprout::begin(rng), sprout::end(rng), result);
 			}
 
-			template<typename Result, typename Input>
+			template<typename Result, typename InputRange>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			spectrum(Input const& input) {
-				return sprout::fit::spectrum<Result>(sprout::begin(input), sprout::end(input));
+			spectrum(InputRange const& rng) {
+				return sprout::fit::spectrum<Result>(sprout::begin(rng), sprout::end(rng));
 			}
 		}	// namespace fit
 	}	// namespace range

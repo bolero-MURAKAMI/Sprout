@@ -13,23 +13,23 @@ namespace sprout {
 			//
 			// rotate_copy
 			//
-			template<typename Input, typename Result>
+			template<typename ForwardRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			rotate_copy(
-				Input const& input, typename sprout::container_traits<Input>::const_iterator middle,
+				ForwardRange const& rng, typename sprout::container_traits<ForwardRange>::const_iterator middle,
 				Result const& result
 				)
 			{
-				return sprout::fixed::rotate_copy(sprout::begin(input), middle, sprout::end(input), result);
+				return sprout::fixed::rotate_copy(sprout::begin(rng), middle, sprout::end(rng), result);
 			}
 
-			template<typename Result, typename Input>
+			template<typename Result, typename ForwardRange>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			rotate_copy(
-				Input const& input, typename sprout::container_traits<Input>::const_iterator middle
+				ForwardRange const& rng, typename sprout::container_traits<ForwardRange>::const_iterator middle
 				)
 			{
-				return sprout::fixed::rotate_copy<Result>(sprout::begin(input), middle, sprout::end(input));
+				return sprout::fixed::rotate_copy<Result>(sprout::begin(rng), middle, sprout::end(rng));
 			}
 		}	// namespace fixed
 

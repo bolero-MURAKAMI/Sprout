@@ -13,10 +13,10 @@ namespace sprout {
 			//
 			// copy_if
 			//
-			template<typename Input, typename Result, typename Predicate>
+			template<typename InputRange, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			copy_if(Input const& input, Result const& result, Predicate pred) {
-				return sprout::fit::copy_if(sprout::begin(input), sprout::end(input), result, pred);
+			copy_if(InputRange const& rng, Result const& result, Predicate pred) {
+				return sprout::fit::copy_if(sprout::begin(rng), sprout::end(rng), result, pred);
 			}
 		}	// namespace fit
 	}	// namespace range

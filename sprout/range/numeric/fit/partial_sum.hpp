@@ -13,26 +13,26 @@ namespace sprout {
 			//
 			// partial_sum
 			//
-			template<typename Input, typename Result>
+			template<typename InputRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			partial_sum(Input const& input, Result const& result) {
-				return sprout::fit::partial_sum(sprout::begin(input), sprout::end(input), result);
+			partial_sum(InputRange const& rng, Result const& result) {
+				return sprout::fit::partial_sum(sprout::begin(rng), sprout::end(rng), result);
 			}
-			template<typename Input, typename Result, typename BinaryOperation>
+			template<typename InputRange, typename Result, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			partial_sum(Input const& input, Result const& result, BinaryOperation binary_op) {
-				return sprout::fit::partial_sum(sprout::begin(input), sprout::end(input), result, binary_op);
+			partial_sum(InputRange const& rng, Result const& result, BinaryOperation binary_op) {
+				return sprout::fit::partial_sum(sprout::begin(rng), sprout::end(rng), result, binary_op);
 			}
 
-			template<typename Result, typename Input>
+			template<typename Result, typename InputRange>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			partial_sum(Input const& input) {
-				return sprout::fit::partial_sum<Result>(sprout::begin(input), sprout::end(input));
+			partial_sum(InputRange const& rng) {
+				return sprout::fit::partial_sum<Result>(sprout::begin(rng), sprout::end(rng));
 			}
-			template<typename Result, typename Input, typename BinaryOperation>
+			template<typename Result, typename InputRange, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			partial_sum(Input const& input, BinaryOperation binary_op) {
-				return sprout::fit::partial_sum<Result>(sprout::begin(input), sprout::end(input), binary_op);
+			partial_sum(InputRange const& rng, BinaryOperation binary_op) {
+				return sprout::fit::partial_sum<Result>(sprout::begin(rng), sprout::end(rng), binary_op);
 			}
 		}	// namespace fit
 	}	// namespace range

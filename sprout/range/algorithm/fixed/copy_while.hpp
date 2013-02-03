@@ -13,16 +13,16 @@ namespace sprout {
 			//
 			// copy_while
 			//
-			template<typename Input, typename Result, typename Predicate>
+			template<typename InputRange, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			copy_while(Input const& input, Result const& result, Predicate pred) {
-				return sprout::fixed::copy_while(sprout::begin(input), sprout::end(input), result);
+			copy_while(InputRange const& rng, Result const& result, Predicate pred) {
+				return sprout::fixed::copy_while(sprout::begin(rng), sprout::end(rng), result);
 			}
 
-			template<typename Result, typename Input, typename Predicate>
+			template<typename Result, typename InputRange, typename Predicate>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			copy_while(Input const& input, Predicate pred) {
-				return sprout::fixed::copy_while<Result>(sprout::begin(input), sprout::end(input));
+			copy_while(InputRange const& rng, Predicate pred) {
+				return sprout::fixed::copy_while<Result>(sprout::begin(rng), sprout::end(rng));
 			}
 		}	// namespace fixed
 

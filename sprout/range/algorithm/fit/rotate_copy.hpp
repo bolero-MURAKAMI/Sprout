@@ -13,14 +13,14 @@ namespace sprout {
 			//
 			// rotate_copy
 			//
-			template<typename Input, typename Result>
+			template<typename ForwardRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
 			rotate_copy(
-				Input const& input, typename sprout::container_traits<Input>::const_iterator middle,
+				ForwardRange const& rng, typename sprout::container_traits<ForwardRange>::const_iterator middle,
 				Result const& result
 				)
 			{
-				return sprout::fit::rotate_copy(sprout::begin(input), middle, sprout::end(input), result);
+				return sprout::fit::rotate_copy(sprout::begin(rng), middle, sprout::end(rng), result);
 			}
 		}	// namespace fit
 	}	// namespace range

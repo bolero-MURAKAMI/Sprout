@@ -13,10 +13,10 @@ namespace sprout {
 			//
 			// transform
 			//
-			template<typename Input, typename Result, typename UnaryOperation>
+			template<typename InputRange, typename Result, typename UnaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			transform(Input const& input, Result const& result, UnaryOperation op) {
-				return sprout::fit::transform(sprout::begin(input), sprout::end(input), result, op);
+			transform(InputRange const& rng, Result const& result, UnaryOperation op) {
+				return sprout::fit::transform(sprout::begin(rng), sprout::end(rng), result, op);
 			}
 			template<typename Input1, typename Input2, typename Result, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type

@@ -13,26 +13,26 @@ namespace sprout {
 			//
 			// adjacent_difference
 			//
-			template<typename Input, typename Result>
+			template<typename InputRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			adjacent_difference(Input const& input, Result const& result) {
-				return sprout::fit::adjacent_difference(sprout::begin(input), sprout::end(input), result);
+			adjacent_difference(InputRange const& rng, Result const& result) {
+				return sprout::fit::adjacent_difference(sprout::begin(rng), sprout::end(rng), result);
 			}
-			template<typename Input, typename Result, typename BinaryOperation>
+			template<typename InputRange, typename Result, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			adjacent_difference(Input const& input, Result const& result, BinaryOperation binary_op) {
-				return sprout::fit::adjacent_difference(sprout::begin(input), sprout::end(input), result, binary_op);
+			adjacent_difference(InputRange const& rng, Result const& result, BinaryOperation binary_op) {
+				return sprout::fit::adjacent_difference(sprout::begin(rng), sprout::end(rng), result, binary_op);
 			}
 
-			template<typename Result, typename Input>
+			template<typename Result, typename InputRange>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			adjacent_difference(Input const& input) {
-				return sprout::fit::adjacent_difference<Result>(sprout::begin(input), sprout::end(input));
+			adjacent_difference(InputRange const& rng) {
+				return sprout::fit::adjacent_difference<Result>(sprout::begin(rng), sprout::end(rng));
 			}
-			template<typename Result, typename Input, typename BinaryOperation>
+			template<typename Result, typename InputRange, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			adjacent_difference(Input const& input, BinaryOperation binary_op) {
-				return sprout::fit::adjacent_difference<Result>(sprout::begin(input), sprout::end(input), binary_op);
+			adjacent_difference(InputRange const& rng, BinaryOperation binary_op) {
+				return sprout::fit::adjacent_difference<Result>(sprout::begin(rng), sprout::end(rng), binary_op);
 			}
 		}	// namespace fit
 	}	// namespace range

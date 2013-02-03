@@ -13,26 +13,26 @@ namespace sprout {
 			//
 			// clamp_range_copy
 			//
-			template<typename Input, typename Result, typename Compare>
+			template<typename InputRange, typename Result, typename Compare>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
 			clamp_range_copy(
-				Input const& input, Result const& result,
-				typename sprout::container_traits<Input>::value_type const& low,
-				typename sprout::container_traits<Input>::value_type const& high,
+				InputRange const& rng, Result const& result,
+				typename sprout::container_traits<InputRange>::value_type const& low,
+				typename sprout::container_traits<InputRange>::value_type const& high,
 				Compare comp
 				)
 			{
-				return sprout::fit::clamp_range_copy(sprout::begin(input), sprout::end(input), result, low, high, comp);
+				return sprout::fit::clamp_range_copy(sprout::begin(rng), sprout::end(rng), result, low, high, comp);
 			}
-			template<typename Input, typename Result>
+			template<typename InputRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
 			clamp_range_copy(
-				Input const& input, Result const& result,
-				typename sprout::container_traits<Input>::value_type const& low,
-				typename sprout::container_traits<Input>::value_type const& high
+				InputRange const& rng, Result const& result,
+				typename sprout::container_traits<InputRange>::value_type const& low,
+				typename sprout::container_traits<InputRange>::value_type const& high
 				)
 			{
-				return sprout::fit::clamp_range_copy(sprout::begin(input), sprout::end(input), result, low, high);
+				return sprout::fit::clamp_range_copy(sprout::begin(rng), sprout::end(rng), result, low, high);
 			}
 		}	// namespace fit
 	}	// namespace range

@@ -11,9 +11,9 @@ namespace sprout {
 		//
 		// dft_element
 		//
-		template<typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Input>::value_type
-		dft_element(Input const& input, typename sprout::container_traits<Input>::difference_type i) {
+		template<typename InputRange>
+		inline SPROUT_CONSTEXPR typename sprout::container_traits<InputRange>::value_type
+		dft_element(InputRange const& input, typename sprout::container_traits<InputRange>::difference_type i) {
 			return sprout::dft_element(sprout::begin(input), sprout::end(input), i);
 		}
 	}	// namespace range

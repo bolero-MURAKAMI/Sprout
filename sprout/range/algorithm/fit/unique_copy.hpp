@@ -13,15 +13,15 @@ namespace sprout {
 			//
 			// unique_copy
 			//
-			template<typename Input, typename Result>
+			template<typename InputRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			unique_copy(Input const& input, Result const& result) {
-				return sprout::fit::unique_copy(sprout::begin(input), sprout::end(input), result);
+			unique_copy(InputRange const& rng, Result const& result) {
+				return sprout::fit::unique_copy(sprout::begin(rng), sprout::end(rng), result);
 			}
-			template<typename Input, typename Result, typename BinaryPredicate>
+			template<typename InputRange, typename Result, typename BinaryPredicate>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-			unique_copy(Input const& input, Result const& result, BinaryPredicate pred) {
-				return sprout::fit::unique_copy(sprout::begin(input), sprout::end(input), result, pred);
+			unique_copy(InputRange const& rng, Result const& result, BinaryPredicate pred) {
+				return sprout::fit::unique_copy(sprout::begin(rng), sprout::end(rng), result, pred);
 			}
 		}	// namespace fit
 	}	// namespace range

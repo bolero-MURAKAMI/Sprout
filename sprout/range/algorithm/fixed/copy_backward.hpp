@@ -13,16 +13,16 @@ namespace sprout {
 			//
 			// copy_backward
 			//
-			template<typename Input, typename Result>
+			template<typename BidirectionalRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			copy_backward(Input const& input, Result const& result) {
-				return sprout::fixed::copy_backward(sprout::begin(input), sprout::end(input), result);
+			copy_backward(BidirectionalRange const& rng, Result const& result) {
+				return sprout::fixed::copy_backward(sprout::begin(rng), sprout::end(rng), result);
 			}
 
-			template<typename Result, typename Input>
+			template<typename Result, typename BidirectionalRange>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			copy_backward(Input const& input) {
-				return sprout::fixed::copy_backward<Result>(sprout::begin(input), sprout::end(input));
+			copy_backward(BidirectionalRange const& rng) {
+				return sprout::fixed::copy_backward<Result>(sprout::begin(rng), sprout::end(rng));
 			}
 		}	// namespace fixed
 

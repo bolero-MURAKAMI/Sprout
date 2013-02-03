@@ -13,16 +13,16 @@ namespace sprout {
 			//
 			// phase_spectrum
 			//
-			template<typename Input, typename Result>
+			template<typename InputRange, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			phase_spectrum(Input const& input, Result const& result) {
-				return sprout::fixed::phase_spectrum(sprout::begin(input), sprout::end(input), result);
+			phase_spectrum(InputRange const& rng, Result const& result) {
+				return sprout::fixed::phase_spectrum(sprout::begin(rng), sprout::end(rng), result);
 			}
 
-			template<typename Result, typename Input>
+			template<typename Result, typename InputRange>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			phase_spectrum(Input const& input) {
-				return sprout::fixed::phase_spectrum<Result>(sprout::begin(input), sprout::end(input));
+			phase_spectrum(InputRange const& rng) {
+				return sprout::fixed::phase_spectrum<Result>(sprout::begin(rng), sprout::end(rng));
 			}
 		}	// namespace fixed
 

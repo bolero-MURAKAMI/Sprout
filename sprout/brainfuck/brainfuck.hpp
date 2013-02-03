@@ -57,17 +57,17 @@ namespace sprout {
 			}
 
 			template<
-				typename SourceBidirectionalIterator, typename Output, typename InputInputIterator,
+				typename BidirectionalIteratorSource, typename Output, typename InputIteratorInput,
 				typename Buffer, typename OutputBuffer
 			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
 			exec_impl(
-				SourceBidirectionalIterator first, SourceBidirectionalIterator last,
-				Output const& output, InputInputIterator in_first, InputInputIterator in_last,
+				BidirectionalIteratorSource first, BidirectionalIteratorSource last,
+				Output const& output, InputIteratorInput in_first, InputIteratorInput in_last,
 				Buffer const& buffer, OutputBuffer const& out_buffer, std::size_t pos = 0, std::size_t out_pos = 0
 				)
 			{
-				typedef typename std::iterator_traits<SourceBidirectionalIterator>::value_type value_type;
+				typedef typename std::iterator_traits<BidirectionalIteratorSource>::value_type value_type;
 				typedef typename sprout::container_traits<OutputBuffer>::value_type out_value_type;
 				return first == last
 					? sprout::fixed::copy(
@@ -136,41 +136,41 @@ namespace sprout {
 		//
 		// exec
 		//
-		template<std::size_t BufferSize = 32, typename SourceBidirectionalIterator, typename Output, typename InputInputIterator>
+		template<std::size_t BufferSize = 32, typename BidirectionalIteratorSource, typename Output, typename InputIteratorInput>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
 		exec(
-			SourceBidirectionalIterator first, SourceBidirectionalIterator last,
-			Output const& output, InputInputIterator in_first, InputInputIterator in_last
+			BidirectionalIteratorSource first, BidirectionalIteratorSource last,
+			Output const& output, InputIteratorInput in_first, InputIteratorInput in_last
 			)
 		{
-			typedef typename std::iterator_traits<SourceBidirectionalIterator>::value_type value_type;
+			typedef typename std::iterator_traits<BidirectionalIteratorSource>::value_type value_type;
 			typedef sprout::container_traits<Output> out_traits;
 			return sprout::brainfuck::detail::exec_impl(
 				first, last, output, in_first, in_last,
 				sprout::array<value_type, BufferSize>{{}}, sprout::array<typename out_traits::value_type, out_traits::static_size>{{}}
 				);
 		}
-		template<std::size_t BufferSize = 32, typename SourceBidirectionalIterator, typename Output>
+		template<std::size_t BufferSize = 32, typename BidirectionalIteratorSource, typename Output>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
 		exec(
-			SourceBidirectionalIterator first, SourceBidirectionalIterator last,
+			BidirectionalIteratorSource first, BidirectionalIteratorSource last,
 			Output const& output
 			)
 		{
-			typedef typename std::iterator_traits<SourceBidirectionalIterator>::value_type value_type;
+			typedef typename std::iterator_traits<BidirectionalIteratorSource>::value_type value_type;
 			return sprout::brainfuck::exec<BufferSize>(
 				first, last, output, sprout::value_iterator<value_type>(value_type()), sprout::value_iterator<value_type>()
 				);
 		}
-		template<std::size_t BufferSize = 32, typename SourceBidirectionalIterator>
+		template<std::size_t BufferSize = 32, typename BidirectionalIteratorSource>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<
-			sprout::array<typename std::iterator_traits<SourceBidirectionalIterator>::value_type, BufferSize>
+			sprout::array<typename std::iterator_traits<BidirectionalIteratorSource>::value_type, BufferSize>
 		>::type
 		exec(
-			SourceBidirectionalIterator first, SourceBidirectionalIterator last
+			BidirectionalIteratorSource first, BidirectionalIteratorSource last
 			)
 		{
-			typedef typename std::iterator_traits<SourceBidirectionalIterator>::value_type value_type;
+			typedef typename std::iterator_traits<BidirectionalIteratorSource>::value_type value_type;
 			return sprout::brainfuck::exec<BufferSize>(
 				first, last, sprout::pit<sprout::array<value_type, BufferSize> >()
 				);
@@ -179,25 +179,25 @@ namespace sprout {
 		//
 		// exec_range
 		//
-		template<std::size_t BufferSize = 32, typename Source, typename Output, typename Input>
+		template<std::size_t BufferSize = 32, typename BidirectionalRangeSource, typename Output, typename InputRangeInput>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
-		exec_range(Source const& source, Output const& output, Input const& input) {
+		exec_range(BidirectionalRangeSource const& source, Output const& output, InputRangeInput const& input) {
 			return sprout::brainfuck::exec<BufferSize>(
 				sprout::begin(source), sprout::end(source), output, sprout::begin(input), sprout::end(input)
 				);
 		}
-		template<std::size_t BufferSize = 32, typename Source, typename Output>
+		template<std::size_t BufferSize = 32, typename BidirectionalRangeSource, typename Output>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
-		exec_range(Source const& source, Output const& output) {
+		exec_range(BidirectionalRangeSource const& source, Output const& output) {
 			return sprout::brainfuck::exec<BufferSize>(
 				sprout::begin(source), sprout::end(source), output
 				);
 		}
-		template<std::size_t BufferSize = 32, typename Source>
+		template<std::size_t BufferSize = 32, typename BidirectionalRangeSource>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<
-			sprout::array<typename sprout::container_traits<Source>::value_type, BufferSize>
+			sprout::array<typename sprout::container_traits<BidirectionalRangeSource>::value_type, BufferSize>
 		>::type
-		exec_range(Source const& source) {
+		exec_range(BidirectionalRangeSource const& source) {
 			return sprout::brainfuck::exec<BufferSize>(
 				sprout::begin(source), sprout::end(source)
 				);

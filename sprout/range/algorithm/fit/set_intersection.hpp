@@ -13,15 +13,15 @@ namespace sprout {
 			//
 			// set_intersection
 			//
-			template<typename Input1, typename Input2, typename Result, typename Compare>
+			template<typename InputRange1, typename InputRange2, typename Result, typename Compare>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			set_intersection(Input1 const& input1, Input2 const& input2, Result const& result, Compare comp) {
-				return sprout::fit::set_intersection(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), sprout::end(input2), result, comp);
+			set_intersection(InputRange1 const& rng1, InputRange2 const& rng2, Result const& result, Compare comp) {
+				return sprout::fit::set_intersection(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), sprout::end(rng2), result, comp);
 			}
-			template<typename Input1, typename Input2, typename Result>
+			template<typename InputRange1, typename InputRange2, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			set_intersection(Input1 const& input1, Input2 const& input2, Result const& result) {
-				return sprout::fit::set_intersection(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), sprout::end(input2), result);
+			set_intersection(InputRange1 const& rng1, InputRange2 const& rng2, Result const& result) {
+				return sprout::fit::set_intersection(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), sprout::end(rng2), result);
 			}
 		}	// namespace fit
 	}	// namespace range
