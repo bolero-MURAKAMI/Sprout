@@ -3,7 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/functional/hash/hash.hpp>
+#include <sprout/functional/hash.hpp>
 #include <sprout/variant/variant.hpp>
 #include <sprout/variant/static_visitor.hpp>
 #include <sprout/variant/apply_visitor.hpp>

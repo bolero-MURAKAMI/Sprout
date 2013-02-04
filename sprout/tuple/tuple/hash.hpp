@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/functional/hash/hash.hpp>
+#include <sprout/functional/hash.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 

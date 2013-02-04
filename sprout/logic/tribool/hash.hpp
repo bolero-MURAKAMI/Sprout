@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/functional/hash/hash.hpp>
 #include <sprout/logic/tribool/tribool.hpp>
+#include <sprout/functional/hash.hpp>
 
 namespace sprout {
 	//

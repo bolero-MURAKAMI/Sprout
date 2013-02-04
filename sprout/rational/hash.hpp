@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/rational/rational.hpp>
-#include <sprout/functional/hash/hash.hpp>
+#include <sprout/functional/hash.hpp>
 
 namespace sprout {
 	//

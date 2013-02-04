@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/functional/hash/hash.hpp>
 #include <sprout/uuid/uuid.hpp>
+#include <sprout/functional/hash.hpp>
 
 namespace sprout {
 	//

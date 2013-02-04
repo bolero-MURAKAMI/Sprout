@@ -2,8 +2,8 @@
 #define SPROUT_SUB_ARRAY_HASH_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/functional/hash/hash.hpp>
 #include <sprout/sub_array/sub_array.hpp>
+#include <sprout/functional/hash.hpp>
 
 namespace sprout {
 	//
