@@ -1,5 +1,5 @@
-#ifndef SPROUT_LOGIC_TRIBOOL_TRIBOOL_IO_HPP
-#define SPROUT_LOGIC_TRIBOOL_TRIBOOL_IO_HPP
+#ifndef SPROUT_LOGIC_TRIBOOL_IO_HPP
+#define SPROUT_LOGIC_TRIBOOL_IO_HPP
 
 #include <locale>
 #include <string>
@@ -206,4 +206,4 @@ namespace sprout {
 	}	// namespace logic
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_LOGIC_TRIBOOL_TRIBOOL_IO_HPP
+#endif	// #ifndef SPROUT_LOGIC_TRIBOOL_IO_HPP

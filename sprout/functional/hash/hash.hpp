@@ -5,8 +5,8 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/iterator/operation.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {

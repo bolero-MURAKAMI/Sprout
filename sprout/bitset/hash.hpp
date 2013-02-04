@@ -8,6 +8,9 @@
 namespace sprout {
 	// 20.5.3 hash support
 
+	//
+	// hash_value
+	//
 	template<std::size_t N>
 	inline SPROUT_CONSTEXPR std::size_t
 	hash_value(sprout::bitset<N> const& v) {

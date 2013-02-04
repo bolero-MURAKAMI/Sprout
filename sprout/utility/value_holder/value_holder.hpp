@@ -196,6 +196,9 @@ namespace sprout {
 		SPROUT_CONSTEXPR mutable_or_const_pointer get_ptr() const SPROUT_NOEXCEPT {
 			return get_pointer();
 		}
+		SPROUT_CONSTEXPR bool is_initialized() const SPROUT_NOEXCEPT {
+			return !!get_pointer();
+		}
 	};
 
 	//

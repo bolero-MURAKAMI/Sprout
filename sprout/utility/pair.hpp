@@ -7,5 +7,6 @@
 #include <sprout/utility/pair/tuple.hpp>
 #include <sprout/utility/pair/make_pair.hpp>
 #include <sprout/utility/pair/access.hpp>
+#include <sprout/utility/pair/hash.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_PAIR_HPP

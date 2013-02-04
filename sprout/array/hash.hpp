@@ -7,6 +7,9 @@
 #include <sprout/array/array.hpp>
 
 namespace sprout {
+	//
+	// hash_value
+	//
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR std::size_t
 	hash_value(sprout::array<T, N> const& v) {

@@ -7,6 +7,9 @@
 #include <sprout/pit/pit.hpp>
 
 namespace sprout {
+	//
+	// hash_value
+	//
 	template<typename Container>
 	inline SPROUT_CONSTEXPR std::size_t
 	hash_value(sprout::pit<Container> const& v) {

@@ -6,6 +6,7 @@
 #include <sprout/variant/io.hpp>
 #include <sprout/variant/tuple.hpp>
 #include <sprout/variant/get.hpp>
+#include <sprout/variant/hash.hpp>
 #include <sprout/variant/static_visitor.hpp>
 #include <sprout/variant/static_variant_visitor.hpp>
 #include <sprout/variant/as_visitor.hpp>

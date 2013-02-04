@@ -8,5 +8,6 @@
 #include <sprout/optional/nullopt.hpp>
 #include <sprout/optional/make_optional.hpp>
 #include <sprout/optional/get.hpp>
+#include <sprout/optional/hash.hpp>
 
 #endif // #ifndef SPROUT_OPTIONAL_HPP
