@@ -222,7 +222,7 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT(!sprout::tuples::is_tuple<int>::value);
 
 			// hash_value
-			TESTSPR_BOTH_ASSERT((sprout::hash_value(sprout::tuples::tuple<int, int>(1, 2)) != 0));
+			TESTSPR_BOTH_ASSERT((hash_value(sprout::tuples::tuple<int, int>(1, 2)) != 0));
 		}
 	}
 }	// namespace testspr

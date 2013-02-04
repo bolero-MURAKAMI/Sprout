@@ -140,4 +140,6 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+#include <sprout/functional/hash/hash_range.hpp>
+
 #endif	// #ifndef SPROUT_FUNCTIONAL_HASH_HASH_VALUE_HPP
