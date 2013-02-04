@@ -7,13 +7,30 @@
 #include <sprout/functional/hash/to_hash.hpp>
 
 namespace sprout {
+	namespace detail {
+		template<typename T>
+		inline SPROUT_CONSTEXPR std::size_t
+		hash_combine_impl(std::size_t seed) {
+			return seed;
+		}
+		template<typename T>
+		inline SPROUT_CONSTEXPR std::size_t
+		hash_combine_impl(std::size_t seed, T const& v) {
+			return seed ^ (sprout::to_hash(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2));
+		}
+		template<typename Head, typename... Tail>
+		inline SPROUT_CONSTEXPR std::size_t
+		hash_combine_impl(std::size_t seed, Head const& head, Tail const&... tail) {
+			return sprout::detail::hash_combine_impl(sprout::detail::hash_combine_impl(seed, head), tail...);
+		}
+	}	// namespace detail
 	//
 	// hash_combine
 	//
-	template<typename T>
+	template<typename... Args>
 	inline SPROUT_CONSTEXPR std::size_t
-	hash_combine(std::size_t seed, T const& v) {
-		return seed ^ (sprout::to_hash(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2));
+	hash_combine(std::size_t seed, Args const&... args) {
+		return sprout::detail::hash_combine_impl(seed, args...);
 	}
 }	// namespace sprout
 

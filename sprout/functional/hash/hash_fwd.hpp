@@ -20,23 +20,9 @@ namespace sprout {
 	//
 	// hash_combine
 	//
-	template<typename T>
-	SPROUT_CONSTEXPR std::size_t hash_combine(std::size_t seed, T const& v);
-
-	//
-	// hash_range
-	//
-	template<typename Iterator>
-	SPROUT_CONSTEXPR std::size_t hash_range(Iterator first, Iterator last);
-	template<typename Iterator>
-	SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, Iterator first, Iterator last);
-
-	//
-	// hash_values_combine
-	//
 	template<typename... Args>
 	inline SPROUT_CONSTEXPR std::size_t
-	hash_values_combine(std::size_t seed, Args const&... args);
+	hash_combine(std::size_t seed, Args const&... args);
 
 	//
 	// hash_values
@@ -44,6 +30,18 @@ namespace sprout {
 	template<typename... Args>
 	inline SPROUT_CONSTEXPR std::size_t
 	hash_values(Args const&... args);
+
+	//
+	// hash_range
+	//
+	template<typename Iterator>
+	SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, Iterator first, Iterator last);
+	template<typename Iterator>
+	SPROUT_CONSTEXPR std::size_t hash_range(Iterator first, Iterator last);
+	template<typename InputRange>
+	SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, InputRange const& rng);
+	template<typename InputRange>
+	SPROUT_CONSTEXPR std::size_t hash_range(InputRange const& rng);
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_HASH_HASH_FWD_HPP

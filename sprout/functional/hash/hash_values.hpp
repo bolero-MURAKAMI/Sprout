@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
-#include <sprout/functional/hash/hash_values_combine.hpp>
+#include <sprout/functional/hash/hash_combine.hpp>
 
 namespace sprout {
 	//
@@ -13,7 +13,7 @@ namespace sprout {
 	template<typename... Args>
 	inline SPROUT_CONSTEXPR std::size_t
 	hash_values(Args const&... args) {
-		return sprout::hash_values_combine(0, args...);
+		return sprout::hash_combine(0, args...);
 	}
 }	// namespace sprout
 
