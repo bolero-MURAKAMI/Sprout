@@ -136,7 +136,7 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR std::size_t
 	hash_value(T const (&v)[N]) {
-		return sprout::hash_range(&v[0], &v[0] + N);
+		return sprout::hash_range(v);
 	}
 }	// namespace sprout
 

@@ -437,7 +437,7 @@ namespace sprout {
 			}
 
 			SPROUT_CONSTEXPR std::size_t do_to_hash() const {
-				return sprout::hash_range(begin(), end());
+				return sprout::hash_range(*this);
 			}
 
 			word_type& operator[](std::size_t i) {
