@@ -90,33 +90,33 @@ namespace testspr {
 			}
 
 			// assign
-			TESTSPR_BOTH_ASSERT(testspr::equal(arr1.assign(-1), array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
+			TESTSPR_BOTH_ASSERT(testspr::equal(arr1.assign(-1), sprout::array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
 			{
 				auto arr = arr1;
 				arr.assign(-1);
-				TESTSPR_ASSERT(testspr::equal(arr, array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
+				TESTSPR_ASSERT(testspr::equal(arr, sprout::array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
 			}
 
 			// fill
-			TESTSPR_BOTH_ASSERT(testspr::equal(arr1.fill(-1), array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
+			TESTSPR_BOTH_ASSERT(testspr::equal(arr1.fill(-1), sprout::array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
 			{
 				auto arr = arr1;
 				arr.fill(-1);
-				TESTSPR_ASSERT(testspr::equal(arr, array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
+				TESTSPR_ASSERT(testspr::equal(arr, sprout::array<int, 10>{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}}));
 			}
 
 			// swap
 			{
-				auto arr1 = array<int, 2>{{1, 2}};
-				auto arr2 = array<int, 2>{{-1, -2}};
+				auto arr1 = sprout::array<int, 2>{{1, 2}};
+				auto arr2 = sprout::array<int, 2>{{-1, -2}};
 				arr1.swap(arr2);
 				TESTSPR_ASSERT(arr1[0] == -1);
 			}
 
 			// operator=
 			{
-				auto arr1 = array<int, 2>{{1, 2}};
-				arr1 = array<int, 2>{{-1, -2}};
+				auto arr1 = sprout::array<int, 2>{{1, 2}};
+				arr1 = sprout::array<int, 2>{{-1, -2}};
 				TESTSPR_ASSERT(arr1[0] == -1);
 			}
 
@@ -137,6 +137,30 @@ namespace testspr {
 
 			// operator>=
 			TESTSPR_BOTH_ASSERT(arr1 >= arr2);
+
+			// get
+			TESTSPR_BOTH_ASSERT(sprout::tuples::get<0>(arr1) == 1);
+			TESTSPR_BOTH_ASSERT(sprout::tuples::get<1>(arr1) == 2);
+			{
+				auto arr4 = arr1;
+				TESTSPR_ASSERT(sprout::tuples::get<0>(arr4) == 1);
+				TESTSPR_ASSERT(sprout::tuples::get<1>(arr4) == 2);
+			}
+
+			// tuple_size
+			TESTSPR_BOTH_ASSERT(sprout::tuples::tuple_size<decltype(arr1)>::value == 10);
+
+			// tuple_element
+			TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<0, decltype(arr1)>::type, int const>::value));
+			TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<1, decltype(arr1)>::type, int const>::value));
+
+			// is_array
+			TESTSPR_BOTH_ASSERT(sprout::is_array<decltype(arr1)>::value);
+			TESTSPR_BOTH_ASSERT(!sprout::is_array<int>::value);
+
+			// sprout::to_hash, sprout::hash
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(arr1) == sprout::hash<decltype(arr1)>()(arr1));
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(arr1) != sprout::to_hash(sprout::array<int, 10>{{}}));
 		}
 	}
 }	// namespace testspr

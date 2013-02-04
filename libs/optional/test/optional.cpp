@@ -337,6 +337,10 @@ namespace testspr {
 				int v = 12345;
 				TESTSPR_ASSERT(sprout::get_optional_value_or(opt3, v) == 12345);
 			}
+
+			// sprout::to_hash, sprout::hash
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(opt1) == sprout::hash<decltype(opt1)>()(opt1));
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(opt1) != sprout::to_hash(opt2));
 		}
 	}
 }	// namespace testspr

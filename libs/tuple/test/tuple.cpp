@@ -221,8 +221,12 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT(sprout::tuples::is_tuple<decltype(tup1)>::value);
 			TESTSPR_BOTH_ASSERT(!sprout::tuples::is_tuple<int>::value);
 
-			// hash_value
-			TESTSPR_BOTH_ASSERT((hash_value(sprout::tuples::tuple<int, int>(1, 2)) != 0));
+			// sprout::to_hash, sprout::hash
+			{
+				typedef sprout::tuples::tuple<int, int> type;
+				TESTSPR_BOTH_ASSERT(sprout::to_hash(type(1, 2)) == sprout::hash<type>()(type(1, 2)));
+				TESTSPR_BOTH_ASSERT(sprout::to_hash(type(1, 2)) != sprout::to_hash(type()));
+			}
 		}
 	}
 }	// namespace testspr

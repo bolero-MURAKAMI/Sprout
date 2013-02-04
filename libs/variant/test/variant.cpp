@@ -213,6 +213,17 @@ namespace testspr {
 			// tuple_element
 			TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<0, decltype(var1)>::type, int const>::value));
 			TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<1, decltype(var1)>::type, double const>::value));
+
+			// is_variant
+			TESTSPR_BOTH_ASSERT(sprout::is_variant<decltype(var1)>::value);
+			TESTSPR_BOTH_ASSERT(!sprout::is_variant<int>::value);
+
+			// sprout::to_hash, sprout::hash
+			{
+				typedef sprout::variant<int, char> type;
+				TESTSPR_BOTH_ASSERT(sprout::to_hash(type(1)) == sprout::hash<type>()(type(1)));
+				TESTSPR_BOTH_ASSERT(sprout::to_hash(type(1)) != sprout::to_hash(type()));
+			}
 		}
 	}
 }	// namespace testspr

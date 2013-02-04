@@ -16,12 +16,10 @@
 #include <sprout/type/algorithm/find_index.hpp>
 #include <sprout/functional/type_traits/has_type.hpp>
 #include <sprout/functional/type_traits/weak_result_type.hpp>
+#include <sprout/variant/variant_fwd.hpp>
 #include <sprout/variant/visitor_result.hpp>
 
 namespace sprout {
-	template<typename... Types>
-	class variant;
-
 	namespace detail {
 		template<typename... Types>
 		class variant_impl {

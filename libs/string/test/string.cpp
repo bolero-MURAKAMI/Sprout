@@ -13,8 +13,8 @@ namespace testspr {
 		using namespace sprout;
 		{
 			SPROUT_STATIC_CONSTEXPR char cstr[] = "foobar1234";
-			SPROUT_STATIC_CONSTEXPR auto str1 = to_string(cstr);
-			SPROUT_STATIC_CONSTEXPR auto str2 = to_string("hogehoge");
+			SPROUT_STATIC_CONSTEXPR auto str1 = sprout::to_string(cstr);
+			SPROUT_STATIC_CONSTEXPR auto str2 = sprout::to_string("hogehoge");
 
 			TESTSPR_BOTH_ASSERT((std::is_same<decltype(str1), sprout::basic_string<char, 10> const>::value));
 			TESTSPR_BOTH_ASSERT((std::is_same<decltype(str2), sprout::basic_string<char, 8> const>::value));
@@ -73,39 +73,39 @@ namespace testspr {
 
 			// swap
 			{
-				auto s1 = to_string("abc");
-				auto s2 = to_string("ABC");
+				auto s1 = sprout::to_string("abc");
+				auto s2 = sprout::to_string("ABC");
 				s1.swap(s2);
 				TESTSPR_ASSERT(s1[0] == 'A');
 			}
 
 			// assign
 			{
-				auto s = to_string("abc");
-				s.assign(to_string("ABC"));
+				auto s = sprout::to_string("abc");
+				s.assign(sprout::to_string("ABC"));
 				TESTSPR_ASSERT(s.size() == 3);
 				TESTSPR_ASSERT(s[0] == 'A');
 			}
 			{
-				auto s = to_string("abc");
-				s.assign(to_string("ABC"), 0, 2);
+				auto s = sprout::to_string("abc");
+				s.assign(sprout::to_string("ABC"), 0, 2);
 				TESTSPR_ASSERT(s.size() == 2);
 				TESTSPR_ASSERT(s[0] == 'A');
 			}
 			{
-				auto s = to_string("abc");
+				auto s = sprout::to_string("abc");
 				s.assign("ABC", 2);
 				TESTSPR_ASSERT(s.size() == 2);
 				TESTSPR_ASSERT(s[0] == 'A');
 			}
 			{
-				auto s = to_string("abc");
+				auto s = sprout::to_string("abc");
 				s.assign("ABC");
 				TESTSPR_ASSERT(s.size() == 3);
 				TESTSPR_ASSERT(s[0] == 'A');
 			}
 			{
-				auto s = to_string("abc");
+				auto s = sprout::to_string("abc");
 				s.assign(1, 'A');
 				TESTSPR_ASSERT(s.size() == 1);
 				TESTSPR_ASSERT(s[0] == 'A');
@@ -113,19 +113,19 @@ namespace testspr {
 
 			// operator=
 			{
-				auto s = to_string("abc");
-				s = to_string("ABC");
+				auto s = sprout::to_string("abc");
+				s = sprout::to_string("ABC");
 				TESTSPR_ASSERT(s.size() == 3);
 				TESTSPR_ASSERT(s[0] == 'A');
 			}
 			{
-				auto s = to_string("abc");
+				auto s = sprout::to_string("abc");
 				s = "ABC";
 				TESTSPR_ASSERT(s.size() == 3);
 				TESTSPR_ASSERT(s[0] == 'A');
 			}
 			{
-				auto s = to_string("abc");
+				auto s = sprout::to_string("abc");
 				s = 'A';
 				TESTSPR_ASSERT(s.size() == 1);
 				TESTSPR_ASSERT(s[0] == 'A');
@@ -133,7 +133,7 @@ namespace testspr {
 
 			// find
 			TESTSPR_BOTH_ASSERT(str1.find(str2) == npos);
-			TESTSPR_BOTH_ASSERT(str1.find(to_string("bar")) == 3);
+			TESTSPR_BOTH_ASSERT(str1.find(sprout::to_string("bar")) == 3);
 			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str()) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find("bar") == 3);
 			TESTSPR_BOTH_ASSERT(str1.find(str2.c_str(), 0, 3) == npos);
@@ -142,7 +142,7 @@ namespace testspr {
 
 			// rfind
 			TESTSPR_BOTH_ASSERT(str1.rfind(str2) == npos);
-			TESTSPR_BOTH_ASSERT(str1.rfind(to_string("bar")) == 3);
+			TESTSPR_BOTH_ASSERT(str1.rfind(sprout::to_string("bar")) == 3);
 			TESTSPR_BOTH_ASSERT(str1.rfind(str2.c_str()) == npos);
 			TESTSPR_BOTH_ASSERT(str1.rfind("bar") == 3);
 			TESTSPR_BOTH_ASSERT(str1.rfind(str2.c_str(), npos, 3) == npos);
@@ -150,8 +150,8 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT(str1.rfind('b') == 3);
 
 			// find_first_of
-			TESTSPR_BOTH_ASSERT(str1.find_first_of(to_string("vwxyz")) == npos);
-			TESTSPR_BOTH_ASSERT(str1.find_first_of(to_string("rab")) == 3);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of(sprout::to_string("vwxyz")) == npos);
+			TESTSPR_BOTH_ASSERT(str1.find_first_of(sprout::to_string("rab")) == 3);
 			TESTSPR_BOTH_ASSERT(str1.find_first_of("vwxyz") == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_first_of("rab") == 3);
 			TESTSPR_BOTH_ASSERT(str1.find_first_of("vwxyz", 0, 3) == npos);
@@ -159,8 +159,8 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT(str1.find_first_of('b') == 3);
 
 			// find_last_of
-			TESTSPR_BOTH_ASSERT(str1.find_last_of(to_string("vwxyz")) == npos);
-			TESTSPR_BOTH_ASSERT(str1.find_last_of(to_string("rab")) == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of(sprout::to_string("vwxyz")) == npos);
+			TESTSPR_BOTH_ASSERT(str1.find_last_of(sprout::to_string("rab")) == 5);
 			TESTSPR_BOTH_ASSERT(str1.find_last_of("vwxyz") == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_last_of("rab") == 5);
 			TESTSPR_BOTH_ASSERT(str1.find_last_of("vwxyz", npos, 3) == npos);
@@ -169,7 +169,7 @@ namespace testspr {
 
 			// find_first_not_of
 			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1) == npos);
-			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(to_string("foo")) == 3);
+			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(sprout::to_string("foo")) == 3);
 			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1.c_str()) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_first_not_of("foo") == 3);
 			TESTSPR_BOTH_ASSERT(str1.find_first_not_of(str1.c_str(), 0, 10) == npos);
@@ -178,7 +178,7 @@ namespace testspr {
 
 			// find_last_not_of
 			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1) == npos);
-			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(to_string("4321")) == 5);
+			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(sprout::to_string("4321")) == 5);
 			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1.c_str()) == npos);
 			TESTSPR_BOTH_ASSERT(str1.find_last_not_of("4321") == 5);
 			TESTSPR_BOTH_ASSERT(str1.find_last_not_of(str1.c_str(), npos, 10) == npos);
@@ -201,14 +201,14 @@ namespace testspr {
 
 			// compare
 			TESTSPR_BOTH_ASSERT(str1.compare(str1) == 0);
-			TESTSPR_BOTH_ASSERT(str1.compare(to_string("zzzz")) < 0);
-			TESTSPR_BOTH_ASSERT(str2.compare(to_string("aaaa")) > 0);
-			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, to_string("foo")) == 0);
-			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, to_string("zzzz")) < 0);
-			TESTSPR_BOTH_ASSERT(str2.compare(0, 3, to_string("aaaa")) > 0);
-			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, to_string("foo"), 0, 3) == 0);
-			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, to_string("zzzz"), 0, 3) < 0);
-			TESTSPR_BOTH_ASSERT(str2.compare(0, 3, to_string("aaaa"), 0, 3) > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(sprout::to_string("zzzz")) < 0);
+			TESTSPR_BOTH_ASSERT(str2.compare(sprout::to_string("aaaa")) > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, sprout::to_string("foo")) == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, sprout::to_string("zzzz")) < 0);
+			TESTSPR_BOTH_ASSERT(str2.compare(0, 3, sprout::to_string("aaaa")) > 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, sprout::to_string("foo"), 0, 3) == 0);
+			TESTSPR_BOTH_ASSERT(str1.compare(0, 3, sprout::to_string("zzzz"), 0, 3) < 0);
+			TESTSPR_BOTH_ASSERT(str2.compare(0, 3, sprout::to_string("aaaa"), 0, 3) > 0);
 			TESTSPR_BOTH_ASSERT(str1.compare(str1.c_str()) == 0);
 			TESTSPR_BOTH_ASSERT(str1.compare("zzzz") < 0);
 			TESTSPR_BOTH_ASSERT(str1.compare("aaaa") > 0);
@@ -241,7 +241,7 @@ namespace testspr {
 			{
 #ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
 				// ! Error in GCC4.7
-				SPROUT_STATIC_CONSTEXPR auto str3 = str1 + to_string("hogehoge");
+				SPROUT_STATIC_CONSTEXPR auto str3 = str1 + sprout::to_string("hogehoge");
 				TESTSPR_BOTH_ASSERT(str3 == "foobar1234hogehoge");
 #endif
 
@@ -283,10 +283,34 @@ namespace testspr {
 
 			// operator basic_string
 			{
-				SPROUT_STATIC_CONSTEXPR string_t<10>::type str3 = to_string("foobar");
+				SPROUT_STATIC_CONSTEXPR string_t<10>::type str3 = sprout::to_string("foobar");
 				TESTSPR_BOTH_ASSERT(str3 == "foobar");
 				TESTSPR_BOTH_ASSERT(str3.size() == 6);
 			}
+
+			// get
+			TESTSPR_BOTH_ASSERT(sprout::tuples::get<0>(str1) == 'f');
+			TESTSPR_BOTH_ASSERT(sprout::tuples::get<1>(str1) == 'o');
+			{
+				auto str3 = str1;
+				TESTSPR_ASSERT(sprout::tuples::get<0>(str3) == 'f');
+				TESTSPR_ASSERT(sprout::tuples::get<1>(str3) == 'o');
+			}
+
+			// tuple_size
+			TESTSPR_BOTH_ASSERT(sprout::tuples::tuple_size<decltype(str1)>::value == 10);
+
+			// tuple_element
+			TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<0, decltype(str1)>::type, char const>::value));
+			TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<1, decltype(str1)>::type, char const>::value));
+
+			// is_string
+			TESTSPR_BOTH_ASSERT(sprout::is_string<decltype(str1)>::value);
+			TESTSPR_BOTH_ASSERT(!sprout::is_string<int>::value);
+
+			// sprout::to_hash, sprout::hash
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(str1) == sprout::hash<decltype(str1)>()(str1));
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(str1) != sprout::to_hash(str2));
 		}
 	}
 }	// namespace testspr

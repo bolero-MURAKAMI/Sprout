@@ -196,7 +196,8 @@ namespace testspr {
 			// 20.5.3 hash support
 
 			// sprout::to_hash, sprout::hash
-			TESTSPR_BOTH_ASSERT(sprout::to_hash(bits1) == sprout::hash<bitset_t>()(bits1));
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(bits1) == sprout::hash<decltype(bits1)>()(bits1));
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(bits1) != sprout::to_hash(bitset_t()));
 		}
 	}
 }	// namespace testspr

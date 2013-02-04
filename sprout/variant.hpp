@@ -2,11 +2,13 @@
 #define SPROUT_VARIANT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/variant/variant_fwd.hpp>
 #include <sprout/variant/variant.hpp>
 #include <sprout/variant/io.hpp>
 #include <sprout/variant/tuple.hpp>
 #include <sprout/variant/get.hpp>
 #include <sprout/variant/hash.hpp>
+#include <sprout/variant/type_traits.hpp>
 #include <sprout/variant/static_visitor.hpp>
 #include <sprout/variant/static_variant_visitor.hpp>
 #include <sprout/variant/as_visitor.hpp>
