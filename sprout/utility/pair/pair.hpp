@@ -7,7 +7,8 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)

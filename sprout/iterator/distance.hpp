@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {

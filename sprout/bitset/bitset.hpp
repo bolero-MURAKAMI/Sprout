@@ -10,7 +10,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/iterator/index_iterator.hpp>
-#include <sprout/functional/hash/hash.hpp>
+#include <sprout/functional/hash.hpp>
 #include <sprout/algorithm/all_of.hpp>
 #include <sprout/algorithm/any_of.hpp>
 #include <sprout/algorithm/find_if.hpp>
@@ -641,7 +641,7 @@ namespace sprout {
 			}
 
 			SPROUT_CONSTEXPR std::size_t do_to_hash() const {
-				return sprout::hash_value(w_);
+				return sprout::to_hash(w_);
 			}
 		};
 

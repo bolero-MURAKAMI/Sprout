@@ -5,7 +5,8 @@
 #include <sprout/config.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/functional/hash/hash_combine.hpp>
-#include <sprout/container/functions.hpp>
+#include <sprout/container/begin.hpp>
+#include <sprout/container/end.hpp>
 #include <sprout/numeric/accumulate.hpp>
 
 namespace sprout {

@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/array.hpp>
-#include <sprout/functional/hash/hash.hpp>
+#include <sprout/functional/hash.hpp>
 #include <sprout/preprocessor/unique_string.hpp>
 
 namespace sprout {

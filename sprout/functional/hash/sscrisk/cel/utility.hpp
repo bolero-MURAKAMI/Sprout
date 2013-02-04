@@ -3,7 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/functional/hash/hash.hpp>
+#include <sprout/functional/hash.hpp>
 #include <sscrisk/cel/utility.hpp>
 
 namespace sprout {

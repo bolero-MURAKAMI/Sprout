@@ -7,7 +7,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/functional/plus.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -52,7 +52,7 @@ namespace sprout {
 		template<typename InputIterator, typename T, typename BinaryOperation>
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, T>
 		accumulate_impl_1(
-			sprout::pair<InputIterator, bool> const& current,
+			sprout::pair<InputIterator, T> const& current,
 			InputIterator last, BinaryOperation binary_op, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
