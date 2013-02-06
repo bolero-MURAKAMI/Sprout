@@ -14,12 +14,17 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			exp_impl(T x, std::size_t n, std::size_t last) {
+			exp_impl_1(T x, std::size_t n, std::size_t last) {
 				return last - n == 1
 					? sprout::detail::pow_n(x, n) / sprout::math::factorial<T>(n)
-					: sprout::math::detail::exp_impl(x, n, n + (last - n) / 2)
-						+ sprout::math::detail::exp_impl(x, n + (last - n) / 2, last)
+					: sprout::math::detail::exp_impl_1(x, n, n + (last - n) / 2)
+						+ sprout::math::detail::exp_impl_1(x, n + (last - n) / 2, last)
 					;
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			exp_impl(T x) {
+				return 1 + sprout::math::detail::exp_impl_1(x, 1, sprout::math::factorial_limit<T>() + 1);
 			}
 
 			template<
@@ -29,12 +34,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			exp(FloatType x) {
 				typedef double type;
-				return static_cast<FloatType>(
-					type(1) + sprout::math::detail::exp_impl(
-						static_cast<type>(x),
-						1, sprout::math::factorial_limit<type>() + 1
-						)
-					);
+				return !(x > -1) ? 1 / sprout::math::detail::exp_impl(-static_cast<type>(x))
+					: sprout::math::detail::exp_impl(static_cast<type>(x))
+					;
 			}
 
 			template<
