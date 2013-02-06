@@ -25,4 +25,18 @@ namespace sprout {
 	}	// namespace logic
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<>
+	struct hash<sprout::logic::indeterminate_keyword_t>
+		: public sprout::hash<sprout::logic::indeterminate_keyword_t>
+	{};
+	template<>
+	struct hash<sprout::logic::tribool>
+		: public sprout::hash<sprout::logic::tribool>
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_LOGIC_TRIBOOL_HASH_HPP

@@ -19,4 +19,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename T>
+	struct hash<sprout::optional<T> >
+		: public sprout::hash<sprout::optional<T> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_OPTIONAL_HASH_HPP

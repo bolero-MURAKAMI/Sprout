@@ -17,4 +17,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename T1, typename T2>
+	struct hash<sprout::pair<T1, T2> >
+		: public sprout::hash<sprout::pair<T1, T2> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_UTILITY_PAIR_HASH_HPP

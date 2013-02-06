@@ -16,4 +16,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename Container>
+	struct hash<sprout::sub_array<Container> >
+		: public sprout::hash<sprout::sub_array<Container> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_SUB_ARRAY_HASH_HPP

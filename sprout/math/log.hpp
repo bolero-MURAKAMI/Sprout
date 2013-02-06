@@ -42,7 +42,8 @@ namespace sprout {
 				typedef double type;
 				return x == 0 ? std::numeric_limits<FloatType>::quiet_NaN()
 					: !(x > 0) ? -std::numeric_limits<FloatType>::infinity()
-					: static_cast<FloatType>(sprout::math::detail::log_impl(x))
+					: x < 1 ? static_cast<FloatType>(-sprout::math::detail::log_impl(type(1) / static_cast<type>(x)))
+					: static_cast<FloatType>(sprout::math::detail::log_impl(static_cast<type>(x)))
 					;
 			}
 

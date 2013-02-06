@@ -33,4 +33,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename... Types>
+	struct hash<sprout::variant<Types...> >
+		: public sprout::hash<sprout::variant<Types...> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_VARIANT_HASH_HPP

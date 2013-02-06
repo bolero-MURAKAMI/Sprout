@@ -17,4 +17,14 @@ namespace sprout {
 	}
 } // namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename T>
+	struct hash<sprout::rational<T> >
+		: public sprout::hash<sprout::rational<T> >
+	{};
+}	// namespace std
+
 #endif	// SPROUT_RATIONAL_HASH_HPP

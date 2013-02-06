@@ -17,4 +17,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename T>
+	struct hash<sprout::complex<T> >
+		: public sprout::hash<sprout::complex<T> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_COMPLEX_HASH_HPP

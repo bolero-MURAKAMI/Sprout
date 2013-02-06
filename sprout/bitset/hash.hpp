@@ -18,4 +18,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<std::size_t N>
+	struct hash<sprout::bitset<N> >
+		: public sprout::hash<sprout::bitset<N> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_BITSET_HASH_HPP

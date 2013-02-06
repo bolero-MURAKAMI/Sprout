@@ -17,4 +17,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename T, std::size_t N, typename Traits>
+	struct hash<sprout::basic_string<T, N, Traits> >
+		: public sprout::hash<sprout::basic_string<T, N, Traits> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_STRING_HASH_HPP

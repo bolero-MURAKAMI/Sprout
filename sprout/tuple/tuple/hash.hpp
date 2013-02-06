@@ -31,4 +31,14 @@ namespace sprout {
 	}	// namespace tuples
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename... Types>
+	struct hash<sprout::tuples::tuple<Types...> >
+		: public sprout::hash<sprout::tuples::tuple<Types...> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_HASH_HPP

@@ -16,4 +16,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<>
+	struct hash<sprout::uuids::uuid>
+		: public sprout::hash<sprout::uuids::uuid>
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_UUID_HASH_HPP

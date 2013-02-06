@@ -25,4 +25,14 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+namespace std {
+	//
+	// hash
+	//
+	template<typename T>
+	struct hash<sprout::value_holder<T> >
+		: public sprout::hash<sprout::value_holder<T> >
+	{};
+}	// namespace std
+
 #endif	// #ifndef SPROUT_UTILITY_VALUE_HOLDER_HASH_HPP
