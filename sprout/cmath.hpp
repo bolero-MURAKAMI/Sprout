@@ -6,6 +6,7 @@
 #include <sprout/math/trigonometric.hpp>
 #include <sprout/math/hyperbolic.hpp>
 #include <sprout/math/exponential.hpp>
+#include <sprout/math/floating_point.hpp>
 #include <sprout/math/power.hpp>
 #include <sprout/math/operations.hpp>
 #include <sprout/math/nearest.hpp>

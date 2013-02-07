@@ -34,8 +34,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			exp(FloatType x) {
 				typedef double type;
-				return !(x > -1) ? 1 / sprout::math::detail::exp_impl(-static_cast<type>(x))
-					: sprout::math::detail::exp_impl(static_cast<type>(x))
+				return !(x > -1) ? static_cast<FloatType>(1 / sprout::math::detail::exp_impl(-static_cast<type>(x)))
+					: static_cast<FloatType>(sprout::math::detail::exp_impl(static_cast<type>(x)))
 					;
 			}
 

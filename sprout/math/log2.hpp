@@ -1,5 +1,5 @@
-#ifndef SPROUT_MATH_LOG2HPP
-#define SPROUT_MATH_LOG2HPP
+#ifndef SPROUT_MATH_LOG2_HPP
+#define SPROUT_MATH_LOG2_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -36,4 +36,4 @@ namespace sprout {
 	using sprout::math::log2;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_MATH_LOG2HPP
+#endif	// #ifndef SPROUT_MATH_LOG2_HPP

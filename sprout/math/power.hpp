@@ -5,6 +5,7 @@
 #include <sprout/math/sqrt.hpp>
 #include <sprout/math/cbrt.hpp>
 #include <sprout/math/pow.hpp>
+#include <sprout/math/log_a.hpp>
 #include <sprout/math/hypot.hpp>
 
 #endif	// #ifndef SPROUT_MATH_POWER_HPP

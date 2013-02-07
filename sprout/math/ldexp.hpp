@@ -16,7 +16,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			ldexp(FloatType x, int exp) {
-				return static_cast<FloatType>(x * sprout::detail::pow_n(FloatType(2), exp));
+				return x * sprout::detail::pow_n(FloatType(2), exp);
 			}
 
 			template<
