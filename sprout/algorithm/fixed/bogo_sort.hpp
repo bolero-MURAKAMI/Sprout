@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/pair/pair.hpp>
+#include <sprout/utility/pair/access.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/bogo_sort_result.hpp>
 

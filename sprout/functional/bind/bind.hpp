@@ -9,7 +9,8 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 #include <sprout/functional/ref.hpp>
 #include <sprout/functional/mem_fn.hpp>
 #include <sprout/functional/type_traits/weak_result_type.hpp>

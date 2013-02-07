@@ -7,7 +7,8 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
 	namespace adaptors {

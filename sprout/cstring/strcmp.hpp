@@ -6,7 +6,8 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/pair/pair.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
 
 namespace sprout {

@@ -12,6 +12,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/pair/pair.hpp>
+#include <sprout/utility/pair/access.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>

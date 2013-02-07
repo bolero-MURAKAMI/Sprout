@@ -4,7 +4,8 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/index_tuple/detail/make_indexes_helper.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
 	namespace tuples {
