@@ -74,15 +74,24 @@ namespace sprout {
 		//
 		// lcm_evaluator
 		//
-		template<typename IntType>
+		template<typename IntType = void>
 		class lcm_evaluator {
 		public:
 			typedef IntType result_type;
 			typedef IntType first_argument_type;
 			typedef IntType second_argument_type;
 		public:
-			SPROUT_CONSTEXPR result_type
-			operator()(first_argument_type const& a, second_argument_type const& b) const {
+			SPROUT_CONSTEXPR IntType
+			operator()(IntType const& a, IntType const& b) const {
+				return sprout::math::detail::lcm_optimal(a, b);
+			}
+		};
+		template<>
+		class lcm_evaluator<void> {
+		public:
+			template<typename IntType>
+			SPROUT_CONSTEXPR IntType
+			operator()(IntType const& a, IntType const& b) const {
 				return sprout::math::detail::lcm_optimal(a, b);
 			}
 		};

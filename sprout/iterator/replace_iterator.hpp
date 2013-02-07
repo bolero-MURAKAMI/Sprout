@@ -12,16 +12,16 @@ namespace sprout {
 	class replace_value {
 	public:
 		typedef T result_type;
-		typedef T const& argument_type;
+		typedef T argument_type;
 	private:
 		T old_;
 		T new_;
 	public:
 		SPROUT_CONSTEXPR replace_value(T const& old_value, T const& new_value)
-			: old_(old_value)
-			, new_(new_value)
+			: old_(old_value), new_(new_value)
 		{}
-		SPROUT_CONSTEXPR T operator()(T const& value) const {
+		SPROUT_CONSTEXPR T
+		operator()(T const& value) const {
 			return (value == old_) ? new_ : value;
 		}
 	};

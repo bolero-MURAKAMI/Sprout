@@ -19,8 +19,7 @@ namespace sprout {
 		T new_;
 	public:
 		SPROUT_CONSTEXPR replace_value_if(Predicate pred, T const& new_value)
-			: pred_(pred)
-			, new_(new_value)
+			: pred_(pred), new_(new_value)
 		{}
 		SPROUT_CONSTEXPR T operator()(T const& value) const {
 			return pred_(value) ? new_ : value;

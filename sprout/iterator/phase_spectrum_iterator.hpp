@@ -10,14 +10,23 @@ namespace sprout {
 	//
 	// phase_value
 	//
-	template<typename T>
+	template<typename T = void>
 	class phase_value {
 	public:
 		typedef typename T::value_type result_type;
 		typedef T argument_type;
 	public:
-		SPROUT_CONSTEXPR phase_value() {}
-		SPROUT_CONSTEXPR typename T::value_type operator()(T const& value) const {
+		SPROUT_CONSTEXPR typename T::value_type
+		operator()(T const& value) const {
+			return sprout::phase_spectrum_value(value);
+		}
+	};
+	template<>
+	class phase_value<void> {
+	public:
+		template<typename T>
+		SPROUT_CONSTEXPR typename T::value_type
+		operator()(T const& value) const {
 			return sprout::phase_spectrum_value(value);
 		}
 	};

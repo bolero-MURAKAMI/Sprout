@@ -6,6 +6,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/transform_iterator.hpp>
+#include <sprout/iterator/amplitude_spectrum_iterator.hpp>
 #include <sprout/range/adaptor/detail/adapted_range_default.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
@@ -14,18 +15,6 @@
 
 namespace sprout {
 	namespace adaptors {
-		namespace detail {
-			template<typename T>
-			class amplitude_spectrum_value {
-			public:
-				typedef typename T::value_type result_type;
-				typedef T argument_type;
-			public:
-				SPROUT_CONSTEXPR result_type operator()(T const& value) const {
-					return sprout::amplitude_spectrum_value(value);
-				}
-			};
-		}	// namespace detail
 		//
 		// amplitude_spectrum_range
 		//
@@ -34,7 +23,7 @@ namespace sprout {
 			: public sprout::adaptors::detail::adapted_range_default<
 				Range,
 				sprout::transform_iterator<
-					sprout::adaptors::detail::amplitude_spectrum_value<typename sprout::container_traits<Range>::value_type>,
+					sprout::amplitude_value<typename sprout::container_traits<Range>::value_type>,
 					typename sprout::container_traits<Range>::iterator
 				>
 			>
@@ -43,7 +32,7 @@ namespace sprout {
 			typedef sprout::adaptors::detail::adapted_range_default<
 				Range,
 				sprout::transform_iterator<
-					sprout::adaptors::detail::amplitude_spectrum_value<typename sprout::container_traits<Range>::value_type>,
+					sprout::amplitude_value<typename sprout::container_traits<Range>::value_type>,
 					typename sprout::container_traits<Range>::iterator
 				>
 			> base_type;

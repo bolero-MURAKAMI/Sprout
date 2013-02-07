@@ -215,15 +215,24 @@ namespace sprout {
 		//
 		// gcd_evaluator
 		//
-		template<typename IntType>
+		template<typename IntType = void>
 		class gcd_evaluator {
 		public:
 			typedef IntType result_type;
 			typedef IntType first_argument_type;
 			typedef IntType second_argument_type;
 		public:
-			SPROUT_CONSTEXPR result_type
-			operator()(first_argument_type const& a, second_argument_type const& b) const {
+			SPROUT_CONSTEXPR IntType
+			operator()(IntType const& a, IntType const& b) const {
+				return sprout::math::detail::gcd_optimal(a, b);
+			}
+		};
+		template<>
+		class gcd_evaluator<void> {
+		public:
+			template<typename IntType>
+			SPROUT_CONSTEXPR IntType
+			operator()(IntType const& a, IntType const& b) const {
 				return sprout::math::detail::gcd_optimal(a, b);
 			}
 		};

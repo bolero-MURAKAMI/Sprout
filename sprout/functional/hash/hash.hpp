@@ -11,7 +11,7 @@ namespace sprout {
 	//
 	// hash
 	//
-	template<typename T>
+	template<typename T = void>
 	struct hash {
 	public:
 		typedef T argument_type;
