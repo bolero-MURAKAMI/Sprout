@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <sprout/config.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/string.hpp>
 
 namespace sprout {

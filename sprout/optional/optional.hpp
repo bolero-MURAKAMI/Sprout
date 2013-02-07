@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 #include <sprout/config.hpp>
-#include <sprout/utility/value_holder.hpp>
+#include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/none.hpp>
 #include <sprout/optional/nullopt.hpp>

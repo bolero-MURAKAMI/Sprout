@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/string.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/algorithm/string/join.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/traits/type/is_char_type.hpp>

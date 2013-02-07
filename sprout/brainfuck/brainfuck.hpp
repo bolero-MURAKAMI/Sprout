@@ -5,8 +5,8 @@
 #include <iterator>
 #include <stdexcept>
 #include <sprout/config.hpp>
-#include <sprout/array.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/array/array.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/value_iterator.hpp>
 #include <sprout/container/traits.hpp>

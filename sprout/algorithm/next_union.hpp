@@ -4,7 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/functional/less.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 
 namespace sprout {
 	//

@@ -6,7 +6,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/range/adaptor/size_enumed.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>

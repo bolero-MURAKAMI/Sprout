@@ -145,4 +145,6 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+#include <sprout/pit/container.hpp>
+
 #endif	// #ifndef SPROUT_PIT_PIT_HPP

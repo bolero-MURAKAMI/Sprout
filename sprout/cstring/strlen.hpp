@@ -7,7 +7,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/algorithm/find.hpp>
 

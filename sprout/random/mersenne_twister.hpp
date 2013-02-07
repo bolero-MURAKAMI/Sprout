@@ -7,7 +7,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/detail/integer/integer_mask.hpp>
 
 namespace sprout {

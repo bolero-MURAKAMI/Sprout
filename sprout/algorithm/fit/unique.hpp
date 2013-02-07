@@ -6,7 +6,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/unique.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/sub_array/sub.hpp>
 #include <sprout/detail/algorithm/overlap_count.hpp>
 
 namespace sprout {

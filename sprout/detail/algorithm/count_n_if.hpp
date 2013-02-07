@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/algorithm/count_if.hpp>
 
 namespace sprout {

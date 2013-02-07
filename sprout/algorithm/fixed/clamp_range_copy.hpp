@@ -11,7 +11,7 @@
 #include <sprout/iterator/clamp_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/clamp.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 

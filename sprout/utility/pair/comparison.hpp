@@ -5,32 +5,32 @@
 #include <sprout/utility/pair/pair.hpp>
 
 namespace sprout {
-	template<class T1, class T2>
+	template<typename T1, typename T2>
 	inline SPROUT_CONSTEXPR bool
 	operator==(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return x.first == y.first && x.second == y.second;
 	}
-	template<class T1, class T2>
+	template<typename T1, typename T2>
 	inline SPROUT_CONSTEXPR bool
 	operator!=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return !(x == y);
 	}
-	template<class T1, class T2>
+	template<typename T1, typename T2>
 	inline SPROUT_CONSTEXPR bool
 	operator<(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
-		return x.first < y.first || (!(y.first < x.first) && x.second < y.second);
+		return ((x.first) < (y.first)) || (!((y.first) < (x.first)) && ((x.second) < (y.second)));
 	}
-	template<class T1, class T2>
+	template<typename T1, typename T2>
 	inline SPROUT_CONSTEXPR bool
 	operator>(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return y < x;
 	}
-	template<class T1, class T2>
+	template<typename T1, typename T2>
 	inline SPROUT_CONSTEXPR bool
 	operator<=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return !(y < x);
 	}
-	template<class T1, class T2>
+	template<typename T1, typename T2>
 	inline SPROUT_CONSTEXPR bool
 	operator>=(sprout::pair<T1, T2> const& x, sprout::pair<T1, T2> const& y) {
 		return !(x < y);

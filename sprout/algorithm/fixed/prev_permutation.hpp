@@ -8,8 +8,8 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/reverse.hpp>
-#include <sprout/sub_array.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {

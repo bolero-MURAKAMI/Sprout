@@ -6,7 +6,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/swap_element_copy.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/sub_array/sub.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/operation.hpp>
 

@@ -5,7 +5,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/type_traits/float_promote.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/math/tan.hpp>
 #include <sprout/math/sqrt.hpp>
 #include <sprout/math/constants.hpp>

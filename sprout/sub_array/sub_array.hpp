@@ -369,4 +369,6 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+#include <sprout/sub_array/container.hpp>
+
 #endif	// #ifndef SPROUT_SUB_ARRAY_SUB_ARRAY_HPP

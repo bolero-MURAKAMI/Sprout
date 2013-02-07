@@ -2,7 +2,7 @@
 #define SPROUT_RANGE_ADAPTOR_DETAIL_JOINTED_RANGE_DEFAULT_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/container/metafunctions.hpp>

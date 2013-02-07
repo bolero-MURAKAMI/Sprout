@@ -8,7 +8,8 @@
 #include <sprout/algorithm/fixed/copy_while.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/algorithm/find_if_not.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/sub_array/sub.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/type_traits/is_iterator.hpp>
 

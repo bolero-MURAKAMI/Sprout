@@ -3,7 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/expr/make_terminal_or_expr.hpp>
 #include <sprout/weed/expr/eval.hpp>

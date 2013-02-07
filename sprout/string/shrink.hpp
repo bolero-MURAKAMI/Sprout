@@ -6,7 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/string.hpp>
-#include <sprout/utility/value_holder.hpp>
+#include <sprout/utility/value_holder/value_holder.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {

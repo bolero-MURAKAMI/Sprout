@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/detail/str.hpp>
 

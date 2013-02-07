@@ -7,7 +7,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/algorithm/min.hpp>
 #include <sprout/functional/less.hpp>
 

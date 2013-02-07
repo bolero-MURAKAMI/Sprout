@@ -4,7 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/functional/less.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/algorithm/find_symmetric_difference.hpp>
 
 namespace sprout {

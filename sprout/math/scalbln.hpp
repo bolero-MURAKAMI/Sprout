@@ -1,7 +1,7 @@
 #ifndef SPROUT_MATH_SCALBLN_HPP
 #define SPROUT_MATH_SCALBLN_HPP
 
-#include <cfloat>
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -17,7 +17,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			scalbln(FloatType x, long exp) {
-				return x * sprout::detail::pow_n(FloatType(FLT_RADIX), exp);
+				return x * sprout::detail::pow_n(FloatType(std::numeric_limits<FloatType>::radix), exp);
 			}
 
 			template<

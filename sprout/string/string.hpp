@@ -8,7 +8,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
+#include <sprout/array/make_array.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/find.hpp>

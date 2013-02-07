@@ -5,7 +5,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/recurrence.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 
 namespace sprout {
 	namespace fixed {

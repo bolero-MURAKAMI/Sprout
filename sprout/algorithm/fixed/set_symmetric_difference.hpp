@@ -9,7 +9,7 @@
 #include <sprout/iterator/set_symmetric_difference_iterator.hpp>
 #include <sprout/functional/less.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {

@@ -3,7 +3,7 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>

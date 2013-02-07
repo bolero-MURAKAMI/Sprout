@@ -6,8 +6,10 @@
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/array.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/array/array.hpp>
+#include <sprout/array/make_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/sub_array/sub.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>

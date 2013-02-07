@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/string.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/find.hpp>

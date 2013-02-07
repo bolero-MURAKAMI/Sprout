@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/generator_iterator.hpp>

@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/type_traits/is_int.hpp>
 #include <sprout/type_traits/is_uint.hpp>
 

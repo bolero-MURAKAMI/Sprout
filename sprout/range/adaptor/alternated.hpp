@@ -11,7 +11,7 @@
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
-#include <sprout/utility/value_holder.hpp>
+#include <sprout/utility/value_holder/value_holder.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {

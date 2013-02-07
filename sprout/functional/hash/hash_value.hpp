@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
+#include <sprout/functional/hash/detail/hash_float.hpp>
 
 namespace sprout {
 	namespace hash_detail {
@@ -127,6 +128,11 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR typename std::enable_if<std::is_enum<T>::value, std::size_t>::type
 	hash_value(T v) {
 		return sprout::hash_value(static_cast<typename std::underlying_type<T>::type>(v));
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename std::enable_if<std::is_floating_point<T>::value, std::size_t>::type
+	hash_value(T v) {
+		return sprout::detail::float_hash_value(v);
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR typename std::enable_if<std::is_pointer<typename std::remove_reference<T>::type>::value, std::size_t>::type

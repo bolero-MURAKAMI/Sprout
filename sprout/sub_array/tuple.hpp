@@ -10,7 +10,6 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/sub_array/sub_array.hpp>
-#include <sprout/sub_array/container.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {

@@ -7,7 +7,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/functional/equal_to.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/detail/algorithm/search_one.hpp>
 
 namespace sprout {

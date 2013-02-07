@@ -9,7 +9,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/math/comparison.hpp>
 #include <sprout/detail/container_complate.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>

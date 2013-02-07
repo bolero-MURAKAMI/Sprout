@@ -6,7 +6,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/set_union.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/sub_array/sub.hpp>
 #include <sprout/detail/algorithm/set_overlap_count.hpp>
 #include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/type_traits/is_iterator.hpp>

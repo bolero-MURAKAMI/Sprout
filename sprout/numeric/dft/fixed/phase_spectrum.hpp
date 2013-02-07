@@ -10,7 +10,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/phase_spectrum_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/math/comparison.hpp>
 #include <sprout/numeric/dft/phase_spectrum_value.hpp>
 #include <sprout/detail/container_complate.hpp>

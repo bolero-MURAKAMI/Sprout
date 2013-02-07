@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 
 namespace sprout {
 	namespace fixed {

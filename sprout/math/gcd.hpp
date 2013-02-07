@@ -4,7 +4,7 @@
 #include <climits>
 #include <limits>
 #include <sprout/config.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/cstdlib/abs.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>

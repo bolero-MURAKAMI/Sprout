@@ -1,7 +1,7 @@
 #ifndef SPROUT_MATH_FLOAT_MANTISSA_HPP
 #define SPROUT_MATH_FLOAT_MANTISSA_HPP
 
-#include <cfloat>
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -18,7 +18,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			float_mantissa(FloatType x) {
-				return x / sprout::detail::pow_n(FloatType(FLT_RADIX), sprout::math::float_exponent(x));
+				return x / sprout::detail::pow_n(FloatType(std::numeric_limits<FloatType>::radix), sprout::math::float_exponent(x));
 			}
 
 			template<

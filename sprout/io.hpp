@@ -7,10 +7,10 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/string.hpp>
-#include <sprout/pit.hpp>
-#include <sprout/utility/value_holder.hpp>
+#include <sprout/pit/pit.hpp>
+#include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
 #include <sprout/range/numeric/partial_sum.hpp>

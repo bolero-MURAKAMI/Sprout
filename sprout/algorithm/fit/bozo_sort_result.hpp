@@ -2,13 +2,15 @@
 #define SPROUT_ALGORITHM_FIT_BOZO_SORT_RESULT_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/bozo_sort_result.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/sub_array/sub.hpp>
 
 namespace sprout {
 	namespace fit {

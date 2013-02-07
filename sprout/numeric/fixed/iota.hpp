@@ -8,7 +8,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/counting_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 
 namespace sprout {
 	namespace fixed {

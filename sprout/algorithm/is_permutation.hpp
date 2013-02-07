@@ -6,7 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/algorithm/count_if.hpp>

@@ -6,8 +6,9 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/numeric/dft/fixed/sinusoid.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
-#include <sprout/sub_array.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/sub_array/sub.hpp>
+#include <sprout/pit/pit.hpp>
 
 namespace sprout {
 	namespace fit {

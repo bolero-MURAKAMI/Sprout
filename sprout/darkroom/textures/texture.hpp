@@ -3,7 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 

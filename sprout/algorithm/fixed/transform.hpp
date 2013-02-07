@@ -11,7 +11,7 @@
 #include <sprout/iterator/transform_iterator.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {

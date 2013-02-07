@@ -5,7 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/algorithm/lower_bound.hpp>
 #include <sprout/algorithm/upper_bound.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {

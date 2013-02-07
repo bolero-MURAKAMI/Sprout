@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <sprout/config.hpp>
 #include <sprout/math/floor.hpp>
-#include <sprout/utility/value_holder.hpp>
+#include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/darkroom/materials/interpolation.hpp>
 
 namespace sprout {

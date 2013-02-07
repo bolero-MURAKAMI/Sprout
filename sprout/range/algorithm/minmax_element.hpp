@@ -4,7 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/range/range_return.hpp>
 #include <sprout/algorithm/minmax_element.hpp>
 

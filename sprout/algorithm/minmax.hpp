@@ -2,7 +2,7 @@
 #define SPROUT_ALGORITHM_MINMAX_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {

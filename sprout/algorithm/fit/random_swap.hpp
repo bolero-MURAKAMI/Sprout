@@ -7,7 +7,8 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/fixed/random_swap.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/sub_array/sub.hpp>
 
 namespace sprout {
 	namespace fit {

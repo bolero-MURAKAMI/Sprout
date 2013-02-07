@@ -11,7 +11,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
-#include <sprout/utility/value_holder.hpp>
+#include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {

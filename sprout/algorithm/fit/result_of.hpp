@@ -6,7 +6,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/metafunctions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/sub_array.hpp>
+#include <sprout/sub_array/sub_array.hpp>
 
 namespace sprout {
 	namespace fit {

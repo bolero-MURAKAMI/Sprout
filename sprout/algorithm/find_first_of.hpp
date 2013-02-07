@@ -9,7 +9,7 @@
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/algorithm/find_if.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 
 namespace sprout {
 	namespace detail {

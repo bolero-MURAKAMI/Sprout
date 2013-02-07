@@ -8,7 +8,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/remove_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/pit.hpp>
+#include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
 namespace sprout {

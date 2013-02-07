@@ -6,7 +6,6 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/sub_array/sub_array.hpp>
-#include <sprout/sub_array/container.hpp>
 #include <sprout/sub_array/type_traits.hpp>
 
 namespace sprout {

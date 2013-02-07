@@ -9,7 +9,7 @@
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/functional/less.hpp>
 #include <sprout/utility/swap.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/algorithm/find_intersection.hpp>
 #include <sprout/algorithm/next_intersection.hpp>
 

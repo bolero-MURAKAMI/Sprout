@@ -1,14 +1,14 @@
 #ifndef SPROUT_MATH_FLOAT_PAIR_HPP
 #define SPROUT_MATH_FLOAT_PAIR_HPP
 
-#include <cfloat>
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/float_exponent.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/utility/pair.hpp>
+#include <sprout/utility/pair/pair.hpp>
 
 namespace sprout {
 	namespace math {
@@ -16,7 +16,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR sprout::pair<T, int>
 			float_pair_impl(T x, int exp) {
-				return sprout::pair<T, int>(x / sprout::detail::pow_n(T(FLT_RADIX), exp), exp);
+				return sprout::pair<T, int>(x / sprout::detail::pow_n(T(std::numeric_limits<T>::radix), exp), exp);
 			}
 
 			template<

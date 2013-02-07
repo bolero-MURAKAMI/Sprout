@@ -7,7 +7,8 @@
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/functional/equal_to.hpp>
 #include <sprout/algorithm/mismatch.hpp>
-#include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
 	namespace detail {

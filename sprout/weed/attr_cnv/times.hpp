@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/array.hpp>
+#include <sprout/array/array.hpp>
 #include <sprout/container/make.hpp>
 #include <sprout/algorithm/string/join.hpp>
 #include <sprout/weed/unused.hpp>
