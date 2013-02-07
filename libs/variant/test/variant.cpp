@@ -219,11 +219,8 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT(!sprout::is_variant<int>::value);
 
 			// sprout::to_hash, sprout::hash
-			{
-				typedef sprout::variant<int, char> type;
-				TESTSPR_BOTH_ASSERT(sprout::to_hash(type(1)) == sprout::hash<type>()(type(1)));
-				TESTSPR_BOTH_ASSERT(sprout::to_hash(type(1)) != sprout::to_hash(type()));
-			}
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(var1) == sprout::hash<decltype(var1)>()(var1));
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(var1) != sprout::to_hash(sprout::variant<int, double>()));
 		}
 	}
 }	// namespace testspr

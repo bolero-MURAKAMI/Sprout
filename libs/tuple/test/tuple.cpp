@@ -222,11 +222,8 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT(!sprout::tuples::is_tuple<int>::value);
 
 			// sprout::to_hash, sprout::hash
-			{
-				typedef sprout::tuples::tuple<int, int> type;
-				TESTSPR_BOTH_ASSERT(sprout::to_hash(type(1, 2)) == sprout::hash<type>()(type(1, 2)));
-				TESTSPR_BOTH_ASSERT(sprout::to_hash(type(1, 2)) != sprout::to_hash(type()));
-			}
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(tup1) == sprout::hash<decltype(tup1)>()(tup1));
+			TESTSPR_BOTH_ASSERT(sprout::to_hash(tup1) != sprout::to_hash(sprout::tuples::tuple<int, double>()));
 		}
 	}
 }	// namespace testspr
