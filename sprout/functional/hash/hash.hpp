@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/functional/hash/to_hash.hpp>
+#include <sprout/utility/forward.hpp>
 
 namespace sprout {
 	//
@@ -32,6 +33,19 @@ namespace sprout {
 	struct hash<T const volatile>
 		: public sprout::hash<T>
 	{};
+	template<>
+	struct hash<void> {
+	public:
+		typedef std::size_t result_type;
+	public:
+		template<typename T>
+		SPROUT_CONSTEXPR std::size_t
+		operator()(T&& v)
+		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::to_hash(sprout::forward<T>(v))))
+		{
+			return sprout::to_hash(sprout::forward<T>(v));
+		}
+	};
 
 #define SPROUT_HASH_SPECIALIZE(type) \
 	template<> \
