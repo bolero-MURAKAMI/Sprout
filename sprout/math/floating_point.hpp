@@ -15,8 +15,8 @@
 #include <sprout/math/float2_significand.hpp>
 #include <sprout/math/float2_exponent.hpp>
 #include <sprout/math/float2_sig_exp.hpp>
-#include <sprout/math/float_fractional_part.hpp>
-#include <sprout/math/float_integer_part.hpp>
-#include <sprout/math/float_frac_int.hpp>
+#include <sprout/math/fractional_part.hpp>
+#include <sprout/math/integer_part.hpp>
+#include <sprout/math/frac_int.hpp>
 
 #endif	// #ifndef SPROUT_MATH_FLOATING_POINT_HPP

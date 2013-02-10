@@ -1,10 +1,10 @@
-#ifndef SPROUT_MATH_FLOAT_FRAC_INT_HPP
-#define SPROUT_MATH_FLOAT_FRAC_INT_HPP
+#ifndef SPROUT_MATH_FRAC_INT_HPP
+#define SPROUT_MATH_FRAC_INT_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
-#include <sprout/math/float_integer_part.hpp>
+#include <sprout/math/integer_part.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/utility/pair/pair.hpp>
 
@@ -13,7 +13,7 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR sprout::pair<T, T>
-			float_frac_int_impl(T x, T ipart) {
+			frac_int_impl(T x, T ipart) {
 				return sprout::pair<T, T>(x - ipart, ipart);
 			}
 
@@ -22,8 +22,8 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR sprout::pair<FloatType, FloatType>
-			float_frac_int(FloatType x) {
-				return sprout::math::detail::float_frac_int_impl(x, sprout::math::float_integer_part(x));
+			frac_int(FloatType x) {
+				return sprout::math::detail::frac_int_impl(x, sprout::math::integer_part(x));
 			}
 
 			template<
@@ -31,15 +31,15 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR sprout::pair<double, double>
-			float_frac_int(IntType x) {
-				return sprout::math::detail::float_frac_int(static_cast<double>(x));
+			frac_int(IntType x) {
+				return sprout::math::detail::frac_int(static_cast<double>(x));
 			}
 		}	// namespace detail
 
-		using sprout::math::detail::float_frac_int;
+		using sprout::math::detail::frac_int;
 	}	// namespace math
 
-	using sprout::math::float_frac_int;
+	using sprout::math::frac_int;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_MATH_FLOAT_FRAC_INT_HPP
+#endif	// #ifndef SPROUT_MATH_FRAC_INT_HPP

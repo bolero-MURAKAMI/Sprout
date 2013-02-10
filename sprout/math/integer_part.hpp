@@ -1,10 +1,10 @@
-#ifndef SPROUT_MATH_FLOAT_INTEGER_PART_HPP
-#define SPROUT_MATH_FLOAT_INTEGER_PART_HPP
+#ifndef SPROUT_MATH_INTEGER_PART_HPP
+#define SPROUT_MATH_INTEGER_PART_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
-#include <sprout/math/floor.hpp>
+#include <sprout/math/trunc.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -15,8 +15,8 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR FloatType
-			float_integer_part(FloatType x) {
-				return sprout::math::floor(x);
+			integer_part(FloatType x) {
+				return sprout::math::trunc(x);
 			}
 
 			template<
@@ -24,15 +24,15 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR double
-			float_integer_part(IntType x) {
-				return sprout::math::detail::float_integer_part(static_cast<double>(x));
+			integer_part(IntType x) {
+				return sprout::math::detail::integer_part(static_cast<double>(x));
 			}
 		}	// namespace detail
 
-		using sprout::math::detail::float_integer_part;
+		using sprout::math::detail::integer_part;
 	}	// namespace math
 
-	using sprout::math::float_integer_part;
+	using sprout::math::integer_part;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_MATH_FLOAT_INTEGER_PART_HPP
+#endif	// #ifndef SPROUT_MATH_INTEGER_PART_HPP

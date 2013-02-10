@@ -9,5 +9,8 @@
 #include <sprout/math/fmin.hpp>
 #include <sprout/math/fdim.hpp>
 #include <sprout/math/fmod.hpp>
+#include <sprout/math/reminder.hpp>
+#include <sprout/math/quotient.hpp>
+#include <sprout/math/rem_quo.hpp>
 
 #endif	// #ifndef SPROUT_MATH_OPERATIONS_HPP
