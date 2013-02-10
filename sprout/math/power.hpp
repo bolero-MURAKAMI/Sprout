@@ -7,5 +7,7 @@
 #include <sprout/math/pow.hpp>
 #include <sprout/math/log_a.hpp>
 #include <sprout/math/hypot.hpp>
+#include <sprout/math/abs.hpp>
+#include <sprout/math/fabs.hpp>
 
 #endif	// #ifndef SPROUT_MATH_POWER_HPP
