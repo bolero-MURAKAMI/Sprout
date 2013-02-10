@@ -4,12 +4,12 @@
 #include <cstdint>
 #include <limits>
 #include <type_traits>
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/log_a.hpp>
 #include <sprout/math/trunc.hpp>
+#include <sprout/math/itrunc.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -79,13 +79,9 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			logb_impl(T x, T exp) {
-				return std::numeric_limits<std::intmax_t>::max() < exp || std::numeric_limits<std::intmax_t>::min() > exp
-					? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::domain_error("trunc: large float rounding."), exp)
-					: sprout::math::detail::logb_impl_1(
-						x, sprout::detail::pow_n(T(std::numeric_limits<T>::radix), static_cast<std::intmax_t>(exp)),
-						static_cast<T>(static_cast<std::intmax_t>(exp))
-						)
-					;
+				return sprout::math::detail::logb_impl_1(
+					x, sprout::detail::pow_n(T(std::numeric_limits<T>::radix), sprout::math::itrunc<std::intmax_t>(exp)), exp
+					);
 			}
 
 			template<

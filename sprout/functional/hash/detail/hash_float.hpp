@@ -6,8 +6,8 @@
 #include <sprout/config.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/math/fpclassify.hpp>
-#include <sprout/math/scalbn.hpp>
-#include <sprout/math/float_pair.hpp>
+#include <sprout/math/ldexp.hpp>
+#include <sprout/math/float2_sig_exp.hpp>
 #include <sprout/detail/integer/static_log2.hpp>
 
 namespace sprout {
@@ -21,7 +21,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_4(T v, int exp, std::size_t seed, std::size_t length, std::size_t i = 0) {
 			return i != length ? sprout::detail::float_hash_value_impl_4(
-					sprout::math::scalbn(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
+					sprout::math::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
 					exp, sprout::detail::hash_float_combine(seed, static_cast<std::size_t>(v)),
 					length, i + 1
 					)
@@ -32,7 +32,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_3(T v, int exp) {
 			return sprout::detail::float_hash_value_impl_4(
-				sprout::math::scalbn(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
+				sprout::math::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
 				exp, static_cast<std::size_t>(v),
 				(std::numeric_limits<T>::digits * sprout::detail::static_log2<std::numeric_limits<T>::radix>::value + std::numeric_limits<std::size_t>::digits - 1)
 					/ std::numeric_limits<std::size_t>::digits
@@ -41,7 +41,7 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_2(T v, int exp) {
-			return sprout::detail::float_hash_value_impl_3(sprout::math::scalbn(v, std::numeric_limits<std::size_t>::digits), exp);
+			return sprout::detail::float_hash_value_impl_3(sprout::math::ldexp(v, std::numeric_limits<std::size_t>::digits), exp);
 		}
 		template<typename T, typename P>
 		inline SPROUT_CONSTEXPR std::size_t
@@ -55,7 +55,7 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl(T v) {
-			return sprout::detail::float_hash_value_impl_1<T>(sprout::math::float_pair(v));
+			return sprout::detail::float_hash_value_impl_1<T>(sprout::math::float2_sig_exp(v));
 		}
 
 		template<typename T>
