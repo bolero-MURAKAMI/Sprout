@@ -22,7 +22,7 @@ namespace sprout {
 			triangle_value(T const& t) {
 				using sprout::sin;
 				using sprout::asin;
-				return T(2) / T(sprout::math::pi<double>()) * asin(sin(T(2) * T(sprout::math::pi<double>()) * t));
+				return T(sprout::math::two_div_pi<double>()) * asin(sin(T(sprout::math::two_pi<double>()) * t));
 			}
 
 			template<typename Container, sprout::index_t... Indexes>

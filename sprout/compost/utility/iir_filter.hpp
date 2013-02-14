@@ -18,7 +18,7 @@ namespace sprout {
 			iir_fc(T const& fc) {
 				typedef typename sprout::float_promote<T>::type type;
 				using sprout::tan;
-				return tan(sprout::math::pi<type>() * fc) / (2 * sprout::math::pi<type>());
+				return tan(sprout::math::pi<type>() * fc) / sprout::math::two_pi<type>();
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR typename sprout::float_promote<T>::type
@@ -60,7 +60,7 @@ namespace sprout {
 			iir_lpf_impl(T const& fc, T const& q, A const& a, B const& b) {
 				return sprout::compost::detail::iir_lpf_impl_1<Result>(
 					fc, q, a, b,
-					2 * sprout::math::pi<T>() * fc
+					sprout::math::two_pi<T>() * fc
 					);
 			}
 		}	// namespace detail
@@ -112,7 +112,7 @@ namespace sprout {
 			iir_hpf_impl(T const& fc, T const& q, A const& a, B const& b) {
 				return sprout::compost::detail::iir_hpf_impl_1<Result>(
 					fc, q, a, b,
-					2 * sprout::math::pi<T>() * fc
+					sprout::math::two_pi<T>() * fc
 					);
 			}
 		}	// namespace detail
@@ -164,8 +164,8 @@ namespace sprout {
 			iir_bpf_impl(T const& fc1, T const& fc2, A const& a, B const& b) {
 				return sprout::compost::detail::iir_bpf_impl_1<Result>(
 					fc1, fc2, a, b,
-					2 * sprout::math::pi<T>() * (fc2 - fc1),
-					4 * sprout::math::pi<T>() * fc1 * fc2
+					sprout::math::two_pi<T>() * (fc2 - fc1),
+					sprout::math::four_pi<T>() * fc1 * fc2
 					);
 			}
 		}	// namespace detail
@@ -220,8 +220,8 @@ namespace sprout {
 			iir_bef_impl(T const& fc1, T const& fc2, A const& a, B const& b) {
 				return sprout::compost::detail::iir_bef_impl_1<Result>(
 					fc1, fc2, a, b,
-					2 * sprout::math::pi<T>() * (fc2 - fc1),
-					4 * sprout::math::pi<T>() * fc1 * fc2
+					sprout::math::two_pi<T>() * (fc2 - fc1),
+					sprout::math::four_pi<T>() * fc1 * fc2
 					);
 			}
 		}	// namespace detail
@@ -276,7 +276,7 @@ namespace sprout {
 			iir_resonator_impl(T const& fc, T const& q, A const& a, B const& b) {
 				return sprout::compost::detail::iir_resonator_impl_1<Result>(
 					fc, q, a, b,
-					2 * sprout::math::pi<T>() * fc
+					sprout::math::two_pi<T>() * fc
 					);
 			}
 		}	// namespace detail
@@ -328,7 +328,7 @@ namespace sprout {
 			iir_notch_impl(T const& fc, T const& q, A const& a, B const& b) {
 				return sprout::compost::detail::iir_notch_impl_1<Result>(
 					fc, q, a, b,
-					2 * sprout::math::pi<T>() * fc
+					sprout::math::two_pi<T>() * fc
 					);
 			}
 		}	// namespace detail
@@ -381,7 +381,7 @@ namespace sprout {
 			iir_low_shelving_impl(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 				return sprout::compost::detail::iir_low_shelving_impl_1<Result>(
 					fc, q, a, b,
-					2 * sprout::math::pi<T>() * fc
+					sprout::math::two_pi<T>() * fc
 					);
 			}
 		}	// namespace detail
@@ -437,7 +437,7 @@ namespace sprout {
 			iir_high_shelving_impl(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 				return sprout::compost::detail::iir_high_shelving_impl_1<Result>(
 					fc, q, a, b,
-					2 * sprout::math::pi<T>() * fc
+					sprout::math::two_pi<T>() * fc
 					);
 			}
 		}	// namespace detail
@@ -492,7 +492,7 @@ namespace sprout {
 			iir_peaking_impl(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 				return sprout::compost::detail::iir_peaking_impl_1<Result>(
 					fc, q, a, b,
-					2 * sprout::math::pi<T>() * fc
+					sprout::math::two_pi<T>() * fc
 					);
 			}
 		}	// namespace detail

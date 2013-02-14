@@ -1,7 +1,7 @@
 #ifndef SPROUT_MATH_QUOTIENT_HPP
 #define SPROUT_MATH_QUOTIENT_HPP
 
-#include <cstdint>
+#include <limits>
 #include <type_traits>
 #include <stdexcept>
 #include <sprout/config.hpp>
@@ -20,7 +20,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR R
 			quotient(FloatType x, FloatType y) {
-				return y == 0 ? throw std::domain_error("quotient: divide by zero.")
+				return x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() || y == 0
+						? std::numeric_limits<FloatType>::quiet_NaN()
+					: x == 0 ? FloatType(0)
+					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
 					: sprout::math::iround<R>(x / y)
 					;
 			}

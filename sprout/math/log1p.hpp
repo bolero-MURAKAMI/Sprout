@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_LOG1P_HPP
 #define SPROUT_MATH_LOG1P_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -16,7 +17,12 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			log1p(FloatType x) {
-				return sprout::math::log(1 + x);
+				return x == 0 ? FloatType(0)
+					: x == -1 ? -std::numeric_limits<FloatType>::infinity()
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x < -1 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::log(1 + x)
+					;
 			}
 
 			template<

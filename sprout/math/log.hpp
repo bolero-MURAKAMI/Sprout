@@ -7,6 +7,7 @@
 #include <sprout/config.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/sqrt.hpp>
@@ -39,9 +40,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			log(FloatType x) {
-				typedef double type;
-				return x == 0 ? std::numeric_limits<FloatType>::quiet_NaN()
-					: !(x > 0) ? -std::numeric_limits<FloatType>::infinity()
+				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
+				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
+					: x == 1 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x < 0 ? std::numeric_limits<FloatType>::quiet_NaN()
 					: x < 1 ? static_cast<FloatType>(-sprout::math::detail::log_impl(1 / static_cast<type>(x)))
 					: static_cast<FloatType>(sprout::math::detail::log_impl(static_cast<type>(x)))
 					;

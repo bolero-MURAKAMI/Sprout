@@ -18,7 +18,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			asinh(FloatType x) {
-				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
 					: sprout::math::log(x + sprout::math::sqrt(x * x + 1))
 					;

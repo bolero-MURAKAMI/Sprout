@@ -10,6 +10,7 @@
 #	include <sprout/math/logb.hpp>
 #else
 #	include <cstdint>
+#	include <limits>
 #	include <sprout/detail/pow.hpp>
 #	include <sprout/math/log_a.hpp>
 #	include <sprout/math/trunc.hpp>
@@ -113,12 +114,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			logb2(FloatType x) {
-				return x < 0 ? sprout::math::detail::logb2_impl(
-						-x, sprout::math::trunc(sprout::math::log_a(FloatType(2), -x))
-						)
-					: sprout::math::detail::logb2_impl(
-						x, sprout::math::trunc(sprout::math::log_a(FloatType(2), x))
-						)
+				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
+						? std::numeric_limits<FloatType>::infinity()
+					: x < 0 ? sprout::math::detail::logb2_impl(-x, sprout::math::trunc(sprout::math::log_a(FloatType(2), -x)))
+					: sprout::math::detail::logb2_impl(x, sprout::math::trunc(sprout::math::log_a(FloatType(2), x)))
 					;
 			}
 

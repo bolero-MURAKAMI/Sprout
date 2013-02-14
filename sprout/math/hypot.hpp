@@ -1,11 +1,13 @@
 #ifndef SPROUT_MATH_HYPOT_HPP
 #define SPROUT_MATH_HYPOT_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/fabs.hpp>
 #include <sprout/math/sqrt.hpp>
 
 namespace sprout {
@@ -17,7 +19,14 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			hypot(FloatType x, FloatType y) {
-				return sprout::math::sqrt(x * x + y * y);
+				return y == 0 ? sprout::math::fabs(x)
+					: x == 0 ? sprout::math::fabs(y)
+					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()
+						? std::numeric_limits<FloatType>::infinity()
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
+						? std::numeric_limits<FloatType>::infinity()
+					: sprout::math::sqrt(x * x + y * y)
+					;
 			}
 
 			template<

@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_CBRT_HPP
 #define SPROUT_MATH_CBRT_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -17,7 +18,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			cbrt(FloatType x) {
-				return x < 0 ? -sprout::math::pow(-x, sprout::math::third<FloatType>())
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: x < 0 ? -sprout::math::pow(-x, sprout::math::third<FloatType>())
 					: sprout::math::pow(x, sprout::math::third<FloatType>())
 					;
 			}

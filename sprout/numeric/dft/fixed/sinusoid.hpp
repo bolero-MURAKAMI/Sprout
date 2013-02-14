@@ -50,7 +50,7 @@ namespace sprout {
 				typedef typename sprout::container_traits<Container>::value_type value_type;
 				return sprout::fixed::detail::sinusoid_impl(
 					cont,
-					value_type(2) * sprout::math::pi<value_type>() * frequency / value_type(sprout::size(cont)),
+					sprout::math::two_pi<value_type>() * frequency / value_type(sprout::size(cont)),
 					amplitude,
 					phase,
 					sprout::container_indexes<Container>::make(),

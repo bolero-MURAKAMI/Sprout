@@ -17,9 +17,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			atanh(FloatType x) {
-				return x < -1 || x > 1 ? std::numeric_limits<FloatType>::quiet_NaN()
-					: x == -1 ? -std::numeric_limits<FloatType>::infinity()
+				return x == 0 ? FloatType(0)
 					: x == 1 ? std::numeric_limits<FloatType>::infinity()
+					: x == -1 ? -std::numeric_limits<FloatType>::infinity()
+					: x > 1 || x < -1 ? std::numeric_limits<FloatType>::quiet_NaN()
 					: sprout::math::log((1 + x) / (1 - x)) / 2
 					;
 			}

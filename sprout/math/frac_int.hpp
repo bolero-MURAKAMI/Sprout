@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_FRAC_INT_HPP
 #define SPROUT_MATH_FRAC_INT_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -14,7 +15,11 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR sprout::pair<T, T>
 			frac_int_impl(T x, T ipart) {
-				return sprout::pair<T, T>(x - ipart, ipart);
+				typedef sprout::pair<T, T> type;
+				return  x == std::numeric_limits<T>::infinity() || x == -std::numeric_limits<T>::infinity() ? type(T(0), ipart)
+					: x == std::numeric_limits<T>::quiet_NaN() ? type(std::numeric_limits<T>::quiet_NaN(), ipart)
+					: type(x - ipart, ipart)
+					;
 			}
 
 			template<

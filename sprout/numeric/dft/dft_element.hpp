@@ -21,7 +21,7 @@ namespace sprout {
 			return sprout::detail::dft_element_gen(
 				first,
 				last,
-				-(2 * sprout::math::pi<elem_type>() * i / size)
+				-(sprout::math::two_pi<elem_type>() * i / size)
 				);
 		}
 	}	// namespace detail

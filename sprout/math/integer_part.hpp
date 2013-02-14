@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_INTEGER_PART_HPP
 #define SPROUT_MATH_INTEGER_PART_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -16,7 +17,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			integer_part(FloatType x) {
-				return sprout::math::trunc(x);
+				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: x == std::numeric_limits<FloatType>::quiet_NaN() ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::trunc(x)
+					;
 			}
 
 			template<

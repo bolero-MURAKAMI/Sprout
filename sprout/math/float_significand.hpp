@@ -18,7 +18,12 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			float_significand(FloatType x) {
-				return x / sprout::detail::pow_n(FloatType(std::numeric_limits<FloatType>::radix), sprout::math::float_exponent(x));
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: x == std::numeric_limits<FloatType>::quiet_NaN() ? std::numeric_limits<FloatType>::quiet_NaN()
+					: x / sprout::detail::pow_n(FloatType(std::numeric_limits<FloatType>::radix), sprout::math::float_exponent(x))
+					;
 			}
 
 			template<

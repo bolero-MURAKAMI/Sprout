@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_FLOAT2_SIG_EXP_HPP
 #define SPROUT_MATH_FLOAT2_SIG_EXP_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -15,7 +16,13 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR sprout::pair<T, int>
 			float2_sig_exp_impl(T x, int exp) {
-				return sprout::pair<T, int>(x / sprout::detail::pow_n(T(2), exp), exp);
+				typedef sprout::pair<T, int> type;
+				return x == 0 ? type(T(0), exp)
+					: x == std::numeric_limits<T>::infinity() ? type(std::numeric_limits<T>::infinity(), exp)
+					: x == -std::numeric_limits<T>::infinity() ? type(-std::numeric_limits<T>::infinity(), exp)
+					: x == std::numeric_limits<T>::quiet_NaN() ? type(std::numeric_limits<T>::quiet_NaN(), exp)
+					: type(x / sprout::detail::pow_n(T(2), exp), exp)
+					;
 			}
 
 			template<

@@ -8,9 +8,8 @@
 #include <sprout/math/expm1.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/log10.hpp>
+#include <sprout/math/log1p.hpp>
 #include <sprout/math/log2.hpp>
-#include <sprout/math/log1p.hpp>
-#include <sprout/math/log1p.hpp>
 #include <sprout/math/floating_point.hpp>
 
 #endif	// #ifndef SPROUT_MATH_EXPONENTIAL_HPP

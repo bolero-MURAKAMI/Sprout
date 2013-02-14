@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_LOG10_HPP
 #define SPROUT_MATH_LOG10_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -17,7 +18,12 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			log10(FloatType x) {
-				return sprout::math::log(x) / sprout::math::ln_ten<FloatType>();
+				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
+					: x == 1 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x < 0 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::log(x) / sprout::math::ln_ten<FloatType>()
+					;
 			}
 
 			template<

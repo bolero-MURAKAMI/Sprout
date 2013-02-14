@@ -53,7 +53,7 @@ namespace sprout {
 			, frequency_(1)
 			, amplitude_(1)
 			, phase_(0)
-			, d_(value_type(2) * sprout::math::pi<value_type>())
+			, d_(sprout::math::two_pi<value_type>())
 		{}
 		sinusoid_iterator(sinusoid_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR sinusoid_iterator(
@@ -66,7 +66,7 @@ namespace sprout {
 			, frequency_(frequency)
 			, amplitude_(amplitude)
 			, phase_(phase)
-			, d_(value_type(2) * sprout::math::pi<value_type>() * frequency)
+			, d_(sprout::math::two_pi<value_type>() * frequency)
 		{}
 		template<typename U>
 		SPROUT_CONSTEXPR sinusoid_iterator(sinusoid_iterator<U> const& it)

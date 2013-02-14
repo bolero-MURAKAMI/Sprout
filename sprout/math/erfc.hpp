@@ -1,12 +1,10 @@
-#ifndef SPROUT_MATH_TANH_HPP
-#define SPROUT_MATH_TANH_HPP
+#ifndef SPROUT_MATH_ERFC_HPP
+#define SPROUT_MATH_ERFC_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
-#include <sprout/math/sinh.hpp>
-#include <sprout/math/cosh.hpp>
+#include <sprout/math/erf.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -17,11 +15,10 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR FloatType
-			tanh(FloatType x) {
-				return x == 0 ? FloatType(0)
-					: x == std::numeric_limits<FloatType>::infinity() ? FloatType(1)
-					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(-1)
-					: sprout::math::sinh(x) / sprout::math::cosh(x)
+			erfc(FloatType x) {
+				return x == std::numeric_limits<FloatType>::infinity() ? FloatType(0)
+					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(2)
+					: FloatType(1) - sprout::math::erf(x)
 					;
 			}
 
@@ -30,15 +27,15 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR double
-			tanh(IntType x) {
-				return sprout::math::detail::tanh(static_cast<double>(x));
+			erfc(IntType x) {
+				return sprout::math::detail::erfc(static_cast<double>(x));
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::tanh;
+		using NS_SPROUT_MATH_DETAIL::erfc;
 	}	// namespace math
 
-	using sprout::math::tanh;
+	using sprout::math::erfc;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_MATH_TANH_HPP
+#endif	// #ifndef SPROUT_MATH_ERFC_HPP

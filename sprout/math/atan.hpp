@@ -2,10 +2,12 @@
 #define SPROUT_MATH_ATAN_HPP
 
 #include <cstddef>
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -39,11 +41,15 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			atan(FloatType x) {
-				typedef double type;
-				return static_cast<FloatType>(
-					x < 0 ? -sprout::math::detail::atan_impl(static_cast<type>(-x))
-						: sprout::math::detail::atan_impl(static_cast<type>(x))
-					);
+				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
+					: static_cast<FloatType>(
+						x < 0 ? -sprout::math::detail::atan_impl(static_cast<type>(-x))
+							: sprout::math::detail::atan_impl(static_cast<type>(x))
+						)
+					;
 			}
 
 			template<

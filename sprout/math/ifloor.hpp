@@ -49,7 +49,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			ifloor(FloatType x) {
-				return std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
+				return x == 0 ? To(0)
+					: std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::domain_error("ifloor: large float rounding."), static_cast<To>(x))
 					: sprout::math::detail::ifloor_impl(x, static_cast<To>(x))
 					;

@@ -16,7 +16,13 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR sprout::pair<T, int>
 			float_sig_exp_impl(T x, int exp) {
-				return sprout::pair<T, int>(x / sprout::detail::pow_n(T(std::numeric_limits<T>::radix), exp), exp);
+				typedef sprout::pair<T, int> type;
+				return x == 0 ? type(T(0), exp)
+					: x == std::numeric_limits<T>::infinity() ? type(std::numeric_limits<T>::infinity(), exp)
+					: x == -std::numeric_limits<T>::infinity() ? type(-std::numeric_limits<T>::infinity(), exp)
+					: x == std::numeric_limits<T>::quiet_NaN() ? type(std::numeric_limits<T>::quiet_NaN(), exp)
+					: type(x / sprout::detail::pow_n(T(std::numeric_limits<T>::radix), exp), exp)
+					;
 			}
 
 			template<

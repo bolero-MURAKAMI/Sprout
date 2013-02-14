@@ -1,7 +1,7 @@
 #ifndef SPROUT_MATH_REM_QUO_HPP
 #define SPROUT_MATH_REM_QUO_HPP
 
-#include <cstdint>
+#include <limits>
 #include <type_traits>
 #include <stdexcept>
 #include <sprout/config.hpp>
@@ -17,7 +17,13 @@ namespace sprout {
 			template<typename R, typename T>
 			inline SPROUT_CONSTEXPR sprout::pair<T, R>
 			rem_quo_impl(T x, T y, R quo) {
-				return sprout::pair<T, T>(x - quo * y, quo);
+				typedef sprout::pair<T, R> type;
+				return x == std::numeric_limits<T>::infinity() || x == -std::numeric_limits<T>::infinity() || y == 0
+						? type(std::numeric_limits<T>::quiet_NaN(), quo)
+					: x == 0 ? type(T(0), quo)
+					: y == std::numeric_limits<T>::infinity() || y == -std::numeric_limits<T>::infinity() ? type(x, quo)
+					: type(x - quo * y, quo)
+					;
 			}
 			template<
 				typename R = int,

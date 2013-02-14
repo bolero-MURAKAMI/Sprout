@@ -1,0 +1,18 @@
+#ifndef SPROUT_MATH_DETAIL_FLOAT_COMPUTE_HPP
+#define SPROUT_MATH_DETAIL_FLOAT_COMPUTE_HPP
+
+#include <sprout/config.hpp>
+#include <sprout/type_traits/float_promote.hpp>
+
+namespace sprout {
+	namespace math {
+		namespace detail {
+			template<typename... Types>
+			struct float_compute
+				: public sprout::float_promote<double, Types...>
+			{};
+		}	// namespace detail
+	}	// namespace math
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_MATH_DETAIL_FLOAT_COMPUTE_HPP

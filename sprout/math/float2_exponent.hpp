@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_FLOAT2_EXPONENT_HPP
 #define SPROUT_MATH_FLOAT2_EXPONENT_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -16,7 +17,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			float2_exponent(FloatType x) {
-				return sprout::math::ilogb2(x) + 1;
+				return x == 0 ? 0
+					: sprout::math::ilogb2(x) + 1
+					;
 			}
 
 			template<

@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_EXP2_HPP
 #define SPROUT_MATH_EXP2_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -17,7 +18,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			exp2(FloatType x) {
-				return sprout::math::exp(x * sprout::math::ln_two<FloatType>());
+				return x == 0 ? FloatType(1)
+					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: sprout::math::exp(x * sprout::math::ln_two<FloatType>())
+					;
 			}
 
 			template<

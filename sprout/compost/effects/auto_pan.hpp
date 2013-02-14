@@ -33,7 +33,7 @@ namespace sprout {
 				typename std::iterator_traits<Outdirected>::value_type
 			>::type
 			calc(Outdirected const& x) const {
-				return (1 + depth_ * sprout::sin(2 * sprout::math::pi<Value>() * rate_ * x.index() / samples_per_sec_)) * *x;
+				return (1 + depth_ * sprout::sin(sprout::math::two_pi<Value>() * rate_ * x.index() / samples_per_sec_)) * *x;
 			}
 			template<bool Left, typename Outdirected>
 			SPROUT_CONSTEXPR typename std::enable_if<
@@ -41,7 +41,7 @@ namespace sprout {
 				typename std::iterator_traits<Outdirected>::value_type
 			>::type
 			calc(Outdirected const& x) const {
-				return (1 + depth_ * sprout::sin(2 * sprout::math::pi<Value>() * rate_ * x.index() / samples_per_sec_ + sprout::math::pi<Value>())) * *x;
+				return (1 + depth_ * sprout::sin(sprout::math::two_pi<Value>() * rate_ * x.index() / samples_per_sec_ + sprout::math::pi<Value>())) * *x;
 			}
 		public:
 			SPROUT_CONSTEXPR auto_pan_outdirected_value(

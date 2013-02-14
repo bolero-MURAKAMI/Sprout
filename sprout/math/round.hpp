@@ -7,7 +7,6 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
-#include <sprout/math/isinf.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -33,7 +32,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			round(FloatType x) {
-				return sprout::math::isinf(x) ? x
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
 					: std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::domain_error("round: large float rounding."), x)
 					: x < 0 ? sprout::math::detail::round_impl_nagative(x, -static_cast<FloatType>(static_cast<std::uintmax_t>(-x)))

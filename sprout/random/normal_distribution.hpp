@@ -127,8 +127,8 @@ namespace sprout {
 				return sprout::random::random_result<Engine, normal_distribution>(
 					cached_rho
 						* (valid
-							? sprout::cos(result_type(2) * sprout::math::pi<result_type>() * r1)
-							: sprout::sin(result_type(2) * sprout::math::pi<result_type>() * r1)
+							? sprout::cos(sprout::math::two_pi<result_type>() * r1)
+							: sprout::sin(sprout::math::two_pi<result_type>() * r1)
 							)
 						* sigma_ + mean_,
 					eng,

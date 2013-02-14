@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_SIN_HPP
 #define SPROUT_MATH_SIN_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -17,7 +18,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			sin(FloatType x) {
-				return -sprout::math::cos(x + sprout::math::half_pi<FloatType>());
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
+						? std::numeric_limits<FloatType>::quiet_NaN()
+					: -sprout::math::cos(x + sprout::math::half_pi<FloatType>())
+					;
 			}
 
 			template<

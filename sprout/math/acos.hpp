@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_ACOS_HPP
 #define SPROUT_MATH_ACOS_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -17,7 +18,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			acos(FloatType x) {
-				return sprout::math::half_pi<FloatType>() - sprout::math::asin(x);
+				return x == 1 ? FloatType(0)
+					: x > 1 || x < -1 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::half_pi<FloatType>() - sprout::math::asin(x)
+					;
 			}
 
 			template<

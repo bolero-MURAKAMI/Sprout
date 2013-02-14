@@ -90,12 +90,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			logb(FloatType x) {
-				return x < 0 ? sprout::math::detail::logb_impl(
-						-x, sprout::math::trunc(sprout::math::log_a(FloatType(std::numeric_limits<FloatType>::radix), -x))
-						)
-					: sprout::math::detail::logb_impl(
-						x, sprout::math::trunc(sprout::math::log_a(FloatType(std::numeric_limits<FloatType>::radix), x))
-						)
+				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
+						? std::numeric_limits<FloatType>::infinity()
+					: x < 0 ? sprout::math::detail::logb_impl(-x, sprout::math::trunc(sprout::math::log_a(FloatType(std::numeric_limits<FloatType>::radix), -x)))
+					: sprout::math::detail::logb_impl(x, sprout::math::trunc(sprout::math::log_a(FloatType(std::numeric_limits<FloatType>::radix), x)))
 					;
 			}
 

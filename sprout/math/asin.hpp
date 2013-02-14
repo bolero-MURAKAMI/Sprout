@@ -7,6 +7,7 @@
 #include <sprout/config.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/sqrt.hpp>
@@ -41,8 +42,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			asin(FloatType x) {
-				typedef double type;
-				return x > 1 || x < -1 ? std::numeric_limits<FloatType>::quiet_NaN()
+				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
+				return x == 0 ? FloatType(0)
+					: x > 1 || x < -1 ? std::numeric_limits<FloatType>::quiet_NaN()
 					: x < 0 ? -static_cast<FloatType>(sprout::math::detail::asin_impl(static_cast<type>(-x)))
 					: static_cast<FloatType>(sprout::math::detail::asin_impl(static_cast<type>(x)))
 					;

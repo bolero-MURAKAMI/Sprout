@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_ATAN2_HPP
 #define SPROUT_MATH_ATAN2_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -18,8 +19,22 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			atan2(FloatType y, FloatType x) {
-				return x < 0
-					? sprout::math::atan(y / x) + (y < 0 ? -1 : 1) * sprout::math::pi<FloatType>()
+				return y == 0
+						? x == 0 ? FloatType(0)
+							: x < 0 ? sprout::math::pi<FloatType>()
+							: FloatType(0)
+					: x == 0 ? (y < 0 ? -1 : 1) * sprout::math::half_pi<FloatType>()
+					: x == -std::numeric_limits<FloatType>::infinity()
+						? y == std::numeric_limits<FloatType>::infinity() ? sprout::math::three_quarters_pi<FloatType>()
+							: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::three_quarters_pi<FloatType>()
+							: (y < 0 ? -1 : 1) * sprout::math::half_pi<FloatType>()
+					: x == std::numeric_limits<FloatType>::infinity()
+						? y == std::numeric_limits<FloatType>::infinity() ? sprout::math::quarter_pi<FloatType>()
+							: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::quarter_pi<FloatType>()
+							: FloatType(0)
+					: y == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
+					: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
+					: x < 0 ? sprout::math::atan(y / x) + (y < 0 ? -1 : 1) * sprout::math::pi<FloatType>()
 					: sprout::math::atan(y / x)
 					;
 			}

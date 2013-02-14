@@ -7,6 +7,7 @@
 #include <sprout/config.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/fmod.hpp>
@@ -27,10 +28,10 @@ namespace sprout {
 			template<typename FloatType>
 			inline SPROUT_CONSTEXPR FloatType
 			cos_impl(FloatType x) {
-				typedef double type;
+				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
 				return static_cast<FloatType>(
 					type(1) + sprout::math::detail::cos_impl_1(
-						static_cast<type>(x) * static_cast<type>(x),
+						sprout::detail::pow2(static_cast<type>(x)),
 						1, sprout::math::factorial_limit<type>() / 2 + 1
 						)
 					);
@@ -42,11 +43,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			cos(FloatType x) {
-				typedef double type;
-				return x == std::numeric_limits<FloatType>::infinity()
-					|| x == -std::numeric_limits<FloatType>::infinity()
-					? std::numeric_limits<FloatType>::quiet_NaN()
-					: sprout::math::detail::cos_impl(sprout::math::fmod(x, 2 * sprout::math::pi<FloatType>()))
+				return x == 0 ? FloatType(1)
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
+						? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::detail::cos_impl(sprout::math::fmod(x, sprout::math::two_pi<FloatType>()))
 					;
 			}
 

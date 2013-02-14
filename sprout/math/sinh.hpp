@@ -2,10 +2,12 @@
 #define SPROUT_MATH_SINH_HPP
 
 #include <cstddef>
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -28,13 +30,17 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			sinh(FloatType x) {
-				typedef double type;
-				return static_cast<FloatType>(
-					static_cast<type>(x) + sprout::math::detail::sinh_impl(
-						static_cast<type>(x),
-						1, (sprout::math::factorial_limit<type>() - 1) / 2 + 1
+				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
+				return x == 0 ? FloatType(1)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: static_cast<FloatType>(
+						static_cast<type>(x) + sprout::math::detail::sinh_impl(
+							static_cast<type>(x),
+							1, (sprout::math::factorial_limit<type>() - 1) / 2 + 1
+							)
 						)
-					);
+					;
 			}
 
 			template<

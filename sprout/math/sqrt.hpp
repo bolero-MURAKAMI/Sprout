@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -14,22 +15,13 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			sqrt_impl_1(T x, T s, T s2) {
 				return !(s < s2) ? s2
-					: sprout::math::detail::sqrt_impl_1(
-						x,
-						(x / s + s) / 2,
-						s
-						)
+					: sprout::math::detail::sqrt_impl_1(x, (x / s + s) / 2, s)
 					;
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			sqrt_impl(T x, T s) {
-				return sprout::math::detail::sqrt_impl_1(
-						x,
-						(x / s + s) / 2,
-						s
-						)
-					;
+				return sprout::math::detail::sqrt_impl_1(x, (x / s + s) / 2, s);
 			}
 
 			template<
@@ -38,13 +30,12 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			sqrt(FloatType x) {
-				typedef double type;
-				return x < 0 ? std::numeric_limits<FloatType>::quiet_NaN()
-					: x == 0 ? type(0)
-					: static_cast<FloatType>(sprout::math::detail::sqrt_impl(
-						static_cast<type>(x),
-						x > 1 ? static_cast<type>(x) : type(1)
-						));
+				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == std::numeric_limits<FloatType>::quiet_NaN() ? std::numeric_limits<FloatType>::quiet_NaN()
+					: x < 0 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: static_cast<FloatType>(sprout::math::detail::sqrt_impl(static_cast<type>(x), x > 1 ? static_cast<type>(x) : type(1)));
 			}
 
 			template<

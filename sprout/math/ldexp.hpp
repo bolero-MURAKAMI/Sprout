@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_LDEXP_HPP
 #define SPROUT_MATH_LDEXP_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -16,7 +17,12 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			ldexp(FloatType x, int exp) {
-				return x * sprout::detail::pow_n(FloatType(2), exp);
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: exp == 0 ? x
+					: x * sprout::detail::pow_n(FloatType(2), exp)
+					;
 			}
 
 			template<

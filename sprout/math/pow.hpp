@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_POW_HPP
 #define SPROUT_MATH_POW_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -19,7 +20,29 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			pow(FloatType x, FloatType y) {
-				return x == 0 && y > 0 ? FloatType(0)
+				return x == 0
+						? y < 0 ? std::numeric_limits<FloatType>::infinity()
+						: y > 0 ? FloatType(0)
+						: sprout::math::exp(y * sprout::math::log(x))
+					: x == -1 && (y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()) ? FloatType(1)
+					: x == 1 ? FloatType(1)
+					: y == 0 ? FloatType(1)
+					: y == -std::numeric_limits<FloatType>::infinity()
+						? x < 1 && x > -1 ? std::numeric_limits<FloatType>::infinity()
+						: x > 1 || x < -1 ? FloatType(0)
+						: sprout::math::exp(y * sprout::math::log(x))
+					: y == std::numeric_limits<FloatType>::infinity()
+						? x < 1 && x > -1 ? FloatType(0)
+						: x > 1 || x < -1 ? std::numeric_limits<FloatType>::infinity()
+						: sprout::math::exp(y * sprout::math::log(x))
+					: x == -std::numeric_limits<FloatType>::infinity()
+						? y < 0 ? FloatType(0)
+						: y > 0 ? std::numeric_limits<FloatType>::infinity()
+						: sprout::math::exp(y * sprout::math::log(x))
+					: x == std::numeric_limits<FloatType>::infinity()
+						? y < 0 ? FloatType(0)
+						: y > 0 ? std::numeric_limits<FloatType>::infinity()
+						: sprout::math::exp(y * sprout::math::log(x))
 					: sprout::math::exp(y * sprout::math::log(x))
 					;
 			}

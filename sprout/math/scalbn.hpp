@@ -17,7 +17,12 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			scalbn(FloatType x, int exp) {
-				return x * sprout::detail::pow_n(FloatType(std::numeric_limits<FloatType>::radix), exp);
+				return x == 0 ? FloatType(0)
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: exp == 0 ? x
+					: x * sprout::detail::pow_n(FloatType(std::numeric_limits<FloatType>::radix), exp)
+					;
 			}
 
 			template<
