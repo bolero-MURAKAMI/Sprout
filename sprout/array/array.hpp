@@ -24,8 +24,8 @@ namespace sprout {
 	public:
 		typedef T value_type;
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		typedef sprout::index_iterator<array&> iterator;
-		typedef sprout::index_iterator<array const&> const_iterator;
+		typedef sprout::index_iterator<array&, true> iterator;
+		typedef sprout::index_iterator<array const&, true> const_iterator;
 #else
 		typedef T* iterator;
 		typedef T const* const_iterator;

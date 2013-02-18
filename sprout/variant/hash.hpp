@@ -2,6 +2,7 @@
 #define SPROUT_VARIANT_HASH_HPP
 
 #include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/functional/hash.hpp>
 #include <sprout/variant/variant.hpp>

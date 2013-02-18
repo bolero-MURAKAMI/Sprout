@@ -33,8 +33,8 @@ namespace sprout {
 		public:
 			typedef unsigned long word_type;
 			typedef word_type value_type;
-			typedef sprout::index_iterator<base_bitset&> iterator;
-			typedef sprout::index_iterator<base_bitset const&> const_iterator;
+			typedef sprout::index_iterator<base_bitset&, true> iterator;
+			typedef sprout::index_iterator<base_bitset const&, true> const_iterator;
 			typedef value_type& reference;
 			typedef value_type const& const_reference;
 			typedef std::size_t size_type;

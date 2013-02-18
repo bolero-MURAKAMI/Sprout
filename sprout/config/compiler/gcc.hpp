@@ -13,6 +13,10 @@
 #	define SPROUT_NO_DELETED_FUNCTIONS
 #endif
 
+#if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
+#	define SPROUT_NO_EXPLICIT_CONVERSION_OPERATORS
+#endif
+
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
 #	define SPROUT_NO_NOEXCEPT
 #endif

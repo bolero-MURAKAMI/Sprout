@@ -13,6 +13,10 @@
 #	define SPROUT_NO_DELETED_FUNCTIONS
 #endif
 
+#if !__has_feature(cxx_explicit_conversions)
+#	define SPROUT_NO_EXPLICIT_CONVERSION_OPERATORS
+#endif
+
 #if !__has_feature(cxx_noexcept)
 #	define SPROUT_NO_NOEXCEPT
 #endif

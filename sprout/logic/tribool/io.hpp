@@ -27,7 +27,7 @@ namespace sprout {
 		get_default_indeterminate_name<wchar_t>() {
 			return L"indeterminate";
 		}
-#ifndef SPROUT_NO_UNICODE_LITERALS
+#if SPROUT_USE_UNICODE_LITERALS
 		template<>
 		inline std::basic_string<char16_t>
 		get_default_indeterminate_name<char16_t>() {

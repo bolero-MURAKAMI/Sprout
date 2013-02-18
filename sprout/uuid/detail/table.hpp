@@ -38,7 +38,7 @@ namespace sprout {
 				;
 			SPROUT_CONSTEXPR_OR_CONST wchar_t sprout::uuids::detail::digits<wchar_t>::dash;
 
-#ifndef SPROUT_NO_UNICODE_LITERALS
+#if SPROUT_USE_UNICODE_LITERALS
 			template<>
 			struct digits<char16_t> {
 			public:

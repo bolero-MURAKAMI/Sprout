@@ -432,8 +432,8 @@ namespace sprout {
 		public:
 			typedef T value_type;
 #if SPROUT_USE_PTR_INDEX_ITERATOR_IMPLEMENTATION
-			typedef sprout::ptr_index_iterator<T> iterator;
-			typedef sprout::ptr_index_iterator<T const> const_iterator;
+			typedef sprout::ptr_index_iterator<T, true> iterator;
+			typedef sprout::ptr_index_iterator<T const, true> const_iterator;
 #else
 			typedef T* iterator;
 			typedef T const* const_iterator;

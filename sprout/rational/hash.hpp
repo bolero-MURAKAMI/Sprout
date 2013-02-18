@@ -2,6 +2,7 @@
 #define SPROUT_RATIONAL_HASH_HPP
 
 #include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/rational/rational.hpp>
 #include <sprout/functional/hash.hpp>

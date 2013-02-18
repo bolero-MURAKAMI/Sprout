@@ -8,13 +8,14 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/iterator/detail/iterator_to_pointer.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	//
 	// ptr_index_iterator
 	//
-	template<typename T>
+	template<typename T, bool ConvertibleToPointer = false>
 	class ptr_index_iterator
 		: public std::iterator<
 			typename std::iterator_traits<T*>::iterator_category,
@@ -22,6 +23,11 @@ namespace sprout {
 			typename std::iterator_traits<T*>::difference_type,
 			typename std::iterator_traits<T*>::pointer,
 			typename std::iterator_traits<T*>::reference
+		>
+		, public sprout::detail::iterator_to_pointer_base<
+			sprout::ptr_index_iterator<T, ConvertibleToPointer>,
+			typename std::iterator_traits<T*>::pointer,
+			ConvertibleToPointer
 		>
 	{
 	public:

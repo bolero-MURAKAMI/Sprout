@@ -1,6 +1,8 @@
 #ifndef SPROUT_SUB_ARRAY_HASH_HPP
 #define SPROUT_SUB_ARRAY_HASH_HPP
 
+#include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/functional/hash.hpp>

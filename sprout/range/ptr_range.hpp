@@ -14,29 +14,29 @@ namespace sprout {
 		// make_ptr_range
 		//
 		template<typename T>
-		inline SPROUT_CONSTEXPR sprout::range::range_container<sprout::ptr_index_iterator<T> >
+		inline SPROUT_CONSTEXPR sprout::range::range_container<sprout::ptr_index_iterator<T, true> >
 		make_ptr_range(T* p, typename std::iterator_traits<T*>::difference_type n) {
-			return sprout::range::range_container<sprout::ptr_index_iterator<T> >(
-				sprout::ptr_index_iterator<T>(p),
-				sprout::ptr_index_iterator<T>(p, n)
+			return sprout::range::range_container<sprout::ptr_index_iterator<T, true> >(
+				sprout::ptr_index_iterator<T, true>(p),
+				sprout::ptr_index_iterator<T, true>(p, n)
 				);
 		}
 
 		template<typename T>
-		inline SPROUT_CONSTEXPR sprout::range::range_container<sprout::ptr_index_iterator<T> >
+		inline SPROUT_CONSTEXPR sprout::range::range_container<sprout::ptr_index_iterator<T, true> >
 		make_ptr_range(T* first, T* last) {
-			return sprout::range::range_container<sprout::ptr_index_iterator<T> >(
-				sprout::ptr_index_iterator<T>(first),
-				sprout::ptr_index_iterator<T>(first, sprout::distance(first, last))
+			return sprout::range::range_container<sprout::ptr_index_iterator<T, true> >(
+				sprout::ptr_index_iterator<T, true>(first),
+				sprout::ptr_index_iterator<T, true>(first, sprout::distance(first, last))
 				);
 		}
 
 		template<typename T, std::size_t N>
-		inline SPROUT_CONSTEXPR sprout::range::range_container<sprout::ptr_index_iterator<T> >
+		inline SPROUT_CONSTEXPR sprout::range::range_container<sprout::ptr_index_iterator<T, true> >
 		make_ptr_range(T (& arr)[N]) {
-			return sprout::range::range_container<sprout::ptr_index_iterator<T> >(
-				sprout::ptr_index_iterator<T>(arr),
-				sprout::ptr_index_iterator<T>(arr, N)
+			return sprout::range::range_container<sprout::ptr_index_iterator<T, true> >(
+				sprout::ptr_index_iterator<T, true>(arr),
+				sprout::ptr_index_iterator<T, true>(arr, N)
 				);
 		}
 	}	// namespace range

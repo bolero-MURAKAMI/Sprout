@@ -2,6 +2,7 @@
 #define SPROUT_COMPLEX_HASH_HPP
 
 #include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/complex/complex.hpp>
 #include <sprout/functional/hash.hpp>

@@ -2,6 +2,7 @@
 #define SPROUT_UTILITY_VALUE_HOLDER_HASH_HPP
 
 #include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/functional/hash.hpp>

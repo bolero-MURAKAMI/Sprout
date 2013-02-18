@@ -2,6 +2,7 @@
 #define SPROUT_UUID_HASH_HPP
 
 #include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/uuid/uuid.hpp>
 #include <sprout/functional/hash.hpp>

@@ -2,6 +2,7 @@
 #define SPROUT_PIT_HASH_HPP
 
 #include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/functional/hash.hpp>

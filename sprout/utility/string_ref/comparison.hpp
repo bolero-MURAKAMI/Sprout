@@ -1,0 +1,109 @@
+#ifndef SPROUT_UTILITY_STRING_REF_COMPARISON_HPP
+#define SPROUT_UTILITY_STRING_REF_COMPARISON_HPP
+
+#include <cstddef>
+#include <sprout/config.hpp>
+#include <sprout/string/string.hpp>
+
+namespace sprout {
+	//
+	// operator==
+	// operator!=
+	// operator<
+	// operator>
+	// operator<=
+	// operator>=
+	//
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::basic_string_ref<T, Traits> const& lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return lhs.compare(rhs) == 0;
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::basic_string_ref<T, Traits> const& lhs, T const* rhs) {
+		return lhs.compare(rhs) == 0;
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator==(T const* lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return 0 == rhs.compare(lhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::basic_string_ref<T, Traits> const& lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::basic_string_ref<T, Traits> const& lhs, T const* rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(T const* lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::basic_string_ref<T, Traits> const& lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return lhs.compare(rhs) < 0;
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::basic_string_ref<T, Traits> const& lhs, T const* rhs) {
+		return lhs.compare(rhs) < 0;
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator<(T const* lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return 0 < rhs.compare(lhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::basic_string_ref<T, Traits> const& lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return rhs < lhs;
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::basic_string_ref<T, Traits> const& lhs, T const* rhs) {
+		return rhs < lhs;
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator>(T const* lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return rhs < lhs;
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::basic_string_ref<T, Traits> const& lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::basic_string_ref<T, Traits> const& lhs, T const* rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(T const* lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::basic_string_ref<T, Traits> const& lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return !(lhs < rhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::basic_string_ref<T, Traits> const& lhs, T const* rhs) {
+		return !(lhs < rhs);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(T const* lhs, sprout::basic_string_ref<T, Traits> const& rhs) {
+		return !(lhs < rhs);
+	}
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_UTILITY_STRING_REF_COMPARISON_HPP

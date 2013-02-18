@@ -34,8 +34,8 @@ namespace sprout {
 		public:
 			typedef std::uint8_t value_type;
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-			typedef sprout::index_iterator<uuid&> iterator;
-			typedef sprout::index_iterator<uuid const&> const_iterator;
+			typedef sprout::index_iterator<uuid&, true> iterator;
+			typedef sprout::index_iterator<uuid const&, true> const_iterator;
 #else
 			typedef std::uint8_t* iterator;
 			typedef std::uint8_t const* const_iterator;

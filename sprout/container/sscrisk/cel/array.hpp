@@ -20,8 +20,8 @@ namespace sprout {
 		: public sprout::detail::container_traits_default<sscrisk::cel::array<T, N> >
 	{
 	public:
-		typedef sprout::index_iterator<sscrisk::cel::array<T, N>&> iterator;
-		typedef sprout::index_iterator<sscrisk::cel::array<T, N> const&> const_iterator;
+		typedef sprout::index_iterator<sscrisk::cel::array<T, N>&, true> iterator;
+		typedef sprout::index_iterator<sscrisk::cel::array<T, N> const&, true> const_iterator;
 	};
 }	// namespace sprout
 

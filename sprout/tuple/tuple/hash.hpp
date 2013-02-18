@@ -2,6 +2,7 @@
 #define SPROUT_TUPLE_TUPLE_HASH_HPP
 
 #include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/functional/hash.hpp>

@@ -9,6 +9,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/iterator/detail/iterator_to_pointer.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/swap.hpp>
 
@@ -16,7 +17,7 @@ namespace sprout {
 	//
 	// index_iterator
 	//
-	template<typename Container>
+	template<typename Container, bool ConvertibleToPointer = false>
 	class index_iterator
 		: public std::iterator<
 			std::random_access_iterator_tag,
@@ -32,6 +33,15 @@ namespace sprout {
 				typename sprout::container_traits<typename std::remove_reference<Container>::type>::const_reference,
 				typename sprout::container_traits<typename std::remove_reference<Container>::type>::reference
 			>::type
+		>
+		, public sprout::detail::iterator_to_pointer_base<
+			sprout::index_iterator<Container, ConvertibleToPointer>,
+			typename std::conditional<
+				std::is_const<typename std::remove_reference<Container>::type>::value,
+				typename sprout::container_traits<typename std::remove_reference<Container>::type>::const_pointer,
+				typename sprout::container_traits<typename std::remove_reference<Container>::type>::pointer
+			>::type,
+			ConvertibleToPointer
 		>
 	{
 	public:
@@ -183,9 +193,9 @@ namespace sprout {
 	//
 	// swap
 	//
-	template<typename Container>
+	template<typename Container, bool C>
 	inline void
-	swap(sprout::index_iterator<Container>& lhs, sprout::index_iterator<Container>& rhs)
+	swap(sprout::index_iterator<Container, C>& lhs, sprout::index_iterator<Container, C>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
@@ -206,26 +216,26 @@ namespace sprout {
 	struct is_index_iterator<T const volatile>
 		: public sprout::is_index_iterator<T>
 	{};
-	template<typename Container>
-	struct is_index_iterator<sprout::index_iterator<Container> >
+	template<typename Container, bool C>
+	struct is_index_iterator<sprout::index_iterator<Container, C> >
 		: public std::true_type
 	{};
 
 	//
 	// iterator_next
 	//
-	template<typename Container>
-	inline SPROUT_CONSTEXPR sprout::index_iterator<Container>
-	iterator_next(sprout::index_iterator<Container> const& it) {
+	template<typename Container, bool C>
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container, C>
+	iterator_next(sprout::index_iterator<Container, C> const& it) {
 		return it.next();
 	}
 
 	//
 	// iterator_prev
 	//
-	template<typename Container>
-	inline SPROUT_CONSTEXPR sprout::index_iterator<Container>
-	iterator_prev(sprout::index_iterator<Container> const& it) {
+	template<typename Container, bool C>
+	inline SPROUT_CONSTEXPR sprout::index_iterator<Container, C>
+	iterator_prev(sprout::index_iterator<Container, C> const& it) {
 		return it.prev();
 	}
 }	// namespace sprout

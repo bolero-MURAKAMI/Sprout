@@ -2,6 +2,7 @@
 #define SPROUT_LOGIC_TRIBOOL_HASH_HPP
 
 #include <cstddef>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/logic/tribool/tribool.hpp>
 #include <sprout/functional/hash.hpp>
