@@ -66,7 +66,7 @@ namespace sprout {
 		{};
 #endif
 	public:
-		SPROUT_STATIC_CONSTEXPR size_type npos = sprout::npos;
+		SPROUT_STATIC_CONSTEXPR size_type npos = sprout::npos_t::get<size_type>::value;
 	private:
 		const_pointer ptr_;
 		size_type len_;
@@ -211,7 +211,7 @@ namespace sprout {
 			len_ -= n;
 		}
 		SPROUT_CONSTEXPR basic_string_ref
-		remove_prefix(size_type n) {
+		remove_prefix(size_type n) const {
 			return n > size() ? basic_string_ref(data() + size(), 0)
 				: basic_string_ref(data() + n, size() - n)
 				;
@@ -224,7 +224,7 @@ namespace sprout {
 			len_ -= n;
 		}
 		SPROUT_CONSTEXPR basic_string_ref
-		remove_suffix(size_type n) {
+		remove_suffix(size_type n) const {
 			return n > size() ? basic_string_ref(data(), 0)
 				: basic_string_ref(data(), size() - n)
 				;

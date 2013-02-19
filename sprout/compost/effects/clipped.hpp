@@ -39,7 +39,7 @@ namespace sprout {
 			public:
 				template<typename T = double>
 				SPROUT_CONSTEXPR sprout::compost::effects::clip_holder<T>
-				operator()(T const& low = -1, T const& up = 1) {
+				operator()(T const& low = -1, T const& up = 1) const {
 					return sprout::compost::effects::clip_holder<T>(low, up);
 				}
 			};

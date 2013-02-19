@@ -100,12 +100,12 @@ namespace sprout {
 			public:
 				template<typename T, typename IntType>
 				SPROUT_CONSTEXPR sprout::compost::effects::reverb_holder<T, IntType>
-				operator()(T const& attenuation, T const& delay, std::size_t repeat, IntType samples_per_sec) {
+				operator()(T const& attenuation, T const& delay, std::size_t repeat, IntType samples_per_sec) const {
 					return sprout::compost::effects::reverb_holder<T, IntType>(attenuation, delay, repeat, samples_per_sec);
 				}
 				template<typename T>
 				SPROUT_CONSTEXPR sprout::compost::effects::reverb_holder<T>
-				operator()(T const& attenuation, T const& delay, std::size_t repeat = 2) {
+				operator()(T const& attenuation, T const& delay, std::size_t repeat = 2) const {
 					return sprout::compost::effects::reverb_holder<T>(attenuation, delay, repeat);
 				}
 			};

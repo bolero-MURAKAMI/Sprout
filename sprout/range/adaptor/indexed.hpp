@@ -75,7 +75,7 @@ namespace sprout {
 		public:
 			template<typename Index>
 			SPROUT_CONSTEXPR sprout::adaptors::indexed_holder<Index>
-			operator()(Index index) {
+			operator()(Index index) const {
 				return sprout::adaptors::indexed_holder<Index>(index);
 			}
 		};

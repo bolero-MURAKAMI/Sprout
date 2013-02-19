@@ -37,7 +37,7 @@ namespace sprout {
 			public:
 				template<typename T>
 				SPROUT_CONSTEXPR sprout::compost::effects::change_volume_holder<T>
-				operator()(T const& value) {
+				operator()(T const& value) const {
 					return sprout::compost::effects::change_volume_holder<T>(value);
 				}
 			};

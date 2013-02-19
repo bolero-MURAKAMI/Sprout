@@ -74,7 +74,7 @@ namespace sprout {
 		public:
 			template<typename Predicate>
 			SPROUT_CONSTEXPR sprout::adaptors::remove_if_holder<Predicate>
-			operator()(Predicate pred) {
+			operator()(Predicate pred) const {
 				return sprout::adaptors::remove_if_holder<Predicate>(pred);
 			}
 		};

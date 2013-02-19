@@ -76,7 +76,7 @@ namespace sprout {
 		{};
 #endif
 	public:
-		SPROUT_STATIC_CONSTEXPR size_type npos = sprout::npos;
+		SPROUT_STATIC_CONSTEXPR size_type npos = sprout::npos_t::get<size_type>::value;
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
 	private:
 		template<sprout::index_t... Indexes>

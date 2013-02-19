@@ -74,7 +74,7 @@ namespace sprout {
 		public:
 			template<typename T>
 			SPROUT_CONSTEXPR sprout::adaptors::remove_holder<T>
-			operator()(T const& value) {
+			operator()(T const& value) const {
 				return sprout::adaptors::remove_holder<T>(value);
 			}
 		};

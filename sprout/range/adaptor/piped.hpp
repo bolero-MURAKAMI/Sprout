@@ -103,7 +103,7 @@ namespace sprout {
 		public:
 			template<typename... Adaptors>
 			SPROUT_CONSTEXPR sprout::adaptors::pipe_holder<Adaptors...>
-			operator()(Adaptors const&... adaptors) {
+			operator()(Adaptors const&... adaptors) const {
 				return sprout::adaptors::pipe_holder<Adaptors...>(adaptors...);
 			}
 		};

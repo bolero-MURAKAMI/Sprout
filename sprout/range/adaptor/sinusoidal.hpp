@@ -106,7 +106,7 @@ namespace sprout {
 				Value const& frequency = 1,
 				Value const& amplitude = 1,
 				Value const& phase = 0
-				)
+				) const
 			{
 				return sprout::adaptors::sinusoidal_range<Value>(frequency, amplitude, phase);
 			}

@@ -115,7 +115,7 @@ namespace sprout {
 		public:
 			template<typename Size>
 			SPROUT_CONSTEXPR typename sprout::adaptors::size_enum_holder<Size>
-			operator()(Size size, bool omit_last = false) {
+			operator()(Size size, bool omit_last = false) const {
 				return typename sprout::adaptors::size_enum_holder<Size>(size, omit_last);
 			}
 		};

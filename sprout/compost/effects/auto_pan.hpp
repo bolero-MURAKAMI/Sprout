@@ -97,12 +97,12 @@ namespace sprout {
 			public:
 				template<typename T, typename IntType>
 				SPROUT_CONSTEXPR sprout::compost::effects::auto_pan_holder<T, IntType>
-				operator()(T const& depth, T const& rate, IntType samples_per_sec) {
+				operator()(T const& depth, T const& rate, IntType samples_per_sec) const {
 					return sprout::compost::effects::auto_pan_holder<T, IntType>(depth, rate, samples_per_sec);
 				}
 				template<typename T>
 				SPROUT_CONSTEXPR sprout::compost::effects::auto_pan_holder<T>
-				operator()(T const& depth, T const& rate) {
+				operator()(T const& depth, T const& rate) const {
 					return sprout::compost::effects::auto_pan_holder<T>(depth, rate);
 				}
 			};

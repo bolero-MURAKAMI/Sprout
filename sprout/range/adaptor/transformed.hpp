@@ -136,7 +136,7 @@ namespace sprout {
 				BinaryFunction,
 				typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 			>
-			operator()(RRange&& range, BinaryFunction func) {
+			operator()(RRange&& range, BinaryFunction func) const {
 				return sprout::adaptors::transform_holder<
 					BinaryFunction,
 					typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
@@ -147,7 +147,7 @@ namespace sprout {
 			}
 			template<typename UnaryFunction>
 			SPROUT_CONSTEXPR sprout::adaptors::transform_holder<UnaryFunction>
-			operator()(UnaryFunction func) {
+			operator()(UnaryFunction func) const {
 				return sprout::adaptors::transform_holder<UnaryFunction>(func);
 			}
 		};

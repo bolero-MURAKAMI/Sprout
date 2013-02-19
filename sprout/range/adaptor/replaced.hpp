@@ -79,7 +79,7 @@ namespace sprout {
 		public:
 			template<typename T>
 			SPROUT_CONSTEXPR sprout::adaptors::replace_holder<T>
-			operator()(T const& old_value, T const& new_value) {
+			operator()(T const& old_value, T const& new_value) const {
 				return sprout::adaptors::replace_holder<T>(old_value, new_value);
 			}
 		};

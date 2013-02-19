@@ -41,7 +41,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR sprout::compost::effects::superpose_holder<
 					typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 				>
-				operator()(RRange&& range) {
+				operator()(RRange&& range) const {
 					return sprout::compost::effects::superpose_holder<
 						typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 					>(

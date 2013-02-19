@@ -35,7 +35,7 @@ namespace sprout {
 			public:
 				template<typename Adaptor>
 				SPROUT_CONSTEXPR sprout::compost::formats::effect_left_holder<Adaptor>
-				operator()(Adaptor const& adaptor) {
+				operator()(Adaptor const& adaptor) const {
 					return sprout::compost::formats::effect_left_holder<Adaptor>(adaptor);
 				}
 			};

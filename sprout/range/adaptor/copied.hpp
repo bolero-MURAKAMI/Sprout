@@ -67,7 +67,7 @@ namespace sprout {
 		public:
 			template<typename Result>
 			SPROUT_CONSTEXPR typename sprout::adaptors::copy_holder<Result const>
-			operator()(Result const& result) {
+			operator()(Result const& result) const {
 				return typename sprout::adaptors::copy_holder<Result const>(result);
 			}
 		};

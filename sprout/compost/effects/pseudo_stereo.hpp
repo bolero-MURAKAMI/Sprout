@@ -93,12 +93,12 @@ namespace sprout {
 			public:
 				template<typename T, typename IntType>
 				SPROUT_CONSTEXPR sprout::compost::effects::pseudo_stereo_holder<T, IntType>
-				operator()(T const& delay, IntType samples_per_sec) {
+				operator()(T const& delay, IntType samples_per_sec) const {
 					return sprout::compost::effects::pseudo_stereo_holder<T, IntType>(delay, samples_per_sec);
 				}
 				template<typename T>
 				SPROUT_CONSTEXPR sprout::compost::effects::pseudo_stereo_holder<T>
-				operator()(T const& delay) {
+				operator()(T const& delay) const {
 					return sprout::compost::effects::pseudo_stereo_holder<T>(delay);
 				}
 			};

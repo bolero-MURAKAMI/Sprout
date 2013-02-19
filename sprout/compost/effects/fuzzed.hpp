@@ -41,7 +41,7 @@ namespace sprout {
 			public:
 				template<typename T>
 				SPROUT_CONSTEXPR sprout::compost::effects::fuzz_holder<T>
-				operator()(T const& gain, T const& level) {
+				operator()(T const& gain, T const& level) const {
 					return sprout::compost::effects::fuzz_holder<T>(gain, level);
 				}
 			};

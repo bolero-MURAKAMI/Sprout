@@ -39,7 +39,7 @@ namespace sprout {
 		public:
 			template<typename Adaptor, typename Difference>
 			SPROUT_CONSTEXPR sprout::adaptors::adapt_drop_holder<Adaptor, Difference>
-			operator()(Adaptor const& adaptor, Difference distance) {
+			operator()(Adaptor const& adaptor, Difference distance) const {
 				return sprout::adaptors::adapt_drop_holder<Adaptor, Difference>(adaptor, distance);
 			}
 		};

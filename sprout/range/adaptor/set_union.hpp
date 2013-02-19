@@ -87,7 +87,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR sprout::adaptors::set_union_holder<
 				typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 			>
-			operator()(RRange&& range) {
+			operator()(RRange&& range) const {
 				return sprout::adaptors::set_union_holder<
 					typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 				>(
@@ -99,7 +99,7 @@ namespace sprout {
 				typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type,
 				Compare
 			>
-			operator()(RRange&& range, Compare comp) {
+			operator()(RRange&& range, Compare comp) const {
 				return sprout::adaptors::set_union_holder<
 					typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type,
 					Compare

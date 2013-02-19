@@ -83,7 +83,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR sprout::adaptors::alternate_holder<
 				typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 			>
-			operator()(RRange&& range) {
+			operator()(RRange&& range) const {
 				return sprout::adaptors::alternate_holder<
 					typename std::remove_reference<typename sprout::lvalue_reference<RRange>::type>::type
 				>(

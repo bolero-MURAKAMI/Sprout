@@ -95,12 +95,12 @@ namespace sprout {
 		public:
 			template<typename Value, typename Compare>
 			SPROUT_CONSTEXPR sprout::adaptors::clamp_holder<Value, Compare>
-			operator()(Value const& low, Value const& up, Compare comp) {
+			operator()(Value const& low, Value const& up, Compare comp) const {
 				return sprout::adaptors::clamp_holder<Value, Compare>(low, up, comp);
 			}
 			template<typename Value>
 			SPROUT_CONSTEXPR sprout::adaptors::clamp_holder<Value>
-			operator()(Value const& low, Value const& up) {
+			operator()(Value const& low, Value const& up) const {
 				return sprout::adaptors::clamp_holder<Value>(low, up);
 			}
 		};

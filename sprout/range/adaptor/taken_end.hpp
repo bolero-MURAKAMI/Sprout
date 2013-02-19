@@ -38,7 +38,7 @@ namespace sprout {
 		public:
 			template<typename Difference>
 			SPROUT_CONSTEXPR sprout::adaptors::take_end_holder<Difference>
-			operator()(Difference distance) {
+			operator()(Difference distance) const {
 				return sprout::adaptors::take_end_holder<Difference>(distance);
 			}
 		};

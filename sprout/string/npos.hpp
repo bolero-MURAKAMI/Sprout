@@ -1,6 +1,7 @@
 #ifndef SPROUT_STRING_NPOS_HPP
 #define SPROUT_STRING_NPOS_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/is_uint.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -13,12 +14,17 @@ namespace sprout {
 	struct npos_t {
 	public:
 		template<typename UIntType, typename sprout::enabler_if<sprout::is_uint<UIntType>::value>::type = sprout::enabler>
+		struct get
+			: public std::integral_constant<UIntType, UIntType(-1)>
+		{};
+	public:
+		template<typename UIntType, typename sprout::enabler_if<sprout::is_uint<UIntType>::value>::type = sprout::enabler>
 		SPROUT_CONSTEXPR operator UIntType() const {
 			return UIntType(-1);
 		}
 	};
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::npos_t npos{};
+		SPROUT_STATIC_CONSTEXPR sprout::npos_t npos = {};
 	}	// anonymous-namespace
 
 	//

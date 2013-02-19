@@ -104,12 +104,12 @@ namespace sprout {
 			public:
 				template<typename T, typename IntType>
 				SPROUT_CONSTEXPR sprout::compost::effects::vibrato_holder<T, IntType>
-				operator()(T const& d, T const& depth, T const& rate, IntType samples_per_sec) {
+				operator()(T const& d, T const& depth, T const& rate, IntType samples_per_sec) const {
 					return sprout::compost::effects::vibrato_holder<T, IntType>(d, depth, rate, samples_per_sec);
 				}
 				template<typename T>
 				SPROUT_CONSTEXPR sprout::compost::effects::vibrato_holder<T>
-				operator()(T const& d, T const& depth, T const& rate) {
+				operator()(T const& d, T const& depth, T const& rate) const {
 					return sprout::compost::effects::vibrato_holder<T>(d, depth, rate);
 				}
 			};

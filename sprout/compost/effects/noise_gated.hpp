@@ -82,7 +82,7 @@ namespace sprout {
 			public:
 				template<typename T>
 				SPROUT_CONSTEXPR sprout::compost::effects::noise_gate_holder<T>
-				operator()(T const& threshold) {
+				operator()(T const& threshold) const {
 					return sprout::compost::effects::noise_gate_holder<T>(threshold);
 				}
 			};

@@ -54,12 +54,12 @@ namespace sprout {
 			public:
 				template<typename LAdaptor, typename RAdaptor>
 				SPROUT_CONSTEXPR sprout::compost::formats::effect_each_holder<LAdaptor, RAdaptor>
-				operator()(LAdaptor const& left_adaptor, RAdaptor const& right_adaptor) {
+				operator()(LAdaptor const& left_adaptor, RAdaptor const& right_adaptor) const {
 					return sprout::compost::formats::effect_each_holder<LAdaptor, RAdaptor>(left_adaptor, right_adaptor);
 				}
 				template<typename Adaptor>
 				SPROUT_CONSTEXPR sprout::compost::formats::effect_each_holder<Adaptor>
-				operator()(Adaptor const& adaptor) {
+				operator()(Adaptor const& adaptor) const {
 					return sprout::compost::formats::effect_each_holder<Adaptor>(adaptor);
 				}
 			};

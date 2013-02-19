@@ -372,7 +372,7 @@ namespace sprout {
 				static_cast<std::size_t>(bit_count_ % 32)
 				);
 		}
-		SPROUT_CONSTEXPR md5 const process_bits(std::uint8_t bits, std::size_t bit_count) {
+		SPROUT_CONSTEXPR md5 const process_bits(std::uint8_t bits, std::size_t bit_count) const {
 			return process_bits_impl(bits, bit_count);
 		}
 		SPROUT_CONSTEXPR md5 const process_byte(std::uint8_t byte) const {

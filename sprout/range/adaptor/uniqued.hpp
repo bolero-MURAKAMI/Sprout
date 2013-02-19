@@ -78,7 +78,7 @@ namespace sprout {
 		public:
 			template<typename Predicate>
 			SPROUT_CONSTEXPR sprout::adaptors::unique_holder<Predicate>
-			operator()(Predicate pred) {
+			operator()(Predicate pred) const {
 				return sprout::adaptors::unique_holder<Predicate>(pred);
 			}
 		};

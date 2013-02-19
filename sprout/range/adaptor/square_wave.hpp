@@ -115,7 +115,7 @@ namespace sprout {
 				Value const& amplitude = 1,
 				Value const& phase = 0,
 				Value const& duty = 0.5
-				)
+				) const
 			{
 				return sprout::adaptors::square_wave_range<Value>(frequency, amplitude, phase, duty);
 			}

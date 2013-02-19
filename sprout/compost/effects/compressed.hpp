@@ -92,7 +92,7 @@ namespace sprout {
 			public:
 				template<typename T>
 				SPROUT_CONSTEXPR sprout::compost::effects::compress_holder<T>
-				operator()(T const& threshold, T const& ratio) {
+				operator()(T const& threshold, T const& ratio) const {
 					return sprout::compost::effects::compress_holder<T>(threshold, ratio);
 				}
 			};

@@ -86,12 +86,12 @@ namespace sprout {
 		public:
 			template<typename Difference>
 			SPROUT_CONSTEXPR sprout::adaptors::step_holder<Difference>
-			operator()(Difference width) {
+			operator()(Difference width) const {
 				return sprout::adaptors::step_holder<Difference>(width);
 			}
 			template<typename Difference>
 			SPROUT_CONSTEXPR sprout::adaptors::step_holder<Difference>
-			operator()(Difference width, typename std::common_type<Difference>::type init) {
+			operator()(Difference width, typename std::common_type<Difference>::type init) const {
 				return sprout::adaptors::step_holder<Difference>(width, init);
 			}
 		};

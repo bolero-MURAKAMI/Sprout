@@ -72,7 +72,7 @@ namespace sprout {
 		public:
 			template<typename T>
 			SPROUT_CONSTEXPR sprout::adaptors::valued_holder<T>
-			operator()(T const& param) {
+			operator()(T const& param) const {
 				return sprout::adaptors::valued_holder<T>(param);
 			}
 		};
