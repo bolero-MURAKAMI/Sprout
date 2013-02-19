@@ -6,8 +6,8 @@
 
 namespace sprout {
 	//
-	// none_t
-	// none
+	// nullopt_t
+	// nullopt
 	//
 	typedef sprout::none_t nullopt_t;
 	namespace {

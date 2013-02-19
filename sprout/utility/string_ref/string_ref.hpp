@@ -82,11 +82,11 @@ namespace sprout {
 		{}
 		template<std::size_t N>
 		SPROUT_CONSTEXPR basic_string_ref(sprout::basic_string<T, N, Traits> const& str)
-			: ptr_(str.data()), len_(str.length())
+			: ptr_(str.data()), len_(str.size())
 		{}
 		template<typename Allocator>
 		SPROUT_CONSTEXPR basic_string_ref(std::basic_string<T, Traits, Allocator> const& str)
-			: ptr_(str.data()), len_(str.length())
+			: ptr_(str.data()), len_(str.size())
 		{}
 		SPROUT_CONSTEXPR basic_string_ref(const_pointer str, size_type len)
 			: ptr_(str), len_(len)
@@ -549,6 +549,30 @@ namespace sprout {
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
 		lhs.swap(rhs);
+	}
+
+	//
+	// to_string_ref
+	//
+	template<typename T, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::basic_string_ref<T, Traits>
+	to_string_ref(sprout::basic_string<T, N, Traits> const& s) {
+		return sprout::basic_string_ref<T, Traits>(s);
+	}
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::basic_string_ref<T, Traits>
+	to_string_ref(std::basic_string<T, Traits> const& s) {
+		return sprout::basic_string_ref<T, Traits>(s);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR sprout::basic_string_ref<T>
+	to_string_ref(T const* str) {
+		return sprout::basic_string_ref<T>(str);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR sprout::basic_string_ref<T>
+	to_string_ref(T const* str, std::size_t len) {
+		return sprout::basic_string_ref<T>(str, len);
 	}
 }	// namespace sprout
 
