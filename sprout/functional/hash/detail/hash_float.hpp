@@ -71,7 +71,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value(T v) {
 			return sprout::detail::float_hash_value_1(v, sprout::math::fpclassify(v));
-        }
+		}
 	}	// namespace detail
 }	// namespace sprout
 

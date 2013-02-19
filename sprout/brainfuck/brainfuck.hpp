@@ -14,7 +14,7 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/operation/fixed/set.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace brainfuck {

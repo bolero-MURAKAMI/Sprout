@@ -2,6 +2,7 @@
 #define SPROUT_STRING_STRING_HPP
 
 #include <cstddef>
+#include <string>
 #include <algorithm>
 #include <utility>
 #include <stdexcept>
@@ -18,7 +19,7 @@
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/npos.hpp>
 #include <sprout/string/detail/operations.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -89,14 +90,17 @@ namespace sprout {
 			return sprout::basic_string<T, sizeof...(Indexes), Traits>{{(Indexes < M - 1 ? elems[Indexes] : T())...}, len};
 		}
 	public:
-		static SPROUT_CONSTEXPR basic_string from_c_str(value_type const* s, size_type n) {
+		static SPROUT_CONSTEXPR basic_string from_c_str(T const* s, size_type n) {
 			return !(N < n)
 				? from_c_str_impl(s, n, sprout::index_range<0, N>::make())
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
-		static SPROUT_CONSTEXPR basic_string from_c_str(value_type const* s) {
+		static SPROUT_CONSTEXPR basic_string from_c_str(T const* s) {
 			return from_c_str(s, traits_type::length(s));
+		}
+		static SPROUT_CONSTEXPR basic_string from_c_str(std::basic_string<T, Traits> const& s) {
+			return from_c_str(s.data(), s.size());
 		}
 	public:
 		value_type elems[static_size + 1];
@@ -489,6 +493,12 @@ namespace sprout {
 				sprout::index_range<0, N2>::make()
 				);
 		}
+#if SPROUT_USE_EXPLICIT_CONVERSION_OPERATORS
+		template<typename Allocator>
+		explicit operator std::basic_string<T, Traits, Allocator>() const {
+			return std::basic_string<T, Traits, Allocator>(data(), size());
+		}
+#endif
 		pointer
 		c_array() SPROUT_NOEXCEPT {
 			return &elems[0];
@@ -693,18 +703,12 @@ namespace sprout {
 			template<std::size_t M>
 			static SPROUT_CONSTEXPR typename copied_type::size_type
 			length_impl(sprout::array<T, M> const& arr) {
-				return sprout::distance(
-					arr.begin(),
-					sprout::find(arr.begin(), arr.end(), T())
-					);
+				return sprout::distance(arr.begin(), sprout::find(arr.begin(), arr.end(), T()));
 			}
 			template<typename... Args, sprout::index_t... Indexes>
 			static SPROUT_CONSTEXPR copied_type
 			make_impl(typename copied_type::size_type size, sprout::index_tuple<Indexes...>, Args&&... args) {
-				return copied_type{
-					{(Indexes < size ? sprout::forward<Args>(args) : T())...},
-					size
-					};
+				return copied_type{{(Indexes < size ? sprout::forward<Args>(args) : T())...}, size};
 			}
 		public:
 			template<typename... Args>
@@ -743,11 +747,11 @@ namespace sprout {
 		{
 			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
 		}
-		template<typename T, std::size_t N, sprout::index_t... Indexes>
+		template<typename T, std::size_t N>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
-		to_string_impl(T const(& arr)[N], sprout::index_tuple<Indexes...>) {
-			typedef sprout::char_traits_helper<sprout::char_traits<T> > traits_type;
-			return to_string_impl_1(arr, traits_type::length(arr, N - 1), sprout::index_tuple<Indexes...>());
+		to_string_impl(T const(& arr)[N]) {
+			typedef sprout::char_traits_helper<typename sprout::basic_string<T, N - 1>::traits_type> helper_type;
+			return to_string_impl_1(arr, helper_type::length(arr, N - 1), sprout::index_range<0, N - 1>::make());
 		}
 	}	// namespace detail
 	//
@@ -761,7 +765,7 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
 	to_string(T const(& arr)[N]) {
-		return sprout::detail::to_string_impl(arr, sprout::index_range<0, N - 1>::make());
+		return sprout::detail::to_string_impl(arr);
 	}
 
 	//
@@ -776,6 +780,11 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N>
 	string_from_c_str(T const* s) {
 		return sprout::basic_string<T, N>::from_c_str(s);
+	}
+	template<std::size_t N, typename T, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
+	string_from_c_str(std::basic_string<T, Traits> const& s) {
+		return sprout::basic_string<T, N, Traits>::from_c_str(s);
 	}
 }	// namespace sprout
 

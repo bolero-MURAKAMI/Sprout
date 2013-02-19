@@ -2,8 +2,8 @@
 #define SPROUT_STRING_CHAR_TRAITS_HPP
 
 #include <cstddef>
-#include <algorithm>
 #include <string>
+#include <algorithm>
 #include <sprout/config.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
@@ -13,6 +13,36 @@
 #include <sprout/cstring/strlen.hpp>
 
 namespace sprout {
+	namespace detail {
+		template<typename Traits>
+		class char_traits_eq {
+		public:
+			typedef Traits traits_type;
+			typedef typename traits_type::char_type char_type;
+			typedef bool result_type;
+			typedef char_type first_argument_type;
+			typedef char_type second_argument_type;
+		public:
+			SPROUT_CONSTEXPR bool operator()(char_type c1, char_type c2) const SPROUT_NOEXCEPT {
+				return traits_type::eq(c1, c2);
+			}
+		};
+
+		template<typename Traits>
+		class char_traits_lt {
+		public:
+			typedef Traits traits_type;
+			typedef typename traits_type::char_type char_type;
+			typedef bool result_type;
+			typedef char_type first_argument_type;
+			typedef char_type second_argument_type;
+		public:
+			SPROUT_CONSTEXPR bool operator()(char_type c1, char_type c2) const SPROUT_NOEXCEPT {
+				return traits_type::lt(c1, c2);
+			}
+		};
+	}	// namespace detail
+
 	//
 	// char_traits
 	//
@@ -26,19 +56,6 @@ namespace sprout {
 		typedef typename impl_type::off_type off_type;
 		typedef typename impl_type::pos_type pos_type;
 		typedef typename impl_type::state_type state_type;
-	private:
-		struct eq_ {
-		public:
-			SPROUT_CONSTEXPR bool operator()(char_type c1, char_type c2) const SPROUT_NOEXCEPT {
-				return eq(c1, c2);
-			}
-		};
-		struct lt_ {
-		public:
-			SPROUT_CONSTEXPR bool operator()(char_type c1, char_type c2) const SPROUT_NOEXCEPT {
-				return lt(c1, c2);
-			}
-		};
 	private:
 		static SPROUT_CONSTEXPR char_type const* find_impl(char_type const* found, char_type const* last) {
 			return found == last ? nullptr
@@ -59,18 +76,18 @@ namespace sprout {
 			return sprout::tristate_lexicographical_compare(
 				sprout::as_iterator(s1), sprout::as_iterator(s1, n), char_type(),
 				sprout::as_iterator(s2), sprout::as_iterator(s2, n), char_type(),
-				lt_()
+				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
 		static SPROUT_CONSTEXPR std::size_t length(char_type const* s) {
-			return sprout::detail::strlen(s);
+			return sprout::strlen(s);
 		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
 			return find_impl(
 				sprout::as_iterator_base(
 					sprout::find_if(
 						sprout::as_iterator(s), sprout::as_iterator(s, n),
-						sprout::bind2nd(eq_(), a)
+						sprout::bind2nd(sprout::detail::char_traits_eq<char_traits>(), a)
 						)
 					),
 				s + n
@@ -106,7 +123,7 @@ namespace sprout {
 			return sprout::tristate_lexicographical_compare(
 				sprout::as_iterator(s1), sprout::as_iterator(s1, n), char_type(),
 				s2, s2 + n, char_type(),
-				lt_()
+				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
 		template<typename ConstIterator>
@@ -114,7 +131,7 @@ namespace sprout {
 			return sprout::tristate_lexicographical_compare(
 				s1, s1 + n, char_type(),
 				sprout::as_iterator(s2), sprout::as_iterator(s2, n), char_type(),
-				lt_()
+				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
 		template<typename ConstIterator1, typename ConstIterator2>
@@ -122,7 +139,7 @@ namespace sprout {
 			return sprout::tristate_lexicographical_compare(
 				s1, s1 + n, char_type(),
 				s2, s2 + n, char_type(),
-				lt_()
+				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
 		template<typename ConstIterator>
@@ -134,7 +151,7 @@ namespace sprout {
 			return sprout::as_iterator_base(
 				sprout::find_if(
 					s, s + n,
-					sprout::bind2nd(eq_(), a)
+					sprout::bind2nd(sprout::detail::char_traits_eq<char_traits>(), a)
 					)
 				);
 		}
@@ -168,25 +185,15 @@ namespace sprout {
 		typedef typename traits_type::off_type off_type;
 		typedef typename traits_type::pos_type pos_type;
 		typedef typename traits_type::state_type state_type;
-	private:
-		struct eq_ {
-		public:
-			SPROUT_CONSTEXPR bool operator()(char_type c1, char_type c2) const SPROUT_NOEXCEPT {
-				return traits_type::eq(c1, c2);
-			}
-		};
 	public:
 		static SPROUT_CONSTEXPR std::size_t length(char_type const* s, std::size_t n) {
-			return sprout::distance(
-				sprout::as_iterator(s),
-				find(sprout::as_iterator(s), n, char_type())
-				);
+			return sprout::strlen(s, n);
 		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
 			return sprout::as_iterator_base(
 				sprout::find_if(
 					sprout::as_iterator(s), sprout::as_iterator(s, n),
-					sprout::bind2nd(eq_(), a)
+					sprout::bind2nd(sprout::detail::char_traits_eq<traits_type>(), a)
 					)
 				);
 		}
@@ -196,16 +203,13 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR std::size_t length(ConstIterator s, std::size_t n) {
-			return sprout::distance(
-				s,
-				find(s, n, char_type())
-				);
+			return sprout::detail::strlen(s, n);
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
 			return sprout::find_if(
 				s, s + n,
-				sprout::bind2nd(eq_(), a)
+				sprout::bind2nd(sprout::detail::char_traits_eq<traits_type>(), a)
 				);
 		}
 		template<typename ConstIterator>

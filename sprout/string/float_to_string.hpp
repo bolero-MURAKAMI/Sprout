@@ -12,7 +12,7 @@
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>
 #include <sprout/detail/math/float.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {

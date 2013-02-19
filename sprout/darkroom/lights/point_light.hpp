@@ -10,7 +10,7 @@
 #include <sprout/darkroom/materials/material.hpp>
 #include <sprout/darkroom/intersects/intersection.hpp>
 #include <sprout/darkroom/objects/intersect.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace darkroom {

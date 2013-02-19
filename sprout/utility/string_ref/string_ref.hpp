@@ -13,7 +13,7 @@
 #include <sprout/string/npos.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/string/detail/operations.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -554,6 +554,11 @@ namespace sprout {
 	//
 	// to_string_ref
 	//
+	template<typename T, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::basic_string_ref<T, Traits>
+	to_string_ref(sprout::basic_string_ref<T, Traits> const& s) {
+		return s;
+	}
 	template<typename T, std::size_t N, typename Traits>
 	inline SPROUT_CONSTEXPR sprout::basic_string_ref<T, Traits>
 	to_string_ref(sprout::basic_string<T, N, Traits> const& s) {

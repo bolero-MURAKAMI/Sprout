@@ -10,7 +10,7 @@
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 #include <sprout/detail/algorithm/set_overlap_count.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 #include <sprout/iterator/type_traits/is_iterator.hpp>
 
 namespace sprout {

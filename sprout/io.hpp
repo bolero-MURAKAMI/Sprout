@@ -16,7 +16,7 @@
 #include <sprout/range/numeric/partial_sum.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/detail/param_at.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace io {

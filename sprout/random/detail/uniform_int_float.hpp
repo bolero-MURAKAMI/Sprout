@@ -8,7 +8,7 @@
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
 #include <sprout/detail/integer.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace random {

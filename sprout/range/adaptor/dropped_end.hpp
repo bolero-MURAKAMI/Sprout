@@ -9,7 +9,7 @@
 #include <sprout/range/adaptor/detail/adapted_range_default.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
-#include HDR_ALGORITHM_SSCRISK_CEL_OR_SPROUT
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace adaptors {
