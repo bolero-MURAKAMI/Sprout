@@ -90,7 +90,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR T
 		accumulate(
 			InputIterator first, InputIterator last, T init, BinaryOperation binary_op,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator, T> type;

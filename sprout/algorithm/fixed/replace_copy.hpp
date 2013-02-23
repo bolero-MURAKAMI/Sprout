@@ -93,7 +93,7 @@ namespace sprout {
 			replace_copy(
 				InputIterator first, InputIterator last,
 				Result const& result, T const& old_value, T const& new_value,
-				void*
+				std::input_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::replace_copy_impl(first, last, result, old_value, new_value, sprout::size(result));

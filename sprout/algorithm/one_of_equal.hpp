@@ -108,7 +108,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		one_of_equal(
 			InputIterator first, InputIterator last, T const& value,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;

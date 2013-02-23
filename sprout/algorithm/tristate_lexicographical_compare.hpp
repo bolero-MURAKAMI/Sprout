@@ -129,7 +129,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR int
 		tristate_lexicographical_compare(
 			InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2, Compare comp,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator1, InputIterator2> type;
@@ -298,7 +298,7 @@ namespace sprout {
 			InputIterator1 first1, InputIterator1 last1, T1 const& delim1,
 			InputIterator2 first2, InputIterator2 last2, T2 const& delim2,
 			Compare comp,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator1, InputIterator2> type;

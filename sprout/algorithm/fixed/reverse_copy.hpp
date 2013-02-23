@@ -84,7 +84,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			reverse_copy(
 				BidirectionalIterator first, BidirectionalIterator last, Result const& result,
-				void*
+				std::bidirectional_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::reverse_copy_impl(first, last, result, sprout::size(result));

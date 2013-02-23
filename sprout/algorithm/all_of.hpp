@@ -84,7 +84,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		all_of(
 			InputIterator first, InputIterator last, Predicate pred,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator, bool> type;

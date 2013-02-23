@@ -5,7 +5,6 @@
 #include <limits>
 #include <iterator>
 #include <utility>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
@@ -51,66 +50,45 @@ namespace sprout {
 		typedef typename base_type::reference reference;
 	private:
 		sprout::value_holder<T> holder_;
-		difference_type count_;
+		difference_type index_;
 	private:
-		SPROUT_CONSTEXPR value_iterator(sprout::value_holder<T> const& r, difference_type count)
-			: holder_(r), count_(count)
+		SPROUT_CONSTEXPR value_iterator(sprout::value_holder<T> const& r, difference_type index)
+			: holder_(r), index_(index)
 		{}
 	public:
 		SPROUT_CONSTEXPR value_iterator()
-			: holder_(), count_()
+			: holder_(), index_()
 		{}
 		value_iterator(value_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR value_iterator(
 			typename sprout::value_holder<T>::param_type p,
-			difference_type count = std::numeric_limits<difference_type>::max()
+			difference_type index = std::numeric_limits<difference_type>::max()
 			)
-			: holder_(p), count_(count)
+			: holder_(p), index_(index)
 		{}
 		operator value_iterator<const_type>() const {
-			return value_iterator<const_type>(holder_.get(), count_);
+			return value_iterator<const_type>(holder_.get(), index_);
+		}
+		SPROUT_CONSTEXPR difference_type index() const {
+			return index_;
 		}
 		SPROUT_CONSTEXPR value_iterator next() const {
-			return value_iterator(holder_, count_ != 0 ? count_ - 1 : count_);
+			return value_iterator(holder_, index_ - 1);
 		}
 		SPROUT_CONSTEXPR value_iterator prev() const {
-			return value_iterator(holder_, count_ != 0 ? count_ + 1 : count_);
+			return value_iterator(holder_, index_ + 1);
 		}
 		void swap(value_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(holder_, other.holder_)))
 		{
 			sprout::swap(holder_, other.holder_);
-			sprout::swap(count_, other.count_);
-		}
-		friend SPROUT_CONSTEXPR bool operator==(value_iterator const& lhs, value_iterator const& rhs) {
-			return lhs.count_ == rhs.count_ && (lhs.count_ == 0 || lhs.holder_.get() == rhs.holder_.get());
-		}
-		friend SPROUT_CONSTEXPR bool operator!=(value_iterator const& lhs, value_iterator const& rhs) {
-			return !(lhs == rhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator<(value_iterator const& lhs, value_iterator const& rhs) {
-			return lhs.count_ > rhs.count_;
-		}
-		friend SPROUT_CONSTEXPR bool operator>(value_iterator const& lhs, value_iterator const& rhs) {
-			return rhs < lhs;
-		}
-		friend SPROUT_CONSTEXPR bool operator<=(value_iterator const& lhs, value_iterator const& rhs) {
-			return !(rhs < lhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator>=(value_iterator const& lhs, value_iterator const& rhs) {
-			return !(lhs < rhs);
+			sprout::swap(index_, other.index_);
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
-			return count_ != 0
-				? holder_.get()
-				: (throw std::out_of_range("value_iterator<>: dereference at out of range"), holder_.get())
-				;
+			return holder_.get();
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
-			return count_ != 0
-				? holder_.get_pointer()
-				: throw std::out_of_range("value_iterator<>: dereference at out of range")
-				;
+			return holder_.get_pointer();
 		}
 		value_iterator& operator++() {
 			value_iterator temp(next());
@@ -133,31 +111,66 @@ namespace sprout {
 			return result;
 		}
 		SPROUT_CONSTEXPR value_iterator operator+(difference_type n) const {
-			return value_iterator(holder_, count_ - n);
+			return value_iterator(holder_, index_ - n);
 		}
 		SPROUT_CONSTEXPR value_iterator operator-(difference_type n) const {
-			return value_iterator(holder_, count_ + n);
+			return value_iterator(holder_, index_ + n);
 		}
 		value_iterator& operator+=(difference_type n) {
-			value_iterator temp(holder_, count_ - n);
+			value_iterator temp(holder_, index_ - n);
 			temp.swap(*this);
 			return *this;
 		}
 		value_iterator& operator-=(difference_type n) {
-			value_iterator temp(holder_, count_ + n);
+			value_iterator temp(holder_, index_ + n);
 			temp.swap(*this);
 			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return holder_.get();
 		}
-		friend SPROUT_CONSTEXPR difference_type operator-(value_iterator const& lhs, value_iterator const& rhs) {
-			return rhs.count_ - lhs.count_;
-		}
-		friend SPROUT_CONSTEXPR value_iterator operator+(difference_type n, value_iterator const& it) {
-			return it + n;
-		}
 	};
+
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::value_iterator<T> const& lhs, sprout::value_iterator<T> const& rhs) {
+		return lhs.index() == rhs.index();
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::value_iterator<T> const& lhs, sprout::value_iterator<T> const& rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::value_iterator<T> const& lhs, sprout::value_iterator<T> const& rhs) {
+		return rhs.index() < lhs.index();
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::value_iterator<T> const& lhs, sprout::value_iterator<T> const& rhs) {
+		return rhs < lhs;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::value_iterator<T> const& lhs, sprout::value_iterator<T> const& rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::value_iterator<T> const& lhs, sprout::value_iterator<T> const& rhs) {
+		return !(lhs < rhs);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::value_iterator<T>::difference_type
+	operator-(sprout::value_iterator<T> const& lhs, sprout::value_iterator<T> const& rhs) {
+		return rhs.index() - lhs.index();
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR sprout::value_iterator<T>
+	operator+(typename sprout::value_iterator<T>::difference_type n, sprout::value_iterator<T> const& it) {
+		return it + n;
+	}
 
 	//
 	// swap

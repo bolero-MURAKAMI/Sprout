@@ -52,7 +52,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		is_sorted(
 			ForwardIterator first, ForwardIterator last, Compare comp,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			return sprout::is_sorted_until(first, last, comp) == last;

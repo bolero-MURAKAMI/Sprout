@@ -109,7 +109,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR ForwardIterator
 		adjacent_find(
 			ForwardIterator first, ForwardIterator last, BinaryPredicate pred,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			typedef sprout::pair<ForwardIterator, ForwardIterator> type;

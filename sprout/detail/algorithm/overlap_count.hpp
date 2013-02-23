@@ -91,7 +91,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 		overlap_count(
 			InputIterator first, InputIterator last, BinaryPredicate pred,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::tuples::tuple<InputIterator, typename std::iterator_traits<InputIterator>::value_type, typename std::iterator_traits<InputIterator>::difference_type> type;

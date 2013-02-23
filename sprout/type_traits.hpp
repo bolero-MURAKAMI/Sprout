@@ -8,6 +8,7 @@
 #include <sprout/type_traits/is_c_str.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/type_traits/const_reference.hpp>
+#include <sprout/type_traits/common_decay.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>

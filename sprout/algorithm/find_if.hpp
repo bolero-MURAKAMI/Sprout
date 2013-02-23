@@ -86,7 +86,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR InputIterator
 		find_if(
 			InputIterator first, InputIterator last, Predicate pred,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator, bool> type;

@@ -18,9 +18,10 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR ForwardIterator
 	search_n(ForwardIterator first, ForwardIterator last, Size count, T const& value, BinaryPredicate pred) {
 		typedef sprout::value_iterator<T const&> iterator;
+		typedef typename std::iterator_traits<iterator>::difference_type difference_type;
 		return sprout::search(
 			first, last,
-			iterator(value, static_cast<typename std::iterator_traits<iterator>::difference_type>(count)), iterator(value, 0),
+			iterator(value, static_cast<difference_type>(count)), iterator(value, 0),
 			pred
 			);
 	}

@@ -59,7 +59,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			copy_n(
 				InputIterator first, Size n, Result const& result,
-				void*
+				std::input_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::copy_n_impl(first, n, result, sprout::size(result));

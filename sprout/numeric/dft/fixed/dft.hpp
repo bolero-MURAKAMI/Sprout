@@ -90,7 +90,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			dft(
 				ForwardIterator first, ForwardIterator last, Result const& result,
-				void*
+				std::forward_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::dft_impl(first, last, result, sprout::size(result), first, 0);

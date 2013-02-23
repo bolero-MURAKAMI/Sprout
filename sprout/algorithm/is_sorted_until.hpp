@@ -94,7 +94,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR ForwardIterator
 		is_sorted_until(
 			ForwardIterator first, ForwardIterator last, Compare comp,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			typedef sprout::pair<ForwardIterator, ForwardIterator> type;

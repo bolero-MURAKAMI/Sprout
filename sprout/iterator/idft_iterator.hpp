@@ -76,24 +76,6 @@ namespace sprout {
 			sprout::swap(index_, other.index_);
 			sprout::swap(size_, other.size_);
 		}
-		friend SPROUT_CONSTEXPR bool operator==(idft_iterator const& lhs, idft_iterator const& rhs) {
-			return lhs.index_ == rhs.index_;
-		}
-		friend SPROUT_CONSTEXPR bool operator!=(idft_iterator const& lhs, idft_iterator const& rhs) {
-			return !(lhs == rhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator<(idft_iterator const& lhs, idft_iterator const& rhs) {
-			return lhs.index_ < rhs.index_;
-		}
-		friend SPROUT_CONSTEXPR bool operator>(idft_iterator const& lhs, idft_iterator const& rhs) {
-			return rhs < lhs;
-		}
-		friend SPROUT_CONSTEXPR bool operator<=(idft_iterator const& lhs, idft_iterator const& rhs) {
-			return !(rhs < lhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator>=(idft_iterator const& lhs, idft_iterator const& rhs) {
-			return !(lhs < rhs);
-		}
 		SPROUT_CONSTEXPR reference operator*() const {
 			return sprout::detail::idft_element_impl(first_, last_, index_, size_);
 		}
@@ -136,13 +118,48 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return sprout::detail::idft_element_impl(first_, last_, index_ + n, size_);
 		}
-		friend SPROUT_CONSTEXPR difference_type operator-(idft_iterator const& lhs, idft_iterator const& rhs) {
-			return lhs.index_ - rhs.index_;
-		}
-		friend SPROUT_CONSTEXPR idft_iterator operator+(difference_type n, idft_iterator const& it) {
-			return it + n;
-		}
 	};
+
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::idft_iterator<Iterator> const& lhs, sprout::idft_iterator<Iterator> const& rhs) {
+		return lhs.index() == rhs.index();
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::idft_iterator<Iterator> const& lhs, sprout::idft_iterator<Iterator> const& rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::idft_iterator<Iterator> const& lhs, sprout::idft_iterator<Iterator> const& rhs) {
+		return lhs.index_ < rhs.index_;
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::idft_iterator<Iterator> const& lhs, sprout::idft_iterator<Iterator> const& rhs) {
+		return rhs < lhs;
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::idft_iterator<Iterator> const& lhs, sprout::idft_iterator<Iterator> const& rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::idft_iterator<Iterator> const& lhs, sprout::idft_iterator<Iterator> const& rhs) {
+		return !(lhs < rhs);
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR typename sprout::idft_iterator<Iterator>::difference_type
+	operator-(sprout::idft_iterator<Iterator> const& lhs, sprout::idft_iterator<Iterator> const& rhs) {
+		return lhs.index() - rhs.index();
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::idft_iterator<Iterator>
+	operator+(typename sprout::idft_iterator<Iterator>::difference_type n, sprout::idft_iterator<Iterator> const& it) {
+		return it + n;
+	}
 
 	//
 	// make_idft_iterator

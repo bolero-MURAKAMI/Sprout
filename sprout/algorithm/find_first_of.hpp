@@ -102,7 +102,7 @@ namespace sprout {
 			InputIterator1 first1, InputIterator1 last1,
 			ForwardIterator2 first2, ForwardIterator2 last2,
 			BinaryPredicate pred,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator1, bool> type;

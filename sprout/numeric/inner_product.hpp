@@ -99,7 +99,7 @@ namespace sprout {
 		inner_product(
 			InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, T init,
 			BinaryOperation1 binary_op1, BinaryOperation2 binary_op2,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, T> type;

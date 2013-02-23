@@ -105,7 +105,7 @@ namespace sprout {
 				typename std::iterator_traits<InputIterator>::value_type const& low,
 				typename std::iterator_traits<InputIterator>::value_type const& high,
 				Compare comp,
-				void*
+				std::input_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::clamp_range_copy_impl(first, last, result, low, high, comp, sprout::size(result));

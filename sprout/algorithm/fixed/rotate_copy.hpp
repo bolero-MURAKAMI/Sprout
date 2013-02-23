@@ -125,7 +125,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			rotate_copy(
 				ForwardIterator first, ForwardIterator middle, ForwardIterator last, Result const& result,
-				void*
+				std::forward_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::rotate_copy_impl(first, middle, last, result, sprout::size(result));

@@ -5,7 +5,6 @@
 #include <limits>
 #include <iterator>
 #include <utility>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/generator/functions.hpp>
@@ -34,16 +33,16 @@ namespace sprout {
 		typedef value_type* pointer;
 	private:
 		generator_type gen_;
-		difference_type count_;
+		difference_type index_;
 	public:
 		SPROUT_CONSTEXPR generator_iterator()
-			: gen_(), count_()
+			: gen_(), index_()
 		{}
 		explicit SPROUT_CONSTEXPR generator_iterator(
 			generator_type const& gen,
-			difference_type count = std::numeric_limits<difference_type>::max()
+			difference_type index = std::numeric_limits<difference_type>::max()
 			)
-			: gen_(gen), count_(count)
+			: gen_(gen), index_(index)
 		{}
 		generator_type& generator() {
 			return gen_;
@@ -51,14 +50,11 @@ namespace sprout {
 		SPROUT_CONSTEXPR generator_type const& generator() const {
 			return gen_;
 		}
-		SPROUT_CONSTEXPR difference_type count() const {
-			return count_;
+		SPROUT_CONSTEXPR difference_type index() const {
+			return index_;
 		}
 		SPROUT_CONSTEXPR generator_iterator operator()() const {
-			return count_ != 0
-				? generator_iterator(sprout::generators::next_generator(gen_)(), count_ > 0 ? count_ - 1 : count_)
-				: throw std::out_of_range("generator_iterator<>: increment at out of range")
-				;
+			return generator_iterator(sprout::generators::next_generator(gen_)(), index_ - 1);
 		}
 		SPROUT_CONSTEXPR generator_iterator next() const {
 			return (*this)();
@@ -73,35 +69,10 @@ namespace sprout {
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(gen_, other.gen_)))
 		{
 			sprout::swap(gen_, other.gen_);
-			sprout::swap(count_, other.count_);
-		}
-		friend SPROUT_CONSTEXPR bool operator==(generator_iterator const& lhs, generator_iterator const& rhs) {
-			return lhs.count_ == rhs.count_;
-		}
-		friend SPROUT_CONSTEXPR bool operator!=(generator_iterator const& lhs, generator_iterator const& rhs) {
-			return !(lhs == rhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator<(generator_iterator const& lhs, generator_iterator const& rhs) {
-			typedef typename std::make_unsigned<difference_type>::type unsigned_type;
-			return static_cast<unsigned_type>(lhs.count_) > static_cast<unsigned_type>(rhs.count_);
-		}
-		friend SPROUT_CONSTEXPR bool operator>(generator_iterator const& lhs, generator_iterator const& rhs) {
-			return rhs < lhs;
-		}
-		friend SPROUT_CONSTEXPR bool operator<=(generator_iterator const& lhs, generator_iterator const& rhs) {
-			return !(rhs < lhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator>=(generator_iterator const& lhs, generator_iterator const& rhs) {
-			return !(lhs < rhs);
+			sprout::swap(index_, other.index_);
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
-			return count_ != 0
-				? sprout::generators::generated_value(gen_)
-				: (
-					throw std::out_of_range("generator_iterator<>: dereference at out of range"),
-					sprout::generators::generated_value(gen_)
-					)
-				;
+			return sprout::generators::generated_value(gen_);
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
@@ -116,10 +87,43 @@ namespace sprout {
 			++*this;
 			return result;
 		}
-		friend SPROUT_CONSTEXPR difference_type operator-(generator_iterator const& lhs, generator_iterator const& rhs) {
-			return rhs.count_ - lhs.count_;
-		}
 	};
+
+	template<typename Generator>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::generator_iterator<Generator> const& lhs, sprout::generator_iterator<Generator> const& rhs) {
+		return lhs.index() == rhs.index();
+	}
+	template<typename Generator>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::generator_iterator<Generator> const& lhs, sprout::generator_iterator<Generator> const& rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename Generator>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::generator_iterator<Generator> const& lhs, sprout::generator_iterator<Generator> const& rhs) {
+		return rhs.index() < lhs.index();
+	}
+	template<typename Generator>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::generator_iterator<Generator> const& lhs, sprout::generator_iterator<Generator> const& rhs) {
+		return rhs < lhs;
+	}
+	template<typename Generator>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::generator_iterator<Generator> const& lhs, sprout::generator_iterator<Generator> const& rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename Generator>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::generator_iterator<Generator> const& lhs, sprout::generator_iterator<Generator> const& rhs) {
+		return !(lhs < rhs);
+	}
+	template<typename Generator>
+	inline SPROUT_CONSTEXPR typename sprout::generator_iterator<Generator>::difference_type
+	operator-(sprout::generator_iterator<Generator> const& lhs, sprout::generator_iterator<Generator> const& rhs) {
+		return rhs.index() - lhs.index();
+	}
 
 	//
 	// swap

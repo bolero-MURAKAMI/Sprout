@@ -99,7 +99,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		is_permutation(
 			ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2, BinaryPredicate pred,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			typedef sprout::pair<ForwardIterator1, bool> type;

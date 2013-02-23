@@ -134,7 +134,7 @@ namespace sprout {
 			ForwardIterator1 first1, ForwardIterator1 last1,
 			ForwardIterator2 first2, ForwardIterator2 last2,
 			BinaryPredicate pred,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			typedef sprout::pair<ForwardIterator1, ForwardIterator1> type;

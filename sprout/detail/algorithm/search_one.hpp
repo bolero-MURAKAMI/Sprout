@@ -86,7 +86,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR ForwardIterator1
 		search_one(
 			ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			typedef sprout::tuples::tuple<ForwardIterator1, ForwardIterator2, bool> type;

@@ -24,7 +24,7 @@ namespace sprout {
 		}
 		template<typename BidirectionalIterator>
 		inline SPROUT_CONSTEXPR BidirectionalIterator
-		prev_impl(BidirectionalIterator const& it, void*) {
+		prev_impl(BidirectionalIterator const& it, std::bidirectional_iterator_tag*) {
 			return std::prev(it);
 		}
 
@@ -69,7 +69,7 @@ namespace sprout {
 		>::type
 		prev_impl(
 			BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n,
-			void*
+			std::bidirectional_iterator_tag*
 			)
 		{
 			return n == 0 ? it
@@ -84,7 +84,7 @@ namespace sprout {
 		>::type
 		prev_impl(
 			BidirectionalIterator const& it, typename std::iterator_traits<BidirectionalIterator>::difference_type n,
-			void*
+			std::bidirectional_iterator_tag*
 			)
 		{
 			return std::prev(it, n);

@@ -63,7 +63,7 @@ namespace sprout {
 		}
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
-		iterator_distance(InputIterator first, InputIterator last, void*) {
+		iterator_distance(InputIterator first, InputIterator last, std::input_iterator_tag*) {
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
 			return sprout::iterator_detail::iterator_distance_impl(type(first, 0), last, 1).second;
 		}

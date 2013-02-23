@@ -102,7 +102,7 @@ namespace sprout {
 				ForwardIterator first, ForwardIterator last,
 				Result const& result,
 				ForwardIterator pos1, ForwardIterator pos2,
-				void*
+				std::forward_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::swap_element_copy_impl(first, last, result, sprout::size(result));

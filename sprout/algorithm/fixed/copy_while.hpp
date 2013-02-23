@@ -60,7 +60,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			copy_while(
 				InputIterator first, InputIterator last, Result const& result, Predicate pred,
-				void*
+				std::input_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::copy_while_impl(first, last, result, pred, sprout::size(result));

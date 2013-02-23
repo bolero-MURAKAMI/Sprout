@@ -25,7 +25,7 @@ namespace sprout {
 		}
 		template<typename ForwardIterator>
 		inline SPROUT_CONSTEXPR ForwardIterator
-		next_impl(ForwardIterator const& it, void*) {
+		next_impl(ForwardIterator const& it, std::forward_iterator_tag*) {
 			return std::next(it);
 		}
 
@@ -79,7 +79,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR ForwardIterator
 		next_impl_1(
 			ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			return n == 0 ? it
@@ -95,7 +95,7 @@ namespace sprout {
 		>::type
 		next_impl(
 			ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			typedef typename std::iterator_traits<ForwardIterator>::iterator_category* category;
@@ -108,7 +108,7 @@ namespace sprout {
 		>::type
 		next_impl(
 			ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n,
-			void*
+			std::forward_iterator_tag*
 			)
 		{
 			return std::next(it, n);

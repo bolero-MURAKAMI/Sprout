@@ -84,7 +84,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 		count(
 			InputIterator first, InputIterator last, T const& value,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;

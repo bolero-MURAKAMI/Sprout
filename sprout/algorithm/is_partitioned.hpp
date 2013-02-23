@@ -78,7 +78,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		is_partitioned(
 			InputIterator first, InputIterator last, Predicate pred,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;

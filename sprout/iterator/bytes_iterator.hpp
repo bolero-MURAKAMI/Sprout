@@ -28,7 +28,7 @@ namespace sprout {
 		>
 	{
 	public:
-		typedef Iterator base_type;
+		typedef Iterator iterator_type;
 		typedef Traits traits_type;
 	private:
 		typedef std::iterator<
@@ -37,34 +37,34 @@ namespace sprout {
 			std::ptrdiff_t,
 			void,
 			unsigned char
-		> iterator_type;
+		> base_type;
 	public:
-		typedef typename iterator_type::iterator_category iterator_category;
-		typedef typename iterator_type::value_type value_type;
-		typedef typename iterator_type::difference_type difference_type;
-		typedef typename iterator_type::pointer pointer;
-		typedef typename iterator_type::reference reference;
+		typedef typename base_type::iterator_category iterator_category;
+		typedef typename base_type::value_type value_type;
+		typedef typename base_type::difference_type difference_type;
+		typedef typename base_type::pointer pointer;
+		typedef typename base_type::reference reference;
 	private:
 		struct next_tag {};
 		struct prev_tag {};
 		struct ra_tag {};
 	private:
-		base_type it_;
+		iterator_type it_;
 		difference_type i_;
 	private:
-		SPROUT_CONSTEXPR bytes_iterator(base_type it, difference_type i)
+		SPROUT_CONSTEXPR bytes_iterator(iterator_type it, difference_type i)
 			: it_(it)
 			, i_(i)
 		{}
-		SPROUT_CONSTEXPR bytes_iterator(base_type it, difference_type i, next_tag)
+		SPROUT_CONSTEXPR bytes_iterator(iterator_type it, difference_type i, next_tag)
 			: it_(i / traits_type::size() == 0 ? it : sprout::next(it))
 			, i_(i % traits_type::size())
 		{}
-		SPROUT_CONSTEXPR bytes_iterator(base_type it, difference_type i, prev_tag)
+		SPROUT_CONSTEXPR bytes_iterator(iterator_type it, difference_type i, prev_tag)
 			: it_((i + 1 - traits_type::size()) / traits_type::size() == 0 ? it : sprout::prev(it))
 			, i_(i % traits_type::size() + traits_type::size())
 		{}
-		SPROUT_CONSTEXPR bytes_iterator(base_type it, difference_type i, ra_tag)
+		SPROUT_CONSTEXPR bytes_iterator(iterator_type it, difference_type i, ra_tag)
 			: it_(i >= 0
 				? sprout::next(it, i / traits_type::size())
 				: sprout::next(it, (i + 1 - traits_type::size()) / traits_type::size())
@@ -76,14 +76,18 @@ namespace sprout {
 		{}
 	public:
 		SPROUT_CONSTEXPR bytes_iterator()
-			: it_()
-			, i_()
+			: it_(), i_()
 		{}
 		bytes_iterator(bytes_iterator const&) = default;
-		explicit SPROUT_CONSTEXPR bytes_iterator(base_type it)
-			: it_(it)
-			, i_()
+		explicit SPROUT_CONSTEXPR bytes_iterator(iterator_type it)
+			: it_(it), i_()
 		{}
+		SPROUT_CONSTEXPR iterator_type const& base() const {
+			return it_;
+		}
+		SPROUT_CONSTEXPR difference_type index() const {
+			return i_;
+		}
 		SPROUT_CONSTEXPR bytes_iterator next() const {
 			return bytes_iterator(it_, i_ + 1, next_tag());
 		}
@@ -95,24 +99,6 @@ namespace sprout {
 		{
 			sprout::swap(it_, other.it_);
 			sprout::swap(i_, other.i_);
-		}
-		friend SPROUT_CONSTEXPR bool operator==(bytes_iterator const& lhs, bytes_iterator const& rhs) {
-			return lhs.it_ == rhs.it_ && lhs.i_ == rhs.i_;
-		}
-		friend SPROUT_CONSTEXPR bool operator!=(bytes_iterator const& lhs, bytes_iterator const& rhs) {
-			return !(lhs == rhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator<(bytes_iterator const& lhs, bytes_iterator const& rhs) {
-			return lhs.it_ < rhs.it_ || (lhs.it_ == rhs.it_ && lhs.i_ < rhs.i_);
-		}
-		friend SPROUT_CONSTEXPR bool operator>(bytes_iterator const& lhs, bytes_iterator const& rhs) {
-			return rhs < lhs;
-		}
-		friend SPROUT_CONSTEXPR bool operator<=(bytes_iterator const& lhs, bytes_iterator const& rhs) {
-			return !(rhs < lhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator>=(bytes_iterator const& lhs, bytes_iterator const& rhs) {
-			return !(lhs < rhs);
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
 			return traits_type::get_byte(*it_, i_);
@@ -156,13 +142,59 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return *(*this + n);
 		}
-		friend SPROUT_CONSTEXPR difference_type operator-(bytes_iterator const& lhs, bytes_iterator const& rhs) {
-			return (lhs.it_ - rhs.it_) * traits_type::size() + (lhs.i_ - rhs.i_);
-		}
-		friend SPROUT_CONSTEXPR bytes_iterator operator+(difference_type n, bytes_iterator const& it) {
-			return it + n;
-		}
 	};
+
+	template<typename Iterator1, typename Iterator2, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator==(sprout::bytes_iterator<Iterator1, Traits> const& lhs, sprout::bytes_iterator<Iterator2, Traits> const& rhs) {
+		return lhs.base() == rhs.base() && lhs.index() == rhs.index();
+	}
+	template<typename Iterator1, typename Iterator2, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator!=(sprout::bytes_iterator<Iterator1, Traits> const& lhs, sprout::bytes_iterator<Iterator2, Traits> const& rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename Iterator1, typename Iterator2, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::bytes_iterator<Iterator1, Traits> const& lhs, sprout::bytes_iterator<Iterator2, Traits> const& rhs) {
+		return lhs.base() < rhs.base() || (lhs.base() == rhs.base() && lhs.index() < rhs.index());
+	}
+	template<typename Iterator1, typename Iterator2, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::bytes_iterator<Iterator1, Traits> const& lhs, sprout::bytes_iterator<Iterator2, Traits> const& rhs) {
+		return rhs < lhs;
+	}
+	template<typename Iterator1, typename Iterator2, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::bytes_iterator<Iterator1, Traits> const& lhs, sprout::bytes_iterator<Iterator2, Traits> const& rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename Iterator1, typename Iterator2, typename Traits>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::bytes_iterator<Iterator1, Traits> const& lhs, sprout::bytes_iterator<Iterator2, Traits> const& rhs) {
+		return !(lhs < rhs);
+	}
+	template<typename Iterator1, typename Iterator2, typename Traits>
+	inline SPROUT_CONSTEXPR decltype(std::declval<Iterator1>() - std::declval<Iterator2>())
+	operator-(sprout::bytes_iterator<Iterator1, Traits> const& lhs, sprout::bytes_iterator<Iterator2, Traits> const& rhs) {
+		return (lhs.base() - rhs.base()) * Traits::size() + (lhs.index() - rhs.index());
+	}
+	template<typename Iterator, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, Traits>
+	operator+(typename sprout::bytes_iterator<Iterator, Traits>::difference_type n, sprout::bytes_iterator<Iterator, Traits> const& it) {
+		return it + n;
+	}
+
+	//
+	// swap
+	//
+	template<typename Iterator, typename Traits>
+	inline void
+	swap(sprout::bytes_iterator<Iterator, Traits>& lhs, sprout::bytes_iterator<Iterator, Traits>& rhs)
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	{
+		lhs.swap(rhs);
+	}
 
 	//
 	// make_bytes_iterator
@@ -179,14 +211,18 @@ namespace sprout {
 	}
 
 	//
-	// swap
+	// make_big_bytes_iterator
+	// make_little_bytes_iterator
 	//
-	template<typename Iterator, typename Traits>
-	inline void
-	swap(sprout::bytes_iterator<Iterator, Traits>& lhs, sprout::bytes_iterator<Iterator, Traits>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
-	{
-		lhs.swap(rhs);
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, sprout::big_endian_traits<typename std::iterator_traits<Iterator>::value_type> >
+	make_big_bytes_iterator(Iterator it) {
+		return sprout::bytes_iterator<Iterator, sprout::big_endian_traits<typename std::iterator_traits<Iterator>::value_type> >(it);
+	}
+	template<typename Iterator>
+	inline SPROUT_CONSTEXPR sprout::bytes_iterator<Iterator, sprout::little_endian_traits<typename std::iterator_traits<Iterator>::value_type> >
+	make_little_bytes_iterator(Iterator it) {
+		return sprout::bytes_iterator<Iterator, sprout::little_endian_traits<typename std::iterator_traits<Iterator>::value_type> >(it);
 	}
 
 	//

@@ -61,7 +61,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			copy_until(
 				InputIterator first, InputIterator last, Result const& result, Predicate pred,
-				void*
+				std::input_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::copy_until_impl(first, last, result, pred, sprout::size(result));

@@ -91,7 +91,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		equal(
 			InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryPredicate pred,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, bool> type;

@@ -90,7 +90,7 @@ namespace sprout {
 			transform(
 				InputIterator first, InputIterator last,
 				Result const& result, UnaryOperation op,
-				void*
+				std::input_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::transform_impl(first, last, result, op, sprout::size(result));
@@ -207,7 +207,7 @@ namespace sprout {
 			transform(
 				InputIterator1 first1, InputIterator1 last1, InputIterator2 first2,
 				Result const& result, BinaryOperation op,
-				void*
+				std::input_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::transform_impl(first1, last1, first2, result, op, sprout::size(result));

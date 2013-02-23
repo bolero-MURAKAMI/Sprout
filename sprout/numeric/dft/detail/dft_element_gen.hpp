@@ -75,7 +75,7 @@ namespace sprout {
 		dft_element_gen_impl(
 			InputIterator first, InputIterator last,
 			typename std::iterator_traits<InputIterator>::value_type::value_type arg,
-			void*
+			std::input_iterator_tag*
 			)
 		{
 			return sprout::detail::dft_element_gen_impl_1(first, last, arg);

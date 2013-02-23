@@ -52,17 +52,14 @@ namespace sprout {
 		difference_type index_;
 	public:
 		SPROUT_CONSTEXPR ptr_index_iterator()
-			: p_()
-			, index_()
+			: p_(), index_()
 		{}
 		ptr_index_iterator(ptr_index_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR ptr_index_iterator(pointer p)
-			: p_(p)
-			, index_(0)
+			: p_(p), index_(0)
 		{}
 		SPROUT_CONSTEXPR ptr_index_iterator(pointer p, difference_type index)
-			: p_(p)
-			, index_(index)
+			: p_(p), index_(index)
 		{}
 		operator ptr_index_iterator<const_pointer>() const {
 			return ptr_index_iterator<const_pointer>(p_, index_);
@@ -87,24 +84,6 @@ namespace sprout {
 		{
 			sprout::swap(p_, other.p_);
 			sprout::swap(index_, other.index_);
-		}
-		friend SPROUT_CONSTEXPR bool operator==(ptr_index_iterator const& lhs, ptr_index_iterator const& rhs) {
-			return lhs.index_ == rhs.index_;
-		}
-		friend SPROUT_CONSTEXPR bool operator!=(ptr_index_iterator const& lhs, ptr_index_iterator const& rhs) {
-			return !(lhs == rhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator<(ptr_index_iterator const& lhs, ptr_index_iterator const& rhs) {
-			return lhs.index_ < rhs.index_;
-		}
-		friend SPROUT_CONSTEXPR bool operator>(ptr_index_iterator const& lhs, ptr_index_iterator const& rhs) {
-			return rhs < lhs;
-		}
-		friend SPROUT_CONSTEXPR bool operator<=(ptr_index_iterator const& lhs, ptr_index_iterator const& rhs) {
-			return !(rhs < lhs);
-		}
-		friend SPROUT_CONSTEXPR bool operator>=(ptr_index_iterator const& lhs, ptr_index_iterator const& rhs) {
-			return !(lhs < rhs);
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
 			return p_[index_];
@@ -151,13 +130,72 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return p_[index_ + n];
 		}
-		friend SPROUT_CONSTEXPR difference_type operator-(ptr_index_iterator const& lhs, ptr_index_iterator const& rhs) {
-			return lhs.index_ - rhs.index_;
-		}
-		friend SPROUT_CONSTEXPR ptr_index_iterator operator+(difference_type n, ptr_index_iterator const& it) {
-			return it + n;
-		}
 	};
+
+	template<typename T1, typename T2, bool C>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_same<typename std::decay<T1>::type, typename std::decay<T2>::type>::value,
+		bool
+	>::type
+	operator==(sprout::ptr_index_iterator<T1, C> const& lhs, sprout::ptr_index_iterator<T2, C> const& rhs) {
+		return lhs.index() == rhs.index();
+	}
+	template<typename T1, typename T2, bool C>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_same<typename std::decay<T1>::type, typename std::decay<T2>::type>::value,
+		bool
+	>::type
+	operator!=(sprout::ptr_index_iterator<T1, C> const& lhs, sprout::ptr_index_iterator<T2, C> const& rhs) {
+		return !(lhs == rhs);
+	}
+	template<typename T1, typename T2, bool C>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_same<typename std::decay<T1>::type, typename std::decay<T2>::type>::value,
+		bool
+	>::type
+	operator<(sprout::ptr_index_iterator<T1, C> const& lhs, sprout::ptr_index_iterator<T2, C> const& rhs) {
+		return lhs.index() < rhs.index();
+	}
+	template<typename T1, typename T2, bool C>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_same<typename std::decay<T1>::type, typename std::decay<T2>::type>::value,
+		bool
+	>::type
+	operator>(sprout::ptr_index_iterator<T1, C> const& lhs, sprout::ptr_index_iterator<T2, C> const& rhs) {
+		return rhs < lhs;
+	}
+	template<typename T1, typename T2, bool C>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_same<typename std::decay<T1>::type, typename std::decay<T2>::type>::value,
+		bool
+	>::type
+	operator<=(sprout::ptr_index_iterator<T1, C> const& lhs, sprout::ptr_index_iterator<T2, C> const& rhs) {
+		return !(rhs < lhs);
+	}
+	template<typename T1, typename T2, bool C>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_same<typename std::decay<T1>::type, typename std::decay<T2>::type>::value,
+		bool
+	>::type
+	operator>=(sprout::ptr_index_iterator<T1, C> const& lhs, sprout::ptr_index_iterator<T2, C> const& rhs) {
+		return !(lhs < rhs);
+	}
+	template<typename T1, typename T2, bool C>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_same<typename std::decay<T1>::type, typename std::decay<T2>::type>::value,
+		decltype(
+			std::declval<typename std::iterator_traits<sprout::ptr_index_iterator<T1, C> >::difference_type>()
+				- std::declval<typename std::iterator_traits<sprout::ptr_index_iterator<T2, C> >::difference_type>()
+			)
+	>::type
+	operator-(sprout::ptr_index_iterator<T1, C> const& lhs, sprout::ptr_index_iterator<T2, C> const& rhs) {
+		return lhs.index() - rhs.index();
+	}
+	template<typename T, bool C>
+	inline SPROUT_CONSTEXPR sprout::ptr_index_iterator<T, C>
+	operator+(typename sprout::ptr_index_iterator<T, C>::difference_type n, sprout::ptr_index_iterator<T, C> const& it) {
+		return it + n;
+	}
 
 	//
 	// swap

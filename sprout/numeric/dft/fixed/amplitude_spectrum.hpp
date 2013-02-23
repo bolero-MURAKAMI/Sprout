@@ -88,7 +88,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			amplitude_spectrum(
 				ForwardIterator first, ForwardIterator last, Result const& result,
-				void*
+				std::forward_iterator_tag*
 				)
 			{
 				return sprout::fixed::detail::amplitude_spectrum_impl(first, last, result, sprout::size(result));
