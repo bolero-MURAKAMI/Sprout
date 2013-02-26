@@ -74,8 +74,8 @@ namespace sprout {
 		}
 		static SPROUT_CONSTEXPR int compare(char_type const* s1, char_type const* s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
-				sprout::as_iterator(s1), sprout::as_iterator(s1, n), char_type(),
-				sprout::as_iterator(s2), sprout::as_iterator(s2, n), char_type(),
+				sprout::ptr_index(s1), sprout::ptr_index(s1, n), char_type(),
+				sprout::ptr_index(s2), sprout::ptr_index(s2, n), char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
@@ -84,9 +84,9 @@ namespace sprout {
 		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
 			return find_impl(
-				sprout::as_iterator_base(
+				sprout::ptr_unindex(
 					sprout::find_if(
-						sprout::as_iterator(s), sprout::as_iterator(s, n),
+						sprout::ptr_index(s), sprout::ptr_index(s, n),
 						sprout::bind2nd(sprout::detail::char_traits_eq<char_traits>(), a)
 						)
 					),
@@ -121,7 +121,7 @@ namespace sprout {
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstIterator s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
-				sprout::as_iterator(s1), sprout::as_iterator(s1, n), char_type(),
+				sprout::ptr_index(s1), sprout::ptr_index(s1, n), char_type(),
 				s2, s2 + n, char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
@@ -130,7 +130,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR int compare(ConstIterator s1, char_type const* s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
 				s1, s1 + n, char_type(),
-				sprout::as_iterator(s2), sprout::as_iterator(s2, n), char_type(),
+				sprout::ptr_index(s2), sprout::ptr_index(s2, n), char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
@@ -148,7 +148,7 @@ namespace sprout {
 		}
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
-			return sprout::as_iterator_base(
+			return sprout::ptr_unindex(
 				sprout::find_if(
 					s, s + n,
 					sprout::bind2nd(sprout::detail::char_traits_eq<char_traits>(), a)
@@ -190,9 +190,9 @@ namespace sprout {
 			return sprout::strlen(s, n);
 		}
 		static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a) {
-			return sprout::as_iterator_base(
+			return sprout::ptr_unindex(
 				sprout::find_if(
-					sprout::as_iterator(s), sprout::as_iterator(s, n),
+					sprout::ptr_index(s), sprout::ptr_index(s, n),
 					sprout::bind2nd(sprout::detail::char_traits_eq<traits_type>(), a)
 					)
 				);

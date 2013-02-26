@@ -2,6 +2,7 @@
 #define SPROUT_CONTAINER_CONTAINER_HOLDER_HPP
 
 #include <utility>
+#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
@@ -81,6 +82,35 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR const_param_type get_internal() const {
 			return *container;
+		}
+		// element access:
+		reference operator[](size_type i) {
+			return *sprout::next(begin(), i);
+		}
+		SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
+			return *sprout::next(begin(), i);
+		}
+		reference at(size_type i) {
+			return i < size() ? (*this)[i]
+				: (throw std::out_of_range("container_holder<>: index out of range"), (*this)[i])
+				;
+		}
+		SPROUT_CONSTEXPR const_reference at(size_type i) const {
+			return i < size() ? (*this)[i]
+				: (throw std::out_of_range("container_holder<>: index out of range"), (*this)[i])
+				;
+		}
+		reference front() {
+			return *begin();
+		}
+		SPROUT_CONSTEXPR const_reference front() const {
+			return *begin();
+		}
+		reference back() {
+			return *sprout::next(begin(), size() - 1);
+		}
+		SPROUT_CONSTEXPR const_reference back() const {
+			return *sprout::next(begin(), size() - 1);
 		}
 	};
 

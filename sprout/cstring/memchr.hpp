@@ -30,9 +30,9 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR void const*
 	memchr(void const* s, int c, std::size_t n) {
 		return sprout::detail::memchr_impl(
-			sprout::as_iterator_base(
+			sprout::ptr_unindex(
 				sprout::find(
-					sprout::as_iterator(static_cast<unsigned char const*>(s)), sprout::as_iterator(static_cast<unsigned char const*>(s), n),
+					sprout::ptr_index(static_cast<unsigned char const*>(s)), sprout::ptr_index(static_cast<unsigned char const*>(s), n),
 					static_cast<unsigned char>(c)
 					)
 				),
@@ -43,9 +43,9 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR void*
 	memchr(void* s, int c, std::size_t n) {
 		return sprout::detail::memchr_impl(
-			sprout::as_iterator_base(
+			sprout::ptr_unindex(
 				sprout::find(
-					sprout::as_iterator(static_cast<unsigned char*>(s)), sprout::as_iterator(static_cast<unsigned char*>(s), n),
+					sprout::ptr_index(static_cast<unsigned char*>(s)), sprout::ptr_index(static_cast<unsigned char*>(s), n),
 					static_cast<unsigned char>(c)
 					)
 				),

@@ -16,8 +16,8 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR int
 	wmemcmp(wchar_t const* s1, wchar_t const* s2, std::size_t n) {
 		return sprout::tristate_lexicographical_compare(
-			sprout::as_iterator(s1), sprout::as_iterator(s1, n),
-			sprout::as_iterator(s2), sprout::as_iterator(s2, n)
+			sprout::ptr_index(s1), sprout::ptr_index(s1, n),
+			sprout::ptr_index(s2), sprout::ptr_index(s2, n)
 			);
 	}
 }	// namespace sprout

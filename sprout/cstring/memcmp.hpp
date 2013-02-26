@@ -15,8 +15,8 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR int
 	memcmp(void const* s1, void const* s2, std::size_t n) {
 		return sprout::tristate_lexicographical_compare(
-			sprout::as_iterator(static_cast<unsigned char const*>(s1)), sprout::as_iterator(static_cast<unsigned char const*>(s1), n),
-			sprout::as_iterator(static_cast<unsigned char const*>(s2)), sprout::as_iterator(static_cast<unsigned char const*>(s2), n)
+			sprout::ptr_index(static_cast<unsigned char const*>(s1)), sprout::ptr_index(static_cast<unsigned char const*>(s1), n),
+			sprout::ptr_index(static_cast<unsigned char const*>(s2)), sprout::ptr_index(static_cast<unsigned char const*>(s2), n)
 			);
 	}
 }	// namespace sprout

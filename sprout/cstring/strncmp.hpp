@@ -17,8 +17,8 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR int
 	strncmp(char const* s1, char const* s2, std::size_t n) {
 		return sprout::tristate_lexicographical_compare(
-			sprout::as_iterator(s1), sprout::as_iterator(s1, n), '\0',
-			sprout::as_iterator(s2), sprout::as_iterator(s2, n), '\0'
+			sprout::ptr_index(s1), sprout::ptr_index(s1, n), '\0',
+			sprout::ptr_index(s2), sprout::ptr_index(s2, n), '\0'
 			);
 	}
 
@@ -30,8 +30,8 @@ namespace sprout {
 	strncmp(Elem* s1, Elem* s2, std::size_t n) {
 		typedef typename std::decay<Elem>::type type;
 		return sprout::tristate_lexicographical_compare(
-			sprout::as_iterator(s1), sprout::as_iterator(s1, n), type(),
-			sprout::as_iterator(s2), sprout::as_iterator(s2, n), type()
+			sprout::ptr_index(s1), sprout::ptr_index(s1, n), type(),
+			sprout::ptr_index(s2), sprout::ptr_index(s2, n), type()
 			);
 	}
 }	// namespace sprout

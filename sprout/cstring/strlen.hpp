@@ -70,8 +70,8 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR std::size_t
 	strlen(char const* s, std::size_t n) {
 		return sprout::distance(
-			sprout::as_iterator(s),
-			sprout::find(sprout::as_iterator(s), sprout::as_iterator(s, n), '\0')
+			sprout::ptr_index(s),
+			sprout::find(sprout::ptr_index(s), sprout::ptr_index(s, n), '\0')
 			);
 	}
 
@@ -91,8 +91,8 @@ namespace sprout {
 	strlen(Elem* s, std::size_t n) {
 		typedef typename std::decay<Elem>::type type;
 		return sprout::distance(
-			sprout::as_iterator(s),
-			sprout::find(sprout::as_iterator(s), sprout::as_iterator(s, n), type())
+			sprout::ptr_index(s),
+			sprout::find(sprout::ptr_index(s), sprout::ptr_index(s, n), type())
 			);
 	}
 }	// namespace sprout

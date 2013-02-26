@@ -31,9 +31,9 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR wchar_t const*
 	wmemchr(wchar_t const* s, wchar_t c, size_t n) {
 		return sprout::detail::wmemchr_impl(
-			sprout::as_iterator_base(
+			sprout::ptr_unindex(
 				sprout::find(
-					sprout::as_iterator(s), sprout::as_iterator(s, n),
+					sprout::ptr_index(s), sprout::ptr_index(s, n),
 					c
 					)
 				),
@@ -44,9 +44,9 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR wchar_t*
 	wmemchr(wchar_t* s, wchar_t c, size_t n) {
 		return sprout::detail::wmemchr_impl(
-			sprout::as_iterator_base(
+			sprout::ptr_unindex(
 				sprout::find(
-					sprout::as_iterator(s), sprout::as_iterator(s, n),
+					sprout::ptr_index(s), sprout::ptr_index(s, n),
 					c
 					)
 				),

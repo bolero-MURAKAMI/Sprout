@@ -284,14 +284,12 @@ namespace sprout {
 			return *sprout::next(sprout::begin(get_array()), to_first_ + i);
 		}
 		reference at(size_type i) {
-			return i < size()
-				? *sprout::next(sprout::begin(get_array()), to_first_ + i)
+			return i < size() ? *sprout::next(sprout::begin(get_array()), to_first_ + i)
 				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), to_first_ + i))
 				;
 		}
 		SPROUT_CONSTEXPR const_reference at(size_type i) const {
-			return i < size()
-				? *sprout::next(sprout::begin(get_array()), to_first_ + i)
+			return i < size() ? *sprout::next(sprout::begin(get_array()), to_first_ + i)
 				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), to_first_ + i))
 				;
 		}
@@ -358,6 +356,12 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR difference_type to_last() const {
 			return to_last_;
+		}
+		SPROUT_CONSTEXPR difference_type from_begin() const {
+			return to_first_;
+		}
+		SPROUT_CONSTEXPR difference_type from_end() const {
+			return to_last_ - sprout::size(get_array());
 		}
 	};
 	template<typename Container>

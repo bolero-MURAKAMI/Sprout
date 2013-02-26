@@ -223,41 +223,41 @@ namespace sprout {
 	}
 
 	//
-	// as_iterator
+	// ptr_index
 	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::ptr_index_iterator<T>
-	as_iterator(T* p) {
+	ptr_index(T* p) {
 		return sprout::make_ptr_index_iterator(p);
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::ptr_index_iterator<T>
-	as_iterator(T* p, typename std::iterator_traits<T*>::difference_type n) {
+	ptr_index(T* p, typename std::iterator_traits<T*>::difference_type n) {
 		return sprout::make_ptr_index_iterator(p, n);
 	}
 
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR Iterator
-	as_iterator(Iterator const& it) {
+	ptr_index(Iterator const& it) {
 		return it;
 	}
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR Iterator
-	as_iterator(Iterator const& it, typename std::iterator_traits<Iterator>::difference_type n) {
+	ptr_index(Iterator const& it, typename std::iterator_traits<Iterator>::difference_type n) {
 		return sprout::next(it, n);
 	}
 
 	//
-	// as_iterator_base
+	// ptr_unindex
 	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR typename sprout::ptr_index_iterator<T>::pointer
-	as_iterator_base(sprout::ptr_index_iterator<T> const& it) {
+	ptr_unindex(sprout::ptr_index_iterator<T> const& it) {
 		return it.ptr();
 	}
 	template<typename Iterator>
 	inline SPROUT_CONSTEXPR Iterator
-	as_iterator_base(Iterator const& it) {
+	ptr_unindex(Iterator const& it) {
 		return it;
 	}
 
