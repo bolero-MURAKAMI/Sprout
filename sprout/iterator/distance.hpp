@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
-#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/iterator/type_traits/category.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/adl/not_found.hpp>
 

@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/iterator/type_traits/category.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/functional/plus.hpp>
 #include <sprout/functional/multiplies.hpp>

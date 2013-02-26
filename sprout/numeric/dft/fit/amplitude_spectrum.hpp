@@ -10,7 +10,7 @@
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 #include <sprout/pit/pit.hpp>
-#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/iterator/type_traits/category.hpp>
 
 namespace sprout {
 	namespace fit {

@@ -98,8 +98,8 @@ namespace sprout {
 			}
 		protected:
 			holder_type array_;
-			impl_difference_type first_;
-			impl_difference_type last_;
+			impl_difference_type to_first_;
+			impl_difference_type to_last_;
 		public:
 			sub_array_impl() = default;
 		protected:
@@ -113,8 +113,8 @@ namespace sprout {
 				typename std::enable_if<std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_{to_holder<Container>(arr)[Indexes]...}
-				, first_(sprout::distance(sprout::cbegin(arr), first))
-				, last_(sprout::distance(sprout::cbegin(arr), last))
+				, to_first_(sprout::distance(sprout::cbegin(arr), first))
+				, to_last_(sprout::distance(sprout::cbegin(arr), last))
 			{}
 			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
@@ -126,34 +126,34 @@ namespace sprout {
 				typename std::enable_if<!std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_(to_holder<Container>(arr))
-				, first_(sprout::distance(sprout::cbegin(arr), first))
-				, last_(sprout::distance(sprout::cbegin(arr), last))
+				, to_first_(sprout::distance(sprout::cbegin(arr), first))
+				, to_last_(sprout::distance(sprout::cbegin(arr), last))
 			{}
 			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
 				ContainerTag,
 				param_type arr,
 				sprout::index_tuple<Indexes...>,
-				impl_difference_type first,
-				impl_difference_type last,
+				impl_difference_type to_first,
+				impl_difference_type to_last,
 				typename std::enable_if<std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_{to_holder<Container>(arr)[Indexes]...}
-				, first_(first)
-				, last_(last)
+				, to_first_(to_first)
+				, to_last_(to_last)
 			{}
 			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
 				ContainerTag,
 				param_type arr,
 				sprout::index_tuple<Indexes...>,
-				impl_difference_type first,
-				impl_difference_type last,
+				impl_difference_type to_first,
+				impl_difference_type to_last,
 				typename std::enable_if<!std::is_same<ContainerTag, sprout::detail::is_non_reference_array_tag>::value>::type* = 0
 				)
 				: array_(to_holder<Container>(arr))
-				, first_(first)
-				, last_(last)
+				, to_first_(to_first)
+				, to_last_(to_last)
 			{}
 		};
 	}	// namespace detail
@@ -194,8 +194,8 @@ namespace sprout {
 		typedef typename impl_type::array_tag array_tag;
 	private:
 		using impl_type::array_;
-		using impl_type::first_;
-		using impl_type::last_;
+		using impl_type::to_first_;
+		using impl_type::to_last_;
 	public:
 		// construct/copy/destroy:
 		sub_array() = default;
@@ -208,13 +208,13 @@ namespace sprout {
 				last
 				)
 		{}
-		SPROUT_CONSTEXPR sub_array(param_type arr, difference_type first, difference_type last)
+		SPROUT_CONSTEXPR sub_array(param_type arr, difference_type to_first, difference_type to_last)
 			: impl_type(
 				array_tag(),
 				arr,
 				sprout::index_range<0, enumerable_size>::make(),
-				first,
-				last
+				to_first,
+				to_last
 				)
 		{}
 		SPROUT_CONSTEXPR sub_array(sub_array const& other, const_iterator first, const_iterator last)
@@ -226,13 +226,13 @@ namespace sprout {
 				sprout::distance(sprout::begin(other.get_array()), last)
 				)
 		{}
-		SPROUT_CONSTEXPR sub_array(sub_array const& other, difference_type first, difference_type last)
+		SPROUT_CONSTEXPR sub_array(sub_array const& other, difference_type to_first, difference_type to_last)
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
 				sprout::index_range<0, enumerable_size>::make(),
-				first + other.first_,
-				last + other.first_
+				other.to_first_ + to_first,
+				other.to_first_ + to_last
 				)
 		{}
 
@@ -244,89 +244,89 @@ namespace sprout {
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(other.array_, array_)))
 		{
 			sprout::swap(other.array_, array_);
-			sprout::swap(other.first_, first_);
-			sprout::swap(other.last_, last_);
+			sprout::swap(other.to_first_, to_first_);
+			sprout::swap(other.to_last_, to_last_);
 		}
 		// iterators:
 		iterator begin() {
-			return sprout::next(sprout::begin(get_array()), first_);
+			return sprout::next(sprout::begin(get_array()), to_first_);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
-			return sprout::next(sprout::begin(get_array()), first_);
+			return sprout::next(sprout::begin(get_array()), to_first_);
 		}
 		iterator end() {
-			return sprout::next(sprout::begin(get_array()), last_);
+			return sprout::next(sprout::begin(get_array()), to_last_);
 		}
 		SPROUT_CONSTEXPR const_iterator end() const {
-			return sprout::next(sprout::begin(get_array()), last_);
+			return sprout::next(sprout::begin(get_array()), to_last_);
 		}
 		SPROUT_CONSTEXPR const_iterator cbegin() const {
-			return sprout::next(sprout::begin(get_array()), first_);
+			return sprout::next(sprout::begin(get_array()), to_first_);
 		}
 		SPROUT_CONSTEXPR const_iterator cend() const {
-			return sprout::next(sprout::begin(get_array()), last_);
+			return sprout::next(sprout::begin(get_array()), to_last_);
 		}
 		// capacity:
 		SPROUT_CONSTEXPR size_type size() const {
-			return last_ - first_;
+			return to_last_ - to_first_;
 		}
 		SPROUT_CONSTEXPR size_type max_size() const {
 			return size();
 		}
 		SPROUT_CONSTEXPR bool empty() const {
-			return first_ == last_;
+			return to_first_ == to_last_;
 		}
 		// element access:
 		reference operator[](size_type i) {
-			return *sprout::next(sprout::begin(get_array()), first_ + i);
+			return *sprout::next(sprout::begin(get_array()), to_first_ + i);
 		}
 		SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
-			return *sprout::next(sprout::begin(get_array()), first_ + i);
+			return *sprout::next(sprout::begin(get_array()), to_first_ + i);
 		}
 		reference at(size_type i) {
 			return i < size()
-				? *sprout::next(sprout::begin(get_array()), first_ + i)
-				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), first_ + i))
+				? *sprout::next(sprout::begin(get_array()), to_first_ + i)
+				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), to_first_ + i))
 				;
 		}
 		SPROUT_CONSTEXPR const_reference at(size_type i) const {
 			return i < size()
-				? *sprout::next(sprout::begin(get_array()), first_ + i)
-				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), first_ + i))
+				? *sprout::next(sprout::begin(get_array()), to_first_ + i)
+				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), to_first_ + i))
 				;
 		}
 		reference front() {
-			return *sprout::next(sprout::begin(get_array()), first_);
+			return *sprout::next(sprout::begin(get_array()), to_first_);
 		}
 		SPROUT_CONSTEXPR const_reference front() const {
-			return *sprout::next(sprout::begin(get_array()), first_);
+			return *sprout::next(sprout::begin(get_array()), to_first_);
 		}
 		reference back() {
-			return *sprout::next(sprout::begin(get_array()), last_ - 1);
+			return *sprout::next(sprout::begin(get_array()), to_last_ - 1);
 		}
 		SPROUT_CONSTEXPR const_reference back() const {
-			return *sprout::next(sprout::begin(get_array()), last_ - 1);
+			return *sprout::next(sprout::begin(get_array()), to_last_ - 1);
 		}
 
 		pointer data() {
-			return get_array().data() + first_;
+			return get_array().data() + to_first_;
 		}
 		SPROUT_CONSTEXPR const_pointer data() const {
-			return get_array().data() + first_;
+			return get_array().data() + to_first_;
 		}
 		// others:
 		template<typename Container2>
 		sub_array& operator=(sub_array<Container2> const& rhs) {
 			array_ = rhs.array_;
-			first_ = rhs.first_;
-			last_ = rhs.last_;
+			to_first_ = rhs.to_first_;
+			to_last_ = rhs.to_last_;
 			return *this;
 		}
 		template<typename Container2>
 		sub_array& operator=(sub_array<Container2>&& rhs) {
 			array_ = std::move(rhs.array_);
-			first_ = std::move(rhs.first_);
-			last_ = std::move(rhs.last_);
+			to_first_ = std::move(rhs.to_first_);
+			to_last_ = std::move(rhs.to_last_);
 			return *this;
 		}
 		pointer c_array() {
@@ -352,6 +352,12 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR const_param_type get_array() const {
 			return impl_type::template to_const_param<Container>(array_);
+		}
+		SPROUT_CONSTEXPR difference_type to_first() const {
+			return to_first_;
+		}
+		SPROUT_CONSTEXPR difference_type to_last() const {
+			return to_last_;
 		}
 	};
 	template<typename Container>

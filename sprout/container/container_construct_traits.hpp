@@ -11,7 +11,7 @@
 #include <sprout/container/internal_begin_offset_backward.hpp>
 #include <sprout/container/internal_end_offset_backward.hpp>
 #include <sprout/iterator/remake_iterator.hpp>
-#include <sprout/iterator/type_traits/is_iterator.hpp>
+#include <sprout/iterator/type_traits/category.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/tpp/algorithm/all_of.hpp>
 

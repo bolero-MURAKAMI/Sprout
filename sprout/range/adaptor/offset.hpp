@@ -88,18 +88,18 @@ namespace sprout {
 			return sprout::adaptors::detail::adapted_range_default<
 			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 		>(
-				sprout::next(
-					sprout::begin(sprout::lvalue_forward<Range>(lhs)),
-					NS_SSCRISK_CEL_OR_SPROUT::min<difference_type>(rhs.from_begin(), sprout::size(sprout::lvalue_forward<Range>(lhs)))
-					),
-				sprout::next(
-					sprout::end(sprout::lvalue_forward<Range>(lhs)),
-					NS_SSCRISK_CEL_OR_SPROUT::max<difference_type>(
-						rhs.from_end(),
-						NS_SSCRISK_CEL_OR_SPROUT::min<difference_type>(rhs.from_begin() - sprout::size(sprout::lvalue_forward<Range>(lhs)), 0)
-						)
+			sprout::next(
+				sprout::begin(sprout::lvalue_forward<Range>(lhs)),
+				NS_SSCRISK_CEL_OR_SPROUT::min<difference_type>(rhs.from_begin(), sprout::size(sprout::lvalue_forward<Range>(lhs)))
+				),
+			sprout::next(
+				sprout::end(sprout::lvalue_forward<Range>(lhs)),
+				NS_SSCRISK_CEL_OR_SPROUT::max<difference_type>(
+					rhs.from_end(),
+					NS_SSCRISK_CEL_OR_SPROUT::min<difference_type>(rhs.from_begin() - sprout::size(sprout::lvalue_forward<Range>(lhs)), 0)
 					)
-				);
+				)
+			);
 		}
 		template<typename Range, typename Difference>
 		inline SPROUT_CONSTEXPR sprout::adaptors::detail::adapted_range_default<
