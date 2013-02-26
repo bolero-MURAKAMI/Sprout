@@ -4,11 +4,11 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/algorithm/count_if.hpp>
 #include <sprout/algorithm/fixed/partition.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
-#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fit {
@@ -23,7 +23,7 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::partition(cont, pred)),
 					offset,
-					offset + sprout::size(cont) - NS_SSCRISK_CEL_OR_SPROUT::count_if(sprout::begin(cont), sprout::end(cont), pred)
+					offset + sprout::size(cont) - sprout::count_if(sprout::begin(cont), sprout::end(cont), pred)
 					);
 			}
 		}	// namespace detail

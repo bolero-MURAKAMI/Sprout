@@ -8,7 +8,6 @@
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
-#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace fit {
@@ -23,7 +22,7 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::copy_n(first, n, result)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT::min(n, sprout::size(result))
+					offset + sprout::fit_size(result, n)
 					);
 			}
 		}	// namespace detail

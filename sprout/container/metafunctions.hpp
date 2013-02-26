@@ -16,6 +16,8 @@
 #include <sprout/container/rebind_size.hpp>
 #include <sprout/container/weak_rebind_size.hpp>
 #include <sprout/container/internal.hpp>
+#include <sprout/container/deep_internal.hpp>
+#include <sprout/container/is_sub_container.hpp>
 #include <sprout/container/indexes.hpp>
 
 #endif	// #ifndef SPROUT_CONTAINER_METAFUNCTIONS_HPP

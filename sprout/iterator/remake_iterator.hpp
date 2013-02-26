@@ -71,19 +71,19 @@ namespace sprout {
 		remake_iterator() = default;
 		SPROUT_CONSTEXPR remake_iterator(remake_iterator const& other)
 			: current(other.current), current2(other.current2)
-			, fst(other.fst) , lst(other.lst)
-			, begin_off(other.begin_off) , end_off(other.end_off)
+			, fst(other.fst), lst(other.lst)
+			, begin_off(other.begin_off), end_off(other.end_off)
 		{}
 		SPROUT_CONSTEXPR remake_iterator(iterator_type it, iterator2_type it2, iterator2_type fst, iterator2_type lst, difference_type begin_off, difference_type end_off)
 			: current(it), current2(it2)
 			, fst(fst), lst(lst)
-			, begin_off(begin_off) , end_off(end_off)
+			, begin_off(begin_off), end_off(end_off)
 		{}
 		template<typename U, typename V>
 		SPROUT_CONSTEXPR remake_iterator(remake_iterator<U, V> const& it)
 			: current(it.base()), current2(it.base2())
 			, fst(it.first()), lst(it.last())
-			, begin_off(it.begin_offset()) , end_off(it.end_offset())
+			, begin_off(it.begin_offset()), end_off(it.end_offset())
 		{}
 		template<typename U, typename V>
 		remake_iterator& operator=(remake_iterator<U, V> const& it) {

@@ -56,6 +56,8 @@
 #include <sprout/algorithm/fit/copy_until.hpp>
 #include <sprout/algorithm/fit/clamp_range.hpp>
 #include <sprout/algorithm/fit/clamp_range_copy.hpp>
+#include <sprout/algorithm/fit/swap_element.hpp>
+#include <sprout/algorithm/fit/swap_element_copy.hpp>
 #include <sprout/algorithm/fit/random_swap.hpp>
 #include <sprout/algorithm/fit/random_swap_result.hpp>
 #include <sprout/algorithm/fit/bogo_sort.hpp>

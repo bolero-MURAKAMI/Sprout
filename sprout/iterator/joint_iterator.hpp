@@ -12,7 +12,6 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/limited.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
-#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//
@@ -265,8 +264,8 @@ namespace sprout {
 		sprout::joint_iterator<LIterator2, RIterator2> const& rhs
 		)
 	{
-		return lhs.is_in_left() && rhs.is_in_left() ? rhs.base() - lhs.base()
-			: !lhs.is_in_left() && !rhs.is_in_left() ? rhs.base2() - lhs.base2()
+		return lhs.is_in_left() && rhs.is_in_left() ? lhs.base() - rhs.base()
+			: !lhs.is_in_left() && !rhs.is_in_left() ? lhs.base2() - rhs.base2()
 			: lhs.is_in_left() ? sprout::limited::plus(lhs.left_end() - lhs.base(), rhs.base2() - rhs.right_begin())
 			: sprout::limited::plus(lhs.base2() - lhs.right_begin(), rhs.left_end() - rhs.base())
 			;

@@ -35,17 +35,17 @@ namespace sprout {
 			IntType den_;
 		protected:
 			SPROUT_CONSTEXPR rational_impl()
-				: num_(0) , den_(1)
+				: num_(0), den_(1)
 			{}
 			rational_impl(rational_impl const&) = default;
 			SPROUT_CONSTEXPR rational_impl(param_type n)
-				: num_(n) , den_(1)
+				: num_(n), den_(1)
 			{}
 			SPROUT_CONSTEXPR rational_impl(param_type n, param_type d)
-				: num_(n) , den_(d)
+				: num_(n), den_(d)
 			{}
 			SPROUT_CONSTEXPR rational_impl(param_type n, param_type d, param_type g)
-				: num_(n / g) , den_(d / g)
+				: num_(n / g), den_(d / g)
 			{}
 		};
 	}	// namespace detail

@@ -23,7 +23,7 @@ namespace sprout {
 				distort_holder() = default;
 				distort_holder(distort_holder const&) = default;
 				SPROUT_CONSTEXPR distort_holder(value_type const& gain, value_type const& level)
-					: gain_(gain) , level_(level)
+					: gain_(gain), level_(level)
 				{}
 				SPROUT_CONSTEXPR value_type const& gain() const {
 					return gain_;

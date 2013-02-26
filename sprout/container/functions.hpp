@@ -10,7 +10,9 @@
 #include <sprout/container/deep_copy.hpp>
 #include <sprout/container/make.hpp>
 #include <sprout/container/remake.hpp>
+#include <sprout/container/fit_size.hpp>
 #include <sprout/container/get_internal.hpp>
+#include <sprout/container/get_deep_internal.hpp>
 #include <sprout/container/internal_begin.hpp>
 #include <sprout/container/internal_end.hpp>
 #include <sprout/container/internal_size.hpp>

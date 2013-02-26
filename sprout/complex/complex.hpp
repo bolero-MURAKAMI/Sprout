@@ -27,12 +27,12 @@ namespace sprout {
 		T im_;
 	public:
 		SPROUT_CONSTEXPR complex(T const& re = T(), T const& im = T()) SPROUT_NOEXCEPT
-			: re_(re) , im_(im)
+			: re_(re), im_(im)
 		{}
 		SPROUT_CONSTEXPR complex(complex const&) = default;
 		template<typename X>
 		SPROUT_CONSTEXPR complex(complex<X> const& other) SPROUT_NOEXCEPT
-			: re_(other.real()) , im_(other.imag())
+			: re_(other.real()), im_(other.imag())
 		{}
 		SPROUT_CONSTEXPR T real() const SPROUT_NOEXCEPT {
 			return re_;

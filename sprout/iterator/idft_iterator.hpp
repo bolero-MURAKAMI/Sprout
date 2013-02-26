@@ -11,7 +11,6 @@
 #include <sprout/iterator/distance.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/numeric/dft/idft_element.hpp>
-#include <sprout/iterator/operation.hpp>
 
 namespace sprout {
 	//

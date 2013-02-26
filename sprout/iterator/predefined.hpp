@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/various.hpp>
 #include <sprout/iterator/adaptor.hpp>
+#include <sprout/iterator/inserter.hpp>
 #include <sprout/iterator/wave.hpp>
 #include <sprout/iterator/dft.hpp>
 

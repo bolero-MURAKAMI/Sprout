@@ -50,7 +50,7 @@ namespace sprout {
 		}
 		template<typename Container, typename Cont, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::is_fixed_container<Container>::value,
+			!sprout::is_fixed_container<Container>::value && sizeof...(Args) != 2,
 			typename sprout::container_construct_traits<Container>::copied_type
 		>::type
 		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {

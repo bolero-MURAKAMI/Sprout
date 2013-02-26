@@ -217,7 +217,7 @@ namespace sprout {
 				last
 				)
 		{}
-		SPROUT_CONSTEXPR sub_array(sub_array<Container> const& other, const_iterator first, const_iterator last)
+		SPROUT_CONSTEXPR sub_array(sub_array const& other, const_iterator first, const_iterator last)
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
@@ -226,7 +226,7 @@ namespace sprout {
 				sprout::distance(sprout::begin(other.get_array()), last)
 				)
 		{}
-		SPROUT_CONSTEXPR sub_array(sub_array<Container> const& other, difference_type first, difference_type last)
+		SPROUT_CONSTEXPR sub_array(sub_array const& other, difference_type first, difference_type last)
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
@@ -316,14 +316,14 @@ namespace sprout {
 		}
 		// others:
 		template<typename Container2>
-		sub_array<Container>& operator=(sub_array<Container2> const& rhs) {
+		sub_array& operator=(sub_array<Container2> const& rhs) {
 			array_ = rhs.array_;
 			first_ = rhs.first_;
 			last_ = rhs.last_;
 			return *this;
 		}
 		template<typename Container2>
-		sub_array<Container>& operator=(sub_array<Container2>&& rhs) {
+		sub_array& operator=(sub_array<Container2>&& rhs) {
 			array_ = std::move(rhs.array_);
 			first_ = std::move(rhs.first_);
 			last_ = std::move(rhs.last_);

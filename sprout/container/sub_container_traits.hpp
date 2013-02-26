@@ -18,7 +18,8 @@ namespace sprout {
 		};
 	public:
 		template<typename Cont>
-		static SPROUT_CONSTEXPR typename internal<Cont>::type get_internal(Cont&& cont) {
+		static SPROUT_CONSTEXPR typename internal<Cont>::type
+		get_internal(Cont&& cont) {
 			return sprout::forward<Cont>(cont);
 		}
 	};

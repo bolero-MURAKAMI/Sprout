@@ -166,7 +166,7 @@ namespace sprout {
 						*this
 						)
 					: sprout::random::random_result<Engine, uniform_smallint>(
-						sprout::random::detail::add<RangeType, result_type>()(offset , min_),
+						sprout::random::detail::add<RangeType, result_type>()(offset, min_),
 						rnd.engine(),
 						*this
 						)
