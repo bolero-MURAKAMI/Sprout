@@ -11,7 +11,9 @@
 #include <sprout/container/internal_begin_offset_backward.hpp>
 #include <sprout/container/internal_end_offset_backward.hpp>
 #include <sprout/iterator/remake_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/tpp/algorithm/all_of.hpp>
 
 namespace sprout {
 	//
@@ -50,7 +52,9 @@ namespace sprout {
 		}
 		template<typename Container, typename Cont, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::is_fixed_container<Container>::value && sizeof...(Args) != 2,
+			!sprout::is_fixed_container<Container>::value
+				&& !(sizeof...(Args) == 2 && sprout::tpp::all_of<sprout::is_input_iterator<typename std::remove_reference<Args>::type>...>::value)
+				,
 			typename sprout::container_construct_traits<Container>::copied_type
 		>::type
 		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
