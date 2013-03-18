@@ -6,7 +6,6 @@
 #include <limits>
 #include <ios>
 #include <istream>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
@@ -15,6 +14,7 @@
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/linear_congruential.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace random {
@@ -117,7 +117,7 @@ namespace sprout {
 						: sprout::math::less(brange, std::numeric_limits<std::uintmax_t>::max() / k)
 							? static_cast<BaseUnsigned>(static_cast<std::uintmax_t>(off) * k / (static_cast<std::uintmax_t>(brange) + 1))
 						//: static_cast<BaseUnsigned>(sprout::random::detail::muldiv(off, k, static_cast<std::uintmax_t>(brange) + 1)) // ???
-						: throw std::domain_error("shuffle_order_engine<>: Sorry, not implemented.")
+						: (SPROUT_ASSERT_MSG(0, "Sorry, not implemented."), sprout::random::random_result<shuffle_order_engine>())
 					);
 			}
 		public:

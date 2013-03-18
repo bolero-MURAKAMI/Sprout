@@ -4,11 +4,12 @@
 #include <cstdint>
 #include <limits>
 #include <ios>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/math/comparison.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace random {
@@ -37,23 +38,11 @@ namespace sprout {
 				return m - 1;
 			}
 		private:
-			template<typename T>
-			static SPROUT_CONSTEXPR typename std::enable_if<!(c == 0) && std::is_unsigned<T>::value, bool>::type
-			arg_check_nothrow(T const& x0) {
-				return x0 <= static_max();
-			}
-			template<typename T>
-			static SPROUT_CONSTEXPR typename std::enable_if<!(!(c == 0) && std::is_unsigned<T>::value), bool>::type
-			arg_check_nothrow(T const& x0) {
-				return x0 >= static_min() && x0 <= static_max();
-			}
-			static SPROUT_CONSTEXPR UIntType arg_check(UIntType const& x0) {
-				return arg_check_nothrow(x0) ? x0
-					: throw std::invalid_argument("linear_congruential_engine<>: invalid argument (x0 >= static_min() && x0 <= static_max())")
-					;
+			static SPROUT_CONSTEXPR UIntType init_seed_3(UIntType const& x0) {
+				return SPROUT_ASSERT(sprout::math::greater_equal(x0, static_min())), SPROUT_ASSERT(x0 <= static_max()), x0;
 			}
 			static SPROUT_CONSTEXPR UIntType init_seed_2(UIntType const& x0) {
-				return arg_check(increment == 0 && x0 == 0 ? 1 : x0);
+				return init_seed_3(increment == 0 && x0 == 0 ? 1 : x0);
 			}
 			static SPROUT_CONSTEXPR UIntType init_seed_1(UIntType const& x0) {
 				return init_seed_2(x0 <= 0 && x0 != 0 ? x0 + modulus : x0);
@@ -103,7 +92,7 @@ namespace sprout {
 			{
 				UIntType x;
 				if (lhs >> x) {
-					if(arg_check_nothrow(x)) {
+					if (sprout::math::greater_equal(x, static_min()) && x <= static_max()) {
 						rhs.x_ = x;
 					} else {
 						lhs.setstate(std::ios_base::failbit);

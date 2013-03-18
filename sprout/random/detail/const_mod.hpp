@@ -2,9 +2,9 @@
 #define SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
 
 #include <limits>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/assert.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
 #endif
@@ -17,10 +17,10 @@ namespace sprout {
 			private:
 				typedef typename std::make_unsigned<IntType>::type unsigned_type;
 			private:
-				SPROUT_STATIC_CONSTEXPR IntType suppress_warnings = m == 0;
-				SPROUT_STATIC_CONSTEXPR IntType modulus = m + suppress_warnings;
+				SPROUT_STATIC_CONSTEXPR IntType supress_warnings = m == 0;
+				SPROUT_STATIC_CONSTEXPR IntType modulus = m + supress_warnings;
 			private:
-				static_assert(suppress_warnings == 0, "suppress_warnings == 0");
+				static_assert(supress_warnings == 0, "supress_warnings == 0");
 				static_assert(modulus == m, "modulus == m");
 			private:
 				static SPROUT_CONSTEXPR IntType pow_1(IntType a, std::uintmax_t exponent, IntType result = 1) {
@@ -30,12 +30,11 @@ namespace sprout {
 						;
 				}
 				static SPROUT_CONSTEXPR IntType mult_small(IntType a, IntType x) {
-					return a * x % (m + suppress_warnings);
+					return a * x % (m + supress_warnings);
 				}
 				static SPROUT_CONSTEXPR IntType mult_schrage_1(IntType a, IntType value, IntType q, IntType r) {
-					return r < q
-						? sub(a * (value % q), r * (value / q))
-						: throw std::domain_error("const_mod<>: domain error (r < q)")
+					return SPROUT_ASSERT(r < q),
+						sub(a * (value % q), r * (value / q))
 						;
 				}
 				static SPROUT_CONSTEXPR IntType mult_schrage(IntType a, IntType value) {
@@ -45,7 +44,7 @@ namespace sprout {
 					return std::uintmax_t(modulus) <= std::numeric_limits<std::uintmax_t>::max() / modulus
 						? static_cast<IntType>(std::uintmax_t(a) * b % modulus)
 						//: static_cast<IntType>(sprout::random::detail::mulmod(a, b, modulus)) // ???
-						: throw std::domain_error("const_mod<>: Sorry, not implemented.")
+						: (SPROUT_ASSERT_MSG(0, "Sorry, not implemented."), IntType())
 						;
 				}
 				static SPROUT_CONSTEXPR IntType sub(IntType a, IntType b) {
@@ -81,9 +80,8 @@ namespace sprout {
 				}
 				template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 				static SPROUT_CONSTEXPR IntType invert_euclidian(IntType c) {
-					return c > 0
-						? c == 1 ? 1 : invert_euclidian_1<D + 1>(c, 0, 1, c, m)
-						: throw std::domain_error("const_mod<>: domain error (c > 0)")
+					return SPROUT_ASSERT(c > 0),
+						c == 1 ? 1 : invert_euclidian_1<D + 1>(c, 0, 1, c, m)
 						;
 				}
 				template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
@@ -108,12 +106,11 @@ namespace sprout {
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
-					return std::numeric_limits<IntType>::max() % n != n - 1
-						? invert_euclidian0_2<D + 1>(
+					return SPROUT_ASSERT_MSG(std::numeric_limits<IntType>::max() % n != n - 1, "c must be relatively prime to m."),
+						invert_euclidian0_2<D + 1>(
 							c, l1 + (std::numeric_limits<IntType>::max() / n) * l2, l2, n,
 							std::numeric_limits<IntType>::max() - (std::numeric_limits<IntType>::max() / n) * n + 1
 							)
-						: throw std::domain_error("const_mod<>: domain error (numeric_limits<IntType>::max() % n != n - 1)")
 						;
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
@@ -122,9 +119,8 @@ namespace sprout {
 				}
 				template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 				static SPROUT_CONSTEXPR IntType invert_euclidian0(IntType c) {
-					return c > 0
-						? c == 1 ? 1 : invert_euclidian0_1<D + 1>(c, 0, 1, c, m)
-						: throw std::domain_error("const_mod<>: domain error (c > 0)")
+					return SPROUT_ASSERT(c > 0),
+						c == 1 ? 1 : invert_euclidian0_1<D + 1>(c, 0, 1, c, m)
 						;
 				}
 				template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
@@ -142,9 +138,8 @@ namespace sprout {
 					return invert_euclidian_2(c, l1 + (p / n) * l2, l2, n, p - (p / n) * n);
 				}
 				static SPROUT_CONSTEXPR IntType invert_euclidian(IntType c) {
-					return c > 0
-						? c == 1 ? 1 : invert_euclidian_1(c, 0, 1, c, m)
-						: throw std::domain_error("const_mod<>: domain error (c > 0)")
+					return SPROUT_ASSERT(c > 0),
+						c == 1 ? 1 : invert_euclidian_1(c, 0, 1, c, m)
 						;
 				}
 				static SPROUT_CONSTEXPR IntType invert_euclidian0_3(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
@@ -154,18 +149,16 @@ namespace sprout {
 					return p == 0 ? l2 : invert_euclidian0_3(c, l1, l2 + (n / p) * l1, n - (n / p) * p, p);
 				}
 				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
-					return std::numeric_limits<IntType>::max() % n != n - 1
-						? invert_euclidian0_2(
+					return SPROUT_ASSERT_MSG(std::numeric_limits<IntType>::max() % n != n - 1, "c must be relatively prime to m."),
+						invert_euclidian0_2(
 							c, l1 + (std::numeric_limits<IntType>::max() / n) * l2, l2, n,
 							std::numeric_limits<IntType>::max() - (std::numeric_limits<IntType>::max() / n) * n + 1
 							)
-						: throw std::domain_error("const_mod<>: domain error (numeric_limits<IntType>::max() % n != n - 1)")
 						;
 				}
 				static SPROUT_CONSTEXPR IntType invert_euclidian0(IntType c) {
-					return c > 0
-						? c == 1 ? 1 : invert_euclidian0_1(c, 0, 1, c, m)
-						: throw std::domain_error("const_mod<>: domain error (c > 0)")
+					return SPROUT_ASSERT(c > 0),
+						c == 1 ? 1 : invert_euclidian0_1(c, 0, 1, c, m)
 						;
 				}
 #endif
@@ -173,7 +166,7 @@ namespace sprout {
 				static SPROUT_CONSTEXPR IntType apply(IntType x) {
 					return ((unsigned_m() - 1) & unsigned_m()) == 0
 						? (unsigned_type(x)) & (unsigned_m() - 1)
-						: x % (m + suppress_warnings)
+						: x % (m + supress_warnings)
 						;
 				}
 				static SPROUT_CONSTEXPR IntType add(IntType x, IntType c) {
@@ -195,7 +188,7 @@ namespace sprout {
 				static SPROUT_CONSTEXPR IntType mult_add(IntType a, IntType x, IntType c) {
 					return ((unsigned_m() - 1) & unsigned_m()) == 0 ? (unsigned_type(a) * unsigned_type(x) + unsigned_type(c)) & (unsigned_m() - 1)
 						: a == 0 ? c
-						: m <= (std::numeric_limits<IntType>::max() - c) / a ? (a * x + c) % (m + suppress_warnings)
+						: m <= (std::numeric_limits<IntType>::max() - c) / a ? (a * x + c) % (m + supress_warnings)
 						: add(mult(a, x), c)
 						;
 				}

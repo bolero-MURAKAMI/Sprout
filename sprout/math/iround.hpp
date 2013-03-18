@@ -21,7 +21,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR To
 			iround_impl(FloatType x) {
 				return std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
-						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::domain_error("iround: large float rounding."), static_cast<To>(x))
+						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("iround: large float rounding."), static_cast<To>(x))
 					: static_cast<To>(x)
 					;
 			}
@@ -58,7 +58,7 @@ namespace sprout {
 			iround(FloatType x) {
 				return x == 0 ? To(0)
 					: std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
-						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::domain_error("iround: large float irounding."), x)
+						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("iround: large float irounding."), x)
 					: x < 0 ? sprout::math::detail::iround_impl_nagative(x, static_cast<To>(x))
 					: sprout::math::detail::iround_impl_positive(x, static_cast<To>(x))
 					;

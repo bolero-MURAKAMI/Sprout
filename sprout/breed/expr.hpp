@@ -9,6 +9,7 @@
 #include <sprout/breed/breed_fwd.hpp>
 #include <sprout/breed/args.hpp>
 #include <sprout/breed/traits.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace breed {
@@ -34,7 +35,7 @@ namespace sprout {
 			}
 			template<typename T, typename Expr, typename Arg, std::size_t N>
 			SPROUT_CONSTEXPR Expr make_terminal(T const (&t)[N], Expr const*, sprout::breed::term<Arg[N]> const*) {
-				return throw "Sorry, not implemented.", Expr();
+				return SPROUT_ASSERT_MSG(0, "Sorry, not implemented."), Expr();
 			}
 
 			template<typename T, typename U>

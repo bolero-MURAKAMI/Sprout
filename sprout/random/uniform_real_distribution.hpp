@@ -3,11 +3,11 @@
 
 #include <ios>
 #include <istream>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace random {
@@ -47,16 +47,13 @@ namespace sprout {
 				T divisor
 				)
 			{
-				return divisor > 0
-					? numerator >= 0 && numerator <= divisor
-						? sprout::random::detail::generate_uniform_real_false_3(
-							eng,
-							min_value,
-							max_value,
-							numerator / divisor * (max_value - min_value) + min_value
-							)
-						: throw std::domain_error("generate_uniform_real(): domain error (numerator >= 0 && numerator <= divisor)")
-					: throw std::domain_error("generate_uniform_real(): domain error (divisor > 0)")
+				return SPROUT_ASSERT(divisor > 0), SPROUT_ASSERT(numerator >= 0 && numerator <= divisor),
+					sprout::random::detail::generate_uniform_real_false_3(
+						eng,
+						min_value,
+						max_value,
+						numerator / divisor * (max_value - min_value) + min_value
+						)
 					;
 			}
 			template<typename Engine, typename T>
@@ -116,16 +113,13 @@ namespace sprout {
 				T divisor
 				)
 			{
-				return divisor > 0
-					? numerator >= 0 && numerator <= divisor
-						? sprout::random::detail::generate_uniform_real_true_3(
-							eng,
-							min_value,
-							max_value,
-							numerator / divisor * (max_value - min_value) + min_value
-							)
-						: throw std::domain_error("generate_uniform_real(): domain error (numerator >= 0 && numerator <= divisor)")
-					: throw std::domain_error("generate_uniform_real(): domain error (divisor > 0)")
+				return SPROUT_ASSERT(divisor > 0), SPROUT_ASSERT(numerator >= 0 && numerator <= divisor),
+					sprout::random::detail::generate_uniform_real_true_3(
+						eng,
+						min_value,
+						max_value,
+						numerator / divisor * (max_value - min_value) + min_value
+						)
 					;
 			}
 			template<typename Engine, typename T>
@@ -182,16 +176,6 @@ namespace sprout {
 		public:
 			typedef RealType input_type;
 			typedef RealType result_type;
-		private:
-			static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType min_arg, RealType max_arg) {
-				return min_arg <= max_arg;
-			}
-			static SPROUT_CONSTEXPR RealType arg_check(RealType min_arg, RealType max_arg) {
-				return arg_check_nothrow(min_arg, max_arg)
-					? min_arg
-					: throw std::invalid_argument("uniform_real_distribution<>: invalid argument (min_arg <= max_arg)")
-					;
-			}
 		public:
 			//
 			// param_type
@@ -199,10 +183,6 @@ namespace sprout {
 			class param_type {
 			public:
 				typedef uniform_real_distribution distribution_type;
-			private:
-				static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType min_arg, RealType max_arg) {
-					return distribution_type::arg_check_nothrow(min_arg, max_arg);
-				}
 			private:
 				RealType min_;
 				RealType max_;
@@ -212,7 +192,7 @@ namespace sprout {
 					, max_(RealType(1.0))
 				{}
 				explicit SPROUT_CONSTEXPR param_type(RealType min_arg, RealType max_arg = RealType(1.0))
-					: min_(arg_check(min_arg, max_arg))
+					: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 					, max_(max_arg)
 				{}
 				SPROUT_CONSTEXPR RealType a() const SPROUT_NOEXCEPT {
@@ -230,7 +210,7 @@ namespace sprout {
 					RealType min;
 					RealType max;
 					if (lhs >> min >> std::ws >> max) {
-						if (arg_check_nothrow(min, max)) {
+						if (min <= max) {
 							rhs.min_ = min;
 							rhs.max_ = max;
 						} else {
@@ -272,7 +252,7 @@ namespace sprout {
 				, max_(RealType(1.0))
 			{}
 			explicit SPROUT_CONSTEXPR uniform_real_distribution(RealType min_arg, RealType max_arg = RealType(1.0))
-				: min_(arg_check(min_arg, max_arg))
+				: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 				, max_(max_arg)
 			{}
 			explicit SPROUT_CONSTEXPR uniform_real_distribution(param_type const& parm)

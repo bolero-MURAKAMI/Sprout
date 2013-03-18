@@ -5,22 +5,23 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/ctype/ascii.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace detail {
 		template<typename Elem, typename IntType>
 		inline SPROUT_CONSTEXPR Elem
 		int_to_char(IntType val, int base) {
-			return val >= 0 && val < 10 ? static_cast<Elem>('0') + val
-				: val >= 10 && val < static_cast<IntType>(base) ? static_cast<Elem>('a') + (val - 10)
-				: throw std::invalid_argument("value out of bounds")
+			return SPROUT_ASSERT(2 <= base && base <= 36), SPROUT_ASSERT(IntType(0) <= val && val < static_cast<IntType>(base)),
+				val < 10 ? static_cast<Elem>('0') + val
+					: static_cast<Elem>('a') + (val - 10)
 				;
 		}
 		template<typename Elem, typename IntType>
 		inline SPROUT_CONSTEXPR Elem
 		int_to_char(IntType val) {
-			return val >= 0 && val < 10 ? static_cast<Elem>('0') + val
-				: throw std::invalid_argument("value out of bounds")
+			return SPROUT_ASSERT(IntType(0) <= val && val < IntType(10)),
+				static_cast<Elem>('0') + val
 				;
 		}
 

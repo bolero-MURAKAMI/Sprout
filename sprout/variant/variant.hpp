@@ -18,6 +18,7 @@
 #include <sprout/functional/type_traits/weak_result_type.hpp>
 #include <sprout/variant/variant_fwd.hpp>
 #include <sprout/variant/visitor_result.hpp>
+#include <sprout/math/comparison.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -201,10 +202,7 @@ namespace sprout {
 			I == sizeof...(Types) - 1,
 			Result
 		>::type visit(Tuple&& t, Visitor&& v, int which) {
-			return I == which
-				? sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)))
-				: throw std::domain_error("variant<>: bad visit")
-				;
+			return sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)));
 		}
 		template<typename Result, int I, typename Tuple, typename Visitor>
 		static SPROUT_CONSTEXPR typename std::enable_if<
@@ -293,9 +291,8 @@ namespace sprout {
 			I != sizeof...(Types),
 			typename sprout::tuples::tuple_element<I, tuple_type>::type const&
 		>::type get_at() const {
-			return I == static_cast<std::size_t>(which_)
-				? sprout::tuples::get<I>(tuple_)
-				: (throw std::domain_error("variant<>: bad get"), sprout::tuples::get<I>(tuple_))
+			return SPROUT_ASSERT(I == which_) ? sprout::tuples::get<I>(tuple_)
+				: sprout::tuples::get<I>(tuple_)
 				;
 		}
 		template<std::size_t I>
@@ -303,9 +300,8 @@ namespace sprout {
 			I != sizeof...(Types),
 			typename sprout::tuples::tuple_element<I, tuple_type>::type&
 		>::type get_at() {
-			return I == which_
-				? sprout::tuples::get<I>(tuple_)
-				: (throw std::domain_error("variant<>: bad get"), sprout::tuples::get<I>(tuple_))
+			return SPROUT_ASSERT(I == which_) ? sprout::tuples::get<I>(tuple_)
+				: sprout::tuples::get<I>(tuple_)
 				;
 		}
 		template<typename U>
@@ -327,13 +323,17 @@ namespace sprout {
 		SPROUT_CONSTEXPR typename visitor_result<typename std::remove_reference<Visitor>::type, variant const>::type
 		apply_visitor(Visitor&& visitor) const {
 			typedef typename visitor_result<typename std::remove_reference<Visitor>::type, variant const>::type result_type;
-			return visit<result_type, 0>(tuple_, sprout::forward<Visitor>(visitor), which_);
+			return SPROUT_ASSERT(0 <= which_ && sprout::math::less(which_, sizeof...(Types))),
+				visit<result_type, 0>(tuple_, sprout::forward<Visitor>(visitor), which_)
+				;
 		}
 		template<typename Visitor>
 		typename visitor_result<typename std::remove_reference<Visitor>::type, variant>::type
 		apply_visitor(Visitor&& visitor) {
 			typedef typename visitor_result<typename std::remove_reference<Visitor>::type, variant>::type result_type;
-			return visit<result_type, 0>(tuple_, sprout::forward<Visitor>(visitor), which_);
+			return SPROUT_ASSERT(0 <= which_ && sprout::math::less(which_, sizeof...(Types))),
+				visit<result_type, 0>(tuple_, sprout::forward<Visitor>(visitor), which_)
+				;
 		}
 	};
 

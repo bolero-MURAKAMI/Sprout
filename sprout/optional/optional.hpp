@@ -1,12 +1,12 @@
 #ifndef SPROUT_OPTIONAL_OPTIONAL_HPP
 #define SPROUT_OPTIONAL_OPTIONAL_HPP
 
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/none.hpp>
 #include <sprout/optional/nullopt.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	//
@@ -120,13 +120,13 @@ namespace sprout {
 			return get();
 		}
 		SPROUT_CONSTEXPR reference_const_type get() const {
-			return is_initialized() ? val.get()
-				: (throw std::domain_error("optional: value not initialized"), val.get())
+			return SPROUT_ASSERT(is_initialized()) ? val.get()
+				: val.get()
 				;
 		}
 		reference_type get() {
-			return is_initialized() ? val.get()
-				: (throw std::domain_error("optional: value not initialized"), val.get())
+			return SPROUT_ASSERT(is_initialized()) ? val.get()
+				: val.get()
 				;
 		}
 		SPROUT_CONSTEXPR reference_const_type get_value_or(reference_const_type& v) const {
@@ -141,23 +141,23 @@ namespace sprout {
 		}
 
 		SPROUT_CONSTEXPR pointer_const_type operator->() const {
-			return is_initialized() ? val.get_pointer()
-				: throw std::domain_error("optional: value not initialized")
+			return SPROUT_ASSERT(is_initialized()),
+				val.get_pointer()
 				;
 		}
 		pointer_type operator->() {
-			return is_initialized() ? val.get_pointer()
-				: throw std::domain_error("optional: value not initialized")
+			return SPROUT_ASSERT(is_initialized()),
+				val.get_pointer()
 				;
 		}
 		SPROUT_CONSTEXPR pointer_const_type get_pointer() const {
-			return is_initialized() ? val.get_pointer()
-				: throw std::domain_error("optional: value not initialized")
+			return SPROUT_ASSERT(is_initialized()),
+				val.get_pointer()
 				;
 		}
 		pointer_type get_pointer() {
-			return is_initialized() ? val.get_pointer()
-				: throw std::domain_error("optional: value not initialized")
+			return SPROUT_ASSERT(is_initialized()),
+				val.get_pointer()
 				;
 		}
 		SPROUT_CONSTEXPR pointer_const_type get_ptr() const {

@@ -3,12 +3,12 @@
 
 #include <iosfwd>
 #include <istream>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace random {
@@ -20,16 +20,6 @@ namespace sprout {
 		public:
 			typedef IntType input_type;
 			typedef IntType result_type;
-		private:
-			static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType min_arg, IntType max_arg) {
-				return min_arg <= max_arg;
-			}
-			static SPROUT_CONSTEXPR IntType arg_check(IntType min_arg, IntType max_arg) {
-				return arg_check_nothrow(min_arg, max_arg)
-					? min_arg
-					: throw std::invalid_argument("uniform_smallint<>: invalid argument (min_arg <= max_arg)")
-					;
-			}
 		public:
 			//
 			// param_type
@@ -37,10 +27,6 @@ namespace sprout {
 			class param_type {
 			public:
 				typedef uniform_smallint distribution_type;
-			private:
-				static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType min_arg, IntType max_arg) {
-					return distribution_type::arg_check_nothrow(min_arg, max_arg);
-				}
 			private:
 				IntType min_;
 				IntType max_;
@@ -50,7 +36,7 @@ namespace sprout {
 					, max_(9)
 				{}
 				explicit SPROUT_CONSTEXPR param_type(IntType min_arg, IntType max_arg = 9)
-					: min_(arg_check(min_arg, max_arg))
+					: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 					, max_(max_arg)
 				{}
 				SPROUT_CONSTEXPR IntType a() const SPROUT_NOEXCEPT {
@@ -68,7 +54,7 @@ namespace sprout {
 					IntType min;
 					IntType max;
 					if (lhs >> min >> std::ws >> max) {
-						if (arg_check_nothrow(min, max)) {
+						if (min <= max) {
 							rhs.min_ = min;
 							rhs.max_ = max;
 						} else {
@@ -207,7 +193,7 @@ namespace sprout {
 				, max_(9)
 			{}
 			explicit SPROUT_CONSTEXPR uniform_smallint(IntType min_arg, IntType max_arg = 9)
-				: min_(arg_check(min_arg, max_arg))
+				: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 				, max_(max_arg)
 			{}
 			explicit SPROUT_CONSTEXPR uniform_smallint(param_type const& parm)

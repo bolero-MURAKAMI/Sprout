@@ -19,7 +19,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR To
 			itrunc_impl(FloatType x) {
 				return std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
-						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::domain_error("itrunc: large float rounding."), static_cast<To>(x))
+						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("itrunc: large float rounding."), static_cast<To>(x))
 					: static_cast<To>(x)
 					;
 			}
@@ -42,7 +42,7 @@ namespace sprout {
 			itrunc(FloatType x) {
 				return x == 0 ? To(0)
 					: std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
-						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::domain_error("itrunc: large float rounding."), static_cast<To>(x))
+						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("itrunc: large float rounding."), static_cast<To>(x))
 					: static_cast<To>(x)
 					;
 			}

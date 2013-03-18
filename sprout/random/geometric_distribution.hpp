@@ -3,12 +3,12 @@
 
 #include <ios>
 #include <limits>
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/floor.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace random {
@@ -20,16 +20,6 @@ namespace sprout {
 		public:
 			typedef RealType input_type;
 			typedef IntType result_type;
-		private:
-			static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType p_arg) {
-				return RealType(0) < p_arg && p_arg < RealType(1);
-			}
-			static SPROUT_CONSTEXPR RealType arg_check(RealType p_arg) {
-				return arg_check_nothrow(p_arg)
-					? p_arg
-					: throw std::invalid_argument("geometric_distribution<>: invalid argument (0 < p_arg && p_arg < 1)")
-					;
-			}
 		public:
 			//
 			// param_type
@@ -38,17 +28,13 @@ namespace sprout {
 			public:
 				typedef geometric_distribution distribution_type;
 			private:
-				static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType p_arg) {
-					return distribution_type::arg_check_nothrow(p_arg);
-				}
-			private:
 				RealType p_;
 			public:
 				SPROUT_CONSTEXPR param_type()
 					: p_(RealType(0.5))
 				{}
 				explicit SPROUT_CONSTEXPR param_type(RealType p_arg)
-					: p_(arg_check(p_arg))
+					: p_((SPROUT_ASSERT(RealType(0) < p_arg), SPROUT_ASSERT(p_arg < RealType(1)), p_arg))
 				{}
 				SPROUT_CONSTEXPR RealType p() const SPROUT_NOEXCEPT {
 					return p_;
@@ -61,7 +47,7 @@ namespace sprout {
 				{
 					RealType p;
 					if (lhs >> p) {
-						if (arg_check_nothrow(p)) {
+						if (RealType(0) < p && p < RealType(1)) {
 							rhs.p_ = p;
 						} else {
 							lhs.setstate(std::ios_base::failbit);
@@ -112,7 +98,7 @@ namespace sprout {
 				, log_1mp_(init_log_1mp(RealType(0.5)))
 			{}
 			explicit SPROUT_CONSTEXPR geometric_distribution(RealType p_arg)
-				: p_(arg_check(p_arg))
+				: p_((SPROUT_ASSERT(RealType(0) < p_arg), SPROUT_ASSERT(p_arg < RealType(1)), p_arg))
 				, log_1mp_(init_log_1mp(p_arg))
 			{}
 			explicit SPROUT_CONSTEXPR geometric_distribution(param_type const& parm)

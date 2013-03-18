@@ -4,7 +4,6 @@
 #include <limits>
 #include <ios>
 #include <istream>
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/sin.hpp>
@@ -13,6 +12,7 @@
 #include <sprout/math/sqrt.hpp>
 #include <sprout/random/uniform_01.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace random {
@@ -26,16 +26,6 @@ namespace sprout {
 			typedef RealType result_type;
 		private:
 			struct private_constructor_tag {};
-		private:
-			static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType mean_arg, RealType sigma_arg) {
-				return sigma_arg >= RealType(0);
-			}
-			static SPROUT_CONSTEXPR RealType arg_check(RealType mean_arg, RealType sigma_arg) {
-				return arg_check_nothrow(mean_arg, sigma_arg)
-					? mean_arg
-					: throw std::invalid_argument("normal_distribution<>: invalid argument (sigma_arg >= 0)")
-					;
-			}
 		public:
 			//
 			// param_type
@@ -43,10 +33,6 @@ namespace sprout {
 			class param_type {
 			public:
 				typedef normal_distribution distribution_type;
-			private:
-				static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType mean_arg, RealType sigma_arg) {
-					return distribution_type::arg_check_nothrow(mean_arg, sigma_arg);
-				}
 			private:
 				RealType mean_;
 				RealType sigma_;
@@ -56,8 +42,8 @@ namespace sprout {
 					, sigma_(RealType(1.0))
 				{}
 				explicit SPROUT_CONSTEXPR param_type(RealType mean_arg, RealType sigma_arg = RealType(1.0))
-					: mean_(arg_check(mean_arg, sigma_arg))
-					, sigma_(sigma_arg)
+					: mean_(mean_arg)
+					, sigma_((SPROUT_ASSERT(sigma_arg >= RealType(0)), sigma_arg))
 				{}
 				SPROUT_CONSTEXPR RealType mean() const SPROUT_NOEXCEPT {
 					return mean_;
@@ -77,7 +63,7 @@ namespace sprout {
 					RealType mean;
 					RealType sigma;
 					if (lhs >> mean >> std::ws >> sigma) {
-						if (arg_check_nothrow(mean, sigma)) {
+						if (sigma >= RealType(0)) {
 							rhs.mean_ = mean;
 							rhs.sigma_ = sigma;
 						} else {
@@ -174,8 +160,8 @@ namespace sprout {
 				, valid_(false)
 			{}
 			explicit SPROUT_CONSTEXPR normal_distribution(RealType mean_arg, RealType sigma_arg = RealType(1.0))
-				: mean_(arg_check(mean_arg, sigma_arg))
-				, sigma_(sigma_arg)
+				: mean_(mean_arg)
+				, sigma_((SPROUT_ASSERT(sigma_arg >= RealType(0)), sigma_arg))
 				, r1_(0)
 				, r2_(0)
 				, cached_rho_(0)

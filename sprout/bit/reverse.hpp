@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -72,12 +73,11 @@ namespace sprout {
 	>::type
 	bit_reverse_in(IntType x, std::size_t length) {
 		typedef typename std::make_unsigned<IntType>::type unsigned_type;
-		return length <= sizeof(IntType) * CHAR_BIT
-			? static_cast<IntType>(
+		return SPROUT_ASSERT(length <= sizeof(IntType) * CHAR_BIT),
+			static_cast<IntType>(
 				sprout::detail::bit_rev<sizeof(IntType)>().template operator()<unsigned_type>(x)
 					>> (sizeof(IntType) * CHAR_BIT - length)
 				)
-			: throw std::invalid_argument("invalid length")
 			;
 	}
 }	// namespace sprout

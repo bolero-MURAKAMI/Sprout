@@ -18,10 +18,10 @@ namespace sprout {
 			transform(InputRange const& rng, Result const& result, UnaryOperation op) {
 				return sprout::fit::transform(sprout::begin(rng), sprout::end(rng), result, op);
 			}
-			template<typename Input1, typename Input2, typename Result, typename BinaryOperation>
+			template<typename InputRange1, typename InputRange2, typename Result, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			transform(Input1 const& input1, Input2 const& input2, Result const& result, BinaryOperation op) {
-				return sprout::fit::transform(sprout::begin(input1), sprout::end(input1), sprout::begin(input2), result, op);
+			transform(InputRange1 const& rng1, InputRange2 const& rng2, Result const& result, BinaryOperation op) {
+				return sprout::fit::transform(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), result, op);
 			}
 		}	// namespace fit
 	}	// namespace range

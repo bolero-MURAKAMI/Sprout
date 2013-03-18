@@ -36,7 +36,7 @@ namespace sprout {
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
 					: std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
-						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::domain_error("round: large float rounding."), x)
+						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("round: large float rounding."), x)
 					: x < 0 ? sprout::math::detail::round_impl_nagative(x, -static_cast<FloatType>(static_cast<std::uintmax_t>(-x)))
 					: sprout::math::detail::round_impl_positive(x, static_cast<FloatType>(static_cast<std::uintmax_t>(x)))
 					;

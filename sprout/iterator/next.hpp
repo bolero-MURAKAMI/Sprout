@@ -3,11 +3,11 @@
 
 #include <iterator>
 #include <type_traits>
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next_fwd.hpp>
 #include <sprout/iterator/prev_fwd.hpp>
 #include <sprout/adl/not_found.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout_adl {
 	sprout::not_found_via_adl iterator_next(...);
@@ -82,9 +82,9 @@ namespace sprout {
 			std::forward_iterator_tag*
 			)
 		{
-			return n == 0 ? it
-				: n > 0 ? sprout::iterator_detail::next_impl_2(it, n)
-				: throw std::domain_error("next: nagative distance is invalid ForwardIterator")
+			return SPROUT_ASSERT(n >= 0),
+				n == 0 ? it
+					: sprout::iterator_detail::next_impl_2(it, n)
 				;
 		}
 

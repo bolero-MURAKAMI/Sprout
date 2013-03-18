@@ -33,7 +33,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR next_char(Iterator f, Iterator l)
 					: c(f != l
 						? *f
-						: throw std::domain_error("string_generator: invalid uuid string (out of range)")
+						: throw std::runtime_error("string_generator: invalid uuid string (out of range)")
 						)
 					, first(sprout::next(f))
 					, last(l)
@@ -46,7 +46,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR std::uint8_t value_at(std::size_t i) const {
 				return i < 22
 					? sprout::uuids::detail::values<void>::table[i]
-					: throw std::domain_error("string_generator: invalid uuid string (invalid character)")
+					: throw std::runtime_error("string_generator: invalid uuid string (invalid character)")
 					;
 			}
 			template<typename Elem>
@@ -117,7 +117,7 @@ namespace sprout {
 				return has_dashes
 					? is_dash(nc.c)
 						? generate_2_2(nc.next(), open_brace, has_dashes, args...)
-						: throw std::domain_error("string_generator: invalid uuid string (dashes not found)")
+						: throw std::runtime_error("string_generator: invalid uuid string (dashes not found)")
 					: generate_2_2(nc, open_brace, has_dashes, args...)
 					;
 			}
@@ -148,7 +148,7 @@ namespace sprout {
 			generate_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
 				return !open_brace || (open_brace && is_close_brace(nc.next().c, open_brace))
 					? result_type{{args...}}
-					: throw std::domain_error("string_generator: invalid uuid string (brace not closed)")
+					: throw std::runtime_error("string_generator: invalid uuid string (brace not closed)")
 					;
 			}
 			template<typename Iterator, typename Char, typename... Args>

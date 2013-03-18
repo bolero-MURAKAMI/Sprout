@@ -3,7 +3,6 @@
 
 #include <iosfwd>
 #include <istream>
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/cstdlib/abs.hpp>
@@ -14,6 +13,7 @@
 #include <sprout/math/floor.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
+#include <sprout/assert.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
 #endif
@@ -69,16 +69,6 @@ namespace sprout {
 				RealType v_r;
 				RealType u_rv_r;
 			};
-		private:
-			static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType t_arg, RealType p_arg) {
-				return t_arg >= IntType(0) && RealType(0) <= p_arg && p_arg <= RealType(1);
-			}
-			static SPROUT_CONSTEXPR IntType arg_check(IntType t_arg, RealType p_arg) {
-				return arg_check_nothrow(t_arg, p_arg)
-					? t_arg
-					: throw std::invalid_argument("binomial_distribution<>: invalid argument (t_arg >= 0 && 0 <= p_arg && p_arg <= 1)")
-					;
-			}
 		public:
 			//
 			// param_type
@@ -86,10 +76,6 @@ namespace sprout {
 			class param_type {
 			public:
 				typedef binomial_distribution distribution_type;
-			private:
-				static SPROUT_CONSTEXPR bool arg_check_nothrow(IntType t_arg, RealType p_arg) {
-					return distribution_type::arg_check_nothrow(t_arg, p_arg);
-				}
 			private:
 				IntType t_;
 				RealType p_;
@@ -99,8 +85,8 @@ namespace sprout {
 					, p_(0.5)
 				{}
 				explicit SPROUT_CONSTEXPR param_type(IntType t_arg, RealType p_arg = RealType(0.5))
-					: t_(arg_check(t_arg, p_arg))
-					, p_(p_arg)
+					: t_((SPROUT_ASSERT(t_arg >= IntType(0)), t_arg))
+					, p_((SPROUT_ASSERT(RealType(0) <= p_arg && p_arg <= RealType(1)), p_arg))
 				{}
 				SPROUT_CONSTEXPR IntType t() const SPROUT_NOEXCEPT {
 					return t_;
@@ -117,7 +103,7 @@ namespace sprout {
 					IntType t;
 					RealType p;
 					if (lhs >> t >> std::ws >> p) {
-						if (arg_check_nothrow(t, p)) {
+						if (t >= IntType(0) && RealType(0) <= p && p <= RealType(1)) {
 							rhs.t_ = t;
 							rhs.p_ = p;
 						} else {
@@ -622,8 +608,8 @@ namespace sprout {
 				, q_n_(init_use_inversion(1, RealType(0.5)) ? init_q_n(1, RealType(0.5)) : RealType())
 			{}
 			explicit SPROUT_CONSTEXPR binomial_distribution(IntType t_arg, RealType p_arg = RealType(0.5))
-				: t_(arg_check(t_arg, p_arg))
-				, p_(p_arg)
+				: t_((SPROUT_ASSERT(t_arg >= IntType(0)), t_arg))
+				, p_((SPROUT_ASSERT(RealType(0) <= p_arg && p_arg <= RealType(1)), p_arg))
 				, m_(init_m(t_arg, p_arg))
 				, btrd_(!init_use_inversion(t_arg, p_arg) ? init_btrd(t_arg, p_arg) : btrd_type())
 				, q_n_(init_use_inversion(t_arg, p_arg) ? init_q_n(t_arg, p_arg) : RealType())

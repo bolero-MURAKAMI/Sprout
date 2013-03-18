@@ -2,9 +2,9 @@
 #define SPROUT_RANDOM_BERNOULLI_DISTRIBUTION_HPP
 
 #include <iosfwd>
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace random {
@@ -16,16 +16,6 @@ namespace sprout {
 		public:
 			typedef int input_type;
 			typedef bool result_type;
-		private:
-			static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType p_arg) {
-				return p_arg >= 0 && p_arg <= 1;
-			}
-			static SPROUT_CONSTEXPR RealType arg_check(RealType p_arg) {
-				return arg_check_nothrow(p_arg)
-					? p_arg
-					: throw std::invalid_argument("bernoulli_distribution<>: invalid argument (p_arg >= 0 && p_arg <= 1)")
-					;
-			}
 		public:
 			//
 			// param_type
@@ -34,17 +24,13 @@ namespace sprout {
 			public:
 				typedef bernoulli_distribution distribution_type;
 			private:
-				static SPROUT_CONSTEXPR bool arg_check_nothrow(RealType p_arg) {
-					return distribution_type::arg_check_nothrow(p_arg);
-				}
-			private:
 				RealType p_;
 			public:
 				SPROUT_CONSTEXPR param_type()
 					: p_(RealType(0.5))
 				{}
 				explicit SPROUT_CONSTEXPR param_type(RealType p_arg)
-					: p_(arg_check(p_arg))
+					: p_((SPROUT_ASSERT(p_arg >= RealType(0)), SPROUT_ASSERT(p_arg <= RealType(1)), p_arg))
 				{}
 				SPROUT_CONSTEXPR RealType p() const SPROUT_NOEXCEPT {
 					return p_;
@@ -57,7 +43,7 @@ namespace sprout {
 				{
 					RealType p;
 					if (lhs >> p) {
-						if (arg_check_nothrow(p)) {
+						if (p >= RealType(0) && p <= RealType(1)) {
 							rhs.p_ = p;
 						} else {
 							lhs.setstate(std::ios_base::failbit);
@@ -99,7 +85,7 @@ namespace sprout {
 				: p_(RealType(0.5))
 			{}
 			explicit SPROUT_CONSTEXPR bernoulli_distribution(RealType p_arg)
-				: p_(arg_check(p_arg))
+				: p_((SPROUT_ASSERT(p_arg >= RealType(0)), SPROUT_ASSERT(p_arg <= RealType(1)), p_arg))
 			{}
 			explicit SPROUT_CONSTEXPR bernoulli_distribution(param_type const& parm)
 				: p_(parm.p())

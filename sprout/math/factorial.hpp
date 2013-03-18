@@ -2,12 +2,12 @@
 #define SPROUT_MATH_FACTORIAL_HPP
 
 #include <cstddef>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/type_traits/is_int.hpp>
 #include <sprout/type_traits/is_uint.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace math {
@@ -767,9 +767,8 @@ namespace sprout {
 		template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
 		inline SPROUT_CONSTEXPR T factorial(std::size_t x) {
 			typedef typename std::remove_cv<T>::type type;
-			return x <= sprout::math::factorial_limit<type>()
-				? sprout::math::detail::factorials<type>::table[x]
-				: throw std::invalid_argument("factorial(): argument limit exceeded")
+			return SPROUT_ASSERT(x <= sprout::math::factorial_limit<type>()),
+				sprout::math::detail::factorials<type>::table[x]
 				;
 		}
 	}	// namespace math

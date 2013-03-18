@@ -137,7 +137,7 @@ namespace sprout {
 		}
 		rational& operator/=(rational const& rhs) {
 			if (rhs.num_ == IntType(0)) {
-				throw bad_rational();
+				throw sprout::bad_rational();
 			}
 			if (num_ == IntType(0)) {
 				return *this;

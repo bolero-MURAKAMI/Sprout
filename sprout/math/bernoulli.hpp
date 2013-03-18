@@ -2,10 +2,10 @@
 #define SPROUT_MATH_BERNOULLI_HPP
 
 #include <cstddef>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	namespace math {
@@ -233,11 +233,10 @@ namespace sprout {
 		template<typename T, typename = typename std::enable_if<std::is_floating_point<T>::value>::type>
 		inline SPROUT_CONSTEXPR T bernoulli_number(std::size_t x) {
 			typedef typename std::remove_cv<T>::type type;
-			return x <= sprout::math::bernoulli_number_limit<type>()
-				? x == 1 ? type(-1) / 2
+			return SPROUT_ASSERT(x <= sprout::math::bernoulli_number_limit<type>()),
+				x == 1 ? type(-1) / 2
 					: x % 2 ? type(0)
 					: sprout::math::detail::bernoulli_numbers<type>::table[x / 2]
-				: throw std::invalid_argument("bernoulli_number(): argument limit exceeded")
 				;
 		}
 	}	// namespace math
