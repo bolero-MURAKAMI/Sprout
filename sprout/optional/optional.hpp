@@ -120,12 +120,12 @@ namespace sprout {
 			return get();
 		}
 		SPROUT_CONSTEXPR reference_const_type get() const {
-			return SPROUT_ASSERT(is_initialized()) ? val.get()
+			return (SPROUT_ASSERT(is_initialized()), true) ? val.get()
 				: val.get()
 				;
 		}
 		reference_type get() {
-			return SPROUT_ASSERT(is_initialized()) ? val.get()
+			return (SPROUT_ASSERT(is_initialized()), true) ? val.get()
 				: val.get()
 				;
 		}

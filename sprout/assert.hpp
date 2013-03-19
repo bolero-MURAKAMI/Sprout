@@ -31,17 +31,8 @@
 
 #if defined(SPROUT_DISABLE_ASSERTS) || defined(NDEBUG)
 
-namespace sprout {
-	namespace detail {
-		inline SPROUT_CONSTEXPR bool
-		assertion_disabled() SPROUT_NOEXCEPT {
-			return true;
-		}
-	}	// namespace detail
-}	// namespace sprout
-
 #	define SPROUT_ASSERT(expr) \
-		(sprout::detail::assertion_disabled())
+		((void)0)
 
 #elif defined(SPROUT_ENABLE_ASSERT_HANDLER)
 
@@ -80,9 +71,10 @@ namespace sprout {
 }	// namespace sprout
 
 #	define SPROUT_ASSERT(expr) ( \
-		sprout::detail::assertion_check( \
+		(void)sprout::detail::assertion_check( \
 			(expr), SPROUT_ASSERTION_FAILED_FORMAT(expr, __FILE__, __LINE__), \
-			#expr, "(unknown)"/*SPROUT_CURRENT_FUNCTION*/, __FILE__, __LINE__) \
+			#expr, "(unknown)"/*SPROUT_CURRENT_FUNCTION*/, __FILE__, __LINE__ \
+			) \
 		)
 
 #else
@@ -103,7 +95,7 @@ namespace sprout {
 }	// namespace sprout
 
 #	define SPROUT_ASSERT(expr) \
-		(sprout::detail::assertion_check((expr), SPROUT_ASSERTION_FAILED_FORMAT(expr, __FILE__, __LINE__)))
+		((void)sprout::detail::assertion_check((expr), SPROUT_ASSERTION_FAILED_FORMAT(expr, __FILE__, __LINE__)))
 
 #endif
 
@@ -114,7 +106,7 @@ namespace sprout {
 #if defined(SPROUT_DISABLE_ASSERTS) || defined(NDEBUG)
 
 #	define SPROUT_ASSERT_MSG(expr, msg) \
-		(sprout::detail::assertion_disabled())
+		((void)0)
 
 #elif defined(SPROUT_ENABLE_ASSERT_HANDLER)
 
@@ -141,9 +133,10 @@ namespace sprout {
 }	// namespace sprout
 
 #	define SPROUT_ASSERT_MSG(expr, msg) ( \
-		sprout::detail::assertion_check_msg( \
+		(void)sprout::detail::assertion_check_msg( \
 			(expr), SPROUT_ASSERTION_FAILED_FORMAT(expr, __FILE__, __LINE__), \
-			#expr, msg, "(unknown)"/*SPROUT_CURRENT_FUNCTION*/, __FILE__, __LINE__) \
+			#expr, msg, "(unknown)"/*SPROUT_CURRENT_FUNCTION*/, __FILE__, __LINE__ \
+			) \
 		)
 
 #else
@@ -164,7 +157,7 @@ namespace sprout {
 }	// namespace sprout
 
 #	define SPROUT_ASSERT_MSG(expr, msg) \
-		(sprout::detail::assertion_check_msg((expr), SPROUT_ASSERTION_FAILED_FORMAT(expr, __FILE__, __LINE__), msg))
+		((void)sprout::detail::assertion_check_msg((expr), SPROUT_ASSERTION_FAILED_FORMAT(expr, __FILE__, __LINE__), msg))
 
 #endif
 
@@ -184,11 +177,12 @@ namespace sprout {
 }	// namespace sprout
 
 #	define SPROUT_VERIFY(expr) \
-		(sprout::detail::verification_disabled((expr)))
+		((void)(sprout::detail::verification_disabled((expr))))
 
 #else
 
-#	define SPROUT_VERIFY(expr) SPROUT_ASSERT(expr)
+#	define SPROUT_VERIFY(expr) \
+		SPROUT_ASSERT(expr)
 
 #endif
 

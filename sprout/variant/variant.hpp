@@ -291,7 +291,7 @@ namespace sprout {
 			I != sizeof...(Types),
 			typename sprout::tuples::tuple_element<I, tuple_type>::type const&
 		>::type get_at() const {
-			return SPROUT_ASSERT(I == which_) ? sprout::tuples::get<I>(tuple_)
+			return (SPROUT_ASSERT(I == which_), true) ? sprout::tuples::get<I>(tuple_)
 				: sprout::tuples::get<I>(tuple_)
 				;
 		}
@@ -300,7 +300,7 @@ namespace sprout {
 			I != sizeof...(Types),
 			typename sprout::tuples::tuple_element<I, tuple_type>::type&
 		>::type get_at() {
-			return SPROUT_ASSERT(I == which_) ? sprout::tuples::get<I>(tuple_)
+			return (SPROUT_ASSERT(I == which_), true) ? sprout::tuples::get<I>(tuple_)
 				: sprout::tuples::get<I>(tuple_)
 				;
 		}
