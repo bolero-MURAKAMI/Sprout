@@ -36,35 +36,54 @@
 
 #elif defined(SPROUT_ENABLE_ASSERT_HANDLER)
 
-namespace sprout_adl {
-	SPROUT_CONSTEXPR sprout::not_found_via_adl assertion_failed(...);
+namespace sprout {
+	//
+	// assertion_info
+	//
+	class assertion_info {
+	private:
+		char const* expr_;
+		char const* function_;
+		char const* file_;
+		long line_;
+	public:
+		SPROUT_CONSTEXPR assertion_info(char const* expr, char const* function, char const* file, long line)
+			: expr_(expr), function_(function), file_(file), line_(line)
+		{}
+		SPROUT_CONSTEXPR char const* expr() const SPROUT_NOEXCEPT {
+			return expr_;
+		}
+		SPROUT_CONSTEXPR char const* function() const SPROUT_NOEXCEPT {
+			return function_;
+		}
+		SPROUT_CONSTEXPR char const* file() const SPROUT_NOEXCEPT {
+			return file_;
+		}
+		SPROUT_CONSTEXPR long line() const SPROUT_NOEXCEPT {
+			return line_;
+		}
+	};
+
+	//
+	// assertion_failed
+	//	* user defined
+	//
+	void
+	assertion_failed(sprout::assertion_info const&);
 }	// namespace sprout_adl
 
-namespace sprout_assertion_detail {
-	using sprout_adl::assertion_failed;
-
-	//template<typename Dummy>
-	inline SPROUT_CONSTEXPR bool
-	call_assertion_failed(bool cond, char const* formatted, char const* expr, char const* function, char const* file, long line) {
-		return cond ? true
-			: (assertion_failed(expr, function, file, line), false)
-			;
-	}
-}	// namespace sprout
-
 namespace sprout {
-//	//
-//	// assertion_failed
-//	//	* user defined
-//	//
-//	void
-//	assertion_failed(char const* expr, char const* function, char const* file, long line);
-
 	namespace detail {
+		inline bool
+		assertion_failed(bool cond, char const* formatted, char const* expr, char const* function, char const* file, long line) {
+			return cond ? true
+				: ((void)sprout::assertion_failed(sprout::assertion_info(expr, function, file, line)), false)
+				;
+		}
 		inline SPROUT_CONSTEXPR bool
 		assertion_check(bool cond, char const* formatted, char const* expr, char const* function, char const* file, long line) {
 			return cond ? true
-				: sprout_assertion_detail::call_assertion_failed(cond, formatted, expr, function, file, line)
+				: sprout::detail::assertion_failed(cond, formatted, expr, function, file, line)
 				;
 		}
 	}	// namespace detail
@@ -112,21 +131,56 @@ namespace sprout {
 
 namespace sprout {
 	//
+	// assertion_info_msg
+	//
+	class assertion_info_msg {
+	private:
+		char const* expr_;
+		char const* msg_;
+		char const* function_;
+		char const* file_;
+		long line_;
+	public:
+		SPROUT_CONSTEXPR assertion_info_msg(char const* expr, char const* msg, char const* function, char const* file, long line)
+			: expr_(expr), msg_(msg), function_(function), file_(file), line_(line)
+		{}
+		SPROUT_CONSTEXPR char const* expr() const SPROUT_NOEXCEPT {
+			return expr_;
+		}
+		SPROUT_CONSTEXPR char const* msg() const SPROUT_NOEXCEPT {
+			return msg_;
+		}
+		SPROUT_CONSTEXPR char const* function() const SPROUT_NOEXCEPT {
+			return function_;
+		}
+		SPROUT_CONSTEXPR char const* file() const SPROUT_NOEXCEPT {
+			return file_;
+		}
+		SPROUT_CONSTEXPR long line() const SPROUT_NOEXCEPT {
+			return line_;
+		}
+	};
+
+	//
 	// assertion_failed_msg
 	//	* user defined
 	//
 	void
-	assertion_failed_msg(char const* expr, char const* msg, char const* function, char const* file, long line);
+	assertion_failed_msg(sprout::assertion_info_msg const&);
+}	// namespace sprout_adl
 
+namespace sprout {
 	namespace detail {
 		inline bool
-		assertion_failed_msg(char const* formatted, char const* expr, char const* msg, char const* function, char const* file, long line) {
-			return sprout::assertion_failed_msg(expr, msg, function, file, line), false;
+		assertion_failed_msg(bool cond, char const* formatted, char const* expr, char const* msg, char const* function, char const* file, long line) {
+			return cond ? true
+				: ((void)sprout::assertion_failed_msg(sprout::assertion_info_msg(expr, msg, function, file, line)), false)
+				;
 		}
 		inline SPROUT_CONSTEXPR bool
 		assertion_check_msg(bool cond, char const* formatted, char const* expr, char const* msg, char const* function, char const* file, long line) {
 			return cond ? true
-				: sprout::detail::assertion_failed_msg(formatted, expr, msg, function, file, line)
+				: sprout::detail::assertion_failed_msg(cond, formatted, expr, msg, function, file, line)
 				;
 		}
 	}	// namespace detail
