@@ -129,7 +129,6 @@ namespace sprout {
 				T max_value
 				)
 			{
-				typedef T result_type;
 				typedef typename Engine::result_type base_result;
 				return sprout::random::detail::generate_uniform_real_true_2(
 					rnd.engine(),

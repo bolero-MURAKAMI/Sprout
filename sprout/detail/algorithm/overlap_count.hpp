@@ -76,7 +76,6 @@ namespace sprout {
 			InputIterator last, BinaryPredicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
-			typedef sprout::tuples::tuple<InputIterator, typename std::iterator_traits<InputIterator>::value_type, typename std::iterator_traits<InputIterator>::difference_type> type;
 			return sprout::tuples::get<0>(current) == last ? current
 				: sprout::detail::overlap_count_impl(
 					sprout::detail::overlap_count_impl_1(

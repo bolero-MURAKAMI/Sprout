@@ -37,7 +37,6 @@ namespace sprout {
 			T const& value, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator, bool> type;
 			return current.second || !*current.first ? current
 				: sprout::detail::strchr_impl(
 					sprout::detail::strchr_impl_1(

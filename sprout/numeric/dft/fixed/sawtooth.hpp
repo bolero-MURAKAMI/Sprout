@@ -52,7 +52,6 @@ namespace sprout {
 				typename sprout::container_traits<Container>::value_type const& phase
 				)
 			{
-				typedef typename sprout::container_traits<Container>::value_type value_type;
 				return sprout::fixed::detail::sawtooth_impl(
 					cont,
 					frequency,

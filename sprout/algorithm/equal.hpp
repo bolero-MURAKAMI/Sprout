@@ -76,7 +76,6 @@ namespace sprout {
 			InputIterator1 last1, BinaryPredicate pred, typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, bool> type;
 			return !sprout::tuples::get<2>(current) || sprout::tuples::get<0>(current) == last1 ? current
 				: sprout::detail::equal_impl(
 					sprout::detail::equal_impl_1(

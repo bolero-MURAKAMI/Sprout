@@ -50,7 +50,6 @@ namespace sprout {
 			InputIterator last, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
 			return current.first == last ? current
 				: sprout::iterator_detail::iterator_distance_impl(
 					sprout::iterator_detail::iterator_distance_impl_1(

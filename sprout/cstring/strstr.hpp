@@ -79,7 +79,6 @@ namespace sprout {
 			typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator1, bool> type;
 			return current.second || !*current.first ? current
 				: n == 1 ? sprout::detail::strstr_impl_fork(
 					current,
@@ -102,7 +101,6 @@ namespace sprout {
 			typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator1, bool> type;
 			return current.second || !*current.first ? current
 				: sprout::detail::strstr_impl(
 					sprout::detail::strstr_impl_1(

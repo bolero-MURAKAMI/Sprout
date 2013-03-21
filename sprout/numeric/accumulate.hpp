@@ -75,7 +75,6 @@ namespace sprout {
 			InputIterator last, BinaryOperation binary_op, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator, T> type;
 			return current.first == last ? current
 				: sprout::detail::accumulate_impl(
 					sprout::detail::accumulate_impl_1(

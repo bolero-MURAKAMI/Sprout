@@ -41,7 +41,6 @@ namespace sprout {
 			ForwardIterator2 first2, typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			typedef sprout::tuples::tuple<InputIterator1, std::size_t, bool> type;
 			return sprout::tuples::get<2>(current) || !*sprout::tuples::get<0>(current) ? current
 				: sprout::detail::strcspn_impl(
 					sprout::detail::strcspn_impl_1(

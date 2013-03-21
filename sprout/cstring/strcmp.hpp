@@ -48,7 +48,6 @@ namespace sprout {
 			typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, int> type;
 			return sprout::tuples::get<2>(current) || !*sprout::tuples::get<1>(current) || !*sprout::tuples::get<0>(current) ? current
 				: sprout::detail::strcmp_impl(
 					sprout::detail::strcmp_impl_1(

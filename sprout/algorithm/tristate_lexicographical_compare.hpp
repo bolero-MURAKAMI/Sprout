@@ -114,7 +114,6 @@ namespace sprout {
 			typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator1, InputIterator2> type;
 			return current.second == last2 || current.first == last1 ? current
 				: sprout::detail::tristate_lexicographical_compare_impl(
 					sprout::detail::tristate_lexicographical_compare_impl_1(
@@ -281,7 +280,6 @@ namespace sprout {
 			typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator1, InputIterator2> type;
 			return current.second == last2 || current.first == last1 ? current
 				: sprout::detail::tristate_lexicographical_compare_impl(
 					sprout::detail::tristate_lexicographical_compare_impl_1(

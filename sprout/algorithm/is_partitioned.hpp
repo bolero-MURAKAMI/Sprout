@@ -63,7 +63,6 @@ namespace sprout {
 			InputIterator last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
 			return current.second > 1 || current.first == last ? current
 				: sprout::detail::is_partitioned_impl(
 					sprout::detail::is_partitioned_impl_1(

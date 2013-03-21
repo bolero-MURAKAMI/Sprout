@@ -83,7 +83,6 @@ namespace sprout {
 			InputIterator1 last1, BinaryOperation1 binary_op1, BinaryOperation2 binary_op2, typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, T> type;
 			return sprout::tuples::get<0>(current) == last1 ? current
 				: sprout::detail::inner_product_impl(
 					sprout::detail::inner_product_impl_1(

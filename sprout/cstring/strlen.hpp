@@ -39,7 +39,6 @@ namespace sprout {
 			typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator, std::size_t> type;
 			return !*current.first ? current
 				: sprout::detail::strlen_impl(
 					sprout::detail::strlen_impl_1(

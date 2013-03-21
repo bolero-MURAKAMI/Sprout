@@ -71,7 +71,6 @@ namespace sprout {
 			InputIterator last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator, bool> type;
 			return current.second || current.first == last ? current
 				: sprout::detail::find_if_not_impl(
 					sprout::detail::find_if_not_impl_1(

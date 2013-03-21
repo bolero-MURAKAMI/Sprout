@@ -79,7 +79,6 @@ namespace sprout {
 			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
 			return current.second == last ? current
 				: sprout::detail::is_sorted_until_impl(
 					sprout::detail::is_sorted_until_impl_1(

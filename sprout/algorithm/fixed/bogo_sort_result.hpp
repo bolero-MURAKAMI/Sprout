@@ -45,7 +45,6 @@ namespace sprout {
 				Compare comp, Difference n
 				)
 			{
-				typedef sprout::pair<ResultType, bool> type;
 				return current.second ? current
 					: sprout::fixed::detail::bogo_sort_result_impl<ResultType>(
 						sprout::fixed::detail::bogo_sort_result_impl_1<ResultType>(

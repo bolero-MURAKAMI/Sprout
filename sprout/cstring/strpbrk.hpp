@@ -42,7 +42,6 @@ namespace sprout {
 			typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator1, bool> type;
 			return current.second || !*current.first ? current
 				: sprout::detail::strpbrk_impl(
 					sprout::detail::strpbrk_impl_1(

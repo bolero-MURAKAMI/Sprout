@@ -49,7 +49,6 @@ namespace sprout {
 			InputIterator1 last1, InputIterator2 last2, Compare comp, typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			typedef sprout::tuples::tuple<InputIterator1, InputIterator2, typename std::iterator_traits<InputIterator1>::difference_type> type;
 			return sprout::tuples::get<0>(current) == last1 || sprout::tuples::get<1>(current) == last2 ? current
 				: sprout::detail::set_overlap_count_impl(
 					sprout::detail::set_overlap_count_impl_1(

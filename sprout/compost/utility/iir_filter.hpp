@@ -23,7 +23,6 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR typename sprout::float_promote<T>::type
 			iir_g(T const& g) {
-				typedef typename sprout::float_promote<T>::type type;
 				return g + 1;
 			}
 		}	// namespace detail

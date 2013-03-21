@@ -69,7 +69,6 @@ namespace sprout {
 			InputIterator last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<InputIterator, bool> type;
 			return !current.second || current.first == last ? current
 				: sprout::detail::none_of_equal_impl(
 					sprout::detail::none_of_equal_impl_1(

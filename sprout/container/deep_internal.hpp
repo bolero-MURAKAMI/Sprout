@@ -18,9 +18,10 @@ namespace sprout {
 			struct deep_internal_impl<
 				Container, Prev,
 				typename std::enable_if<std::is_same<Container, Prev&&>::value>::type
-			>
-				: public std::common_type<Container>
-			{};
+			> {
+			public:
+				typedef Container type;
+			};
 		}	// namespace detail
 		//
 		// deep_internal

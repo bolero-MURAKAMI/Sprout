@@ -94,7 +94,6 @@ namespace sprout {
 			ForwardIterator last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
 			return current.second == last ? current
 				: sprout::detail::adjacent_find_impl(
 					sprout::detail::adjacent_find_impl_1(

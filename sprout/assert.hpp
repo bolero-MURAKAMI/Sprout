@@ -5,7 +5,6 @@
 #	include <sprout/config.hpp>
 #elif defined(SPROUT_ENABLE_ASSERT_HANDLER)
 #	include <sprout/config.hpp>
-#	include <sprout/adl/not_found.hpp>
 #else
 #	include <cstdlib>
 #	include <iostream>

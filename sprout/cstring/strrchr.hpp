@@ -46,7 +46,6 @@ namespace sprout {
 			typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
 			return !*current.first ? current
 				: sprout::detail::strrchr_impl(
 					sprout::detail::strrchr_impl_1(

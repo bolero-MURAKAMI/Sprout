@@ -84,7 +84,6 @@ namespace sprout {
 			BinaryPredicate pred, typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator1, bool> type;
 			return !current.second || current.first == last1 ? current
 				: sprout::detail::is_permutation_impl(
 					sprout::detail::is_permutation_impl_1(

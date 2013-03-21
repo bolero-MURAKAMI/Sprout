@@ -94,7 +94,6 @@ namespace sprout {
 			typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator1, ForwardIterator1> type;
 			return current.first == last1 ? current
 				: n == 1 ? sprout::detail::find_end_impl_check(
 					current, last1,
@@ -117,7 +116,6 @@ namespace sprout {
 			typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator1, ForwardIterator1> type;
 			return current.first == last1 ? current
 				: sprout::detail::find_end_impl(
 					sprout::detail::find_end_impl_1(
