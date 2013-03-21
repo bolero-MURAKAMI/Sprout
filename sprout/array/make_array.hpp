@@ -7,6 +7,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/common_decay.hpp>
 
 namespace sprout {
 	//
@@ -23,12 +24,12 @@ namespace sprout {
 	//
 	template<typename... Types>
 	inline SPROUT_CONSTEXPR sprout::array<
-		typename std::decay<typename std::common_type<typename std::decay<Types>::type...>::type>::type,
+		typename sprout::common_decay<typename std::decay<Types>::type...>::type,
 		sizeof...(Types)
 	>
 	make_common_array(Types&&... args) {
 		typedef sprout::array<
-			typename std::decay<typename std::common_type<typename std::decay<Types>::type...>::type>::type,
+			typename sprout::common_decay<typename std::decay<Types>::type...>::type,
 			sizeof...(Types)
 		> type;
 		return type{{sprout::forward<Types>(args)...}};

@@ -4,12 +4,13 @@
 #include <type_traits>
 #include <utility>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	namespace detail {
 		template <typename T>
 		struct arithmetic_promote1
-			: public std::common_type<T>
+			: public sprout::identity<T>
 		{
 			static_assert(
 				std::is_arithmetic<T>::value,

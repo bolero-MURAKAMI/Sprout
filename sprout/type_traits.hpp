@@ -6,6 +6,7 @@
 #include <sprout/type_traits/is_uint.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/type_traits/is_c_str.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/type_traits/const_reference.hpp>
 #include <sprout/type_traits/common_decay.hpp>

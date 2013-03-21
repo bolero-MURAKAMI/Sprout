@@ -10,6 +10,7 @@
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -91,7 +92,7 @@ namespace sprout {
 			}
 			template<typename Difference>
 			SPROUT_CONSTEXPR sprout::adaptors::step_holder<Difference>
-			operator()(Difference width, typename std::common_type<Difference>::type init) const {
+			operator()(Difference width, typename sprout::identity<Difference>::type init) const {
 				return sprout::adaptors::step_holder<Difference>(width, init);
 			}
 		};

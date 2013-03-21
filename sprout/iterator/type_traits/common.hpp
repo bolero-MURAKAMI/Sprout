@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
+#include <sprout/type_traits/identity.hpp>
+#include <sprout/type_traits/common_decay.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -53,7 +55,7 @@ namespace sprout {
 	struct min_iterator_category;
 	template<typename Category>
 	struct min_iterator_category<Category>
-		: public std::common_type<Category>
+		: public sprout::identity<Category>
 	{};
 	template<typename Category1, typename Category2>
 	struct min_iterator_category<Category1, Category2>
@@ -106,10 +108,10 @@ namespace sprout {
 								)
 							,
 						T,
-						typename std::decay<typename std::common_type<typename std::decay<T>::type, typename std::decay<U>::type>::type>::type
+						typename sprout::common_decay<typename std::decay<T>::type, typename std::decay<U>::type>::type
 					>::type
 				>::type,
-				typename std::decay<typename std::common_type<typename std::decay<T>::type, typename std::decay<U>::type>::type>::type
+				typename sprout::common_decay<typename std::decay<T>::type, typename std::decay<U>::type>::type
 			>
 		{};
 		template<typename T, typename U, typename... Tail>
@@ -155,9 +157,7 @@ namespace sprout {
 	//
 	template<typename... Iterators>
 	struct common_iterator_difference_type
-		: public std::decay<
-			typename std::common_type<typename std::iterator_traits<Iterators>::difference_type...>::type
-		>
+		: public sprout::common_decay<typename std::iterator_traits<Iterators>::difference_type...>
 	{};
 }	// namespace sprout
 

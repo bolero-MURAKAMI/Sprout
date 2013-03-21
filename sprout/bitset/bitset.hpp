@@ -27,9 +27,9 @@
 
 namespace sprout {
 	namespace detail {
-		template<std::size_t N>
-		struct size_t_
-			: public std::integral_constant<std::size_t, N>
+		template<typename T>
+		struct sizeof_
+			: public std::integral_constant<std::size_t, sizeof(T)>
 		{};
 
 		struct base_bitset_from_words_construct_tag {};
@@ -78,15 +78,15 @@ namespace sprout {
 		public:
 			static SPROUT_CONSTEXPR std::size_t
 			whichword(std::size_t pos) SPROUT_NOEXCEPT {
-				return pos / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
+				return pos / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
 			}
 			static SPROUT_CONSTEXPR std::size_t
 			whichbyte(std::size_t pos) SPROUT_NOEXCEPT {
-				return (pos % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value)) / CHAR_BIT;
+				return (pos % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value)) / CHAR_BIT;
 			}
 			static SPROUT_CONSTEXPR std::size_t
 			whichbit(std::size_t pos) SPROUT_NOEXCEPT {
-				return pos % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
+				return pos % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
 			}
 			static SPROUT_CONSTEXPR word_type
 			maskbit(std::size_t pos) SPROUT_NOEXCEPT {
@@ -103,7 +103,7 @@ namespace sprout {
 			{
 				return first == last ? not_found
 					: *first != static_cast<word_type>(0)
-						? i * (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) + sprout::ctz(*first)
+						? i * (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) + sprout::ctz(*first)
 					: find_first_impl(not_found, first + 1, last, i + 1)
 					;
 			}
@@ -115,14 +115,14 @@ namespace sprout {
 			{
 				return first == last ? not_found
 					: *first != static_cast<word_type>(0)
-						? i * (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) + sprout::ctz(*first)
+						? i * (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) + sprout::ctz(*first)
 					: find_next_impl_2(not_found, first + 1, last)
 					;
 			}
 			SPROUT_CONSTEXPR std::size_t
 			find_next_impl_1(std::size_t not_found, std::size_t i, word_type thisword) const SPROUT_NOEXCEPT {
 				return thisword != static_cast<word_type>(0)
-					? i * (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) + sprout::ctz(thisword)
+					? i * (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) + sprout::ctz(thisword)
 					: find_next_impl_2(not_found, begin() + (i + 1), end(), i + 1)
 					;
 			}
@@ -168,7 +168,7 @@ namespace sprout {
 						sprout::index_range<0, N>::make()
 						)
 					: do_left_shift_impl_2(
-						wshift, offset, (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) - offset,
+						wshift, offset, (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) - offset,
 						sprout::index_range<0, N>::make()
 						)
 					;
@@ -212,7 +212,7 @@ namespace sprout {
 						sprout::index_range<0, N>::make()
 						)
 					: do_right_shift_impl_2(
-						wshift, offset, limit, (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) - offset,
+						wshift, offset, limit, (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) - offset,
 						sprout::index_range<0, N>::make()
 						)
 					;
@@ -222,7 +222,7 @@ namespace sprout {
 				: w_()
 			{}
 			SPROUT_CONSTEXPR base_bitset(unsigned long long val) SPROUT_NOEXCEPT
-				: w_{word_type(val), word_type(val >> (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value))}
+				: w_{word_type(val), word_type(val >> (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value))}
 			{}
 			template<typename... Words>
 			SPROUT_CONSTEXPR base_bitset(sprout::detail::base_bitset_from_words_construct_tag, Words... words)
@@ -302,14 +302,14 @@ namespace sprout {
 			void
 			do_left_shift(std::size_t shift) SPROUT_NOEXCEPT {
 				if (shift != 0) {
-					std::size_t const wshift = shift / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
-					std::size_t const offset = shift % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
+					std::size_t const wshift = shift / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
+					std::size_t const offset = shift % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
 					if (offset == 0) {
 						for (std::size_t n = N - 1; n >= wshift; --n) {
 							w_[n] = w_[n - wshift];
 						}
 					} else {
-						std::size_t const sub_offset = (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) - offset;
+						std::size_t const sub_offset = (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) - offset;
 						for (std::size_t n = N - 1; n > wshift; --n) {
 							w_[n] = (w_[n - wshift] << offset) | (w_[n - wshift - 1] >> sub_offset);
 						}
@@ -321,8 +321,8 @@ namespace sprout {
 			SPROUT_CONSTEXPR base_bitset<N>
 			do_left_shift(std::size_t shift) const SPROUT_NOEXCEPT {
 				return shift != 0 ? do_left_shift_impl(
-						shift / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value),
-						shift % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value)
+						shift / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value),
+						shift % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value)
 						)
 					: *this
 					;
@@ -330,15 +330,15 @@ namespace sprout {
 			void
 			do_right_shift(std::size_t shift) SPROUT_NOEXCEPT {
 			if (shift != 0) {
-					std::size_t const wshift = shift / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
-					std::size_t const offset = shift % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
+					std::size_t const wshift = shift / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
+					std::size_t const offset = shift % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
 					std::size_t const limit = N - wshift - 1;
 					if (offset == 0) {
 						for (std::size_t n = 0; n <= limit; ++n) {
 							w_[n] = w_[n + wshift];
 						}
 					} else {
-						std::size_t const sub_offset = (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) - offset;
+						std::size_t const sub_offset = (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) - offset;
 						for (std::size_t n = 0; n < limit; ++n) {
 							w_[n] = (w_[n + wshift] >> offset) | (w_[n + wshift + 1] << sub_offset);
 						}
@@ -350,9 +350,9 @@ namespace sprout {
 			SPROUT_CONSTEXPR base_bitset<N>
 			do_right_shift(std::size_t shift) const SPROUT_NOEXCEPT {
 				return shift != 0 ? do_right_shift_impl(
-						shift / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value),
-						shift % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value),
-						N - shift / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) - 1
+						shift / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value),
+						shift % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value),
+						N - shift / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) - 1
 						)
 					: *this
 					;
@@ -385,7 +385,7 @@ namespace sprout {
 			}
 			void
 			do_reset() SPROUT_NOEXCEPT {
-				std::memset(w_, 0, N * sprout::detail::size_t_<sizeof(word_type)>::value);
+				std::memset(w_, 0, N * sprout::detail::sizeof_<word_type>::value);
 			}
 
 			SPROUT_CONSTEXPR bool
@@ -396,7 +396,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR bool
 			are_all() const SPROUT_NOEXCEPT {
 				return sprout::all_of(begin(), end() - 1, are_all_pred())
-					&& hiword() == (~static_cast<word_type>(0) >> (N * (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) - N2))
+					&& hiword() == (~static_cast<word_type>(0) >> (N * (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) - N2))
 					;
 			}
 			SPROUT_CONSTEXPR bool
@@ -418,14 +418,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR unsigned long long
 			do_to_ullong() const {
 				return sprout::find_if(
-					sprout::detail::size_t_<sizeof(unsigned long long)>::value > sprout::detail::size_t_<sizeof(unsigned long)>::value ? begin() + 2
+					sprout::detail::sizeof_<unsigned long long>::value > sprout::detail::sizeof_<unsigned long>::value ? begin() + 2
 						: begin() + 1
 						,
 					end(),
 					to_ulong_pred()
 					) != end()
 					? throw std::overflow_error("base_bitset::to_ullong")
-					: sprout::detail::size_t_<sizeof(unsigned long long)>::value > sprout::detail::size_t_<sizeof(unsigned long)>::value
+					: sprout::detail::sizeof_<unsigned long long>::value > sprout::detail::sizeof_<unsigned long>::value
 						? w_[0] + (static_cast<unsigned long long>(w_[1]) << (CHAR_BIT * sizeof(unsigned long)))
 					: w_[0]
 					;
@@ -437,7 +437,7 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR std::size_t
 			find_next(std::size_t prev, std::size_t not_found) const SPROUT_NOEXCEPT {
-				return prev + 1 >= N * (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) ? not_found
+				return prev + 1 >= N * (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) ? not_found
 					: find_next_impl(prev + 1, not_found, whichword(prev + 1));
 					;
 			}
@@ -475,15 +475,15 @@ namespace sprout {
 		public:
 			static SPROUT_CONSTEXPR std::size_t
 			whichword(std::size_t pos) SPROUT_NOEXCEPT {
-				return pos / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
+				return pos / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
 			}
 			static SPROUT_CONSTEXPR std::size_t
 			whichbyte(std::size_t pos) SPROUT_NOEXCEPT {
-				return (pos % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value)) / CHAR_BIT;
+				return (pos % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value)) / CHAR_BIT;
 			}
 			static SPROUT_CONSTEXPR std::size_t
 			whichbit(std::size_t pos) SPROUT_NOEXCEPT {
-				return pos % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
+				return pos % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
 			}
 			static SPROUT_CONSTEXPR word_type
 			maskbit(std::size_t pos) SPROUT_NOEXCEPT {
@@ -641,7 +641,7 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR std::size_t
 			find_next(std::size_t prev, std::size_t not_found) const SPROUT_NOEXCEPT {
-				return prev + 1 >= static_cast<std::size_t>(CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) ? not_found
+				return prev + 1 >= static_cast<std::size_t>(CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) ? not_found
 					: find_next_impl(prev + 1, not_found, w_ >> (prev + 1))
 					;
 			}
@@ -658,17 +658,17 @@ namespace sprout {
 		public:
 			static SPROUT_CONSTEXPR std::size_t
 			whichword(std::size_t pos) SPROUT_NOEXCEPT {
-				return pos / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
+				return pos / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
 			}
 
 			static SPROUT_CONSTEXPR std::size_t
 			whichbyte(std::size_t pos) SPROUT_NOEXCEPT {
-				return (pos % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value)) / CHAR_BIT;
+				return (pos % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value)) / CHAR_BIT;
 			}
 
 			static SPROUT_CONSTEXPR std::size_t
 			whichbit(std::size_t pos) SPROUT_NOEXCEPT {
-				return pos % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value);
+				return pos % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value);
 			}
 
 			static SPROUT_CONSTEXPR word_type
@@ -821,7 +821,7 @@ namespace sprout {
 			}
 		};
 
-		template<std::size_t N2, bool = (N2 < (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long long)>::value))>
+		template<std::size_t N2, bool = (N2 < (CHAR_BIT * sprout::detail::sizeof_<unsigned long long>::value))>
 		struct sanitize_val {
 		public:
 			static SPROUT_CONSTEXPR unsigned long long
@@ -892,12 +892,12 @@ namespace sprout {
 	template<std::size_t N>
 	class bitset
 		: private sprout::detail::base_bitset<
-			N / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) + (N % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) == 0 ? 0 : 1)
+			N / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) + (N % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) == 0 ? 0 : 1)
 		>
 	{
 	private:
 		typedef sprout::detail::base_bitset<
-			N / (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) + (N % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value) == 0 ? 0 : 1)
+			N / (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) + (N % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) == 0 ? 0 : 1)
 		> base_type;
 		typedef unsigned long word_type;
 	public:
@@ -955,12 +955,12 @@ namespace sprout {
 
 		void
 		do_sanitize() SPROUT_NOEXCEPT {
-			typedef sprout::detail::sanitize<N % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value)> sanitize_type;
+			typedef sprout::detail::sanitize<N % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value)> sanitize_type;
 			sanitize_type::do_sanitize(this->hiword());
 		}
 		SPROUT_CONSTEXPR bitset<N>
 		do_sanitize() const SPROUT_NOEXCEPT {
-			typedef sprout::detail::sanitize<N % (CHAR_BIT * sprout::detail::size_t_<sizeof(unsigned long)>::value)> sanitize_type;
+			typedef sprout::detail::sanitize<N % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value)> sanitize_type;
 			return  bitset(this->hiword(sanitize_type::do_sanitize_c(this->hiword())));
 		}
 		SPROUT_CONSTEXPR bitset<N>

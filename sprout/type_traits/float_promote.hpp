@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -10,8 +11,8 @@ namespace sprout {
 		struct float_promote1
 			: public std::conditional<
 				std::is_floating_point<T>::value,
-				std::common_type<T>,
-				std::common_type<double>
+				sprout::identity<T>,
+				sprout::identity<double>
 			>::type
 		{
 			static_assert(
@@ -24,7 +25,7 @@ namespace sprout {
 		struct float_promote2
 			: public std::conditional<
 				(std::is_same<T, long double>::value || std::is_same<U, long double>::value),
-				std::common_type<long double>,
+				sprout::identity<long double>,
 				typename std::conditional<
 					(std::is_same<T, float>::value && std::is_same<U, float>::value),
 					float,

@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/internal.hpp>
+#include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	namespace containers {
@@ -18,10 +19,9 @@ namespace sprout {
 			struct deep_internal_impl<
 				Container, Prev,
 				typename std::enable_if<std::is_same<Container, Prev&&>::value>::type
-			> {
-			public:
-				typedef Container type;
-			};
+			>
+				: public sprout::identity<Container>
+			{};
 		}	// namespace detail
 		//
 		// deep_internal

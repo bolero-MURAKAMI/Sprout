@@ -12,6 +12,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/type_traits/common_decay.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type/algorithm/find_index.hpp>
 #include <sprout/functional/type_traits/has_type.hpp>
@@ -89,10 +90,8 @@ namespace sprout {
 		template<typename Visitor, typename Tuple, sprout::index_t... Indexes>
 		struct visitor_result_impl_1<Visitor, Tuple, sprout::index_tuple<Indexes...> > {
 		public:
-			typedef typename std::decay<
-				typename std::common_type<
-					decltype((std::declval<Visitor>())(sprout::tuples::get<Indexes>(std::declval<Tuple>())))...
-				>::type
+			typedef typename sprout::common_decay<
+				decltype((std::declval<Visitor>())(sprout::tuples::get<Indexes>(std::declval<Tuple>())))...
 			>::type type;
 		};
 		template<typename Visitor, typename Tuple, typename = void>
