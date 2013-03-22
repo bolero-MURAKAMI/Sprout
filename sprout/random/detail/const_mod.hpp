@@ -204,8 +204,8 @@ namespace sprout {
 			private:
 				const_mod() SPROUT_DELETED_FUNCTION_DECL
 			};
-		} // namespace detail
-	} // namespace random
-} // namespace sprout
+		}	// namespace detail
+	}	// namespace random
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
+#endif	// #ifndef SPROUT_RANDOM_DETAIL_CONST_MOD_HPP

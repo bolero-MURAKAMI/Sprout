@@ -205,12 +205,12 @@ namespace sprout {
 				return lhs << rhs.lcf_;
 			}
 		};
-	} // namespace random
+	}	// namespace random
 
 	using sprout::random::linear_congruential_engine;
 	using sprout::random::minstd_rand0;
 	using sprout::random::minstd_rand;
 	using sprout::random::rand48;
-} // namespace sprout
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_LINEAR_CONGRUENTIAL_HPP
+#endif	// #ifndef SPROUT_RANDOM_LINEAR_CONGRUENTIAL_HPP

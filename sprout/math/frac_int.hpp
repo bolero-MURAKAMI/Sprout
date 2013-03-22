@@ -16,7 +16,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::pair<T, T>
 			frac_int_impl(T x, T ipart) {
 				typedef sprout::pair<T, T> type;
-				return  x == std::numeric_limits<T>::infinity() || x == -std::numeric_limits<T>::infinity() ? type(T(0), ipart)
+				return x == std::numeric_limits<T>::infinity() || x == -std::numeric_limits<T>::infinity() ? type(T(0), ipart)
 					: x == std::numeric_limits<T>::quiet_NaN() ? type(std::numeric_limits<T>::quiet_NaN(), ipart)
 					: type(x - ipart, ipart)
 					;

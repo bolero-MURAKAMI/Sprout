@@ -22,9 +22,9 @@ namespace sprout {
 			sprout::random::linear_feedback_shift_engine<std::uint32_t, 32, 28, 3, 17>,
 			0
 		> taus88;
-	} // namespace random
+	}	// namespace random
 
 	using sprout::random::taus88;
-} // namespace sprout
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_TAUS88_HPP
+#endif	// #ifndef SPROUT_RANDOM_TAUS88_HPP

@@ -961,7 +961,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR bitset<N>
 		do_sanitize() const SPROUT_NOEXCEPT {
 			typedef sprout::detail::sanitize<N % (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value)> sanitize_type;
-			return  bitset(this->hiword(sanitize_type::do_sanitize_c(this->hiword())));
+			return bitset(this->hiword(sanitize_type::do_sanitize_c(this->hiword())));
 		}
 		SPROUT_CONSTEXPR bitset<N>
 		do_sanitize_c() const SPROUT_NOEXCEPT {

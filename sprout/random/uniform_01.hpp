@@ -161,4 +161,4 @@ namespace sprout {
 	using sprout::random::uniform_01;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_UNIFORM_01_HPP
+#endif	// #ifndef SPROUT_RANDOM_UNIFORM_01_HPP

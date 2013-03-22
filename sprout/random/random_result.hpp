@@ -317,4 +317,4 @@ namespace sprout {
 	using sprout::random::random_result;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_RANDOM_RESULT_HPP
+#endif	// #ifndef SPROUT_RANDOM_RANDOM_RESULT_HPP

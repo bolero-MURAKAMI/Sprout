@@ -13,6 +13,6 @@ namespace sprout {
 	rational_cast(sprout::rational<IntType> const& src) {
 		return static_cast<T>(src.numerator()) / static_cast<T>(src.denominator());
 	}
-} // namespace sprout
+}	// namespace sprout
 
 #endif	// SPROUT_RATIONAL_CONVERSION_HPP

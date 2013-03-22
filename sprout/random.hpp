@@ -10,4 +10,4 @@
 #include <sprout/random/range.hpp>
 #include <sprout/random/unique_seed.hpp>
 
-#endif // #ifndef SPROUT_RANDOM_HPP
+#endif	// #ifndef SPROUT_RANDOM_HPP

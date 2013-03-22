@@ -32,4 +32,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_BIT_ROTATE_HPP
+#endif	// #ifndef SPROUT_BIT_ROTATE_HPP

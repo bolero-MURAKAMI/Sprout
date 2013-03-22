@@ -19,4 +19,4 @@ namespace sprout {
 	}	// namespace random
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_DETAIL_GENERATOR_BITS_HPP
+#endif	// #ifndef SPROUT_RANDOM_DETAIL_GENERATOR_BITS_HPP

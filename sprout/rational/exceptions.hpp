@@ -16,6 +16,6 @@ namespace sprout {
 			: std::domain_error("bad rational: zero denominator")
 		{}
 	};
-} // namespace sprout
+}	// namespace sprout
 
 #endif	// SPROUT_RATIONAL_EXCEPTIONS_HPP

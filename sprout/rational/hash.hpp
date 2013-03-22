@@ -16,7 +16,7 @@ namespace sprout {
 	hash_value(sprout::rational<T> const& v) {
 		return sprout::hash_values(v.numerator(), v.denominator());
 	}
-} // namespace sprout
+}	// namespace sprout
 
 namespace std {
 	//

@@ -59,4 +59,4 @@ namespace sprout {
 	}	// namespace detail
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_DETAIL_INTEGER_STATIC_LOG2_HPP
+#endif	// #ifndef SPROUT_DETAIL_INTEGER_STATIC_LOG2_HPP

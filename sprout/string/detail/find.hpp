@@ -225,7 +225,7 @@ namespace sprout {
 				: String::npos
 				;
 		}
-	}	// 	namespace string_detail
-}	// 	namespace sprout
+	}	// namespace string_detail
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_STRING_DETAIL_FIND_HPP

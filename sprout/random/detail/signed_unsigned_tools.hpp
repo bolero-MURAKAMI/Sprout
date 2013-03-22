@@ -55,8 +55,8 @@ namespace sprout {
 						;
 				}
 			};
-		} // namespace detail
-	} // namespace random
-} // namespace sprout
+		}	// namespace detail
+	}	// namespace random
+}	// namespace sprout
 
-#endif // SPROUT_RANDOM_DETAIL_SIGNED_UNSIGNED_TOOLS_HPP
+#endif	// SPROUT_RANDOM_DETAIL_SIGNED_UNSIGNED_TOOLS_HPP

@@ -540,17 +540,17 @@ namespace sprout {
 			struct reverse;
 		}	// namespace functional
 
-		typedef functional::flatten	 _flatten;
-		typedef functional::make_pair   _make_pair;
-		typedef functional::first	   _first;
-		typedef functional::second	  _second;
-		typedef functional::pop_front   _at;
-		typedef functional::pop_front   _pop_front;
-		typedef functional::push_front  _push_front;
-		typedef functional::pop_back	_pop_back;
-		typedef functional::push_back   _push_back;
-		typedef functional::reverse	 _reverse;
-		typedef functional::eval		_eval;
+		typedef functional::flatten _flatten;
+		typedef functional::make_pair _make_pair;
+		typedef functional::first _first;
+		typedef functional::second _second;
+		typedef functional::pop_front _at;
+		typedef functional::pop_front _pop_front;
+		typedef functional::push_front _push_front;
+		typedef functional::pop_back _pop_back;
+		typedef functional::push_back _push_back;
+		typedef functional::reverse _reverse;
+		typedef functional::eval _eval;
 		struct _deep_copy;
 
 		typedef sprout::breed::functional::make_expr<sprout::breed::tag::terminal> _make_terminal;
@@ -690,9 +690,9 @@ namespace sprout {
 
 		typedef _child_c<0> _child0;
 		typedef _child_c<1> _child1;
-		typedef _child0	 _child;
-		typedef _child0	 _left;
-		typedef _child1	 _right;
+		typedef _child0 _child;
+		typedef _child0 _left;
+		typedef _child1 _right;
 
 		typedef _child_c<2> _child2;
 

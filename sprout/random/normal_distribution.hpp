@@ -246,4 +246,4 @@ namespace sprout {
 	using sprout::random::normal_distribution;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_NORMAL_DISTRIBUTION_HPP
+#endif	// #ifndef SPROUT_RANDOM_NORMAL_DISTRIBUTION_HPP

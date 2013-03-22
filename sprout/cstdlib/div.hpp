@@ -56,7 +56,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.20.6.2  div，ldiv，及び lldiv 関数
+	// 7.20.6.2 div，ldiv，及び lldiv 関数
 	inline SPROUT_CONSTEXPR std::div_t
 	div(int numer, int denom) {
 		return sprout::detail::div_impl(numer, denom);

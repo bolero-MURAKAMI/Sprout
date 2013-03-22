@@ -445,7 +445,7 @@ namespace sprout {
 			typedef T* pointer;
 			typedef T const* const_pointer;
 		public:
-			SPROUT_STATIC_CONSTEXPR size_type static_size = N ;
+			SPROUT_STATIC_CONSTEXPR size_type static_size = N;
 		public:
 			static SPROUT_CONSTEXPR size_type
 			fixed_size() SPROUT_NOEXCEPT {

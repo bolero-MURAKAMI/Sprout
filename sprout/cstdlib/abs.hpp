@@ -7,7 +7,7 @@
 namespace sprout {
 	// Copyright (C) 2011 RiSK (sscrisk)
 
-	// 7.20.6.1  abs，labs，及び llabs 関数
+	// 7.20.6.1 abs，labs，及び llabs 関数
 	inline SPROUT_CONSTEXPR int
 	abs(int j) {
 		return j < 0 ? -j : j;

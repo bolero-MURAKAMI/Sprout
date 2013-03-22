@@ -9,7 +9,7 @@
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
 
 namespace sprout {
-	// 7.21.4.4  strncmp ä÷êî
+	// 7.21.4.4 strncmp ä÷êî
 	//
 	//	recursion depth:
 	//		O(log(N1+N2))

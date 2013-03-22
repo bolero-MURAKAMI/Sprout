@@ -36,6 +36,6 @@ namespace sprout {
 	operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::rational<IntType> const& rhs) {
 		return lhs << rhs.numerator() << Elem('/') << rhs.denominator();
 	}
-} // namespace sprout
+}	// namespace sprout
 
 #endif	// SPROUT_RATIONAL_IO_HPP

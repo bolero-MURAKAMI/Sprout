@@ -128,4 +128,4 @@ namespace sprout {
 	};
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_UTILITY_COMPARE_POINTEES_HPP
+#endif	// #ifndef SPROUT_UTILITY_COMPARE_POINTEES_HPP

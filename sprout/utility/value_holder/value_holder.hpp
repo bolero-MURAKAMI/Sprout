@@ -213,4 +213,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_UTILITY_VALUE_HOLDER_VALUE_HOLDER_HPP
+#endif	// #ifndef SPROUT_UTILITY_VALUE_HOLDER_VALUE_HOLDER_HPP

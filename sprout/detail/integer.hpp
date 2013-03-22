@@ -62,11 +62,11 @@ namespace sprout {
 		struct exact_unsigned_base_helper {};
 
 		template<>
-		struct exact_signed_base_helper<sizeof(signed char)  * CHAR_BIT> {
+		struct exact_signed_base_helper<sizeof(signed char) * CHAR_BIT> {
 			typedef signed char exact;
 		};
 		template<>
-		struct exact_unsigned_base_helper<sizeof(unsigned char)  * CHAR_BIT> {
+		struct exact_unsigned_base_helper<sizeof(unsigned char) * CHAR_BIT> {
 			typedef unsigned char exact;
 		};
 #if USHRT_MAX != UCHAR_MAX
@@ -178,4 +178,4 @@ namespace sprout {
 	}	// namespace detail
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_DETAIL_INTEGER_HPP
+#endif	// #ifndef SPROUT_DETAIL_INTEGER_HPP

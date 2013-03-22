@@ -431,4 +431,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_COMPRESSED_PAIR_HPP
+#endif	// #ifndef SPROUT_COMPRESSED_PAIR_HPP

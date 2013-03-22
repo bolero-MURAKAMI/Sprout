@@ -10,9 +10,9 @@ namespace sprout {
 		// default_random_engine
 		//
 		typedef sprout::random::minstd_rand0 default_random_engine;
-	} // namespace random
+	}	// namespace random
 
 	using sprout::random::default_random_engine;
-} // namespace sprout
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_DEFAULT_RANDOM_ENGINE_HPP
+#endif	// #ifndef SPROUT_RANDOM_DEFAULT_RANDOM_ENGINE_HPP

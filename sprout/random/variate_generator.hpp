@@ -86,4 +86,4 @@ namespace sprout {
 	using sprout::random::variate_generator;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_VARIATE_GENERATOR_HPP
+#endif	// #ifndef SPROUT_RANDOM_VARIATE_GENERATOR_HPP

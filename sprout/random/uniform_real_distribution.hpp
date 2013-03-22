@@ -313,4 +313,4 @@ namespace sprout {
 	using sprout::random::uniform_real_distribution;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_UNIFORM_REAL_DISTRIBUTION_HPP
+#endif	// #ifndef SPROUT_RANDOM_UNIFORM_REAL_DISTRIBUTION_HPP

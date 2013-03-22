@@ -38,6 +38,6 @@ namespace sprout {
 #endif
 		}
 	}	// namespace detail
-} // namespace sprout
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_CURRENT_FUNCTION_HPP

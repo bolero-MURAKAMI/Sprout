@@ -426,4 +426,4 @@ namespace sprout {
 	using sprout::random::uniform_int_distribution;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP
+#endif	// #ifndef SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP

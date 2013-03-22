@@ -210,7 +210,7 @@ namespace sprout {
 			gcd_optimal(T const& a, T const& b) {
 				return sprout::math::detail::gcd_optimal_evaluator<T>().operator()(a, b);
 			}
-		}  // namespace detail
+		}	// namespace detail
 
 		//
 		// gcd_evaluator
@@ -245,7 +245,7 @@ namespace sprout {
 		gcd(IntType const& a, IntType const& b) {
 			return sprout::math::gcd_evaluator<IntType>().operator()(a, b);
 		}
-	}  // namespace math
-}  // namespace boost
+	}	// namespace math
+}	// namespace boost
 
-#endif  // SPROUT_MATH_GCD_HPP
+#endif	// #ifndef SPROUT_MATH_GCD_HPP

@@ -64,4 +64,4 @@ namespace sprout {
 	}	// namespace random
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_ITERATOR_HPP
+#endif	// #ifndef SPROUT_RANDOM_ITERATOR_HPP

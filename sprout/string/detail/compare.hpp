@@ -30,7 +30,7 @@ namespace sprout {
 				n1, n2
 				);
 		}
-	}	// 	namespace string_detail
-}	// 	namespace sprout
+	}	// namespace string_detail
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_STRING_DETAIL_COMPARE_HPP

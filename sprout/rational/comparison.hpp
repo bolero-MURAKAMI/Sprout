@@ -191,6 +191,6 @@ namespace sprout {
 	operator>=(typename sprout::rational<IntType>::param_type lhs, sprout::rational<IntType> const& rhs) {
 		return !(lhs < rhs);
 	}
-} // namespace sprout
+}	// namespace sprout
 
 #endif	// SPROUT_RATIONAL_COMPARISON_HPP

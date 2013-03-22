@@ -256,4 +256,4 @@ namespace sprout {
 	using sprout::random::uniform_smallint;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_UNIFORM_SMALLINT_HPP
+#endif	// #ifndef SPROUT_RANDOM_UNIFORM_SMALLINT_HPP

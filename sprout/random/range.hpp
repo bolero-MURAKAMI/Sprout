@@ -45,4 +45,4 @@ namespace sprout {
 	}	// namespace random
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_RANGE_HPP
+#endif	// #ifndef SPROUT_RANDOM_RANGE_HPP

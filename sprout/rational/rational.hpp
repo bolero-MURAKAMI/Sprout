@@ -213,6 +213,6 @@ namespace sprout {
 				);
 		}
 	}	// namespace detail
-} // namespace sprout
+}	// namespace sprout
 
 #endif	// SPROUT_RATIONAL_RATIONAL_HPP

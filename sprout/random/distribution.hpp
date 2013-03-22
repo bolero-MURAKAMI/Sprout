@@ -11,4 +11,4 @@
 #include <sprout/random/geometric_distribution.hpp>
 #include <sprout/random/normal_distribution.hpp>
 
-#endif // #ifndef SPROUT_RANDOM_DISTRIBUTION_HPP
+#endif	// #ifndef SPROUT_RANDOM_DISTRIBUTION_HPP

@@ -29,7 +29,7 @@ namespace sprout {
 		}
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type
-		remake(Cont&& cont, typename sprout::container_traits<sprout::basic_string<T, N, Traits> >::difference_type size, Args&&... args) 	{
+		remake(Cont&& cont, typename sprout::container_traits<sprout::basic_string<T, N, Traits> >::difference_type size, Args&&... args) {
 			typedef sprout::detail::make_construct_impl<copied_type> impl_type;
 			return impl_type::make(static_cast<typename copied_type::size_type>(size), sprout::forward<Args>(args)...);
 		}

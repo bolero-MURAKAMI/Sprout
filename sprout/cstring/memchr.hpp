@@ -22,7 +22,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.21.5.1  memchr ä÷êî
+	// 7.21.5.1 memchr ä÷êî
 	//
 	//	recursion depth:
 	//		O(log N)

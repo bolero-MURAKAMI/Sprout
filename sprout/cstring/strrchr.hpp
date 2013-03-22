@@ -67,7 +67,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.21.5.5  strrchr ŠÖ”
+	// 7.21.5.5 strrchr ŠÖ”
 	//
 	//	recursion depth:
 	//		O(log N)

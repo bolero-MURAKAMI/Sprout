@@ -604,4 +604,4 @@ namespace sprout {
 	using sprout::random::mt19937_64;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_MERSENNE_TWISTER_HPP
+#endif	// #ifndef SPROUT_RANDOM_MERSENNE_TWISTER_HPP

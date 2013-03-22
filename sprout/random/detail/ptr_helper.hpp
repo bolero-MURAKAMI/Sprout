@@ -69,4 +69,4 @@ namespace sprout {
 	}	// namespace random
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_DETAIL_PTR_HELPER_HPP
+#endif	// #ifndef SPROUT_RANDOM_DETAIL_PTR_HELPER_HPP

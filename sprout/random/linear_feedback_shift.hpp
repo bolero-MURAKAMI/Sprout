@@ -107,9 +107,9 @@ namespace sprout {
 		SPROUT_CONSTEXPR_OR_CONST int sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::step_size;
 		template<typename UIntType, int w, int k, int q, int s>
 		SPROUT_CONSTEXPR_OR_CONST UIntType sprout::random::linear_feedback_shift_engine<UIntType, w, k, q, s>::default_seed;
-	} // namespace random
+	}	// namespace random
 
 	using sprout::random::linear_feedback_shift_engine;
-} // namespace sprout
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_LINEAR_FEEDBACK_SHIFT_HPP
+#endif	// #ifndef SPROUT_RANDOM_LINEAR_FEEDBACK_SHIFT_HPP

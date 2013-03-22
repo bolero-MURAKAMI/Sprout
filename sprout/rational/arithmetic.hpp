@@ -253,6 +253,6 @@ namespace sprout {
 	operator/(typename sprout::rational<IntType>::param_type lhs, sprout::rational<IntType> const& rhs) {
 		return sprout::rational<IntType>(lhs) / rhs;
 	}
-} // namespace sprout
+}	// namespace sprout
 
 #endif	// SPROUT_RATIONAL_ARITHMETIC_HPP

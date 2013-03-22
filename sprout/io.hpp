@@ -510,7 +510,7 @@ namespace sprout {
 		};
 
 		//
-		//  root_t
+		// root_t
 		//
 		typedef sprout::io::format_expression<
 			sprout::io::root_expression,

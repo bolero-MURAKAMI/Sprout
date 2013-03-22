@@ -192,11 +192,11 @@ namespace sprout {
 		// kreutzer1986
 		//
 		typedef sprout::random::shuffle_order_engine<sprout::random::linear_congruential_engine<std::uint32_t, 1366, 150889, 714025>, 97> kreutzer1986;
-	} // namespace random
+	}	// namespace random
 
 	using sprout::random::shuffle_order_engine;
 	using sprout::random::knuth_b;
 	using sprout::random::kreutzer1986;
-} // namespace sprout
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_SHUFFLE_ORDER_HPP
+#endif	// #ifndef SPROUT_RANDOM_SHUFFLE_ORDER_HPP

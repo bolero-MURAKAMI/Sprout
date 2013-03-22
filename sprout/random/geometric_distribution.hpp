@@ -157,4 +157,4 @@ namespace sprout {
 	using sprout::random::geometric_distribution;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_GEOMETRIC_DISTRIBUTION_HPP
+#endif	// #ifndef SPROUT_RANDOM_GEOMETRIC_DISTRIBUTION_HPP

@@ -683,4 +683,4 @@ namespace sprout {
 	using sprout::random::binomial_distribution;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_BINOMIAL_DISTRIBUTION_HPP
+#endif	// #ifndef SPROUT_RANDOM_BINOMIAL_DISTRIBUTION_HPP

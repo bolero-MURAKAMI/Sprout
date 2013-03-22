@@ -144,4 +144,4 @@ namespace sprout {
 	using sprout::random::bernoulli_distribution;
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_BERNOULLI_DISTRIBUTION_HPP
+#endif	// #ifndef SPROUT_RANDOM_BERNOULLI_DISTRIBUTION_HPP

@@ -69,7 +69,7 @@ namespace sprout {
 			lcm_optimal(T const& a, T const& b) {
 				return sprout::math::detail::lcm_optimal_evaluator<T>().operator()(a, b);
 			}
-		}  // namespace detail
+		}	// namespace detail
 
 		//
 		// lcm_evaluator
@@ -104,7 +104,7 @@ namespace sprout {
 		lcm(IntType const& a, IntType const& b) {
 			return sprout::math::lcm_evaluator<IntType>().operator()(a, b);
 		}
-	}  // namespace math
-}  // namespace boost
+	}	// namespace math
+}	// namespace boost
 
-#endif  // SPROUT_MATH_LCM_HPP
+#endif	// #ifndef SPROUT_MATH_LCM_HPP

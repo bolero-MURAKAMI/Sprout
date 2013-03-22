@@ -12,4 +12,4 @@
 #include <sprout/random/taus88.hpp>
 #include <sprout/random/default_random_engine.hpp>
 
-#endif // #ifndef SPROUT_RANDOM_ENGINE_HPP
+#endif	// #ifndef SPROUT_RANDOM_ENGINE_HPP

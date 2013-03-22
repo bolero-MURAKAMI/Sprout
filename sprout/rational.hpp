@@ -11,4 +11,4 @@
 #include <sprout/rational/conversion.hpp>
 #include <sprout/rational/exceptions.hpp>
 
-#endif  // SPROUT_RATIONAL_HPP
+#endif	// #ifndef SPROUT_RATIONAL_HPP

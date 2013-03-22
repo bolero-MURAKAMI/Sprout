@@ -65,8 +65,8 @@ namespace sprout {
 					return generate(rng_());
 				}
 			};
-		} // namespace detail
-	} // namespace random
-} // namespace sprout
+		}	// namespace detail
+	}	// namespace random
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_DETAIL_UNIFORM_INT_FLOAT_HPP
+#endif	// #ifndef SPROUT_RANDOM_DETAIL_UNIFORM_INT_FLOAT_HPP

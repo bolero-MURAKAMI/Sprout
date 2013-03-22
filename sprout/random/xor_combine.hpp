@@ -99,9 +99,9 @@ namespace sprout {
 		SPROUT_CONSTEXPR_OR_CONST int sprout::random::xor_combine_engine<URNG1, s1, URNG2, s2>::shift1;
 		template<typename URNG1, int s1, typename URNG2, int s2>
 		SPROUT_CONSTEXPR_OR_CONST int sprout::random::xor_combine_engine<URNG1, s1, URNG2, s2>::shift2;
-	} // namespace random
+	}	// namespace random
 
 	using sprout::random::xor_combine_engine;
-} // namespace sprout
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_XOR_COMBINE_HPP
+#endif	// #ifndef SPROUT_RANDOM_XOR_COMBINE_HPP

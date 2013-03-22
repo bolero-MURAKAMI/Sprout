@@ -6,4 +6,4 @@
 #include <sprout/utility/value_holder/get.hpp>
 #include <sprout/utility/value_holder/hash.hpp>
 
-#endif // #ifndef SPROUT_UTILITY_VALUE_HOLDER_HPP
+#endif	// #ifndef SPROUT_UTILITY_VALUE_HOLDER_HPP

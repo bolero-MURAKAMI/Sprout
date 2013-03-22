@@ -55,4 +55,4 @@ namespace sprout {
 	}	// namespace detail
 }	// namespace sprout
 
-#endif // #ifndef SPROUT_DETAIL_CALL_TRAITS_HPP
+#endif	// #ifndef SPROUT_DETAIL_CALL_TRAITS_HPP

@@ -10,4 +10,4 @@
 #include <sprout/optional/get.hpp>
 #include <sprout/optional/hash.hpp>
 
-#endif // #ifndef SPROUT_OPTIONAL_HPP
+#endif	// #ifndef SPROUT_OPTIONAL_HPP

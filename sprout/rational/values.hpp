@@ -19,6 +19,6 @@ namespace sprout {
 				)
 			;
 	}
-} // namespace sprout
+}	// namespace sprout
 
 #endif	// SPROUT_RATIONAL_VALUES_HPP

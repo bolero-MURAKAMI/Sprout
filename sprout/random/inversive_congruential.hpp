@@ -120,10 +120,10 @@ namespace sprout {
 		// hellekalek1995
 		//
 		typedef sprout::random::inversive_congruential_engine<std::uint32_t, 9102, 2147483647 - 36884165, 2147483647> hellekalek1995;
-	} // namespace random
+	}	// namespace random
 
 	using sprout::random::inversive_congruential_engine;
 	using sprout::random::hellekalek1995;
-} // namespace sprout
+}	// namespace sprout
 
-#endif // #ifndef SPROUT_RANDOM_INVERSIVE_CONGRUENTIAL_HPP
+#endif	// #ifndef SPROUT_RANDOM_INVERSIVE_CONGRUENTIAL_HPP
