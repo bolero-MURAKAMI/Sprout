@@ -52,6 +52,11 @@ namespace sprout {
 			typename std::remove_cv<Types>::type...
 		>
 	{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<typename... Types>
+	using arithmetic_promote_ = typename sprout::arithmetic_promote<Types...>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_ARITHMETIC_PROMOTE_HPP

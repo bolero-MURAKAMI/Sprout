@@ -12,6 +12,11 @@ namespace sprout {
 	public:
 		typedef T type;
 	};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<typename T>
+	using identity_ = typename sprout::identity<T>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IDENTITY_HPP

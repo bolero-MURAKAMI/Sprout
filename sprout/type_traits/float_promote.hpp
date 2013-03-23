@@ -63,6 +63,11 @@ namespace sprout {
 			typename std::remove_cv<Types>::type...
 		>
 	{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<typename... Types>
+	using float_promote_ = typename sprout::float_promote<Types...>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_FLOAT_PROMOTE_HPP

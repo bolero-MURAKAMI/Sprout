@@ -24,12 +24,12 @@ namespace sprout {
 	//
 	template<typename... Types>
 	inline SPROUT_CONSTEXPR sprout::array<
-		typename sprout::common_decay<typename std::decay<Types>::type...>::type,
+		typename sprout::common_decay<Types&&...>::type,
 		sizeof...(Types)
 	>
 	make_common_array(Types&&... args) {
 		typedef sprout::array<
-			typename sprout::common_decay<typename std::decay<Types>::type...>::type,
+			typename sprout::common_decay<Types&&...>::type,
 			sizeof...(Types)
 		> type;
 		return type{{sprout::forward<Types>(args)...}};

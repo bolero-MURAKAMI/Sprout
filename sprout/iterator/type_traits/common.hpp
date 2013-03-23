@@ -108,10 +108,10 @@ namespace sprout {
 								)
 							,
 						T,
-						typename sprout::common_decay<typename std::decay<T>::type, typename std::decay<U>::type>::type
+						typename sprout::common_decay<T, U>::type
 					>::type
 				>::type,
-				typename sprout::common_decay<typename std::decay<T>::type, typename std::decay<U>::type>::type
+				typename sprout::common_decay<T, U>::type
 			>
 		{};
 		template<typename T, typename U, typename... Tail>

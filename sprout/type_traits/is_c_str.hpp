@@ -56,6 +56,11 @@ namespace sprout {
 	struct is_c_str<char32_t const[N]>
 		: public std::true_type
 	{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<typename T>
+	using is_c_str_ = typename sprout::is_c_str<T>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IS_C_STR_HPP
