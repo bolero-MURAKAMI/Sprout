@@ -3,9 +3,9 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/remove_shallow_cvref.hpp>
 #include <sprout/weed/traits/expr/is_expr.hpp>
 #include <sprout/weed/traits/expr/terminal_of.hpp>
-#include <sprout/weed/detail/uncvref.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -18,9 +18,9 @@ namespace sprout {
 			public:
 				typedef typename std::conditional<
 					sprout::weed::traits::is_expr<
-						typename sprout::weed::detail::uncvref<Arg>::type
+						typename sprout::remove_shallow_cvref<Arg>::type
 					>::value,
-					typename sprout::weed::detail::uncvref<Arg>::type,
+					typename sprout::remove_shallow_cvref<Arg>::type,
 					typename sprout::weed::traits::terminal_of<Arg>::type
 				>::type type;
 			};

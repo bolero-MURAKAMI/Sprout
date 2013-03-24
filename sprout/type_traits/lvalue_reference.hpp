@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/utility/as_lvalue.hpp>
 
 namespace sprout {
@@ -10,10 +11,9 @@ namespace sprout {
 	// lvalue_reference
 	//
 	template<typename T>
-	struct lvalue_reference {
-	public:
-		typedef decltype(sprout::as_lvalue(std::declval<T&&>())) type;
-	};
+	struct lvalue_reference
+		: public sprout::identity<decltype(sprout::as_lvalue(std::declval<T&&>()))>
+	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>

@@ -5,9 +5,9 @@
 #include <sprout/config.hpp>
 #include <sprout/string.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/remove_shallow_cvref.hpp>
 #include <sprout/weed/traits/type/is_c_str.hpp>
 #include <sprout/weed/traits/expr/terminal_of.hpp>
-#include <sprout/weed/detail/uncvref.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -17,7 +17,7 @@ namespace sprout {
 		template<typename Arg>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			!sprout::weed::traits::is_c_str<
-				typename sprout::weed::detail::uncvref<Arg>::type
+				typename sprout::remove_shallow_cvref<Arg>::type
 			>::value,
 			typename sprout::weed::traits::terminal_of<Arg>::type
 		>::type make_terminal(Arg&& arg) {
@@ -28,7 +28,7 @@ namespace sprout {
 		template<typename Arg>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::weed::traits::is_c_str<
-				typename sprout::weed::detail::uncvref<Arg>::type
+				typename sprout::remove_shallow_cvref<Arg>::type
 			>::value,
 			typename sprout::weed::traits::terminal_of<Arg>::type
 		>::type make_terminal(Arg&& arg) {

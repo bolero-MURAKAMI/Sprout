@@ -3,7 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/weed/detail/uncvref.hpp>
+#include <sprout/type_traits/remove_shallow_cvref.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -17,9 +17,9 @@ namespace sprout {
 		public:
 			template<typename T>
 			SPROUT_CONSTEXPR typename eval<
-				typename sprout::weed::detail::uncvref<T>::type
+				typename sprout::remove_shallow_cvref<T>::type
 			>::result_type operator()(T&& t) const {
-				typedef eval<typename sprout::weed::detail::uncvref<T>::type> eval_type;
+				typedef eval<typename sprout::remove_shallow_cvref<T>::type> eval_type;
 				return eval_type()(sprout::forward<T>(t));
 			}
 		};

@@ -9,6 +9,11 @@
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/type_traits/const_reference.hpp>
+#include <sprout/type_traits/remove_cvref.hpp>
+#include <sprout/type_traits/remove_shallow_const.hpp>
+#include <sprout/type_traits/remove_shallow_volatile.hpp>
+#include <sprout/type_traits/remove_shallow_cv.hpp>
+#include <sprout/type_traits/remove_shallow_cvref.hpp>
 #include <sprout/type_traits/common_decay.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/float_promote.hpp>

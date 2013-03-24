@@ -4,11 +4,11 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/remove_shallow_cvref.hpp>
 #include <sprout/weed/expr/tag.hpp>
 #include <sprout/weed/expr/make_expr.hpp>
 #include <sprout/weed/traits/expr/expr_of.hpp>
 #include <sprout/weed/traits/parser/is_parser.hpp>
-#include <sprout/weed/detail/uncvref.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -20,10 +20,10 @@ namespace sprout {
 			typename Arg2,
 			typename = typename std::enable_if<
 				sprout::weed::traits::is_parser<
-					typename sprout::weed::detail::uncvref<Arg1>::type
+					typename sprout::remove_shallow_cvref<Arg1>::type
 				>::value
 				&& sprout::weed::traits::is_parser<
-					typename sprout::weed::detail::uncvref<Arg2>::type
+					typename sprout::remove_shallow_cvref<Arg2>::type
 				>::value
 			>::type
 		>
