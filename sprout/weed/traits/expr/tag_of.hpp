@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/traits/expr/is_expr.hpp>
 
 namespace sprout {
@@ -23,10 +24,9 @@ namespace sprout {
 				typename std::enable_if<
 					sprout::weed::traits::is_expr<Expr>::value
 				>::type
-			> {
-			public:
-				typedef typename Expr::expr_tag type;
-			};
+			>
+				: public sprout::identity<typename Expr::expr_tag>
+			{};
 		}	// namespace traits
 	}	// namespace weed
 }	// namespace sprout

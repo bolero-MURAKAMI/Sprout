@@ -7,6 +7,7 @@
 #include <sprout/string.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/algorithm/string/join.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/traits/type/is_char_type.hpp>
 #include <sprout/weed/traits/type/is_container.hpp>
@@ -30,12 +31,11 @@ namespace sprout {
 						Limit != std::size_t(-1)
 						&& sprout::weed::traits::is_container<T>::value
 					>::type
-				> {
-				public:
-					typedef typename sprout::algorithm::result_of::join<
+				>
+					: public sprout::algorithm::result_of::join<
 						sprout::array<T, Limit>
-					>::type type;
-				};
+					>
+				{};
 				// times<N>(V) -> container<V, N>
 				template<std::size_t Limit, typename T>
 				struct times<
@@ -46,14 +46,13 @@ namespace sprout {
 						&& !sprout::weed::traits::is_container<T>::value
 						&& !sprout::weed::traits::is_unused<T>::value
 					>::type
-				> {
-				public:
-					typedef typename std::conditional<
+				>
+					: public std::conditional<
 						sprout::weed::traits::is_char_type<T>::value,
 						sprout::basic_string<T, Limit>,
 						sprout::array<T, Limit>
-					>::type type;
-				};
+					>
+				{};
 				// times<N>(unused) -> unused
 				template<std::size_t Limit, typename T>
 				struct times<
@@ -62,10 +61,9 @@ namespace sprout {
 					typename std::enable_if<
 						sprout::weed::traits::is_unused<T>::value
 					>::type
-				> {
-				public:
-					typedef sprout::weed::unused type;
-				};
+				>
+					: public sprout::identity<sprout::weed::unused>
+				{};
 			}	// namespace result_of
 		}	// namespace attr_cnv
 	}	// namespace weed

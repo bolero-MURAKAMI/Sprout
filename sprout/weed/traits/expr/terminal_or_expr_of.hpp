@@ -14,16 +14,15 @@ namespace sprout {
 			// terminal_or_expr_of
 			//
 			template<typename Arg>
-			struct terminal_or_expr_of {
-			public:
-				typedef typename std::conditional<
+			struct terminal_or_expr_of
+				: public std::conditional<
 					sprout::weed::traits::is_expr<
 						typename sprout::remove_shallow_cvref<Arg>::type
 					>::value,
-					typename sprout::remove_shallow_cvref<Arg>::type,
-					typename sprout::weed::traits::terminal_of<Arg>::type
-				>::type type;
-			};
+					sprout::remove_shallow_cvref<Arg>,
+					sprout::weed::traits::terminal_of<Arg>
+				>::type
+			{};
 		}	// namespace traits
 	}	// namespace weed
 }	// namespace sprout

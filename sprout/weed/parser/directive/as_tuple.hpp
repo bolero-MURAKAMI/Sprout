@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/expr/make_terminal_or_expr.hpp>
 #include <sprout/weed/expr/eval.hpp>
@@ -32,10 +33,9 @@ namespace sprout {
 				typedef sprout::tuples::tuple<attr_type> type;
 			};
 			template<typename Context, typename Iterator>
-			struct result {
-			public:
-				typedef sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> type;
-			};
+			struct result
+				: public sprout::identity<sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> >
+			{};
 		private:
 			typedef typename sprout::weed::traits::terminal_or_expr_of<Parser>::type expr_type;
 		private:

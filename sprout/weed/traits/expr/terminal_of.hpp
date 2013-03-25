@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/remove_shallow_cvref.hpp>
 #include <sprout/weed/expr/expr_fwd.hpp>
 #include <sprout/weed/expr/tag.hpp>
@@ -25,13 +26,14 @@ namespace sprout {
 						typename sprout::remove_shallow_cvref<Arg>::type
 					>::value
 				>::type
-			> {
-			public:
-				typedef sprout::weed::expr<
-					sprout::weed::tag::terminal,
-					typename sprout::remove_shallow_cvref<Arg>::type
-				> type;
-			};
+			>
+				: public sprout::identity<
+					sprout::weed::expr<
+						sprout::weed::tag::terminal,
+						typename sprout::remove_shallow_cvref<Arg>::type
+					>
+				>
+			{};
 			template<typename Arg>
 			struct terminal_of<
 				Arg,
@@ -40,15 +42,16 @@ namespace sprout {
 						typename sprout::remove_shallow_cvref<Arg>::type
 					>::value
 				>::type
-			> {
-			public:
-				typedef sprout::weed::expr<
-					sprout::weed::tag::terminal,
-					typename sprout::weed::detail::c_str_as_string<
-						typename sprout::remove_shallow_cvref<Arg>::type
-					>::type
-				> type;
-			};
+			>
+				: public sprout::identity<
+					sprout::weed::expr<
+						sprout::weed::tag::terminal,
+						typename sprout::weed::detail::c_str_as_string<
+							typename sprout::remove_shallow_cvref<Arg>::type
+						>::type
+					>
+				>
+			{};
 		}	// namespace traits
 	}	// namespace weed
 }	// namespace sprout

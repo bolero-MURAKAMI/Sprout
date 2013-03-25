@@ -6,6 +6,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/integer/integer_digits.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
@@ -32,15 +33,13 @@ namespace sprout {
 				;
 		public:
 			template<typename Context, typename Iterator>
-			struct attribute {
-			public:
-				typedef IntType type;
-			};
+			struct attribute
+				: public sprout::identity<IntType>
+			{};
 			template<typename Context, typename Iterator>
-			struct result {
-			public:
-				typedef sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> type;
-			};
+			struct result
+				: public sprout::identity<sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> >
+			{};
 		private:
 			template<typename Context, typename Iterator>
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type make_result(

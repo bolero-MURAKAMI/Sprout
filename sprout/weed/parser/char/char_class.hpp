@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/ctype/ascii.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
@@ -18,19 +19,17 @@ namespace sprout {
 		{ \
 		public: \
 			template<typename Context, typename Iterator> \
-			struct attribute { \
-			public: \
-				typedef typename std::conditional< \
+			struct attribute \
+				: public std::conditional< \
 					Nil, \
 					sprout::weed::unused, \
 					typename std::iterator_traits<Iterator>::value_type \
-				>::type type; \
-			}; \
+				> \
+			{}; \
 			template<typename Context, typename Iterator> \
-			struct result { \
-			public: \
-				typedef sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> type; \
-			}; \
+			struct result \
+				: public sprout::identity<sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> > \
+			{}; \
 		public: \
 			template<typename Context, typename Iterator> \
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type operator()( \

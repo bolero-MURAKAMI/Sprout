@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/expr/make_terminal_or_expr.hpp>
 #include <sprout/weed/expr/eval.hpp>
@@ -142,18 +143,16 @@ namespace sprout {
 			};
 		public:
 			template<typename Context, typename Iterator>
-			struct attribute {
-			public:
-				typedef typename sprout::weed::attr_cnv::result_of::times<
+			struct attribute
+				: public sprout::weed::attr_cnv::result_of::times<
 					sprout::weed::traits::limit_of<Parser, Iterator, Context>::value,
 					typename sprout::weed::traits::attribute_of<Parser, Iterator, Context>::type
-				>::type type;
-			};
+				>
+			{};
 			template<typename Context, typename Iterator>
-			struct result {
-			public:
-				typedef sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> type;
-			};
+			struct result
+				: public sprout::identity<sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> >
+			{};
 		private:
 			typedef typename sprout::weed::traits::terminal_or_expr_of<Parser>::type expr_type;
 		private:

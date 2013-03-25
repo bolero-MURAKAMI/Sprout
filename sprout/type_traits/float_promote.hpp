@@ -11,9 +11,9 @@ namespace sprout {
 		struct float_promote1
 			: public std::conditional<
 				std::is_floating_point<T>::value,
-				sprout::identity<T>,
-				sprout::identity<double>
-			>::type
+				T,
+				double
+			>
 		{
 			static_assert(
 				std::is_arithmetic<T>::value,
@@ -25,13 +25,13 @@ namespace sprout {
 		struct float_promote2
 			: public std::conditional<
 				(std::is_same<T, long double>::value || std::is_same<U, long double>::value),
-				sprout::identity<long double>,
+				long double,
 				typename std::conditional<
 					(std::is_same<T, float>::value && std::is_same<U, float>::value),
 					float,
 					double
-				>
-			>::type
+				>::type
+			>
 		{
 			static_assert(
 				std::is_arithmetic<T>::value && std::is_arithmetic<U>::value,

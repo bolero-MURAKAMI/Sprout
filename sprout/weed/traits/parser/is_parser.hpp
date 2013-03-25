@@ -52,6 +52,7 @@ namespace sprout {
 				T,
 				typename std::enable_if<
 					sprout::weed::traits::is_c_str<T>::value
+					&& !std::is_const<T>::value
 				>::type
 			>
 				: public std::true_type
@@ -61,7 +62,6 @@ namespace sprout {
 				T,
 				typename std::enable_if<
 					std::is_const<T>::value
-					&& !std::is_array<T>::value
 				>::type
 			>
 				: public sprout::weed::traits::is_parser<

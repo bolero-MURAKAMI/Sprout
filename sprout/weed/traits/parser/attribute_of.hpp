@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/weed/traits/expr/is_expr.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/expr/expr.hpp>
 #include <sprout/weed/expr/tag.hpp>
@@ -37,10 +38,9 @@ namespace sprout {
 					&& !sprout::weed::traits::is_c_str<T>::value
 					&& !sprout::weed::traits::is_string<T>::value
 				>::type
-			> {
-			public:
-				typedef typename T::template attribute<Context, Iterator>::type type;
-			};
+			>
+				: public T::template attribute<Context, Iterator>
+			{};
 			template<typename T, typename Iterator, typename Context>
 			struct attribute_of<
 				T,
@@ -49,10 +49,9 @@ namespace sprout {
 				typename std::enable_if<
 					sprout::weed::traits::is_expr<T>::value
 				>::type
-			> {
-			public:
-				typedef typename Context::template eval<T>::attribute_type type;
-			};
+			>
+				: public sprout::identity<typename Context::template eval<T>::attribute_type>
+			{};
 			template<typename T, typename Iterator, typename Context>
 			struct attribute_of<
 				T,

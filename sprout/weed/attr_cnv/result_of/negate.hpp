@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/traits/type/is_unused.hpp>
 
@@ -22,10 +23,9 @@ namespace sprout {
 					typename std::enable_if<
 						sprout::weed::traits::is_unused<T>::value
 					>::type
-				> {
-				public:
-					typedef sprout::weed::unused type;
-				};
+				>
+					: public sprout::identity<sprout::weed::unused>
+				{};
 			}	// namespace result_of
 		}	// namespace attr_cnv
 	}	// namespace weed

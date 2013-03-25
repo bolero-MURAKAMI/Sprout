@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/limited.hpp>
 #include <sprout/weed/expr/make_terminal_or_expr.hpp>
@@ -25,15 +26,13 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t limit = Limit;
 		public:
 			template<typename Context, typename Iterator>
-			struct attribute {
-			public:
-				typedef typename sprout::weed::traits::attribute_of<Parser, Iterator, Context>::type type;
-			};
+			struct attribute
+				: public sprout::weed::traits::attribute_of<Parser, Iterator, Context>
+			{};
 			template<typename Context, typename Iterator>
-			struct result {
-			public:
-				typedef sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> type;
-			};
+			struct result
+				: public sprout::identity<sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> >
+			{};
 		private:
 			typedef typename sprout::weed::traits::terminal_or_expr_of<Parser>::type expr_type;
 		private:

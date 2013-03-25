@@ -40,22 +40,6 @@ namespace sprout {
 	struct is_c_str<char32_t[N]>
 		: public std::true_type
 	{};
-	template<std::size_t N>
-	struct is_c_str<char const[N]>
-		: public std::true_type
-	{};
-	template<std::size_t N>
-	struct is_c_str<wchar_t const[N]>
-		: public std::true_type
-	{};
-	template<std::size_t N>
-	struct is_c_str<char16_t const[N]>
-		: public std::true_type
-	{};
-	template<std::size_t N>
-	struct is_c_str<char32_t const[N]>
-		: public std::true_type
-	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>

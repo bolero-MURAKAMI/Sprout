@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
@@ -17,15 +18,13 @@ namespace sprout {
 		{
 		public:
 			template<typename Context, typename Iterator>
-			struct attribute {
-			public:
-				typedef sprout::weed::unused type;
-			};
+			struct attribute
+				: public sprout::identity<sprout::weed::unused>
+			{};
 			template<typename Context, typename Iterator>
-			struct result {
-			public:
-				typedef sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> type;
-			};
+			struct result
+				: public sprout::identity<sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> >
+			{};
 		public:
 			template<typename Context, typename Iterator>
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type operator()(
