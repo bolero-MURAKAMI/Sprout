@@ -9,8 +9,10 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/is_convert_constructible.hpp>
+#include <sprout/tpp/algorithm/all_of.hpp>
 #include <sprout/tuple/tuple/tuple_fwd.hpp>
-#include <sprout/tuple/tuple/type_traits.hpp>
+#include <sprout/tuple/tuple/flexibly_construct.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -247,30 +249,44 @@ namespace sprout {
 				: inherited_type(elements...)
 			{}
 			template<
-				typename U,
+				typename... UTypes,
 				typename = typename std::enable_if<
-					!sprout::tuples::is_tuple<typename std::remove_reference<U>::type>::value
+					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<sprout::is_convert_constructible<Types, UTypes&&>...>::value
 				>::type
 			>
-			explicit SPROUT_CONSTEXPR tuple(U&& elem)
-				: inherited_type(sprout::forward<U>(elem))
+			explicit SPROUT_CONSTEXPR tuple(UTypes&&... elements)
+				: inherited_type(sprout::forward<UTypes>(elements)...)
 			{}
-			template<
-				typename U1,
-				typename U2,
-				typename... UTypes
-			>
-			explicit SPROUT_CONSTEXPR tuple(U1&& elem1, U2&& elem2, UTypes&&... elements)
-				: inherited_type(sprout::forward<U1>(elem1), sprout::forward<U2>(elem2), sprout::forward<UTypes>(elements)...)
+			template<typename... UTypes>
+			explicit SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, UTypes&&... elements)
+				: inherited_type(sprout::forward<UTypes>(elements)...)
 			{}
 			SPROUT_CONSTEXPR tuple(tuple const&) = default;
 			SPROUT_CONSTEXPR tuple(tuple&&) = default;
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<sprout::is_convert_constructible<Types, UTypes const&>...>::value
+				>::type
+			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...> const& t)
 				: inherited_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...> const&>(t))
 			{}
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<sprout::is_convert_constructible<Types, UTypes&&>...>::value
+				>::type
+			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...>&& t)
+				: inherited_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...>&&>(t))
+			{}
+			template<typename... UTypes>
+			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...> const& t)
+				: inherited_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...> const&>(t))
+			{}
+			template<typename... UTypes>
+			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...>&& t)
 				: inherited_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...>&&>(t))
 			{}
 			// tuple assignment

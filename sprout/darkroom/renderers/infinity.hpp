@@ -44,7 +44,7 @@ namespace sprout {
 			//
 			// uniform_color
 			//
-			template<typename Color = sprout::darkroom::colors::rgb_f>
+			template<typename Color = sprout::darkroom::colors::rgb_f_t>
 			class uniform_color {
 			public:
 				typedef Color color_type;

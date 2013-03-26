@@ -9,10 +9,9 @@ namespace sprout {
 		// deref
 		//
 		template<typename Iterator>
-		struct deref {
-		public:
-			typedef typename Iterator::type type;
-		};
+		struct deref
+			: public Iterator
+		{};
 	}	// namespace types
 }	// namespace sprout
 

@@ -15,14 +15,13 @@ namespace sprout {
 			// resize
 			//
 			template<std::size_t N, typename Container>
-			struct resize {
-			public:
-				typedef typename sprout::container_transform_traits<
+			struct resize
+				: public sprout::container_transform_traits<
 					Container
 				>::template rebind_size<
 					N
-				>::type type;
-			};
+				>
+			{};
 		}	// namespace result_of
 
 		namespace detail {

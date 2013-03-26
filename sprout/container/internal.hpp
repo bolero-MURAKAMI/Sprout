@@ -11,14 +11,11 @@ namespace sprout {
 		// internal
 		//
 		template<typename Container>
-		struct internal {
-		public:
-			typedef typename sprout::sub_container_traits<
+		struct internal
+			: public sprout::sub_container_traits<
 				typename std::remove_reference<Container>::type
-			>::template internal<
-				Container
-			>::type type;
-		};
+			>::template internal<Container>
+		{};
 	}	// namespace containers
 }	// namespace sprout
 

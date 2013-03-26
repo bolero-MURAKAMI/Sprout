@@ -13,10 +13,9 @@ namespace sprout {
 	//
 	namespace detail {
 		template<std::size_t N, typename Head, typename... Tail>
-		struct tppack_at_impl_1 {
-		public:
-			typedef typename sprout::detail::tppack_at_impl_1<N - 1, Tail...>::type type;
-		};
+		struct tppack_at_impl_1
+			: public sprout::detail::tppack_at_impl_1<N - 1, Tail...>
+		{};
 		template<typename Head, typename... Tail>
 		struct tppack_at_impl_1<0, Head, Tail...> {
 		public:

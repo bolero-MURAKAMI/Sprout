@@ -19,8 +19,8 @@ namespace sprout {
 			// basic_parallel_light
 			//
 			template<
-				typename Position = sprout::darkroom::coords::vector3d,
-				typename Color = sprout::darkroom::colors::rgb_f
+				typename Position = sprout::darkroom::coords::vector3d_t,
+				typename Color = sprout::darkroom::colors::rgb_f_t
 			>
 			class basic_parallel_light {
 			public:

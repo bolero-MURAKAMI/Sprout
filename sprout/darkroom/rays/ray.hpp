@@ -43,7 +43,7 @@ namespace sprout {
 			//
 			// ray
 			//
-			typedef sprout::tuples::tuple<sprout::darkroom::coords::vector3d, sprout::darkroom::coords::vector3d> ray;
+			typedef sprout::tuples::tuple<sprout::darkroom::coords::vector3d_t, sprout::darkroom::coords::vector3d_t> ray;
 
 			//
 			// point_of_intersection

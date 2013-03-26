@@ -62,9 +62,8 @@ namespace sprout {
 			// join
 			//
 			template<typename ContainerContainer, typename Separator = void>
-			struct join {
-			public:
-				typedef typename sprout::container_transform_traits<
+			struct join
+				: public sprout::container_transform_traits<
 					typename sprout::container_traits<ContainerContainer>::value_type
 				>::template rebind_size<
 					sprout::container_traits<
@@ -78,20 +77,19 @@ namespace sprout {
 							* sprout::container_traits<ContainerContainer>::static_size
 							- sprout::algorithm::detail::string_size<Separator>::value
 						: 0
-				>::type type;
-			};
+				>
+			{};
 			template<typename ContainerContainer>
-			struct join<ContainerContainer, void> {
-			public:
-				typedef typename sprout::container_transform_traits<
+			struct join<ContainerContainer, void>
+				: public sprout::container_transform_traits<
 					typename sprout::container_traits<ContainerContainer>::value_type
 				>::template rebind_size<
 					sprout::container_traits<
 						typename sprout::container_traits<ContainerContainer>::value_type
 					>::static_size
 					* sprout::container_traits<ContainerContainer>::static_size
-				>::type type;
-			};
+				>
+			{};
 		}	// namespace result_of
 
 		namespace detail {

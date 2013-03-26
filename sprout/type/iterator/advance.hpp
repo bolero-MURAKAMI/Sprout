@@ -9,10 +9,9 @@ namespace sprout {
 		// advance
 		//
 		template<typename Iterator, std::ptrdiff_t Disatnce, typename Enable = void>
-		struct advance {
-		public:
-			typedef typename Iterator::template advance<Disatnce>::type type;
-		};
+		struct advance
+			: public Iterator::template advance<Disatnce>
+		{};
 
 		template<typename Iterator, std::ptrdiff_t Disatnce>
 		struct advance<Iterator const, Disatnce>

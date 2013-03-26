@@ -74,8 +74,8 @@ namespace sprout {
 			typedef sprout::tuples::tuple<
 				bool,
 				double,
-				sprout::darkroom::coords::vector3d,
-				sprout::darkroom::coords::vector3d,
+				sprout::darkroom::coords::vector3d_t,
+				sprout::darkroom::coords::vector3d_t,
 				sprout::darkroom::materials::material
 			> intersection;
 		}	// namespace intersects

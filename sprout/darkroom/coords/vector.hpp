@@ -42,9 +42,15 @@ namespace sprout {
 			}
 
 			//
+			// vector3d_t
 			// vector3d
 			//
-			typedef sprout::tuples::tuple<double, double, double> vector3d;
+			typedef sprout::tuples::tuple<double, double, double> vector3d_t;
+
+			inline SPROUT_CONSTEXPR sprout::darkroom::coords::vector3d_t
+			vector3d(double x = 0, double y = 0, double z = 0) {
+				return sprout::darkroom::coords::vector3d_t(x, y, z);
+			}
 
 			//
 			// length_sq

@@ -4,7 +4,6 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/type_traits/remove_shallow_cvref.hpp>
 #include <sprout/weed/expr/tag.hpp>
 #include <sprout/weed/expr/make_expr.hpp>
 #include <sprout/weed/traits/expr/expr_of.hpp>
@@ -20,10 +19,10 @@ namespace sprout {
 			typename Arg2,
 			typename = typename std::enable_if<
 				sprout::weed::traits::is_parser<
-					typename sprout::remove_shallow_cvref<Arg1>::type
+					typename std::remove_reference<Arg1>::type
 				>::value
 				&& sprout::weed::traits::is_parser<
-					typename sprout::remove_shallow_cvref<Arg2>::type
+					typename std::remove_reference<Arg2>::type
 				>::value
 			>::type
 		>

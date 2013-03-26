@@ -20,7 +20,7 @@ namespace sprout {
 			//
 			// basic_sphere
 			//
-			template<typename Material, typename Position = sprout::darkroom::coords::vector3d>
+			template<typename Material, typename Position = sprout::darkroom::coords::vector3d_t>
 			class basic_sphere {
 			public:
 				typedef Material material_type;

@@ -40,26 +40,23 @@ namespace sprout {
 			: public std::tuple_element<I, T>
 		{};
 		template<std::size_t I, typename T>
-		struct tuple_element<I, T const> {
-		public:
-			typedef typename std::add_const<
+		struct tuple_element<I, T const>
+			: public std::add_const<
 				typename sprout::tuples::tuple_element<I, T>::type
-			>::type type;
-		};
+			>
+		{};
 		template<std::size_t I, typename T>
-		struct tuple_element<I, T volatile> {
-		public:
-			typedef typename std::add_volatile<
+		struct tuple_element<I, T volatile>
+			: public std::add_volatile<
 				typename sprout::tuples::tuple_element<I, T>::type
-			>::type type;
-		};
+			>
+		{};
 		template<std::size_t I, typename T>
-		struct tuple_element<I, T const volatile> {
-		public:
-			typedef typename std::add_cv<
+		struct tuple_element<I, T const volatile>
+			: public std::add_cv<
 				typename sprout::tuples::tuple_element<I, T>::type
-			>::type type;
-		};
+			>
+		{};
 
 		namespace detail {
 			template<std::size_t I, typename Head, typename... Tail>

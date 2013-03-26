@@ -46,14 +46,13 @@ namespace sprout {
 			template<typename Tuple, typename IndexTuple>
 			struct default_copied;
 			template<typename Tuple, sprout::index_t... Indexes>
-			struct default_copied<Tuple, sprout::index_tuple<Indexes...> > {
-			public:
-				typedef typename sprout::tuples::rebind_types<Tuple>::template apply<
+			struct default_copied<Tuple, sprout::index_tuple<Indexes...> >
+				: public sprout::tuples::rebind_types<Tuple>::template apply<
 					typename std::decay<
 						typename sprout::tuples::tuple_element<Indexes, Tuple>::type
 					>::type...
-				>::type type;
-			};
+				>
+			{};
 
 			template<typename Tuple, typename... Args>
 			SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type

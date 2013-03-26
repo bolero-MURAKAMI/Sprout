@@ -17,7 +17,7 @@ namespace sprout {
 			//
 			// basic_triangle
 			//
-			template<typename Material, typename Vertex = sprout::darkroom::coords::vector3d>
+			template<typename Material, typename Vertex = sprout::darkroom::coords::vector3d_t>
 			class basic_triangle {
 			public:
 				typedef Material material_type;

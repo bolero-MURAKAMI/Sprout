@@ -2,6 +2,7 @@
 #define SPROUT_TYPE_TRAITS_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/type_traits/is_convert_constructible.hpp>
 #include <sprout/type_traits/is_int.hpp>
 #include <sprout/type_traits/is_uint.hpp>
 #include <sprout/type_traits/is_char_type.hpp>

@@ -18,7 +18,8 @@ namespace sprout {
 			template<typename T>
 			SPROUT_CONSTEXPR typename eval<
 				typename sprout::remove_shallow_cvref<T>::type
-			>::result_type operator()(T&& t) const {
+			>::result_type
+			operator()(T&& t) const {
 				typedef eval<typename sprout::remove_shallow_cvref<T>::type> eval_type;
 				return eval_type()(sprout::forward<T>(t));
 			}

@@ -52,11 +52,26 @@ namespace sprout {
 			}
 
 			//
+			// rgb_t
 			// rgb
+			//
+			typedef sprout::tuples::tuple<std::uint8_t, std::uint8_t, std::uint8_t> rgb_t;
+
+			inline SPROUT_CONSTEXPR sprout::darkroom::colors::rgb_t
+			rgb(std::uint8_t r = 0, std::uint8_t g = 0, std::uint8_t b = 0) {
+				return sprout::darkroom::colors::rgb_t(r, g, b);
+			}
+
+			//
+			// rgb_f_t
 			// rgb_f
 			//
-			typedef sprout::tuples::tuple<std::uint8_t, std::uint8_t, std::uint8_t> rgb;
-			typedef sprout::tuples::tuple<double, double, double> rgb_f;
+			typedef sprout::tuples::tuple<double, double, double> rgb_f_t;
+
+			inline SPROUT_CONSTEXPR sprout::darkroom::colors::rgb_f_t
+			rgb_f(double r = 0, double g = 0, double b = 0) {
+				return sprout::darkroom::colors::rgb_f_t(r, g, b);
+			}
 
 			//
 			// mul

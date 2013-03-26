@@ -27,7 +27,7 @@ namespace sprout {
 			//
 			// basic_aa_plane
 			//
-			template<typename Material, typename Position = sprout::darkroom::coords::vector3d>
+			template<typename Material, typename Position = sprout::darkroom::coords::vector3d_t>
 			class basic_aa_plane {
 			public:
 				typedef Material material_type;

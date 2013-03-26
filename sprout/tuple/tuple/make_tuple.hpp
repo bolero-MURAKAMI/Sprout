@@ -103,12 +103,11 @@ namespace sprout {
 				typedef sprout::index_tuple<> type;
 			};
 			template<typename Head, typename... Tail>
-			struct tuple_cat_1st_indexes<Head, Tail...> {
-			public:
-				typedef typename sprout::index_range<
+			struct tuple_cat_1st_indexes<Head, Tail...>
+				: public sprout::index_range<
 					0, sprout::tuples::tuple_size<typename std::remove_reference<Head>::type>::value
-				>::type type;
-			};
+				>
+			{};
 
 			template<typename Result, typename IndexTuple, typename... Tuples>
 			struct tuple_cat_impl;

@@ -132,40 +132,35 @@ namespace sprout {
 			};
 
 			template<typename LRange, typename RRange, typename = void>
-			class jointed_range_copied_type;
-
+			struct jointed_range_copied_type;
 			template<typename LRange, typename RRange>
-			class jointed_range_copied_type<
+			struct jointed_range_copied_type<
 				LRange, RRange,
 				typename std::enable_if<
 					sprout::containers::is_rebindable_size<LRange>::value
 				>::type
-			> {
-			public:
-				typedef typename sprout::container_construct_traits<
+			>
+				: public sprout::container_construct_traits<
 					typename sprout::containers::weak_rebind_size<
 						typename sprout::container_construct_traits<LRange>::copied_type,
 						sprout::adaptors::detail::jointed_range_size<LRange, RRange>::static_size
 					>::type
-				>::type copied_type;
-			};
-
+				>
+			{};
 			template<typename LRange, typename RRange>
-			class jointed_range_copied_type<
+			struct jointed_range_copied_type<
 				LRange, RRange,
 				typename std::enable_if<
 					!sprout::containers::is_rebindable_size<LRange>::value && sprout::containers::is_rebindable_size<RRange>::value
 				>::type
-			> {
-			public:
-				typedef typename sprout::containers::weak_rebind_size<
+			>
+				: public sprout::containers::weak_rebind_size<
 					typename sprout::container_construct_traits<RRange>::copied_type,
 					sprout::adaptors::detail::jointed_range_size<LRange, RRange>::static_size
-				>::type type;
-			};
-
+				>
+			{};
 			template<typename LRange, typename RRange>
-			class jointed_range_copied_type<
+			struct jointed_range_copied_type<
 				LRange, RRange,
 				typename std::enable_if<
 					!sprout::containers::is_rebindable_size<LRange>::value && !sprout::containers::is_rebindable_size<RRange>::value

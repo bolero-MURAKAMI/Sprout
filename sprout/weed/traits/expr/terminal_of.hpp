@@ -23,7 +23,7 @@ namespace sprout {
 				Arg,
 				typename std::enable_if<
 					!sprout::weed::traits::is_c_str<
-						typename sprout::remove_shallow_cvref<Arg>::type
+						typename std::remove_reference<Arg>::type
 					>::value
 				>::type
 			>
@@ -39,7 +39,7 @@ namespace sprout {
 				Arg,
 				typename std::enable_if<
 					sprout::weed::traits::is_c_str<
-						typename sprout::remove_shallow_cvref<Arg>::type
+						typename std::remove_reference<Arg>::type
 					>::value
 				>::type
 			>
@@ -47,7 +47,7 @@ namespace sprout {
 					sprout::weed::expr<
 						sprout::weed::tag::terminal,
 						typename sprout::weed::detail::c_str_as_string<
-							typename sprout::remove_shallow_cvref<Arg>::type
+							typename std::remove_reference<Arg>::type
 						>::type
 					>
 				>

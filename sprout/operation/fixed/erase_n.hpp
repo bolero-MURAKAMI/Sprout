@@ -15,14 +15,14 @@ namespace sprout {
 			// erase_n
 			//
 			template<std::size_t N, typename Container>
-			struct erase_n {
-				static_assert(sprout::container_traits<Container>::static_size >= N, "static_size >= N");
-			public:
-				typedef typename sprout::container_transform_traits<
+			struct erase_n
+				: public sprout::container_transform_traits<
 					Container
 				>::template rebind_size<
 					sprout::container_traits<Container>::static_size - N
-				>::type type;
+				>
+			{
+				static_assert(sprout::container_traits<Container>::static_size >= N, "static_size >= N");
 			};
 		}	// namespace result_of
 

@@ -4,7 +4,6 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/identity.hpp>
-#include <sprout/type_traits/remove_shallow_cvref.hpp>
 #include <sprout/weed/expr/expr_fwd.hpp>
 #include <sprout/weed/traits/expr/terminal_or_expr_of.hpp>
 
@@ -20,7 +19,7 @@ namespace sprout {
 					sprout::weed::expr<
 						Tag,
 						typename sprout::weed::traits::terminal_or_expr_of<
-							typename sprout::remove_shallow_cvref<Args>::type
+							typename std::remove_reference<Args>::type
 						>::type...
 					>
 				>

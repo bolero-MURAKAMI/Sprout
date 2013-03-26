@@ -14,14 +14,14 @@ namespace sprout {
 			// erase
 			//
 			template<typename Container>
-			struct erase {
-				static_assert(sprout::container_traits<Container>::static_size >= 1, "static_size >= 1");
-			public:
-				typedef typename sprout::container_transform_traits<
+			struct erase
+				: public sprout::container_transform_traits<
 					Container
 				>::template rebind_size<
 					sprout::container_traits<Container>::static_size - 1
-				>::type type;
+				>
+			{
+				static_assert(sprout::container_traits<Container>::static_size >= 1, "static_size >= 1");
 			};
 		}	// namespace result_of
 

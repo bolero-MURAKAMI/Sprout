@@ -125,7 +125,7 @@ namespace sprout {
 			//
 			// color_pixels
 			//
-			template<std::size_t Width, std::size_t Height, typename Color = sprout::darkroom::colors::rgb>
+			template<std::size_t Width, std::size_t Height, typename Color = sprout::darkroom::colors::rgb_t>
 			struct color_pixels {
 			public:
 				typedef sprout::array<sprout::array<Color, Width>, Height> type;

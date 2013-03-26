@@ -47,7 +47,7 @@ namespace sprout {
 			//
 			// image_type
 			//
-			template<std::size_t Width, std::size_t Height, typename Color = sprout::darkroom::colors::rgb_f>
+			template<std::size_t Width, std::size_t Height, typename Color = sprout::darkroom::colors::rgb_f_t>
 			struct image_type {
 			public:
 				typedef Color color_type;

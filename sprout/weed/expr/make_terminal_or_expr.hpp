@@ -4,7 +4,6 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/type_traits/remove_shallow_cvref.hpp>
 #include <sprout/weed/expr/make_terminal.hpp>
 #include <sprout/weed/traits/expr/is_expr.hpp>
 #include <sprout/weed/traits/expr/terminal_or_expr_of.hpp>
@@ -17,7 +16,7 @@ namespace sprout {
 		template<typename Arg>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::weed::traits::is_expr<
-				typename sprout::remove_shallow_cvref<Arg>::type
+				typename std::remove_reference<Arg>::type
 			>::value,
 			typename sprout::weed::traits::terminal_or_expr_of<Arg>::type
 		>::type make_terminal_or_expr(Arg&& arg) {
@@ -26,7 +25,7 @@ namespace sprout {
 		template<typename Arg>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			!sprout::weed::traits::is_expr<
-				typename sprout::remove_shallow_cvref<Arg>::type
+				typename std::remove_reference<Arg>::type
 			>::value,
 			typename sprout::weed::traits::terminal_or_expr_of<Arg>::type
 		>::type make_terminal_or_expr(Arg&& arg) {

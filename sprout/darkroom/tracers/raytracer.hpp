@@ -11,7 +11,7 @@ namespace sprout {
 			//
 			// raytracer
 			//
-			template<typename Color = sprout::darkroom::colors::rgb_f>
+			template<typename Color = sprout::darkroom::colors::rgb_f_t>
 			class raytracer {
 			public:
 				typedef Color color_type;

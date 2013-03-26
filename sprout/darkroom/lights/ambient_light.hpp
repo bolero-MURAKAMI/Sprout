@@ -15,7 +15,7 @@ namespace sprout {
 			//
 			// basic_ambient_light
 			//
-			template<typename Color = sprout::darkroom::colors::rgb_f>
+			template<typename Color = sprout::darkroom::colors::rgb_f_t>
 			class basic_ambient_light {
 			public:
 				typedef Color color_type;

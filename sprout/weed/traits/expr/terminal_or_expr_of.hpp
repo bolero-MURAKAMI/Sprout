@@ -17,7 +17,7 @@ namespace sprout {
 			struct terminal_or_expr_of
 				: public std::conditional<
 					sprout::weed::traits::is_expr<
-						typename sprout::remove_shallow_cvref<Arg>::type
+						typename std::remove_reference<Arg>::type
 					>::value,
 					sprout::remove_shallow_cvref<Arg>,
 					sprout::weed::traits::terminal_of<Arg>

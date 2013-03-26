@@ -14,14 +14,13 @@ namespace sprout {
 			// append
 			//
 			template<typename Container, typename Input>
-			struct append {
-			public:
-				typedef typename sprout::container_transform_traits<
+			struct append
+				: public sprout::container_transform_traits<
 					Container
 				>::template rebind_size<
 					sprout::container_traits<Container>::static_size + sprout::container_traits<Input>::static_size
-				>::type type;
-			};
+				>
+			{};
 		}	// namespace result_of
 
 		namespace detail {

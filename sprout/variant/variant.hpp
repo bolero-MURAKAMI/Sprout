@@ -29,11 +29,12 @@ namespace sprout {
 			friend class variant;
 		protected:
 			typedef sprout::tuples::tuple<Types...> tuple_type;
-			typedef sprout::types::type_tuple<typename std::decay<Types>::type...> uncvref_tuple_type;
+			typedef sprout::types::type_tuple<typename std::decay<Types>::type...> decayed_tuple_type;
 		private:
 			template<typename T, sprout::index_t... Indexes>
 			static SPROUT_CONSTEXPR tuple_type init(T&& operand, sprout::index_tuple<Indexes...>) {
 				return sprout::tuples::make<tuple_type>(
+					sprout::tuples::flexibly_construct,
 					typename sprout::tuples::tuple_element<Indexes, tuple_type>::type()...,
 					sprout::forward<T>(operand)
 					);
@@ -72,28 +73,26 @@ namespace sprout {
 	{
 	private:
 		typedef sprout::detail::variant_impl<Types...> impl_type;
-		typedef typename impl_type::uncvref_tuple_type uncvref_tuple_type;
+		typedef typename impl_type::decayed_tuple_type decayed_tuple_type;
 	public:
 		typedef typename impl_type::tuple_type tuple_type;
 	private:
 		template<typename Visitor, typename Tuple, typename IndexTuple>
 		struct visitor_result_impl_2;
 		template<typename Visitor, typename Tuple, sprout::index_t... Indexes>
-		struct visitor_result_impl_2<Visitor, Tuple, sprout::index_tuple<Indexes...> > {
-		public:
-			typedef typename Visitor::template visitor_result<
+		struct visitor_result_impl_2<Visitor, Tuple, sprout::index_tuple<Indexes...> >
+			: public Visitor::template visitor_result<
 				decltype((std::declval<Visitor>())(sprout::tuples::get<Indexes>(std::declval<Tuple>())))...
-			>::type type;
-		};
+			>
+		{};
 		template<typename Visitor, typename Tuple, typename IndexTuple>
 		struct visitor_result_impl_1;
 		template<typename Visitor, typename Tuple, sprout::index_t... Indexes>
-		struct visitor_result_impl_1<Visitor, Tuple, sprout::index_tuple<Indexes...> > {
-		public:
-			typedef typename sprout::common_decay<
+		struct visitor_result_impl_1<Visitor, Tuple, sprout::index_tuple<Indexes...> >
+			: public sprout::common_decay<
 				decltype((std::declval<Visitor>())(sprout::tuples::get<Indexes>(std::declval<Tuple>())))...
-			>::type type;
-		};
+			>
+		{};
 		template<typename Visitor, typename Tuple, typename = void>
 		struct visitor_result_impl;
 		template<typename Visitor, typename Tuple>
@@ -227,7 +226,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR variant(T&& operand)
 			: impl_type(
 				sprout::forward<T>(operand),
-				sprout::types::find_index<uncvref_tuple_type, typename std::decay<T>::type>()
+				sprout::types::find_index<decayed_tuple_type, typename std::decay<T>::type>()
 				)
 		{}
 		// modifiers

@@ -81,7 +81,7 @@ namespace sprout {
 			//
 			// material
 			//
-			typedef sprout::tuples::tuple<sprout::darkroom::colors::rgb_f, double> material;
+			typedef sprout::tuples::tuple<sprout::darkroom::colors::rgb_f_t, double> material;
 		}	// namespace materials
 	}	// namespace darkroom
 }	// namespace sprout
