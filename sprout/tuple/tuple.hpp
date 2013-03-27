@@ -3,6 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple/tuple_fwd.hpp>
+#include <sprout/tuple/tuple/tuple_decl.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/comparison.hpp>
 #include <sprout/tuple/tuple/get.hpp>

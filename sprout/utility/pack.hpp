@@ -21,10 +21,7 @@ namespace sprout {
 		public:
 			typedef Head type;
 		};
-		template<
-			std::size_t N,
-			typename... Args
-		>
+		template<std::size_t N, typename... Args>
 		struct tppack_at_impl
 			: public sprout::detail::tppack_at_impl_1<N, Args...>
 		{

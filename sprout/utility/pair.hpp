@@ -2,6 +2,8 @@
 #define SPROUT_UTILITY_PAIR_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/utility/pair/pair_fwd.hpp>
+#include <sprout/utility/pair/pair_decl.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/utility/pair/comparison.hpp>
 #include <sprout/utility/pair/tuple.hpp>

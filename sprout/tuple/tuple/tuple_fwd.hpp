@@ -5,6 +5,9 @@
 
 namespace sprout {
 	namespace tuples {
+		//
+		// tuple
+		//
 		template<typename... Types>
 		class tuple;
 	}	// namespace tuples
