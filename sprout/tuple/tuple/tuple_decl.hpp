@@ -6,9 +6,11 @@
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/index_tuple.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/pack.hpp>
 #include <sprout/utility/pair/pair_fwd.hpp>
 #include <sprout/type_traits/is_convert_constructible.hpp>
 #include <sprout/tpp/algorithm/all_of.hpp>
@@ -241,11 +243,38 @@ namespace sprout {
 		{
 		private:
 			typedef sprout::tuples::detail::tuple_impl<0, Types...> impl_type;
+		private:
+			template<typename TndexTuple, typename... Utypes>
+			struct is_flexibly_constructible_impl;
+			template<sprout::index_t... Indexes, typename... Utypes>
+			struct is_flexibly_constructible_impl<sprout::index_tuple<Indexes...>, Utypes...>
+				: public sprout::tpp::all_of<
+					sprout::is_convert_constructible<
+						typename sprout::tppack_at<Indexes, Types...>::type,
+						typename sprout::tppack_at<Indexes, Utypes...>::type
+					>...
+				>
+			{};
 		public:
 			struct has_nothrow_swap
 				: public sprout::tpp::all_of_c<
 					SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(sprout::swap(std::declval<Types&>(), std::declval<Types&>()), false)...
 				>
+			{};
+			template<typename... UTypes>
+			struct is_flexibly_constructible
+				: public is_flexibly_constructible_impl<
+					typename sprout::index_range<0, (sizeof...(UTypes) < sizeof...(Types) ? sizeof...(UTypes) : sizeof...(Types))>::type,
+					UTypes...
+				>
+			{};
+			template<typename... UTypes>
+			struct is_rvref_flexibly_constructible
+				: public is_flexibly_constructible<UTypes&&...>
+			{};
+			template<typename... UTypes>
+			struct is_clvref_flexibly_constructible
+				: public is_flexibly_constructible<UTypes const&...>
 			{};
 		public:
 			// tuple construction
@@ -288,23 +317,58 @@ namespace sprout {
 				>::type
 			>
 			SPROUT_CONSTEXPR tuple(sprout::pair<UTypes...>&& t);
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					is_rvref_flexibly_constructible<UTypes...>::value
+				>::type
+			>
 			explicit SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, UTypes&&... elements);
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					is_clvref_flexibly_constructible<UTypes...>::value
+				>::type
+			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...> const& t);
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					is_rvref_flexibly_constructible<UTypes...>::value
+				>::type
+			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...>&& t);
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					is_clvref_flexibly_constructible<UTypes...>::value
+				>::type
+			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...> const& t);
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					is_rvref_flexibly_constructible<UTypes...>::value
+				>::type
+			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...>&& t);
 			// tuple assignment
 			tuple& operator=(tuple const& rhs);
 			tuple& operator=(tuple&& rhs)
 			SPROUT_NOEXCEPT_EXPR(sprout::tpp::all_of<std::is_nothrow_move_assignable<Types>...>::value);
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<std::is_assignable<Types&, UTypes const&>...>::value
+				>::type
+			>
 			tuple& operator=(sprout::tuples::tuple<UTypes...> const& rhs);
-			template<typename... UTypes>
+			template<
+				typename... UTypes,
+				typename = typename std::enable_if<
+					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<std::is_assignable<Types&, UTypes&&>...>::value
+				>::type
+			>
 			tuple& operator=(sprout::tuples::tuple<UTypes...>&& rhs);
 			// tuple swap
 			void swap(tuple& other)

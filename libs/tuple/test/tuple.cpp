@@ -35,6 +35,12 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
 			}
 			{
+				SPROUT_STATIC_CONSTEXPR auto tup3 = sprout::tuples::tuple<int, double>(sprout::tuples::tuple<long, float>(1l, 1.0f));
+				TESTSPR_BOTH_ASSERT(sprout::tuples::get<0>(tup3) == 1);
+				TESTSPR_BOTH_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
+			}
+
+			{
 				SPROUT_STATIC_CONSTEXPR auto tup3 = sprout::tuples::tuple<int, double>(sprout::tuples::flexibly_construct, 1l);
 				TESTSPR_BOTH_ASSERT(sprout::tuples::get<0>(tup3) == 1);
 				TESTSPR_BOTH_ASSERT(sprout::tuples::get<1>(tup3) == 0.0);
@@ -50,11 +56,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
 			}
 
-			{
-				SPROUT_STATIC_CONSTEXPR auto tup3 = sprout::tuples::tuple<int, double>(sprout::tuples::tuple<long, float>(1l, 1.0f));
-				TESTSPR_BOTH_ASSERT(sprout::tuples::get<0>(tup3) == 1);
-				TESTSPR_BOTH_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
-			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto tup3 = sprout::tuples::tuple<int, double>(sprout::tuples::flexibly_construct, sprout::tuples::tuple<long>(1l));
 				TESTSPR_BOTH_ASSERT(sprout::tuples::get<0>(tup3) == 1);
@@ -80,19 +81,7 @@ namespace testspr {
 			}
 			{
 				auto tup3 = tup2;
-				tup3 = sprout::tuples::tuple<long>(1l);
-				TESTSPR_ASSERT(sprout::tuples::get<0>(tup3) == 1);
-				TESTSPR_ASSERT(sprout::tuples::get<1>(tup3) == 0.0);
-			}
-			{
-				auto tup3 = tup2;
 				tup3 = sprout::tuples::tuple<long, float>(1l, 1.0f);
-				TESTSPR_ASSERT(sprout::tuples::get<0>(tup3) == 1);
-				TESTSPR_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
-			}
-			{
-				auto tup3 = tup2;
-				tup3 = sprout::tuples::tuple<long, float, char>(1l, 1.0f, '-');
 				TESTSPR_ASSERT(sprout::tuples::get<0>(tup3) == 1);
 				TESTSPR_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
 			}
