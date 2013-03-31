@@ -6,6 +6,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/none.hpp>
 #include <sprout/optional/nullopt.hpp>
+#include <sprout/optional/exceptions.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -53,12 +54,12 @@ namespace sprout {
 		{}
 		SPROUT_CONSTEXPR optional(optional const& v)
 			: init(v.init)
-			, val(v.val)
+			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
 		template<typename U>
 		explicit SPROUT_CONSTEXPR optional(optional<U> const& v)
 			: init(v.is_initialized())
-			, val(v.is_initialized() ? v.get() : holder_type())
+			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
 
 		optional& operator=(sprout::nullopt_t v) SPROUT_NOEXCEPT {
@@ -114,19 +115,23 @@ namespace sprout {
 		}
 
 		SPROUT_CONSTEXPR reference_const_type operator*() const {
-			return get();
-		}
-		reference_type operator*() {
-			return get();
-		}
-		SPROUT_CONSTEXPR reference_const_type get() const {
 			return (SPROUT_ASSERT(is_initialized()), true) ? val.get()
 				: val.get()
 				;
 		}
-		reference_type get() {
+		reference_type operator*() {
 			return (SPROUT_ASSERT(is_initialized()), true) ? val.get()
 				: val.get()
+				;
+		}
+		SPROUT_CONSTEXPR reference_const_type get() const {
+			return is_initialized() ? val.get()
+				: (throw sprout::bad_optional_access("optional<>: bad optional access"), val.get())
+				;
+		}
+		reference_type get() {
+			return is_initialized() ? val.get()
+				: (throw sprout::bad_optional_access("optional<>: bad optional access"), val.get())
 				;
 		}
 		SPROUT_CONSTEXPR reference_const_type get_value_or(reference_const_type& v) const {
@@ -140,6 +145,19 @@ namespace sprout {
 				;
 		}
 
+		SPROUT_CONSTEXPR reference_const_type value() const {
+			return get();
+		}
+		reference_type value() {
+			return get();
+		}
+		SPROUT_CONSTEXPR reference_const_type value_or(reference_const_type& v) const {
+			return get_value_or(v);
+		}
+		reference_type value_or(reference_type& v) {
+			return get_value_or(v);
+		}
+
 		SPROUT_CONSTEXPR pointer_const_type operator->() const {
 			return SPROUT_ASSERT(is_initialized()),
 				val.get_pointer()
@@ -151,13 +169,13 @@ namespace sprout {
 				;
 		}
 		SPROUT_CONSTEXPR pointer_const_type get_pointer() const {
-			return SPROUT_ASSERT(is_initialized()),
-				val.get_pointer()
+			return is_initialized() ? val.get_pointer()
+				: 0
 				;
 		}
 		pointer_type get_pointer() {
-			return SPROUT_ASSERT(is_initialized()),
-				val.get_pointer()
+			return is_initialized() ? val.get_pointer()
+				: 0
 				;
 		}
 		SPROUT_CONSTEXPR pointer_const_type get_ptr() const {

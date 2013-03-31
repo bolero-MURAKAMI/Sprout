@@ -1,5 +1,5 @@
-#ifndef SPROUT_TUPLE_TUPLE_FREXIBLY_CONSTRUCT_HPP
-#define SPROUT_TUPLE_TUPLE_FREXIBLY_CONSTRUCT_HPP
+#ifndef SPROUT_TUPLE_FREXIBLY_CONSTRUCT_HPP
+#define SPROUT_TUPLE_FREXIBLY_CONSTRUCT_HPP
 
 #include <sprout/config.hpp>
 
@@ -17,4 +17,4 @@ namespace sprout {
 	using sprout::tuples::flexibly_construct;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TUPLE_TUPLE_FREXIBLY_CONSTRUCT_HPP
+#endif	// #ifndef SPROUT_TUPLE_FREXIBLY_CONSTRUCT_HPP

@@ -1,6 +1,7 @@
 #ifndef SPROUT_UTILITY_PAIR_PAIR_DECL_HPP
 #define SPROUT_UTILITY_PAIR_PAIR_DECL_HPP
 
+#include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
@@ -34,24 +35,85 @@ namespace sprout {
 		SPROUT_CONSTEXPR pair(pair&&);
 		SPROUT_CONSTEXPR pair();
 		SPROUT_CONSTEXPR pair(T1 const& x, T2 const& y);
-		template<typename U, typename V>
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_constructible<first_type, U&&>::value && std::is_constructible<second_type, V&&>::value
+			>::type
+		>
 		SPROUT_CONSTEXPR pair(U&& x, V&& y);
-		template<typename U, typename V>
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_constructible<first_type, U const&>::value && std::is_constructible<second_type, V const&>::value
+			>::type
+		>
 		SPROUT_CONSTEXPR pair(sprout::pair<U, V> const& other);
-		template<typename U, typename V>
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_constructible<first_type, U&&>::value && std::is_constructible<second_type, V&&>::value
+			>::type
+		>
 		SPROUT_CONSTEXPR pair(sprout::pair<U, V>&& other);
-		template <typename... Args1, typename... Args2>
+		template<
+			typename... Args1, typename... Args2,
+			typename = typename std::enable_if<
+				std::is_constructible<first_type, Args1&&...>::value && std::is_constructible<second_type, Args2&&...>::value
+			>::type
+		>
 		SPROUT_CONSTEXPR pair(
-			sprout::tuples::tuple<Args1...> first_args,
-			sprout::tuples::tuple<Args2...> second_args
+			std::piecewise_construct_t,
+			sprout::tuples::tuple<Args1...> first_args, sprout::tuples::tuple<Args2...> second_args
 			);
-		pair& operator=(pair const& other);
-		template<typename U, typename V>
-		pair& operator=(sprout::pair<U, V> const& other);
-		pair& operator=(pair&& other)
+
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_constructible<first_type, U const&>::value && std::is_constructible<second_type, V const&>::value
+			>::type
+		>
+		SPROUT_CONSTEXPR pair(sprout::tuples::tuple<U, V> const& other);
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_constructible<first_type, U&&>::value && std::is_constructible<second_type, V&&>::value
+			>::type
+		>
+		SPROUT_CONSTEXPR pair(sprout::tuples::tuple<U, V>&& other);
+
+		pair& operator=(pair const& rhs);
+		pair& operator=(pair&& rhs)
 		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<T1>::value && std::is_nothrow_move_assignable<T2>::value);
-		template<typename U, typename V>
-		pair& operator=(sprout::pair<U, V>&& other);
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_assignable<first_type&, U const&>::value && std::is_assignable<second_type&, V const&>::value
+			>::type
+		>
+		pair& operator=(sprout::pair<U, V> const& rhs);
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_assignable<first_type&, U&&>::value && std::is_assignable<second_type&, V&&>::value
+			>::type
+		>
+		pair& operator=(sprout::pair<U, V>&& rhs);
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_assignable<first_type&, U const&>::value && std::is_assignable<second_type&, V const&>::value
+			>::type
+		>
+		pair& operator=(sprout::tuples::tuple<U, V> const& rhs);
+		template<
+			typename U, typename V,
+			typename = typename std::enable_if<
+				std::is_assignable<first_type&, U&&>::value && std::is_assignable<second_type&, V&&>::value
+			>::type
+		>
+		pair& operator=(sprout::tuples::tuple<U, V>&& rhs);
+
 		void swap(pair& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(first, other.first)) && SPROUT_NOEXCEPT_EXPR(sprout::swap(second, other.second)));
 	};

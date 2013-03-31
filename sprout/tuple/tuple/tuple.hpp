@@ -11,7 +11,7 @@
 #include <sprout/type_traits/is_convert_constructible.hpp>
 #include <sprout/tpp/algorithm/all_of.hpp>
 #include <sprout/tuple/tuple/tuple_decl.hpp>
-#include <sprout/tuple/tuple/flexibly_construct.hpp>
+#include <sprout/tuple/flexibly_construct.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -71,6 +71,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types...>::tuple(sprout::pair<UTypes...>&& t)
 			: impl_type(sprout::forward<typename sprout::pair<UTypes...>::first_type>(t.first), sprout::forward<typename sprout::pair<UTypes...>::second_type>(t.second))
 		{}
+
 		template<typename... Types>
 		template<
 			typename... UTypes,

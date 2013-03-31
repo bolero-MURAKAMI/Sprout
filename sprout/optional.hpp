@@ -9,5 +9,6 @@
 #include <sprout/optional/make_optional.hpp>
 #include <sprout/optional/get.hpp>
 #include <sprout/optional/hash.hpp>
+#include <sprout/optional/exceptions.hpp>
 
 #endif	// #ifndef SPROUT_OPTIONAL_HPP

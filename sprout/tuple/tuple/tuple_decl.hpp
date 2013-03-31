@@ -15,7 +15,7 @@
 #include <sprout/type_traits/is_convert_constructible.hpp>
 #include <sprout/tpp/algorithm/all_of.hpp>
 #include <sprout/tuple/tuple/tuple_fwd.hpp>
-#include <sprout/tuple/tuple/flexibly_construct.hpp>
+#include <sprout/tuple/flexibly_construct.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -245,9 +245,9 @@ namespace sprout {
 			typedef sprout::tuples::detail::tuple_impl<0, Types...> impl_type;
 		private:
 			template<typename TndexTuple, typename... Utypes>
-			struct is_flexibly_constructible_impl;
+			struct is_flexibly_convert_constructible_impl;
 			template<sprout::index_t... Indexes, typename... Utypes>
-			struct is_flexibly_constructible_impl<sprout::index_tuple<Indexes...>, Utypes...>
+			struct is_flexibly_convert_constructible_impl<sprout::index_tuple<Indexes...>, Utypes...>
 				: public sprout::tpp::all_of<
 					sprout::is_convert_constructible<
 						typename sprout::tppack_at<Indexes, Types...>::type,
@@ -262,19 +262,19 @@ namespace sprout {
 				>
 			{};
 			template<typename... UTypes>
-			struct is_flexibly_constructible
-				: public is_flexibly_constructible_impl<
+			struct is_flexibly_convert_constructible
+				: public is_flexibly_convert_constructible_impl<
 					typename sprout::index_range<0, (sizeof...(UTypes) < sizeof...(Types) ? sizeof...(UTypes) : sizeof...(Types))>::type,
 					UTypes...
 				>
 			{};
 			template<typename... UTypes>
-			struct is_rvref_flexibly_constructible
-				: public is_flexibly_constructible<UTypes&&...>
+			struct is_rvref_flexibly_convert_constructible
+				: public is_flexibly_convert_constructible<UTypes&&...>
 			{};
 			template<typename... UTypes>
-			struct is_clvref_flexibly_constructible
-				: public is_flexibly_constructible<UTypes const&...>
+			struct is_clvref_flexibly_convert_constructible
+				: public is_flexibly_convert_constructible<UTypes const&...>
 			{};
 		public:
 			// tuple construction
@@ -317,38 +317,39 @@ namespace sprout {
 				>::type
 			>
 			SPROUT_CONSTEXPR tuple(sprout::pair<UTypes...>&& t);
+
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
-					is_rvref_flexibly_constructible<UTypes...>::value
+					is_rvref_flexibly_convert_constructible<UTypes...>::value
 				>::type
 			>
 			explicit SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, UTypes&&... elements);
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
-					is_clvref_flexibly_constructible<UTypes...>::value
+					is_clvref_flexibly_convert_constructible<UTypes...>::value
 				>::type
 			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...> const& t);
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
-					is_rvref_flexibly_constructible<UTypes...>::value
+					is_rvref_flexibly_convert_constructible<UTypes...>::value
 				>::type
 			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...>&& t);
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
-					is_clvref_flexibly_constructible<UTypes...>::value
+					is_clvref_flexibly_convert_constructible<UTypes...>::value
 				>::type
 			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...> const& t);
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
-					is_rvref_flexibly_constructible<UTypes...>::value
+					is_rvref_flexibly_convert_constructible<UTypes...>::value
 				>::type
 			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...>&& t);
