@@ -26,47 +26,6 @@ namespace sprout {
 		: first(sprout::tuples::get<Indexes1>(first_args)...)
 		, second(sprout::tuples::get<Indexes2>(second_args)...)
 	{}
-	template <typename T1, typename T2>
-	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(pair const&) = default;
-	template <typename T1, typename T2>
-	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(pair&&) = default;
-	template <typename T1, typename T2>
-	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair()
-		: first()
-		, second()
-	{}
-	template <typename T1, typename T2>
-	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(T1 const& x, T2 const& y)
-		: first(x)
-		, second(y)
-	{}
-	template <typename T1, typename T2>
-	template<
-		typename U, typename V,
-		typename
-	>
-	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(U&& x, V&& y)
-		: first(sprout::forward<U>(x))
-		, second(sprout::forward<V>(y))
-	{}
-	template <typename T1, typename T2>
-	template<
-		typename U, typename V,
-		typename
-	>
-	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(sprout::pair<U, V> const& other)
-		: first(other.first)
-		, second(other.second)
-	{}
-	template <typename T1, typename T2>
-	template<
-		typename U, typename V,
-		typename
-	>
-	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(sprout::pair<U, V>&& other)
-		: first(sprout::forward<U>(other.first))
-		, second(sprout::forward<V>(other.second))
-	{}
 #if SPROUT_USE_DELEGATING_CONSTRUCTORS
 	template <typename T1, typename T2>
 	template<
@@ -105,36 +64,6 @@ namespace sprout {
 	{}
 
 	template <typename T1, typename T2>
-	inline sprout::pair<T1, T2>& sprout::pair<T1, T2>::operator=(pair const& rhs) = default;
-	template <typename T1, typename T2>
-	inline sprout::pair<T1, T2>& sprout::pair<T1, T2>::operator=(pair&& rhs)
-	SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<T1>::value && std::is_nothrow_move_assignable<T2>::value)
-	{
-		first = sprout::forward<T1>(rhs.first);
-		second = sprout::forward<T2>(rhs.second);
-		return *this;
-	}
-	template <typename T1, typename T2>
-	template<
-		typename U, typename V,
-		typename
-	>
-	inline sprout::pair<T1, T2>& sprout::pair<T1, T2>::operator=(sprout::pair<U, V> const& rhs) {
-		first = rhs.first;
-		second = rhs.second;
-		return *this;
-	}
-	template <typename T1, typename T2>
-	template<
-		typename U, typename V,
-		typename
-	>
-	inline sprout::pair<T1, T2>& sprout::pair<T1, T2>::operator=(sprout::pair<U, V>&& rhs) {
-		first = sprout::forward<U>(rhs.first);
-		second = sprout::forward<V>(rhs.second);
-		return *this;
-	}
-	template <typename T1, typename T2>
 	template<
 		typename U, typename V,
 		typename
@@ -153,24 +82,6 @@ namespace sprout {
 		first = sprout::forward<U>(sprout::tuples::get<0>(rhs));
 		second = sprout::forward<V>(sprout::tuples::get<1>(rhs));
 		return *this;
-	}
-
-	template <typename T1, typename T2>
-	inline void sprout::pair<T1, T2>::swap(pair& other)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(first, other.first)) && SPROUT_NOEXCEPT_EXPR(sprout::swap(second, other.second))) {
-		sprout::swap(first, other.first);
-		sprout::swap(second, other.second);
-	}
-
-	//
-	// swap
-	//
-	template<typename T1, typename T2>
-	inline void
-	swap(sprout::pair<T1, T2>& lhs, sprout::pair<T1, T2>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
-	{
-		lhs.swap(rhs);
 	}
 }	// namespace sprout
 

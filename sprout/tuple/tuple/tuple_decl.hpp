@@ -256,11 +256,6 @@ namespace sprout {
 				>
 			{};
 		public:
-			struct has_nothrow_swap
-				: public sprout::tpp::all_of_c<
-					SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(sprout::swap(std::declval<Types&>(), std::declval<Types&>()), false)...
-				>
-			{};
 			template<typename... UTypes>
 			struct is_flexibly_convert_constructible
 				: public is_flexibly_convert_constructible_impl<
@@ -278,31 +273,41 @@ namespace sprout {
 			{};
 		public:
 			// tuple construction
-			SPROUT_CONSTEXPR tuple();
-			explicit SPROUT_CONSTEXPR tuple(Types const&... elements);
+			SPROUT_CONSTEXPR tuple()
+				: impl_type()
+			{}
+			explicit SPROUT_CONSTEXPR tuple(Types const&... elements)
+				: impl_type(elements...)
+			{}
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
 					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<sprout::is_convert_constructible<Types, UTypes&&>...>::value
 				>::type
 			>
-			explicit SPROUT_CONSTEXPR tuple(UTypes&&... elements);
-			SPROUT_CONSTEXPR tuple(tuple const&);
-			SPROUT_CONSTEXPR tuple(tuple&&);
+			explicit SPROUT_CONSTEXPR tuple(UTypes&&... elements)
+				: impl_type(sprout::forward<UTypes>(elements)...)
+			{}
+			SPROUT_CONSTEXPR tuple(tuple const&) = default;
+			SPROUT_CONSTEXPR tuple(tuple&&) = default;
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
 					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<sprout::is_convert_constructible<Types, UTypes const&>...>::value
 				>::type
 			>
-			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...> const& t);
+			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...> const& t)
+				: impl_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...> const&>(t))
+			{}
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
 					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<sprout::is_convert_constructible<Types, UTypes&&>...>::value
 				>::type
 			>
-			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...>&& t);
+			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...>&& t)
+				: impl_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...>&&>(t))
+			{}
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
@@ -324,21 +329,27 @@ namespace sprout {
 					is_rvref_flexibly_convert_constructible<UTypes...>::value
 				>::type
 			>
-			explicit SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, UTypes&&... elements);
+			explicit SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, UTypes&&... elements)
+				: impl_type(sprout::forward<UTypes>(elements)...)
+			{}
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
 					is_clvref_flexibly_convert_constructible<UTypes...>::value
 				>::type
 			>
-			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...> const& t);
+			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...> const& t)
+				: impl_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...> const&>(t))
+			{}
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
 					is_rvref_flexibly_convert_constructible<UTypes...>::value
 				>::type
 			>
-			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...>&& t);
+			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...>&& t)
+				: impl_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...>&&>(t))
+			{}
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
@@ -354,42 +365,62 @@ namespace sprout {
 			>
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...>&& t);
 			// tuple assignment
-			tuple& operator=(tuple const& rhs);
+			tuple& operator=(tuple const& rhs) {
+				static_cast<impl_type&>(*this) = rhs;
+				return *this;
+			}
 			tuple& operator=(tuple&& rhs)
-			SPROUT_NOEXCEPT_EXPR(sprout::tpp::all_of<std::is_nothrow_move_assignable<Types>...>::value);
+			SPROUT_NOEXCEPT_EXPR(sprout::tpp::all_of<std::is_nothrow_move_assignable<Types>...>::value)
+			{
+				static_cast<impl_type&>(*this) = sprout::move(rhs);
+				return *this;
+			}
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
 					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<std::is_assignable<Types&, UTypes const&>...>::value
 				>::type
 			>
-			tuple& operator=(sprout::tuples::tuple<UTypes...> const& rhs);
+			tuple& operator=(sprout::tuples::tuple<UTypes...> const& rhs) {
+				static_cast<impl_type&>(*this) = rhs;
+				return *this;
+			}
 			template<
 				typename... UTypes,
 				typename = typename std::enable_if<
 					sizeof...(Types) == sizeof...(UTypes) && sprout::tpp::all_of<std::is_assignable<Types&, UTypes&&>...>::value
 				>::type
 			>
-			tuple& operator=(sprout::tuples::tuple<UTypes...>&& rhs);
+			tuple& operator=(sprout::tuples::tuple<UTypes...>&& rhs) {
+				static_cast<impl_type&>(*this) = sprout::move(rhs);
+				return *this;
+			}
 			// tuple swap
 			void swap(tuple& other)
-			SPROUT_NOEXCEPT_EXPR(has_nothrow_swap::value);
+			SPROUT_NOEXCEPT_EXPR(sprout::tpp::all_of_c<SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(sprout::swap(std::declval<Types&>(), std::declval<Types&>()), false)...>::value)
+			{
+				impl_type::swap(other);
+			}
 		};
 		template<>
 		class tuple<> {
 		public:
 			// tuple construction
-			SPROUT_CONSTEXPR tuple();
-			SPROUT_CONSTEXPR tuple(tuple const&);
-			SPROUT_CONSTEXPR tuple(tuple&&);
+			SPROUT_CONSTEXPR tuple() = default;
+			SPROUT_CONSTEXPR tuple(tuple const&) = default;
+			SPROUT_CONSTEXPR tuple(tuple&&) = default;
 			template<typename... UTypes>
-			explicit SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, UTypes&&... elements);
+			explicit SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, UTypes&&... elements) {}
 			template<typename... UTypes>
-			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...> const& t);
+			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...> const& t) {}
 			template<typename... UTypes>
-			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...>&& t);
+			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...>&& t) {}
+			template<typename... UTypes>
+			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...> const& t) {}
+			template<typename... UTypes>
+			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...>&& t) {}
 			// tuple swap
-			void swap(tuple&) SPROUT_NOEXCEPT;
+			void swap(tuple&) SPROUT_NOEXCEPT {}
 		};
 
 		//
@@ -398,7 +429,10 @@ namespace sprout {
 		template<typename... Types>
 		inline void
 		swap(sprout::tuples::tuple<Types...>& lhs, sprout::tuples::tuple<Types...>& rhs)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)));
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		{
+			lhs.swap(rhs);
+		}
 
 		namespace detail {
 			template<std::size_t I, typename T>
