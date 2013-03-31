@@ -7,10 +7,10 @@ namespace sprout {
 	//
 	// make_indexes
 	//
-	template<typename IndexTupleType>
-	inline SPROUT_CONSTEXPR typename IndexTupleType::type
+	template<typename Seq>
+	inline SPROUT_CONSTEXPR typename Seq::type
 	make_indexes() {
-		return typename IndexTupleType::type();
+		return typename Seq::type();
 	}
 }	// namespace sprout
 

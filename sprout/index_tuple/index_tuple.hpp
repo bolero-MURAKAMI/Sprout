@@ -3,26 +3,42 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/index_tuple/integer_seq.hpp>
 
 namespace sprout {
 	//
 	// index_t
-	//
-	typedef std::ptrdiff_t index_t;
-
-	//
 	// index_tuple
 	//
+	typedef std::ptrdiff_t index_t;
 	template<sprout::index_t... Indexes>
-	struct index_tuple {
+	struct index_tuple
+		: public sprout::integer_seq<sprout::index_t, Indexes...>
+	{
 	public:
 		typedef index_tuple type;
-		typedef sprout::index_t value_type;
-	public:
-		SPROUT_STATIC_CONSTEXPR std::size_t size = sizeof...(Indexes);
+		template<sprout::index_t... J>
+		struct rebind
+			: public index_tuple<J...>
+		{};
 	};
-	template<sprout::index_t... Indexes>
-	SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::index_tuple<Indexes...>::size;
+
+	//
+	// uindex_t
+	// uindex_tuple
+	//
+	typedef std::size_t uindex_t;
+	template<sprout::uindex_t... Indexes>
+	struct uindex_tuple
+		: public sprout::integer_seq<sprout::uindex_t, Indexes...>
+	{
+	public:
+		typedef uindex_tuple type;
+		template<sprout::uindex_t... J>
+		struct rebind
+			: public uindex_tuple<J...>
+		{};
+	};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_INDEX_TUPLE_HPP
