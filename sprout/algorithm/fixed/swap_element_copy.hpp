@@ -7,6 +7,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
@@ -53,7 +54,7 @@ namespace sprout {
 					first, last,
 					result,
 					pos1, pos2,
-					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
+					sprout::container_indexes<Result>::make(),
 					sprout::internal_begin_offset(result),
 					sprout::size(result),
 					sprout::distance(first, last)

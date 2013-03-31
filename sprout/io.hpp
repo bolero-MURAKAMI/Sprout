@@ -762,7 +762,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::basic_string<Elem, N>
 			output_impl(Args const&... args) {
 				return sprout::io::detail::output_impl_1<Elem, N>(
-					sprout::index_range<0, N>::make(),
+					sprout::make_index_tuple<N>::make(),
 					sprout::range::partial_sum(
 						sprout::array<std::size_t, sizeof...(Args)>{{args.size()...}},
 						sprout::pit<sprout::array<std::size_t, sizeof...(Args)> >()
@@ -786,7 +786,7 @@ namespace sprout {
 		output(Expression const& expr) {
 			return sprout::io::detail::output<Elem, N>(
 				expr,
-				sprout::index_range<0, sprout::io::leaf_count<Expression>::value>::make()
+				sprout::make_index_tuple<sprout::io::leaf_count<Expression>::value>::make()
 				);
 		}
 	}	// namespace io

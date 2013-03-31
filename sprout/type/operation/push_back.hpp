@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/rebind_types.hpp>
+#include <sprout/tuple/indexes.hpp>
 
 namespace sprout {
 	namespace types {
@@ -28,7 +29,7 @@ namespace sprout {
 			{};
 		public:
 			typedef typename apply_impl<
-				typename sprout::index_range<0, sprout::types::tuple_size<Tuple>::value>::type
+				typename sprout::tuple_indexes<Tuple>::type
 			>::type type;
 		};
 	}	// namespace types

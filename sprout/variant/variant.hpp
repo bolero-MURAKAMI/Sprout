@@ -12,6 +12,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/tuple/indexes.hpp>
 #include <sprout/type_traits/common_decay.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type/algorithm/find_index.hpp>
@@ -49,7 +50,7 @@ namespace sprout {
 			{}
 			template<typename T, typename Index>
 			SPROUT_CONSTEXPR variant_impl(T&& operand, Index)
-				: tuple_(init(sprout::forward<T>(operand), sprout::index_range<0, Index::value>::make()))
+				: tuple_(init(sprout::forward<T>(operand), sprout::make_index_tuple<Index::value>::make()))
 				, which_(Index::value)
 			{
 				static_assert(Index::value < sizeof...(Types), "variant<>: invalid operand");
@@ -113,7 +114,7 @@ namespace sprout {
 					&& !sprout::has_result_type<sprout::weak_result_type<Visitor> >::value
 			>::type
 		>
-			: public visitor_result_impl_2<Visitor, Tuple, typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type>
+			: public visitor_result_impl_2<Visitor, Tuple, typename sprout::tuple_indexes<Tuple>::type>
 		{};
 		template<typename Visitor, typename Tuple>
 		struct visitor_result_impl<
@@ -123,7 +124,7 @@ namespace sprout {
 					&& !sprout::has_result_type<sprout::weak_result_type<Visitor> >::value
 			>::type
 		>
-			: public visitor_result_impl_1<Visitor, Tuple, typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type>
+			: public visitor_result_impl_1<Visitor, Tuple, typename sprout::tuple_indexes<Tuple>::type>
 		{};
 	public:
 		// visitation support

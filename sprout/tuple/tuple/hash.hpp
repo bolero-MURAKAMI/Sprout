@@ -26,7 +26,7 @@ namespace sprout {
 		hash_value(sprout::tuples::tuple<Types...> const& v) {
 			return sprout::tuples::detail::tuple_hash_value_impl(
 				v,
-				sprout::index_range<0, sprout::tuples::tuple_size<sprout::tuples::tuple<Types...> >::value>::make()
+				sprout::make_index_tuple<sizeof...(Types)>::make()
 				);
 		}
 	}	// namespace tuples

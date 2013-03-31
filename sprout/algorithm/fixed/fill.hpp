@@ -39,7 +39,7 @@ namespace sprout {
 			fill(Container const& cont, T const& value) {
 				return sprout::fixed::detail::fill_impl(
 					cont, value,
-					sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
+					sprout::container_indexes<Container>::make(),
 					sprout::internal_begin_offset(cont),
 					sprout::size(cont)
 					);

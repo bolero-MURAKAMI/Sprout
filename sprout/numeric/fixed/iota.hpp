@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/counting_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
@@ -39,7 +40,7 @@ namespace sprout {
 			>::type
 			iota(Container const& cont, T value) {
 				return sprout::fixed::detail::iota_impl(
-					cont, sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
+					cont, sprout::container_indexes<Container>::make(),
 					value,
 					sprout::internal_begin_offset(cont),
 					sprout::size(cont)

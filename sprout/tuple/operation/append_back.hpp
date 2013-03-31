@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/tuple/indexes.hpp>
 #include <sprout/type/operation/append_back.hpp>
 
 namespace sprout {
@@ -42,8 +43,8 @@ namespace sprout {
 		append_back(Tuple const& t, InputTuple const& input) {
 			return sprout::tuples::detail::append_back_impl<typename sprout::tuples::result_of::append_back<Tuple, InputTuple>::type>(
 				t, input,
-				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make(),
-				sprout::index_range<0, sprout::tuples::tuple_size<InputTuple>::value>::make()
+				sprout::tuple_indexes<Tuple>::make(),
+				sprout::tuple_indexes<InputTuple>::make()
 				);
 		}
 	}	// namespace tuples

@@ -80,7 +80,7 @@ namespace sprout {
 		return sprout::detail::int_to_string<Elem, Base>(
 			val,
 			sprout::detail::int_digits<Base>(val),
-			sprout::index_range<0, sprout::integer_digits<IntType, Base>::value>::make()
+			sprout::make_index_tuple<sprout::integer_digits<IntType, Base>::value>::make()
 			);
 	}
 

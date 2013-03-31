@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/tuple/traits.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/tuple/indexes.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -43,7 +44,7 @@ namespace sprout {
 				return sprout::tuples::detail::copy_impl<typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type>(
 					t, input,
 					sprout::index_range<sprout::tuples::tuple_size<InputTuple>::value, sprout::tuples::tuple_size<Tuple>::value>::make(),
-					sprout::index_range<0, sprout::tuples::tuple_size<InputTuple>::value>::make()
+					sprout::tuple_indexes<InputTuple>::make()
 					);
 			}
 			template<typename Tuple, typename InputTuple>
@@ -55,7 +56,7 @@ namespace sprout {
 				return sprout::tuples::detail::copy_impl<typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type>(
 					t, input,
 					sprout::index_tuple<>(),
-					sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make()
+					sprout::tuple_indexes<Tuple>::make()
 					);
 			}
 		}	// namespace detail

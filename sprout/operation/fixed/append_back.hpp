@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/operation/fixed/append.hpp>
 
 namespace sprout {
@@ -28,10 +29,7 @@ namespace sprout {
 		append_back(Container const& cont, Input const& input) {
 			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append_back<Container, Input>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::append_back<Container, Input>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::append_back<Container, Input>::type>::make(),
 				sprout::internal_end_offset(cont),
 				sprout::size(input),
 				input

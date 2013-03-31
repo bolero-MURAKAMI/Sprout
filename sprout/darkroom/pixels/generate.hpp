@@ -7,6 +7,7 @@
 #include <sprout/array/array.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 
 namespace sprout {
@@ -77,12 +78,7 @@ namespace sprout {
 						sprout::darkroom::pixels::detail::generate_impl_line<Pixels>(
 							raytracer, renderer, camera, objs, lights,
 							x, y + YIndexes, width, height, depth_max,
-							sprout::index_range<
-								0,
-								sprout::container_traits<
-									typename sprout::container_traits<Pixels>::value_type
-									>::static_size
-								>::make()
+							sprout::container_indexes<typename sprout::container_traits<Pixels>::value_type>::make()
 							)...
 						);
 				}
@@ -115,10 +111,7 @@ namespace sprout {
 				return sprout::darkroom::pixels::detail::generate_impl<Pixels>(
 					raytracer, renderer, camera, objs, lights,
 					x, y, width, height, depth_max,
-					sprout::index_range<
-						0,
-						sprout::container_traits<Pixels>::static_size
-						>::make()
+					sprout::container_indexes<Pixels>::make()
 					);
 			}
 

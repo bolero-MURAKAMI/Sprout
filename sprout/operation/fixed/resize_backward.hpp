@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/operation/fixed/resize.hpp>
 
@@ -47,10 +48,7 @@ namespace sprout {
 		resize_backward(Container const& cont, T const& v) {
 			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::make(),
 				sprout::size(cont),
 				static_cast<typename sprout::container_traits<Container>::difference_type>(
 					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
@@ -85,10 +83,7 @@ namespace sprout {
 		resize_backward(Container const& cont) {
 			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::make(),
 				sprout::size(cont),
 				static_cast<typename sprout::container_traits<Container>::difference_type>(
 					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size

@@ -15,7 +15,7 @@ namespace sprout {
 		template<typename Tuple>
 		struct tuple_indexes
 			: public sprout::detail::make_indexes_helper<
-				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>
+				sprout::make_index_tuple<sprout::tuples::tuple_size<Tuple>::value>
 			>
 		{};
 	}	// namespace tuples

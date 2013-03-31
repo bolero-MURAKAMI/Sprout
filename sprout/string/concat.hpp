@@ -111,7 +111,7 @@ namespace sprout {
 		return sprout::detail::string_concat(
 			lhs, lhs.size(),
 			rhs,
-			sprout::index_range<0, N + 1>::make()
+			sprout::make_index_tuple<N + 1>::make()
 			);
 	}
 	template<typename T, std::size_t N, typename Traits>
@@ -120,7 +120,7 @@ namespace sprout {
 		return sprout::detail::string_concat(
 			lhs,
 			rhs, rhs.size(),
-			sprout::index_range<0, 1 + N>::make()
+			sprout::make_index_tuple<1 + N>::make()
 			);
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t M>
@@ -130,7 +130,7 @@ namespace sprout {
 		return sprout::detail::string_concat(
 			lhs, lhs.size(),
 			rhs, traits_type::length(rhs, M - 1),
-			sprout::index_range<0, N + (M - 1)>::make()
+			sprout::make_index_tuple<N + (M - 1)>::make()
 			);
 	}
 	template<typename T, std::size_t N, typename Traits, std::size_t M>
@@ -140,7 +140,7 @@ namespace sprout {
 		return sprout::detail::string_concat(
 			lhs, traits_type::length(lhs, M - 1),
 			rhs, rhs.size(),
-			sprout::index_range<0, (M - 1) + N>::make()
+			sprout::make_index_tuple<(M - 1) + N>::make()
 			);
 	}
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
@@ -149,7 +149,7 @@ namespace sprout {
 		return sprout::detail::string_concat(
 			lhs, lhs.size(),
 			rhs, rhs.size(),
-			sprout::index_range<0, N1 + N2>::make()
+			sprout::make_index_tuple<N1 + N2>::make()
 			);
 	}
 }	// namespace sprout

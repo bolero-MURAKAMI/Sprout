@@ -7,6 +7,7 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>
+#include <sprout/tuple/indexes.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -57,7 +58,7 @@ namespace sprout {
 					};
 				public:
 					typedef typename make<
-						Tuple, typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type
+						Tuple, typename sprout::tuple_indexes<Tuple>::type
 					>::type type;
 				};
 				template<typename T, typename U, typename... Tuples>
@@ -76,8 +77,8 @@ namespace sprout {
 				public:
 					typedef typename sprout::tuples::result_of::detail::tuple_cat_impl<
 						typename make<
-							T, typename sprout::index_range<0, sprout::tuples::tuple_size<T>::value>::type,
-							U, typename sprout::index_range<0, sprout::tuples::tuple_size<U>::value>::type
+							T, typename sprout::tuple_indexes<T>::type,
+							U, typename sprout::tuple_indexes<U>::type
 						>::type,
 						Tuples...
 					>::type type;
@@ -104,9 +105,7 @@ namespace sprout {
 			};
 			template<typename Head, typename... Tail>
 			struct tuple_cat_1st_indexes<Head, Tail...>
-				: public sprout::index_range<
-					0, sprout::tuples::tuple_size<typename std::remove_reference<Head>::type>::value
-				>
+				: public sprout::tuple_indexes<typename std::remove_reference<Head>::type>
 			{};
 
 			template<typename Result, typename IndexTuple, typename... Tuples>

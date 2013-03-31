@@ -36,7 +36,7 @@ namespace sprout {
 			};
 		public:
 			typedef typename impl<
-				typename sprout::index_range<0, sprout::size(Proxy()())>::type
+				typename sprout::make_index_tuple<sprout::size(Proxy()())>::type
 			>::type type;
 		};
 		namespace detail {

@@ -9,6 +9,7 @@
 #include <sprout/pit/pit.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/pair/pair.hpp>
@@ -110,7 +111,7 @@ namespace sprout {
 		shuffle_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::shuffle_result_impl(
 				cont,
-				sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
+				sprout::container_indexes<Container>::make(),
 				sprout::forward<UniformRandomNumberGenerator>(g),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)

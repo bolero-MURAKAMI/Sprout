@@ -92,7 +92,7 @@ namespace sprout {
 	public:
 		static SPROUT_CONSTEXPR basic_string from_c_str(T const* s, size_type n) {
 			return !(N < n)
-				? from_c_str_impl(s, n, sprout::index_range<0, N>::make())
+				? from_c_str_impl(s, n, sprout::make_index_tuple<N>::make())
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
@@ -490,7 +490,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR operator basic_string<T, N2, Traits>() const {
 			return implicit_conversion_impl(
 				elems, size(),
-				sprout::index_range<0, N2>::make()
+				sprout::make_index_tuple<N2>::make()
 				);
 		}
 #if SPROUT_USE_EXPLICIT_CONVERSION_OPERATORS
@@ -721,7 +721,7 @@ namespace sprout {
 			make(Args&&... args) {
 				return make_impl(
 					length(args...),
-					sprout::index_range<0, sizeof...(Args)>::make(),
+					sprout::make_index_tuple<sizeof...(Args)>::make(),
 					sprout::forward<Args>(args)...
 					);
 			}
@@ -730,7 +730,7 @@ namespace sprout {
 			make(typename copied_type::size_type size, Args&&... args) {
 				return make_impl(
 					size,
-					sprout::index_range<0, sizeof...(Args)>::make(),
+					sprout::make_index_tuple<sizeof...(Args)>::make(),
 					sprout::forward<Args>(args)...
 					);
 			}
@@ -751,7 +751,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
 		to_string_impl(T const(& arr)[N]) {
 			typedef sprout::char_traits_helper<typename sprout::basic_string<T, N - 1>::traits_type> helper_type;
-			return to_string_impl_1(arr, helper_type::length(arr, N - 1), sprout::index_range<0, N - 1>::make());
+			return to_string_impl_1(arr, helper_type::length(arr, N - 1), sprout::make_index_tuple<N - 1>::make());
 		}
 	}	// namespace detail
 	//

@@ -51,7 +51,7 @@ namespace sprout {
 				template<typename Intersection, typename Objects>
 				SPROUT_CONSTEXPR color_type
 				operator()(Intersection const& inter, Objects const& objs) const {
-					return shade_1(inter, objs, sprout::index_range<0, sizeof...(Lights)>::make());
+					return shade_1(inter, objs, sprout::make_index_tuple<sizeof...(Lights)>::make());
 				}
 			};
 			//

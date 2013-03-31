@@ -45,7 +45,7 @@ namespace sprout {
 			return implicit_conversion_impl(
 				holder_.get().elems,
 				NS_SSCRISK_CEL_OR_SPROUT::min(N2, holder_.get().len),
-				sprout::index_range<0, NS_SSCRISK_CEL_OR_SPROUT::min(N2, N)>::make()
+				sprout::make_index_tuple<(N < N2 ? N : N2)>::make()
 				);
 		}
 	};

@@ -227,7 +227,7 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::array<T, N>
 	to_array(T const (& arr)[N]) {
-		return sprout::detail::to_array_impl(arr, sprout::index_range<0, N>::make());
+		return sprout::detail::to_array_impl(arr, sprout::make_index_tuple<N>::make());
 	}
 }	// namespace sprout
 

@@ -6,6 +6,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/operation/fixed/insert.hpp>
 
 namespace sprout {
@@ -28,10 +29,7 @@ namespace sprout {
 		push_front(Container const& cont, T const& v, Values const&... values) {
 			return sprout::fixed::detail::insert_impl<typename sprout::fixed::result_of::push_front<Container, T, Values...>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::push_front<Container, T, Values...>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::push_front<Container, T, Values...>::type>::make(),
 				sprout::internal_begin_offset(cont),
 				v,
 				values...

@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
@@ -44,10 +45,7 @@ namespace sprout {
 		realign(Container const& cont, T const& v) {
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign<Container>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::realign<Container>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::realign<Container>::type>::make(),
 				sprout::size(cont),
 				v
 				);
@@ -77,10 +75,7 @@ namespace sprout {
 		realign(Container const& cont) {
 			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign<Container>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::realign<Container>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::realign<Container>::type>::make(),
 				sprout::size(cont)
 				);
 		}

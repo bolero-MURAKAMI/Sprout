@@ -53,7 +53,7 @@ namespace sprout {
 			sprout::types::detail::str_length<Sequence>::value
 		> to_string_constant() {
 			return sprout::types::detail::to_string_constant_impl<Sequence>(
-				sprout::index_range<0, sprout::types::detail::str_length<Sequence>::value>::make()
+				sprout::make_index_tuple<sprout::types::detail::str_length<Sequence>::value>::make()
 				);
 		}
 	}	// namespace types

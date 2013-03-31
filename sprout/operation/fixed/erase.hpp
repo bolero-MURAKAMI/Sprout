@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
@@ -54,10 +55,7 @@ namespace sprout {
 		erase(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos) {
 			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::erase<Container>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::erase<Container>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::erase<Container>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), pos)
 				);
 		}
@@ -69,10 +67,7 @@ namespace sprout {
 		erase(Container const& cont, typename sprout::container_traits<Container>::difference_type pos) {
 			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::erase<Container>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::erase<Container>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::erase<Container>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos))
 				);
 		}

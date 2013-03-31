@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/value_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/fill.hpp>
@@ -21,7 +22,7 @@ namespace sprout {
 			fill_n(Container const& cont, Size n, T const& value) {
 				return sprout::fixed::detail::fill_impl(
 					cont, value,
-					sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
+					sprout::container_indexes<Container>::make(),
 					sprout::internal_begin_offset(cont),
 					n
 					);

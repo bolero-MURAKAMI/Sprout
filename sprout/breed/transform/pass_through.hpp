@@ -42,7 +42,7 @@ namespace sprout {
 				typedef typename sprout::breed::base_expr<
 					typename unref_expr::breed_domain,
 					typename unref_expr::breed_tag,
-					typename list_impl<typename sprout::index_range<0, Arity>::type>::type
+					typename list_impl<typename sprout::make_index_tuple<Arity>::type>::type
 				>::type expr_type;
 				typedef typename unref_expr::breed_generator breed_generator;
 				typedef typename sprout::breed::detail::std_result_of<
@@ -74,7 +74,7 @@ namespace sprout {
 					typename pass_through_impl::data_param d
 					) const
 				{
-					return call_impl(e, s, d, sprout::index_range<0, Arity>::make());
+					return call_impl(e, s, d, sprout::make_index_tuple<Arity>::make());
 				}
 			};
 			template<typename Grammar, typename Expr, typename State, typename Data>

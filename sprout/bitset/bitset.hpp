@@ -165,11 +165,11 @@ namespace sprout {
 				return offset == 0
 					? do_left_shift_impl_1(
 						wshift, offset,
-						sprout::index_range<0, N>::make()
+						sprout::make_index_tuple<N>::make()
 						)
 					: do_left_shift_impl_2(
 						wshift, offset, (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) - offset,
-						sprout::index_range<0, N>::make()
+						sprout::make_index_tuple<N>::make()
 						)
 					;
 			}
@@ -209,11 +209,11 @@ namespace sprout {
 				return offset == 0
 					? do_right_shift_impl_1(
 						wshift, offset, limit,
-						sprout::index_range<0, N>::make()
+						sprout::make_index_tuple<N>::make()
 						)
 					: do_right_shift_impl_2(
 						wshift, offset, limit, (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value) - offset,
-						sprout::index_range<0, N>::make()
+						sprout::make_index_tuple<N>::make()
 						)
 					;
 			}

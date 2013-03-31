@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/tuple/indexes.hpp>
 #include <sprout/type/operation/push_front.hpp>
 
 namespace sprout {
@@ -38,7 +39,7 @@ namespace sprout {
 		push_front(Tuple const& t, Args const&... args) {
 			return sprout::tuples::detail::push_front_impl<typename sprout::tuples::result_of::push_front<Tuple, Args...>::type>(
 				t,
-				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::make(),
+				sprout::tuple_indexes<Tuple>::make(),
 				args...
 				);
 		}

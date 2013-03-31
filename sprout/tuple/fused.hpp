@@ -7,6 +7,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>
+#include <sprout/tuple/indexes.hpp>
 #include <sprout/utility/forward.hpp>
 
 namespace sprout {
@@ -35,7 +36,7 @@ namespace sprout {
 			struct result
 				: public result_impl<
 					Tuple,
-					typename sprout::index_range<0, sprout::tuples::tuple_size<typename std::remove_reference<Tuple>::type>::value>::type
+					typename sprout::tuple_indexes<typename std::remove_reference<Tuple>::type>::type
 				>
 			{};
 		private:
@@ -60,7 +61,7 @@ namespace sprout {
 			operator()(Tuple&& t) const {
 				return call<typename result<Tuple>::type>(
 					sprout::forward<Tuple>(t),
-					sprout::index_range<0, sprout::tuples::tuple_size<typename std::remove_reference<Tuple>::type>::value>::make()
+					sprout::tuple_indexes<typename std::remove_reference<Tuple>::type>::make()
 					);
 			}
 		};

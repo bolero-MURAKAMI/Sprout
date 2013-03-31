@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/tuple/indexes.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/utility/forward.hpp>
 
@@ -67,7 +68,7 @@ namespace sprout {
 		public:
 			typedef typename sprout::tuples::detail::default_copied<
 				Tuple,
-				typename sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value>::type
+				typename sprout::tuple_indexes<Tuple>::type
 			>::type copied_type;
 		public:
 			template<typename Tup>

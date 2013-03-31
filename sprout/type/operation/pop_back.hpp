@@ -26,7 +26,7 @@ namespace sprout {
 			{};
 		public:
 			typedef typename apply_impl<
-				typename sprout::index_range<0, sprout::types::tuple_size<Tuple>::value - 1>::type
+				typename sprout::make_index_tuple<sprout::types::tuple_size<Tuple>::value - 1>::type
 			>::type type;
 		};
 	}	// namespace types

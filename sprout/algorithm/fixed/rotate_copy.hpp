@@ -7,6 +7,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/joint_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
@@ -50,7 +51,7 @@ namespace sprout {
 				return sprout::fixed::detail::rotate_copy_impl_ra(
 					first, middle, last,
 					result,
-					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
+					sprout::container_indexes<Result>::make(),
 					sprout::internal_begin_offset(result),
 					sprout::size(result),
 					sprout::distance(first, last)

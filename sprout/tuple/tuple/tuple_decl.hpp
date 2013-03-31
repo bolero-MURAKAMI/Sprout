@@ -264,7 +264,7 @@ namespace sprout {
 			template<typename... UTypes>
 			struct is_flexibly_convert_constructible
 				: public is_flexibly_convert_constructible_impl<
-					typename sprout::index_range<0, (sizeof...(UTypes) < sizeof...(Types) ? sizeof...(UTypes) : sizeof...(Types))>::type,
+					typename sprout::make_index_tuple<(sizeof...(UTypes) < sizeof...(Types) ? sizeof...(UTypes) : sizeof...(Types))>::type,
 					UTypes...
 				>
 			{};

@@ -203,7 +203,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				arr,
-				sprout::index_range<0, enumerable_size>::make(),
+				sprout::make_index_tuple<enumerable_size>::make(),
 				first,
 				last
 				)
@@ -212,7 +212,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				arr,
-				sprout::index_range<0, enumerable_size>::make(),
+				sprout::make_index_tuple<enumerable_size>::make(),
 				to_first,
 				to_last
 				)
@@ -221,7 +221,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
-				sprout::index_range<0, enumerable_size>::make(),
+				sprout::make_index_tuple<enumerable_size>::make(),
 				sprout::distance(sprout::begin(other.get_array()), first),
 				sprout::distance(sprout::begin(other.get_array()), last)
 				)
@@ -230,7 +230,7 @@ namespace sprout {
 			: impl_type(
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
-				sprout::index_range<0, enumerable_size>::make(),
+				sprout::make_index_tuple<enumerable_size>::make(),
 				other.to_first_ + to_first,
 				other.to_first_ + to_last
 				)

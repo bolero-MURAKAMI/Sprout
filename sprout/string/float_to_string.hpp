@@ -65,7 +65,7 @@ namespace sprout {
 		float_to_string(FloatType val, bool negative, int digits) {
 			return sprout::detail::float_to_string_impl<Elem>(
 				val, negative, digits, static_cast<int>((val - sprout::floor(val)) * sprout::detail::int_pow<int>(sprout::detail::decimal_places_length)),
-				sprout::index_range<0, sprout::printed_float_digits<FloatType>::value - 1>::make()
+				sprout::make_index_tuple<sprout::printed_float_digits<FloatType>::value - 1>::make()
 				);
 		}
 	}	// namespace detail
@@ -164,7 +164,7 @@ namespace sprout {
 			val < 0,
 			sprout::detail::float_exponent10(val),
 			NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(sprout::detail::float_exponent10(val)), 2),
-			sprout::index_range<0, sprout::printed_float_exp_digits<FloatType>::value - 1>::make()
+			sprout::make_index_tuple<sprout::printed_float_exp_digits<FloatType>::value - 1>::make()
 			);
 	}
 

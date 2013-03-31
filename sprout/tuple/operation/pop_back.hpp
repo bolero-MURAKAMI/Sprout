@@ -37,7 +37,7 @@ namespace sprout {
 		pop_back(Tuple const& t) {
 			return sprout::tuples::detail::pop_back_impl<typename sprout::tuples::result_of::pop_back<Tuple>::type>(
 				t,
-				sprout::index_range<0, sprout::tuples::tuple_size<Tuple>::value - 1>::make()
+				sprout::make_index_tuple<sprout::tuples::tuple_size<Tuple>::value - 1>::make()
 				);
 		}
 	}	// namespace tuples

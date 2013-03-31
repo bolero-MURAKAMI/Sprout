@@ -7,6 +7,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/transform_iterator.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
@@ -47,7 +48,7 @@ namespace sprout {
 				return sprout::fixed::detail::transform_impl_ra(
 					first, last,
 					result, op,
-					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
+					sprout::container_indexes<Result>::make(),
 					sprout::internal_begin_offset(result),
 					sprout::size(result),
 					sprout::distance(first, last)
@@ -165,7 +166,7 @@ namespace sprout {
 				return sprout::fixed::detail::transform_impl_ra(
 					first1, last1, first2,
 					result, op,
-					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
+					sprout::container_indexes<Result>::make(),
 					sprout::internal_begin_offset(result),
 					sprout::size(result),
 					sprout::distance(first1, last1)

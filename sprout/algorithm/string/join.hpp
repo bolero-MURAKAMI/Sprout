@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
@@ -134,7 +135,7 @@ namespace sprout {
 				> sizes_type;
 				return sprout::algorithm::detail::join_impl_ra_1<Result>(
 					sprout::begin(cont_cont),
-					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
+					sprout::container_indexes<Result>::make(),
 					sprout::range::partial_sum(
 						cont_cont | sprout::adaptors::size_enumed,
 						sprout::pit<sizes_type>()
@@ -323,7 +324,7 @@ namespace sprout {
 				return sprout::algorithm::detail::join_impl_ra_1<Result>(
 					sprout::begin(cont_cont),
 					sprout::begin(separator),
-					sprout::index_range<0, sprout::container_traits<Result>::static_size>::make(),
+					sprout::container_indexes<Result>::make(),
 					sprout::range::partial_sum(
 						cont_cont | sprout::adaptors::size_enumed(sprout::algorithm::detail::str_size(separator), true),
 						sprout::pit<sizes_type>()

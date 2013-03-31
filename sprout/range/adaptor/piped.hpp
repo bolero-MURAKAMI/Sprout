@@ -60,13 +60,13 @@ namespace sprout {
 			-> decltype(
 				sprout::adaptors::detail::apply_adaptors_tuple_impl(
 					sprout::forward<Range>(range), adaptors,
-					sprout::index_range<0, sprout::tuples::tuple_size<AdaptorsTuple>::value>::make()
+					sprout::make_index_tuple<sprout::tuples::tuple_size<AdaptorsTuple>::value>::make()
 					)
 				)
 			{
 				return sprout::adaptors::detail::apply_adaptors_tuple_impl(
 					sprout::forward<Range>(range), adaptors,
-					sprout::index_range<0, sprout::tuples::tuple_size<AdaptorsTuple>::value>::make()
+					sprout::make_index_tuple<sprout::tuples::tuple_size<AdaptorsTuple>::value>::make()
 					);
 			}
 		}	// namespace detail

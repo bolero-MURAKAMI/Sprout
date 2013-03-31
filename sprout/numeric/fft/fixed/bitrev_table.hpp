@@ -7,6 +7,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/bit/reverse.hpp>
@@ -45,7 +46,7 @@ namespace sprout {
 		bitrev_table(Container const& cont) {
 			return sprout::fixed::detail::bitrev_table_impl(
 				cont,
-				sprout::index_range<0, sprout::container_traits<Container>::static_size>::make(),
+				sprout::container_indexes<Container>::make(),
 				sprout::empty(cont) ? 0
 					: sprout::bit_length(sprout::size(cont) - 1)
 					,

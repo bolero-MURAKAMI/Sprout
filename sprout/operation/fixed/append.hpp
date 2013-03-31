@@ -5,6 +5,7 @@
 #include <sprout/index_tuple.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
@@ -60,10 +61,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append<Container, Input>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::append<Container, Input>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), pos),
 				sprout::size(input),
 				input
@@ -78,10 +76,7 @@ namespace sprout {
 		{
 			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append<Container, Input>::type>(
 				cont,
-				sprout::index_range<
-					0,
-					sprout::container_traits<typename sprout::fixed::result_of::append<Container, Input>::type>::static_size
-					>::make(),
+				sprout::container_indexes<typename sprout::fixed::result_of::append<Container, Input>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				sprout::size(input),
 				input
