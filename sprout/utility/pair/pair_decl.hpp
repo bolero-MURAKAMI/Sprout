@@ -25,10 +25,8 @@ namespace sprout {
 	private:
 		template <typename... Args1, typename... Args2, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
 		SPROUT_CONSTEXPR pair(
-			sprout::tuples::tuple<Args1...> first_args,
-			sprout::tuples::tuple<Args2...> second_args,
-			sprout::index_tuple<Indexes1...>,
-			sprout::index_tuple<Indexes2...>
+			sprout::tuples::tuple<Args1...> first_args, sprout::tuples::tuple<Args2...> second_args,
+			sprout::index_tuple<Indexes1...>, sprout::index_tuple<Indexes2...>
 			);
 	public:
 		SPROUT_CONSTEXPR pair()

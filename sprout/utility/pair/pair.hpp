@@ -18,10 +18,8 @@ namespace sprout {
 	template <typename T1, typename T2>
 	template <typename... Args1, typename... Args2, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
 	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(
-		sprout::tuples::tuple<Args1...> first_args,
-		sprout::tuples::tuple<Args2...> second_args,
-		sprout::index_tuple<Indexes1...>,
-		sprout::index_tuple<Indexes2...>
+		sprout::tuples::tuple<Args1...> first_args, sprout::tuples::tuple<Args2...> second_args,
+		sprout::index_tuple<Indexes1...>, sprout::index_tuple<Indexes2...>
 		)
 		: first(sprout::tuples::get<Indexes1>(first_args)...)
 		, second(sprout::tuples::get<Indexes2>(second_args)...)

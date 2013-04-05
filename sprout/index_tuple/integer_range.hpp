@@ -49,7 +49,7 @@ namespace sprout {
 		>
 			: public sprout::detail::integer_range_next_even<
 				T, typename sprout::detail::integer_range_impl<T, First, Step, N / 2>::type,
-				First + N / 2 * Step
+				N / 2 * Step
 			>
 		{};
 		template<typename T, T First, std::ptrdiff_t Step, std::size_t N>
@@ -59,7 +59,7 @@ namespace sprout {
 		>
 			: public sprout::detail::integer_range_next_odd<
 				T, typename sprout::detail::integer_range_impl<T, First, Step, N / 2>::type,
-				First + N / 2 * Step, First + (N - 1) * Step
+				N / 2 * Step, First + (N - 1) * Step
 			>
 		{};
 	}	// namespace detail
