@@ -1,16 +1,19 @@
 #ifndef SPROUT_INDEX_TUPLE_INTEGER_RANGE_HPP
 #define SPROUT_INDEX_TUPLE_INTEGER_RANGE_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/integer_seq.hpp>
 #include <sprout/index_tuple/detail/make_indexes_helper.hpp>
 
 namespace sprout {
-	//
-	// integer_range
-	//
+	namespace detail {
+		template<typename T, T First, T Last>
+		struct integer_range_default_step
+			: public std::integral_constant<typename std::make_signed<T>::type, (First <= Last ? 1 : -1)>
+		{};
+	}	// namespace detail
+
 	namespace detail {
 		template<typename T, typename Seq, T Next>
 		struct integer_range_next_even;
@@ -26,23 +29,23 @@ namespace sprout {
 			 : public sprout::integer_seq<T, Is..., (Is + Next)..., Tail>
 		{};
 
-		template<typename T, T First, std::ptrdiff_t Step, std::size_t N, typename Enable = void>
+		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N, typename Enable = void>
 		struct integer_range_impl;
-		template<typename T, T First, std::ptrdiff_t Step, std::size_t N>
+		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N>
 		struct integer_range_impl<
 			T, First, Step, N,
 			typename std::enable_if<(N == 0)>::type
 		>
 			: public sprout::integer_seq<T>
 		{};
-		template<typename T, T First, std::ptrdiff_t Step, std::size_t N>
+		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N>
 		struct integer_range_impl<
 			T, First, Step, N,
 			typename std::enable_if<(N == 1)>::type
 		>
 			: public sprout::integer_seq<T, First>
 		{};
-		template<typename T, T First, std::ptrdiff_t Step, std::size_t N>
+		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N>
 		struct integer_range_impl<
 			T, First, Step, N,
 			typename std::enable_if<(N > 1 && N % 2 == 0)>::type
@@ -52,7 +55,7 @@ namespace sprout {
 				N / 2 * Step
 			>
 		{};
-		template<typename T, T First, std::ptrdiff_t Step, std::size_t N>
+		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N>
 		struct integer_range_impl<
 			T, First, Step, N,
 			typename std::enable_if<(N > 1 && N % 2 == 1)>::type
@@ -62,15 +65,36 @@ namespace sprout {
 				N / 2 * Step, First + (N - 1) * Step
 			>
 		{};
+		template<typename T, T First, T Last, typename std::make_signed<T>::type Step, typename Enable = void>
+		struct integer_range {};
+		template<typename T, T First, T Last, typename std::make_signed<T>::type Step>
+		struct integer_range<
+			T, First, Last, Step,
+			typename std::enable_if<((First < Last && Step > 0) || (First > Last && Step < 0) || (First == Last))>::type
+		>
+			: public sprout::detail::integer_range_impl<
+				T, First, Step,
+				(static_cast<typename std::make_signed<T>::type>(Last - First) + (Step > 0 ? Step - 1 : Step + 1)) / Step
+			>
+		{};
 	}	// namespace detail
-	template<typename T, T First, T Last, std::ptrdiff_t Step = 1>
+	//
+	// integer_range
+	//
+	template<
+		typename T, T First, T Last,
+		typename std::make_signed<T>::type Step = sprout::detail::integer_range_default_step<T, First, Last>::value
+	>
 	struct integer_range
 		: public sprout::detail::make_indexes_helper<
-			sprout::detail::integer_range_impl<
-				T, First, Step, ((Last - First) + (Step - 1)) / Step
-			>
+			sprout::detail::integer_range<T, First, Last, Step>
 		>
-	{};
+	{
+		static_assert(
+			(First < Last && Step > 0) || (First > Last && Step < 0) || (First == Last),
+			"(First < Last && Step > 0) || (First > Last && Step < 0) || (First == Last)"
+			);
+	};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_INTEGER_RANGE_HPP
