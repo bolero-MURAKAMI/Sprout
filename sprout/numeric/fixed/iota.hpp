@@ -2,7 +2,7 @@
 #define SPROUT_NUMERIC_FIXED_IOTA_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>

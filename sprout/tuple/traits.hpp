@@ -2,7 +2,7 @@
 #define SPROUT_TUPLE_TRAITS_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/indexes.hpp>
 #include <sprout/type/rebind_types.hpp>

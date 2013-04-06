@@ -12,25 +12,33 @@ namespace sprout {
 	// tppack_at
 	//
 	namespace detail {
-		template<std::size_t N, typename Head, typename... Tail>
+		template<std::size_t I, typename Head, typename... Tail>
 		struct tppack_at_impl_1
-			: public sprout::detail::tppack_at_impl_1<N - 1, Tail...>
+			: public sprout::detail::tppack_at_impl_1<I - 1, Tail...>
 		{};
 		template<typename Head, typename... Tail>
 		struct tppack_at_impl_1<0, Head, Tail...> {
 		public:
 			typedef Head type;
 		};
-		template<std::size_t N, typename... Args>
+		template<std::size_t I, typename... Args>
 		struct tppack_at_impl
-			: public sprout::detail::tppack_at_impl_1<N, Args...>
+			: public sprout::detail::tppack_at_impl_1<I, Args...>
 		{
-			static_assert(N < sizeof...(Args), "N < sizeof...(Args)");
+			static_assert(I < sizeof...(Args), "I < sizeof...(Args)");
 		};
 	}	// namespace detail
-	template<std::size_t N, typename... Args>
+	template<std::size_t I, typename... Args>
 	struct tppack_at
-		: public sprout::detail::tppack_at_impl<N, Args...>
+		: public sprout::detail::tppack_at_impl<I, Args...>
+	{};
+
+	//
+	// tppack_c_at
+	//
+	template<std::size_t I, typename T, T... Args>
+	struct tppack_c_at
+		: public sprout::tppack_at<I, std::integral_constant<T, Args>...>::type
 	{};
 
 	//
@@ -38,28 +46,28 @@ namespace sprout {
 	//
 	namespace detail {
 		template<
-			std::size_t N, typename R, typename Head, typename... Tail,
-			typename sprout::enabler_if<N == 0>::type = sprout::enabler
+			std::size_t I, typename R, typename Head, typename... Tail,
+			typename sprout::enabler_if<I == 0>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR R
 		fppack_at_impl(Head&& head, Tail&&... tail) {
 			return sprout::forward<Head>(head);
 		}
 		template<
-			std::size_t N, typename R, typename Head, typename... Tail,
-			typename sprout::enabler_if<N != 0>::type = sprout::enabler
+			std::size_t I, typename R, typename Head, typename... Tail,
+			typename sprout::enabler_if<I != 0>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR R
 		fppack_at_impl(Head&& head, Tail&&... tail) {
-			return sprout::detail::fppack_at_impl<N - 1, R>(sprout::forward<Tail>(tail)...);
+			return sprout::detail::fppack_at_impl<I - 1, R>(sprout::forward<Tail>(tail)...);
 		}
 	}	// namespace detail
-	template<std::size_t N, typename... Args>
-	inline SPROUT_CONSTEXPR typename sprout::tppack_at<N, Args&&...>::type
+	template<std::size_t I, typename... Args>
+	inline SPROUT_CONSTEXPR typename sprout::tppack_at<I, Args&&...>::type
 	fppack_at(Args&&... args) {
 		return sprout::detail::fppack_at_impl<
-			N,
-			typename sprout::tppack_at<N, Args&&...>::type
+			I,
+			typename sprout::tppack_at<I, Args&&...>::type
 		>(sprout::forward<Args>(args)...);
 	}
 }	// namespace sprout

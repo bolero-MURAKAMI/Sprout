@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/integer_n.hpp>
-#include <sprout/index_tuple/detail/make_indexes_helper.hpp>
+#include <sprout/index_tuple/enable_make_indexes.hpp>
 
 namespace sprout {
 	//
@@ -12,9 +12,9 @@ namespace sprout {
 	//
 	template<sprout::index_t I, std::size_t N>
 	struct index_n
-		: public sprout::detail::make_indexes_helper<
+		: public sprout::enable_make_indexes<
 			typename sprout::integer_n<sprout::index_t, I, N>::type
-				::template transfer<sprout::index_tuple<> >::type
+				::template transfer<sprout::index_tuple<> >
 		>
 	{};
 	//
@@ -22,9 +22,9 @@ namespace sprout {
 	//
 	template<sprout::uindex_t I, std::size_t N>
 	struct uindex_n
-		: public sprout::detail::make_indexes_helper<
+		: public sprout::enable_make_indexes<
 			typename sprout::integer_n<sprout::uindex_t, I, N>::type
-				::template transfer<sprout::uindex_tuple<> >::type
+				::template transfer<sprout::uindex_tuple<> >
 		>
 	{};
 }	// namespace sprout

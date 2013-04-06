@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/array/make_array.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>

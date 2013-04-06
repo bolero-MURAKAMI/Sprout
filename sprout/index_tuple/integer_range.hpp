@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/integer_seq.hpp>
-#include <sprout/index_tuple/detail/make_indexes_helper.hpp>
+#include <sprout/index_tuple/enable_make_indexes.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -86,7 +86,7 @@ namespace sprout {
 		typename std::make_signed<T>::type Step = sprout::detail::integer_range_default_step<T, First, Last>::value
 	>
 	struct integer_range
-		: public sprout::detail::make_indexes_helper<
+		: public sprout::enable_make_indexes<
 			sprout::detail::integer_range<T, First, Last, Step>
 		>
 	{

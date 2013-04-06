@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/utility/pack.hpp>
 #include <sprout/breed/breed_fwd.hpp>
 

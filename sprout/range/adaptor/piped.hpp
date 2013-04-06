@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <utility>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>

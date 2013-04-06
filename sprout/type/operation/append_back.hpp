@@ -2,7 +2,7 @@
 #define SPROUT_TYPE_OPERATION_APPEND_BACK_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/tuple/indexes.hpp>

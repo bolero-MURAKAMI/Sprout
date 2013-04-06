@@ -2,7 +2,7 @@
 #define SPROUT_TUPLE_OPERATION_POP_BACK_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/type/operation/pop_back.hpp>

@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/container/traits.hpp>

@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/integer_seq.hpp>
-#include <sprout/index_tuple/detail/make_indexes_helper.hpp>
+#include <sprout/index_tuple/enable_make_indexes.hpp>
 
 namespace sprout {
 	//
@@ -64,7 +64,7 @@ namespace sprout {
 	}	// namespace detail
 	template<typename T, T I, std::size_t N>
 	struct integer_n
-		: public sprout::detail::make_indexes_helper<
+		: public sprout::enable_make_indexes<
 			sprout::detail::integer_n_impl<T, I, N>
 		>
 	{};

@@ -2,8 +2,8 @@
 #define SPROUT_CONTAINER_INDEXES_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/index_tuple.hpp>
-#include <sprout/index_tuple/detail/make_indexes_helper.hpp>
+#include <sprout/index_tuple/metafunction.hpp>
+#include <sprout/index_tuple/enable_make_indexes.hpp>
 #include <sprout/container/container_traits.hpp>
 
 namespace sprout {
@@ -13,7 +13,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct container_indexes
-			: public sprout::detail::make_indexes_helper<
+			: public sprout::enable_make_indexes<
 				sprout::make_index_tuple<sprout::container_traits<Container>::static_size>
 			>
 		{};
