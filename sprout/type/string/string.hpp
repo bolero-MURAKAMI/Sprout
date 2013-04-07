@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/integral_array.hpp>
+#include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
 	namespace types {
@@ -46,5 +47,18 @@ namespace std {
 #	pragma clang diagnostic pop
 #endif
 }	// namespace std
+
+namespace sprout {
+	//
+	// tuple_get
+	//
+	template<std::size_t I, typename T, T... Values>
+	inline SPROUT_CONSTEXPR typename std::tuple_element<I, sprout::types::basic_string<T, Values...> >::type
+	tuple_get(sprout::types::basic_string<T, Values...>) SPROUT_NOEXCEPT {
+		static_assert(I < sizeof...(Values), "tuple_get: index out of range");
+		typedef typename std::tuple_element<I, sprout::types::basic_string<T, Values...> >::type type;
+		return type();
+	}
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_STRING_STRING_HPP
