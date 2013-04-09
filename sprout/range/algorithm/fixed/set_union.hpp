@@ -2,7 +2,6 @@
 #define SPROUT_RANGE_ALGORITHM_FIXED_SET_UNION_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/set_union.hpp>

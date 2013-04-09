@@ -2,7 +2,6 @@
 #define SPROUT_RANGE_ALGORITHM_FIT_COPY_WHILE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/algorithm/fit/copy_while.hpp>

@@ -2,7 +2,6 @@
 #define SPROUT_ALGORITHM_FIXED_UNIQUE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/unique_copy.hpp>
 

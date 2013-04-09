@@ -2,7 +2,6 @@
 #define SPROUT_ALGORITHM_FIXED_REPLACE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/replace_copy.hpp>

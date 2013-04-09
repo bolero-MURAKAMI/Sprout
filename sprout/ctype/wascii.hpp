@@ -21,6 +21,7 @@ namespace sprout {
 		// iswxdigit
 		// towlower
 		// towupper
+		// iswclassified
 		//
 		SPROUT_CTYPE_ASCII_DECL(wchar_t, w)
 	}	// namespace ascii
@@ -39,6 +40,7 @@ namespace sprout {
 	using sprout::ascii::iswxdigit;
 	using sprout::ascii::towlower;
 	using sprout::ascii::towupper;
+	using sprout::ascii::iswclassified;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CTYPE_WASCII_HPP

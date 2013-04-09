@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/preprocessor/cat.hpp>
 #include <sprout/preprocessor/empty.hpp>
+#include <sprout/ctype/mask.hpp>
 
 namespace sprout {
 	namespace ascii {
@@ -235,6 +236,22 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR CHAR_TYPE \
 		SPROUT_PP_CAT(to, SPROUT_PP_CAT(PREFIX, upper))(CHAR_TYPE c) { \
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::upper ? c - (0x61 - 0x41) : c; \
+		} \
+		inline SPROUT_CONSTEXPR bool \
+		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, classified))(sprout::ctypes::mask_t m, CHAR_TYPE c) { \
+			return (m | sprout::ctypes::alnum && (sprout::ascii::detail::get_value(c) & (sprout::ascii::detail::alpha | sprout::ascii::detail::digit))) \
+				|| (m | sprout::ctypes::alpha && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::alpha)) \
+				|| (m | sprout::ctypes::blank && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::blank)) \
+				|| (m | sprout::ctypes::cntrl && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::cntrl)) \
+				|| (m | sprout::ctypes::digit && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::digit)) \
+				|| (m | sprout::ctypes::graph && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::graph)) \
+				|| (m | sprout::ctypes::lower && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::lower)) \
+				|| (m | sprout::ctypes::print && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::print)) \
+				|| (m | sprout::ctypes::punct && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::punct)) \
+				|| (m | sprout::ctypes::space && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::space)) \
+				|| (m | sprout::ctypes::upper && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::upper)) \
+				|| (m | sprout::ctypes::xdigit && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::xdigit)) \
+				; \
 		}
 
 		//
@@ -252,6 +269,7 @@ namespace sprout {
 		// isxdigit
 		// tolower
 		// toupper
+		// isclassified
 		//
 		SPROUT_CTYPE_ASCII_DECL(char, SPROUT_PP_EMPTY())
 		SPROUT_CTYPE_ASCII_DECL(wchar_t, SPROUT_PP_EMPTY())
@@ -273,6 +291,7 @@ namespace sprout {
 	using sprout::ascii::isxdigit;
 	using sprout::ascii::tolower;
 	using sprout::ascii::toupper;
+	using sprout::ascii::isclassified;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CTYPE_ASCII_HPP
