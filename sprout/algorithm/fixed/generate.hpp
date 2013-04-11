@@ -85,7 +85,7 @@ namespace sprout {
 		template<typename Container, typename Generator>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 		generate(Generator const& gen) {
-			return sprout::fixed::generate(sprout::pit<Container>());
+			return sprout::fixed::generate(sprout::pit<Container>(), gen);
 		}
 	}	// namespace fixed
 

@@ -21,16 +21,14 @@ main(){
 	static constexpr sprout::default_random_engine engine;
 	static constexpr sprout::uniform_smallint<int> dist(1, 6);
 
-	static constexpr sprout::array<int, 10> result = sprout::generate(
-		// Result type
-		sprout::array<int, 10>{},
-		// Random generator
-		sprout::random::combine(engine, dist)
-	);
-	
+	static constexpr auto result = sprout::generate
+		<sprout::array<int, 10> /* Result type */>
+		(sprout::random::combine(engine, dist) /*Random generator*/)
+		;
+
 	static_assert(
 		result == sprout::make_array<int>(1, 1, 5, 2, 4, 2, 6, 2, 5, 1),
-	"");
+		"");
 
 	return 0;
 }
