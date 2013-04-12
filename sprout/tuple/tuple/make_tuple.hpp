@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/functional/ref.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 #include <sprout/tuple/indexes.hpp>
@@ -15,7 +16,7 @@ namespace sprout {
 		// make_tuple
 		//
 		template<typename... Types>
-		inline SPROUT_CONSTEXPR sprout::tuples::tuple<typename std::decay<Types>::type...>
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<typename sprout::strip_reference<typename std::decay<Types>::type>::type...>
 		make_tuple(Types&&... args) {
 			return sprout::tuples::tuple<typename std::decay<Types>::type...>(sprout::forward<Types>(args)...);
 		}

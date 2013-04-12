@@ -2,6 +2,7 @@
 #define SPROUT_FUNCTIONAL_REF_HPP
 
 #include <type_traits>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
@@ -232,6 +233,11 @@ namespace sprout {
 		typedef T type;
 	};
 	template<typename T>
+	struct unwrap_reference<std::reference_wrapper<T> > {
+	public:
+		typedef T type;
+	};
+	template<typename T>
 	struct unwrap_reference<T const>
 		: public sprout::unwrap_reference<T>
 	{};
@@ -254,6 +260,11 @@ namespace sprout {
 	};
 	template<typename T>
 	struct strip_reference<sprout::reference_wrapper<T> > {
+	public:
+		typedef T& type;
+	};
+	template<typename T>
+	struct strip_reference<std::reference_wrapper<T> > {
 	public:
 		typedef T& type;
 	};
@@ -291,6 +302,11 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR T*
 	get_pointer(sprout::reference_wrapper<T> const& r) {
 		return r.get_pointer();
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR T*
+	get_pointer(std::reference_wrapper<T> const& r) {
+		return &r.get();
 	}
 }	// namespace sprout
 
