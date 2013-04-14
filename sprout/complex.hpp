@@ -8,5 +8,6 @@
 #include <sprout/complex/transcendentals.hpp>
 #include <sprout/complex/hash.hpp>
 #include <sprout/complex/nearest.hpp>
+#include <sprout/complex/udl.hpp>
 
 #endif	// #ifndef SPROUT_COMPLEX_HPP

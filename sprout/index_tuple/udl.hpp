@@ -39,27 +39,32 @@ namespace sprout {
 	{};
 
 	namespace udl {
-		//
-		// _indexes
-		//
-		template<char... Chars>
-		SPROUT_CONSTEXPR typename sprout::indexes_result<Chars...>::type
-		operator "" _indexes() {
-			return sprout::indexes_result<Chars...>::make();
-		}
+		namespace indexes {
+			//
+			// _indexes
+			//
+			template<char... Chars>
+			SPROUT_CONSTEXPR typename sprout::indexes_result<Chars...>::type
+			operator"" _indexes() {
+				return sprout::indexes_result<Chars...>::make();
+			}
 
-		//
-		// _uindexes
-		//
-		template<char... Chars>
-		SPROUT_CONSTEXPR typename sprout::uindexes_result<Chars...>::type
-		operator "" _uindexes() {
-			return sprout::uindexes_result<Chars...>::make();
-		}
+			//
+			// _uindexes
+			//
+			template<char... Chars>
+			SPROUT_CONSTEXPR typename sprout::uindexes_result<Chars...>::type
+			operator"" _uindexes() {
+				return sprout::uindexes_result<Chars...>::make();
+			}
+		}	// namespace indexes
+
+		using sprout::udl::indexes::operator"" _indexes;
+		using sprout::udl::indexes::operator"" _uindexes;
 	}	// namespace udl
 
-	using sprout::udl::operator "" _indexes;
-	using sprout::udl::operator "" _uindexes;
+	using sprout::udl::indexes::operator"" _indexes;
+	using sprout::udl::indexes::operator"" _uindexes;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS

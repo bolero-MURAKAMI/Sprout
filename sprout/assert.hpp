@@ -69,7 +69,7 @@ namespace sprout {
 	//
 	void
 	assertion_failed(sprout::assertion_info const&);
-}	// namespace sprout_adl
+}	// namespace sprout
 
 namespace sprout {
 	namespace detail {
@@ -166,7 +166,7 @@ namespace sprout {
 	//
 	void
 	assertion_failed_msg(sprout::assertion_info_msg const&);
-}	// namespace sprout_adl
+}	// namespace sprout
 
 namespace sprout {
 	namespace detail {

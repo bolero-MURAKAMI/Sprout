@@ -16,27 +16,35 @@ namespace sprout {
 			// _uuid
 			//
 			inline SPROUT_CONSTEXPR sprout::uuids::uuid
-			operator "" _uuid(char const* s, std::size_t size) {
+			operator"" _uuid(char const* s, std::size_t size) {
 				return sprout::uuids::string_generator()(s, s + size);
 			}
 			inline SPROUT_CONSTEXPR sprout::uuids::uuid
-			operator "" _uuid(wchar_t const* s, std::size_t size) {
+			operator"" _uuid(wchar_t const* s, std::size_t size) {
 				return sprout::uuids::string_generator()(s, s + size);
 			}
 			inline SPROUT_CONSTEXPR sprout::uuids::uuid
-			operator "" _uuid(char16_t const* s, std::size_t size) {
+			operator"" _uuid(char16_t const* s, std::size_t size) {
 				return sprout::uuids::string_generator()(s, s + size);
 			}
 			inline SPROUT_CONSTEXPR sprout::uuids::uuid
-			operator "" _uuid(char32_t const* s, std::size_t size) {
+			operator"" _uuid(char32_t const* s, std::size_t size) {
 				return sprout::uuids::string_generator()(s, s + size);
 			}
+		}	// namespace udl
+
+		using sprout::uuids::udl::operator"" _uuid;
+	}	// namespace uuids
+
+	namespace udl {
+		namespace uuids {
+			using sprout::uuids::udl::operator"" _uuid;
 		}	// namespace uuids
 
-		using sprout::uuids::udl::operator "" _uuid;
+		using sprout::uuids::udl::operator"" _uuid;
 	}	// namespace udl
 
-	using sprout::uuids::udl::operator "" _uuid;
+	using sprout::uuids::udl::operator"" _uuid;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
