@@ -17,6 +17,7 @@ namespace sprout {
 				return result_type{{0}};
 			}
 		};
+
 		//
 		// nil_uuid
 		//

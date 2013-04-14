@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/string.hpp>
 #include <sprout/uuid/uuid.hpp>
+#include <sprout/uuid/namespaces.hpp>
 #include <sprout/checksum/sha1.hpp>
 
 namespace sprout {
@@ -66,6 +67,85 @@ namespace sprout {
 				return sha_to_uuid(sum_.process_bytes(name, sprout::char_traits<char32_t>::length(name)));
 			}
 		};
+
+		//
+		// make_uuid5
+		//
+		template<typename Elem, std::size_t N, typename Traits>
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(sprout::basic_string<Elem, N, Traits> const& name) {
+			return sprout::uuids::sha1_name_generator()(name);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(char const* name) {
+			return sprout::uuids::sha1_name_generator()(name);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(wchar_t const* name) {
+			return sprout::uuids::sha1_name_generator()(name);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(char16_t const* name) {
+			return sprout::uuids::sha1_name_generator()(name);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(char32_t const* name) {
+			return sprout::uuids::sha1_name_generator()(name);
+		}
+
+		template<typename Elem, std::size_t N, typename Traits>
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(sprout::uuids::uuid const& namespace_uuid, sprout::basic_string<Elem, N, Traits> const& name) {
+			return sprout::uuids::sha1_name_generator(namespace_uuid)(name);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(sprout::uuids::uuid const& namespace_uuid, char const* name) {
+			return sprout::uuids::sha1_name_generator(namespace_uuid)(name);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(sprout::uuids::uuid const& namespace_uuid, wchar_t const* name) {
+			return sprout::uuids::sha1_name_generator(namespace_uuid)(name);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(sprout::uuids::uuid const& namespace_uuid, char16_t const* name) {
+			return sprout::uuids::sha1_name_generator(namespace_uuid)(name);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid5(sprout::uuids::uuid const& namespace_uuid, char32_t const* name) {
+			return sprout::uuids::sha1_name_generator(namespace_uuid)(name);
+		}
+
+		inline SPROUT_CONSTEXPR sprout::uuids::sha1_name_generator
+		make_uuid5() {
+			return sprout::uuids::sha1_name_generator();
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::sha1_name_generator
+		make_uuid5(sprout::uuids::uuid const& namespace_uuid) {
+			return sprout::uuids::sha1_name_generator(namespace_uuid);
+		}
+
+		//
+		// make_uuid5_dns
+		// make_uuid5_url
+		// make_uuid5_oid
+		// make_uuid5_x500
+		//
+		inline SPROUT_CONSTEXPR sprout::uuids::sha1_name_generator
+		make_uuid5_dns() {
+			return sprout::uuids::sha1_name_generator(sprout::uuids::namespace_dns_uuid());
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::sha1_name_generator
+		make_uuid5_url() {
+			return sprout::uuids::sha1_name_generator(sprout::uuids::namespace_url_uuid());
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::sha1_name_generator
+		make_uuid5_oid() {
+			return sprout::uuids::sha1_name_generator(sprout::uuids::namespace_oid_uuid());
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::sha1_name_generator
+		make_uuid5_x500() {
+			return sprout::uuids::sha1_name_generator(sprout::uuids::namespace_x500_uuid());
+		}
 	}	// namespace uuids
 }	// namespace sprout
 

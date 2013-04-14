@@ -15,7 +15,7 @@ namespace sprout {
 		//
 		// basic_random_generator
 		//
-		template<typename UniformRandomNumberGenerator>
+		template<typename UniformRandomNumberGenerator = sprout::random::default_random_engine>
 		class basic_random_generator {
 		public:
 			typedef sprout::uuids::uuid result_type;
@@ -68,14 +68,16 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename std::enable_if<
 				std::is_integral<T>::value,
 				result_type
-			>::type operator()(T const& seed) const {
+			>::type
+			operator()(T const& seed) const {
 				return operator()(engine_type(seed));
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				!std::is_integral<Engine>::value,
 				result_type
-			>::type operator()(Engine const& engine) const {
+			>::type
+			operator()(Engine const& engine) const {
 				return random_to_uuid(sprout::random::combine(engine, distribution_)());
 			}
 		};
@@ -83,7 +85,27 @@ namespace sprout {
 		//
 		// random_generator
 		//
-		typedef sprout::uuids::basic_random_generator<sprout::random::default_random_engine> random_generator;
+		typedef sprout::uuids::basic_random_generator<> random_generator;
+
+		//
+		// make_uuid4
+		//
+		template<typename T>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			std::is_integral<T>::value,
+			sprout::uuids::uuid
+		>::type
+		make_uuid4(T const& seed) {
+			return sprout::uuids::random_generator()(seed);
+		}
+		template<typename Engine>
+		SPROUT_CONSTEXPR typename std::enable_if<
+			!std::is_integral<Engine>::value,
+			sprout::uuids::uuid
+		>::type
+		make_uuid4(Engine const& engine) {
+			return sprout::uuids::random_generator()(engine);
+		}
 	}	// namespace uuids
 }	// namespace sprout
 

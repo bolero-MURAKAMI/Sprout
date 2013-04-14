@@ -231,11 +231,11 @@ namespace sprout {
 		} \
 		inline SPROUT_CONSTEXPR CHAR_TYPE \
 		SPROUT_PP_CAT(to, SPROUT_PP_CAT(PREFIX, lower))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::lower ? c + (0x61 - 0x41) : c; \
+			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::upper ? c + (0x61 - 0x41) : c; \
 		} \
 		inline SPROUT_CONSTEXPR CHAR_TYPE \
 		SPROUT_PP_CAT(to, SPROUT_PP_CAT(PREFIX, upper))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::upper ? c - (0x61 - 0x41) : c; \
+			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::lower ? c - (0x61 - 0x41) : c; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, classified))(sprout::ctypes::mask_t m, CHAR_TYPE c) { \

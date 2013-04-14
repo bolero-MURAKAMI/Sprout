@@ -197,6 +197,36 @@ namespace sprout {
 				return operator()(s, s + sprout::char_traits<char32_t>::length(s));
 			}
 		};
+
+		//
+		// make_uuid
+		//
+		template<typename Iterator>
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid(Iterator first, Iterator last) {
+			return sprout::uuids::string_generator()(first, last);
+		}
+		template<typename Elem, std::size_t N, typename Traits>
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid(sprout::basic_string<Elem, N, Traits> const& s) {
+			return sprout::uuids::string_generator()(s);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid(char const* s) {
+			return sprout::uuids::string_generator()(s);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid(wchar_t const* s) {
+			return sprout::uuids::string_generator()(s);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid(char16_t const* s) {
+			return sprout::uuids::string_generator()(s);
+		}
+		inline SPROUT_CONSTEXPR sprout::uuids::uuid
+		make_uuid(char32_t const* s) {
+			return sprout::uuids::string_generator()(s);
+		}
 	}	// namespace uuids
 }	// namespace sprout
 

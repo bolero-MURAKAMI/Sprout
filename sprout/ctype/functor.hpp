@@ -4,6 +4,7 @@
 #include <sprout/config.hpp>
 #include <sprout/ctype/mask.hpp>
 #include <sprout/ctype/ascii.hpp>
+#include <sprout/utility/forward.hpp>
 
 namespace sprout {
 	namespace ctypes {
@@ -400,6 +401,58 @@ namespace sprout {
 			SPROUT_CONSTEXPR bool
 			operator()(T const& x) const {
 				return sprout::ctypes::is_classified<T>(m_)(x);
+			}
+		};
+
+		//
+		// nocase_equal_to
+		//
+		template<typename T = void>
+		struct nocase_equal_to {
+		public:
+			typedef T first_argument_type;
+			typedef T second_argument_type;
+			typedef bool result_type;
+		public:
+			SPROUT_CONSTEXPR bool operator()(T const& x, T const& y) const {
+					return sprout::tolower(x) == sprout::tolower(y);
+			}
+		};
+		template<>
+		struct nocase_equal_to<void> {
+		public:
+			template<typename T, typename U>
+			SPROUT_CONSTEXPR decltype(sprout::tolower(std::declval<T>()) == sprout::tolower(std::declval<U>()))
+			operator()(T&& x, U&& y)
+			const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tolower(std::declval<T>()) == sprout::tolower(std::declval<U>())))
+			{
+				return sprout::tolower(sprout::forward<T>(x)) == sprout::tolower(sprout::forward<U>(y));
+			}
+		};
+
+		//
+		// nocase_not_equal_to
+		//
+		template<typename T = void>
+		struct nocase_not_equal_to {
+		public:
+			typedef T first_argument_type;
+			typedef T second_argument_type;
+			typedef bool result_type;
+		public:
+			SPROUT_CONSTEXPR bool operator()(T const& x, T const& y) const {
+					return sprout::tolower(x) != sprout::tolower(y);
+			}
+		};
+		template<>
+		struct nocase_not_equal_to<void> {
+		public:
+			template<typename T, typename U>
+			SPROUT_CONSTEXPR decltype(sprout::tolower(std::declval<T>()) != sprout::tolower(std::declval<U>()))
+			operator()(T&& x, U&& y)
+			const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tolower(std::declval<T>()) != sprout::tolower(std::declval<U>())))
+			{
+				return sprout::tolower(sprout::forward<T>(x)) != sprout::tolower(sprout::forward<U>(y));
 			}
 		};
 	}	// namespace ctypes
