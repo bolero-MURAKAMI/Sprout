@@ -28,7 +28,7 @@ namespace sprout {
 					value[3],
 					value[4],
 					value[5],
-					static_cast<value_type>((value[6] & 0x5F) | 0x50),
+					static_cast<value_type>((value[6] & 0x3F) | 0x30),
 					value[7],
 					static_cast<value_type>((value[8] & 0xBF) | 0x80),
 					value[9],
