@@ -18,6 +18,10 @@ namespace sprout {
 }	// namespace sprout
 
 namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
 	//
 	// hash
 	//
@@ -25,6 +29,9 @@ namespace std {
 	struct hash<sprout::uuids::uuid>
 		: public sprout::hash<sprout::uuids::uuid>
 	{};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
 }	// namespace std
 
 #endif	// #ifndef SPROUT_UUID_HASH_HPP

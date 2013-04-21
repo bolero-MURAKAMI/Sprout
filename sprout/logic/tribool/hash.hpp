@@ -27,6 +27,10 @@ namespace sprout {
 }	// namespace sprout
 
 namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
 	//
 	// hash
 	//
@@ -38,6 +42,9 @@ namespace std {
 	struct hash<sprout::logic::tribool>
 		: public sprout::hash<sprout::logic::tribool>
 	{};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
 }	// namespace std
 
 #endif	// #ifndef SPROUT_LOGIC_TRIBOOL_HASH_HPP

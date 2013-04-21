@@ -64,7 +64,7 @@ namespace sprout {
 							? sprout::darkroom::rays::point_of_intersection(ray, distance)
 							: position_type(0, 0, 0)
 							,
-						hit_side > 0 ? normal_ : sprout::darkroom::coords::negate(normal_),
+						normal_,//hit_side > 0 ? normal_ : sprout::darkroom::coords::negate(normal_),
 						sprout::darkroom::materials::calc_material(mat_, unit_type(0), unit_type(0))	// ???
 						);
 				}

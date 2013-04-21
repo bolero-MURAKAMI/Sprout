@@ -2,6 +2,7 @@
 #define SPROUT_MATH_FACTORIAL_HPP
 
 #include <cstddef>
+#include <cstdint>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>

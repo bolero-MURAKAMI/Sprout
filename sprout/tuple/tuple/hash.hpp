@@ -33,6 +33,10 @@ namespace sprout {
 }	// namespace sprout
 
 namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
 	//
 	// hash
 	//
@@ -40,6 +44,9 @@ namespace std {
 	struct hash<sprout::tuples::tuple<Types...> >
 		: public sprout::hash<sprout::tuples::tuple<Types...> >
 	{};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
 }	// namespace std
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_HASH_HPP
