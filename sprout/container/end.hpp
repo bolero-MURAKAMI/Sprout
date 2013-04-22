@@ -28,6 +28,12 @@ namespace sprout {
 	//
 	// end
 	//
+	//	effect:
+	//		ADL callable range_end(cont) -> range_end(cont)
+	//		otherwise -> sprout::container_range_traits<Container>::range_end(cont)
+	//		[default]
+	//			cont.end()
+	//
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
 	end(Container& cont) {
@@ -59,14 +65,12 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
 	cend(Container const& cont) {
-		using sprout::container_detail::range_end;
-		using sprout_adl::range_end;
-		return range_end(cont);
+		return sprout::end(cont);
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::iterator
 	cend(T const (& arr)[N]) {
-		return sprout::container_detail::range_end(arr);
+		return sprout::end(arr);
 	}
 }	// namespace sprout
 

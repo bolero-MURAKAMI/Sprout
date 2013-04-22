@@ -8,6 +8,7 @@
 #include <sprout/math/exponential.hpp>
 #include <sprout/math/power.hpp>
 #include <sprout/math/error.hpp>
+#include <sprout/math/gamma.hpp>
 #include <sprout/math/nearest.hpp>
 #include <sprout/math/remainders.hpp>
 #include <sprout/math/minmax.hpp>

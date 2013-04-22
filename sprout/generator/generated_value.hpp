@@ -18,7 +18,7 @@ namespace sprout_generator_detail {
 	template<typename Gen>
 	inline SPROUT_CONSTEXPR decltype(sprout::generators::generator_access_traits<Gen>::get_generated_value(std::declval<Gen&>()))
 	get_generated_value(Gen& gen)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::generator_access_traits<Gen>::get_generated_value(std::declval<Gen&>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::generator_access_traits<Gen>::get_generated_value(std::declval<Gen&>())))
 	{
 		return sprout::generators::generator_access_traits<Gen>::get_generated_value(gen);
 	}
@@ -28,14 +28,14 @@ namespace sprout_generator_detail {
 		decltype(sprout::generators::generator_access_traits<typename std::remove_reference<Gen>::type>::get_generated_value(std::declval<Gen&&>()))
 	>::type
 	get_generated_value(Gen&& gen)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::generator_access_traits<typename std::remove_reference<Gen>::type>::get_generated_value(std::declval<Gen&&>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::generator_access_traits<typename std::remove_reference<Gen>::type>::get_generated_value(std::declval<Gen&&>())))
 	{
 		return sprout::generators::generator_access_traits<Gen>::get_generated_value(gen);
 	}
 	template<typename Gen>
 	inline SPROUT_CONSTEXPR decltype(sprout::generators::generator_access_traits<Gen const>::get_generated_value(std::declval<Gen const&>()))
 	get_generated_value(Gen const& gen)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::generator_access_traits<Gen const>::get_generated_value(std::declval<Gen const&>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::generator_access_traits<Gen const>::get_generated_value(std::declval<Gen const&>())))
 	{
 		return sprout::generators::generator_access_traits<Gen const>::get_generated_value(gen);
 	}
@@ -43,7 +43,7 @@ namespace sprout_generator_detail {
 	template<typename Gen>
 	inline SPROUT_CONSTEXPR decltype(get_generated_value(std::declval<Gen&>()))
 	call_get_generated_value(Gen& gen)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(get_generated_value(std::declval<Gen&>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(get_generated_value(std::declval<Gen&>())))
 	{
 		return get_generated_value(gen);
 	}
@@ -53,14 +53,14 @@ namespace sprout_generator_detail {
 		decltype(get_generated_value(std::declval<Gen&&>()))
 	>::type
 	call_get_generated_value(Gen&& gen)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(get_generated_value(std::declval<Gen&&>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(get_generated_value(std::declval<Gen&&>())))
 	{
 		return get_generated_value(gen);
 	}
 	template<typename Gen>
 	inline SPROUT_CONSTEXPR decltype(get_generated_value(std::declval<Gen const&>()))
 	call_get_generated_value(Gen const& gen)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(get_generated_value(std::declval<Gen const&>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(get_generated_value(std::declval<Gen const&>())))
 	{
 		return get_generated_value(gen);
 	}
@@ -70,6 +70,13 @@ namespace sprout {
 	namespace generators {
 		//
 		// generated_value
+		//
+		//	effect:
+		//		ADL callable get_generated_value(t) -> get_generated_value(t)
+		//		otherwise -> sprout::generators::generator_access_traits<T>::get_generated_value(t)
+		//		[default]
+		//			member callable t.generated_value() -> t.generated_value()
+		//			otherwise -> sprout::tuples::get<0>(t)
 		//
 		template<typename T>
 		inline SPROUT_CONSTEXPR decltype(sprout_generator_detail::call_get_generated_value(std::declval<T>()))

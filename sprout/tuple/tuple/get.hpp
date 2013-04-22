@@ -62,7 +62,7 @@ namespace sprout_tuple_detail {
 	template<std::size_t I, typename T>
 	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, T>::type&
 	tuple_get(T& t)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::tuple_access_traits<T>::template tuple_get<I>(std::declval<T>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::tuple_access_traits<T>::template tuple_get<I>(std::declval<T>())))
 	{
 		return sprout::tuples::tuple_access_traits<T>::template tuple_get<I>(t);
 	}
@@ -72,14 +72,14 @@ namespace sprout_tuple_detail {
 		typename sprout::tuples::tuple_element<I, typename std::remove_reference<T>::type>::type&&
 	>::type
 	tuple_get(T&& t)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::tuple_access_traits<typename std::remove_reference<T>::type>::template tuple_get<I>(std::declval<T>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::tuple_access_traits<typename std::remove_reference<T>::type>::template tuple_get<I>(std::declval<T>())))
 	{
 		return sprout::tuples::tuple_access_traits<T>::template tuple_get<I>(t);
 	}
 	template<std::size_t I, typename T>
 	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, T>::type const&
 	tuple_get(T const& t)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::tuple_access_traits<T const>::template tuple_get<I>(std::declval<T>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::tuple_access_traits<T const>::template tuple_get<I>(std::declval<T>())))
 	{
 		return sprout::tuples::tuple_access_traits<T const>::template tuple_get<I>(t);
 	}
@@ -87,7 +87,7 @@ namespace sprout_tuple_detail {
 	template<std::size_t I, typename T>
 	inline SPROUT_CONSTEXPR decltype(tuple_get<I>(std::declval<T>()))
 	call_tuple_get(T&& t)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(tuple_get<I>(std::declval<T>())))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(tuple_get<I>(std::declval<T>())))
 	{
 		return tuple_get<I>(sprout::forward<T>(t));
 	}
@@ -98,10 +98,16 @@ namespace sprout {
 		//
 		// get
 		//
+		//	effect:
+		//		ADL callable tuple_get<I>(t) -> tuple_get<I>(t)
+		//		otherwise -> sprout::tuples::tuple_access_traits<T>::tuple_get<I>(t)
+		//		[default]
+		//			std::get<I>(t)
+		//
 		template<std::size_t I, typename T>
 		inline SPROUT_CONSTEXPR decltype(sprout_tuple_detail::call_tuple_get<I>(std::declval<T>()))
 		get(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout_tuple_detail::call_tuple_get<I>(std::declval<T>())))
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout_tuple_detail::call_tuple_get<I>(std::declval<T>())))
 		{
 			return sprout_tuple_detail::call_tuple_get<I>(sprout::forward<T>(t));
 		}

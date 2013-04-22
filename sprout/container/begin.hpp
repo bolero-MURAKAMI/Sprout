@@ -28,6 +28,12 @@ namespace sprout {
 	//
 	// begin
 	//
+	//	effect:
+	//		ADL callable range_begin(cont) -> range_begin(cont)
+	//		otherwise -> sprout::container_range_traits<Container>::range_begin(cont)
+	//		[default]
+	//			cont.begin()
+	//
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
 	begin(Container& cont) {
@@ -59,14 +65,12 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
 	cbegin(Container const& cont) {
-		using sprout::container_detail::range_begin;
-		using sprout_adl::range_begin;
-		return range_begin(cont);
+		return sprout::begin(cont);
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::iterator
 	cbegin(T const (& arr)[N]) {
-		return sprout::container_detail::range_begin(arr);
+		return sprout::begin(arr);
 	}
 }	// namespace sprout
 

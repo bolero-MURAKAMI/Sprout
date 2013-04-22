@@ -15,6 +15,13 @@ namespace sprout {
 	//
 	// to_hash
 	//
+	//	effect:
+	//		ADL callable hash_value(v) -> hash_value(v)
+	//		otherwise -> sprout::hash_value_traits<T>::hash_value(v)
+	//		[default]
+	//			v is Arithmetic || Enum || Pointer || Array -> implementation-defined
+	//			otherwise -> std::hash<T>()(v)
+	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR std::size_t
 	to_hash(T&& v) {
