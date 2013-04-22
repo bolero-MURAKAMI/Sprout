@@ -23,36 +23,31 @@ namespace sprout {
 		typedef sprout::index_iterator<std::array<T, N>&, true> iterator;
 		typedef sprout::index_iterator<std::array<T, N> const&, true> const_iterator;
 	};
-}	// namespace sprout
-
-namespace sprout {
-	//
-	// range_begin
-	//
-	template<typename T, std::size_t N>
-	inline typename sprout::container_traits<std::array<T, N> >::iterator
-	range_begin(std::array<T, N>& cont) {
-		return typename sprout::container_traits<std::array<T, N> >::iterator(cont, 0);
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::const_iterator
-	range_begin(std::array<T, N> const& cont) {
-		return typename sprout::container_traits<std::array<T, N> >::const_iterator(cont, 0);
-	}
 
 	//
-	// range_end
+	// container_range_traits
 	//
 	template<typename T, std::size_t N>
-	inline typename sprout::container_traits<std::array<T, N> >::iterator
-	range_end(std::array<T, N>& cont) {
-		return typename sprout::container_traits<std::array<T, N> >::iterator(cont, cont.size());
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::const_iterator
-	range_end(std::array<T, N> const& cont) {
-		return typename sprout::container_traits<std::array<T, N> >::const_iterator(cont, cont.size());
-	}
+	struct container_range_traits<std::array<T, N> > {
+	public:
+		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::iterator
+		range_begin(std::array<T, N>& cont) {
+			return typename sprout::container_traits<std::array<T, N> >::iterator(cont, 0);
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> const>::iterator
+		range_begin(std::array<T, N> const& cont) {
+			return typename sprout::container_traits<std::array<T, N> const>::iterator(cont, 0);
+		}
+
+		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::iterator
+		range_end(std::array<T, N>& cont) {
+			return typename sprout::container_traits<std::array<T, N> >::iterator(cont, cont.size());
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> const>::iterator
+		range_end(std::array<T, N> const& cont) {
+			return typename sprout::container_traits<std::array<T, N> const>::iterator(cont, cont.size());
+		}
+	};
 }	// namespace sprout
 #endif
 

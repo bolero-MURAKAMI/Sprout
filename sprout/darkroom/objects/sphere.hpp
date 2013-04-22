@@ -172,7 +172,7 @@ namespace sprout {
 							ray,
 							det_sq > 0,
 							b,
-							sprout::sqrt(det_sq)
+							det_sq > 0 ? sprout::sqrt(det_sq) : unit_type(0)
 							)
 						);
 				}

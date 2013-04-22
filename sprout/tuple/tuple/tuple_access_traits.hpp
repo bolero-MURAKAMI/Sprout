@@ -1,0 +1,47 @@
+#ifndef SPROUT_TUPLE_TUPLE_TUPLE_ACCESS_TRAITS_HPP
+#define SPROUT_TUPLE_TUPLE_TUPLE_ACCESS_TRAITS_HPP
+
+#include <cstddef>
+#include <tuple>
+#include <sprout/config.hpp>
+#include <sprout/tuple/tuple/tuple_element.hpp>
+
+namespace sprout {
+	namespace tuples {
+		//
+		// tuple_access_traits
+		//
+		template<typename Tuple>
+		struct tuple_access_traits {
+		public:
+			template<std::size_t I>
+			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, Tuple>::type&
+			tuple_get(Tuple& t) SPROUT_NOEXCEPT {
+				return std::get<I>(t);
+			}
+			template<std::size_t I>
+			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, Tuple>::type&&
+			tuple_get(Tuple&& t) SPROUT_NOEXCEPT {
+				return std::get<I>(t);
+			}
+			template<std::size_t I>
+			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, Tuple>::type const&
+			tuple_get(Tuple const& t) SPROUT_NOEXCEPT {
+				return std::get<I>(t);
+			}
+		};
+		template<typename Tuple>
+		struct tuple_access_traits<Tuple const> {
+		public:
+			template<std::size_t I>
+			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, Tuple>::type const&
+			tuple_get(Tuple const& t) SPROUT_NOEXCEPT {
+				return sprout::tuples::tuple_access_traits<Tuple>::template tuple_get<I>(t);
+			}
+		};
+	}	// namespace tuples
+
+	using sprout::tuples::tuple_access_traits;
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_TUPLE_TUPLE_TUPLE_ACCESS_TRAITS_HPP

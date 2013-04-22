@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/array/array.hpp>
+#include <sprout/array.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/darkroom/access/access.hpp>

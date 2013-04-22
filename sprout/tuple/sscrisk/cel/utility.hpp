@@ -68,27 +68,33 @@ namespace sprout {
 	}	// namespace tuples
 }	// namespace sprout
 
-namespace sprout_adl {
-	//
-	// tuple_get
-	//
-	template<std::size_t I, typename T1, typename T2>
-	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type&
-	tuple_get(sscrisk::cel::pair<T1, T2>& t) SPROUT_NOEXCEPT {
-		static_assert(I < 2, "tuple_get: index out of range");
-		return sprout::tuples::detail::get_impl<I, sscrisk::cel::pair<T1, T2> >()(t);
-	}
-	template<std::size_t I, typename T1, typename T2>
-	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type const&
-	tuple_get(sscrisk::cel::pair<T1, T2> const& t) SPROUT_NOEXCEPT {
-		static_assert(I < 2, "tuple_get: index out of range");
-		return sprout::tuples::detail::get_impl<I, sscrisk::cel::pair<T1, T2> >()(t);
-	}
-	template<std::size_t I, typename T1, typename T2>
-	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type&&
-	tuple_get(sscrisk::cel::pair<T1, T2>&& t) SPROUT_NOEXCEPT {
-		return sprout::move(sprout::tuples::get<I>(t));
-	}
-}	// namespace sprout_adl
+namespace sprout {
+	namespace tuples {
+		//
+		// tuple_access_traits
+		//
+		template<typename T1, typename T2>
+		struct tuple_access_traits<sscrisk::cel::pair<T1, T2> > {
+		public:
+			template<std::size_t I>
+			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type&
+			tuple_get(sscrisk::cel::pair<T1, T2>& t) SPROUT_NOEXCEPT {
+				static_assert(I < 2, "tuple_get: index out of range");
+				return sprout::tuples::detail::get_impl<I, sscrisk::cel::pair<T1, T2> >()(t);
+			}
+			template<std::size_t I>
+			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type const&
+			tuple_get(sscrisk::cel::pair<T1, T2> const& t) SPROUT_NOEXCEPT {
+				static_assert(I < 2, "tuple_get: index out of range");
+				return sprout::tuples::detail::get_impl<I, sscrisk::cel::pair<T1, T2> >()(t);
+			}
+			template<std::size_t I>
+			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sscrisk::cel::pair<T1, T2> >::type&&
+			tuple_get(sscrisk::cel::pair<T1, T2>&& t) SPROUT_NOEXCEPT {
+				return sprout::move(tuple_get<I>(t));
+			}
+		};
+	}	// namespace tuples
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_SSCRISK_CEL_UTILITY_HPP
