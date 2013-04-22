@@ -7,8 +7,10 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
+#include <sprout/tuple/tuple.hpp>
 #include <sprout/generator.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/move.hpp>
 
 namespace sprout {
 	namespace random {
@@ -288,6 +290,100 @@ namespace sprout {
 	}	// namespace random
 
 	using sprout::random::random_result;
+
+	namespace tuples {
+		namespace detail {
+			template<std::size_t I, typename T>
+			struct tuple_element_impl;
+			template<typename Engine, typename Distribution>
+			struct tuple_element_impl<0, sprout::random::random_result<Engine, Distribution> > {
+			public:
+				typedef typename sprout::random::random_result<Engine, Distribution>::result_type type;
+			};
+			template<typename Engine, typename Distribution>
+			struct tuple_element_impl<1, sprout::random::random_result<Engine, Distribution> > {
+			public:
+				typedef sprout::random::random_result<Engine, Distribution> type;
+			};
+
+			template<std::size_t I, typename T>
+			struct get_impl;
+			template<typename Engine, typename Distribution>
+			struct get_impl<0, sprout::random::random_result<Engine, Distribution> > {
+			public:
+				SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::result_type&
+				operator()(sprout::random::random_result<Engine, Distribution>& t) const {
+					return t.generated_value();
+				}
+				SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::result_type const&
+				operator()(sprout::random::random_result<Engine, Distribution> const& t) const {
+					return t.generated_value();
+				}
+			};
+			template<typename Engine, typename Distribution>
+			struct get_impl<1, sprout::random::random_result<Engine, Distribution> > {
+			public:
+				SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution>&
+				operator()(sprout::random::random_result<Engine, Distribution>& t) const {
+					return t.next_generator();
+				}
+				SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution> const&
+				operator()(sprout::random::random_result<Engine, Distribution> const& t) const {
+					return t.next_generator();
+				}
+			};
+		}	// namespace detail
+	}	// namespace tuples
+}	// namespace sprout
+
+namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
+	//
+	// tuple_size
+	//
+	template<typename Engine, typename Distribution>
+	struct tuple_size<sprout::random::random_result<Engine, Distribution> >
+		: public std::integral_constant<std::size_t, 2>
+	{};
+
+	//
+	// tuple_element
+	//
+	template<std::size_t I, typename Engine, typename Distribution>
+	struct tuple_element<I, sprout::random::random_result<Engine, Distribution> >
+		: public sprout::tuples::detail::tuple_element_impl<I, sprout::random::random_result<Engine, Distribution> >
+	{};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
+}	// namespace std
+
+namespace sprout {
+	namespace random {
+		//
+		// tuple_get
+		//
+		template<std::size_t I, typename Engine, typename Distribution>
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::random::random_result<Engine, Distribution> >::type&
+		tuple_get(sprout::random::random_result<Engine, Distribution>& t) SPROUT_NOEXCEPT {
+			static_assert(I < 2, "tuple_get: index out of range");
+			return sprout::tuples::detail::get_impl<I, sprout::random::random_result<Engine, Distribution> >()(t);
+		}
+		template<std::size_t I, typename Engine, typename Distribution>
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::random::random_result<Engine, Distribution> >::type const&
+		tuple_get(sprout::random::random_result<Engine, Distribution> const& t) SPROUT_NOEXCEPT {
+			static_assert(I < 2, "tuple_get: index out of range");
+			return sprout::tuples::detail::get_impl<I, sprout::random::random_result<Engine, Distribution> >()(t);
+		}
+		template<std::size_t I, typename Engine, typename Distribution>
+		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::random::random_result<Engine, Distribution> >::type&&
+		tuple_get(sprout::random::random_result<Engine, Distribution>&& t) SPROUT_NOEXCEPT {
+			return sprout::move(sprout::tuples::get<I>(t));
+		}
+	}	// namespace random
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_RANDOM_RANDOM_RESULT_HPP

@@ -26,7 +26,7 @@ namespace sprout {
 		struct integer_range_next_odd;
 		template<typename T, T... Is, T Next, T Tail>
 		struct integer_range_next_odd<T, sprout::integer_seq<T, Is...>, Next, Tail>
-			 : public sprout::integer_seq<T, Is..., (Is + Next)..., Tail>
+			: public sprout::integer_seq<T, Is..., (Is + Next)..., Tail>
 		{};
 
 		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N, typename Enable = void>
