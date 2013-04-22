@@ -7,6 +7,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
+#include <sprout/generator.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {
@@ -283,34 +284,6 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution>
 		iterator_next(sprout::random::random_result<Engine, Distribution> const& it) {
 			return it();
-		}
-
-		//
-		// generated_value
-		//
-		template<typename Engine, typename Distribution>
-		inline typename sprout::random::random_result<Engine, Distribution>::result_type&
-		generated_value(sprout::random::random_result<Engine, Distribution>& t) {
-			return t.generated_value();
-		}
-		template<typename Engine, typename Distribution>
-		inline SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::result_type const&
-		generated_value(sprout::random::random_result<Engine, Distribution> const& t) {
-			return t.generated_value();
-		}
-
-		//
-		// next_generator
-		//
-		template<typename Engine, typename Distribution>
-		inline typename sprout::random::random_result<Engine, Distribution>&
-		next_generator(sprout::random::random_result<Engine, Distribution>& t) {
-			return t.next_generator();
-		}
-		template<typename Engine, typename Distribution>
-		inline SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution> const&
-		next_generator(sprout::random::random_result<Engine, Distribution> const& t) {
-			return t.next_generator();
 		}
 	}	// namespace random
 

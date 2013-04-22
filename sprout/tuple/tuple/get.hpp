@@ -12,9 +12,6 @@
 #include <sprout/tuple/tuple/tuple_access_traits.hpp>
 #include <sprout/adl/not_found.hpp>
 
-//#include <tuple>
-//#include <sprout/type_traits/enabler_if.hpp>
-
 namespace sprout {
 	namespace tuples {
 		namespace detail {
