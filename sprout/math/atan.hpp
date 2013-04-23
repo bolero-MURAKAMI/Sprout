@@ -11,6 +11,7 @@
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -41,17 +42,19 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			atan(FloatType x) {
-				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
 				return x == 0 ? FloatType(0)
 					: x == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::atan(x)
+#else
 					: static_cast<FloatType>(
-						x < 0 ? -sprout::math::detail::atan_impl(static_cast<type>(-x))
-							: sprout::math::detail::atan_impl(static_cast<type>(x))
+						x < 0 ? -sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(-x))
+							: sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x))
 						)
+#endif
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
@@ -61,8 +64,17 @@ namespace sprout {
 				return sprout::math::detail::atan(static_cast<double>(x));
 			}
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::atan;
+		//
+		// atan
+		//
+		template<
+			typename ArithmeticType,
+			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
+		atan(ArithmeticType x) {
+			return sprout::math::detail::atan(x);
+		}
 	}	// namespace math
 
 	using sprout::math::atan;

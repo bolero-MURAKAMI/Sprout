@@ -12,6 +12,7 @@
 #include <sprout/math/constants.hpp>
 #include <sprout/math/fmod.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -25,15 +26,12 @@ namespace sprout {
 						+ sprout::math::detail::cos_impl_1(x2, n + (last - n) / 2, last)
 					;
 			}
-			template<typename FloatType>
-			inline SPROUT_CONSTEXPR FloatType
-			cos_impl(FloatType x) {
-				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
-				return static_cast<FloatType>(
-					type(1) + sprout::math::detail::cos_impl_1(
-						sprout::detail::pow2(static_cast<type>(x)),
-						1, sprout::math::factorial_limit<type>() / 2 + 1
-						)
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			cos_impl(T x) {
+				return T(1) + sprout::math::detail::cos_impl_1(
+					sprout::detail::pow2(sprout::math::fmod(x, sprout::math::two_pi<T>())),
+					1, sprout::math::factorial_limit<T>() / 2 + 1
 					);
 			}
 
@@ -43,13 +41,17 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			cos(FloatType x) {
-				return x == 0 ? FloatType(1)
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
+				return x == std::numeric_limits<FloatType>::infinity()
+					|| x == -std::numeric_limits<FloatType>::infinity()
 						? std::numeric_limits<FloatType>::quiet_NaN()
-					: sprout::math::detail::cos_impl(sprout::math::fmod(x, sprout::math::two_pi<FloatType>()))
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::cos(x)
+#else
+					: x == 0 ? FloatType(1)
+					: static_cast<FloatType>(sprout::math::detail::cos_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
@@ -59,8 +61,17 @@ namespace sprout {
 				return sprout::math::detail::cos(static_cast<double>(x));
 			}
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::cos;
+		//
+		// cos
+		//
+		template<
+			typename ArithmeticType,
+			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
+		cos(ArithmeticType x) {
+			return sprout::math::detail::cos(x);
+		}
 	}	// namespace math
 
 	using sprout::math::cos;

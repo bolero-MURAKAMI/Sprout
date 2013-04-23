@@ -763,17 +763,27 @@ namespace sprout {
 			return sprout::math::detail::factorials<type>::limit;
 		}
 		//
+		// unchecked_factorial
+		//
+		template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
+		inline SPROUT_CONSTEXPR T unchecked_factorial(std::size_t x) {
+			typedef typename std::remove_cv<T>::type type;
+			return sprout::math::detail::factorials<type>::table[x];
+		}
+		//
 		// factorial
 		//
 		template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
 		inline SPROUT_CONSTEXPR T factorial(std::size_t x) {
 			typedef typename std::remove_cv<T>::type type;
 			return SPROUT_ASSERT(x <= sprout::math::factorial_limit<type>()),
-				sprout::math::detail::factorials<type>::table[x]
+				sprout::math::unchecked_factorial<T>(x)
 				;
 		}
 	}	// namespace math
 
+	using sprout::math::factorial_limit;
+	using sprout::math::unchecked_factorial;
 	using sprout::math::factorial;
 }	// namespace sprout
 

@@ -10,7 +10,7 @@
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/sin.hpp>
-#include <sprout/math/abs.hpp>
+#include <sprout/math/fabs.hpp>
 #include <sprout/math/itrunc.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -20,7 +20,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			lgamma_impl_3(T x, T y) {
-				return x < 0 ? sprout::log(sprout::math::pi<T>() / sprout::abs(x * sprout::sin(x * sprout::math::pi<T>()))) - y
+				return x < 0 ? sprout::log(sprout::math::pi<T>() / sprout::math::fabs(x * sprout::math::sin(x * sprout::math::pi<T>()))) - y
 					: y
 					;
 			}

@@ -19,8 +19,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			hypot(FloatType x, FloatType y) {
-				return y == 0 ? sprout::fabs(x)
-					: x == 0 ? sprout::fabs(y)
+				return y == 0 ? sprout::math::fabs(x)
+					: x == 0 ? sprout::math::fabs(y)
 					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()
 						? std::numeric_limits<FloatType>::infinity()
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
