@@ -30,7 +30,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			itrunc(FloatType x) {
-				return sprout::math::detail::itrunc_impl<To>(sprout::math::trunc(x));
+				return sprout::math::detail::itrunc_impl<To>(sprout::trunc(x));
 			}
 #else
 			template<

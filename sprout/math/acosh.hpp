@@ -21,7 +21,7 @@ namespace sprout {
 				return x == 1 ? FloatType(0)
 					: x < 1 ? std::numeric_limits<FloatType>::quiet_NaN()
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: sprout::math::log(x + sprout::math::sqrt(x * x - 1))
+					: sprout::log(x + sprout::sqrt(x * x - 1))
 					;
 			}
 

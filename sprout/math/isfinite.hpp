@@ -17,8 +17,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			isfinite(FloatType x) {
-				return !sprout::math::isnan(x)
-					&& !sprout::math::isinf(x)
+				return !sprout::isnan(x)
+					&& !sprout::isinf(x)
 					;
 			}
 		}	// namespace detail

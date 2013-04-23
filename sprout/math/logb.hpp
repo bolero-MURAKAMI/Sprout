@@ -80,7 +80,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			logb_impl(T x, T exp) {
 				return sprout::math::detail::logb_impl_1(
-					x, sprout::detail::pow_n(T(std::numeric_limits<T>::radix), sprout::math::itrunc<std::intmax_t>(exp)), exp
+					x, sprout::detail::pow_n(T(std::numeric_limits<T>::radix), sprout::itrunc<std::intmax_t>(exp)), exp
 					);
 			}
 
@@ -93,8 +93,8 @@ namespace sprout {
 				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
 						? std::numeric_limits<FloatType>::infinity()
-					: x < 0 ? sprout::math::detail::logb_impl(-x, sprout::math::trunc(sprout::math::log_a(FloatType(std::numeric_limits<FloatType>::radix), -x)))
-					: sprout::math::detail::logb_impl(x, sprout::math::trunc(sprout::math::log_a(FloatType(std::numeric_limits<FloatType>::radix), x)))
+					: x < 0 ? sprout::math::detail::logb_impl(-x, sprout::trunc(sprout::log_a(FloatType(std::numeric_limits<FloatType>::radix), -x)))
+					: sprout::math::detail::logb_impl(x, sprout::trunc(sprout::log_a(FloatType(std::numeric_limits<FloatType>::radix), x)))
 					;
 			}
 

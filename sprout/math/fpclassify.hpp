@@ -20,9 +20,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			fpclassify(FloatType x) {
-				return sprout::math::isnan(x) ? FP_NAN
-					: sprout::math::isinf(x) ? FP_INFINITE
-					: sprout::math::iszero(x) ? FP_ZERO
+				return sprout::isnan(x) ? FP_NAN
+					: sprout::isinf(x) ? FP_INFINITE
+					: sprout::iszero(x) ? FP_ZERO
 					: sprout::math::detail::issubnormal_or_zero(x) ? FP_SUBNORMAL
 					: FP_NORMAL
 					;

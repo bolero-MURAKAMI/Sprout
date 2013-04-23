@@ -24,7 +24,7 @@ namespace sprout {
 						? std::numeric_limits<FloatType>::quiet_NaN()
 					: x == 0 ? FloatType(0)
 					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
-					: sprout::math::iround<R>(x / y)
+					: sprout::iround<R>(x / y)
 					;
 			}
 

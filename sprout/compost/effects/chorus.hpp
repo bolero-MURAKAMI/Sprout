@@ -57,7 +57,7 @@ namespace sprout {
 			template<typename Outdirected>
 			SPROUT_CONSTEXPR typename std::iterator_traits<Outdirected>::value_type
 			operator()(Outdirected const& x) const {
-				return calc(x, d_ + depth_ * sprout::math::sin(sprout::math::two_pi<Value>() * rate_ * x.index() / samples_per_sec_));
+				return calc(x, d_ + depth_ * sprout::sin(sprout::math::two_pi<Value>() * rate_ * x.index() / samples_per_sec_));
 			}
 		};
 

@@ -246,6 +246,8 @@ namespace sprout {
 			return sprout::math::gcd_evaluator<IntType>().operator()(a, b);
 		}
 	}	// namespace math
-}	// namespace boost
+
+	using sprout::math::gcd;
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_MATH_GCD_HPP

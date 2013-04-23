@@ -34,7 +34,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			erf_impl(T x2, T a) {
-				return T(1) - sprout::math::exp(-x2 / (T(1) + a * x2) * (sprout::math::quarter_pi<T>() + a * x2));
+				return T(1) - sprout::exp(-x2 / (T(1) + a * x2) * (sprout::math::quarter_pi<T>() + a * x2));
 			}
 			template<
 				typename FloatType,

@@ -32,7 +32,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			ifloor(FloatType x) {
-				return sprout::math::detail::ifloor_impl<To>(sprout::math::floor(x));
+				return sprout::math::detail::ifloor_impl<To>(sprout::floor(x));
 			}
 #else
 			template<typename To, typename FloatType>

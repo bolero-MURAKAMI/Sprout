@@ -18,7 +18,7 @@ namespace sprout {
 			erfc(FloatType x) {
 				return x == std::numeric_limits<FloatType>::infinity() ? FloatType(0)
 					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(2)
-					: FloatType(1) - sprout::math::erf(x)
+					: FloatType(1) - sprout::erf(x)
 					;
 			}
 

@@ -26,7 +26,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			ilogb2(FloatType x) {
-				return sprout::math::ilogb(x);
+				return sprout::ilogb(x);
 			}
 
 			template<
@@ -35,7 +35,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			ilogb2(IntType x) {
-				return sprout::math::ilogb(x);
+				return sprout::ilogb(x);
 			}
 #else
 			template<
@@ -44,10 +44,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			ilogb2(FloatType x) {
-				return sprout::math::iszero(x) ? FP_ILOGB0
-					: sprout::math::isinf(x) ? INT_MAX
-					: sprout::math::isnan(x) ? FP_ILOGBNAN
-					: static_cast<int>(sprout::math::logb2(x))
+				return sprout::iszero(x) ? FP_ILOGB0
+					: sprout::isinf(x) ? INT_MAX
+					: sprout::isnan(x) ? FP_ILOGBNAN
+					: static_cast<int>(sprout::logb2(x))
 					;
 			}
 

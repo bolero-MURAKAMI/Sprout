@@ -21,8 +21,8 @@ namespace sprout {
 		public:
 			SPROUT_CONSTEXPR T
 			operator()(T const& x) const {
-				return x >= 0 ? sprout::math::atan(x) / sprout::math::half_pi<T>()
-					: sprout::math::atan(x) / sprout::math::half_pi<T>() / 10
+				return x >= 0 ? sprout::atan(x) / sprout::math::half_pi<T>()
+					: sprout::atan(x) / sprout::math::half_pi<T>() / 10
 					;
 			}
 		};

@@ -32,7 +32,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			iceil(FloatType x) {
-				return sprout::math::detail::iceil_impl<To>(sprout::math::ceil(x));
+				return sprout::math::detail::iceil_impl<To>(sprout::ceil(x));
 			}
 #else
 			template<typename To, typename FloatType>

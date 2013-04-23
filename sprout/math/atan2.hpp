@@ -34,8 +34,8 @@ namespace sprout {
 							: FloatType(0)
 					: y == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
 					: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
-					: x < 0 ? sprout::math::atan(y / x) + (y < 0 ? -1 : 1) * sprout::math::pi<FloatType>()
-					: sprout::math::atan(y / x)
+					: x < 0 ? sprout::atan(y / x) + (y < 0 ? -1 : 1) * sprout::math::pi<FloatType>()
+					: sprout::atan(y / x)
 					;
 			}
 

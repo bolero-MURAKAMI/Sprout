@@ -20,7 +20,7 @@ namespace sprout {
 			acos(FloatType x) {
 				return x == 1 ? FloatType(0)
 					: x > 1 || x < -1 ? std::numeric_limits<FloatType>::quiet_NaN()
-					: sprout::math::half_pi<FloatType>() - sprout::math::asin(x)
+					: sprout::math::half_pi<FloatType>() - sprout::asin(x)
 					;
 			}
 

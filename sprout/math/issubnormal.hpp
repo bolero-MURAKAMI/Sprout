@@ -28,7 +28,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			issubnormal(FloatType x) {
-				return !sprout::math::iszero(x)
+				return !sprout::iszero(x)
 					&& sprout::math::detail::issubnormal_or_zero(x)
 					;
 			}

@@ -68,16 +68,9 @@ namespace sprout {
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			tgamma_impl_2_pos(T x, T y, T t) {
+			tgamma_impl_2_pos_rec(T x, T y, T t) {
 				return t == 0 ? std::numeric_limits<T>::infinity()
 					: (x - T(1)) / y / t
-					;
-			}
-			template<typename T>
-			inline SPROUT_CONSTEXPR T
-			tgamma_impl_2_neg(T x, T y, T t) {
-				return t == 0 ? T(0)
-					: T(1) / y * t
 					;
 			}
 			template<typename T>
@@ -86,9 +79,8 @@ namespace sprout {
 				return n == 1 ? (x - T(1)) / sprout::math::detail::tgamma_impl_y(x - (n + 2))
 					: n == 0 ? T(1) / sprout::math::detail::tgamma_impl_y(x - (n + 2))
 					: n == static_cast<int>(sprout::math::factorial_limit<T>())
-						? sprout::math::detail::tgamma_impl_2_pos(x, sprout::math::detail::tgamma_impl_y(x - (n + 2)), sprout::math::detail::tgamma_impl_t_pos_rec(x, 2, n + 1))
+						? sprout::math::detail::tgamma_impl_2_pos_rec(x, sprout::math::detail::tgamma_impl_y(x - (n + 2)), sprout::math::detail::tgamma_impl_t_pos_rec(x, 2, n + 1))
 					: n == -static_cast<int>(sprout::math::factorial_limit<T>())
-//						? sprout::math::detail::tgamma_impl_2_neg(x, sprout::math::detail::tgamma_impl_y(x - (n + 2)), sprout::math::detail::tgamma_impl_t_neg_rec(x, 0, -n))
 						? T(1) / sprout::math::detail::tgamma_impl_y(x - (n + 2)) * sprout::math::detail::tgamma_impl_t_neg_rec(x, 0, -n)
 					: n > 1 ? (x - T(1)) / sprout::math::detail::tgamma_impl_y(x - (n + 2)) * sprout::math::detail::tgamma_impl_t_pos(x, 2, n + 1)
 					: T(1) / sprout::math::detail::tgamma_impl_y(x - (n + 2)) / sprout::math::detail::tgamma_impl_t_neg(x, 0, -n)
@@ -100,7 +92,7 @@ namespace sprout {
 				return sprout::math::detail::tgamma_impl_1(
 					x,
 					sprout::clamp(
-						sprout::math::iround(x - T(2)),
+						sprout::iround(x - T(2)),
 						-static_cast<int>(sprout::math::factorial_limit<T>()),
 						static_cast<int>(sprout::math::factorial_limit<T>())
 						)

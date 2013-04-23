@@ -19,7 +19,7 @@ namespace sprout {
 			fractional_part(FloatType x) {
 				return x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
 					: x == std::numeric_limits<FloatType>::quiet_NaN() ? std::numeric_limits<FloatType>::quiet_NaN()
-					: x - sprout::math::integer_part(x)
+					: x - sprout::integer_part(x)
 					;
 			}
 

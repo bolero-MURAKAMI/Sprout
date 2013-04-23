@@ -71,7 +71,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR IntType normalize_g(IntType num, IntType den) {
 			return den == 0 ? throw sprout::bad_rational()
 				: num == 0 ? den
-				: normalize_g_1(den, sprout::math::gcd(num, den))
+				: normalize_g_1(den, sprout::gcd(num, den))
 				;
 		}
 	private:
@@ -111,26 +111,26 @@ namespace sprout {
 		}
 
 		rational& operator+=(rational const& rhs) {
-			IntType g = sprout::math::gcd(den_, rhs.den_);
+			IntType g = sprout::gcd(den_, rhs.den_);
 			den_ /= g;
 			num_ = num_ * (rhs.den_ / g) + rhs.num_ * den_;
-			g = sprout::math::gcd(num_, g);
+			g = sprout::gcd(num_, g);
 			num_ /= g;
 			den_ *= rhs.den_ / g;
 			return *this;
 		}
 		rational& operator-=(rational const& rhs) {
-			IntType g = sprout::math::gcd(den_, rhs.den_);
+			IntType g = sprout::gcd(den_, rhs.den_);
 			den_ /= g;
 			num_ = num_ * (rhs.den_ / g) - rhs.num_ * den_;
-			g = sprout::math::gcd(num_, g);
+			g = sprout::gcd(num_, g);
 			num_ /= g;
 			den_ *= rhs.den_ / g;
 			return *this;
 		}
 		rational& operator*=(rational const& rhs) {
-			IntType gcd1 = sprout::math::gcd(num_, rhs.den_);
-			IntType gcd2 = sprout::math::gcd(rhs.num_, den_);
+			IntType gcd1 = sprout::gcd(num_, rhs.den_);
+			IntType gcd2 = sprout::gcd(rhs.num_, den_);
 			num_ =(num_ / gcd1) * (rhs.num_ / gcd2);
 			den_ =(den_ / gcd2) * (rhs.den_ / gcd1);
 			return *this;
@@ -142,8 +142,8 @@ namespace sprout {
 			if (num_ == IntType(0)) {
 				return *this;
 			}
-			IntType gcd1 = sprout::math::gcd(num_, rhs.num_);
-			IntType gcd2 = sprout::math::gcd(rhs.den_, den_);
+			IntType gcd1 = sprout::gcd(num_, rhs.num_);
+			IntType gcd2 = sprout::gcd(rhs.den_, den_);
 			num_ =(num_ / gcd1) * (rhs.den_ / gcd2);
 			den_ =(den_ / gcd2) * (rhs.num_ / gcd1);
 			if (den_ < IntType(0)) {

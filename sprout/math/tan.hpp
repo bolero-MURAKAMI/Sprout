@@ -21,7 +21,7 @@ namespace sprout {
 				return x == 0 ? FloatType(0)
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
 						? std::numeric_limits<FloatType>::quiet_NaN()
-					: sprout::math::sin(x) / sprout::math::cos(x)
+					: sprout::sin(x) / sprout::cos(x)
 					;
 			}
 

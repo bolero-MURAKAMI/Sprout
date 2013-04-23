@@ -21,10 +21,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			ilogb(FloatType x) {
-				return sprout::math::iszero(x) ? FP_ILOGB0
-					: sprout::math::isinf(x) ? INT_MAX
-					: sprout::math::isnan(x) ? FP_ILOGBNAN
-					: static_cast<int>(sprout::math::logb(x))
+				return sprout::iszero(x) ? FP_ILOGB0
+					: sprout::isinf(x) ? INT_MAX
+					: sprout::isnan(x) ? FP_ILOGBNAN
+					: static_cast<int>(sprout::logb(x))
 					;
 			}
 

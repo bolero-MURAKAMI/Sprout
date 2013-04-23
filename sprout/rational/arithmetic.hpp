@@ -53,7 +53,7 @@ namespace sprout {
 		{
 			return rational_add_impl_3(
 				rhs,
-				sprout::math::gcd(num, g), den, num
+				sprout::gcd(num, g), den, num
 				);
 		}
 		template<typename IntType>
@@ -86,7 +86,7 @@ namespace sprout {
 	operator+(sprout::rational<IntType> const& lhs, sprout::rational<IntType> const& rhs) {
 		return sprout::detail::rational_add_impl(
 			lhs, rhs,
-			sprout::math::gcd(lhs.denominator(), rhs.denominator())
+			sprout::gcd(lhs.denominator(), rhs.denominator())
 			);
 	}
 	template<typename IntType>
@@ -122,7 +122,7 @@ namespace sprout {
 		{
 			return rational_sub_impl_3(
 				rhs,
-				sprout::math::gcd(num, g), den, num
+				sprout::gcd(num, g), den, num
 				);
 		}
 		template<typename IntType>
@@ -155,7 +155,7 @@ namespace sprout {
 	operator-(sprout::rational<IntType> const& lhs, sprout::rational<IntType> const& rhs) {
 		return sprout::detail::rational_sub_impl(
 			lhs, rhs,
-			sprout::math::gcd(lhs.denominator(), rhs.denominator())
+			sprout::gcd(lhs.denominator(), rhs.denominator())
 			);
 	}
 	template<typename IntType>
@@ -189,8 +189,8 @@ namespace sprout {
 	operator*(sprout::rational<IntType> const& lhs, sprout::rational<IntType> const& rhs) {
 		return sprout::detail::rational_mul_impl(
 			lhs, rhs,
-			sprout::math::gcd(lhs.numerator(), rhs.denominator()),
-			sprout::math::gcd(rhs.numerator(), lhs.denominator())
+			sprout::gcd(lhs.numerator(), rhs.denominator()),
+			sprout::gcd(rhs.numerator(), lhs.denominator())
 			);
 	}
 	template<typename IntType>
@@ -238,8 +238,8 @@ namespace sprout {
 			: lhs.numerator() == IntType(0) ? lhs
 			: sprout::detail::rational_div_impl(
 				lhs, rhs,
-				sprout::math::gcd(lhs.numerator(), rhs.numerator()),
-				sprout::math::gcd(rhs.denominator(), lhs.denominator())
+				sprout::gcd(lhs.numerator(), rhs.numerator()),
+				sprout::gcd(rhs.denominator(), lhs.denominator())
 				)
 			;
 	}

@@ -105,6 +105,8 @@ namespace sprout {
 			return sprout::math::lcm_evaluator<IntType>().operator()(a, b);
 		}
 	}	// namespace math
-}	// namespace boost
+
+	using sprout::math::lcm;
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_MATH_LCM_HPP

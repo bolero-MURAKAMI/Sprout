@@ -30,7 +30,7 @@ namespace sprout {
 			log_impl(T x) {
 				return !(x > sprout::math::root_two<T>())
 					? sprout::math::detail::log_impl_1(x - 1, 1, sprout::math::factorial_limit<T>() + 1)
-					: 2 * sprout::math::detail::log_impl(sprout::math::sqrt(x))
+					: 2 * sprout::math::detail::log_impl(sprout::sqrt(x))
 					;
 			}
 

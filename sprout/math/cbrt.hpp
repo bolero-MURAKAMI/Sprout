@@ -21,8 +21,8 @@ namespace sprout {
 				return x == 0 ? FloatType(0)
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
-					: x < 0 ? -sprout::math::pow(-x, sprout::math::third<FloatType>())
-					: sprout::math::pow(x, sprout::math::third<FloatType>())
+					: x < 0 ? -sprout::pow(-x, sprout::math::third<FloatType>())
+					: sprout::pow(x, sprout::math::third<FloatType>())
 					;
 			}
 

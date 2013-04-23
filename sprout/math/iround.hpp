@@ -32,7 +32,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			iround(FloatType x) {
-				return sprout::math::detail::iround_impl<To>(sprout::math::round(x));
+				return sprout::math::detail::iround_impl<To>(sprout::round(x));
 			}
 #else
 			template<typename To, typename FloatType>

@@ -32,7 +32,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR sprout::pair<FloatType, R>
 			rem_quo(FloatType x, FloatType y) {
-				return sprout::math::detail::rem_quo_impl(x, y, sprout::math::quotient(x, y));
+				return sprout::math::detail::rem_quo_impl(x, y, sprout::quotient(x, y));
 			}
 
 			template<

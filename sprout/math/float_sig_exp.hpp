@@ -31,7 +31,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR sprout::pair<FloatType, int>
 			float_sig_exp(FloatType x) {
-				return sprout::math::detail::float_sig_exp_impl(x, sprout::math::float_exponent(x));
+				return sprout::math::detail::float_sig_exp_impl(x, sprout::float_exponent(x));
 			}
 
 			template<

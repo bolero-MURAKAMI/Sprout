@@ -16,7 +16,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR long
 			lround(FloatType x) {
-				return sprout::math::iround<long>(x);
+				return sprout::iround<long>(x);
 			}
 
 			template<
@@ -25,7 +25,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR long
 			lround(IntType x) {
-				return sprout::math::iround<long>(x);
+				return sprout::iround<long>(x);
 			}
 		}	// namespace detail
 

@@ -21,7 +21,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_4(T v, int exp, std::size_t seed, std::size_t length, std::size_t i = 0) {
 			return i != length ? sprout::detail::float_hash_value_impl_4(
-					sprout::math::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
+					sprout::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
 					exp, sprout::detail::hash_float_combine(seed, static_cast<std::size_t>(v)),
 					length, i + 1
 					)
@@ -32,7 +32,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_3(T v, int exp) {
 			return sprout::detail::float_hash_value_impl_4(
-				sprout::math::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
+				sprout::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
 				exp, static_cast<std::size_t>(v),
 				(std::numeric_limits<T>::digits * sprout::detail::static_log2<std::numeric_limits<T>::radix>::value + std::numeric_limits<std::size_t>::digits - 1)
 					/ std::numeric_limits<std::size_t>::digits
@@ -41,7 +41,7 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_2(T v, int exp) {
-			return sprout::detail::float_hash_value_impl_3(sprout::math::ldexp(v, std::numeric_limits<std::size_t>::digits), exp);
+			return sprout::detail::float_hash_value_impl_3(sprout::ldexp(v, std::numeric_limits<std::size_t>::digits), exp);
 		}
 		template<typename T, typename P>
 		inline SPROUT_CONSTEXPR std::size_t
@@ -70,7 +70,7 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value(T v) {
-			return sprout::detail::float_hash_value_1(v, sprout::math::fpclassify(v));
+			return sprout::detail::float_hash_value_1(v, sprout::fpclassify(v));
 		}
 	}	// namespace detail
 }	// namespace sprout

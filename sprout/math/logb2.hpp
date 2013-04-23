@@ -27,7 +27,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			logb2(FloatType x) {
-				return sprout::math::logb(x);
+				return sprout::logb(x);
 			}
 
 			template<
@@ -36,7 +36,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR double
 			logb2(IntType x) {
-				return sprout::math::logb(x);
+				return sprout::logb(x);
 			}
 #else
 			template<typename T>
@@ -104,7 +104,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			logb2_impl(T x, T exp) {
 				return sprout::math::detail::logb2_impl_1(
-					x, sprout::detail::pow_n(T(2), sprout::math::itrunc<std::intmax_t>(exp)), exp
+					x, sprout::detail::pow_n(T(2), sprout::itrunc<std::intmax_t>(exp)), exp
 					);
 			}
 
@@ -117,8 +117,8 @@ namespace sprout {
 				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
 						? std::numeric_limits<FloatType>::infinity()
-					: x < 0 ? sprout::math::detail::logb2_impl(-x, sprout::math::trunc(sprout::math::log_a(FloatType(2), -x)))
-					: sprout::math::detail::logb2_impl(x, sprout::math::trunc(sprout::math::log_a(FloatType(2), x)))
+					: x < 0 ? sprout::math::detail::logb2_impl(-x, sprout::trunc(sprout::log_a(FloatType(2), -x)))
+					: sprout::math::detail::logb2_impl(x, sprout::trunc(sprout::log_a(FloatType(2), x)))
 					;
 			}
 

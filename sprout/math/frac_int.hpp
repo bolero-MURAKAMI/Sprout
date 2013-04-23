@@ -28,7 +28,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR sprout::pair<FloatType, FloatType>
 			frac_int(FloatType x) {
-				return sprout::math::detail::frac_int_impl(x, sprout::math::integer_part(x));
+				return sprout::math::detail::frac_int_impl(x, sprout::integer_part(x));
 			}
 
 			template<
