@@ -43,7 +43,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using is_c_str_ = typename sprout::is_c_str<T>::type;
+	using is_c_str_t = typename sprout::is_c_str<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

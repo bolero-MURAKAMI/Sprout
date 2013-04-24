@@ -43,7 +43,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using is_char_type_ = typename sprout::is_char_type<T>::type;
+	using is_char_type_t = typename sprout::is_char_type<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

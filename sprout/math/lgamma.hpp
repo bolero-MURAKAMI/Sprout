@@ -20,7 +20,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			lgamma_impl_3(T x, T y) {
-				return x < 0 ? sprout::log(sprout::math::pi<T>() / sprout::math::fabs(x * sprout::math::sin(x * sprout::math::pi<T>()))) - y
+				return x < 0 ? sprout::math::log(sprout::math::pi<T>() / sprout::math::fabs(x * sprout::math::sin(x * sprout::math::pi<T>()))) - y
 					: y
 					;
 			}
@@ -31,7 +31,7 @@ namespace sprout {
 					x,
 					(((((-0.00163312359200500807 * t + 8.3644533703385956e-4) * t + -5.9518947575728181e-4) * t
 						+ 7.9365057505415415e-4) * t + -0.00277777777735463043) * t + 0.08333333333333309869) * v + 0.91893853320467274178
-						+ ((w - T(0.5)) * sprout::log(w) - w)
+						+ ((w - T(0.5)) * sprout::math::log(w) - w)
 					);
 			}
 			template<typename T>
@@ -145,7 +145,7 @@ namespace sprout {
 			lgamma_impl_2_a(T x, T w, int k) {
 				return sprout::math::detail::lgamma_impl_3(
 					x,
-					-sprout::log(
+					-sprout::math::log(
 						k == 0 ? ((((((((((
 								9.967270908702825e-5 * w + -1.9831672170162227e-4) * w
 								+ -0.00117085315349625822) * w + 0.00722012810948319552) * w + -0.0096221300936780297) * w

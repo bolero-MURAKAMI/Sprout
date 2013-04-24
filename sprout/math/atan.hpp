@@ -10,6 +10,7 @@
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
+#include <sprout/math/copysign.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 
@@ -42,12 +43,12 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			atan(FloatType x) {
-				return x == 0 ? FloatType(0)
-					: x == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
+				return x == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::atan(x)
 #else
+					: x == 0 ? sprout::math::copysign(FloatType(0), x)
 					: static_cast<FloatType>(
 						x < 0 ? -sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(-x))
 							: sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x))

@@ -15,7 +15,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename... Types>
-	using common_decay_ = typename sprout::common_decay<Types...>::type;
+	using common_decay_t = typename sprout::common_decay<Types...>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

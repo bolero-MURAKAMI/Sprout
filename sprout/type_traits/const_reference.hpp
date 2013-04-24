@@ -17,7 +17,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using const_reference_ = typename sprout::const_reference<T>::type;
+	using const_reference_t = typename sprout::const_reference<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

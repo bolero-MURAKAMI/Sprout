@@ -134,7 +134,7 @@ namespace sprout {
 			generate_1_1(RealType r1, Random const& rnd) const {
 				return generate_2(
 					rnd.engine(), r1, rnd.result(),
-					sprout::sqrt(-result_type(2) * sprout::log(result_type(1) - rnd.result())), true
+					sprout::sqrt(-result_type(2) * sprout::math::log(result_type(1) - rnd.result())), true
 					);
 			}
 			template<typename Engine, typename Random>

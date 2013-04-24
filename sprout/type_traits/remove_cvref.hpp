@@ -17,7 +17,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using remove_cvref_ = typename sprout::remove_cvref<T>::type;
+	using remove_cvref_t = typename sprout::remove_cvref<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

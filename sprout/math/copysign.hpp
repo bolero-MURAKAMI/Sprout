@@ -1,14 +1,12 @@
-#ifndef SPROUT_MATH_HYPOT_HPP
-#define SPROUT_MATH_HYPOT_HPP
+#ifndef SPROUT_MATH_COPYSIGN_HPP
+#define SPROUT_MATH_COPYSIGN_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/math/detail/config.hpp>
+#include <sprout/math/signbit.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/math/detail/config.hpp>
-#include <sprout/math/fabs.hpp>
-#include <sprout/math/sqrt.hpp>
 
 namespace sprout {
 	namespace math {
@@ -18,17 +16,11 @@ namespace sprout {
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR FloatType
-			hypot(FloatType x, FloatType y) {
-				return y == 0 ? sprout::math::fabs(x)
-					: x == 0 ? sprout::math::fabs(y)
-					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()
-						? std::numeric_limits<FloatType>::infinity()
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
-						? std::numeric_limits<FloatType>::infinity()
-					: sprout::math::sqrt(x * x + y * y)
+			copysign(FloatType x, FloatType y) {
+				return sprout::math::signbit(y) != sprout::math::signbit(x) ? -x
+					: x
 					;
 			}
-
 			template<
 				typename ArithmeticType1,
 				typename ArithmeticType2,
@@ -37,16 +29,16 @@ namespace sprout {
 				>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type
-			hypot(ArithmeticType1 x, ArithmeticType2 y) {
+			copysign(ArithmeticType1 x, ArithmeticType2 y) {
 				typedef typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type type;
-				return sprout::math::detail::hypot(static_cast<type>(x), static_cast<type>(y));
+				return sprout::math::detail::copysign(static_cast<type>(x), static_cast<type>(y));
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::hypot;
+		using NS_SPROUT_MATH_DETAIL::copysign;
 	}	// namespace math
 
-	using sprout::math::hypot;
+	using sprout::math::copysign;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_MATH_HYPOT_HPP
+#endif	// #ifndef SPROUT_MATH_COPYSIGN_HPP

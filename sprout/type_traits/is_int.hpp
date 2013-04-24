@@ -18,7 +18,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using is_int_ = typename sprout::is_int<T>::type;
+	using is_int_t = typename sprout::is_int<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

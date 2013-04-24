@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/copysign.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -15,9 +16,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fabs(FloatType x) {
-				return x < 0 ? -x : x;
+				return sprout::math::copysign(x, FloatType(0));
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler

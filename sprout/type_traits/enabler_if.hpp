@@ -21,7 +21,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<bool C>
-	using enabler_if_ = typename sprout::enabler_if<C>::type;
+	using enabler_if_t = typename sprout::enabler_if<C>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

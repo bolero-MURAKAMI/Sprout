@@ -20,7 +20,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using remove_shallow_const_ = typename sprout::remove_shallow_const<T>::type;
+	using remove_shallow_const_t = typename sprout::remove_shallow_const<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

@@ -18,9 +18,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			log_a(FloatType x, FloatType y) {
-				return x == 2 ? sprout::log(y) / sprout::math::ln_two<FloatType>()
-					: x == 10 ? sprout::log(y) / sprout::math::ln_ten<FloatType>()
-					: sprout::log(y) / sprout::log(x)
+				return x == 2 ? sprout::math::log(y) / sprout::math::ln_two<FloatType>()
+					: x == 10 ? sprout::math::log(y) / sprout::math::ln_ten<FloatType>()
+					: sprout::math::log(y) / sprout::math::log(x)
 					;
 			}
 

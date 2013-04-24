@@ -11,6 +11,7 @@
 #include <sprout/math/gamma.hpp>
 #include <sprout/math/nearest.hpp>
 #include <sprout/math/remainders.hpp>
+#include <sprout/math/manipulations.hpp>
 #include <sprout/math/minmax.hpp>
 #include <sprout/math/muladd.hpp>
 

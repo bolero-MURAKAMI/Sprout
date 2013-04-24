@@ -73,7 +73,7 @@ namespace sprout {
 		private:
 		public:
 			static SPROUT_CONSTEXPR RealType init_log_1mp(RealType p) {
-				return sprout::log(1 - p);
+				return sprout::math::log(1 - p);
 			}
 		private:
 		public:
@@ -83,7 +83,7 @@ namespace sprout {
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> generate_1(Random const& rnd) const {
 				return sprout::random::random_result<Engine, geometric_distribution>(
-					static_cast<IntType>(sprout::floor(sprout::log(RealType(1) - rnd.result()) / log_1mp_)),
+					static_cast<IntType>(sprout::floor(sprout::math::log(RealType(1) - rnd.result()) / log_1mp_)),
 					rnd.engine(),
 					*this
 					);

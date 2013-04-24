@@ -17,7 +17,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using lvalue_reference_ = typename sprout::lvalue_reference<T>::type;
+	using lvalue_reference_t = typename sprout::lvalue_reference<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

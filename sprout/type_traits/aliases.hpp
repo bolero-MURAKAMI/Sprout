@@ -15,51 +15,51 @@ namespace sprout {
 	// Const-volatility specifiers
 	//
 	template<typename T>
-	using remove_const_ = typename std::remove_const<T>::type;
+	using remove_const_t = typename std::remove_const<T>::type;
 	template<typename T>
-	using remove_volatile_ = typename std::remove_volatile<T>::type;
+	using remove_volatile_t = typename std::remove_volatile<T>::type;
 	template<typename T>
-	using remove_cv_ = typename std::remove_cv<T>::type;
+	using remove_cv_t = typename std::remove_cv<T>::type;
 	template<typename T>
-	using add_const_ = typename std::add_const<T>::type;
+	using add_const_t = typename std::add_const<T>::type;
 	template<typename T>
-	using add_volatile_ = typename std::add_volatile<T>::type;
+	using add_volatile_t = typename std::add_volatile<T>::type;
 	template<typename T>
-	using add_cv_ = typename std::add_cv<T>::type;
+	using add_cv_t = typename std::add_cv<T>::type;
 
 	//
 	// References
 	//
 	template<typename T>
-	using remove_reference_ = typename std::remove_reference<T>::type;
+	using remove_reference_t = typename std::remove_reference<T>::type;
 	template<typename T>
-	using add_lvalue_reference_ = typename std::add_lvalue_reference<T>::type;
+	using add_lvalue_reference_t = typename std::add_lvalue_reference<T>::type;
 	template<typename T>
-	using add_rvalue_reference_ = typename std::add_rvalue_reference<T>::type;
+	using add_rvalue_reference_t = typename std::add_rvalue_reference<T>::type;
 
 	//
 	// Pointers
 	//
 	template<typename T>
-	using remove_pointer_ = typename std::remove_pointer<T>::type;
+	using remove_pointer_t = typename std::remove_pointer<T>::type;
 	template<typename T>
-	using add_pointer_ = typename std::add_pointer<T>::type;
+	using add_pointer_t = typename std::add_pointer<T>::type;
 
 	//
 	// Sign modifiers
 	//
 	template<typename T>
-	using make_signed_ = typename std::make_signed<T>::type;
+	using make_signed_t = typename std::make_signed<T>::type;
 	template<typename T>
-	using make_unsigned_ = typename std::make_unsigned<T>::type;
+	using make_unsigned_t = typename std::make_unsigned<T>::type;
 
 	//
 	// Arrays
 	//
 	template<typename T>
-	using remove_extent_ = typename std::remove_extent<T>::type;
+	using remove_extent_t = typename std::remove_extent<T>::type;
 	template<typename T>
-	using remove_all_extents_ = typename std::remove_all_extents<T>::type;
+	using remove_all_extents_t = typename std::remove_all_extents<T>::type;
 
 	//
 	// Miscellaneous transformations
@@ -68,73 +68,73 @@ namespace sprout {
 		std::size_t Len,
 		std::size_t Align = std::alignment_of<typename std::aligned_storage<Len>::type>::value
 	>
-	using aligned_storage_ = typename std::aligned_storage<Len, Align>::type;
+	using aligned_storage_t = typename std::aligned_storage<Len, Align>::type;
 	// ???
 	//template<std::size_t Len, typename... Types>
-	//using aligned_union_ = typename std::aligned_union<Len, Types...>::type;
+	//using aligned_union_t = typename std::aligned_union<Len, Types...>::type;
 	template<typename T>
-	using decay_ = typename std::decay<T>::type;
+	using decay_t = typename std::decay<T>::type;
 	template<bool B, typename T = void>
-	using enable_if_ = typename std::enable_if<B, T>::type;
+	using enable_if_t = typename std::enable_if<B, T>::type;
 	template<bool B, typename T, typename F>
-	using conditional_ = typename std::conditional<B, T, F>::type;
+	using conditional_t = typename std::conditional<B, T, F>::type;
 	template<typename... Types>
-	using common_type_ = typename std::common_type<Types...>::type;
+	using common_type_t = typename std::common_type<Types...>::type;
 	template<typename T>
-	using underlying_type_ = typename std::underlying_type<T>::type;
+	using underlying_type_t = typename std::underlying_type<T>::type;
 	template<typename F, typename... ArgTypes>
-	using result_of_ = typename std::result_of<F(ArgTypes...)>::type;
+	using result_of_t = typename std::result_of<F(ArgTypes...)>::type;
 
 
 	//
 	// Const-volatility specifiers
 	//
 	template<typename T>
-	using remove_const = sprout::remove_const_<T>;
+	using remove_const = sprout::remove_const_t<T>;
 	template<typename T>
-	using remove_volatile = sprout::remove_volatile_<T>;
+	using remove_volatile = sprout::remove_volatile_t<T>;
 	template<typename T>
-	using remove_cv = sprout::remove_cv_<T>;
+	using remove_cv = sprout::remove_cv_t<T>;
 	template<typename T>
-	using add_const = sprout::add_const_<T>;
+	using add_const = sprout::add_const_t<T>;
 	template<typename T>
-	using add_volatile = sprout::add_volatile_<T>;
+	using add_volatile = sprout::add_volatile_t<T>;
 	template<typename T>
-	using add_cv = sprout::add_cv_<T>;
+	using add_cv = sprout::add_cv_t<T>;
 
 	//
 	// References
 	//
 	template<typename T>
-	using remove_reference = sprout::remove_reference_<T>;
+	using remove_reference = sprout::remove_reference_t<T>;
 	template<typename T>
-	using add_lvalue_reference = sprout::add_lvalue_reference_<T>;
+	using add_lvalue_reference = sprout::add_lvalue_reference_t<T>;
 	template<typename T>
-	using add_rvalue_reference = sprout::add_rvalue_reference_<T>;
+	using add_rvalue_reference = sprout::add_rvalue_reference_t<T>;
 
 	//
 	// Pointers
 	//
 	template<typename T>
-	using remove_pointer = sprout::remove_pointer_<T>;
+	using remove_pointer = sprout::remove_pointer_t<T>;
 	template<typename T>
-	using add_pointer = sprout::add_pointer_<T>;
+	using add_pointer = sprout::add_pointer_t<T>;
 
 	//
 	// Sign modifiers
 	//
 	template<typename T>
-	using make_signed = sprout::make_signed_<T>;
+	using make_signed = sprout::make_signed_t<T>;
 	template<typename T>
-	using make_unsigned = sprout::make_unsigned_<T>;
+	using make_unsigned = sprout::make_unsigned_t<T>;
 
 	//
 	// Arrays
 	//
 	template<typename T>
-	using remove_extent = sprout::remove_extent_<T>;
+	using remove_extent = sprout::remove_extent_t<T>;
 	template<typename T>
-	using remove_all_extents = sprout::remove_all_extents_<T>;
+	using remove_all_extents = sprout::remove_all_extents_t<T>;
 
 	//
 	// Miscellaneous transformations
@@ -143,23 +143,23 @@ namespace sprout {
 		std::size_t Len,
 		std::size_t Align = std::alignment_of<typename std::aligned_storage<Len>::type>::value
 	>
-	using aligned_storage = sprout::aligned_storage_<Len, Align>;
+	using aligned_storage = sprout::aligned_storage_t<Len, Align>;
 	// ???
 	//template<std::size_t Len, typename... Types>
-	//using aligned_union = sprout::aligned_union_<Len, Types...>;
+	//using aligned_union = sprout::aligned_union_t<Len, Types...>;
 	template<typename T>
-	using decay = sprout::decay_<T>;
+	using decay = sprout::decay_t<T>;
 	template<bool B, typename T = void>
-	using enable_if = sprout::enable_if_<B, T>;
+	using enable_if = sprout::enable_if_t<B, T>;
 	template<bool B, typename T, typename F>
-	using conditional = sprout::conditional_<B, T, F>;
+	using conditional = sprout::conditional_t<B, T, F>;
 	template<typename... Types>
-	using common_type = sprout::common_type_<Types...>;
+	using common_type = sprout::common_type_t<Types...>;
 	template<typename T>
-	using underlying_type = sprout::underlying_type_<T>;
+	using underlying_type = sprout::underlying_type_t<T>;
 	// ???
 	//template<typename F, typename... ArgTypes>
-	//using result_of = sprout::result_of_<F, ArgTypes...>;
+	//using result_of = sprout::result_of_t<F, ArgTypes...>;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

@@ -55,7 +55,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename... Types>
-	using arithmetic_promote_ = typename sprout::arithmetic_promote<Types...>::type;
+	using arithmetic_promote_t = typename sprout::arithmetic_promote<Types...>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

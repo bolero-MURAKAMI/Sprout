@@ -66,7 +66,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename... Types>
-	using float_promote_ = typename sprout::float_promote<Types...>::type;
+	using float_promote_t = typename sprout::float_promote<Types...>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

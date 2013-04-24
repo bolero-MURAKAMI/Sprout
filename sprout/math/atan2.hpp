@@ -7,8 +7,9 @@
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/copysign.hpp>
+#include <sprout/math/signbit.hpp>
 #include <sprout/math/atan.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 
@@ -35,20 +36,21 @@ namespace sprout {
 				return x == -std::numeric_limits<FloatType>::infinity()
 						? y == std::numeric_limits<FloatType>::infinity() ? sprout::math::three_quarters_pi<FloatType>()
 							: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::three_quarters_pi<FloatType>()
-							: y < 0 ? -sprout::math::half_pi<FloatType>()
-							: sprout::math::half_pi<FloatType>()
+							: sprout::math::copysign(sprout::math::pi<FloatType>(), y)
 					: x == std::numeric_limits<FloatType>::infinity()
 						? y == std::numeric_limits<FloatType>::infinity() ? sprout::math::quarter_pi<FloatType>()
 							: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::quarter_pi<FloatType>()
-							: FloatType(0)
+							: sprout::math::copysign(FloatType(0), y)
 					: y == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
 					: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::atan2(y, x)
 #else
 					: y == 0
-						? x < 0 ? sprout::math::pi<FloatType>()
-						: FloatType(0)
+						? x < 0 ? sprout::math::copysign(sprout::math::pi<FloatType>(), y)
+							: x > 0 ? sprout::math::copysign(FloatType(0), y)
+							: sprout::math::signbit(x) ? sprout::math::copysign(sprout::math::pi<FloatType>(), y)
+							: sprout::math::copysign(FloatType(0), y)
 					: x == 0
 						? y < 0 ? -sprout::math::half_pi<FloatType>()
 							: sprout::math::half_pi<FloatType>()

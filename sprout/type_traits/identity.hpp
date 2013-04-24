@@ -15,7 +15,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using identity_ = typename sprout::identity<T>::type;
+	using identity_t = typename sprout::identity<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

@@ -12,25 +12,33 @@
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/sqrt.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			log_impl_1(T x, std::size_t n, std::size_t last) {
+			log_impl_2(T x, std::size_t n, std::size_t last) {
 				return last - n == 1
 					? (n % 2 ? 1 : -1) * sprout::detail::pow_n(x, n) / n
-					: sprout::math::detail::log_impl_1(x, n, n + (last - n) / 2)
-						+ sprout::math::detail::log_impl_1(x, n + (last - n) / 2, last)
+					: sprout::math::detail::log_impl_2(x, n, n + (last - n) / 2)
+						+ sprout::math::detail::log_impl_2(x, n + (last - n) / 2, last)
+					;
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			log_impl_1(T x) {
+				return !(x > sprout::math::root_two<T>())
+					? sprout::math::detail::log_impl_2(x - T(1), 1, sprout::math::factorial_limit<T>() + 1)
+					: T(2) * sprout::math::detail::log_impl_1(sprout::math::sqrt(x))
 					;
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			log_impl(T x) {
-				return !(x > sprout::math::root_two<T>())
-					? sprout::math::detail::log_impl_1(x - 1, 1, sprout::math::factorial_limit<T>() + 1)
-					: 2 * sprout::math::detail::log_impl(sprout::sqrt(x))
+				return x < 1 ? -sprout::math::detail::log_impl_1(T(1) / x)
+					: sprout::math::detail::log_impl_1(x)
 					;
 			}
 
@@ -40,16 +48,17 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			log(FloatType x) {
-				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
 				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
-					: x == 1 ? FloatType(0)
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x < 0 ? std::numeric_limits<FloatType>::quiet_NaN()
-					: x < 1 ? static_cast<FloatType>(-sprout::math::detail::log_impl(1 / static_cast<type>(x)))
-					: static_cast<FloatType>(sprout::math::detail::log_impl(static_cast<type>(x)))
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::log(x)
+#else
+					: x == 1 ? FloatType(0)
+					: static_cast<FloatType>(sprout::math::detail::log_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
@@ -59,8 +68,17 @@ namespace sprout {
 				return sprout::math::detail::log(static_cast<double>(x));
 			}
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::log;
+		//
+		// log
+		//
+		template<
+			typename ArithmeticType,
+			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
+		log(ArithmeticType x) {
+			return sprout::math::detail::log(x);
+		}
 	}	// namespace math
 
 	using sprout::math::log;

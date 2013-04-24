@@ -249,8 +249,8 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_10(Engine const& eng, RealType v, IntType k, IntType nm, RealType h, IntType nk) const {
-				return v <= h + (t_ + 1) * sprout::log(static_cast<RealType>(nm) / nk)
-					+ (k + RealType(0.5)) * sprout::log(nk * btrd_.r / (k + 1)) - fc(k) - fc(t_ - k)
+				return v <= h + (t_ + 1) * sprout::math::log(static_cast<RealType>(nm) / nk)
+					+ (k + RealType(0.5)) * sprout::math::log(nk * btrd_.r / (k + 1)) - fc(k) - fc(t_ - k)
 					? sprout::random::random_result<Engine, binomial_distribution>(k, eng, *this)
 					: generate<D + 1>(eng)
 					;
@@ -264,7 +264,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_9(Engine const& eng, RealType v, IntType k, IntType nm) const {
 				return generate_10<D + 1>(
-					eng, v, k, nm, (m_ + RealType(0.5)) * sprout::log((m_ + 1) / (btrd_.r * nm)) + fc(m_) + fc(t_ - m_), t_ - k + 1
+					eng, v, k, nm, (m_ + RealType(0.5)) * sprout::math::log((m_ + 1) / (btrd_.r * nm)) + fc(m_) + fc(t_ - m_), t_ - k + 1
 					);
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
@@ -343,7 +343,7 @@ namespace sprout {
 				return km <= 15
 					? generate_7<D + 1>(eng, v, k)
 					: generate_8<D + 1>(
-						eng, sprout::log(v), k,
+						eng, sprout::math::log(v), k,
 						(km / btrd_.npq) * (((km / RealType(3.0) + RealType(0.625)) * km + RealType(1.0) / 6) / btrd_.npq + RealType(0.5)),
 						-km * km / (2 * btrd_.npq))
 					;
@@ -455,8 +455,8 @@ namespace sprout {
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_10(Engine const& eng, RealType v, IntType k, IntType nm, RealType h, IntType nk) const {
-				return v <= h + (t_ + 1) * sprout::log(static_cast<RealType>(nm) / nk)
-					+ (k + RealType(0.5)) * sprout::log(nk * btrd_.r / (k + 1)) - fc(k) - fc(t_ - k)
+				return v <= h + (t_ + 1) * sprout::math::log(static_cast<RealType>(nm) / nk)
+					+ (k + RealType(0.5)) * sprout::math::log(nk * btrd_.r / (k + 1)) - fc(k) - fc(t_ - k)
 					? sprout::random::random_result<Engine, binomial_distribution>(k, eng, *this)
 					: generate(eng)
 					;
@@ -465,7 +465,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_9(Engine const& eng, RealType v, IntType k, IntType nm) const {
 				return generate_10(
-					eng, v, k, nm, (m_ + RealType(0.5)) * sprout::log((m_ + 1) / (btrd_.r * nm)) + fc(m_) + fc(t_ - m_), t_ - k + 1
+					eng, v, k, nm, (m_ + RealType(0.5)) * sprout::math::log((m_ + 1) / (btrd_.r * nm)) + fc(m_) + fc(t_ - m_), t_ - k + 1
 					);
 			}
 			template<typename Engine>
@@ -514,7 +514,7 @@ namespace sprout {
 				return km <= 15
 					? generate_7(eng, v, k)
 					: generate_8(
-						eng, sprout::log(v), k,
+						eng, sprout::math::log(v), k,
 						(km / btrd_.npq) * (((km / RealType(3.0) + RealType(0.625)) * km + RealType(1.0) / 6) / btrd_.npq + RealType(0.5)),
 						-km * km / (2 * btrd_.npq))
 					;

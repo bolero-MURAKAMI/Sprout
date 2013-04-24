@@ -25,7 +25,7 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T, typename Arg>
-	using is_convert_constructible_ = typename sprout::is_convert_constructible<T, Arg>::type;
+	using is_convert_constructible_t = typename sprout::is_convert_constructible<T, Arg>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
