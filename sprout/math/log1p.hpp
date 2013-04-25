@@ -9,7 +9,6 @@
 #include <sprout/math/copysign.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -46,17 +45,8 @@ namespace sprout {
 				return sprout::math::detail::log1p(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// log1p
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		log1p(ArithmeticType x) {
-			return sprout::math::detail::log1p(x);
-		}
+
+		using sprout::math::detail::log1p;
 	}	// namespace math
 
 	using sprout::math::log1p;

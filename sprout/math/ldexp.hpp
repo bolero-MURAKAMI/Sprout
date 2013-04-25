@@ -5,26 +5,33 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/copysign.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			ldexp_impl(T x, int exp) {
+				return x * sprout::detail::pow_n(T(2), exp);
+			}
+
 			template<
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			ldexp(FloatType x, int exp) {
-				return x == 0 ? FloatType(0)
-					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
 					: exp == 0 ? x
-					: x * sprout::detail::pow_n(FloatType(2), exp)
+					: x == 0 ? sprout::math::copysign(FloatType(0), x)
+					: static_cast<FloatType>(sprout::math::detail::ldexp_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x), exp))
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler

@@ -18,8 +18,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			isnormal(FloatType x) {
-				return !sprout::isnan(x)
-					&& !sprout::isinf(x)
+				return !sprout::math::isnan(x)
+					&& !sprout::math::isinf(x)
 					&& !sprout::math::detail::issubnormal_or_zero(x)
 					;
 			}

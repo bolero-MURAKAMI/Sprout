@@ -18,7 +18,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR int
 			float_exponent(FloatType x) {
 				return x == 0 ? 0
-					: sprout::ilogb(x) + 1
+					: sprout::math::ilogb(x) + 1
 					;
 			}
 

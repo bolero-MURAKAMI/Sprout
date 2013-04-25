@@ -138,7 +138,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			lgamma_impl_2_b(T x, T w, T t) {
-				return sprout::math::detail::lgamma_impl_2_b_1(x, w, t, sprout::itrunc(t) + 4);
+				return sprout::math::detail::lgamma_impl_2_b_1(x, w, t, sprout::math::itrunc(t) + 4);
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
@@ -165,7 +165,7 @@ namespace sprout {
 			lgamma_impl_1(T x, T w) {
 				return w < T(0.5) ? sprout::math::detail::lgamma_impl_2_a(x, w, w < T(0.25) ? 0 : 1)
 					: w < T(3.5) ? sprout::math::detail::lgamma_impl_2_b(x, w, w - T(4.5) / (w + T(0.5)))
-					: w < T(8) ? sprout::math::detail::lgamma_impl_2_c(x, w, sprout::itrunc(w) - 3)
+					: w < T(8) ? sprout::math::detail::lgamma_impl_2_c(x, w, sprout::math::itrunc(w) - 3)
 					: sprout::math::detail::lgamma_impl_2_d(x, w, T(1) / w)
 					;
 			}

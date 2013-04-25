@@ -102,13 +102,13 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			erf_impl_2_a(T x, T w, T t) {
-				return sprout::math::detail::erf_impl_2_a_1(x, w, sprout::fractional_part(t), sprout::itrunc(t));
+				return sprout::math::detail::erf_impl_2_a_1(x, w, sprout::fractional_part(t), sprout::math::itrunc(t));
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			erf_impl_1(T x, T w) {
 				return w < T(2.2) ? sprout::math::detail::erf_impl_2_a(x, w, w * w)
-					: w < T(6.9) ? sprout::math::detail::erf_impl_2_b(x, w, sprout::fractional_part(w), sprout::itrunc(w) - 2)
+					: w < T(6.9) ? sprout::math::detail::erf_impl_2_b(x, w, sprout::fractional_part(w), sprout::math::itrunc(w) - 2)
 					: sprout::math::detail::erf_impl_3(x, T(1))
 					;
 			}

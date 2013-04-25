@@ -10,7 +10,6 @@
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -59,17 +58,8 @@ namespace sprout {
 				return sprout::math::detail::cosh(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// cosh
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		cosh(ArithmeticType x) {
-			return sprout::math::detail::cosh(x);
-		}
+
+		using sprout::math::detail::cosh;
 	}	// namespace math
 
 	using sprout::math::cosh;

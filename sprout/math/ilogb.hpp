@@ -21,13 +21,16 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			ilogb(FloatType x) {
-				return sprout::iszero(x) ? FP_ILOGB0
-					: sprout::isinf(x) ? INT_MAX
-					: sprout::isnan(x) ? FP_ILOGBNAN
-					: static_cast<int>(sprout::logb(x))
+				return sprout::math::iszero(x) ? FP_ILOGB0
+					: sprout::math::isinf(x) ? INT_MAX
+					: sprout::math::isnan(x) ? FP_ILOGBNAN
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::ilogb(x)
+#else
+					: static_cast<int>(sprout::math::logb(x))
+#endif
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
@@ -38,7 +41,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::ilogb;
+		using sprout::math::detail::ilogb;
 	}	// namespace math
 
 	using sprout::math::ilogb;

@@ -10,7 +10,6 @@
 #include <sprout/math/log.hpp>
 #include <sprout/math/sqrt.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -46,17 +45,8 @@ namespace sprout {
 				return sprout::math::detail::asinh(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// asinh
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		asinh(ArithmeticType x) {
-			return sprout::math::detail::asinh(x);
-		}
+
+		using sprout::math::detail::asinh;
 	}	// namespace math
 
 	using sprout::math::asinh;

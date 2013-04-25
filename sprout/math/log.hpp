@@ -12,7 +12,6 @@
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/sqrt.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -68,17 +67,8 @@ namespace sprout {
 				return sprout::math::detail::log(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// log
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		log(ArithmeticType x) {
-			return sprout::math::detail::log(x);
-		}
+
+		using sprout::math::detail::log;
 	}	// namespace math
 
 	using sprout::math::log;

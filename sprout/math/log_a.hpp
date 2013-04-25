@@ -6,8 +6,8 @@
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/constants.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {

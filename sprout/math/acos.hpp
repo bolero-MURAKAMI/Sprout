@@ -10,7 +10,6 @@
 #include <sprout/math/fabs.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -45,17 +44,8 @@ namespace sprout {
 				return sprout::math::detail::acos(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// acos
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		acos(ArithmeticType x) {
-			return sprout::math::detail::acos(x);
-		}
+
+		using sprout::math::detail::acos;
 	}	// namespace math
 
 	using sprout::math::acos;

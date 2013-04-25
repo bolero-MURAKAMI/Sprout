@@ -10,7 +10,6 @@
 #include <sprout/math/log.hpp>
 #include <sprout/math/fabs.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -47,17 +46,8 @@ namespace sprout {
 				return sprout::math::detail::atanh(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// atanh
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		atanh(ArithmeticType x) {
-			return sprout::math::detail::atanh(x);
-		}
+
+		using sprout::math::detail::atanh;
 	}	// namespace math
 
 	using sprout::math::atanh;

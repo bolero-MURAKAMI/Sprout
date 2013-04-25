@@ -14,7 +14,6 @@
 #include <sprout/math/fabs.hpp>
 #include <sprout/math/sqrt.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -66,17 +65,8 @@ namespace sprout {
 				return sprout::math::detail::asin(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// asin
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		asin(ArithmeticType x) {
-			return sprout::math::detail::asin(x);
-		}
+
+		using sprout::math::detail::asin;
 	}	// namespace math
 
 	using sprout::math::asin;

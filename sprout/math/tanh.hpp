@@ -10,7 +10,6 @@
 #include <sprout/math/sinh.hpp>
 #include <sprout/math/cosh.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -46,17 +45,8 @@ namespace sprout {
 				return sprout::math::detail::tanh(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// tanh
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		tanh(ArithmeticType x) {
-			return sprout::math::detail::tanh(x);
-		}
+
+		using sprout::math::detail::tanh;
 	}	// namespace math
 
 	using sprout::math::tanh;

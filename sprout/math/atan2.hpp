@@ -10,8 +10,8 @@
 #include <sprout/math/copysign.hpp>
 #include <sprout/math/signbit.hpp>
 #include <sprout/math/atan.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/type_traits/float_promote.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace math {
@@ -76,20 +76,8 @@ namespace sprout {
 				return sprout::math::detail::atan2(static_cast<type>(y), static_cast<type>(x));
 			}
 		}	// namespace detail
-		//
-		// atan2
-		//
-		template<
-			typename ArithmeticType1,
-			typename ArithmeticType2,
-			typename sprout::enabler_if<
-				std::is_arithmetic<ArithmeticType1>::value && std::is_arithmetic<ArithmeticType2>::value
-			>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type
-		atan2(ArithmeticType1 y, ArithmeticType2 x) {
-			return sprout::math::detail::atan2(y, x);
-		}
+
+		using sprout::math::detail::atan2;
 	}	// namespace math
 
 	using sprout::math::atan2;

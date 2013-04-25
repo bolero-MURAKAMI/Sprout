@@ -11,7 +11,6 @@
 #include <sprout/math/copysign.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -59,17 +58,8 @@ namespace sprout {
 				return sprout::math::detail::sinh(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// sinh
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		sinh(ArithmeticType x) {
-			return sprout::math::detail::sinh(x);
-		}
+
+		using sprout::math::detail::sinh;
 	}	// namespace math
 
 	using sprout::math::sinh;

@@ -10,7 +10,6 @@
 #include <sprout/math/copysign.hpp>
 #include <sprout/math/cos.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -47,17 +46,8 @@ namespace sprout {
 				return sprout::math::detail::sin(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// sin
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		sin(ArithmeticType x) {
-			return sprout::math::detail::sin(x);
-		}
+
+		using sprout::math::detail::sin;
 	}	// namespace math
 
 	using sprout::math::sin;

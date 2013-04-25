@@ -10,7 +10,6 @@
 #include <sprout/math/exp.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
@@ -46,17 +45,8 @@ namespace sprout {
 				return sprout::math::detail::expm1(static_cast<double>(x));
 			}
 		}	// namespace detail
-		//
-		// expm1
-		//
-		template<
-			typename ArithmeticType,
-			typename sprout::enabler_if<std::is_arithmetic<ArithmeticType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
-		expm1(ArithmeticType x) {
-			return sprout::math::detail::expm1(x);
-		}
+
+		using sprout::math::detail::expm1;
 	}	// namespace math
 
 	using sprout::math::expm1;

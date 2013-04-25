@@ -22,7 +22,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	trunc(sprout::complex<T> const& x) {
-		return sprout::complex<T>(sprout::trunc(x.real()), sprout::trunc(x.imag()));
+		return sprout::complex<T>(sprout::math::trunc(x.real()), sprout::math::trunc(x.imag()));
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
