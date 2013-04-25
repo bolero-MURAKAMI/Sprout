@@ -1,10 +1,10 @@
 #ifndef SPROUT_MATH_FMAX_HPP
 #define SPROUT_MATH_FMAX_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -17,9 +17,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fmax(FloatType x, FloatType y) {
-				return x < y && !y == std::numeric_limits<FloatType>::quiet_NaN() ? y : x;
+				return x < y && !sprout::math::isnan(y) ? y : x;
 			}
-
 			template<
 				typename ArithmeticType1,
 				typename ArithmeticType2,

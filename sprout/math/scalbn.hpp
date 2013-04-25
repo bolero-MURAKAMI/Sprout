@@ -6,7 +6,6 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
-#include <sprout/math/copysign.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -28,7 +27,7 @@ namespace sprout {
 				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
 					: exp == 0 ? x
-					: x == 0 ? sprout::math::copysign(FloatType(0), x)
+					: x == 0 ? x
 					: static_cast<FloatType>(sprout::math::detail::scalbn_impl<FloatType>(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x), exp))
 					;
 			}

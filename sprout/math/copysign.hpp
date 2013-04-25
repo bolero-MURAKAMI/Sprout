@@ -17,7 +17,11 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			copysign(FloatType x, FloatType y) {
-				return sprout::math::signbit(y) != sprout::math::signbit(x) ? -x
+				return x == 0
+					? y == 0 ? y
+						: sprout::math::signbit(y) ? -FloatType(0)
+						: FloatType(0)
+					: sprout::math::signbit(y) != sprout::math::signbit(x) ? -x
 					: x
 					;
 			}
@@ -34,7 +38,11 @@ namespace sprout {
 				return sprout::math::detail::copysign(static_cast<type>(x), static_cast<type>(y));
 			}
 		}	// namespace detail
-
+		//
+		// bug:
+		//	copysign(Å}x, -0) returns -x for |x| > 0 .
+		//		# returns +x . ( same as copysign(Å}x, +0) )
+		//
 		using NS_SPROUT_MATH_DETAIL::copysign;
 	}	// namespace math
 

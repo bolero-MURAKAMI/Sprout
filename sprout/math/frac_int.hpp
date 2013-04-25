@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/copysign.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/integer_part.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/utility/pair/pair.hpp>
@@ -16,9 +18,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::pair<T, T>
 			frac_int_impl(T x, T ipart) {
 				typedef sprout::pair<T, T> type;
-				return x == std::numeric_limits<T>::infinity() || x == -std::numeric_limits<T>::infinity() ? type(T(0), ipart)
-					: x == std::numeric_limits<T>::quiet_NaN() ? type(std::numeric_limits<T>::quiet_NaN(), ipart)
-					: type(x - ipart, ipart)
+				return x == std::numeric_limits<T>::infinity() || x == -std::numeric_limits<T>::infinity() ? type(sprout::math::copysign(T(0), x), ipart)
+					: sprout::math::isnan(x) ? type(std::numeric_limits<T>::quiet_NaN(), ipart)
+					: x == 0 ? type(x, ipart)
+					: x == ipart ? type(T(0) * x, ipart)
+					: type(sprout::math::copysign(x - ipart, x), ipart)
 					;
 			}
 
@@ -30,7 +34,6 @@ namespace sprout {
 			frac_int(FloatType x) {
 				return sprout::math::detail::frac_int_impl(x, sprout::integer_part(x));
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler

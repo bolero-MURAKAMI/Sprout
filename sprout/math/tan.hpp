@@ -6,7 +6,6 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
-#include <sprout/math/copysign.hpp>
 #include <sprout/math/cos.hpp>
 #include <sprout/math/sin.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -31,7 +30,7 @@ namespace sprout {
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::sin(x)
 #else
-					: x == 0 ? sprout::math::copysign(FloatType(0), x)
+					: x == 0 ? x
 					: static_cast<FloatType>(sprout::math::detail::tan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
 #endif
 					;

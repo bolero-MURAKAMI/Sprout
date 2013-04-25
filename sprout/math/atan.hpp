@@ -10,7 +10,6 @@
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
-#include <sprout/math/copysign.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -47,7 +46,7 @@ namespace sprout {
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::atan(x)
 #else
-					: x == 0 ? sprout::math::copysign(FloatType(0), x)
+					: x == 0 ? x
 					: static_cast<FloatType>(
 						x < 0 ? -sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(-x))
 							: sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x))

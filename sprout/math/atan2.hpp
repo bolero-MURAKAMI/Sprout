@@ -40,7 +40,7 @@ namespace sprout {
 					: x == std::numeric_limits<FloatType>::infinity()
 						? y == std::numeric_limits<FloatType>::infinity() ? sprout::math::quarter_pi<FloatType>()
 							: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::quarter_pi<FloatType>()
-							: sprout::math::copysign(FloatType(0), y)
+							: FloatType(0) * y
 					: y == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
 					: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
@@ -48,9 +48,9 @@ namespace sprout {
 #else
 					: y == 0
 						? x < 0 ? sprout::math::copysign(sprout::math::pi<FloatType>(), y)
-							: x > 0 ? sprout::math::copysign(FloatType(0), y)
+							: x > 0 ? FloatType(0) * y
 							: sprout::math::signbit(x) ? sprout::math::copysign(sprout::math::pi<FloatType>(), y)
-							: sprout::math::copysign(FloatType(0), y)
+							: FloatType(0) * y
 					: x == 0
 						? y < 0 ? -sprout::math::half_pi<FloatType>()
 							: sprout::math::half_pi<FloatType>()
@@ -76,7 +76,13 @@ namespace sprout {
 				return sprout::math::detail::atan2(static_cast<type>(y), static_cast<type>(x));
 			}
 		}	// namespace detail
-
+		//
+		// bug:
+		//	atan2(Å}0, -0) returns Å}ÉŒ .
+		//		# returns Å}0 . ( same as atan2(Å}0, +0) )
+		//	atan2(-0, x) returns -ÉŒ for x < 0.
+		//		# returns +ÉŒ . ( same as atan2(+0, x) )
+		//
 		using sprout::math::detail::atan2;
 	}	// namespace math
 

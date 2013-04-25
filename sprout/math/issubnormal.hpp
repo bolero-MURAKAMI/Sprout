@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/iszero.hpp>
+#include <sprout/math/isnan.hpp>
 
 namespace sprout {
 	namespace math {
@@ -28,7 +29,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			issubnormal(FloatType x) {
-				return !sprout::math::iszero(x)
+				return !sprout::math::isnan(x)
+					&& !sprout::math::iszero(x)
 					&& sprout::math::detail::issubnormal_or_zero(x)
 					;
 			}

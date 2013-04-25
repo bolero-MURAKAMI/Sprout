@@ -101,6 +101,10 @@ namespace sprout {
 			logb(FloatType x) {
 				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+#	if defined(__GNUC__)
+					: x == -std::numeric_limits<FloatType>::infinity()
+						? std::numeric_limits<FloatType>::infinity()
+#	endif
 					: std::logb(x)
 #else
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()

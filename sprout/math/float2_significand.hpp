@@ -4,8 +4,9 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/math/detail/config.hpp>
 #include <sprout/detail/pow.hpp>
+#include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/float2_exponent.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -18,14 +19,13 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			float2_significand(FloatType x) {
-				return x == 0 ? FloatType(0)
-					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
-					: x == std::numeric_limits<FloatType>::quiet_NaN() ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::isnan(x) ? std::numeric_limits<FloatType>::quiet_NaN()
+					: x == 0 ? x
 					: x / sprout::detail::pow_n(FloatType(2), sprout::float2_exponent(x))
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler

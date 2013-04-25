@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -15,10 +16,16 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR bool
 			signbit(FloatType x) {
-				return x < 0;
+				return !sprout::math::isnan(x) && x < 0;
 			}
 		}	// namespace detail
-
+		//
+		// bug:
+		//	signbit(-0) returns false .
+		//		# returns true . ( same as signbit(+0) )
+		//	signbit(-NaN) returns false .
+		//		# returns true . ( same as signbit(+NaN) )
+		//
 		using NS_SPROUT_MATH_DETAIL::signbit;
 	}	// namespace math
 

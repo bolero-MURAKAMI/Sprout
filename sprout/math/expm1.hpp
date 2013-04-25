@@ -31,7 +31,7 @@ namespace sprout {
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::expm1(x)
 #else
-					: x == 0 ? sprout::math::copysign(FloatType(0), x)
+					: x == 0 ? x
 					: static_cast<FloatType>(sprout::math::detail::expm1_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
 #endif
 					;

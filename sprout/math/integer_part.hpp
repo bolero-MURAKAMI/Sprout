@@ -5,6 +5,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/trunc.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -19,11 +20,11 @@ namespace sprout {
 			integer_part(FloatType x) {
 				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
-					: x == std::numeric_limits<FloatType>::quiet_NaN() ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::isnan(x) ? std::numeric_limits<FloatType>::quiet_NaN()
+					: x == 0 ? x
 					: sprout::math::trunc(x)
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler

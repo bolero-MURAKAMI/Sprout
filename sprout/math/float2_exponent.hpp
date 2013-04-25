@@ -1,11 +1,13 @@
 #ifndef SPROUT_MATH_FLOAT2_EXPONENT_HPP
 #define SPROUT_MATH_FLOAT2_EXPONENT_HPP
 
+#include <climits>
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/ilogb2.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -18,10 +20,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR int
 			float2_exponent(FloatType x) {
 				return x == 0 ? 0
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() ? 0
+					: sprout::math::isnan(x) ? FP_ILOGBNAN
 					: sprout::math::ilogb2(x) + 1
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler

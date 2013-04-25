@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -33,11 +34,10 @@ namespace sprout {
 				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
 				return x == 0 ? FloatType(0)
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: x == std::numeric_limits<FloatType>::quiet_NaN() ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::isnan(x) ? std::numeric_limits<FloatType>::quiet_NaN()
 					: x < 0 ? std::numeric_limits<FloatType>::quiet_NaN()
 					: static_cast<FloatType>(sprout::math::detail::sqrt_impl(static_cast<type>(x), x > 1 ? static_cast<type>(x) : type(1)));
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
