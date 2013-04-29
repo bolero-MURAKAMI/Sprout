@@ -20,7 +20,8 @@ namespace sprout {
 			}
 		}	// namespace detail
 		//
-		// bug:
+		// issue:
+		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
 		//	signbit(-0) returns false .
 		//		# returns true . ( same as signbit(+0) )
 		//	signbit(-NaN) returns false .

@@ -7,6 +7,8 @@
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/signbit.hpp>
 #include <sprout/math/copysign.hpp>
 #include <sprout/math/signbit.hpp>
 #include <sprout/math/atan.hpp>
@@ -33,7 +35,13 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			atan2(FloatType y, FloatType x) {
-				return x == -std::numeric_limits<FloatType>::infinity()
+				return sprout::math::isnan(y)
+						? sprout::math::isnan(x)
+							? sprout::math::signbit(y) && sprout::math::signbit(x) ? -std::numeric_limits<double>::quiet_NaN()
+								: std::numeric_limits<double>::quiet_NaN()
+							: y
+					: sprout::math::isnan(x) ? x
+					: x == -std::numeric_limits<FloatType>::infinity()
 						? y == std::numeric_limits<FloatType>::infinity() ? sprout::math::three_quarters_pi<FloatType>()
 							: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::three_quarters_pi<FloatType>()
 							: sprout::math::copysign(sprout::math::pi<FloatType>(), y)
@@ -77,11 +85,14 @@ namespace sprout {
 			}
 		}	// namespace detail
 		//
-		// bug:
+		// issue:
+		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
 		//	atan2(Å}0, -0) returns Å}ÉŒ .
 		//		# returns Å}0 . ( same as atan2(Å}0, +0) )
 		//	atan2(-0, x) returns -ÉŒ for x < 0.
 		//		# returns +ÉŒ . ( same as atan2(+0, x) )
+		//	atan2(-NaN, -NaN) returns -NaN .
+		//		# returns +NaN . ( same as atan2(+NaN, +NaN) )
 		//
 		using sprout::math::detail::atan2;
 	}	// namespace math

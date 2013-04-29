@@ -10,6 +10,7 @@
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/factorial.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/fabs.hpp>
 #include <sprout/math/sqrt.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -43,7 +44,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			asin(FloatType x) {
-				return sprout::math::fabs(x) > 1 ? std::numeric_limits<FloatType>::quiet_NaN()
+				return sprout::math::isnan(x) ? x
+					: sprout::math::fabs(x) > 1 ? std::numeric_limits<FloatType>::quiet_NaN()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::asin(x)
 #else

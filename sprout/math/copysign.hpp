@@ -1,9 +1,11 @@
 #ifndef SPROUT_MATH_COPYSIGN_HPP
 #define SPROUT_MATH_COPYSIGN_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/signbit.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -18,9 +20,13 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			copysign(FloatType x, FloatType y) {
 				return x == 0
-					? y == 0 ? y
-						: sprout::math::signbit(y) ? -FloatType(0)
-						: FloatType(0)
+						? y == 0 ? y
+							: sprout::math::signbit(y) ? -FloatType(0)
+							: FloatType(0)
+					: sprout::math::isnan(x)
+						? sprout::math::isnan(y) ? y
+							: sprout::math::signbit(y) ? -std::numeric_limits<FloatType>::quiet_NaN()
+							: std::numeric_limits<FloatType>::quiet_NaN()
 					: sprout::math::signbit(y) != sprout::math::signbit(x) ? -x
 					: x
 					;
@@ -39,9 +45,12 @@ namespace sprout {
 			}
 		}	// namespace detail
 		//
-		// bug:
-		//	copysign(Å}x, -0) returns -x for |x| > 0 .
+		// issue:
+		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
+		//	copysign(Å}x, -0) returns -x for |x| is not 0 .
 		//		# returns +x . ( same as copysign(Å}x, +0) )
+		//	copysign(Å}x, -NaN) returns -x for |x| is not NaN .
+		//		# returns +x . ( same as copysign(Å}x, +NaN) )
 		//
 		using NS_SPROUT_MATH_DETAIL::copysign;
 	}	// namespace math

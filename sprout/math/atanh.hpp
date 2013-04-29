@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/fabs.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -25,9 +26,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			atanh(FloatType x) {
-				return x == 1 ? std::numeric_limits<FloatType>::infinity()
+				return sprout::math::isnan(x) ? x
+					: x == 1 ? std::numeric_limits<FloatType>::infinity()
 					: x == -1 ? -std::numeric_limits<FloatType>::infinity()
-					: sprout::math::fabs(x) > 1 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::fabs(x) > 1 ? -std::numeric_limits<FloatType>::quiet_NaN()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::atanh(x)
 #else

@@ -16,7 +16,7 @@ namespace sprout {
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
-			inline SPROUT_CONSTEXPR int
+			inline SPROUT_CONSTEXPR bool
 			isnormal(FloatType x) {
 				return !sprout::math::isnan(x)
 					&& !sprout::math::isinf(x)

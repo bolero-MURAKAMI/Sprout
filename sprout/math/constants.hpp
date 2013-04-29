@@ -91,12 +91,17 @@ namespace sprout {
 		}
 		//
 		// half
+		// quarter
 		// third
 		// twothirds
 		//
 		template<typename T>
 		inline SPROUT_CONSTEXPR T half() {
 			return 0.5L;
+		}
+		template<typename T>
+		inline SPROUT_CONSTEXPR T quarter() {
+			return 0.25L;
 		}
 		template<typename T>
 		inline SPROUT_CONSTEXPR T third() {

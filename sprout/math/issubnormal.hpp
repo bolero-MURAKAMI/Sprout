@@ -15,7 +15,7 @@ namespace sprout {
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
-			inline SPROUT_CONSTEXPR int
+			inline SPROUT_CONSTEXPR bool
 			issubnormal_or_zero(FloatType x) {
 				return x > 0
 					? x < std::numeric_limits<double>::min()
@@ -27,7 +27,7 @@ namespace sprout {
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
-			inline SPROUT_CONSTEXPR int
+			inline SPROUT_CONSTEXPR bool
 			issubnormal(FloatType x) {
 				return !sprout::math::isnan(x)
 					&& !sprout::math::iszero(x)

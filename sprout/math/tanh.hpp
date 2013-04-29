@@ -6,6 +6,7 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/sinh.hpp>
 #include <sprout/math/cosh.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -25,7 +26,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			tanh(FloatType x) {
-				return x == std::numeric_limits<FloatType>::infinity() ? FloatType(1)
+				return sprout::math::isnan(x) ? x
+					: x == std::numeric_limits<FloatType>::infinity() ? FloatType(1)
 					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(-1)
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::tanh(x)

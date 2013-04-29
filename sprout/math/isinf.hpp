@@ -14,7 +14,7 @@ namespace sprout {
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
-			inline SPROUT_CONSTEXPR int
+			inline SPROUT_CONSTEXPR bool
 			isinf(FloatType x) {
 				return x == std::numeric_limits<FloatType>::infinity()
 					|| x == -std::numeric_limits<FloatType>::infinity()
