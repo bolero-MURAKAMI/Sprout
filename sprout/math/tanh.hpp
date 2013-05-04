@@ -7,8 +7,7 @@
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
-#include <sprout/math/sinh.hpp>
-#include <sprout/math/cosh.hpp>
+#include <sprout/math/exp.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -16,8 +15,18 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
+			tanh_impl_2(T t, T u) {
+				return (t - u) / (t + u);
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			tanh_impl_1(T t) {
+				return sprout::math::detail::tanh_impl_2(t, T(1) / t);
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
 			tanh_impl(T x) {
-				return sprout::math::sinh(x) / sprout::math::cosh(x);
+				return sprout::math::detail::tanh_impl_1(sprout::math::exp(x));
 			}
 
 			template<

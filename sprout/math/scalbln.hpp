@@ -4,9 +4,10 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
-#include <sprout/detail/pow.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -24,7 +25,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			scalbln(FloatType x, long exp) {
-				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+				return sprout::math::isnan(x) ? x
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
 					: exp == 0 ? x
 					: x == 0 ? x

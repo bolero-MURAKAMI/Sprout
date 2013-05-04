@@ -8,8 +8,11 @@
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
+//#include <sprout/math/detail/cosp.hpp>
+//#include <sprout/math/detail/sinp.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/isnan.hpp>
+#include <sprout/math/fabs.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/fmod.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -34,6 +37,31 @@ namespace sprout {
 					1, sprout::math::factorial_limit<T>() / 2 + 1
 					);
 			}
+
+//			template<typename T>
+//			inline SPROUT_CONSTEXPR T
+//			cos_impl_2(T x) {
+//				return x <= sprout::math::quarter_pi<T>() ? -sprout::math::detail::cosp(x)
+//					: x <= sprout::math::half_pi<T>() ? -sprout::math::detail::sinp(sprout::math::half_pi<T>() - x)
+//					: x <= sprout::math::three_quarters_pi<T>() ? sprout::math::detail::sinp(x - sprout::math::half_pi<T>())
+//					: sprout::math::detail::cosp(sprout::math::pi<T>() - x)
+//					;
+//			}
+//			template<typename T>
+//			inline SPROUT_CONSTEXPR T
+//			cos_impl_1(T x) {
+//				return x > sprout::math::pi<T>() ? sprout::math::detail::cos_impl_2(x - sprout::math::pi<T>())
+//					: x <= sprout::math::quarter_pi<T>() ? sprout::math::detail::cosp(x)
+//					: x <= sprout::math::half_pi<T>() ? sprout::math::detail::sinp(sprout::math::half_pi<T>() - x)
+//					: x <= sprout::math::three_quarters_pi<T>() ? -sprout::math::detail::sinp(x - sprout::math::half_pi<T>())
+//					: -sprout::math::detail::cosp(sprout::math::pi<T>() - x)
+//					;
+//			}
+//			template<typename T>
+//			inline SPROUT_CONSTEXPR T
+//			cos_impl(T x) {
+//				return sprout::math::detail::cos_impl_1(sprout::math::fmod(sprout::math::fabs(x), sprout::math::two_pi<T>()));
+//			}
 
 			template<
 				typename FloatType,

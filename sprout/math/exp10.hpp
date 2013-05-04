@@ -6,8 +6,9 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
-#include <sprout/math/exp.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/exp.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -25,7 +26,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			exp10(FloatType x) {
-				return x == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
+				return sprout::math::isnan(x) ? x
+					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == 0 ? FloatType(1)
 					: static_cast<FloatType>(sprout::math::detail::exp10_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))

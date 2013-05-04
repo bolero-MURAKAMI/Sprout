@@ -8,6 +8,7 @@
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -37,7 +38,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			exp(FloatType x) {
-				return x == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
+				return sprout::math::isnan(x) ? x
+					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::exp(x)

@@ -9,7 +9,6 @@
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
-#include <sprout/math/factorial.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/fabs.hpp>
 #include <sprout/math/sqrt.hpp>
@@ -20,21 +19,54 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			asin_impl_1(T x, std::size_t n, std::size_t last) {
-				return last - n == 1
-					? sprout::math::unchecked_factorial<T>(2 * n)
-						/ sprout::detail::pow_n(T(4), n) / sprout::detail::pow2(sprout::math::unchecked_factorial<T>(n)) / (2 * n + 1)
-						* sprout::detail::pow_n(x, 2 * n + 1)
-					: sprout::math::detail::asin_impl_1(x, n, n + (last - n) / 2)
-						+ sprout::math::detail::asin_impl_1(x, n + (last - n) / 2, last)
+			asin_impl_center_1(T x, T x2) {
+				return ((((((((((((
+					+ 0.0316658385792867081040808) * x2
+					+ -0.0158620440988475212803145) * x2
+					+ 0.0192942786775238654913582) * x2
+					+ 0.0066153165197009078340075) * x2
+					+ 0.0121483892822292648695383) * x2
+					+ 0.0138885410156894774969889) * x2
+					+ 0.0173593516996479249428647) * x2
+					+ 0.0223717830666671020710108) * x2
+					+ 0.0303819580081956423799529) * x2
+					+ 0.0446428568582815922683933) * x2
+					+ 0.0750000000029696112392353) * x2
+					+ 0.1666666666666558995379880) * x2
+					* x + x
+					;
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			asin_impl_center(T x) {
+				return sprout::math::detail::asin_impl_center_1(x, x * x);
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			asin_impl_tail(T x) {
+				return sprout::math::half_pi<T>() + sprout::math::sqrt(T(1) - x)
+					* (((((((((((((
+						+ -0.0000121189820098929624806) * x
+						+ 0.0001307564187657962919394) * x
+						+ -0.0006702485124770180942917) * x
+						+ 0.0021912255981979442677477) * x
+						+ -0.0052049731575223952626203) * x
+						+ 0.0097868293573384001221447) * x
+						+ -0.0156746038587246716524035) * x
+						+ 0.0229883479552557203133368) * x
+						+ -0.0331919619444009606270380) * x
+						+ 0.0506659694457588602631748) * x
+						+ -0.0890259194305537131666744) * x
+						+ 0.2145993335526539017488949) * x
+						+ -1.5707961988153774692344105)
 					;
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			asin_impl(T x) {
-				return x > sprout::math::half_root_two<T>()
-					? sprout::math::half_pi<T>() - sprout::math::detail::asin_impl_1(sprout::math::sqrt(1 - x * x), 0, sprout::math::factorial_limit<T>() / 2 + 1)
-					: x + sprout::math::detail::asin_impl_1(x, 1, sprout::math::factorial_limit<T>() / 2 + 1)
+				return x < T(-0.5) ? -sprout::math::detail::asin_impl_tail(-x)
+					: x > T(0.5) ? sprout::math::detail::asin_impl_tail(x)
+					: sprout::math::detail::asin_impl_center(x)
 					;
 			}
 

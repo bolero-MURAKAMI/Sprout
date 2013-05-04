@@ -5,11 +5,10 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
-#include <sprout/math/factorial.hpp>
+#include <sprout/math/exp.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -17,20 +16,13 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			cosh_impl_1(T x2, std::size_t n, std::size_t last) {
-				return last - n == 1
-					? sprout::detail::pow_n(x2, n) / sprout::math::unchecked_factorial<T>(2 * n)
-					: sprout::math::detail::cosh_impl_1(x2, n, n + (last - n) / 2)
-						+ sprout::math::detail::cosh_impl_1(x2, n + (last - n) / 2, last)
-					;
+			cosh_impl_1(T t) {
+				return T(0.5) * t + T(0.5) / t;
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			cosh_impl(T x) {
-				return T(1) + sprout::math::detail::cosh_impl_1(
-					x * x,
-					1, sprout::math::factorial_limit<T>() / 2 + 1
-					);
+				return sprout::math::detail::cosh_impl_1(sprout::math::exp(x));
 			}
 
 			template<

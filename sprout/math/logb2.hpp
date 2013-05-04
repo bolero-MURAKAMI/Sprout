@@ -13,6 +13,7 @@
 #	include <limits>
 #	include <sprout/detail/pow.hpp>
 #	include <sprout/math/detail/float_compute.hpp>
+#	include <sprout/math/isnan.hpp>
 #	include <sprout/math/log_a.hpp>
 #	include <sprout/math/trunc.hpp>
 #	include <sprout/math/itrunc.hpp>
@@ -61,7 +62,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			logb2_impl_3_pos_lo(T x, T x0, T base, T exp) {
 				return base < 1 ? sprout::math::detail::logb2_impl_3_pos_lo(
-						x, x0 * 2, x / (x0 / 2), exp + 1
+						x, x0 * 2, x / (x0 / 2), exp - 1
 						)
 					: exp
 					;
@@ -70,7 +71,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			logb2_impl_3_pos_hi(T x, T x0, T base, T exp) {
 				return !(base < 2) ? sprout::math::detail::logb2_impl_3_pos_hi(
-						x, x0 / 2, x / (x0 * 2), exp - 1
+						x, x0 / 2, x / (x0 * 2), exp + 1
 						)
 					: exp
 					;
@@ -87,10 +88,10 @@ namespace sprout {
 							)
 						: exp
 					: base < 1 ? sprout::math::detail::logb2_impl_3_pos_lo(
-							x, x0 * 2, x / (x0 / 2), exp + 1
+							x, x0 * 2, x / (x0 / 2), exp - 1
 							)
 						: !(base < 2) ? sprout::math::detail::logb2_impl_3_pos_hi(
-							x, x0 / 2, x / (x0 * 2), exp - 1
+							x, x0 / 2, x / (x0 * 2), exp + 1
 							)
 						: exp
 						;
@@ -121,7 +122,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			logb2(FloatType x) {
-				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
+				return sprout::math::isnan(x) ? x
+					: x == 0 ? -std::numeric_limits<FloatType>::infinity()
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
 						? std::numeric_limits<FloatType>::infinity()
 					: static_cast<FloatType>(sprout::math::detail::logb2_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))

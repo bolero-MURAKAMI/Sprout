@@ -8,6 +8,7 @@
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/log_a.hpp>
 #include <sprout/math/trunc.hpp>
 #include <sprout/math/itrunc.hpp>
@@ -39,7 +40,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			logb_impl_3_pos_lo(T x, T x0, T base, T exp) {
 				return base < 1 ? sprout::math::detail::logb_impl_3_pos_lo(
-						x, x0 * std::numeric_limits<T>::radix, x / (x0 / std::numeric_limits<T>::radix), exp + 1
+						x, x0 * std::numeric_limits<T>::radix, x / (x0 / std::numeric_limits<T>::radix), exp - 1
 						)
 					: exp
 					;
@@ -48,7 +49,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			logb_impl_3_pos_hi(T x, T x0, T base, T exp) {
 				return !(base < std::numeric_limits<T>::radix) ? sprout::math::detail::logb_impl_3_pos_hi(
-						x, x0 / std::numeric_limits<T>::radix, x / (x0 * std::numeric_limits<T>::radix), exp - 1
+						x, x0 / std::numeric_limits<T>::radix, x / (x0 * std::numeric_limits<T>::radix), exp + 1
 						)
 					: exp
 					;
@@ -65,10 +66,10 @@ namespace sprout {
 								)
 						: exp
 					: base < 1 ? sprout::math::detail::logb_impl_3_pos_lo(
-							x, x0 * std::numeric_limits<T>::radix, x / (x0 / std::numeric_limits<T>::radix), exp + 1
+							x, x0 * std::numeric_limits<T>::radix, x / (x0 / std::numeric_limits<T>::radix), exp - 1
 							)
 						: !(base < std::numeric_limits<T>::radix) ? sprout::math::detail::logb_impl_3_pos_hi(
-								x, x0 / std::numeric_limits<T>::radix, x / (x0 * std::numeric_limits<T>::radix), exp - 1
+								x, x0 / std::numeric_limits<T>::radix, x / (x0 * std::numeric_limits<T>::radix), exp + 1
 								)
 						: exp
 						;
@@ -99,7 +100,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			logb(FloatType x) {
-				return x == 0 ? -std::numeric_limits<FloatType>::infinity()
+				return sprout::math::isnan(x) ? x
+					: x == 0 ? -std::numeric_limits<FloatType>::infinity()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 #	if defined(__GNUC__)
 					: x == -std::numeric_limits<FloatType>::infinity()
