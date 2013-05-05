@@ -19,9 +19,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			float_significand(FloatType x) {
-				return x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+				return sprout::math::isnan(x) ? x
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
-					: sprout::math::isnan(x) ? std::numeric_limits<FloatType>::quiet_NaN()
 					: x == 0 ? x
 					: x / sprout::detail::pow_n(FloatType(std::numeric_limits<FloatType>::radix), sprout::float_exponent(x))
 					;

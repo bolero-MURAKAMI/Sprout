@@ -4,11 +4,12 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/itrunc.hpp>
 #include <sprout/math/fractional_part.hpp>
-#include <sprout/detail/pow.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -102,13 +103,13 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			erf_impl_2_a(T x, T w, T t) {
-				return sprout::math::detail::erf_impl_2_a_1(x, w, sprout::fractional_part(t), sprout::math::itrunc(t));
+				return sprout::math::detail::erf_impl_2_a_1(x, w, sprout::math::fractional_part(t), sprout::math::itrunc(t));
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			erf_impl_1(T x, T w) {
 				return w < T(2.2) ? sprout::math::detail::erf_impl_2_a(x, w, w * w)
-					: w < T(6.9) ? sprout::math::detail::erf_impl_2_b(x, w, sprout::fractional_part(w), sprout::math::itrunc(w) - 2)
+					: w < T(6.9) ? sprout::math::detail::erf_impl_2_b(x, w, sprout::math::fractional_part(w), sprout::math::itrunc(w) - 2)
 					: sprout::math::detail::erf_impl_3(x, T(1))
 					;
 			}
@@ -124,14 +125,17 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			erf(FloatType x) {
-				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
-				return x == 0 ? FloatType(0)
+				return sprout::math::isnan(x) ? x
 					: x == std::numeric_limits<FloatType>::infinity() ? FloatType(1)
 					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(-1)
-					: static_cast<FloatType>(sprout::math::detail::erf_impl(static_cast<type>(x)))
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::erf(x)
+#else
+					: x == 0 ? x
+					: static_cast<FloatType>(sprout::math::detail::erf_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
@@ -142,7 +146,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::erf;
+		using sprout::math::detail::erf;
 	}	// namespace math
 
 	using sprout::math::erf;

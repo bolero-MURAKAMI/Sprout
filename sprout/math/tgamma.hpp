@@ -7,9 +7,11 @@
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/copysign.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/iround.hpp>
-#include <sprout/math/trunc.hpp>
+#include <sprout/math/is_integer.hpp>
 #include <sprout/algorithm/clamp.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
@@ -105,12 +107,16 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			tgamma(FloatType x) {
-				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
-				return x == 0 ? std::numeric_limits<FloatType>::infinity()
-					: x == -std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::quiet_NaN()
+				return sprout::math::isnan(x) ? x
+					: x == 0 ? sprout::math::copysign(std::numeric_limits<FloatType>::infinity(), x)
+					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::quiet_NaN()
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: x < 0 && x == std::trunc(x) ? std::numeric_limits<FloatType>::quiet_NaN()
-					: static_cast<FloatType>(sprout::math::detail::tgamma_impl(static_cast<type>(x)))
+					: x < 0 && sprout::math::is_integer(x) ? std::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::tgamma(x)
+#else
+					: static_cast<FloatType>(sprout::math::detail::tgamma_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
 					;
 			}
 
@@ -123,8 +129,13 @@ namespace sprout {
 				return sprout::math::detail::tgamma(static_cast<double>(x));
 			}
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::tgamma;
+		//
+		// issue:
+		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
+		//	tgamma(-0) returns -Åá .
+		//		# returns +Åá . ( same as tgamma(+0) )
+		//
+		using sprout::math::detail::tgamma;
 	}	// namespace math
 
 	using sprout::math::tgamma;

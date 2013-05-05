@@ -14,15 +14,20 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			sqrt_impl_1(T x, T s, T s2) {
+			sqrt_impl_2(T x, T s, T s2) {
 				return !(s < s2) ? s2
-					: sprout::math::detail::sqrt_impl_1(x, (x / s + s) / 2, s)
+					: sprout::math::detail::sqrt_impl_2(x, (x / s + s) / 2, s)
 					;
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			sqrt_impl(T x, T s) {
-				return sprout::math::detail::sqrt_impl_1(x, (x / s + s) / 2, s);
+			sqrt_impl_1(T x, T s) {
+				return sprout::math::detail::sqrt_impl_2(x, (x / s + s) / 2, s);
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			sqrt_impl(T x) {
+				return sprout::math::detail::sqrt_impl_1(x, x > 1 ? x : T(1));
 			}
 
 			template<
@@ -31,12 +36,16 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			sqrt(FloatType x) {
-				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
-				return x == 0 ? FloatType(0)
+				return sprout::math::isnan(x) ? x
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: sprout::math::isnan(x) ? std::numeric_limits<FloatType>::quiet_NaN()
-					: x < 0 ? std::numeric_limits<FloatType>::quiet_NaN()
-					: static_cast<FloatType>(sprout::math::detail::sqrt_impl(static_cast<type>(x), x > 1 ? static_cast<type>(x) : type(1)));
+					: x < 0 ? -std::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::sqrt(x)
+#else
+					: x == 0 ? x
+					: static_cast<FloatType>(sprout::math::detail::sqrt_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+					;
 			}
 			template<
 				typename IntType,
@@ -48,7 +57,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::sqrt;
+		using sprout::math::detail::sqrt;
 	}	// namespace math
 
 	using sprout::math::sqrt;

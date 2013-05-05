@@ -5,24 +5,38 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
-#include <sprout/math/pow.hpp>
+#include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/pow.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			cbrt_impl(T x) {
+				return x < 0 ? -sprout::pow(-x, sprout::math::third<T>())
+					: sprout::pow(x, sprout::math::third<T>())
+					;
+			}
+
 			template<
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			cbrt(FloatType x) {
-				return x == 0 ? FloatType(0)
+				return sprout::math::isnan(x) ? x
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
-					: x < 0 ? -sprout::pow(-x, sprout::math::third<FloatType>())
-					: sprout::pow(x, sprout::math::third<FloatType>())
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::cbrt(x)
+#else
+					: x == 0 ? x
+					: static_cast<FloatType>(sprout::math::detail::cbrt_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
 					;
 			}
 
@@ -36,7 +50,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::cbrt;
+		using sprout::math::detail::cbrt;
 	}	// namespace math
 
 	using sprout::math::cbrt;

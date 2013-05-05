@@ -1,7 +1,6 @@
 #ifndef SPROUT_MATH_FLOAT_SIG_EXP_HPP
 #define SPROUT_MATH_FLOAT_SIG_EXP_HPP
 
-#include <climits>
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -29,9 +28,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::pair<FloatType, int>
 			float_sig_exp(FloatType x) {
 				typedef sprout::pair<FloatType, int> type;
-				return x == std::numeric_limits<FloatType>::infinity() ? type(std::numeric_limits<FloatType>::infinity(), 0)
+				return sprout::math::isnan(x) ? type(x, 0)
+					: x == std::numeric_limits<FloatType>::infinity() ? type(std::numeric_limits<FloatType>::infinity(), 0)
 					: x == -std::numeric_limits<FloatType>::infinity() ? type(-std::numeric_limits<FloatType>::infinity(), 0)
-					: sprout::math::isnan(x) ? type(std::numeric_limits<FloatType>::quiet_NaN(), FP_ILOGBNAN)
 					: x == 0 ? type(x, 0)
 					: sprout::math::detail::float_sig_exp_impl(x, sprout::math::ilogb(x) + 1)
 					;

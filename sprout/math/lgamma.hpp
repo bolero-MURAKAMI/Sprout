@@ -7,11 +7,13 @@
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/sin.hpp>
 #include <sprout/math/fabs.hpp>
 #include <sprout/math/itrunc.hpp>
+#include <sprout/math/is_integer.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -181,13 +183,17 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			lgamma(FloatType x) {
-				typedef typename sprout::math::detail::float_compute<FloatType>::type type;
-				return x == 1 ? FloatType(0)
-					: x == 2 ? FloatType(0)
-					: x <= 0 && x == std::trunc(x) ? std::numeric_limits<FloatType>::infinity()
+				return sprout::math::isnan(x) ? x
+					: x <= 0 && sprout::math::is_integer(x) ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: static_cast<FloatType>(sprout::math::detail::lgamma_impl(static_cast<type>(x)))
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::lgamma(x)
+#else
+					: x == 1 ? FloatType(0)
+					: x == 2 ? FloatType(0)
+					: static_cast<FloatType>(sprout::math::detail::lgamma_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
 					;
 			}
 
@@ -201,7 +207,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::lgamma;
+		using sprout::math::detail::lgamma;
 	}	// namespace math
 
 	using sprout::math::lgamma;

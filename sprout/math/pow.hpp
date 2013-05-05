@@ -5,45 +5,67 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/constants.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/copysign.hpp>
+#include <sprout/math/fabs.hpp>
 #include <sprout/math/exp.hpp>
 #include <sprout/math/log.hpp>
-#include <sprout/math/constants.hpp>
+#include <sprout/math/is_integer.hpp>
+#include <sprout/math/is_odd.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			pow_impl(T x, T y) {
+				return sprout::math::exp(y * sprout::math::log(x));
+			}
+
 			template<
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			pow(FloatType x, FloatType y) {
-				return x == 0
-						? y < 0 ? std::numeric_limits<FloatType>::infinity()
-						: y > 0 ? FloatType(0)
-						: sprout::math::exp(y * sprout::math::log(x))
-					: x == -1 && (y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()) ? FloatType(1)
-					: x == 1 ? FloatType(1)
+				return x == 1 ? FloatType(1)
 					: y == 0 ? FloatType(1)
+					: sprout::math::isnan(y) ? y
+					: sprout::math::isnan(x) ? x
+					: x == 0
+						? y < 0
+							? sprout::math::is_odd(y) ? sprout::math::copysign(std::numeric_limits<FloatType>::infinity(), x)
+							: std::numeric_limits<FloatType>::infinity()
+						: sprout::math::is_odd(y) ? x
+						: FloatType(0)
+					: x == -1 && (y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()) ? FloatType(1)
 					: y == -std::numeric_limits<FloatType>::infinity()
-						? x < 1 && x > -1 ? std::numeric_limits<FloatType>::infinity()
-						: x > 1 || x < -1 ? FloatType(0)
-						: sprout::math::exp(y * sprout::math::log(x))
+						? sprout::math::fabs(x) < 1 ? std::numeric_limits<FloatType>::infinity()
+						: FloatType(0)
 					: y == std::numeric_limits<FloatType>::infinity()
-						? x < 1 && x > -1 ? FloatType(0)
-						: x > 1 || x < -1 ? std::numeric_limits<FloatType>::infinity()
-						: sprout::math::exp(y * sprout::math::log(x))
+						? sprout::math::fabs(x) < 1 ? FloatType(0)
+						: std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity()
-						? y < 0 ? FloatType(0)
-						: y > 0 ? std::numeric_limits<FloatType>::infinity()
-						: sprout::math::exp(y * sprout::math::log(x))
+						? y < 0
+							? sprout::math::is_odd(y) ? -FloatType(0)
+							: FloatType(0)
+						: sprout::math::is_odd(y) ? -std::numeric_limits<FloatType>::infinity()
+						: std::numeric_limits<FloatType>::infinity()
 					: x == std::numeric_limits<FloatType>::infinity()
 						? y < 0 ? FloatType(0)
-						: y > 0 ? std::numeric_limits<FloatType>::infinity()
-						: sprout::math::exp(y * sprout::math::log(x))
-					: sprout::math::exp(y * sprout::math::log(x))
+						: std::numeric_limits<FloatType>::infinity()
+					: x < 0 && !sprout::math::is_integer(y) ? std::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::pow(x, y)
+#else
+					: static_cast<FloatType>(sprout::math::detail::pow_impl(
+						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
+						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y)
+						))
+#endif
 					;
 			}
 
@@ -60,8 +82,13 @@ namespace sprout {
 				return sprout::math::detail::pow(static_cast<type>(x), static_cast<type>(y));
 			}
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::pow;
+		//
+		// issue:
+		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
+		//	pow(-0, y) returns -Åá for y an odd integer < 0.
+		//		# returns +Åá . ( same as pow(+0, y) )
+		//
+		using sprout::math::detail::pow;
 	}	// namespace math
 
 	using sprout::math::pow;

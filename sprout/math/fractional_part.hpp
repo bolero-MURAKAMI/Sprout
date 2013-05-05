@@ -27,8 +27,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fractional_part(FloatType x) {
-				return x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() ? sprout::math::copysign(FloatType(0), x)
-					: sprout::math::isnan(x) ? std::numeric_limits<FloatType>::quiet_NaN()
+				return sprout::math::isnan(x) ? x
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() ? sprout::math::copysign(FloatType(0), x)
 					: x == 0 ? x
 					: sprout::math::detail::fractional_part_impl(x, sprout::integer_part(x))
 					;

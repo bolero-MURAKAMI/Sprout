@@ -5,6 +5,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/fabs.hpp>
 
 namespace sprout {
 	namespace math {
@@ -15,7 +16,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			abs(FloatType x) {
-				return x < 0 ? -x : x;
+				return sprout::math::fabs(x);
 			}
 		}	// namespace detail
 

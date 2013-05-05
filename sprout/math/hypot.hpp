@@ -4,28 +4,59 @@
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/float_promote.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/signbit.hpp>
 #include <sprout/math/fabs.hpp>
 #include <sprout/math/sqrt.hpp>
+#include <sprout/type_traits/float_promote.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			hypot_impl_2(T t, T w) {
+				return t * sprout::math::sqrt(T(1) + w * w);
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			hypot_impl_1(T x, T y) {
+				return x < y
+					? sprout::math::detail::hypot_impl_2(y, x / y)
+					: sprout::math::detail::hypot_impl_2(x, y / x)
+					;
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			hypot_impl(T x, T y) {
+				return sprout::math::detail::hypot_impl_1(sprout::math::fabs(x), sprout::math::fabs(y));
+			}
+
 			template<
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			hypot(FloatType x, FloatType y) {
-				return y == 0 ? sprout::math::fabs(x)
-					: x == 0 ? sprout::math::fabs(y)
-					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()
+				return y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()
 						? std::numeric_limits<FloatType>::infinity()
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
 						? std::numeric_limits<FloatType>::infinity()
-					: sprout::math::sqrt(x * x + y * y)
+					: sprout::math::isnan(y) ? y
+					: sprout::math::isnan(x) ? x
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::hypot(x, y)
+#else
+					: y == 0 ? sprout::math::fabs(x)
+					: x == 0 ? sprout::math::fabs(y)
+					: static_cast<FloatType>(sprout::math::detail::hypot_impl(
+						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
+						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y)
+						))
+#endif
 					;
 			}
 
@@ -43,7 +74,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::hypot;
+		using sprout::math::detail::hypot;
 	}	// namespace math
 
 	using sprout::math::hypot;

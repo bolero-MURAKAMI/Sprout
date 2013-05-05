@@ -37,8 +37,8 @@ namespace sprout {
 			atan2(FloatType y, FloatType x) {
 				return sprout::math::isnan(y)
 						? sprout::math::isnan(x)
-							? sprout::math::signbit(y) && sprout::math::signbit(x) ? -std::numeric_limits<double>::quiet_NaN()
-								: std::numeric_limits<double>::quiet_NaN()
+							? sprout::math::signbit(y) && sprout::math::signbit(x) ? -std::numeric_limits<FloatType>::quiet_NaN()
+								: std::numeric_limits<FloatType>::quiet_NaN()
 							: y
 					: sprout::math::isnan(x) ? x
 					: x == -std::numeric_limits<FloatType>::infinity()

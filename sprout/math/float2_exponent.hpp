@@ -19,9 +19,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR int
 			float2_exponent(FloatType x) {
-				return x == 0 ? 0
+				return sprout::math::isnan(x) ? 0
+					: x == 0 ? 0
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() ? 0
-					: sprout::math::isnan(x) ? FP_ILOGBNAN
 					: sprout::math::ilogb2(x) + 1
 					;
 			}

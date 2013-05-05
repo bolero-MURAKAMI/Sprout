@@ -29,9 +29,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::pair<FloatType, int>
 			float2_sig_exp(FloatType x) {
 				typedef sprout::pair<FloatType, int> type;
-				return x == std::numeric_limits<FloatType>::infinity() ? type(std::numeric_limits<FloatType>::infinity(), 0)
+				return sprout::math::isnan(x) ? type(x, 0)
+					: x == std::numeric_limits<FloatType>::infinity() ? type(std::numeric_limits<FloatType>::infinity(), 0)
 					: x == -std::numeric_limits<FloatType>::infinity() ? type(-std::numeric_limits<FloatType>::infinity(), 0)
-					: sprout::math::isnan(x) ? type(std::numeric_limits<FloatType>::quiet_NaN(), FP_ILOGBNAN)
 					: x == 0 ? type(x, 0)
 					: sprout::math::detail::float2_sig_exp_impl(x, sprout::math::ilogb2(x) + 1)
 					;

@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/math/copysign.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -16,7 +17,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fabs(FloatType x) {
-				return sprout::math::copysign(x, FloatType(0));
+				return sprout::math::isnan(x) ? std::numeric_limits<FloatType>::quiet_NaN()
+					: x == 0 ? FloatType(0)
+					: sprout::math::copysign(x, FloatType(0))
+					;
 			}
 			template<
 				typename IntType,
