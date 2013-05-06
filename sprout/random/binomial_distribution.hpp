@@ -369,7 +369,7 @@ namespace sprout {
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_4(Engine const& eng, RealType v, RealType u, RealType us) const {
-				return generate_5<D + 1>(eng, v, u, us, static_cast<IntType>(sprout::floor((2 * btrd_.a / us + btrd_.b) * u + btrd_.c)));
+				return generate_5<D + 1>(eng, v, u, us, static_cast<IntType>(sprout::math::floor((2 * btrd_.a / us + btrd_.b) * u + btrd_.c)));
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -409,7 +409,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_1_1(Engine const& eng, RealType u) const {
 				return sprout::random::random_result<Engine, binomial_distribution>(
-					static_cast<IntType>(sprout::floor((2 * btrd_.a / (RealType(0.5) - sprout::abs(u)) + btrd_.b) * u + btrd_.c)),
+					static_cast<IntType>(sprout::math::floor((2 * btrd_.a / (RealType(0.5) - sprout::abs(u)) + btrd_.b) * u + btrd_.c)),
 					eng, *this
 					);
 			}
@@ -530,7 +530,7 @@ namespace sprout {
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_4(Engine const& eng, RealType v, RealType u, RealType us) const {
-				return generate_5(eng, v, u, us, static_cast<IntType>(sprout::floor((2 * btrd_.a / us + btrd_.b) * u + btrd_.c)));
+				return generate_5(eng, v, u, us, static_cast<IntType>(sprout::math::floor((2 * btrd_.a / us + btrd_.b) * u + btrd_.c)));
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -557,7 +557,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_1_1(Engine const& eng, RealType u) const {
 				return sprout::random::random_result<Engine, binomial_distribution>(
-					static_cast<IntType>(sprout::floor((2 * btrd_.a / (RealType(0.5) - sprout::abs(u)) + btrd_.b) * u + btrd_.c)),
+					static_cast<IntType>(sprout::math::floor((2 * btrd_.a / (RealType(0.5) - sprout::abs(u)) + btrd_.b) * u + btrd_.c)),
 					eng,
 					*this
 					);

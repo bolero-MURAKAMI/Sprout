@@ -12,12 +12,12 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	ceil(sprout::complex<T> const& x) {
-		return sprout::complex<T>(sprout::ceil(x.real()), sprout::ceil(x.imag()));
+		return sprout::complex<T>(sprout::math::ceil(x.real()), sprout::math::ceil(x.imag()));
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	floor(sprout::complex<T> const& x) {
-		return sprout::complex<T>(sprout::floor(x.real()), sprout::floor(x.imag()));
+		return sprout::complex<T>(sprout::math::floor(x.real()), sprout::math::floor(x.imag()));
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
@@ -27,7 +27,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	round(sprout::complex<T> const& x) {
-		return sprout::complex<T>(sprout::round(x.real()), sprout::round(x.imag()));
+		return sprout::complex<T>(sprout::math::round(x.real()), sprout::math::round(x.imag()));
 	}
 }	// namespace sprout
 

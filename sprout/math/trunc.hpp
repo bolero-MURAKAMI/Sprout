@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -18,16 +19,20 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			trunc(FloatType x) {
-				return x == 0 ? FloatType(0)
+				return sprout::math::isnan(x) ? x
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::trunc(x)
+#else
+					: x == 0 ? x
 					: std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("trunc: large float rounding."), x)
 					: x < 0 ? -static_cast<FloatType>(static_cast<std::uintmax_t>(-x))
 					: static_cast<FloatType>(static_cast<std::uintmax_t>(x))
+#endif
 					;
 			}
-
 			template<
 				typename IntType,
 				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler

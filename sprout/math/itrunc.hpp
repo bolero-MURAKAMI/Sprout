@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/isinf.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 #	include <sprout/math/trunc.hpp>
@@ -30,7 +32,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			itrunc(FloatType x) {
-				return sprout::math::detail::itrunc_impl<To>(sprout::math::trunc(x));
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<To>::min()
+					: sprout::math::detail::itrunc_impl<To>(sprout::math::trunc(x))
+					;
 			}
 #else
 			template<
@@ -40,7 +44,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			itrunc(FloatType x) {
-				return x == 0 ? To(0)
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<To>::min()
+					: x == 0 ? To(0)
 					: std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("itrunc: large float rounding."), static_cast<To>(x))
 					: static_cast<To>(x)

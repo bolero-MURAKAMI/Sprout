@@ -83,7 +83,7 @@ namespace sprout {
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> generate_1(Random const& rnd) const {
 				return sprout::random::random_result<Engine, geometric_distribution>(
-					static_cast<IntType>(sprout::floor(sprout::math::log(RealType(1) - rnd.result()) / log_1mp_)),
+					static_cast<IntType>(sprout::math::floor(sprout::math::log(RealType(1) - rnd.result()) / log_1mp_)),
 					rnd.engine(),
 					*this
 					);

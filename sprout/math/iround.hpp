@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/isinf.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 #	include <sprout/math/round.hpp>
@@ -32,7 +34,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			iround(FloatType x) {
-				return sprout::math::detail::iround_impl<To>(sprout::round(x));
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<To>::min()
+					: sprout::math::detail::iround_impl<To>(sprout::math::round(x))
+					;
 			}
 #else
 			template<typename To, typename FloatType>
@@ -56,7 +60,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			iround(FloatType x) {
-				return x == 0 ? To(0)
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<To>::min()
+					: x == 0 ? To(0)
 					: std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("iround: large float irounding."), x)
 					: x < 0 ? sprout::math::detail::iround_impl_nagative(x, static_cast<To>(x))

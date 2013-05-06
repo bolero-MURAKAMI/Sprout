@@ -187,13 +187,13 @@ namespace sprout {
 					: x <= 0 && sprout::math::is_integer(x) ? std::numeric_limits<FloatType>::infinity()
 					: x == -std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
 					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::lgamma(x)
-#else
+//#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+//					: std::lgamma(x)
+//#else
 					: x == 1 ? FloatType(0)
 					: x == 2 ? FloatType(0)
 					: static_cast<FloatType>(sprout::math::detail::lgamma_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
+//#endif
 					;
 			}
 

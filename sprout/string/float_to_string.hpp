@@ -64,7 +64,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
 		float_to_string(FloatType val, bool negative, int digits) {
 			return sprout::detail::float_to_string_impl<Elem>(
-				val, negative, digits, static_cast<int>((val - sprout::floor(val)) * sprout::detail::int_pow<int>(sprout::detail::decimal_places_length)),
+				val, negative, digits, static_cast<int>((val - sprout::math::floor(val)) * sprout::detail::int_pow<int>(sprout::detail::decimal_places_length)),
 				sprout::make_index_tuple<sprout::printed_float_digits<FloatType>::value - 1>::make()
 				);
 		}

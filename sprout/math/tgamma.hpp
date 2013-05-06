@@ -94,7 +94,7 @@ namespace sprout {
 				return sprout::math::detail::tgamma_impl_1(
 					x,
 					sprout::clamp(
-						sprout::iround(x - T(2)),
+						sprout::math::iround(x - T(2)),
 						-static_cast<int>(sprout::math::factorial_limit<T>()),
 						static_cast<int>(sprout::math::factorial_limit<T>())
 						)

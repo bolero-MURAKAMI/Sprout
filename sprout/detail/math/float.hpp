@@ -103,7 +103,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR int
 		float_digit_of_impl(FloatType val) {
-			return static_cast<int>((val - sprout::floor(val)) * 10);
+			return static_cast<int>((val - sprout::math::floor(val)) * 10);
 		}
 		template<typename FloatType>
 		inline SPROUT_CONSTEXPR int
@@ -120,7 +120,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR FloatType
 		float_round_impl(FloatType val, FloatType p10) {
-			return sprout::round(val * p10) / p10;
+			return sprout::math::round(val * p10) / p10;
 		}
 		template<typename FloatType>
 		inline SPROUT_CONSTEXPR FloatType
