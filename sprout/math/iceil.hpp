@@ -12,7 +12,7 @@
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 #	include <sprout/math/ceil.hpp>
 #else
-#	include <sprout/math/equal_to.hpp>
+#	include <sprout/math/less_equal.hpp>
 #endif
 
 namespace sprout {
@@ -42,7 +42,7 @@ namespace sprout {
 			template<typename To, typename FloatType>
 			inline SPROUT_CONSTEXPR To
 			iceil_impl(FloatType x, To x0) {
-				return sprout::math::equal_to(x, x0) ? x0
+				return sprout::math::less_equal(x, x0) ? x0
 					: x0 + 1
 					;
 			}

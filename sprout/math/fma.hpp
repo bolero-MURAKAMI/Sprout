@@ -1,9 +1,13 @@
 #ifndef SPROUT_MATH_FMA_HPP
 #define SPROUT_MATH_FMA_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/isinf.hpp>
+#include <sprout/math/signbit.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -16,9 +20,20 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fma(FloatType x, FloatType y, FloatType z) {
-				return x * y + z;
+				return sprout::math::isnan(x) ? x
+					: sprout::math::isnan(y) ? y
+					: sprout::math::isnan(z) ? z
+					: sprout::math::isinf(x) && y == 0 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::isinf(y) && x == 0 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: (sprout::math::isinf(x) || sprout::math::isinf(y)) && sprout::math::isinf(z) && (sprout::math::signbit(x) ^ sprout::math::signbit(y) ^ sprout::math::signbit(z))
+						? std::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::fma(x, y, z)
+#else
+					: x * y + z
+#endif
+					;
 			}
-
 			template<
 				typename ArithmeticType1,
 				typename ArithmeticType2,
@@ -40,7 +55,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::fma;
+		using sprout::math::detail::fma;
 	}	// namespace math
 
 	using sprout::math::fma;

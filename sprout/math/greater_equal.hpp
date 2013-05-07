@@ -17,7 +17,7 @@ namespace sprout {
 				>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR bool
-			greater_equal_equal(FloatType1 x, FloatType2 y) {
+			greater_equal(FloatType1 x, FloatType2 y) {
 				return sprout::math::equal_to(x, y) || x > y;
 			}
 
@@ -62,7 +62,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 		//
-		// greater_equal_equal
+		// greater_equal
 		//
 		template<
 			typename T, typename U,

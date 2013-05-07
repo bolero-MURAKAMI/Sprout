@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_FMAX_HPP
 #define SPROUT_MATH_FMAX_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -17,7 +18,19 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fmax(FloatType x, FloatType y) {
-				return x < y && !sprout::math::isnan(y) ? y : x;
+				return sprout::math::isnan(y) ? x
+					: sprout::math::isnan(x) ? y
+					: y == -std::numeric_limits<FloatType>::infinity() ? x
+					: x == std::numeric_limits<FloatType>::infinity() ? x
+					: x == -std::numeric_limits<FloatType>::infinity() ? y
+					: y == std::numeric_limits<FloatType>::infinity() ? y
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: x == 0 && y == 0 ? x
+					: std::fmax(x, y)
+#else
+					: x < y ? y : x
+#endif
+					;
 			}
 			template<
 				typename ArithmeticType1,
@@ -33,7 +46,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::fmax;
+		using sprout::math::detail::fmax;
 	}	// namespace math
 
 	using sprout::math::fmax;

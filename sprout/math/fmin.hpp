@@ -1,6 +1,7 @@
 #ifndef SPROUT_MATH_FMIN_HPP
 #define SPROUT_MATH_FMIN_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
@@ -17,7 +18,19 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fmin(FloatType x, FloatType y) {
-				return y < x && !sprout::math::isnan(y) ? y : x;
+				return sprout::math::isnan(y) ? x
+					: sprout::math::isnan(x) ? y
+					: x == -std::numeric_limits<FloatType>::infinity() ? x
+					: y == std::numeric_limits<FloatType>::infinity() ? x
+					: y == -std::numeric_limits<FloatType>::infinity() ? y
+					: x == std::numeric_limits<FloatType>::infinity() ? y
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: x == 0 && y == 0 ? x
+					: std::fmin(x, y)
+#else
+					: y < x ? y : x
+#endif
+					;
 			}
 			template<
 				typename ArithmeticType1,
@@ -33,7 +46,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::fmin;
+		using sprout::math::detail::fmin;
 	}	// namespace math
 
 	using sprout::math::fmin;

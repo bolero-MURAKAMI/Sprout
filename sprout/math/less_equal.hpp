@@ -18,7 +18,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR bool
 			less_equal(FloatType1 x, FloatType2 y) {
-				return sprout::math::not_equal_to(x, y) || x < y;
+				return sprout::math::equal_to(x, y) || x < y;
 			}
 
 			template<

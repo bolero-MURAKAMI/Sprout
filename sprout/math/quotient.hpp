@@ -3,25 +3,17 @@
 
 #include <limits>
 #include <type_traits>
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
-#include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/signbit.hpp>
-#include <sprout/math/iround.hpp>
+#include <sprout/math/rem_quo.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<typename R, typename T>
-			inline SPROUT_CONSTEXPR T
-			quotient_impl(T x, T y) {
-				return sprout::math::iround<R>(x / y);
-			}
-
 			template<
 				typename R = int,
 				typename FloatType,
@@ -29,15 +21,13 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR R
 			quotient(FloatType x, FloatType y) {
-				return sprout::math::isnan(y) || sprout::math::isnan(x) ? R(0)
-					: x == 0 && y != 0 ? R(0)
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() || y == 0
+				return y == 0 ? R(0)
+					: sprout::math::isnan(y) || sprout::math::isnan(x) ? R(0)
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
 						? R(0)
+					: x == 0 ? R(0)
 					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity() ? R(0)
-					: static_cast<FloatType>(sprout::math::detail::quotient_impl<R>(
-						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
-						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y)
-						))
+					: sprout::math::rem_quo<R>(x, y).second
 					;
 			}
 			template<

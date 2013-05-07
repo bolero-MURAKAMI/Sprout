@@ -1,9 +1,11 @@
 #ifndef SPROUT_MATH_FDIM_HPP
 #define SPROUT_MATH_FDIM_HPP
 
+#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -16,9 +18,19 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fdim(FloatType x, FloatType y) {
-				return x > y ? x - y : 0;
+				return sprout::math::isnan(y) ? y
+					: sprout::math::isnan(x) ? x
+					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
+					: y == std::numeric_limits<FloatType>::infinity() ? FloatType(0)
+					: y == -std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+					: std::fdim(x, y)
+#else
+					: x > y ? x - y : FloatType(0)
+#endif
+					;
 			}
-
 			template<
 				typename ArithmeticType1,
 				typename ArithmeticType2,
@@ -33,7 +45,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		using NS_SPROUT_MATH_DETAIL::fdim;
+		using sprout::math::detail::fdim;
 	}	// namespace math
 
 	using sprout::math::fdim;
