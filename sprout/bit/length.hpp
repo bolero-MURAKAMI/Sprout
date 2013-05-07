@@ -3,7 +3,6 @@
 
 #include <climits>
 #include <cstddef>
-#include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
 
