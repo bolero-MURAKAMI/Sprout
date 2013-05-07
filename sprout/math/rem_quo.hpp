@@ -6,6 +6,9 @@
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
+#include <sprout/math/detail/float_compute.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/signbit.hpp>
 #include <sprout/math/quotient.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/type_traits/float_promote.hpp>
@@ -14,17 +17,20 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+			template<typename R, typename FloatType, typename Pair>
+			inline SPROUT_CONSTEXPR sprout::pair<FloatType, R>
+			rem_quo_ret(Pair const& p) {
+				typedef sprout::pair<FloatType, R> type;
+				return type(static_cast<FloatType>(p.first), p.second);
+			}
+
 			template<typename R, typename T>
 			inline SPROUT_CONSTEXPR sprout::pair<T, R>
 			rem_quo_impl(T x, T y, R quo) {
 				typedef sprout::pair<T, R> type;
-				return x == std::numeric_limits<T>::infinity() || x == -std::numeric_limits<T>::infinity() || y == 0
-						? type(std::numeric_limits<T>::quiet_NaN(), quo)
-					: x == 0 ? type(T(0), quo)
-					: y == std::numeric_limits<T>::infinity() || y == -std::numeric_limits<T>::infinity() ? type(x, quo)
-					: type(x - quo * y, quo)
-					;
+				return type(x - quo * y, quo);
 			}
+
 			template<
 				typename R = int,
 				typename FloatType,
@@ -32,9 +38,23 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR sprout::pair<FloatType, R>
 			rem_quo(FloatType x, FloatType y) {
-				return sprout::math::detail::rem_quo_impl(x, y, sprout::quotient(x, y));
+				typedef sprout::pair<FloatType, R> type;
+				return sprout::math::isnan(y)
+						? sprout::math::isnan(x)
+							? sprout::math::signbit(y) || sprout::math::signbit(x) ? type(-std::numeric_limits<FloatType>::quiet_NaN(), R(0))
+								: type(std::numeric_limits<FloatType>::quiet_NaN(), R(0))
+							: type(y, R(0))
+					: x == 0 && y != 0 ? type(FloatType(0), R(0))
+					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() || y == 0
+						? type(std::numeric_limits<FloatType>::quiet_NaN(), R(0))
+					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity() ? type(x, R(0))
+					: sprout::math::detail::rem_quo_ret<R, FloatType>(sprout::math::detail::rem_quo_impl(
+						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
+						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y),
+						sprout::math::quotient<R>(x, y)
+						))
+					;
 			}
-
 			template<
 				typename R = int,
 				typename ArithmeticType1,

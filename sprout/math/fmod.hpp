@@ -3,13 +3,14 @@
 
 #include <limits>
 #include <type_traits>
-#include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/signbit.hpp>
-#include <sprout/math/trunc.hpp>
+#include <sprout/math/fabs.hpp>
+#include <sprout/math/ilogb.hpp>
+#include <sprout/math/scalbn.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 
@@ -18,8 +19,50 @@ namespace sprout {
 		namespace detail {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
+			fmod_impl_6(T x, T y, T x1) {
+				return x1 >= y
+					? x < 0 ? -(x1 - y) : x1 - y
+					: x < 0 ? -x1 : x1
+					;
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			fmod_impl_5(T x, T y, T x1, T y1, T z, int iscy, int idiff, int i) {
+				return i != idiff
+					? z >= 0
+						? sprout::math::detail::fmod_impl_5(x, y, z + z, y1, z + z - y1, iscy, idiff, i + 1)
+						: sprout::math::detail::fmod_impl_5(x, y, x1 + x1, y1, x1 + x1 - y1, iscy, idiff, i + 1)
+					: sprout::math::detail::fmod_impl_6(x, y, sprout::math::scalbn(x1, iscy))
+					;
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			fmod_impl_4(T x, T y, T x1, T y1, int iscy, int idiff, int i) {
+				return sprout::math::detail::fmod_impl_5(x, y, x1, y1, x1 - y1, iscy, idiff, i);
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			fmod_impl_3(T x, T y, T x1, int iscx, int iscy, int idiff) {
+				return idiff ? sprout::math::detail::fmod_impl_4(x, y, sprout::math::scalbn(x1, -iscx), sprout::math::scalbn(y, -iscy), iscy, idiff, 0)
+					: sprout::math::detail::fmod_impl_6(x, y, x1)
+					;
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			fmod_impl_2(T x, T y, T x1, int iscx, int iscy) {
+				return sprout::math::detail::fmod_impl_3(x, y, x1, iscx, iscy, iscx - iscy);
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
+			fmod_impl_1(T x, T y, T x1) {
+				return y > x1 ? x
+					: sprout::math::detail::fmod_impl_2(x, y, x1, sprout::math::ilogb(x1), sprout::math::ilogb(y))
+					;
+			}
+			template<typename T>
+			inline SPROUT_CONSTEXPR T
 			fmod_impl(T x, T y) {
-				return x - sprout::math::trunc(x / y) * y;
+				return sprout::math::detail::fmod_impl_1(x, sprout::math::fabs(y), sprout::math::fabs(x));
 			}
 
 			template<
@@ -34,9 +77,9 @@ namespace sprout {
 								: std::numeric_limits<FloatType>::quiet_NaN()
 							: y
 					: sprout::math::isnan(x) ? x
+					: x == 0 && y != 0 ? x
 					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() || y == 0
 						? -std::numeric_limits<FloatType>::quiet_NaN()
-					: x == 0 ? x
 					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity() ? x
 					: static_cast<FloatType>(sprout::math::detail::fmod_impl(
 						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
@@ -58,7 +101,11 @@ namespace sprout {
 				return sprout::math::detail::fmod(static_cast<type>(x), static_cast<type>(y));
 			}
 		}	// namespace detail
-
+		//
+		// issue:
+		//	fmod(-NaN, -NaN) returns -NaN .
+		//		# returns +NaN . ( same as fmod(+NaN, +NaN) )
+		//
 		using sprout::math::detail::fmod;
 	}	// namespace math
 
