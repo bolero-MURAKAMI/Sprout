@@ -1,7 +1,6 @@
 #ifndef SPROUT_MATH_FLOAT2_SIG_EXP_HPP
 #define SPROUT_MATH_FLOAT2_SIG_EXP_HPP
 
-#include <climits>
 #include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>

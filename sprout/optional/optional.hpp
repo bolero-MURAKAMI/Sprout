@@ -38,6 +38,7 @@ namespace sprout {
 			init = false;
 		}
 	public:
+		// 20.5.4.1, constructors
 		SPROUT_CONSTEXPR optional() SPROUT_NOEXCEPT
 			: init(false)
 		{}
@@ -61,7 +62,7 @@ namespace sprout {
 			: init(v.is_initialized())
 			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
-
+		// 20.5.4.3, assignment
 		optional& operator=(sprout::nullopt_t v) SPROUT_NOEXCEPT {
 			assign(v);
 			return *this;
@@ -106,14 +107,14 @@ namespace sprout {
 		void reset(argument_type v) {
 			assign(v);
 		}
-
+		// 20.5.4.4, swap
 		void swap(optional& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(val, other.val)))
 		{
 			sprout::swap(init, other.init);
 			sprout::swap(val, other.val);
 		}
-
+		// 20.5.4.5, observers
 		SPROUT_CONSTEXPR reference_const_type operator*() const {
 			return (SPROUT_ASSERT(is_initialized()), true) ? val.get()
 				: val.get()
