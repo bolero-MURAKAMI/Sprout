@@ -324,20 +324,6 @@ namespace sprout {
 			SPROUT_CONSTEXPR tuple(sprout::tuples::tuple<UTypes...>&& t)
 				: impl_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...>&&>(t))
 			{}
-//			template<
-//				typename... UTypes,
-//				typename = typename std::enable_if<
-//					sizeof...(Types) == 2 && sprout::tpp::all_of<sprout::is_convert_constructible<Types, UTypes const&>...>::value
-//				>::type
-//			>
-//			SPROUT_CONSTEXPR tuple(sprout::pair<UTypes...> const& t);
-//			template<
-//				typename... UTypes,
-//				typename = typename std::enable_if<
-//					sizeof...(Types) == 2 && sprout::tpp::all_of<sprout::is_convert_constructible<Types, UTypes&&>...>::value
-//				>::type
-//			>
-//			SPROUT_CONSTEXPR tuple(sprout::pair<UTypes...>&& t);
 			template<
 				typename UType1, typename UType2,
 				typename = typename std::enable_if<
@@ -380,20 +366,6 @@ namespace sprout {
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::tuples::tuple<UTypes...>&& t)
 				: impl_type(static_cast<sprout::tuples::detail::tuple_impl<0, UTypes...>&&>(t))
 			{}
-//			template<
-//				typename... UTypes,
-//				typename = typename std::enable_if<
-//					is_clvref_flexibly_convert_constructible<UTypes...>::value
-//				>::type
-//			>
-//			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...> const& t);
-//			template<
-//				typename... UTypes,
-//				typename = typename std::enable_if<
-//					is_rvref_flexibly_convert_constructible<UTypes...>::value
-//				>::type
-//			>
-//			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UTypes...>&& t);
 			template<
 				typename UType1, typename UType2,
 				typename = typename std::enable_if<
