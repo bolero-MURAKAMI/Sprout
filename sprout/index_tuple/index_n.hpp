@@ -10,7 +10,15 @@
 namespace sprout {
 	//
 	// index_n
+	// uindex_n
 	//
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<sprout::index_t I, std::size_t N>
+	using index_n = sprout::integer_n<sprout::index_t, I, N>;
+
+	template<sprout::uindex_t I, std::size_t N>
+	using uindex_n = sprout::integer_n<sprout::uindex_t, I, N>;
+#else	// #if SPROUT_USE_TEMPLATE_ALIASES
 	template<sprout::index_t I, std::size_t N>
 	struct index_n
 		: public sprout::enable_make_indexes<
@@ -18,9 +26,7 @@ namespace sprout {
 				::template transfer<sprout::index_tuple<> >
 		>
 	{};
-	//
-	// uindex_n
-	//
+
 	template<sprout::uindex_t I, std::size_t N>
 	struct uindex_n
 		: public sprout::enable_make_indexes<
@@ -28,6 +34,7 @@ namespace sprout {
 				::template transfer<sprout::uindex_tuple<> >
 		>
 	{};
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_INDEX_N_HPP
