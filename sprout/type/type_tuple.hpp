@@ -22,10 +22,10 @@ namespace sprout {
 			typedef sprout::types::index_iterator<type_tuple, 0> begin;
 			typedef sprout::types::index_iterator<type_tuple, sizeof...(Types)> end;
 		public:
-			SPROUT_STATIC_CONSTEXPR std::size_t size = sizeof...(Types);
+			SPROUT_STATIC_CONSTEXPR std::size_t static_size = sizeof...(Types);
 		};
 		template<typename... Types>
-		SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::types::type_tuple<Types...>::size;
+		SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::types::type_tuple<Types...>::static_size;
 
 		//
 		// rebind_types

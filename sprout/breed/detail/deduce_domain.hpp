@@ -215,7 +215,7 @@ namespace sprout {
 			template<typename... Args>
 			struct deduce_domain
 				: public sprout::breed::detail::deduce_domain_impl<
-					typename sprout::make_index_tuple<sizeof...(Args)>::type,
+					typename sprout::index_pack<Args...>::type,
 					Args...
 				>
 			{};

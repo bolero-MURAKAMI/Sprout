@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple/integer_seq.hpp>
+#include <sprout/index_tuple/integer_sequence.hpp>
 #include <sprout/index_tuple/enable_make_indexes.hpp>
 
 namespace sprout {
@@ -18,15 +18,15 @@ namespace sprout {
 		template<typename T, typename Seq, T Next>
 		struct integer_range_next_even;
 		template<typename T, T... Is, T Next>
-		struct integer_range_next_even<T, sprout::integer_seq<T, Is...>, Next>
-			: public sprout::integer_seq<T, Is..., (Is + Next)...>
+		struct integer_range_next_even<T, sprout::integer_sequence<T, Is...>, Next>
+			: public sprout::integer_sequence<T, Is..., (Is + Next)...>
 		{};
 
 		template<typename T, typename Seq, T Next, T Tail>
 		struct integer_range_next_odd;
 		template<typename T, T... Is, T Next, T Tail>
-		struct integer_range_next_odd<T, sprout::integer_seq<T, Is...>, Next, Tail>
-			: public sprout::integer_seq<T, Is..., (Is + Next)..., Tail>
+		struct integer_range_next_odd<T, sprout::integer_sequence<T, Is...>, Next, Tail>
+			: public sprout::integer_sequence<T, Is..., (Is + Next)..., Tail>
 		{};
 
 		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N, typename Enable = void>
@@ -36,14 +36,14 @@ namespace sprout {
 			T, First, Step, N,
 			typename std::enable_if<(N == 0)>::type
 		>
-			: public sprout::integer_seq<T>
+			: public sprout::integer_sequence<T>
 		{};
 		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N>
 		struct integer_range_impl<
 			T, First, Step, N,
 			typename std::enable_if<(N == 1)>::type
 		>
-			: public sprout::integer_seq<T, First>
+			: public sprout::integer_sequence<T, First>
 		{};
 		template<typename T, T First, typename std::make_signed<T>::type Step, typename std::make_unsigned<T>::type N>
 		struct integer_range_impl<

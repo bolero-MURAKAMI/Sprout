@@ -721,7 +721,7 @@ namespace sprout {
 			make(Args&&... args) {
 				return make_impl(
 					length(args...),
-					sprout::make_index_tuple<sizeof...(Args)>::make(),
+					sprout::index_pack<Args...>::make(),
 					sprout::forward<Args>(args)...
 					);
 			}
@@ -730,7 +730,7 @@ namespace sprout {
 			make(typename copied_type::size_type size, Args&&... args) {
 				return make_impl(
 					size,
-					sprout::make_index_tuple<sizeof...(Args)>::make(),
+					sprout::index_pack<Args...>::make(),
 					sprout::forward<Args>(args)...
 					);
 			}

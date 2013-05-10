@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/index_tuple/index_tuple.hpp>
 #include <sprout/index_tuple/integer_n.hpp>
 #include <sprout/index_tuple/enable_make_indexes.hpp>
 

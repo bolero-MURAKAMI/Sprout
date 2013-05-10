@@ -181,7 +181,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR auto operator()(CVArg& arg, sprout::tuples::tuple<Args...>& tuple) const volatile
 			-> decltype(arg(std::declval<Args>()...))
 			{
-				return call(arg, tuple, sprout::make_index_tuple<sizeof...(Args)>::make());
+				return call(arg, tuple, sprout::index_pack<Args...>::make());
 			}
 		};
 		template<typename Arg>
@@ -277,7 +277,7 @@ namespace sprout {
 	{
 	private:
 		typedef binder self_type;
-		typedef typename sprout::make_index_tuple<sizeof...(BoundArgs)>::type bound_indexes;
+		typedef typename sprout::index_pack<BoundArgs...>::type bound_indexes;
 	private:
 		Functor f_;
 		sprout::tuples::tuple<BoundArgs...> bound_args_;
@@ -385,7 +385,7 @@ namespace sprout {
 	class bind_result<Result, Functor(BoundArgs...)> {
 	private:
 		typedef bind_result self_type;
-		typedef typename sprout::make_index_tuple<sizeof...(BoundArgs)>::type bound_indexes;
+		typedef typename sprout::index_pack<BoundArgs...>::type bound_indexes;
 	private:
 		template<typename Res>
 		struct enable_if_void

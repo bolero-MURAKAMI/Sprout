@@ -37,8 +37,8 @@ namespace sprout {
 		: pair(
 			first_args,
 			second_args,
-			sprout::make_index_tuple<sizeof...(Args1)>::make(),
-			sprout::make_index_tuple<sizeof...(Args2)>::make()
+			sprout::index_pack<Args1...>::make(),
+			sprout::index_pack<Args2...>::make()
 			)
 	{}
 #endif	// #if SPROUT_USE_DELEGATING_CONSTRUCTORS

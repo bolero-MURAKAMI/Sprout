@@ -3,7 +3,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple/integer_seq.hpp>
+#include <sprout/index_tuple/integer_sequence.hpp>
 
 namespace sprout {
 	//
@@ -13,7 +13,7 @@ namespace sprout {
 	typedef std::ptrdiff_t index_t;
 	template<sprout::index_t... Indexes>
 	struct index_tuple
-		: public sprout::integer_seq<sprout::index_t, Indexes...>
+		: public sprout::integer_sequence<sprout::index_t, Indexes...>
 	{
 	public:
 		typedef index_tuple type;
@@ -30,7 +30,7 @@ namespace sprout {
 	typedef std::size_t uindex_t;
 	template<sprout::uindex_t... Indexes>
 	struct uindex_tuple
-		: public sprout::integer_seq<sprout::uindex_t, Indexes...>
+		: public sprout::integer_sequence<sprout::uindex_t, Indexes...>
 	{
 	public:
 		typedef uindex_tuple type;

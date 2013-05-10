@@ -55,7 +55,7 @@ namespace sprout {
 				}
 			public:
 				static SPROUT_CONSTEXPR type call(src_type const& e) {
-					return call_impl(sprout::make_index_tuple<sizeof...(Args)>::make());
+					return call_impl(sprout::index_pack<Args...>::make());
 				}
 			};
 			template<typename Tag, typename... Args>
@@ -74,7 +74,7 @@ namespace sprout {
 				}
 			public:
 				static SPROUT_CONSTEXPR type call(src_type const& e) {
-					return call_impl(sprout::make_index_tuple<sizeof...(Args)>::make());
+					return call_impl(sprout::index_pack<Args...>::make());
 				}
 			};
 		}	// namespace detail

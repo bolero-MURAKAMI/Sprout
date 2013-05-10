@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple/integer_seq.hpp>
+#include <sprout/index_tuple/integer_sequence.hpp>
 #include <sprout/index_tuple/enable_make_indexes.hpp>
 
 namespace sprout {
@@ -15,15 +15,15 @@ namespace sprout {
 		template<typename T, typename Seq>
 		struct integer_n_next_even;
 		template<typename T, T... Is>
-		struct integer_n_next_even<T, sprout::integer_seq<T, Is...> >
-			: public sprout::integer_seq<T, Is..., Is...>
+		struct integer_n_next_even<T, sprout::integer_sequence<T, Is...> >
+			: public sprout::integer_sequence<T, Is..., Is...>
 		{};
 
 		template<typename T, typename Seq, T Tail>
 		struct integer_n_next_even_odd;
 		template<typename T, T... Is, T Tail>
-		struct integer_n_next_even_odd<T, sprout::integer_seq<T, Is...>, Tail>
-			: public sprout::integer_seq<T, Is..., Is..., Tail>
+		struct integer_n_next_even_odd<T, sprout::integer_sequence<T, Is...>, Tail>
+			: public sprout::integer_sequence<T, Is..., Is..., Tail>
 		{};
 
 		template<typename T, T I, std::size_t N, typename Enable = void>
@@ -33,14 +33,14 @@ namespace sprout {
 			T, I, N,
 			typename std::enable_if<(N == 0)>::type
 		>
-			: public sprout::integer_seq<T>
+			: public sprout::integer_sequence<T>
 		{};
 		template<typename T, T I, std::size_t N>
 		struct integer_n_impl<
 			T, I, N,
 			typename std::enable_if<(N == 1)>::type
 		>
-			: public sprout::integer_seq<T, I>
+			: public sprout::integer_sequence<T, I>
 		{};
 		template<typename T, T I, std::size_t N>
 		struct integer_n_impl<

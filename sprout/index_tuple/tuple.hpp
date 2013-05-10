@@ -5,7 +5,7 @@
 #include <tuple>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple/integer_seq.hpp>
+#include <sprout/index_tuple/integer_sequence.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
 #include <sprout/utility/pack.hpp>
 
@@ -18,14 +18,14 @@ namespace std {
 	// tuple_size
 	//
 	template<typename T, T... Is>
-	struct tuple_size<sprout::integer_seq<T, Is...> >
+	struct tuple_size<sprout::integer_sequence<T, Is...> >
 		: public std::integral_constant<std::size_t, sizeof...(Is)>
 	{};
 	//
 	// tuple_element
 	//
 	template<std::size_t I, typename T, T... Is>
-	struct tuple_element<I, sprout::integer_seq<T, Is...> > {
+	struct tuple_element<I, sprout::integer_sequence<T, Is...> > {
 		static_assert(I < sizeof...(Is), "tuple_element<>: index out of range");
 	public:
 		typedef typename sprout::tppack_c_at<I, T, Is...>::type type;
@@ -36,14 +36,14 @@ namespace std {
 	//
 	template<sprout::index_t... Indexes>
 	struct tuple_size<sprout::index_tuple<Indexes...> >
-		: public std::tuple_size<sprout::integer_seq<sprout::index_t, Indexes...> >
+		: public std::tuple_size<sprout::integer_sequence<sprout::index_t, Indexes...> >
 	{};
 	//
 	// tuple_element
 	//
 	template<std::size_t I, sprout::index_t... Indexes>
 	struct tuple_element<I, sprout::index_tuple<Indexes...> >
-		: public std::tuple_element<I, sprout::integer_seq<sprout::index_t, Indexes...> >
+		: public std::tuple_element<I, sprout::integer_sequence<sprout::index_t, Indexes...> >
 	{};
 
 	//
@@ -51,14 +51,14 @@ namespace std {
 	//
 	template<sprout::uindex_t... Indexes>
 	struct tuple_size<sprout::uindex_tuple<Indexes...> >
-		: public std::tuple_size<sprout::integer_seq<sprout::uindex_t, Indexes...> >
+		: public std::tuple_size<sprout::integer_sequence<sprout::uindex_t, Indexes...> >
 	{};
 	//
 	// tuple_element
 	//
 	template<std::size_t I, sprout::uindex_t... Indexes>
 	struct tuple_element<I, sprout::uindex_tuple<Indexes...> >
-		: public std::tuple_element<I, sprout::integer_seq<sprout::uindex_t, Indexes...> >
+		: public std::tuple_element<I, sprout::integer_sequence<sprout::uindex_t, Indexes...> >
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop
@@ -70,10 +70,10 @@ namespace sprout {
 	// tuple_get
 	//
 	template<std::size_t I, typename T, T... Is>
-	inline SPROUT_CONSTEXPR typename std::tuple_element<I, sprout::integer_seq<T, Is...> >::type
-	tuple_get(sprout::integer_seq<T, Is...>) SPROUT_NOEXCEPT {
+	inline SPROUT_CONSTEXPR typename std::tuple_element<I, sprout::integer_sequence<T, Is...> >::type
+	tuple_get(sprout::integer_sequence<T, Is...>) SPROUT_NOEXCEPT {
 		static_assert(I < sizeof...(Is), "tuple_get: index out of range");
-		typedef typename std::tuple_element<I, sprout::integer_seq<T, Is...> >::type type;
+		typedef typename std::tuple_element<I, sprout::integer_sequence<T, Is...> >::type type;
 		return type();
 	}
 
