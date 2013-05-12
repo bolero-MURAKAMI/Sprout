@@ -61,13 +61,26 @@ namespace sprout {
 				I
 			>
 		{};
+
+		template<typename T, T I, std::size_t N>
+		struct integer_n
+			: public sprout::enable_make_indexes<
+				sprout::detail::integer_n_impl<T, I, N>
+			>
+		{};
 	}	// namespace detail
+	//
+	// integer_range
+	//
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<typename T, T I, std::size_t N>
+	using integer_n = typename sprout::detail::integer_n<T, I, N>::type;
+#else	// #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T, T I, std::size_t N>
 	struct integer_n
-		: public sprout::enable_make_indexes<
-			sprout::detail::integer_n_impl<T, I, N>
-		>
+		: public sprout::detail::integer_n<T, I, N>
 	{};
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_INTEGER_N_HPP

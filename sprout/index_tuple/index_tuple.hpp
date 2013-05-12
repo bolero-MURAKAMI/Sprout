@@ -27,6 +27,10 @@ namespace sprout {
 		struct rebind
 			: public index_tuple<J...>
 		{};
+	public:
+		static SPROUT_CONSTEXPR type make() SPROUT_NOEXCEPT {
+			return type();
+		}
 	};
 
 	template<sprout::uindex_t... Indexes>
@@ -39,6 +43,10 @@ namespace sprout {
 		struct rebind
 			: public uindex_tuple<J...>
 		{};
+	public:
+		static SPROUT_CONSTEXPR type make() SPROUT_NOEXCEPT {
+			return type();
+		}
 	};
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout

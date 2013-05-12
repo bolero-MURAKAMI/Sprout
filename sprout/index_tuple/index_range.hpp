@@ -4,7 +4,6 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
 #include <sprout/index_tuple/integer_range.hpp>
-#include <sprout/index_tuple/enable_make_indexes.hpp>
 
 namespace sprout {
 	//
@@ -29,10 +28,8 @@ namespace sprout {
 		typename std::make_signed<sprout::index_t>::type Step = sprout::detail::integer_range_default_step<sprout::index_t, First, Last>::value
 	>
 	struct index_range
-		: public sprout::enable_make_indexes<
-			typename sprout::integer_range<sprout::index_t, First, Last, Step>::type
-				::template transfer<sprout::index_tuple<> >
-		>
+		: public typename sprout::integer_range<sprout::index_t, First, Last, Step>::type
+			::template transfer<sprout::index_tuple<> >
 	{};
 
 	template<
@@ -40,10 +37,8 @@ namespace sprout {
 		typename std::make_signed<sprout::uindex_t>::type Step = sprout::detail::integer_range_default_step<sprout::uindex_t, First, Last>::value
 	>
 	struct uindex_range
-		: public sprout::enable_make_indexes<
-			typename sprout::integer_range<sprout::uindex_t, First, Last, Step>::type
-				::template transfer<sprout::uindex_tuple<> >
-		>
+		: public typename sprout::integer_range<sprout::uindex_t, First, Last, Step>::type
+			::template transfer<sprout::uindex_tuple<> >
 	{};
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout

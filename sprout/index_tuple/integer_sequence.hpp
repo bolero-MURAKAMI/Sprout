@@ -17,6 +17,10 @@ namespace sprout {
 			: public integer_sequence<T, J...>
 		{};
 	public:
+		static SPROUT_CONSTEXPR type make() SPROUT_NOEXCEPT {
+			return type();
+		}
+	public:
 		typedef T value_type;
 		template<typename Seq>
 		struct transfer
@@ -25,7 +29,7 @@ namespace sprout {
 	public:
 		SPROUT_STATIC_CONSTEXPR std::size_t static_size = sizeof...(Is);
 	public:
-		static SPROUT_CONSTEXPR size_t size() noexcept {
+		static SPROUT_CONSTEXPR size_t size() SPROUT_NOEXCEPT {
 			return static_size;
 		}
 	};
