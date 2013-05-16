@@ -8,8 +8,8 @@
 #include <sprout/iterator/type_traits/category.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/utility/pair/pair.hpp>
-#include <sprout/algorithm/min.hpp>
 #include <sprout/functional/less.hpp>
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace detail {
@@ -79,7 +79,7 @@ namespace sprout {
 				: first1 == last1 ? -1
 				: sprout::detail::tristate_lexicographical_compare_impl_ra(
 					first1, last1, first2, last2, comp,
-					sprout::min(sprout::distance(first1, last1), sprout::distance(first2, last2))
+					NS_SSCRISK_CEL_OR_SPROUT::min(sprout::distance(first1, last1), sprout::distance(first2, last2))
 					)
 				;
 		}
@@ -243,7 +243,7 @@ namespace sprout {
 				: first1 == last1 || (!comp(*first1, delim1) && !comp(delim1, *first1)) ? -1
 				: sprout::detail::tristate_lexicographical_compare_2_impl_ra(
 					first1, last1, delim1, first2, last2, delim2, comp,
-					sprout::min(sprout::distance(first1, last1), sprout::distance(first2, last2))
+					NS_SSCRISK_CEL_OR_SPROUT::min(sprout::distance(first1, last1), sprout::distance(first2, last2))
 					)
 				;
 		}
