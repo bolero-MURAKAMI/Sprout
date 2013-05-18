@@ -3,6 +3,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/move.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -17,10 +18,14 @@ namespace sprout {
 			typedef T const* const_pointer;
 			typedef T const* mutable_or_const_pointer;
 			typedef T const& param_type;
+			typedef T&& movable_param_type;
 			typedef T holder_type;
 		public:
 			static SPROUT_CONSTEXPR holder_type const& hold(param_type p) SPROUT_NOEXCEPT {
 				return p;
+			}
+			static SPROUT_CONSTEXPR holder_type&& hold(movable_param_type p) SPROUT_NOEXCEPT {
+				return sprout::move(p);
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type& r) {
 				return r;
@@ -46,10 +51,14 @@ namespace sprout {
 			typedef T const* const_pointer;
 			typedef T const* mutable_or_const_pointer;
 			typedef T const& param_type;
+			typedef T const&& movable_param_type;
 			typedef T holder_type;
 		public:
 			static SPROUT_CONSTEXPR holder_type const& hold(param_type p) SPROUT_NOEXCEPT {
-				return &p;
+				return p;
+			}
+			static SPROUT_CONSTEXPR holder_type const&& hold(movable_param_type p) SPROUT_NOEXCEPT {
+				return sprout::move(p);
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type& r) {
 				return *r;
@@ -75,6 +84,7 @@ namespace sprout {
 			typedef T const* const_pointer;
 			typedef T* mutable_or_const_pointer;
 			typedef T& param_type;
+			typedef T&& movable_param_type;
 			typedef T* holder_type;
 		public:
 			static SPROUT_CONSTEXPR holder_type hold(param_type p) SPROUT_NOEXCEPT {
@@ -98,6 +108,7 @@ namespace sprout {
 			typedef T const* const_pointer;
 			typedef T const* mutable_or_const_pointer;
 			typedef T const& param_type;
+			typedef T const&& movable_param_type;
 			typedef T const* holder_type;
 		public:
 			static SPROUT_CONSTEXPR holder_type hold(param_type p) SPROUT_NOEXCEPT {
@@ -130,11 +141,13 @@ namespace sprout {
 		typedef typename helper_type::const_pointer const_pointer;
 		typedef typename helper_type::mutable_or_const_pointer mutable_or_const_pointer;
 		typedef typename helper_type::param_type param_type;
+		typedef typename helper_type::movable_param_type movable_param_type;
 		typedef reference reference_type;
 		typedef mutable_or_const_reference reference_const_type;
 		typedef pointer pointer_type;
 		typedef mutable_or_const_pointer pointer_const_type;
 		typedef param_type argument_type;
+		typedef movable_param_type movable_argument_type;
 	private:
 		holder_type holder_;
 	public:
@@ -142,13 +155,23 @@ namespace sprout {
 			: holder_()
 		{}
 		SPROUT_CONSTEXPR value_holder(value_holder const&) = default;
+		SPROUT_CONSTEXPR value_holder(value_holder&&) = default;
 		explicit SPROUT_CONSTEXPR value_holder(param_type p)
 			: holder_(helper_type::hold(p))
 		{}
+		explicit SPROUT_CONSTEXPR value_holder(movable_argument_type p)
+			: holder_(helper_type::hold(sprout::move(p)))
+		{}
 
 		value_holder& operator=(value_holder const&) = default;
+		value_holder& operator=(value_holder&&) = default;
 		value_holder& operator=(param_type p) {
-			value_holder temp(p);
+			value_holder temp(helper_type::hold(p));
+			temp.swap(p);
+			return *this;
+		}
+		value_holder& operator=(movable_argument_type p) {
+			value_holder temp(helper_type::hold(sprout::move(p)));
 			temp.swap(p);
 			return *this;
 		}
