@@ -5,12 +5,15 @@
 #include <sprout/config.hpp>
 #include <sprout/string.hpp>
 #include <sprout/type_traits/identity.hpp>
+#include <sprout/type/void.hpp>
 
 namespace sprout {
 	namespace weed {
 		namespace detail {
 			template<typename T>
-			struct c_str_as_string;
+			struct c_str_as_string
+				: public sprout::identity<sprout::types::void_>
+			{};
 			template<typename T>
 			struct c_str_as_string<T const>
 				: public sprout::weed::detail::c_str_as_string<T>

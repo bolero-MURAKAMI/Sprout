@@ -16,6 +16,7 @@
 #include <sprout/weed/parser/lit.hpp>
 #include <sprout/weed/traits/type/is_c_str.hpp>
 #include <sprout/weed/traits/type/is_string.hpp>
+#include <sprout/weed/detail/c_str_as_string.hpp>
 
 namespace sprout {
 	namespace weed {
