@@ -112,6 +112,47 @@ namespace sprout {
 		};
 
 		//
+		// char_range_p
+		//
+		template<typename T>
+		struct char_range_p
+			: public sprout::weed::parser_base
+		{
+		public:
+			template<typename Context, typename Iterator>
+			struct attribute
+				: public sprout::identity<typename std::iterator_traits<Iterator>::value_type>
+			{};
+			template<typename Context, typename Iterator>
+			struct result
+				: public sprout::identity<sprout::weed::parser_result<Iterator, typename attribute<Context, Iterator>::type> >
+			{};
+		private:
+			T f_;
+			T l_;
+		public:
+			char_range_p() = default;
+			SPROUT_CONSTEXPR char_range_p(T const& f, T const& l)
+				: f_(f), l_(l)
+			{}
+			template<typename Context, typename Iterator>
+			SPROUT_CONSTEXPR typename result<Context, Iterator>::type operator()(
+				Iterator first,
+				Iterator last,
+				Context const&
+				) const
+			{
+				typedef typename result<Context, Iterator>::type result_type;
+				typedef typename attribute<Context, Iterator>::type attribute_type;
+				typedef typename std::iterator_traits<Iterator>::value_type elem_type;
+				return first != last && *first >= elem_type(f_) && *first <= elem_type(l_)
+					? result_type(true, sprout::next(first), *first)
+					: result_type(false, first, attribute_type())
+					;
+			}
+		};
+
+		//
 		// any_char_p
 		//
 		struct any_char_p
@@ -142,8 +183,20 @@ namespace sprout {
 					;
 			}
 			template<typename T>
-			SPROUT_CONSTEXPR sprout::weed::char_p<T> operator()(T const& t) const {
+			SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::weed::traits::is_char_type<T>::value,
+				sprout::weed::char_p<T>
+			>::type
+			operator()(T const& t) const {
 				return sprout::weed::char_p<T>(t);
+			}
+			template<typename T>
+			SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::weed::traits::is_char_type<T>::value,
+				sprout::weed::char_range_p<T>
+			>::type
+			operator()(T const& f, T const& l) const {
+				return sprout::weed::char_range_p<T>(f, l);
 			}
 		};
 		//

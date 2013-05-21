@@ -1,9 +1,13 @@
 #ifndef SPROUT_UTILITY_VALUE_HOLDER_VALUE_HOLDER_HPP
 #define SPROUT_UTILITY_VALUE_HOLDER_VALUE_HOLDER_HPP
 
+#include <type_traits>
+#include <initializer_list>
 #include <sprout/config.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/optional/in_place.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -161,6 +165,20 @@ namespace sprout {
 		{}
 		explicit SPROUT_CONSTEXPR value_holder(movable_argument_type p)
 			: holder_(helper_type::hold(sprout::move(p)))
+		{}
+		template<
+			typename... Args,
+			typename = typename std::enable_if<std::is_constructible<T, Args&&...>::value>::type
+		>
+		explicit SPROUT_CONSTEXPR value_holder(sprout::in_place_t, Args&&... args)
+			: holder_(sprout::forward<Args>(args)...)
+		{}
+		template<
+			typename U, typename... Args,
+			typename = typename std::enable_if<std::is_constructible<T, std::initializer_list<U>&, Args&&...>::value>::type
+		>
+		explicit SPROUT_CONSTEXPR value_holder(sprout::in_place_t, std::initializer_list<U> il, Args&&... args)
+			: holder_(il, sprout::forward<Args>(args)...)
 		{}
 
 		value_holder& operator=(value_holder const&) = default;
