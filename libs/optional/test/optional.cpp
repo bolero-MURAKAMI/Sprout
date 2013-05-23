@@ -18,27 +18,58 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(!opt3);
 			}
 			{
-				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(1234);
-				TESTSPR_BOTH_ASSERT(!!opt3);
-			}
-			{
 				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(sprout::nullopt);
 				TESTSPR_BOTH_ASSERT(!opt3);
 			}
 			{
-				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(sprout::nullopt);
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(opt1);
+				TESTSPR_BOTH_ASSERT(!!opt3);
+				TESTSPR_BOTH_ASSERT(opt3.get() == 1234);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(sprout::optional<int>(1234));
+				TESTSPR_BOTH_ASSERT(!!opt3);
+				TESTSPR_BOTH_ASSERT(opt3.get() == 1234);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto v = 1234;
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(v);
+				TESTSPR_BOTH_ASSERT(!!opt3);
+				TESTSPR_BOTH_ASSERT(opt3.get() == 1234);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(1234);
+				TESTSPR_BOTH_ASSERT(!!opt3);
+				TESTSPR_BOTH_ASSERT(opt3.get() == 1234);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(sprout::in_place, 1234);
+				TESTSPR_BOTH_ASSERT(!!opt3);
+				TESTSPR_BOTH_ASSERT(opt3.get() == 1234);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto v = 1234;
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(false, v);
 				TESTSPR_BOTH_ASSERT(!opt3);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(false, 1234);
 				TESTSPR_BOTH_ASSERT(!opt3);
-
-				SPROUT_STATIC_CONSTEXPR auto opt4 = sprout::optional<int>(true, 1234);
-				TESTSPR_BOTH_ASSERT(!!opt4);
-				TESTSPR_BOTH_ASSERT(opt4.get() == 1234);
 			}
 			{
-				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(opt1);
+				SPROUT_STATIC_CONSTEXPR auto v = 1234;
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(true, v);
+				TESTSPR_BOTH_ASSERT(!!opt3);
+				TESTSPR_BOTH_ASSERT(opt3.get() == 1234);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(true, 1234);
+				TESTSPR_BOTH_ASSERT(!!opt3);
+				TESTSPR_BOTH_ASSERT(opt3.get() == 1234);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto v = sprout::optional<unsigned>(1234);
+				SPROUT_STATIC_CONSTEXPR auto opt3 = sprout::optional<int>(v);
 				TESTSPR_BOTH_ASSERT(!!opt3);
 				TESTSPR_BOTH_ASSERT(opt3.get() == 1234);
 			}
@@ -56,19 +87,47 @@ namespace testspr {
 			}
 			{
 				auto opt3 = sprout::optional<int>();
-				opt3 = 1234;
-				TESTSPR_ASSERT(!!opt3);
-				TESTSPR_ASSERT(opt3.get() == 1234);
-			}
-			{
-				auto opt3 = sprout::optional<int>();
 				opt3 = opt1;
 				TESTSPR_ASSERT(!!opt3);
 				TESTSPR_ASSERT(opt3.get() == 1234);
 			}
 			{
 				auto opt3 = sprout::optional<int>();
+				opt3 = sprout::optional<int>(1234);
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				auto v = 1234;
+				opt3 = v;
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				opt3 = 1234;
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				auto v = sprout::optional<unsigned>(1234);
+				opt3 = v;
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
 				opt3 = sprout::optional<unsigned>(1234);
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+			}
+
+			// emplace
+			{
+				auto opt3 = sprout::optional<int>();
+				opt3.emplace(1234);
 				TESTSPR_ASSERT(!!opt3);
 				TESTSPR_ASSERT(opt3.get() == 1234);
 			}
@@ -81,13 +140,33 @@ namespace testspr {
 			}
 			{
 				auto opt3 = sprout::optional<int>();
+				opt3.assign(opt1);
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				opt3.assign(sprout::optional<int>(1234));
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				auto v = 1234;
+				opt3.assign(v);
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
 				opt3.assign(1234);
 				TESTSPR_ASSERT(!!opt3);
 				TESTSPR_ASSERT(opt3.get() == 1234);
 			}
 			{
 				auto opt3 = sprout::optional<int>();
-				opt3.assign(opt1);
+				auto v = sprout::optional<unsigned>(1234);
+				opt3.assign(v);
 				TESTSPR_ASSERT(!!opt3);
 				TESTSPR_ASSERT(opt3.get() == 1234);
 			}
@@ -108,6 +187,13 @@ namespace testspr {
 				auto opt3 = sprout::optional<int>(1234);
 				opt3.reset(sprout::nullopt);
 				TESTSPR_ASSERT(!opt3);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				auto v = 1234;
+				opt3.reset(v);
+				TESTSPR_ASSERT(!!opt3);
+				TESTSPR_ASSERT(opt3.get() == 1234);
 			}
 			{
 				auto opt3 = sprout::optional<int>();
@@ -132,40 +218,6 @@ namespace testspr {
 				TESTSPR_ASSERT(!opt3);
 				TESTSPR_ASSERT(!!opt4);
 				TESTSPR_ASSERT(opt4.get() == 1234);
-			}
-
-			// operator*
-			TESTSPR_BOTH_ASSERT(*opt1 == 1234);
-			{
-				auto opt3 = sprout::optional<int>(1234);
-				TESTSPR_ASSERT(*opt3 == 1234);
-
-				*opt3 = 12345;
-				TESTSPR_ASSERT(*opt3 == 12345);
-			}
-
-			// get
-			TESTSPR_BOTH_ASSERT(opt1.get() == 1234);
-			{
-				auto opt3 = sprout::optional<int>(1234);
-				TESTSPR_ASSERT(opt3.get() == 1234);
-
-				opt3.get() = 12345;
-				TESTSPR_ASSERT(opt3.get() == 12345);
-			}
-
-			// get_value_or
-			TESTSPR_BOTH_ASSERT(opt1.get_value_or(12345) == 1234);
-			TESTSPR_BOTH_ASSERT(opt2.get_value_or(12345) == 12345);
-			{
-				auto opt3 = sprout::optional<int>(1234);
-				int v = 12345;
-				TESTSPR_ASSERT(opt3.get_value_or(v) == 1234);
-			}
-			{
-				auto opt3 = sprout::optional<int>();
-				int v = 12345;
-				TESTSPR_ASSERT(opt3.get_value_or(v) == 12345);
 			}
 
 			// operator->
@@ -196,6 +248,64 @@ namespace testspr {
 
 				opt3.get() = 12345;
 				TESTSPR_ASSERT(*opt3.get_ptr() == 12345);
+			}
+
+			// operator*
+			TESTSPR_BOTH_ASSERT(*opt1 == 1234);
+			{
+				auto opt3 = sprout::optional<int>(1234);
+				TESTSPR_ASSERT(*opt3 == 1234);
+
+				*opt3 = 12345;
+				TESTSPR_ASSERT(*opt3 == 12345);
+			}
+
+			// value
+			TESTSPR_BOTH_ASSERT(opt1.value() == 1234);
+			{
+				auto opt3 = sprout::optional<int>(1234);
+				TESTSPR_ASSERT(opt3.value() == 1234);
+
+				opt3.value() = 12345;
+				TESTSPR_ASSERT(opt3.value() == 12345);
+			}
+
+			// get
+			TESTSPR_BOTH_ASSERT(opt1.get() == 1234);
+			{
+				auto opt3 = sprout::optional<int>(1234);
+				TESTSPR_ASSERT(opt3.get() == 1234);
+
+				opt3.get() = 12345;
+				TESTSPR_ASSERT(opt3.get() == 12345);
+			}
+
+			// value_or
+			TESTSPR_BOTH_ASSERT(opt1.value_or(12345) == 1234);
+			TESTSPR_BOTH_ASSERT(opt2.value_or(12345) == 12345);
+			{
+				auto opt3 = sprout::optional<int>(1234);
+				int v = 12345;
+				TESTSPR_ASSERT(opt3.value_or(v) == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				int v = 12345;
+				TESTSPR_ASSERT(opt3.value_or(v) == 12345);
+			}
+
+			// get_value_or
+			TESTSPR_BOTH_ASSERT(opt1.get_value_or(12345) == 1234);
+			TESTSPR_BOTH_ASSERT(opt2.get_value_or(12345) == 12345);
+			{
+				auto opt3 = sprout::optional<int>(1234);
+				int v = 12345;
+				TESTSPR_ASSERT(opt3.get_value_or(v) == 1234);
+			}
+			{
+				auto opt3 = sprout::optional<int>();
+				int v = 12345;
+				TESTSPR_ASSERT(opt3.get_value_or(v) == 12345);
 			}
 
 			// operator bool

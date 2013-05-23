@@ -151,6 +151,23 @@ namespace sprout {
 			return *this;
 		}
 
+		template<
+			typename... Args,
+			typename = typename std::enable_if<std::is_constructible<T, Args&&...>::value>::type
+		>
+		void emplace(Args&&... args) {
+			optional temp(sprout::in_place, sprout::forward<Args>(args)...);
+			temp.swap(*this);
+		}
+		template<
+			typename U, typename... Args,
+			typename = typename std::enable_if<std::is_constructible<T, std::initializer_list<U>&, Args&&...>::value>::type
+		>
+		void emplace(std::initializer_list<U> il, Args&&... args) {
+			optional temp(sprout::in_place, il, sprout::forward<Args>(args)...);
+			temp.swap(*this);
+		}
+
 		void assign(sprout::nullopt_t) SPROUT_NOEXCEPT {
 			destroy();
 		}
