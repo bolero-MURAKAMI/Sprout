@@ -219,16 +219,16 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::complex<T> log10(sprout::complex<T> const& x) {
 		return sprout::log(x) / sprout::log(T(10));
 	}
+
+	//
+	// pow
+	//
 	namespace detail {
 		template<typename T>
 		inline SPROUT_CONSTEXPR sprout::complex<T> pow_impl(sprout::complex<T> const& t, T const& y) {
 			return sprout::polar(sprout::exp(y * t.real()), y * t.imag());
 		}
 	}	// namespace detail
-
-	//
-	// pow
-	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	pow(sprout::complex<T> const& x, T const& y) {
@@ -295,11 +295,6 @@ namespace sprout {
 			return sprout::detail::sqrt_impl_2_1(x, t, t / 2);
 		}
 	}	// namespace detail
-
-	//
-	// tan
-	// tanh
-	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	sqrt(sprout::complex<T> const& x) {
@@ -307,6 +302,11 @@ namespace sprout {
 			: sprout::detail::sqrt_impl_2(x, sprout::sqrt(2 * (sprout::abs(x) + sprout::abs(x.real()))))
 			;
 	}
+
+	//
+	// tan
+	// tanh
+	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	tan(sprout::complex<T> const& x) {

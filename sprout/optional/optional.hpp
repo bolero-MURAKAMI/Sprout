@@ -294,7 +294,7 @@ namespace sprout {
 				;
 		}
 
-		SPROUT_CONSTEXPR operator bool() const SPROUT_NOEXCEPT {
+		SPROUT_EXPLICIT_CONVERSION SPROUT_CONSTEXPR operator bool() const SPROUT_NOEXCEPT {
 			return is_initialized();
 		}
 		SPROUT_CONSTEXPR bool operator!() const SPROUT_NOEXCEPT {

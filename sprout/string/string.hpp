@@ -493,12 +493,10 @@ namespace sprout {
 				sprout::make_index_tuple<N2>::make()
 				);
 		}
-#if SPROUT_USE_EXPLICIT_CONVERSION_OPERATORS
 		template<typename Allocator>
-		explicit operator std::basic_string<T, Traits, Allocator>() const {
+		SPROUT_EXPLICIT_CONVERSION operator std::basic_string<T, Traits, Allocator>() const {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
 		}
-#endif
 		pointer
 		c_array() SPROUT_NOEXCEPT {
 			return &elems[0];
