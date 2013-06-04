@@ -37,7 +37,7 @@ namespace sprout {
 		template<std::size_t I, typename... Types>
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&&
 		tuple_get(sprout::tuples::tuple<Types...>&& t) SPROUT_NOEXCEPT {
-			return sprout::forward<typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&&>(
+			return sprout::forward<typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type>(
 				sprout::tuples::tuple_get<I>(t)
 				);
 		}

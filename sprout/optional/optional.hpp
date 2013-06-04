@@ -5,10 +5,10 @@
 #include <initializer_list>
 #include <sprout/config.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
+#include <sprout/utility/value_holder/get.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
-#include <sprout/utility/as_const.hpp>
 #include <sprout/type_traits/is_convert_constructible.hpp>
 #include <sprout/none.hpp>
 #include <sprout/optional/nullopt.hpp>
@@ -28,16 +28,52 @@ namespace sprout {
 		typedef sprout::value_holder<type> holder_type;
 	public:
 		typedef typename holder_type::value_type value_type;
+		typedef typename holder_type::lvalue_reference lvalue_reference;
+		typedef typename holder_type::rvalue_reference rvalue_reference;
 		typedef typename holder_type::reference reference;
+		typedef typename holder_type::const_lvalue_reference const_lvalue_reference;
+		typedef typename holder_type::const_rvalue_reference const_rvalue_reference;
 		typedef typename holder_type::const_reference const_reference;
 		typedef typename holder_type::pointer pointer;
 		typedef typename holder_type::const_pointer const_pointer;
+		typedef typename holder_type::lvalue_reference_type lvalue_reference_type;
+		typedef typename holder_type::rvalue_reference_type rvalue_reference_type;
 		typedef typename holder_type::reference_type reference_type;
 		typedef typename holder_type::reference_const_type reference_const_type;
 		typedef typename holder_type::pointer_type pointer_type;
 		typedef typename holder_type::pointer_const_type pointer_const_type;
-		typedef typename holder_type::argument_type argument_type;
-		typedef typename holder_type::movable_argument_type movable_argument_type;
+	public:
+		static SPROUT_CONSTEXPR reference_type get(optional& t) SPROUT_NOEXCEPT {
+			return sprout::get(t.val);
+		}
+		static SPROUT_CONSTEXPR rvalue_reference_type get(optional&& t) SPROUT_NOEXCEPT {
+			return static_cast<rvalue_reference_type>(get(t));
+		}
+		static SPROUT_CONSTEXPR reference_const_type get(optional const& t) SPROUT_NOEXCEPT {
+			return sprout::get(t.val);
+		}
+		static SPROUT_CONSTEXPR pointer_type get_pointer(optional& t) SPROUT_NOEXCEPT {
+			return sprout::get_pointer(t.val);
+		}
+		static SPROUT_CONSTEXPR pointer_type get_pointer(optional&& t) SPROUT_NOEXCEPT {
+			return get_pointer(t);
+		}
+		static SPROUT_CONSTEXPR pointer_const_type get_pointer(optional const& t) SPROUT_NOEXCEPT {
+			return sprout::get_pointer(t.val);
+		}
+		static SPROUT_CONSTEXPR reference_type get_value_or(optional& t, reference_type v) SPROUT_NOEXCEPT {
+			return t.is_initialized() ? sprout::get(t.val)
+				: v
+				;
+		}
+		static SPROUT_CONSTEXPR rvalue_reference_type get_value_or(optional&& t, rvalue_reference_type v) SPROUT_NOEXCEPT {
+			return static_cast<rvalue_reference_type>(get_value_or(t, v));
+		}
+		static SPROUT_CONSTEXPR reference_const_type get_value_or(optional const& t, reference_const_type v) SPROUT_NOEXCEPT {
+			return t.is_initialized() ? sprout::get(t.val)
+				: v
+				;
+		}
 	private:
 		bool init;
 		holder_type val;
@@ -57,16 +93,10 @@ namespace sprout {
 			: init(v.init)
 			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
-		// constexpr support
-//		SPROUT_CONSTEXPR optional(optional&& v)
-//		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_constructible<T>::value)
-//			: init(v.init)
-//			, val(v.is_initialized() ? holder_type(sprout::move(*v)) : holder_type())
-//		{}
 		SPROUT_CONSTEXPR optional(optional&& v)
-		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_copy_constructible<T>::value)
+		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_constructible<T>::value)
 			: init(v.init)
-			, val(v.is_initialized() ? holder_type(*sprout::as_const(v)) : holder_type())
+			, val(v.is_initialized() ? holder_type(sprout::move(get(v))) : holder_type())
 		{}
 		SPROUT_CONSTEXPR optional(T const& v)
 			: init(true)
@@ -105,16 +135,10 @@ namespace sprout {
 			: init(v.is_initialized())
 			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
-		// constexpr support
-//		template<typename U>
-//		explicit SPROUT_CONSTEXPR optional(optional<U>&& v)
-//			: init(v.is_initialized())
-//			, val(v.is_initialized() ? holder_type(sprout::move(*v)) : holder_type())
-//		{}
 		template<typename U>
 		explicit SPROUT_CONSTEXPR optional(optional<U>&& v)
 			: init(v.is_initialized())
-			, val(v.is_initialized() ? holder_type(*sprout::as_const(v)) : holder_type())
+			, val(v.is_initialized() ? holder_type(sprout::move(optional<U>::get(v))) : holder_type())
 		{}
 		// 20.6.4.3, assignment
 		optional& operator=(sprout::nullopt_t v) SPROUT_NOEXCEPT {

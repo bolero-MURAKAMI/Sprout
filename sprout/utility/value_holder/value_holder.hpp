@@ -15,8 +15,12 @@ namespace sprout {
 		struct holder_helper {
 		public:
 			typedef T value_type;
-			typedef T& reference;
-			typedef T const& const_reference;
+			typedef T& lvalue_reference;
+			typedef T&& rvalue_reference;
+			typedef lvalue_reference reference;
+			typedef T const& const_lvalue_reference;
+			typedef T const&& const_rvalue_reference;
+			typedef const_lvalue_reference const_reference;
 			typedef T const& mutable_or_const_reference;
 			typedef T* pointer;
 			typedef T const* const_pointer;
@@ -48,8 +52,12 @@ namespace sprout {
 		struct holder_helper<T const> {
 		public:
 			typedef T value_type;
-			typedef T const& reference;
-			typedef T const& const_reference;
+			typedef T const& lvalue_reference;
+			typedef T const&& rvalue_reference;
+			typedef lvalue_reference reference;
+			typedef T const& const_lvalue_reference;
+			typedef T const&& const_rvalue_reference;
+			typedef const_lvalue_reference const_reference;
 			typedef T const& mutable_or_const_reference;
 			typedef T const* pointer;
 			typedef T const* const_pointer;
@@ -81,8 +89,12 @@ namespace sprout {
 		struct holder_helper<T&> {
 		public:
 			typedef T value_type;
-			typedef T& reference;
-			typedef T const& const_reference;
+			typedef T& lvalue_reference;
+			typedef T& rvalue_reference;
+			typedef lvalue_reference reference;
+			typedef T const& const_lvalue_reference;
+			typedef T const& const_rvalue_reference;
+			typedef const_lvalue_reference const_reference;
 			typedef T& mutable_or_const_reference;
 			typedef T* pointer;
 			typedef T const* const_pointer;
@@ -105,8 +117,12 @@ namespace sprout {
 		struct holder_helper<T const&> {
 		public:
 			typedef T value_type;
-			typedef T const& reference;
-			typedef T const& const_reference;
+			typedef T const& lvalue_reference;
+			typedef T const& rvalue_reference;
+			typedef lvalue_reference reference;
+			typedef T const& const_lvalue_reference;
+			typedef T const& const_rvalue_reference;
+			typedef const_lvalue_reference const_reference;
 			typedef T const& mutable_or_const_reference;
 			typedef T const* pointer;
 			typedef T const* const_pointer;
@@ -138,7 +154,11 @@ namespace sprout {
 		typedef typename helper_type::holder_type holder_type;
 	public:
 		typedef typename helper_type::value_type value_type;
+		typedef typename helper_type::lvalue_reference lvalue_reference;
+		typedef typename helper_type::rvalue_reference rvalue_reference;
 		typedef typename helper_type::reference reference;
+		typedef typename helper_type::const_lvalue_reference const_lvalue_reference;
+		typedef typename helper_type::const_rvalue_reference const_rvalue_reference;
 		typedef typename helper_type::const_reference const_reference;
 		typedef typename helper_type::mutable_or_const_reference mutable_or_const_reference;
 		typedef typename helper_type::pointer pointer;
@@ -146,12 +166,33 @@ namespace sprout {
 		typedef typename helper_type::mutable_or_const_pointer mutable_or_const_pointer;
 		typedef typename helper_type::param_type param_type;
 		typedef typename helper_type::movable_param_type movable_param_type;
+		typedef lvalue_reference lvalue_reference_type;
+		typedef rvalue_reference rvalue_reference_type;
 		typedef reference reference_type;
 		typedef mutable_or_const_reference reference_const_type;
 		typedef pointer pointer_type;
 		typedef mutable_or_const_pointer pointer_const_type;
 		typedef param_type argument_type;
 		typedef movable_param_type movable_argument_type;
+	public:
+		static SPROUT_CONSTEXPR reference get(value_holder& t) SPROUT_NOEXCEPT {
+			return helper_type::ref(t.holder_);
+		}
+		static SPROUT_CONSTEXPR rvalue_reference get(value_holder&& t) SPROUT_NOEXCEPT {
+			return static_cast<rvalue_reference>(get(t));
+		}
+		static SPROUT_CONSTEXPR mutable_or_const_reference get(value_holder const& t) SPROUT_NOEXCEPT {
+			return helper_type::ref(t.holder_);
+		}
+		static SPROUT_CONSTEXPR pointer get_pointer(value_holder& t) SPROUT_NOEXCEPT {
+			return helper_type::ptr(t.holder_);
+		}
+		static SPROUT_CONSTEXPR pointer get_pointer(value_holder&& t) SPROUT_NOEXCEPT {
+			return get_pointer(t);
+		}
+		static SPROUT_CONSTEXPR mutable_or_const_pointer get_pointer(value_holder const& t) SPROUT_NOEXCEPT {
+			return helper_type::ptr(t.holder_);
+		}
 	private:
 		holder_type holder_;
 	public:
@@ -160,7 +201,7 @@ namespace sprout {
 		{}
 		SPROUT_CONSTEXPR value_holder(value_holder const&) = default;
 		SPROUT_CONSTEXPR value_holder(value_holder&&) = default;
-		explicit SPROUT_CONSTEXPR value_holder(param_type p)
+		explicit SPROUT_CONSTEXPR value_holder(argument_type p)
 			: holder_(helper_type::hold(p))
 		{}
 		explicit SPROUT_CONSTEXPR value_holder(movable_argument_type p)
@@ -183,7 +224,7 @@ namespace sprout {
 
 		value_holder& operator=(value_holder const&) = default;
 		value_holder& operator=(value_holder&&) = default;
-		value_holder& operator=(param_type p) {
+		value_holder& operator=(argument_type p) {
 			value_holder temp(helper_type::hold(p));
 			temp.swap(p);
 			return *this;
@@ -217,6 +258,12 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR mutable_or_const_reference get() const {
 			return helper_type::ref(holder_);
+		}
+		reference value() {
+			return get();
+		}
+		SPROUT_CONSTEXPR mutable_or_const_reference value() const {
+			return get();
 		}
 
 		pointer operator->() SPROUT_NOEXCEPT {

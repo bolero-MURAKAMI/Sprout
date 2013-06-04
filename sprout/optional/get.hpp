@@ -9,52 +9,67 @@ namespace sprout {
 	// get
 	//
 	template<typename T>
-	inline SPROUT_CONSTEXPR typename sprout::optional<T>::reference_const_type
-	get(sprout::optional<T> const& x) {
-		return x.get();
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::reference_type
+	get(sprout::optional<T>& x) {
+		return sprout::optional<T>::get(x);
 	}
 	template<typename T>
-	inline typename sprout::optional<T>::reference_type
-	get(sprout::optional<T>& x) {
-		return x.get();
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::rvalue_reference_type
+	get(sprout::optional<T>&& x) {
+		return sprout::optional<T>::get(sprout::move(x));
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::reference_const_type
+	get(sprout::optional<T> const& x) {
+		return sprout::optional<T>::get(x);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::pointer_type
+	get(sprout::optional<T>* x) {
+		return sprout::optional<T>::get_pointer(*x);
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR typename sprout::optional<T>::pointer_const_type
 	get(sprout::optional<T> const* x) {
-		return x->get_pointer();
-	}
-	template<typename T>
-	inline typename sprout::optional<T>::pointer_type
-	get(sprout::optional<T>* x) {
-		return x->get_pointer();
+		return sprout::optional<T>::get_pointer(*x);
 	}
 
 	//
 	// get_pointer
 	//
 	template<typename T>
-	inline SPROUT_CONSTEXPR typename sprout::optional<T>::pointer_const_type
-	get_pointer(sprout::optional<T> const& x) {
-		return x.get_pointer();
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::pointer_type
+	get_pointer(sprout::optional<T>& x) {
+		return sprout::optional<T>::get_pointer(x);
 	}
 	template<typename T>
-	inline typename sprout::optional<T>::pointer_type
-	get_pointer(sprout::optional<T>& x) {
-		return x.get_pointer();
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::pointer_type
+	get_pointer(sprout::optional<T>&& x) {
+		return sprout::optional<T>::get_pointer(sprout::move(x));
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::pointer_const_type
+	get_pointer(sprout::optional<T> const& x) {
+		return sprout::optional<T>::get_pointer(x);
 	}
 
 	//
-	// get_optional_value_or
+	// get_value_or
 	//
 	template<typename T>
-	inline SPROUT_CONSTEXPR typename sprout::optional<T>::reference_const_type
-	get_optional_value_or(sprout::optional<T> const& x, typename sprout::optional<T>::reference_const_type v) {
-		return x.get_value_or(v);
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::reference_type
+	get_value_or(sprout::optional<T>& x, typename sprout::optional<T>::reference_type v) {
+		return sprout::optional<T>::get_value_or(x, v);
 	}
 	template<typename T>
-	inline typename sprout::optional<T>::reference_type
-	get_optional_value_or(sprout::optional<T>& x, typename sprout::optional<T>::reference_type v) {
-		return x.get_value_or(v);
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::rvalue_reference_type
+	get_value_or(sprout::optional<T>&& x, typename sprout::optional<T>::rvalue_reference_type v) {
+		return sprout::optional<T>::get_value_or(sprout::move(x), static_cast<typename sprout::optional<T>::rvalue_reference_type>(v));
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename sprout::optional<T>::reference_const_type
+	get_value_or(sprout::optional<T> const& x, typename sprout::optional<T>::reference_const_type v) {
+		return sprout::optional<T>::get_value_or(x, v);
 	}
 }	// namespace sprout
 

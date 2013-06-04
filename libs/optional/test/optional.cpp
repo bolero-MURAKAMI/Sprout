@@ -434,18 +434,18 @@ namespace testspr {
 				TESTSPR_ASSERT(*sprout::get_pointer(opt3) == 12345);
 			}
 
-			// get_optional_value_or
-			TESTSPR_BOTH_ASSERT(sprout::get_optional_value_or(opt1, 12345) == 1234);
-			TESTSPR_BOTH_ASSERT(sprout::get_optional_value_or(opt2, 12345) == 12345);
+			// get_value_or
+			TESTSPR_BOTH_ASSERT(sprout::get_value_or(opt1, 12345) == 1234);
+			TESTSPR_BOTH_ASSERT(sprout::get_value_or(opt2, 12345) == 12345);
 			{
 				auto opt3 = sprout::optional<int>(1234);
 				int v = 12345;
-				TESTSPR_ASSERT(sprout::get_optional_value_or(opt3, v) == 1234);
+				TESTSPR_ASSERT(sprout::get_value_or(opt3, v) == 1234);
 			}
 			{
 				auto opt3 = sprout::optional<int>();
 				int v = 12345;
-				TESTSPR_ASSERT(sprout::get_optional_value_or(opt3, v) == 12345);
+				TESTSPR_ASSERT(sprout::get_value_or(opt3, v) == 12345);
 			}
 
 			// sprout::to_hash, sprout::hash
