@@ -225,13 +225,13 @@ namespace sprout {
 		value_holder& operator=(value_holder const&) = default;
 		value_holder& operator=(value_holder&&) = default;
 		value_holder& operator=(argument_type p) {
-			value_holder temp(helper_type::hold(p));
-			temp.swap(p);
+			value_holder temp(p);
+			temp.swap(*this);
 			return *this;
 		}
 		value_holder& operator=(movable_argument_type p) {
-			value_holder temp(helper_type::hold(sprout::move(p)));
-			temp.swap(p);
+			value_holder temp(sprout::move(p));
+			temp.swap(*this);
 			return *this;
 		}
 
