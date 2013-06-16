@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <iterator>
 #include <limits>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
@@ -38,6 +39,8 @@ namespace sprout {
 		{
 			template<typename T>
 			friend class sprout::forward_clist;
+			template<typename L>
+			friend class sprout::detail::forward_item_iterator;
 		public:
 			typedef List list_type;
 			typedef typename std::conditional<
@@ -79,13 +82,13 @@ namespace sprout {
 				: item()
 			{}
 			forward_item_iterator(forward_item_iterator const&) = default;
-			operator forward_item_iterator<const_list_type>() const {
+			SPROUT_CONSTEXPR operator forward_item_iterator<const_list_type>() const {
 				return forward_item_iterator<const_list_type>(item);
 			}
 			SPROUT_CONSTEXPR forward_item_iterator next() const {
 				return forward_item_iterator(item->next);
 			}
-			void swap(forward_item_iterator& other)
+			SPROUT_CXX14_CONSTEXPR void swap(forward_item_iterator& other)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(item, other.item)))
 			{
 				sprout::swap(item, other.item);
@@ -96,12 +99,12 @@ namespace sprout {
 			SPROUT_CONSTEXPR pointer operator->() const {
 				return item->get_pointer();
 			}
-			forward_item_iterator& operator++() {
+			SPROUT_CXX14_CONSTEXPR forward_item_iterator& operator++() {
 				forward_item_iterator temp(next());
 				temp.swap(*this);
 				return *this;
 			}
-			forward_item_iterator operator++(int) {
+			SPROUT_CXX14_CONSTEXPR forward_item_iterator operator++(int) {
 				forward_item_iterator result(*this);
 				++*this;
 				return result;
@@ -126,7 +129,7 @@ namespace sprout {
 		}
 
 		template<typename List>
-		inline void
+		inline SPROUT_CXX14_CONSTEXPR void
 		swap(sprout::detail::forward_item_iterator<List>& lhs, sprout::detail::forward_item_iterator<List>& rhs)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 		{
@@ -225,23 +228,23 @@ namespace sprout {
 			item& operator=(item const&) = default;
 			item& operator=(item&&) = default;
 
-			void swap(item& other)
+			SPROUT_CXX14_CONSTEXPR void swap(item& other)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(val, other.val)) && SPROUT_NOEXCEPT_EXPR(sprout::swap(next, other.next)))
 			{
 				sprout::swap(val, other.val);
 				sprout::swap(next, other.next);
 			}
 
-			void clear() {
+			SPROUT_CXX14_CONSTEXPR void unlink_all() {
 				if (next.is_initialized()) {
-					(*next).clear();
+					next->unlink_all();
 					{
 						item_holder_type temp;
 						temp.swap(next);
 					}
 				}
 			}
-			void remove() {
+			SPROUT_CXX14_CONSTEXPR void unlink() {
 				item_holder_type temp;
 				temp.swap(next);
 			}
@@ -258,40 +261,43 @@ namespace sprout {
 				: val(sprout::move(p)), next()
 			{}
 
-			item& operator=(typename holder_type::argument_type p) {
+			SPROUT_CXX14_CONSTEXPR item& operator=(typename holder_type::argument_type p) {
 				item temp(p, next);
 				temp.swap(p);
 				return *this;
 			}
-			item& operator=(typename holder_type::movable_argument_type p) {
+			SPROUT_CXX14_CONSTEXPR item& operator=(typename holder_type::movable_argument_type p) {
 				item temp(sprout::move(p), next);
 				temp.swap(p);
 				return *this;
 			}
 
-			pointer_type operator->() {
+			SPROUT_CXX14_CONSTEXPR pointer_type operator->() {
 				return get_pointer();
 			}
 			SPROUT_CONSTEXPR pointer_const_type operator->() const {
 				return get_pointer();
 			}
-			pointer_type get_pointer() {
+			SPROUT_CXX14_CONSTEXPR pointer_type get_pointer() {
 				return val.get_pointer();
 			}
 			SPROUT_CONSTEXPR pointer_const_type get_pointer() const {
 				return val.get_pointer();
 			}
-			reference_type operator*() {
+			SPROUT_CXX14_CONSTEXPR reference_type operator*() {
 				return get();
 			}
 			SPROUT_CONSTEXPR reference_const_type operator*() const {
 				return get();
 			}
-			reference_type get() {
+			SPROUT_CXX14_CONSTEXPR reference_type get() {
 				return val.get();
 			}
 			SPROUT_CONSTEXPR reference_const_type get() const {
 				return val.get();
+			}
+			SPROUT_CONSTEXPR bool is_linked() const {
+				return next.is_initialized();
 			}
 		};
 	private:
@@ -308,7 +314,7 @@ namespace sprout {
 			item_holder_type* p = &fst.next;
 			for (; first != last; ++first) {
 				*p = *first;
-				p = &(**p).next;
+				p = &(*p)->next;
 			}
 		}
 		SPROUT_CXX14_CONSTEXPR forward_clist(forward_clist&& x)
@@ -369,8 +375,8 @@ namespace sprout {
 		// modifiers:
 		SPROUT_CXX14_CONSTEXPR void push_front(item& x) {
 			item_holder_type nxt(x);
-			(*nxt).next = sprout::move(fst.next);
-			fst.next = sprout::move(nxt);
+			nxt->next = fst.next;
+			fst.next = nxt;
 		}
 		template<typename InputIterator>
 		SPROUT_CXX14_CONSTEXPR void push_front(InputIterator first, InputIterator last) {
@@ -378,29 +384,73 @@ namespace sprout {
 			item_holder_type* p = &fst.next;
 			for (; first != last; ++first) {
 				*p = *first;
-				p = &(**p).next;
+				p = &(*p)->next;
 			}
 			*p = nxt;
 		}
 		SPROUT_CXX14_CONSTEXPR void pop_front() {
-			item_holder_type nxt(sprout::move(fst.next));
+			item_holder_type nxt(fst.next);
 			fst.next = fst.next->next;
-			nxt->remove();
+			nxt->unlink();
 		}
-		SPROUT_CXX14_CONSTEXPR void pop(item& x) {
+
+		SPROUT_CXX14_CONSTEXPR iterator insert_after(const_iterator position, item& x) {
+			item_holder_type nxt(x);
+			nxt->next = position.item->next;
+			position.item->next = nxt;
+			return iterator(nxt);
+		}
+		template <class InputIterator>
+		SPROUT_CXX14_CONSTEXPR iterator insert_after(const_iterator position, InputIterator first, InputIterator last) {
+			item_holder_type nxt(position.item->next);
+			item_holder_type pos(position.item);
+			item_holder_type* p = &pos;
+			for (; first != last; ++first) {
+				(*p)->next = *first;
+				p = &(*p)->next;
+			}
+			(*p)->next = nxt;
+			return iterator(*p);
+		}
+
+		SPROUT_CXX14_CONSTEXPR iterator erase_after(const_iterator position) {
+			const_iterator first(position.next());
+			position.item->next = first.item->next;
+			first.item->unlink();
+			return iterator(position.item->next);
+		}
+		SPROUT_CXX14_CONSTEXPR iterator erase_after(const_iterator position, const_iterator last) {
+			const_iterator first(position.next());
+			position.item->next = last.item;
+			while (first != last) {
+				const_iterator nxt(first.next());
+				first.item->unlink();
+				first = nxt;
+			}
+			return iterator(last.item);
+		}
+
+		SPROUT_CXX14_CONSTEXPR void swap(forward_clist& other) {
+			sprout::swap(fst, other.fst);
+		}
+		SPROUT_CXX14_CONSTEXPR void clear() SPROUT_NOEXCEPT {
+			fst.unlink_all();
+		}
+
+		SPROUT_CXX14_CONSTEXPR void unlink(item& x) {
 			for (iterator first = before_begin(), last = end(); first != last; ++first) {
 				iterator nxt = first.next();
 				if (nxt.item.get_pointer() == &x) {
 					first.item->next = sprout::move(nxt.item->next);
-					nxt.item->remove();
+					nxt.item->unlink();
 					break;
 				}
 			}
 		}
 		template<typename InputIterator>
-		SPROUT_CXX14_CONSTEXPR void pop(InputIterator first, InputIterator last) {
+		SPROUT_CXX14_CONSTEXPR void unlink(InputIterator first, InputIterator last) {
 			for (; first != last; ++first) {
-				pop(*first);
+				unlink(*first);
 			}
 		}
 	};
