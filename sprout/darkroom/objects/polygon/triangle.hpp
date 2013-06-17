@@ -46,7 +46,7 @@ namespace sprout {
 			private:
 				template<typename Vector>
 				SPROUT_CONSTEXPR bool
-				within_test(Vector const& d0, Vector const& d1) {
+				within_test(Vector const& d0, Vector const& d1) const {
 					return sprout::darkroom::coords::dot(
 						sprout::darkroom::coords::cross(d0, d1),
 						normal_

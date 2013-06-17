@@ -57,12 +57,12 @@ namespace sprout {
 		public:
 			template<typename Difference1, typename Difference2>
 			SPROUT_CONSTEXPR sprout::adaptors::offset_holder<Difference1, Difference2>
-			operator()(Difference1 from_begin, Difference2 from_end) {
+			operator()(Difference1 from_begin, Difference2 from_end) const {
 				return sprout::adaptors::offset_holder<Difference1, Difference2>(from_begin, from_end);
 			}
 			template<typename Difference>
 			SPROUT_CONSTEXPR sprout::adaptors::offset_holder<Difference>
-			operator()(Difference from_begin) {
+			operator()(Difference from_begin) const {
 				return sprout::adaptors::offset_holder<Difference>(from_begin);
 			}
 		};

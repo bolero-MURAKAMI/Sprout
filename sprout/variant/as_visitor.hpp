@@ -54,8 +54,8 @@ namespace sprout {
 			: v_(v)
 		{}
 		template<typename T>
-		SPROUT_CONSTEXPR auto operator()(T&& t)
-		-> decltype(std::declval<holder_type const>().get()(sprout::forward<T>(t))) const
+		SPROUT_CONSTEXPR auto operator()(T&& t) const
+		-> decltype(std::declval<holder_type const>().get()(sprout::forward<T>(t)))
 		{
 			return v_.get()(sprout::forward<T>(t));
 		}
