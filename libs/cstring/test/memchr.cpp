@@ -2,7 +2,6 @@
 #define SPROUT_LIBS_CSTRING_TEST_MEMCHR_CPP
 
 #include <sprout/cstring/memchr.hpp>
-#include <sprout/iterator.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -15,7 +14,6 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::memchr(buf, b, 12);
 				TESTSPR_BOTH_ASSERT(buf + 8 == found);
-//				TESTSPR_BOTH_ASSERT(sprout::distance(buf, reinterpret_cast<unsigned char const*>(found)) == 8);
 			}
 		}
 	}

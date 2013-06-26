@@ -2,13 +2,12 @@
 #define SPROUT_CSTRING_MEMCHR_HPP
 
 #include <cstddef>
-#include <sprout/config.hpp>
-#include <sprout/iterator/ptr_index_iterator.hpp>
-#include <sprout/algorithm/find.hpp>
-
 #include <type_traits>
 #include <utility>
+#include <sprout/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/iterator/ptr_index_iterator.hpp>
+#include <sprout/algorithm/find.hpp>
 
 namespace sprout {
 	namespace detail {

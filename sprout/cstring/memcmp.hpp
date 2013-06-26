@@ -2,12 +2,11 @@
 #define SPROUT_CSTRING_MEMCMP_HPP
 
 #include <cstddef>
+#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
-
-#include <type_traits>
-#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	// 7.21.4.1 memcmp ä÷êî
