@@ -14,7 +14,8 @@ namespace testspr {
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::memchr(buf, b, 12);
-				TESTSPR_BOTH_ASSERT(sprout::distance(buf, reinterpret_cast<unsigned char const*>(found)) == 8);
+				TESTSPR_BOTH_ASSERT(buf + 8 == found);
+//				TESTSPR_BOTH_ASSERT(sprout::distance(buf, reinterpret_cast<unsigned char const*>(found)) == 8);
 			}
 		}
 	}

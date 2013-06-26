@@ -317,9 +317,7 @@ namespace sprout {
 				p = &(*p)->next;
 			}
 		}
-		SPROUT_CXX14_CONSTEXPR forward_clist(forward_clist&& x)
-			: fst(sprout::move(x.fst))
-		{}
+		SPROUT_CXX14_CONSTEXPR forward_clist(forward_clist&& x) = default;
 		SPROUT_CXX14_CONSTEXPR forward_clist& operator=(forward_clist&& x) {
 			fst = sprout::move(x.fst);
 			return *this;

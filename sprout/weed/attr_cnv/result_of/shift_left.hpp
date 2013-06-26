@@ -66,7 +66,7 @@ namespace sprout {
 						sprout::weed::detail::is_elem_and_container<T, U>::value
 					>::type
 				>
-					: public sprout::fixed::result_of::push_front<T, U>
+					: public sprout::fixed::result_of::push_front<U, T>
 				{};
 				// tuple<Vs...> >> tuple<Ws...> -> tuple<Vs..., Ws...>
 				template<typename T, typename U>
@@ -99,7 +99,7 @@ namespace sprout {
 						sprout::weed::detail::is_elem_and_tuple<T, U>::value
 					>::type
 				>
-					: public sprout::tuples::result_of::push_front<T, U>
+					: public sprout::tuples::result_of::push_front<U, T>
 				{};
 				// V >> V -> container<V, 2>
 				template<typename T, typename U>

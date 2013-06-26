@@ -51,7 +51,7 @@ namespace sprout {
 				sprout::weed::detail::is_elem_and_container<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
-				return sprout::fixed::push_front(t, u);
+				return sprout::fixed::push_front(u, t);
 			}
 			// tuple<Vs...> >> tuple<Ws...> -> tuple<Vs..., Ws...>
 			template<typename T, typename U>
@@ -75,7 +75,7 @@ namespace sprout {
 				sprout::weed::detail::is_elem_and_tuple<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
-				return sprout::tuples::push_front(t, u);
+				return sprout::tuples::push_front(u, t);
 			}
 			// V >> V -> container<V, 2>
 			template<typename T, typename U>
