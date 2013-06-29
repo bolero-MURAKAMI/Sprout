@@ -2,39 +2,39 @@
 #define SPROUT_CONFIG_COMPILER_GCC_HPP
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_CONSTEXPR
+#	define SPROUT_NO_CXX11_CONSTEXPR
 #endif
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 4) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_DEFAULTED_FUNCTIONS
+#	define SPROUT_NO_CXX11_DEFAULTED_FUNCTIONS
 #endif
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 4) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_DELETED_FUNCTIONS
+#	define SPROUT_NO_CXX11_DELETED_FUNCTIONS
 #endif
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_EXPLICIT_CONVERSION_OPERATORS
+#	define SPROUT_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
 #endif
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_NOEXCEPT
+#	define SPROUT_NO_CXX11_NOEXCEPT
 #endif
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 7) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_TEMPLATE_ALIASES
+#	define SPROUT_NO_CXX11_TEMPLATE_ALIASES
 #endif
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 7) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_USER_DEFINED_LITERALS
+#	define SPROUT_NO_CXX11_USER_DEFINED_LITERALS
 #endif
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 7) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_DELEGATING_CONSTRUCTORS
+#	define SPROUT_NO_CXX11_DELEGATING_CONSTRUCTORS
 #endif
 
 #if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5) || !defined(__GXX_EXPERIMENTAL_CXX0X__))
-#	define SPROUT_NO_UNICODE_LITERALS
+#	define SPROUT_NO_CXX11_UNICODE_LITERALS
 #endif
 
 #if ((__GNUC__ >= 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__))
@@ -44,5 +44,7 @@
 #if ((__GNUC__ >= 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__))
 #	define SPROUT_HAS_CONSTEXPR_BIT_OPERATION
 #endif
+
+#define SPROUT_NO_CXX14_CONSTEXPR
 
 #endif	// #ifndef SPROUT_CONFIG_COMPILER_GCC_HPP

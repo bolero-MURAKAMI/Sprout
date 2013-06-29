@@ -47,7 +47,7 @@
 #	include <sprout/config/compiler/visualc.hpp>
 #endif
 
-#include <sprout/config/compiler/no_cxx11_future.hpp>
+#include <sprout/config/compiler/no_future.hpp>
 #include <sprout/config/compiler/has_future.hpp>
 
 #endif	// #ifndef SPROUT_CONFIG_COMPILER_HPP
