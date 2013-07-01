@@ -43,6 +43,11 @@ namespace sprout {
 		typedef typename holder_type::pointer_type pointer_type;
 		typedef typename holder_type::pointer_const_type pointer_const_type;
 	public:
+		template<typename... Args>
+		struct is_constructible_args
+			: public std::is_constructible<T, Args&&...>
+		{};
+	public:
 		static SPROUT_CONSTEXPR reference_type get(optional& t) SPROUT_NOEXCEPT {
 			return sprout::get(t.val);
 		}
@@ -108,7 +113,7 @@ namespace sprout {
 		{}
 		template<
 			typename... Args,
-			typename = typename std::enable_if<std::is_constructible<T, Args&&...>::value>::type
+			typename = typename std::enable_if<is_constructible_args<Args...>::value>::type
 		>
 		explicit SPROUT_CONSTEXPR optional(sprout::in_place_t, Args&&... args)
 			: init(true)
@@ -116,7 +121,7 @@ namespace sprout {
 		{}
 		template<
 			typename U, typename... Args,
-			typename = typename std::enable_if<std::is_constructible<T, std::initializer_list<U>&, Args&&...>::value>::type
+			typename = typename std::enable_if<is_constructible_args<std::initializer_list<U>&, Args...>::value>::type
 		>
 		explicit SPROUT_CONSTEXPR optional(sprout::in_place_t, std::initializer_list<U> il, Args&&... args)
 			: init(true)
@@ -177,7 +182,7 @@ namespace sprout {
 
 		template<
 			typename... Args,
-			typename = typename std::enable_if<std::is_constructible<T, Args&&...>::value>::type
+			typename = typename std::enable_if<is_constructible_args<Args...>::value>::type
 		>
 		void emplace(Args&&... args) {
 			optional temp(sprout::in_place, sprout::forward<Args>(args)...);
@@ -185,7 +190,7 @@ namespace sprout {
 		}
 		template<
 			typename U, typename... Args,
-			typename = typename std::enable_if<std::is_constructible<T, std::initializer_list<U>&, Args&&...>::value>::type
+			typename = typename std::enable_if<is_constructible_args<std::initializer_list<U>&, Args...>::value>::type
 		>
 		void emplace(std::initializer_list<U> il, Args&&... args) {
 			optional temp(sprout::in_place, il, sprout::forward<Args>(args)...);

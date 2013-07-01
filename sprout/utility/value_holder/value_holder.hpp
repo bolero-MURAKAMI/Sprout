@@ -175,6 +175,11 @@ namespace sprout {
 		typedef param_type argument_type;
 		typedef movable_param_type movable_argument_type;
 	public:
+		template<typename... Args>
+		struct is_constructible_args
+			: public std::is_constructible<T, Args&&...>
+		{};
+	public:
 		static SPROUT_CONSTEXPR reference get(value_holder& t) SPROUT_NOEXCEPT {
 			return helper_type::ref(t.holder_);
 		}
@@ -209,14 +214,14 @@ namespace sprout {
 		{}
 		template<
 			typename... Args,
-			typename = typename std::enable_if<std::is_constructible<T, Args&&...>::value>::type
+			typename = typename std::enable_if<is_constructible_args<Args...>::value>::type
 		>
 		explicit SPROUT_CONSTEXPR value_holder(sprout::in_place_t, Args&&... args)
 			: holder_(sprout::forward<Args>(args)...)
 		{}
 		template<
 			typename U, typename... Args,
-			typename = typename std::enable_if<std::is_constructible<T, std::initializer_list<U>&, Args&&...>::value>::type
+			typename = typename std::enable_if<is_constructible_args<std::initializer_list<U>&, Args...>::value>::type
 		>
 		explicit SPROUT_CONSTEXPR value_holder(sprout::in_place_t, std::initializer_list<U> il, Args&&... args)
 			: holder_(il, sprout::forward<Args>(args)...)
