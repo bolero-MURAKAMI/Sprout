@@ -175,8 +175,8 @@ See: https://github.com/sscrisk/CEL---ConstExpr-Library
 ## サポートするコンパイラ *(Supported Compilers)*
 
 Linux:  
-* GCC, C++11 mode: 4.7.2, 4.8.0  
-* Clang, C++11 mode: 3.2  
+* GCC, C++11 mode: 4.7.0, 4.7.1, 4.7.2, 4.7.3, 4.8.0, 4.8.1  
+* Clang, C++11 mode: 3.2, 3.3  
 
 
 
