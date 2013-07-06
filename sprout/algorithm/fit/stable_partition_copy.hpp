@@ -9,15 +9,14 @@
 #include <sprout/algorithm/fit/result_of.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
-#include <sprout/iterator/type_traits/category.hpp>
 
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename InputIterator, typename Result, typename Predicate>
+			template<typename BidirectionalIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
 			stable_partition_copy_impl(
-				InputIterator first, InputIterator last, Result const& result, Predicate pred,
+				BidirectionalIterator first, BidirectionalIterator last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
@@ -31,10 +30,9 @@ namespace sprout {
 		//
 		// stable_partition_copy
 		//
-		template<typename InputIterator, typename Result, typename Predicate>
+		template<typename BidirectionalIterator, typename Result, typename Predicate>
 		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
-		stable_partition_copy(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
-			static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
+		stable_partition_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result, Predicate pred) {
 			return sprout::fit::detail::stable_partition_copy_impl(first, last, result, pred, sprout::internal_begin_offset(result));
 		}
 	}	// namespace fit
