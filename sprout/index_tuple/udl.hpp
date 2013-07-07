@@ -6,33 +6,18 @@
 
 #if SPROUT_USE_USER_DEFINED_LITERALS
 
-#include <type_traits>
 #include <sprout/index_tuple/make_index_tuple.hpp>
+#include <sprout/detail/digits_to_int.hpp>
 
 namespace sprout {
-	namespace detail {
-		template<typename IntType, char... Chars>
-		struct digits_to_int;
-		template<typename IntType, char C>
-		struct digits_to_int<IntType, C>
-			: public std::integral_constant<IntType, IntType(C - 48)>
-		{};
-		template<typename IntType, char Head, char... Tail>
-		struct digits_to_int<IntType, Head, Tail...>
-			: public std::integral_constant<IntType, 10 * IntType(Head - 48) + sprout::detail::digits_to_int<IntType, Tail...>::value>
-		{};
-	}	// namespace detail
-
 	//
 	// indexes_result
+	// uindexes_result
 	//
 	template<char... Chars>
 	struct indexes_result
 		: public sprout::make_index_tuple<sprout::detail::digits_to_int<sprout::index_t, Chars...>::value>
 	{};
-	//
-	// uindexes_result
-	//
 	template<char... Chars>
 	struct uindexes_result
 		: public sprout::make_uindex_tuple<sprout::detail::digits_to_int<sprout::uindex_t, Chars...>::value>
@@ -42,16 +27,13 @@ namespace sprout {
 		namespace indexes {
 			//
 			// _indexes
+			// _uindexes
 			//
 			template<char... Chars>
 			SPROUT_CONSTEXPR typename sprout::indexes_result<Chars...>::type
 			operator"" _indexes() {
 				return sprout::indexes_result<Chars...>::make();
 			}
-
-			//
-			// _uindexes
-			//
 			template<char... Chars>
 			SPROUT_CONSTEXPR typename sprout::uindexes_result<Chars...>::type
 			operator"" _uindexes() {

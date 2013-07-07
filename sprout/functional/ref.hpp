@@ -161,7 +161,7 @@ namespace sprout {
 		// invocation
 		template<typename... Args>
 		SPROUT_CONSTEXPR typename std::result_of<T& (Args&&...)>::type
-		operator() (Args&&... args) const {
+		operator()(Args&&... args) const {
 			return (*t_)(sprout::forward<Args>(args)...);
 		}
 	};
@@ -285,7 +285,7 @@ namespace sprout {
 	// unwrap_ref
 	//
 	template<typename T>
-	inline typename sprout::unwrap_reference<T>::type&
+	inline SPROUT_CONSTEXPR typename sprout::unwrap_reference<T>::type&
 	unwrap_ref(T& t) {
 		return t;
 	}
