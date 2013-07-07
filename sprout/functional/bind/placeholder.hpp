@@ -10,6 +10,14 @@ namespace sprout {
 	//
 	template<int N>
 	struct placeholder {};
+	template<>
+	struct placeholder<-1> {
+	public:
+		template<int N2>
+		SPROUT_CONSTEXPR operator sprout::placeholder<N2>() const {
+			return sprout::placeholder<N2>();
+		}
+	};
 
 	namespace placeholders {
 		namespace {
@@ -43,6 +51,8 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR sprout::placeholder<28> _28 = {};
 			SPROUT_STATIC_CONSTEXPR sprout::placeholder<29> _29 = {};
 			SPROUT_STATIC_CONSTEXPR sprout::placeholder<30> _30 = {};
+
+			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-1> _ = {};
 		}	// anonymous-namespace
 	}	// namespace placeholders
 	using sprout::placeholders::_1;
@@ -75,6 +85,8 @@ namespace sprout {
 	using sprout::placeholders::_28;
 	using sprout::placeholders::_29;
 	using sprout::placeholders::_30;
+
+	using sprout::placeholders::_;
 
 	//
 	// is_placeholder
