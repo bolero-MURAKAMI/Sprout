@@ -200,7 +200,7 @@ namespace sprout {
 			: public std::integral_constant<
 				bool,
 				(sprout::is_placeholder<typename sprout::tuples::tuple_element<sprout::tuples::tuple_size<Bounds>::value - 1, Bounds>::type>::value
-					<= -256
+					<= sprout::is_placeholder<decltype(sprout::placeholders::_va)>::value
 					)
 			>
 		{};
@@ -216,7 +216,7 @@ namespace sprout {
 		>
 			: public std::integral_constant<
 				int,
-				(-256
+				(sprout::is_placeholder<decltype(sprout::placeholders::_va)>::value
 					- sprout::is_placeholder<typename sprout::tuples::tuple_element<sprout::tuples::tuple_size<Bounds>::value - 1, Bounds>::type>::value
 					)
 			>
@@ -627,7 +627,7 @@ namespace sprout {
 		template<sprout::index_t Index, typename BoundArg>
 		struct complete_placeholder<
 			Index, BoundArg,
-			typename std::enable_if<!(sprout::is_placeholder<BoundArg>::value == -1)>::type
+			typename std::enable_if<!(sprout::is_placeholder<BoundArg>::value == sprout::is_placeholder<decltype(sprout::placeholders::_)>::value)>::type
 		> {
 		public:
 			typedef BoundArg type;
@@ -635,7 +635,7 @@ namespace sprout {
 		template<sprout::index_t Index, typename BoundArg>
 		struct complete_placeholder<
 			Index, BoundArg,
-			typename std::enable_if<(sprout::is_placeholder<BoundArg>::value == -1)>::type
+			typename std::enable_if<(sprout::is_placeholder<BoundArg>::value == sprout::is_placeholder<decltype(sprout::placeholders::_)>::value)>::type
 		> {
 		public:
 			typedef sprout::placeholder<Index + 1> type;

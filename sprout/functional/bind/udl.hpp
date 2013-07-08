@@ -12,6 +12,7 @@
 namespace sprout {
 	//
 	// placeholders_result
+	// variadic_placeholders_result
 	//
 	template<char... Chars>
 	struct placeholders_result
@@ -19,16 +20,29 @@ namespace sprout {
 			sprout::placeholder<sprout::detail::digits_to_int<int, Chars...>::value>
 		>
 	{};
+	template<char... Chars>
+	struct variadic_placeholders_result
+		: public sprout::identity<
+			sprout::placeholder<sprout::is_placeholder<decltype(sprout::placeholders::_va)>::value - sprout::detail::digits_to_int<int, Chars...>::value>
+		>
+	{};
 
 	namespace placeholders {
 		namespace udl {
 			//
 			// _
+			// _tail
 			//
 			template<char... Chars>
 			SPROUT_CONSTEXPR typename sprout::placeholders_result<Chars...>::type
 			operator"" _() {
 				typedef typename sprout::placeholders_result<Chars...>::type type;
+				return type();
+			}
+			template<char... Chars>
+			SPROUT_CONSTEXPR typename sprout::variadic_placeholders_result<Chars...>::type
+			operator"" _tail() {
+				typedef typename sprout::variadic_placeholders_result<Chars...>::type type;
 				return type();
 			}
 		}	// namespace udl
@@ -37,9 +51,11 @@ namespace sprout {
 	namespace udl {
 		namespace placeholders {
 			using sprout::placeholders::udl::operator"" _;
+			using sprout::placeholders::udl::operator"" _tail;
 		}	// namespace placeholders
 
 		using sprout::placeholders::udl::operator"" _;
+		using sprout::placeholders::udl::operator"" _tail;
 	}	// namespace udl
 }	// namespace sprout
 
