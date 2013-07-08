@@ -5,6 +5,7 @@
 #include <utility>
 #include <tuple>
 #include <type_traits>
+#include <functional>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/utility/forward.hpp>
@@ -74,6 +75,17 @@ namespace sprout {
 				return const_cast<typename std::remove_volatile<typename std::remove_reference<CVRef>::type>::type&>(arg).get();
 			}
 		};
+		template<typename T>
+		class mu<std::reference_wrapper<T>, false, false> {
+		public:
+			typedef T& result_type;
+		public:
+			template<typename CVRef, typename Tuple>
+			SPROUT_CONSTEXPR result_type operator()(CVRef& arg, Tuple&) const volatile {
+				//return arg.get();	// ???
+				return const_cast<typename std::remove_volatile<typename std::remove_reference<CVRef>::type>::type&>(arg).get();
+			}
+		};
 		template<typename Arg>
 		class mu<Arg, true, false> {
 		private:
@@ -113,7 +125,7 @@ namespace sprout {
 		public:
 			template<typename Tuple>
 			typename result<mu (Arg, Tuple)>::type
-			SPROUT_CONSTEXPR operator()(Arg const volatile&, Tuple& tuple) const volatile {
+			SPROUT_CONSTEXPR operator()(Arg /*const volatile&*/, Tuple& tuple) const volatile {
 				return sprout::forward<typename result<mu (Arg, Tuple)>::type>(
 					sprout::tuples::get<(sprout::is_placeholder<Arg>::value - 1)>(tuple)
 					);
@@ -164,7 +176,7 @@ namespace sprout {
 		};
 
 		template<std::size_t I, typename... Types>
-		inline auto volget(sprout::tuples::tuple<Types...> volatile& tuple)
+		inline SPROUT_CONSTEXPR auto volget(sprout::tuples::tuple<Types...> volatile& tuple)
 		-> typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type volatile&
 		{
 			return sprout::tuples::get<I>(const_cast<sprout::tuples::tuple<Types...>&>(tuple));
@@ -174,6 +186,151 @@ namespace sprout {
 		-> typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const volatile&
 		{
 			return sprout::tuples::get<I>(const_cast<sprout::tuples::tuple<Types...> const&>(tuple));
+		}
+
+		template<typename Bounds, typename = void>
+		struct is_variadic_bounds
+			: public std::false_type
+		{};
+		template<typename Bounds>
+		struct is_variadic_bounds<
+			Bounds,
+			typename std::enable_if<sprout::tuples::tuple_size<Bounds>::value>::type
+		>
+			: public std::integral_constant<
+				bool,
+				(sprout::is_placeholder<typename sprout::tuples::tuple_element<sprout::tuples::tuple_size<Bounds>::value - 1, Bounds>::type>::value
+					<= -256
+					)
+			>
+		{};
+
+		template<typename Bounds, typename = void>
+		struct tail_bounds_place
+			: public std::integral_constant<int, -1>
+		{};
+		template<typename Bounds>
+		struct tail_bounds_place<
+			Bounds,
+			typename std::enable_if<sprout::detail::is_variadic_bounds<Bounds>::value>::type
+		>
+			: public std::integral_constant<
+				int,
+				(-256
+					- sprout::is_placeholder<typename sprout::tuples::tuple_element<sprout::tuples::tuple_size<Bounds>::value - 1, Bounds>::type>::value
+					)
+			>
+		{};
+
+		template<typename Bounds, typename... Args>
+		struct bounds_size
+			: public std::integral_constant<
+				std::size_t,
+				sprout::detail::is_variadic_bounds<Bounds>::value
+					? (sprout::tuples::tuple_size<Bounds>::value - 1) + (sizeof...(Args) - sprout::detail::tail_bounds_place<Bounds>::value)
+					: sprout::tuples::tuple_size<Bounds>::value
+				>
+		{};
+
+		template<typename Bounds, typename... Args>
+		struct bound_indexes
+			: public sprout::make_index_tuple<sprout::detail::bounds_size<Bounds, Args...>::value>
+		{};
+
+		template<sprout::index_t I, typename Bounds>
+		struct is_variadic_part
+			: public std::integral_constant<
+				bool,
+				sprout::detail::is_variadic_bounds<Bounds>::value && (I >= sprout::tuples::tuple_size<Bounds>::value)
+			>
+		{};
+
+		template<sprout::index_t I, typename Bounds, typename = void>
+		struct bound_element
+			: public sprout::tuples::tuple_element<I, Bounds>
+		{};
+		template<sprout::index_t I, typename Bounds>
+		struct bound_element<
+			I, Bounds,
+			typename std::enable_if<sprout::detail::is_variadic_part<I, Bounds>::value>::type
+		> {
+		public:
+			typedef sprout::placeholder<I + 1 - sprout::tuples::tuple_size<Bounds>::value + sprout::detail::tail_bounds_place<Bounds>::value + 1> type;
+		};
+
+		template<typename Bounds, typename IndexTuple>
+		struct complete_bounds_impl;
+		template<typename Bounds, sprout::index_t... Indexes>
+		struct complete_bounds_impl<Bounds, sprout::index_tuple<Indexes...> > {
+		public:
+			typedef sprout::tuples::tuple<sprout::detail::bound_element<Indexes, Bounds>...> type;
+		};
+		template<typename Bounds, typename... Args>
+		struct complete_bounds
+			: public sprout::detail::complete_bounds_impl<Bounds, typename sprout::detail::bound_indexes<Bounds, Args...>::type>
+		{};
+
+		struct get_bound_helper {
+		public:
+			template<
+				sprout::index_t I, typename Bounds,
+				typename sprout::enabler_if<!std::is_const<Bounds>::value && !std::is_volatile<Bounds>::value>::type = sprout::enabler
+			>
+			static SPROUT_CONSTEXPR auto
+			get_bound(Bounds& bound_args)
+			-> decltype(sprout::tuples::get<I>(bound_args))
+			{
+				return sprout::tuples::get<I>(bound_args);
+			}
+			template<
+				sprout::index_t I, typename Bounds,
+				typename sprout::enabler_if<std::is_const<Bounds const>::value && !std::is_volatile<Bounds const>::value>::type = sprout::enabler
+			>
+			static SPROUT_CONSTEXPR auto
+			get_bound(Bounds const& bound_args)
+			-> decltype(sprout::tuples::get<I>(bound_args))
+			{
+				return sprout::tuples::get<I>(bound_args);
+			}
+			template<
+				sprout::index_t I, typename Bounds,
+				typename sprout::enabler_if<!std::is_const<Bounds volatile>::value && std::is_volatile<Bounds volatile>::value>::type = sprout::enabler
+			>
+			static SPROUT_CONSTEXPR auto
+			get_bound(Bounds volatile& bound_args)
+			-> decltype(sprout::detail::volget<I>(bound_args))
+			{
+				return sprout::detail::volget<I>(bound_args);
+			}
+			template<
+				sprout::index_t I, typename Bounds,
+				typename sprout::enabler_if<std::is_const<Bounds const volatile>::value && std::is_volatile<Bounds const volatile>::value>::type = sprout::enabler
+			>
+			static SPROUT_CONSTEXPR auto
+			get_bound(Bounds const volatile& bound_args)
+			-> decltype(sprout::detail::volget<I>(bound_args))
+			{
+				return sprout::detail::volget<I>(bound_args);
+			}
+		};
+		template<
+			sprout::index_t I, typename Bounds,
+			typename sprout::enabler_if<sprout::detail::is_variadic_part<I, typename std::remove_reference<Bounds>::type>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR typename sprout::detail::bound_element<I, typename std::remove_reference<Bounds>::type>::type
+		get_bound(Bounds&&) {
+			typedef typename sprout::detail::bound_element<I, typename std::remove_reference<Bounds>::type>::type type;
+			return type();
+		}
+		template<
+			sprout::index_t I, typename Bounds,
+			typename sprout::enabler_if<!sprout::detail::is_variadic_part<I, typename std::remove_reference<Bounds>::type>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR auto
+		get_bound(Bounds&& bound_args)
+		-> decltype(sprout::detail::get_bound_helper::get_bound<I>(std::forward<Bounds>(bound_args)))
+		{
+			return sprout::detail::get_bound_helper::get_bound<I>(std::forward<Bounds>(bound_args));
 		}
 	}	// namespace detail
 
@@ -188,28 +345,81 @@ namespace sprout {
 	{
 	private:
 		typedef binder self_type;
-		typedef typename sprout::index_pack<BoundArgs...>::type bound_indexes;
+		typedef sprout::tuples::tuple<BoundArgs...> bounds_type;
 	private:
 		Functor f_;
-		sprout::tuples::tuple<BoundArgs...> bound_args_;
+		bounds_type bound_args_;
 	private:
 		template<typename Result, typename... Args, sprout::index_t... Indexes>
 		Result call(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>) {
-			return f_(sprout::detail::mu<BoundArgs>()(sprout::tuples::get<Indexes>(bound_args_), args)...);
+			return f_(
+				sprout::detail::mu<typename sprout::detail::bound_element<Indexes, bounds_type>::type>()
+					(sprout::detail::get_bound<Indexes>(bound_args_), args)...
+				);
 		}
 		template<typename Result, typename... Args, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR Result call_c(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>) const {
-			return f_(sprout::detail::mu<BoundArgs>()(sprout::tuples::get<Indexes>(bound_args_), args)...);
+			return f_(
+				sprout::detail::mu<typename sprout::detail::bound_element<Indexes, bounds_type>::type const>()
+					(sprout::detail::get_bound<Indexes>(bound_args_), args)...
+				);
 		}
 		template<typename Result, typename... Args, sprout::index_t... Indexes>
 		Result call_v(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>) volatile {
-			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::volget<Indexes>(bound_args_), args)...);
+			return f_(
+				sprout::detail::mu<typename sprout::detail::bound_element<Indexes, bounds_type>::type volatile>()
+					(sprout::detail::get_bound<Indexes>(bound_args_), args)...
+				);
 		}
 		template<typename Result, typename... Args, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR Result call_cv(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>) const volatile {
-			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::volget<Indexes>(bound_args_), args)...);
+			return f_(
+				sprout::detail::mu<typename sprout::detail::bound_element<Indexes, bounds_type>::type const volatile>()
+					(sprout::detail::get_bound<Indexes>(bound_args_), args)...
+				);
 		}
-		public:
+	private:
+		template<
+			typename... Args, sprout::index_t... Indexes
+		>
+		static SPROUT_CONSTEXPR decltype(
+			std::declval<Functor&>()(
+				sprout::detail::mu<typename sprout::detail::bound_element<Indexes, bounds_type>::type>()
+					(sprout::detail::get_bound<Indexes>(std::declval<bounds_type&>()), std::declval<sprout::tuples::tuple<Args...>&>())...
+				)
+			)
+		call_(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>);
+		template<
+			typename... Args, sprout::index_t... Indexes
+		>
+		static SPROUT_CONSTEXPR decltype(
+			std::declval<typename std::enable_if<(sizeof...(Args) >= 0), typename std::add_const<Functor>::type>::type&>()(
+				sprout::detail::mu<typename sprout::detail::bound_element<Indexes, bounds_type>::type const>()
+					(sprout::detail::get_bound<Indexes>(std::declval<bounds_type const&>()), std::declval<sprout::tuples::tuple<Args...>&>())...
+				)
+			)
+		call_c_(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>);
+		template<
+			typename... Args, sprout::index_t... Indexes
+		>
+		static SPROUT_CONSTEXPR decltype(
+			std::declval<typename std::enable_if<(sizeof...(Args) >= 0), typename std::add_volatile<Functor>::type>::type&>()(
+				sprout::detail::mu<typename sprout::detail::bound_element<Indexes, bounds_type>::type volatile>()
+					(sprout::detail::get_bound<Indexes>(std::declval<bounds_type volatile&>()), std::declval<sprout::tuples::tuple<Args...>&>())...
+				)
+			)
+		call_v_(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>);
+		template<
+			typename... Args, sprout::index_t... Indexes
+		>
+		static SPROUT_CONSTEXPR decltype(
+			std::declval<typename std::enable_if<(sizeof...(Args) >= 0), typename std::add_cv<Functor>::type>::type&>()(
+				sprout::detail::mu<typename sprout::detail::bound_element<Indexes, bounds_type>::type const volatile>()
+					(sprout::detail::get_bound<Indexes>(std::declval<bounds_type const volatile&>()), std::declval<sprout::tuples::tuple<Args...>&>())...
+				)
+			)
+		call_cv_(sprout::tuples::tuple<Args...>&& args, sprout::index_tuple<Indexes...>);
+	public:
 		template<typename... Args>
 		explicit SPROUT_CONSTEXPR binder(Functor const& f, Args&&... args)
 			: f_(f)
@@ -219,70 +429,49 @@ namespace sprout {
 		template<
 			typename... Args,
 			typename Result = decltype(
-				std::declval<Functor>()(
-					sprout::detail::mu<BoundArgs>()(
-						std::declval<BoundArgs&>(),
-						std::declval<sprout::tuples::tuple<Args...>&>()
-						)...
-					)
+				call_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, Args...>::make())
 				)
 		>
 		Result operator()(Args&&... args) {
 			return call<Result>(
 				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
-				bound_indexes()
+				sprout::detail::bound_indexes<bounds_type, Args...>::make()
 				);
 		}
 		template<
 			typename... Args,
 			typename Result = decltype(
-				std::declval<typename std::enable_if<(sizeof...(Args) >= 0), typename std::add_const<Functor>::type>::type>()(
-					sprout::detail::mu<BoundArgs>()(
-						std::declval<BoundArgs const&>(),
-						std::declval<sprout::tuples::tuple<Args...>&>()
-						)...
-					)
+				call_c_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, Args...>::make())
 				)
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const {
 			return call_c<Result>(
 				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
-				bound_indexes()
+				sprout::detail::bound_indexes<bounds_type, Args...>::make()
 				);
 		}
 		template<
 			typename... Args,
 			typename Result = decltype(
-				std::declval<typename std::enable_if<(sizeof...(Args) >= 0), typename std::add_volatile<Functor>::type>::type>()(
-					sprout::detail::mu<BoundArgs>()(
-						std::declval<BoundArgs volatile&>(),
-						std::declval<sprout::tuples::tuple<Args...>&>()
-						)...
-					)
+				call_v_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, Args...>::make())
 				)
 		>
 		Result operator()(Args&&... args) volatile {
 			return call_v<Result>(
 				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
-				bound_indexes()
+				sprout::detail::bound_indexes<bounds_type, Args...>::make()
 				);
 		}
-
 		template<
 			typename... Args,
 			typename Result = decltype(
-				std::declval<typename std::enable_if<(sizeof...(Args) >= 0), typename std::add_cv<Functor>::type>::type>()(
-					sprout::detail::mu<BoundArgs>()(
-						std::declval<BoundArgs const volatile&>(),
-						std::declval<sprout::tuples::tuple<Args...>&>()
-						)...
-					)
+				call_cv_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, Args...>::make())
 				)
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const volatile {
 			return call_cv<Result>(
 				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
-				bound_indexes()
+				sprout::detail::bound_indexes<bounds_type, Args...>::make()
 				);
 		}
 	};
@@ -296,7 +485,7 @@ namespace sprout {
 	class res_binder<Result, Functor(BoundArgs...)> {
 	private:
 		typedef res_binder self_type;
-		typedef typename sprout::index_pack<BoundArgs...>::type bound_indexes;
+		typedef sprout::tuples::tuple<BoundArgs...> bounds_type;
 	private:
 		template<typename Res>
 		struct enable_if_void
@@ -317,7 +506,7 @@ namespace sprout {
 			typename disable_if_void<Res>::type = 0
 			)
 		{
-			return f_(sprout::detail::mu<BoundArgs>()(sprout::tuples::get<Indexes>(bound_args_), args)...);
+			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::get_bound<Indexes>(bound_args_), args)...);
 		}
 		template<typename Res, typename... Args, sprout::index_t... Indexes>
 		Result call(
@@ -326,7 +515,7 @@ namespace sprout {
 			typename enable_if_void<Res>::type = 0
 			)
 		{
-			f_(sprout::detail::mu<BoundArgs>()(sprout::tuples::get<Indexes>(bound_args_), args)...);
+			f_(sprout::detail::mu<BoundArgs>()(sprout::detail::get_bound<Indexes>(bound_args_), args)...);
 		}
 		template<typename Res, typename... Args, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR Result call(
@@ -335,7 +524,7 @@ namespace sprout {
 			typename disable_if_void<Res>::type = 0
 			) const
 		{
-			return f_(sprout::detail::mu<BoundArgs>()(sprout::tuples::get<Indexes>(bound_args_), args)...);
+			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::get_bound<Indexes>(bound_args_), args)...);
 		}
 		template<typename Res, typename... Args, sprout::index_t... Indexes>
 		Result call(
@@ -344,7 +533,7 @@ namespace sprout {
 			typename enable_if_void<Res>::type = 0
 			) const
 		{
-			f_(sprout::detail::mu<BoundArgs>()(sprout::tuples::get<Indexes>(bound_args_), args)...);
+			f_(sprout::detail::mu<BoundArgs>()(sprout::detail::get_bound<Indexes>(bound_args_), args)...);
 		}
 		template<typename Res, typename... Args, sprout::index_t... Indexes>
 		Result call(
@@ -353,7 +542,7 @@ namespace sprout {
 			typename disable_if_void<Res>::type = 0
 			) volatile
 		{
-			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::volget<Indexes>(bound_args_), args)...);
+			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::get_bound<Indexes>(bound_args_), args)...);
 		}
 		template<typename Res, typename... Args, sprout::index_t... Indexes>
 		Result call(
@@ -362,7 +551,7 @@ namespace sprout {
 			typename enable_if_void<Res>::type = 0
 			) volatile
 		{
-			f_(sprout::detail::mu<BoundArgs>()(sprout::detail::volget<Indexes>(bound_args_), args)...);
+			f_(sprout::detail::mu<BoundArgs, Indexes>()(sprout::detail::get_bound<Indexes>(bound_args_), args)...);
 		}
 		template<typename Res, typename... Args, sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR Result call(
@@ -371,7 +560,7 @@ namespace sprout {
 			typename disable_if_void<Res>::type = 0
 			) const volatile
 		{
-			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::volget<Indexes>(bound_args_), args)...);
+			return f_(sprout::detail::mu<BoundArgs>()(sprout::detail::get_bound<Indexes>(bound_args_), args)...);
 		}
 		template<typename Res, typename... Args, sprout::index_t... Indexes>
 		Result call(
@@ -380,7 +569,7 @@ namespace sprout {
 			typename enable_if_void<Res>::type = 0
 			) const volatile
 		{
-			f_(sprout::detail::mu<BoundArgs>()(sprout::detail::volget<Indexes>(bound_args_), args)...);
+			f_(sprout::detail::mu<BoundArgs>()(sprout::detail::get_bound<Indexes>(bound_args_), args)...);
 		}
 	public:
 		typedef Result result_type;
@@ -394,28 +583,28 @@ namespace sprout {
 		result_type operator()(Args&&... args) {
 			return call<Result>(
 				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
-				bound_indexes()
+				sprout::detail::bound_indexes<bounds_type, Args...>::make()
 				);
 		}
 		template<typename... Args>
 		SPROUT_CONSTEXPR result_type operator()(Args&&... args) const {
 			return call<Result>(
 				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
-				bound_indexes()
+				sprout::detail::bound_indexes<bounds_type, Args...>::make()
 				);
 		}
 		template<typename... Args>
 		result_type operator()(Args&&... args) volatile {
 			return call<Result>(
 				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
-				bound_indexes()
+				sprout::detail::bound_indexes<bounds_type, Args...>::make()
 				);
 		}
 		template<typename... Args>
 		SPROUT_CONSTEXPR result_type operator()(Args&&... args) const volatile {
 			return call<Result>(
 				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
-				bound_indexes()
+				sprout::detail::bound_indexes<bounds_type, Args...>::make()
 				);
 		}
 	};
@@ -434,7 +623,12 @@ namespace sprout {
 
 	namespace detail {
 		template<sprout::index_t Index, typename BoundArg, typename = void>
-		struct complete_placeholder {
+		struct complete_placeholder;
+		template<sprout::index_t Index, typename BoundArg>
+		struct complete_placeholder<
+			Index, BoundArg,
+			typename std::enable_if<!(sprout::is_placeholder<BoundArg>::value == -1)>::type
+		> {
 		public:
 			typedef BoundArg type;
 		};
@@ -477,7 +671,6 @@ namespace sprout {
 			typedef sprout::detail::maybe_wrap_member_pointer<typename std::decay<Func>::type> maybe_type;
 			typedef typename maybe_type::type func_type;
 			typedef typename sprout::detail::binder_complete_placeholders<func_type, typename std::decay<BoundArgs>::type...>::type type;
-//			typedef sprout::binder<func_type (typename std::decay<BoundArgs>::type...)> type;
 		};
 		template<typename Result, typename Func, typename... BoundArgs>
 		struct res_bind_helper {
@@ -485,7 +678,6 @@ namespace sprout {
 			typedef sprout::detail::maybe_wrap_member_pointer<typename std::decay<Func>::type> maybe_type;
 			typedef typename maybe_type::type functor_type;
 			typedef typename sprout::detail::res_binder_complete_placeholders<Result, functor_type, typename std::decay<BoundArgs>::type...>::type type;
-//			typedef sprout::res_binder<Result, functor_type (typename std::decay<BoundArgs>::type...)> type;
 		};
 	}	// namespace detail
 
