@@ -13,9 +13,7 @@ namespace sprout {
 			struct find_index_impl;
 			template<typename Tuple, typename T, std::size_t I>
 			struct find_index_impl<
-				Tuple,
-				T,
-				I,
+				Tuple, T, I,
 				typename std::enable_if<
 					I == sprout::types::tuple_size<Tuple>::value
 					|| std::is_same<typename sprout::types::tuple_element<I, Tuple>::type, T>::value
@@ -25,9 +23,7 @@ namespace sprout {
 			{};
 			template<typename Tuple, typename T, std::size_t I>
 			struct find_index_impl<
-				Tuple,
-				T,
-				I,
+				Tuple, T, I,
 				typename std::enable_if<
 					I != sprout::types::tuple_size<Tuple>::value
 					&& !std::is_same<typename sprout::types::tuple_element<I, Tuple>::type, T>::value

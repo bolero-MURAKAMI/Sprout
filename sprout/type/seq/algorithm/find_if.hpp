@@ -13,9 +13,7 @@ namespace sprout {
 				struct find_if_impl;
 				template<typename First, typename Last, typename Predicate>
 				struct find_if_impl<
-					First,
-					Last,
-					Predicate,
+					First, Last, Predicate,
 					typename std::enable_if<
 						std::is_same<First, Last>::value
 					>::type
@@ -25,9 +23,7 @@ namespace sprout {
 				};
 				template<typename First, typename Last, typename Predicate>
 				struct find_if_impl<
-					First,
-					Last,
-					Predicate,
+					First, Last, Predicate,
 					typename std::enable_if<
 						!std::is_same<First, Last>::value
 						&& Predicate::template apply<typename sprout::types::deref<First>::type>::type::value
@@ -38,9 +34,7 @@ namespace sprout {
 				};
 				template<typename First, typename Last, typename Predicate>
 				struct find_if_impl<
-					First,
-					Last,
-					Predicate,
+					First, Last, Predicate,
 					typename std::enable_if<
 						!std::is_same<First, Last>::value
 						&& !Predicate::template apply<typename sprout::types::deref<First>::type>::type::value
