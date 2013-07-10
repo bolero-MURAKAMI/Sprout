@@ -15,6 +15,7 @@
 #include <sprout/tuple/tuple/make_tuple.hpp>
 #include <sprout/type/algorithm/find_index_if.hpp>
 #include <sprout/type/algorithm/lower_bound_index.hpp>
+#include <sprout/type/type_tuple.hpp>
 #include <sprout/type/integral_array.hpp>
 #include <sprout/functional/ref.hpp>
 #include <sprout/functional/mem_fn.hpp>
@@ -683,47 +684,76 @@ namespace sprout {
 	{};
 
 	namespace detail {
-		template<sprout::index_t Index, typename BoundArg, typename = void>
-		struct complete_placeholder;
-		template<sprout::index_t Index, typename BoundArg>
-		struct complete_placeholder<
-			Index, BoundArg,
-			typename std::enable_if<!sprout::is_positional_placeholder<BoundArg>::value>::type
-		> {
+		template<std::size_t N, typename BoundArg, typename = void>
+		struct complete_placeholder {
 		public:
 			typedef BoundArg type;
 		};
-		template<sprout::index_t Index, typename BoundArg>
+		template<std::size_t N, typename BoundArg>
 		struct complete_placeholder<
-			Index, BoundArg,
+			N, BoundArg,
 			typename std::enable_if<sprout::is_positional_placeholder<BoundArg>::value>::type
 		> {
 		public:
-			typedef sprout::placeholder<Index + 1> type;
+			typedef sprout::placeholder<N + 1> type;
 		};
 
-		template<typename Func, typename IndexTuple, typename... BoundArgs>
-		struct binder_complete_placeholders_impl;
-		template<typename Func, typename... BoundArgs, sprout::index_t... Indexes>
-		struct binder_complete_placeholders_impl<Func, sprout::index_tuple<Indexes...>, BoundArgs...> {
+		template<std::size_t I, std::size_t N, typename Bounds, typename Binder, typename = void>
+		struct binder_complete_placeholders_impl {
 		public:
-			typedef sprout::binder<Func (typename sprout::detail::complete_placeholder<Indexes, BoundArgs>::type...)> type;
+			typedef Binder type;
 		};
+		template<std::size_t I, std::size_t N, typename Bounds, typename Func, typename... As>
+		struct binder_complete_placeholders_impl<
+			I, N, Bounds, sprout::binder<Func (As...)>,
+			typename std::enable_if<(I < sprout::tuples::tuple_size<Bounds>::value)>::type
+		>
+			: public std::conditional<
+				sprout::is_positional_placeholder<typename sprout::tuples::tuple_element<I, Bounds>::type>::value,
+				sprout::detail::binder_complete_placeholders_impl<
+					I + 1, N + 1, Bounds,
+					sprout::binder<Func (As..., sprout::placeholder<N + 1>)>
+				>,
+				sprout::detail::binder_complete_placeholders_impl<
+					I + 1, N, Bounds,
+					sprout::binder<Func (As..., typename sprout::tuples::tuple_element<I, Bounds>::type)>
+				>
+			>::type
+		{};
 		template<typename Func, typename... BoundArgs>
 		struct binder_complete_placeholders
-			: public sprout::detail::binder_complete_placeholders_impl<Func, typename sprout::index_pack<BoundArgs...>::type, BoundArgs...>
+			: public sprout::detail::binder_complete_placeholders_impl<
+				0, 0, sprout::types::type_tuple<BoundArgs...>, sprout::binder<Func ()>
+			>
 		{};
 
-		template<typename Result, typename Func, typename IndexTuple, typename... BoundArgs>
-		struct res_binder_complete_placeholders_impl;
-		template<typename Result, typename Func, typename... BoundArgs, sprout::index_t... Indexes>
-		struct res_binder_complete_placeholders_impl<Result, Func, sprout::index_tuple<Indexes...>, BoundArgs...> {
+		template<std::size_t I, std::size_t N, typename Bounds, typename Binder, typename = void>
+		struct res_binder_complete_placeholders_impl {
 		public:
-			typedef sprout::res_binder<Result, Func (typename sprout::detail::complete_placeholder<Indexes, BoundArgs>::type...)> type;
+			typedef Binder type;
 		};
+		template<std::size_t I, std::size_t N, typename Bounds, typename Result, typename Func, typename... As>
+		struct res_binder_complete_placeholders_impl<
+			I, N, Bounds, sprout::res_binder<Result, Func (As...)>,
+			typename std::enable_if<(I < sprout::tuples::tuple_size<Bounds>::value)>::type
+		>
+			: public std::conditional<
+				sprout::is_positional_placeholder<typename sprout::tuples::tuple_element<I, Bounds>::type>::value,
+				sprout::detail::res_binder_complete_placeholders_impl<
+					I + 1, N + 1, Bounds,
+					sprout::res_binder<Result, Func (As..., sprout::placeholder<N + 1>)>
+				>,
+				sprout::detail::res_binder_complete_placeholders_impl<
+					I + 1, N, Bounds,
+					sprout::res_binder<Result, Func (As..., typename sprout::tuples::tuple_element<I, Bounds>::type)>
+				>
+			>::type
+		{};
 		template<typename Result, typename Func, typename... BoundArgs>
 		struct res_binder_complete_placeholders
-			: public sprout::detail::res_binder_complete_placeholders_impl<Result, Func, typename sprout::index_pack<BoundArgs...>::type, BoundArgs...>
+			: public sprout::detail::res_binder_complete_placeholders_impl<
+				0, 0, sprout::types::type_tuple<BoundArgs...>, sprout::res_binder<Result, Func ()>
+			>
 		{};
 
 		template<typename Func, typename... BoundArgs>

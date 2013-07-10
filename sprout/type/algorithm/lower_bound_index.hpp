@@ -29,6 +29,8 @@ namespace sprout {
 		//
 		// lower_bound_index
 		//
+		//	TODO: O(log N) implementation
+		//
 		template<typename Tuple, typename T, typename Compare = sprout::types::less_>
 		struct lower_bound_index
 			: public sprout::types::detail::lower_bound_index_impl<0, Tuple, T, Compare>
