@@ -9,19 +9,22 @@ namespace sprout {
 	// placeholder
 	//
 	template<int N>
-	struct placeholder
-//		: public std::integral_constant<int, N>
-	{};
-	template<>
-	struct placeholder<-1>
-//		: public std::integral_constant<int, -1>
-	{
+	struct placeholder {};
+	//
+	// positional_placeholder
+	//
+	struct positional_placeholder {
 	public:
-		template<int N2>
-		SPROUT_CONSTEXPR operator sprout::placeholder<N2>() const {
-			return sprout::placeholder<N2>();
+		template<int N>
+		SPROUT_CONSTEXPR operator sprout::placeholder<N>() const {
+			return sprout::placeholder<N>();
 		}
 	};
+	//
+	// variadic_placeholder
+	//
+	template<int N>
+	struct variadic_placeholder {};
 
 	namespace placeholders {
 		namespace {
@@ -56,39 +59,39 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR sprout::placeholder<29> _29 = {};
 			SPROUT_STATIC_CONSTEXPR sprout::placeholder<30> _30 = {};
 
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-1> _ = {};
+			SPROUT_STATIC_CONSTEXPR sprout::positional_placeholder _ = {};
 
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256> _va = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 1> _1tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 2> _2tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 3> _3tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 4> _4tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 5> _5tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 6> _6tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 7> _7tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 8> _8tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 9> _9tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 10> _10tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 11> _11tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 12> _12tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 13> _13tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 14> _14tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 15> _15tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 16> _16tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 17> _17tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 18> _18tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 19> _19tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 20> _20tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 21> _21tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 22> _22tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 23> _23tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 24> _24tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 25> _25tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 26> _26tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 27> _27tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 28> _28tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 29> _29tail = {};
-			SPROUT_STATIC_CONSTEXPR sprout::placeholder<-256 - 30> _30tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<0> _va = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<1> _1tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<2> _2tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<3> _3tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<4> _4tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<5> _5tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<6> _6tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<7> _7tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<8> _8tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<9> _9tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<10> _10tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<11> _11tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<12> _12tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<13> _13tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<14> _14tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<15> _15tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<16> _16tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<17> _17tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<18> _18tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<19> _19tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<20> _20tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<21> _21tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<22> _22tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<23> _23tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<24> _24tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<25> _25tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<26> _26tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<27> _27tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<28> _28tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<29> _29tail = {};
+			SPROUT_STATIC_CONSTEXPR sprout::variadic_placeholder<30> _30tail = {};
 		}	// anonymous-namespace
 	}	// namespace placeholders
 	using sprout::placeholders::_1;
@@ -163,10 +166,6 @@ namespace sprout {
 	struct is_placeholder
 		: public std::integral_constant<int, 0>
 	{};
-	template<int N>
-	struct is_placeholder<sprout::placeholder<N> >
-		: public std::integral_constant<int, N>
-	{};
 	template<typename T>
 	struct is_placeholder<T const>
 		: public sprout::is_placeholder<T>
@@ -178,6 +177,58 @@ namespace sprout {
 	template<typename T>
 	struct is_placeholder<T const volatile>
 		: public sprout::is_placeholder<T>
+	{};
+	template<int N>
+	struct is_placeholder<sprout::placeholder<N> >
+		: public std::integral_constant<int, N>
+	{};
+
+	//
+	// is_positional_placeholder
+	//
+	template<typename T>
+	struct is_positional_placeholder
+		: public std::integral_constant<int, 0>
+	{};
+	template<typename T>
+	struct is_positional_placeholder<T const>
+		: public sprout::is_positional_placeholder<T>
+	{};
+	template<typename T>
+	struct is_positional_placeholder<T volatile>
+		: public sprout::is_positional_placeholder<T>
+	{};
+	template<typename T>
+	struct is_positional_placeholder<T const volatile>
+		: public sprout::is_positional_placeholder<T>
+	{};
+	template<>
+	struct is_positional_placeholder<sprout::positional_placeholder>
+		: public std::integral_constant<int, 1>
+	{};
+
+	//
+	// is_variadic_placeholder
+	//
+	template<typename T>
+	struct is_variadic_placeholder
+		: public std::integral_constant<int, 0>
+	{};
+	template<typename T>
+	struct is_variadic_placeholder<T const>
+		: public sprout::is_variadic_placeholder<T>
+	{};
+	template<typename T>
+	struct is_variadic_placeholder<T volatile>
+		: public sprout::is_variadic_placeholder<T>
+	{};
+	template<typename T>
+	struct is_variadic_placeholder<T const volatile>
+		: public sprout::is_variadic_placeholder<T>
+	{};
+	template<int N>
+	struct is_variadic_placeholder<sprout::variadic_placeholder<N> >
+		: public std::integral_constant<int, N + 1>
 	{};
 }	// namespace sprout
 

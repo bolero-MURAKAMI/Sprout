@@ -14,6 +14,7 @@
 #include <sprout/tuple/tuple/get.hpp>
 #include <sprout/tuple/tuple/make_tuple.hpp>
 #include <sprout/type/algorithm/find_index_if.hpp>
+#include <sprout/type/algorithm/lower_bound_index.hpp>
 #include <sprout/type/integral_array.hpp>
 #include <sprout/functional/ref.hpp>
 #include <sprout/functional/mem_fn.hpp>
@@ -188,21 +189,14 @@ namespace sprout {
 			return sprout::tuples::get<I>(const_cast<sprout::tuples::tuple<Types...> const&>(tuple));
 		}
 
-		template<typename T, typename = void>
-		struct is_variadic_placeholder
-			: public std::integral_constant<
-				bool,
-				(sprout::is_placeholder<T>::value
-					<= sprout::is_placeholder<decltype(sprout::placeholders::_va)>::value
-					)
-			>
-		{};
-
 		struct is_variadic_placeholder_pred {
 		public:
 			template<typename T>
 			struct apply
-				: public sprout::detail::is_variadic_placeholder<T>
+				: public std::integral_constant<
+					bool,
+					(sprout::is_variadic_placeholder<T>::value > 0)
+				>
 			{};
 		};
 		template<typename Bounds, typename = void>
@@ -213,21 +207,9 @@ namespace sprout {
 			>
 		{};
 
-		template<typename T, typename = void>
-		struct tail_place
-			: public std::integral_constant<int, -1>
-		{};
 		template<typename T>
-		struct tail_place<
-			T,
-			typename std::enable_if<sprout::detail::is_variadic_placeholder<T>::value>::type
-		>
-			: public std::integral_constant<
-				int,
-				(sprout::is_placeholder<decltype(sprout::placeholders::_va)>::value
-					- sprout::is_placeholder<T>::value
-					)
-			>
+		struct tail_place
+			: public std::integral_constant<int, sprout::is_variadic_placeholder<T>::value - 1>
 		{};
 
 		template<typename T, std::size_t ArgSize, typename = void>
@@ -237,7 +219,7 @@ namespace sprout {
 		template<typename T, std::size_t ArgSize>
 		struct bound_size<
 			T, ArgSize,
-			typename std::enable_if<sprout::detail::is_variadic_placeholder<T>::value>::type
+			typename std::enable_if<(sprout::is_variadic_placeholder<T>::value > 0)>::type
 		>
 			: public std::integral_constant<
 				std::size_t,
@@ -292,39 +274,11 @@ namespace sprout {
 			: public sprout::make_index_tuple<sprout::detail::bounds_size<Bounds, ArgSize>::value>
 		{};
 
-		struct meta_less_ {
-		public:
-			template<typename T, typename U>
-			struct apply
-				: public std::integral_constant<bool, ((T::value) < (U::value))>
-			{};
-		};
-
-		template<std::size_t I, typename Tuple, typename T, typename Compare, typename = void>
-		struct lower_bound_index_impl
-			: public std::integral_constant<std::size_t, I>
-		{};
-		template<std::size_t I, typename Tuple, typename T, typename Compare>
-		struct lower_bound_index_impl<
-			I, Tuple, T, Compare,
-			typename std::enable_if<(I < sprout::tuples::tuple_size<Tuple>::value)>::type
-		>
-			: public std::conditional<
-				Compare::template apply<typename sprout::tuples::tuple_element<I, Tuple>::type, T>::type::value,
-				sprout::detail::lower_bound_index_impl<I + 1, Tuple, T, Compare>,
-				std::integral_constant<std::size_t, I>
-			>::type
-		{};
-		template<typename Tuple, typename T, typename Compare = sprout::detail::meta_less_>
-		struct lower_bound_index
-			: public sprout::detail::lower_bound_index_impl<0, Tuple, T, Compare>
-		{};
-
 		template<sprout::index_t I, typename Bounds, std::size_t ArgSize>
 		struct bound_position
 			: public std::integral_constant<
 				sprout::index_t,
-				(sprout::detail::lower_bound_index<
+				(sprout::types::lower_bound_index<
 					typename sprout::detail::bounds_partial_size<Bounds, ArgSize>::type,
 					std::integral_constant<std::size_t, I + 1>
 					>::type::value - 1
@@ -334,11 +288,15 @@ namespace sprout {
 
 		template<sprout::index_t I, typename Bounds, std::size_t ArgSize>
 		struct is_variadic_part
-			: public sprout::detail::is_variadic_placeholder<
-				typename sprout::tuples::tuple_element<
-					sprout::detail::bound_position<I, Bounds, ArgSize>::value,
-					Bounds
-				>::type
+			: public std::integral_constant<
+				bool,
+				(sprout::is_variadic_placeholder<
+						typename sprout::tuples::tuple_element<
+							sprout::detail::bound_position<I, Bounds, ArgSize>::value,
+							Bounds
+						>::type
+					>::value > 0
+					)
 			>
 		{};
 
@@ -730,7 +688,7 @@ namespace sprout {
 		template<sprout::index_t Index, typename BoundArg>
 		struct complete_placeholder<
 			Index, BoundArg,
-			typename std::enable_if<!(sprout::is_placeholder<BoundArg>::value == sprout::is_placeholder<decltype(sprout::placeholders::_)>::value)>::type
+			typename std::enable_if<!sprout::is_positional_placeholder<BoundArg>::value>::type
 		> {
 		public:
 			typedef BoundArg type;
@@ -738,7 +696,7 @@ namespace sprout {
 		template<sprout::index_t Index, typename BoundArg>
 		struct complete_placeholder<
 			Index, BoundArg,
-			typename std::enable_if<(sprout::is_placeholder<BoundArg>::value == sprout::is_placeholder<decltype(sprout::placeholders::_)>::value)>::type
+			typename std::enable_if<sprout::is_positional_placeholder<BoundArg>::value>::type
 		> {
 		public:
 			typedef sprout::placeholder<Index + 1> type;
