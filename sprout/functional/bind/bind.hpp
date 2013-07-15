@@ -694,7 +694,7 @@ namespace sprout {
 			}
 		public:
 			template<typename... Args>
-			explicit res_binder_impl(Functor const& f, Args&&... args)
+			explicit SPROUT_CONSTEXPR res_binder_impl(Functor const& f, Args&&... args)
 				: f_(f)
 				, bound_args_(sprout::forward<Args>(args)...)
 			{}
@@ -893,10 +893,39 @@ namespace sprout {
 				>
 			>::type
 		{};
+		template<std::size_t I, std::size_t N, typename Bounds, typename Result, typename Func, typename... As>
+		struct res_binder_complete_placeholders_impl<
+			I, N, Bounds, sprout::res_cbinder<Result, Func (As...)>,
+			typename std::enable_if<(I < sprout::tuples::tuple_size<Bounds>::value)>::type
+		>
+			: public std::conditional<
+				sprout::is_positional_placeholder<typename sprout::tuples::tuple_element<I, Bounds>::type>::value,
+				sprout::detail::res_binder_complete_placeholders_impl<
+					I + 1, N + 1, Bounds,
+					sprout::res_cbinder<Result, Func (As..., sprout::placeholder<N + 1>)>
+				>,
+				sprout::detail::res_binder_complete_placeholders_impl<
+					I + 1, N, Bounds,
+					sprout::res_cbinder<Result, Func (As..., typename sprout::tuples::tuple_element<I, Bounds>::type)>
+				>
+			>::type
+		{};
+		template<bool Const, typename Result, typename Func, typename... BoundArgs>
+		struct res_binder_complete_placeholders;
 		template<typename Result, typename Func, typename... BoundArgs>
-		struct res_binder_complete_placeholders
+		struct res_binder_complete_placeholders<
+			false, Result, Func, BoundArgs...
+		>
 			: public sprout::detail::res_binder_complete_placeholders_impl<
 				0, 0, sprout::types::type_tuple<BoundArgs...>, sprout::res_binder<Result, Func ()>
+			>
+		{};
+		template<typename Result, typename Func, typename... BoundArgs>
+		struct res_binder_complete_placeholders<
+			true, Result, Func, BoundArgs...
+		>
+			: public sprout::detail::res_binder_complete_placeholders_impl<
+				0, 0, sprout::types::type_tuple<BoundArgs...>, sprout::res_cbinder<Result, Func ()>
 			>
 		{};
 
@@ -907,12 +936,12 @@ namespace sprout {
 			typedef typename maybe_type::type func_type;
 			typedef typename sprout::detail::binder_complete_placeholders<Const, func_type, typename std::decay<BoundArgs>::type...>::type type;
 		};
-		template<typename Result, typename Func, typename... BoundArgs>
+		template<bool Const, typename Result, typename Func, typename... BoundArgs>
 		struct res_bind_helper {
 		public:
 			typedef sprout::detail::maybe_wrap_member_pointer<typename std::decay<Func>::type> maybe_type;
 			typedef typename maybe_type::type functor_type;
-			typedef typename sprout::detail::res_binder_complete_placeholders<Result, functor_type, typename std::decay<BoundArgs>::type...>::type type;
+			typedef typename sprout::detail::res_binder_complete_placeholders<Const, Result, functor_type, typename std::decay<BoundArgs>::type...>::type type;
 		};
 	}	// namespace detail
 
@@ -937,7 +966,12 @@ namespace sprout {
 	template<typename R, typename F, typename... BoundArgs>
 	struct res_bind_result {
 	public:
-		typedef typename sprout::detail::res_bind_helper<R, F, BoundArgs...>::type type;
+		typedef typename sprout::detail::res_bind_helper<false, R, F, BoundArgs...>::type type;
+	};
+	template<typename R, typename F, typename... BoundArgs>
+	struct res_cbind_result {
+	public:
+		typedef typename sprout::detail::res_bind_helper<true, R, F, BoundArgs...>::type type;
 	};
 
 	//
@@ -954,7 +988,7 @@ namespace sprout {
 	template<typename R, typename F, typename... BoundArgs>
 	inline SPROUT_CONSTEXPR typename sprout::res_bind_result<R, F, BoundArgs...>::type
 	bind(F&& f, BoundArgs&&... args) {
-		typedef sprout::detail::res_bind_helper<R, F, BoundArgs...> helper_type;
+		typedef sprout::detail::res_bind_helper<false, R, F, BoundArgs...> helper_type;
 		typedef typename helper_type::maybe_type maybe_type;
 		typedef typename helper_type::type result_type;
 		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
@@ -972,9 +1006,12 @@ namespace sprout {
 		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
 	}
 	template<typename R, typename F, typename... BoundArgs>
-	inline SPROUT_CONSTEXPR typename sprout::detail::res_bind_helper<R, F, BoundArgs...>::type const
+	inline SPROUT_CONSTEXPR typename sprout::res_cbind_result<R, F, BoundArgs...>::type
 	cbind(F&& f, BoundArgs&&... args) {
-		return sprout::bind<R>(sprout::forward<F>(f), sprout::forward<BoundArgs>(args)...);
+		typedef sprout::detail::res_bind_helper<true, R, F, BoundArgs...> helper_type;
+		typedef typename helper_type::maybe_type maybe_type;
+		typedef typename helper_type::type result_type;
+		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
 	}
 }	// namespace sprout
 
