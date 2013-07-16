@@ -98,11 +98,15 @@ namespace sprout {
 			: init(v.init)
 			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
+#if defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 8 && __GNUC_PATCHLEVEL__ <= 1))
+		SPROUT_CONSTEXPR optional(optional&&)	= default;
+#else
 		SPROUT_CONSTEXPR optional(optional&& v)
 		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_constructible<T>::value)
 			: init(v.init)
 			, val(v.is_initialized() ? holder_type(sprout::move(get(v))) : holder_type())
 		{}
+#endif
 		SPROUT_CONSTEXPR optional(T const& v)
 			: init(true)
 			, val(v)
