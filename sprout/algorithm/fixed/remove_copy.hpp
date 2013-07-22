@@ -20,9 +20,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			remove_copy_impl(
-				InputIterator first, InputIterator last,
-				Result const& result, T const& value,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator, InputIterator,
+				Result const& result, T const&,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

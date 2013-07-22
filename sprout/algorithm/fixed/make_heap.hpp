@@ -75,12 +75,12 @@ namespace sprout {
 			template<int D, typename Container, typename Compare, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 			make_heap_impl_1(
-				Container const& cont, Compare comp,
-				typename sprout::container_traits<Container>::difference_type offset,
-				typename sprout::container_traits<Container>::difference_type size,
-				typename sprout::container_traits<Container>::difference_type n,
-				typename sprout::container_traits<Container>::difference_type l,
-				typename sprout::container_traits<Container>::difference_type r
+				Container const&, Compare,
+				typename sprout::container_traits<Container>::difference_type,
+				typename sprout::container_traits<Container>::difference_type,
+				typename sprout::container_traits<Container>::difference_type,
+				typename sprout::container_traits<Container>::difference_type,
+				typename sprout::container_traits<Container>::difference_type
 				)
 			{
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
@@ -121,12 +121,12 @@ namespace sprout {
 			template<int D, typename Container, typename Compare, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 			make_heap_impl(
-				Container const& cont, Compare comp,
-				typename sprout::container_traits<Container>::difference_type offset,
-				typename sprout::container_traits<Container>::difference_type size,
-				typename sprout::container_traits<Container>::difference_type n,
-				typename sprout::container_traits<Container>::difference_type l,
-				typename sprout::container_traits<Container>::difference_type r
+				Container const&, Compare,
+				typename sprout::container_traits<Container>::difference_type,
+				typename sprout::container_traits<Container>::difference_type,
+				typename sprout::container_traits<Container>::difference_type,
+				typename sprout::container_traits<Container>::difference_type,
+				typename sprout::container_traits<Container>::difference_type
 				)
 			{
 				return sprout::throw_recursive_function_template_instantiation_exeeded();

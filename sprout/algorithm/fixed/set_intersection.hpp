@@ -21,10 +21,10 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			set_intersection_impl(
-				InputIterator1 first1, InputIterator1 last1,
-				InputIterator2 first2, InputIterator2 last2,
-				Result const& result, Compare comp,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator1, InputIterator1,
+				InputIterator2, InputIterator2,
+				Result const& result, Compare,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

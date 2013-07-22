@@ -126,7 +126,7 @@ namespace sprout {
 				sizeof...(Args) == 4,
 				result_type
 			>::type
-			generate_2_1(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			generate_2_1(next_char<Iterator> nc, Char open_brace, bool, Args... args) const {
 				return is_dash(nc.c)
 					? generate_2_2(nc.next(), open_brace, true, args...)
 					: generate_2_2(nc, open_brace, false, args...)
@@ -145,7 +145,7 @@ namespace sprout {
 				sizeof...(Args) == 16,
 				result_type
 			>::type
-			generate_2(next_char<Iterator> nc, Char open_brace, bool has_dashes, Args... args) const {
+			generate_2(next_char<Iterator> nc, Char open_brace, bool, Args... args) const {
 				return !open_brace || (open_brace && is_close_brace(nc.next().c, open_brace))
 					? result_type{{args...}}
 					: throw std::runtime_error("string_generator: invalid uuid string (brace not closed)")

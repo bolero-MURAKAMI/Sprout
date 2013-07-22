@@ -39,13 +39,13 @@ namespace sprout {
 			}
 			template<typename Outdirected>
 			SPROUT_CONSTEXPR typename std::iterator_traits<Outdirected>::value_type
-			calc_1(Outdirected const& x, value_type const& tau, value_type const& t) const {
+			calc_1(Outdirected const& x, value_type const& t) const {
 				return calc_2(x, static_cast<typename Outdirected::index_type>(t), t - static_cast<typename Outdirected::index_type>(t));
 			}
 			template<typename Outdirected>
 			SPROUT_CONSTEXPR typename std::iterator_traits<Outdirected>::value_type
 			calc(Outdirected const& x, value_type const& tau) const {
-				return calc_1(x, tau, x.index() - tau);
+				return calc_1(x, x.index() - tau);
 			}
 		public:
 			SPROUT_CONSTEXPR chorus_outdirected_value(

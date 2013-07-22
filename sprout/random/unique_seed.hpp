@@ -24,7 +24,7 @@ namespace sprout {
 			sizeof...(Args) + 1 == N,
 			sprout::array<std::size_t, N>
 		>::type
-		make_seed_seq_impl(T const& v, std::size_t seed, Args const&... args) {
+		make_seed_seq_impl(T const&, std::size_t seed, Args const&... args) {
 			return sprout::array<std::size_t, N>{{args..., seed}};
 		}
 		template<std::size_t N, typename T, typename... Args>

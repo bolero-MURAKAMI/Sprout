@@ -126,7 +126,7 @@ namespace sprout {
 			temp.swap(*this);
 			return *this;
 		}
-		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
+		SPROUT_CONSTEXPR reference operator[](difference_type) const {
 			return holder_.get();
 		}
 	};

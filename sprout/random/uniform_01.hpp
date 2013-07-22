@@ -31,7 +31,7 @@ namespace sprout {
 				template<typename Elem, typename Traits>
 				friend std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
-					param_type& rhs
+					param_type&
 					)
 				{
 					return lhs;
@@ -39,12 +39,12 @@ namespace sprout {
 				template<typename Elem, typename Traits>
 				friend std::basic_ostream<Elem, Traits>& operator<<(
 					std::basic_ostream<Elem, Traits>& lhs,
-					param_type const& rhs
+					param_type const&
 					)
 				{
 					return lhs;
 				}
-				friend SPROUT_CONSTEXPR bool operator==(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
+				friend SPROUT_CONSTEXPR bool operator==(param_type const&, param_type const&) SPROUT_NOEXCEPT {
 					return true;
 				}
 				friend SPROUT_CONSTEXPR bool operator!=(param_type const& lhs, param_type const& rhs) SPROUT_NOEXCEPT {
@@ -55,7 +55,7 @@ namespace sprout {
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate_1(Engine const& eng, sprout::random::random_result<Engine> const& rnd, result_type result) const {
+			generate_1(Engine const&, sprout::random::random_result<Engine> const& rnd, result_type result) const {
 				return result < result_type(1)
 					? sprout::random::random_result<Engine, uniform_01>(result, rnd.engine(), *this)
 					: generate<D + 1>(rnd.engine(), rnd.engine()())
@@ -63,7 +63,7 @@ namespace sprout {
 			}
 			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate_1(Engine const& eng, sprout::random::random_result<Engine> const& rnd, result_type result) const {
+			generate_1(Engine const&, sprout::random::random_result<Engine> const&, result_type) const {
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -84,13 +84,13 @@ namespace sprout {
 			}
 			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
+			generate(Engine const&, sprout::random::random_result<Engine> const&) const {
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 #else
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate_1(Engine const& eng, sprout::random::random_result<Engine> const& rnd, result_type result) const {
+			generate_1(Engine const&, sprout::random::random_result<Engine> const& rnd, result_type result) const {
 				return result < result_type(1)
 					? sprout::random::random_result<Engine, uniform_01>(result, rnd.engine(), *this)
 					: generate(rnd.engine(), rnd.engine()())
@@ -114,10 +114,8 @@ namespace sprout {
 			}
 #endif
 		public:
-			explicit SPROUT_CONSTEXPR uniform_01()
-			{}
-			explicit SPROUT_CONSTEXPR uniform_01(param_type const& parm)
-			{}
+			explicit SPROUT_CONSTEXPR uniform_01() {}
+			explicit SPROUT_CONSTEXPR uniform_01(param_type const&) {}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return result_type(0);
 			}
@@ -127,8 +125,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type();
 			}
-			void param(param_type const& parm) {
-			}
+			void param(param_type const&) {}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> operator()(Engine const& eng) const {
 				return generate(eng, eng());
@@ -136,7 +133,7 @@ namespace sprout {
 			template<typename Elem, typename Traits>
 			friend std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
-				uniform_01& rhs
+				uniform_01&
 				)
 			{
 				return lhs;
@@ -144,12 +141,12 @@ namespace sprout {
 			template<typename Elem, typename Traits>
 			friend std::basic_ostream<Elem, Traits>& operator<<(
 				std::basic_ostream<Elem, Traits>& lhs,
-				uniform_01 const& rhs
+				uniform_01 const&
 				)
 			{
 				return lhs;
 			}
-			friend SPROUT_CONSTEXPR bool operator==(uniform_01 const& lhs, uniform_01 const& rhs) SPROUT_NOEXCEPT {
+			friend SPROUT_CONSTEXPR bool operator==(uniform_01 const&, uniform_01 const&) SPROUT_NOEXCEPT {
 				return true;
 			}
 			friend SPROUT_CONSTEXPR bool operator!=(uniform_01 const& lhs, uniform_01 const& rhs) SPROUT_NOEXCEPT {

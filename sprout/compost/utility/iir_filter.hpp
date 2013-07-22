@@ -30,7 +30,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_lpf_impl_2(T const& fc, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
+			iir_lpf_impl_2(T const&, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -82,7 +82,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_hpf_impl_2(T const& fc, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
+			iir_hpf_impl_2(T const&, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -134,7 +134,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_bpf_impl_2(T const& fc, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
+			iir_bpf_impl_2(T const&, A const& a, B const& b, T const& x, T const& x2, T const& y) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -152,9 +152,9 @@ namespace sprout {
 			}
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_bpf_impl_1(T const& fc, T const& q, A const& a, B const& b, T const& x, T const& x2) {
+			iir_bpf_impl_1(T const& fc1, A const& a, B const& b, T const& x, T const& x2) {
 				return sprout::compost::detail::iir_bpf_impl_2<Result>(
-					fc, q, a, b,
+					fc1, a, b,
 					x, x2, 1 + x + x2
 					);
 			}
@@ -162,7 +162,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR Result
 			iir_bpf_impl(T const& fc1, T const& fc2, A const& a, B const& b) {
 				return sprout::compost::detail::iir_bpf_impl_1<Result>(
-					fc1, fc2, a, b,
+					fc1, a, b,
 					sprout::math::two_pi<T>() * (fc2 - fc1),
 					sprout::math::four_pi<T>() * fc1 * fc2
 					);
@@ -190,7 +190,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_bef_impl_2(T const& fc, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
+			iir_bef_impl_2(T const&, A const& a, B const& b, T const& x, T const& x2, T const& y) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -208,9 +208,9 @@ namespace sprout {
 			}
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_bef_impl_1(T const& fc, T const& q, A const& a, B const& b, T const& x, T const& x2) {
+			iir_bef_impl_1(T const& fc1, A const& a, B const& b, T const& x, T const& x2) {
 				return sprout::compost::detail::iir_bef_impl_2<Result>(
-					fc, q, a, b,
+					fc1, a, b,
 					x, x2, 1 + x + x2
 					);
 			}
@@ -218,7 +218,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR Result
 			iir_bef_impl(T const& fc1, T const& fc2, A const& a, B const& b) {
 				return sprout::compost::detail::iir_bef_impl_1<Result>(
-					fc1, fc2, a, b,
+					fc1, a, b,
 					sprout::math::two_pi<T>() * (fc2 - fc1),
 					sprout::math::four_pi<T>() * fc1 * fc2
 					);
@@ -246,7 +246,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_resonator_impl_2(T const& fc, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
+			iir_resonator_impl_2(T const&, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -298,7 +298,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_notch_impl_2(T const& fc, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
+			iir_notch_impl_2(T const&, T const& q, A const& a, B const& b, T const& x, T const& x2, T const& y) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -350,7 +350,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_low_shelving_impl_2(T const& fc, T const& q, T const& g, A const& a, B const& b, T const& x, T const& x2, T const& y, T const& g_) {
+			iir_low_shelving_impl_2(T const&, T const& q, T const& g, A const& a, B const& b, T const& x, T const& x2, T const& y, T const& g_) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -379,7 +379,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR Result
 			iir_low_shelving_impl(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 				return sprout::compost::detail::iir_low_shelving_impl_1<Result>(
-					fc, q, a, b,
+					fc, q, g, a, b,
 					sprout::math::two_pi<T>() * fc
 					);
 			}
@@ -406,7 +406,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_high_shelving_impl_2(T const& fc, T const& q, T const& g, A const& a, B const& b, T const& x, T const& x2, T const& y, T const& g_) {
+			iir_high_shelving_impl_2(T const&, T const& q, T const& g, A const& a, B const& b, T const& x, T const& x2, T const& y, T const& g_) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -435,7 +435,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR Result
 			iir_high_shelving_impl(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 				return sprout::compost::detail::iir_high_shelving_impl_1<Result>(
-					fc, q, a, b,
+					fc, q, g, a, b,
 					sprout::math::two_pi<T>() * fc
 					);
 			}
@@ -462,7 +462,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Result, typename T, typename A, typename B>
 			inline SPROUT_CONSTEXPR Result
-			iir_peaking_impl_2(T const& fc, T const& q, T const& g, A const& a, B const& b, T const& x, T const& x2, T const& y) {
+			iir_peaking_impl_2(T const&, T const& q, T const& g, A const& a, B const& b, T const& x, T const& x2, T const& y) {
 				return Result(
 					sprout::remake<A>(
 						a, 3,
@@ -490,7 +490,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR Result
 			iir_peaking_impl(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 				return sprout::compost::detail::iir_peaking_impl_1<Result>(
-					fc, q, a, b,
+					fc, q, g, a, b,
 					sprout::math::two_pi<T>() * fc
 					);
 			}

@@ -51,7 +51,7 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type
 			generate_impl(
-				Container const& cont, Generator const& next,
+				Container const& cont, Generator const&,
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{

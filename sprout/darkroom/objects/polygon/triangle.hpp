@@ -56,7 +56,7 @@ namespace sprout {
 				}
 				template<typename Ray>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type
-				intersect_5(Ray const& ray, int hit_side, bool does_intersect, unit_type distance) const {
+				intersect_5(Ray const& ray, int /*hit_side*/, bool does_intersect, unit_type distance) const {
 					return typename intersection<Ray>::type(
 						does_intersect,
 						distance,

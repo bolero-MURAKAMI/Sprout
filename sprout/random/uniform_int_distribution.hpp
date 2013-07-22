@@ -119,7 +119,7 @@ namespace sprout {
 			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, typename Result>
 			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
 			generate_uniform_int_true_2_2(
-				Engine const& eng, T min_value, RangeType range,
+				Engine const&, T min_value, RangeType range,
 				BaseResult bmin, BaseUnsigned brange, RangeType result, RangeType mult, Result const& result_increment_base
 				)
 			{
@@ -220,7 +220,7 @@ namespace sprout {
 			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
 			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
 			generate_uniform_int_true_1(
-				Engine const& eng, T min_value, T max_value, RangeType range,
+				Engine const& eng, T min_value, T, RangeType range,
 				BaseResult bmin, BaseUnsigned brange
 				)
 			{

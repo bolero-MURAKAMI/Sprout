@@ -129,7 +129,7 @@ namespace sprout {
 		std::is_integral<IntType>::value,
 		IntType
 	>::type
-	str_to_int(Char const* str, std::nullptr_t endptr, int base = 10) {
+	str_to_int(Char const* str, std::nullptr_t, int base = 10) {
 		return sprout::detail::str_to_int<IntType>(str, base);
 	}
 

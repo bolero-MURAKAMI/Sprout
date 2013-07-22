@@ -19,8 +19,8 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
-			copy_if_impl(InputIterator first, InputIterator last, Result const& result, Predicate pred,
-				typename sprout::container_traits<Result>::size_type size,
+			copy_if_impl(InputIterator, InputIterator, Result const& result, Predicate,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

@@ -213,7 +213,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return *this;
 			}
-			void swap(compressed_pair_impl& other) {}
+			void swap(compressed_pair_impl&) {}
 		};
 		template<typename T1, typename T2>
 		class compressed_pair_impl<T1, T2, 4>
@@ -252,7 +252,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return second_;
 			}
-			void swap(compressed_pair_impl& other) {}
+			void swap(compressed_pair_impl&) {}
 		};
 		template<typename T1, typename T2>
 		class compressed_pair_impl<T1, T2, 5>

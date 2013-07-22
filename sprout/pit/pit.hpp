@@ -93,10 +93,10 @@ namespace sprout {
 			return enumerable_size == 0;
 		}
 		// element access:
-		reference operator[](size_type i) {
+		reference operator[](size_type) {
 			return elem;
 		}
-		SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
+		SPROUT_CONSTEXPR const_reference operator[](size_type) const {
 			return elem;
 		}
 		reference at(size_type i) {

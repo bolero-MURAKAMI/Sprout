@@ -20,7 +20,7 @@ namespace sprout {
 	}
 	template<typename Char>
 	inline SPROUT_CONSTEXPR unsigned long
-	strtoul(Char const* str, std::nullptr_t endptr, int base = 10) {
+	strtoul(Char const* str, std::nullptr_t, int base = 10) {
 		return sprout::str_to_int<unsigned long>(str, base);
 	}
 	template<typename Char>

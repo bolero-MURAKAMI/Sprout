@@ -59,9 +59,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			idft_impl(
-				ForwardIterator first, ForwardIterator last, Result const& result,
-				typename sprout::container_traits<Result>::size_type size,
-				ForwardIterator first_, typename sprout::container_traits<Result>::difference_type i,
+				ForwardIterator, ForwardIterator, Result const& result,
+				typename sprout::container_traits<Result>::size_type,
+				ForwardIterator, typename sprout::container_traits<Result>::difference_type,
 				Args const&... args
 				)
 			{

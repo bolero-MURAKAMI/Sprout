@@ -72,7 +72,7 @@ namespace sprout {
 			//
 			template<typename Range, typename IntType>
 			inline SPROUT_CONSTEXPR auto
-			operator|(Range&& lhs, sprout::compost::formats::as_pcm_wave_forwarder<IntType> const& rhs)
+			operator|(Range&& lhs, sprout::compost::formats::as_pcm_wave_forwarder<IntType> const&)
 			-> decltype(
 				sprout::forward<Range>(lhs)
 					| sprout::adaptors::transformed(sprout::compost::normalized_to_pcm_wave<IntType>())

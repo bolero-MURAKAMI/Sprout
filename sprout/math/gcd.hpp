@@ -50,7 +50,7 @@ namespace sprout {
 			}
 			template<int D, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			inline SPROUT_CONSTEXPR BuiltInUnsigned
-			gcd_binary_2_2(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which) {
+			gcd_binary_2_2(unsigned, sprout::array<BuiltInUnsigned, 2> const&, unsigned) {
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE_DECL(D)>
@@ -81,7 +81,7 @@ namespace sprout {
 			}
 			template<int D, typename BuiltInUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
 			inline SPROUT_CONSTEXPR BuiltInUnsigned
-			gcd_binary_2_1(unsigned shifts, sprout::array<BuiltInUnsigned, 2> const& r, unsigned which) {
+			gcd_binary_2_1(unsigned, sprout::array<BuiltInUnsigned, 2> const&, unsigned) {
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 #else

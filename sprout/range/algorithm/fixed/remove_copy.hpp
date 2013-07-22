@@ -20,7 +20,7 @@ namespace sprout {
 
 			template<typename Result, typename InputRange, typename T>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-			remove_copy(InputRange const& rng, Result const& result, T const& value) {
+			remove_copy(InputRange const& rng, T const& value) {
 				return sprout::fixed::remove_copy<Result>(sprout::begin(rng), sprout::end(rng), value);
 			}
 		}	// namespace fixed

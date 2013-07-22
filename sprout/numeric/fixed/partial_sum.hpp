@@ -19,8 +19,8 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			partial_sum_impl_1(
-				InputIterator first, InputIterator last, Result const& result,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator, InputIterator, Result const& result,
+				typename sprout::container_traits<Result>::size_type,
 				typename sprout::container_traits<Result>::value_type const& value,
 				Args const&... args
 				)
@@ -50,8 +50,8 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			partial_sum_impl(
-				InputIterator first, InputIterator last, Result const& result,
-				typename sprout::container_traits<Result>::size_type size
+				InputIterator, InputIterator, Result const& result,
+				typename sprout::container_traits<Result>::size_type
 				)
 			{
 				return sprout::remake<Result>(result, sprout::size(result));
@@ -94,8 +94,8 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			partial_sum_impl_1(
-				InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator, InputIterator, Result const& result, BinaryOperation,
+				typename sprout::container_traits<Result>::size_type,
 				typename sprout::container_traits<Result>::value_type const& value,
 				Args const&... args
 				)
@@ -125,8 +125,8 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			partial_sum_impl(
-				InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op,
-				typename sprout::container_traits<Result>::size_type size
+				InputIterator, InputIterator, Result const& result, BinaryOperation,
+				typename sprout::container_traits<Result>::size_type
 				)
 			{
 				return sprout::remake<Result>(result, sprout::size(result));

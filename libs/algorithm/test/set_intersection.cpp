@@ -13,8 +13,8 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{20, 25, 30, 35, 40}};
 			SPROUT_STATIC_CONSTEXPR auto arr1_2 = array<int, 5>{{10, 20, 30, 40, 50}};
-			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{};
-			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{};
+			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
+			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{{}};
 
 			// ò_óùêœ
 			{
@@ -111,8 +111,8 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{20, 25, 30, 35, 40}};
 			SPROUT_STATIC_CONSTEXPR auto arr1_2 = array<int, 5>{{10, 20, 30, 40, 50}};
-			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{};
-			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{};
+			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
+			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{{}};
 
 			// ò_óùêœ
 			{

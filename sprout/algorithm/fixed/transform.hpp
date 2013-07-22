@@ -21,7 +21,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, typename UnaryOperation, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			transform_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator last,
+				RandomAccessIterator first, RandomAccessIterator,
 				Result const& result, UnaryOperation op,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
@@ -61,9 +61,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			transform_impl(
-				InputIterator first, InputIterator last,
-				Result const& result, UnaryOperation op,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator, InputIterator,
+				Result const& result, UnaryOperation,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{
@@ -139,7 +139,7 @@ namespace sprout {
 			template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename Result, typename BinaryOperation, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			transform_impl_ra(
-				RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2,
+				RandomAccessIterator1 first1, RandomAccessIterator1, RandomAccessIterator2 first2,
 				Result const& result, BinaryOperation op,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
@@ -178,9 +178,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			transform_impl(
-				InputIterator1 first1, InputIterator1 last1, InputIterator2 first2,
-				Result const& result, BinaryOperation op,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator1, InputIterator1, InputIterator2,
+				Result const& result, BinaryOperation,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

@@ -16,7 +16,7 @@ namespace sprout {
 	}
 	template<typename Char>
 	inline SPROUT_CONSTEXPR float
-	strtof(Char const* str, std::nullptr_t endptr) {
+	strtof(Char const* str, std::nullptr_t) {
 		return sprout::str_to_float<float>(str);
 	}
 	template<typename Char>

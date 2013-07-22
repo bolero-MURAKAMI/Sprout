@@ -22,7 +22,7 @@ namespace sprout {
 		public:
 			template<typename Cont>
 			static SPROUT_CONSTEXPR copied_type
-			deep_copy(Cont&& cont) {
+			deep_copy(Cont&&) {
 				return copied_type();
 			}
 			template<typename... Args>
@@ -47,7 +47,7 @@ namespace sprout {
 		public:
 			template<typename Cont>
 			static SPROUT_CONSTEXPR copied_type
-			deep_copy(Cont&& cont) {
+			deep_copy(Cont&&) {
 				return copied_type();
 			}
 			template<typename... Args>
@@ -62,7 +62,7 @@ namespace sprout {
 			}
 			template<typename Cont, typename InputIterator>
 			static SPROUT_CONSTEXPR copied_type
-			remake(Cont&& cont, typename sprout::container_traits<sprout::pit<Container> >::difference_type size, InputIterator first, InputIterator last) {
+			remake(Cont&&, typename sprout::container_traits<sprout::pit<Container> >::difference_type, InputIterator first, InputIterator last) {
 				return copied_type(first, last);
 			}
 		};

@@ -13,8 +13,8 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 4>{{3, 5, 7, 9}};
 			SPROUT_STATIC_CONSTEXPR auto arr1_2 = array<int, 4>{{2, 4, 6, 8}};
-			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{};
-			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{};
+			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
+			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
 			// マージ
 			{
@@ -111,8 +111,8 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 4>{{3, 5, 7, 9}};
 			SPROUT_STATIC_CONSTEXPR auto arr1_2 = array<int, 4>{{2, 4, 6, 8}};
-			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{};
-			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{};
+			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
+			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
 			// マージ
 			{

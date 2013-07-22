@@ -45,8 +45,7 @@ namespace sprout {
 			FloatType number = FloatType(),
 			std::size_t num_digits = 0,
 			std::size_t num_decimals = 0,
-			long exponent = 0,
-			long n = 0
+			long exponent = 0
 			)
 		{
 			return exponent >= std::numeric_limits<FloatType>::min_exponent
@@ -91,8 +90,7 @@ namespace sprout {
 					number,
 					num_digits,
 					num_decimals,
-					negative ? exponent + n : exponent - n,
-					n
+					negative ? exponent + n : exponent - n
 					)
 				;
 		}
@@ -259,7 +257,7 @@ namespace sprout {
 		std::is_floating_point<FloatType>::value,
 		FloatType
 	>::type
-	str_to_float(Char const* str, std::nullptr_t endptr) {
+	str_to_float(Char const* str, std::nullptr_t) {
 		return sprout::detail::str_to_float<FloatType>(str);
 	}
 

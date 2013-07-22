@@ -26,12 +26,12 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type
 			stable_sort_impl_synonym(
-				Container const& cont, Compare comp,
-				typename sprout::container_traits<Container>::size_type size,
-				typename sprout::container_traits<Container>::const_iterator first,
-				typename sprout::container_traits<Container>::const_iterator last,
-				typename sprout::container_traits<Container>::value_type const& value,
-				typename sprout::container_traits<Container>::size_type count,
+				Container const& cont, Compare,
+				typename sprout::container_traits<Container>::size_type,
+				typename sprout::container_traits<Container>::const_iterator,
+				typename sprout::container_traits<Container>::const_iterator,
+				typename sprout::container_traits<Container>::value_type const&,
+				typename sprout::container_traits<Container>::size_type,
 				Args const&... args
 				)
 			{
@@ -187,7 +187,7 @@ namespace sprout {
 				(sprout::container_traits<Container>::static_size <= 1),
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type
-			stable_sort(Container const& cont, Compare comp) {
+			stable_sort(Container const& cont, Compare) {
 				return sprout::deep_copy(cont);
 			}
 			template<typename Container, typename Compare>

@@ -12,7 +12,7 @@ namespace sprout {
 			sizeof...(Values) == 0,
 			R
 		>::type
-		param_at(std::size_t n, T const& v, Values const&... values) {
+		param_at(std::size_t, T const& v, Values const&...) {
 			return v;
 		}
 		template<typename R, typename T, typename... Values>
@@ -29,7 +29,7 @@ namespace sprout {
 			sizeof...(Values) == 0,
 			R
 		>::type
-		param_seq_at(std::size_t n, std::size_t m, T const& v, Values const&... values) {
+		param_seq_at(std::size_t, std::size_t m, T const& v, Values const&...) {
 			return v[m];
 		}
 		template<typename R, typename T, typename... Values>

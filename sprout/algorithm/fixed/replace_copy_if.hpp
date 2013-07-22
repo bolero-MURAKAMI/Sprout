@@ -20,7 +20,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, typename T, typename Predicate, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			replace_copy_if_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator last,
+				RandomAccessIterator first, RandomAccessIterator,
 				Result const& result, Predicate pred, T const& new_value,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
@@ -59,9 +59,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			replace_copy_if_impl(
-				InputIterator first, InputIterator last,
-				Result const& result, Predicate pred, T const& new_value,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator, InputIterator,
+				Result const& result, Predicate, T const&,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

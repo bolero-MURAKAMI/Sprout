@@ -149,7 +149,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR typename std::enable_if<
 			I == sizeof...(Types),
 			bool
-		>::type eq(tuple_type const& l, tuple_type const& r, int which) {
+		>::type eq(tuple_type const&, tuple_type const&, int) {
 			return false;
 		}
 		template<int I>
@@ -166,7 +166,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR typename std::enable_if<
 			static_cast<std::size_t>(I) == sizeof...(Types),
 			bool
-		>::type lt(tuple_type const& l, tuple_type const& r, int which) {
+		>::type lt(tuple_type const&, tuple_type const&, int) {
 			return false;
 		}
 		template<int I>
@@ -183,7 +183,7 @@ namespace sprout {
 		static typename std::enable_if<
 			static_cast<std::size_t>(I) == sizeof...(Types),
 			std::basic_ostream<Elem, Traits>&
-		>::type output(std::basic_ostream<Elem, Traits>& os, tuple_type const& t, int which) {
+		>::type output(std::basic_ostream<Elem, Traits>& os, tuple_type const&, int) {
 			return os;
 		}
 		template<int I, typename Elem, typename Traits>
@@ -200,7 +200,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR typename std::enable_if<
 			I == sizeof...(Types) - 1,
 			Result
-		>::type visit(Tuple&& t, Visitor&& v, int which) {
+		>::type visit(Tuple&& t, Visitor&& v, int) {
 			return sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)));
 		}
 		template<typename Result, int I, typename Tuple, typename Visitor>

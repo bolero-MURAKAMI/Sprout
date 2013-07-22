@@ -99,7 +99,7 @@ namespace sprout {
 				sizeof...(Args) == n,
 				sprout::array<UIntType, n>
 			>::type
-			rewind_finish_1(sprout::array<UIntType, n> const& data, Args const&... args) const {
+			rewind_finish_1(sprout::array<UIntType, n> const&, Args const&... args) const {
 				return sprout::array<UIntType, n>{{args...}};
 			}
 			template<typename... Args>
@@ -116,7 +116,7 @@ namespace sprout {
 				sprout::array<UIntType, n>
 			>::type
 			rewind_finish(
-				sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, std::size_t i,
+				sprout::array<UIntType, n> const&, UIntType const*, std::size_t, std::size_t,
 				Args const&... args
 				) const
 			{
@@ -143,7 +143,7 @@ namespace sprout {
 				sprout::array<UIntType, n>
 			>::type
 			rewind_4(
-				sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, UIntType y0, UIntType y1, std::size_t i,
+				sprout::array<UIntType, n> const&, UIntType const*, std::size_t, UIntType, UIntType, std::size_t,
 				Args const&... args
 				) const
 			{
@@ -170,7 +170,7 @@ namespace sprout {
 				sprout::array<UIntType, n>
 			>::type
 			rewind_3(
-				sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, UIntType y0, UIntType y1, std::size_t i,
+				sprout::array<UIntType, n> const&, UIntType const*, std::size_t, UIntType, UIntType, std::size_t,
 				Args const&... args
 				) const
 			{
@@ -202,7 +202,7 @@ namespace sprout {
 				sprout::array<UIntType, n>
 			>::type
 			rewind_2(
-				sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, UIntType y0, std::size_t i,
+				sprout::array<UIntType, n> const&, UIntType const*, std::size_t, UIntType, std::size_t,
 				Args const&... args
 				) const
 			{
@@ -301,7 +301,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n - 1,
 				mersenne_twister_engine
-			>::type twist_4(std::size_t i, Args const&... args) const {
+			>::type twist_4(std::size_t, Args const&... args) const {
 				return twist_5(args...);
 			}
 			template<typename... Args>
@@ -317,7 +317,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n - 1 - unroll_extra2,
 				mersenne_twister_engine
-			>::type twist_3(std::size_t i, Args const&... args) const {
+			>::type twist_3(std::size_t, Args const&... args) const {
 				return twist_4(n - 1 - unroll_extra2, args...);
 			}
 			template<typename... Args>
@@ -333,7 +333,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n - m,
 				mersenne_twister_engine
-			>::type twist_2(std::size_t i, Args const&... args) const {
+			>::type twist_2(std::size_t, Args const&... args) const {
 				return twist_3(n - m, args...);
 			}
 			template<typename... Args>
@@ -349,7 +349,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n - m - unroll_extra1,
 				mersenne_twister_engine
-			>::type twist_1(std::size_t i, Args const&... args) const {
+			>::type twist_1(std::size_t, Args const&... args) const {
 				return twist_2(n - m - unroll_extra1, args...);
 			}
 			template<typename... Args>

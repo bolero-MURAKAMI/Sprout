@@ -15,7 +15,7 @@ namespace sprout {
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR RandomAccessIterator1
 		search_one_impl_ra(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred
+			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, RandomAccessIterator2, BinaryPredicate pred
 			)
 		{
 			return sprout::mismatch(first1, last1, first2, pred).first == last1 ? first1

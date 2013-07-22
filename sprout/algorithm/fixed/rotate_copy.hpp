@@ -64,9 +64,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			rotate_copy_impl_1(
-				ForwardIterator first, ForwardIterator last,
+				ForwardIterator, ForwardIterator,
 				Result const& result,
-				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{
@@ -95,10 +95,10 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			rotate_copy_impl(
-				ForwardIterator first, ForwardIterator middle,
-				ForwardIterator middle_first, ForwardIterator last,
+				ForwardIterator, ForwardIterator,
+				ForwardIterator, ForwardIterator,
 				Result const& result,
-				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

@@ -18,7 +18,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::traits::is_unused<T>::value,
 				typename sprout::weed::attr_cnv::result_of::negate<T>::type
-			>::type negate(T const& t, bool cond) {
+			>::type negate(T const&, bool) {
 				return sprout::weed::unused();
 			}
 		}	// namespace attr_cnv

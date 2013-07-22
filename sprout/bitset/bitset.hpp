@@ -149,7 +149,7 @@ namespace sprout {
 			template<sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR base_bitset<N>
 			do_left_shift_impl_1(
-				std::size_t wshift, std::size_t offset,
+				std::size_t wshift, std::size_t,
 				sprout::index_tuple<Indexes...>
 				) const SPROUT_NOEXCEPT
 			{
@@ -192,7 +192,7 @@ namespace sprout {
 			template<sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR base_bitset<N>
 			do_right_shift_impl_1(
-				std::size_t wshift, std::size_t offset, std::size_t limit,
+				std::size_t wshift, std::size_t, std::size_t limit,
 				sprout::index_tuple<Indexes...>
 				) const SPROUT_NOEXCEPT
 			{
@@ -696,7 +696,7 @@ namespace sprout {
 				return throw std::out_of_range("base_bitset::getword"), *new word_type();
 			}
 			SPROUT_CONSTEXPR word_type
-			getword(std::size_t pos) const SPROUT_NOEXCEPT {
+			getword(std::size_t) const SPROUT_NOEXCEPT {
 				return 0;
 			}
 			SPROUT_CONSTEXPR word_type
@@ -854,8 +854,8 @@ namespace sprout {
 		}
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type remake(
-			Cont&& cont,
-			typename sprout::container_traits<sprout::detail::base_bitset<N> >::difference_type size,
+			Cont&&,
+			typename sprout::container_traits<sprout::detail::base_bitset<N> >::difference_type,
 			Args&&... args
 			)
 		{

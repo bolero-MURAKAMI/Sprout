@@ -99,7 +99,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_elem_and_unused<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
-			>::type shift_left(T const& t, U const& u) {
+			>::type shift_left(T const& t, U const&) {
 				return t;
 			}
 			// unused >> V -> V
@@ -107,7 +107,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_unused_and_elem<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
-			>::type shift_left(T const& t, U const& u) {
+			>::type shift_left(T const&, U const& u) {
 				return u;
 			}
 			// unused >> unused -> unused
@@ -115,7 +115,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_both_unused<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
-			>::type shift_left(T const& t, U const& u) {
+			>::type shift_left(T const&, U const&) {
 				return sprout::weed::unused();
 			}
 		}	// namespace attr_cnv

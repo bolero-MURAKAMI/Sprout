@@ -32,8 +32,8 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
-			copy_n_impl(InputIterator first, Size n, Result const& result,
-				typename sprout::container_traits<Result>::difference_type offset,
+			copy_n_impl(InputIterator, Size, Result const& result,
+				typename sprout::container_traits<Result>::difference_type,
 				Args const&... args
 				)
 			{

@@ -24,7 +24,7 @@ namespace sprout {
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			erf_impl_2_b(T x, T w, T t, int k) {
+			erf_impl_2_b(T x, T t, int k) {
 				return sprout::math::detail::erf_impl_3(
 					x,
 					T(1) - sprout::detail::pow_n(
@@ -109,7 +109,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			erf_impl_1(T x, T w) {
 				return w < T(2.2) ? sprout::math::detail::erf_impl_2_a(x, w, w * w)
-					: w < T(6.9) ? sprout::math::detail::erf_impl_2_b(x, w, sprout::math::fractional_part(w), sprout::math::itrunc(w) - 2)
+					: w < T(6.9) ? sprout::math::detail::erf_impl_2_b(x, sprout::math::fractional_part(w), sprout::math::itrunc(w) - 2)
 					: sprout::math::detail::erf_impl_3(x, T(1))
 					;
 			}

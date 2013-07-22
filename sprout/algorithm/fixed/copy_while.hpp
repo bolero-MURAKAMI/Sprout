@@ -33,8 +33,8 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			copy_while_impl(
-				InputIterator first, InputIterator last, Result const& result, Predicate pred,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator, InputIterator, Result const& result, Predicate,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

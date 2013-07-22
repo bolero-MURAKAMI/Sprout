@@ -46,7 +46,7 @@ namespace sprout {
 		return rhs == lhs;
 	}
 	inline SPROUT_CONSTEXPR bool
-	operator==(sprout::npos_t lhs, sprout::npos_t rhs) {
+	operator==(sprout::npos_t, sprout::npos_t) {
 		return true;
 	}
 	template<typename UIntType, typename sprout::enabler_if<sprout::is_uint<UIntType>::value>::type = sprout::enabler>
@@ -74,7 +74,7 @@ namespace sprout {
 		return rhs == lhs;
 	}
 	inline SPROUT_CONSTEXPR bool
-	operator<(sprout::npos_t lhs, sprout::npos_t rhs) {
+	operator<(sprout::npos_t, sprout::npos_t) {
 		return false;
 	}
 	template<typename UIntType, typename sprout::enabler_if<sprout::is_uint<UIntType>::value>::type = sprout::enabler>

@@ -12,8 +12,8 @@ namespace testspr {
 		using namespace sprout;
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 1, 3, 3, 5, 5, 7, 7, 9, 9}};
-			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{};
-			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{};
+			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
+			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{{}};
 
 			// [2 .. 8) の範囲「……ユニーク」
 			{
@@ -97,8 +97,8 @@ namespace testspr {
 		}
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 1, 3, 3, 5, 5, 7, 7, 9, 9}};
-			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{};
-			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{};
+			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
+			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{{}};
 
 			// [2 .. 8) の範囲「……ユニーク」
 			{

@@ -61,7 +61,7 @@ namespace sprout {
 				pixels_type pixels_;
 			public:
 				template<typename... Elems>
-				SPROUT_CONSTEXPR image_type(info_type const& info, Elems const&... elems)
+				SPROUT_CONSTEXPR image_type(info_type const&, Elems const&... elems)
 					: pixels_{{
 						color_type(
 							static_cast<color_component_type>((elems >> 16) & 0xFF) / 0xFF,

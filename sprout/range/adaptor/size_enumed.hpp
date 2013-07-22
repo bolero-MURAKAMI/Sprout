@@ -149,7 +149,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::adaptors::size_enumed_range<
 			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 		>
-		operator|(Range&& lhs, sprout::adaptors::size_enumed_forwarder const& rhs) {
+		operator|(Range&& lhs, sprout::adaptors::size_enumed_forwarder const&) {
 			return sprout::adaptors::size_enumed_range<
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>(

@@ -21,9 +21,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
-				InputIterator first, InputIterator last,
+				InputIterator, InputIterator,
 				Result const& result,
-				typename sprout::container_traits<Result>::size_type size,
+				typename sprout::container_traits<Result>::size_type,
 				Head const& head,
 				Args const&... args
 				)
@@ -99,9 +99,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
-				InputIterator first, InputIterator last,
-				Result const& result, BinaryPredicate pred,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator, InputIterator,
+				Result const& result, BinaryPredicate,
+				typename sprout::container_traits<Result>::size_type,
 				Head const& head,
 				Args const&... args
 				)

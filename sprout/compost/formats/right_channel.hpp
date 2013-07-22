@@ -25,7 +25,7 @@ namespace sprout {
 			//
 			template<typename Range, typename T>
 			inline SPROUT_CONSTEXPR auto
-			operator|(Range&& lhs, right_channel_forwarder const& rhs)
+			operator|(Range&& lhs, right_channel_forwarder const&)
 			-> decltype(
 				sprout::forward<Range>(lhs)
 					| sprout::adaptors::steps(2, 1)

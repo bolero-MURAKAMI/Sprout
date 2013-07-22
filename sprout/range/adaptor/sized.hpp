@@ -61,7 +61,7 @@ namespace sprout {
 			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type,
 			Size
 		>
-		operator|(Range&& lhs, sprout::adaptors::size_holder<Size> const& rhs) {
+		operator|(Range&& lhs, sprout::adaptors::size_holder<Size> const&) {
 			return sprout::adaptors::sized_range<
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type,
 				Size

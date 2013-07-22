@@ -112,7 +112,7 @@ namespace sprout {
 			sprout::equal_to<>,
 			typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 		>
-		operator|(Range&& lhs, sprout::adaptors::uniqued_forwarder const& rhs) {
+		operator|(Range&& lhs, sprout::adaptors::uniqued_forwarder const&) {
 			return sprout::adaptors::uniqued_range<
 				sprout::equal_to<>,
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type

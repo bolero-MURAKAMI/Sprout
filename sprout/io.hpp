@@ -265,7 +265,7 @@ namespace sprout {
 					);
 			}
 			template<sprout::io::flags::fmtflags Flag, sprout::io::flags::fmtflags Mask>
-			SPROUT_CONSTEXPR format_settings flags(sprout::io::flags::field_flag<Flag, Mask> flag) const {
+			SPROUT_CONSTEXPR format_settings flags(sprout::io::flags::field_flag<Flag, Mask>) const {
 				return format_settings(
 					*this,
 					static_cast<sprout::io::flags::fmtflags>(

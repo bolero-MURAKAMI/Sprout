@@ -20,7 +20,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			copy_backward_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator last, Result const& result,
+				RandomAccessIterator, RandomAccessIterator last, Result const& result,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
 				typename sprout::container_traits<Result>::size_type size,
@@ -56,8 +56,8 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			copy_backward_impl(
-				BidirectionalIterator first, BidirectionalIterator last, Result const& result,
-				typename sprout::container_traits<Result>::size_type size,
+				BidirectionalIterator, BidirectionalIterator, Result const& result,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

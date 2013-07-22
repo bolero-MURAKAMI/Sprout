@@ -59,7 +59,7 @@ namespace sprout {
 					return n == 0 ? m - l1 : invert_euclidian_1<D + 1>(c, l1, l2, n, p);
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian_3(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian_3(IntType, IntType, IntType, IntType, IntType) {
 					return sprout::throw_recursive_function_template_instantiation_exeeded();
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -67,7 +67,7 @@ namespace sprout {
 					return p == 0 ? l2 : invert_euclidian_3<D + 1>(c, l1, l2 + (n / p) * l1, n - (n / p) * p, p);
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian_2(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian_2(IntType, IntType, IntType, IntType, IntType) {
 					return sprout::throw_recursive_function_template_instantiation_exeeded();
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -75,7 +75,7 @@ namespace sprout {
 					return invert_euclidian_2<D + 1>(c, l1 + (p / n) * l2, l2, n, p - (p / n) * n);
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian_1(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian_1(IntType, IntType, IntType, IntType, IntType) {
 					return sprout::throw_recursive_function_template_instantiation_exeeded();
 				}
 				template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -85,7 +85,7 @@ namespace sprout {
 						;
 				}
 				template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian(IntType c) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian(IntType) {
 					return sprout::throw_recursive_function_template_instantiation_exeeded();
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -93,7 +93,7 @@ namespace sprout {
 					return n == 0 ? m - l1 : invert_euclidian0_2<D + 1>(c, l1 + (p / n) * l2, l2, n, p - (p / n) * n);
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian0_3(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian0_3(IntType, IntType, IntType, IntType, IntType) {
 					return sprout::throw_recursive_function_template_instantiation_exeeded();
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -101,11 +101,11 @@ namespace sprout {
 					return p == 0 ? l2 : invert_euclidian0_3<D + 1>(c, l1, l2 + (n / p) * l1, n - (n / p) * p, p);
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian0_2(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian0_2(IntType, IntType, IntType, IntType, IntType) {
 					return sprout::throw_recursive_function_template_instantiation_exeeded();
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n) {
 					return SPROUT_ASSERT_MSG(std::numeric_limits<IntType>::max() % n != n - 1, "c must be relatively prime to m."),
 						invert_euclidian0_2<D + 1>(
 							c, l1 + (std::numeric_limits<IntType>::max() / n) * l2, l2, n,
@@ -114,17 +114,17 @@ namespace sprout {
 						;
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType, IntType, IntType, IntType) {
 					return sprout::throw_recursive_function_template_instantiation_exeeded();
 				}
 				template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 				static SPROUT_CONSTEXPR IntType invert_euclidian0(IntType c) {
 					return SPROUT_ASSERT(c > 0),
-						c == 1 ? 1 : invert_euclidian0_1<D + 1>(c, 0, 1, c, m)
+						c == 1 ? 1 : invert_euclidian0_1<D + 1>(c, 0, 1, c)
 						;
 				}
 				template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-				static SPROUT_CONSTEXPR IntType invert_euclidian0(IntType c) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian0(IntType) {
 					return sprout::throw_recursive_function_template_instantiation_exeeded();
 				}
 #else
@@ -148,7 +148,7 @@ namespace sprout {
 				static SPROUT_CONSTEXPR IntType invert_euclidian0_2(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
 					return p == 0 ? l2 : invert_euclidian0_3(c, l1, l2 + (n / p) * l1, n - (n / p) * p, p);
 				}
-				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n, IntType p) {
+				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n) {
 					return SPROUT_ASSERT_MSG(std::numeric_limits<IntType>::max() % n != n - 1, "c must be relatively prime to m."),
 						invert_euclidian0_2(
 							c, l1 + (std::numeric_limits<IntType>::max() / n) * l2, l2, n,
@@ -158,7 +158,7 @@ namespace sprout {
 				}
 				static SPROUT_CONSTEXPR IntType invert_euclidian0(IntType c) {
 					return SPROUT_ASSERT(c > 0),
-						c == 1 ? 1 : invert_euclidian0_1(c, 0, 1, c, m)
+						c == 1 ? 1 : invert_euclidian0_1(c, 0, 1, c)
 						;
 				}
 #endif

@@ -42,7 +42,7 @@ namespace sprout {
 		private:
 			template<typename Attr1, typename Result2>
 			SPROUT_CONSTEXPR result_type call_2(
-				typename Expr::args_type const& args,
+				typename Expr::args_type const&,
 				context_type const& ctx,
 				Attr1 const& attr,
 				Result2 const& res

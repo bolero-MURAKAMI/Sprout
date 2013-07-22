@@ -76,7 +76,7 @@ namespace sprout {
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR bool
-	operator<(sprout::optional<T> const& lhs, sprout::nullopt_t) SPROUT_NOEXCEPT {
+	operator<(sprout::optional<T> const&, sprout::nullopt_t) SPROUT_NOEXCEPT {
 		return false;
 	}
 	template<typename T>
@@ -91,7 +91,7 @@ namespace sprout {
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR bool
-	operator>(sprout::nullopt_t, sprout::optional<T> const& rhs) SPROUT_NOEXCEPT {
+	operator>(sprout::nullopt_t, sprout::optional<T> const&) SPROUT_NOEXCEPT {
 		return false;
 	}
 	template<typename T>
@@ -101,12 +101,12 @@ namespace sprout {
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR bool
-	operator<=(sprout::nullopt_t, sprout::optional<T> const& rhs) SPROUT_NOEXCEPT {
+	operator<=(sprout::nullopt_t, sprout::optional<T> const&) SPROUT_NOEXCEPT {
 		return true;
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR bool
-	operator>=(sprout::optional<T> const& lhs, sprout::nullopt_t) SPROUT_NOEXCEPT {
+	operator>=(sprout::optional<T> const&, sprout::nullopt_t) SPROUT_NOEXCEPT {
 		return true;
 	}
 	template<typename T>

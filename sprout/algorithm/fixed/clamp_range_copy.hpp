@@ -22,7 +22,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, typename Compare, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			clamp_range_copy_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator last, Result const& result,
+				RandomAccessIterator first, RandomAccessIterator, Result const& result,
 				typename std::iterator_traits<RandomAccessIterator>::value_type const& low,
 				typename std::iterator_traits<RandomAccessIterator>::value_type const& high,
 				Compare comp,
@@ -66,11 +66,11 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			clamp_range_copy_impl(
-				InputIterator first, InputIterator last, Result const& result,
-				typename std::iterator_traits<InputIterator>::value_type const& low,
-				typename std::iterator_traits<InputIterator>::value_type const& high,
-				Compare comp,
-				typename sprout::container_traits<Result>::size_type size,
+				InputIterator, InputIterator, Result const& result,
+				typename std::iterator_traits<InputIterator>::value_type const&,
+				typename std::iterator_traits<InputIterator>::value_type const&,
+				Compare,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{

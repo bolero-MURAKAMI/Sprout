@@ -21,7 +21,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR std::size_t size() {
 				return sizeof(type);
 			}
-			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t i) {
+			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t) {
 				return static_cast<unsigned char>(t);
 			}
 		};
@@ -57,7 +57,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR std::size_t size() {
 				return sizeof(type);
 			}
-			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t i) {
+			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t) {
 				return static_cast<unsigned char>(t);
 			}
 		};

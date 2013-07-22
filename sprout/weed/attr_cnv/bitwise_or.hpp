@@ -112,7 +112,7 @@ namespace sprout {
 				sprout::weed::detail::is_elem_and_unused<T, U>::value
 				&& sprout::weed::traits::is_unused<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
-			>::type bitwise_or(X const& x) {
+			>::type bitwise_or(X const&) {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
 				return sprout::make<type>();
 			}
@@ -131,7 +131,7 @@ namespace sprout {
 				sprout::weed::detail::is_unused_and_elem<T, U>::value
 				&& sprout::weed::traits::is_unused<X>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
-			>::type bitwise_or(X const& x) {
+			>::type bitwise_or(X const&) {
 				typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type type;
 				return sprout::make<type>();
 			}
@@ -140,7 +140,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_both_unused<T, U>::value,
 				typename sprout::weed::attr_cnv::result_of::bitwise_or<T, U>::type
-			>::type bitwise_or(X const& x) {
+			>::type bitwise_or(X const&) {
 				return sprout::weed::unused();
 			}
 		}	// namespace attr_cnv

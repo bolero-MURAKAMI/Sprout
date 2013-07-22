@@ -32,7 +32,7 @@ namespace sprout {
 		public:
 			static SPROUT_CONSTEXPR type pack(
 				typename sprout::range::lvalue_iterator<Range>::type found,
-				Range&& range
+				Range&&
 				)
 			{
 				return found;

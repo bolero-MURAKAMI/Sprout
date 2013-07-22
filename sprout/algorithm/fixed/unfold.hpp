@@ -19,7 +19,7 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type
 			unfold_impl_1(
-				Container const& cont, Generator const& gen, Next const& next,
+				Container const& cont, Generator const&, Next const& next,
 				typename sprout::container_traits<Container>::size_type size,
 				Args const&... args
 				)
@@ -50,7 +50,7 @@ namespace sprout {
 				sprout::container_traits<Container>::static_size == 0,
 				typename sprout::fixed::result_of::algorithm<Container>::type
 			>::type unfold_impl(
-				Container const& cont, Generator const& gen, Init const& init,
+				Container const& cont, Generator const&, Init const&,
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{

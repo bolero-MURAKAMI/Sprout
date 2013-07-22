@@ -120,7 +120,7 @@ namespace sprout {
 	private:
 		template<typename Iterator, typename Cont, typename InputIterator>
 		static SPROUT_CONSTEXPR copied_type
-		remake_impl(Iterator pos, Cont&& cont, typename sprout::container_traits<Container>::difference_type size, InputIterator first, InputIterator last) {
+		remake_impl(Iterator pos, Cont&& cont, InputIterator first, InputIterator last) {
 			return sprout::make<copied_type>(
 				sprout::make_insert_range_iterator(
 					sprout::internal_begin(cont), pos,
@@ -145,8 +145,8 @@ namespace sprout {
 		}
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type
-		remake(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
-			return remake_impl(cont.position(), sprout::get_internal(sprout::forward<Cont>(cont)), size, sprout::forward<Args>(args)...);
+		remake(Cont&& cont, typename sprout::container_traits<Container>::difference_type, Args&&... args) {
+			return remake_impl(cont.position(), sprout::get_internal(sprout::forward<Cont>(cont)), sprout::forward<Args>(args)...);
 		}
 	};
 

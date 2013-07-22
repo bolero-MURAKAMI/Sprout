@@ -19,7 +19,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			swap_element_copy_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator last,
+				RandomAccessIterator first, RandomAccessIterator,
 				Result const& result,
 				RandomAccessIterator pos1, RandomAccessIterator pos2,
 				sprout::index_tuple<Indexes...>,
@@ -67,10 +67,10 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			swap_element_copy_impl(
-				ForwardIterator first, ForwardIterator last,
+				ForwardIterator, ForwardIterator,
 				Result const& result,
-				ForwardIterator pos1, ForwardIterator pos2,
-				typename sprout::container_traits<Result>::size_type size,
+				ForwardIterator, ForwardIterator,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{
@@ -106,7 +106,7 @@ namespace sprout {
 				std::forward_iterator_tag*
 				)
 			{
-				return sprout::fixed::detail::swap_element_copy_impl(first, last, result, sprout::size(result));
+				return sprout::fixed::detail::swap_element_copy_impl(first, last, result, pos1, pos2, sprout::size(result));
 			}
 		}	// namespace detail
 		//

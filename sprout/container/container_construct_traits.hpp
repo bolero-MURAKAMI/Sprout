@@ -47,7 +47,7 @@ namespace sprout {
 			sprout::is_fixed_container<Container>::value,
 			typename sprout::container_construct_traits<Container>::copied_type
 		>::type
-		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
+		default_remake_container(Cont&&, typename sprout::container_traits<Container>::difference_type, Args&&... args) {
 			return sprout::container_construct_traits<Container>::make(sprout::forward<Args>(args)...);
 		}
 		template<typename Container, typename Cont, typename... Args>
@@ -57,7 +57,7 @@ namespace sprout {
 				,
 			typename sprout::container_construct_traits<Container>::copied_type
 		>::type
-		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
+		default_remake_container(Cont&&, typename sprout::container_traits<Container>::difference_type, Args&&... args) {
 			return sprout::container_construct_traits<Container>::make(sprout::forward<Args>(args)...);
 		}
 		template<typename Container, typename Cont, typename InputIterator>
@@ -65,7 +65,7 @@ namespace sprout {
 			!sprout::is_fixed_container<Container>::value,
 			typename sprout::container_construct_traits<Container>::copied_type
 		>::type
-		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, InputIterator first, InputIterator last) {
+		default_remake_container(Cont&& cont, typename sprout::container_traits<Container>::difference_type, InputIterator first, InputIterator last) {
 			typedef typename sprout::container_construct_traits<Container>::copied_type copied_type;
 			return copied_type(
 				sprout::make_remake_iterator(

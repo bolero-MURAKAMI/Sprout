@@ -19,9 +19,9 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			stable_partition_copy_impl_1(
-				BidirectionalIterator first, BidirectionalIterator last,
-				Result const& result, Predicate pred,
-				typename sprout::container_traits<Result>::size_type size,
+				BidirectionalIterator, BidirectionalIterator,
+				Result const& result, Predicate,
+				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{
@@ -59,10 +59,10 @@ namespace sprout {
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
 			stable_partition_copy_impl(
-				BidirectionalIterator first, BidirectionalIterator last,
-				Result const& result, Predicate pred,
-				typename sprout::container_traits<Result>::size_type size,
-				BidirectionalIterator temp_first,
+				BidirectionalIterator, BidirectionalIterator,
+				Result const& result, Predicate,
+				typename sprout::container_traits<Result>::size_type,
+				BidirectionalIterator,
 				Args const&... args
 				)
 			{

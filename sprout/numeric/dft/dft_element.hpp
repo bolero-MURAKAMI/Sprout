@@ -19,8 +19,7 @@ namespace sprout {
 			typedef typename std::iterator_traits<InputIterator>::value_type value_type;
 			typedef typename value_type::value_type elem_type;
 			return sprout::detail::dft_element_gen(
-				first,
-				last,
+				first, last,
 				-(sprout::math::two_pi<elem_type>() * i / size)
 				);
 		}

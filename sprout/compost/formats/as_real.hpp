@@ -38,7 +38,7 @@ namespace sprout {
 			//
 			template<typename Range>
 			inline SPROUT_CONSTEXPR auto
-			operator|(Range&& lhs, sprout::compost::formats::as_real_forwarder const& rhs)
+			operator|(Range&& lhs, sprout::compost::formats::as_real_forwarder const&)
 			-> decltype(
 				sprout::forward<Range>(lhs)
 					| sprout::adaptors::transformed(sprout::compost::to_real_value())

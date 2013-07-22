@@ -50,7 +50,7 @@ namespace sprout {
 			typename sprout::enabler_if<I == 0>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR R
-		fppack_at_impl(Head&& head, Tail&&... tail) {
+		fppack_at_impl(Head&& head, Tail&&...) {
 			return sprout::forward<Head>(head);
 		}
 		template<
@@ -58,7 +58,7 @@ namespace sprout {
 			typename sprout::enabler_if<I != 0>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR R
-		fppack_at_impl(Head&& head, Tail&&... tail) {
+		fppack_at_impl(Head&&, Tail&&... tail) {
 			return sprout::detail::fppack_at_impl<I - 1, R>(sprout::forward<Tail>(tail)...);
 		}
 	}	// namespace detail

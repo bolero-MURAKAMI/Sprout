@@ -43,7 +43,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::traits::is_unused<T>::value,
 				typename sprout::weed::attr_cnv::result_of::times<Limit, T>::type
-			>::type times(Args const&... args) {
+			>::type times(Args const&...) {
 				return sprout::weed::unused();
 			}
 		}	// namespace attr_cnv

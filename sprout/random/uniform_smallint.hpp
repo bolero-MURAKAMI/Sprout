@@ -84,7 +84,7 @@ namespace sprout {
 		private:
 			template<typename Engine, typename RangeType, typename BaseUnsigned>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate_true_2(
-				Engine const& eng,
+				Engine const&,
 				sprout::random::random_result<Engine> const& rnd,
 				RangeType range,
 				BaseUnsigned base_range,
@@ -139,7 +139,7 @@ namespace sprout {
 			}
 			template<typename Engine, typename RangeType>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate_false_2(
-				Engine const& eng,
+				Engine const&,
 				sprout::random::random_result<Engine, sprout::random::uniform_01<typename Engine::result_type> > const& rnd,
 				RangeType range,
 				RangeType offset

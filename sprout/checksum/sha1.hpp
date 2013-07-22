@@ -76,10 +76,10 @@ namespace sprout {
 		}
 		template<int D = 16, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR sha1 const process(
-			sprout::array<std::uint32_t, 5> const& h,
-			sprout::array<std::uint8_t, 64> const& block,
-			std::size_t block_byte_index,
-			std::uint64_t bit_count
+			sprout::array<std::uint32_t, 5> const&,
+			sprout::array<std::uint8_t, 64> const&,
+			std::size_t,
+			std::uint64_t
 			) const
 		{
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
@@ -101,8 +101,8 @@ namespace sprout {
 		}
 		template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR sha1 const process_block_2(
-			std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t e,
-			std::size_t i, std::uint32_t f, std::uint32_t k
+			std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t,
+			std::size_t, std::uint32_t, std::uint32_t
 			) const
 		{
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
@@ -137,8 +137,8 @@ namespace sprout {
 		}
 		template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR sha1 const process_block_1(
-			std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t e,
-			std::size_t i = 0
+			std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t, std::uint32_t,
+			std::size_t
 			) const
 		{
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
@@ -170,7 +170,7 @@ namespace sprout {
 		}
 		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
-		process_block_impl(Iterator first, Iterator last, Args... args) const {
+		process_block_impl(Iterator, Iterator, Args...) const {
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
 		}
 		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -193,7 +193,7 @@ namespace sprout {
 		}
 		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
-		process_block_impl(Iterator first, Iterator last, Args... args) const {
+		process_block_impl(Iterator, Iterator, Args...) const {
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
 		}
 #else

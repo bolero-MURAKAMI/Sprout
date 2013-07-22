@@ -27,7 +27,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::container_construct_traits<
 			typename std::remove_reference<Range>::type
 		>::copied_type
-		operator|(Range&& lhs, sprout::adaptors::deep_copied_forwarder const& rhs) {
+		operator|(Range&& lhs, sprout::adaptors::deep_copied_forwarder const&) {
 			return sprout::deep_copy(sprout::forward<Range>(lhs));
 		}
 	}	// namespace adaptors

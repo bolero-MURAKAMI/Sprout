@@ -164,7 +164,7 @@ namespace sprout {
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR RandomAccessIterator1
 		mismatch2_impl_ra(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred,
+			RandomAccessIterator1 first1, RandomAccessIterator1, RandomAccessIterator2 first2, RandomAccessIterator2, BinaryPredicate pred,
 			typename std::iterator_traits<RandomAccessIterator1>::difference_type size
 			)
 		{

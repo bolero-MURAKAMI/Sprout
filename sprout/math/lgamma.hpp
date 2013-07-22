@@ -43,7 +43,7 @@ namespace sprout {
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			lgamma_impl_2_c_1(T x, T w, T t, int k) {
+			lgamma_impl_2_c_1(T x, T t, int k) {
 				return sprout::math::detail::lgamma_impl_3(
 					x,
 					k == 0 ? (((((((((((
@@ -81,11 +81,11 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			lgamma_impl_2_c(T x, T w, int k) {
-				return sprout::math::detail::lgamma_impl_2_c_1(x, w, w - (static_cast<T>(k) + 3.5), k);
+				return sprout::math::detail::lgamma_impl_2_c_1(x, w - (static_cast<T>(k) + 3.5), k);
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			lgamma_impl_2_b_2(T x, T w, T t, int k) {
+			lgamma_impl_2_b_2(T x, T t, int k) {
 				return sprout::math::detail::lgamma_impl_3(
 					x,
 					k == 0 ? ((((((((((((
@@ -134,13 +134,13 @@ namespace sprout {
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			lgamma_impl_2_b_1(T x, T w, T t, int k) {
-				return sprout::math::detail::lgamma_impl_2_b_2(x, w, t - (static_cast<T>(k) - T(3.5)), k);
+			lgamma_impl_2_b_1(T x, T t, int k) {
+				return sprout::math::detail::lgamma_impl_2_b_2(x, t - (static_cast<T>(k) - T(3.5)), k);
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
-			lgamma_impl_2_b(T x, T w, T t) {
-				return sprout::math::detail::lgamma_impl_2_b_1(x, w, t, sprout::math::itrunc(t) + 4);
+			lgamma_impl_2_b(T x, T t) {
+				return sprout::math::detail::lgamma_impl_2_b_1(x, t, sprout::math::itrunc(t) + 4);
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
@@ -166,7 +166,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR T
 			lgamma_impl_1(T x, T w) {
 				return w < T(0.5) ? sprout::math::detail::lgamma_impl_2_a(x, w, w < T(0.25) ? 0 : 1)
-					: w < T(3.5) ? sprout::math::detail::lgamma_impl_2_b(x, w, w - T(4.5) / (w + T(0.5)))
+					: w < T(3.5) ? sprout::math::detail::lgamma_impl_2_b(x, w - T(4.5) / (w + T(0.5)))
 					: w < T(8) ? sprout::math::detail::lgamma_impl_2_c(x, w, sprout::math::itrunc(w) - 3)
 					: sprout::math::detail::lgamma_impl_2_d(x, w, T(1) / w)
 					;
