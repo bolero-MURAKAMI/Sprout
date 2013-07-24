@@ -23,7 +23,7 @@ namespace sprout {
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::fill_n(cont, n, value)),
 					offset,
-					offset + NS_SSCRISK_CEL_OR_SPROUT::min(n, sprout::size(cont))
+					offset + NS_SSCRISK_CEL_OR_SPROUT::min<typename sprout::container_traits<Container>::difference_type>(n, sprout::size(cont))
 					);
 			}
 		}	// namespace detail
