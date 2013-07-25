@@ -19,17 +19,187 @@ namespace sprout {
 				Engine engine;
 			};
 
-			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real_false_1(
+#ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+			template<int D = 16, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_1(
 				sprout::random::random_result<Engine> const& rnd,
-				T min_value,
-				T max_value
+				T min_value, T max_value
+				);
+			template<int D = 16, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_1(
+				sprout::random::random_result<Engine> const& rnd,
+				T min_value, T max_value
+				);
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_3(
+				Engine const& eng,
+				T min_value, T max_value,
+				T result
+				)
+			{
+				return result < max_value
+					? sprout::random::detail::generate_uniform_real_result<T, Engine>{result, eng}
+					: sprout::random::detail::generate_uniform_real_false_1<D + 1>(eng(), min_value, max_value)
+					;
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_3(
+				Engine const&,
+				T, T,
+				T
+				)
+			{
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_2(
+				Engine const& eng,
+				T min_value, T max_value,
+				T numerator, T divisor
+				)
+			{
+				return SPROUT_ASSERT(divisor > 0), SPROUT_ASSERT(numerator >= 0 && numerator <= divisor),
+					sprout::random::detail::generate_uniform_real_false_3<D + 1>(
+						eng,
+						min_value, max_value,
+						numerator / divisor * (max_value - min_value) + min_value
+						)
+					;
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_2(
+				Engine const&,
+				T, T,
+				T, T
+				)
+			{
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE_DECL(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_1(
+				sprout::random::random_result<Engine> const& rnd,
+				T min_value, T max_value
+				)
+			{
+				return sprout::random::detail::generate_uniform_real_false_2<D + 1>(
+					rnd.engine(),
+					min_value, max_value,
+					static_cast<T>(rnd.result() - rnd.engine().min()), static_cast<T>(rnd.engine().max() - rnd.engine().min())
+					);
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_1(
+				sprout::random::random_result<Engine> const&,
+				T, T
+				)
+			{
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
+			}
+			template<int D = 16, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_1(
+				sprout::random::random_result<Engine> const& rnd,
+				T min_value, T max_value
+				);
+			template<int D = 16, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_1(
+				sprout::random::random_result<Engine> const& rnd,
+				T min_value, T max_value
+				);
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_3(
+				Engine const& eng,
+				T min_value, T max_value,
+				T result
+				)
+			{
+				return result < max_value
+					? sprout::random::detail::generate_uniform_real_result<T, Engine>{result, eng}
+					: sprout::random::detail::generate_uniform_real_true_1<D + 1>(eng(), min_value, max_value)
+					;
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_3(
+				Engine const&,
+				T, T,
+				T
+				)
+			{
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_2(
+				Engine const& eng,
+				T min_value, T max_value,
+				T numerator, T divisor
+				)
+			{
+				return SPROUT_ASSERT(divisor > 0), SPROUT_ASSERT(numerator >= 0 && numerator <= divisor),
+					sprout::random::detail::generate_uniform_real_true_3<D + 1>(
+						eng,
+						min_value, max_value,
+						numerator / divisor * (max_value - min_value) + min_value
+						)
+					;
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_2(
+				Engine const&,
+				T, T,
+				T, T
+				)
+			{
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE_DECL(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_1(
+				sprout::random::random_result<Engine> const& rnd,
+				T min_value, T max_value
+				)
+			{
+				typedef typename Engine::result_type base_result;
+				return sprout::random::detail::generate_uniform_real_true_2<D + 1>(
+					rnd.engine(),
+					min_value, max_value,
+					static_cast<T>(sprout::random::detail::subtract<base_result>()(rnd.result(), rnd.engine().min())),
+					static_cast<T>(sprout::random::detail::subtract<base_result>()(rnd.engine().max(), rnd.engine().min())) + 1
+					);
+			}
+			template<int D, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_1(
+				sprout::random::random_result<Engine> const&,
+				T, T
+				)
+			{
+				return sprout::throw_recursive_function_template_instantiation_exeeded();
+			}
+#else
+			template<typename Engine, typename T>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_1(
+				sprout::random::random_result<Engine> const& rnd,
+				T min_value, T max_value
 				);
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real_false_3(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_3(
 				Engine const& eng,
-				T min_value,
-				T max_value,
+				T min_value, T max_value,
 				T result
 				)
 			{
@@ -39,63 +209,45 @@ namespace sprout {
 					;
 			}
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real_false_2(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_2(
 				Engine const& eng,
-				T min_value,
-				T max_value,
-				T numerator,
-				T divisor
+				T min_value, T max_value,
+				T numerator, T divisor
 				)
 			{
 				return SPROUT_ASSERT(divisor > 0), SPROUT_ASSERT(numerator >= 0 && numerator <= divisor),
 					sprout::random::detail::generate_uniform_real_false_3(
 						eng,
-						min_value,
-						max_value,
+						min_value, max_value,
 						numerator / divisor * (max_value - min_value) + min_value
 						)
 					;
 			}
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real_false_1(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_false_1(
 				sprout::random::random_result<Engine> const& rnd,
-				T min_value,
-				T max_value
+				T min_value, T max_value
 				)
 			{
 				return sprout::random::detail::generate_uniform_real_false_2(
 					rnd.engine(),
-					min_value,
-					max_value,
-					static_cast<T>(rnd.result() - rnd.engine().min()),
-					static_cast<T>(rnd.engine().max() - rnd.engine().min())
+					min_value, max_value,
+					static_cast<T>(rnd.result() - rnd.engine().min()), static_cast<T>(rnd.engine().max() - rnd.engine().min())
 					);
 			}
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real(
-				Engine const& eng,
-				T min_value,
-				T max_value,
-				std::false_type
-				)
-			{
-				return sprout::random::detail::generate_uniform_real_false_1(
-					eng(),
-					min_value,
-					max_value
-					);
-			}
-			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real_true_1(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_1(
 				sprout::random::random_result<Engine> const& rnd,
-				T min_value,
-				T max_value
+				T min_value, T max_value
 				);
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real_true_3(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_3(
 				Engine const& eng,
-				T min_value,
-				T max_value,
+				T min_value, T max_value,
 				T result
 				)
 			{
@@ -105,64 +257,73 @@ namespace sprout {
 					;
 			}
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real_true_2(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_2(
 				Engine const& eng,
-				T min_value,
-				T max_value,
-				T numerator,
-				T divisor
+				T min_value, T max_value,
+				T numerator, T divisor
 				)
 			{
 				return SPROUT_ASSERT(divisor > 0), SPROUT_ASSERT(numerator >= 0 && numerator <= divisor),
 					sprout::random::detail::generate_uniform_real_true_3(
 						eng,
-						min_value,
-						max_value,
+						min_value, max_value,
 						numerator / divisor * (max_value - min_value) + min_value
 						)
 					;
 			}
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real_true_1(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real_true_1(
 				sprout::random::random_result<Engine> const& rnd,
-				T min_value,
-				T max_value
+				T min_value, T max_value
 				)
 			{
 				typedef typename Engine::result_type base_result;
 				return sprout::random::detail::generate_uniform_real_true_2(
 					rnd.engine(),
-					min_value,
-					max_value,
+					min_value, max_value,
 					static_cast<T>(sprout::random::detail::subtract<base_result>()(rnd.result(), rnd.engine().min())),
 					static_cast<T>(sprout::random::detail::subtract<base_result>()(rnd.engine().max(), rnd.engine().min())) + 1
 					);
 			}
+#endif
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real(
 				Engine const& eng,
-				T min_value,
-				T max_value,
+				T min_value, T max_value,
+				std::false_type
+				)
+			{
+				return sprout::random::detail::generate_uniform_real_false_1(
+					eng(),
+					min_value, max_value
+					);
+			}
+			template<typename Engine, typename T>
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real(
+				Engine const& eng,
+				T min_value, T max_value,
 				std::true_type
 				)
 			{
 				return sprout::random::detail::generate_uniform_real_true_1(
 					eng(),
-					min_value,
-					max_value
+					min_value, max_value
 					);
 			}
 			template<typename Engine, typename T>
-			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine> generate_uniform_real(
+			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_real_result<T, Engine>
+			generate_uniform_real(
 				Engine const& eng,
-				T min_value,
-				T max_value
+				T min_value, T max_value
 				)
 			{
 				return sprout::random::detail::generate_uniform_real(
 					eng,
-					min_value,
-					max_value,
+					min_value, max_value,
 					std::is_integral<typename Engine::result_type>()
 					);
 			}
