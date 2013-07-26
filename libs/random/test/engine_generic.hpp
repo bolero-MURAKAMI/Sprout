@@ -20,14 +20,10 @@ namespace testspr {
 
 			// operator==
 			// operator!=
-//			TESTSPR_BOTH_ASSERT(eng1 == eng1);
-//			TESTSPR_BOTH_ASSERT(!(eng1 == eng2));
-//			TESTSPR_BOTH_ASSERT(eng1 != eng2);
-//			TESTSPR_BOTH_ASSERT(!(eng1 != eng1));
-			TESTSPR_ASSERT(eng1 == eng1);
-			TESTSPR_ASSERT(!(eng1 == eng2));
-			TESTSPR_ASSERT(eng1 != eng2);
-			TESTSPR_ASSERT(!(eng1 != eng1));
+			TESTSPR_BOTH_ASSERT(eng1 == eng1);
+			TESTSPR_BOTH_ASSERT(!(eng1 == eng2));
+			TESTSPR_BOTH_ASSERT(eng1 != eng2);
+			TESTSPR_BOTH_ASSERT(!(eng1 != eng1));
 
 			{
 				std::string s;
