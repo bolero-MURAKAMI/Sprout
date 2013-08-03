@@ -25,16 +25,24 @@ namespace testspr {
 	//
 	// print_ln
 	//
+	void print_ln() {
+		std::cout << std::endl;
+	}
 	template<typename T>
-	static void print_ln(T const& t) {
+	void print_ln(T const& t) {
 		std::cout << t << std::endl;
+	}
+	template<typename Head, typename... Tail>
+	void print_ln(Head const& head, Tail const&... tail) {
+		std::cout << head;
+		testspr::print_ln(tail...);
 	}
 
 	//
 	// print_bits
 	//
 	template<typename T>
-	static void print_bits(T const& t) {
+	void print_bits(T const& t) {
 		testspr::print_ln(std::bitset<sizeof(T) * 8>(t).template to_string<char>());
 	}
 
