@@ -34,6 +34,15 @@ namespace sprout {
 		> type;
 		return type{{sprout::forward<Types>(args)...}};
 	}
+
+	//
+	// convert_array
+	//
+	template<typename T, typename Converter, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::array<T, sizeof...(Types)>
+	convert_array(Converter&& conv, Types&&... args) {
+		return sprout::make_array<T>(sprout::forward<Converter>(conv)(sprout::forward<Types>(args))...);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ARRAY_MAKE_ARRAY_HPP
