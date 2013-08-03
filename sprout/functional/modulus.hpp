@@ -1,5 +1,5 @@
 #ifndef SPROUT_FUNCTIONAL_MODULUS_HPP
-#define SPROUT_FUNCTIONAL_X_HPP
+#define SPROUT_FUNCTIONAL_MODULUS_HPP
 
 #include <utility>
 #include <sprout/config.hpp>
