@@ -2,10 +2,10 @@
 #define SPROUT_RANDOM_MERSENNE_TWISTER_HPP
 
 #include <cstddef>
-#include <cstdint>
 #include <ios>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/cstdint.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/detail/integer/integer_mask.hpp>
@@ -586,15 +586,15 @@ namespace sprout {
 			312,
 			156,
 			31,
-			UINT64_C(0xb5026f5aa96619e9),
+			SPROUT_UINT64_C(0xb5026f5aa96619e9),
 			29,
-			UINT64_C(0x5555555555555555),
+			SPROUT_UINT64_C(0x5555555555555555),
 			17,
-			UINT64_C(0x71d67fffeda60000),
+			SPROUT_UINT64_C(0x71d67fffeda60000),
 			37,
-			UINT64_C(0xfff7eee000000000),
+			SPROUT_UINT64_C(0xfff7eee000000000),
 			43,
-			UINT64_C(6364136223846793005)
+			SPROUT_UINT64_C(6364136223846793005)
 		> mt19937_64;
 	}	// namespace random
 
