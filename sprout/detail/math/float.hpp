@@ -7,6 +7,7 @@
 #include <sprout/math/floor.hpp>
 #include <sprout/math/round.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/utility/pair/pair.hpp>
 #include <sprout/detail/pow.hpp>
 
 namespace sprout {
