@@ -1,12 +1,21 @@
 #ifndef TESTSPR_TYPEINFO_HPP
 #define TESTSPR_TYPEINFO_HPP
 
-#if defined(__GNUC__)
-#	include <cstdlib>
+//
+// TESTSPR_HAS_CXXABI_H
+//
+#if defined(__clang__)
+#	if defined(__has_include) && __has_include(<cxxabi.h>)
+#		define TESTSPR_HAS_CXXABI_H
+#	endif
+#elif defined(__GNUC__) && !defined(__QNX__)
+#	define TESTSPR_HAS_CXXABI_H
 #endif
+
 #include <string>
 #include <typeinfo>
-#if defined(__GNUC__)
+#ifdef TESTSPR_HAS_CXXABI_H
+#	include <cstdlib>
 #	include <cxxabi.h>
 #endif
 
@@ -23,7 +32,7 @@ namespace testspr {
 	//
 	// typename_of
 	//
-#if defined(__GNUC__)
+#ifdef TESTSPR_HAS_CXXABI_H
 	namespace detail {
 		std::string gcc_demangle(char const* mangled) {
 			int status;
