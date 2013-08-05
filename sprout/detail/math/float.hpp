@@ -75,37 +75,37 @@ namespace sprout {
 		//
 		// float_digits
 		//
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR int
+		float_digits_impl(FloatType val, FloatType n) {
+			return val / n < 1 ? 0
+				: 1 + sprout::detail::float_digits_impl(val, n * FloatType(10))
+				;
+		}
 		template<
 			typename FloatType,
 			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR int
-		float_digits_impl(FloatType val) {
-			return val < 1 ? 0
-				: 1 + sprout::detail::float_digits_impl(val / 10)
-				;
-		}
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR int
 		float_digits(FloatType val) {
 			return val < 0
-				? val > -1 ? 1 : 1 + sprout::detail::float_digits_impl(-val / 10)
-				: val < 1 ? 1 : 1 + sprout::detail::float_digits_impl(val / 10)
+				? val > -1 ? 1 : 1 + sprout::detail::float_digits_impl(-val, FloatType(10))
+				: val < 1 ? 1 : 1 + sprout::detail::float_digits_impl(val, FloatType(10))
 				;
 		}
 
 		//
 		// float_digit_at
 		//
-		template<
-			typename FloatType,
-			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-		>
+		template<typename FloatType>
 		inline SPROUT_CONSTEXPR int
 		float_digit_of_impl(FloatType val) {
 			return static_cast<int>((val - sprout::math::floor(val)) * 10);
 		}
-		template<typename FloatType>
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
 		inline SPROUT_CONSTEXPR int
 		float_digit_at(FloatType val, int digits) {
 			return sprout::detail::float_digit_of_impl(val / sprout::detail::float_pow10<FloatType>(digits + 1));
@@ -114,15 +114,15 @@ namespace sprout {
 		//
 		// float_round_at
 		//
-		template<
-			typename FloatType,
-			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-		>
+		template<typename FloatType>
 		inline SPROUT_CONSTEXPR FloatType
 		float_round_impl(FloatType val, FloatType p10) {
 			return sprout::math::round(val * p10) / p10;
 		}
-		template<typename FloatType>
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
 		inline SPROUT_CONSTEXPR FloatType
 		float_round_at(FloatType val, int digits) {
 			return sprout::detail::float_round_impl(val, sprout::detail::float_pow10<FloatType>(digits));

@@ -8,6 +8,9 @@
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/math/isinf.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/signbit.hpp>
 #include <sprout/math/floor.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>
@@ -34,8 +37,9 @@ namespace sprout {
 		template<typename Elem, typename FloatType, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
 		float_to_string_impl(FloatType val, bool negative, int digits, int v, sprout::index_tuple<Indexes...>) {
+			typedef sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value> type;
 			return negative
-				? sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>{
+				? type{
 					{
 						static_cast<Elem>('-'),
 						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
@@ -47,7 +51,7 @@ namespace sprout {
 						},
 						static_cast<std::size_t>(digits + 2 + sprout::detail::decimal_places_length)
 					}
-				: sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>{
+				: type{
 					{
 						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
 							: Indexes == digits ? static_cast<Elem>('.')
@@ -79,11 +83,19 @@ namespace sprout {
 	>
 	inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value>
 	float_to_string(FloatType val) {
-		return sprout::detail::float_to_string<Elem>(
-			sprout::detail::float_round_at(val < 0 ? -val : val, sprout::detail::decimal_places_length),
-			val < 0,
-			sprout::detail::float_digits(val)
-			);
+		typedef sprout::basic_string<Elem, sprout::printed_float_digits<FloatType>::value> type;
+		return sprout::math::isinf(val) ? sprout::math::signbit(val)
+				? type{{static_cast<Elem>('-'), static_cast<Elem>('i'), static_cast<Elem>('n'), static_cast<Elem>('f')}, 4}
+				: type{{static_cast<Elem>('i'), static_cast<Elem>('n'), static_cast<Elem>('f')}, 3}
+			: sprout::math::isnan(val) ? sprout::math::signbit(val)
+				? type{{static_cast<Elem>('-'), static_cast<Elem>('n'), static_cast<Elem>('a'), static_cast<Elem>('n')}, 4}
+				: type{{static_cast<Elem>('n'), static_cast<Elem>('a'), static_cast<Elem>('n')}, 3}
+			: sprout::detail::float_to_string<Elem>(
+				sprout::detail::float_round_at(val < 0 ? -val : val, sprout::detail::decimal_places_length),
+				sprout::math::signbit(val),
+				sprout::detail::float_digits(val)
+				)
+			;
 	}
 
 	namespace detail {
@@ -111,8 +123,9 @@ namespace sprout {
 		template<typename Elem, typename FloatType, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>
 		float_to_string_exp(FloatType val, bool negative, int exponent10, int e10_digits, sprout::index_tuple<Indexes...>) {
+			typedef sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value> type;
 			return negative
-				? sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>{
+				? type{
 					{
 						static_cast<Elem>('-'),
 						(Indexes == 0 ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 0))
@@ -128,7 +141,7 @@ namespace sprout {
 						},
 						static_cast<std::size_t>(5 + sprout::detail::decimal_places_length + e10_digits)
 					}
-				: sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>{
+				: type{
 					{
 						(Indexes == 0 ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 0))
 							: Indexes == 1 ? static_cast<Elem>('.')
@@ -156,16 +169,24 @@ namespace sprout {
 	>
 	inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value>
 	float_to_string_exp(FloatType val) {
-		return sprout::detail::float_to_string_exp<Elem>(
-			sprout::detail::float_round_at(
-				(val < 0 ? -val : val) / sprout::detail::float_pow10<FloatType>(sprout::detail::float_exponent10(val)),
-				sprout::detail::decimal_places_length
-				),
-			val < 0,
-			sprout::detail::float_exponent10(val),
-			NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(sprout::detail::float_exponent10(val)), 2),
-			sprout::make_index_tuple<sprout::printed_float_exp_digits<FloatType>::value - 1>::make()
-			);
+		typedef sprout::basic_string<Elem, sprout::printed_float_exp_digits<FloatType>::value> type;
+		return sprout::math::isinf(val) ? sprout::math::signbit(val)
+				? type{{static_cast<Elem>('-'), static_cast<Elem>('i'), static_cast<Elem>('n'), static_cast<Elem>('f')}, 4}
+				: type{{static_cast<Elem>('i'), static_cast<Elem>('n'), static_cast<Elem>('f')}, 3}
+			: sprout::math::isnan(val) ? sprout::math::signbit(val)
+				? type{{static_cast<Elem>('-'), static_cast<Elem>('n'), static_cast<Elem>('a'), static_cast<Elem>('n')}, 4}
+				: type{{static_cast<Elem>('n'), static_cast<Elem>('a'), static_cast<Elem>('n')}, 3}
+			: sprout::detail::float_to_string_exp<Elem>(
+				sprout::detail::float_round_at(
+					(val < 0 ? -val : val) / sprout::detail::float_pow10<FloatType>(sprout::detail::float_exponent10(val)),
+					sprout::detail::decimal_places_length
+					),
+				sprout::math::signbit(val),
+				sprout::detail::float_exponent10(val),
+				NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(sprout::detail::float_exponent10(val)), 2),
+				sprout::make_index_tuple<sprout::printed_float_exp_digits<FloatType>::value - 1>::make()
+				)
+			;
 	}
 
 	//
