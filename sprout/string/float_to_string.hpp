@@ -93,7 +93,7 @@ namespace sprout {
 			: sprout::detail::float_to_string<Elem>(
 				sprout::detail::float_round_at(val < 0 ? -val : val, sprout::detail::decimal_places_length),
 				sprout::math::signbit(val),
-				sprout::detail::float_digits(val)
+				sprout::detail::float_digits_checked(val)
 				)
 			;
 	}

@@ -7,41 +7,26 @@
 #include <sprout/math/floor.hpp>
 #include <sprout/math/round.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/detail/pow.hpp>
 
 namespace sprout {
 	namespace detail {
 		//
 		// float_pow10
 		//
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR FloatType
-		float_pow10_positive(int exponent) {
-			return exponent ? sprout::detail::float_pow10_positive<FloatType>(exponent - 1) * 10
-				: FloatType(1)
-				;
-		}
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR FloatType
-		float_pow10_negative(int exponent) {
-			return exponent ? sprout::detail::float_pow10_negative<FloatType>(exponent + 1) / 10
-				: FloatType(1)
-				;
-		}
 		template<
 			typename FloatType,
 			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR FloatType
 		float_pow10(int exponent) {
-			return exponent < 0
-				? sprout::detail::float_pow10_negative<FloatType>(exponent)
-				: sprout::detail::float_pow10_positive<FloatType>(exponent)
-				;
+			return sprout::detail::pow_n(FloatType(10), exponent);
 		}
 
 		//
 		// float_exponent10
 		//
+		// !!!
 		template<typename FloatType>
 		inline SPROUT_CONSTEXPR int
 		float_exponent10_positive(FloatType val) {
@@ -73,28 +58,6 @@ namespace sprout {
 		}
 
 		//
-		// float_digits
-		//
-		template<typename FloatType>
-		inline SPROUT_CONSTEXPR int
-		float_digits_impl(FloatType val, FloatType n) {
-			return val / n < 1 ? 0
-				: 1 + sprout::detail::float_digits_impl(val, n * FloatType(10))
-				;
-		}
-		template<
-			typename FloatType,
-			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-		>
-		inline SPROUT_CONSTEXPR int
-		float_digits(FloatType val) {
-			return val < 0
-				? val > -1 ? 1 : 1 + sprout::detail::float_digits_impl(-val, FloatType(10))
-				: val < 1 ? 1 : 1 + sprout::detail::float_digits_impl(val, FloatType(10))
-				;
-		}
-
-		//
 		// float_digit_at
 		//
 		template<typename FloatType>
@@ -109,6 +72,69 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR int
 		float_digit_at(FloatType val, int digits) {
 			return sprout::detail::float_digit_of_impl(val / sprout::detail::float_pow10<FloatType>(digits + 1));
+		}
+
+		//
+		// float_digits
+		//
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR sprout::pair<int, FloatType>
+		float_digits_impl_1(sprout::pair<int, FloatType> const& current, FloatType val, int n) {
+			typedef sprout::pair<int, FloatType> type;
+			return (val / current.second) < 1 ? current
+				: n == 1 ? type(current.first + 1, current.second * FloatType(10))
+				: sprout::detail::float_digits_impl_1(
+					sprout::detail::float_digits_impl_1(
+						current,
+						val, n / 2
+						),
+					val, n - n / 2
+					)
+				;
+		}
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR sprout::pair<int, FloatType>
+		float_digits_impl(sprout::pair<int, FloatType> const& current, FloatType val, int n) {
+			return (val / current.second) < 1 ? current
+				: sprout::detail::float_digits_impl(
+					sprout::detail::float_digits_impl_1(
+						current,
+						val, n
+						),
+					val, n * 2
+					)
+				;
+		}
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		float_digits(FloatType val) {
+			typedef sprout::pair<int, FloatType> type;
+			return val < 0
+				? val > -1 ? 1 : sprout::detail::float_digits_impl(type(1, FloatType(10)), -val, 1).first
+				: val < 1 ? 1 : sprout::detail::float_digits_impl(type(1, FloatType(10)), val, 1).first
+				;
+		}
+
+		//
+		// float_digits_checked
+		//
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR int
+		float_digits_checked_impl(FloatType val, int digits) {
+			return val == 0 ? digits
+				: sprout::detail::float_digit_at(val, digits - 1) == 0 ? digits - 1 : digits
+				;
+		}
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		float_digits_checked(FloatType val) {
+			return sprout::detail::float_digits_checked_impl(val, sprout::detail::float_digits(val));
 		}
 
 		//
