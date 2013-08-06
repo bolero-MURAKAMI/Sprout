@@ -2,6 +2,7 @@
 #define SPROUT_STRING_CHAR_TRAITS_HPP
 
 #include <cstddef>
+#include <cstdio>
 #include <string>
 #include <algorithm>
 #include <sprout/config.hpp>
@@ -66,12 +67,21 @@ namespace sprout {
 		static void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT {
 			impl_type::assign(c1, c2);
 		}
+#ifdef SPROUT_NO_CXX11_CHAR_TRAITS
+		static SPROUT_CONSTEXPR bool eq(char_type c1, char_type c2) SPROUT_NOEXCEPT {
+			return c1 == c2;
+		}
+		static SPROUT_CONSTEXPR bool lt(char_type c1, char_type c2) SPROUT_NOEXCEPT {
+			return c1 < c2;
+		}
+#else
 		static SPROUT_CONSTEXPR bool eq(char_type c1, char_type c2) SPROUT_NOEXCEPT {
 			return impl_type::eq(c1, c2);
 		}
 		static SPROUT_CONSTEXPR bool lt(char_type c1, char_type c2) SPROUT_NOEXCEPT {
 			return impl_type::lt(c1, c2);
 		}
+#endif
 		static SPROUT_CONSTEXPR int compare(char_type const* s1, char_type const* s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
 				sprout::ptr_index(s1), sprout::ptr_index(s1, n), char_type(),
@@ -102,6 +112,25 @@ namespace sprout {
 		static char_type* assign(char_type* s, std::size_t n, char_type a) {
 			return impl_type::assign(s, n, a);
 		}
+#ifdef SPROUT_NO_CXX11_CHAR_TRAITS
+		static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT {
+			return eq_int_type(c, eof()) ? int_type()
+				: c
+				;
+		}
+		static SPROUT_CONSTEXPR char_type to_char_type(int_type c) SPROUT_NOEXCEPT {
+			return static_cast<char_type>(c);
+		}
+		static SPROUT_CONSTEXPR int_type to_int_type(char_type c) SPROUT_NOEXCEPT {
+			return static_cast<int_type>(c);
+		}
+		static SPROUT_CONSTEXPR bool eq_int_type(int_type c1, int_type c2) SPROUT_NOEXCEPT {
+			return c1 == c2;
+		}
+		static SPROUT_CONSTEXPR int_type eof() SPROUT_NOEXCEPT {
+			return static_cast<int_type>(EOF);
+		}
+#else
 		static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT {
 			return impl_type::not_eof(c);
 		}
@@ -117,6 +146,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR int_type eof() SPROUT_NOEXCEPT {
 			return impl_type::eof();
 		}
+#endif
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename ConstIterator>
 		static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstIterator s2, std::size_t n) {

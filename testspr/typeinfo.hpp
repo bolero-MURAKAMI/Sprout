@@ -34,7 +34,7 @@ namespace testspr {
 	//
 #ifdef TESTSPR_HAS_CXXABI_H
 	namespace detail {
-		std::string gcc_demangle(char const* mangled) {
+		std::string cxa_demangle(char const* mangled) {
 			int status;
 			char* demangled = abi::__cxa_demangle(mangled, 0, 0, &status);
 			std::string result(demangled);
@@ -44,7 +44,7 @@ namespace testspr {
 	}	// namespace detail
 	template<typename T>
 	inline std::string typename_of() {
-		return testspr::detail::gcc_demangle(typeid(T).name());
+		return testspr::detail::cxa_demangle(typeid(T).name());
 	}
 #else
 	template<typename T>

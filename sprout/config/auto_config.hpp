@@ -2,6 +2,7 @@
 #define SPROUT_CONFIG_AUTO_CONFIG_HPP
 
 #include <sprout/config/compiler.hpp>
+#include <sprout/config/stdlib.hpp>
 
 //
 // SPROUT_CONFIG_DISABLE_CONSTEXPR
