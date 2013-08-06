@@ -2,8 +2,8 @@
 #define SPROUT_DETAIL_INTEGER_HPP
 
 #include <climits>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -115,11 +115,11 @@ namespace sprout {
 		{
 			typedef typename sprout::detail::int_least_helper<
 				0
-				+ (Bits - 1 <= std::numeric_limits<long long>::digits)
-				+ (Bits - 1 <= std::numeric_limits<long>::digits)
-				+ (Bits - 1 <= std::numeric_limits<int>::digits)
-				+ (Bits - 1 <= std::numeric_limits<short>::digits)
-				+ (Bits - 1 <= std::numeric_limits<signed char>::digits)
+				+ (Bits - 1 <= sprout::numeric_limits<long long>::digits)
+				+ (Bits - 1 <= sprout::numeric_limits<long>::digits)
+				+ (Bits - 1 <= sprout::numeric_limits<int>::digits)
+				+ (Bits - 1 <= sprout::numeric_limits<short>::digits)
+				+ (Bits - 1 <= sprout::numeric_limits<signed char>::digits)
 			>::least least;
 			typedef typename sprout::detail::int_fast_t<least>::type fast;
 		};
@@ -129,11 +129,11 @@ namespace sprout {
 		{
 			typedef typename sprout::detail::int_least_helper<
 				5
-				+ (Bits <= std::numeric_limits<unsigned long long>::digits)
-				+ (Bits <= std::numeric_limits<unsigned long>::digits)
-				+ (Bits <= std::numeric_limits<unsigned int>::digits)
-				+ (Bits <= std::numeric_limits<unsigned short>::digits)
-				+ (Bits <= std::numeric_limits<unsigned char>::digits)
+				+ (Bits <= sprout::numeric_limits<unsigned long long>::digits)
+				+ (Bits <= sprout::numeric_limits<unsigned long>::digits)
+				+ (Bits <= sprout::numeric_limits<unsigned int>::digits)
+				+ (Bits <= sprout::numeric_limits<unsigned short>::digits)
+				+ (Bits <= sprout::numeric_limits<unsigned char>::digits)
 			>::least least;
 			typedef typename sprout::detail::int_fast_t<least>::type fast;
 		};
@@ -142,11 +142,11 @@ namespace sprout {
 		struct int_max_value_t {
 			typedef typename sprout::detail::int_least_helper<
 				0
-				+ (MaxValue <= std::numeric_limits<long long>::max())
-				+ (MaxValue <= std::numeric_limits<long>::max())
-				+ (MaxValue <= std::numeric_limits<int>::max())
-				+ (MaxValue <= std::numeric_limits<short>::max())
-				+ (MaxValue <= std::numeric_limits<signed char>::max())
+				+ (MaxValue <= sprout::numeric_limits<long long>::max())
+				+ (MaxValue <= sprout::numeric_limits<long>::max())
+				+ (MaxValue <= sprout::numeric_limits<int>::max())
+				+ (MaxValue <= sprout::numeric_limits<short>::max())
+				+ (MaxValue <= sprout::numeric_limits<signed char>::max())
 			>::least least;
 			typedef typename sprout::detail::int_fast_t<least>::type fast;
 		};
@@ -154,11 +154,11 @@ namespace sprout {
 		struct int_min_value_t {
 			typedef typename sprout::detail::int_least_helper<
 				0
-				+ (MinValue >= std::numeric_limits<long long>::min())
-				+ (MinValue >= std::numeric_limits<long>::min())
-				+ (MinValue >= std::numeric_limits<int>::min())
-				+ (MinValue >= std::numeric_limits<short>::min())
-				+ (MinValue >= std::numeric_limits<signed char>::min())
+				+ (MinValue >= sprout::numeric_limits<long long>::min())
+				+ (MinValue >= sprout::numeric_limits<long>::min())
+				+ (MinValue >= sprout::numeric_limits<int>::min())
+				+ (MinValue >= sprout::numeric_limits<short>::min())
+				+ (MinValue >= sprout::numeric_limits<signed char>::min())
 			>::least least;
 			typedef typename sprout::detail::int_fast_t<least>::type fast;
 		};
@@ -167,11 +167,11 @@ namespace sprout {
 		struct uint_value_t {
 			typedef typename sprout::detail::int_least_helper<
 				5
-				+ (MaxValue <= std::numeric_limits<long long>::max())
-				+ (MaxValue <= std::numeric_limits<long>::max())
-				+ (MaxValue <= std::numeric_limits<int>::max())
-				+ (MaxValue <= std::numeric_limits<short>::max())
-				+ (MaxValue <= std::numeric_limits<signed char>::max())
+				+ (MaxValue <= sprout::numeric_limits<long long>::max())
+				+ (MaxValue <= sprout::numeric_limits<long>::max())
+				+ (MaxValue <= sprout::numeric_limits<int>::max())
+				+ (MaxValue <= sprout::numeric_limits<short>::max())
+				+ (MaxValue <= sprout::numeric_limits<signed char>::max())
 			>::least least;
 			typedef typename sprout::detail::int_fast_t<least>::type fast;
 		};

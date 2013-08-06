@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_FLOAT_SIGNIFICAND_HPP
 #define SPROUT_MATH_FLOAT_SIGNIFICAND_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
@@ -20,10 +20,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			float_significand(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::infinity()
 					: x == 0 ? x
-					: x / sprout::detail::pow_n(FloatType(std::numeric_limits<FloatType>::radix), sprout::float_exponent(x))
+					: x / sprout::detail::pow_n(FloatType(sprout::numeric_limits<FloatType>::radix), sprout::float_exponent(x))
 					;
 			}
 			template<

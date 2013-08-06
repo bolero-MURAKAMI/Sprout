@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_HYPOT_HPP
 #define SPROUT_MATH_HYPOT_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
@@ -41,10 +41,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			hypot(FloatType x, FloatType y) {
-				return y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()
-						? std::numeric_limits<FloatType>::infinity()
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
-						? std::numeric_limits<FloatType>::infinity()
+				return y == sprout::numeric_limits<FloatType>::infinity() || y == -sprout::numeric_limits<FloatType>::infinity()
+						? sprout::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+						? sprout::numeric_limits<FloatType>::infinity()
 					: sprout::math::isnan(y) ? y
 					: sprout::math::isnan(x) ? x
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION

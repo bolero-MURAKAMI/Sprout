@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_FDIM_HPP
 #define SPROUT_MATH_FDIM_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/float_promote.hpp>
@@ -20,10 +20,10 @@ namespace sprout {
 			fdim(FloatType x, FloatType y) {
 				return sprout::math::isnan(y) ? y
 					: sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(0)
-					: y == std::numeric_limits<FloatType>::infinity() ? FloatType(0)
-					: y == -std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(0)
+					: y == sprout::numeric_limits<FloatType>::infinity() ? FloatType(0)
+					: y == -sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::fdim(x, y)
 #else

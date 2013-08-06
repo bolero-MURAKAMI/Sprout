@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_LDEXP_HPP
 #define SPROUT_MATH_LDEXP_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
@@ -26,8 +26,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			ldexp(FloatType x, int exp) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::infinity()
 					: exp == 0 ? x
 					: x == 0 ? x
 					: static_cast<FloatType>(sprout::math::detail::ldexp_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x), exp))

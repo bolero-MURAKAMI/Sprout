@@ -2,10 +2,10 @@
 #define SPROUT_MATH_ROUND_HPP
 
 #include <cstdint>
-#include <limits>
 #include <type_traits>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
@@ -43,13 +43,13 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			round(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::infinity()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::round(x)
 #else
 					: x == 0 ? x
-					: std::numeric_limits<std::uintmax_t>::max() < x || std::numeric_limits<std::uintmax_t>::max() < -x
+					: sprout::numeric_limits<std::uintmax_t>::max() < x || sprout::numeric_limits<std::uintmax_t>::max() < -x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("round: large float rounding."), x)
 					: static_cast<FloatType>(sprout::math::detail::round_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
 #endif

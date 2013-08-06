@@ -2,8 +2,8 @@
 #define SPROUT_FUNCTIONAL_HASH_DETAIL_HASH_FLOAT_HPP
 
 #include <cstddef>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/math/fpclassify.hpp>
 #include <sprout/math/ldexp.hpp>
@@ -21,7 +21,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_4(T v, int exp, std::size_t seed, std::size_t length, std::size_t i = 0) {
 			return i != length ? sprout::detail::float_hash_value_impl_4(
-					sprout::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
+					sprout::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), sprout::numeric_limits<std::size_t>::digits),
 					exp, sprout::detail::hash_float_combine(seed, static_cast<std::size_t>(v)),
 					length, i + 1
 					)
@@ -32,22 +32,22 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_3(T v, int exp) {
 			return sprout::detail::float_hash_value_impl_4(
-				sprout::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), std::numeric_limits<std::size_t>::digits),
+				sprout::ldexp(v - static_cast<T>(static_cast<std::size_t>(v)), sprout::numeric_limits<std::size_t>::digits),
 				exp, static_cast<std::size_t>(v),
-				(std::numeric_limits<T>::digits * sprout::detail::static_log2<std::numeric_limits<T>::radix>::value + std::numeric_limits<std::size_t>::digits - 1)
-					/ std::numeric_limits<std::size_t>::digits
+				(sprout::numeric_limits<T>::digits * sprout::detail::static_log2<sprout::numeric_limits<T>::radix>::value + sprout::numeric_limits<std::size_t>::digits - 1)
+					/ sprout::numeric_limits<std::size_t>::digits
 				);
 		}
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_2(T v, int exp) {
-			return sprout::detail::float_hash_value_impl_3(sprout::ldexp(v, std::numeric_limits<std::size_t>::digits), exp);
+			return sprout::detail::float_hash_value_impl_3(sprout::ldexp(v, sprout::numeric_limits<std::size_t>::digits), exp);
 		}
 		template<typename T, typename P>
 		inline SPROUT_CONSTEXPR std::size_t
 		float_hash_value_impl_1(P const& p) {
 			return ((p.first) < 0) ? sprout::detail::float_hash_value_impl_2(
-					-p.first, p.second + (std::numeric_limits<T>::max_exponent - std::numeric_limits<T>::min_exponent)
+					-p.first, p.second + (sprout::numeric_limits<T>::max_exponent - sprout::numeric_limits<T>::min_exponent)
 					)
 				: sprout::detail::float_hash_value_impl_2(p.first, p.second)
 				;

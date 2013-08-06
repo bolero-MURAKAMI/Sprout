@@ -6,9 +6,9 @@
 #if !defined(_MSC_VER)
 #	include <cinttypes>
 #endif
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
 #include <sprout/detail/char_conversion.hpp>
@@ -21,8 +21,8 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR IntType
 		str_to_int_impl_1(CStrIterator str, int base, IntType val, IntType x, bool negative) {
 			return x == static_cast<IntType>(-1) ? (negative ? -1 * val : val)
-				: val > (std::numeric_limits<IntType>::max() - x - (negative ? 1 : 0)) / base
-					? (negative ? std::numeric_limits<IntType>::min() : std::numeric_limits<IntType>::max())
+				: val > (sprout::numeric_limits<IntType>::max() - x - (negative ? 1 : 0)) / base
+					? (negative ? sprout::numeric_limits<IntType>::min() : sprout::numeric_limits<IntType>::max())
 				: sprout::detail::str_to_int_impl_1<IntType>(
 					sprout::next(str),
 					base,

@@ -35,6 +35,7 @@
 #include <sprout/io.hpp>
 #include <sprout/integer/integer_digits.hpp>
 #include <sprout/iterator.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/logic.hpp>
 #include <sprout/math.hpp>
 #include <sprout/none.hpp>

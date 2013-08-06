@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_SCALBN_HPP
 #define SPROUT_MATH_SCALBN_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
@@ -16,7 +16,7 @@ namespace sprout {
 			template<typename FloatType, typename T>
 			inline SPROUT_CONSTEXPR T
 			scalbn_impl(T x, int exp) {
-				return x * sprout::detail::pow_n(T(std::numeric_limits<FloatType>::radix), exp);
+				return x * sprout::detail::pow_n(T(sprout::numeric_limits<FloatType>::radix), exp);
 			}
 
 			template<
@@ -26,8 +26,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			scalbn(FloatType x, int exp) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::infinity()
 					: exp == 0 ? x
 					: x == 0 ? x
 					: static_cast<FloatType>(sprout::math::detail::scalbn_impl<FloatType>(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x), exp))

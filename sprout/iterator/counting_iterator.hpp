@@ -1,11 +1,11 @@
 #ifndef SPROUT_ITERATOR_COUNTING_ITERATOR_HPP
 #define SPROUT_ITERATOR_COUNTING_ITERATOR_HPP
 
-#include <limits>
 #include <iterator>
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
@@ -36,7 +36,7 @@ namespace sprout {
 		template<typename T, typename sprout::enabler_if<std::is_integral<T>::value>::type = sprout::enabler>
 		static SPROUT_CONSTEXPR T
 		default_value() {
-			return std::numeric_limits<value_type>::max();
+			return sprout::numeric_limits<value_type>::max();
 		}
 		template<typename T, typename sprout::enabler_if<!std::is_integral<T>::value>::type = sprout::enabler>
 		static SPROUT_CONSTEXPR T

@@ -2,11 +2,11 @@
 #define SPROUT_ITERATOR_GENERATOR_ITERATOR_HPP
 
 #include <cstddef>
-#include <limits>
 #include <iterator>
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/generator/functions.hpp>
 #include <sprout/utility/swap.hpp>
 
@@ -40,7 +40,7 @@ namespace sprout {
 		{}
 		explicit SPROUT_CONSTEXPR generator_iterator(
 			generator_type const& gen,
-			difference_type index = std::numeric_limits<difference_type>::max()
+			difference_type index = sprout::numeric_limits<difference_type>::max()
 			)
 			: gen_(gen), index_(index)
 		{}

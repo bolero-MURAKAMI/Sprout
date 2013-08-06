@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_COPYSIGN_HPP
 #define SPROUT_MATH_COPYSIGN_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/signbit.hpp>
@@ -25,8 +25,8 @@ namespace sprout {
 							: FloatType(0)
 					: sprout::math::isnan(x)
 						? sprout::math::isnan(y) ? y
-							: sprout::math::signbit(y) ? -std::numeric_limits<FloatType>::quiet_NaN()
-							: std::numeric_limits<FloatType>::quiet_NaN()
+							: sprout::math::signbit(y) ? -sprout::numeric_limits<FloatType>::quiet_NaN()
+							: sprout::numeric_limits<FloatType>::quiet_NaN()
 					: sprout::math::signbit(y) != sprout::math::signbit(x) ? -x
 					: x
 					;

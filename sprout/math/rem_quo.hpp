@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_REM_QUO_HPP
 #define SPROUT_MATH_REM_QUO_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
@@ -89,16 +89,16 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::pair<FloatType, R>
 			rem_quo(FloatType x, FloatType y) {
 				typedef sprout::pair<FloatType, R> type;
-				return y == 0 ? type(-std::numeric_limits<FloatType>::quiet_NaN(), R(0))
+				return y == 0 ? type(-sprout::numeric_limits<FloatType>::quiet_NaN(), R(0))
 					: sprout::math::isnan(y)
 						? sprout::math::isnan(x)
-							? type(sprout::math::signbit(y) && sprout::math::signbit(x) ? -std::numeric_limits<FloatType>::quiet_NaN() : std::numeric_limits<FloatType>::quiet_NaN(), R(0))
+							? type(sprout::math::signbit(y) && sprout::math::signbit(x) ? -sprout::numeric_limits<FloatType>::quiet_NaN() : sprout::numeric_limits<FloatType>::quiet_NaN(), R(0))
 							: type(y, R(0))
 					: sprout::math::isnan(x) ? type(x, R(0))
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
-						? type(-std::numeric_limits<FloatType>::quiet_NaN(), R(0))
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+						? type(-sprout::numeric_limits<FloatType>::quiet_NaN(), R(0))
 					: x == 0 ? type(x, R(0))
-					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity() ? type(x, R(0))
+					: y == sprout::numeric_limits<FloatType>::infinity() || y == -sprout::numeric_limits<FloatType>::infinity() ? type(x, R(0))
 					: sprout::math::detail::rem_quo_ret<R, FloatType>(sprout::math::detail::rem_quo_impl(
 						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
 						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y),

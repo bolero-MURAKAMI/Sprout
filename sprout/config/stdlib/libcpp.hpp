@@ -11,8 +11,9 @@
 #define SPROUT_NO_CXX11_ATOMIC_SMART_PTR
 
 #include <utility>
-#if defined(_LIBCPP_VERSION) && (_LIBCPP_VERSION < 1101)
+#if defined(_LIBCPP_VERSION) && (_LIBCPP_VERSION <= 1001)
 #	define SPROUT_NO_CXX11_CHAR_TRAITS
+#	define SPROUT_NO_CXX11_NUMERIC_LIMITS
 #endif
 
 #endif	// #ifndef SPROUT_CONFIG_STDLIB_LIBCPP_HPP

@@ -2,8 +2,8 @@
 #define SPROUT_RANDOM_DETAIL_GENERATOR_BITS_HPP
 
 #include <cstddef>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 
 namespace sprout {
 	namespace random {
@@ -12,7 +12,7 @@ namespace sprout {
 			struct generator_bits {
 			public:
 				static SPROUT_CONSTEXPR std::size_t value() {
-					return std::numeric_limits<typename URNG::result_type>::digits;
+					return sprout::numeric_limits<typename URNG::result_type>::digits;
 				}
 			};
 		}	// namespace detail

@@ -2,8 +2,8 @@
 #define SPROUT_RANDOM_GEOMETRIC_DISTRIBUTION_HPP
 
 #include <ios>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/log.hpp>
 #include <sprout/math/floor.hpp>
 #include <sprout/random/random_result.hpp>
@@ -112,7 +112,7 @@ namespace sprout {
 				return 0;
 			}
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
-				return std::numeric_limits<result_type>::max();
+				return sprout::numeric_limits<result_type>::max();
 			}
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(p_);

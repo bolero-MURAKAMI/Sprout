@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_SIN_HPP
 #define SPROUT_MATH_SIN_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
@@ -27,8 +27,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			sin(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
-						? -std::numeric_limits<FloatType>::quiet_NaN()
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+						? -sprout::numeric_limits<FloatType>::quiet_NaN()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::sin(x)
 #else

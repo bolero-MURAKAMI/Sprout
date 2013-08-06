@@ -2,8 +2,8 @@
 #define SPROUT_MATH_LCM_HPP
 
 #include <climits>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/gcd.hpp>
 
 namespace sprout {
@@ -56,7 +56,7 @@ namespace sprout {
 			struct lcm_optimal_evaluator {
 			public:
 				SPROUT_CONSTEXPR T operator()(T const& a, T const& b) const {
-					typedef std::numeric_limits<T> limits_type;
+					typedef sprout::numeric_limits<T> limits_type;
 					typedef sprout::math::detail::lcm_optimal_evaluator_helper_t<
 						T, limits_type::is_specialized, limits_type::is_signed
 					> helper_type;

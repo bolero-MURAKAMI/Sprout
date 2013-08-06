@@ -2,9 +2,9 @@
 #define SPROUT_CSTDLIB_DECIMAL_TO_INT_HPP
 
 #include <iterator>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
 
@@ -17,8 +17,8 @@ namespace sprout {
 		ascii_to_int_impl(CStrIterator str, IntType val, bool negative) {
 			return !sprout::ascii::isdigit(*str)
 				? negative ? -val : val
-				: val > (std::numeric_limits<IntType>::max() - (*str - static_cast<typename std::iterator_traits<CStrIterator>::value_type>('0')) - (negative ? 1 : 0)) / 10
-				? (negative ? std::numeric_limits<IntType>::min() : std::numeric_limits<IntType>::max())
+				: val > (sprout::numeric_limits<IntType>::max() - (*str - static_cast<typename std::iterator_traits<CStrIterator>::value_type>('0')) - (negative ? 1 : 0)) / 10
+				? (negative ? sprout::numeric_limits<IntType>::min() : sprout::numeric_limits<IntType>::max())
 				: sprout::detail::ascii_to_int_impl<IntType>(
 					sprout::next(str),
 					val * 10 + (*str - static_cast<typename std::iterator_traits<CStrIterator>::value_type>('0')),

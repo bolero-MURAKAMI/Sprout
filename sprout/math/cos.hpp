@@ -2,9 +2,9 @@
 #define SPROUT_MATH_COS_HPP
 
 #include <cstddef>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
@@ -38,6 +38,7 @@ namespace sprout {
 					);
 			}
 
+			// !!!
 //			template<typename T>
 //			inline SPROUT_CONSTEXPR T
 //			cos_impl_2(T x) {
@@ -70,8 +71,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			cos(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
-						? -std::numeric_limits<FloatType>::quiet_NaN()
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+						? -sprout::numeric_limits<FloatType>::quiet_NaN()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::cos(x)
 #else

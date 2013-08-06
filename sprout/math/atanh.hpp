@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_ATANH_HPP
 #define SPROUT_MATH_ATANH_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
@@ -27,9 +27,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			atanh(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == 1 ? std::numeric_limits<FloatType>::infinity()
-					: x == -1 ? -std::numeric_limits<FloatType>::infinity()
-					: sprout::math::fabs(x) > 1 ? -std::numeric_limits<FloatType>::quiet_NaN()
+					: x == 1 ? sprout::numeric_limits<FloatType>::infinity()
+					: x == -1 ? -sprout::numeric_limits<FloatType>::infinity()
+					: sprout::math::fabs(x) > 1 ? -sprout::numeric_limits<FloatType>::quiet_NaN()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::atanh(x)
 #else

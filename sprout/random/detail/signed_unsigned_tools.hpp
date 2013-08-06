@@ -1,14 +1,14 @@
 #ifndef SPROUT_RANDOM_DETAIL_SIGNED_UNSIGNED_TOOLS_HPP
 #define SPROUT_RANDOM_DETAIL_SIGNED_UNSIGNED_TOOLS_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 
 namespace sprout {
 	namespace random {
 		namespace detail {
-			template<typename T, bool B = std::numeric_limits<T>::is_signed>
+			template<typename T, bool B = sprout::numeric_limits<T>::is_signed>
 			struct subtract {};
 			template<typename T>
 			struct subtract<T, false> {
@@ -32,7 +32,7 @@ namespace sprout {
 				}
 			};
 
-			template<typename T1, typename T2, bool B = std::numeric_limits<T2>::is_signed>
+			template<typename T1, typename T2, bool B = sprout::numeric_limits<T2>::is_signed>
 			struct add {};
 			template<typename T1, typename T2>
 			struct add<T1, T2, false> {

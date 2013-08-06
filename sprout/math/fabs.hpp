@@ -17,7 +17,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR FloatType
 			fabs(FloatType x) {
-				return sprout::math::isnan(x) ? std::numeric_limits<FloatType>::quiet_NaN()
+				return sprout::math::isnan(x) ? sprout::numeric_limits<FloatType>::quiet_NaN()
 					: x == 0 ? FloatType(0)
 					: sprout::math::copysign(x, FloatType(0))
 					;

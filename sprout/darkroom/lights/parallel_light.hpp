@@ -1,8 +1,8 @@
 #ifndef SPROUT_DARKROOM_LIGHTS_PARALLEL_LIGHT_HPP
 #define SPROUT_DARKROOM_LIGHTS_PARALLEL_LIGHT_HPP
 
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
@@ -49,9 +49,9 @@ namespace sprout {
 						inter,
 						!sprout::darkroom::intersects::does_intersect(light_ray_inter)
 							|| sprout::darkroom::intersects::distance(light_ray_inter)
-								< std::numeric_limits<unit_type>::epsilon()
+								< sprout::numeric_limits<unit_type>::epsilon()
 							? NS_SSCRISK_CEL_OR_SPROUT::max(
-								std::numeric_limits<unit_type>::epsilon(),
+								sprout::numeric_limits<unit_type>::epsilon(),
 								sprout::darkroom::coords::dot(
 									dir_,
 									sprout::darkroom::intersects::normal(inter)
@@ -76,7 +76,7 @@ namespace sprout {
 								sprout::darkroom::coords::add(
 									sprout::darkroom::coords::scale(
 										dir_,
-										std::numeric_limits<unit_type>::epsilon() * 256
+										sprout::numeric_limits<unit_type>::epsilon() * 256
 										),
 									sprout::darkroom::intersects::point_of_intersection(inter)
 									),

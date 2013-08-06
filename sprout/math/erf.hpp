@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_ERF_HPP
 #define SPROUT_MATH_ERF_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
@@ -126,8 +126,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			erf(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? FloatType(1)
-					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(-1)
+					: x == sprout::numeric_limits<FloatType>::infinity() ? FloatType(1)
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(-1)
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::erf(x)
 #else

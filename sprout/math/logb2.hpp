@@ -10,7 +10,7 @@
 #	include <sprout/math/logb.hpp>
 #else
 #	include <cstdint>
-#	include <limits>
+#	include <sprout/limits.hpp>
 #	include <sprout/detail/pow.hpp>
 #	include <sprout/math/detail/float_compute.hpp>
 #	include <sprout/math/isnan.hpp>
@@ -123,9 +123,9 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			logb2(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == 0 ? -std::numeric_limits<FloatType>::infinity()
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
-						? std::numeric_limits<FloatType>::infinity()
+					: x == 0 ? -sprout::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+						? sprout::numeric_limits<FloatType>::infinity()
 					: static_cast<FloatType>(sprout::math::detail::logb2_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
 					;
 			}

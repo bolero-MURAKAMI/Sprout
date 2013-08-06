@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_POW_HPP
 #define SPROUT_MATH_POW_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/isnan.hpp>
@@ -37,27 +37,27 @@ namespace sprout {
 					: sprout::math::isnan(x) ? x
 					: x == 0
 						? y < 0
-							? sprout::math::is_odd(y) ? sprout::math::copysign(std::numeric_limits<FloatType>::infinity(), x)
-							: std::numeric_limits<FloatType>::infinity()
+							? sprout::math::is_odd(y) ? sprout::math::copysign(sprout::numeric_limits<FloatType>::infinity(), x)
+							: sprout::numeric_limits<FloatType>::infinity()
 						: sprout::math::is_odd(y) ? x
 						: FloatType(0)
-					: x == -1 && (y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity()) ? FloatType(1)
-					: y == -std::numeric_limits<FloatType>::infinity()
-						? sprout::math::fabs(x) < 1 ? std::numeric_limits<FloatType>::infinity()
+					: x == -1 && (y == sprout::numeric_limits<FloatType>::infinity() || y == -sprout::numeric_limits<FloatType>::infinity()) ? FloatType(1)
+					: y == -sprout::numeric_limits<FloatType>::infinity()
+						? sprout::math::fabs(x) < 1 ? sprout::numeric_limits<FloatType>::infinity()
 						: FloatType(0)
-					: y == std::numeric_limits<FloatType>::infinity()
+					: y == sprout::numeric_limits<FloatType>::infinity()
 						? sprout::math::fabs(x) < 1 ? FloatType(0)
-						: std::numeric_limits<FloatType>::infinity()
-					: x == -std::numeric_limits<FloatType>::infinity()
+						: sprout::numeric_limits<FloatType>::infinity()
+					: x == -sprout::numeric_limits<FloatType>::infinity()
 						? y < 0
 							? sprout::math::is_odd(y) ? -FloatType(0)
 							: FloatType(0)
-						: sprout::math::is_odd(y) ? -std::numeric_limits<FloatType>::infinity()
-						: std::numeric_limits<FloatType>::infinity()
-					: x == std::numeric_limits<FloatType>::infinity()
+						: sprout::math::is_odd(y) ? -sprout::numeric_limits<FloatType>::infinity()
+						: sprout::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity()
 						? y < 0 ? FloatType(0)
-						: std::numeric_limits<FloatType>::infinity()
-					: x < 0 && !sprout::math::is_integer(y) ? std::numeric_limits<FloatType>::quiet_NaN()
+						: sprout::numeric_limits<FloatType>::infinity()
+					: x < 0 && !sprout::math::is_integer(y) ? sprout::numeric_limits<FloatType>::quiet_NaN()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::pow(x, y)
 #else

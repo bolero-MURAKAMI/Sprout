@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_ATAN2_HPP
 #define SPROUT_MATH_ATAN2_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/constants.hpp>
@@ -37,20 +37,20 @@ namespace sprout {
 			atan2(FloatType y, FloatType x) {
 				return sprout::math::isnan(y)
 						? sprout::math::isnan(x)
-							? sprout::math::signbit(y) && sprout::math::signbit(x) ? -std::numeric_limits<FloatType>::quiet_NaN()
-								: std::numeric_limits<FloatType>::quiet_NaN()
+							? sprout::math::signbit(y) && sprout::math::signbit(x) ? -sprout::numeric_limits<FloatType>::quiet_NaN()
+								: sprout::numeric_limits<FloatType>::quiet_NaN()
 							: y
 					: sprout::math::isnan(x) ? x
-					: x == -std::numeric_limits<FloatType>::infinity()
-						? y == std::numeric_limits<FloatType>::infinity() ? sprout::math::three_quarters_pi<FloatType>()
-							: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::three_quarters_pi<FloatType>()
+					: x == -sprout::numeric_limits<FloatType>::infinity()
+						? y == sprout::numeric_limits<FloatType>::infinity() ? sprout::math::three_quarters_pi<FloatType>()
+							: y == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::math::three_quarters_pi<FloatType>()
 							: sprout::math::copysign(sprout::math::pi<FloatType>(), y)
-					: x == std::numeric_limits<FloatType>::infinity()
-						? y == std::numeric_limits<FloatType>::infinity() ? sprout::math::quarter_pi<FloatType>()
-							: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::quarter_pi<FloatType>()
+					: x == sprout::numeric_limits<FloatType>::infinity()
+						? y == sprout::numeric_limits<FloatType>::infinity() ? sprout::math::quarter_pi<FloatType>()
+							: y == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::math::quarter_pi<FloatType>()
 							: FloatType(0) * y
-					: y == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
-					: y == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
+					: y == sprout::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
+					: y == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::atan2(y, x)
 #else

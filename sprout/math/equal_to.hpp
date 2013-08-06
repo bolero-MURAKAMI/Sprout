@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_EQUAL_TO_HPP
 #define SPROUT_MATH_EQUAL_TO_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/algorithm/max.hpp>
 #include <sprout/math/fabs.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
@@ -23,7 +23,7 @@ namespace sprout {
 			equal_to_impl(FloatType x, FloatType y) {
 				return x == y
 					|| sprout::fabs(x - y)
-						<= std::numeric_limits<FloatType>::epsilon() * sprout::math::detail::max3(sprout::fabs(x), sprout::fabs(y), FloatType(1))
+						<= sprout::numeric_limits<FloatType>::epsilon() * sprout::math::detail::max3(sprout::fabs(x), sprout::fabs(y), FloatType(1))
 					;
 			}
 

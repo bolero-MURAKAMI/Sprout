@@ -1,9 +1,9 @@
 #ifndef SPROUT_RANGE_ADAPTOR_SAWTOOTH_WAVE_HPP
 #define SPROUT_RANGE_ADAPTOR_SAWTOOTH_WAVE_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/sawtooth_iterator.hpp>
@@ -81,7 +81,7 @@ namespace sprout {
 				)
 				: base_type(
 					iterator(0, frequency, amplitude, phase),
-					iterator(std::numeric_limits<difference_type>::max(), frequency, amplitude, phase)
+					iterator(sprout::numeric_limits<difference_type>::max(), frequency, amplitude, phase)
 					)
 			{}
 			SPROUT_CONSTEXPR value_type const& frequency() const {

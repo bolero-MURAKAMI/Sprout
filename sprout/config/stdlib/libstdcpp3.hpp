@@ -26,7 +26,18 @@
 #endif
 
 #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
-#	define SPROUT_NO_CXX11_NUMERIC_LIMITS
+#	if defined(__clang__)
+#		if !__has_feature(cxx_constexpr) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
+#			define SPROUT_NO_CXX11_CHAR_TRAITS
+#			define SPROUT_NO_CXX11_NUMERIC_LIMITS
+#		endif
+#	else
+#		define SPROUT_NO_CXX11_CHAR_TRAITS
+#		define SPROUT_NO_CXX11_NUMERIC_LIMITS
+#	endif
+#endif
+
+#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
 #	define SPROUT_NO_CXX11_HDR_FUTURE
 #	define SPROUT_NO_CXX11_HDR_RANDOM
 #endif

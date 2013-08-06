@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_ISINF_HPP
 #define SPROUT_MATH_ISINF_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -16,8 +16,8 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR bool
 			isinf(FloatType x) {
-				return x == std::numeric_limits<FloatType>::infinity()
-					|| x == -std::numeric_limits<FloatType>::infinity()
+				return x == sprout::numeric_limits<FloatType>::infinity()
+					|| x == -sprout::numeric_limits<FloatType>::infinity()
 					;
 			}
 		}	// namespace detail

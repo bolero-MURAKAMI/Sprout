@@ -2,9 +2,9 @@
 #define SPROUT_UUID_RANDOM_GENERATOR_HPP
 
 #include <cstdint>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/uuid/uuid.hpp>
 #include <sprout/random/default_random_engine.hpp>
 #include <sprout/random/uniform_int_distribution.hpp>
@@ -62,7 +62,7 @@ namespace sprout {
 			}
 		public:
 			SPROUT_CONSTEXPR basic_random_generator()
-				: distribution_(std::numeric_limits<std::uint32_t>::min(), std::numeric_limits<std::uint32_t>::max())
+				: distribution_(sprout::numeric_limits<std::uint32_t>::min(), sprout::numeric_limits<std::uint32_t>::max())
 			{}
 			template<typename T>
 			SPROUT_CONSTEXPR typename std::enable_if<

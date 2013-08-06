@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_FMAX_HPP
 #define SPROUT_MATH_FMAX_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/type_traits/float_promote.hpp>
@@ -20,10 +20,10 @@ namespace sprout {
 			fmax(FloatType x, FloatType y) {
 				return sprout::math::isnan(y) ? x
 					: sprout::math::isnan(x) ? y
-					: y == -std::numeric_limits<FloatType>::infinity() ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? x
-					: x == -std::numeric_limits<FloatType>::infinity() ? y
-					: y == std::numeric_limits<FloatType>::infinity() ? y
+					: y == -sprout::numeric_limits<FloatType>::infinity() ? x
+					: x == sprout::numeric_limits<FloatType>::infinity() ? x
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? y
+					: y == sprout::numeric_limits<FloatType>::infinity() ? y
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: x == 0 && y == 0 ? x
 					: std::fmax(x, y)

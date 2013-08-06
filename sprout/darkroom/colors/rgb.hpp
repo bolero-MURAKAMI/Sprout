@@ -2,8 +2,8 @@
 #define SPROUT_DARKROOM_COLORS_RGB_HPP
 
 #include <cstdint>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/utility/forward.hpp>
@@ -121,17 +121,17 @@ namespace sprout {
 			rgb_f_to_rgb(RGB_F const& col) {
 				typedef typename sprout::darkroom::access::unit<RGB>::type unit_type;
 				return sprout::tuples::make<RGB>(
-					sprout::darkroom::colors::r(col) < 0 ? std::numeric_limits<unit_type>::min()
-						: sprout::darkroom::colors::r(col) > 1 ? std::numeric_limits<unit_type>::max()
-						: sprout::darkroom::colors::r(col) * std::numeric_limits<unit_type>::max()
+					sprout::darkroom::colors::r(col) < 0 ? sprout::numeric_limits<unit_type>::min()
+						: sprout::darkroom::colors::r(col) > 1 ? sprout::numeric_limits<unit_type>::max()
+						: sprout::darkroom::colors::r(col) * sprout::numeric_limits<unit_type>::max()
 						,
-					sprout::darkroom::colors::g(col) < 0 ? std::numeric_limits<unit_type>::min()
-						: sprout::darkroom::colors::g(col) > 1 ? std::numeric_limits<unit_type>::max()
-						: sprout::darkroom::colors::g(col) * std::numeric_limits<unit_type>::max()
+					sprout::darkroom::colors::g(col) < 0 ? sprout::numeric_limits<unit_type>::min()
+						: sprout::darkroom::colors::g(col) > 1 ? sprout::numeric_limits<unit_type>::max()
+						: sprout::darkroom::colors::g(col) * sprout::numeric_limits<unit_type>::max()
 						,
-					sprout::darkroom::colors::b(col) < 0 ? std::numeric_limits<unit_type>::min()
-						: sprout::darkroom::colors::b(col) > 1 ? std::numeric_limits<unit_type>::max()
-						: sprout::darkroom::colors::b(col) * std::numeric_limits<unit_type>::max()
+					sprout::darkroom::colors::b(col) < 0 ? sprout::numeric_limits<unit_type>::min()
+						: sprout::darkroom::colors::b(col) > 1 ? sprout::numeric_limits<unit_type>::max()
+						: sprout::darkroom::colors::b(col) * sprout::numeric_limits<unit_type>::max()
 					);
 			}
 		}	// namespace colors

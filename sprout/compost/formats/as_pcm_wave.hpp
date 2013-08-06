@@ -2,9 +2,9 @@
 #define SPROUT_COMPOST_FORMATS_AS_PCM_WAVE_HPP
 
 #include <cstdint>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/algorithm/clamp.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/type_traits/is_int.hpp>
@@ -26,7 +26,7 @@ namespace sprout {
 			public:
 				template<typename T>
 				SPROUT_CONSTEXPR result_type operator()(T const& x) const {
-					return static_cast<result_type>(sprout::clamp(x, -1, 1) * std::numeric_limits<result_type>::max());
+					return static_cast<result_type>(sprout::clamp(x, -1, 1) * sprout::numeric_limits<result_type>::max());
 				}
 			};
 			template<typename IntType>
@@ -39,7 +39,7 @@ namespace sprout {
 			public:
 				template<typename T>
 				SPROUT_CONSTEXPR result_type operator()(T const& x) const {
-					return static_cast<result_type>(sprout::clamp((x + 1) / 2, 0, 1) * std::numeric_limits<result_type>::max());
+					return static_cast<result_type>(sprout::clamp((x + 1) / 2, 0, 1) * sprout::numeric_limits<result_type>::max());
 				}
 			};
 		}	// namespace detail

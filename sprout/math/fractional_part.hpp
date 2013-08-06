@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_FRACTIONAL_PART_HPP
 #define SPROUT_MATH_FRACTIONAL_PART_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/copysign.hpp>
 #include <sprout/math/isnan.hpp>
@@ -28,7 +28,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			fractional_part(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() ? sprout::math::copysign(FloatType(0), x)
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity() ? sprout::math::copysign(FloatType(0), x)
 					: x == 0 ? x
 					: sprout::math::detail::fractional_part_impl(x, sprout::integer_part(x))
 					;

@@ -1,9 +1,9 @@
 #ifndef SPROUT_RATIONAL_RATIONAL_HPP
 #define SPROUT_RATIONAL_RATIONAL_HPP
 
-#include <limits>
 #include <utility>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/rational/exceptions.hpp>
 #include <sprout/math/gcd.hpp>
 #include <sprout/utility/swap.hpp>
@@ -57,7 +57,7 @@ namespace sprout {
 	class rational
 		: private sprout::detail::rational_impl<IntType>
 	{
-		static_assert(std::numeric_limits<IntType>::is_specialized, "std::numeric_limits<IntType>::is_specialized");
+		static_assert(sprout::numeric_limits<IntType>::is_specialized, "sprout::numeric_limits<IntType>::is_specialized");
 	public:
 		typedef IntType int_type;
 		typedef typename sprout::detail::call_traits<IntType>::param_type param_type;

@@ -5,8 +5,8 @@
 #include <cstdint>
 #include <climits>
 #include <type_traits>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
@@ -84,7 +84,7 @@ namespace sprout {
 		}
 
 		SPROUT_CONSTEXPR value_type checksum() const {
-			return static_cast<value_type>(sum_ & std::numeric_limits<value_type>::max());
+			return static_cast<value_type>(sum_ & sprout::numeric_limits<value_type>::max());
 		}
 		SPROUT_CONSTEXPR value_type operator()() const {
 			return checksum();

@@ -25,8 +25,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			erfc(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? FloatType(0)
-					: x == -std::numeric_limits<FloatType>::infinity() ? FloatType(2)
+					: x == sprout::numeric_limits<FloatType>::infinity() ? FloatType(0)
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(2)
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::erfc(x)
 #else

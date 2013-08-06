@@ -1,10 +1,10 @@
 #ifndef SPROUT_MATH_IROUND_HPP
 #define SPROUT_MATH_IROUND_HPP
 
-#include <limits>
 #include <type_traits>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/isinf.hpp>
@@ -22,7 +22,7 @@ namespace sprout {
 			template<typename To, typename FloatType>
 			inline SPROUT_CONSTEXPR To
 			iround_impl(FloatType x) {
-				return std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
+				return sprout::numeric_limits<To>::max() < x || sprout::numeric_limits<To>::min() > x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("iround: large float rounding."), static_cast<To>(x))
 					: static_cast<To>(x)
 					;
@@ -34,7 +34,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			iround(FloatType x) {
-				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<To>::min()
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<To>::min()
 					: sprout::math::detail::iround_impl<To>(sprout::math::round(x))
 					;
 			}
@@ -60,9 +60,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			iround(FloatType x) {
-				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<To>::min()
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<To>::min()
 					: x == 0 ? To(0)
-					: std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
+					: sprout::numeric_limits<To>::max() < x || sprout::numeric_limits<To>::min() > x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("iround: large float irounding."), x)
 					: x < 0 ? sprout::math::detail::iround_impl_nagative(x, static_cast<To>(x))
 					: sprout::math::detail::iround_impl_positive(x, static_cast<To>(x))

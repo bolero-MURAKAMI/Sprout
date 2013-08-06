@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_QUOTIENT_HPP
 #define SPROUT_MATH_QUOTIENT_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/signbit.hpp>
@@ -23,10 +23,10 @@ namespace sprout {
 			quotient(FloatType x, FloatType y) {
 				return y == 0 ? R(0)
 					: sprout::math::isnan(y) || sprout::math::isnan(x) ? R(0)
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity()
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
 						? R(0)
 					: x == 0 ? R(0)
-					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity() ? R(0)
+					: y == sprout::numeric_limits<FloatType>::infinity() || y == -sprout::numeric_limits<FloatType>::infinity() ? R(0)
 					: sprout::math::rem_quo<R>(x, y).second
 					;
 			}

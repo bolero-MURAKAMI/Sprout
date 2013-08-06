@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <climits>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/detail/integer.hpp>
 
 namespace sprout {
@@ -33,9 +33,9 @@ namespace sprout {
 
 #define SPROUT_LOW_BITS_MASK_SPECIALIZE(Type) \
 		template<> \
-		struct low_bits_mask_t<std::numeric_limits<Type>::digits> { \
+		struct low_bits_mask_t<sprout::numeric_limits<Type>::digits> { \
 		public: \
-			typedef std::numeric_limits<Type> limits_type; \
+			typedef sprout::numeric_limits<Type> limits_type; \
 			typedef typename sprout::detail::uint_t<limits_type::digits>::least least; \
 			typedef typename sprout::detail::uint_t<limits_type::digits>::fast fast; \
 		public: \

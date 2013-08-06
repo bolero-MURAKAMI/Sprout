@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_FRAC_INT_HPP
 #define SPROUT_MATH_FRAC_INT_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/copysign.hpp>
 #include <sprout/math/isnan.hpp>
@@ -19,7 +19,7 @@ namespace sprout {
 			frac_int_impl(T x, T ipart) {
 				typedef sprout::pair<T, T> type;
 				return sprout::math::isnan(x) ? type(x, ipart)
-					: x == std::numeric_limits<T>::infinity() || x == -std::numeric_limits<T>::infinity() ? type(sprout::math::copysign(T(0), x), ipart)
+					: x == sprout::numeric_limits<T>::infinity() || x == -sprout::numeric_limits<T>::infinity() ? type(sprout::math::copysign(T(0), x), ipart)
 					: x == 0 ? type(x, ipart)
 					: x == ipart ? type(T(0) * x, ipart)
 					: type(sprout::math::copysign(x - ipart, x), ipart)

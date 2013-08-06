@@ -1,10 +1,10 @@
 #ifndef SPROUT_MATH_IFLOOR_HPP
 #define SPROUT_MATH_IFLOOR_HPP
 
-#include <limits>
 #include <type_traits>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/isinf.hpp>
@@ -22,7 +22,7 @@ namespace sprout {
 			template<typename To, typename FloatType>
 			inline SPROUT_CONSTEXPR To
 			ifloor_impl(FloatType x) {
-				return std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
+				return sprout::numeric_limits<To>::max() < x || sprout::numeric_limits<To>::min() > x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("ifloor: large float rounding."), static_cast<To>(x))
 					: static_cast<To>(x)
 					;
@@ -34,7 +34,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			ifloor(FloatType x) {
-				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<To>::min()
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<To>::min()
 					: sprout::math::detail::ifloor_impl<To>(sprout::math::floor(x))
 					;
 			}
@@ -53,9 +53,9 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR To
 			ifloor(FloatType x) {
-				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<To>::min()
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<To>::min()
 					: x == 0 ? To(0)
-					: std::numeric_limits<To>::max() < x || std::numeric_limits<To>::min() > x
+					: sprout::numeric_limits<To>::max() < x || sprout::numeric_limits<To>::min() > x
 						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("ifloor: large float rounding."), static_cast<To>(x))
 					: sprout::math::detail::ifloor_impl(x, static_cast<To>(x))
 					;

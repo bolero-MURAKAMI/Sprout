@@ -2,10 +2,10 @@
 #define SPROUT_RANDOM_INVERSIVE_CONGRUENTIAL_HPP
 
 #include <cstdint>
-#include <limits>
 #include <ios>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/math/comparison.hpp>

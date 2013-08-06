@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_LLROUND_HPP
 #define SPROUT_MATH_LLROUND_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/isinf.hpp>
@@ -19,7 +19,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR long long
 			llround(FloatType x) {
-				return sprout::math::isnan(x) || sprout::math::isinf(x) ? std::numeric_limits<long long>::min()
+				return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<long long>::min()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::llround(x)
 #else

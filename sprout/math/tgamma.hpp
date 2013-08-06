@@ -2,9 +2,9 @@
 #define SPROUT_MATH_TGAMMA_HPP
 
 #include <cstddef>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
@@ -71,7 +71,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			tgamma_impl_2_pos_rec(T x, T y, T t) {
-				return t == 0 ? std::numeric_limits<T>::infinity()
+				return t == 0 ? sprout::numeric_limits<T>::infinity()
 					: (x - T(1)) / y / t
 					;
 			}
@@ -108,10 +108,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			tgamma(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == 0 ? sprout::math::copysign(std::numeric_limits<FloatType>::infinity(), x)
-					: x == -std::numeric_limits<FloatType>::infinity() ? -std::numeric_limits<FloatType>::quiet_NaN()
-					: x == std::numeric_limits<FloatType>::infinity() ? std::numeric_limits<FloatType>::infinity()
-					: x < 0 && sprout::math::is_integer(x) ? std::numeric_limits<FloatType>::quiet_NaN()
+					: x == 0 ? sprout::math::copysign(sprout::numeric_limits<FloatType>::infinity(), x)
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::quiet_NaN()
+					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+					: x < 0 && sprout::math::is_integer(x) ? sprout::numeric_limits<FloatType>::quiet_NaN()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::tgamma(x)
 #else

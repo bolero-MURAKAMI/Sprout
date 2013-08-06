@@ -1,10 +1,10 @@
 #ifndef SPROUT_RANDOM_NORMAL_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_NORMAL_DISTRIBUTION_HPP
 
-#include <limits>
 #include <ios>
 #include <istream>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/sin.hpp>
 #include <sprout/math/cos.hpp>
@@ -185,10 +185,10 @@ namespace sprout {
 				return sigma_;
 			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
-				return -std::numeric_limits<RealType>::infinity();
+				return -sprout::numeric_limits<RealType>::infinity();
 			}
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
-				return std::numeric_limits<RealType>::infinity();
+				return sprout::numeric_limits<RealType>::infinity();
 			}
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(mean_, sigma_);

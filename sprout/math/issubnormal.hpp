@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_ISSUBNORMAL_HPP
 #define SPROUT_MATH_ISSUBNORMAL_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/iszero.hpp>
 #include <sprout/math/isnan.hpp>
@@ -18,8 +18,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR bool
 			issubnormal_or_zero(FloatType x) {
 				return x > 0
-					? x < std::numeric_limits<double>::min()
-					: x > -std::numeric_limits<double>::min()
+					? x < sprout::numeric_limits<double>::min()
+					: x > -sprout::numeric_limits<double>::min()
 					;
 			}
 

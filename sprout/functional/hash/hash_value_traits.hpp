@@ -2,10 +2,10 @@
 #define SPROUT_FUNCTIONAL_HASH_HASH_VALUE_TRAITS_HPP
 
 #include <cstddef>
-#include <limits>
 #include <functional>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/functional/hash/detail/hash_float.hpp>
 
@@ -47,7 +47,7 @@ namespace sprout {
 					length,
 					seed ^ static_cast<std::size_t>((positive >> i) + (seed << 6) + (seed >> 2)),
 					positive,
-					i - std::numeric_limits<std::size_t>::digits
+					i - sprout::numeric_limits<std::size_t>::digits
 					)
 				: seed ^ static_cast<std::size_t>(val + (seed << 6) + (seed >> 2))
 				;
@@ -55,14 +55,14 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		hash_value_signed_1(T val, int length, std::size_t seed, T positive) {
-			return hash_value_signed_2(val, length, seed, positive, length * std::numeric_limits<std::size_t>::digits);
+			return hash_value_signed_2(val, length, seed, positive, length * sprout::numeric_limits<std::size_t>::digits);
 		}
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		hash_value_signed(T val) {
 			return sprout::hash_detail::hash_value_signed_1(
 				val,
-				(std::numeric_limits<T>::digits - 1) / std::numeric_limits<std::size_t>::digits,
+				(sprout::numeric_limits<T>::digits - 1) / sprout::numeric_limits<std::size_t>::digits,
 				0,
 				val < 0 ? -1 - val : val
 				);
@@ -76,7 +76,7 @@ namespace sprout {
 					val,
 					length,
 					seed ^ static_cast<std::size_t>((val >> i) + (seed << 6) + (seed >> 2)),
-					i - std::numeric_limits<std::size_t>::digits
+					i - sprout::numeric_limits<std::size_t>::digits
 					)
 				: seed ^ static_cast<std::size_t>(val + (seed << 6) + (seed >> 2))
 				;
@@ -84,14 +84,14 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		hash_value_unsigned_1(T val, int length, std::size_t seed) {
-			return hash_value_unsigned_2(val, length, seed, length * std::numeric_limits<std::size_t>::digits);
+			return hash_value_unsigned_2(val, length, seed, length * sprout::numeric_limits<std::size_t>::digits);
 		}
 		template<typename T>
 		inline SPROUT_CONSTEXPR std::size_t
 		hash_value_unsigned(T val) {
 			return sprout::hash_detail::hash_value_unsigned_1(
 				val,
-				(std::numeric_limits<T>::digits - 1) / std::numeric_limits<std::size_t>::digits,
+				(sprout::numeric_limits<T>::digits - 1) / sprout::numeric_limits<std::size_t>::digits,
 				0
 				);
 		}

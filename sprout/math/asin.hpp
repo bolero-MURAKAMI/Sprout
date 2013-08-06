@@ -2,9 +2,9 @@
 #define SPROUT_MATH_ASIN_HPP
 
 #include <cstddef>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
@@ -77,7 +77,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			asin(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: sprout::math::fabs(x) > 1 ? std::numeric_limits<FloatType>::quiet_NaN()
+					: sprout::math::fabs(x) > 1 ? sprout::numeric_limits<FloatType>::quiet_NaN()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::asin(x)
 #else

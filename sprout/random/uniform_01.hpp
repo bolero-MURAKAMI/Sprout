@@ -3,8 +3,8 @@
 
 #include <iosfwd>
 #include <istream>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/random/random_result.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
@@ -76,7 +76,7 @@ namespace sprout {
 					result_type(rnd.result() - eng.min()) * (
 						result_type(1) / (
 							result_type(eng.max() - eng.min()) + result_type(
-								std::numeric_limits<base_result>::is_integer ? 1 : 0
+								sprout::numeric_limits<base_result>::is_integer ? 1 : 0
 								)
 							)
 						)
@@ -106,7 +106,7 @@ namespace sprout {
 					result_type(rnd.result() - eng.min()) * (
 						result_type(1) / (
 							result_type(eng.max() - eng.min()) + result_type(
-								std::numeric_limits<base_result>::is_integer ? 1 : 0
+								sprout::numeric_limits<base_result>::is_integer ? 1 : 0
 								)
 							)
 						)

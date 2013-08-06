@@ -3,9 +3,9 @@
 
 #include <cstddef>
 #include <cstdlib>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
 
@@ -48,8 +48,8 @@ namespace sprout {
 			long exponent = 0
 			)
 		{
-			return exponent >= std::numeric_limits<FloatType>::min_exponent
-				&& exponent <= std::numeric_limits<FloatType>::max_exponent
+			return exponent >= sprout::numeric_limits<FloatType>::min_exponent
+				&& exponent <= sprout::numeric_limits<FloatType>::max_exponent
 				? sprout::detail::str_to_float_impl_scale<FloatType>(
 					str,
 					negative,

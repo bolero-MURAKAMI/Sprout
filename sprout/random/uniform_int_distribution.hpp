@@ -1,11 +1,11 @@
 #ifndef SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP
 
-#include <limits>
 #include <ios>
 #include <istream>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/detail/uniform_int_float.hpp>
 #include <sprout/random/random_result.hpp>
@@ -100,7 +100,7 @@ namespace sprout {
 				return sprout::random::detail::generate_uniform_int_true_3_1<D + 1>(
 					eng(), min_value, range,
 					bmin, brange,
-					brange == std::numeric_limits<BaseUnsigned>::max()
+					brange == sprout::numeric_limits<BaseUnsigned>::max()
 						? brange / (static_cast<BaseUnsigned>(range) + 1) + (
 							brange % (static_cast<BaseUnsigned>(range) + 1) == static_cast<BaseUnsigned>(range) ? 1 : 0
 							)
@@ -160,7 +160,7 @@ namespace sprout {
 				BaseResult bmin, BaseUnsigned brange, RangeType result, RangeType mult, RangeType result_increment
 				)
 			{
-				return std::numeric_limits<RangeType>::max() / mult < result_increment
+				return sprout::numeric_limits<RangeType>::max() / mult < result_increment
 					? sprout::random::detail::generate_uniform_int_true_2<D + 1>(eng, min_value, range, bmin, brange)
 					: sprout::random::detail::generate_uniform_int_true_2_4<D + 1>(
 						eng, min_value, range,
@@ -290,7 +290,7 @@ namespace sprout {
 				return sprout::random::detail::generate_uniform_int_true_2_1<D + 1>(
 					eng, min_value, range,
 					bmin, brange,
-					range == std::numeric_limits<RangeType>::max()
+					range == sprout::numeric_limits<RangeType>::max()
 						? range / (RangeType(brange) + 1) + (
 							range % (RangeType(brange) + 1) == RangeType(brange) ? 1 : 0
 							)
@@ -465,7 +465,7 @@ namespace sprout {
 				return sprout::random::detail::generate_uniform_int_true_3_1(
 					eng(), min_value, range,
 					bmin, brange,
-					brange == std::numeric_limits<BaseUnsigned>::max()
+					brange == sprout::numeric_limits<BaseUnsigned>::max()
 						? brange / (static_cast<BaseUnsigned>(range) + 1) + (
 							brange % (static_cast<BaseUnsigned>(range) + 1) == static_cast<BaseUnsigned>(range) ? 1 : 0
 							)
@@ -501,7 +501,7 @@ namespace sprout {
 				BaseResult bmin, BaseUnsigned brange, RangeType result, RangeType mult, RangeType result_increment
 				)
 			{
-				return std::numeric_limits<RangeType>::max() / mult < result_increment
+				return sprout::numeric_limits<RangeType>::max() / mult < result_increment
 					? sprout::random::detail::generate_uniform_int_true_2(eng, min_value, range, bmin, brange)
 					: sprout::random::detail::generate_uniform_int_true_2_4(
 						eng, min_value, range,
@@ -587,7 +587,7 @@ namespace sprout {
 				return sprout::random::detail::generate_uniform_int_true_2_1(
 					eng, min_value, range,
 					bmin, brange,
-					range == std::numeric_limits<RangeType>::max()
+					range == sprout::numeric_limits<RangeType>::max()
 						? range / (RangeType(brange) + 1) + (
 							range % (RangeType(brange) + 1) == RangeType(brange) ? 1 : 0
 							)

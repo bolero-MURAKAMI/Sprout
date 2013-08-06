@@ -2,10 +2,10 @@
 #define SPROUT_RANDOM_LINEAR_CONGRUENTIAL_HPP
 
 #include <cstdint>
-#include <limits>
 #include <ios>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/math/comparison.hpp>
@@ -18,7 +18,7 @@ namespace sprout {
 		//
 		template<typename UIntType, UIntType a, UIntType c, UIntType m>
 		class linear_congruential_engine {
-			static_assert(std::numeric_limits<UIntType>::is_integer, "std::numeric_limits<UIntType>::is_integer");
+			static_assert(sprout::numeric_limits<UIntType>::is_integer, "sprout::numeric_limits<UIntType>::is_integer");
 			static_assert(m == 0 || a < m, "m == 0 || a < m");
 			static_assert(m == 0 || c < m, "m == 0 || c < m");
 		public:

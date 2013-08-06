@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_FLOAT2_EXPONENT_HPP
 #define SPROUT_MATH_FLOAT2_EXPONENT_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/ilogb2.hpp>
 #include <sprout/math/isnan.hpp>
@@ -20,7 +20,7 @@ namespace sprout {
 			float2_exponent(FloatType x) {
 				return sprout::math::isnan(x) ? 0
 					: x == 0 ? 0
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() ? 0
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity() ? 0
 					: sprout::math::ilogb2(x) + 1
 					;
 			}

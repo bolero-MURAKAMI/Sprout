@@ -2,8 +2,8 @@
 #define SPROUT_MATH_GCD_HPP
 
 #include <climits>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/cstdlib/abs.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
@@ -158,7 +158,7 @@ namespace sprout {
 			struct gcd_optimal_evaluator {
 			public:
 				SPROUT_CONSTEXPR T operator()(T const& a, T const& b) const {
-					typedef std::numeric_limits<T> limits_type;
+					typedef sprout::numeric_limits<T> limits_type;
 					typedef sprout::math::detail::gcd_optimal_evaluator_helper_t<
 						T, limits_type::is_specialized, limits_type::is_signed
 					> helper_type;

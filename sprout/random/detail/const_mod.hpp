@@ -1,9 +1,9 @@
 #ifndef SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
 #define SPROUT_RANDOM_DETAIL_CONST_MOD_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/assert.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
@@ -41,7 +41,7 @@ namespace sprout {
 					return mult_schrage_1(a, value, m / a, m % a);
 				}
 				static SPROUT_CONSTEXPR IntType mult_general(IntType a, IntType b) {
-					return std::uintmax_t(modulus) <= std::numeric_limits<std::uintmax_t>::max() / modulus
+					return std::uintmax_t(modulus) <= sprout::numeric_limits<std::uintmax_t>::max() / modulus
 						? static_cast<IntType>(std::uintmax_t(a) * b % modulus)
 						//: static_cast<IntType>(sprout::random::detail::mulmod(a, b, modulus)) // ???
 						: (SPROUT_ASSERT_MSG(0, "Sorry, not implemented."), IntType())
@@ -51,7 +51,7 @@ namespace sprout {
 					return a < b ? m - (b - a) : a - b;
 				}
 				static SPROUT_CONSTEXPR unsigned_type unsigned_m() {
-					return m == 0 ? unsigned_type((std::numeric_limits<IntType>::max)()) + 1 : unsigned_type(m);
+					return m == 0 ? unsigned_type((sprout::numeric_limits<IntType>::max)()) + 1 : unsigned_type(m);
 				}
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -106,10 +106,10 @@ namespace sprout {
 				}
 				template<int D, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n) {
-					return SPROUT_ASSERT_MSG(std::numeric_limits<IntType>::max() % n != n - 1, "c must be relatively prime to m."),
+					return SPROUT_ASSERT_MSG(sprout::numeric_limits<IntType>::max() % n != n - 1, "c must be relatively prime to m."),
 						invert_euclidian0_2<D + 1>(
-							c, l1 + (std::numeric_limits<IntType>::max() / n) * l2, l2, n,
-							std::numeric_limits<IntType>::max() - (std::numeric_limits<IntType>::max() / n) * n + 1
+							c, l1 + (sprout::numeric_limits<IntType>::max() / n) * l2, l2, n,
+							sprout::numeric_limits<IntType>::max() - (sprout::numeric_limits<IntType>::max() / n) * n + 1
 							)
 						;
 				}
@@ -149,10 +149,10 @@ namespace sprout {
 					return p == 0 ? l2 : invert_euclidian0_3(c, l1, l2 + (n / p) * l1, n - (n / p) * p, p);
 				}
 				static SPROUT_CONSTEXPR IntType invert_euclidian0_1(IntType c, IntType l1, IntType l2, IntType n) {
-					return SPROUT_ASSERT_MSG(std::numeric_limits<IntType>::max() % n != n - 1, "c must be relatively prime to m."),
+					return SPROUT_ASSERT_MSG(sprout::numeric_limits<IntType>::max() % n != n - 1, "c must be relatively prime to m."),
 						invert_euclidian0_2(
-							c, l1 + (std::numeric_limits<IntType>::max() / n) * l2, l2, n,
-							std::numeric_limits<IntType>::max() - (std::numeric_limits<IntType>::max() / n) * n + 1
+							c, l1 + (sprout::numeric_limits<IntType>::max() / n) * l2, l2, n,
+							sprout::numeric_limits<IntType>::max() - (sprout::numeric_limits<IntType>::max() / n) * n + 1
 							)
 						;
 				}
@@ -180,15 +180,15 @@ namespace sprout {
 					return ((unsigned_m() - 1) & unsigned_m()) == 0 ? unsigned_type(a) * unsigned_type(x) & (unsigned_m() - 1)
 						: a == 0 ? 0
 						: a == 1 ? x
-						: m <= std::numeric_limits<IntType>::max() / a ? mult_small(a, x)
-						: std::numeric_limits<IntType>::is_signed && (m % a < m / a) ? mult_schrage(a, x)
+						: m <= sprout::numeric_limits<IntType>::max() / a ? mult_small(a, x)
+						: sprout::numeric_limits<IntType>::is_signed && (m % a < m / a) ? mult_schrage(a, x)
 						: mult_general(a, x)
 						;
 				}
 				static SPROUT_CONSTEXPR IntType mult_add(IntType a, IntType x, IntType c) {
 					return ((unsigned_m() - 1) & unsigned_m()) == 0 ? (unsigned_type(a) * unsigned_type(x) + unsigned_type(c)) & (unsigned_m() - 1)
 						: a == 0 ? c
-						: m <= (std::numeric_limits<IntType>::max() - c) / a ? (a * x + c) % (m + supress_warnings)
+						: m <= (sprout::numeric_limits<IntType>::max() - c) / a ? (a * x + c) % (m + supress_warnings)
 						: add(mult(a, x), c)
 						;
 				}

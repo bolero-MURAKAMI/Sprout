@@ -3,11 +3,11 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <limits>
 #include <ios>
 #include <istream>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/math/compare.hpp>
@@ -38,8 +38,8 @@ namespace sprout {
 			: private sprout::random::detail::shuffle_order_engine_member<UniformRandomNumberGenerator, k>
 		{
 			static_assert(
-				std::numeric_limits<typename UniformRandomNumberGenerator::result_type>::is_integer,
-				"std::numeric_limits<typename UniformRandomNumberGenerator::result_type>::is_integer"
+				sprout::numeric_limits<typename UniformRandomNumberGenerator::result_type>::is_integer,
+				"sprout::numeric_limits<typename UniformRandomNumberGenerator::result_type>::is_integer"
 				);
 			static_assert(k > 0, "k > 0");
 		private:
@@ -113,8 +113,8 @@ namespace sprout {
 				return generate_1(
 					rng_(),
 					k == 1 ? BaseUnsigned(0)
-						: sprout::math::less(brange, std::numeric_limits<BaseUnsigned>::max() / k) ? BaseUnsigned(k * off / (brange + 1))
-						: sprout::math::less(brange, std::numeric_limits<std::uintmax_t>::max() / k)
+						: sprout::math::less(brange, sprout::numeric_limits<BaseUnsigned>::max() / k) ? BaseUnsigned(k * off / (brange + 1))
+						: sprout::math::less(brange, sprout::numeric_limits<std::uintmax_t>::max() / k)
 							? static_cast<BaseUnsigned>(static_cast<std::uintmax_t>(off) * k / (static_cast<std::uintmax_t>(brange) + 1))
 						//: static_cast<BaseUnsigned>(sprout::random::detail::muldiv(off, k, static_cast<std::uintmax_t>(brange) + 1)) // ???
 						: (SPROUT_ASSERT_MSG(0, "Sorry, not implemented."), sprout::random::random_result<shuffle_order_engine>())

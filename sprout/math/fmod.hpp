@@ -1,9 +1,9 @@
 #ifndef SPROUT_MATH_FMOD_HPP
 #define SPROUT_MATH_FMOD_HPP
 
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
 #include <sprout/math/isnan.hpp>
@@ -73,14 +73,14 @@ namespace sprout {
 			fmod(FloatType x, FloatType y) {
 				return sprout::math::isnan(y)
 						? sprout::math::isnan(x)
-							? sprout::math::signbit(y) || sprout::math::signbit(x) ? -std::numeric_limits<FloatType>::quiet_NaN()
-								: std::numeric_limits<FloatType>::quiet_NaN()
+							? sprout::math::signbit(y) || sprout::math::signbit(x) ? -sprout::numeric_limits<FloatType>::quiet_NaN()
+								: sprout::numeric_limits<FloatType>::quiet_NaN()
 							: y
 					: sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() || x == -std::numeric_limits<FloatType>::infinity() || y == 0
-						? -std::numeric_limits<FloatType>::quiet_NaN()
+					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity() || y == 0
+						? -sprout::numeric_limits<FloatType>::quiet_NaN()
 					: x == 0 ? x
-					: y == std::numeric_limits<FloatType>::infinity() || y == -std::numeric_limits<FloatType>::infinity() ? x
+					: y == sprout::numeric_limits<FloatType>::infinity() || y == -sprout::numeric_limits<FloatType>::infinity() ? x
 					: static_cast<FloatType>(sprout::math::detail::fmod_impl(
 						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
 						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y)

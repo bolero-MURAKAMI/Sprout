@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
 #include <sprout/detail/integer.hpp>
@@ -19,9 +19,9 @@ namespace sprout {
 				typedef URNG base_type;
 				typedef typename base_type::result_type base_result;
 				typedef typename sprout::detail::uint_t<
-					(std::numeric_limits<std::uintmax_t>::digits < std::numeric_limits<base_result>::digits)
-						? std::numeric_limits<std::uintmax_t>::digits
-						: std::numeric_limits<base_result>::digits
+					(sprout::numeric_limits<std::uintmax_t>::digits < sprout::numeric_limits<base_result>::digits)
+						? sprout::numeric_limits<std::uintmax_t>::digits
+						: sprout::numeric_limits<base_result>::digits
 				>::fast result_type;
 			private:
 				base_type rng_;
@@ -39,7 +39,7 @@ namespace sprout {
 					return (
 						result_type(2) << (
 							NS_SSCRISK_CEL_OR_SPROUT::min(
-								std::numeric_limits<result_type>::digits,
+								sprout::numeric_limits<result_type>::digits,
 								sprout::random::detail::generator_bits<base_type>::value()
 								) - 1
 							)

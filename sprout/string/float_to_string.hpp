@@ -2,9 +2,9 @@
 #define SPROUT_STRING_FLOAT_TO_STRING_HPP
 
 #include <cstddef>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -29,7 +29,7 @@ namespace sprout {
 	struct printed_float_digits
 		: public std::integral_constant<
 			std::size_t,
-			std::numeric_limits<FloatType>::max_exponent10 + sprout::detail::decimal_places_length + 2
+			sprout::numeric_limits<FloatType>::max_exponent10 + sprout::detail::decimal_places_length + 2
 		>
 	{};
 
@@ -103,7 +103,7 @@ namespace sprout {
 		struct printed_float_exponent10_digits
 			: public std::integral_constant<
 				std::size_t,
-				NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(std::numeric_limits<FloatType>::max_exponent10), 2)
+				NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(sprout::numeric_limits<FloatType>::max_exponent10), 2)
 			>
 		{};
 	}	// namespace detail

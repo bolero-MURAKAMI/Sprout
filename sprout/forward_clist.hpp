@@ -3,9 +3,9 @@
 
 #include <cstddef>
 #include <iterator>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
@@ -361,7 +361,7 @@ namespace sprout {
 			return !!fst.next;
 		}
 		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
-			return std::numeric_limits<size_type>::max();
+			return sprout::numeric_limits<size_type>::max();
 		}
 		// element access:
 		SPROUT_CXX14_CONSTEXPR reference front() {

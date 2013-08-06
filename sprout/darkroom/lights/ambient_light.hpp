@@ -1,8 +1,8 @@
 #ifndef SPROUT_DARKROOM_LIGHTS_AMBIENT_LIGHT_HPP
 #define SPROUT_DARKROOM_LIGHTS_AMBIENT_LIGHT_HPP
 
-#include <limits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>

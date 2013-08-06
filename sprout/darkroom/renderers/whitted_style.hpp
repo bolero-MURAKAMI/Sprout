@@ -2,9 +2,9 @@
 #define SPROUT_DARKROOM_RENDERERS_WHITTED_STYLE_HPP
 
 #include <cstddef>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
@@ -45,12 +45,12 @@ namespace sprout {
 								sprout::darkroom::intersects::point_of_intersection(inter),
 								sprout::darkroom::coords::scale(
 									reflect_dir,
-									std::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256
+									sprout::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256
 									)
 								// ???
 //								sprout::darkroom::coords::scale(
 //									sprout::darkroom::intersects::normal(inter),
-//									std::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256
+//									sprout::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256
 //									)
 								),
 							reflect_dir
@@ -77,7 +77,7 @@ namespace sprout {
 					return depth_max > 0
 						&& sprout::darkroom::intersects::does_intersect(inter)
 						&& sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
-							> std::numeric_limits<reflection_type>::epsilon()
+							> sprout::numeric_limits<reflection_type>::epsilon()
 						? color_1<Color>(
 							camera, objs, lights,
 							ray, inter, tracer,

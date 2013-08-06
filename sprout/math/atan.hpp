@@ -2,9 +2,9 @@
 #define SPROUT_MATH_ATAN_HPP
 
 #include <cstddef>
-#include <limits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/detail/float_compute.hpp>
@@ -43,8 +43,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR FloatType
 			atan(FloatType x) {
 				return sprout::math::isnan(x) ? x
-					: x == std::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
-					: x == -std::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
+					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
+					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 					: std::atan(x)
 #else

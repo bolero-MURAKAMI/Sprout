@@ -2,11 +2,11 @@
 #define SPROUT_ITERATOR_VALUE_ITERATOR_HPP
 
 #include <cstddef>
-#include <limits>
 #include <iterator>
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
@@ -62,7 +62,7 @@ namespace sprout {
 		value_iterator(value_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR value_iterator(
 			typename sprout::value_holder<T>::param_type p,
-			difference_type index = std::numeric_limits<difference_type>::max()
+			difference_type index = sprout::numeric_limits<difference_type>::max()
 			)
 			: holder_(p), index_(index)
 		{}
