@@ -18,32 +18,32 @@ namespace sprout {
 		private:
 			typedef std::numeric_limits<T> impl_type;
 		public:
-			static SPROUT_CONSTEXPR bool is_specialized = impl_type::is_specialized;
+			SPROUT_STATIC_CONSTEXPR bool is_specialized = impl_type::is_specialized;
 
-			static SPROUT_CONSTEXPR int digits = impl_type::digits;
-			static SPROUT_CONSTEXPR int digits10 = impl_type::digits10;
-			static SPROUT_CONSTEXPR int max_digits10 = impl_type::max_digits10;
-			static SPROUT_CONSTEXPR bool is_signed = impl_type::is_signed;
-			static SPROUT_CONSTEXPR bool is_integer = impl_type::is_integer;
-			static SPROUT_CONSTEXPR bool is_exact = impl_type::is_exact;
-			static SPROUT_CONSTEXPR int radix = impl_type::radix;
+			SPROUT_STATIC_CONSTEXPR int digits = impl_type::digits;
+			SPROUT_STATIC_CONSTEXPR int digits10 = impl_type::digits10;
+			SPROUT_STATIC_CONSTEXPR int max_digits10 = impl_type::max_digits10;
+			SPROUT_STATIC_CONSTEXPR bool is_signed = impl_type::is_signed;
+			SPROUT_STATIC_CONSTEXPR bool is_integer = impl_type::is_integer;
+			SPROUT_STATIC_CONSTEXPR bool is_exact = impl_type::is_exact;
+			SPROUT_STATIC_CONSTEXPR int radix = impl_type::radix;
 
-			static SPROUT_CONSTEXPR int min_exponent = impl_type::min_exponent;
-			static SPROUT_CONSTEXPR int min_exponent10 = impl_type::min_exponent10;
-			static SPROUT_CONSTEXPR int max_exponent = impl_type::max_exponent;
-			static SPROUT_CONSTEXPR int max_exponent10 = impl_type::max_exponent10;
-			static SPROUT_CONSTEXPR bool has_infinity = impl_type::has_infinity;
-			static SPROUT_CONSTEXPR bool has_quiet_NaN = impl_type::has_quiet_NaN;
-			static SPROUT_CONSTEXPR bool has_signaling_NaN = impl_type::has_signaling_NaN;
-			static SPROUT_CONSTEXPR std::float_denorm_style has_denorm = impl_type::has_denorm;
-			static SPROUT_CONSTEXPR bool has_denorm_loss = impl_type::has_denorm_loss;
+			SPROUT_STATIC_CONSTEXPR int min_exponent = impl_type::min_exponent;
+			SPROUT_STATIC_CONSTEXPR int min_exponent10 = impl_type::min_exponent10;
+			SPROUT_STATIC_CONSTEXPR int max_exponent = impl_type::max_exponent;
+			SPROUT_STATIC_CONSTEXPR int max_exponent10 = impl_type::max_exponent10;
+			SPROUT_STATIC_CONSTEXPR bool has_infinity = impl_type::has_infinity;
+			SPROUT_STATIC_CONSTEXPR bool has_quiet_NaN = impl_type::has_quiet_NaN;
+			SPROUT_STATIC_CONSTEXPR bool has_signaling_NaN = impl_type::has_signaling_NaN;
+			SPROUT_STATIC_CONSTEXPR std::float_denorm_style has_denorm = impl_type::has_denorm;
+			SPROUT_STATIC_CONSTEXPR bool has_denorm_loss = impl_type::has_denorm_loss;
 
-			static SPROUT_CONSTEXPR bool is_iec559 = impl_type::is_iec559;
-			static SPROUT_CONSTEXPR bool is_bounded = impl_type::is_bounded;
-			static SPROUT_CONSTEXPR bool is_modulo = impl_type::is_modulo;
-			static SPROUT_CONSTEXPR bool traps = impl_type::traps;
-			static SPROUT_CONSTEXPR bool tinyness_before = impl_type::tinyness_before;
-			static SPROUT_CONSTEXPR std::float_round_style round_style = impl_type::round_style;
+			SPROUT_STATIC_CONSTEXPR bool is_iec559 = impl_type::is_iec559;
+			SPROUT_STATIC_CONSTEXPR bool is_bounded = impl_type::is_bounded;
+			SPROUT_STATIC_CONSTEXPR bool is_modulo = impl_type::is_modulo;
+			SPROUT_STATIC_CONSTEXPR bool traps = impl_type::traps;
+			SPROUT_STATIC_CONSTEXPR bool tinyness_before = impl_type::tinyness_before;
+			SPROUT_STATIC_CONSTEXPR std::float_round_style round_style = impl_type::round_style;
 		};
 
 		template<typename T, bool IsInitialized>
