@@ -10,8 +10,8 @@
 namespace sprout {
 	namespace range {
 		namespace detail {
-			template<typename Range, typename Pair>
-			inline SPROUT_CONSTEXPR typename sprout::range::lvalue_range<Range>::type
+			template<typename ForwardRange, typename Pair>
+			inline SPROUT_CONSTEXPR typename sprout::range::lvalue_range<ForwardRange>::type
 			pair_to_range(Pair const& pair) {
 				return {pair.first, pair.second};
 			}
@@ -20,25 +20,25 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.4.3.3 equal_range
-		template<typename Range, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::range::lvalue_range<Range>::type
-		equal_range(Range&& range, T const& value) {
-			return sprout::range::detail::pair_to_range<Range>(
+		template<typename ForwardRange, typename T>
+		inline SPROUT_CONSTEXPR typename sprout::range::lvalue_range<ForwardRange>::type
+		equal_range(ForwardRange&& range, T const& value) {
+			return sprout::range::detail::pair_to_range<ForwardRange>(
 				sprout::equal_range(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range)),
 					value
 					)
 				);
 		}
 
-		template<typename Range, typename T, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::range::lvalue_range<Range>::type
-		equal_range(Range&& range, T const& value, Compare comp) {
-			return sprout::range::detail::pair_to_range<Range>(
+		template<typename ForwardRange, typename T, typename Compare>
+		inline SPROUT_CONSTEXPR typename sprout::range::lvalue_range<ForwardRange>::type
+		equal_range(ForwardRange&& range, T const& value, Compare comp) {
+			return sprout::range::detail::pair_to_range<ForwardRange>(
 				sprout::equal_range(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range)),
 					value,
 					comp
 					)

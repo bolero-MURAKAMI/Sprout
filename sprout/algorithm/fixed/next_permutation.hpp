@@ -23,9 +23,14 @@ namespace sprout {
 					true
 					);
 			}
-			template<typename Result, typename Container, typename Compare, typename Iterator>
+			template<typename Result, typename Container, typename Compare, typename BidirectionalIterator>
 			inline SPROUT_CONSTEXPR Result
-			next_permutation_impl_3(Container const& cont, Compare comp, Iterator first, Iterator last, Iterator i, Iterator ii, Iterator j) {
+			next_permutation_impl_3(
+				Container const& cont, Compare comp,
+				BidirectionalIterator first, BidirectionalIterator last,
+				BidirectionalIterator i, BidirectionalIterator ii, BidirectionalIterator j
+				)
+			{
 				return !comp(*i, *sprout::prev(j)) ? sprout::fixed::detail::next_permutation_impl_3<Result>(
 						cont, comp, first, last,
 						i, ii, sprout::prev(j)
@@ -36,9 +41,14 @@ namespace sprout {
 						)
 					;
 			}
-			template<typename Result, typename Container, typename Compare, typename Iterator>
+			template<typename Result, typename Container, typename Compare, typename BidirectionalIterator>
 			inline SPROUT_CONSTEXPR Result
-			next_permutation_impl_2(Container const& cont, Compare comp, Iterator first, Iterator last, Iterator i, Iterator ii) {
+			next_permutation_impl_2(
+				Container const& cont, Compare comp,
+				BidirectionalIterator first, BidirectionalIterator last,
+				BidirectionalIterator i, BidirectionalIterator ii
+				)
+			{
 				return comp(*i, *ii) ? sprout::fixed::detail::next_permutation_impl_3<Result>(
 						cont, comp, first, last,
 						i, ii, last
@@ -50,9 +60,9 @@ namespace sprout {
 						)
 					;
 			}
-			template<typename Result, typename Container, typename Compare, typename Iterator>
+			template<typename Result, typename Container, typename Compare, typename BidirectionalIterator>
 			inline SPROUT_CONSTEXPR Result
-			next_permutation_impl_1(Container const& cont, Compare comp, Iterator first, Iterator last, Iterator i) {
+			next_permutation_impl_1(Container const& cont, Compare comp, BidirectionalIterator first, BidirectionalIterator last, BidirectionalIterator i) {
 				return i == last ? Result(sprout::deep_copy(cont), false)
 					: sprout::fixed::detail::next_permutation_impl_2<Result>(
 						cont, comp, first, last,
@@ -60,9 +70,9 @@ namespace sprout {
 						)
 					;
 			}
-			template<typename Result, typename Container, typename Compare, typename Iterator>
+			template<typename Result, typename Container, typename Compare, typename BidirectionalIterator>
 			inline SPROUT_CONSTEXPR Result
-			next_permutation_impl(Container const& cont, Compare comp, Iterator first, Iterator last) {
+			next_permutation_impl(Container const& cont, Compare comp, BidirectionalIterator first, BidirectionalIterator last) {
 				return first == last ? Result(sprout::deep_copy(cont), false)
 					: sprout::fixed::detail::next_permutation_impl_1<Result>(
 					cont, comp, first, last,

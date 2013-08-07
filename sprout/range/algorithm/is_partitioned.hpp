@@ -10,9 +10,9 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.3.13 partitions
-		template<typename Range, typename Predicate>
+		template<typename InputRange, typename Predicate>
 		inline SPROUT_CONSTEXPR bool
-		is_partitioned(Range const& range, Predicate pred) {
+		is_partitioned(InputRange const& range, Predicate pred) {
 			return sprout::is_partitioned(sprout::begin(range), sprout::end(range), pred);
 		}
 	}	// namespace range

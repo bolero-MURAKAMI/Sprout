@@ -12,29 +12,29 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.2.5 Find
-		template<typename Range, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		find_if_not(Range&& range, Predicate pred) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename InputRange, typename Predicate>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<InputRange>::type
+		find_if_not(InputRange&& range, Predicate pred) {
+			return sprout::range::range_return<InputRange>::pack(
 				sprout::find_if_not(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<InputRange>(range)),
+					sprout::end(sprout::forward<InputRange>(range)),
 					pred
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<InputRange>(range)
 				);
 		}
 
-		template<sprout::range::range_return_value RetV, typename Range, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
-		find_if_not(Range&& range, Predicate pred) {
-			return sprout::range::range_return<Range, RetV>::pack(
+		template<sprout::range::range_return_value RetV, typename InputRange, typename Predicate>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<InputRange, RetV>::type
+		find_if_not(InputRange&& range, Predicate pred) {
+			return sprout::range::range_return<InputRange, RetV>::pack(
 				sprout::find_if_not(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<InputRange>(range)),
+					sprout::end(sprout::forward<InputRange>(range)),
 					pred
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<InputRange>(range)
 				);
 		}
 	}	// namespace range

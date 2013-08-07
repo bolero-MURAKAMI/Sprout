@@ -10,9 +10,9 @@ namespace sprout {
 		//
 		// one_of
 		//
-		template<typename Range, typename Predicate>
+		template<typename InputRange, typename Predicate>
 		inline SPROUT_CONSTEXPR bool
-		one_of(Range const& range, Predicate pred) {
+		one_of(InputRange const& range, Predicate pred) {
 			return sprout::one_of(sprout::begin(range), sprout::end(range), pred);
 		}
 	}	// namespace range

@@ -12,53 +12,53 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.4.6.5 is_heap
-		template<typename Range>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		is_heap_until(Range&& range) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename RandomAccessRange>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<RandomAccessRange>::type
+		is_heap_until(RandomAccessRange&& range) {
+			return sprout::range::range_return<RandomAccessRange>::pack(
 				sprout::is_heap_until(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range))
+					sprout::begin(sprout::forward<RandomAccessRange>(range)),
+					sprout::end(sprout::forward<RandomAccessRange>(range))
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<RandomAccessRange>(range)
 				);
 		}
 
-		template<typename Range, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		is_heap_until(Range&& range, Compare comp) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename RandomAccessRange, typename Compare>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<RandomAccessRange>::type
+		is_heap_until(RandomAccessRange&& range, Compare comp) {
+			return sprout::range::range_return<RandomAccessRange>::pack(
 				sprout::is_heap_until(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<RandomAccessRange>(range)),
+					sprout::end(sprout::forward<RandomAccessRange>(range)),
 					comp
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<RandomAccessRange>(range)
 				);
 		}
 
-		template<sprout::range::range_return_value RetV, typename Range>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
-		is_heap_until(Range&& range) {
-			return sprout::range::range_return<Range, RetV>::pack(
+		template<sprout::range::range_return_value RetV, typename RandomAccessRange>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<RandomAccessRange, RetV>::type
+		is_heap_until(RandomAccessRange&& range) {
+			return sprout::range::range_return<RandomAccessRange, RetV>::pack(
 				sprout::is_heap_until(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range))
+					sprout::begin(sprout::forward<RandomAccessRange>(range)),
+					sprout::end(sprout::forward<RandomAccessRange>(range))
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<RandomAccessRange>(range)
 				);
 		}
 
-		template<sprout::range::range_return_value RetV, typename Range, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
-		is_heap_until(Range&& range, Compare comp) {
-			return sprout::range::range_return<Range, RetV>::pack(
+		template<sprout::range::range_return_value RetV, typename RandomAccessRange, typename Compare>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<RandomAccessRange, RetV>::type
+		is_heap_until(RandomAccessRange&& range, Compare comp) {
+			return sprout::range::range_return<RandomAccessRange, RetV>::pack(
 				sprout::is_heap_until(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<RandomAccessRange>(range)),
+					sprout::end(sprout::forward<RandomAccessRange>(range)),
 					comp
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<RandomAccessRange>(range)
 				);
 		}
 	}	// namespace range

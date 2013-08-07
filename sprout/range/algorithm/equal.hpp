@@ -10,15 +10,15 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.2.11 Equal
-		template<typename Range1, typename Range2>
+		template<typename InputRange1, typename InputRange2>
 		inline SPROUT_CONSTEXPR bool
-		equal(Range1 const& range1, Range2 const& range2) {
+		equal(InputRange1 const& range1, InputRange2 const& range2) {
 			return sprout::equal(sprout::begin(range1), sprout::end(range1), sprout::begin(range2));
 		}
 
-		template<typename Range1, typename Range2, typename BinaryPredicate>
+		template<typename InputRange1, typename InputRange2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR bool
-		equal(Range1 const& range1, Range2 const& range2, BinaryPredicate pred) {
+		equal(InputRange1 const& range1, InputRange2 const& range2, BinaryPredicate pred) {
 			return sprout::equal(sprout::begin(range1), sprout::end(range1), sprout::begin(range2), pred);
 		}
 	}	// namespace range

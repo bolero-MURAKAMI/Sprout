@@ -116,10 +116,10 @@ namespace sprout {
 				return sprout::to_string(U"x500");
 			}
 
-			template<typename Range>
+			template<typename InputRange>
 			inline SPROUT_CONSTEXPR sprout::uuids::md5_name_generator
-			uuid3_impl(Range const& rng) {
-				typedef typename std::decay<typename sprout::containers::value_type<Range>::type>::type value_type;
+			uuid3_impl(InputRange const& rng) {
+				typedef typename std::decay<typename sprout::containers::value_type<InputRange>::type>::type value_type;
 				typedef sprout::ctypes::nocase_equal_to<value_type> predicate_type;
 				return sprout::range::equal(rng, sprout::uuids::detail::dns_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid3_dns()
 					: sprout::range::equal(rng, sprout::uuids::detail::url_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid3_url()
@@ -129,10 +129,10 @@ namespace sprout {
 					;
 			}
 
-			template<typename Range>
+			template<typename InputRange>
 			inline SPROUT_CONSTEXPR sprout::uuids::sha1_name_generator
-			uuid5_impl(Range const& rng) {
-				typedef typename std::decay<typename sprout::containers::value_type<Range>::type>::type value_type;
+			uuid5_impl(InputRange const& rng) {
+				typedef typename std::decay<typename sprout::containers::value_type<InputRange>::type>::type value_type;
 				typedef sprout::ctypes::nocase_equal_to<value_type> predicate_type;
 				return sprout::range::equal(rng, sprout::uuids::detail::dns_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid5_dns()
 					: sprout::range::equal(rng, sprout::uuids::detail::url_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid5_url()

@@ -12,16 +12,16 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.3.13 partitions
-		template<typename Range, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		partition_point(Range&& range, Predicate pred) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename ForwardRange, typename Predicate>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange>::type
+		partition_point(ForwardRange&& range, Predicate pred) {
+			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::partition_point(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range)),
 					pred
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 	}	// namespace range

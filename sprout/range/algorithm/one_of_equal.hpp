@@ -10,9 +10,9 @@ namespace sprout {
 		//
 		// one_of_equal
 		//
-		template<typename Range, typename T>
+		template<typename InputRange, typename T>
 		inline SPROUT_CONSTEXPR bool
-		one_of_equal(Range const& range, T const& value) {
+		one_of_equal(InputRange const& range, T const& value) {
 			return sprout::one_of_equal(sprout::begin(range), sprout::end(range), value);
 		}
 	}	// namespace range

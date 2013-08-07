@@ -10,9 +10,9 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.2.2 Any of
-		template<typename Range, typename Predicate>
+		template<typename InputRange, typename Predicate>
 		inline SPROUT_CONSTEXPR bool
-		any_of(Range const& range, Predicate pred) {
+		any_of(InputRange const& range, Predicate pred) {
 			return sprout::any_of(sprout::begin(range), sprout::end(range), pred);
 		}
 	}	// namespace range

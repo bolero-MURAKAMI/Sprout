@@ -29,9 +29,9 @@ namespace testspr {
 			: testspr::equal(first1 + 1, last1, first2 + 1, last2)
 			;
 	}
-	template<typename Range1, typename Range2>
+	template<typename InputRange1, typename InputRange2>
 	inline SPROUT_CONSTEXPR bool
-	equal(Range1 const& range1, Range2 const& range2) {
+	equal(InputRange1 const& range1, InputRange2 const& range2) {
 		return testspr::equal(sprout::begin(range1), sprout::end(range1), sprout::begin(range2), sprout::end(range2));
 	}
 
@@ -46,9 +46,9 @@ namespace testspr {
 			: testspr::is_found(first + 1, last, value)
 			;
 	}
-	template<typename Range, typename T>
+	template<typename InputRange, typename T>
 	inline SPROUT_CONSTEXPR bool
-	is_found(Range const& range, T const& value) {
+	is_found(InputRange const& range, T const& value) {
 		return testspr::is_found(sprout::begin(range), sprout::end(range), value);
 	}
 
@@ -62,9 +62,9 @@ namespace testspr {
 			: (*first == value ? 1 : 0) + testspr::count(first + 1, last, value)
 			;
 	}
-	template<typename Range, typename T>
-	inline SPROUT_CONSTEXPR typename std::iterator_traits<typename Range::const_iterator>::difference_type
-	count(Range const& range, T const& value) {
+	template<typename InputRange, typename T>
+	inline SPROUT_CONSTEXPR typename std::iterator_traits<typename InputRange::const_iterator>::difference_type
+	count(InputRange const& range, T const& value) {
 		return testspr::count(sprout::begin(range), sprout::end(range), value);
 	}
 
@@ -96,9 +96,9 @@ namespace testspr {
 	{
 		return testspr::detail::is_permutation_impl(first1, last1, first2, last2, first1, first2);
 	}
-	template<typename Range1, typename Range2>
+	template<typename ForwardRange1, typename ForwardRange2>
 	inline SPROUT_CONSTEXPR bool
-	is_permutation(Range1 const& range1, Range2 const& range2) {
+	is_permutation(ForwardRange1 const& range1, ForwardRange2 const& range2) {
 		return testspr::is_permutation(
 			sprout::begin(range1), sprout::end(range1),
 			sprout::begin(range2), sprout::end(range2)

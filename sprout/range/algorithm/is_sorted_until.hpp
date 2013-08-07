@@ -12,53 +12,53 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.4.1.5 is_sorted
-		template<typename Range>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		is_sorted_until(Range&& range) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename ForwardRange>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange>::type
+		is_sorted_until(ForwardRange&& range) {
+			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::is_sorted_until(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range))
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range))
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 
-		template<typename Range, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		is_sorted_until(Range&& range, Compare comp) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename ForwardRange, typename Compare>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange>::type
+		is_sorted_until(ForwardRange&& range, Compare comp) {
+			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::is_sorted_until(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range)),
 					comp
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 
-		template<sprout::range::range_return_value RetV, typename Range>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
-		is_sorted_until(Range&& range) {
-			return sprout::range::range_return<Range, RetV>::pack(
+		template<sprout::range::range_return_value RetV, typename ForwardRange>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange, RetV>::type
+		is_sorted_until(ForwardRange&& range) {
+			return sprout::range::range_return<ForwardRange, RetV>::pack(
 				sprout::is_sorted_until(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range))
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range))
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 
-		template<sprout::range::range_return_value RetV, typename Range, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
-		is_sorted_until(Range&& range, Compare comp) {
-			return sprout::range::range_return<Range, RetV>::pack(
+		template<sprout::range::range_return_value RetV, typename ForwardRange, typename Compare>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange, RetV>::type
+		is_sorted_until(ForwardRange&& range, Compare comp) {
+			return sprout::range::range_return<ForwardRange, RetV>::pack(
 				sprout::is_sorted_until(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range)),
 					comp
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 	}	// namespace range

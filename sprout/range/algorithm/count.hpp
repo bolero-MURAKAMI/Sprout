@@ -11,9 +11,9 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.2.9 Count
-		template<typename Range, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Range const>::difference_type
-		count(Range const& range, T const& value) {
+		template<typename InputRange, typename T>
+		inline SPROUT_CONSTEXPR typename sprout::container_traits<InputRange const>::difference_type
+		count(InputRange const& range, T const& value) {
 			return sprout::count(sprout::begin(range), sprout::end(range), value);
 		}
 	}	// namespace range

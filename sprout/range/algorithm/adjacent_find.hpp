@@ -12,53 +12,53 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.2.8 Adjacent find
-		template<typename Range>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		adjacent_find(Range&& range) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename ForwardRange>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange>::type
+		adjacent_find(ForwardRange&& range) {
+			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::adjacent_find(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range))
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range))
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 
-		template<typename Range, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		adjacent_find(Range&& range, BinaryPredicate pred) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename ForwardRange, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange>::type
+		adjacent_find(ForwardRange&& range, BinaryPredicate pred) {
+			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::adjacent_find(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range)),
 					pred
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 
-		template<sprout::range::range_return_value RetV, typename Range>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
-		adjacent_find(Range&& range) {
-			return sprout::range::range_return<Range, RetV>::pack(
+		template<sprout::range::range_return_value RetV, typename ForwardRange>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange, RetV>::type
+		adjacent_find(ForwardRange&& range) {
+			return sprout::range::range_return<ForwardRange, RetV>::pack(
 				sprout::adjacent_find(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range))
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range))
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 
-		template<sprout::range::range_return_value RetV, typename Range, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
-		adjacent_find(Range&& range, BinaryPredicate pred) {
-			return sprout::range::range_return<Range, RetV>::pack(
+		template<sprout::range::range_return_value RetV, typename ForwardRange, typename BinaryPredicate>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange, RetV>::type
+		adjacent_find(ForwardRange&& range, BinaryPredicate pred) {
+			return sprout::range::range_return<ForwardRange, RetV>::pack(
 				sprout::adjacent_find(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<ForwardRange>(range)),
+					sprout::end(sprout::forward<ForwardRange>(range)),
 					pred
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<ForwardRange>(range)
 				);
 		}
 	}	// namespace range

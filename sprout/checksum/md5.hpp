@@ -291,8 +291,8 @@ namespace sprout {
 				bit_count_ + 8
 				);
 		}
-		template<typename Iterator>
-		SPROUT_CONSTEXPR md5 const process_block_impl(Iterator first, Iterator last) const {
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR md5 const process_block_impl(InputIterator first, InputIterator last) const {
 			return first == last ? *this
 				: process_byte(*first).process_block_impl(sprout::next(first), last)
 				;
@@ -344,8 +344,8 @@ namespace sprout {
 			k_[3] += x[3];
 			block_.assign(0);
 		}
-		template<typename Iterator>
-		void process_block_impl(Iterator first, Iterator last) {
+		template<typename InputIterator>
+		void process_block_impl(InputIterator first, InputIterator last) {
 			for(; first != last; ++first) {
 				process_byte(*first);
 			}
@@ -391,19 +391,19 @@ namespace sprout {
 					.process_bit((byte & 1) != 0)
 				;
 		}
-		template<typename Iterator>
-		SPROUT_CONSTEXPR md5 const process_block(Iterator bytes_begin, Iterator bytes_end) const {
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR md5 const process_block(InputIterator bytes_begin, InputIterator bytes_end) const {
 			return process_block_impl(
 				sprout::make_bytes_iterator(bytes_begin),
 				sprout::make_bytes_iterator(bytes_end)
 				);
 		}
-		template<typename Iterator>
-		SPROUT_CONSTEXPR md5 const process_bytes(Iterator buffer, std::size_t byte_count) const {
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR md5 const process_bytes(InputIterator buffer, std::size_t byte_count) const {
 			return process_block(buffer, sprout::next(buffer, byte_count));
 		}
-		template<typename Range>
-		SPROUT_CONSTEXPR md5 const process_range(Range const& bytes_range) const {
+		template<typename InputRange>
+		SPROUT_CONSTEXPR md5 const process_range(InputRange const& bytes_range) const {
 			return process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 
@@ -423,19 +423,19 @@ namespace sprout {
 		void process_byte(std::uint8_t byte) {
 			process_bits(byte, 8);
 		}
-		template<typename Iterator>
-		void process_block(Iterator bytes_begin, Iterator bytes_end) {
+		template<typename InputIterator>
+		void process_block(InputIterator bytes_begin, InputIterator bytes_end) {
 			process_block_impl(
 				sprout::make_bytes_iterator(bytes_begin),
 				sprout::make_bytes_iterator(bytes_end)
 				);
 		}
-		template<typename Iterator>
-		void process_bytes(Iterator buffer, std::size_t byte_count) {
+		template<typename InputIterator>
+		void process_bytes(InputIterator buffer, std::size_t byte_count) {
 			process_block(buffer, sprout::next(buffer, byte_count));
 		}
-		template<typename Range>
-		void process_range(Range const& bytes_range) {
+		template<typename InputRange>
+		void process_range(InputRange const& bytes_range) {
 			process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 

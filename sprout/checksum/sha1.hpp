@@ -151,49 +151,54 @@ namespace sprout {
 		SPROUT_CONSTEXPR sha1 const process_block() const {
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
 		}
-		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+		template<int D = 16, typename InputIterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
-		process_block_impl(Iterator first, Iterator last, Args... args) const {
+		process_block_impl(InputIterator first, InputIterator last, Args... args) const {
 			return first == last ? process<D + 1>(
 					h_,
 					sprout::make_array<std::uint8_t>(args...),
 					64,
 					bit_count_ + 64 * 8
 					)
-				: /*process<D + 1>(
-					h_,
-					sprout::make_array<std::uint8_t>(args...),
-					64,
-					bit_count_ + 64 * 8
-					).template process_block_impl<D + 1>(first, last)*/ sprout::throw_recursive_function_template_instantiation_exeeded()
+				// !!!
+//				: process<D + 1>(
+//					h_,
+//					sprout::make_array<std::uint8_t>(args...),
+//					64,
+//					bit_count_ + 64 * 8
+//					).template process_block_impl<D + 1>(first, last)
+				: sprout::throw_recursive_function_template_instantiation_exeeded()
 				;
 		}
-		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+		template<int D = 16, typename InputIterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
-		process_block_impl(Iterator, Iterator, Args...) const {
+		process_block_impl(InputIterator, InputIterator, Args...) const {
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
 		}
-		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+		template<int D = 16, typename InputIterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
-		process_block_impl(Iterator first, Iterator last, Args... args) const {
+		process_block_impl(InputIterator first, InputIterator last, Args... args) const {
 			return first == last ? process<D + 1>(
 					h_,
 					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
 					block_byte_index_ + sizeof...(Args),
 					bit_count_ + sizeof...(Args) * 8
 					)
-				: block_byte_index_ + sizeof...(Args) == 64 ? /*process<D + 1>(
-					h_,
-					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
-					block_byte_index_ + sizeof...(Args),
-					bit_count_ + sizeof...(Args) * 8
-					).template process_block_impl<D + 1>(first, last)*/ sprout::throw_recursive_function_template_instantiation_exeeded()
+				: block_byte_index_ + sizeof...(Args) == 64
+				// !!!
+//					? process<D + 1>(
+//						h_,
+//						sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
+//						block_byte_index_ + sizeof...(Args),
+//						bit_count_ + sizeof...(Args) * 8
+//						).template process_block_impl<D + 1>(first, last)
+					? sprout::throw_recursive_function_template_instantiation_exeeded()
 				: process_block_impl<D + 1>(sprout::next(first), last, args..., *first)
 				;
 		}
-		template<int D = 16, typename Iterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+		template<int D = 16, typename InputIterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
-		process_block_impl(Iterator, Iterator, Args...) const {
+		process_block_impl(InputIterator, InputIterator, Args...) const {
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
 		}
 #else
@@ -253,9 +258,9 @@ namespace sprout {
 		SPROUT_CONSTEXPR sha1 const process_block() const {
 			return process_block_1(h_[0], h_[1], h_[2], h_[3], h_[4]);
 		}
-		template<typename Iterator, typename... Args>
+		template<typename InputIterator, typename... Args>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
-		process_block_impl(Iterator first, Iterator last, Args... args) const {
+		process_block_impl(InputIterator first, InputIterator last, Args... args) const {
 			return first == last ? process(
 					h_,
 					sprout::make_array<std::uint8_t>(args...),
@@ -270,9 +275,9 @@ namespace sprout {
 					).process_block_impl(first, last)
 				;
 		}
-		template<typename Iterator, typename... Args>
+		template<typename InputIterator, typename... Args>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
-		process_block_impl(Iterator first, Iterator last, Args... args) const {
+		process_block_impl(InputIterator first, InputIterator last, Args... args) const {
 			return first == last ? process(
 					h_,
 					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
@@ -419,8 +424,8 @@ namespace sprout {
 				process_block();
 			}
 		}
-		template<typename Iterator>
-		void process_block_impl(Iterator first, Iterator last) {
+		template<typename InputIterator>
+		void process_block_impl(InputIterator first, InputIterator last) {
 			for(; first != last; ++first) {
 				process_byte(*first);
 			}
@@ -450,19 +455,19 @@ namespace sprout {
 				bit_count_ + 8
 				);
 		}
-		template<typename Iterator>
-		SPROUT_CONSTEXPR sha1 const process_block(Iterator bytes_begin, Iterator bytes_end) const {
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR sha1 const process_block(InputIterator bytes_begin, InputIterator bytes_end) const {
 			return process_block_impl(
 				sprout::make_bytes_iterator(bytes_begin),
 				sprout::make_bytes_iterator(bytes_end)
 				);
 		}
-		template<typename Iterator>
-		SPROUT_CONSTEXPR sha1 const process_bytes(Iterator buffer, std::size_t byte_count) const {
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR sha1 const process_bytes(InputIterator buffer, std::size_t byte_count) const {
 			return process_block(buffer, sprout::next(buffer, byte_count));
 		}
-		template<typename Range>
-		SPROUT_CONSTEXPR sha1 const process_range(Range const& bytes_range) const {
+		template<typename InputRange>
+		SPROUT_CONSTEXPR sha1 const process_range(InputRange const& bytes_range) const {
 			return process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 
@@ -470,19 +475,19 @@ namespace sprout {
 			process_byte_impl(byte);
 			bit_count_ += 8;
 		}
-		template<typename Iterator>
-		void process_block(Iterator bytes_begin, Iterator bytes_end) {
+		template<typename InputIterator>
+		void process_block(InputIterator bytes_begin, InputIterator bytes_end) {
 			process_block_impl(
 				sprout::make_bytes_iterator(bytes_begin),
 				sprout::make_bytes_iterator(bytes_end)
 				);
 		}
-		template<typename Iterator>
-		void process_bytes(Iterator buffer, std::size_t byte_count) {
+		template<typename InputIterator>
+		void process_bytes(InputIterator buffer, std::size_t byte_count) {
 			process_block(buffer, sprout::next(buffer, byte_count));
 		}
-		template<typename Range>
-		void process_range(Range const& bytes_range) {
+		template<typename InputRange>
+		void process_range(InputRange const& bytes_range) {
 			process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 

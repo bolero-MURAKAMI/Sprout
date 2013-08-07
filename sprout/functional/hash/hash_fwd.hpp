@@ -41,10 +41,10 @@ namespace sprout {
 	//
 	// hash_range
 	//
-	template<typename Iterator>
-	SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, Iterator first, Iterator last);
-	template<typename Iterator>
-	SPROUT_CONSTEXPR std::size_t hash_range(Iterator first, Iterator last);
+	template<typename InputIterator>
+	SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, InputIterator first, InputIterator last);
+	template<typename InputIterator>
+	SPROUT_CONSTEXPR std::size_t hash_range(InputIterator first, InputIterator last);
 	template<typename InputRange>
 	SPROUT_CONSTEXPR std::size_t hash_range(std::size_t seed, InputRange const& rng);
 	template<typename InputRange>

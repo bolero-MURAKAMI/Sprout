@@ -12,29 +12,29 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.2.5 Find
-		template<typename Range, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range>::type
-		find(Range&& range, T const& value) {
-			return sprout::range::range_return<Range>::pack(
+		template<typename InputRange, typename T>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<InputRange>::type
+		find(InputRange&& range, T const& value) {
+			return sprout::range::range_return<InputRange>::pack(
 				sprout::find(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<InputRange>(range)),
+					sprout::end(sprout::forward<InputRange>(range)),
 					value
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<InputRange>(range)
 				);
 		}
 
-		template<sprout::range::range_return_value RetV, typename Range, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::range::range_return<Range, RetV>::type
-		find(Range&& range, T const& value) {
-			return sprout::range::range_return<Range, RetV>::pack(
+		template<sprout::range::range_return_value RetV, typename InputRange, typename T>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<InputRange, RetV>::type
+		find(InputRange&& range, T const& value) {
+			return sprout::range::range_return<InputRange, RetV>::pack(
 				sprout::find(
-					sprout::begin(sprout::forward<Range>(range)),
-					sprout::end(sprout::forward<Range>(range)),
+					sprout::begin(sprout::forward<InputRange>(range)),
+					sprout::end(sprout::forward<InputRange>(range)),
 					value
 					),
-				sprout::forward<Range>(range)
+				sprout::forward<InputRange>(range)
 				);
 		}
 	}	// namespace range

@@ -10,9 +10,9 @@ namespace sprout {
 		//
 		// is_increasing
 		//
-		template<typename Range>
+		template<typename ForwardRange>
 		inline SPROUT_CONSTEXPR bool
-		is_increasing(Range const& range) {
+		is_increasing(ForwardRange const& range) {
 			return sprout::is_increasing(sprout::begin(range), sprout::end(range));
 		}
 	}	// namespace range

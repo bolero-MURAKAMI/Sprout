@@ -12,13 +12,13 @@ namespace testspr {
 	//
 	// print
 	//
-	template<typename Iterator>
-	void print(Iterator first, Iterator last) {
-		std::for_each(first, last, [](typename std::iterator_traits<Iterator>::value_type const& e){ std::cout << e << ' '; });
+	template<typename InputIterator>
+	void print(InputIterator first, InputIterator last) {
+		std::for_each(first, last, [](typename std::iterator_traits<InputIterator>::value_type const& e){ std::cout << e << ' '; });
 		std::cout << std::endl;
 	}
-	template<typename Range>
-	void print(Range const& range) {
+	template<typename InputRange>
+	void print(InputRange const& range) {
 		testspr::print(sprout::begin(range), sprout::end(range));
 	}
 

@@ -10,17 +10,17 @@ namespace sprout {
 		// Copyright (C) 2011 RiSK (sscrisk)
 
 		// 25.4.8 Lexicographical comparison
-		template<typename Range1, typename Range2>
+		template<typename InputRange1, typename InputRange2>
 		inline SPROUT_CONSTEXPR bool
-		lexicographical_compare(Range1 const& range1, Range2 const& range2) {
+		lexicographical_compare(InputRange1 const& range1, InputRange2 const& range2) {
 			return sprout::lexicographical_compare(
 				sprout::begin(range1), sprout::end(range1), sprout::begin(range2), sprout::end(range2)
 				);
 		}
 
-		template<typename Range1, typename Range2, typename Compare>
+		template<typename InputRange1, typename InputRange2, typename Compare>
 		inline SPROUT_CONSTEXPR bool
-		lexicographical_compare(Range1 const& range1, Range2 const& range2, Compare comp) {
+		lexicographical_compare(InputRange1 const& range1, InputRange2 const& range2, Compare comp) {
 			return sprout::lexicographical_compare(
 				sprout::begin(range1), sprout::end(range1), sprout::begin(range2), sprout::end(range2), comp
 				);
