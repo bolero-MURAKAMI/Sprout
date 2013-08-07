@@ -1,5 +1,5 @@
 #ifndef SPROUT_RANGE_ADAPTOR_FILLED_HPP
-#define SPROUT_RANGE_ADAPTOR_BLANKED_HPP
+#define SPROUT_RANGE_ADAPTOR_FILLED_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -109,4 +109,4 @@ namespace sprout {
 	{};
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_RANGE_ADAPTOR_BLANKED_HPP
+#endif	// #ifndef SPROUT_RANGE_ADAPTOR_FILLED_HPP
