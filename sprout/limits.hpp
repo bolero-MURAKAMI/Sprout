@@ -1,11 +1,16 @@
 #ifndef SPROUT_LIMITS_HPP
 #define SPROUT_LIMITS_HPP
 
-#include <cstdint>
-#include <climits>
-#include <cfloat>
 #include <limits>
 #include <sprout/config.hpp>
+#ifdef SPROUT_NO_CXX11_NUMERIC_LIMITS
+#	include <cstdint>
+#	include <climits>
+#	include <cfloat>
+#	if !defined(__FLT_DENORM_MIN__) || !defined(__LDBL_DENORM_MIN__) || !defined(__LDBL_DENORM_MIN__)
+#		include <cmath>
+#	endif	// #if !defined(__FLT_DENORM_MIN__) || !defined(__LDBL_DENORM_MIN__) || !defined(__LDBL_DENORM_MIN__)
+#endif	// #ifdef SPROUT_NO_CXX11_NUMERIC_LIMITS
 
 namespace sprout {
 	//
@@ -243,19 +248,31 @@ namespace sprout {
 		float,
 		FLT_MIN, FLT_MAX,
 		FLT_EPSILON, 0.5F,
+#if !defined(__FLT_DENORM_MIN__)
+		INFINITY, NAN, NAN, FLT_MIN
+#else	// #if !defined(__FLT_DENORM_MIN__)
 		__builtin_huge_valf(), __builtin_nanf(""), __builtin_nansf(""), __FLT_DENORM_MIN__
+#endif	// #if !defined(__FLT_DENORM_MIN__)
 		);
 	SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL(
 		double,
 		DBL_MIN, DBL_MAX,
 		DBL_EPSILON, 0.5,
+#if !defined(__DBL_DENORM_MIN__)
+		INFINITY, NAN, NAN, DBL_MIN
+#else	// #if !defined(__DBL_DENORM_MIN__)
 		__builtin_huge_val(), __builtin_nan(""), __builtin_nans(""), __DBL_DENORM_MIN__
+#endif	// #if !defined(__DBL_DENORM_MIN__)
 		);
 	SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL(
 		long double,
 		LDBL_MIN, LDBL_MAX,
 		LDBL_EPSILON, 0.5L,
+#if !defined(__LDBL_DENORM_MIN__)
+		INFINITY, NAN, NAN, LDBL_MIN
+#else	// #if !defined(__LDBL_DENORM_MIN__)
 		__builtin_huge_val(), __builtin_nan(""), __builtin_nans(""), __LDBL_DENORM_MIN__
+#endif	// #if !defined(__LDBL_DENORM_MIN__)
 		);
 #undef SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL
 
