@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <cstdlib>
+#include <cmath>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>

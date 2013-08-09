@@ -25,6 +25,60 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT((std::is_same<decltype(str1), sprout::basic_string<char, 10> const>::value));
 			TESTSPR_BOTH_ASSERT((std::is_same<decltype(str2), sprout::basic_string<char, 8> const>::value));
 
+			// constructor
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = sprout::string_t<10>::type();
+				TESTSPR_BOTH_ASSERT(s1.size() == 0);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = str1;
+				TESTSPR_BOTH_ASSERT(s1 == str1);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR std::decay<decltype(str1)>::type s1 = str2;
+				TESTSPR_BOTH_ASSERT(s1 == str2);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = std::decay<decltype(str1)>::type(str1, 6);
+				TESTSPR_BOTH_ASSERT(s1 == "1234");
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = std::decay<decltype(str1)>::type(str1, 0, 6);
+				TESTSPR_BOTH_ASSERT(s1 == "foobar");
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = std::decay<decltype(str1)>::type(str2, 4);
+				TESTSPR_BOTH_ASSERT(s1 == "hoge");
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = std::decay<decltype(str1)>::type(str2, 0, 4);
+				TESTSPR_BOTH_ASSERT(s1 == "hoge");
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = sprout::string_t<10>::type(cstr);
+				TESTSPR_BOTH_ASSERT(s1 == cstr);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = sprout::string_t<10>::type(cstr, 6);
+				TESTSPR_BOTH_ASSERT(s1 == "foobar");
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = sprout::string_t<10>::type(static_cast<char const*>(cstr));
+				TESTSPR_BOTH_ASSERT(s1 == cstr);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = sprout::string_t<10>::type(static_cast<char const*>(cstr), 6);
+				TESTSPR_BOTH_ASSERT(s1 == "foobar");
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto s1 = sprout::string_t<10>::type(cstr, cstr + 6);
+				TESTSPR_BOTH_ASSERT(s1 == "foobar");
+			}
+			{
+				auto s1 = sprout::string_t<10>::type({'f', 'o', 'o', 'b', 'a', 'r'});
+				TESTSPR_ASSERT(s1 == "foobar");
+			}
+
 			// begin
 			TESTSPR_BOTH_ASSERT(cstr[0] == *str1.begin());
 

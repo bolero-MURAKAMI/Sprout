@@ -14,6 +14,7 @@
 #include <utility>
 #include <stdexcept>
 #include <type_traits>
+#include <initializer_list>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array/array.hpp>
@@ -23,6 +24,7 @@
 #include <sprout/algorithm/find.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/math/comparison.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/npos.hpp>
 #include <sprout/string/detail/operations.hpp>
@@ -32,31 +34,105 @@
 #endif
 
 namespace sprout {
+	namespace detail {
+		struct string_raw_construct_t {};
+		struct string_from_c_str_construct_t {};
+
+		template<typename T, std::size_t N, typename Traits = sprout::char_traits<T> >
+		class string_construct_access;
+
+		template<typename T, std::size_t N, typename Traits>
+		class basic_string_impl {
+			friend class sprout::detail::string_construct_access<T, N, Traits>;
+		public:
+			typedef T value_type;
+			typedef T& reference;
+			typedef T const& const_reference;
+			typedef std::size_t size_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef T* pointer;
+			typedef T const* const_pointer;
+			typedef Traits traits_type;
+		protected:
+			value_type elems[N + 1];
+			size_type len;
+		protected:
+			SPROUT_CONSTEXPR basic_string_impl()
+				: elems{}, len()
+			{}
+			SPROUT_CONSTEXPR basic_string_impl(basic_string_impl const&) = default;
+			SPROUT_CONSTEXPR basic_string_impl(basic_string_impl&&) SPROUT_NOEXCEPT = default;
+			template<typename String, sprout::index_t... Indexes>
+			SPROUT_CONSTEXPR basic_string_impl(
+				sprout::index_tuple<Indexes...>,
+				String const& str, size_type pos, size_type n
+				)
+				: elems{
+					(sprout::math::less(Indexes, n) ? str[Indexes + pos]
+						: value_type()
+						)...
+					}
+				, len(n)
+			{}
+			template<typename String, sprout::index_t... Indexes>
+			SPROUT_CONSTEXPR basic_string_impl(
+				sprout::index_tuple<Indexes...>,
+				sprout::detail::string_from_c_str_construct_t, String const& str, size_type pos, size_type n
+				)
+				: elems{
+					(sprout::math::less(Indexes, n) ? str[Indexes + pos]
+						: value_type()
+						)...
+					}
+				, len(!(N < n) ? n
+					: throw std::out_of_range("basic_string<>: index out of range")
+					)
+			{}
+			template<typename... Args, sprout::index_t... Indexes>
+			SPROUT_CONSTEXPR basic_string_impl(
+				sprout::index_tuple<Indexes...>,
+				sprout::detail::string_raw_construct_t, size_type n, Args&&... args
+				)
+				: elems{
+					(sprout::math::less(Indexes, n) ? sprout::forward<Args>(args)
+						: value_type()
+						)...
+					}
+				, len(n)
+			{}
+		};
+	}	// namespace detail
+
 	//
 	// basic_string
 	//
 	template<typename T, std::size_t N, typename Traits = sprout::char_traits<T> >
-	class basic_string {
-	public:
-		typedef T value_type;
-#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		typedef sprout::index_iterator<basic_string&, true> iterator;
-		typedef sprout::index_iterator<basic_string const&, true> const_iterator;
-#else
-		typedef T* iterator;
-		typedef T const* const_iterator;
-#endif
-		typedef T& reference;
-		typedef T const& const_reference;
-		typedef std::size_t size_type;
-		typedef std::ptrdiff_t difference_type;
-		typedef T* pointer;
-		typedef T const* const_pointer;
-		typedef sprout::reverse_iterator<iterator> reverse_iterator;
-		typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator;
-		typedef Traits traits_type;
-#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
+	class basic_string
+		: private sprout::detail::basic_string_impl<T, N, Traits>
+	{
+		friend class sprout::detail::string_construct_access<T, N, Traits>;
 	private:
+		typedef sprout::detail::basic_string_impl<T, N, Traits> impl_type;
+	public:
+		typedef typename impl_type::value_type value_type;
+		typedef typename impl_type::reference reference;
+		typedef typename impl_type::const_reference const_reference;
+		typedef typename impl_type::size_type size_type;
+		typedef typename impl_type::difference_type difference_type;
+		typedef typename impl_type::pointer pointer;
+		typedef typename impl_type::const_pointer const_pointer;
+		typedef typename impl_type::traits_type traits_type;
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
+			typedef sprout::index_iterator<basic_string&, true> iterator;
+			typedef sprout::index_iterator<basic_string const&, true> const_iterator;
+#else
+			typedef T* iterator;
+			typedef T const* const_iterator;
+#endif
+			typedef sprout::reverse_iterator<iterator> reverse_iterator;
+			typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator;
+	private:
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename Iterator>
 		class is_string_iterator
 			: public std::false_type
@@ -85,36 +161,99 @@ namespace sprout {
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type npos = sprout::npos_t::get<size_type>::value;
 		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
-	private:
-		template<sprout::index_t... Indexes>
-		static SPROUT_CONSTEXPR basic_string
-		from_c_str_impl(value_type const* s, size_type n, sprout::index_tuple<Indexes...>) {
-			return basic_string{{(Indexes < n ? s[Indexes] : T())...}, n};
-		}
-		template<std::size_t M, sprout::index_t... Indexes>
-		static SPROUT_CONSTEXPR basic_string<T, sizeof...(Indexes), Traits>
-		implicit_conversion_impl(T const(& elems)[M], size_type len, sprout::index_tuple<Indexes...>) {
-			return sprout::basic_string<T, sizeof...(Indexes), Traits>{{(Indexes < M - 1 ? elems[Indexes] : T())...}, len};
-		}
 	public:
 		static SPROUT_CONSTEXPR basic_string from_c_str(T const* s, size_type n) {
-			return !(N < n)
-				? from_c_str_impl(s, n, sprout::make_index_tuple<N>::make())
-				: throw std::out_of_range("basic_string<>: index out of range")
-				;
+			return basic_string(s, n);
 		}
 		static SPROUT_CONSTEXPR basic_string from_c_str(T const* s) {
-			return from_c_str(s, traits_type::length(s));
+			return basic_string(s);
 		}
 		static SPROUT_CONSTEXPR basic_string from_c_str(std::basic_string<T, Traits> const& s) {
 			return from_c_str(s.data(), s.size());
 		}
-	public:
-		value_type elems[static_size + 1];
-		size_type len;
+	private:
+		using impl_type::elems;
+		using impl_type::len;
+	private:
+		template<typename... Args, typename Enable = typename std::enable_if<(sizeof...(Args) <= N)>::type>
+		SPROUT_CONSTEXPR basic_string(sprout::detail::string_raw_construct_t, size_type n, Args&&... args)
+			: impl_type(
+				sprout::index_pack<Args...>::make(),
+				sprout::detail::string_raw_construct_t(), n, sprout::forward<Args>(args)...
+				)
+		{}
 	public:
 		// construct/copy/destroy:
-		template<std::size_t N2>
+		SPROUT_CONSTEXPR basic_string() = default;
+		SPROUT_CONSTEXPR basic_string(basic_string const&) = default;
+		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 < N)>::type>
+		SPROUT_CONSTEXPR basic_string(basic_string<T, N2, Traits> const& str)
+			: impl_type(
+				sprout::make_index_tuple<N2>::make(),
+				str, 0, str.size()
+				)
+		{}
+		SPROUT_CONSTEXPR basic_string(basic_string const& str, size_type pos, size_type n = npos)
+			: impl_type(
+				sprout::make_index_tuple<N>::make(),
+				str, pos, NS_SSCRISK_CEL_OR_SPROUT::min(n, str.size() - pos)
+				)
+		{}
+		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 < N)>::type>
+		SPROUT_CONSTEXPR basic_string(basic_string<T, N2, Traits> const& str, size_type pos, size_type n = npos)
+			: impl_type(
+				sprout::make_index_tuple<N2>::make(),
+				str, pos, NS_SSCRISK_CEL_OR_SPROUT::min(n, str.size() - pos)
+				)
+		{}
+		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 - 1 <= N)>::type>
+		SPROUT_CONSTEXPR basic_string(T const(& arr)[N2])
+			: impl_type(
+				sprout::make_index_tuple<N2 - 1>::make(),
+				arr, 0, sprout::char_traits_helper<typename sprout::basic_string<T, N2 - 1>::traits_type>::length(arr, N2 - 1)
+				)
+		{}
+		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 - 1 <= N)>::type>
+		SPROUT_CONSTEXPR basic_string(T const(& arr)[N2], size_type n)
+			: impl_type(
+				sprout::make_index_tuple<N2 - 1>::make(),
+				arr, 0, NS_SSCRISK_CEL_OR_SPROUT::min(n, sprout::char_traits_helper<typename sprout::basic_string<T, N2 - 1>::traits_type>::length(arr, N2 - 1))
+				)
+		{}
+		SPROUT_CONSTEXPR basic_string(value_type const* s)
+			: impl_type(
+				sprout::make_index_tuple<N>::make(),
+				sprout::detail::string_from_c_str_construct_t(), s, 0, traits_type::length(s)
+				)
+		{}
+		SPROUT_CONSTEXPR basic_string(value_type const* s, size_type n)
+			: impl_type(
+				sprout::make_index_tuple<N>::make(),
+				sprout::detail::string_from_c_str_construct_t(), s, 0, NS_SSCRISK_CEL_OR_SPROUT::min(n, traits_type::length(s))
+				)
+		{}
+		// !!!
+//		template<typename InputIterator>
+//		SPROUT_CONSTEXPR basic_string(InputIterator first, InputIterator last);
+		template<typename RandomAccessIterator>
+		SPROUT_CONSTEXPR basic_string(RandomAccessIterator first, RandomAccessIterator last)
+			: impl_type(
+				sprout::make_index_tuple<N>::make(),
+				sprout::detail::string_from_c_str_construct_t(), first, 0, sprout::distance(first, last)
+				)
+		{}
+		basic_string(std::initializer_list<value_type> il)
+			: impl_type(
+				sprout::make_index_tuple<N>::make(),
+				sprout::detail::string_from_c_str_construct_t(), il.begin(), 0, il.size()
+				)
+		{}
+
+		basic_string&
+		operator=(basic_string const& rhs) {
+			return assign(rhs);
+		}
+		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 != N)>::type>
 		basic_string&
 		operator=(basic_string<T, N2, Traits> const& rhs) {
 			return assign(rhs);
@@ -493,13 +632,6 @@ namespace sprout {
 				;
 		}
 		// others:
-		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 > N)>::type>
-		SPROUT_CONSTEXPR operator basic_string<T, N2, Traits>() const {
-			return implicit_conversion_impl(
-				elems, size(),
-				sprout::make_index_tuple<N2>::make()
-				);
-		}
 		template<typename Allocator>
 		SPROUT_EXPLICIT_CONVERSION operator std::basic_string<T, Traits, Allocator>() const {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
@@ -697,6 +829,16 @@ namespace sprout {
 	}
 
 	namespace detail {
+		template<typename T, std::size_t N, typename Traits>
+		class string_construct_access {
+		public:
+			template<typename... Args>
+			static SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
+			raw_construct(typename sprout::basic_string<T, N, Traits>::size_type n, Args&&... args) {
+				return sprout::basic_string<T, N, Traits>(sprout::detail::string_raw_construct_t(), n, sprout::forward<Args>(args)...);
+			}
+		};
+
 		template<typename Container>
 		struct make_construct_impl;
 
@@ -710,11 +852,6 @@ namespace sprout {
 			length_impl(sprout::array<T, M> const& arr) {
 				return sprout::distance(arr.begin(), sprout::find(arr.begin(), arr.end(), T()));
 			}
-			template<typename... Args, sprout::index_t... Indexes>
-			static SPROUT_CONSTEXPR copied_type
-			make_impl(typename copied_type::size_type size, sprout::index_tuple<Indexes...>, Args&&... args) {
-				return copied_type{{(Indexes < size ? sprout::forward<Args>(args) : T())...}, size};
-			}
 		public:
 			template<typename... Args>
 			static SPROUT_CONSTEXPR typename copied_type::size_type
@@ -724,41 +861,18 @@ namespace sprout {
 			template<typename... Args>
 			static SPROUT_CONSTEXPR copied_type
 			make(Args&&... args) {
-				return make_impl(
-					length(args...),
-					sprout::index_pack<Args...>::make(),
-					sprout::forward<Args>(args)...
-					);
+				typedef sprout::detail::string_construct_access<T, N, Traits> access_type;
+				return access_type::raw_construct(length(args...), sprout::forward<Args>(args)...);
 			}
 			template<typename... Args>
 			static SPROUT_CONSTEXPR copied_type
 			make(typename copied_type::size_type size, Args&&... args) {
-				return make_impl(
-					size,
-					sprout::index_pack<Args...>::make(),
-					sprout::forward<Args>(args)...
-					);
+				typedef sprout::detail::string_construct_access<T, N, Traits> access_type;
+				return access_type::raw_construct(size, sprout::forward<Args>(args)...);
 			}
 		};
 	}	// namespace detail
 
-	namespace detail {
-		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
-		to_string_impl_1(
-			T const(& arr)[N], typename sprout::basic_string<T, N - 1>::size_type n,
-			sprout::index_tuple<Indexes...>
-			)
-		{
-			return sprout::basic_string<T, N - 1>{{(Indexes < n ? arr[Indexes] : T())...}, n};
-		}
-		template<typename T, std::size_t N>
-		inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
-		to_string_impl(T const(& arr)[N]) {
-			typedef sprout::char_traits_helper<typename sprout::basic_string<T, N - 1>::traits_type> helper_type;
-			return to_string_impl_1(arr, helper_type::length(arr, N - 1), sprout::make_index_tuple<N - 1>::make());
-		}
-	}	// namespace detail
 	//
 	// to_string
 	//
@@ -770,7 +884,7 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N - 1>
 	to_string(T const(& arr)[N]) {
-		return sprout::detail::to_string_impl(arr);
+		return sprout::basic_string<T, N - 1>(arr);
 	}
 
 	//

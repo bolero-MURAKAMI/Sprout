@@ -118,10 +118,11 @@ namespace sprout {
 			: init(true)
 			, val(v)
 		{}
-		SPROUT_CONSTEXPR optional(T&& v)
-			: init(true)
-			, val(sprout::move(v))
-		{}
+		// !!! for T const&
+//		SPROUT_CONSTEXPR optional(T&& v)
+//			: init(true)
+//			, val(sprout::move(v))
+//		{}
 		template<
 			typename... Args,
 			typename = typename std::enable_if<is_constructible_args<Args...>::value>::type
@@ -142,10 +143,11 @@ namespace sprout {
 			: init(cond)
 			, val(cond ? holder_type(v) : holder_type())
 		{}
-		SPROUT_CONSTEXPR optional(bool cond, T&& v)
-			: init(cond)
-			, val(cond ? holder_type(sprout::move(v)) : holder_type())
-		{}
+		// !!! for T const&
+//		SPROUT_CONSTEXPR optional(bool cond, T&& v)
+//			: init(cond)
+//			, val(cond ? holder_type(sprout::move(v)) : holder_type())
+//		{}
 		template<typename U>
 		explicit SPROUT_CONSTEXPR optional(optional<U> const& v)
 			: init(v.is_initialized())

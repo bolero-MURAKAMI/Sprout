@@ -24,7 +24,8 @@ namespace sprout {
 		struct rational_private_constructor_tag {};
 
 		template<typename IntType>
-		inline SPROUT_CONSTEXPR sprout::rational<IntType> make_rational(
+		inline SPROUT_CONSTEXPR sprout::rational<IntType>
+		make_rational(
 			typename sprout::detail::call_traits<IntType>::param_type n,
 			typename sprout::detail::call_traits<IntType>::param_type d,
 			sprout::detail::rational_private_constructor_tag

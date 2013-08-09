@@ -27,14 +27,15 @@ namespace sprout {
 	private:
 		typedef sprout::value_holder<string_type const&> holder_type;
 	private:
-		template<std::size_t M, sprout::index_t... Indexes>
+		template<sprout::index_t... Indexes>
 		static SPROUT_CONSTEXPR sprout::basic_string<T, sizeof...(Indexes), Traits>
 		implicit_conversion_impl(
-			T const(& elems)[M], std::size_t len,
+			string_type const& str, std::size_t len,
 			sprout::index_tuple<Indexes...>
 			)
 		{
-			return sprout::basic_string<T, sizeof...(Indexes), Traits>{{(Indexes < M - 1 ? elems[Indexes] : T())...}, len};
+			typedef sprout::detail::string_construct_access<T, sizeof...(Indexes), Traits> access_type;
+			return access_type::raw_construct(len, (Indexes < N ? str[Indexes] : T())...);
 		}
 	private:
 		holder_type holder_;
@@ -50,8 +51,8 @@ namespace sprout {
 		template<std::size_t N2>
 		SPROUT_CONSTEXPR operator sprout::basic_string<T, N2, Traits>() const {
 			return implicit_conversion_impl(
-				holder_.get().elems,
-				NS_SSCRISK_CEL_OR_SPROUT::min(N2, holder_.get().len),
+				holder_.get(),
+				NS_SSCRISK_CEL_OR_SPROUT::min(N2, holder_.get().size()),
 				sprout::make_index_tuple<(N < N2 ? N : N2)>::make()
 				);
 		}

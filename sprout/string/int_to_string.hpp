@@ -38,23 +38,20 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
 		int_to_string(IntType val, int digits, sprout::index_tuple<Indexes...>) {
-			return val < 0 ? sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
-					{
-						static_cast<Elem>('-'),
-						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
-							: Elem()
-							)...
-						},
-						static_cast<std::size_t>(digits + 1)
-					}
-				: sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
-					{
-						(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
-							: Elem()
-							)...
-						},
-						static_cast<std::size_t>(digits)
-					}
+			typedef sprout::detail::string_construct_access<Elem, sprout::printed_integer_digits<IntType, Base>::value> access_type;
+			return val < 0 ? access_type::raw_construct(
+					static_cast<std::size_t>(digits + 1),
+					static_cast<Elem>('-'),
+					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
+						: Elem()
+						)...
+					)
+				: access_type::raw_construct(
+					static_cast<std::size_t>(digits),
+					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
+						: Elem()
+						)...
+					)
 				;
 		}
 		template<
@@ -64,14 +61,13 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
 		int_to_string(IntType val, int digits, sprout::index_tuple<Indexes...>) {
-			return sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>{
-				{
-					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
-						: Elem()
-						)...
-					},
-					static_cast<std::size_t>(digits)
-				};
+			typedef sprout::detail::string_construct_access<Elem, sprout::printed_integer_digits<IntType, Base>::value> access_type;
+			return access_type::raw_construct(
+				static_cast<std::size_t>(digits),
+				(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
+					: Elem()
+					)...
+				);
 		}
 	}	// namespace detail
 

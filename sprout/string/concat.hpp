@@ -25,15 +25,14 @@ namespace sprout {
 			sprout::index_tuple<Indexes...>
 			)
 		{
-			return sprout::basic_string<T, N + 1, Traits>{
-				{
-					(Indexes < lsize ? lhs[Indexes]
-						: Indexes < lsize + 1 ? rhs
-						: T()
-						)...
-					},
-				lsize + 1
-				};
+			typedef sprout::detail::string_construct_access<T, N + 1, Traits> access_type;
+			return access_type::raw_construct(
+				lsize + 1,
+				(Indexes < lsize ? lhs[Indexes]
+					: Indexes < lsize + 1 ? rhs
+					: T()
+					)...
+				);
 		}
 		template<typename T, std::size_t N, typename Traits, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, 1 + N, Traits>
@@ -43,15 +42,14 @@ namespace sprout {
 			sprout::index_tuple<Indexes...>
 			)
 		{
-			return sprout::basic_string<T, 1 + N, Traits>{
-				{
-					(Indexes < 1 ? lhs
-						: Indexes < 1 + rsize ? rhs[Indexes - 1]
-						: T()
-						)...
-					},
-				1 + rsize
-				};
+			typedef sprout::detail::string_construct_access<T, 1 + N, Traits> access_type;
+			return access_type::raw_construct(
+				1 + rsize,
+				(Indexes < 1 ? lhs
+					: Indexes < 1 + rsize ? rhs[Indexes - 1]
+					: T()
+					)...
+				);
 		}
 		template<typename T, std::size_t N, typename Traits, std::size_t M, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N + (M - 1), Traits>
@@ -61,15 +59,14 @@ namespace sprout {
 			sprout::index_tuple<Indexes...>
 			)
 		{
-			return sprout::basic_string<T, N + (M - 1), Traits>{
-				{
-					(Indexes < lsize ? lhs[Indexes]
-						: Indexes < lsize + rsize ? rhs[Indexes - lsize]
-						: T()
-						)...
-					},
-				lsize + rsize
-				};
+			typedef sprout::detail::string_construct_access<T, N + (M - 1), Traits> access_type;
+			return access_type::raw_construct(
+				lsize + rsize,
+				(Indexes < lsize ? lhs[Indexes]
+					: Indexes < lsize + rsize ? rhs[Indexes - lsize]
+					: T()
+					)...
+				);
 		}
 		template<typename T, std::size_t N, typename Traits, std::size_t M, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, (M - 1) + N, Traits>
@@ -79,15 +76,14 @@ namespace sprout {
 			sprout::index_tuple<Indexes...>
 			)
 		{
-			return sprout::basic_string<T, (M - 1) + N, Traits>{
-				{
-					(Indexes < lsize ? lhs[Indexes]
-						: Indexes < lsize + rsize ? rhs[Indexes - lsize]
-						: T()
-						)...
-					},
-				lsize + rsize
-				};
+			typedef sprout::detail::string_construct_access<T, (M - 1) + N, Traits> access_type;
+			return access_type::raw_construct(
+				lsize + rsize,
+				(Indexes < lsize ? lhs[Indexes]
+					: Indexes < lsize + rsize ? rhs[Indexes - lsize]
+					: T()
+					)...
+				);
 		}
 		template<typename T, std::size_t N1, std::size_t N2, typename Traits, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N1 + N2, Traits>
@@ -97,15 +93,14 @@ namespace sprout {
 			sprout::index_tuple<Indexes...>
 			)
 		{
-			return sprout::basic_string<T, N1 + N2, Traits>{
-				{
-					(Indexes < lsize ? lhs[Indexes]
-						: Indexes < lsize + rsize ? rhs[Indexes - lsize]
-						: T()
-						)...
-					},
-				lsize + rsize
-				};
+			typedef sprout::detail::string_construct_access<T, N1 + N2, Traits> access_type;
+			return access_type::raw_construct(
+				lsize + rsize,
+				(Indexes < lsize ? lhs[Indexes]
+					: Indexes < lsize + rsize ? rhs[Indexes - lsize]
+					: T()
+					)...
+				);
 		}
 	}	// namespace detail
 

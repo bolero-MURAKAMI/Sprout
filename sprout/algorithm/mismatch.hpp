@@ -24,9 +24,9 @@ namespace sprout {
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2>
 		inline SPROUT_CONSTEXPR sprout::pair<RandomAccessIterator1, RandomAccessIterator2>
 		mismatch_impl_check(RandomAccessIterator1 first1, RandomAccessIterator2 first2, RandomAccessIterator1 found) {
-			return sprout::pair<RandomAccessIterator1, RandomAccessIterator2>{
+			return sprout::pair<RandomAccessIterator1, RandomAccessIterator2>(
 				found, sprout::next(first2, sprout::distance(first1, found))
-				};
+				);
 		}
 
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
@@ -59,7 +59,7 @@ namespace sprout {
 			std::random_access_iterator_tag*
 			)
 		{
-			return first1 == last1 ? sprout::pair<RandomAccessIterator1, RandomAccessIterator2>{first1, first2}
+			return first1 == last1 ? sprout::pair<RandomAccessIterator1, RandomAccessIterator2>(first1, first2)
 				: sprout::detail::mismatch_impl_check(
 					first1, first2,
 					sprout::detail::mismatch_impl_ra(
@@ -190,7 +190,7 @@ namespace sprout {
 			std::random_access_iterator_tag*
 			)
 		{
-			return first1 == last1 || first2 == last2 ? sprout::pair<RandomAccessIterator1, RandomAccessIterator2>{first1, first2}
+			return first1 == last1 || first2 == last2 ? sprout::pair<RandomAccessIterator1, RandomAccessIterator2>(first1, first2)
 				: sprout::detail::mismatch_impl_check(
 					first1, first2,
 					sprout::detail::mismatch2_impl_ra(

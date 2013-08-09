@@ -34,7 +34,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, 0>
 	make_string_as() {
-		return sprout::basic_string<typename std::decay<T>::type, 0>{};
+		return sprout::basic_string<typename std::decay<T>::type, 0>();
 	}
 	template<typename T, typename... Types>
 	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, sizeof...(Types)>

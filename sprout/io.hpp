@@ -710,9 +710,9 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR auto
 		eval(sprout::io::format_holder<T> const& holder)
-		-> decltype(sprout::basic_string<Elem, 1>{{static_cast<Elem>(holder.value())}, 1})
+		-> decltype(sprout::detail::string_construct_access<Elem, 1>::raw_construct(1, static_cast<Elem>(holder.value())))
 		{
-			return sprout::basic_string<Elem, 1>{{static_cast<Elem>(holder.value())}, 1};
+			return sprout::detail::string_construct_access<Elem, 1>::raw_construct(1, static_cast<Elem>(holder.value()));
 		}
 		template<
 			typename Elem, std::size_t N, typename T,
@@ -753,17 +753,16 @@ namespace sprout {
 			template<typename Elem, std::size_t N, sprout::index_t... Indexes, std::size_t K, typename... Args>
 			inline SPROUT_CONSTEXPR sprout::basic_string<Elem, N>
 			output_impl_1(sprout::index_tuple<Indexes...>, sprout::array<std::size_t, K> const& sizes, Args const&... args) {
-				return sprout::basic_string<Elem, N>{
-					{
-						sprout::io::detail::get_param<Elem>(
-							sprout::range::lower_bound(sizes, static_cast<std::size_t>(Indexes + 1)),
-							sizes,
-							Indexes,
-							args...
-							)...
-						},
-					NS_SSCRISK_CEL_OR_SPROUT::min(sizes.back(), N)
-					};
+				typedef sprout::detail::string_construct_access<Elem, N> access_type;
+				return access_type::raw_construct(
+					NS_SSCRISK_CEL_OR_SPROUT::min(sizes.back(), N),
+					sprout::io::detail::get_param<Elem>(
+						sprout::range::lower_bound(sizes, static_cast<std::size_t>(Indexes + 1)),
+						sizes,
+						Indexes,
+						args...
+						)...
+					);
 			}
 			template<typename Elem, std::size_t N, typename... Args>
 			inline SPROUT_CONSTEXPR sprout::basic_string<Elem, N>

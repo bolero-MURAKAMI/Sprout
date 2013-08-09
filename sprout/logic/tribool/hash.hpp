@@ -10,18 +10,32 @@
 
 #include <cstddef>
 #include <functional>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/logic/tribool/tribool.hpp>
 #include <sprout/functional/hash.hpp>
 
 namespace sprout {
 	//
-	// hash_value
+	// hash_value_traits
 	//
-	inline SPROUT_CONSTEXPR std::size_t
-	hash_value(sprout::logic::indeterminate_keyword_t) {
-		return sprout::logic::tribool::indeterminate_value;
-	}
+	template<>
+	struct hash_value_traits<sprout::logic::indeterminate_keyword_t> {
+	public:
+		static SPROUT_CONSTEXPR std::size_t
+		hash_value(sprout::logic::indeterminate_keyword_t) {
+			return sprout::logic::tribool::indeterminate_value;
+		}
+	};
+	template<>
+	struct hash_value_traits<std::remove_pointer<sprout::logic::indeterminate_keyword_t>::type> {
+	public:
+		static SPROUT_CONSTEXPR std::size_t
+		hash_value(sprout::logic::indeterminate_keyword_t) {
+			return sprout::logic::tribool::indeterminate_value;
+		}
+	};
+
 	namespace logic {
 		//
 		// hash_value

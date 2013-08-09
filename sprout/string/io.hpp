@@ -58,10 +58,7 @@ namespace sprout {
 			state |= std::ios_base::failbit;
 		}
 		lhs.setstate(state);
-		rhs.len = current;
-		for (; current != rhs.max_size(); ++current) {
-			rhs[current] = T();
-		}
+		rhs.resize(current);
 		return lhs;
 	}
 	template<typename T, std::size_t N, typename Traits, typename StreamTraits>

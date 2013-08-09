@@ -34,7 +34,7 @@ namespace sprout {
 		//
 		// float_exponent10
 		//
-		// !!!
+		// !!! TODO: O(logN)
 		template<typename FloatType>
 		inline SPROUT_CONSTEXPR int
 		float_exponent10_positive(FloatType val) {
