@@ -36,14 +36,13 @@
 namespace sprout {
 	namespace detail {
 		struct string_raw_construct_t {};
-		struct string_from_c_str_construct_t {};
+		struct string_checked_construct_t {};
 
 		template<typename T, std::size_t N, typename Traits = sprout::char_traits<T> >
 		class string_construct_access;
 
 		template<typename T, std::size_t N, typename Traits>
 		class basic_string_impl {
-			friend class sprout::detail::string_construct_access<T, N, Traits>;
 		public:
 			typedef T value_type;
 			typedef T& reference;
@@ -77,7 +76,7 @@ namespace sprout {
 			template<typename String, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR basic_string_impl(
 				sprout::index_tuple<Indexes...>,
-				sprout::detail::string_from_c_str_construct_t, String const& str, size_type pos, size_type n
+				sprout::detail::string_checked_construct_t, String const& str, size_type pos, size_type n
 				)
 				: elems{
 					(sprout::math::less(Indexes, n) ? str[Indexes + pos]
@@ -220,16 +219,16 @@ namespace sprout {
 				arr, 0, NS_SSCRISK_CEL_OR_SPROUT::min(n, sprout::char_traits_helper<typename sprout::basic_string<T, N2 - 1>::traits_type>::length(arr, N2 - 1))
 				)
 		{}
-		SPROUT_CONSTEXPR basic_string(value_type const* s)
+		explicit SPROUT_CONSTEXPR basic_string(value_type const* s)
 			: impl_type(
 				sprout::make_index_tuple<N>::make(),
-				sprout::detail::string_from_c_str_construct_t(), s, 0, traits_type::length(s)
+				sprout::detail::string_checked_construct_t(), s, 0, traits_type::length(s)
 				)
 		{}
 		SPROUT_CONSTEXPR basic_string(value_type const* s, size_type n)
 			: impl_type(
 				sprout::make_index_tuple<N>::make(),
-				sprout::detail::string_from_c_str_construct_t(), s, 0, NS_SSCRISK_CEL_OR_SPROUT::min(n, traits_type::length(s))
+				sprout::detail::string_checked_construct_t(), s, 0, NS_SSCRISK_CEL_OR_SPROUT::min(n, traits_type::length(s))
 				)
 		{}
 		// !!!
@@ -239,13 +238,13 @@ namespace sprout {
 		SPROUT_CONSTEXPR basic_string(RandomAccessIterator first, RandomAccessIterator last)
 			: impl_type(
 				sprout::make_index_tuple<N>::make(),
-				sprout::detail::string_from_c_str_construct_t(), first, 0, sprout::distance(first, last)
+				sprout::detail::string_checked_construct_t(), first, 0, sprout::distance(first, last)
 				)
 		{}
 		basic_string(std::initializer_list<value_type> il)
 			: impl_type(
 				sprout::make_index_tuple<N>::make(),
-				sprout::detail::string_from_c_str_construct_t(), il.begin(), 0, il.size()
+				sprout::detail::string_checked_construct_t(), il.begin(), 0, il.size()
 				)
 		{}
 
