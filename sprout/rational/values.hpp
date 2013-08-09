@@ -20,9 +20,8 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::rational<IntType>
 	abs(sprout::rational<IntType> const& x) {
 		return x.numerator() >= IntType(0) ? x
-			: sprout::detail::make_rational<IntType>(
-				-x.numerator(), x.denominator(),
-				sprout::detail::rational_private_constructor_tag()
+			: sprout::detail::rational_construct_access<IntType>::raw_construct(
+				-x.numerator(), x.denominator()
 				)
 			;
 	}

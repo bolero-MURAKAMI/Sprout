@@ -31,7 +31,7 @@ namespace sprout {
 		public:
 			typedef UIntType result_type;
 		private:
-			struct private_constructor_tag {};
+			struct private_construct_t {};
 		public:
 			SPROUT_STATIC_CONSTEXPR UIntType multiplier = a;
 			SPROUT_STATIC_CONSTEXPR UIntType increment = c;
@@ -60,13 +60,13 @@ namespace sprout {
 		private:
 			UIntType x_;
 		private:
-			SPROUT_CONSTEXPR linear_congruential_engine(UIntType const& x, private_constructor_tag)
+			SPROUT_CONSTEXPR linear_congruential_engine(UIntType const& x, private_construct_t)
 				: x_(x)
 			{}
 			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> generate(result_type result) const {
 				return sprout::random::random_result<linear_congruential_engine>(
 					result,
-					linear_congruential_engine(result, private_constructor_tag())
+					linear_congruential_engine(result, private_construct_t())
 					);
 			}
 		public:
@@ -141,7 +141,7 @@ namespace sprout {
 		public:
 			typedef std::uint32_t result_type;
 		private:
-			struct private_constructor_tag {};
+			struct private_construct_t {};
 			typedef sprout::random::linear_congruential_engine<
 				std::uint64_t,
 				std::uint64_t(0xDEECE66DUL) | (std::uint64_t(0x5) << 32),
@@ -161,7 +161,7 @@ namespace sprout {
 		private:
 			lcf_type lcf_;
 		private:
-			SPROUT_CONSTEXPR rand48(lcf_type const& lcf, private_constructor_tag)
+			SPROUT_CONSTEXPR rand48(lcf_type const& lcf, private_construct_t)
 				: lcf_(lcf)
 			{}
 			SPROUT_CONSTEXPR sprout::random::random_result<rand48> generate(
@@ -170,7 +170,7 @@ namespace sprout {
 			{
 				return sprout::random::random_result<rand48>(
 					lcf_result.result() >> 17,
-					rand48(lcf_result.engine(), private_constructor_tag())
+					rand48(lcf_result.engine(), private_construct_t())
 					);
 			}
 		public:

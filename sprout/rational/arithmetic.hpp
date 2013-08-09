@@ -26,9 +26,8 @@ namespace sprout {
 	template<typename IntType>
 	inline SPROUT_CONSTEXPR sprout::rational<IntType>
 	operator-(rational<IntType> const& r) {
-		return sprout::detail::make_rational<IntType>(
-			-r.numerator(), r.denominator(),
-			sprout::detail::rational_private_constructor_tag()
+		return sprout::detail::rational_construct_access<IntType>::raw_construct(
+			-r.numerator(), r.denominator()
 			);
 	}
 
@@ -46,9 +45,8 @@ namespace sprout {
 			IntType g, IntType den, IntType num
 			)
 		{
-			return sprout::detail::make_rational<IntType>(
-				num / g, den * (rhs.denominator() / g),
-				sprout::detail::rational_private_constructor_tag()
+			return sprout::detail::rational_construct_access<IntType>::raw_construct(
+				num / g, den * (rhs.denominator() / g)
 				);
 		}
 		template<typename IntType>
@@ -115,9 +113,8 @@ namespace sprout {
 			IntType g, IntType den, IntType num
 			)
 		{
-			return sprout::detail::make_rational<IntType>(
-				num / g, den * (rhs.denominator() / g),
-				sprout::detail::rational_private_constructor_tag()
+			return sprout::detail::rational_construct_access<IntType>::raw_construct(
+				num / g, den * (rhs.denominator() / g)
 				);
 		}
 		template<typename IntType>
@@ -184,10 +181,9 @@ namespace sprout {
 			IntType gcd1, IntType gcd2
 			)
 		{
-			return sprout::detail::make_rational<IntType>(
+			return sprout::detail::rational_construct_access<IntType>::raw_construct(
 				(lhs.numerator() / gcd1) * (rhs.numerator() / gcd2),
-				(lhs.denominator() / gcd2) * (rhs.denominator() / gcd1),
-				sprout::detail::rational_private_constructor_tag()
+				(lhs.denominator() / gcd2) * (rhs.denominator() / gcd1)
 				);
 		}
 	}	// namespace detail
@@ -215,14 +211,8 @@ namespace sprout {
 		template<typename IntType>
 		inline SPROUT_CONSTEXPR sprout::rational<IntType>
 		rational_div_impl_1(IntType num, IntType den) {
-			return den < IntType(0) ? sprout::detail::make_rational<IntType>(
-					-num, -den,
-					sprout::detail::rational_private_constructor_tag()
-					)
-				: sprout::detail::make_rational<IntType>(
-					num, den,
-					sprout::detail::rational_private_constructor_tag()
-					)
+			return den < IntType(0) ? sprout::detail::rational_construct_access<IntType>::raw_construct(-num, -den)
+				: sprout::detail::rational_construct_access<IntType>::raw_construct(num, den)
 				;
 		}
 		template<typename IntType>

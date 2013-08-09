@@ -55,7 +55,7 @@ namespace sprout {
 			typedef UniformRandomNumberGenerator base_type;
 			typedef typename base_type::result_type result_type;
 		private:
-			struct private_constructor_tag {};
+			struct private_construct_t {};
 		public:
 			SPROUT_STATIC_CONSTEXPR std::size_t buffer_size = k;
 			SPROUT_STATIC_CONSTEXPR std::size_t table_size = k;
@@ -97,7 +97,7 @@ namespace sprout {
 				base_type const& rng,
 				sprout::array<result_type, k> const& v,
 				result_type const& y,
-				private_constructor_tag
+				private_construct_t
 				)
 				: member_type{rng, v, y}
 			{}
@@ -110,7 +110,7 @@ namespace sprout {
 						rnd.engine(),
 						sprout::fixed::set(v_, j, rnd.result()),
 						v_[j],
-						private_constructor_tag()
+						private_construct_t()
 						)
 					);
 			}

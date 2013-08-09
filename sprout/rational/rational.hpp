@@ -21,15 +21,10 @@ namespace sprout {
 	class rational;
 
 	namespace detail {
-		struct rational_private_constructor_tag {};
+		struct rational_private_construct_t {};
 
 		template<typename IntType>
-		inline SPROUT_CONSTEXPR sprout::rational<IntType>
-		make_rational(
-			typename sprout::detail::call_traits<IntType>::param_type n,
-			typename sprout::detail::call_traits<IntType>::param_type d,
-			sprout::detail::rational_private_constructor_tag
-			);
+		class rational_construct_access;
 	}	// namespace detail
 
 	namespace detail {
@@ -66,11 +61,11 @@ namespace sprout {
 		: private sprout::detail::rational_impl<IntType>
 	{
 		static_assert(sprout::numeric_limits<IntType>::is_specialized, "sprout::numeric_limits<IntType>::is_specialized");
+		friend class sprout::detail::rational_construct_access<IntType>;
 	public:
 		typedef IntType int_type;
 		typedef typename sprout::detail::call_traits<IntType>::param_type param_type;
 	private:
-		struct private_constructor_tag {};
 		typedef sprout::detail::rational_impl<IntType> base_type;
 	private:
 		static SPROUT_CONSTEXPR IntType normalize_g_1(IntType den, IntType g) {
@@ -86,7 +81,7 @@ namespace sprout {
 		using base_type::num_;
 		using base_type::den_;
 	private:
-		SPROUT_CONSTEXPR rational(param_type n, param_type d, private_constructor_tag)
+		SPROUT_CONSTEXPR rational(sprout::detail::rational_private_construct_t, param_type n, param_type d)
 			: base_type(n, d)
 		{}
 	public:
@@ -198,28 +193,24 @@ namespace sprout {
 		SPROUT_CONSTEXPR operator bool() const SPROUT_NOEXCEPT {
 			return num_ != 0;
 		}
-	public:
-		friend sprout::rational<IntType> sprout::detail::make_rational<IntType>(
-			typename sprout::detail::call_traits<IntType>::param_type n,
-			typename sprout::detail::call_traits<IntType>::param_type d,
-			sprout::detail::rational_private_constructor_tag
-			);
 	};
 
 	namespace detail {
 		template<typename IntType>
-		inline SPROUT_CONSTEXPR sprout::rational<IntType>
-		make_rational(
-			typename sprout::detail::call_traits<IntType>::param_type n,
-			typename sprout::detail::call_traits<IntType>::param_type d,
-			sprout::detail::rational_private_constructor_tag
-			)
-		{
-			return sprout::rational<IntType>(
-				n, d,
-				typename sprout::rational<IntType>::private_constructor_tag()
-				);
-		}
+		class rational_construct_access {
+		public:
+			static SPROUT_CONSTEXPR sprout::rational<IntType>
+			raw_construct(
+				typename sprout::detail::call_traits<IntType>::param_type n,
+				typename sprout::detail::call_traits<IntType>::param_type d
+				)
+			{
+				return sprout::rational<IntType>(
+					sprout::detail::rational_private_construct_t(),
+					n, d
+					);
+			}
+		};
 	}	// namespace detail
 }	// namespace sprout
 

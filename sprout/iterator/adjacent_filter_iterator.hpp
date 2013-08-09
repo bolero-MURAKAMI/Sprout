@@ -44,7 +44,7 @@ namespace sprout {
 		typedef typename std::iterator_traits<Iterator>::pointer pointer;
 		typedef typename std::iterator_traits<Iterator>::reference reference;
 	private:
-		struct private_constructor_tag {};
+		struct private_construct_t {};
 	private:
 		static SPROUT_CONSTEXPR iterator_type find_next(iterator_type first, iterator_type last, Predicate pred) {
 			return sprout::adjacent_find(first, last, pred);
@@ -62,7 +62,7 @@ namespace sprout {
 		void satisfy_predicate() {
 			current = sprout::adjacent_find(current, last, pred);
 		}
-		SPROUT_CONSTEXPR adjacent_filter_iterator(Predicate pred, iterator_type it, iterator_type last, private_constructor_tag)
+		SPROUT_CONSTEXPR adjacent_filter_iterator(Predicate pred, iterator_type it, iterator_type last, private_construct_t)
 			: current(it)
 			, last(last)
 			, pred(pred)
@@ -119,7 +119,7 @@ namespace sprout {
 			return result;
 		}
 		SPROUT_CONSTEXPR adjacent_filter_iterator next() const {
-			return adjacent_filter_iterator(pred, checked_next(find_next(current, last, pred), last), last, private_constructor_tag());
+			return adjacent_filter_iterator(pred, checked_next(find_next(current, last, pred), last), last, private_construct_t());
 		}
 		void swap(adjacent_filter_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(

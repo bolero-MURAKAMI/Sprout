@@ -32,7 +32,7 @@ namespace sprout {
 			typedef RealType input_type;
 			typedef RealType result_type;
 		private:
-			struct private_constructor_tag {};
+			struct private_construct_t {};
 		public:
 			//
 			// param_type
@@ -105,7 +105,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR normal_distribution(
 				RealType mean, RealType sigma, RealType r1, RealType r2,
 				RealType cached_rho, bool valid,
-				private_constructor_tag
+				private_construct_t
 				)
 				: mean_(mean)
 				, sigma_(sigma)
@@ -132,7 +132,7 @@ namespace sprout {
 						r2,
 						cached_rho,
 						valid,
-						private_constructor_tag()
+						private_construct_t()
 						)
 					);
 			}

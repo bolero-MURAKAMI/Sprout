@@ -47,7 +47,7 @@ namespace sprout {
 		typedef typename std::iterator_traits<Iterator>::pointer pointer;
 		typedef typename std::iterator_traits<Iterator>::reference reference;
 	private:
-		struct private_constructor_tag {};
+		struct private_construct_t {};
 	private:
 		static SPROUT_CONSTEXPR iterator_type find_next(iterator_type first, iterator_type last, Predicate pred) {
 			return first == last || pred(*first) ? first
@@ -74,7 +74,7 @@ namespace sprout {
 				--current;
 			}
 		}
-		SPROUT_CONSTEXPR while_iterator(Predicate pred, iterator_type it, iterator_type last, private_constructor_tag)
+		SPROUT_CONSTEXPR while_iterator(Predicate pred, iterator_type it, iterator_type last, private_construct_t)
 			: current(it)
 			, last(last)
 			, pred(pred)
@@ -138,10 +138,10 @@ namespace sprout {
 			return temp;
 		}
 		SPROUT_CONSTEXPR while_iterator next() const {
-			return while_iterator(pred, find_next(sprout::next(current), last, pred), last, private_constructor_tag());
+			return while_iterator(pred, find_next(sprout::next(current), last, pred), last, private_construct_t());
 		}
 		SPROUT_CONSTEXPR while_iterator prev() const {
-			return while_iterator(pred, find_prev(sprout::prev(current), pred), last, private_constructor_tag());
+			return while_iterator(pred, find_prev(sprout::prev(current), pred), last, private_construct_t());
 		}
 		void swap(while_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(

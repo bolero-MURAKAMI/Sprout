@@ -23,7 +23,7 @@ namespace sprout {
 		public:
 			typedef UIntType result_type;
 		private:
-			struct private_constructor_tag {};
+			struct private_construct_t {};
 		public:
 			SPROUT_STATIC_CONSTEXPR int word_size = w;
 			SPROUT_STATIC_CONSTEXPR int exponent1 = k;
@@ -56,13 +56,13 @@ namespace sprout {
 		private:
 			UIntType x_;
 		private:
-			SPROUT_CONSTEXPR linear_feedback_shift_engine(UIntType const& x, private_constructor_tag)
+			SPROUT_CONSTEXPR linear_feedback_shift_engine(UIntType const& x, private_construct_t)
 				: x_(x)
 			{}
 			SPROUT_CONSTEXPR sprout::random::random_result<linear_feedback_shift_engine> generate(result_type result) const {
 				return sprout::random::random_result<linear_feedback_shift_engine>(
 					result,
-					linear_feedback_shift_engine(result, private_constructor_tag())
+					linear_feedback_shift_engine(result, private_construct_t())
 					);
 			}
 		public:

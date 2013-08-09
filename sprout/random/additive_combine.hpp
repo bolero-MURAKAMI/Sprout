@@ -36,7 +36,7 @@ namespace sprout {
 				return base1_type::modulus - 1;
 			}
 		public:
-			struct private_constructor_tag {};
+			struct private_construct_t {};
 		private:
 			base1_type mlcg1_;
 			base2_type mlcg2_;
@@ -44,7 +44,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR additive_combine_engine(
 				base1_type const& mlcg1,
 				base2_type const& mlcg2,
-				private_constructor_tag
+				private_construct_t
 				)
 				: mlcg1_(mlcg1)
 				, mlcg2_(mlcg2)
@@ -59,7 +59,7 @@ namespace sprout {
 					additive_combine_engine(
 						rnd1.engine(),
 						rnd2.engine(),
-						private_constructor_tag()
+						private_construct_t()
 						)
 					);
 			}

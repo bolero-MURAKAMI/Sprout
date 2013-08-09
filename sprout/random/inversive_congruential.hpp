@@ -28,7 +28,7 @@ namespace sprout {
 		public:
 			typedef IntType result_type;
 		private:
-			struct private_constructor_tag {};
+			struct private_construct_t {};
 		public:
 			SPROUT_STATIC_CONSTEXPR IntType multiplier = a;
 			SPROUT_STATIC_CONSTEXPR IntType increment = b;
@@ -56,14 +56,14 @@ namespace sprout {
 		private:
 			IntType x_;
 		private:
-			SPROUT_CONSTEXPR inversive_congruential_engine(IntType const& x, private_constructor_tag)
+			SPROUT_CONSTEXPR inversive_congruential_engine(IntType const& x, private_construct_t)
 				: x_(x)
 			{}
 			SPROUT_CONSTEXPR sprout::random::random_result<inversive_congruential_engine>
 			generate(result_type result) const {
 				return sprout::random::random_result<inversive_congruential_engine>(
 					result,
-					inversive_congruential_engine(result, private_constructor_tag())
+					inversive_congruential_engine(result, private_construct_t())
 					);
 			}
 		public:

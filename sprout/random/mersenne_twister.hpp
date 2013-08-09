@@ -31,7 +31,7 @@ namespace sprout {
 		public:
 			typedef UIntType result_type;
 		private:
-			struct private_constructor_tag {};
+			struct private_construct_t {};
 		public:
 			SPROUT_STATIC_CONSTEXPR std::size_t word_size = w;
 			SPROUT_STATIC_CONSTEXPR std::size_t state_size = n;
@@ -86,7 +86,7 @@ namespace sprout {
 			sprout::array<UIntType, n> x_;
 			std::size_t i_;
 		private:
-			SPROUT_CONSTEXPR mersenne_twister_engine(sprout::array<UIntType, n> const& x, std::size_t i, private_constructor_tag)
+			SPROUT_CONSTEXPR mersenne_twister_engine(sprout::array<UIntType, n> const& x, std::size_t i, private_construct_t)
 				: x_(x)
 				, i_(i)
 			{}
@@ -290,7 +290,7 @@ namespace sprout {
 					mersenne_twister_engine(
 						x_,
 						i_ + 1,
-						private_constructor_tag()
+						private_construct_t()
 						)
 					);
 			}
@@ -301,7 +301,7 @@ namespace sprout {
 						args..., x_[m - 1] ^ ((x_[n - 1] & upper_mask) | (x_[0] & lower_mask) >> 1) ^ ((x_[0] & 1) * a)
 						}},
 					0,
-					private_constructor_tag()
+					private_construct_t()
 					);
 			}
 			template<typename... Args>
