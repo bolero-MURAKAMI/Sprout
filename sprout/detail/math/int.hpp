@@ -11,6 +11,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/type_traits/is_int.hpp>
+#include <sprout/type_traits/is_uint.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -54,13 +56,21 @@ namespace sprout {
 		//
 		template<
 			int Base = 10, typename IntType,
-			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+			typename sprout::enabler_if<sprout::is_int<IntType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR int
 		int_digit_at(IntType val, int digits) {
 			return val < 0 ? -((val / sprout::detail::int_pow<IntType, Base>(digits)) % Base)
 				: (val / sprout::detail::int_pow<IntType, Base>(digits)) % Base
 				;
+		}
+		template<
+			int Base = 10, typename IntType,
+			typename sprout::enabler_if<sprout::is_uint<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		int_digit_at(IntType val, int digits) {
+			return (val / sprout::detail::int_pow<IntType, Base>(digits)) % Base;
 		}
 	}	// namespace detail
 }	// namespace sprout

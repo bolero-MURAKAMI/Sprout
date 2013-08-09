@@ -79,7 +79,7 @@ namespace sprout {
 			typedef sprout::detail::string_construct_access<T, (M - 1) + N, Traits> access_type;
 			return access_type::raw_construct(
 				lsize + rsize,
-				(Indexes < lsize ? lhs[Indexes]
+				(Indexes < lsize ? *(lhs + Indexes)
 					: Indexes < lsize + rsize ? rhs[Indexes - lsize]
 					: T()
 					)...
