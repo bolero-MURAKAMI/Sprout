@@ -177,7 +177,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr2));
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::mismatch(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -255,7 +254,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(found.first.base() == sprout::begin(arr1));
 				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr2));
 			}
-#endif
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::mismatch(
@@ -429,7 +427,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr2));
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::mismatch(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -515,7 +512,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(found.first.base() == sprout::begin(arr1));
 				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr2));
 			}
-#endif
 		}
 	}
 }	// namespace testspr

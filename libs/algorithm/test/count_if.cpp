@@ -85,7 +85,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(result == 5);
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count_if(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -118,7 +117,6 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(result == 5);
 			}
-#endif
 		}
 	}
 }	// namespace testspr

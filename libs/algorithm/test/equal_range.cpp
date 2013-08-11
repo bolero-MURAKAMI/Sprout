@@ -64,7 +64,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(sprout::distance(found.first.base(), found.second.base()) == 0);
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::equal_range(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -86,7 +85,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(found.second.base() == sprout::begin(arr1) + 5);
 				TESTSPR_BOTH_ASSERT(sprout::distance(found.first.base(), found.second.base()) == 0);
 			}
-#endif
 		}
 	}
 }	// namespace testspr

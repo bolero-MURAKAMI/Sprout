@@ -50,7 +50,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(result);
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_sorted(
 					testspr::reduct_forward(sprout::begin(arr1)),
@@ -81,9 +80,7 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
-#endif
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_sorted(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -114,7 +111,6 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
-#endif
 		}
 	}
 }	// namespace testspr

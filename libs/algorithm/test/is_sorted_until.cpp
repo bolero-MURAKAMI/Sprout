@@ -81,7 +81,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto found = sprout::is_sorted_until(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -112,7 +111,6 @@ namespace testspr {
 					).base();
 				TESTSPR_BOTH_ASSERT(found == sprout::begin(arr1) + 5);
 			}
-#endif
 		}
 	}
 }	// namespace testspr

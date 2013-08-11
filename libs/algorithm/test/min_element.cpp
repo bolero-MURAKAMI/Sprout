@@ -81,7 +81,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(result == sprout::begin(arr1) + 3);
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::min_element(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -112,7 +111,6 @@ namespace testspr {
 					).base();
 				TESTSPR_BOTH_ASSERT(result == sprout::begin(arr1) + 3);
 			}
-#endif
 		}
 	}
 }	// namespace testspr

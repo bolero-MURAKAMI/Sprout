@@ -156,7 +156,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
 					testspr::reduct_input(sprout::begin(arr1)),
@@ -290,9 +289,7 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
-#endif
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -426,7 +423,6 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
-#endif
 		}
 	}
 }	// namespace testspr

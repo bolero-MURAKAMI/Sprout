@@ -19,70 +19,71 @@
 
 namespace sprout {
 	namespace detail {
-		template<typename RandomAccessIterator1>
-		inline SPROUT_CONSTEXPR RandomAccessIterator1
-		find_end_impl_check_ra(RandomAccessIterator1 first1, RandomAccessIterator1 result, RandomAccessIterator1 searched) {
-			return searched == first1 ? searched
-				: result
-				;
-		}
-		template<typename RandomAccessIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR RandomAccessIterator1
-		find_end_impl_ra(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2,
-			BinaryPredicate pred,
-			typename std::iterator_traits<RandomAccessIterator1>::difference_type pivot, RandomAccessIterator1 last1_, RandomAccessIterator1 result,
-			RandomAccessIterator1 searched
-			)
-		{
-			return searched == last1_ ? result
-				: searched < first1 ? pivot == 0
-					? sprout::detail::find_end_impl_check_ra(
-						first1, searched,
-						sprout::detail::search_one(first1, last1_, first2, last2, pred)
-						)
-					: sprout::detail::find_end_impl_ra(
-						sprout::next(first1, pivot), last1, first2, last2, pred,
-						(sprout::distance(first1, last1) - pivot) / 2, last1_, searched,
-						sprout::detail::find_end_impl_ra(
-							first1, sprout::next(first1, pivot), first2, last2, pred,
-							pivot / 2, last1_, searched,
-							first1
-							)
-						)
-				: pivot == 0 ? sprout::detail::search_one(first1, last1_, first2, last2, pred)
-				: sprout::detail::find_end_impl_ra(
-					sprout::next(first1, pivot), last1, first2, last2, pred,
-					(sprout::distance(first1, last1) - pivot) / 2, last1_, result,
-					sprout::detail::find_end_impl_ra(
-						first1, sprout::next(first1, pivot), first2, last2, pred,
-						pivot / 2, last1_, result,
-						first1
-						)
-					)
-				;
-		}
-		template<typename RandomAccessIterator1, typename ForwardIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::is_constant_distance_iterator<RandomAccessIterator1>::value,
-			RandomAccessIterator1
-		>::type
-		find_end(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2,
-			BinaryPredicate pred,
-			std::random_access_iterator_tag*
-			)
-		{
-			return first1 == last1 ? last1
-				: sprout::detail::find_end_impl_ra(
-					first1, last1, first2, last2, pred,
-					sprout::distance(first1, last1) / 2, last1, last1,
-					first1
-					)
-				;
-		}
+		// !!!
+//		template<typename RandomAccessIterator1>
+//		inline SPROUT_CONSTEXPR RandomAccessIterator1
+//		find_end_impl_check_ra(RandomAccessIterator1 first1, RandomAccessIterator1 result, RandomAccessIterator1 searched) {
+//			return searched == first1 ? searched
+//				: result
+//				;
+//		}
+//		template<typename RandomAccessIterator1, typename ForwardIterator2, typename BinaryPredicate>
+//		inline SPROUT_CONSTEXPR RandomAccessIterator1
+//		find_end_impl_ra(
+//			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
+//			ForwardIterator2 first2, ForwardIterator2 last2,
+//			BinaryPredicate pred,
+//			typename std::iterator_traits<RandomAccessIterator1>::difference_type pivot, RandomAccessIterator1 last1_, RandomAccessIterator1 result,
+//			RandomAccessIterator1 searched
+//			)
+//		{
+//			return searched == last1_ ? result
+//				: searched < first1 ? pivot == 0
+//					? sprout::detail::find_end_impl_check_ra(
+//						first1, searched,
+//						sprout::detail::search_one(first1, last1_, first2, last2, pred)
+//						)
+//					: sprout::detail::find_end_impl_ra(
+//						sprout::next(first1, pivot), last1, first2, last2, pred,
+//						(sprout::distance(first1, last1) - pivot) / 2, last1_, searched,
+//						sprout::detail::find_end_impl_ra(
+//							first1, sprout::next(first1, pivot), first2, last2, pred,
+//							pivot / 2, last1_, searched,
+//							first1
+//							)
+//						)
+//				: pivot == 0 ? sprout::detail::search_one(first1, last1_, first2, last2, pred)
+//				: sprout::detail::find_end_impl_ra(
+//					sprout::next(first1, pivot), last1, first2, last2, pred,
+//					(sprout::distance(first1, last1) - pivot) / 2, last1_, result,
+//					sprout::detail::find_end_impl_ra(
+//						first1, sprout::next(first1, pivot), first2, last2, pred,
+//						pivot / 2, last1_, result,
+//						first1
+//						)
+//					)
+//				;
+//		}
+//		template<typename RandomAccessIterator1, typename ForwardIterator2, typename BinaryPredicate>
+//		inline SPROUT_CONSTEXPR typename std::enable_if<
+//			sprout::is_constant_distance_iterator<RandomAccessIterator1>::value,
+//			RandomAccessIterator1
+//		>::type
+//		find_end(
+//			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
+//			ForwardIterator2 first2, ForwardIterator2 last2,
+//			BinaryPredicate pred,
+//			std::random_access_iterator_tag*
+//			)
+//		{
+//			return first1 == last1 ? last1
+//				: sprout::detail::find_end_impl_ra(
+//					first1, last1, first2, last2, pred,
+//					sprout::distance(first1, last1) / 2, last1, last1,
+//					first1
+//					)
+//				;
+//		}
 
 		template<typename ForwardIterator1>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, ForwardIterator1>

@@ -53,7 +53,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(result);
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::all_of_equal(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -70,7 +69,6 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
-#endif
 		}
 	}
 }	// namespace testspr

@@ -89,7 +89,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 4);
 			}
 
-#if defined(__clang__)
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::minmax_element(
 					testspr::reduct_random_access(sprout::begin(arr1)),
@@ -124,7 +123,6 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(result.first.base() == sprout::begin(arr1) + 3);
 				TESTSPR_BOTH_ASSERT(result.second.base() == sprout::begin(arr1) + 4);
 			}
-#endif
 		}
 	}
 }	// namespace testspr

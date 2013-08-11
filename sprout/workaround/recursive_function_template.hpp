@@ -20,7 +20,7 @@
 //
 #ifndef SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_LIMIT
 #	if defined(__clang__)
-#		if (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_major__ <= 2))
+#		if (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ <= 2))
 #			define SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_LIMIT 512
 #		else
 #			define SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_LIMIT 256
