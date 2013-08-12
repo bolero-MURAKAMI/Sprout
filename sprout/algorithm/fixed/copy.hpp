@@ -16,6 +16,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/next_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/math/comparison.hpp>
@@ -63,7 +64,7 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
-			copy_impl(
+			copy_impl_fw(
 				InputIterator, InputIterator, Result const& result,
 				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
@@ -76,14 +77,14 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
 			>::type
-			copy_impl(
+			copy_impl_fw(
 				InputIterator first, InputIterator last, Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
 			{
 				return first != last && sizeof...(Args) < size
-					? sprout::fixed::detail::copy_impl(sprout::next(first), last, result, size, args..., *first)
+					? sprout::fixed::detail::copy_impl_fw(sprout::next(first), last, result, size, args..., *first)
 					: sprout::detail::container_complate(result, args...)
 					;
 			}
@@ -91,10 +92,67 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			copy(
 				InputIterator first, InputIterator last, Result const& result,
+				std::forward_iterator_tag*
+				)
+			{
+				return sprout::fixed::detail::copy_impl_fw(first, last, result, sprout::size(result));
+			}
+
+			template<typename InputIterator, typename Result, typename... Args>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy_impl_in(
+				sprout::next_iterator<InputIterator> const& first, InputIterator, Result const& result,
+				typename sprout::container_traits<Result>::size_type,
+				Args const&... args
+				)
+			{
+				return sprout::remake<Result>(result, sprout::size(result), args..., *first);
+			}
+			template<typename InputIterator, typename Result, typename... Args>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy_impl_in(
+				sprout::next_iterator<InputIterator> const& first, InputIterator last, Result const& result,
+				typename sprout::container_traits<Result>::size_type size,
+				Args const&... args
+				)
+			{
+				return first.base() != last && sizeof...(Args) + 1 < size
+					? sprout::fixed::detail::copy_impl_in(sprout::next(first), last, result, size, args..., *first)
+					: sprout::detail::container_complate(result, args..., *first)
+					;
+			}
+			template<typename InputIterator, typename Result>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::container_traits<Result>::static_size == 0,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy(
+				InputIterator, InputIterator, Result const& result,
 				std::input_iterator_tag*
 				)
 			{
-				return sprout::fixed::detail::copy_impl(first, last, result, sprout::size(result));
+				return sprout::remake<Result>(result, sprout::size(result));
+			}
+			template<typename InputIterator, typename Result>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::container_traits<Result>::static_size != 0,
+				typename sprout::fixed::result_of::algorithm<Result>::type
+			>::type
+			copy(
+				InputIterator first, InputIterator last, Result const& result,
+				std::input_iterator_tag*
+				)
+			{
+				return first != last
+					? sprout::fixed::detail::copy_impl_in(sprout::make_next_iterator(first), last, result, sprout::size(result))
+					: sprout::detail::container_complate(result)
+					;
 			}
 
 			template<typename InputIterator, typename Result>

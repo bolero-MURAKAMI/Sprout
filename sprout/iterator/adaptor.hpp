@@ -33,5 +33,6 @@
 #include <sprout/iterator/size_enum_iterator.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
 #include <sprout/iterator/remake_iterator.hpp>
+#include <sprout/iterator/next_iterator.hpp>
 
 #endif	// #ifndef SPROUT_ITERATOR_ADAPTOR_HPP
