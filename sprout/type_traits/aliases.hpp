@@ -76,9 +76,10 @@ namespace sprout {
 		std::size_t Align = std::alignment_of<typename std::aligned_storage<Len>::type>::value
 	>
 	using aligned_storage_t = typename std::aligned_storage<Len, Align>::type;
-	// ???
-	//template<std::size_t Len, typename... Types>
-	//using aligned_union_t = typename std::aligned_union<Len, Types...>::type;
+#if defined(_LIBCPP_VERSION) && (_LIBCPP_VERSION >= 1101)
+	template<std::size_t Len, typename... Types>
+	using aligned_union_t = typename std::aligned_union<Len, Types...>::type;
+#endif
 	template<typename T>
 	using decay_t = typename std::decay<T>::type;
 	template<bool B, typename T = void>
@@ -151,9 +152,10 @@ namespace sprout {
 		std::size_t Align = std::alignment_of<typename std::aligned_storage<Len>::type>::value
 	>
 	using aligned_storage = sprout::aligned_storage_t<Len, Align>;
-	// ???
-	//template<std::size_t Len, typename... Types>
-	//using aligned_union = sprout::aligned_union_t<Len, Types...>;
+#if defined(_LIBCPP_VERSION) && (_LIBCPP_VERSION >= 1101)
+	template<std::size_t Len, typename... Types>
+	using aligned_union = sprout::aligned_union_t<Len, Types...>;
+#endif
 	template<typename T>
 	using decay = sprout::decay_t<T>;
 	template<bool B, typename T = void>
@@ -164,9 +166,6 @@ namespace sprout {
 	using common_type = sprout::common_type_t<Types...>;
 	template<typename T>
 	using underlying_type = sprout::underlying_type_t<T>;
-	// ???
-	//template<typename F, typename... ArgTypes>
-	//using result_of = sprout::result_of_t<F, ArgTypes...>;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
