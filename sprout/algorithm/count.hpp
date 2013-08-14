@@ -59,7 +59,9 @@ namespace sprout {
 		{
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
 			return current.first == last ? current
-				: n == 1 ? type(sprout::next(current.first), current.second + (*current.first == value ? 1 : 0))
+				: n == 1 ? *current.first == value
+					? type(sprout::next(current.first), current.second + 1)
+					: type(sprout::next(current.first), current.second)
 				: sprout::detail::count_impl_1(
 					sprout::detail::count_impl_1(
 						current,
