@@ -8,6 +8,8 @@ Sprout.Algorithm
 
     all_of
     any_of
+    none_of
+    one_of
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************
@@ -17,4 +19,8 @@ Non-modifying sequence operations
 * :doc:`./all_of`
 
 * :doc:`./any_of`
+
+* :doc:`./none_of`
+
+* :doc:`./one_of`
 

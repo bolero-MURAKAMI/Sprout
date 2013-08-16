@@ -21,7 +21,7 @@ Containers and Data structures
 Algorithms
 =======================================
 
-* :doc:`algorithm <./sprout/algorithm/index>`
+* :doc:`algorithm <./sprout/algorithm/index>` - STL-like generic algorithms.
 
 .. _sprout-listed_by_category-algorithms:
 Algorithms
