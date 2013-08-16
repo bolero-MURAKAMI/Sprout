@@ -299,7 +299,7 @@ namespace testspr {
 
 			// operator+
 			{
-#ifdef SPROUT_CONFIG_USE_INDEX_ITERATOR_IMPLEMENTATION
+#ifdef SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 				// ! Error in GCC4.7
 				SPROUT_STATIC_CONSTEXPR auto str3 = str1 + sprout::to_string("hogehoge");
 				TESTSPR_BOTH_ASSERT(str3 == "foobar1234hogehoge");

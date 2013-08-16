@@ -89,8 +89,14 @@ namespace testspr {
 			// data
 			TESTSPR_BOTH_ASSERT(carr[0] == *arr1.data());
 			TESTSPR_BOTH_ASSERT(carr[0] == *arr2.data());
+			{
+				auto arr = arr1;
+				TESTSPR_ASSERT(carr[0] == *arr.data());
+			}
 
 			// c_array
+			TESTSPR_BOTH_ASSERT(carr[0] == *arr1.c_array());
+			TESTSPR_BOTH_ASSERT(carr[0] == *arr2.c_array());
 			{
 				auto arr = arr1;
 				TESTSPR_ASSERT(carr[0] == *arr.c_array());

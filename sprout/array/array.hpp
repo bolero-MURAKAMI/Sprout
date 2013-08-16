@@ -61,11 +61,29 @@ namespace sprout {
 	public:
 		value_type elems[static_size ? static_size : 1];
 	public:
+		// construct/copy/destroy:
+		template<typename T2>
+		array& operator=(array<T2, N> const& rhs) {
+			std::copy(rhs.begin(), rhs.end(), begin());
+			return *this;
+		}
+		template<typename T2>
+		array& operator=(array<T2, N>&& rhs) {
+			std::move(rhs.begin(), rhs.end(), begin());
+			return *this;
+		}
+		// modifiers:
 		void fill(const_reference value) {
 			std::fill_n(begin(), size(), value);
 		}
 		SPROUT_CONSTEXPR array fill(const_reference value) const {
 			return fill_impl(value, sprout::index_n<0, N>::make());
+		}
+		void assign(const_reference value) {
+			fill(value);
+		}
+		SPROUT_CONSTEXPR array assign(const_reference value) const {
+			return fill(value);
 		}
 		void swap(array& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())))
@@ -181,26 +199,13 @@ namespace sprout {
 		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
-		// others:
-		template<typename T2>
-		array& operator=(array<T2, N> const& rhs) {
-			std::copy(rhs.begin(), rhs.end(), begin());
-			return *this;
-		}
-		template<typename T2>
-		array& operator=(array<T2, N>&& rhs) {
-			std::move(rhs.begin(), rhs.end(), begin());
-			return *this;
-		}
 		pointer c_array() SPROUT_NOEXCEPT {
-			return &elems[0];
+			return data();
 		}
-		void assign(const_reference value) {
-			fill(value);
+		SPROUT_CONSTEXPR const_pointer c_array() const SPROUT_NOEXCEPT {
+			return data();
 		}
-		SPROUT_CONSTEXPR array assign(const_reference value) const {
-			return fill(value);
-		}
+		// others:
 		void rangecheck(size_type i) const {
 			if (i >= size()) {
 				throw std::out_of_range("array<>: index out of range");
