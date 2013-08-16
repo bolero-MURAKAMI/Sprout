@@ -6,7 +6,16 @@ Libraries
 .. toctree::
     :hidden:
 
+    sprout/array/index
     sprout/algorithm/index
+
+.. _sprout-listed_by_alphabetically:
+*******************************************************************************
+Libraries Listed Alphabetically
+*******************************************************************************
+
+* :doc:`algorithm <./sprout/algorithm/index>` - STL like generic algorithms.
+* :doc:`array <./sprout/array/index>` - STL compliant class template for storing fixed-size sequences of objects.
 
 .. _sprout-listed_by_category:
 *******************************************************************************
@@ -17,11 +26,13 @@ Libraries Listed by Category
 Containers and Data structures
 =======================================
 
+* :doc:`array <./sprout/array/index>` - STL compliant class template for storing fixed-size sequences of objects.
+
 .. _sprout-listed_by_category-algorithms:
 Algorithms
 =======================================
 
-* :doc:`algorithm <./sprout/algorithm/index>` - STL-like generic algorithms.
+* :doc:`algorithm <./sprout/algorithm/index>` - STL like generic algorithms.
 
 .. _sprout-listed_by_category-algorithms:
 Algorithms

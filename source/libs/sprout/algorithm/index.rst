@@ -16,11 +16,13 @@ Sprout.Algorithm
 Non-modifying sequence operations
 *******************************************************************************
 
-* :doc:`./all_of`
+* :doc:`all_of <./all_of>`
+* :doc:`any_of <./any_of>`
+* :doc:`none_of <./none_of>`
+* :doc:`one_of <./one_of>`
 
-* :doc:`./any_of`
+Header
+========================================
 
-* :doc:`./none_of`
-
-* :doc:`./one_of`
+``sprout/algorithm.hpp``
 
