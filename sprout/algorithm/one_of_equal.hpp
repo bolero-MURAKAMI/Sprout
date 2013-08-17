@@ -67,7 +67,7 @@ namespace sprout {
 			std::random_access_iterator_tag*
 			)
 		{
-			return first == last ? true
+			return first == last ? false
 				: sprout::detail::one_of_equal_impl_ra(first, last, value, sprout::distance(first, last) / 2)
 				;
 		}
