@@ -54,10 +54,85 @@
 <h2>Non-modifying sequence operations<a class="headerlink" href="#non-modifying-sequence-operations" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="all_of.html"><em>all_of</em></a></li>
+<li><a class="reference external" href="all_of_equal.html"><em>all_of_equal</em></a></li>
 <li><a class="reference external" href="any_of.html"><em>any_of</em></a></li>
+<li><a class="reference external" href="any_of_equal.html"><em>any_of_equal</em></a></li>
 <li><a class="reference external" href="none_of.html"><em>none_of</em></a></li>
+<li><a class="reference external" href="none_of_equal.html"><em>none_of_equal</em></a></li>
 <li><a class="reference external" href="one_of.html"><em>one_of</em></a></li>
+<li><a class="reference external" href="one_of_equal.html"><em>one_of_equal</em></a></li>
+<li><tt class="xref docutils literal"><span class="pre">find</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">find_if</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">find_if_not</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">find_end</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">find_first_of</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">adjacent_find</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">count</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">count_if</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">mismatch</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">equal</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">search</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">search_n</span></tt></li>
 </ul>
+<div class="section" id="sorting">
+<h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">is_sorted</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">is_sorted_until</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">is_increasing</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">is_decreasing</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">is_strictly_increasing</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">is_strictly_decreasing</span></tt></li>
+</ul>
+</div>
+<div class="section" id="binary-search">
+<h3>Binary search<a class="headerlink" href="#binary-search" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">lower_bound</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">upper_bound</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">equal_range</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">binary_search</span></tt></li>
+</ul>
+</div>
+<div class="section" id="heap-operations">
+<h3>Heap operations<a class="headerlink" href="#heap-operations" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">is_heap_until</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">is_heap</span></tt></li>
+</ul>
+</div>
+<div class="section" id="minimum-and-maximum">
+<h3>Minimum and maximum<a class="headerlink" href="#minimum-and-maximum" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">min</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">max</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">minmax</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">min_element</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">max_element</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">minmax_element</span></tt></li>
+</ul>
+</div>
+<div class="section" id="lexicographical-comparison">
+<h3>Lexicographical comparison<a class="headerlink" href="#lexicographical-comparison" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">lexicographical_compare</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">tristate_lexicographical_compare</span></tt></li>
+</ul>
+</div>
+<div class="section" id="permutation-generators">
+<h3>Permutation generators<a class="headerlink" href="#permutation-generators" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">next_permutation</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">prev_permutation</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">is_permutation</span></tt></li>
+</ul>
+</div>
+<div class="section" id="clamp-algorithm">
+<h3>Clamp algorithm<a class="headerlink" href="#clamp-algorithm" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">clamp</span></tt></li>
+</ul>
+</div>
 <div class="section" id="header">
 <h3>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">sprout/algorithm.hpp</span></tt></p>
@@ -75,6 +150,13 @@
             <ul>
 <li><a class="reference external" href="#">Sprout.Algorithm</a><ul>
 <li><a class="reference external" href="#non-modifying-sequence-operations">Non-modifying sequence operations</a><ul>
+<li><a class="reference external" href="#sorting">Sorting</a></li>
+<li><a class="reference external" href="#binary-search">Binary search</a></li>
+<li><a class="reference external" href="#heap-operations">Heap operations</a></li>
+<li><a class="reference external" href="#minimum-and-maximum">Minimum and maximum</a></li>
+<li><a class="reference external" href="#lexicographical-comparison">Lexicographical comparison</a></li>
+<li><a class="reference external" href="#permutation-generators">Permutation generators</a></li>
+<li><a class="reference external" href="#clamp-algorithm">Clamp algorithm</a></li>
 <li><a class="reference external" href="#header">Header</a></li>
 </ul>
 </li>

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>one_of &mdash; Sprout v1.0 documentation</title>
+    <title>one_of_equal &mdash; Sprout v1.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -21,8 +21,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout v1.0 documentation" href="../../../index.html" />
     <link rel="up" title="Sprout.Algorithm" href="index.html" />
-    <link rel="next" title="one_of_equal" href="one_of_equal.html" />
-    <link rel="prev" title="none_of_equal" href="none_of_equal.html" /> 
+    <link rel="prev" title="one_of" href="one_of.html" /> 
   </head>
   <body>
     <div class="related">
@@ -32,10 +31,7 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="one_of_equal.html" title="one_of_equal"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="none_of_equal.html" title="none_of_equal"
+          <a href="one_of.html" title="one_of"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
@@ -49,31 +45,30 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="one-of">
-<h1>one_of<a class="headerlink" href="#one-of" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="one-of-equal">
+<h1>one_of_equal<a class="headerlink" href="#one-of-equal" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Predicate</span><span class="o">&gt;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 <span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
-<span class="n">one_of</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIterator</span> <span class="n">last</span><span class="p">,</span> <span class="n">Predicate</span> <span class="n">pred</span><span class="p">);</span>
+<span class="n">one_of_equal</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIterator</span> <span class="n">last</span><span class="p">,</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
-<p><em>true</em> if [first,last) is not empty and there is only one iterator i in the range [first,last) such that <tt class="docutils literal"><span class="pre">pred(*i)</span></tt> is true, and <em>false</em> otherwise.</p>
+<p><em>true</em> if [first,last) is not empty and there is only one iterator i in the range [first,last) such that <tt class="docutils literal"><span class="pre">*i</span> <span class="pre">==</span> <span class="pre">value</span></tt> is true, and <em>false</em> otherwise.</p>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/algorithm/one_of.hpp&gt;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/algorithm/one_of_equal.hpp&gt;</span>
 <span class="cp">#include &lt;sprout/array.hpp&gt;</span>
 <span class="cp">#include &lt;sprout/container.hpp&gt;</span>
-<span class="cp">#include &lt;sprout/functional.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
 <span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">}};</span>
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">one_of</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="n">bind2nd</span><span class="p">(</span><span class="n">greater</span><span class="o">&lt;&gt;</span><span class="p">(),</span> <span class="mi">9</span><span class="p">));</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&quot;one of input is greater than 9.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">one_of_equal</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&quot;one of input is equal to 1.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -84,7 +79,7 @@
 </div>
 <div class="section" id="header">
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">sprout/algorithm/one_of.hpp</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">sprout/algorithm/one_of_equal.hpp</span></tt></p>
 <p>Convenience header: <tt class="docutils literal"><span class="pre">sprout/algorithm.hpp</span></tt></p>
 </div>
 </div>
@@ -97,7 +92,7 @@
         <div class="sphinxsidebarwrapper">
             <h3><a href="../../../index.html">Table Of Contents</a></h3>
             <ul>
-<li><a class="reference external" href="#">one_of</a><ul>
+<li><a class="reference external" href="#">one_of_equal</a><ul>
 <li><a class="reference external" href="#interface">Interface</a></li>
 <li><a class="reference external" href="#returns">Returns</a></li>
 <li><a class="reference external" href="#examples">Examples</a></li>
@@ -108,14 +103,11 @@
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="none_of_equal.html"
-                                  title="previous chapter">none_of_equal</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="one_of_equal.html"
-                                  title="next chapter">one_of_equal</a></p>
+            <p class="topless"><a href="one_of.html"
+                                  title="previous chapter">one_of</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
-              <li><a href="../../../_sources/libs/sprout/algorithm/one_of.txt"
+              <li><a href="../../../_sources/libs/sprout/algorithm/one_of_equal.txt"
                      rel="nofollow">Show Source</a></li>
             </ul>
           <div id="searchbox" style="display: none">
@@ -142,10 +134,7 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="one_of_equal.html" title="one_of_equal"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="none_of_equal.html" title="none_of_equal"
+          <a href="one_of.html" title="one_of"
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
