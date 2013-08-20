@@ -14,7 +14,7 @@ Interface
 Returns
 ========================================
 
-*true* if [first,last) is not empty and there is only one iterator i in the range [first,last) such that ``*i == value`` is true, and *false* otherwise.
+| *true* if [first,last) is not empty and there is only one iterator i in the range [first,last) such that ``*i == value`` is true, and *false* otherwise.
 
 Examples
 ========================================
@@ -32,14 +32,12 @@ Examples
 Complexity
 ========================================
 
-At most ``last - first`` applications of the predicate.
-
-Recursive function invocations in *O(logN)* (logarithmic) depth.
+| At most ``last - first`` applications of the predicate.
+| Recursive function invocations in *O(logN)* (logarithmic) depth.
 
 Header
 ========================================
 
-``sprout/algorithm/one_of_equal.hpp``
-
-Convenience header: ``sprout/algorithm.hpp``
+| ``sprout/algorithm/one_of_equal.hpp``
+| Convenience header: ``sprout/algorithm.hpp``
 

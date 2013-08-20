@@ -14,7 +14,7 @@ Interface
 Returns
 ========================================
 
-*false* if [first,last) is empty or if there is no iterator i in the range [first,last) such that ``pred(*i)`` is true, and *true* otherwise.
+| *false* if [first,last) is empty or if there is no iterator i in the range [first,last) such that ``pred(*i)`` is true, and *true* otherwise.
 
 Examples
 ========================================
@@ -33,14 +33,12 @@ Examples
 Complexity
 ========================================
 
-At most ``last - first`` applications of the predicate.
-
-Recursive function invocations in *O(logN)* (logarithmic) depth.
+| At most ``last - first`` applications of the predicate.
+| Recursive function invocations in *O(logN)* (logarithmic) depth.
 
 Header
 ========================================
 
-``sprout/algorithm/any_of.hpp``
-
-Convenience header: ``sprout/algorithm.hpp``
+| ``sprout/algorithm/any_of.hpp``
+| Convenience header: ``sprout/algorithm.hpp``
 

@@ -14,6 +14,9 @@ Sprout.Algorithm
     none_of_equal
     one_of
     one_of_equal
+    find
+    find_if
+    find_if_not
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************

@@ -27,16 +27,21 @@ Containers and Data structures
 =======================================
 
 * :doc:`array <./sprout/array/index>` - STL compliant class template for storing fixed-size sequences of objects.
+* :doc:`string <./sprout/string/index>`
+* :doc:`tuple <./sprout/tuple/index>`
+* :doc:`optional <./sprout/optional/index>`
+* :doc:`variant <./sprout/variant/index>`
+* :doc:`bitset <./sprout/bitset/index>`
 
 .. _sprout-listed_by_category-algorithms:
 Algorithms
 =======================================
 
 * :doc:`algorithm <./sprout/algorithm/index>` - STL like generic algorithms.
-
-.. _sprout-listed_by_category-algorithms:
-Algorithms
-=======================================
+* :doc:`numeric <./sprout/numeric/index>`
+* :doc:`range_algorithm <./sprout/range/algorithm/index>`
+* :doc:`range_numeric <./sprout/range/numeric/index>`
+* :doc:`range_adaptor <./sprout/range/adaptor/index>`
 
 .. _sprout-listed_by_category-container_supports:
 Container supports
