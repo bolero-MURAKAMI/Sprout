@@ -100,13 +100,6 @@ Lexicographical comparison
 * :doc:`lexicographical_compare <./lexicographical_compare>`
 * :doc:`tristate_lexicographical_compare <./tristate_lexicographical_compare>`
 
-.. _sprout-algorithm-non_modifying-permutation:
-Permutation generators
-========================================
-
-* :doc:`next_permutation <./next_permutation>`
-* :doc:`prev_permutation <./prev_permutation>`
-
 .. _sprout-algorithm-non_modifying-clamp:
 Clamp algorithm
 ========================================
