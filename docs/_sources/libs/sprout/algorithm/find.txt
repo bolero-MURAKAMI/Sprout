@@ -29,7 +29,7 @@ Examples
   SPROUT_STATIC_CONSTEXPR auto input = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
   SPROUT_STATIC_CONSTEXPR auto result = sprout::find(begin(input), end(input), 8);
   static_assert(result != end(input), "found a element equal to 8 from input.");
-  static_assert(*result == 8, "a found iterator is pointing to 8.");
+  static_assert(result - begin(input1) == 7, "a found position is 7.");
 
 Complexity
 ========================================

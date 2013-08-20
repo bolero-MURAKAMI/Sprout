@@ -17,6 +17,9 @@ Sprout.Algorithm
     find
     find_if
     find_if_not
+    find_end
+    find_first_of
+    adjacent_find
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************
