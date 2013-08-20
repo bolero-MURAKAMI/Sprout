@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>adjacent_find &mdash; Sprout v1.0 documentation</title>
+    <title>count_if &mdash; Sprout v1.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -21,8 +21,8 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout v1.0 documentation" href="../../../index.html" />
     <link rel="up" title="Sprout.Algorithm" href="index.html" />
-    <link rel="next" title="count" href="count.html" />
-    <link rel="prev" title="find_first_of" href="find_first_of.html" /> 
+    <link rel="next" title="mismatch" href="mismatch.html" />
+    <link rel="prev" title="count" href="count.html" /> 
   </head>
   <body>
     <div class="related">
@@ -32,10 +32,10 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="count.html" title="count"
+          <a href="mismatch.html" title="mismatch"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="find_first_of.html" title="find_first_of"
+          <a href="count.html" title="count"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
@@ -49,52 +49,47 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="adjacent-find">
-<h1>adjacent_find<a class="headerlink" href="#adjacent-find" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="count-if">
+<h1>count_if<a class="headerlink" href="#count-if" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ForwardIterator</span><span class="p">,</span> <span class="k">typename</span> <span class="n">BinaryPredicate</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">ForwardIterator</span>
-<span class="n">adjacent_find</span><span class="p">(</span><span class="n">ForwardIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">ForwardIterator</span> <span class="n">last</span><span class="p">,</span> <span class="n">BinaryPredicate</span> <span class="n">pred</span><span class="p">);</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ForwardIterator</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">ForwardIterator</span>
-<span class="n">adjacent_find</span><span class="p">(</span><span class="n">ForwardIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">ForwardIterator</span> <span class="n">last</span><span class="p">);</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Predicate</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">InputIterator</span><span class="o">&gt;::</span><span class="n">difference_type</span>
+<span class="n">count_if</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIterator</span> <span class="n">last</span><span class="p">,</span> <span class="n">Predicate</span> <span class="n">pred</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">The first iterator i such that both i and i + 1 are in the range [first,last) for which the following corresponding conditions hold: <tt class="docutils literal"><span class="pre">*i</span> <span class="pre">==</span> <span class="pre">*(i</span> <span class="pre">+</span> <span class="pre">1)</span></tt>, <tt class="docutils literal"><span class="pre">pred(*i,</span> <span class="pre">*(i</span> <span class="pre">+</span> <span class="pre">1))</span></tt>.</div>
-<div class="line">Returns last if no such iterator is found.</div>
+<div class="line">The number of iterators i in the range [first,last) for which the following corresponding conditions hold: <tt class="docutils literal"><span class="pre">pred(*i)</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/algorithm/adjacent_find.hpp&gt;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/algorithm/count_if.hpp&gt;</span>
 <span class="cp">#include &lt;sprout/array.hpp&gt;</span>
 <span class="cp">#include &lt;sprout/container.hpp&gt;</span>
+<span class="cp">#include &lt;sprout/functional.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">}};</span>
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">adjacent_find</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input</span><span class="p">));</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">end</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="s">&quot;found adjacent elements equal to each other from input.&quot;</span><span class="p">);</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span> <span class="o">-</span> <span class="n">begin</span><span class="p">(</span><span class="n">input</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;a found position is 3.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">}};</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">count_if</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="n">bind2nd</span><span class="p">(</span><span class="n">modulus</span><span class="o">&lt;&gt;</span><span class="p">(),</span> <span class="mi">2</span><span class="p">));</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&quot;counted 5 elements of odd number from input.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="complexity">
 <h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">For a nonempty range, exactly <tt class="docutils literal"><span class="pre">min((i</span> <span class="pre">-</span> <span class="pre">first)</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">(last</span> <span class="pre">-</span> <span class="pre">first)</span> <span class="pre">-</span> <span class="pre">1)</span></tt> applications of the corresponding predicate, where i is adjacent_find?fs return value.</div>
+<div class="line">Exactly <tt class="docutils literal"><span class="pre">last</span> <span class="pre">-</span> <span class="pre">first</span></tt> applications of the predicate.</div>
 <div class="line">Recursive function invocations in <em>O(logN)</em> (logarithmic) depth.</div>
 </div>
 </div>
 <div class="section" id="header">
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">sprout/algorithm/adjacent_find.hpp</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/algorithm/count_if.hpp</span></tt></div>
 <div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/algorithm.hpp</span></tt></div>
 </div>
 </div>
@@ -108,7 +103,7 @@
         <div class="sphinxsidebarwrapper">
             <h3><a href="../../../index.html">Table Of Contents</a></h3>
             <ul>
-<li><a class="reference external" href="#">adjacent_find</a><ul>
+<li><a class="reference external" href="#">count_if</a><ul>
 <li><a class="reference external" href="#interface">Interface</a></li>
 <li><a class="reference external" href="#returns">Returns</a></li>
 <li><a class="reference external" href="#examples">Examples</a></li>
@@ -119,14 +114,14 @@
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="find_first_of.html"
-                                  title="previous chapter">find_first_of</a></p>
-            <h4>Next topic</h4>
             <p class="topless"><a href="count.html"
-                                  title="next chapter">count</a></p>
+                                  title="previous chapter">count</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="mismatch.html"
+                                  title="next chapter">mismatch</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
-              <li><a href="../../../_sources/libs/sprout/algorithm/adjacent_find.txt"
+              <li><a href="../../../_sources/libs/sprout/algorithm/count_if.txt"
                      rel="nofollow">Show Source</a></li>
             </ul>
           <div id="searchbox" style="display: none">
@@ -153,10 +148,10 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="count.html" title="count"
+          <a href="mismatch.html" title="mismatch"
              >next</a> |</li>
         <li class="right" >
-          <a href="find_first_of.html" title="find_first_of"
+          <a href="count.html" title="count"
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Sprout C++ Libraries</a> &raquo;</li>

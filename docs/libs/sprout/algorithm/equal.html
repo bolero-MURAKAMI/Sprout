@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>equal &mdash; Sprout v1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Sprout v1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Sprout.Algorithm" href="index.html" />
+    <link rel="next" title="is_permutation" href="is_permutation.html" />
+    <link rel="prev" title="mismatch" href="mismatch.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="is_permutation.html" title="is_permutation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mismatch.html" title="mismatch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
+          <li><a href="../../libraries.html" >Libraries</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Sprout.Algorithm</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="equal">
+<h1>equal<a class="headerlink" href="#equal" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">InputIterator2</span><span class="p">,</span> <span class="k">typename</span> <span class="n">BinaryPredicate</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
+<span class="n">equal</span><span class="p">(</span><span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">BinaryPredicate</span> <span class="n">pred</span><span class="p">);</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">InputIterator2</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
+<span class="n">equal</span><span class="p">(</span><span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">);</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">InputIterator2</span><span class="p">,</span> <span class="k">typename</span> <span class="n">BinaryPredicate</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
+<span class="n">equal</span><span class="p">(</span><span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span><span class="p">,</span> <span class="n">BinaryPredicate</span> <span class="n">pred</span><span class="p">);</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">InputIterator2</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
+<span class="n">equal</span><span class="p">(</span><span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remarks">
+<h2>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">If last2 was not given in the argument list, it denotes <tt class="docutils literal"><span class="pre">first2</span> <span class="pre">+</span> <span class="pre">(last1</span> <span class="pre">-</span> <span class="pre">first1)</span></tt> below.</div>
+</div>
+</div>
+<div class="section" id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">If <tt class="docutils literal"><span class="pre">last1</span> <span class="pre">-</span> <span class="pre">first1</span> <span class="pre">!=</span> <span class="pre">last2</span> <span class="pre">-</span> <span class="pre">first2</span></tt>, return false.</div>
+<div class="line">Otherwise return true if for every iterator i in the range [first1,last1) the following corresponding conditions hold: <tt class="docutils literal"><span class="pre">*i</span> <span class="pre">==</span> <span class="pre">*(first2</span> <span class="pre">+</span> <span class="pre">(i</span> <span class="pre">-</span> <span class="pre">first1))</span></tt>, <tt class="docutils literal"><span class="pre">pred(*i,</span> <span class="pre">*(first2</span> <span class="pre">+</span> <span class="pre">(i</span> <span class="pre">-</span> <span class="pre">first1)))</span></tt>.</div>
+<div class="line">Otherwise, returns false.</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/algorithm/equal.hpp&gt;</span>
+<span class="cp">#include &lt;sprout/array.hpp&gt;</span>
+<span class="cp">#include &lt;sprout/container.hpp&gt;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
+
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input1</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">}};</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input2</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">}};</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">equal</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input1</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input1</span><span class="p">),</span> <span class="n">begin</span><span class="p">(</span><span class="n">input2</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input2</span><span class="p">));</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&quot;input2 equals to input1.&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="complexity">
+<h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">No applications of the corresponding predicate if InputIterator1 and InputIterator2 meet the requirements of random access iterators and <tt class="docutils literal"><span class="pre">last1</span> <span class="pre">-</span> <span class="pre">first1</span> <span class="pre">!=</span> <span class="pre">last2</span> <span class="pre">-</span> <span class="pre">first2</span></tt>.</div>
+<div class="line">Otherwise, at most <tt class="docutils literal"><span class="pre">min(last1</span> <span class="pre">-</span> <span class="pre">first1,</span> <span class="pre">last2</span> <span class="pre">-</span> <span class="pre">first2)</span></tt> applications of the corresponding predicate.</div>
+<div class="line">Recursive function invocations in <em>O(logN)</em> (logarithmic) depth.</div>
+</div>
+</div>
+<div class="section" id="header">
+<h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/algorithm/equal.hpp</span></tt></div>
+<div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/algorithm.hpp</span></tt></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../../../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">equal</a><ul>
+<li><a class="reference external" href="#interface">Interface</a></li>
+<li><a class="reference external" href="#remarks">Remarks</a></li>
+<li><a class="reference external" href="#returns">Returns</a></li>
+<li><a class="reference external" href="#examples">Examples</a></li>
+<li><a class="reference external" href="#complexity">Complexity</a></li>
+<li><a class="reference external" href="#header">Header</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="mismatch.html"
+                                  title="previous chapter">mismatch</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="is_permutation.html"
+                                  title="next chapter">is_permutation</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../../_sources/libs/sprout/algorithm/equal.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="is_permutation.html" title="is_permutation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mismatch.html" title="mismatch"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
+          <li><a href="../../libraries.html" >Libraries</a> &raquo;</li>
+          <li><a href="index.html" >Sprout.Algorithm</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013, Bolero MURAKAMI.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

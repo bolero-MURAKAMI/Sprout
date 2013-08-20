@@ -20,6 +20,13 @@ Sprout.Algorithm
     find_end
     find_first_of
     adjacent_find
+    count
+    count_if
+    mismatch
+    equal
+    is_permutation
+    search
+    search_n
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************
@@ -44,6 +51,7 @@ Non-modifying sequence operations
 * :doc:`count_if <./count_if>`
 * :doc:`mismatch <./mismatch>`
 * :doc:`equal <./equal>`
+* :doc:`is_permutation <./is_permutation>`
 * :doc:`search <./search>`
 * :doc:`search_n <./search_n>`
 
@@ -98,7 +106,6 @@ Permutation generators
 
 * :doc:`next_permutation <./next_permutation>`
 * :doc:`prev_permutation <./prev_permutation>`
-* :doc:`is_permutation <./is_permutation>`
 
 .. _sprout-algorithm-non_modifying-clamp:
 Clamp algorithm
