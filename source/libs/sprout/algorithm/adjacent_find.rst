@@ -38,7 +38,7 @@ Examples
 Complexity
 ========================================
 
-| For a nonempty range, exactly ``min((i - first) + 1, (last - first) - 1)`` applications of the corresponding predicate, where i is adjacent_findÅfs return value.
+| For a nonempty range, exactly ``min((i - first) + 1, (last - first) - 1)`` applications of the corresponding predicate, where i is adjacent_find's return value.
 | Recursive function invocations in *O(logN)* (logarithmic) depth.
 
 Header
