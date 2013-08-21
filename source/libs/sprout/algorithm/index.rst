@@ -27,6 +27,8 @@ Sprout.Algorithm
     is_permutation
     search
     search_n
+    is_sorted
+    is_sorted_until
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************
