@@ -33,6 +33,10 @@ Sprout.Algorithm
     is_decreasing
     is_strictly_increasing
     is_strictly_decreasing
+    lower_bound
+    upper_bound
+    equal_range
+    binary_search
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************
