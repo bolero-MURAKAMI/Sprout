@@ -29,6 +29,10 @@ Sprout.Algorithm
     search_n
     is_sorted
     is_sorted_until
+    is_increasing
+    is_decreasing
+    is_strictly_increasing
+    is_strictly_decreasing
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************
@@ -81,8 +85,8 @@ Binary search
 Heap operations
 ========================================
 
-* :doc:`is_heap_until <./is_heap_until>`
 * :doc:`is_heap <./is_heap>`
+* :doc:`is_heap_until <./is_heap_until>`
 
 .. _sprout-algorithm-non_modifying-minmax:
 Minimum and maximum

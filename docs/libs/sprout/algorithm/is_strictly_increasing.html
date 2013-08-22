@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>is_sorted_until &mdash; Sprout v1.0 documentation</title>
+    <title>is_strictly_increasing &mdash; Sprout v1.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -21,8 +21,8 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout v1.0 documentation" href="../../../index.html" />
     <link rel="up" title="Sprout.Algorithm" href="index.html" />
-    <link rel="next" title="is_increasing" href="is_increasing.html" />
-    <link rel="prev" title="is_sorted" href="is_sorted.html" /> 
+    <link rel="next" title="is_strictly_decreasing" href="is_strictly_decreasing.html" />
+    <link rel="prev" title="is_decreasing" href="is_decreasing.html" /> 
   </head>
   <body>
     <div class="related">
@@ -32,10 +32,10 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="is_increasing.html" title="is_increasing"
+          <a href="is_strictly_decreasing.html" title="is_strictly_decreasing"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="is_sorted.html" title="is_sorted"
+          <a href="is_decreasing.html" title="is_decreasing"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
@@ -49,51 +49,45 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="is-sorted-until">
-<h1>is_sorted_until<a class="headerlink" href="#is-sorted-until" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="is-strictly-increasing">
+<h1>is_strictly_increasing<a class="headerlink" href="#is-strictly-increasing" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ForwardIterator</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">ForwardIterator</span>
-<span class="n">is_sorted_until</span><span class="p">(</span><span class="n">ForwardIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">ForwardIterator</span> <span class="n">last</span><span class="p">);</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ForwardIterator</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Compare</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">ForwardIterator</span>
-<span class="n">is_sorted_until</span><span class="p">(</span><span class="n">ForwardIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">ForwardIterator</span> <span class="n">last</span><span class="p">,</span> <span class="n">Compare</span> <span class="n">comp</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
+<span class="n">is_strictly_increasing</span><span class="p">(</span><span class="n">ForwardIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">ForwardIterator</span> <span class="n">last</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">If <tt class="docutils literal"><span class="pre">distance(first,</span> <span class="pre">last)</span> <span class="pre">&lt;</span> <span class="pre">2</span></tt>, returns last.</div>
-<div class="line">Otherwise, returns the last iterator i in [first,last] for which the range [first,i) is sorted.</div>
+<div class="line">Same as <tt class="docutils literal"><span class="pre">is_sorted(first,</span> <span class="pre">last,</span> <span class="pre">less_equal&lt;&gt;())</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/algorithm/is_sorted_until.hpp&gt;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/algorithm/is_strictly_increasing.hpp&gt;</span>
 <span class="cp">#include &lt;sprout/array.hpp&gt;</span>
 <span class="cp">#include &lt;sprout/container.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}};</span>
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">is_sorted_until</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input</span><span class="p">));</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span> <span class="o">-</span> <span class="n">begin</span><span class="p">(</span><span class="n">input</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&quot;input is sorted until position 5.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">}};</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">is_strictly_increasing</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input</span><span class="p">));</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&quot;input is strictly increasing.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="complexity">
 <h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Linear.</div>
 <div class="line">Recursive function invocations in <em>O(logN)</em> (logarithmic) depth.</div>
 </div>
 </div>
 <div class="section" id="header">
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">sprout/algorithm/is_sorted_until.hpp</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/algorithm/is_strictly_increasing.hpp</span></tt></div>
 <div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/algorithm.hpp</span></tt></div>
 </div>
 </div>
@@ -107,7 +101,7 @@
         <div class="sphinxsidebarwrapper">
             <h3><a href="../../../index.html">Table Of Contents</a></h3>
             <ul>
-<li><a class="reference external" href="#">is_sorted_until</a><ul>
+<li><a class="reference external" href="#">is_strictly_increasing</a><ul>
 <li><a class="reference external" href="#interface">Interface</a></li>
 <li><a class="reference external" href="#returns">Returns</a></li>
 <li><a class="reference external" href="#examples">Examples</a></li>
@@ -118,14 +112,14 @@
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="is_sorted.html"
-                                  title="previous chapter">is_sorted</a></p>
+            <p class="topless"><a href="is_decreasing.html"
+                                  title="previous chapter">is_decreasing</a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="is_increasing.html"
-                                  title="next chapter">is_increasing</a></p>
+            <p class="topless"><a href="is_strictly_decreasing.html"
+                                  title="next chapter">is_strictly_decreasing</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
-              <li><a href="../../../_sources/libs/sprout/algorithm/is_sorted_until.txt"
+              <li><a href="../../../_sources/libs/sprout/algorithm/is_strictly_increasing.txt"
                      rel="nofollow">Show Source</a></li>
             </ul>
           <div id="searchbox" style="display: none">
@@ -152,10 +146,10 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="is_increasing.html" title="is_increasing"
+          <a href="is_strictly_decreasing.html" title="is_strictly_decreasing"
              >next</a> |</li>
         <li class="right" >
-          <a href="is_sorted.html" title="is_sorted"
+          <a href="is_decreasing.html" title="is_decreasing"
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
