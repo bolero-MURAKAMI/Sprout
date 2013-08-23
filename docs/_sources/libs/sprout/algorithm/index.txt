@@ -37,6 +37,8 @@ Sprout.Algorithm
     upper_bound
     equal_range
     binary_search
+    is_heap
+    is_heap_until
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************
