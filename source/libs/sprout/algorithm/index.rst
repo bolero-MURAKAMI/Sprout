@@ -39,6 +39,9 @@ Sprout.Algorithm
     binary_search
     is_heap
     is_heap_until
+    min
+    max
+    minmax
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************
