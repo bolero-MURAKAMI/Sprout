@@ -23,7 +23,7 @@ namespace sprout {
 	template<typename T, typename... Types>
 	inline SPROUT_CONSTEXPR sprout::array<T, sizeof...(Types)>
 	make_array(Types&&... args) {
-		return sprout::array<T, sizeof...(Types)>{{sprout::forward<Types>(args)...}};
+		return sprout::array<T, sizeof...(Types)>{{T(sprout::forward<Types>(args))...}};
 	}
 
 	//
@@ -39,7 +39,7 @@ namespace sprout {
 			typename sprout::common_decay<Types&&...>::type,
 			sizeof...(Types)
 		> type;
-		return type{{sprout::forward<Types>(args)...}};
+		return type{{typename sprout::common_decay<Types&&...>::type(sprout::forward<Types>(args))...}};
 	}
 
 	//
