@@ -23,12 +23,12 @@ Requires
 Returns
 ========================================
 
-| ``pair<T, T>(x, y)``, where x has the smallest and y has the largest value in the initializer list.
+| ``pair<T const&, T const&>(b, a)`` if b is smaller than a, and ``pair<T const&, T const&>(a, b)`` otherwise.
 
 Remarks
 ========================================
 
-| Returns ``pair<const T&, const T&>(a, b)`` when the arguments are equivalent.
+| Returns ``pair<T const&, T const&>(a, b)`` when the arguments are equivalent.
 
 Remarks
 ========================================

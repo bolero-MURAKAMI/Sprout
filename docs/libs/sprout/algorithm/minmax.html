@@ -68,13 +68,13 @@
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">pair&lt;T,</span> <span class="pre">T&gt;(x,</span> <span class="pre">y)</span></tt>, where x has the smallest and y has the largest value in the initializer list.</div>
+<div class="line"><tt class="docutils literal"><span class="pre">pair&lt;T</span> <span class="pre">const&amp;,</span> <span class="pre">T</span> <span class="pre">const&amp;&gt;(b,</span> <span class="pre">a)</span></tt> if b is smaller than a, and <tt class="docutils literal"><span class="pre">pair&lt;T</span> <span class="pre">const&amp;,</span> <span class="pre">T</span> <span class="pre">const&amp;&gt;(a,</span> <span class="pre">b)</span></tt> otherwise.</div>
 </div>
 </div>
 <div class="section" id="remarks">
 <h2>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Returns <tt class="docutils literal"><span class="pre">pair&lt;const</span> <span class="pre">T&amp;,</span> <span class="pre">const</span> <span class="pre">T&amp;&gt;(a,</span> <span class="pre">b)</span></tt> when the arguments are equivalent.</div>
+<div class="line">Returns <tt class="docutils literal"><span class="pre">pair&lt;T</span> <span class="pre">const&amp;,</span> <span class="pre">T</span> <span class="pre">const&amp;&gt;(a,</span> <span class="pre">b)</span></tt> when the arguments are equivalent.</div>
 </div>
 </div>
 <div class="section" id="id1">
