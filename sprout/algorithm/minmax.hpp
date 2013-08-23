@@ -9,24 +9,60 @@
 #ifndef SPROUT_ALGORITHM_MINMAX_HPP
 #define SPROUT_ALGORITHM_MINMAX_HPP
 
+#include <initializer_list>
 #include <sprout/config.hpp>
 #include <sprout/utility/pair/pair.hpp>
+#include <sprout/algorithm/minmax_element.hpp>
+#include <sprout/iterator/ptr_index_iterator.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
-
 	// 25.4.7 Minimum and maximum
 	template<typename T, typename Compare>
-	inline SPROUT_CONSTEXPR sprout::pair<T, T>
+	inline SPROUT_CONSTEXPR sprout::pair<T const&, T const&>
 	minmax(T const& a, T const& b, Compare comp) {
-		return comp(b, a) ? sprout::pair<T, T>(b, a) : sprout::pair<T, T>(a, b);
+		return comp(b, a) ? sprout::pair<T const&, T const&>(b, a) : sprout::pair<T const&, T const&>(a, b);
+	}
+
+	template<typename T>
+	inline SPROUT_CONSTEXPR sprout::pair<T const&, T const&>
+	minmax(T const& a, T const& b) {
+		return sprout::minmax(a, b, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
+	}
+
+	namespace detail {
+		template<typename T, typename Iterator>
+		inline SPROUT_CONSTEXPR sprout::pair<T, T>
+		minmax_impl(sprout::pair<Iterator, Iterator> const& p) {
+			return sprout::pair<T, T>(*p.first, *p.second);
+		}
+	}	// namespace detail
+
+#ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
+	template<typename T, typename Compare>
+	inline SPROUT_CONSTEXPR sprout::pair<T, T>
+	minmax(std::initializer_list<T> t, Compare comp) {
+		return sprout::detail::minmax_impl<T>(sprout::minmax_element(sprout::ptr_index(t.begin(), 0), sprout::ptr_index(t.begin(), t.size()), comp));
 	}
 
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::pair<T, T>
-	minmax(T const& a, T const& b) {
-		return sprout::minmax(a, b, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
+	minmax(std::initializer_list<T> t) {
+		return sprout::minmax(t, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
 	}
+#else	// #ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
+	template<typename T, typename Compare>
+	inline sprout::pair<T, T>
+	minmax(std::initializer_list<T> t, Compare comp) {
+		return sprout::detail::minmax_impl<T>(sprout::minmax_element(sprout::ptr_index(t.begin(), 0), sprout::ptr_index(t.begin(), t.size()), comp));
+	}
+
+	template<typename T>
+	inline sprout::pair<T, T>
+	minmax(std::initializer_list<T> t) {
+		return sprout::minmax(t, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
+	}
+#endif	// #ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_MINMAX_HPP
