@@ -43,8 +43,8 @@
 #include <sprout/algorithm/equal_range.hpp>
 #include <sprout/algorithm/binary_search.hpp>
 #include <sprout/algorithm/includes.hpp>
-#include <sprout/algorithm/is_heap_until.hpp>
 #include <sprout/algorithm/is_heap.hpp>
+#include <sprout/algorithm/is_heap_until.hpp>
 #include <sprout/algorithm/min.hpp>
 #include <sprout/algorithm/max.hpp>
 #include <sprout/algorithm/minmax.hpp>
