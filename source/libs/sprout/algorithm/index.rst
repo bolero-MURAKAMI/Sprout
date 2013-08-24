@@ -42,6 +42,9 @@ Sprout.Algorithm
     min
     max
     minmax
+    min_element
+    max_element
+    minmax_element
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************

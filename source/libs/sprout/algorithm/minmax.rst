@@ -80,7 +80,7 @@ Remarks
 
 | x is a copy of the leftmost argument when several arguments are equivalent to the smallest.
 | y is a copy of the rightmost argument when several arguments are equivalent to the largest.
-| If an implementation not support C++14 initializer_list (SPROUT_NO_CXX14_INITIALIZER_LIST defined), then this function is not specified constexpr.
+| If an implementation not support C++14 initializer_list (``SPROUT_NO_CXX14_INITIALIZER_LIST`` defined), then this function is not specified constexpr.
 
 Complexity
 ========================================
