@@ -14,7 +14,7 @@ Interface
 Returns
 ========================================
 
-| *true* if [first,last) is empty or if ``*i == value`` is false for every iterator i in the range [first,last), and *false* otherwise.
+| true if [first,last) is empty or if ``*i == value`` is false for every iterator i in the range [first,last), and false otherwise.
 
 Examples
 ========================================

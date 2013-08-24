@@ -45,6 +45,9 @@ Sprout.Algorithm
     min_element
     max_element
     minmax_element
+    lexicographical_compare
+    tristate_lexicographical_compare
+    clamp
 
 .. _sprout-algorithm-non_modifying:
 *******************************************************************************

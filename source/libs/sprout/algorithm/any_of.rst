@@ -14,7 +14,7 @@ Interface
 Returns
 ========================================
 
-| *false* if [first,last) is empty or if there is no iterator i in the range [first,last) such that ``pred(*i)`` is true, and *true* otherwise.
+| false if [first,last) is empty or if there is no iterator i in the range [first,last) such that ``pred(*i)`` is true, and true otherwise.
 
 Examples
 ========================================
