@@ -50,31 +50,46 @@
             
   <div class="section" id="id1">
 <h1>Sprout.Array<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="interface">
-<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">array</span><span class="p">;</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">sprout</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">sprout</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">rhs</span><span class="p">)));</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">sprout</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span> <span class="n">to_array</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span> <span class="p">(</span><span class="o">&amp;</span> <span class="n">arr</span><span class="p">)[</span><span class="n">N</span><span class="p">]);</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><a class="reference external" href="array/index.html"><em>array</em></a></li>
-</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">class</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><a class="reference external" href="array/index.html"><em>array</em></a></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="non-member-functions">
 <h2>Non-member functions<a class="headerlink" href="#non-member-functions" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><tt class="xref docutils literal"><span class="pre">swap</span></tt></li>
-<li><tt class="xref docutils literal"><span class="pre">to_array</span></tt></li>
-</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="xref docutils literal"><span class="pre">swap</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">to_array</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="header">
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
@@ -91,7 +106,6 @@
             <h3><a href="../../../index.html">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="#">Sprout.Array</a><ul>
-<li><a class="reference external" href="#interface">Interface</a></li>
 <li><a class="reference external" href="#classes">Classes</a></li>
 <li><a class="reference external" href="#non-member-functions">Non-member functions</a></li>
 <li><a class="reference external" href="#header">Header</a></li>

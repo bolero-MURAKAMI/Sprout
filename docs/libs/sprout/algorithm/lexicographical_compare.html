@@ -56,17 +56,17 @@
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">InputIterator2</span><span class="o">&gt;</span>
 <span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
 <span class="n">lexicographical_compare</span><span class="p">(</span>
-      <span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span>
-      <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span>
-      <span class="p">);</span>
+  <span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span>
+  <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span>
+  <span class="p">);</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">InputIterator2</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Compare</span><span class="o">&gt;</span>
 <span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
 <span class="n">lexicographical_compare</span><span class="p">(</span>
-      <span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span>
-      <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span><span class="p">,</span>
-      <span class="n">Compare</span> <span class="n">comp</span>
-      <span class="p">);</span>
+  <span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span>
+  <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span><span class="p">,</span>
+  <span class="n">Compare</span> <span class="n">comp</span>
+  <span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -84,8 +84,8 @@
 <div class="line">Otherwise, the lexicographical comparison of the sequences yields the same result as the comparison of the first corresponding pair of elements that are not equivalent.</div>
 </div>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">for</span> <span class="p">(;</span> <span class="n">first1</span> <span class="o">!=</span> <span class="n">last1</span> <span class="o">&amp;&amp;</span> <span class="n">first2</span> <span class="o">!=</span> <span class="n">last2</span><span class="p">;</span> <span class="o">++</span><span class="n">first1</span><span class="p">,</span> <span class="o">++</span><span class="n">first2</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">first1</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">first2</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">first2</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">first1</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">first1</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">first2</span><span class="p">)</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">first2</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">first1</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="k">return</span> <span class="n">first1</span> <span class="o">==</span> <span class="n">last1</span> <span class="o">&amp;&amp;</span> <span class="n">first2</span> <span class="o">!=</span> <span class="n">last2</span><span class="p">;</span>
 </pre></div>

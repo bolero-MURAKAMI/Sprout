@@ -10,17 +10,17 @@ Interface
   template<typename InputIterator1, typename ForwardIterator2>
   inline SPROUT_CONSTEXPR InputIterator1
   find_first_of(
-  	InputIterator1 first1, InputIterator1 last1,
-  	ForwardIterator2 first2, ForwardIterator2 last2
-  	);
+    InputIterator1 first1, InputIterator1 last1,
+    ForwardIterator2 first2, ForwardIterator2 last2
+    );
   
   template<typename InputIterator1, typename ForwardIterator2, typename BinaryPredicate>
   inline SPROUT_CONSTEXPR InputIterator1
   find_first_of(
-  	InputIterator1 first1, InputIterator1 last1,
-  	ForwardIterator2 first2, ForwardIterator2 last2,
-  	BinaryPredicate pred
-  	);
+    InputIterator1 first1, InputIterator1 last1,
+    ForwardIterator2 first2, ForwardIterator2 last2,
+    BinaryPredicate pred
+    );
 
 Effects
 ========================================

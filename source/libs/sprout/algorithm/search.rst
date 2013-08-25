@@ -10,17 +10,17 @@ Interface
   template<typename ForwardIterator1, typename ForwardIterator2>
   inline SPROUT_CONSTEXPR ForwardIterator1
   search(
-  	ForwardIterator1 first1, ForwardIterator1 last1,
-  	ForwardIterator2 first2, ForwardIterator2 last2
-  	);
+    ForwardIterator1 first1, ForwardIterator1 last1,
+    ForwardIterator2 first2, ForwardIterator2 last2
+    );
 
   template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
   inline SPROUT_CONSTEXPR ForwardIterator1
   search(
-  	ForwardIterator1 first1, ForwardIterator1 last1,
-  	ForwardIterator2 first2, ForwardIterator2 last2,
-  	BinaryPredicate pred
-  	);
+    ForwardIterator1 first1, ForwardIterator1 last1,
+    ForwardIterator2 first2, ForwardIterator2 last2,
+    BinaryPredicate pred
+    );
 
 Effects
 ========================================

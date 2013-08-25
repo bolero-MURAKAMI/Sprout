@@ -10,17 +10,17 @@ Interface
   template<typename InputIterator1, typename InputIterator2>
   inline SPROUT_CONSTEXPR bool
   lexicographical_compare(
-  	InputIterator1 first1, InputIterator1 last1,
-  	InputIterator2 first2, InputIterator2 last2
-  	);
+    InputIterator1 first1, InputIterator1 last1,
+    InputIterator2 first2, InputIterator2 last2
+    );
   
   template<typename InputIterator1, typename InputIterator2, typename Compare>
   inline SPROUT_CONSTEXPR bool
   lexicographical_compare(
-  	InputIterator1 first1, InputIterator1 last1,
-  	InputIterator2 first2, InputIterator2 last2,
-  	Compare comp
-  	);
+    InputIterator1 first1, InputIterator1 last1,
+    InputIterator2 first2, InputIterator2 last2,
+    Compare comp
+    );
 
 Returns
 ========================================
@@ -37,8 +37,8 @@ Remarks
 .. sourcecode:: c++
 
   for (; first1 != last1 && first2 != last2; ++first1, ++first2) {
-  	if (*first1 < *first2) return true;
-  	if (*first2 < *first1) return false;
+      if (*first1 < *first2) return true;
+      if (*first2 < *first1) return false;
   }
   return first1 == last1 && first2 != last2;
 

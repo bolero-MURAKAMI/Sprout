@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cbegin &mdash; Sprout v1.0 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="top" title="Sprout v1.0 documentation" href="../../../../index.html" />
+    <link rel="up" title="Class template array" href="index.html" />
+    <link rel="next" title="crbegin" href="crbegin.html" />
+    <link rel="prev" title="cbegin" href="cbegin.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="crbegin.html" title="crbegin"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cbegin.html" title="cbegin"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
+          <li><a href="../../../libraries.html" >Libraries</a> &raquo;</li>
+          <li><a href="../index.html" >Sprout.Array</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Class template array</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cbegin">
+<h1>cbegin<a class="headerlink" href="#cbegin" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">cbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">iterator for position after the last element always const.</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/array.hpp&gt;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
+
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">}};</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">cbegin</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;input last element is 10.&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="complexity">
+<h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Recursive function invocations in <em>O(1)</em> (constant) depth.</div>
+</div>
+</div>
+<div class="section" id="header">
+<h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/array/array.hpp</span></tt></div>
+<div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/array.hpp</span></tt></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../../../../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">cbegin</a><ul>
+<li><a class="reference external" href="#interface">Interface</a></li>
+<li><a class="reference external" href="#returns">Returns</a></li>
+<li><a class="reference external" href="#examples">Examples</a></li>
+<li><a class="reference external" href="#complexity">Complexity</a></li>
+<li><a class="reference external" href="#header">Header</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="cbegin.html"
+                                  title="previous chapter">cbegin</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="crbegin.html"
+                                  title="next chapter">crbegin</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../../../_sources/libs/sprout/array/array/cend.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="crbegin.html" title="crbegin"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cbegin.html" title="cbegin"
+             >previous</a> |</li>
+        <li><a href="../../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
+          <li><a href="../../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
+          <li><a href="../../../libraries.html" >Libraries</a> &raquo;</li>
+          <li><a href="../index.html" >Sprout.Array</a> &raquo;</li>
+          <li><a href="index.html" >Class template array</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013, Bolero MURAKAMI.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

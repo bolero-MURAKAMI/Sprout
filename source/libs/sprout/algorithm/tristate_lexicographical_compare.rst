@@ -10,17 +10,17 @@ Interface
   template<typename InputIterator1, typename InputIterator2>
   inline SPROUT_CONSTEXPR int
   tristate_lexicographical_compare(
-  	InputIterator1 first1, InputIterator1 last1,
-  	InputIterator2 first2, InputIterator2 last2
-  	);
+    InputIterator1 first1, InputIterator1 last1,
+    InputIterator2 first2, InputIterator2 last2
+    );
   
   template<typename InputIterator1, typename InputIterator2, typename Compare>
   inline SPROUT_CONSTEXPR int
   tristate_lexicographical_compare(
-  	InputIterator1 first1, InputIterator1 last1,
-  	InputIterator2 first2, InputIterator2 last2,
-  	Compare comp
-  	);
+    InputIterator1 first1, InputIterator1 last1,
+    InputIterator2 first2, InputIterator2 last2,
+    Compare comp
+    );
 
 Returns
 ========================================
