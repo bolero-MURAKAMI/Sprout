@@ -16,7 +16,7 @@
 namespace sprout {
 
 	// 20.8.5 Comparisons
-	template<typename T>
+	template<typename T = void>
 	struct less_equal {
 	public:
 		typedef T first_argument_type;
