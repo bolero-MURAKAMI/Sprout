@@ -132,24 +132,6 @@ namespace sprout {
 		}
 
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR bool
-		equal2_impl_ra(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred,
-			typename std::iterator_traits<RandomAccessIterator1>::difference_type pivot
-			)
-		{
-			return pivot == 0 ? pred(*first1, *first2)
-				: sprout::detail::equal2_impl_ra(
-					first1, sprout::next(first1, pivot), first2, sprout::next(first2, pivot), pred,
-					pivot / 2
-					)
-					&& sprout::detail::equal2_impl_ra(
-						sprout::next(first1, pivot), last1, sprout::next(first2, pivot), last2, pred,
-						(sprout::distance(first1, last1) - pivot) / 2
-						)
-				;
-		}
-		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::is_constant_distance_iterator<RandomAccessIterator1>::value && sprout::is_constant_distance_iterator<RandomAccessIterator2>::value,
 			bool
@@ -160,10 +142,13 @@ namespace sprout {
 			)
 		{
 			return sprout::distance(first1, last1) == sprout::distance(first2, last2)
-				&& sprout::detail::equal2_impl_ra(
-					first1, last1, first2, last2, pred,
-					sprout::distance(first1, last1) / 2
-					)
+				&& (
+					sprout::distance(first1, last1) == 0
+					|| sprout::detail::equal_impl_ra(
+						first1, last1, first2, pred,
+						sprout::distance(first1, last1) / 2
+						)
+				   )
 				;
 		}
 
