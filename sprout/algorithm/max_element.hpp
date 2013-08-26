@@ -18,9 +18,9 @@
 
 namespace sprout {
 	namespace detail {
-		template<typename InputIterator, typename Compare>
-		inline SPROUT_CONSTEXPR InputIterator
-		iter_max(InputIterator a, InputIterator b, Compare comp) {
+		template<typename ForwardIterator, typename Compare>
+		inline SPROUT_CONSTEXPR ForwardIterator
+		iter_max(ForwardIterator a, ForwardIterator b, Compare comp) {
 			return comp(*a, *b) ? b : a;
 		}
 

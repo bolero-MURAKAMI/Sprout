@@ -19,20 +19,20 @@
 
 namespace sprout {
 	namespace detail {
-		template<typename InputIteratorPair, typename Compare>
-		inline SPROUT_CONSTEXPR InputIteratorPair
-		iter_minmax_pair(InputIteratorPair const& a, InputIteratorPair const& b, Compare comp) {
-			return InputIteratorPair(
+		template<typename ForwardIteratorPair, typename Compare>
+		inline SPROUT_CONSTEXPR ForwardIteratorPair
+		iter_minmax_pair(ForwardIteratorPair const& a, ForwardIteratorPair const& b, Compare comp) {
+			return ForwardIteratorPair(
 				comp(*sprout::first(b), *sprout::first(a)) ? sprout::first(b) : sprout::first(a),
-				comp(*sprout::second(a), *sprout::second(b)) ? sprout::second(b) : sprout::second(a)
+				comp(*sprout::second(b), *sprout::second(a)) ? sprout::second(a) : sprout::second(b)
 				);
 		}
-		template<typename InputIteratorPair, typename InputIterator, typename Compare>
-		inline SPROUT_CONSTEXPR InputIteratorPair
-		iter_minmax(InputIteratorPair const& a, InputIterator b, Compare comp) {
-			return InputIteratorPair(
+		template<typename ForwardIteratorPair, typename ForwardIterator, typename Compare>
+		inline SPROUT_CONSTEXPR ForwardIteratorPair
+		iter_minmax(ForwardIteratorPair const& a, ForwardIterator b, Compare comp) {
+			return ForwardIteratorPair(
 				comp(*b, *sprout::first(a)) ? b : sprout::first(a),
-				comp(*sprout::second(a), *b) ? b : sprout::second(a)
+				comp(*sprout::second(b), *a) ? a : sprout::second(b)
 				);
 		}
 
