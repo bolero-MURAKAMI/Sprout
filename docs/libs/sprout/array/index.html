@@ -21,7 +21,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout v1.0 documentation" href="../../../index.html" />
     <link rel="up" title="Libraries" href="../../libraries.html" />
-    <link rel="next" title="Class template array" href="array/index.html" />
+    <link rel="next" title="array" href="array/index.html" />
     <link rel="prev" title="Libraries" href="../../libraries.html" /> 
   </head>
   <body>
@@ -32,7 +32,7 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="array/index.html" title="Class template array"
+          <a href="array/index.html" title="array"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../../libraries.html" title="Libraries"
@@ -47,8 +47,18 @@
             <h3><a href="../../../index.html">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="#">Sprout.Array</a><ul>
+<li><a class="reference external" href="#description">Description</a><ul>
 <li><a class="reference external" href="#classes">Classes</a></li>
-<li><a class="reference external" href="#non-member-functions">Non-member functions</a></li>
+<li><a class="reference external" href="#non-member-functions">Non-member functions</a><ul>
+<li><a class="reference external" href="#generators">generators</a></li>
+<li><a class="reference external" href="#specialized-algorithms">specialized algorithms</a></li>
+<li><a class="reference external" href="#comparisons">comparisons</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#tuple-interface">Tuple interface</a></li>
+<li><a class="reference external" href="#hash-support">Hash support</a></li>
+</ul>
+</li>
 <li><a class="reference external" href="#header">Header</a></li>
 </ul>
 </li>
@@ -59,7 +69,7 @@
                                   title="previous chapter">Libraries</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="array/index.html"
-                                  title="next chapter">Class template array</a></p>
+                                  title="next chapter">array</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../../../_sources/libs/sprout/array/index.txt"
@@ -88,8 +98,10 @@
             
   <div class="section" id="id1">
 <h1>Sprout.Array<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
 <col width="34%" />
@@ -108,7 +120,34 @@
 </table>
 </div>
 <div class="section" id="non-member-functions">
-<h2>Non-member functions<a class="headerlink" href="#non-member-functions" title="Permalink to this headline">¶</a></h2>
+<h3>Non-member functions<a class="headerlink" href="#non-member-functions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="generators">
+<h4>generators<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="xref docutils literal"><span class="pre">to_array</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">make_array</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">make_common_array</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="specialized-algorithms">
+<h4>specialized algorithms<a class="headerlink" href="#specialized-algorithms" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="34%" />
@@ -123,11 +162,101 @@
 <tr><td><tt class="xref docutils literal"><span class="pre">swap</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><tt class="xref docutils literal"><span class="pre">to_array</span></tt></td>
+</tbody>
+</table>
+</div>
+<div class="section" id="comparisons">
+<h4>comparisons<a class="headerlink" href="#comparisons" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="xref docutils literal"><span class="pre">operator==</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">operator!=</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">operator＜</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">operator＞</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">operator＜=</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">operator＞=</span></tt></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="section" id="tuple-interface">
+<h3>Tuple interface<a class="headerlink" href="#tuple-interface" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">matafunction</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="xref docutils literal"><span class="pre">std::tuple_size</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><tt class="xref docutils literal"><span class="pre">std::tuple_element</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="xref docutils literal"><span class="pre">tuple_get</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="hash-support">
+<h3>Hash support<a class="headerlink" href="#hash-support" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="xref docutils literal"><span class="pre">hash_value</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section" id="header">
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
@@ -148,7 +277,7 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="array/index.html" title="Class template array"
+          <a href="array/index.html" title="array"
              >next</a> |</li>
         <li class="right" >
           <a href="../../libraries.html" title="Libraries"

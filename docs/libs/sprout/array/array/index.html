@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Class template array &mdash; Sprout v1.0 documentation</title>
+    <title>array &mdash; Sprout v1.0 documentation</title>
     <link rel="stylesheet" href="../../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -47,12 +47,13 @@
         <div class="sphinxsidebarwrapper">
             <h3><a href="../../../../index.html">Table Of Contents</a></h3>
             <ul>
-<li><a class="reference external" href="#">Class template array</a><ul>
+<li><a class="reference external" href="#">array</a><ul>
 <li><a class="reference external" href="#interface">Interface</a></li>
 <li><a class="reference external" href="#description">Description</a><ul>
 <li><a class="reference external" href="#member-types">Member types</a></li>
 <li><a class="reference external" href="#member-functions">Member functions</a><ul>
 <li><a class="reference external" href="#initializer">(initializer)</a></li>
+<li><a class="reference external" href="#construct-copy-destroy">construct/copy/destroy</a></li>
 <li><a class="reference external" href="#modifiers">modifiers</a></li>
 <li><a class="reference external" href="#iterators">iterators</a></li>
 <li><a class="reference external" href="#capacity">capacity</a></li>
@@ -98,8 +99,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="class-template-array">
-<h1>Class template array<a class="headerlink" href="#class-template-array" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="array">
+<h1>array<a class="headerlink" href="#array" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
@@ -197,14 +198,12 @@
 <td>&nbsp;</td>
 </tr>
 <tr><td>iterator</td>
-<td><em>implementation-defined</em>,
-<strong>ConstexprRandomAccessIterator</strong></td>
+<td><strong>ConstexprRandomAccessIterator</strong></td>
 <td>convertible to const_iterator,
 convertible to pointer</td>
 </tr>
 <tr><td>const_iterator</td>
-<td><em>implementation-defined</em>,
-<strong>ConstexprRandomAccessIterator</strong></td>
+<td><strong>ConstexprRandomAccessIterator</strong></td>
 <td>convertible to const_pointer</td>
 </tr>
 <tr><td>size_type</td>
@@ -256,6 +255,25 @@ convertible to pointer</td>
 </thead>
 <tbody valign="top">
 <tr><td><a class="reference external" href="initializer-.html"><em>(initializer)</em></a></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="construct-copy-destroy">
+<h4>construct/copy/destroy<a class="headerlink" href="#construct-copy-destroy" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><a class="reference external" href="operator-assign.html"><em>operator=</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>

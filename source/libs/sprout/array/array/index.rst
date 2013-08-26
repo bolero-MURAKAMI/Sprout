@@ -1,6 +1,6 @@
 .. _sprout-array-array:
 ###############################################################################
-Class template array
+array
 ###############################################################################
 
 .. toctree::
@@ -111,10 +111,9 @@ type                                     definition                             
 ======================================== =============================================================================== =======================================
 reference                                T&
 const_reference                          T const&
-iterator                                 *implementation-defined*,                                                       convertible to const_iterator,
-                                         **ConstexprRandomAccessIterator**                                               convertible to pointer
-const_iterator                           *implementation-defined*,                                                       convertible to const_pointer
-                                         **ConstexprRandomAccessIterator**
+iterator                                 **ConstexprRandomAccessIterator**                                               convertible to const_iterator,
+                                                                                                                         convertible to pointer
+const_iterator                           **ConstexprRandomAccessIterator**                                               convertible to const_pointer
 size_type                                std::size_t
 difference_type                          std::ptrdiff_t
 value_type                               T
@@ -136,6 +135,15 @@ Member functions
 function
 ======================================== ===============================================================================
 :doc:`(initializer) <./initializer->`
+======================================== ===============================================================================
+
+construct/copy/destroy
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+======================================== ===============================================================================
+function
+======================================== ===============================================================================
+:doc:`operator= <./operator-assign>`
 ======================================== ===============================================================================
 
 modifiers
