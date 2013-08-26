@@ -32,7 +32,7 @@ namespace sprout {
 		iter_minmax(ForwardIteratorPair const& a, ForwardIterator b, Compare comp) {
 			return ForwardIteratorPair(
 				comp(*b, *sprout::first(a)) ? b : sprout::first(a),
-				comp(*sprout::second(b), *a) ? a : sprout::second(b)
+				comp(*b, *sprout::second(a)) ? sprout::second(a) : b
 				);
 		}
 
