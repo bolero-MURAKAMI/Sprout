@@ -150,33 +150,13 @@ namespace sprout {
 	namespace detail {
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR RandomAccessIterator1
-		mismatch2_impl_ra_1(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred,
-			typename std::iterator_traits<RandomAccessIterator1>::difference_type pivot, RandomAccessIterator1 found
-			)
-		{
-			return found != first1 ? found
-				: pivot == 0 ? (!pred(*first1, *first2) ? first1 : last1)
-				: sprout::detail::mismatch2_impl_ra_1(
-					sprout::next(first1, pivot), last1, sprout::next(first2, pivot), last2, pred,
-					(sprout::distance(first1, last1) - pivot) / 2,
-					sprout::detail::mismatch2_impl_ra_1(
-						first1, sprout::next(first1, pivot), first2, sprout::next(first2, pivot), pred,
-						pivot / 2,
-						first1
-						)
-					)
-				;
-		}
-		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR RandomAccessIterator1
 		mismatch2_impl_ra(
-			RandomAccessIterator1 first1, RandomAccessIterator1, RandomAccessIterator2 first2, RandomAccessIterator2, BinaryPredicate pred,
+			RandomAccessIterator1 first1, RandomAccessIterator2 first2, BinaryPredicate pred,
 			typename std::iterator_traits<RandomAccessIterator1>::difference_type size
 			)
 		{
-			return sprout::detail::mismatch2_impl_ra_1(
-				first1, sprout::next(first1, size), first2, sprout::next(first2, size), pred,
+			return sprout::detail::mismatch_impl_ra(
+				first1, sprout::next(first1, size), first2, pred,
 				size / 2, first1
 				);
 		}
@@ -194,7 +174,7 @@ namespace sprout {
 				: sprout::detail::mismatch_impl_check(
 					first1, first2,
 					sprout::detail::mismatch2_impl_ra(
-						first1, last1, first2, last2, pred,
+						first1, first2, pred,
 						NS_SSCRISK_CEL_OR_SPROUT::min(sprout::distance(first1, last1), sprout::distance(first2, last2))
 						)
 					)
