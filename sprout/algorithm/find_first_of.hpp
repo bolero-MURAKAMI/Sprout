@@ -14,7 +14,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
 #include <sprout/functional/equal_to.hpp>
-#include <sprout/functional/bind2nd.hpp>
+#include <sprout/functional/bind1st.hpp>
 #include <sprout/algorithm/find_if.hpp>
 #include <sprout/utility/pair/pair.hpp>
 
@@ -30,7 +30,7 @@ namespace sprout {
 			)
 		{
 			return found != first1 ? found
-				: pivot == 0 ? sprout::find_if(first2, last2, sprout::bind2nd(pred, *first1)) != last2 ? first1 : last1
+				: pivot == 0 ? sprout::find_if(first2, last2, sprout::bind1st(pred, *first1)) != last2 ? first1 : last1
 				: sprout::detail::find_first_of_impl_ra(
 					sprout::next(first1, pivot), last1, first2, last2, pred,
 					(sprout::distance(first1, last1) - pivot) / 2,
@@ -72,7 +72,7 @@ namespace sprout {
 		{
 			typedef sprout::pair<InputIterator1, bool> type;
 			return current.second || current.first == last1 ? current
-				: n == 1 ? sprout::find_if(first2, last2, sprout::bind2nd(pred, *current.first)) != last2
+				: n == 1 ? sprout::find_if(first2, last2, sprout::bind1st(pred, *current.first)) != last2
 					? type(current.first, true)
 					: type(sprout::next(current.first), false)
 				: sprout::detail::find_first_of_impl_1(
