@@ -51,7 +51,7 @@ Examples
 Complexity
 ========================================
 
-| At most ``(last2 - first2) * (last1 - first1 - (last2 - first2) + 1)`` applications of the corresponding predicate.
+| At most ``(last1 - first1) * (last2 - first2)`` applications of the corresponding predicate.
 | Recursive function invocations in *O(logN)* (logarithmic) depth.
 
 Header
