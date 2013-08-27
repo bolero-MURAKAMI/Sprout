@@ -143,7 +143,7 @@ namespace sprout {
 		{
 			return sprout::distance(first1, last1) == sprout::distance(first2, last2)
 				&& (
-					sprout::distance(first1, last1) == 0
+					first1 == last1
 					|| sprout::detail::equal_impl_ra(
 						first1, last1, first2, pred,
 						sprout::distance(first1, last1) / 2
