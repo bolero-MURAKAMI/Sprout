@@ -101,7 +101,7 @@ namespace sprout {
 			BidirectionalIterator2 first2, BidirectionalIterator2 last2
 			)
 		{
-			return sprout::detail::search_one(first1, last1, first2, last2, sprout::equal_to<>());
+			return sprout::detail::search_one_rev(first1, last1, first2, last2, sprout::equal_to<>());
 		}
 	}	// namespace detail
 }	// namespace sprout
