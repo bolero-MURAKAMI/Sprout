@@ -21,6 +21,7 @@ Library Documentation
 *******************************************************************************
 
 | The starting point for the documentation of individual libraries is the :doc:`Libraries page <./libraries>`, which gives a brief description of each library and links to its documentation.
+| 
 
 .. _sprout-project:
 *******************************************************************************
@@ -29,6 +30,7 @@ Project page
 
 * `Project page <http://bolero-murakami.github.io/Sprout/>`_
 * `Repository (Github) <https://github.com/bolero-MURAKAMI/Sprout/>`_
+* `Wiki (japanese) <http://www.boleros.x0.com/doc/sproutwiki/>`_
 
 .. _sprout-install:
 *******************************************************************************
