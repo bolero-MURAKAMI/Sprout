@@ -9,7 +9,7 @@ Interface
 
   void swap(array& y) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
 
-Returns
+Effects
 ========================================
 
 | ``swap_ranges(begin(), end(), y.begin())``.
@@ -35,7 +35,7 @@ Examples
 Complexity
 ========================================
 
-| Linear.
+| linear in N.
 | Recursive function invocations in *O(1)* (constant) depth.
 
 Header
