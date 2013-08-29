@@ -15,12 +15,12 @@ Interface
 Effects
 ========================================
 
-| ``lhs.swap(y)``.
+| ``lhs.swap(rhs)``.
 
 Throws
 ========================================
 
-| Nothing unless ``lhs.swap(y)`` throws an exception.
+| Nothing unless ``lhs.swap(rhs)`` throws an exception.
 
 Examples
 ========================================
@@ -39,7 +39,6 @@ Complexity
 ========================================
 
 | linear in N.
-| Recursive function invocations in *O(1)* (constant) depth.
 
 Header
 ========================================

@@ -36,7 +36,6 @@ Complexity
 ========================================
 
 | linear in N.
-| Recursive function invocations in *O(1)* (constant) depth.
 
 Header
 ========================================
