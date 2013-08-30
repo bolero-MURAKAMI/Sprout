@@ -27,7 +27,7 @@ namespace sprout {
 		return first == last ? last
 			: sprout::next(first) == last ? !comp(value, *first) ? last : first
 			: !comp(value, *sprout::next(first, sprout::distance(first, last) / 2))
-				? sprout::upper_bound(sprout::next(first, sprout::distance(first, last) / 2), last, value, comp)
+				? sprout::upper_bound(sprout::next(first, sprout::distance(first, last) / 2 + 1), last, value, comp)
 			: sprout::upper_bound(first, sprout::next(first, sprout::distance(first, last) / 2), value, comp)
 			;
 	}
@@ -37,7 +37,7 @@ namespace sprout {
 	upper_bound(ForwardIterator first, ForwardIterator last, T const& value) {
 		return sprout::upper_bound(
 			first, last, value,
-			NS_SSCRISK_CEL_OR_SPROUT::less<typename std::iterator_traits<ForwardIterator>::value_type>()
+			NS_SSCRISK_CEL_OR_SPROUT::less<>()
 			);
 	}
 }	// namespace sprout
