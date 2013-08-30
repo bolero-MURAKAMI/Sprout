@@ -12,7 +12,7 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/operation.hpp>
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
+#include <sprout/functional/less.hpp>
 
 namespace sprout {
 
@@ -35,10 +35,7 @@ namespace sprout {
 	template<typename ForwardIterator, typename T>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	upper_bound(ForwardIterator first, ForwardIterator last, T const& value) {
-		return sprout::upper_bound(
-			first, last, value,
-			NS_SSCRISK_CEL_OR_SPROUT::less<>()
-			);
+		return sprout::upper_bound(first, last, value, sprout::less<>());
 	}
 }	// namespace sprout
 
