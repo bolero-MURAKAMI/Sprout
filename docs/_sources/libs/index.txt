@@ -1,69 +1,130 @@
-.. _sprout:
+.. _sprout-libraries:
 ###############################################################################
-Sprout C++ Libraries
+Libraries
 ###############################################################################
 
 .. toctree::
-    :maxdepth: 1
+    :hidden:
 
-    libraries
+    array/index
+    algorithm/index
 
-.. _sprout-welcome:
+.. _sprout-listed_by_alphabetically:
 *******************************************************************************
-Welcome to the Sprout C++ Libraries
-*******************************************************************************
-
-| C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, Synthesizer, and others.
-
-.. _sprout-documentation:
-*******************************************************************************
-Library Documentation
+Libraries Listed Alphabetically
 *******************************************************************************
 
-| The starting point for the documentation of individual libraries is the :doc:`Libraries page <./libraries>`, which gives a brief description of each library and links to its documentation.
-| 
+* :doc:`algorithm <./algorithm/index>` - Standard library like generic algorithms.
+* :doc:`array <./array/index>` - Standard library compliant class template for storing fixed-size sequences of objects.
 
-.. _sprout-project:
+.. _sprout-listed_by_category:
 *******************************************************************************
-Project page
-*******************************************************************************
-
-* `Project page <http://bolero-murakami.github.io/Sprout/>`_
-* `Repository (Github) <https://github.com/bolero-MURAKAMI/Sprout/>`_
-* `Wiki (japanese) <http://www.boleros.x0.com/doc/sproutwiki/>`_
-
-.. _sprout-install:
-*******************************************************************************
-Install
+Libraries Listed by Category
 *******************************************************************************
 
-| Through the path to the directory. ``/path/to/sprout``
-| This library can be used in the header only.
+.. _sprout-listed_by_category-containers:
+Containers and Data structures
+=======================================
 
-.. _sprout-compilers:
-*******************************************************************************
-Supported Compilers
-*******************************************************************************
+* :doc:`array <./array/index>` - Standard library compliant class template for storing fixed-size sequences of objects.
+* :doc:`string <./string/index>` - Compile-time string of fixed-length buffer.
+* :doc:`tuple <./tuple/index>`
+* :doc:`optional <./optional/index>`
+* :doc:`variant <./variant/index>`
+* :doc:`bitset <./bitset/index>`
 
-Linux:
+.. _sprout-listed_by_category-algorithms:
+Algorithms
+=======================================
 
-* GCC, C++11 mode: 4.7.0, 4.7.1, 4.7.2, 4.7.3, 4.8.0, 4.8.1
-* Clang, C++11 mode: 3.2, 3.3
+* :doc:`algorithm <./algorithm/index>` - Standard library like generic algorithms.
+* :doc:`numeric <./numeric/index>`
+* :doc:`range_algorithm <./range/algorithm/index>`
+* :doc:`range_numeric <./range/numeric/index>`
+* :doc:`range_adaptor <./range/adaptor/index>`
 
-.. _sprout-author:
-*******************************************************************************
-Author
-*******************************************************************************
+.. _sprout-listed_by_category-container_supports:
+Container supports
+=======================================
 
-| Bolero MURAKAMI `(Mail) <contact-lib@boleros.x0.com>`_
-| `[Website] <http://bolero-murakami.github.io/>`_ `[Twitter] <https://twitter.com/bolero_murakami>`_ `[Facebook] <http://www.facebook.com/genya.murakami>`_ `[Blog] <http://d.hatena.ne.jp/boleros/>`_ `[Github] <https://github.com/bolero-MURAKAMI>`_ `[SlideShare] <http://www.slideshare.net/GenyaMurakami>`_
+* :doc:`sub_array <./sub_array/index>`
+* :doc:`pit <./pit/index>`
+* :doc:`operation <./operation/index>`
+* :doc:`container <./container/index>`
 
-.. _sprout-copyrights:
-*******************************************************************************
-Copyrights
-*******************************************************************************
+.. _sprout-listed_by_category-function_objects:
+Function Objects
+=======================================
 
-| Copyright (C) 2011-2013 Bolero MURAKAMI.
-| Distributed under the Boost Software License, Version 1.0.
-| (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) 
+* :doc:`functional <./functional/index>`
 
+.. _sprout-listed_by_category-iterators:
+Iterators
+=======================================
+
+* :doc:`iterator <./iterator/index>`
+
+.. _sprout-listed_by_category-mathematics:
+Mathematics
+=======================================
+
+* :doc:`math_functions <./math_functions/index>`
+* :doc:`random <./random/index>`
+* :doc:`complex <./complex/index>`
+* :doc:`rational <./rational/index>`
+
+.. _sprout-listed_by_category-template_metaprogramming:
+Template Metaprogramming
+=======================================
+
+* :doc:`index_tuple <./index_tuple/index>`
+* :doc:`type_traits <./type_traits/index>`
+* :doc:`type <./type/index>`
+
+.. _sprout-listed_by_category-preprocessor_metaprogramming:
+Preprocessor Metaprogramming
+=======================================
+
+* :doc:`preprocessor <./preprocessor/index>`
+
+.. _sprout-listed_by_category-domain_specific:
+Domain specific
+=======================================
+
+* :doc:`uuid <./uuid/index>`
+* :doc:`checksum <./checksum/index>`
+
+.. _sprout-listed_by_category-parsing:
+Parsing
+=======================================
+
+* :doc:`weed <./weed/index>`
+
+.. _sprout-listed_by_category-ray_tracing:
+Ray tracing
+=======================================
+
+* :doc:`darkroom <./darkroom/index>`
+
+.. _sprout-listed_by_category-synthesizer:
+Synthesizer
+=======================================
+
+* :doc:`compost <./compost/index>`
+
+.. _sprout-listed_by_category-miscellaneous:
+Miscellaneous
+=======================================
+
+* :doc:`utility <./utility/index>`
+* :doc:`bit_operation <./bit_operation/index>`
+
+.. _sprout-listed_by_category-c-compatible:
+C-compatible
+=======================================
+
+* :doc:`cstdlib <./cstdlib/index>`
+* :doc:`cstring <./cstring/index>`
+* :doc:`cwchar <./cwchar/index>`
+* :doc:`cctype <./cctype/index>`
+* :doc:`cinttypes <./cinttypes/index>`

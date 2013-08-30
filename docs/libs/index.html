@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Sprout C++ Libraries &mdash; Sprout 1.0 documentation</title>
+    <title>Libraries &mdash; Sprout 1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../index.html" />
-    <link rel="next" title="Libraries" href="libraries.html" />
-    <link rel="prev" title="Welcome to Sprout’s documentation!" href="../index.html" /> 
+    <link rel="next" title="Sprout.Array" href="array/index.html" />
+    <link rel="prev" title="Sprout C++ Libraries" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="libraries.html" title="Libraries"
+          <a href="array/index.html" title="Sprout.Array"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="Welcome to Sprout’s documentation!"
+          <a href="../index.html" title="Sprout C++ Libraries"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">Sprout 1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -49,24 +49,35 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Sprout C++ Libraries</a><ul>
-<li><a class="reference internal" href="#welcome-to-the-sprout-c-libraries">Welcome to the Sprout C++ Libraries</a></li>
-<li><a class="reference internal" href="#library-documentation">Library Documentation</a></li>
-<li><a class="reference internal" href="#project-page">Project page</a></li>
-<li><a class="reference internal" href="#install">Install</a></li>
-<li><a class="reference internal" href="#supported-compilers">Supported Compilers</a></li>
-<li><a class="reference internal" href="#author">Author</a></li>
-<li><a class="reference internal" href="#copyrights">Copyrights</a></li>
+<li><a class="reference internal" href="#">Libraries</a><ul>
+<li><a class="reference internal" href="#libraries-listed-alphabetically">Libraries Listed Alphabetically</a></li>
+<li><a class="reference internal" href="#libraries-listed-by-category">Libraries Listed by Category</a><ul>
+<li><a class="reference internal" href="#containers-and-data-structures">Containers and Data structures</a></li>
+<li><a class="reference internal" href="#algorithms">Algorithms</a></li>
+<li><a class="reference internal" href="#container-supports">Container supports</a></li>
+<li><a class="reference internal" href="#function-objects">Function Objects</a></li>
+<li><a class="reference internal" href="#iterators">Iterators</a></li>
+<li><a class="reference internal" href="#mathematics">Mathematics</a></li>
+<li><a class="reference internal" href="#template-metaprogramming">Template Metaprogramming</a></li>
+<li><a class="reference internal" href="#preprocessor-metaprogramming">Preprocessor Metaprogramming</a></li>
+<li><a class="reference internal" href="#domain-specific">Domain specific</a></li>
+<li><a class="reference internal" href="#parsing">Parsing</a></li>
+<li><a class="reference internal" href="#ray-tracing">Ray tracing</a></li>
+<li><a class="reference internal" href="#synthesizer">Synthesizer</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li><a class="reference internal" href="#c-compatible">C-compatible</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="../index.html"
-                        title="previous chapter">Welcome to Sprout&#8217;s documentation!</a></p>
+                        title="previous chapter">Sprout C++ Libraries</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="libraries.html"
-                        title="next chapter">Libraries</a></p>
+  <p class="topless"><a href="array/index.html"
+                        title="next chapter">Sprout.Array</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/libs/index.txt"
@@ -93,62 +104,125 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="sprout-c-libraries">
-<h1>Sprout C++ Libraries<a class="headerlink" href="#sprout-c-libraries" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="libraries">
+<h1>Libraries<a class="headerlink" href="#libraries" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
-</ul>
 </div>
-<div class="section" id="welcome-to-the-sprout-c-libraries">
-<h2>Welcome to the Sprout C++ Libraries<a class="headerlink" href="#welcome-to-the-sprout-c-libraries" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, Synthesizer, and others.</div>
-</div>
-</div>
-<div class="section" id="library-documentation">
-<h2>Library Documentation<a class="headerlink" href="#library-documentation" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">The starting point for the documentation of individual libraries is the <a class="reference internal" href="libraries.html"><em>Libraries page</em></a>, which gives a brief description of each library and links to its documentation.</div>
-<div class="line"><br /></div>
-</div>
-</div>
-<div class="section" id="project-page">
-<h2>Project page<a class="headerlink" href="#project-page" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="libraries-listed-alphabetically">
+<h2>Libraries Listed Alphabetically<a class="headerlink" href="#libraries-listed-alphabetically" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference external" href="http://bolero-murakami.github.io/Sprout/">Project page</a></li>
-<li><a class="reference external" href="https://github.com/bolero-MURAKAMI/Sprout/">Repository (Github)</a></li>
-<li><a class="reference external" href="http://www.boleros.x0.com/doc/sproutwiki/">Wiki (japanese)</a></li>
+<li><a class="reference internal" href="algorithm/index.html"><em>algorithm</em></a> - Standard library like generic algorithms.</li>
+<li><a class="reference internal" href="array/index.html"><em>array</em></a> - Standard library compliant class template for storing fixed-size sequences of objects.</li>
 </ul>
 </div>
-<div class="section" id="install">
-<h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">Through the path to the directory. <tt class="docutils literal"><span class="pre">/path/to/sprout</span></tt></div>
-<div class="line">This library can be used in the header only.</div>
-</div>
-</div>
-<div class="section" id="supported-compilers">
-<h2>Supported Compilers<a class="headerlink" href="#supported-compilers" title="Permalink to this headline">¶</a></h2>
-<p>Linux:</p>
+<div class="section" id="libraries-listed-by-category">
+<h2>Libraries Listed by Category<a class="headerlink" href="#libraries-listed-by-category" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="containers-and-data-structures">
+<h3>Containers and Data structures<a class="headerlink" href="#containers-and-data-structures" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>GCC, C++11 mode: 4.7.0, 4.7.1, 4.7.2, 4.7.3, 4.8.0, 4.8.1</li>
-<li>Clang, C++11 mode: 3.2, 3.3</li>
+<li><a class="reference internal" href="array/index.html"><em>array</em></a> - Standard library compliant class template for storing fixed-size sequences of objects.</li>
+<li><tt class="xref doc docutils literal"><span class="pre">string</span></tt> - Compile-time string of fixed-length buffer.</li>
+<li><tt class="xref doc docutils literal"><span class="pre">tuple</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">optional</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">variant</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">bitset</span></tt></li>
 </ul>
 </div>
-<div class="section" id="author">
-<h2>Author<a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">Bolero MURAKAMI <a class="reference external" href="mailto:contact-lib&#37;&#52;&#48;boleros&#46;x0&#46;com">(Mail)</a></div>
-<div class="line"><a class="reference external" href="http://bolero-murakami.github.io/">[Website]</a> <a class="reference external" href="https://twitter.com/bolero_murakami">[Twitter]</a> <a class="reference external" href="http://www.facebook.com/genya.murakami">[Facebook]</a> <a class="reference external" href="http://d.hatena.ne.jp/boleros/">[Blog]</a> <a class="reference external" href="https://github.com/bolero-MURAKAMI">[Github]</a> <a class="reference external" href="http://www.slideshare.net/GenyaMurakami">[SlideShare]</a></div>
+<div class="section" id="algorithms">
+<h3>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="algorithm/index.html"><em>algorithm</em></a> - Standard library like generic algorithms.</li>
+<li><tt class="xref doc docutils literal"><span class="pre">numeric</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">range_algorithm</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">range_numeric</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">range_adaptor</span></tt></li>
+</ul>
 </div>
+<div class="section" id="container-supports">
+<h3>Container supports<a class="headerlink" href="#container-supports" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">sub_array</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">pit</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">operation</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">container</span></tt></li>
+</ul>
 </div>
-<div class="section" id="copyrights">
-<h2>Copyrights<a class="headerlink" href="#copyrights" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">Copyright (C) 2011-2013 Bolero MURAKAMI.</div>
-<div class="line">Distributed under the Boost Software License, Version 1.0.</div>
-<div class="line">(See accompanying file LICENSE_1_0.txt or copy at <a class="reference external" href="http://www.boost.org/LICENSE_1_0.txt">http://www.boost.org/LICENSE_1_0.txt</a>)</div>
+<div class="section" id="function-objects">
+<h3>Function Objects<a class="headerlink" href="#function-objects" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">functional</span></tt></li>
+</ul>
+</div>
+<div class="section" id="iterators">
+<h3>Iterators<a class="headerlink" href="#iterators" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">iterator</span></tt></li>
+</ul>
+</div>
+<div class="section" id="mathematics">
+<h3>Mathematics<a class="headerlink" href="#mathematics" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">math_functions</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">random</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">complex</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">rational</span></tt></li>
+</ul>
+</div>
+<div class="section" id="template-metaprogramming">
+<h3>Template Metaprogramming<a class="headerlink" href="#template-metaprogramming" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">index_tuple</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">type_traits</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">type</span></tt></li>
+</ul>
+</div>
+<div class="section" id="preprocessor-metaprogramming">
+<h3>Preprocessor Metaprogramming<a class="headerlink" href="#preprocessor-metaprogramming" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">preprocessor</span></tt></li>
+</ul>
+</div>
+<div class="section" id="domain-specific">
+<h3>Domain specific<a class="headerlink" href="#domain-specific" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">uuid</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">checksum</span></tt></li>
+</ul>
+</div>
+<div class="section" id="parsing">
+<h3>Parsing<a class="headerlink" href="#parsing" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">weed</span></tt></li>
+</ul>
+</div>
+<div class="section" id="ray-tracing">
+<h3>Ray tracing<a class="headerlink" href="#ray-tracing" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">darkroom</span></tt></li>
+</ul>
+</div>
+<div class="section" id="synthesizer">
+<h3>Synthesizer<a class="headerlink" href="#synthesizer" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">compost</span></tt></li>
+</ul>
+</div>
+<div class="section" id="miscellaneous">
+<h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">utility</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">bit_operation</span></tt></li>
+</ul>
+</div>
+<div class="section" id="c-compatible">
+<h3>C-compatible<a class="headerlink" href="#c-compatible" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">cstdlib</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">cstring</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">cwchar</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">cctype</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">cinttypes</span></tt></li>
+</ul>
 </div>
 </div>
 </div>
@@ -166,10 +240,10 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="libraries.html" title="Libraries"
+          <a href="array/index.html" title="Sprout.Array"
              >next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="Welcome to Sprout’s documentation!"
+          <a href="../index.html" title="Sprout C++ Libraries"
              >previous</a> |</li>
         <li><a href="../index.html">Sprout 1.0 documentation</a> &raquo;</li> 
       </ul>
