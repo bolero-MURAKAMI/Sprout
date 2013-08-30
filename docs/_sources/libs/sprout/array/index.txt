@@ -50,10 +50,10 @@ function
 ============================================================ ===============================================================================
 :doc:`operator== <./array/operator-equal_to>`
 :doc:`operator!= <./array/operator-not_equal_to>`
-:doc:`operator＜ <./array/operator-less>`
-:doc:`operator＞ <./array/operator-greater>`
-:doc:`operator＜= <./array/operator-less_equal>`
-:doc:`operator＞= <./array/operator-greater_equal>`
+:doc:`operator\< <./array/operator-less>`
+:doc:`operator\> <./array/operator-greater>`
+:doc:`operator\<= <./array/operator-less_equal>`
+:doc:`operator\>= <./array/operator-greater_equal>`
 ============================================================ ===============================================================================
 
 array generators

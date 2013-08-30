@@ -1,25 +1,31 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>array &mdash; Sprout v1.0 documentation</title>
+    <title>array &mdash; Sprout 1.0 documentation</title>
+    
     <link rel="stylesheet" href="../../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
         VERSION:     '1.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="top" title="Sprout v1.0 documentation" href="../../../../index.html" />
+    <link rel="top" title="Sprout 1.0 documentation" href="../../../../index.html" />
     <link rel="up" title="Sprout.Array" href="../index.html" />
     <link rel="next" title="(initializer)" href="initializer-.html" />
     <link rel="prev" title="Sprout.Array" href="../index.html" /> 
@@ -37,7 +43,7 @@
         <li class="right" >
           <a href="../index.html" title="Sprout.Array"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
+        <li><a href="../../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
           <li><a href="../../../libraries.html" >Libraries</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Sprout.Array</a> &raquo;</li> 
@@ -45,52 +51,52 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h3><a href="../../../../index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">array</a><ul>
-<li><a class="reference external" href="#interface">Interface</a></li>
-<li><a class="reference external" href="#description">Description</a><ul>
-<li><a class="reference external" href="#member-types">Member types</a></li>
-<li><a class="reference external" href="#member-functions">Member functions</a><ul>
-<li><a class="reference external" href="#initializer">(initializer)</a></li>
-<li><a class="reference external" href="#construct-copy-destroy">construct/copy/destroy</a></li>
-<li><a class="reference external" href="#modifiers">modifiers</a></li>
-<li><a class="reference external" href="#iterators">iterators</a></li>
-<li><a class="reference external" href="#capacity">capacity</a></li>
-<li><a class="reference external" href="#element-access">element access</a></li>
+  <h3><a href="../../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">array</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#member-types">Member types</a></li>
+<li><a class="reference internal" href="#member-functions">Member functions</a><ul>
+<li><a class="reference internal" href="#initializer">(initializer)</a></li>
+<li><a class="reference internal" href="#construct-copy-destroy">construct/copy/destroy</a></li>
+<li><a class="reference internal" href="#modifiers">modifiers</a></li>
+<li><a class="reference internal" href="#iterators">iterators</a></li>
+<li><a class="reference internal" href="#capacity">capacity</a></li>
+<li><a class="reference internal" href="#element-access">element access</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference external" href="#header">Header</a></li>
+<li><a class="reference internal" href="#header">Header</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="../index.html"
-                                  title="previous chapter">Sprout.Array</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="initializer-.html"
-                                  title="next chapter">(initializer)</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../../../../_sources/libs/sprout/array/array/index.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../../../../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Sprout.Array</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="initializer-.html"
+                        title="next chapter">(initializer)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../../_sources/libs/sprout/array/array/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
 
@@ -101,6 +107,8 @@
             
   <div class="section" id="array">
 <h1>array<a class="headerlink" href="#array" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
@@ -183,55 +191,55 @@
 <col width="25%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">type</th>
+<tr class="row-odd"><th class="head">type</th>
 <th class="head">definition</th>
 <th class="head">note</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td>reference</td>
+<tr class="row-even"><td>reference</td>
 <td>T&amp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr><td>const_reference</td>
+<tr class="row-odd"><td>const_reference</td>
 <td>T const&amp;</td>
 <td>&nbsp;</td>
 </tr>
-<tr><td>iterator</td>
+<tr class="row-even"><td>iterator</td>
 <td><strong>ConstexprRandomAccessIterator</strong></td>
 <td>convertible to const_iterator,
 convertible to pointer</td>
 </tr>
-<tr><td>const_iterator</td>
+<tr class="row-odd"><td>const_iterator</td>
 <td><strong>ConstexprRandomAccessIterator</strong></td>
 <td>convertible to const_pointer</td>
 </tr>
-<tr><td>size_type</td>
+<tr class="row-even"><td>size_type</td>
 <td>std::size_t</td>
 <td>&nbsp;</td>
 </tr>
-<tr><td>difference_type</td>
+<tr class="row-odd"><td>difference_type</td>
 <td>std::ptrdiff_t</td>
 <td>&nbsp;</td>
 </tr>
-<tr><td>value_type</td>
+<tr class="row-even"><td>value_type</td>
 <td>T</td>
 <td>&nbsp;</td>
 </tr>
-<tr><td>pointer</td>
+<tr class="row-odd"><td>pointer</td>
 <td>T*</td>
 <td>&nbsp;</td>
 </tr>
-<tr><td>const_pointer</td>
+<tr class="row-even"><td>const_pointer</td>
 <td>T const*</td>
 <td>&nbsp;</td>
 </tr>
-<tr><td>reverse_iterator</td>
+<tr class="row-odd"><td>reverse_iterator</td>
 <td>sprout::reverse_iterator&lt;iterator&gt;,
 <strong>ConstexprRandomAccessIterator</strong></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td>const_reverse_iterator</td>
+<tr class="row-even"><td>const_reverse_iterator</td>
 <td>sprout::reverse_iterator&lt;const_iterator&gt;,
 <strong>ConstexprRandomAccessIterator</strong></td>
 <td>&nbsp;</td>
@@ -249,12 +257,12 @@ convertible to pointer</td>
 <col width="66%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">function</th>
+<tr class="row-odd"><th class="head">function</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference external" href="initializer-.html"><em>(initializer)</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="initializer-.html"><em>(initializer)</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -268,12 +276,12 @@ convertible to pointer</td>
 <col width="66%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">function</th>
+<tr class="row-odd"><th class="head">function</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference external" href="operator-assign.html"><em>operator=</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="operator-assign.html"><em>operator=</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -287,18 +295,18 @@ convertible to pointer</td>
 <col width="66%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">function</th>
+<tr class="row-odd"><th class="head">function</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference external" href="fill.html"><em>fill</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="fill.html"><em>fill</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="assign.html"><em>assign</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="assign.html"><em>assign</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="swap.html"><em>swap</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="swap.html"><em>swap</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -312,33 +320,33 @@ convertible to pointer</td>
 <col width="66%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">function</th>
+<tr class="row-odd"><th class="head">function</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference external" href="begin.html"><em>begin</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="begin.html"><em>begin</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="end.html"><em>end</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="end.html"><em>end</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="rbegin.html"><em>rbegin</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="rbegin.html"><em>rbegin</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="rend.html"><em>rend</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="rend.html"><em>rend</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="cbegin.html"><em>cbegin</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="cbegin.html"><em>cbegin</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="cend.html"><em>cend</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="cend.html"><em>cend</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="crbegin.html"><em>crbegin</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="crbegin.html"><em>crbegin</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="crend.html"><em>crend</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="crend.html"><em>crend</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -352,18 +360,18 @@ convertible to pointer</td>
 <col width="66%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">function</th>
+<tr class="row-odd"><th class="head">function</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference external" href="size.html"><em>size</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="size.html"><em>size</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="max_size.html"><em>max_size</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="max_size.html"><em>max_size</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="empty.html"><em>empty</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="empty.html"><em>empty</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -377,27 +385,27 @@ convertible to pointer</td>
 <col width="66%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">function</th>
+<tr class="row-odd"><th class="head">function</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference external" href="operator-subscript.html"><em>operator[]</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="operator-subscript.html"><em>operator[]</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="at.html"><em>at</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="at.html"><em>at</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="front.html"><em>front</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="front.html"><em>front</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="back.html"><em>back</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="back.html"><em>back</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="data.html"><em>data</em></a></td>
+<tr class="row-even"><td><a class="reference internal" href="data.html"><em>data</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr><td><a class="reference external" href="c_array.html"><em>c_array</em></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="c_array.html"><em>c_array</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -430,15 +438,15 @@ convertible to pointer</td>
         <li class="right" >
           <a href="../index.html" title="Sprout.Array"
              >previous</a> |</li>
-        <li><a href="../../../../index.html">Sprout v1.0 documentation</a> &raquo;</li>
+        <li><a href="../../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../../index.html" >Sprout C++ Libraries</a> &raquo;</li>
           <li><a href="../../../libraries.html" >Libraries</a> &raquo;</li>
           <li><a href="../index.html" >Sprout.Array</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2013, Bolero MURAKAMI.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2013, Bolero MURAKAMI.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
