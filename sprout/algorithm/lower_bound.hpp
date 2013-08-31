@@ -9,10 +9,10 @@
 #ifndef SPROUT_ALGORITHM_LOWER_BOUND_HPP
 #define SPROUT_ALGORITHM_LOWER_BOUND_HPP
 
-#include <iterator>
 #include <sprout/config.hpp>
-#include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/distance.hpp>
 #include <sprout/functional/less.hpp>
+#include <sprout/detail/algorithm/lower_bound.hpp>
 
 namespace sprout {
 
@@ -24,12 +24,7 @@ namespace sprout {
 	template<typename ForwardIterator, typename T, typename Compare>
 	inline SPROUT_CONSTEXPR ForwardIterator
 	lower_bound(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
-		return first == last ? last
-			: sprout::next(first) == last ? comp(*first, value) ? last : first
-			: comp(*sprout::next(first, sprout::distance(first, last) / 2), value)
-				? sprout::lower_bound(sprout::next(first, sprout::distance(first, last) / 2 + 1), last, value, comp)
-			: sprout::lower_bound(first, sprout::next(first, sprout::distance(first, last) / 2), value, comp)
-			;
+		return sprout::detail::lower_bound(first, sprout::distance(first, last), value, comp);
 	}
 
 	template<typename ForwardIterator, typename T>
