@@ -3,6 +3,8 @@
 Sprout C++ Libraries
 ###############################################################################
 
+Contents:
+
 .. toctree::
     :maxdepth: 1
 
@@ -21,7 +23,6 @@ Library Documentation
 *******************************************************************************
 
 | The starting point for the documentation of individual libraries is the :doc:`Libraries page <./libs/index>`, which gives a brief description of each library and links to its documentation.
-| 
 
 .. _sprout-project:
 *******************************************************************************
@@ -56,7 +57,7 @@ Author
 *******************************************************************************
 
 | Bolero MURAKAMI `(Mail) <contact-lib@boleros.x0.com>`_
-| `[Website] <http://bolero-murakami.github.io/>`_ `[Twitter] <https://twitter.com/bolero_murakami>`_ `[Facebook] <http://www.facebook.com/genya.murakami>`_ `[Blog] <http://d.hatena.ne.jp/boleros/>`_ `[Github] <https://github.com/bolero-MURAKAMI>`_ `[SlideShare] <http://www.slideshare.net/GenyaMurakami>`_
+| `Website <http://bolero-murakami.github.io/>`_ | `Twitter <https://twitter.com/bolero_murakami>`_ | `Facebook <http://www.facebook.com/genya.murakami>`_ | `Blog <http://d.hatena.ne.jp/boleros/>`_ | `Github <https://github.com/bolero-MURAKAMI>`_ | `SlideShare <http://www.slideshare.net/GenyaMurakami>`_
 
 .. _sprout-copyrights:
 *******************************************************************************
