@@ -11,7 +11,7 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/algorithm/lower_bound.hpp>
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
+#include <sprout/functional/less.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -30,16 +30,13 @@ namespace sprout {
 	template<typename ForwardIterator, typename T, typename Compare>
 	inline SPROUT_CONSTEXPR bool
 	binary_search(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
-		return sprout::detail::binary_search_impl(sprout::lower_bound(first, last, value), last, value, comp);
+		return sprout::detail::binary_search_impl(sprout::lower_bound(first, last, value, comp), last, value, comp);
 	}
 
 	template<typename ForwardIterator, typename T>
 	inline SPROUT_CONSTEXPR bool
 	binary_search(ForwardIterator first, ForwardIterator last, T const& value) {
-		return sprout::binary_search(
-			first, last, value,
-			NS_SSCRISK_CEL_OR_SPROUT::less<typename std::iterator_traits<ForwardIterator>::value_type>()
-			);
+		return sprout::binary_search(first, last, value, sprout::less<>());
 	}
 }	// namespace sprout
 
