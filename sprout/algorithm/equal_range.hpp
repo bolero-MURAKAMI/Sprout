@@ -14,6 +14,7 @@
 #include <sprout/algorithm/lower_bound.hpp>
 #include <sprout/algorithm/upper_bound.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/functional/less.hpp>
 #include <sprout/utility/pair/pair.hpp>
 
 namespace sprout {
