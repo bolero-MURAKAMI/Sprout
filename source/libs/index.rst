@@ -8,6 +8,7 @@ Libraries
 
     array/index
     algorithm/index
+    string/index
 
 .. _sprout-listed_by_alphabetically:
 *******************************************************************************
@@ -16,6 +17,7 @@ Libraries Listed Alphabetically
 
 * :doc:`algorithm <./algorithm/index>` - Standard library like generic algorithms.
 * :doc:`array <./array/index>` - Standard library compliant class template for storing fixed-size sequences of objects.
+* :doc:`string <./string/index>` - Compile-time string of fixed-length buffer.
 
 .. _sprout-listed_by_category:
 *******************************************************************************

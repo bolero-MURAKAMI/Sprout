@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sprout.String &mdash; Sprout 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Sprout 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Libraries" href="../index.html" />
+    <link rel="prev" title="clamp" href="../algorithm/clamp.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../algorithm/clamp.html" title="clamp"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Libraries</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sprout.String</a><ul>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#character-traits">Character traits</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#string-classes">String classes</a><ul>
+<li><a class="reference internal" href="#id2">Classes</a></li>
+<li><a class="reference internal" href="#non-member-functions">Non-member functions</a><ul>
+<li><a class="reference internal" href="#specialized-algorithms">specialized algorithms</a></li>
+<li><a class="reference internal" href="#concatenations">concatenations</a></li>
+<li><a class="reference internal" href="#comparisons">comparisons</a></li>
+<li><a class="reference internal" href="#inserters-and-extractors">inserters and extractors</a></li>
+<li><a class="reference internal" href="#numeric-conversions">numeric conversions</a></li>
+<li><a class="reference internal" href="#string-generators">string generators</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tuple-interface">Tuple interface</a></li>
+<li><a class="reference internal" href="#hash-support">Hash support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#header">Header</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../algorithm/clamp.html"
+                        title="previous chapter">clamp</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/libs/string/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>Sprout.String<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="character-traits">
+<h3>Character traits<a class="headerlink" href="#character-traits" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">class</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">char_traits</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="string-classes">
+<h3>String classes<a class="headerlink" href="#string-classes" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h4>Classes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">class</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">basic_string</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">string</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">wstring</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">u16string</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">u32string</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="non-member-functions">
+<h4>Non-member functions<a class="headerlink" href="#non-member-functions" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="specialized-algorithms">
+<h5>specialized algorithms<a class="headerlink" href="#specialized-algorithms" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">swap</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="concatenations">
+<h5>concatenations<a class="headerlink" href="#concatenations" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">operator+</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="comparisons">
+<h5>comparisons<a class="headerlink" href="#comparisons" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">operator==</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">operator!=</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">operator&lt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">operator&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">operator&lt;=</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">operator&gt;=</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="inserters-and-extractors">
+<h5>inserters and extractors<a class="headerlink" href="#inserters-and-extractors" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">operator&lt;&lt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">operator&gt;&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="numeric-conversions">
+<h5>numeric conversions<a class="headerlink" href="#numeric-conversions" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">string_to_int</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">stoi</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">stol</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">stoul</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">stoll</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">stoull</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">stoull</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">stoimax</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">stoumax</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">from_string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">string_to_float</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">stof</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">stod</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">stold</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">from_string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">int_to_string</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_string_of</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_wstring</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_u16string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_u32string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">float_to_string</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">float_to_string_exp</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_string_of</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_wstring</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_u16string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_u32string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="string-generators">
+<h5>string generators<a class="headerlink" href="#string-generators" title="Permalink to this headline">¶</a></h5>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_string</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">string_from_c_str</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">make_string</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">shrink</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">stretch</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="tuple-interface">
+<h4>Tuple interface<a class="headerlink" href="#tuple-interface" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">matafunction</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">std::tuple_size</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">std::tuple_element</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">tuple_get</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="hash-support">
+<h4>Hash support<a class="headerlink" href="#hash-support" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">class</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">std::hash</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">hash_value</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="header">
+<h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">sprout/string.hpp</span></tt></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../algorithm/clamp.html" title="clamp"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Libraries</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Bolero MURAKAMI.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

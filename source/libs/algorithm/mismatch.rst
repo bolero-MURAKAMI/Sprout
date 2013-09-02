@@ -32,9 +32,11 @@ Returns
 ========================================
 
 | A pair of iterators i and j such that ``j == first2 + (i - first1)`` and i is the first iterator in the range [first1,last1) for which the following corresponding  conditions hold:
+
 * j is in the range [first2,last2).
 * ``!(*i == *(first2 + (i - first1)))``
 * ``!pred(*i, *(first2 + (i - first1)))``
+
 | Returns the pair ``first1 + min(last1 - first1, last2 - first2)`` and ``first2 + min(last1 - first1, last2 - first2)`` if such an iterator i is not found.
 
 Examples
