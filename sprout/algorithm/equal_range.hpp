@@ -13,10 +13,30 @@
 #include <sprout/config.hpp>
 #include <sprout/algorithm/lower_bound.hpp>
 #include <sprout/algorithm/upper_bound.hpp>
+#include <sprout/iterator/operation.hpp>
 #include <sprout/utility/pair/pair.hpp>
-#include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
+	namespace detail {
+		template<typename ForwardIterator, typename T, typename Compare>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
+		equal_range(
+			ForwardIterator first, typename std::iterator_traits<ForwardIterator>::difference_type len,
+			T const& value, Compare comp
+			)
+		{
+			return len == 0 ? sprout::pair<ForwardIterator, ForwardIterator>(first, first)
+				: comp(*sprout::next(first, len / 2), value)
+					? sprout::detail::equal_range(sprout::next(first, len / 2 + 1), len - (len / 2 + 1), value, comp)
+				: comp(value, *sprout::next(first, len / 2))
+					? sprout::detail::equal_range(first, len / 2, value, comp)
+				: sprout::pair<ForwardIterator, ForwardIterator>(
+					sprout::detail::lower_bound(first, len / 2, value, comp),
+					sprout::detail::upper_bound(sprout::next(first, len / 2 + 1), len - (len / 2 + 1), value, comp)
+					)
+				;
+		}
+	}	// namespace detail
 
 	// 25.4.3.3 equal_range
 	//
@@ -26,19 +46,13 @@ namespace sprout {
 	template<typename ForwardIterator, typename T, typename Compare>
 	inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 	equal_range(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
-		return sprout::pair<ForwardIterator, ForwardIterator>(
-			sprout::lower_bound(first, last, value, comp),
-			sprout::upper_bound(first, last, value, comp)
-			);
+		return sprout::detail::equal_range(first, sprout::distance(first, last), value, comp);
 	}
 
 	template<typename ForwardIterator, typename T>
 	inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 	equal_range(ForwardIterator first, ForwardIterator last, T const& value) {
-		return sprout::equal_range(
-			first, last, value,
-			NS_SSCRISK_CEL_OR_SPROUT::less<typename std::iterator_traits<ForwardIterator>::value_type>()
-			);
+		return sprout::equal_range(first, last, value, sprout::less<>());
 	}
 }	// namespace sprout
 
