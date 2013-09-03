@@ -25,8 +25,8 @@ Interface
 Returns
 ========================================
 
-| A value less than zero if the sequence of elements defined by the range [first1,last1) is lexicographically less than the sequence of elements defined by the range [first2,last2) and false otherwise.
-| A value greater than zero if the sequence of elements defined by the range [first1,last1) is lexicographically greater than the sequence of elements defined by the range [first2,last2) and false otherwise.
+| A value less than zero if the sequence of elements defined by the range [first1,last1) is lexicographically less than the sequence of elements defined by the range [first2,last2).
+| Otherwise, a value greater than zero if the sequence of elements defined by the range [first1,last1) is lexicographically greater than the sequence of elements defined by the range [first2,last2).
 | Otherwise, returns a zero value.
 
 Remarks
