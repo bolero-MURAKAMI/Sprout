@@ -20,18 +20,18 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<RandomAccessIterator>::difference_type
 		count_if_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, Predicate pred,
-			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot
+			RandomAccessIterator first, Predicate pred,
+			typename std::iterator_traits<RandomAccessIterator>::difference_type size
 			)
 		{
-			return pivot == 0 ? (pred(*first) ? 1 : 0)
+			return size == 1 ? (pred(*first) ? 1 : 0)
 				: sprout::detail::count_if_impl_ra(
-					first, sprout::next(first, pivot), pred,
-					pivot / 2
+					first, pred,
+					size / 2
 					)
 					+ sprout::detail::count_if_impl_ra(
-						sprout::next(first, pivot), last, pred,
-						(sprout::distance(first, last) - pivot) / 2
+						sprout::next(first, size / 2), pred,
+						size - size / 2
 						)
 				;
 		}
@@ -46,7 +46,7 @@ namespace sprout {
 			)
 		{
 			return first == last ? 0
-				: sprout::detail::count_if_impl_ra(first, last, pred, sprout::distance(first, last) / 2)
+				: sprout::detail::count_if_impl_ra(first, pred, sprout::distance(first, last))
 				;
 		}
 
@@ -59,9 +59,7 @@ namespace sprout {
 		{
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
 			return current.first == last ? current
-				: n == 1 ? pred(*current.first)
-					? type(sprout::next(current.first), current.second + 1)
-					: type(sprout::next(current.first), current.second)
+				: n == 1 ? type(sprout::next(current.first), current.second + (pred(*current.first) ? 1 : 0))
 				: sprout::detail::count_if_impl_1(
 					sprout::detail::count_if_impl_1(
 						current,
