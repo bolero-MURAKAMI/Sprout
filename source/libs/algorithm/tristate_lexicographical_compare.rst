@@ -21,6 +21,22 @@ Interface
     InputIterator2 first2, InputIterator2 last2,
     Compare comp
     );
+  
+  // delimiter version
+  template<typename InputIterator1, typename T1, typename InputIterator2, typename T2>
+  inline SPROUT_CONSTEXPR int
+  tristate_lexicographical_compare(
+    InputIterator1 first1, InputIterator1 last1, T1 const& delim1,
+    InputIterator2 first2, InputIterator2 last2, T2 const& delim2
+    );
+  
+  template<typename InputIterator1, typename T1, typename InputIterator2, typename T2, typename Compare>
+  inline SPROUT_CONSTEXPR int
+  tristate_lexicographical_compare(
+    InputIterator1 first1, InputIterator1 last1, T1 const& delim1,
+    InputIterator2 first2, InputIterator2 last2, T2 const& delim2,
+    Compare comp
+    );
 
 Returns
 ========================================
@@ -28,6 +44,8 @@ Returns
 | A value less than zero if the sequence of elements defined by the range [first1,last1) is lexicographically less than the sequence of elements defined by the range [first2,last2).
 | Otherwise, a value greater than zero if the sequence of elements defined by the range [first1,last1) is lexicographically greater than the sequence of elements defined by the range [first2,last2).
 | Otherwise, returns a zero value.
+
+| If the delimiter version, last1 and last2 are replaced by ``find(first1, last1, delim1)`` and ``find(first2,last2,delim2)``.
 
 Remarks
 ========================================
@@ -48,9 +66,11 @@ Examples
   using namespace sprout;
 
   SPROUT_STATIC_CONSTEXPR auto input1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-  SPROUT_STATIC_CONSTEXPR auto input2 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 11, 12, 13}};
-  SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(begin(input1), end(input1), begin(input2), end(input2));
-  static_assert(result < 0, "input1 < input2 by lexicographical comparison.");
+  SPROUT_STATIC_CONSTEXPR auto input2 = array<int, 10>{{1, 2, 3, 4, 5, 10, 9, 8, 7, 6}};
+  SPROUT_STATIC_CONSTEXPR auto result1 = sprout::tristate_lexicographical_compare(begin(input1), end(input1), begin(input2), end(input2));
+  SPROUT_STATIC_CONSTEXPR auto result2 = sprout::tristate_lexicographical_compare(begin(input1), end(input1), 10, begin(input2), end(input2), 10);
+  static_assert(result1 < 0, "input1 < input2 by lexicographical comparison.");
+  static_assert(result2 > 0, "input1 < input2 by lexicographical comparison(delimited by 10).");
 
 Complexity
 ========================================

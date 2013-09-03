@@ -113,15 +113,34 @@
   <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span><span class="p">,</span>
   <span class="n">Compare</span> <span class="n">comp</span>
   <span class="p">);</span>
+
+<span class="c1">// delimiter version</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">InputIterator2</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">int</span>
+<span class="n">tristate_lexicographical_compare</span><span class="p">(</span>
+  <span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span> <span class="n">T1</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">delim1</span><span class="p">,</span>
+  <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span><span class="p">,</span> <span class="n">T2</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">delim2</span>
+  <span class="p">);</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">InputIterator2</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Compare</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">int</span>
+<span class="n">tristate_lexicographical_compare</span><span class="p">(</span>
+  <span class="n">InputIterator1</span> <span class="n">first1</span><span class="p">,</span> <span class="n">InputIterator1</span> <span class="n">last1</span><span class="p">,</span> <span class="n">T1</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">delim1</span><span class="p">,</span>
+  <span class="n">InputIterator2</span> <span class="n">first2</span><span class="p">,</span> <span class="n">InputIterator2</span> <span class="n">last2</span><span class="p">,</span> <span class="n">T2</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">delim2</span><span class="p">,</span>
+  <span class="n">Compare</span> <span class="n">comp</span>
+  <span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">A value less than zero if the sequence of elements defined by the range [first1,last1) is lexicographically less than the sequence of elements defined by the range [first2,last2) and false otherwise.</div>
-<div class="line">A value greater than zero if the sequence of elements defined by the range [first1,last1) is lexicographically greater than the sequence of elements defined by the range [first2,last2) and false otherwise.</div>
+<div class="line">A value less than zero if the sequence of elements defined by the range [first1,last1) is lexicographically less than the sequence of elements defined by the range [first2,last2).</div>
+<div class="line">Otherwise, a value greater than zero if the sequence of elements defined by the range [first1,last1) is lexicographically greater than the sequence of elements defined by the range [first2,last2).</div>
 <div class="line">Otherwise, returns a zero value.</div>
+</div>
+<div class="line-block">
+<div class="line">If the delimiter version, last1 and last2 are replaced by <tt class="docutils literal"><span class="pre">find(first1,</span> <span class="pre">last1,</span> <span class="pre">delim1)</span></tt> and <tt class="docutils literal"><span class="pre">find(first2,last2,delim2)</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="remarks">
@@ -143,9 +162,11 @@
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
 <span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input1</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">}};</span>
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input2</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">}};</span>
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">tristate_lexicographical_compare</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input1</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input1</span><span class="p">),</span> <span class="n">begin</span><span class="p">(</span><span class="n">input2</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input2</span><span class="p">));</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;input1 &lt; input2 by lexicographical comparison.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input2</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">}};</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result1</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">tristate_lexicographical_compare</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input1</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input1</span><span class="p">),</span> <span class="n">begin</span><span class="p">(</span><span class="n">input2</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input2</span><span class="p">));</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result2</span> <span class="o">=</span> <span class="n">sprout</span><span class="o">::</span><span class="n">tristate_lexicographical_compare</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">input1</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input1</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="n">begin</span><span class="p">(</span><span class="n">input2</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">input2</span><span class="p">),</span> <span class="mi">10</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;input1 &lt; input2 by lexicographical comparison.&quot;</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result2</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;input1 &lt; input2 by lexicographical comparison(delimited by 10).&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
