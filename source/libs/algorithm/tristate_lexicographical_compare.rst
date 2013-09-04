@@ -45,7 +45,7 @@ Returns
 | Otherwise, a value greater than zero if the sequence of elements defined by the range [first1,last1) is lexicographically greater than the sequence of elements defined by the range [first2,last2).
 | Otherwise, returns a zero value.
 
-| If the delimiter version, last1 and last2 are replaced by ``find(first1, last1, delim1)`` and ``find(first2,last2,delim2)``.
+| If the delimiter version, last1 and last2 the following corresponding transformations: ``find_if(first1, last1, bind2nd(equiv(), delim1))`` and ``find_if(first2, last2, bind2nd(equiv(), delim1))``, ``find_if(first1, last1, bind2nd(equiv(comp), delim1))`` and ``find_if(first2, last2, bind2nd(equiv(comp), delim1))``.
 
 Remarks
 ========================================

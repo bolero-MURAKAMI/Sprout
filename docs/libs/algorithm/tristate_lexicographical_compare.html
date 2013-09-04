@@ -140,7 +140,7 @@
 <div class="line">Otherwise, returns a zero value.</div>
 </div>
 <div class="line-block">
-<div class="line">If the delimiter version, last1 and last2 are replaced by <tt class="docutils literal"><span class="pre">find(first1,</span> <span class="pre">last1,</span> <span class="pre">delim1)</span></tt> and <tt class="docutils literal"><span class="pre">find(first2,last2,delim2)</span></tt>.</div>
+<div class="line">If the delimiter version, last1 and last2 the following corresponding transformations: <tt class="docutils literal"><span class="pre">find_if(first1,</span> <span class="pre">last1,</span> <span class="pre">bind2nd(equiv(),</span> <span class="pre">delim1))</span></tt> and <tt class="docutils literal"><span class="pre">find_if(first2,</span> <span class="pre">last2,</span> <span class="pre">bind2nd(equiv(),</span> <span class="pre">delim1))</span></tt>, <tt class="docutils literal"><span class="pre">find_if(first1,</span> <span class="pre">last1,</span> <span class="pre">bind2nd(equiv(comp),</span> <span class="pre">delim1))</span></tt> and <tt class="docutils literal"><span class="pre">find_if(first2,</span> <span class="pre">last2,</span> <span class="pre">bind2nd(equiv(comp),</span> <span class="pre">delim1))</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="remarks">
