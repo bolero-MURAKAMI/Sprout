@@ -65,21 +65,21 @@ namespace testspr {
 			return &*current;
 		}
 		reduct_iterator& operator++() {
-			--current;
+			++current;
 			return *this;
 		}
 		reduct_iterator operator++(int) {
 			reduct_iterator result(*this);
-			--current;
+			++current;
 			return result;
 		}
 		reduct_iterator& operator--() {
-			++current;
+			--current;
 			return *this;
 		}
 		reduct_iterator operator--(int) {
 			reduct_iterator temp(*this);
-			++current;
+			--current;
 			return temp;
 		}
 		SPROUT_CONSTEXPR reduct_iterator operator+(difference_type n) const {
@@ -112,6 +112,7 @@ namespace testspr {
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			)
 		{
+			using std::swap;
 			swap(current, other.current);
 		}
 	};
