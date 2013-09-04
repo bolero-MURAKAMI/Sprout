@@ -7,6 +7,7 @@ Sprout.String
     :hidden:
 
     basic_string/swap-global
+    basic_string/operator-plus
     basic_string/operator-equal_to
     basic_string/operator-not_equal_to
     basic_string/operator-less
@@ -89,7 +90,7 @@ function
 :doc:`operator\>\> <./basic_string/operator-right_shift>`
 ============================================================ ===============================================================================
 
-numeric conversions
+numeric conversions (string to numeric)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ================================================================================ ===============================================================================
@@ -110,6 +111,14 @@ function
 :doc:`stod <./stod>`
 :doc:`stold <./stold>`
 :doc:`from_string \<FloatType\> <./from_string-floattype>`
+================================================================================ ===============================================================================
+
+numeric conversions (numeric to string)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+================================================================================ ===============================================================================
+function
+================================================================================ ===============================================================================
 :doc:`int_to_string <./int_to_string>`
 :doc:`to_string_of \<IntType\> <./to_string_of-inttype>`
 :doc:`to_string \<IntType\> <./to_string-inttype>`

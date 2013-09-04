@@ -71,7 +71,8 @@
 <li><a class="reference internal" href="#concatenations">concatenations</a></li>
 <li><a class="reference internal" href="#comparisons">comparisons</a></li>
 <li><a class="reference internal" href="#inserters-and-extractors">inserters and extractors</a></li>
-<li><a class="reference internal" href="#numeric-conversions">numeric conversions</a></li>
+<li><a class="reference internal" href="#numeric-conversions-string-to-numeric">numeric conversions (string to numeric)</a></li>
+<li><a class="reference internal" href="#numeric-conversions-numeric-to-string">numeric conversions (numeric to string)</a></li>
 <li><a class="reference internal" href="#string-generators">string generators</a></li>
 </ul>
 </li>
@@ -206,7 +207,7 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">operator+</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="basic_string/operator-plus.html"><em>operator+</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -268,8 +269,8 @@
 </tbody>
 </table>
 </div>
-<div class="section" id="numeric-conversions">
-<h4>numeric conversions<a class="headerlink" href="#numeric-conversions" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="numeric-conversions-string-to-numeric">
+<h4>numeric conversions (string to numeric)<a class="headerlink" href="#numeric-conversions-string-to-numeric" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="50%" />
@@ -326,43 +327,59 @@
 <tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">from_string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">int_to_string</span></tt></td>
+</tbody>
+</table>
+</div>
+<div class="section" id="numeric-conversions-numeric-to-string">
+<h4>numeric conversions (numeric to string)<a class="headerlink" href="#numeric-conversions-numeric-to-string" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">int_to_string</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_string_of</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_string_of</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_wstring</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_wstring</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_u16string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_u16string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_u32string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_u32string</span> <span class="pre">&lt;IntType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">float_to_string</span></tt></td>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">float_to_string</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">float_to_string_exp</span></tt></td>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">float_to_string_exp</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_string_of</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_string_of</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_wstring</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_wstring</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_u16string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_u16string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_u32string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_u32string</span> <span class="pre">&lt;FloatType&gt;</span></tt></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
