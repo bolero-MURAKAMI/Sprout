@@ -804,6 +804,14 @@ namespace sprout {
 	struct is_bind_expression<sprout::res_binder<Result, Signature> >
 		: public std::true_type
 	{};
+	template<typename Signature>
+	struct is_bind_expression<sprout::cbinder<Signature> >
+		: public std::true_type
+	{};
+	template<typename Result, typename Signature>
+	struct is_bind_expression<sprout::res_cbinder<Result, Signature> >
+		: public std::true_type
+	{};
 
 	namespace detail {
 		template<std::size_t N, typename BoundArg, typename = void>

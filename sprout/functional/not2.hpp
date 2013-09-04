@@ -9,25 +9,58 @@
 #define SPROUT_FUNCTIONAL_NOT2_HPP
 
 #include <functional>
+#include <utility>
 #include <sprout/config.hpp>
+#include <sprout/functional/type_traits/is_strict_function.hpp>
+#include <sprout/utility/forward.hpp>
 
 namespace sprout {
+	namespace detail {
+		template<typename Predicate, bool IsStrict = sprout::is_strict_binary_function<Predicate>::value>
+		class binary_negate_impl;
+
+		template<typename Predicate>
+		class binary_negate_impl<Predicate, true> {
+		public:
+			typedef typename Predicate::first_argument_type first_argument_type;
+			typedef typename Predicate::second_argument_type second_argument_type;
+			typedef bool result_type;
+		protected:
+			Predicate fn;
+		public:
+			explicit SPROUT_CONSTEXPR binary_negate_impl(Predicate const& pred)
+				: fn(pred)
+			{}
+			SPROUT_CONSTEXPR bool operator()(typename Predicate::first_argument_type const& x, typename Predicate::second_argument_type const& y) const {
+				return !fn(x, y);
+			}
+		};
+
+		template<typename Predicate>
+		class binary_negate_impl<Predicate, false> {
+		protected:
+			Predicate fn;
+		public:
+			explicit SPROUT_CONSTEXPR binary_negate_impl(Predicate const& pred)
+				: fn(pred)
+			{}
+			template<typename T, typename U>
+			SPROUT_CONSTEXPR decltype(!std::declval<Predicate const&>()(std::declval<T>(), std::declval<U>()))
+			operator()(T&& x, U&& y) const {
+				return !fn(sprout::forward<T>(x), sprout::forward<U>(y));
+			}
+		};
+	}	// namespace detail
+
 	// 20.8.8 negators
 	template<typename Predicate>
-	class binary_negate {
-	public:
-		typedef typename Predicate::first_argument_type first_argument_type;
-		typedef typename Predicate::second_argument_type second_argument_type;
-		typedef bool result_type;
-	protected:
-		Predicate fn;
+	class binary_negate
+		: public sprout::detail::binary_negate_impl<Predicate>
+	{
 	public:
 		explicit SPROUT_CONSTEXPR binary_negate(Predicate const& pred)
-			: fn(pred)
+			: sprout::detail::binary_negate_impl<Predicate>(pred)
 		{}
-		SPROUT_CONSTEXPR bool operator()(typename Predicate::first_argument_type const& x, typename Predicate::second_argument_type const& y) const {
-			return !fn(x, y);
-		}
 	};
 
 	template<typename Predicate>
