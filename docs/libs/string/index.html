@@ -38,6 +38,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../index.html" />
     <link rel="up" title="Libraries" href="../index.html" />
+    <link rel="next" title="swap" href="basic_string/swap-global.html" />
     <link rel="prev" title="clamp" href="../algorithm/clamp.html" /> 
   </head>
   <body>
@@ -47,6 +48,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="basic_string/swap-global.html" title="swap"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../algorithm/clamp.html" title="clamp"
              accesskey="P">previous</a> |</li>
@@ -60,12 +64,8 @@
   <ul>
 <li><a class="reference internal" href="#">Sprout.String</a><ul>
 <li><a class="reference internal" href="#description">Description</a><ul>
-<li><a class="reference internal" href="#character-traits">Character traits</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#string-classes">String classes</a><ul>
-<li><a class="reference internal" href="#id2">Classes</a></li>
+<li><a class="reference internal" href="#character-traits">Character traits</a></li>
+<li><a class="reference internal" href="#string-classes">String classes</a></li>
 <li><a class="reference internal" href="#non-member-functions">Non-member functions</a><ul>
 <li><a class="reference internal" href="#specialized-algorithms">specialized algorithms</a></li>
 <li><a class="reference internal" href="#concatenations">concatenations</a></li>
@@ -79,8 +79,6 @@
 <li><a class="reference internal" href="#hash-support">Hash support</a></li>
 </ul>
 </li>
-</ul>
-</li>
 <li><a class="reference internal" href="#header">Header</a></li>
 </ul>
 </li>
@@ -89,6 +87,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="../algorithm/clamp.html"
                         title="previous chapter">clamp</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="basic_string/swap-global.html"
+                        title="next chapter">swap</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/libs/string/index.txt"
@@ -123,8 +124,6 @@
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="character-traits">
 <h3>Character traits<a class="headerlink" href="#character-traits" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="classes">
-<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="34%" />
@@ -142,11 +141,8 @@
 </tbody>
 </table>
 </div>
-</div>
 <div class="section" id="string-classes">
 <h3>String classes<a class="headerlink" href="#string-classes" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id2">
-<h4>Classes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="43%" />
@@ -177,9 +173,9 @@
 </table>
 </div>
 <div class="section" id="non-member-functions">
-<h4>Non-member functions<a class="headerlink" href="#non-member-functions" title="Permalink to this headline">¶</a></h4>
+<h3>Non-member functions<a class="headerlink" href="#non-member-functions" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="specialized-algorithms">
-<h5>specialized algorithms<a class="headerlink" href="#specialized-algorithms" title="Permalink to this headline">¶</a></h5>
+<h4>specialized algorithms<a class="headerlink" href="#specialized-algorithms" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="43%" />
@@ -191,14 +187,14 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">swap</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="basic_string/swap-global.html"><em>swap</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="concatenations">
-<h5>concatenations<a class="headerlink" href="#concatenations" title="Permalink to this headline">¶</a></h5>
+<h4>concatenations<a class="headerlink" href="#concatenations" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="43%" />
@@ -217,7 +213,7 @@
 </table>
 </div>
 <div class="section" id="comparisons">
-<h5>comparisons<a class="headerlink" href="#comparisons" title="Permalink to this headline">¶</a></h5>
+<h4>comparisons<a class="headerlink" href="#comparisons" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="43%" />
@@ -251,7 +247,7 @@
 </table>
 </div>
 <div class="section" id="inserters-and-extractors">
-<h5>inserters and extractors<a class="headerlink" href="#inserters-and-extractors" title="Permalink to this headline">¶</a></h5>
+<h4>inserters and extractors<a class="headerlink" href="#inserters-and-extractors" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="43%" />
@@ -273,7 +269,7 @@
 </table>
 </div>
 <div class="section" id="numeric-conversions">
-<h5>numeric conversions<a class="headerlink" href="#numeric-conversions" title="Permalink to this headline">¶</a></h5>
+<h4>numeric conversions<a class="headerlink" href="#numeric-conversions" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="50%" />
@@ -373,7 +369,7 @@
 </table>
 </div>
 <div class="section" id="string-generators">
-<h5>string generators<a class="headerlink" href="#string-generators" title="Permalink to this headline">¶</a></h5>
+<h4>string generators<a class="headerlink" href="#string-generators" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
 <colgroup>
 <col width="43%" />
@@ -405,7 +401,7 @@
 </div>
 </div>
 <div class="section" id="tuple-interface">
-<h4>Tuple interface<a class="headerlink" href="#tuple-interface" title="Permalink to this headline">¶</a></h4>
+<h3>Tuple interface<a class="headerlink" href="#tuple-interface" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
 <col width="43%" />
@@ -417,10 +413,10 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">std::tuple_size</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="basic_string/std-tuple_size.html"><em>std::tuple_size</em></a></td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">std::tuple_element</span></tt></td>
+<tr class="row-odd"><td><a class="reference internal" href="basic_string/std-tuple_element.html"><em>std::tuple_element</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -436,14 +432,14 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">tuple_get</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="basic_string/tuple_get.html"><em>tuple_get</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="hash-support">
-<h4>Hash support<a class="headerlink" href="#hash-support" title="Permalink to this headline">¶</a></h4>
+<h3>Hash support<a class="headerlink" href="#hash-support" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="docutils">
 <colgroup>
 <col width="43%" />
@@ -455,7 +451,7 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">std::hash</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="basic_string/std-hash.html"><em>std::hash</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
@@ -471,12 +467,11 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">hash_value</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="basic_string/hash_value.html"><em>hash_value</em></a></td>
 <td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 <div class="section" id="header">
@@ -497,6 +492,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="basic_string/swap-global.html" title="swap"
+             >next</a> |</li>
         <li class="right" >
           <a href="../algorithm/clamp.html" title="clamp"
              >previous</a> |</li>

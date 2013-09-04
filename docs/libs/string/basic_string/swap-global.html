@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-43764535-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>swap &mdash; Sprout 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Sprout.String" href="../index.html" />
+    <link rel="next" title="std::tuple_size" href="std-tuple_size.html" />
+    <link rel="prev" title="Sprout.String" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="std-tuple_size.html" title="std::tuple_size"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Sprout.String"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Libraries</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Sprout.String</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">swap</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+<li><a class="reference internal" href="#effects">Effects</a></li>
+<li><a class="reference internal" href="#throws">Throws</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#complexity">Complexity</a></li>
+<li><a class="reference internal" href="#header">Header</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Sprout.String</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="std-tuple_size.html"
+                        title="next chapter">std::tuple_size</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/libs/string/basic_string/swap-global.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="swap">
+<h1>swap<a class="headerlink" href="#swap" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Traits</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="kt">void</span>
+<span class="n">swap</span><span class="p">(</span><span class="n">sprout</span><span class="o">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">sprout</span><span class="o">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">rhs</span><span class="p">)));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="effects">
+<h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">lhs.swap(rhs)</span></tt>.</div>
+</div>
+</div>
+<div class="section" id="throws">
+<h2>Throws<a class="headerlink" href="#throws" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Nothing unless <tt class="docutils literal"><span class="pre">lhs.swap(rhs)</span></tt> throws an exception.</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
+<span class="cp">#include &lt;sprout/assert.hpp&gt;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
+
+<span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
+<span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;madocchi&quot;</span><span class="p">);</span>
+<span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+<span class="n">SPROUT_ASSERT_MSG</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="s">&quot;madocchi&quot;</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="s">&quot;homuhomu&quot;</span><span class="p">,</span> <span class="s">&quot;each element are swapped.&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="complexity">
+<h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">linear in N.</div>
+</div>
+</div>
+<div class="section" id="header">
+<h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/string/array.hpp</span></tt></div>
+<div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/string.hpp</span></tt></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="std-tuple_size.html" title="std::tuple_size"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Sprout.String"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Libraries</a> &raquo;</li>
+          <li><a href="../index.html" >Sprout.String</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Bolero MURAKAMI.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
