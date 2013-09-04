@@ -19,7 +19,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>std::tuple_size &mdash; Sprout 1.0 documentation</title>
+    <title>operator!= &mdash; Sprout 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -38,8 +38,8 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
     <link rel="up" title="Sprout.String" href="../index.html" />
-    <link rel="next" title="std::tuple_element" href="std-tuple_element.html" />
-    <link rel="prev" title="operator&gt;=" href="operator-greater_equal.html" /> 
+    <link rel="next" title="operator&lt;" href="operator-less.html" />
+    <link rel="prev" title="operator==" href="operator-equal_to.html" /> 
   </head>
   <body>
     <div class="related">
@@ -49,10 +49,10 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="std-tuple_element.html" title="std::tuple_element"
+          <a href="operator-less.html" title="operator&lt;"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="operator-greater_equal.html" title="operator&gt;="
+          <a href="operator-equal_to.html" title="operator=="
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
@@ -63,25 +63,25 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">std::tuple_size</a><ul>
+<li><a class="reference internal" href="#">operator!=</a><ul>
 <li><a class="reference internal" href="#interface">Interface</a></li>
-<li><a class="reference internal" href="#return-type">Return type</a></li>
-<li><a class="reference internal" href="#value">Value</a></li>
+<li><a class="reference internal" href="#returns">Returns</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#complexity">Complexity</a></li>
 <li><a class="reference internal" href="#header">Header</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="operator-greater_equal.html"
-                        title="previous chapter">operator&gt;=</a></p>
+  <p class="topless"><a href="operator-equal_to.html"
+                        title="previous chapter">operator==</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="std-tuple_element.html"
-                        title="next chapter">std::tuple_element</a></p>
+  <p class="topless"><a href="operator-less.html"
+                        title="next chapter">operator&lt;</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/libs/string/basic_string/std-tuple_size.txt"
+    <li><a href="../../../_sources/libs/string/basic_string/operator-not_equal_to.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -105,30 +105,20 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="std-tuple-size">
-<h1>std::tuple_size<a class="headerlink" href="#std-tuple-size" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="operator">
+<h1>operator!=<a class="headerlink" href="#operator" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">namespace</span> <span class="n">std</span> <span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Traits</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="n">tuple_size</span><span class="o">&lt;</span><span class="n">sprout</span><span class="o">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;</span> <span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// syntax</span>
-<span class="n">std</span><span class="o">::</span><span class="n">tuple_size</span><span class="o">&lt;</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;</span> <span class="o">&gt;::</span><span class="n">value</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N2</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Traits</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span>
+<span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="n">sprout</span><span class="o">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N1</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">sprout</span><span class="o">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N2</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="return-type">
-<h2>Return type<a class="headerlink" href="#return-type" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">integral constant expression.</div>
-</div>
-</div>
-<div class="section" id="value">
-<h2>Value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">N.</div>
+<div class="line">true if the contents of the containers are not equivalent, false otherwise.</div>
 </div>
 </div>
 <div class="section" id="examples">
@@ -136,16 +126,22 @@
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">size</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple_size</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">8</span><span class="p">,</span> <span class="s">&quot;tuple size of string is 8.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;madocchi&quot;</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">y</span><span class="p">,</span> <span class="s">&quot;x is not equal to y.&quot;</span><span class="p">);</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="complexity">
+<h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Recursive function invocations in <em>O(logN)</em> (logarithmic) depth.</div>
 </div>
 </div>
 <div class="section" id="header">
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">sprout/string/tuple.hpp</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/string/comparison.hpp</span></tt></div>
 <div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/string.hpp</span></tt></div>
 </div>
 </div>
@@ -164,10 +160,10 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="std-tuple_element.html" title="std::tuple_element"
+          <a href="operator-less.html" title="operator&lt;"
              >next</a> |</li>
         <li class="right" >
-          <a href="operator-greater_equal.html" title="operator&gt;="
+          <a href="operator-equal_to.html" title="operator=="
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>

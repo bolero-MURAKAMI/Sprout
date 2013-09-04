@@ -7,6 +7,12 @@ Sprout.String
     :hidden:
 
     basic_string/swap-global
+    basic_string/operator-equal_to
+    basic_string/operator-not_equal_to
+    basic_string/operator-less
+    basic_string/operator-greater
+    basic_string/operator-less_equal
+    basic_string/operator-greater_equal
     basic_string/std-tuple_size
     basic_string/std-tuple_element
     basic_string/tuple_get
