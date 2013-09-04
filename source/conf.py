@@ -192,3 +192,9 @@ latex_documents = [
 
 # If false, no module index is generated.
 #latex_use_modindex = True
+
+
+
+# Google Analytics
+extensions += ['sphinxcontrib.googleanalytics']
+googleanalytics_id = 'UA-43764535-1'
