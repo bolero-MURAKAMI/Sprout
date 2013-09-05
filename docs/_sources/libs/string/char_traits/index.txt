@@ -7,7 +7,7 @@ char_traits
     :hidden:
 
     assign
-    rq
+    eq
     lt
     compare
     length
@@ -15,6 +15,11 @@ char_traits
     move
     copy
     assign-string
+    not_eof
+    to_char_type
+    to_int_type
+    eq_int_type
+    eof
 
 Interface
 ========================================

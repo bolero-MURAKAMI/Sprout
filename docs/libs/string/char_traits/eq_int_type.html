@@ -19,7 +19,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>assign &mdash; Sprout 1.0 documentation</title>
+    <title>eq_int_type &mdash; Sprout 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -38,8 +38,8 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
     <link rel="up" title="char_traits" href="index.html" />
-    <link rel="next" title="eq" href="eq.html" />
-    <link rel="prev" title="char_traits" href="index.html" /> 
+    <link rel="next" title="eof" href="eof.html" />
+    <link rel="prev" title="to_int_type" href="to_int_type.html" /> 
   </head>
   <body>
     <div class="related">
@@ -49,10 +49,10 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="eq.html" title="eq"
+          <a href="eof.html" title="eof"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="char_traits"
+          <a href="to_int_type.html" title="to_int_type"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
@@ -64,7 +64,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">assign</a><ul>
+<li><a class="reference internal" href="#">eq_int_type</a><ul>
 <li><a class="reference internal" href="#interface">Interface</a></li>
 <li><a class="reference internal" href="#effects">Effects</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
@@ -75,14 +75,14 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">char_traits</a></p>
+  <p class="topless"><a href="to_int_type.html"
+                        title="previous chapter">to_int_type</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="eq.html"
-                        title="next chapter">eq</a></p>
+  <p class="topless"><a href="eof.html"
+                        title="next chapter">eof</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/libs/string/char_traits/assign.txt"
+    <li><a href="../../../_sources/libs/string/char_traits/eq_int_type.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -106,30 +106,29 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="assign">
-<h1>assign<a class="headerlink" href="#assign" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="eq-int-type">
+<h1>eq_int_type<a class="headerlink" href="#eq-int-type" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="n">assign</span><span class="p">(</span><span class="n">char_type</span><span class="o">&amp;</span> <span class="n">c1</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">c2</span><span class="p">);</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span> <span class="n">eq_int_type</span><span class="p">(</span><span class="n">int_type</span> <span class="n">c1</span><span class="p">,</span> <span class="n">int_type</span> <span class="n">c2</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="effects">
 <h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Equivalent to <tt class="docutils literal"><span class="pre">std::char_traits&lt;Char&gt;::assign(c1,</span> <span class="pre">c2)</span></tt>.</div>
+<div class="line">Equivalent to <tt class="docutils literal"><span class="pre">std::char_traits&lt;Char&gt;::eq_int_type(c1,</span> <span class="pre">c2)</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
-<span class="cp">#include &lt;sprout/assert.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="kt">char</span> <span class="n">x</span> <span class="o">=</span> <span class="sc">&#39;H&#39;</span><span class="p">;</span>
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="kt">char</span> <span class="n">y</span> <span class="o">=</span> <span class="sc">&#39;M&#39;</span><span class="p">;</span>
-<span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;::</span><span class="n">assign</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
-<span class="n">SPROUT_ASSERT_MSG</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">,</span> <span class="s">&quot;y is assigned to x.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="sc">&#39;H&#39;</span><span class="p">;</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="sc">&#39;H&#39;</span><span class="p">;</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;::</span><span class="n">eq_int_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&quot;x is equal to y.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -137,6 +136,7 @@
 <h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">constant.</div>
+<div class="line">Recursive function invocations in <em>O(1)</em> (constant) depth.</div>
 </div>
 </div>
 <div class="section" id="header">
@@ -161,10 +161,10 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="eq.html" title="eq"
+          <a href="eof.html" title="eof"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="char_traits"
+          <a href="to_int_type.html" title="to_int_type"
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
