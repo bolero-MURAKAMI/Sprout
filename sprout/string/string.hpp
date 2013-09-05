@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <string>
 #include <algorithm>
+#include <iterator>
 #include <utility>
 #include <stdexcept>
 #include <type_traits>
@@ -21,6 +22,7 @@
 #include <sprout/array/make_array.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/algorithm/find.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
@@ -33,10 +35,76 @@
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
 
+
 namespace sprout {
+	namespace detail {
+		template<typename Iterator, typename T, std::size_t N>
+		class constant_size_source {
+		private:
+			typedef sprout::array<T, N> array_type;
+		public:
+			typedef typename array_type::size_type size_type;
+			typedef typename array_type::const_reference const_reference;
+		private:
+			array_type arr_;
+			size_type size_;
+		public:
+			SPROUT_CONSTEXPR constant_size_source()
+				: arr_{{}}, size_()
+			{}
+			template<typename... Args>
+			explicit SPROUT_CONSTEXPR constant_size_source(size_type n, Args&&... args)
+				: arr_{{static_cast<T>(sprout::forward<Args>(args))...}}, size_(n)
+			{}
+			SPROUT_CONSTEXPR size_type size() const {
+				return size_;
+			}
+			SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
+				return arr_[i];
+			}
+		};
+
+		template<typename T, std::size_t N, typename RandomAccessIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_random_access_iterator<RandomAccessIterator>::value,
+			typename std::iterator_traits<RandomAccessIterator>::difference_type
+		>::type
+		make_constant_size_source(RandomAccessIterator const& first, RandomAccessIterator const& last) {
+			return sprout::distance(first, last);
+		}
+		template<typename T, std::size_t N, typename InputIterator, typename... Args>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			N == sizeof...(Args),
+			sprout::detail::constant_size_source<InputIterator, T, N>
+		>::type
+		make_constant_size_source_impl(InputIterator first, InputIterator last, Args const&... args) {
+			return sprout::detail::constant_size_source<InputIterator, T, N>(sizeof...(args) + (first != last ? 1 : 0), args...);
+		}
+		template<typename T, std::size_t N, typename InputIterator, typename... Args>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			N != sizeof...(Args),
+			sprout::detail::constant_size_source<InputIterator, T, N>
+		>::type
+		make_constant_size_source_impl(InputIterator first, InputIterator last, Args const&... args) {
+			return first != last
+				? sprout::detail::make_constant_size_source_impl<T, N>(sprout::next(first), last, args..., *first)
+				: sprout::detail::constant_size_source<InputIterator, T, N>(sizeof...(args), args...)
+				;
+		}
+		template<typename T, std::size_t N, typename InputIterator>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::is_random_access_iterator<InputIterator>::value,
+			sprout::detail::constant_size_source<InputIterator, T, N>
+		>::type
+		make_constant_size_source(InputIterator const& first, InputIterator const& last) {
+			return sprout::detail::make_constant_size_source_impl<T, N>(first, last);
+		}
+	}	// namespace detail
+
 	namespace detail {
 		struct string_raw_construct_t {};
 		struct string_checked_construct_t {};
+		struct string_range_construct_t {};
 
 		template<typename T, std::size_t N, typename Traits = sprout::char_traits<T> >
 		class string_construct_access;
@@ -44,13 +112,13 @@ namespace sprout {
 		template<typename T, std::size_t N, typename Traits>
 		class basic_string_impl {
 		public:
-			typedef T value_type;
-			typedef T& reference;
-			typedef T const& const_reference;
+			typedef typename Traits::char_type value_type;
+			typedef value_type& reference;
+			typedef value_type const& const_reference;
 			typedef std::size_t size_type;
 			typedef std::ptrdiff_t difference_type;
-			typedef T* pointer;
-			typedef T const* const_pointer;
+			typedef value_type* pointer;
+			typedef value_type const* const_pointer;
 			typedef Traits traits_type;
 		protected:
 			value_type elems[N + 1];
@@ -67,7 +135,7 @@ namespace sprout {
 				String const& str, size_type pos, size_type n
 				)
 				: elems{
-					(sprout::math::less(Indexes, n) ? str[Indexes + pos]
+					(sprout::math::less(Indexes, n) ? static_cast<value_type>(str[Indexes + pos])
 						: value_type()
 						)...
 					}
@@ -79,11 +147,41 @@ namespace sprout {
 				sprout::detail::string_checked_construct_t, String const& str, size_type pos, size_type n
 				)
 				: elems{
-					(sprout::math::less(Indexes, n) ? str[Indexes + pos]
+					(sprout::math::less(Indexes, n) ? static_cast<value_type>(str[Indexes + pos])
 						: value_type()
 						)...
 					}
 				, len(!(N < n) ? n
+					: throw std::out_of_range("basic_string<>: index out of range")
+					)
+			{}
+			template<typename RandomAccessIterator, typename Size, sprout::index_t... Indexes>
+			SPROUT_CONSTEXPR basic_string_impl(
+				sprout::index_tuple<Indexes...>,
+				sprout::detail::string_range_construct_t, RandomAccessIterator const& str, Size n,
+				std::random_access_iterator_tag*
+				)
+				: elems{
+					(sprout::math::less(Indexes, n) ? static_cast<value_type>(str[Indexes])
+						: value_type()
+						)...
+					}
+				, len(!(N < n) ? n
+					: throw std::out_of_range("basic_string<>: index out of range")
+					)
+			{}
+			template<typename InputIterator, typename Source, sprout::index_t... Indexes>
+			SPROUT_CONSTEXPR basic_string_impl(
+				sprout::index_tuple<Indexes...>,
+				sprout::detail::string_range_construct_t, InputIterator, Source const& str,
+				void*
+				)
+				: elems{
+					(sprout::math::less(Indexes, str.size()) ? static_cast<value_type>(str[Indexes])
+						: value_type()
+						)...
+					}
+				, len(!(N < str.size()) ? str.size()
 					: throw std::out_of_range("basic_string<>: index out of range")
 					)
 			{}
@@ -93,7 +191,7 @@ namespace sprout {
 				sprout::detail::string_raw_construct_t, size_type n, Args&&... args
 				)
 				: elems{
-					(sprout::math::less(Indexes, n) ? sprout::forward<Args>(args)
+					(sprout::math::less(Indexes, n) ? static_cast<value_type>(sprout::forward<Args>(args))
 						: value_type()
 						)...
 					}
@@ -231,14 +329,12 @@ namespace sprout {
 				sprout::detail::string_checked_construct_t(), s, 0, NS_SSCRISK_CEL_OR_SPROUT::min(n, traits_type::length(s))
 				)
 		{}
-		// !!!
-//		template<typename InputIterator>
-//		SPROUT_CONSTEXPR basic_string(InputIterator first, InputIterator last);
-		template<typename RandomAccessIterator>
-		SPROUT_CONSTEXPR basic_string(RandomAccessIterator first, RandomAccessIterator last)
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR basic_string(InputIterator first, InputIterator last)
 			: impl_type(
 				sprout::make_index_tuple<N>::make(),
-				sprout::detail::string_checked_construct_t(), first, 0, sprout::distance(first, last)
+				sprout::detail::string_range_construct_t(), first, sprout::detail::make_constant_size_source<T, N>(first, last),
+				typename sprout::identity<typename std::iterator_traits<InputIterator>::iterator_category*>::type()
 				)
 		{}
 		basic_string(std::initializer_list<value_type> il)

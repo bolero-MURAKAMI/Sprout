@@ -155,36 +155,36 @@ namespace sprout {
 		}
 #endif
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstIterator s2, std::size_t n) {
+		template<typename ConstInputIterator>
+		static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstInputIterator s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
 				sprout::ptr_index(s1), sprout::ptr_index(s1, n), char_type(),
 				s2, s2 + n, char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR int compare(ConstIterator s1, char_type const* s2, std::size_t n) {
+		template<typename ConstInputIterator>
+		static SPROUT_CONSTEXPR int compare(ConstInputIterator s1, char_type const* s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
 				s1, s1 + n, char_type(),
 				sprout::ptr_index(s2), sprout::ptr_index(s2, n), char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
-		template<typename ConstIterator1, typename ConstIterator2>
-		static SPROUT_CONSTEXPR int compare(ConstIterator1 s1, ConstIterator2 s2, std::size_t n) {
+		template<typename ConstInputIterator1, typename ConstInputIterator2>
+		static SPROUT_CONSTEXPR int compare(ConstInputIterator1 s1, ConstInputIterator2 s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
 				s1, s1 + n, char_type(),
 				s2, s2 + n, char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR std::size_t length(ConstIterator s) {
+		template<typename ConstInputIterator>
+		static SPROUT_CONSTEXPR std::size_t length(ConstInputIterator s) {
 			return sprout::detail::strlen(s);
 		}
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
+		template<typename ConstInputIterator>
+		static SPROUT_CONSTEXPR ConstInputIterator find(ConstInputIterator s, std::size_t n, char_type const& a) {
 			return sprout::ptr_unindex(
 				sprout::find_if(
 					s, s + n,
@@ -192,18 +192,18 @@ namespace sprout {
 					)
 				);
 		}
-		template<typename Iterator, typename ConstIterator>
-		static Iterator move(Iterator s1, ConstIterator s2, std::size_t n) {
+		template<typename OutputIterator, typename ConstInputIterator>
+		static OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
 			std::copy_backward(s2, s2 + n, s1);
 			return s1;
 		}
-		template<typename Iterator, typename ConstIterator>
-		static Iterator copy(Iterator s1, ConstIterator s2, std::size_t n) {
+		template<typename OutputIterator, typename ConstInputIterator>
+		static OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
 			std::copy(s2, s2 + n, s1);
 			return s1;
 		}
-		template<typename Iterator>
-		static Iterator assign(Iterator s, std::size_t n, char_type a) {
+		template<typename OutputIterator>
+		static OutputIterator assign(OutputIterator s, std::size_t n, char_type a) {
 			std::fill(s, s + n, a);
 			return s;
 		}
@@ -238,19 +238,19 @@ namespace sprout {
 			return found != last;
 		}
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR std::size_t length(ConstIterator s, std::size_t n) {
+		template<typename ConstInputIterator>
+		static SPROUT_CONSTEXPR std::size_t length(ConstInputIterator s, std::size_t n) {
 			return sprout::detail::strlen(s, n);
 		}
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR ConstIterator find(ConstIterator s, std::size_t n, char_type const& a) {
+		template<typename ConstInputIterator>
+		static SPROUT_CONSTEXPR ConstInputIterator find(ConstInputIterator s, std::size_t n, char_type const& a) {
 			return sprout::find_if(
 				s, s + n,
 				sprout::bind2nd(sprout::detail::char_traits_eq<traits_type>(), a)
 				);
 		}
-		template<typename ConstIterator>
-		static SPROUT_CONSTEXPR bool is_found(ConstIterator found, ConstIterator last) {
+		template<typename ConstInputIterator>
+		static SPROUT_CONSTEXPR bool is_found(ConstInputIterator found, ConstInputIterator last) {
 			return found != last;
 		}
 #endif
