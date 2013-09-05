@@ -45,7 +45,7 @@ Returns
 | Otherwise, a value greater than zero if the sequence of elements defined by the range [first1,last1) is lexicographically greater than the sequence of elements defined by the range [first2,last2).
 | Otherwise, returns a zero value.
 
-| If the delimiter version, last1 and last2 the following corresponding transformations: ``find_if(first1, last1, bind2nd(equiv(), delim1))`` and ``find_if(first2, last2, bind2nd(equiv(), delim1))``, ``find_if(first1, last1, bind2nd(equiv(comp), delim1))`` and ``find_if(first2, last2, bind2nd(equiv(comp), delim1))``.
+| If the delimiter version, last1 and last2 the following corresponding transformations: ``find_if(first1, last1, bind2nd(equiv(), delim1))`` and ``find_if(first2, last2, bind2nd(equiv(), delim2))``, ``find_if(first1, last1, bind2nd(equiv(comp), delim1))`` and ``find_if(first2, last2, bind2nd(equiv(comp), delim2))``.
 
 Remarks
 ========================================
@@ -76,6 +76,7 @@ Complexity
 ========================================
 
 | At most ``2*min((last1 - first1), (last2 - first2)) + O(1)`` applications of the corresponding comparison.
+| At most ``6*min((last1 - first1), (last2 - first2)) + O(1)`` applications of the corresponding comparison for delimiter version.
 | Recursive function invocations in *O(logN)* (logarithmic) depth.
 
 Header
