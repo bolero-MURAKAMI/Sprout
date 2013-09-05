@@ -12,6 +12,9 @@ char_traits
     compare
     length
     find
+    move
+    copy
+    assign-string
 
 Interface
 ========================================
