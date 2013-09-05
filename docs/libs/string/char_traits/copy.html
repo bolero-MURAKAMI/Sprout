@@ -66,6 +66,7 @@
   <ul>
 <li><a class="reference internal" href="#">copy</a><ul>
 <li><a class="reference internal" href="#interface">Interface</a></li>
+<li><a class="reference internal" href="#pre-condition">Pre-condition</a></li>
 <li><a class="reference internal" href="#effects">Effects</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#complexity">Complexity</a></li>
@@ -112,6 +113,12 @@
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">static</span> <span class="n">char_type</span><span class="o">*</span> <span class="n">copy</span><span class="p">(</span><span class="n">char_type</span><span class="o">*</span> <span class="n">s1</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="pre-condition">
+<h2>Pre-condition<a class="headerlink" href="#pre-condition" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">s2 not in [s1,s1+n).</div>
 </div>
 </div>
 <div class="section" id="effects">

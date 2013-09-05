@@ -1,35 +1,36 @@
-.. _sprout-string-char_traits-not_eof:
+.. _sprout-string-char_traits-assign-iterator:
 ###############################################################################
-not_eof
+assign
 ###############################################################################
 
 Interface
 ========================================
 .. sourcecode:: c++
 
-  static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT;
+  template<typename OutputIterator>
+  static OutputIterator assign(OutputIterator s, std::size_t n, char_type a);
 
-Returns
+Effects
 ========================================
 
-| Equivalent to ``std::char_traits<Char>::not_eof(c)``.
+| For each i in [0,n) performs ``assign(s[i], c)``.
 
 Examples
 ========================================
 .. sourcecode:: c++
 
   #include <sprout/string.hpp>
+  #include <sprout/assert.hpp>
   using namespace sprout;
   
-  SPROUT_STATIC_CONSTEXPR char x = 'H';
-  SPROUT_STATIC_CONSTEXPR auto result = char_traits<char>::not_eof(x);
-  static_assert(result, "x is not EOF.");
+  auto x = string<8>("homuhomu");;
+  char_traits<char>::assign(x.begin(), 8, 'M');
+  SPROUT_ASSERT_MSG(x[0] == 'M', "x is filled by M.");
 
 Complexity
 ========================================
 
-| constant.
-| Recursive function invocations in *O(1)* (constant) depth.
+| linear.
 
 Header
 ========================================

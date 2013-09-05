@@ -9,6 +9,11 @@ Interface
 
   static char_type* copy(char_type* s1, char_type const* s2, std::size_t n);
 
+Pre-condition
+========================================
+
+| s2 not in [s1,s1+n).
+
 Effects
 ========================================
 

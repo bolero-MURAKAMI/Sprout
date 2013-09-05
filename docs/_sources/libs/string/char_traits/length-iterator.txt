@@ -1,18 +1,19 @@
-.. _sprout-string-char_traits-not_eof:
+.. _sprout-string-char_traits-length-iterator:
 ###############################################################################
-not_eof
+length
 ###############################################################################
 
 Interface
 ========================================
 .. sourcecode:: c++
 
-  static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT;
+  template<typename ConstInputIterator>
+  static SPROUT_CONSTEXPR std::size_t length(ConstInputIterator s);
 
 Returns
 ========================================
 
-| Equivalent to ``std::char_traits<Char>::not_eof(c)``.
+| The smallest i such that ``eq(s[i], char_type())`` is true.
 
 Examples
 ========================================
@@ -21,15 +22,15 @@ Examples
   #include <sprout/string.hpp>
   using namespace sprout;
   
-  SPROUT_STATIC_CONSTEXPR char x = 'H';
-  SPROUT_STATIC_CONSTEXPR auto result = char_traits<char>::not_eof(x);
-  static_assert(result, "x is not EOF.");
+  SPROUT_STATIC_CONSTEXPR auto x = string<8>("homuhomu");
+  SPROUT_STATIC_CONSTEXPR auto result = char_traits<char>::length(x.begin());
+  static_assert(result == 8, "length of x is 8.");
 
 Complexity
 ========================================
 
-| constant.
-| Recursive function invocations in *O(1)* (constant) depth.
+| linear.
+| Recursive function invocations in *O(logN)* (logarithmic) depth.
 
 Header
 ========================================

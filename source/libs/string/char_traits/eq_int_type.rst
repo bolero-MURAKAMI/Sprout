@@ -9,7 +9,7 @@ Interface
 
   static SPROUT_CONSTEXPR bool eq_int_type(int_type c1, int_type c2) SPROUT_NOEXCEPT;
 
-Effects
+Returns
 ========================================
 
 | Equivalent to ``std::char_traits<Char>::eq_int_type(c1, c2)``.

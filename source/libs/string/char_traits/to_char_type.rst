@@ -9,7 +9,7 @@ Interface
 
   static SPROUT_CONSTEXPR char_type to_char_type(int_type c) SPROUT_NOEXCEPT;
 
-Effects
+Returns
 ========================================
 
 | Equivalent to ``std::char_traits<Char>::to_char_type(c)``.

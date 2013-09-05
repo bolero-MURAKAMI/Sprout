@@ -20,6 +20,12 @@ char_traits
     to_int_type
     eq_int_type
     eof
+    compare-iterator
+    length-iterator
+    find-iterator
+    move-iterator
+    copy-iterator
+    assign-iterator
 
 Interface
 ========================================
@@ -59,8 +65,8 @@ Interface
     static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstInputIterator s2, std::size_t n);
     template<typename ConstInputIterator>
     static SPROUT_CONSTEXPR int compare(ConstInputIterator s1, char_type const* s2, std::size_t n);
-    template<typename ConstIterator1, typename ConstIterator2>
-    static SPROUT_CONSTEXPR int compare(ConstIterator1 s1, ConstIterator2 s2, std::size_t n);
+    template<typename ConstInputIterator1, typename ConstInputIterator2>
+    static SPROUT_CONSTEXPR int compare(ConstInputIterator1 s1, ConstInputIterator2 s2, std::size_t n);
     template<typename ConstInputIterator>
     static SPROUT_CONSTEXPR std::size_t length(ConstInputIterator s);
     template<typename ConstInputIterator>
@@ -137,7 +143,7 @@ string operations (for iterator)
 function
 ======================================== ===============================================================================
 :doc:`compare <./compare-iterator>`
-:doc:`eqlength<./length-iterator>`
+:doc:`length<./length-iterator>`
 :doc:`find <./find-iterator>`
 :doc:`move <./move-iterator>`
 :doc:`copy <./copy-iterator>`

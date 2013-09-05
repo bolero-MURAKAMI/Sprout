@@ -1,35 +1,42 @@
-.. _sprout-string-char_traits-not_eof:
+.. _sprout-string-char_traits-copy-iterator:
 ###############################################################################
-not_eof
+copy
 ###############################################################################
 
 Interface
 ========================================
 .. sourcecode:: c++
 
-  static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT;
+  template<typename OutputIterator, typename ConstInputIterator>
+  static OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n);
 
-Returns
+Pre-condition
 ========================================
 
-| Equivalent to ``std::char_traits<Char>::not_eof(c)``.
+| s2 not in [s1,s1+n).
+
+Effects
+========================================
+
+| For each i in [0,n) performs ``assign(s1[i], s2[i])``.
 
 Examples
 ========================================
 .. sourcecode:: c++
 
   #include <sprout/string.hpp>
+  #include <sprout/assert.hpp>
   using namespace sprout;
   
-  SPROUT_STATIC_CONSTEXPR char x = 'H';
-  SPROUT_STATIC_CONSTEXPR auto result = char_traits<char>::not_eof(x);
-  static_assert(result, "x is not EOF.");
+  auto x = string<8>("homuhomu");;
+  SPROUT_STATIC_CONSTEXPR auto y = string<8>("madocchi");
+  char_traits<char>::copy(x.begin(), y.begin(), 8);
+  SPROUT_ASSERT_MSG(x[0] == y[0], "y is copied to x.");
 
 Complexity
 ========================================
 
-| constant.
-| Recursive function invocations in *O(1)* (constant) depth.
+| linear.
 
 Header
 ========================================

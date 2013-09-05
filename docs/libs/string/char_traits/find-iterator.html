@@ -19,7 +19,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>not_eof &mdash; Sprout 1.0 documentation</title>
+    <title>find &mdash; Sprout 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -38,8 +38,8 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
     <link rel="up" title="char_traits" href="index.html" />
-    <link rel="next" title="to_char_type" href="to_char_type.html" />
-    <link rel="prev" title="assign" href="assign-string.html" /> 
+    <link rel="next" title="move" href="move-iterator.html" />
+    <link rel="prev" title="length" href="length-iterator.html" /> 
   </head>
   <body>
     <div class="related">
@@ -49,10 +49,10 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="to_char_type.html" title="to_char_type"
+          <a href="move-iterator.html" title="move"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="assign-string.html" title="assign"
+          <a href="length-iterator.html" title="length"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
@@ -64,9 +64,10 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">not_eof</a><ul>
+<li><a class="reference internal" href="#">find</a><ul>
 <li><a class="reference internal" href="#interface">Interface</a></li>
 <li><a class="reference internal" href="#returns">Returns</a></li>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#complexity">Complexity</a></li>
 <li><a class="reference internal" href="#header">Header</a></li>
@@ -75,14 +76,14 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="assign-string.html"
-                        title="previous chapter">assign</a></p>
+  <p class="topless"><a href="length-iterator.html"
+                        title="previous chapter">length</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="to_char_type.html"
-                        title="next chapter">to_char_type</a></p>
+  <p class="topless"><a href="move-iterator.html"
+                        title="next chapter">move</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/libs/string/char_traits/not_eof.txt"
+    <li><a href="../../../_sources/libs/string/char_traits/find-iterator.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -106,36 +107,44 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="not-eof">
-<h1>not_eof<a class="headerlink" href="#not-eof" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="find">
+<h1>find<a class="headerlink" href="#find" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">int_type</span> <span class="n">not_eof</span><span class="p">(</span><span class="n">int_type</span> <span class="n">c</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ConstInputIterator</span><span class="o">&gt;</span>
+<span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">ConstInputIterator</span> <span class="n">find</span><span class="p">(</span><span class="n">ConstInputIterator</span> <span class="n">s</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Equivalent to <tt class="docutils literal"><span class="pre">std::char_traits&lt;Char&gt;::not_eof(c)</span></tt>.</div>
+<div class="line">The smallest q in [s,s+n) such that <tt class="docutils literal"><span class="pre">eq(*q,</span> <span class="pre">a)</span></tt> is true, <tt class="docutils literal"><span class="pre">s</span> <span class="pre">+</span> <span class="pre">n</span></tt> otherwise.</div>
+</div>
+</div>
+<div class="section" id="remarks">
+<h2>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Pointer version returns 0 when it not found, but this function returns <tt class="docutils literal"><span class="pre">s</span> <span class="pre">+</span> <span class="pre">n</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
+<span class="cp">#include &lt;sprout/iterator.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="kt">char</span> <span class="n">x</span> <span class="o">=</span> <span class="sc">&#39;H&#39;</span><span class="p">;</span>
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;::</span><span class="n">not_eof</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&quot;x is not EOF.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;::</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="mi">8</span><span class="p">,</span> <span class="sc">&#39;m&#39;</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">sprout</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;a found position is 2.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="complexity">
 <h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">constant.</div>
-<div class="line">Recursive function invocations in <em>O(1)</em> (constant) depth.</div>
+<div class="line">linear.</div>
+<div class="line">Recursive function invocations in <em>O(logN)</em> (logarithmic) depth.</div>
 </div>
 </div>
 <div class="section" id="header">
@@ -160,10 +169,10 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="to_char_type.html" title="to_char_type"
+          <a href="move-iterator.html" title="move"
              >next</a> |</li>
         <li class="right" >
-          <a href="assign-string.html" title="assign"
+          <a href="length-iterator.html" title="length"
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>

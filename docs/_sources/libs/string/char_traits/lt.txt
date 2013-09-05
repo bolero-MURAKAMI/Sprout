@@ -9,7 +9,7 @@ Interface
 
   static SPROUT_CONSTEXPR bool lt(char_type c1, char_type c2) SPROUT_NOEXCEPT;
 
-Effects
+Returns
 ========================================
 
 | Equivalent to ``std::char_traits<Char>::lt(c1, c2)``.

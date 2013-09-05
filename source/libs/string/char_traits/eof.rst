@@ -9,7 +9,7 @@ Interface
 
   static SPROUT_CONSTEXPR int_type eof() SPROUT_NOEXCEPT;
 
-Effects
+Returns
 ========================================
 
 | Equivalent to ``std::char_traits<Char>::eof()``.
