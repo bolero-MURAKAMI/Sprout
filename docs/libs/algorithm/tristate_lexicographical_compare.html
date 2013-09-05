@@ -151,7 +151,7 @@
 <div class="line">Otherwise, returns a zero value.</div>
 </div>
 <div class="line-block">
-<div class="line">If the delimiter version, last1 and last2 the following corresponding transformations: <tt class="docutils literal"><span class="pre">find_if(first1,</span> <span class="pre">last1,</span> <span class="pre">bind2nd(equiv(),</span> <span class="pre">delim1))</span></tt> and <tt class="docutils literal"><span class="pre">find_if(first2,</span> <span class="pre">last2,</span> <span class="pre">bind2nd(equiv(),</span> <span class="pre">delim1))</span></tt>, <tt class="docutils literal"><span class="pre">find_if(first1,</span> <span class="pre">last1,</span> <span class="pre">bind2nd(equiv(comp),</span> <span class="pre">delim1))</span></tt> and <tt class="docutils literal"><span class="pre">find_if(first2,</span> <span class="pre">last2,</span> <span class="pre">bind2nd(equiv(comp),</span> <span class="pre">delim1))</span></tt>.</div>
+<div class="line">If the delimiter version, last1 and last2 the following corresponding transformations: <tt class="docutils literal"><span class="pre">find_if(first1,</span> <span class="pre">last1,</span> <span class="pre">bind2nd(equiv(),</span> <span class="pre">delim1))</span></tt> and <tt class="docutils literal"><span class="pre">find_if(first2,</span> <span class="pre">last2,</span> <span class="pre">bind2nd(equiv(),</span> <span class="pre">delim2))</span></tt>, <tt class="docutils literal"><span class="pre">find_if(first1,</span> <span class="pre">last1,</span> <span class="pre">bind2nd(equiv(comp),</span> <span class="pre">delim1))</span></tt> and <tt class="docutils literal"><span class="pre">find_if(first2,</span> <span class="pre">last2,</span> <span class="pre">bind2nd(equiv(comp),</span> <span class="pre">delim2))</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="remarks">
@@ -185,6 +185,7 @@
 <h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">At most <tt class="docutils literal"><span class="pre">2*min((last1</span> <span class="pre">-</span> <span class="pre">first1),</span> <span class="pre">(last2</span> <span class="pre">-</span> <span class="pre">first2))</span> <span class="pre">+</span> <span class="pre">O(1)</span></tt> applications of the corresponding comparison.</div>
+<div class="line">At most <tt class="docutils literal"><span class="pre">6*min((last1</span> <span class="pre">-</span> <span class="pre">first1),</span> <span class="pre">(last2</span> <span class="pre">-</span> <span class="pre">first2))</span> <span class="pre">+</span> <span class="pre">O(1)</span></tt> applications of the corresponding comparison for delimiter version.</div>
 <div class="line">Recursive function invocations in <em>O(logN)</em> (logarithmic) depth.</div>
 </div>
 </div>

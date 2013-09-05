@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-43764535-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>char_traits &mdash; Sprout 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="Sprout.String" href="../index.html" />
+    <link rel="next" title="swap" href="../basic_string/swap-global.html" />
+    <link rel="prev" title="Sprout.String" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../basic_string/swap-global.html" title="swap"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Sprout.String"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Libraries</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Sprout.String</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">char_traits</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#member-types">Member types</a></li>
+<li><a class="reference internal" href="#static-member-functions">Static Member functions</a><ul>
+<li><a class="reference internal" href="#character-operations">character operations</a></li>
+<li><a class="reference internal" href="#string-operations">string operations</a></li>
+<li><a class="reference internal" href="#integer-type-operations">integer type operations</a></li>
+<li><a class="reference internal" href="#string-operations-for-iterator">string operations (for iterator)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#header">Header</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Sprout.String</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../basic_string/swap-global.html"
+                        title="next chapter">swap</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/libs/string/char_traits/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="char-traits">
+<h1>char_traits<a class="headerlink" href="#char-traits" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Char</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">char_traits</span> <span class="p">{</span>
+  <span class="c1">// types:</span>
+  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">char_tarist</span><span class="o">&lt;</span><span class="n">Char</span><span class="o">&gt;::</span><span class="n">char_type</span> <span class="n">char_type</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">char_tarist</span><span class="o">&lt;</span><span class="n">Char</span><span class="o">&gt;::</span><span class="n">int_type</span> <span class="n">int_type</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">char_tarist</span><span class="o">&lt;</span><span class="n">Char</span><span class="o">&gt;::</span><span class="n">off_type</span> <span class="n">off_type</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">char_tarist</span><span class="o">&lt;</span><span class="n">Char</span><span class="o">&gt;::</span><span class="n">pos_type</span> <span class="n">pos_type</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">char_tarist</span><span class="o">&lt;</span><span class="n">Char</span><span class="o">&gt;::</span><span class="n">state_type</span> <span class="n">state_type</span><span class="p">;</span>
+
+  <span class="c1">// character operations:</span>
+  <span class="k">static</span> <span class="kt">void</span> <span class="n">assign</span><span class="p">(</span><span class="n">char_type</span><span class="o">&amp;</span> <span class="n">c1</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">c2</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span> <span class="n">eq</span><span class="p">(</span><span class="n">char_type</span> <span class="n">c1</span><span class="p">,</span> <span class="n">char_type</span> <span class="n">c2</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span> <span class="n">lt</span><span class="p">(</span><span class="n">char_type</span> <span class="n">c1</span><span class="p">,</span> <span class="n">char_type</span> <span class="n">c2</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+
+  <span class="c1">// string operations:</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s1</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">length</span><span class="p">(</span><span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s</span><span class="p">);</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">find</span><span class="p">(</span><span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">);</span>
+  <span class="k">static</span> <span class="n">char_type</span><span class="o">*</span> <span class="n">move</span><span class="p">(</span><span class="n">char_type</span><span class="o">*</span> <span class="n">s1</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+  <span class="k">static</span> <span class="n">char_type</span><span class="o">*</span> <span class="n">copy</span><span class="p">(</span><span class="n">char_type</span><span class="o">*</span> <span class="n">s1</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+  <span class="k">static</span> <span class="n">char_type</span><span class="o">*</span> <span class="n">assign</span><span class="p">(</span><span class="n">char_type</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">char_type</span> <span class="n">a</span><span class="p">);</span>
+
+  <span class="c1">// integer type operations:</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">int_type</span> <span class="n">not_eof</span><span class="p">(</span><span class="n">int_type</span> <span class="n">c</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">char_type</span> <span class="n">to_char_type</span><span class="p">(</span><span class="n">int_type</span> <span class="n">c</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">int_type</span> <span class="n">to_int_type</span><span class="p">(</span><span class="n">char_type</span> <span class="n">c</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span> <span class="n">eq_int_type</span><span class="p">(</span><span class="n">int_type</span> <span class="n">c1</span><span class="p">,</span> <span class="n">int_type</span> <span class="n">c2</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">int_type</span> <span class="n">eof</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+
+  <span class="c1">// string operations (for iterator):</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ConstInputIterator</span><span class="o">&gt;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s1</span><span class="p">,</span> <span class="n">ConstInputIterator</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ConstInputIterator</span><span class="o">&gt;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="n">ConstInputIterator</span> <span class="n">s1</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ConstIterator1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">ConstIterator2</span><span class="o">&gt;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="n">ConstIterator1</span> <span class="n">s1</span><span class="p">,</span> <span class="n">ConstIterator2</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ConstInputIterator</span><span class="o">&gt;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">length</span><span class="p">(</span><span class="n">ConstInputIterator</span> <span class="n">s</span><span class="p">);</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">ConstInputIterator</span><span class="o">&gt;</span>
+  <span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">ConstInputIterator</span> <span class="n">find</span><span class="p">(</span><span class="n">ConstInputIterator</span> <span class="n">s</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">char_type</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">);</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">OutputIterator</span><span class="p">,</span> <span class="k">typename</span> <span class="n">ConstInputIterator</span><span class="o">&gt;</span>
+  <span class="k">static</span> <span class="n">OutputIterator</span> <span class="n">move</span><span class="p">(</span><span class="n">OutputIterator</span> <span class="n">s1</span><span class="p">,</span> <span class="n">ConstInputIterator</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">OutputIterator</span><span class="p">,</span> <span class="k">typename</span> <span class="n">ConstInputIterator</span><span class="o">&gt;</span>
+  <span class="k">static</span> <span class="n">OutputIterator</span> <span class="n">copy</span><span class="p">(</span><span class="n">OutputIterator</span> <span class="n">s1</span><span class="p">,</span> <span class="n">ConstInputIterator</span> <span class="n">s2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">OutputIterator</span><span class="o">&gt;</span>
+  <span class="k">static</span> <span class="n">OutputIterator</span> <span class="n">assign</span><span class="p">(</span><span class="n">OutputIterator</span> <span class="n">s</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">char_type</span> <span class="n">a</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="member-types">
+<h3>Member types<a class="headerlink" href="#member-types" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="50%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">type</th>
+<th class="head">definition</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>char_type</td>
+<td>std::char_tarist&lt;Char&gt;::char_type</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>int_type</td>
+<td>std::char_tarist&lt;Char&gt;::int_type</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>off_type</td>
+<td>std::char_tarist&lt;Char&gt;::off_type</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>pos_type</td>
+<td>std::char_tarist&lt;Char&gt;::pos_type</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>state_type</td>
+<td>std::char_tarist&lt;Char&gt;::state_type</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="static-member-functions">
+<h3>Static Member functions<a class="headerlink" href="#static-member-functions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="character-operations">
+<h4>character operations<a class="headerlink" href="#character-operations" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">assign</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">eq</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">lt</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="string-operations">
+<h4>string operations<a class="headerlink" href="#string-operations" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">compare</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">eqlength</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">find</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">move</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">copy</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">assign</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="integer-type-operations">
+<h4>integer type operations<a class="headerlink" href="#integer-type-operations" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">not_eof</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">to_char_type</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">to_int_type</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">eq_int_type</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">eof</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="string-operations-for-iterator">
+<h4>string operations (for iterator)<a class="headerlink" href="#string-operations-for-iterator" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">compare</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">eqlength</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">find</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">move</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">copy</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref doc docutils literal"><span class="pre">assign</span></tt></td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="header">
+<h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">sprout/string/char_traits.hpp</span></tt></p>
+<p>Convenience header: <tt class="docutils literal"><span class="pre">sprout/string.hpp</span></tt></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../basic_string/swap-global.html" title="swap"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Sprout.String"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Libraries</a> &raquo;</li>
+          <li><a href="../index.html" >Sprout.String</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Bolero MURAKAMI.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

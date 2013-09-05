@@ -6,6 +6,7 @@ Sprout.String
 .. toctree::
     :hidden:
 
+    char_traits/index
     basic_string/swap-global
     basic_string/operator-plus
     basic_string/operator-equal_to
