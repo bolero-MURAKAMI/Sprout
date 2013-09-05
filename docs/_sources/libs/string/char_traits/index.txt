@@ -13,11 +13,11 @@ Interface
   template<typename Char>
   struct char_traits {
     // types:
-    typedef typename std::char_tarist<Char>::char_type char_type;
-    typedef typename std::char_tarist<Char>::int_type int_type;
-    typedef typename std::char_tarist<Char>::off_type off_type;
-    typedef typename std::char_tarist<Char>::pos_type pos_type;
-    typedef typename std::char_tarist<Char>::state_type state_type;
+    typedef typename std::char_traits<Char>::char_type char_type;
+    typedef typename std::char_traits<Char>::int_type int_type;
+    typedef typename std::char_traits<Char>::off_type off_type;
+    typedef typename std::char_traits<Char>::pos_type pos_type;
+    typedef typename std::char_traits<Char>::state_type state_type;
 
     // character operations:
     static void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT;
@@ -67,11 +67,11 @@ Member types
 ======================================== =============================================================================== =======================================
 type                                     definition                                                                      
 ======================================== =============================================================================== =======================================
-char_type                                std::char_tarist<Char>::char_type
-int_type                                 std::char_tarist<Char>::int_type
-off_type                                 std::char_tarist<Char>::off_type
-pos_type                                 std::char_tarist<Char>::pos_type
-state_type                               std::char_tarist<Char>::state_type
+char_type                                std::char_traits<Char>::char_type
+int_type                                 std::char_traits<Char>::int_type
+off_type                                 std::char_traits<Char>::off_type
+pos_type                                 std::char_traits<Char>::pos_type
+state_type                               std::char_traits<Char>::state_type
 ======================================== =============================================================================== =======================================
 
 Static Member functions
