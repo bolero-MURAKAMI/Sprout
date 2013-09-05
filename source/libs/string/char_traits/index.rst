@@ -6,6 +6,13 @@ char_traits
 .. toctree::
     :hidden:
 
+    assign
+    rq
+    lt
+    compare
+    length
+    find
+
 Interface
 ========================================
 .. sourcecode:: c++
@@ -74,7 +81,7 @@ pos_type                                 std::char_traits<Char>::pos_type
 state_type                               std::char_traits<Char>::state_type
 ======================================== =============================================================================== =======================================
 
-Static Member functions
+Static member functions
 ----------------------------------------
 
 character operations
@@ -95,11 +102,11 @@ string operations
 function
 ======================================== ===============================================================================
 :doc:`compare <./compare>`
-:doc:`eqlength<./length>`
+:doc:`length<./length>`
 :doc:`find <./find>`
 :doc:`move <./move>`
 :doc:`copy <./copy>`
-:doc:`assign <./assign>`
+:doc:`assign <./assign-string>`
 ======================================== ===============================================================================
 
 integer type operations

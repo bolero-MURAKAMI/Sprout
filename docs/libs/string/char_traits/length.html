@@ -19,7 +19,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>swap &mdash; Sprout 1.0 documentation</title>
+    <title>length &mdash; Sprout 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -37,9 +37,9 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
-    <link rel="up" title="Sprout.String" href="../index.html" />
-    <link rel="next" title="operator+" href="operator-plus.html" />
-    <link rel="prev" title="find" href="../char_traits/find.html" /> 
+    <link rel="up" title="char_traits" href="index.html" />
+    <link rel="next" title="find" href="find.html" />
+    <link rel="prev" title="compare" href="compare.html" /> 
   </head>
   <body>
     <div class="related">
@@ -49,24 +49,24 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="operator-plus.html" title="operator+"
+          <a href="find.html" title="find"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../char_traits/find.html" title="find"
+          <a href="compare.html" title="compare"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Sprout.String</a> &raquo;</li> 
+          <li><a href="../index.html" >Sprout.String</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">char_traits</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">swap</a><ul>
+<li><a class="reference internal" href="#">length</a><ul>
 <li><a class="reference internal" href="#interface">Interface</a></li>
-<li><a class="reference internal" href="#effects">Effects</a></li>
-<li><a class="reference internal" href="#throws">Throws</a></li>
+<li><a class="reference internal" href="#returns">Returns</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#complexity">Complexity</a></li>
 <li><a class="reference internal" href="#header">Header</a></li>
@@ -75,14 +75,14 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../char_traits/find.html"
-                        title="previous chapter">find</a></p>
+  <p class="topless"><a href="compare.html"
+                        title="previous chapter">compare</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="operator-plus.html"
-                        title="next chapter">operator+</a></p>
+  <p class="topless"><a href="find.html"
+                        title="next chapter">find</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/libs/string/basic_string/swap-global.txt"
+    <li><a href="../../../_sources/libs/string/char_traits/length.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -106,52 +106,42 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="swap">
-<h1>swap<a class="headerlink" href="#swap" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="length">
+<h1>length<a class="headerlink" href="#length" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Traits</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="kt">void</span>
-<span class="n">swap</span><span class="p">(</span><span class="n">sprout</span><span class="o">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">sprout</span><span class="o">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">rhs</span><span class="p">)));</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">static</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">length</span><span class="p">(</span><span class="n">char_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="effects">
-<h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">lhs.swap(rhs)</span></tt>.</div>
-</div>
-</div>
-<div class="section" id="throws">
-<h2>Throws<a class="headerlink" href="#throws" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">Nothing unless <tt class="docutils literal"><span class="pre">lhs.swap(rhs)</span></tt> throws an exception.</div>
+<div class="line">Equivalent to <tt class="docutils literal"><span class="pre">std::char_traits&lt;Char&gt;::length(s)</span></tt> in constant expression.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
-<span class="cp">#include &lt;sprout/assert.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
-<span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;madocchi&quot;</span><span class="p">);</span>
-<span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
-<span class="n">SPROUT_ASSERT_MSG</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="s">&quot;madocchi&quot;</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="s">&quot;homuhomu&quot;</span><span class="p">,</span> <span class="s">&quot;each element are swapped.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="s">&quot;homuhomu&quot;</span><span class="p">;</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;::</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">8</span><span class="p">,</span> <span class="s">&quot;length of x is 8.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="complexity">
 <h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">linear in N.</div>
+<div class="line">linear.</div>
+<div class="line">Recursive function invocations in <em>O(logN)</em> (logarithmic) depth.</div>
 </div>
 </div>
 <div class="section" id="header">
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">sprout/string/array.hpp</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/string/char_traits.hpp</span></tt></div>
 <div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/string.hpp</span></tt></div>
 </div>
 </div>
@@ -170,14 +160,15 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="operator-plus.html" title="operator+"
+          <a href="find.html" title="find"
              >next</a> |</li>
         <li class="right" >
-          <a href="../char_traits/find.html" title="find"
+          <a href="compare.html" title="compare"
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
-          <li><a href="../index.html" >Sprout.String</a> &raquo;</li> 
+          <li><a href="../index.html" >Sprout.String</a> &raquo;</li>
+          <li><a href="index.html" >char_traits</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
