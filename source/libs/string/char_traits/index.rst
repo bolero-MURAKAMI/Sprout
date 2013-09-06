@@ -32,52 +32,7 @@ Interface
 .. sourcecode:: c++
 
   template<typename Char>
-  struct char_traits {
-    // types:
-    typedef typename std::char_traits<Char>::char_type char_type;
-    typedef typename std::char_traits<Char>::int_type int_type;
-    typedef typename std::char_traits<Char>::off_type off_type;
-    typedef typename std::char_traits<Char>::pos_type pos_type;
-    typedef typename std::char_traits<Char>::state_type state_type;
-
-    // character operations:
-    static void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT;
-    static SPROUT_CONSTEXPR bool eq(char_type c1, char_type c2) SPROUT_NOEXCEPT;
-    static SPROUT_CONSTEXPR bool lt(char_type c1, char_type c2) SPROUT_NOEXCEPT;
-
-    // string operations:
-    static SPROUT_CONSTEXPR int compare(char_type const* s1, char_type const* s2, std::size_t n);
-    static SPROUT_CONSTEXPR std::size_t length(char_type const* s);
-    static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a);
-    static char_type* move(char_type* s1, char_type const* s2, std::size_t n);
-    static char_type* copy(char_type* s1, char_type const* s2, std::size_t n);
-    static char_type* assign(char_type* s, std::size_t n, char_type a);
-
-    // integer type operations:
-    static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT;
-    static SPROUT_CONSTEXPR char_type to_char_type(int_type c) SPROUT_NOEXCEPT;
-    static SPROUT_CONSTEXPR int_type to_int_type(char_type c) SPROUT_NOEXCEPT;
-    static SPROUT_CONSTEXPR bool eq_int_type(int_type c1, int_type c2) SPROUT_NOEXCEPT;
-    static SPROUT_CONSTEXPR int_type eof() SPROUT_NOEXCEPT;
-
-    // string operations (for iterator):
-    template<typename ConstInputIterator>
-    static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstInputIterator s2, std::size_t n);
-    template<typename ConstInputIterator>
-    static SPROUT_CONSTEXPR int compare(ConstInputIterator s1, char_type const* s2, std::size_t n);
-    template<typename ConstInputIterator1, typename ConstInputIterator2>
-    static SPROUT_CONSTEXPR int compare(ConstInputIterator1 s1, ConstInputIterator2 s2, std::size_t n);
-    template<typename ConstInputIterator>
-    static SPROUT_CONSTEXPR std::size_t length(ConstInputIterator s);
-    template<typename ConstInputIterator>
-    static SPROUT_CONSTEXPR ConstInputIterator find(ConstInputIterator s, std::size_t n, char_type const& a);
-    template<typename OutputIterator, typename ConstInputIterator>
-    static OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n);
-    template<typename OutputIterator, typename ConstInputIterator>
-    static OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n);
-    template<typename OutputIterator>
-    static OutputIterator assign(OutputIterator s, std::size_t n, char_type a);
-  };
+  struct char_traits;
 
 Description
 ========================================
@@ -157,3 +112,54 @@ Header
 
 Convenience header: ``sprout/string.hpp``
 
+Interface of all
+========================================
+.. sourcecode:: c++
+
+  template<typename Char>
+  struct char_traits {
+    // types:
+    typedef typename std::char_traits<Char>::char_type char_type;
+    typedef typename std::char_traits<Char>::int_type int_type;
+    typedef typename std::char_traits<Char>::off_type off_type;
+    typedef typename std::char_traits<Char>::pos_type pos_type;
+    typedef typename std::char_traits<Char>::state_type state_type;
+
+    // character operations:
+    static void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT;
+    static SPROUT_CONSTEXPR bool eq(char_type c1, char_type c2) SPROUT_NOEXCEPT;
+    static SPROUT_CONSTEXPR bool lt(char_type c1, char_type c2) SPROUT_NOEXCEPT;
+
+    // string operations:
+    static SPROUT_CONSTEXPR int compare(char_type const* s1, char_type const* s2, std::size_t n);
+    static SPROUT_CONSTEXPR std::size_t length(char_type const* s);
+    static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a);
+    static char_type* move(char_type* s1, char_type const* s2, std::size_t n);
+    static char_type* copy(char_type* s1, char_type const* s2, std::size_t n);
+    static char_type* assign(char_type* s, std::size_t n, char_type a);
+
+    // integer type operations:
+    static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT;
+    static SPROUT_CONSTEXPR char_type to_char_type(int_type c) SPROUT_NOEXCEPT;
+    static SPROUT_CONSTEXPR int_type to_int_type(char_type c) SPROUT_NOEXCEPT;
+    static SPROUT_CONSTEXPR bool eq_int_type(int_type c1, int_type c2) SPROUT_NOEXCEPT;
+    static SPROUT_CONSTEXPR int_type eof() SPROUT_NOEXCEPT;
+
+    // string operations (for iterator):
+    template<typename ConstInputIterator>
+    static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstInputIterator s2, std::size_t n);
+    template<typename ConstInputIterator>
+    static SPROUT_CONSTEXPR int compare(ConstInputIterator s1, char_type const* s2, std::size_t n);
+    template<typename ConstInputIterator1, typename ConstInputIterator2>
+    static SPROUT_CONSTEXPR int compare(ConstInputIterator1 s1, ConstInputIterator2 s2, std::size_t n);
+    template<typename ConstInputIterator>
+    static SPROUT_CONSTEXPR std::size_t length(ConstInputIterator s);
+    template<typename ConstInputIterator>
+    static SPROUT_CONSTEXPR ConstInputIterator find(ConstInputIterator s, std::size_t n, char_type const& a);
+    template<typename OutputIterator, typename ConstInputIterator>
+    static OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n);
+    template<typename OutputIterator, typename ConstInputIterator>
+    static OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n);
+    template<typename OutputIterator>
+    static OutputIterator assign(OutputIterator s, std::size_t n, char_type a);
+  };

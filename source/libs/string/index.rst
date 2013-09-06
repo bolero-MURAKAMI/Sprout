@@ -7,6 +7,11 @@ Sprout.String
     :hidden:
 
     char_traits/index
+    basic_string/index
+    string
+    wstring
+    u16string
+    u32string
     basic_string/swap-global
     basic_string/operator-plus
     basic_string/operator-equal_to
@@ -15,6 +20,40 @@ Sprout.String
     basic_string/operator-greater
     basic_string/operator-less_equal
     basic_string/operator-greater_equal
+    basic_string/operator-left_shift
+    basic_string/operator-right_shift
+    string_to_int
+    stoi
+    stol
+    stoul
+    stoll
+    stoull
+    stoimax
+    stoumax
+    from_string-inttype
+    string_to_float
+    stof
+    stod
+    stold
+    from_string-floattype
+    int_to_string
+    to_string_of-inttype
+    to_string-inttype
+    to_wstring-inttype
+    to_u16string-inttype
+    to_u32string-inttype
+    float_to_string
+    float_to_string_exp
+    to_string_of-floattype
+    to_string-floattype
+    to_wstring-floattype
+    to_u16string-floattype
+    to_u32string-floattype
+    to_string
+    string_from_c_str
+    make_string
+    shrink
+    stretch
     basic_string/std-tuple_size
     basic_string/std-tuple_element
     basic_string/tuple_get
@@ -40,11 +79,19 @@ String classes
 class
 ============================================================ ===============================================================================
 :doc:`basic_string <./basic_string/index>`
+============================================================ ===============================================================================
+
+basic_string aliases
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+======================================== ===============================================================================
+aliases
+======================================== ===============================================================================
 :doc:`string <./string>`
 :doc:`wstring <./wstring>`
 :doc:`u16string <./u16string>`
 :doc:`u32string <./u32string>`
-============================================================ ===============================================================================
+======================================== ===============================================================================
 
 Non-member functions
 ----------------------------------------
@@ -102,7 +149,6 @@ function
 :doc:`stol <./stol>`
 :doc:`stoul <./stoul>`
 :doc:`stoll <./stoll>`
-:doc:`stoull <./stoull>`
 :doc:`stoull <./stoull>`
 :doc:`stoimax <./stoimax>`
 :doc:`stoumax <./stoumax>`

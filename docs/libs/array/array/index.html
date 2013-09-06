@@ -79,6 +79,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#header">Header</a></li>
+<li><a class="reference internal" href="#interface-of-all">Interface of all</a></li>
 </ul>
 </li>
 </ul>
@@ -122,71 +123,7 @@
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">array</span> <span class="p">{</span>
-  <span class="c1">// types:</span>
-  <span class="k">typedef</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">reference</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">const_reference</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="cm">/*implementation-defined*/</span> <span class="n">iterator</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="cm">/*implementation-defined*/</span> <span class="n">const_iterator</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size_type</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">ptrdiff_t</span> <span class="n">difference_type</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="n">T</span> <span class="n">value_type</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="n">T</span><span class="o">*</span> <span class="n">pointer</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="n">T</span> <span class="k">const</span><span class="o">*</span> <span class="n">const_pointer</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="n">sprout</span><span class="o">::</span><span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">iterator</span><span class="o">&gt;</span> <span class="n">reverse_iterator</span><span class="p">;</span>
-  <span class="k">typedef</span> <span class="n">sprout</span><span class="o">::</span><span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="o">&gt;</span> <span class="n">const_reverse_iterator</span><span class="p">;</span>
-
-  <span class="c1">// constants:</span>
-  <span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">static_size</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>
-
-  <span class="n">T</span> <span class="n">elems</span><span class="p">[</span><span class="n">N</span> <span class="o">?</span> <span class="n">N</span> <span class="o">:</span> <span class="mi">1</span><span class="p">];</span> <span class="c1">// exposition only</span>
-
-  <span class="c1">// construct/copy/destroy:</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-  <span class="n">array</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-  <span class="n">array</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
-
-  <span class="c1">// modifiers:</span>
-  <span class="kt">void</span> <span class="n">fill</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">);</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">array</span> <span class="n">fill</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">assign</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">);</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">array</span> <span class="n">assign</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="o">&amp;</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">())));</span>
-
-  <span class="c1">// iterators:</span>
-  <span class="n">iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">iterator</span> <span class="n">end</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">end</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">reverse_iterator</span> <span class="n">rbegin</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">rbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">reverse_iterator</span> <span class="n">rend</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">rend</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">cbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">cend</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">crbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">crend</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-
-  <span class="c1">// capacity:</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">max_size</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-
-  <span class="c1">// element access:</span>
-  <span class="n">reference</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_type</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">reference</span> <span class="n">at</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">at</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">reference</span> <span class="n">front</span><span class="p">();</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">front</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">reference</span> <span class="n">back</span><span class="p">();</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">back</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">pointer</span> <span class="n">data</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_pointer</span> <span class="n">data</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">pointer</span> <span class="n">c_array</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_pointer</span> <span class="n">c_array</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="k">class</span> <span class="nc">array</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -427,6 +364,77 @@ convertible to pointer</td>
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
 <p><tt class="docutils literal"><span class="pre">sprout/array/array.hpp</span></tt></p>
 <p>Convenience header: <tt class="docutils literal"><span class="pre">sprout/array.hpp</span></tt></p>
+</div>
+<div class="section" id="interface-of-all">
+<h2>Interface of all<a class="headerlink" href="#interface-of-all" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">array</span> <span class="p">{</span>
+  <span class="c1">// types:</span>
+  <span class="k">typedef</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">reference</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">const_reference</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="cm">/*implementation-defined*/</span> <span class="n">iterator</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="cm">/*implementation-defined*/</span> <span class="n">const_iterator</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size_type</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">ptrdiff_t</span> <span class="n">difference_type</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="n">T</span> <span class="n">value_type</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="n">T</span><span class="o">*</span> <span class="n">pointer</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="n">T</span> <span class="k">const</span><span class="o">*</span> <span class="n">const_pointer</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="n">sprout</span><span class="o">::</span><span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">iterator</span><span class="o">&gt;</span> <span class="n">reverse_iterator</span><span class="p">;</span>
+  <span class="k">typedef</span> <span class="n">sprout</span><span class="o">::</span><span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="o">&gt;</span> <span class="n">const_reverse_iterator</span><span class="p">;</span>
+
+  <span class="c1">// constants:</span>
+  <span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">static_size</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>
+
+  <span class="n">T</span> <span class="n">elems</span><span class="p">[</span><span class="n">N</span> <span class="o">?</span> <span class="n">N</span> <span class="o">:</span> <span class="mi">1</span><span class="p">];</span> <span class="c1">// exposition only</span>
+
+  <span class="c1">// construct/copy/destroy:</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+  <span class="n">array</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+  <span class="n">array</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+
+  <span class="c1">// modifiers:</span>
+  <span class="kt">void</span> <span class="n">fill</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">);</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">array</span> <span class="n">fill</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">assign</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">);</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">array</span> <span class="n">assign</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="o">&amp;</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">())));</span>
+
+  <span class="c1">// iterators:</span>
+  <span class="n">iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">iterator</span> <span class="n">end</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">end</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">reverse_iterator</span> <span class="n">rbegin</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">rbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">reverse_iterator</span> <span class="n">rend</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">rend</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">cbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">cend</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">crbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">crend</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+
+  <span class="c1">// capacity:</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">max_size</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+
+  <span class="c1">// element access:</span>
+  <span class="n">reference</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_type</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+  <span class="n">reference</span> <span class="n">at</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">at</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+  <span class="n">reference</span> <span class="n">front</span><span class="p">();</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">front</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+  <span class="n">reference</span> <span class="n">back</span><span class="p">();</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">back</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+  <span class="n">pointer</span> <span class="n">data</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_pointer</span> <span class="n">data</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">pointer</span> <span class="n">c_array</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_pointer</span> <span class="n">c_array</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
 </div>
 </div>
 
