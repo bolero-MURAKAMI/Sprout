@@ -12,7 +12,7 @@ Interface
 Returns
 ========================================
 
-| true if the array size is 0, false otherwise.
+| true if the string size is 0, false otherwise.
 
 Examples
 ========================================
@@ -22,7 +22,7 @@ Examples
   using namespace sprout;
   
   SPROUT_STATIC_CONSTEXPR auto input = array<int, 0>{{}};
-  static_assert(input.empty() == 10, "input is empty.");
+  static_assert(input.empty(), "input is empty.");
 
 Complexity
 ========================================

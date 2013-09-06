@@ -1,4 +1,4 @@
-.. _sprout-array-array-swap:
+.. _sprout-string-basic_string-swap:
 ###############################################################################
 swap
 ###############################################################################
@@ -7,12 +7,12 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  void swap(array& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
+  void swap(basic_string& s) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
 
-Effects
+Postcondition
 ========================================
 
-| ``swap_ranges(begin(), end(), other.begin())``.
+| ``*this`` contains the same sequence of characters that was in s, s contains the same sequence of characters that was in ``*this``.
 
 Throws
 ========================================
@@ -23,23 +23,23 @@ Examples
 ========================================
 .. sourcecode:: c++
 
-  #include <sprout/array.hpp>
+  #include <sprout/string.hpp>
   #include <sprout/assert.hpp>
   using namespace sprout;
   
-  auto x = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-  auto y = array<int, 10>{{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}};
-  x.swap(y);
-  SPROUT_ASSERT_MSG(x[0] = 10 && y[0] == 1, "each element are swapped.");
+  auto x = string<8>("homuhomu");
+  auto y = string<8>("madocchi");
+  swap(x, y);
+  SPROUT_ASSERT_MSG(x == "madocchi" && y == "homuhomu", "each element are swapped.");
 
 Complexity
 ========================================
 
-| linear in N.
+| linear.
 
 Header
 ========================================
 
-| ``sprout/array/array.hpp``
-| Convenience header: ``sprout/array.hpp``
+| ``sprout/string/string.hpp``
+| Convenience header: ``sprout/string.hpp``
 

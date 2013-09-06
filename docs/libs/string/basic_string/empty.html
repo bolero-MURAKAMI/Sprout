@@ -37,7 +37,7 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
-    <link rel="up" title="array" href="index.html" />
+    <link rel="up" title="basic_string" href="index.html" />
     <link rel="next" title="operator[]" href="operator-subscript.html" />
     <link rel="prev" title="max_size" href="max_size.html" /> 
   </head>
@@ -56,8 +56,8 @@
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
-          <li><a href="../index.html" >Sprout.Array</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">array</a> &raquo;</li> 
+          <li><a href="../index.html" >Sprout.String</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">basic_string</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -82,7 +82,7 @@
                         title="next chapter">operator[]</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/libs/array/array/empty.txt"
+    <li><a href="../../../_sources/libs/string/basic_string/empty.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -117,15 +117,15 @@
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">true if the string size is 0, false otherwise.</div>
+<div class="line">true if the array size is 0, false otherwise.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/array.hpp&gt;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">{{}};</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
 <span class="n">static_assert</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">empty</span><span class="p">(),</span> <span class="s">&quot;input is empty.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -139,8 +139,8 @@
 <div class="section" id="header">
 <h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">sprout/array/array.hpp</span></tt></div>
-<div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/array.hpp</span></tt></div>
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/string/string.hpp</span></tt></div>
+<div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/string.hpp</span></tt></div>
 </div>
 </div>
 </div>
@@ -165,8 +165,8 @@
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
-          <li><a href="../index.html" >Sprout.Array</a> &raquo;</li>
-          <li><a href="index.html" >array</a> &raquo;</li> 
+          <li><a href="../index.html" >Sprout.String</a> &raquo;</li>
+          <li><a href="index.html" >basic_string</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -111,14 +111,14 @@
 <h1>swap<a class="headerlink" href="#swap" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">())));</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">())));</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="effects">
 <h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">swap_ranges(begin(),</span> <span class="pre">end(),</span> <span class="pre">y.begin())</span></tt>.</div>
+<div class="line"><tt class="docutils literal"><span class="pre">swap_ranges(begin(),</span> <span class="pre">end(),</span> <span class="pre">other.begin())</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="throws">

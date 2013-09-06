@@ -1,28 +1,30 @@
-.. _sprout-array-array-cbegin:
+.. _sprout-string-basic_string-rend:
 ###############################################################################
-cbegin
+rend
 ###############################################################################
 
 Interface
 ========================================
 .. sourcecode:: c++
 
-  SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT;
+  reverse_iterator rend() SPROUT_NOEXCEPT;
+  
+  SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT;
 
 Returns
 ========================================
 
-| iterator for position after the last element always const.
+| reverse iterator for position after the last element in reverse iteration.
 
 Examples
 ========================================
 .. sourcecode:: c++
 
-  #include <sprout/array.hpp>
+  #include <sprout/string.hpp>
   using namespace sprout;
   
-  SPROUT_STATIC_CONSTEXPR auto input = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-  static_assert(*(input.cbegin() - 1) == 10, "input last element is 10.");
+  SPROUT_STATIC_CONSTEXPR auto input = string<8>("homuhomu");
+  static_assert(*(input.rend() - 1) == 'h', "input last element of reverse iteration is h.");
 
 Complexity
 ========================================
@@ -32,6 +34,6 @@ Complexity
 Header
 ========================================
 
-| ``sprout/array/array.hpp``
-| Convenience header: ``sprout/array.hpp``
+| ``sprout/string/string.hpp``
+| Convenience header: ``sprout/string.hpp``
 

@@ -1,28 +1,30 @@
-.. _sprout-array-array-cbegin:
+.. _sprout-string-basic_string-front:
 ###############################################################################
-cbegin
+front
 ###############################################################################
 
 Interface
 ========================================
 .. sourcecode:: c++
 
-  SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT;
+  reference front();
+  
+  SPROUT_CONSTEXPR const_reference front() const;
 
 Returns
 ========================================
 
-| iterator for position after the last element always const.
+| A reference to the first element in the string.
 
 Examples
 ========================================
 .. sourcecode:: c++
 
-  #include <sprout/array.hpp>
+  #include <sprout/string.hpp>
   using namespace sprout;
   
-  SPROUT_STATIC_CONSTEXPR auto input = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-  static_assert(*(input.cbegin() - 1) == 10, "input last element is 10.");
+  SPROUT_STATIC_CONSTEXPR auto input = string<8>("homuhomu");
+  static_assert(input.front() == 'h', "a first element is h.");
 
 Complexity
 ========================================
@@ -32,6 +34,6 @@ Complexity
 Header
 ========================================
 
-| ``sprout/array/array.hpp``
-| Convenience header: ``sprout/array.hpp``
+| ``sprout/string/string.hpp``
+| Convenience header: ``sprout/string.hpp``
 

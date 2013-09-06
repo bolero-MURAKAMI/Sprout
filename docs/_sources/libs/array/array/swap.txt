@@ -7,12 +7,12 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  void swap(array& y) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
+  void swap(array& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
 
 Effects
 ========================================
 
-| ``swap_ranges(begin(), end(), y.begin())``.
+| ``swap_ranges(begin(), end(), other.begin())``.
 
 Throws
 ========================================

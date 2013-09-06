@@ -303,8 +303,8 @@ Interface of all
     basic_string& assign(value_type const* s, size_type n);
     basic_string& assign(value_type const* s);
     basic_string& assign(size_type n, value_type c);
-    template<typename Iterator>
-    basic_string& assign(Iterator first, Iterator last);
+    template<typename InputIterator>
+    basic_string& assign(InputIterator first, InputIterator last);
     void swap(basic_string& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
   
     // string operations:

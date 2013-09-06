@@ -1,4 +1,4 @@
-.. _sprout-array-array-cbegin:
+.. _sprout-string-basic_string-cbegin:
 ###############################################################################
 cbegin
 ###############################################################################
@@ -18,11 +18,11 @@ Examples
 ========================================
 .. sourcecode:: c++
 
-  #include <sprout/array.hpp>
+  #include <sprout/string.hpp>
   using namespace sprout;
   
-  SPROUT_STATIC_CONSTEXPR auto input = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-  static_assert(*(input.cbegin() - 1) == 10, "input last element is 10.");
+  SPROUT_STATIC_CONSTEXPR auto input = string<8>("homuhomu");
+  static_assert(*(input.cbegin() - 1) == 'u', "input last element is u.");
 
 Complexity
 ========================================
@@ -32,6 +32,6 @@ Complexity
 Header
 ========================================
 
-| ``sprout/array/array.hpp``
-| Convenience header: ``sprout/array.hpp``
+| ``sprout/string/string.hpp``
+| Convenience header: ``sprout/string.hpp``
 
