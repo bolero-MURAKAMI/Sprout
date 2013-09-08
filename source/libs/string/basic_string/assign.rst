@@ -20,6 +20,19 @@ Returns
 
 | ``*this``.
 
+Examples
+========================================
+.. sourcecode:: c++
+
+  #include <sprout/string.hpp>
+  #include <sprout/assert.hpp>
+  using namespace sprout;
+  
+  auto x = string<8>("homuhomu");
+  SPROUT_STATIC_CONSTEXPR auto y = string<8>("madocchi");
+  x.assign(y);
+  SPROUT_ASSERT_MSG(x == y, "y is assigned to x.");
+
 ----
 
 Interface
@@ -136,19 +149,6 @@ Returns
 ========================================
 
 | ``*this``.
-
-Examples
-========================================
-.. sourcecode:: c++
-
-  #include <sprout/string.hpp>
-  #include <sprout/assert.hpp>
-  using namespace sprout;
-  
-  auto x = string<8>("homuhomu");
-  SPROUT_STATIC_CONSTEXPR auto y = string<8>("madocchi");
-  x.assign(y);
-  SPROUT_ASSERT_MSG(x == y, "y is assigned to x.");
 
 Header
 ========================================
