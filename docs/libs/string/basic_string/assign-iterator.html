@@ -19,7 +19,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>back &mdash; Sprout 1.0 documentation</title>
+    <title>assign &mdash; Sprout 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -38,8 +38,8 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
     <link rel="up" title="basic_string" href="index.html" />
-    <link rel="next" title="substr" href="substr.html" />
-    <link rel="prev" title="back" href="c_array.html" /> 
+    <link rel="next" title="string" href="../string.html" />
+    <link rel="prev" title="operator=" href="operator-assign-iterator.html" /> 
   </head>
   <body>
     <div class="related">
@@ -49,10 +49,10 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="substr.html" title="substr"
+          <a href="../string.html" title="string"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="c_array.html" title="back"
+          <a href="operator-assign-iterator.html" title="operator="
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
@@ -64,25 +64,31 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">back</a><ul>
+<li><a class="reference internal" href="#">assign</a><ul>
 <li><a class="reference internal" href="#interface">Interface</a></li>
+<li><a class="reference internal" href="#requires">Requires</a></li>
+<li><a class="reference internal" href="#effects">Effects</a></li>
 <li><a class="reference internal" href="#returns">Returns</a></li>
+<li><a class="reference internal" href="#throws">Throws</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#complexity">Complexity</a></li>
+<li><a class="reference internal" href="#id3">Interface</a></li>
+<li><a class="reference internal" href="#id4">Requires</a></li>
+<li><a class="reference internal" href="#id5">Effects</a></li>
+<li><a class="reference internal" href="#id6">Returns</a></li>
 <li><a class="reference internal" href="#header">Header</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="c_array.html"
-                        title="previous chapter">back</a></p>
+  <p class="topless"><a href="operator-assign-iterator.html"
+                        title="previous chapter">operator=</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="substr.html"
-                        title="next chapter">substr</a></p>
+  <p class="topless"><a href="../string.html"
+                        title="next chapter">string</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/libs/string/basic_string/data.txt"
+    <li><a href="../../../_sources/libs/string/basic_string/assign-iterator.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -106,36 +112,76 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="back">
-<h1>back<a class="headerlink" href="#back" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="assign">
+<h1>assign<a class="headerlink" href="#assign" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">pointer</span> <span class="n">data</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-
-<span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_pointer</span> <span class="n">data</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">StringConstIterator</span><span class="o">&gt;</span>
+<span class="n">basic_string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="n">StringConstIterator</span> <span class="n">s</span><span class="p">,</span> <span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="requires">
+<h2>Requires<a class="headerlink" href="#requires" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">s points to an array of at least n elements of value_type.</div>
+</div>
+</div>
+<div class="section" id="effects">
+<h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Replaces the string controlled by <a href="#id1"><span class="problematic" id="id2">*</span></a>this with a string of length n whose elements are a copy of those pointed to by s.</div>
 </div>
 </div>
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Pointer to the data contained by the string.</div>
+<div class="line"><tt class="docutils literal"><span class="pre">*this</span></tt>.</div>
+</div>
+</div>
+<div class="section" id="throws">
+<h2>Throws<a class="headerlink" href="#throws" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">std::length_error if <tt class="docutils literal"><span class="pre">n</span> <span class="pre">&gt;</span> <span class="pre">max_size()</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
+<span class="cp">#include &lt;sprout/assert.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">data</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;h&#39;</span><span class="p">,</span> <span class="s">&quot;a first element is h.&quot;</span><span class="p">);</span>
+<span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;madocchi&quot;</span><span class="p">);</span>
+<span class="n">x</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="mi">8</span><span class="p">);</span>
+<span class="n">SPROUT_ASSERT_MSG</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">,</span> <span class="s">&quot;y is assigned to x.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="complexity">
-<h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<div class="section" id="id3">
+<h2>Interface<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">StringConstIterator</span><span class="o">&gt;</span>
+<span class="n">basic_string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="n">StringConstIterator</span> <span class="n">s</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Requires<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Recursive function invocations in <em>O(1)</em> (constant) depth.</div>
+<div class="line">s points to an array of at least <tt class="docutils literal"><span class="pre">traits_type::length(s)</span> <span class="pre">+</span> <span class="pre">1</span></tt> elements of value_type.</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>Effects<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Calls <tt class="docutils literal"><span class="pre">assign(s,</span> <span class="pre">traits_type::length(s))</span></tt>.</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">*this</span></tt>.</div>
 </div>
 </div>
 <div class="section" id="header">
@@ -160,10 +206,10 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="substr.html" title="substr"
+          <a href="../string.html" title="string"
              >next</a> |</li>
         <li class="right" >
-          <a href="c_array.html" title="back"
+          <a href="operator-assign-iterator.html" title="operator="
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>

@@ -19,7 +19,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>back &mdash; Sprout 1.0 documentation</title>
+    <title>operator std::basic_string &mdash; Sprout 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -38,8 +38,8 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
     <link rel="up" title="basic_string" href="index.html" />
-    <link rel="next" title="substr" href="substr.html" />
-    <link rel="prev" title="back" href="c_array.html" /> 
+    <link rel="next" title="operator=" href="operator-assign-iterator.html" />
+    <link rel="prev" title="substr" href="substr.html" /> 
   </head>
   <body>
     <div class="related">
@@ -49,10 +49,10 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="substr.html" title="substr"
+          <a href="operator-assign-iterator.html" title="operator="
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="c_array.html" title="back"
+          <a href="substr.html" title="substr"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
@@ -64,25 +64,24 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">back</a><ul>
+<li><a class="reference internal" href="#">operator std::basic_string</a><ul>
 <li><a class="reference internal" href="#interface">Interface</a></li>
 <li><a class="reference internal" href="#returns">Returns</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#complexity">Complexity</a></li>
 <li><a class="reference internal" href="#header">Header</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="c_array.html"
-                        title="previous chapter">back</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="substr.html"
-                        title="next chapter">substr</a></p>
+                        title="previous chapter">substr</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="operator-assign-iterator.html"
+                        title="next chapter">operator=</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/libs/string/basic_string/data.txt"
+    <li><a href="../../../_sources/libs/string/basic_string/operator-std-basic_string.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -106,36 +105,31 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="back">
-<h1>back<a class="headerlink" href="#back" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="operator-std-basic-string">
+<h1>operator std::basic_string<a class="headerlink" href="#operator-std-basic-string" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="n">pointer</span> <span class="n">data</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-
-<span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_pointer</span> <span class="n">data</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Allocator</span><span class="o">&gt;</span>
+<span class="n">SPROUT_EXPLICIT_CONVERSION</span> <span class="k">operator</span> <span class="n">std</span><span class="o">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Traits</span><span class="p">,</span> <span class="n">Allocator</span><span class="o">&gt;</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="returns">
 <h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Pointer to the data contained by the string.</div>
+<div class="line">conversion to std::basic_string.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
+<span class="cp">#include &lt;sprout/assert.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
-<span class="n">static_assert</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">data</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;h&#39;</span><span class="p">,</span> <span class="s">&quot;a first element is h.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
+<span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="n">SPROUT_ASSERT_MASG</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="s">&quot;y is converted from x.&quot;</span><span class="p">);</span>
 </pre></div>
-</div>
-</div>
-<div class="section" id="complexity">
-<h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">Recursive function invocations in <em>O(1)</em> (constant) depth.</div>
 </div>
 </div>
 <div class="section" id="header">
@@ -160,10 +154,10 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="substr.html" title="substr"
+          <a href="operator-assign-iterator.html" title="operator="
              >next</a> |</li>
         <li class="right" >
-          <a href="c_array.html" title="back"
+          <a href="substr.html" title="substr"
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
