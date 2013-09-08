@@ -18,7 +18,7 @@ Effects
 
 | ``std::copy(rhs.begin(), rhs.end(), begin())``.
 | or
-|  ``std::move(rhs.begin(), rhs.end(), begin())``.
+| ``std::move(rhs.begin(), rhs.end(), begin())``.
 
 Returns
 ========================================
