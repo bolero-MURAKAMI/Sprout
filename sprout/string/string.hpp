@@ -26,6 +26,7 @@
 #include <sprout/algorithm/find.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/math/comparison.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/npos.hpp>
@@ -285,6 +286,12 @@ namespace sprout {
 				throw std::out_of_range("basic_string<>: index out of range");
 			}
 		}
+		void
+		lengthcheck(size_type n) const {
+			if (n > static_size) {
+				throw std::length_error("basic_string<>: length error");
+			}
+		}
 	public:
 		// construct/copy/destroy:
 		SPROUT_CONSTEXPR basic_string() = default;
@@ -461,7 +468,7 @@ namespace sprout {
 		}
 		void
 		resize(size_type n, value_type c) {
-			maxcheck(n);
+			lengthcheck(n);
 			if (n > size()) {
 				traits_type::assign(end(), n - size(), c);
 			}
@@ -473,7 +480,7 @@ namespace sprout {
 			resize(n, value_type());
 		}
 		void
-		clear() {
+		clear() SPROUT_NOEXCEPT {
 			traits_type::assign(begin(), static_size, value_type());
 			len = 0;
 		}
@@ -522,19 +529,19 @@ namespace sprout {
 		template<std::size_t N2>
 		basic_string&
 		assign(basic_string<T, N2, Traits> const& str) {
-			return assign(str.begin(), str.size());
+			return assign(str, 0, npos);
 		}
 		template<std::size_t N2>
 		basic_string&
 		assign(basic_string<T, N2, Traits> const& str, size_type pos, size_type n) {
-			if (str.size() < pos + n) {
+			if (str.size() < pos) {
 				throw std::out_of_range("basic_string<>: index out of range");
 			}
-			return assign(str.begin() + pos, n);
+			return assign(str.begin() + pos, NS_SSCRISK_CEL_OR_SPROUT::min(n, str.size() - pos));
 		}
 		basic_string&
 		assign(value_type const* s, size_type n) {
-			maxcheck(n);
+			lengthcheck(n);
 			for (size_type i = 0; i < n; ++i) {
 				traits_type::assign(elems[i], s[i]);
 			}
@@ -556,9 +563,9 @@ namespace sprout {
 			len = n;
 			return *this;
 		}
-		template<typename Iterator>
+		template<typename InputIterator>
 		basic_string&
-		assign(Iterator first, Iterator last) {
+		assign(InputIterator first, InputIterator last) {
 			size_type n = 0;
 			for (; n < static_size || first != last; ++n, ++first) {
 				traits_type::assign(elems[n], *first);
@@ -771,7 +778,7 @@ namespace sprout {
 			basic_string&
 		>::type
 		assign(StringConstIterator s, size_type n) {
-			maxcheck(n);
+			lengthcheck(n);
 			for (size_type i = 0; i < n; ++i) {
 				traits_type::assign(elems[i], s[i]);
 			}
