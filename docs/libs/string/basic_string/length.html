@@ -19,7 +19,7 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-    <title>swap &mdash; Sprout 1.0 documentation</title>
+    <title>length &mdash; Sprout 1.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -38,8 +38,8 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
     <link rel="up" title="basic_string" href="index.html" />
-    <link rel="next" title="back" href="data.html" />
-    <link rel="prev" title="assign" href="assign.html" /> 
+    <link rel="next" title="max_size" href="max_size.html" />
+    <link rel="prev" title="size" href="size.html" /> 
   </head>
   <body>
     <div class="related">
@@ -49,10 +49,10 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="data.html" title="back"
+          <a href="max_size.html" title="max_size"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="assign.html" title="assign"
+          <a href="size.html" title="size"
              accesskey="P">previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>
@@ -64,10 +64,9 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">swap</a><ul>
+<li><a class="reference internal" href="#">length</a><ul>
 <li><a class="reference internal" href="#interface">Interface</a></li>
-<li><a class="reference internal" href="#postcondition">Postcondition</a></li>
-<li><a class="reference internal" href="#throws">Throws</a></li>
+<li><a class="reference internal" href="#returns">Returns</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#complexity">Complexity</a></li>
 <li><a class="reference internal" href="#header">Header</a></li>
@@ -76,14 +75,14 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="assign.html"
-                        title="previous chapter">assign</a></p>
+  <p class="topless"><a href="size.html"
+                        title="previous chapter">size</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="data.html"
-                        title="next chapter">back</a></p>
+  <p class="topless"><a href="max_size.html"
+                        title="next chapter">max_size</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../../_sources/libs/string/basic_string/swap.txt"
+    <li><a href="../../../_sources/libs/string/basic_string/length.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -107,43 +106,34 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="swap">
-<h1>swap<a class="headerlink" href="#swap" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="length">
+<h1>length<a class="headerlink" href="#length" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">basic_string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">())));</span>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">length</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="postcondition">
-<h2>Postcondition<a class="headerlink" href="#postcondition" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line"><tt class="docutils literal"><span class="pre">*this</span></tt> contains the same sequence of characters that was in s, s contains the same sequence of characters that was in <tt class="docutils literal"><span class="pre">*this</span></tt>.</div>
-</div>
-</div>
-<div class="section" id="throws">
-<h2>Throws<a class="headerlink" href="#throws" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">Nothing unless one of the element-wise swap calls throws an exception.</div>
+<div class="line">The number of elements contained in the string.</div>
 </div>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
-<span class="cp">#include &lt;sprout/assert.hpp&gt;</span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
 
-<span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
-<span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;madocchi&quot;</span><span class="p">);</span>
-<span class="n">swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
-<span class="n">SPROUT_ASSERT_MSG</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="s">&quot;madocchi&quot;</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="s">&quot;homuhomu&quot;</span><span class="p">,</span> <span class="s">&quot;each element are swapped.&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">8</span><span class="p">,</span> <span class="s">&quot;input size is 8.&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="complexity">
 <h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">linear.</div>
+<div class="line">Recursive function invocations in <em>O(1)</em> (constant) depth.</div>
 </div>
 </div>
 <div class="section" id="header">
@@ -168,10 +158,10 @@
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="data.html" title="back"
+          <a href="max_size.html" title="max_size"
              >next</a> |</li>
         <li class="right" >
-          <a href="assign.html" title="assign"
+          <a href="size.html" title="size"
              >previous</a> |</li>
         <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
           <li><a href="../../index.html" >Libraries</a> &raquo;</li>

@@ -282,7 +282,7 @@ Interface of all
     SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT;
     void resize(size_type n, value_type c);
     void resize(size_type n);
-    void clear();
+    void clear() SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT;
   
     // element access:
