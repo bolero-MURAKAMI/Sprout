@@ -31,7 +31,7 @@ Examples
   
   auto x = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
   x.assign(0);
-  SPROUT_ASSERT_MSG(x[0] = 0, "filled with 0.");
+  SPROUT_ASSERT_MSG(x[0] == 0, "filled with 0.");
 
 .. sourcecode:: c++
 
@@ -40,7 +40,7 @@ Examples
   
   SPROUT_STATIC_CONSTEXPR auto x = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
   SPROUT_STATIC_CONSTEXPR auto y = x.assign(0);
-  static_assert(y[0] = 0, "filled with 0.");
+  static_assert(y[0] == 0, "filled with 0.");
 
 Complexity
 ========================================
