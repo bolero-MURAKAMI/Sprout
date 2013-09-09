@@ -38,7 +38,7 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
     <link rel="up" title="Sprout.String" href="../index.html" />
-    <link rel="next" title="operator=" href="operator-assign.html" />
+    <link rel="next" title="basic_string" href="constructor-.html" />
     <link rel="prev" title="assign" href="../char_traits/assign-iterator.html" /> 
   </head>
   <body>
@@ -49,7 +49,7 @@
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="operator-assign.html" title="operator="
+          <a href="constructor-.html" title="basic_string"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../char_traits/assign-iterator.html" title="assign"
@@ -92,8 +92,8 @@
   <p class="topless"><a href="../char_traits/assign-iterator.html"
                         title="previous chapter">assign</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="operator-assign.html"
-                        title="next chapter">operator=</a></p>
+  <p class="topless"><a href="constructor-.html"
+                        title="next chapter">basic_string</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../../_sources/libs/string/basic_string/index.txt"
@@ -217,7 +217,7 @@ convertible to pointer</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="xref doc docutils literal"><span class="pre">(constructor)</span></tt></td>
+<tr class="row-even"><td><a class="reference internal" href="constructor-.html"><em>(constructor)</em></a></td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="operator-assign.html"><em>operator=</em></a></td>
@@ -533,6 +533,7 @@ convertible to pointer</td>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">basic_string</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="p">(</span><span class="o">&amp;</span> <span class="n">arr</span><span class="p">)[</span><span class="n">N2</span><span class="p">],</span> <span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
   <span class="k">explicit</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">basic_string</span><span class="p">(</span><span class="n">value_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s</span><span class="p">);</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">basic_string</span><span class="p">(</span><span class="n">value_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
+  <span class="n">SPROUT_CONSTEXPR</span> <span class="n">basic_string</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">,</span> <span class="n">value_type</span> <span class="n">c</span><span class="p">);</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator</span><span class="o">&gt;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">basic_string</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIterator</span> <span class="n">last</span><span class="p">);</span>
   <span class="n">basic_string</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">value_type</span><span class="o">&gt;</span> <span class="n">il</span><span class="p">);</span>
@@ -698,7 +699,7 @@ convertible to pointer</td>
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="operator-assign.html" title="operator="
+          <a href="constructor-.html" title="basic_string"
              >next</a> |</li>
         <li class="right" >
           <a href="../char_traits/assign-iterator.html" title="assign"

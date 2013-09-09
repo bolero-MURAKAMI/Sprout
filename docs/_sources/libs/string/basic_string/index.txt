@@ -253,6 +253,7 @@ Interface of all
     SPROUT_CONSTEXPR basic_string(T const(& arr)[N2], size_type n);
     explicit SPROUT_CONSTEXPR basic_string(value_type const* s);
     SPROUT_CONSTEXPR basic_string(value_type const* s, size_type n);
+    SPROUT_CONSTEXPR basic_string(size_type n, value_type c);
     template<typename InputIterator>
     SPROUT_CONSTEXPR basic_string(InputIterator first, InputIterator last);
     basic_string(std::initializer_list<value_type> il);

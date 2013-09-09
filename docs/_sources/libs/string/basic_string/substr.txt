@@ -17,7 +17,7 @@ Requires
 Returns
 ========================================
 
-| ``basic_string(data() + pos, rlen)`` when rlen is the smaller of n and ``size() - pos``.
+| ``basic_string(data() + pos, rlen)`` where rlen is the smaller of n and ``size() - pos``.
 
 Throws
 ========================================
