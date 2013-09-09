@@ -21,12 +21,14 @@
 #include <sprout/array/array.hpp>
 #include <sprout/array/make_array.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
+#include <sprout/iterator/value_iterator.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/algorithm/find.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/type_traits/identity.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/comparison.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/npos.hpp>
@@ -342,7 +344,20 @@ namespace sprout {
 				sprout::detail::string_checked_construct_t(), s, 0, NS_SSCRISK_CEL_OR_SPROUT::min(n, traits_type::length(s))
 				)
 		{}
-		template<typename InputIterator>
+		SPROUT_CONSTEXPR basic_string(size_type n, value_type c)
+			: impl_type(
+				sprout::make_index_tuple<N>::make(),
+				sprout::detail::string_checked_construct_t(), sprout::value_iterator<value_type>(c), 0, n
+				)
+		{}
+		template<typename InputIterator, typename sprout::enabler_if<std::is_integral<InputIterator>::value>::type = sprout::enabler>
+		SPROUT_CONSTEXPR basic_string(InputIterator first, InputIterator last)
+			: impl_type(
+				sprout::make_index_tuple<N>::make(),
+				sprout::detail::string_checked_construct_t(), sprout::value_iterator<value_type>(last), 0, first
+				)
+		{}
+		template<typename InputIterator, typename sprout::enabler_if<!std::is_integral<InputIterator>::value>::type = sprout::enabler>
 		SPROUT_CONSTEXPR basic_string(InputIterator first, InputIterator last)
 			: impl_type(
 				sprout::make_index_tuple<N>::make(),
@@ -708,9 +723,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR basic_string
 		substr(size_type pos = 0, size_type n = npos) const {
-			return !(size() < pos) ? n == npos
-					? substr(pos, size() - pos)
-					: from_c_str(c_str() + pos, n)
+			return !(size() < pos) ? from_c_str(c_str() + pos, NS_SSCRISK_CEL_OR_SPROUT::min(n, size() - pos))
 				: throw std::out_of_range("basic_string<>: index out of range")
 				;
 		}
