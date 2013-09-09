@@ -1,13 +1,13 @@
-.. _sprout-array-array-cbegin:
+.. _sprout-array-array-cend:
 ###############################################################################
-cbegin
+cend
 ###############################################################################
 
 Interface
 ========================================
 .. sourcecode:: c++
 
-  SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT;
+  SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT;
 
 Returns
 ========================================
@@ -22,7 +22,7 @@ Examples
   using namespace sprout;
   
   SPROUT_STATIC_CONSTEXPR auto input = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-  static_assert(*(input.cbegin() - 1) == 10, "input last element is 10.");
+  static_assert(*(input.cend() - 1) == 10, "input last element is 10.");
 
 Complexity
 ========================================
