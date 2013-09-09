@@ -12,7 +12,7 @@ Interface
 Returns
 ========================================
 
-| true if the string size is 0, false otherwise.
+| true if the array size is 0, false otherwise.
 
 Examples
 ========================================
