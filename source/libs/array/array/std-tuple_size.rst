@@ -33,8 +33,8 @@ Examples
   using namespace sprout;
   
   using type = array<int, 10>;
-  SPROUT_STATIC_CONSTEXPR auto size = std::tuple_size<type>::value;
-  static_assert(size == 10, "tuple size of array is 10.");
+  SPROUT_STATIC_CONSTEXPR auto n = std::tuple_size<type>::value;
+  static_assert(n == 10, "tuple size of array is 10.");
 
 Header
 ========================================
