@@ -35,8 +35,10 @@ Examples
   
   auto x = string<8>("homuhomu");
   SPROUT_STATIC_CONSTEXPR auto y = string<8>("madocchi");
-  x = y.begin();
-  SPROUT_ASSERT_MSG(x == y, "y is assigned to x.");
+  int main() {
+    x = y.begin();
+    SPROUT_ASSERT_MSG(x == y, "y is assigned to x.");
+  }
 
 Header
 ========================================

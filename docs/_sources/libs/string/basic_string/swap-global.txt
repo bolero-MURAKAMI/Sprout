@@ -32,8 +32,10 @@ Examples
   
   auto x = string<8>("homuhomu");
   auto y = string<8>("madocchi");
-  swap(x, y);
-  SPROUT_ASSERT_MSG(x == "madocchi" && y == "homuhomu", "each element are swapped.");
+  int main() {
+    swap(x, y);
+    SPROUT_ASSERT_MSG(x == "madocchi" && y == "homuhomu", "each element are swapped.");
+  }
 
 Complexity
 ========================================

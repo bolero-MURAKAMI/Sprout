@@ -24,8 +24,10 @@ Examples
   
   char x = 'H';
   SPROUT_STATIC_CONSTEXPR char y = 'M';
-  char_traits<char>::assign(x, y);
-  SPROUT_ASSERT_MSG(x == y, "y is assigned to x.");
+  int main() {
+    char_traits<char>::assign(x, y);
+    SPROUT_ASSERT_MSG(x == y, "y is assigned to x.");
+  }
 
 Complexity
 ========================================

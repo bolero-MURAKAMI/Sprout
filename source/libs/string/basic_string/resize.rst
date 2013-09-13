@@ -39,8 +39,10 @@ Examples
   using namespace sprout;
   
   auto x = string<8>("homuhomu");
-  x.resize(4);
-  SPROUT_ASSERT_MSG(x.size() == 4 && x == "homu", "string is resized to 4.");
+  int main() {
+    x.resize(4);
+    SPROUT_ASSERT_MSG(x.size() == 4 && x == "homu", "string is resized to 4.");
+  }
 
 Header
 ========================================

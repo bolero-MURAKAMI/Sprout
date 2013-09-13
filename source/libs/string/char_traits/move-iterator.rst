@@ -26,8 +26,10 @@ Examples
   
   auto x = string<8>("homuhomu");;
   SPROUT_STATIC_CONSTEXPR auto y = string<8>("madocchi");
-  char_traits<char>::move(x.begin(), y.begin(), 8);
-  SPROUT_ASSERT_MSG(x[0] == y[0], "y is copied to x.");
+  int main() {
+    char_traits<char>::move(x.begin(), y.begin(), 8);
+    SPROUT_ASSERT_MSG(x[0] == y[0], "y is copied to x.");
+  }
 
 Complexity
 ========================================

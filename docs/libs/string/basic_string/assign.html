@@ -155,8 +155,10 @@
 
 <span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;homuhomu&quot;</span><span class="p">);</span>
 <span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">y</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;madocchi&quot;</span><span class="p">);</span>
-<span class="n">x</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
-<span class="n">SPROUT_ASSERT_MSG</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">,</span> <span class="s">&quot;y is assigned to x.&quot;</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">x</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+  <span class="n">SPROUT_ASSERT_MSG</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">,</span> <span class="s">&quot;y is assigned to x.&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>

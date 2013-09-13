@@ -24,8 +24,10 @@ Examples
   
   char x[] = "homuhomu";
   SPROUT_STATIC_CONSTEXPR char const* y = "madocchi";
-  char_traits<char>::move(x, y, 8);
-  SPROUT_ASSERT_MSG(x[0] == y[0], "y is copied to x.");
+  int main() {
+    char_traits<char>::move(x, y, 8);
+    SPROUT_ASSERT_MSG(x[0] == y[0], "y is copied to x.");
+  }
 
 Complexity
 ========================================

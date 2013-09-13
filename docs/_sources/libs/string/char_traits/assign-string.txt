@@ -23,8 +23,10 @@ Examples
   using namespace sprout;
   
   char x[] = "homuhomu";
-  char_traits<char>::assign(x, 8, 'M');
-  SPROUT_ASSERT_MSG(x[0] == 'M', "x is filled by M.");
+  int main() {
+    char_traits<char>::assign(x, 8, 'M');
+    SPROUT_ASSERT_MSG(x[0] == 'M', "x is filled by M.");
+  }
 
 Complexity
 ========================================

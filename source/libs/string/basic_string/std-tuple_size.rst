@@ -33,8 +33,8 @@ Examples
   using namespace sprout;
   
   using type = string<8>;
-  SPROUT_STATIC_CONSTEXPR auto size = std::tuple_size<type>::value;
-  static_assert(size == 8, "tuple size of string is 8.");
+  SPROUT_STATIC_CONSTEXPR auto n = std::tuple_size<type>::value;
+  static_assert(n == 8, "tuple size of string is 8.");
 
 Header
 ========================================

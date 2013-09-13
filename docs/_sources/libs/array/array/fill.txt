@@ -30,8 +30,10 @@ Examples
   using namespace sprout;
   
   auto x = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-  x.fill(0);
-  SPROUT_ASSERT_MSG(x[0] == 0, "filled with 0.");
+  int main() {
+    x.fill(0);
+    SPROUT_ASSERT_MSG(x[0] == 0, "filled with 0.");
+  }
 
 .. sourcecode:: c++
 

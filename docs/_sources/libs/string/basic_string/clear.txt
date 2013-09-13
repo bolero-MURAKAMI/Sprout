@@ -23,8 +23,10 @@ Examples
   using namespace sprout;
   
   auto x = string<8>("homuhomu");
-  x.clear();
-  SPROUT_ASSERT_MSG(x.size() == 0 && x == "", "string is cleared.");
+  int main() {
+    x.clear();
+    SPROUT_ASSERT_MSG(x.size() == 0 && x == "", "string is cleared.");
+  }
 
 Header
 ========================================

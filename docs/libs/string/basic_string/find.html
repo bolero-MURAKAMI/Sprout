@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-43764535-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>find &mdash; Sprout 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Sprout 1.0 documentation" href="../../../index.html" />
+    <link rel="up" title="basic_string" href="index.html" />
+    <link rel="next" title="substr" href="substr.html" />
+    <link rel="prev" title="back" href="data.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="substr.html" title="substr"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="data.html" title="back"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Libraries</a> &raquo;</li>
+          <li><a href="../index.html" >Sprout.String</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">basic_string</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">find</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+<li><a class="reference internal" href="#effects">Effects</a></li>
+<li><a class="reference internal" href="#returns">Returns</a></li>
+<li><a class="reference internal" href="#remarks">Remarks</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#complexity">Complexity</a></li>
+<li><a class="reference internal" href="#id1">Interface</a></li>
+<li><a class="reference internal" href="#id2">Returns</a></li>
+<li><a class="reference internal" href="#id3">Interface</a></li>
+<li><a class="reference internal" href="#id4">Returns</a></li>
+<li><a class="reference internal" href="#id5">Interface</a></li>
+<li><a class="reference internal" href="#id6">Returns</a></li>
+<li><a class="reference internal" href="#header">Header</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="data.html"
+                        title="previous chapter">back</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="substr.html"
+                        title="next chapter">substr</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/libs/string/basic_string/find.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="find">
+<h1>find<a class="headerlink" href="#find" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N2</span><span class="o">&gt;</span>
+<span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">find</span><span class="p">(</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N2</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span> <span class="n">size_type</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="effects">
+<h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Determines the lowest position xpos, if possible, such that both of the following conditions obtain:</div>
+</div>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">pos</span> <span class="pre">&lt;=</span> <span class="pre">xpos</span> <span class="pre">and</span> <span class="pre">xpos</span> <span class="pre">+</span> <span class="pre">str.size()</span> <span class="pre">&lt;=</span> <span class="pre">size();</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">traits_type::eq(at(xpos</span> <span class="pre">+</span> <span class="pre">I),</span> <span class="pre">str.at(I))</span></tt> for all elements I of the string controlled by str.</li>
+</ul>
+</div>
+<div class="section" id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">xpos if the function can determine such a value for xpos. Otherwise, returns npos.</div>
+</div>
+</div>
+<div class="section" id="remarks">
+<h2>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Uses <tt class="docutils literal"><span class="pre">traits_type::eq()</span></tt>.</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;sprout/string.hpp&gt;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">sprout</span><span class="p">;</span>
+
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">input</span> <span class="o">=</span> <span class="n">string</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;madocchi&quot;</span><span class="p">);</span>
+<span class="n">SPROUT_STATIC_CONSTEXPR</span> <span class="k">auto</span> <span class="n">result</span> <span class="o">=</span> <span class="n">input</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;cchi&quot;</span><span class="p">);</span>
+<span class="n">static_assert</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="s">&quot;a found position is 4.&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="complexity">
+<h2>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Recursive function invocations in <em>O(logN)</em> (logarithmic) depth.</div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The current implementation is incomplete. <em>O(N)</em> (linear) depth.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id1">
+<h2>Interface<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">find</span><span class="p">(</span><span class="n">value_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">size_type</span> <span class="n">pos</span><span class="p">,</span> <span class="n">size_type</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id3">
+<h2>Interface<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">find</span><span class="p">(</span><span class="n">value_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">size_type</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id5">
+<h2>Interface<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">SPROUT_CONSTEXPR</span> <span class="n">size_type</span> <span class="n">find</span><span class="p">(</span><span class="n">value_type</span> <span class="n">c</span><span class="p">,</span> <span class="n">size_type</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Returns<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="header">
+<h2>Header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">sprout/string/string.hpp</span></tt></div>
+<div class="line">Convenience header: <tt class="docutils literal"><span class="pre">sprout/string.hpp</span></tt></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="substr.html" title="substr"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="data.html" title="back"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Sprout 1.0 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Libraries</a> &raquo;</li>
+          <li><a href="../index.html" >Sprout.String</a> &raquo;</li>
+          <li><a href="index.html" >basic_string</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Bolero MURAKAMI.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
