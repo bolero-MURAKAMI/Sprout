@@ -47,7 +47,7 @@ echo ":   tile-height = ${tile_height}"
 echo ":   force = ${force}"
 
 if [ ! -f "${src}" ]; then
-	echo >&2 ": \e[31msource(${src}) is not exist.\e[m"
+	echo >&2 -e ": \e[31msource(${src}) is not exist.\e[m"
 	exit 1
 fi
 
