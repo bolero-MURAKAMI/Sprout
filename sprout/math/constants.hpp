@@ -120,11 +120,16 @@ namespace sprout {
 		}
 		//
 		// root_two
+		// root_three
 		// half_root_two
 		//
 		template<typename T>
 		inline SPROUT_CONSTEXPR T root_two() {
 			return 1.41421356237309504880168872420969807856967187537694807317667973799073247846210703885038753432764157273501384623L;
+		}
+		template<typename T>
+		inline SPROUT_CONSTEXPR T root_three() {
+			return 1.73205080756887729352744634150587236694280525381038062805580697945193301690880003708114618675724857567562614142L;
 		}
 		template<typename T>
 		inline SPROUT_CONSTEXPR T half_root_two() {

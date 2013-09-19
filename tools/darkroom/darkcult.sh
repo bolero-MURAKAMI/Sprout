@@ -9,7 +9,7 @@
 #
 # requires: ImageMagick (http://www.imagemagick.org/script/index.php)
 #
-src=""
+src="../../example/darkroom/two_spheres.hpp"
 stagedir="darkroom"
 width=16
 height=16
@@ -46,7 +46,7 @@ echo ":   tile-width = ${tile_width}"
 echo ":   tile-height = ${tile_height}"
 echo ":   force = ${force}"
 
-if [ ! -f "${src}" ]; then
+if [ ! -f "${src}" -a ! -f "$(cd $(dirname $0); pwd)/${src}" ]; then
 	echo >&2 -e ": \e[31msource(${src}) is not exist.\e[m"
 	exit 1
 fi
@@ -96,4 +96,4 @@ popd
 let elapsed=$SECONDS-$start
 echo ": elapsed = ${elapsed}s"
 
-echo ": finished"
+echo ": finished."

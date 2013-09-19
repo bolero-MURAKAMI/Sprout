@@ -9,7 +9,7 @@
 // DARKROOM_SOURCE
 //
 #ifndef DARKROOM_SOURCE
-#	error DARKROOM_SOURCE not defined. for example: "scene.hpp"
+#	error DARKROOM_SOURCE not defined. for example: "../../example/darkroom/two_spheres.hpp"
 #else
 #	include DARKROOM_SOURCE
 #endif
