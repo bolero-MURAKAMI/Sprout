@@ -48,7 +48,7 @@ while [ -n "$1" ]; do
 		--gcc-version) gcc_version="$2"; shift 2;;
 		--clang-version) clang_version="$2"; shift 2;;
 		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
-		-f|--force) force=1; shift 2;;
+		-f|--force) force=1; shift;;
 		--) shift; break;;
 		*) echo >&2 -e ": \e[31munknown option($1) used.\e[m"; exit 1;;
 	esac

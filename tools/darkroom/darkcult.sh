@@ -31,7 +31,7 @@ while [ -n "$1" ]; do
 		-h|--height) height=$2; shift 2;;
 		-W|--tile-width) tile_width=$2; shift 2;;
 		-H|--tile-height) tile_height=$2; shift 2;;
-		-f|--force) force=1; shift 2;;
+		-f|--force) force=1; shift;;
 		--) shift; break;;
 		*) echo >&2 -e ": \e[31munknown option($1) used.\e[m"; exit 1;;
 	esac
