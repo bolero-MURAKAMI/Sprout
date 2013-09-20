@@ -18,7 +18,7 @@ namespace darkcult {
 	//
 	SPROUT_STATIC_CONSTEXPR auto object = sprout::make_tuple(
 		objects::make_aa_plane(
-			sprout::darkroom::objects::aa_plane_direction::y,
+			objects::aa_plane_direction::y,
 			-2.0,
 			materials::make_plaid_material_image(
 				colors::rgb_f(1.0, 0.0, 0.0),

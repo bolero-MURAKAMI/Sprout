@@ -20,7 +20,7 @@ version_specific_options=(
 compile() {
 	echo ": $1-$2 compile..."
 	/usr/local/$1-$2/bin/${1/%cc}++ -Wall -pedantic -std=c++11 -o ${stagedir}/test_$1${2//.} $4 $3
-	let "succ_$1${2//.} = $?"
+	let "succ_$1${2//.}=$?"
 }
 
 execute() {
@@ -36,15 +36,15 @@ execute() {
 	fi
 }
 
-args=`getopt -o d:D:f -l stagedir:,gcc-version:,clang-version:,define:,force -- "$@"`
+args=`getopt -o S:D:f -l stagedir:,gcc-version:,clang-version:,define:,force -- "$@"`
 if [ "$?" -ne 0 ]; then
-	echo >&2 -e ": \e[31musage: $0 [-d|--stagedir=path] [--gcc-version=versions] [--clang-version=versions] [-D|--define=identifier]* [-f|-force]\e[m"
+	echo >&2 -e ": \e[31musage: $0 [-S|--stagedir=path] [--gcc-version=versions] [--clang-version=versions] [-D|--define=identifier]* [-f|-force]\e[m"
 	exit 1
 fi
 eval set -- ${args}
 while [ -n "$1" ]; do
 	case $1 in
-		-d|--stagedir) stagedir=$2; shift 2;;
+		-S|--stagedir) stagedir=$2; shift 2;;
 		--gcc-version) gcc_version="$2"; shift 2;;
 		--clang-version) clang_version="$2"; shift 2;;
 		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
@@ -54,7 +54,7 @@ while [ -n "$1" ]; do
 	esac
 done
 echo ": settings"
-echo ":   stagedir = ${stagedir}"
+echo ":   stagedir = \"${stagedir}\""
 echo ":   gcc-version = (${gcc_version})"
 echo ":   clang-version = (${clang_version})"
 echo ":   user-macros = (${user_macros[*]})"
@@ -62,7 +62,7 @@ echo ":   force = ${force}"
 
 if [ -d "${stagedir}" ]; then
 	if [ ${force} -eq 0 ]; then
-		echo >&2 -e ": \e[31mstagedir(${stagedir}) is already exist.\e[m"
+		echo >&2 -e ": \e[31mstagedir(${stagedir}) already exists.\e[m"
 		exit 1
 	else
 		rm -f -r ${stagedir}/*
