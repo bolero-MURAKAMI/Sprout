@@ -11,6 +11,8 @@ gcc_version="4.7.0 4.7.1 4.7.2 4.7.3 4.8.0 4.8.1"
 clang_version="3.2 3.3"
 declare -a user_macros
 user_macros=()
+declare -a include_paths
+include_paths=()
 force=0
 declare -A version_specific_options
 version_specific_options=(
@@ -36,9 +38,9 @@ execute() {
 	fi
 }
 
-args=`getopt -o S:D:f -l stagedir:,gcc-version:,clang-version:,define:,force -- "$@"`
+args=`getopt -o S:D:I:f -l stagedir:,gcc-version:,clang-version:,define:,include:,force -- "$@"`
 if [ "$?" -ne 0 ]; then
-	echo >&2 -e ": \e[31musage: $0 [-S|--stagedir=path] [--gcc-version=versions] [--clang-version=versions] [-D|--define=identifier]* [-f|-force]\e[m"
+	echo >&2 -e ": \e[31musage: $0 [-S|--stagedir=path] [--gcc-version=versions] [--clang-version=versions] [-D|--define=identifier]* [-I|--include=path]* [-f|-force]\e[m"
 	exit 1
 fi
 eval set -- ${args}
@@ -48,6 +50,7 @@ while [ -n "$1" ]; do
 		--gcc-version) gcc_version="$2"; shift 2;;
 		--clang-version) clang_version="$2"; shift 2;;
 		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
+		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
 		-f|--force) force=1; shift;;
 		--) shift; break;;
 		*) echo >&2 -e ": \e[31munknown option($1) used.\e[m"; exit 1;;
@@ -58,6 +61,7 @@ echo ":   stagedir = \"${stagedir}\""
 echo ":   gcc-version = (${gcc_version})"
 echo ":   clang-version = (${clang_version})"
 echo ":   user-macros = (${user_macros[*]})"
+echo ":   include-paths = (${include_paths[*]})"
 echo ":   force = ${force}"
 
 if [ -d "${stagedir}" ]; then
@@ -75,12 +79,16 @@ for user_macro in ${user_macros}; do
 	define_options="${define_options} -D${user_macro}"
 done
 
+for include_path in ${include_paths}; do
+	include_options="${include_options} -I${include_path}"
+done
+
 for version in ${gcc_version}; do
-	compile gcc ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${version_specific_options[gcc-${version}]}"
+	compile gcc ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${include_options} ${version_specific_options[gcc-${version}]}"
 done
 
 for version in ${clang_version}; do
-	compile clang ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${version_specific_options[clang-${version}]}"
+	compile clang ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${include_options} ${version_specific_options[clang-${version}]}"
 done
 
 for version in ${gcc_version}; do

@@ -7,7 +7,7 @@
 # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 # =============================================================================
 #
-# requires: ImageMagick (http://www.imagemagick.org/script/index.php)
+# requires: Netpbm (http://netpbm.sourceforge.net/)
 #
 src="../../example/darkroom/two_spheres.hpp"
 stagedir="darkroom"
@@ -15,11 +15,13 @@ width=16
 height=16
 tile_width=16
 tile_height=16
+declare -a include_paths
+include_paths=()
 force=0
 
-args=`getopt -o s:S:w:h:W:H:f -l source:,stagedir:,width:,height:,tile-width:,tile-height:,force -- "$@"`
+args=`getopt -o s:S:w:h:W:H:I:f -l source:,stagedir:,width:,height:,tile-width:,tile-height:,include:,force -- "$@"`
 if [ "$?" -ne 0 ]; then
-	echo >&2 -e ": \e[31musage: $0 [-s|--source=file] [-S|--stagedir=path] [-w|--width=value] [-h|--height=value] [-W|--tile-width=value] [-H|--tile-height=value] [-f|-force]\e[m"
+	echo >&2 -e ": \e[31musage: $0 [-s|--source=file] [-S|--stagedir=path] [-w|--width=value] [-h|--height=value] [-W|--tile-width=value] [-H|--tile-height=value] [-I|--include=path]* [-f|-force]\e[m"
 	exit 1
 fi
 eval set -- ${args}
@@ -31,6 +33,7 @@ while [ -n "$1" ]; do
 		-h|--height) height=$2; shift 2;;
 		-W|--tile-width) tile_width=$2; shift 2;;
 		-H|--tile-height) tile_height=$2; shift 2;;
+		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
 		-f|--force) force=1; shift;;
 		--) shift; break;;
 		*) echo >&2 -e ": \e[31munknown option($1) used.\e[m"; exit 1;;
@@ -44,6 +47,7 @@ echo ":   width = ${width}"
 echo ":   height = ${height}"
 echo ":   tile-width = ${tile_width}"
 echo ":   tile-height = ${tile_height}"
+echo ":   include-paths = (${include_paths[*]})"
 echo ":   force = ${force}"
 
 if [ ! -f "${src}" -a ! -f "$(cd $(dirname $0); pwd)/${src}" ]; then
@@ -62,6 +66,10 @@ else
 	mkdir -p ${stagedir}
 fi
 
+for include_path in ${include_paths}; do
+	include_options="${include_options} -I${include_path}"
+done
+
 echo ": start."
 start=${SECONDS}
 
@@ -73,6 +81,7 @@ for ((y=0; y<height; y+=tile_height)); do
 		mkdir -p ${stagedir}/${y}/
 		binname=${stagedir}/${y}/${x}.out
 		g++ -o ${binname} -std=c++11 \
+			${include_options} \
 			-DDARKROOM_SOURCE="\"${src}\"" \
 			-DDARKROOM_TOTAL_WIDTH=${width} \
 			-DDARKROOM_TOTAL_HEIGHT=${height} \
@@ -81,17 +90,18 @@ for ((y=0; y<height; y+=tile_height)); do
 			-DDARKROOM_OFFSET_X=${x} \
 			-DDARKROOM_OFFSET_Y=${y} \
 			$(cd $(dirname $0); pwd)/darkcult.cpp && ${binname} > ${stagedir}/${y}/${x}.ppm
-#		rm ${binname}
 	done
 	pushd ${stagedir}/${y}/ > /dev/null
-	convert +append $(ls *.ppm | sort -n) ../${y}.ppm
+#	convert +append $(ls *.ppm | sort -n) ../${y}.ppm
+	pnmcat -lr $(ls *.ppm | sort -n) > ../${y}.ppm
 	popd > /dev/null
 
 	let "y_elapsed=${SECONDS}-${y_start}"
 	echo ":   elapsed = ${y_elapsed}s"
 done
 pushd ${stagedir} > /dev/null
-convert -append $(ls *.ppm | sort -n) out.ppm
+#convert -append $(ls *.ppm | sort -n) out.ppm
+pnmcat -tb $(ls *.ppm | sort -n) > out.ppm
 popd > /dev/null
 
 let "elapsed=${SECONDS}-${start}"
