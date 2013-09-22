@@ -15,13 +15,15 @@ width=16
 height=16
 tile_width=16
 tile_height=16
+declare -a user_macros
+user_macros=()
 declare -a include_paths
 include_paths=()
 force=0
 
-args=`getopt -o s:S:w:h:W:H:I:f -l source:,stagedir:,width:,height:,tile-width:,tile-height:,include:,force -- "$@"`
+args=`getopt -o s:S:w:h:W:H:D:I:f -l source:,stagedir:,width:,height:,tile-width:,tile-height:,define:,include:,force -- "$@"`
 if [ "$?" -ne 0 ]; then
-	echo >&2 -e ": \e[31musage: $0 [-s|--source=file] [-S|--stagedir=path] [-w|--width=value] [-h|--height=value] [-W|--tile-width=value] [-H|--tile-height=value] [-I|--include=path]* [-f|-force]\e[m"
+	echo >&2 -e ": \e[31musage: $0 [-s|--source=file] [-S|--stagedir=path] [-w|--width=value] [-h|--height=value] [-W|--tile-width=value] [-H|--tile-height=value] [-D|--define=identifier]* [-I|--include=path]* [-f|-force]\e[m"
 	exit 1
 fi
 eval set -- ${args}
@@ -33,6 +35,7 @@ while [ -n "$1" ]; do
 		-h|--height) height=$2; shift 2;;
 		-W|--tile-width) tile_width=$2; shift 2;;
 		-H|--tile-height) tile_height=$2; shift 2;;
+		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
 		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
 		-f|--force) force=1; shift;;
 		--) shift; break;;
@@ -47,7 +50,12 @@ echo ":   width = ${width}"
 echo ":   height = ${height}"
 echo ":   tile-width = ${tile_width}"
 echo ":   tile-height = ${tile_height}"
-echo ":   include-paths = (${include_paths[*]})"
+if [ ${#user_macros[*]} -gt 0 ]; then
+	echo ":   user-macros = (${user_macros[*]})"
+fi
+if [ ${#include_paths[*]} -gt 0 ]; then
+	echo ":   include-paths = (${include_paths[*]})"
+fi
 echo ":   force = ${force}"
 
 if [ ! -f "${src}" -a ! -f "$(cd $(dirname $0); pwd)/${src}" ]; then
@@ -66,6 +74,10 @@ else
 	mkdir -p ${stagedir}
 fi
 
+for user_macro in ${user_macros}; do
+	define_options="${define_options} -D${user_macro}"
+done
+
 for include_path in ${include_paths}; do
 	include_options="${include_options} -I${include_path}"
 done
@@ -81,7 +93,7 @@ for ((y=0; y<height; y+=tile_height)); do
 		mkdir -p ${stagedir}/${y}/
 		binname=${stagedir}/${y}/${x}.out
 		g++ -o ${binname} -std=c++11 \
-			${include_options} \
+			${define_options} ${include_options} \
 			-DDARKROOM_SOURCE="\"${src}\"" \
 			-DDARKROOM_TOTAL_WIDTH=${width} \
 			-DDARKROOM_TOTAL_HEIGHT=${height} \

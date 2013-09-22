@@ -60,8 +60,12 @@ echo ": settings"
 echo ":   stagedir = \"${stagedir}\""
 echo ":   gcc-version = (${gcc_version})"
 echo ":   clang-version = (${clang_version})"
-echo ":   user-macros = (${user_macros[*]})"
-echo ":   include-paths = (${include_paths[*]})"
+if [ ${#user_macros[*]} -gt 0 ]; then
+	echo ":   user-macros = (${user_macros[*]})"
+fi
+if [ ${#include_paths[*]} -gt 0 ]; then
+	echo ":   include-paths = (${include_paths[*]})"
+fi
 echo ":   force = ${force}"
 
 if [ -d "${stagedir}" ]; then
