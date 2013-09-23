@@ -32,10 +32,10 @@ execute() {
 		if ${stagedir}/test_$1${2//.}; then
 			echo "$1-$2 execute succeeded."
 		else
-			echo >&2 "$1-$2 execute failed."
+			echo >&2 "error: $1-$2 execute failed."
 		fi
 	else
-		echo >&2 "$1-$2 compile failed."
+		echo >&2 "error: $1-$2 compile failed."
 	fi
 }
 
