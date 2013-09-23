@@ -12,6 +12,7 @@
 src="../../example/darkroom/two_spheres.hpp"
 stagedir="darkroom"
 output="out.ppm"
+compiler="g++"
 width=16
 height=16
 tile_width=16
@@ -23,7 +24,7 @@ include_paths=()
 force=0
 use_help=0
 
-args=`getopt -o s:S:o:w:h:W:H:D:I:f -l source:,stagedir:,output:,width:,height:,tile-width:,tile-height:,define:,include:,force,help -- "$@"`
+args=`getopt -o s:S:o:C:w:h:W:H:D:I:f -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,define:,include:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. see 'darkcult.sh --help'"
 	exit 1
@@ -34,6 +35,7 @@ while [ -n "$1" ]; do
 		-s|--source) src=$2; shift 2;;
 		-S|--stagedir) stagedir=$2; shift 2;;
 		-o|--output) output=$2; shift 2;;
+		-C|--compiler) compiler=$2; shift 2;;
 		-w|--width) width=$2; shift 2;;
 		-h|--height) height=$2; shift 2;;
 		-W|--tile-width) tile_width=$2; shift 2;;
@@ -59,6 +61,9 @@ if [ ${use_help} -ne 0 ]; then
 	echo "  -o, --output=<file>         Output file of the result."
 	echo "                              Default; 'out.ppm'"
 	echo ""
+	echo "  -C, --compiler=<command>    Compiler to use."
+	echo "                              Default; 'g++'"
+	echo ""
 	echo "  -w, --width=<value>         Output width of rendering."
 	echo "                              Default; 16"
 	echo ""
@@ -82,9 +87,10 @@ if [ ${use_help} -ne 0 ]; then
 fi
 
 echo "settings:"
-echo "  source = \"${src}\""
-echo "  stagedir = \"${stagedir}\""
-echo "  output = \"${output}\""
+echo "  source = '${src}'"
+echo "  stagedir = '${stagedir}'"
+echo "  output = '${output}'"
+echo "  compiler = '${compiler}'"
 echo "  width = ${width}"
 echo "  height = ${height}"
 echo "  tile-width = ${tile_width}"
@@ -133,7 +139,7 @@ for ((y=0; y<height; y+=tile_height)); do
 	for ((x=0; x<width; x+=tile_width)); do
 		echo -n "(${x}/${height})..."
 		binname=${stagedir}/${y}/${x}.out
-		g++ -o ${binname} -std=c++11 \
+		${compiler} -o ${binname} -std=c++11 \
 			${define_options} ${include_options} \
 			-DDARKROOM_SOURCE="\"${src}\"" \
 			-DDARKROOM_TOTAL_WIDTH=${width} \

@@ -82,7 +82,7 @@ if [ ${use_help} -ne 0 ]; then
 fi
 
 echo "settings:"
-echo "  stagedir = \"${stagedir}\""
+echo "  stagedir = '${stagedir}'"
 echo "  gcc-version = (${gcc_version})"
 echo "  clang-version = (${clang_version})"
 if [ ${#user_macros[*]} -gt 0 ]; then
