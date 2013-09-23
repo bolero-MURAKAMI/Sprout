@@ -20,10 +20,11 @@ user_macros=()
 declare -a include_paths
 include_paths=()
 force=0
+use_help=0
 
-args=`getopt -o s:S:w:h:W:H:D:I:f -l source:,stagedir:,width:,height:,tile-width:,tile-height:,define:,include:,force -- "$@"`
+args=`getopt -o s:S:w:h:W:H:D:I:f -l source:,stagedir:,width:,height:,tile-width:,tile-height:,define:,include:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
-	echo >&2 -e ": \e[31musage: $0 [-s|--source=file] [-S|--stagedir=path] [-w|--width=value] [-h|--height=value] [-W|--tile-width=value] [-H|--tile-height=value] [-D|--define=identifier]* [-I|--include=path]* [-f|-force]\e[m"
+	echo >&2 "error: options parse error. see 'darkcult.sh --help'"
 	exit 1
 fi
 eval set -- ${args}
@@ -38,34 +39,65 @@ while [ -n "$1" ]; do
 		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
 		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
 		-f|--force) force=1; shift;;
+		--help) use_help=1; shift;;
 		--) shift; break;;
-		*) echo >&2 -e ": \e[31munknown option($1) used.\e[m"; exit 1;;
+		*) echo >&2 "error: unknown option($1) used."; exit 1;;
 	esac
 done
 
-echo ": settings"
-echo ":   source = \"${src}\""
-echo ":   stagedir = \"${stagedir}\""
-echo ":   width = ${width}"
-echo ":   height = ${height}"
-echo ":   tile-width = ${tile_width}"
-echo ":   tile-height = ${tile_height}"
+if [ ${use_help} -ne 0 ]; then
+	echo "help:"
+	echo ""
+	echo "  -s, --source=<file>         Indicates the source file."
+	echo ""
+	echo "  -S, --stagedir=<directory>  Output files here."
+	echo "                              Default; darkroom"
+	echo ""
+	echo "  -w, --width=<value>         Output width of rendering."
+	echo "                              Default; 16"
+	echo ""
+	echo "  -h, --height=<value>        Output height of rendering."
+	echo "                              Default; 16"
+	echo ""
+	echo "  -W, --tile-width=<value>    Output width of divided rendering."
+	echo "                              Default; 16"
+	echo ""
+	echo "  -H, --tile-height=<value>   Output height of divided rendering."
+	echo "                              Default; 16"
+	echo ""
+	echo "  -D, --define=<identifier>   Define macro for preprocessor."
+	echo ""
+	echo "  -I, --include=<directory>   Add system include path."
+	echo ""
+	echo "  -f, --force                 Allow overwrite of <stagedir>."
+	echo ""
+	echo "      --help                  This message."
+	exit 0
+fi
+
+echo "settings:"
+echo "  source = \"${src}\""
+echo "  stagedir = \"${stagedir}\""
+echo "  width = ${width}"
+echo "  height = ${height}"
+echo "  tile-width = ${tile_width}"
+echo "  tile-height = ${tile_height}"
 if [ ${#user_macros[*]} -gt 0 ]; then
-	echo ":   user-macros = (${user_macros[*]})"
+	echo "  user-macros = (${user_macros[*]})"
 fi
 if [ ${#include_paths[*]} -gt 0 ]; then
-	echo ":   include-paths = (${include_paths[*]})"
+	echo "  include-paths = (${include_paths[*]})"
 fi
-echo ":   force = ${force}"
+echo "  force = ${force}"
 
 if [ ! -f "${src}" -a ! -f "$(cd $(dirname $0); pwd)/${src}" ]; then
-	echo >&2 -e ": \e[31msource(${src}) not exists.\e[m"
+	echo >&2 "error: source(${src}) not exists."
 	exit 1
 fi
 
 if [ -d "${stagedir}" ]; then
 	if [ ${force} -eq 0 ]; then
-		echo >&2 -e ": \e[31mstagedir(${stagedir}) already exists.\e[m"
+		echo >&2 "error: stagedir(${stagedir}) already exists."
 		exit 1
 	else
 		rm -f -r ${stagedir}/*
@@ -82,11 +114,11 @@ for include_path in ${include_paths}; do
 	include_options="${include_options} -I${include_path}"
 done
 
-echo ": start."
+echo "start."
 start=${SECONDS}
 
 for ((y=0; y<height; y+=tile_height)); do
-	echo ": rendering(${y}/${height})..."
+	echo "rendering(${y}/${height})..."
 	y_start=${SECONDS}
 
 	for ((x=0; x<width; x+=tile_width)); do
@@ -109,7 +141,7 @@ for ((y=0; y<height; y+=tile_height)); do
 	popd > /dev/null
 
 	let "y_elapsed=${SECONDS}-${y_start}"
-	echo ":   elapsed = ${y_elapsed}s"
+	echo "  elapsed = ${y_elapsed}s"
 done
 pushd ${stagedir} > /dev/null
 #convert -append $(ls *.ppm | sort -n) out.ppm
@@ -117,5 +149,5 @@ pnmcat -tb $(ls *.ppm | sort -n) > out.ppm
 popd > /dev/null
 
 let "elapsed=${SECONDS}-${start}"
-echo ": elapsed(total) = ${elapsed}s"
-echo ": finished."
+echo "elapsed(total) = ${elapsed}s"
+echo "finished."
