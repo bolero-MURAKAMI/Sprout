@@ -11,6 +11,7 @@
 #
 src="../../example/darkroom/two_spheres.hpp"
 stagedir="darkroom"
+output="out.ppm"
 width=16
 height=16
 tile_width=16
@@ -22,7 +23,7 @@ include_paths=()
 force=0
 use_help=0
 
-args=`getopt -o s:S:w:h:W:H:D:I:f -l source:,stagedir:,width:,height:,tile-width:,tile-height:,define:,include:,force,help -- "$@"`
+args=`getopt -o s:S:o:w:h:W:H:D:I:f -l source:,stagedir:,output:,width:,height:,tile-width:,tile-height:,define:,include:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. see 'darkcult.sh --help'"
 	exit 1
@@ -32,6 +33,7 @@ while [ -n "$1" ]; do
 	case $1 in
 		-s|--source) src=$2; shift 2;;
 		-S|--stagedir) stagedir=$2; shift 2;;
+		-o|--output) output=$2; shift 2;;
 		-w|--width) width=$2; shift 2;;
 		-h|--height) height=$2; shift 2;;
 		-W|--tile-width) tile_width=$2; shift 2;;
@@ -49,9 +51,13 @@ if [ ${use_help} -ne 0 ]; then
 	echo "help:"
 	echo ""
 	echo "  -s, --source=<file>         Indicates the source file."
+	echo "                              Default; '../../example/darkroom/two_spheres.hpp'"
 	echo ""
 	echo "  -S, --stagedir=<directory>  Output files here."
-	echo "                              Default; darkroom"
+	echo "                              Default; 'darkroom'"
+	echo ""
+	echo "  -o, --output=<file>         Output file of the result."
+	echo "                              Default; 'out.ppm'"
 	echo ""
 	echo "  -w, --width=<value>         Output width of rendering."
 	echo "                              Default; 16"
@@ -78,6 +84,7 @@ fi
 echo "settings:"
 echo "  source = \"${src}\""
 echo "  stagedir = \"${stagedir}\""
+echo "  output = \"${output}\""
 echo "  width = ${width}"
 echo "  height = ${height}"
 echo "  tile-width = ${tile_width}"
@@ -114,15 +121,17 @@ for include_path in ${include_paths}; do
 	include_options="${include_options} -I${include_path}"
 done
 
-echo "start."
+echo "rendering:"
 start=${SECONDS}
 
 for ((y=0; y<height; y+=tile_height)); do
-	echo "rendering(${y}/${height})..."
+	echo "  y = (${y}/${height})..."
 	y_start=${SECONDS}
 
+	mkdir -p ${stagedir}/${y}/
+	echo -n "    x = "
 	for ((x=0; x<width; x+=tile_width)); do
-		mkdir -p ${stagedir}/${y}/
+		echo -n "(${x}/${height})..."
 		binname=${stagedir}/${y}/${x}.out
 		g++ -o ${binname} -std=c++11 \
 			${define_options} ${include_options} \
@@ -135,19 +144,21 @@ for ((y=0; y<height; y+=tile_height)); do
 			-DDARKROOM_OFFSET_Y=${y} \
 			$(cd $(dirname $0); pwd)/darkcult.cpp && ${binname} > ${stagedir}/${y}/${x}.ppm
 	done
+	echo ""
+
 	pushd ${stagedir}/${y}/ > /dev/null
 #	convert +append $(ls *.ppm | sort -n) ../${y}.ppm
 	pnmcat -lr $(ls *.ppm | sort -n) > ../${y}.ppm
 	popd > /dev/null
 
 	let "y_elapsed=${SECONDS}-${y_start}"
-	echo "  elapsed = ${y_elapsed}s"
+	echo "    elapsed = ${y_elapsed}s"
 done
 pushd ${stagedir} > /dev/null
-#convert -append $(ls *.ppm | sort -n) out.ppm
-pnmcat -tb $(ls *.ppm | sort -n) > out.ppm
+#convert -append $(ls *.ppm | sort -n) ${output}
+pnmcat -tb $(ls *.ppm | sort -n) > ${output}
 popd > /dev/null
 
 let "elapsed=${SECONDS}-${start}"
-echo "elapsed(total) = ${elapsed}s"
+echo "  elapsed(total) = ${elapsed}s"
 echo "finished."

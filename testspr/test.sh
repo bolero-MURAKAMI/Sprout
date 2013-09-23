@@ -63,7 +63,7 @@ if [ ${use_help} -ne 0 ]; then
 	echo "help:"
 	echo ""
 	echo "  -S, --stagedir=<directory>  Output files here."
-	echo "                              Default; testspr"
+	echo "                              Default; 'testspr'"
 	echo ""
 	echo "      --gcc-version=<value>   Indicates gcc version."
 	echo "                              Default; 4.7.0 4.7.1 4.7.2 4.7.3 4.8.0 4.8.1"
