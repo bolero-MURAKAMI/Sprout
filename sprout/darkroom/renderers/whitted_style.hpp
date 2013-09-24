@@ -186,7 +186,7 @@ namespace sprout {
 					return color_1<Color>(
 						camera, objs, lights,
 						ray, depth_max,
-						sprout::darkroom::objects::intersect_list(objs, ray)
+						sprout::darkroom::objects::intersect(objs, ray)
 						);
 				}
 			};

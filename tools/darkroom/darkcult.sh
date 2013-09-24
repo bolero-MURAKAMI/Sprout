@@ -26,7 +26,7 @@ use_help=0
 
 args=`getopt -o s:S:o:C:w:h:W:H:D:I:f -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,define:,include:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
-	echo >&2 "error: options parse error. see 'darkcult.sh --help'"
+	echo >&2 "error: options parse error. See 'darkcult.sh --help'"
 	exit 1
 fi
 eval set -- ${args}
@@ -148,7 +148,12 @@ for ((y=0; y<height; y+=tile_height)); do
 			-DDARKROOM_TILE_HEIGHT=${tile_height} \
 			-DDARKROOM_OFFSET_X=${x} \
 			-DDARKROOM_OFFSET_Y=${y} \
-			$(cd $(dirname $0); pwd)/darkcult.cpp && ${binname} > ${stagedir}/${y}/${x}.ppm
+			$(cd $(dirname $0); pwd)/darkcult.cpp
+		if [ $? -ne 0 ]; then
+			echo >&2 "error: compile failed."
+			exit 1
+		fi
+		${binname} > ${stagedir}/${y}/${x}.ppm
 	done
 	echo ""
 

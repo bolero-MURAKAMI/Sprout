@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/intersects/intersection.hpp>
 
@@ -19,15 +20,19 @@ namespace sprout {
 			//
 			// intersect
 			//
-			template<typename Object, typename Ray>
+			template<
+				typename Object, typename Ray,
+				typename sprout::enabler_if<!sprout::darkroom::access::is_tuple<Object>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename Object::template intersection<Ray>::type
-			intersect(Object const& obj, Ray const& ray) {
-				return obj.intersect(ray);
-			}
+			intersect(Object const& obj, Ray const& ray);
+			template<
+				typename Object, typename Ray,
+				typename sprout::enabler_if<sprout::darkroom::access::is_tuple<Object>::value>::type = sprout::enabler
+			>
+			inline SPROUT_CONSTEXPR typename Object::template intersection<Ray>::type
+			intersect(Object const& obj, Ray const& ray);
 
-			//
-			// intersect_list
-			//
 			namespace detail {
 				template<std::size_t N>
 				struct intersect_list_impl {
@@ -65,12 +70,35 @@ namespace sprout {
 					}
 				};
 			}	// namespace detail
+			//
+			// intersect_list
+			//
 			template<typename Objects, typename Ray>
 			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Objects>::type::template intersection<Ray>::type
 			intersect_list(Objects const& objs, Ray const& ray) {
 				return sprout::darkroom::objects::detail::intersect_list_impl<
 					sprout::darkroom::access::size<Objects>::value - 1
 					>()(objs, ray);
+			}
+
+			//
+			// intersect
+			//
+			template<
+				typename Object, typename Ray,
+				typename sprout::enabler_if<!sprout::darkroom::access::is_tuple<Object>::value>::type = sprout::enabler
+			>
+			inline SPROUT_CONSTEXPR typename Object::template intersection<Ray>::type
+			intersect(Object const& obj, Ray const& ray) {
+				return obj.intersect(ray);
+			}
+			template<
+				typename Object, typename Ray,
+				typename sprout::enabler_if<sprout::darkroom::access::is_tuple<Object>::value>::type = sprout::enabler
+			>
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<Object>::type::template intersection<Ray>::type
+			intersect(Object const& obj, Ray const& ray) {
+				return sprout::darkroom::objects::intersect_list(obj, ray);
 			}
 		}	// namespace objects
 	}	// namespace darkroom

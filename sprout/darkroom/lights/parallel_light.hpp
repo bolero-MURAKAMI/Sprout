@@ -77,7 +77,7 @@ namespace sprout {
 				operator()(Intersection const& inter, Objects const& objs) const {
 					return shade_1(
 						inter,
-						sprout::darkroom::objects::intersect_list(
+						sprout::darkroom::objects::intersect(
 							objs,
 							sprout::darkroom::rays::make_ray(
 								sprout::darkroom::coords::add(

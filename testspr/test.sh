@@ -41,7 +41,7 @@ execute() {
 
 args=`getopt -o S:D:I:f -l stagedir:,gcc-version:,clang-version:,define:,include:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
-	echo >&2 "error: options parse error. see 'test.sh --help'"
+	echo >&2 "error: options parse error. See 'test.sh --help'"
 	exit 1
 fi
 eval set -- ${args}

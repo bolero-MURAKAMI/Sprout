@@ -16,7 +16,7 @@ namespace darkcult {
 	//
 	// object
 	//
-	SPROUT_STATIC_CONSTEXPR auto object = sprout::make_tuple(
+	SPROUT_STATIC_CONSTEXPR auto object = objects::make_object_list(
 		objects::make_aa_plane(
 			objects::aa_plane_direction::y,
 			-2.0,

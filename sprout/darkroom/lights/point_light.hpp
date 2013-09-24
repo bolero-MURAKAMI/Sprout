@@ -81,7 +81,7 @@ namespace sprout {
 						inter,
 						diff,
 						direction,
-						sprout::darkroom::objects::intersect_list(
+						sprout::darkroom::objects::intersect(
 							objs,
 							sprout::darkroom::rays::make_ray(
 								sprout::darkroom::coords::add(

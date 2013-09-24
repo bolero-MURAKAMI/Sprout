@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/darkroom/objects/intersect.hpp>
+#include <sprout/darkroom/objects/object_list.hpp>
 #include <sprout/darkroom/objects/sphere.hpp>
 #include <sprout/darkroom/objects/aa_plane.hpp>
 #include <sprout/darkroom/objects/polygon.hpp>

@@ -61,6 +61,7 @@ namespace sprout {
 					return shade_1(inter, objs, sprout::index_pack<Lights...>::make());
 				}
 			};
+
 			//
 			// make_light_list
 			//

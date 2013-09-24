@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/darkroom/access/traits.hpp>
 #include <sprout/utility/forward.hpp>
 
 namespace sprout {
