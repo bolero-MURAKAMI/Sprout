@@ -9,6 +9,8 @@
 stagedir="testspr"
 gcc_version="4.7.0 4.7.1 4.7.2 4.7.3 4.8.0 4.8.1"
 clang_version="3.2 3.3"
+gcc_root="/usr/local"
+clang_root="/usr/local"
 declare -a user_macros
 user_macros=()
 declare -a include_paths
@@ -19,27 +21,29 @@ declare -A version_specific_options
 version_specific_options=(
 	[clang-3.3]="-ftemplate-depth=512"
 )
+declare -A results
+results=()
 
 compile() {
-	echo "$1-$2 compile..."
-	/usr/local/$1-$2/bin/${1/%cc}++ -Wall -pedantic -std=c++11 -o ${stagedir}/test_$1${2//.} $4 $3
-	let "succ_$1${2//.}=$?"
+	echo "${1}-${2} compile..."
+	${5}/${1}-${2}/bin/${1/%cc}++ -Wall -pedantic -std=c++11 -o ${stagedir}/test_${1}${2//.} ${4} ${3}
+	results[${1}-${2}]=$?
 }
 
 execute() {
-	if eval [ \$succ_$1${2//.} -eq 0 ]; then
-		echo "$1-$2 compile succeeded."
+	if [ ${results[${1}-${2}]} -eq 0 ]; then
+		echo "${1}-${2} compile succeeded."
 		if ${stagedir}/test_$1${2//.}; then
-			echo "$1-$2 execute succeeded."
+			echo "${1}-${2} execute succeeded."
 		else
-			echo >&2 "error: $1-$2 execute failed."
+			echo >&2 "error: ${1}-${2} execute failed."
 		fi
 	else
-		echo >&2 "error: $1-$2 compile failed."
+		echo >&2 "error: ${1}-${2} compile failed."
 	fi
 }
 
-args=`getopt -o S:D:I:f -l stagedir:,gcc-version:,clang-version:,define:,include:,force,help -- "$@"`
+args=`getopt -o S:D:I:f -l stagedir:,gcc-version:,clang-version:,gcc-root:,clang-root:,define:,include:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'test.sh --help'"
 	exit 1
@@ -50,6 +54,8 @@ while [ -n "$1" ]; do
 		-S|--stagedir) stagedir=$2; shift 2;;
 		--gcc-version) gcc_version="$2"; shift 2;;
 		--clang-version) clang_version="$2"; shift 2;;
+		--gcc-root) gcc_root="$2"; shift 2;;
+		--clang-root) clang_root="$2"; shift 2;;
 		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
 		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
 		-f|--force) force=1; shift;;
@@ -62,14 +68,20 @@ done
 if [ ${use_help} -ne 0 ]; then
 	echo "help:"
 	echo ""
-	echo "  -S, --stagedir=<directory>  Output files here."
+	echo "  -S, --stagedir=<dir>        Output files here."
 	echo "                              Default; 'testspr'"
 	echo ""
 	echo "      --gcc-version=<value>   Indicates gcc version."
-	echo "                              Default; 4.7.0 4.7.1 4.7.2 4.7.3 4.8.0 4.8.1"
+	echo "                              Default; '4.7.0 4.7.1 4.7.2 4.7.3 4.8.0 4.8.1'"
 	echo ""
 	echo "      --clang-version=<value> Indicates clang version."
-	echo "                              Default; 3.2 3.3"
+	echo "                              Default; '3.2 3.3'"
+	echo ""
+	echo "      --gcc-root=<dir>        Root directory that gcc installed."
+	echo "                              Default; '/usr/local'"
+	echo ""
+	echo "      --clang-root=<dir>      Root directory that clang installed."
+	echo "                              Default; '/usr/local'"
 	echo ""
 	echo "  -D, --define=<identifier>   Define macro for preprocessor."
 	echo ""
@@ -85,6 +97,8 @@ echo "settings:"
 echo "  stagedir = '${stagedir}'"
 echo "  gcc-version = (${gcc_version})"
 echo "  clang-version = (${clang_version})"
+echo "  gcc-root = '${gcc_root}'"
+echo "  clang-root = '${clang_root}'"
 if [ ${#user_macros[*]} -gt 0 ]; then
 	echo "  user-macros = (${user_macros[*]})"
 fi
@@ -113,11 +127,11 @@ for include_path in ${include_paths}; do
 done
 
 for version in ${gcc_version}; do
-	compile gcc ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${include_options} ${version_specific_options[gcc-${version}]}"
+	compile gcc ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${include_options} ${version_specific_options[gcc-${version}]}" ${gcc_root}
 done
 
 for version in ${clang_version}; do
-	compile clang ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${include_options} ${version_specific_options[clang-${version}]}"
+	compile clang ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${include_options} ${version_specific_options[clang-${version}]}" ${clang_root}
 done
 
 for version in ${gcc_version}; do
