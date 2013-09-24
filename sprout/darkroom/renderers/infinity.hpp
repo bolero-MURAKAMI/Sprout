@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
 
@@ -82,6 +83,35 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::darkroom::renderers::uniform_color<Color>
 			make_uniform_color(Color const& color) {
 				return sprout::darkroom::renderers::uniform_color<Color>(color);
+			}
+
+			//
+			// infinity_result
+			//
+			template<typename Color, typename InfinityColor, typename Vector>
+			struct infinity_result
+				: public sprout::identity<Color>
+			{};
+			template<typename Color, typename InfinityColor, typename Vector>
+			struct infinity_result<Color, InfinityColor const, Vector>
+				: public sprout::darkroom::renderers::infinity_result<Color, InfinityColor, Vector>
+			{};
+			template<typename Color, typename InfinityColor, typename Vector>
+			struct infinity_result<Color, InfinityColor volatile, Vector>
+				: public sprout::darkroom::renderers::infinity_result<Color, InfinityColor, Vector>
+			{};
+			template<typename Color, typename InfinityColor, typename Vector>
+			struct infinity_result<Color, InfinityColor const volatile, Vector>
+				: public sprout::darkroom::renderers::infinity_result<Color, InfinityColor, Vector>
+			{};
+
+			//
+			// calculate_infinity
+			//
+			template<typename Color, typename InfinityColor, typename Vector>
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::renderers::infinity_result<Color, InfinityColor, Vector>::type
+			calculate_infinity(InfinityColor const& infinity_color, Vector const& dir) {
+				return infinity_color.template operator()<Color>(dir);
 			}
 		}	// namespace renderers
 	}	// namespace darkroom

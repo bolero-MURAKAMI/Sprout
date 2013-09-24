@@ -39,7 +39,7 @@ namespace sprout {
 						unit_type,
 						position_type,
 						position_type,
-						decltype(sprout::darkroom::materials::calc_material(
+						decltype(sprout::darkroom::materials::calculate_material(
 							std::declval<material_type const&>(),
 							std::declval<unit_type const&>(),
 							std::declval<unit_type const&>()
@@ -72,7 +72,7 @@ namespace sprout {
 							: position_type(0, 0, 0)
 							,
 						normal_,//hit_side > 0 ? normal_ : sprout::darkroom::coords::negate(normal_),
-						sprout::darkroom::materials::calc_material(mat_, unit_type(0), unit_type(0))	// ???
+						sprout::darkroom::materials::calculate_material(mat_, unit_type(0), unit_type(0))	// ???
 						);
 				}
 				template<typename Ray>

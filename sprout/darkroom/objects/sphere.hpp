@@ -42,7 +42,7 @@ namespace sprout {
 						unit_type,
 						position_type,
 						position_type,
-						decltype(sprout::darkroom::materials::calc_material(
+						decltype(sprout::darkroom::materials::calculate_material(
 							std::declval<material_type const&>(),
 							std::declval<unit_type const&>(),
 							std::declval<unit_type const&>()
@@ -128,7 +128,7 @@ namespace sprout {
 						sprout::tuples::get<zw::distance>(zwo),
 						sprout::tuples::get<dr::point_of_intersection>(drei),
 						sprout::tuples::get<dr::normal>(drei),
-						sprout::darkroom::materials::calc_material(	// ! Spherical
+						sprout::darkroom::materials::calculate_material(	// ! Spherical
 							mat_,
 							sprout::atan2(
 								sprout::darkroom::coords::z(normal),

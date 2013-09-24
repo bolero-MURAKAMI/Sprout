@@ -9,6 +9,7 @@
 #define SPROUT_DARKROOM_LIGHTS_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/darkroom/lights/calculate.hpp>
 #include <sprout/darkroom/lights/light_list.hpp>
 #include <sprout/darkroom/lights/parallel_light.hpp>
 #include <sprout/darkroom/lights/point_light.hpp>

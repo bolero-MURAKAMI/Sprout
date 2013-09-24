@@ -11,6 +11,8 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
+#include <sprout/darkroom/cameras/calculate.hpp>
+#include <sprout/darkroom/renderers/calculate.hpp>
 
 namespace sprout {
 	namespace darkroom {
@@ -30,9 +32,10 @@ namespace sprout {
 					std::size_t depth_max = 8
 					) const
 				{
-					return renderer.template operator()<color_type>(
+					return sprout::darkroom::renderers::calculate<color_type>(
+						renderer,
 						camera, objs, lights,
-						camera.template operator()(x, y, width, height),
+						sprout::darkroom::cameras::calculate(camera, x, y, width, height),
 						depth_max
 						);
 				}

@@ -138,22 +138,21 @@ for ((y=0; y<height; y+=tile_height)); do
 	echo -n "    x = "
 	for ((x=0; x<width; x+=tile_width)); do
 		echo -n "(${x}/${height})..."
-		binname=${stagedir}/${y}/${x}.out
-		${compiler} -o ${binname} -std=c++11 \
+		binname=${y}/${x}.out
+		bin=${stagedir}/${binname}
+		${compiler} -o ${bin} -std=c++11 \
 			${define_options} ${include_options} \
 			-DDARKROOM_SOURCE="\"${src}\"" \
-			-DDARKROOM_TOTAL_WIDTH=${width} \
-			-DDARKROOM_TOTAL_HEIGHT=${height} \
-			-DDARKROOM_TILE_WIDTH=${tile_width} \
-			-DDARKROOM_TILE_HEIGHT=${tile_height} \
-			-DDARKROOM_OFFSET_X=${x} \
-			-DDARKROOM_OFFSET_Y=${y} \
+			-DDARKROOM_TOTAL_WIDTH=${width} -DDARKROOM_TOTAL_HEIGHT=${height} \
+			-DDARKROOM_TILE_WIDTH=${tile_width} -DDARKROOM_TILE_HEIGHT=${tile_height} \
+			-DDARKROOM_OFFSET_X=${x} -DDARKROOM_OFFSET_Y=${y} \
 			$(cd $(dirname $0); pwd)/darkcult.cpp
 		if [ $? -ne 0 ]; then
-			echo >&2 "error: compile failed."
+			echo ""
+			echo >&2 "error: compile(${binname}) failed."
 			exit 1
 		fi
-		${binname} > ${stagedir}/${y}/${x}.ppm
+		${bin} > ${stagedir}/${y}/${x}.ppm
 	done
 	echo ""
 

@@ -16,6 +16,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
+#include <sprout/darkroom/tracers/calculate.hpp>
 
 namespace sprout {
 	namespace darkroom {
@@ -50,7 +51,8 @@ namespace sprout {
 					typedef typename sprout::container_traits<pixel_line_type>::value_type pixel_type;
 					return sprout::make<pixel_line_type>(
 						sprout::darkroom::colors::rgb_f_to_rgb<pixel_type>(
-							raytracer.template operator()(
+							sprout::darkroom::tracers::calculate(
+								raytracer,
 								renderer, camera, objs, lights,
 								x + XIndexes, y, width, height, depth_max
 								)

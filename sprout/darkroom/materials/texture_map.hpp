@@ -92,12 +92,12 @@ namespace sprout {
 				}
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type
-				calc_nearest(Unit const& x, Unit const& y) const {
+				calculate_nearest(Unit const& x, Unit const& y) const {
 					return get_color(x, y);
 				}
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type
-					calc_bilinear_1(
+					calculate_bilinear_1(
 					Unit const& x, Unit const& x0,
 					Unit const& y, Unit const& y0
 					) const
@@ -110,8 +110,8 @@ namespace sprout {
 				}
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type
-				calc_bilinear(Unit const& x, Unit const& y) const {
-					return calc_bilinear_1(
+				calculate_bilinear(Unit const& x, Unit const& y) const {
+					return calculate_bilinear_1(
 						x, sprout::floor(x),
 						y, sprout::floor(y)
 						);
@@ -119,8 +119,8 @@ namespace sprout {
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type
 				calc(Unit const& x, Unit const& y) const {
-					return is_nearest() ? calc_nearest(x, y)
-						: calc_bilinear(x, y)
+					return is_nearest() ? calculate_nearest(x, y)
+						: calculate_bilinear(x, y)
 						;
 				}
 			public:

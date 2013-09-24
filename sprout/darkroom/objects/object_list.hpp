@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple/make_tuple.hpp>
-#include <sprout/darkroom/intersects/intersection.hpp>
+#include <sprout/utility/forward.hpp>
 
 namespace sprout {
 	namespace darkroom {

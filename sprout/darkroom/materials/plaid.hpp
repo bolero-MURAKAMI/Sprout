@@ -31,7 +31,7 @@ namespace sprout {
 			private:
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type
-				calc_1(Unit const& u, Unit const& v) const {
+				calculate_1(Unit const& u, Unit const& v) const {
 					return (u >= 0 && v >= 0) || (u < 0 && v < 0) ? elem1_ : elem2_;
 				}
 			public:
@@ -43,7 +43,7 @@ namespace sprout {
 				template<typename Unit>
 				SPROUT_CONSTEXPR result_type
 				operator()(Unit const& u, Unit const& v) const {
-					return calc_1(
+					return calculate_1(
 						(u < 0
 							? scale_ + sprout::fmod(u, scale_)
 							: sprout::fmod(u, scale_)

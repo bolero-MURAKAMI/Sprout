@@ -20,6 +20,8 @@
 #include <sprout/darkroom/materials/material.hpp>
 #include <sprout/darkroom/intersects/intersection.hpp>
 #include <sprout/darkroom/objects/intersect.hpp>
+#include <sprout/darkroom/lights/calculate.hpp>
+#include <sprout/darkroom/renderers/calculate.hpp>
 #include <sprout/darkroom/renderers/infinity.hpp>
 
 namespace sprout {
@@ -33,18 +35,19 @@ namespace sprout {
 				template<
 					typename Color,
 					typename Camera, typename Objects, typename Lights,
-					typename Ray, typename Intersection, typename Tracer,
+					typename Ray, typename Intersection, typename Renderer,
 					typename Direction
 				>
 				SPROUT_CONSTEXPR Color
 				color_1(
 					Camera const& camera, Objects const& objs, Lights const& lights,
-					Ray const& ray, Intersection const& inter, Tracer const& tracer,
+					Ray const& ray, Intersection const& inter, Renderer const& renderer,
 					std::size_t depth_max,
 					Direction const& reflect_dir
 					) const
 				{
-					return tracer.template operator()<Color>(
+					return sprout::darkroom::renderers::calculate<Color>(
+						renderer,
 						camera, objs, lights,
 						sprout::tuples::remake<Ray>(
 							ray,
@@ -69,12 +72,12 @@ namespace sprout {
 				template<
 					typename Color,
 					typename Camera, typename Objects, typename Lights,
-					typename Ray, typename Intersection, typename Tracer
+					typename Ray, typename Intersection, typename Renderer
 				>
 				SPROUT_CONSTEXPR Color
 				operator()(
 					Camera const& camera, Objects const& objs, Lights const& lights,
-					Ray const& ray, Intersection const& inter, Tracer const& tracer,
+					Ray const& ray, Intersection const& inter, Renderer const& renderer,
 					std::size_t depth_max
 					) const
 				{
@@ -87,7 +90,7 @@ namespace sprout {
 							> sprout::numeric_limits<reflection_type>::epsilon()
 						? color_1<Color>(
 							camera, objs, lights,
-							ray, inter, tracer,
+							ray, inter, renderer,
 							depth_max,
 							sprout::darkroom::coords::reflect(
 								sprout::darkroom::rays::direction(ray),
@@ -126,7 +129,7 @@ namespace sprout {
 								sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
 								)
 							)
-						: infinity_color_.template operator()<Color>(sprout::darkroom::rays::direction(ray))
+						: sprout::darkroom::renderers::calculate_infinity<Color>(infinity_color_, sprout::darkroom::rays::direction(ray))
 						;
 				}
 				template<
@@ -165,7 +168,7 @@ namespace sprout {
 					return color_2<Color>(
 						camera, objs, lights,
 						ray, depth_max, inter,
-						lights.template operator()(inter, objs)
+						sprout::darkroom::lights::calculate(lights, inter, objs)
 						);
 				}
 			public:

@@ -9,6 +9,7 @@
 #define SPROUT_DARKROOM_MATERIALS_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/darkroom/materials/calculate.hpp>
 #include <sprout/darkroom/materials/material.hpp>
 #include <sprout/darkroom/materials/interpolation.hpp>
 #include <sprout/darkroom/materials/uniform.hpp>

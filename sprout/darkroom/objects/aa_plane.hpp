@@ -49,7 +49,7 @@ namespace sprout {
 						unit_type,
 						position_type,
 						position_type,
-						decltype(sprout::darkroom::materials::calc_material(
+						decltype(sprout::darkroom::materials::calculate_material(
 							std::declval<material_type const&>(),
 							std::declval<unit_type const&>(),
 							std::declval<unit_type const&>()
@@ -84,17 +84,17 @@ namespace sprout {
 							: is_y() ? position_type(0, hit_side > 0 ? 1 : -1, 0)
 							: position_type(0, 0, hit_side > 0 ? 1 : -1)
 							,
-						is_x() ? sprout::darkroom::materials::calc_material(
+						is_x() ? sprout::darkroom::materials::calculate_material(
 							mat_,
 							sprout::darkroom::coords::z(point_of_intersection),
 							sprout::darkroom::coords::y(point_of_intersection)
 							)
-							: is_y() ? sprout::darkroom::materials::calc_material(
+							: is_y() ? sprout::darkroom::materials::calculate_material(
 								mat_,
 								sprout::darkroom::coords::x(point_of_intersection),
 								sprout::darkroom::coords::z(point_of_intersection)
 								)
-							: sprout::darkroom::materials::calc_material(
+							: sprout::darkroom::materials::calculate_material(
 								mat_,
 								sprout::darkroom::coords::x(point_of_intersection),
 								sprout::darkroom::coords::y(point_of_intersection)

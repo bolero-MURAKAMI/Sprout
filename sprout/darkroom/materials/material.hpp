@@ -13,6 +13,7 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
+#include <sprout/darkroom/materials/calculate.hpp>
 
 namespace sprout {
 	namespace darkroom {
@@ -39,40 +40,19 @@ namespace sprout {
 			}
 
 			//
-			// calc_color
-			// calc_reflection
-			//
-			template<typename Image, typename Unit>
-			inline SPROUT_CONSTEXPR auto
-			calc_color(Image&& t, Unit const& u, Unit const& v)
-			SPROUT_NOEXCEPT
-			-> decltype(sprout::forward<Image>(t).template operator()(u, v))
-			{
-				return sprout::forward<Image>(t).template operator()(u, v);
-			}
-			template<typename Image, typename Unit>
-			inline SPROUT_CONSTEXPR auto
-			calc_reflection(Image&& t, Unit const& u, Unit const& v)
-			SPROUT_NOEXCEPT
-			-> decltype(sprout::forward<Image>(t).template operator()(u, v))
-			{
-				return sprout::forward<Image>(t).template operator()(u, v);
-			}
-
-			//
-			// calc_material
+			// calculate_material
 			//
 			template<typename Material, typename Unit>
 			inline SPROUT_CONSTEXPR auto
-			calc_material(Material const& mat, Unit const& u, Unit const& v)
+			calculate_material(Material const& mat, Unit const& u, Unit const& v)
 			-> decltype(sprout::tuples::make_tuple(
-				sprout::darkroom::materials::calc_color(sprout::darkroom::materials::color(mat), u, v),
-				sprout::darkroom::materials::calc_reflection(sprout::darkroom::materials::reflection(mat), u, v)
+				sprout::darkroom::materials::calculate(sprout::darkroom::materials::color(mat), u, v),
+				sprout::darkroom::materials::calculate(sprout::darkroom::materials::reflection(mat), u, v)
 				))
 			{
 				return sprout::tuples::make_tuple(
-					sprout::darkroom::materials::calc_color(sprout::darkroom::materials::color(mat), u, v),
-					sprout::darkroom::materials::calc_reflection(sprout::darkroom::materials::reflection(mat), u, v)
+					sprout::darkroom::materials::calculate(sprout::darkroom::materials::color(mat), u, v),
+					sprout::darkroom::materials::calculate(sprout::darkroom::materials::reflection(mat), u, v)
 					);
 			}
 

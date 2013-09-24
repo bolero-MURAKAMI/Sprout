@@ -9,6 +9,7 @@
 #define SPROUT_DARKROOM_RENDERERS_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/darkroom/renderers/calculate.hpp>
 #include <sprout/darkroom/renderers/infinity.hpp>
 #include <sprout/darkroom/renderers/whitted_style.hpp>
 
