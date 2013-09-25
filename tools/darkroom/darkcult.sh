@@ -139,7 +139,7 @@ for ((y=0; y<height; y+=tile_height)); do
 	mkdir -p ${stagedir}/${y}/
 done
 
-compile_options=-std=c++11 ${define_options} ${include_options}
+compile_options="-std=c++11 ${define_options} ${include_options}"
 
 echo "rendering:"
 start=${SECONDS}
