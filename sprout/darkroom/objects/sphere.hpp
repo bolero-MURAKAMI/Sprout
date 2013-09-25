@@ -66,9 +66,8 @@ namespace sprout {
 				radius_type rad_;
 				material_type mat_;
 			private:
-				template<typename Ray>
-				SPROUT_CONSTEXPR zwo_type
-				zweitens_2(Ray const&, unit_type const& i1, unit_type const& i2, int hit_side, bool does_intersect) const {
+				SPROUT_STATIC_CONSTEXPR zwo_type
+				zweitens_2(unit_type const& i1, unit_type const& i2, int hit_side, bool does_intersect) {
 					return zwo_type(
 						hit_side,
 						does_intersect,
@@ -77,11 +76,9 @@ namespace sprout {
 							: -1
 						);
 				}
-				template<typename Ray>
-				SPROUT_CONSTEXPR zwo_type
-				zweitens_1(Ray const& ray, unit_type const& i1, unit_type const& i2) const {
+				SPROUT_STATIC_CONSTEXPR zwo_type
+				zweitens_1(unit_type const& i1, unit_type const& i2) {
 					return zweitens_2(
-						ray,
 						i1,
 						i2,
 						i2 > 0
@@ -91,17 +88,16 @@ namespace sprout {
 						i2 > 0
 						);
 				}
-				template<typename Ray>
-				SPROUT_CONSTEXPR zwo_type
-				zweitens(Ray const& ray, bool neg, unit_type const& b, unit_type const& det) const {
+				SPROUT_STATIC_CONSTEXPR zwo_type
+				zweitens(bool neg, unit_type const& b, unit_type const& det) {
 					return neg
-						? zweitens_1(ray, b - det, b + det)
+						? zweitens_1(b - det, b + det)
 						: zwo_type(0, false, -1)
 						;
 				}
 				template<typename Ray>
 				SPROUT_CONSTEXPR drei_type
-				drittens_1(Ray const&, typename sprout::darkroom::access::unit<Ray>::type point_of_intersection) const {
+				drittens_1(typename sprout::darkroom::access::unit<Ray>::type point_of_intersection) const {
 					return drei_type(
 						point_of_intersection,
 						sprout::darkroom::coords::normalize(
@@ -113,7 +109,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR drei_type
 				drittens(Ray const& ray, bool neg, unit_type const& distance) const {
 					return neg
-						? drittens_1(ray, sprout::darkroom::rays::point_of_intersection(ray, distance))
+						? drittens_1<Ray>(sprout::darkroom::rays::point_of_intersection(ray, distance))
 						: drei_type(
 							sprout::tuples::make<position_type>(0, 0, 0),
 							sprout::tuples::make<position_type>(1, 1, 1)
@@ -122,7 +118,7 @@ namespace sprout {
 				}
 				template<typename Ray, typename Vec>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type
-				intersect_6(Ray const&, zwo_type const& zwo, drei_type const& drei, Vec const& normal) const {
+				intersect_6(zwo_type const& zwo, drei_type const& drei, Vec const& normal) const {
 					return typename intersection<Ray>::type(
 						sprout::tuples::get<zw::does_intersect>(zwo),
 						sprout::tuples::get<zw::distance>(zwo),
@@ -149,9 +145,8 @@ namespace sprout {
 				}
 				template<typename Ray>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type
-				intersect_5(Ray const& ray, zwo_type const& zwo, drei_type const& drei) const {
-					return intersect_6(
-						ray,
+				intersect_5(zwo_type const& zwo, drei_type const& drei) const {
+					return intersect_6<Ray>(
 						zwo,
 						drei,
 						sprout::tuples::get<dr::normal>(drei)
@@ -160,8 +155,7 @@ namespace sprout {
 				template<typename Ray>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type
 				intersect_4(Ray const& ray, zwo_type const& zwo) const {
-					return intersect_5(
-						ray,
+					return intersect_5<Ray>(
 						zwo,
 						drittens(
 							ray,
@@ -176,7 +170,6 @@ namespace sprout {
 					return intersect_4(
 						ray,
 						zweitens(
-							ray,
 							det_sq > 0,
 							b,
 							det_sq > 0 ? sprout::sqrt(det_sq) : unit_type(0)
