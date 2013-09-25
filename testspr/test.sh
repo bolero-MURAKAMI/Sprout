@@ -29,7 +29,6 @@ compile() {
 	${5}/${1}-${2}/bin/${1/%cc}++ -Wall -pedantic -std=c++11 -o ${stagedir}/test_${1}${2//.} ${4} ${3}
 	results[${1}-${2}]=$?
 }
-
 execute() {
 	if [ ${results[${1}-${2}]} -eq 0 ]; then
 		echo "${1}-${2} compile succeeded."
@@ -99,13 +98,16 @@ echo "  gcc-version = (${gcc_version})"
 echo "  clang-version = (${clang_version})"
 echo "  gcc-root = '${gcc_root}'"
 echo "  clang-root = '${clang_root}'"
-if [ ${#user_macros[*]} -gt 0 ]; then
-	echo "  user-macros = (${user_macros[*]})"
-fi
-if [ ${#include_paths[*]} -gt 0 ]; then
-	echo "  include-paths = (${include_paths[*]})"
-fi
+echo "  user-macros = (${user_macros[*]})"
+echo "  include-paths = (${include_paths[*]})"
 echo "  force = ${force}"
+
+for user_macro in ${user_macros}; do
+	define_options="${define_options} -D${user_macro}"
+done
+for include_path in ${include_paths}; do
+	include_options="${include_options} -I${include_path}"
+done
 
 if [ -d "${stagedir}" ]; then
 	if [ ${force} -eq 0 ]; then
@@ -118,18 +120,9 @@ else
 	mkdir -p ${stagedir}
 fi
 
-for user_macro in ${user_macros}; do
-	define_options="${define_options} -D${user_macro}"
-done
-
-for include_path in ${include_paths}; do
-	include_options="${include_options} -I${include_path}"
-done
-
 for version in ${gcc_version}; do
 	compile gcc ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${include_options} ${version_specific_options[gcc-${version}]}" ${gcc_root}
 done
-
 for version in ${clang_version}; do
 	compile clang ${version} $(cd $(dirname $0); pwd)/sprout.cpp "${define_options} ${include_options} ${version_specific_options[clang-${version}]}" ${clang_root}
 done
@@ -137,7 +130,6 @@ done
 for version in ${gcc_version}; do
 	execute gcc ${version}
 done
-
 for version in ${clang_version}; do
 	execute clang ${version}
 done

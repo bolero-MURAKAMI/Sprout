@@ -8,6 +8,7 @@
 # =============================================================================
 #
 # requires: Netpbm (http://netpbm.sourceforge.net/)
+# requires: Python (http://www.python.org/) if parallel mode
 #
 src="../../example/darkroom/two_spheres.hpp"
 stagedir="darkroom"
@@ -85,6 +86,8 @@ if [ ${use_help} -ne 0 ]; then
 	echo "  -I, --include=<dir>         Add system include path."
 	echo ""
 	echo "  -P, --max-procs=<value>     The maximum number of process use."
+	echo "                              If other than 1, processing in parallel mode."
+	echo "                              If 0, using the number of CPUs in the system."
 	echo "                              Default; 1"
 	echo ""
 	echo "  -f, --force                 Allow overwrite of <stagedir>."
@@ -102,12 +105,8 @@ echo "  width = ${width}"
 echo "  height = ${height}"
 echo "  tile-width = ${tile_width}"
 echo "  tile-height = ${tile_height}"
-if [ ${#user_macros[*]} -gt 0 ]; then
-	echo "  user-macros = (${user_macros[*]})"
-fi
-if [ ${#include_paths[*]} -gt 0 ]; then
-	echo "  include-paths = (${include_paths[*]})"
-fi
+echo "  user-macros = (${user_macros[*]})"
+echo "  include-paths = (${include_paths[*]})"
 echo "  max-procs = ${max_procs}"
 echo "  force = ${force}"
 
@@ -115,6 +114,14 @@ if [ ! -f "${src}" -a ! -f "$(cd $(dirname $0); pwd)/${src}" ]; then
 	echo >&2 "error: source(${src}) not exists."
 	exit 1
 fi
+
+for user_macro in ${user_macros}; do
+	define_options="${define_options} -D${user_macro}"
+done
+for include_path in ${include_paths}; do
+	include_options="${include_options} -I${include_path}"
+done
+compile_options="-std=c++11 ${define_options} ${include_options}"
 
 if [ -d "${stagedir}" ]; then
 	if [ ${force} -eq 0 ]; then
@@ -126,20 +133,9 @@ if [ -d "${stagedir}" ]; then
 else
 	mkdir -p ${stagedir}
 fi
-
-for user_macro in ${user_macros}; do
-	define_options="${define_options} -D${user_macro}"
-done
-
-for include_path in ${include_paths}; do
-	include_options="${include_options} -I${include_path}"
-done
-
 for ((y=0; y<height; y+=tile_height)); do
 	mkdir -p ${stagedir}/${y}/
 done
-
-compile_options="-std=c++11 ${define_options} ${include_options}"
 
 echo "rendering:"
 start=${SECONDS}
@@ -151,22 +147,22 @@ if [ ${max_procs} -eq 1 ]; then
 
 		echo -n "    x = "
 		for ((x=0; x<width; x+=tile_width)); do
-			echo -n "(${x}/${height})..."
-			binname=${y}/${x}.out
-			bin=${stagedir}/${binname}
+			echo -n "(${x}/${height})."
+			bin=${stagedir}/${y}/${x}.out
+			out=${stagedir}/${y}/${x}.ppm
 			${compiler} -o ${bin} \
 				${compile_options} \
 				-DDARKROOM_SOURCE="\"${src}\"" \
 				-DDARKROOM_TOTAL_WIDTH=${width} -DDARKROOM_TOTAL_HEIGHT=${height} \
 				-DDARKROOM_TILE_WIDTH=${tile_width} -DDARKROOM_TILE_HEIGHT=${tile_height} \
 				-DDARKROOM_OFFSET_X=${x} -DDARKROOM_OFFSET_Y=${y} \
-				${darkcult_cpp}
+				${darkcult_cpp} \
+				&& ${bin} > ${out}
 			if [ $? -ne 0 ]; then
 				echo ""
-				echo >&2 "error: compile(${binname}) failed."
+				echo >&2 "error: compile(${y}/${x}) failed."
 				exit 1
 			fi
-			${bin} > ${stagedir}/${y}/${x}.ppm
 		done
 		echo ""
 
@@ -177,11 +173,11 @@ else
 	echo "  processing in parallel mode."
 	echo -n "  "
 	python "${darkcult_py}" \
-		"${src}" "${stagedir}" "${output}" "${compiler}" \
-		"${width}" "${height}" \
-		"${tile_width}" "${tile_height}" \
-		"${compile_options}" "${darkcult_cpp}" \
-		"${max_procs}"
+		"--src=${src}" "--stagedir=${stagedir}" "--output=${output}" "--compiler=${compiler}" \
+		"--width=${width}" "--height=${height}" \
+		"--tile_width=${tile_width}" "--tile_height=${tile_height}"" "\
+		"--compile_options=${compile_options}" "--darkcult_cpp=${darkcult_cpp}" \
+		"--max_procs=${max_procs}"
 	if [ $? -ne 0 ]; then
 		echo ""
 		echo >&2 "error: compile failed."
@@ -195,12 +191,10 @@ echo "  elapsed(total) = ${elapsed}s"
 
 for ((y=0; y<height; y+=tile_height)); do
 	pushd ${stagedir}/${y}/ > /dev/null
-#	convert +append $(ls *.ppm | sort -n) ../${y}.ppm
 	pnmcat -lr $(ls *.ppm | sort -n) > ../${y}.ppm
 	popd > /dev/null
 done
 pushd ${stagedir} > /dev/null
-#convert -append $(ls *.ppm | sort -n) ${output}
 pnmcat -tb $(ls *.ppm | sort -n) > ${output}
 popd > /dev/null
 
