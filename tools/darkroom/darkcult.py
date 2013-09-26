@@ -56,8 +56,8 @@ def main():
 	return any(pool.map(
 		compile,
 		[format_command(x, y)
-			for x in range(0, opts.width, opts.tile_width)
 			for y in range(0, opts.height, opts.tile_height)
+			for x in range(0, opts.width, opts.tile_width)
 			]
 		))
 

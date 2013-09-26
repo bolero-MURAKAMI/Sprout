@@ -13,10 +13,6 @@
 #	define TESTSPR_CPP_INCLUDE
 #endif
 
-#ifdef TESTSPR_CONFIG_INCLUDE_HEADER_ALL
-#	include "./header_all.hpp"
-#endif
-
 #include "../libs/array/test/array.cpp"
 #include "../libs/string/test/string.cpp"
 #include "../libs/bitset/test/bitset.cpp"

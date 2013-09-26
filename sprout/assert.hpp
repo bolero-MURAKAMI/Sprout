@@ -21,14 +21,12 @@
 #	include <sprout/preprocessor/stringize.hpp>
 #endif
 
-#if !(defined(SPROUT_DISABLE_ASSERTS) || defined(NDEBUG))
-	//
-	// SPROUT_ASSERTION_FAILED_FORMAT
-	//
-#	ifndef SPROUT_ASSERTION_FAILED_FORMAT
-#		define SPROUT_ASSERTION_FAILED_FORMAT(expr, file, line) \
-			"***** Internal Program Error - assertion (" #expr ") failed: " file "(" SPROUT_PP_STRINGIZE(line) ")"
-#	endif
+//
+// SPROUT_ASSERTION_FAILED_FORMAT
+//
+#ifndef SPROUT_ASSERTION_FAILED_FORMAT
+#	define SPROUT_ASSERTION_FAILED_FORMAT(expr, file, line) \
+		"***** Internal Program Error - assertion (" #expr ") failed: " file "(" SPROUT_PP_STRINGIZE(line) ")"
 #endif
 
 //

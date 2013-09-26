@@ -46,7 +46,7 @@ while [ -n "$1" ]; do
 		-H|--tile-height) tile_height=$2; shift 2;;
 		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
 		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
-		-P|--max_procs) max_procs=$2; shift 2;;
+		-P|--max-procs) max_procs=$2; shift 2;;
 		-f|--force) force=1; shift;;
 		--help) use_help=1; shift;;
 		--) shift; break;;
@@ -166,7 +166,7 @@ if [ ${max_procs} -eq 1 ]; then
 		done
 		echo ""
 
-		let "y_elapsed=${SECONDS}-${y_start}"
+		let y_elapsed=${SECONDS}-${y_start}
 		echo "    elapsed = ${y_elapsed}s"
 	done
 else
@@ -178,15 +178,14 @@ else
 		"--tile_width=${tile_width}" "--tile_height=${tile_height}"" "\
 		"--compile_options=${compile_options}" "--darkcult_cpp=${darkcult_cpp}" \
 		"--max_procs=${max_procs}"
+	echo ""
 	if [ $? -ne 0 ]; then
-		echo ""
 		echo >&2 "error: compile failed."
 		exit 1
 	fi
-	echo ""
 fi
 
-let "elapsed=${SECONDS}-${start}"
+let elapsed=${SECONDS}-${start}
 echo "  elapsed(total) = ${elapsed}s"
 
 for ((y=0; y<height; y+=tile_height)); do

@@ -20,6 +20,7 @@
 #endif
 
 #include <string>
+#include <utility>
 #include <typeinfo>
 #ifdef TESTSPR_HAS_CXXABI_H
 #	include <cstdlib>
@@ -53,10 +54,18 @@ namespace testspr {
 	inline std::string typename_of() {
 		return testspr::detail::cxa_demangle(typeid(T).name());
 	}
+	template<typename T>
+	inline std::string typename_of(T&& t) {
+		return testspr::detail::cxa_demangle(typeid(std::forward<T>(t)).name());
+	}
 #else
 	template<typename T>
 	inline std::string typename_of() {
 		return std::string(typeid(T).name());
+	}
+	template<typename T>
+	inline std::string typename_of(T&& t) {
+		return std::string(typeid(std::forward<T>(t)).name());
 	}
 #endif
 }	// namespace testspr
