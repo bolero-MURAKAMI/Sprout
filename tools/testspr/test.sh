@@ -14,19 +14,14 @@ gcc_version="."
 clang_version="."
 gcc_root="/usr/local"
 clang_root="/usr/local"
-declare -a user_macros
-user_macros=()
-declare -a include_paths
-include_paths=()
+declare -a user_macros=()
+declare -a include_paths=()
 max_procs=1
 force=0
 use_help=0
-declare -a common_options
-common_options=()
-declare -a version_options
-version_options=()
-declare -A version_specific_options
-version_specific_options=(
+declare -a common_options=()
+declare -a version_options=()
+declare -A version_specific_options=(
 	[clang-3.3]='-ftemplate-depth=512'
 )
 test_cpp=$(cd $(dirname $0); pwd)/test.cpp

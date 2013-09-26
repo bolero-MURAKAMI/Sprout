@@ -18,10 +18,8 @@ width=16
 height=16
 tile_width=16
 tile_height=16
-declare -a user_macros
-user_macros=()
-declare -a include_paths
-include_paths=()
+declare -a user_macros=()
+declare -a include_paths=()
 max_procs=1
 force=0
 use_help=0
