@@ -18,15 +18,21 @@ width=16
 height=16
 tile_width=16
 tile_height=16
+l=0
+t=0
+r=
+b=
+declare -a common_options=()
 declare -a user_macros=()
 declare -a include_paths=()
-max_procs=1
+max_procs=
 force=0
+continuable=0
 use_help=0
 darkcult_cpp=$(cd $(dirname $0); pwd)/darkcult.cpp
 darkcult_py=$(cd $(dirname $0); pwd)/darkcult.py
 
-args=`getopt -o s:S:o:C:w:h:W:H:D:I:P:f -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,define:,include:,max-procs:,force,help -- "$@"`
+args=`getopt -o s:S:o:C:w:h:W:H:l:t:r:b:O:D:I:P:fc -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,left:,top:,right:,bottom:,option:,define:,include:,max-procs:,force,continuable,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'darkcult.sh --help'"
 	exit 1
@@ -42,15 +48,23 @@ while [ -n "$1" ]; do
 		-h|--height) height=$2; shift 2;;
 		-W|--tile-width) tile_width=$2; shift 2;;
 		-H|--tile-height) tile_height=$2; shift 2;;
+		-l|--left) l=$2; shift 2;;
+		-t|--top) t=$2; shift 2;;
+		-r|--right) r=$2; shift 2;;
+		-b|--bottom) b=$2; shift 2;;
+		-O|--option) common_options=(${common_options[@]} "$2"); shift 2;;
 		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
 		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
 		-P|--max-procs) max_procs=$2; shift 2;;
 		-f|--force) force=1; shift;;
+		-c|--continuable) continuable=1; shift;;
 		--help) use_help=1; shift;;
 		--) shift; break;;
 		*) echo >&2 "error: unknown option($1) used."; exit 1;;
 	esac
 done
+: ${r:=${width}}
+: ${b:=${height}}
 
 if [ ${use_help} -ne 0 ]; then
 	echo "help:"
@@ -79,16 +93,33 @@ if [ ${use_help} -ne 0 ]; then
 	echo "  -H, --tile-height=<value>   Output height of divided rendering."
 	echo "                              Default; 16"
 	echo ""
+	echo "  -l, --left=<value>          Left X position of rendering range."
+	echo "                              Default; 0"
+	echo ""
+	echo "  -t, --top=<value>           Top Y position of rendering range."
+	echo "                              Default; 0"
+	echo ""
+	echo "  -r, --right=<value>         Right X position of rendering range."
+	echo "                              Default; <width>"
+	echo ""
+	echo "  -b, --bottom=<value>        Bottom Y position of rendering range."
+	echo "                              Default; <height>"
+	echo ""
+	echo "  -O, --option=<opt>          Add compile option."
+	echo ""
 	echo "  -D, --define=<identifier>   Define macro for preprocessor."
 	echo ""
 	echo "  -I, --include=<dir>         Add system include path."
 	echo ""
 	echo "  -P, --max-procs=<value>     The maximum number of process use."
-	echo "                              If other than 1, processing in parallel mode."
+	echo "                              If other than null, processing in parallel mode."
 	echo "                              If 0, using the number of CPUs in the system."
-	echo "                              Default; 1"
 	echo ""
 	echo "  -f, --force                 Allow overwrite of <stagedir>."
+	echo ""
+	echo "  -c, --continuable           Enable break/continue mode."
+	echo "                              Press <Enter>; check finished."
+	echo "                              Press 'q'    ; terminate compile."
 	echo ""
 	echo "      --help                  This message."
 	exit 0
@@ -103,10 +134,15 @@ echo "  width = ${width}"
 echo "  height = ${height}"
 echo "  tile-width = ${tile_width}"
 echo "  tile-height = ${tile_height}"
+echo "  left = ${l}"
+echo "  top = ${t}"
+echo "  right = ${r}"
+echo "  bottom = ${b}"
 echo "  user-macros = (${user_macros[*]})"
 echo "  include-paths = (${include_paths[*]})"
 echo "  max-procs = ${max_procs}"
 echo "  force = ${force}"
+echo "  continuable = ${continuable}"
 
 if [ ! -f "${src}" -a ! -f "$(cd $(dirname $0); pwd)/${src}" ]; then
 	echo >&2 "error: source(${src}) not exists."
@@ -119,15 +155,18 @@ done
 for include_path in ${include_paths}; do
 	include_options="${include_options} -I${include_path}"
 done
-compile_options="-std=c++11 ${define_options} ${include_options}"
+compile_options="-std=c++11 ${define_options} ${include_options} ${common_options[*]}"
 
 if [ -d "${stagedir}" ]; then
 	if [ ${force} -eq 0 ]; then
-		echo >&2 "error: stagedir(${stagedir}) already exists."
-		exit 1
+		if [ ${continuable} -eq 0 ]; then
+			echo >&2 "error: stagedir(${stagedir}) already exists."
+			exit 1
+		fi
 	else
 		rm -f -r ${stagedir}/*
 	fi
+	rm -f ${stagedir}/*.ppm
 else
 	mkdir -p ${stagedir}
 fi
@@ -138,13 +177,13 @@ done
 echo "rendering:"
 start=${SECONDS}
 
-if [ ${max_procs} -eq 1 ]; then
-	for ((y=0; y<height; y+=tile_height)); do
+if [ -z "${max_procs}" ]; then
+	for ((y=t; y<b; y+=tile_height)); do
 		echo "  y = (${y}/${height})..."
 		y_start=${SECONDS}
 
 		echo -n "    x = "
-		for ((x=0; x<width; x+=tile_width)); do
+		for ((x=l; x<r; x+=tile_width)); do
 			echo -n "(${x}/${height})."
 			bin=${stagedir}/${y}/${x}.out
 			out=${stagedir}/${y}/${x}.ppm
@@ -158,7 +197,7 @@ if [ ${max_procs} -eq 1 ]; then
 				&& ${bin} > ${out}
 			if [ $? -ne 0 ]; then
 				echo ""
-				echo >&2 "error: compile(${y}/${x}) failed."
+				echo >&2 "  error: compile(${y}/${x}) failed."
 				exit 1
 			fi
 		done
@@ -169,16 +208,26 @@ if [ ${max_procs} -eq 1 ]; then
 	done
 else
 	echo "  processing in parallel mode."
+	if [ ${continuable} -ne 0 ]; then
+		echo "  enable break/continue mode."
+	fi
 	echo -n "  "
 	python "${darkcult_py}" \
-		"--src=${src}" "--stagedir=${stagedir}" "--output=${output}" "--compiler=${compiler}" \
+		"--source=${src}" "--stagedir=${stagedir}" "--output=${output}" "--compiler=${compiler}" \
 		"--width=${width}" "--height=${height}" \
 		"--tile_width=${tile_width}" "--tile_height=${tile_height}"" "\
+		"--left=${l}" "--top=${t}" \
+		"--right=${r}" "--bottom=${b}" \
 		"--compile_options=${compile_options}" "--darkcult_cpp=${darkcult_cpp}" \
+		"--continuable=${continuable}" "--continue_file=${stagedir}/continue.log" \
 		"--max_procs=${max_procs}"
+	result=$?
 	echo ""
-	if [ $? -ne 0 ]; then
-		echo >&2 "error: compile failed."
+	if [ ${result} -eq 2 ]; then
+		echo "  compile terminated."
+		exit 0
+	elif [ ${result} -ne 0 ]; then
+		echo >&2 "  error: compile failed."
 		exit 1
 	fi
 fi

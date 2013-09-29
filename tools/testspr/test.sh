@@ -16,7 +16,7 @@ gcc_root="/usr/local"
 clang_root="/usr/local"
 declare -a user_macros=()
 declare -a include_paths=()
-max_procs=1
+max_procs=
 force=0
 use_help=0
 declare -a common_options=()
@@ -27,7 +27,7 @@ declare -A version_specific_options=(
 test_cpp=$(cd $(dirname $0); pwd)/test.cpp
 test_py=$(cd $(dirname $0); pwd)/test.py
 
-args=`getopt -o S:g:c:O:o:D:I:P:f -l stagedir:,gcc-version:,clang-version:,gcc-root:,clang-root:,option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
+args=`getopt -o S:g:c:O:V:D:I:P:f -l stagedir:,gcc-version:,clang-version:,gcc-root:,clang-root:,option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'test.sh --help'"
 	exit 1
@@ -41,7 +41,7 @@ while [ -n "$1" ]; do
 		--gcc-root) gcc_root="$2"; shift 2;;
 		--clang-root) clang_root="$2"; shift 2;;
 		-O|--option) common_options=(${common_options[@]} "$2"); shift 2;;
-		-o|--version-option) version_options=(${version_options[@]} "$2"); shift 2;;
+		-V|--version-option) version_options=(${version_options[@]} "$2"); shift 2;;
 		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
 		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
 		-P|--max-procs) max_procs=$2; shift 2;;
@@ -74,7 +74,7 @@ if [ ${use_help} -ne 0 ]; then
 	echo ""
 	echo "  -O, --option=<opt>          Add compile option."
 	echo ""
-	echo "  -o, --version-option=<opt>  Add version specific compile option."
+	echo "  -V, --version-option=<opt>  Add version specific compile option."
 	echo "                              Example; [clang-3.3]='-ftemplate-depth=512'"
 	echo ""
 	echo "  -D, --define=<identifier>   Define macro for preprocessor."
@@ -82,9 +82,8 @@ if [ ${use_help} -ne 0 ]; then
 	echo "  -I, --include=<directory>   Add system include path."
 	echo ""
 	echo "  -P, --max-procs=<value>     The maximum number of process use."
-	echo "                              If other than 1, processing in parallel mode."
+	echo "                              If other than null, processing in parallel mode."
 	echo "                              If 0, using the number of CPUs in the system."
-	echo "                              Default; 1"
 	echo ""
 	echo "  -f, --force                 Allow overwrite of <stagedir>."
 	echo ""
@@ -162,7 +161,7 @@ compile() {
 	fi
 	return 0
 }
-if [ ${max_procs} -eq 1 ]; then
+if [ -z "${max_procs}" ]; then
 	fail_count=0
 	for version in ${gcc_version}; do
 		compile gcc ${version} ${test_cpp} ${compile_options} ${version_specific_options} ${gcc_root}

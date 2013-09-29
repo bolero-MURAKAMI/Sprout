@@ -11,25 +11,23 @@ import optparse
 import subprocess
 import multiprocessing
 
-def compile(command):
+def build(command):
 	sys.stdout.write(".")
 	sys.stdout.flush()
 	return subprocess.call(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
 def main():
 	parser = optparse.OptionParser(description='test.py')
-	parser.add_option('--stagedir', type='string')
-	parser.add_option('--gcc_version', type='string')
-	parser.add_option('--clang_version', type='string')
-	parser.add_option('--gcc_root', type='string')
-	parser.add_option('--clang_root', type='string')
-	parser.add_option('--compile_options', type='string')
+	parser.add_option('--stagedir', type='string', default='testspr')
+	parser.add_option('--gcc_version', type='string', default='.')
+	parser.add_option('--clang_version', type='string', default='.')
+	parser.add_option('--gcc_root', type='string', default='/usr/local')
+	parser.add_option('--clang_root', type='string', default='/usr/local')
+	parser.add_option('--compile_options', type='string', default='')
 	parser.add_option('--test_cpp', type='string')
-	parser.add_option('--serialized_version_specific_options', type='string')
-	parser.add_option('--max_procs', type='int')
+	parser.add_option('--serialized_version_specific_options', type='string', default='{}')
+	parser.add_option('--max_procs', type='int', default=0)
 	(opts, args) = parser.parse_args()
-
-	pool = multiprocessing.Pool(opts.max_procs if opts.max_procs != 0 else None)
 
 	def format_command(name, version, root):
 		base = "%s-%s" % (name, version) if version != "." else name
@@ -46,8 +44,10 @@ def main():
 				opts.test_cpp, compile_log,
 				bin, execute_log
 				)
+
+	pool = multiprocessing.Pool(opts.max_procs if opts.max_procs != 0 else None)
 	return sum(result != 0 for result in pool.map(
-		compile,
+		build,
 		[format_command('gcc', version, opts.gcc_root)
 			for version in opts.gcc_version.split(' ')
 			]
