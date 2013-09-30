@@ -26,7 +26,8 @@ def continue_build(command):
 	sys.stdout.write(".")
 	sys.stdout.flush()
 	result = subprocess.call(command[0], shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-	logging.critical(command[1])
+	if not result:
+		logging.critical(command[1])
 	return result
 
 def main():
@@ -116,5 +117,5 @@ def main():
 				]
 			))
 
-if __name__=="__main__":
+if __name__ == "__main__":
 	sys.exit(main())
