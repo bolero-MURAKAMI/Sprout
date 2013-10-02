@@ -50,12 +50,11 @@ namespace sprout {
 					> type;
 				};
 			private:
-				typedef sprout::tuples::tuple<int, bool, unit_type> zwo_type;
+				typedef sprout::tuples::tuple<bool, unit_type> zwo_type;
 				typedef sprout::tuples::tuple<position_type, position_type> drei_type;
 				struct zw {
-					SPROUT_STATIC_CONSTEXPR std::size_t hit_side = 0;
-					SPROUT_STATIC_CONSTEXPR std::size_t does_intersect = 1;
-					SPROUT_STATIC_CONSTEXPR std::size_t distance = 2;
+					SPROUT_STATIC_CONSTEXPR std::size_t does_intersect = 0;
+					SPROUT_STATIC_CONSTEXPR std::size_t distance = 1;
 				};
 				struct dr {
 					SPROUT_STATIC_CONSTEXPR std::size_t point_of_intersection = 0;
@@ -69,10 +68,6 @@ namespace sprout {
 				SPROUT_STATIC_CONSTEXPR zwo_type
 				zweitens_1(unit_type const& i1, unit_type const& i2) {
 					return zwo_type(
-						i2 > 0
-							? i1 < 0 ? -1 : 1
-							: 0
-							,
 						i2 > 0,
 						i2 > 0
 							? i1 < 0 ? i2 : i1
@@ -83,7 +78,7 @@ namespace sprout {
 				zweitens(bool neg, unit_type const& b, unit_type const& det) {
 					return neg
 						? zweitens_1(b - det, b + det)
-						: zwo_type(0, false, -1)
+						: zwo_type(false, -1)
 						;
 				}
 				template<typename Ray>
