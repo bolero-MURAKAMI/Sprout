@@ -32,7 +32,7 @@ namespace testspr {
 				{
 					std::ostringstream os;
 					os << eng1;
-					TESTSPR_ASSERT(os);
+					TESTSPR_ASSERT(!!os);
 
 					s = os.str();
 				}
@@ -43,7 +43,7 @@ namespace testspr {
 				{
 					std::istringstream is(s);
 					is >> eng_temp;
-					TESTSPR_ASSERT(is);
+					TESTSPR_ASSERT(!!is);
 				}
 
 				//TESTSPR_ASSERT(eng_temp == eng1);

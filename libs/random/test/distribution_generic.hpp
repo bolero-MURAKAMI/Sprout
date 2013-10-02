@@ -41,7 +41,7 @@ namespace testspr {
 				{
 					std::ostringstream os;
 					os << dist1;
-					TESTSPR_ASSERT(os);
+					TESTSPR_ASSERT(!!os);
 
 					s = os.str();
 				}
@@ -52,7 +52,7 @@ namespace testspr {
 				{
 					std::istringstream is(s);
 					is >> dist_temp;
-					TESTSPR_ASSERT(is);
+					TESTSPR_ASSERT(!!is);
 				}
 
 				TESTSPR_ASSERT(dist_temp == dist1);
