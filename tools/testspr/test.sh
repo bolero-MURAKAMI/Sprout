@@ -40,10 +40,10 @@ while [ -n "$1" ]; do
 		-c|--clang-version) clang_version="$2"; shift 2;;
 		--gcc-root) gcc_root="$2"; shift 2;;
 		--clang-root) clang_root="$2"; shift 2;;
-		-O|--option) common_options=(${common_options[@]} "$2"); shift 2;;
-		-V|--version-option) version_options=(${version_options[@]} "$2"); shift 2;;
-		-D|--define) user_macros=(${user_macros[@]} "$2"); shift 2;;
-		-I|--include) include_paths=(${include_paths[@]} "$2"); shift 2;;
+		-O|--option) common_options=("${common_options[@]}" "$2"); shift 2;;
+		-V|--version-option) version_options=("${version_options[@]}" "$2"); shift 2;;
+		-D|--define) user_macros=("${user_macros[@]}" "$2"); shift 2;;
+		-I|--include) include_paths=("${include_paths[@]}" "$2"); shift 2;;
 		-P|--max-procs) max_procs=$2; shift 2;;
 		-f|--force) force=1; shift;;
 		--help) use_help=1; shift;;
@@ -75,7 +75,7 @@ if [ ${use_help} -ne 0 ]; then
 	echo "  -O, --option=<opt>          Add compile option."
 	echo ""
 	echo "  -V, --version-option=<opt>  Add version specific compile option."
-	echo "                              Example; [clang-3.3]='-ftemplate-depth=512'"
+	echo "                              Example; 'clang-3.3 -ftemplate-depth=512'"
 	echo ""
 	echo "  -D, --define=<identifier>   Define macro for preprocessor."
 	echo ""
@@ -110,9 +110,17 @@ done
 for include_path in ${include_paths}; do
 	include_options="${include_options} -I${include_path}"
 done
-compile_options="-Wall -pedantic -std=c++11 ${define_options} ${include_options} ${common_options[*]}"
+compile_options="-v -Wall -pedantic -std=c++11 ${define_options} ${include_options} ${common_options[*]}"
+vo=0
+vkey=""
 for option in ${version_options}; do
-	eval "version_specific_options${option}"
+	if [ ${vo} -eq 0 ]; then
+		vkey=${option}
+		vo=1
+	else
+		version_specific_options[${vkey}]="${version_specific_options[${vkey}]} ${option}"
+		vo=0
+	fi
 done
 
 if [ -d "${stagedir}" ]; then
@@ -139,12 +147,12 @@ compile() {
 	local execute_log=${stagedir}/test.${base//.}.execute.log
 	local compiler
 	if [ ${2} != "." ]; then
-		compiler=${6}/${base}/bin/${1/%cc}++
+		compiler=${5}/${base}/bin/${1/%cc}++
 	else
 		compiler=${1/%cc}++
 	fi
 	echo "  compile(${base})..."
-	${compiler} -o ${bin} ${4} ${5[${base}]} ${3} >${compile_log} 2>&1
+	${compiler} -o ${bin} ${4} ${version_specific_options[${base}]} ${3} >${compile_log} 2>&1
 	if [ $? -eq 0 ]; then
 		echo "    compile succeeded."
 		echo "    execute(${base})..."
@@ -164,11 +172,11 @@ compile() {
 if [ -z "${max_procs}" ]; then
 	fail_count=0
 	for version in ${gcc_version}; do
-		compile gcc ${version} ${test_cpp} ${compile_options} ${version_specific_options} ${gcc_root}
+		compile "gcc" "${version}" "${test_cpp}" "${compile_options}" "${gcc_root}"
 		let fail_count=${fail_count}+$?
 	done
 	for version in ${clang_version}; do
-		compile clang ${version} ${test_cpp} ${compile_options} ${version_specific_options} ${clang_root}
+		compile "clang" "${version}" "${test_cpp}" "${compile_options}" "${clang_root}"
 		let fail_count=${fail_count}+$?
 	done
 	if [ ${fail_count} -ne 0 ]; then
@@ -180,7 +188,7 @@ else
 	echo "  processing in parallel mode."
 	echo -n "  "
 	serialized_version_specific_options={`
-		for key in $(echo ${!version_specific_options[@]}); do
+		for key in $(echo ${!version_specific_options[*]}); do
 			echo \'${key}\':\'${version_specific_options[${key}]}\',
 		done
 		echo \'_\':\'\'
