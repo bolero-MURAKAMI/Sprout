@@ -38,7 +38,6 @@
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
 
-
 namespace sprout {
 	namespace detail {
 		template<typename Iterator, typename T, std::size_t N>
@@ -154,7 +153,7 @@ namespace sprout {
 						: value_type()
 						)...
 					}
-				, len(!(N < n) ? n
+				, len(!sprout::math::less(N, n) ? n
 					: throw std::out_of_range("basic_string<>: index out of range")
 					)
 			{}
@@ -169,7 +168,7 @@ namespace sprout {
 						: value_type()
 						)...
 					}
-				, len(!(N < n) ? n
+				, len(!sprout::math::less(N, n) ? n
 					: throw std::out_of_range("basic_string<>: index out of range")
 					)
 			{}
