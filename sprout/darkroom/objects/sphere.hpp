@@ -67,25 +67,16 @@ namespace sprout {
 				material_type mat_;
 			private:
 				SPROUT_STATIC_CONSTEXPR zwo_type
-				zweitens_2(unit_type const& i1, unit_type const& i2, int hit_side, bool does_intersect) {
-					return zwo_type(
-						hit_side,
-						does_intersect,
-						hit_side < 0 ? i2
-							: hit_side > 0 ? i1
-							: -1
-						);
-				}
-				SPROUT_STATIC_CONSTEXPR zwo_type
 				zweitens_1(unit_type const& i1, unit_type const& i2) {
-					return zweitens_2(
-						i1,
-						i2,
+					return zwo_type(
 						i2 > 0
 							? i1 < 0 ? -1 : 1
 							: 0
 							,
+						i2 > 0,
 						i2 > 0
+							? i1 < 0 ? i2 : i1
+							: -1
 						);
 				}
 				SPROUT_STATIC_CONSTEXPR zwo_type
