@@ -11,7 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/type_traits/float_promote.hpp>
-#include <sprout/math/comparison.hpp>
 
 namespace sprout {
 	namespace compost {

@@ -17,7 +17,7 @@
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/pit/pit.hpp>
-#include <sprout/math/comparison.hpp>
+#include <sprout/math/less.hpp>
 #include <sprout/detail/container_complate.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
 

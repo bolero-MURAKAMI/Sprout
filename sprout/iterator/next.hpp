@@ -15,6 +15,7 @@
 #include <sprout/iterator/prev_fwd.hpp>
 #include <sprout/adl/not_found.hpp>
 #include <sprout/assert.hpp>
+#include <sprout/math/greater_equal.hpp>
 
 namespace sprout_adl {
 	sprout::not_found_via_adl iterator_next(...);
@@ -101,7 +102,7 @@ namespace sprout {
 			std::input_iterator_tag*
 			)
 		{
-			return SPROUT_ASSERT(n >= 0),
+			return SPROUT_ASSERT(sprout::math::greater_equal(n, 0)),
 				n == 0 ? it
 					: sprout::iterator_detail::next_impl_2(it, n)
 				;

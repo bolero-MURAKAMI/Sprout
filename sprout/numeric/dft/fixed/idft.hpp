@@ -19,7 +19,7 @@
 #include <sprout/iterator/idft_iterator.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
-#include <sprout/math/comparison.hpp>
+#include <sprout/math/less.hpp>
 #include <sprout/numeric/dft/idft_element.hpp>
 #include <sprout/detail/container_complate.hpp>
 

@@ -15,7 +15,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/random_result.hpp>
-#include <sprout/math/comparison.hpp>
+#include <sprout/math/greater_equal.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {

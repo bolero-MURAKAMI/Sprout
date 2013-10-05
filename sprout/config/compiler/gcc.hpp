@@ -52,6 +52,8 @@
 #	define SPROUT_HAS_CONSTEXPR_BIT_OPERATION
 #endif
 
-#define SPROUT_NO_CXX14_CONSTEXPR
+#if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 9) || __cplusplus < 201300L)
+#	define SPROUT_NO_CXX14_CONSTEXPR
+#endif
 
 #endif	// #ifndef SPROUT_CONFIG_COMPILER_GCC_HPP

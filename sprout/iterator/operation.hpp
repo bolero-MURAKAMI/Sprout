@@ -12,5 +12,6 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/iterator/advance.hpp>
 
 #endif	// #ifndef SPROUT_ITERATOR_OPERATION_HPP

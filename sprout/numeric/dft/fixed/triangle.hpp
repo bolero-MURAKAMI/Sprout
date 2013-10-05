@@ -15,7 +15,6 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
-#include <sprout/math/comparison.hpp>
 #include <sprout/math/sin.hpp>
 #include <sprout/math/asin.hpp>
 #include <sprout/math/constants.hpp>

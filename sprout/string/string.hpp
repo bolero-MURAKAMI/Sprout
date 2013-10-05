@@ -29,7 +29,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/math/comparison.hpp>
+#include <sprout/math/less.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/npos.hpp>
 #include <sprout/string/detail/operations.hpp>

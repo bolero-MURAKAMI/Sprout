@@ -27,7 +27,7 @@
 #include <sprout/functional/type_traits/weak_result_type.hpp>
 #include <sprout/variant/variant_fwd.hpp>
 #include <sprout/variant/visitor_result.hpp>
-#include <sprout/math/comparison.hpp>
+#include <sprout/math/less.hpp>
 
 namespace sprout {
 	namespace detail {

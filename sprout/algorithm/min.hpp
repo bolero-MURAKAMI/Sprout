@@ -11,6 +11,7 @@
 
 #include <initializer_list>
 #include <sprout/config.hpp>
+#include <sprout/algorithm/detail/min.hpp>
 #include <sprout/algorithm/min_element.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
@@ -18,18 +19,6 @@
 namespace sprout {
 
 	// 25.4.7 Minimum and maximum
-	template<typename T, typename Compare>
-	inline SPROUT_CONSTEXPR T const&
-	min(T const& a, T const& b, Compare comp) {
-		return comp(b, a) ? b : a;
-	}
-
-	template<typename T>
-	inline SPROUT_CONSTEXPR T const&
-	min(T const& a, T const& b) {
-		return sprout::min(a, b, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
-	}
-
 #ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
 	template<typename T, typename Compare>
 	inline SPROUT_CONSTEXPR T
