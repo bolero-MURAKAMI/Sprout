@@ -16,6 +16,7 @@
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/array/array.hpp>
+#include <sprout/array/comparison.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/math/compare.hpp>
 #include <sprout/random/random_result.hpp>

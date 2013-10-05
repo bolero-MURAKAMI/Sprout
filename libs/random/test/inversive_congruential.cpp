@@ -8,7 +8,7 @@
 #ifndef SPROUT_LIBS_RANDOM_TEST_INVERSIVE_CONGRUENTIAL_CPP
 #define SPROUT_LIBS_RANDOM_TEST_INVERSIVE_CONGRUENTIAL_CPP
 
-#include <sprout/random/linear_congruential.hpp>
+#include <sprout/random/inversive_congruential.hpp>
 #include "./engine_generic.hpp"
 #include <testspr/tools.hpp>
 
