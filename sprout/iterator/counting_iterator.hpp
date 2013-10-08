@@ -65,7 +65,7 @@ namespace sprout {
 			: current_(it.current_)
 		{}
 		template<typename U>
-		counting_iterator& operator=(counting_iterator<U> const& it) {
+		SPROUT_CXX14_CONSTEXPR counting_iterator& operator=(counting_iterator<U> const& it) {
 			counting_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -76,20 +76,20 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &current_;
 		}
-		counting_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR counting_iterator& operator++() {
 			++current_;
 			return *this;
 		}
-		counting_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR counting_iterator operator++(int) {
 			counting_iterator result(*this);
 			++current_;
 			return result;
 		}
-		counting_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR counting_iterator& operator--() {
 			--current_;
 			return *this;
 		}
-		counting_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR counting_iterator operator--(int) {
 			counting_iterator temp(*this);
 			--current_;
 			return temp;
@@ -100,12 +100,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR counting_iterator operator-(difference_type n) const {
 			return counting_iterator(current_ - n);
 		}
-		counting_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR counting_iterator& operator+=(difference_type n) {
 			counting_iterator temp(current_ + n);
 			temp.swap(*this);
 			return *this;
 		}
-		counting_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR counting_iterator& operator-=(difference_type n) {
 			counting_iterator temp(current_ - n);
 			temp.swap(*this);
 			return *this;
@@ -119,7 +119,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR counting_iterator prev() const {
 			return counting_iterator(current_ - 1);
 		}
-		void swap(counting_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(counting_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(current_, other.current_)))
 		{
 			sprout::swap(current_, other.current_);
@@ -184,7 +184,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Incrementable>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::counting_iterator<Incrementable>& lhs, sprout::counting_iterator<Incrementable>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

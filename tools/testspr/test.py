@@ -25,6 +25,7 @@ def main():
 	parser.add_option('--clang_root', type='string', default='/usr/local')
 	parser.add_option('--compile_options', type='string', default='')
 	parser.add_option('--test_cpp', type='string')
+	parser.add_option('--serialized_std_options', type='string', default='{}')
 	parser.add_option('--serialized_version_specific_options', type='string', default='{}')
 	parser.add_option('--max_procs', type='int', default=0)
 	(opts, args) = parser.parse_args()
@@ -37,10 +38,12 @@ def main():
 		compiler = "%s/%s/bin/%s++" % (root, base, name.rstrip('c')) if version != "." else "%s++" % name.rstrip('c')
 		return "%s -o %s" \
 			" %s %s" \
+			" %s" \
 			" %s > %s 2>&1" \
 			" && %s > %s 2>&1" \
 			% (compiler, bin,
-				opts.compile_options, eval(opts.serialized_version_specific_options).get(base, ''),
+				eval(opts.serialized_std_options).get(base, ''), opts.compile_options,
+				eval(opts.serialized_version_specific_options).get(base, ''),
 				opts.test_cpp, compile_log,
 				bin, execute_log
 				)

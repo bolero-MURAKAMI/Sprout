@@ -19,6 +19,7 @@ declare -a include_paths=()
 max_procs=
 force=0
 use_help=0
+std="c++11"
 declare -a common_options=()
 declare -a version_options=()
 declare -A version_specific_options=(
@@ -27,7 +28,31 @@ declare -A version_specific_options=(
 test_cpp=$(cd $(dirname $0); pwd)/test.cpp
 test_py=$(cd $(dirname $0); pwd)/test.py
 
-args=`getopt -o S:g:c:O:V:D:I:P:f -l stagedir:,gcc-version:,clang-version:,gcc-root:,clang-root:,option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
+get_std_option() {
+	if [ "${3}" = "c++1y" ]; then
+		if [ "${1}" = "gcc" ]; then
+			if [ "${2}" = "." ]; then
+				echo -n "-std=c++1y"
+			elif [ "${2//.}" -lt "480" ]; then
+				echo -n "-std=c++11"
+			else
+				echo -n "-std=c++1y"
+			fi
+		elif [ "${1}" = "clang" ]; then
+			if [ "${2}" = "." ]; then
+				echo -n "-std=c++1y"
+			elif [ "${2//.}" -lt "32" ]; then
+				echo -n "-std=c++11"
+			else
+				echo -n "-std=c++1y"
+			fi
+		fi
+	else
+		echo -n "-std=c++11"
+	fi
+}
+
+args=`getopt -o S:g:c:O:V:D:I:P:f -l stagedir:,gcc-version:,clang-version:,gcc-root:,clang-root:,std:,option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'test.sh --help'"
 	exit 1
@@ -40,6 +65,7 @@ while [ -n "$1" ]; do
 		-c|--clang-version) clang_version="$2"; shift 2;;
 		--gcc-root) gcc_root="$2"; shift 2;;
 		--clang-root) clang_root="$2"; shift 2;;
+		--std) std="$2"; shift 2;;
 		-O|--option) common_options=("${common_options[@]}" "$2"); shift 2;;
 		-V|--version-option) version_options=("${version_options[@]}" "$2"); shift 2;;
 		-D|--define) user_macros=("${user_macros[@]}" "$2"); shift 2;;
@@ -72,6 +98,9 @@ if [ ${use_help} -ne 0 ]; then
 	echo "      --clang-root=<dir>      Root directory that clang installed."
 	echo "                              Default; '/usr/local'"
 	echo ""
+	echo "      --std=<c++XX>           Standard C++ version."
+	echo "                              Default; 'c++11'"
+	echo ""
 	echo "  -O, --option=<opt>          Add compile option."
 	echo ""
 	echo "  -V, --version-option=<opt>  Add version specific compile option."
@@ -97,6 +126,7 @@ echo "  gcc-version = (${gcc_version})"
 echo "  clang-version = (${clang_version})"
 echo "  gcc-root = '${gcc_root}'"
 echo "  clang-root = '${clang_root}'"
+echo "  std = '${std}'"
 echo "  common-options = (${common_options[*]})"
 echo "  version-options = (${version_options[*]})"
 echo "  user-macros = (${user_macros[*]})"
@@ -110,7 +140,7 @@ done
 for include_path in ${include_paths}; do
 	include_options="${include_options} -I${include_path}"
 done
-compile_options="-v -Wall -pedantic -std=c++11 ${define_options} ${include_options} ${common_options[*]}"
+compile_options="-v -Wall -pedantic ${define_options} ${include_options} ${common_options[*]}"
 vo=0
 vkey=""
 for option in ${version_options}; do
@@ -172,11 +202,13 @@ compile() {
 if [ -z "${max_procs}" ]; then
 	fail_count=0
 	for version in ${gcc_version}; do
-		compile "gcc" "${version}" "${test_cpp}" "${compile_options}" "${gcc_root}"
+		std_option=`get_std_option "gcc" "${version}" "${std}"`
+		compile "gcc" "${version}" "${test_cpp}" "${std_option} ${compile_options}" "${gcc_root}"
 		let fail_count=${fail_count}+$?
 	done
 	for version in ${clang_version}; do
-		compile "clang" "${version}" "${test_cpp}" "${compile_options}" "${clang_root}"
+		std_option=`get_std_option "clang" "${version}" "${std}"`
+		compile "clang" "${version}" "${test_cpp}" "${std_option} ${compile_options}" "${clang_root}"
 		let fail_count=${fail_count}+$?
 	done
 	if [ ${fail_count} -ne 0 ]; then
@@ -193,11 +225,33 @@ else
 		done
 		echo \'_\':\'\'
 	`}
+	serialized_std_options={`
+		for version in ${gcc_version}; do
+			if [ "${version}" = "." ]; then
+				echo -n \'gcc\':\'
+			else
+				echo -n \'gcc-${version}\':\'
+			fi
+			get_std_option "gcc" "${version}" "${std}"
+			echo \',
+		done
+		for version in ${clang_version}; do
+			if [ "${version}" = "." ]; then
+				echo -n \'clang\':\'
+			else
+				echo -n \'clang-${version}\':\'
+			fi
+			get_std_option "clang" "${version}" "${std}"
+			echo \',
+		done
+		echo \'_\':\'\'
+	`}
 	python "${test_py}" \
 		"--stagedir=${stagedir}" \
 		"--gcc_version=${gcc_version}" "--clang_version=${clang_version}" \
 		"--gcc_root=${gcc_root}" "--clang_root=${clang_root}" \
 		"--compile_options=${compile_options}" "--test_cpp=${test_cpp}" \
+		"--serialized_std_options=${serialized_std_options}" \
 		"--serialized_version_specific_options=${serialized_version_specific_options}" \
 		"--max_procs=${max_procs}"
 	fail_count=$?

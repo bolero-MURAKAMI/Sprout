@@ -51,7 +51,7 @@ namespace sprout {
 			)
 			: gen_(gen), index_(index)
 		{}
-		generator_type& generator() {
+		SPROUT_CXX14_CONSTEXPR generator_type& generator() {
 			return gen_;
 		}
 		SPROUT_CONSTEXPR generator_type const& generator() const {
@@ -72,7 +72,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR generator_iterator next_generator() const {
 			return (*this)();
 		}
-		void swap(generator_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(generator_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(gen_, other.gen_)))
 		{
 			sprout::swap(gen_, other.gen_);
@@ -84,12 +84,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		generator_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR generator_iterator& operator++() {
 			generator_iterator temp((*this)());
 			temp.swap(*this);
 			return *this;
 		}
-		generator_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR generator_iterator operator++(int) {
 			generator_iterator result(*this);
 			++*this;
 			return result;
@@ -136,7 +136,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Generator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::generator_iterator<Generator>& lhs, sprout::generator_iterator<Generator>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

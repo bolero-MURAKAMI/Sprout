@@ -68,7 +68,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR ptr_index_iterator(pointer p, difference_type index)
 			: p_(p), index_(index)
 		{}
-		operator ptr_index_iterator<const_pointer>() const {
+		SPROUT_CONSTEXPR operator ptr_index_iterator<const_pointer>() const {
 			return ptr_index_iterator<const_pointer>(p_, index_);
 		}
 		SPROUT_CONSTEXPR pointer base() const {
@@ -86,7 +86,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR ptr_index_iterator prev() const {
 			return ptr_index_iterator(p_, index_ - 1);
 		}
-		void swap(ptr_index_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(ptr_index_iterator& other)
 		SPROUT_NOEXCEPT
 		{
 			sprout::swap(p_, other.p_);
@@ -98,22 +98,22 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return p_ + index_;
 		}
-		ptr_index_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR ptr_index_iterator& operator++() {
 			ptr_index_iterator temp(next());
 			temp.swap(*this);
 			return *this;
 		}
-		ptr_index_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR ptr_index_iterator operator++(int) {
 			ptr_index_iterator result(*this);
 			++*this;
 			return result;
 		}
-		ptr_index_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR ptr_index_iterator& operator--() {
 			ptr_index_iterator temp(prev());
 			temp.swap(*this);
 			return *this;
 		}
-		ptr_index_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR ptr_index_iterator operator--(int) {
 			ptr_index_iterator result(*this);
 			--*this;
 			return result;
@@ -124,12 +124,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR ptr_index_iterator operator-(difference_type n) const {
 			return ptr_index_iterator(p_, index_ - n);
 		}
-		ptr_index_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR ptr_index_iterator& operator+=(difference_type n) {
 			ptr_index_iterator temp(p_, index_ + n);
 			temp.swap(*this);
 			return *this;
 		}
-		ptr_index_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR ptr_index_iterator& operator-=(difference_type n) {
 			ptr_index_iterator temp(p_, index_ - n);
 			temp.swap(*this);
 			return *this;
@@ -208,7 +208,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::ptr_index_iterator<T>& lhs, sprout::ptr_index_iterator<T>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
