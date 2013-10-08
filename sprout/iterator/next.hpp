@@ -11,6 +11,7 @@
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/iterator/advance.hpp>
 #include <sprout/iterator/next_fwd.hpp>
 #include <sprout/iterator/prev_fwd.hpp>
 #include <sprout/adl/not_found.hpp>
@@ -24,36 +25,25 @@ namespace sprout_adl {
 namespace sprout {
 	namespace iterator_detail {
 		template<typename InputIterator>
-		InputIterator
-		single_pass_next(InputIterator it, typename std::iterator_traits<InputIterator>::difference_type n = 1) {
-			std::advance(it, n);
+		inline SPROUT_CXX14_CONSTEXPR InputIterator
+		cxx14_next(InputIterator it, typename std::iterator_traits<InputIterator>::difference_type n = 1) {
+			sprout::advance(it, n);
 			return it;
 		}
 
 		template<typename RandomAccessIterator>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<RandomAccessIterator>::value,
-			RandomAccessIterator
-		>::type
+		inline SPROUT_CONSTEXPR RandomAccessIterator
 		next_impl(RandomAccessIterator const& it, std::random_access_iterator_tag*) {
 			return it + 1;
-		}
-		template<typename ForwardIterator>
-		inline SPROUT_CONSTEXPR ForwardIterator
-		next_impl(ForwardIterator const& it, std::forward_iterator_tag*) {
-			return std::next(it);
 		}
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR InputIterator
 		next_impl(InputIterator const& it, std::input_iterator_tag*) {
-			return sprout::iterator_detail::single_pass_next(it);
+			return sprout::iterator_detail::cxx14_next(it);
 		}
 
 		template<typename RandomAccessIterator>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<RandomAccessIterator>::value,
-			RandomAccessIterator
-		>::type
+		inline SPROUT_CONSTEXPR RandomAccessIterator
 		next_impl(
 			RandomAccessIterator const& it, typename std::iterator_traits<RandomAccessIterator>::difference_type n,
 			std::random_access_iterator_tag*
@@ -121,18 +111,6 @@ namespace sprout {
 			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 			return sprout::iterator_detail::next_impl_1(it, n, category());
 		}
-		template<typename ForwardIterator>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!std::is_literal_type<ForwardIterator>::value,
-			ForwardIterator
-		>::type
-		next_impl(
-			ForwardIterator const& it, typename std::iterator_traits<ForwardIterator>::difference_type n,
-			std::forward_iterator_tag*
-			)
-		{
-			return std::next(it, n);
-		}
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			!std::is_literal_type<InputIterator>::value,
@@ -143,7 +121,7 @@ namespace sprout {
 			std::input_iterator_tag*
 			)
 		{
-			return sprout::iterator_detail::single_pass_next(it, n);
+			return sprout::iterator_detail::cxx14_next(it, n);
 		}
 
 		template<typename InputIterator>
@@ -184,9 +162,8 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_next(it) -> iterator_next(it)
-	//		it is RandomAccessIterator && LiteralType -> it + 1
-	//		it is ForwardIterator -> std::next(it)
-	//		otherwise -> single_pass_next(it)
+	//		it is RandomAccessIterator -> it + 1
+	//		otherwise -> cxx14_next(it)
 	//
 	template<typename InputIterator>
 	inline SPROUT_CONSTEXPR InputIterator
@@ -196,11 +173,10 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_next(it, n) -> iterator_next(it, n)
-	//		it is RandomAccessIterator && LiteralType -> it + n
+	//		it is RandomAccessIterator -> it + n
 	//		it is LiteralType && n >= 0 -> sprout::next(it)...
 	//		it is LiteralType && n < 0 -> sprout::prev(it)...
-	//		it is ForwardIterator -> std::next(it, n)
-	//		otherwise -> single_pass_next(it, n)
+	//		otherwise -> cxx14_next(it, n)
 	//
 	template<typename InputIterator>
 	inline SPROUT_CONSTEXPR InputIterator

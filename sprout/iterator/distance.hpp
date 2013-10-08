@@ -23,6 +23,27 @@ namespace sprout_adl {
 namespace sprout {
 	namespace iterator_detail {
 		template<typename RandomAccessIterator>
+		inline SPROUT_CXX14_CONSTEXPR typename std::iterator_traits<RandomAccessIterator>::difference_type
+		cxx14_distance(RandomAccessIterator first, RandomAccessIterator last, std::random_access_iterator_tag*) {
+			return last - first;
+		}
+		template<typename InputIterator>
+		inline SPROUT_CXX14_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+		cxx14_distance(InputIterator first, InputIterator last, std::input_iterator_tag*) {
+			typename std::iterator_traits<InputIterator>::difference_type n = 0;
+			for (; first != last; ++first) {
+				++n;
+			}
+			return n;
+		}
+		template<typename InputIterator>
+		inline SPROUT_CXX14_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
+		cxx14_distance(InputIterator first, InputIterator last) {
+			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
+			return sprout::iterator_detail::cxx14_distance(first, last, category());
+		}
+
+		template<typename RandomAccessIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type
@@ -68,28 +89,28 @@ namespace sprout {
 				;
 		}
 		template<typename InputIterator>
-		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
-		iterator_distance(InputIterator first, InputIterator last, std::input_iterator_tag*) {
-			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
-			return sprout::iterator_detail::iterator_distance_impl(type(first, 0), last, 1).second;
-		}
-
-		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_literal_type<InputIterator>::value,
 			typename std::iterator_traits<InputIterator>::difference_type
 		>::type
-		iterator_distance(InputIterator first, InputIterator last) {
-			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-			return sprout::iterator_detail::iterator_distance(first, last, category());
+		iterator_distance(InputIterator first, InputIterator last, std::input_iterator_tag*) {
+			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
+			return sprout::iterator_detail::iterator_distance_impl(type(first, 0), last, 1).second;
 		}
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			!std::is_literal_type<InputIterator>::value,
 			typename std::iterator_traits<InputIterator>::difference_type
 		>::type
+		iterator_distance(InputIterator first, InputIterator last, std::input_iterator_tag*) {
+			return sprout::iterator_detail::cxx14_distance(first, last);
+		}
+
+		template<typename InputIterator>
+		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 		iterator_distance(InputIterator first, InputIterator last) {
-			return std::distance(first, last);
+			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
+			return sprout::iterator_detail::iterator_distance(first, last, category());
 		}
 	}	// namespace iterator_detail
 }	// namespace sprout
@@ -110,9 +131,9 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_distance(first, last) -> iterator_distance(first, last)
-	//		otherwise, [first, last) is not LiteralType -> std::distance(first, last)
-	//		otherwise, [first, last) is RandomAccessIterator && not Pointer -> last - first
-	//		otherwise -> linearly count: first to last
+	//		otherwise, [first, last) is RandomAccessIterator && ConstantDistanceIterator -> last - first
+	//		otherwise, [first, last) is LiteralType -> linearly count: first to last
+	//		otherwise -> cxx14_distance(first, last)
 	//
 	template<typename InputIterator>
 	inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type

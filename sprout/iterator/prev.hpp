@@ -11,6 +11,7 @@
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/iterator/advance.hpp>
 #include <sprout/iterator/next_fwd.hpp>
 #include <sprout/iterator/prev_fwd.hpp>
 #include <sprout/adl/not_found.hpp>
@@ -21,25 +22,26 @@ namespace sprout_adl {
 
 namespace sprout {
 	namespace iterator_detail {
+		template<typename InputIterator>
+		inline SPROUT_CXX14_CONSTEXPR InputIterator
+		cxx14_prev(InputIterator it, typename std::iterator_traits<InputIterator>::difference_type n = 1) {
+			sprout::advance(it, -n);
+			return it;
+		}
+
 		template<typename RandomAccessIterator>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<RandomAccessIterator>::value,
-			RandomAccessIterator
-		>::type
+		inline SPROUT_CONSTEXPR RandomAccessIterator
 		prev_impl(RandomAccessIterator const& it, std::random_access_iterator_tag*) {
 			return it - 1;
 		}
 		template<typename BidirectionalIterator>
 		inline SPROUT_CONSTEXPR BidirectionalIterator
 		prev_impl(BidirectionalIterator const& it, std::bidirectional_iterator_tag*) {
-			return std::prev(it);
+			return sprout::iterator_detail::cxx14_prev(it);
 		}
 
 		template<typename RandomAccessIterator>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<RandomAccessIterator>::value,
-			RandomAccessIterator
-		>::type
+		inline SPROUT_CONSTEXPR RandomAccessIterator
 		prev_impl(
 			RandomAccessIterator const& it, typename std::iterator_traits<RandomAccessIterator>::difference_type n,
 			std::random_access_iterator_tag*
@@ -94,7 +96,7 @@ namespace sprout {
 			std::bidirectional_iterator_tag*
 			)
 		{
-			return std::prev(it, n);
+			return sprout::iterator_detail::cxx14_prev(it, n);
 		}
 
 		template<typename BidirectionalIterator>
@@ -135,8 +137,8 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_prev(it) -> iterator_prev(it)
-	//		it is RandomAccessIterator && LiteralType -> it - 1
-	//		otherwise -> std::prev(it)
+	//		it is RandomAccessIterator -> it - 1
+	//		otherwise -> cxx14_prev(it)
 	//
 	template<typename BidirectionalIterator>
 	inline SPROUT_CONSTEXPR BidirectionalIterator
@@ -146,9 +148,10 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_prev(it, n) -> iterator_prev(it, n)
-	//		it is RandomAccessIterator && LiteralType -> it - n
-	//		it is LiteralType -> sprout::prev(it)... || sprout::next(it)...
-	//		otherwise -> std::prev(it, n)
+	//		it is RandomAccessIterator -> it - n
+	//		it is LiteralType && n >= 0 -> sprout::prev(it)...
+	//		it is LiteralType && n < 0 -> sprout::next(it)...
+	//		otherwise -> cxx14_prev(it, n)
 	//
 	template<typename BidirectionalIterator>
 	inline SPROUT_CONSTEXPR BidirectionalIterator
