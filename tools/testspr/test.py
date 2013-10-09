@@ -30,6 +30,9 @@ def main():
 	parser.add_option('--max_procs', type='int', default=0)
 	(opts, args) = parser.parse_args()
 
+	std_options = eval(opts.serialized_std_options)
+	version_specific_options = eval(opts.serialized_version_specific_options)
+
 	def format_command(name, version, root):
 		base = "%s-%s" % (name, version) if version != "." else name
 		bin = "%s/test.%s.out" % (opts.stagedir, base.replace('.', ''))
@@ -37,13 +40,11 @@ def main():
 		execute_log = "%s/test.%s.execute.log" % (opts.stagedir, base.replace('.', ''))
 		compiler = "%s/%s/bin/%s++" % (root, base, name.rstrip('c')) if version != "." else "%s++" % name.rstrip('c')
 		return "%s -o %s" \
-			" %s %s" \
-			" %s" \
+			" %s %s %s" \
 			" %s > %s 2>&1" \
 			" && %s > %s 2>&1" \
 			% (compiler, bin,
-				eval(opts.serialized_std_options).get(base, ''), opts.compile_options,
-				eval(opts.serialized_version_specific_options).get(base, ''),
+				std_options.get(base, ''), opts.compile_options, version_specific_options.get(base, ''),
 				opts.test_cpp, compile_log,
 				bin, execute_log
 				)

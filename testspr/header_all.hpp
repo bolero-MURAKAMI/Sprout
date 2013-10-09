@@ -40,7 +40,7 @@
 #include <sprout/generator.hpp>
 #include <sprout/index_tuple.hpp>
 #include <sprout/io.hpp>
-#include <sprout/integer/integer_digits.hpp>
+#include <sprout/integer.hpp>
 #include <sprout/iterator.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/logic.hpp>
