@@ -52,7 +52,7 @@ namespace sprout {
 			: current(it.base())
 		{}
 		template<typename U>
-		reverse_iterator& operator=(reverse_iterator<U> const& it) {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator& operator=(reverse_iterator<U> const& it) {
 			reverse_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -66,20 +66,20 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		reverse_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator& operator++() {
 			--current;
 			return *this;
 		}
-		reverse_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator operator++(int) {
 			reverse_iterator result(*this);
 			--current;
 			return result;
 		}
-		reverse_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator& operator--() {
 			++current;
 			return *this;
 		}
-		reverse_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator operator--(int) {
 			reverse_iterator temp(*this);
 			++current;
 			return temp;
@@ -90,12 +90,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR reverse_iterator operator-(difference_type n) const {
 			return reverse_iterator(current + n);
 		}
-		reverse_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator& operator+=(difference_type n) {
 			reverse_iterator temp(current - n);
 			temp.swap(*this);
 			return *this;
 		}
-		reverse_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator& operator-=(difference_type n) {
 			reverse_iterator temp(current + n);
 			temp.swap(*this);
 			return *this;
@@ -109,7 +109,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR reverse_iterator prev() const {
 			return reverse_iterator(sprout::next(current));
 		}
-		void swap(reverse_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(reverse_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			)
@@ -176,7 +176,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Iterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::reverse_iterator<Iterator>& lhs, sprout::reverse_iterator<Iterator>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

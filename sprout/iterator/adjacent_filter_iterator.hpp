@@ -68,7 +68,9 @@ namespace sprout {
 			, pred(pred)
 		{}
 	public:
-		adjacent_filter_iterator() = default;
+		SPROUT_CONSTEXPR adjacent_filter_iterator()
+			: current(), last(), pred()
+		{}
 		adjacent_filter_iterator(adjacent_filter_iterator const&) = default;
 		SPROUT_CONSTEXPR adjacent_filter_iterator(Predicate pred, iterator_type it, iterator_type last = iterator_type())
 			: current(find_next(it, last, pred))
@@ -82,7 +84,7 @@ namespace sprout {
 			, pred(it.pred)
 		{}
 		template<typename U>
-		adjacent_filter_iterator& operator=(adjacent_filter_iterator<Predicate, U> const& it) {
+		SPROUT_CXX14_CONSTEXPR adjacent_filter_iterator& operator=(adjacent_filter_iterator<Predicate, U> const& it) {
 			adjacent_filter_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -103,14 +105,14 @@ namespace sprout {
 			return &*current;
 		}
 
-		adjacent_filter_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR adjacent_filter_iterator& operator++() {
 			satisfy_predicate();
 			if (current != last) {
 				++current;
 			}
 			return *this;
 		}
-		adjacent_filter_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR adjacent_filter_iterator operator++(int) {
 			adjacent_filter_iterator result(*this);
 			satisfy_predicate();
 			if (current != last) {
@@ -121,7 +123,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR adjacent_filter_iterator next() const {
 			return adjacent_filter_iterator(pred, checked_next(find_next(current, last, pred), last), last, private_construct_t());
 		}
-		void swap(adjacent_filter_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(adjacent_filter_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(last, other.last))
@@ -164,7 +166,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Predicate, typename Iterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::adjacent_filter_iterator<Predicate, Iterator>& lhs, sprout::adjacent_filter_iterator<Predicate, Iterator>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

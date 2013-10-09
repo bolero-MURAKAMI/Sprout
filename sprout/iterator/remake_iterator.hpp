@@ -75,7 +75,11 @@ namespace sprout {
 		difference_type begin_off;
 		difference_type end_off;
 	public:
-		remake_iterator() = default;
+		SPROUT_CONSTEXPR remake_iterator()
+			: current(), current2()
+			, fst(), lst()
+			, begin_off(), end_off()
+		{}
 		SPROUT_CONSTEXPR remake_iterator(remake_iterator const& other)
 			: current(other.current), current2(other.current2)
 			, fst(other.fst), lst(other.lst)
@@ -93,7 +97,7 @@ namespace sprout {
 			, begin_off(it.begin_offset()), end_off(it.end_offset())
 		{}
 		template<typename U, typename V>
-		remake_iterator& operator=(remake_iterator<U, V> const& it) {
+		SPROUT_CXX14_CONSTEXPR remake_iterator& operator=(remake_iterator<U, V> const& it) {
 			remake_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -125,7 +129,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		remake_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR remake_iterator& operator++() {
 			++current;
 			if (is_in_copying()) {
 				++current2;
@@ -134,7 +138,7 @@ namespace sprout {
 			--end_off;
 			return *this;
 		}
-		remake_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR remake_iterator operator++(int) {
 			remake_iterator result(*this);
 			++current;
 			if (is_in_copying()) {
@@ -144,7 +148,7 @@ namespace sprout {
 			--end_off;
 			return result;
 		}
-		remake_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR remake_iterator& operator--() {
 			--current;
 			if (begin_off < 0 && end_off >= 0) {
 				--current2;
@@ -153,7 +157,7 @@ namespace sprout {
 			++end_off;
 			return *this;
 		}
-		remake_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR remake_iterator operator--(int) {
 			remake_iterator temp(*this);
 			--current;
 			if (begin_off < 0 && end_off >= 0) {
@@ -169,12 +173,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR remake_iterator operator-(difference_type n) const {
 			return advance_impl(-n);
 		}
-		remake_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR remake_iterator& operator+=(difference_type n) {
 			remake_iterator temp(*this + n);
 			temp.swap(*this);
 			return *this;
 		}
-		remake_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR remake_iterator& operator-=(difference_type n) {
 			remake_iterator temp(*this - n);
 			temp.swap(*this);
 			return *this;
@@ -196,7 +200,7 @@ namespace sprout {
 				begin_off + 1, end_off + 1
 				);
 		}
-		void swap(remake_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(remake_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(swap(current2, other.current2))
@@ -321,7 +325,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename DstIterator, typename SrcIterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::remake_iterator<DstIterator, SrcIterator>& lhs, sprout::remake_iterator<DstIterator, SrcIterator>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

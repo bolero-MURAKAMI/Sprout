@@ -42,7 +42,9 @@ namespace sprout {
 		iterator_type current;
 		index_type idx;
 	public:
-		indexed_iterator() = default;
+		SPROUT_CONSTEXPR indexed_iterator()
+			: current(), idx()
+		{}
 		SPROUT_CONSTEXPR indexed_iterator(indexed_iterator const& other)
 			: current(other.current)
 			, idx(other.idx)
@@ -57,7 +59,7 @@ namespace sprout {
 			, idx(it.index())
 		{}
 		template<typename U>
-		indexed_iterator& operator=(indexed_iterator<U> const& it) {
+		SPROUT_CXX14_CONSTEXPR indexed_iterator& operator=(indexed_iterator<U> const& it) {
 			indexed_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -74,23 +76,23 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*current;
 		}
-		indexed_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR indexed_iterator& operator++() {
 			++current;
 			++idx;
 			return *this;
 		}
-		indexed_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR indexed_iterator operator++(int) {
 			indexed_iterator result(*this);
 			++current;
 			++idx;
 			return result;
 		}
-		indexed_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR indexed_iterator& operator--() {
 			--current;
 			--idx;
 			return *this;
 		}
-		indexed_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR indexed_iterator operator--(int) {
 			indexed_iterator temp(*this);
 			--current;
 			--idx;
@@ -102,12 +104,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR indexed_iterator operator-(difference_type n) const {
 			return indexed_iterator(current - n, idx - n);
 		}
-		indexed_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR indexed_iterator& operator+=(difference_type n) {
 			indexed_iterator temp(current + n, idx + n);
 			temp.swap(*this);
 			return *this;
 		}
-		indexed_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR indexed_iterator& operator-=(difference_type n) {
 			indexed_iterator temp(current - n, idx - n);
 			temp.swap(*this);
 			return *this;
@@ -121,7 +123,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR indexed_iterator prev() const {
 			return indexed_iterator(sprout::prev(current), idx - 1);
 		}
-		void swap(indexed_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(indexed_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(swap(idx, other.idx))
@@ -190,7 +192,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Iterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::indexed_iterator<Iterator>& lhs, sprout::indexed_iterator<Iterator>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

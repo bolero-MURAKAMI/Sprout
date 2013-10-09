@@ -70,7 +70,9 @@ namespace sprout {
 		iterator2_type current2;
 		BinaryFunction func;
 	public:
-		transform_iterator() = default;
+		SPROUT_CONSTEXPR transform_iterator()
+			: current(), current2(), func()
+		{}
 		transform_iterator(transform_iterator const&) = default;
 		SPROUT_CONSTEXPR transform_iterator(iterator_type it, iterator2_type it2)
 			: current(it)
@@ -88,7 +90,7 @@ namespace sprout {
 			, func(it.func)
 		{}
 		template<typename U, typename V, typename W>
-		transform_iterator& operator=(transform_iterator<U, V, W> const& it) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator=(transform_iterator<U, V, W> const& it) {
 			transform_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -108,23 +110,23 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &func(*current, *current2);
 		}
-		transform_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator++() {
 			++current;
 			++current2;
 			return *this;
 		}
-		transform_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator operator++(int) {
 			transform_iterator result(*this);
 			++current;
 			++current2;
 			return result;
 		}
-		transform_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator--() {
 			--current;
 			--current2;
 			return *this;
 		}
-		transform_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator operator--(int) {
 			transform_iterator temp(*this);
 			--current;
 			--current2;
@@ -136,12 +138,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR transform_iterator operator-(difference_type n) const {
 			return transform_iterator(current - n, current2 - n, func);
 		}
-		transform_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator+=(difference_type n) {
 			transform_iterator temp(current + n, current2 + n, func);
 			temp.swap(*this);
 			return *this;
 		}
-		transform_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator-=(difference_type n) {
 			transform_iterator temp(current - n, current2 - n, func);
 			temp.swap(*this);
 			return *this;
@@ -155,7 +157,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR transform_iterator prev() const {
 			return transform_iterator(sprout::prev(current), sprout::prev(current2), func);
 		}
-		void swap(transform_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(transform_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(current2, other.current2))
@@ -205,7 +207,9 @@ namespace sprout {
 		iterator_type current;
 		UnaryFunction func;
 	public:
-		transform_iterator() = default;
+		SPROUT_CONSTEXPR transform_iterator()
+			: current(), func()
+		{}
 		transform_iterator(transform_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR transform_iterator(iterator_type it)
 			: current(it)
@@ -220,7 +224,7 @@ namespace sprout {
 			, func(it.func)
 		{}
 		template<typename U, typename V>
-		transform_iterator& operator=(transform_iterator<U, V> const& it) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator=(transform_iterator<U, V> const& it) {
 			transform_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -237,20 +241,20 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &func(*current);
 		}
-		transform_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator++() {
 			++current;
 			return *this;
 		}
-		transform_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator operator++(int) {
 			transform_iterator result(*this);
 			++current;
 			return result;
 		}
-		transform_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator--() {
 			--current;
 			return *this;
 		}
-		transform_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator operator--(int) {
 			transform_iterator temp(*this);
 			--current;
 			return temp;
@@ -261,12 +265,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR transform_iterator operator-(difference_type n) const {
 			return transform_iterator(current - n, func);
 		}
-		transform_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator+=(difference_type n) {
 			transform_iterator temp(current + n, func);
 			temp.swap(*this);
 			return *this;
 		}
-		transform_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR transform_iterator& operator-=(difference_type n) {
 			transform_iterator temp(current - n, func);
 			temp.swap(*this);
 			return *this;
@@ -280,7 +284,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR transform_iterator prev() const {
 			return transform_iterator(sprout::prev(current), func);
 		}
-		void swap(transform_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(transform_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(func, other.func))
@@ -395,7 +399,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename UnaryOrBinaryFunction, typename LIterator, typename RIterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>& rhs

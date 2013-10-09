@@ -86,7 +86,7 @@ namespace sprout {
 			, comp(it.compare())
 		{}
 		template<typename U, typename V, typename W>
-		set_intersection_iterator& operator=(set_intersection_iterator<U, V, W> const& it) {
+		SPROUT_CXX14_CONSTEXPR set_intersection_iterator& operator=(set_intersection_iterator<U, V, W> const& it) {
 			set_intersection_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -115,11 +115,11 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		set_intersection_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR set_intersection_iterator& operator++() {
 			current = sprout::next_intersection(current.first, lst1, current.second, lst2, comp);
 			return *this;
 		}
-		set_intersection_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR set_intersection_iterator operator++(int) {
 			set_intersection_iterator result(*this);
 			current = sprout::next_intersection(current.first, lst1, current.second, lst2, comp);
 			return result;
@@ -130,7 +130,7 @@ namespace sprout {
 				sprout::next_intersection(current.first, lst1, current.second, lst2, comp)
 				);
 		}
-		void swap(set_intersection_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(set_intersection_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst1, other.lst1))
@@ -186,7 +186,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename LIterator, typename RIterator, typename Compare>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(
 		sprout::set_intersection_iterator<LIterator, RIterator, Compare>& lhs,
 		sprout::set_intersection_iterator<LIterator, RIterator, Compare>& rhs

@@ -70,7 +70,9 @@ namespace sprout {
 				;
 		}
 	public:
-		insert_range_iterator() = default;
+		SPROUT_CONSTEXPR insert_range_iterator()
+			: current1(), pos1(), current2(), first2(), last2()
+		{}
 		insert_range_iterator(insert_range_iterator const&) = default;
 		SPROUT_CONSTEXPR insert_range_iterator(iterator_type it1, iterator_type pos1, iterator2_type it2, iterator2_type first2, iterator2_type last2)
 			: current1(it1), pos1(pos1)
@@ -82,7 +84,7 @@ namespace sprout {
 			, current2(it.base2()), first2(it.first()), last2(it.last())
 		{}
 		template<typename U, typename V>
-		insert_range_iterator& operator=(insert_range_iterator<U, V> const& it) {
+		SPROUT_CXX14_CONSTEXPR insert_range_iterator& operator=(insert_range_iterator<U, V> const& it) {
 			insert_range_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -111,7 +113,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		insert_range_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR insert_range_iterator& operator++() {
 			if (is_in_base()) {
 				++current1;
 			} else {
@@ -119,7 +121,7 @@ namespace sprout {
 			}
 			return *this;
 		}
-		insert_range_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR insert_range_iterator operator++(int) {
 			insert_range_iterator result(*this);
 			if (is_in_base()) {
 				++current1;
@@ -128,7 +130,7 @@ namespace sprout {
 			}
 			return result;
 		}
-		insert_range_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR insert_range_iterator& operator--() {
 			if (current1 != pos1 || current2 == first2) {
 				--current1;
 			} else {
@@ -136,7 +138,7 @@ namespace sprout {
 			}
 			return *this;
 		}
-		insert_range_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR insert_range_iterator operator--(int) {
 			insert_range_iterator temp(*this);
 			if (current1 != pos1 || current2 == first2) {
 				--current1;
@@ -151,12 +153,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR insert_range_iterator operator-(difference_type n) const {
 			return advance_impl(-n);
 		}
-		insert_range_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR insert_range_iterator& operator+=(difference_type n) {
 			insert_range_iterator temp(*this + n);
 			temp.swap(*this);
 			return *this;
 		}
-		insert_range_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR insert_range_iterator& operator-=(difference_type n) {
 			insert_range_iterator temp(*this - n);
 			temp.swap(*this);
 			return *this;
@@ -174,7 +176,7 @@ namespace sprout {
 				: insert_range_iterator(current1, pos1, sprout::prev(current2), first2, last2)
 				;
 		}
-		void swap(insert_range_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(insert_range_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current1, other.current1))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(pos1, other.pos1))
@@ -297,7 +299,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename DstIterator, typename SrcIterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(
 		sprout::insert_range_iterator<DstIterator, SrcIterator>& lhs,
 		sprout::insert_range_iterator<DstIterator, SrcIterator>& rhs

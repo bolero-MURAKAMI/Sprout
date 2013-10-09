@@ -151,7 +151,7 @@ namespace sprout {
 			: impl_type(pair_type(it.base(), it.base2()), it.last1(), it.last2(), it.compare(), it.is_in_left())
 		{}
 		template<typename U, typename V, typename W>
-		set_symmetric_difference_iterator& operator=(set_symmetric_difference_iterator<U, V, W> const& it) {
+		SPROUT_CXX14_CONSTEXPR set_symmetric_difference_iterator& operator=(set_symmetric_difference_iterator<U, V, W> const& it) {
 			set_symmetric_difference_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -180,12 +180,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		set_symmetric_difference_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR set_symmetric_difference_iterator& operator++() {
 			current = sprout::next_symmetric_difference(current.first, lst1, current.second, lst2, comp);
 			in_left = check_in_left(current.first, lst1, current.second, lst2, comp);
 			return *this;
 		}
-		set_symmetric_difference_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR set_symmetric_difference_iterator operator++(int) {
 			set_symmetric_difference_iterator result(*this);
 			current = sprout::next_symmetric_difference(current.first, lst1, current.second, lst2, comp);
 			in_left = check_in_left(current.first, lst1, current.second, lst2, comp);
@@ -197,7 +197,7 @@ namespace sprout {
 				sprout::next_symmetric_difference(current.first, lst1, current.second, lst2, comp)
 				);
 		}
-		void swap(set_symmetric_difference_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(set_symmetric_difference_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst1, other.lst1))
@@ -254,7 +254,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename LIterator, typename RIterator, typename Compare>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(
 		sprout::set_symmetric_difference_iterator<LIterator, RIterator, Compare>& lhs,
 		sprout::set_symmetric_difference_iterator<LIterator, RIterator, Compare>& rhs

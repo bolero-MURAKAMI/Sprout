@@ -50,33 +50,30 @@ namespace sprout {
 	protected:
 		using base_type::container;
 	public:
-		SPROUT_CONSTEXPR back_insert_iterator() = default;
+		back_insert_iterator() = default;
 		explicit SPROUT_CONSTEXPR back_insert_iterator(param_type x)
 			: base_type(x)
 		{}
 		SPROUT_CONSTEXPR back_insert_iterator(back_insert_iterator const&) = default;
-		back_insert_iterator& operator=(typename container_type::value_type const& value) {
+		SPROUT_CXX14_CONSTEXPR back_insert_iterator& operator=(typename container_type::value_type const& value) {
 			container->push_back(value);
 			return *this;
 		}
-		back_insert_iterator& operator=(typename container_type::value_type&& value) {
+		SPROUT_CXX14_CONSTEXPR back_insert_iterator& operator=(typename container_type::value_type&& value) {
 			container->push_back(sprout::move(value));
 			return *this;
 		}
-		SPROUT_CONSTEXPR back_insert_iterator const& operator*() const {
+		SPROUT_CXX14_CONSTEXPR back_insert_iterator& operator*() {
 			return *this;
 		}
-		back_insert_iterator& operator*() {
+		SPROUT_CXX14_CONSTEXPR back_insert_iterator& operator++() {
 			return *this;
 		}
-		back_insert_iterator& operator++() {
-			return *this;
-		}
-		back_insert_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR back_insert_iterator operator++(int) {
 			return *this;
 		}
 
-		void swap(back_insert_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(back_insert_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(base_type::swap(other)))
 		{
 			base_type::swap(other);
@@ -87,7 +84,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::back_insert_iterator<Container>& lhs, sprout::back_insert_iterator<Container>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

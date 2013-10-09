@@ -74,7 +74,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR dft_iterator prev() const {
 			return dft_iterator(first_, last_, index_, index_ - 1, size_);
 		}
-		void swap(dft_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(dft_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_)) && SPROUT_NOEXCEPT_EXPR(sprout::swap(last_, other.last_)))
 		{
 			sprout::swap(first_, other.first_);
@@ -85,22 +85,22 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator*() const {
 			return sprout::detail::dft_element_impl(first_, last_, index_, size_);
 		}
-		dft_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR dft_iterator& operator++() {
 			dft_iterator temp(next());
 			temp.swap(*this);
 			return *this;
 		}
-		dft_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR dft_iterator operator++(int) {
 			dft_iterator result(*this);
 			++*this;
 			return result;
 		}
-		dft_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR dft_iterator& operator--() {
 			dft_iterator temp(prev());
 			temp.swap(*this);
 			return *this;
 		}
-		dft_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR dft_iterator operator--(int) {
 			dft_iterator result(*this);
 			--*this;
 			return result;
@@ -111,12 +111,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR dft_iterator operator-(difference_type n) const {
 			return dft_iterator(first_, last_, index_, index_ - n, size_);
 		}
-		dft_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR dft_iterator& operator+=(difference_type n) {
 			dft_iterator temp(first_, last_, index_, index_ + n, size_);
 			temp.swap(*this);
 			return *this;
 		}
-		dft_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR dft_iterator& operator-=(difference_type n) {
 			dft_iterator temp(first_, last_, index_, index_ - n, size_);
 			temp.swap(*this);
 			return *this;
@@ -180,7 +180,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Iterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::dft_iterator<Iterator>& lhs, sprout::dft_iterator<Iterator>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

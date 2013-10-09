@@ -101,7 +101,7 @@ namespace sprout {
 			, in_left(it.is_in_left())
 		{}
 		template<typename U, typename V, typename W>
-		set_union_iterator& operator=(set_union_iterator<U, V, W> const& it) {
+		SPROUT_CXX14_CONSTEXPR set_union_iterator& operator=(set_union_iterator<U, V, W> const& it) {
 			set_union_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -130,12 +130,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		set_union_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR set_union_iterator& operator++() {
 			current = sprout::next_union(current.first, lst1, current.second, lst2, comp);
 			in_left = check_in_left(current.first, lst1, current.second, lst2, comp);
 			return *this;
 		}
-		set_union_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR set_union_iterator operator++(int) {
 			set_union_iterator result(*this);
 			current = sprout::next_union(current.first, lst1, current.second, lst2, comp);
 			in_left = check_in_left(current.first, lst1, current.second, lst2, comp);
@@ -147,7 +147,7 @@ namespace sprout {
 				sprout::next_union(current.first, lst1, current.second, lst2, comp)
 				);
 		}
-		void swap(set_union_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(set_union_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst1, other.lst1))
@@ -204,7 +204,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename LIterator, typename RIterator, typename Compare>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(
 		sprout::set_union_iterator<LIterator, RIterator, Compare>& lhs,
 		sprout::set_union_iterator<LIterator, RIterator, Compare>& rhs

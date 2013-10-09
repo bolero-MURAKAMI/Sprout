@@ -68,7 +68,7 @@ namespace sprout {
 		Compare comp;
 		bool in_left;
 	public:
-		merge_iterator()
+		SPROUT_CONSTEXPR merge_iterator()
 			: current1(), lst1(), current2(), lst2(), comp(), in_left(true)
 		{}
 		merge_iterator(merge_iterator const&) = default;
@@ -90,7 +90,7 @@ namespace sprout {
 			, in_left(it.is_in_left())
 		{}
 		template<typename U, typename V, typename W>
-		merge_iterator& operator=(merge_iterator<U, V, W> const& it) {
+		SPROUT_CXX14_CONSTEXPR merge_iterator& operator=(merge_iterator<U, V, W> const& it) {
 			merge_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -119,7 +119,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		merge_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR merge_iterator& operator++() {
 			if (current1 != lst1) {
 				if (current2 != lst2) {
 					if (comp(*current2, *current1)) {
@@ -136,7 +136,7 @@ namespace sprout {
 			in_left = check_in_left(current1, lst1, current2, lst2, comp);
 			return *this;
 		}
-		merge_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR merge_iterator operator++(int) {
 			merge_iterator result(*this);
 			if (current1 != lst1) {
 				if (current2 != lst2) {
@@ -166,7 +166,7 @@ namespace sprout {
 				: *this
 				;
 		}
-		void swap(merge_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(merge_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current1, other.current1))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst1, other.lst1))
@@ -226,7 +226,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename LIterator, typename RIterator, typename Compare>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(
 		sprout::merge_iterator<LIterator, RIterator, Compare>& lhs,
 		sprout::merge_iterator<LIterator, RIterator, Compare>& rhs

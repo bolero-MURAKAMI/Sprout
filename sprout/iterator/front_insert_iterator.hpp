@@ -50,29 +50,26 @@ namespace sprout {
 	protected:
 		using base_type::container;
 	public:
-		SPROUT_CONSTEXPR front_insert_iterator() = default;
+		front_insert_iterator() = default;
 		explicit SPROUT_CONSTEXPR front_insert_iterator(param_type x)
 			: base_type(x)
 		{}
 		SPROUT_CONSTEXPR front_insert_iterator(front_insert_iterator const&) = default;
-		front_insert_iterator& operator=(typename container_type::value_type const& value) {
+		SPROUT_CXX14_CONSTEXPR front_insert_iterator& operator=(typename container_type::value_type const& value) {
 			container->push_front(value);
 			return *this;
 		}
-		front_insert_iterator& operator=(typename container_type::value_type&& value) {
+		SPROUT_CXX14_CONSTEXPR front_insert_iterator& operator=(typename container_type::value_type&& value) {
 			container->push_front(sprout::move(value));
 			return *this;
 		}
-		SPROUT_CONSTEXPR front_insert_iterator const& operator*() const {
+		SPROUT_CXX14_CONSTEXPR front_insert_iterator& operator*() {
 			return *this;
 		}
-		front_insert_iterator& operator*() {
+		SPROUT_CXX14_CONSTEXPR front_insert_iterator& operator++() {
 			return *this;
 		}
-		front_insert_iterator& operator++() {
-			return *this;
-		}
-		front_insert_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR front_insert_iterator operator++(int) {
 			return *this;
 		}
 
@@ -87,7 +84,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::front_insert_iterator<Container>& lhs, sprout::front_insert_iterator<Container>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

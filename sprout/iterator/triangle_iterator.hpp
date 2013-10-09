@@ -78,7 +78,7 @@ namespace sprout {
 			, phase_(it.phase_)
 		{}
 		template<typename U>
-		triangle_iterator& operator=(triangle_iterator<U> const& it) {
+		SPROUT_CXX14_CONSTEXPR triangle_iterator& operator=(triangle_iterator<U> const& it) {
 			triangle_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -103,20 +103,20 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &operator*()();
 		}
-		triangle_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR triangle_iterator& operator++() {
 			++index_;
 			return *this;
 		}
-		triangle_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR triangle_iterator operator++(int) {
 			triangle_iterator result(*this);
 			++index_;
 			return result;
 		}
-		triangle_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR triangle_iterator& operator--() {
 			--index_;
 			return *this;
 		}
-		triangle_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR triangle_iterator operator--(int) {
 			triangle_iterator temp(*this);
 			--index_;
 			return temp;
@@ -127,12 +127,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR triangle_iterator operator-(difference_type n) const {
 			return triangle_iterator(*this, index_ - n);
 		}
-		triangle_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR triangle_iterator& operator+=(difference_type n) {
 			triangle_iterator temp(*this, index_ + n);
 			temp.swap(*this);
 			return *this;
 		}
-		triangle_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR triangle_iterator& operator-=(difference_type n) {
 			triangle_iterator temp(*this, index_ - n);
 			temp.swap(*this);
 			return *this;
@@ -148,7 +148,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR triangle_iterator prev() const {
 			return triangle_iterator(*this, index_ - 1);
 		}
-		void swap(triangle_iterator& other) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR void swap(triangle_iterator& other) SPROUT_NOEXCEPT {
 			sprout::swap(index_, other.index_);
 			sprout::swap(frequency_, other.frequency_);
 			sprout::swap(amplitude_, other.amplitude_);
@@ -225,7 +225,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Value>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::triangle_iterator<Value>& lhs, sprout::triangle_iterator<Value>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

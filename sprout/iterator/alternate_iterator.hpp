@@ -56,7 +56,7 @@ namespace sprout {
 			: current1(it1), current2(it2), in_left(in_left)
 		{}
 	public:
-		alternate_iterator()
+		SPROUT_CONSTEXPR alternate_iterator()
 			: current1(), current2(), in_left(true)
 		{}
 		alternate_iterator(alternate_iterator const&) = default;
@@ -68,7 +68,7 @@ namespace sprout {
 			: current1(it.base()), current2(it.base2()), in_left(it.is_in_left())
 		{}
 		template<typename U, typename V>
-		alternate_iterator& operator=(alternate_iterator<U, V> const& it) {
+		SPROUT_CXX14_CONSTEXPR alternate_iterator& operator=(alternate_iterator<U, V> const& it) {
 			alternate_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -88,7 +88,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*(*this);
 		}
-		alternate_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR alternate_iterator& operator++() {
 			if (is_in_left()) {
 				in_left = false;
 			} else {
@@ -98,7 +98,7 @@ namespace sprout {
 			}
 			return *this;
 		}
-		alternate_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR alternate_iterator operator++(int) {
 			alternate_iterator result(*this);
 			if (is_in_left()) {
 				in_left = false;
@@ -109,7 +109,7 @@ namespace sprout {
 			}
 			return result;
 		}
-		alternate_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR alternate_iterator& operator--() {
 			if (is_in_left()) {
 				in_left = false;
 				--current1;
@@ -119,7 +119,7 @@ namespace sprout {
 			}
 			return *this;
 		}
-		alternate_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR alternate_iterator operator--(int) {
 			alternate_iterator temp(*this);
 			if (is_in_left()) {
 				in_left = false;
@@ -136,12 +136,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR alternate_iterator operator-(difference_type n) const {
 			return advance_impl(-n);
 		}
-		alternate_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR alternate_iterator& operator+=(difference_type n) {
 			alternate_iterator temp(*this + n);
 			temp.swap(*this);
 			return *this;
 		}
-		alternate_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR alternate_iterator& operator-=(difference_type n) {
 			alternate_iterator temp(*this - n);
 			temp.swap(*this);
 			return *this;
@@ -159,7 +159,7 @@ namespace sprout {
 				: alternate_iterator(current1, current2, true)
 				;
 		}
-		void swap(alternate_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(alternate_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current1, other.current1))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(current2, other.current2))
@@ -275,7 +275,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename LIterator, typename RIterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(
 		sprout::alternate_iterator<LIterator, RIterator>& lhs,
 		sprout::alternate_iterator<LIterator, RIterator>& rhs

@@ -60,8 +60,7 @@ namespace sprout {
 		difference_type i_;
 	private:
 		SPROUT_CONSTEXPR bytes_iterator(iterator_type it, difference_type i)
-			: it_(it)
-			, i_(i)
+			: it_(it) , i_(i)
 		{}
 		SPROUT_CONSTEXPR bytes_iterator(iterator_type it, difference_type i, next_tag)
 			: it_(i / traits_type::size() == 0 ? it : sprout::next(it))
@@ -101,7 +100,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR bytes_iterator prev() const {
 			return bytes_iterator(it_, i_ - 1, prev_tag());
 		}
-		void swap(bytes_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(bytes_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(it_, other.it_)))
 		{
 			sprout::swap(it_, other.it_);
@@ -110,22 +109,22 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference operator*() const {
 			return traits_type::get_byte(*it_, i_);
 		}
-		bytes_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR bytes_iterator& operator++() {
 			bytes_iterator temp(next());
 			temp.swap(*this);
 			return *this;
 		}
-		bytes_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR bytes_iterator operator++(int) {
 			bytes_iterator result(*this);
 			++*this;
 			return result;
 		}
-		bytes_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR bytes_iterator& operator--() {
 			bytes_iterator temp(prev());
 			temp.swap(*this);
 			return *this;
 		}
-		bytes_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR bytes_iterator operator--(int) {
 			bytes_iterator result(*this);
 			--*this;
 			return result;
@@ -136,12 +135,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR bytes_iterator operator-(difference_type n) const {
 			return bytes_iterator(it_, i_ - n, ra_tag());
 		}
-		bytes_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR bytes_iterator& operator+=(difference_type n) {
 			bytes_iterator temp(it_, i_ + n, ra_tag());
 			temp.swap(*this);
 			return *this;
 		}
-		bytes_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR bytes_iterator& operator-=(difference_type n) {
 			bytes_iterator temp(it_, i_ - n, ra_tag());
 			temp.swap(*this);
 			return *this;
@@ -196,7 +195,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Iterator, typename Traits>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::bytes_iterator<Iterator, Traits>& lhs, sprout::bytes_iterator<Iterator, Traits>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
