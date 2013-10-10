@@ -44,7 +44,7 @@
 #	define SPROUT_NO_CXX11_UNICODE_LITERALS
 #endif
 
-#if (!__has_feature(cxx_constexpr) || __cplusplus < 201305L)
+#if (!__has_feature(cxx_constexpr) || __cplusplus < 201305L || __clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 4))
 #	define SPROUT_NO_CXX14_CONSTEXPR
 #endif
 
