@@ -16,6 +16,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/math/greater_equal.hpp>
@@ -124,6 +126,21 @@ namespace sprout {
 			return sprout::fixed::copy_backward(first, last, sprout::pit<Result>());
 		}
 	}	// namespace fixed
+
+	template<
+		typename BidirectionalIterator, typename Result,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	copy_backward(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
+		return sprout::fixed::copy_backward(first, last, result);
+	}
+
+	template<typename Result, typename BidirectionalIterator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	copy_backward(BidirectionalIterator first, BidirectionalIterator last) {
+		return sprout::fixed::copy_backward<Result>(first, last);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_BACKWARD_HPP

@@ -14,6 +14,8 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/pit/pit.hpp>
@@ -107,6 +109,21 @@ namespace sprout {
 			return sprout::fixed::copy_n(first, n, sprout::pit<Result>());
 		}
 	}	// namespace fixed
+
+	template<
+		typename InputIterator, typename Size, typename Result,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	copy_n(InputIterator first, Size n, Result const& result) {
+		return sprout::fixed::copy_n(first, n, result);
+	}
+
+	template<typename Result, typename Size, typename InputIterator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	copy_n(InputIterator first, Size n) {
+		return sprout::fixed::copy_n<Result>(first, n);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_N_HPP

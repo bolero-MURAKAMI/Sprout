@@ -18,6 +18,8 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/transform_iterator.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -260,7 +262,39 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::transform;
+	template<
+		typename InputIterator, typename Result, typename UnaryOperation,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	transform(InputIterator first, InputIterator last, Result const& result, UnaryOperation op) {
+		return sprout::fixed::transform(first, last, result, op);
+	}
+	template<
+		typename Result, typename InputIterator, typename UnaryOperation,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	transform(InputIterator first, InputIterator last, UnaryOperation op) {
+		return sprout::fixed::transform<Result>(first, last, op);
+	}
+
+	template<
+		typename InputIterator1, typename InputIterator2, typename Result, typename BinaryOperation,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, Result const& result, BinaryOperation op) {
+		return sprout::fixed::transform(first1, last1, first2, result, op);
+	}
+	template<
+		typename Result, typename InputIterator1, typename InputIterator2, typename BinaryOperation,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryOperation op) {
+		return sprout::fixed::transform<Result>(first1, last1, first2, op);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_TRANSFORM_HPP

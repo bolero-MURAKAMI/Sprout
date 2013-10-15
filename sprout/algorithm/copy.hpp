@@ -9,10 +9,8 @@
 #define SPROUT_ALGORITHM_COPY_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/algorithm/fixed/copy.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	//
@@ -28,21 +26,6 @@ namespace sprout {
 			*result++ = *first++;
 		}
 		return result;
-	}
-
-	template<
-		typename InputIterator, typename Result,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
-	>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-	copy(InputIterator first, InputIterator last, Result const& result) {
-		return sprout::fixed::copy(first, last, result);
-	}
-
-	template<typename Result, typename InputIterator>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
-	copy(InputIterator first, InputIterator last) {
-		return sprout::fixed::copy<Result>(first, last);
 	}
 }	// namespace sprout
 
