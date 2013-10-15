@@ -107,8 +107,6 @@ namespace sprout {
 			return sprout::fixed::copy_n(first, n, sprout::pit<Result>());
 		}
 	}	// namespace fixed
-
-	using sprout::fixed::copy_n;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_N_HPP

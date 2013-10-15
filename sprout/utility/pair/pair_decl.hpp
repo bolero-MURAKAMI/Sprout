@@ -103,7 +103,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR pair(sprout::tuples::tuple<U, V>&& other);
 
 		pair& operator=(pair const& rhs) = default;
-		pair& operator=(pair&& rhs)
+		SPROUT_CXX14_CONSTEXPR pair& operator=(pair&& rhs)
 		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<T1>::value && std::is_nothrow_move_assignable<T2>::value)
 		{
 			first = sprout::forward<T1>(rhs.first);
@@ -116,7 +116,7 @@ namespace sprout {
 				std::is_assignable<first_type&, U const&>::value && std::is_assignable<second_type&, V const&>::value
 			>::type
 		>
-		pair& operator=(sprout::pair<U, V> const& rhs) {
+		SPROUT_CXX14_CONSTEXPR pair& operator=(sprout::pair<U, V> const& rhs) {
 			first = rhs.first;
 			second = rhs.second;
 			return *this;
@@ -127,7 +127,7 @@ namespace sprout {
 				std::is_assignable<first_type&, U&&>::value && std::is_assignable<second_type&, V&&>::value
 			>::type
 		>
-		pair& operator=(sprout::pair<U, V>&& rhs) {
+		SPROUT_CXX14_CONSTEXPR pair& operator=(sprout::pair<U, V>&& rhs) {
 			first = sprout::forward<U>(rhs.first);
 			second = sprout::forward<V>(rhs.second);
 			return *this;
@@ -138,16 +138,16 @@ namespace sprout {
 				std::is_assignable<first_type&, U const&>::value && std::is_assignable<second_type&, V const&>::value
 			>::type
 		>
-		pair& operator=(sprout::tuples::tuple<U, V> const& rhs);
+		SPROUT_CXX14_CONSTEXPR pair& operator=(sprout::tuples::tuple<U, V> const& rhs);
 		template<
 			typename U, typename V,
 			typename = typename std::enable_if<
 				std::is_assignable<first_type&, U&&>::value && std::is_assignable<second_type&, V&&>::value
 			>::type
 		>
-		pair& operator=(sprout::tuples::tuple<U, V>&& rhs);
+		SPROUT_CXX14_CONSTEXPR pair& operator=(sprout::tuples::tuple<U, V>&& rhs);
 
-		void swap(pair& other)
+		SPROUT_CXX14_CONSTEXPR void swap(pair& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(first, other.first)) && SPROUT_NOEXCEPT_EXPR(sprout::swap(second, other.second))) {
 			sprout::swap(first, other.first);
 			sprout::swap(second, other.second);
@@ -158,7 +158,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T1, typename T2>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::pair<T1, T2>& lhs, sprout::pair<T1, T2>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

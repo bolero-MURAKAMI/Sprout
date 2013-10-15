@@ -134,8 +134,6 @@ namespace sprout {
 			return sprout::fixed::copy(first, last, sprout::pit<Result>());
 		}
 	}	// namespace fixed
-
-	using sprout::fixed::copy;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_HPP

@@ -89,8 +89,6 @@ namespace sprout {
 			return sprout::fixed::copy_if(first, last, sprout::pit<Result>(), pred);
 		}
 	}	// namespace fixed
-
-	using sprout::fixed::copy_if;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_IF_HPP

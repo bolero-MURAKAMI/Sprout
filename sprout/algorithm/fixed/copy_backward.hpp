@@ -124,8 +124,6 @@ namespace sprout {
 			return sprout::fixed::copy_backward(first, last, sprout::pit<Result>());
 		}
 	}	// namespace fixed
-
-	using sprout::fixed::copy_backward;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_BACKWARD_HPP

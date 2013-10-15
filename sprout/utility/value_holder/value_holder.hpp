@@ -236,61 +236,61 @@ namespace sprout {
 
 		value_holder& operator=(value_holder const&) = default;
 		value_holder& operator=(value_holder&&) = default;
-		value_holder& operator=(argument_type p) {
+		SPROUT_CXX14_CONSTEXPR value_holder& operator=(argument_type p) {
 			value_holder temp(p);
 			temp.swap(*this);
 			return *this;
 		}
-		value_holder& operator=(movable_argument_type p) {
+		SPROUT_CXX14_CONSTEXPR value_holder& operator=(movable_argument_type p) {
 			value_holder temp(sprout::move(p));
 			temp.swap(*this);
 			return *this;
 		}
 
-		void swap(value_holder& other)
+		SPROUT_CXX14_CONSTEXPR void swap(value_holder& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(holder_, other.holder_)))
 		{
 			sprout::swap(holder_, other.holder_);
 		}
 
-		operator reference() {
+		SPROUT_CXX14_CONSTEXPR operator reference() {
 			return helper_type::ref(holder_);
 		}
 		SPROUT_CONSTEXPR operator mutable_or_const_reference() const {
 			return helper_type::ref(holder_);
 		}
-		reference operator*() {
+		SPROUT_CXX14_CONSTEXPR reference operator*() {
 			return helper_type::ref(holder_);
 		}
 		SPROUT_CONSTEXPR mutable_or_const_reference operator*() const {
 			return helper_type::ref(holder_);
 		}
-		reference get() {
+		SPROUT_CXX14_CONSTEXPR reference get() {
 			return helper_type::ref(holder_);
 		}
 		SPROUT_CONSTEXPR mutable_or_const_reference get() const {
 			return helper_type::ref(holder_);
 		}
-		reference value() {
+		SPROUT_CXX14_CONSTEXPR reference value() {
 			return get();
 		}
 		SPROUT_CONSTEXPR mutable_or_const_reference value() const {
 			return get();
 		}
 
-		pointer operator->() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR pointer operator->() SPROUT_NOEXCEPT {
 			return helper_type::ptr(holder_);
 		}
 		SPROUT_CONSTEXPR mutable_or_const_pointer operator->() const SPROUT_NOEXCEPT {
 			return helper_type::ptr(holder_);
 		}
-		pointer get_pointer() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR pointer get_pointer() SPROUT_NOEXCEPT {
 			return helper_type::ptr(holder_);
 		}
 		SPROUT_CONSTEXPR mutable_or_const_pointer get_pointer() const SPROUT_NOEXCEPT {
 			return helper_type::ptr(holder_);
 		}
-		pointer get_ptr() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR pointer get_ptr() SPROUT_NOEXCEPT {
 			return get_pointer();
 		}
 		SPROUT_CONSTEXPR mutable_or_const_pointer get_ptr() const SPROUT_NOEXCEPT {
@@ -305,7 +305,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::value_holder<T>& lhs, sprout::value_holder<T>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

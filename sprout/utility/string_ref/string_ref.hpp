@@ -77,6 +77,7 @@ namespace sprout {
 	private:
 		const_pointer ptr_;
 		size_type len_;
+	private:
 	public:
 		// construct/copy/destroy:
 		SPROUT_CONSTEXPR basic_string_ref()
@@ -100,7 +101,7 @@ namespace sprout {
 		{}
 		// iterators:
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		iterator
+		SPROUT_CXX14_CONSTEXPR iterator
 		begin() SPROUT_NOEXCEPT {
 			return iterator(*this, 0);
 		}
@@ -108,7 +109,7 @@ namespace sprout {
 		begin() const SPROUT_NOEXCEPT {
 			return const_iterator(*this, 0);
 		}
-		iterator
+		SPROUT_CXX14_CONSTEXPR iterator
 		end() SPROUT_NOEXCEPT {
 			return iterator(*this, size());
 		}
@@ -117,9 +118,17 @@ namespace sprout {
 			return const_iterator(*this, size());
 		}
 #else
+		SPROUT_CXX14_CONSTEXPR iterator
+		begin() SPROUT_NOEXCEPT {
+			return data();
+		}
 		SPROUT_CONSTEXPR const_iterator
 		begin() const SPROUT_NOEXCEPT {
 			return data();
+		}
+		SPROUT_CXX14_CONSTEXPR iterator
+		end() SPROUT_NOEXCEPT {
+			return data() + size();
 		}
 		SPROUT_CONSTEXPR const_iterator
 		end() const SPROUT_NOEXCEPT {
@@ -174,7 +183,7 @@ namespace sprout {
 		max_size() const SPROUT_NOEXCEPT {
 			return size();
 		}
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		clear() {
 			len_ = 0;
 		}
@@ -202,14 +211,14 @@ namespace sprout {
 			return ptr_[size() - 1];
 		}
 		// modifiers:
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		swap(basic_string_ref& other)
 		SPROUT_NOEXCEPT
 		{
 			sprout::swap(ptr_, other.ptr_);
 			sprout::swap(len_, other.len_);
 		}
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		remove_prefix(size_type n) {
 			if (n > size()) {
 				n = size();
@@ -223,7 +232,7 @@ namespace sprout {
 				: basic_string_ref(data() + n, size() - n)
 				;
 		}
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		remove_suffix(size_type n) {
 			if (n > size()) {
 				n = size();
@@ -401,19 +410,20 @@ namespace sprout {
 		SPROUT_EXPLICIT_CONVERSION operator std::basic_string<T, Traits, Allocator>() const {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
 		}
-		pointer
+		SPROUT_CONSTEXPR const_pointer
+		c_array() const SPROUT_NOEXCEPT {
+			return data();
+		}
+		SPROUT_CXX14_CONSTEXPR pointer
 		c_array() SPROUT_NOEXCEPT {
 			return data();
 		}
-		void
+		// others:
+		SPROUT_CXX14_CONSTEXPR void
 		rangecheck(size_type i) const {
 			if (i >= size()) {
 				throw std::out_of_range("basic_string_ref<>: index out of range");
 			}
-		}
-		void
-		maxcheck(size_type n) const {
-			rangecheck(n);
 		}
 
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
@@ -549,7 +559,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T, typename Traits>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::basic_string_ref<T, Traits>& lhs, sprout::basic_string_ref<T, Traits>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

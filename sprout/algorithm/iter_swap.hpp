@@ -5,14 +5,21 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_UTILITY_OPERATION_HPP
-#define SPROUT_UTILITY_OPERATION_HPP
+#ifndef SPROUT_ALGORITHM_ITER_SWAP_HPP
+#define SPROUT_ALGORITHM_ITER_SWAP_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/utility/rel_ops.hpp>
-#include <sprout/utility/forward.hpp>
-#include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
-#include <sprout/utility/exchange.hpp>
 
-#endif	// #ifndef SPROUT_UTILITY_OPERATION_HPP
+namespace sprout {
+	//
+	// 25.3.3 swap
+	//
+	template<typename ForwardIterator1, typename ForwardIterator2>
+	inline SPROUT_CXX14_CONSTEXPR void
+	iter_swap(ForwardIterator1 a, ForwardIterator2 b) {
+		sprout::swap(*a, *b);
+	}
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_ALGORITHM_ITER_SWAP_HPP

@@ -70,6 +70,9 @@ namespace sprout {
 			container->insert(iter, sprout::move(value));
 			return *this;
 		}
+		SPROUT_CONSTEXPR insert_iterator& operator*() const {
+			return *this;
+		}
 		SPROUT_CXX14_CONSTEXPR insert_iterator& operator*() {
 			return *this;
 		}

@@ -63,6 +63,9 @@ namespace sprout {
 			container->push_back(sprout::move(value));
 			return *this;
 		}
+		SPROUT_CONSTEXPR back_insert_iterator& operator*() const {
+			return *this;
+		}
 		SPROUT_CXX14_CONSTEXPR back_insert_iterator& operator*() {
 			return *this;
 		}
