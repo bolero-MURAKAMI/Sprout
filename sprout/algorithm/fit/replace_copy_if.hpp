@@ -21,7 +21,7 @@
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename InputIterator, typename Result, typename T, typename Predicate>
+			template<typename InputIterator, typename Result, typename Predicate, typename T>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
 			replace_copy_if_impl(
 				InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value,
@@ -38,7 +38,7 @@ namespace sprout {
 		//
 		// replace_copy_if
 		//
-		template<typename InputIterator, typename Result, typename T, typename Predicate>
+		template<typename InputIterator, typename Result, typename Predicate, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
 		replace_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value) {
 			static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");

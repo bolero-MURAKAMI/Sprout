@@ -17,6 +17,8 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/replace_if_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -24,7 +26,7 @@
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename RandomAccessIterator, typename Result, typename T, typename Predicate, sprout::index_t... Indexes>
+			template<typename RandomAccessIterator, typename Result, typename Predicate, typename T, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			replace_copy_if_impl_ra(
 				RandomAccessIterator first, RandomAccessIterator,
@@ -43,7 +45,7 @@ namespace sprout {
 						)...
 					);
 			}
-			template<typename RandomAccessIterator, typename Result, typename T, typename Predicate>
+			template<typename RandomAccessIterator, typename Result, typename Predicate, typename T>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			replace_copy_if(
 				RandomAccessIterator first, RandomAccessIterator last,
@@ -60,7 +62,7 @@ namespace sprout {
 					sprout::distance(first, last)
 					);
 			}
-			template<typename InputIterator, typename Result, typename T, typename Predicate, typename... Args>
+			template<typename InputIterator, typename Result, typename Predicate, typename T, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
@@ -74,7 +76,7 @@ namespace sprout {
 			{
 				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
-			template<typename InputIterator, typename Result, typename T, typename Predicate, typename... Args>
+			template<typename InputIterator, typename Result, typename Predicate, typename T, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::result_of::algorithm<Result>::type
@@ -95,7 +97,7 @@ namespace sprout {
 					: sprout::detail::container_complate(result, args...)
 					;
 			}
-			template<typename InputIterator, typename Result, typename T, typename Predicate>
+			template<typename InputIterator, typename Result, typename Predicate, typename T>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 			replace_copy_if(
 				InputIterator first, InputIterator last,
@@ -106,7 +108,7 @@ namespace sprout {
 				return sprout::fixed::detail::replace_copy_if_impl(first, last, result, pred, new_value, sprout::size(result));
 			}
 
-			template<typename InputIterator, typename Result, typename T, typename Predicate>
+			template<typename InputIterator, typename Result, typename Predicate, typename T>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::result_of::algorithm<Result>::type
@@ -116,7 +118,7 @@ namespace sprout {
 				return sprout::fixed::detail::replace_copy_if(first, last, result, pred, new_value, category());
 			}
 
-			template<typename InputIterator, typename Result, typename T, typename Predicate>
+			template<typename InputIterator, typename Result, typename Predicate, typename T>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::result_of::algorithm<Result>::type
@@ -132,20 +134,33 @@ namespace sprout {
 		//
 		// replace_copy_if
 		//
-		template<typename InputIterator, typename Result, typename T, typename Predicate>
+		template<typename InputIterator, typename Result, typename Predicate, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		replace_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value) {
 			return sprout::fixed::detail::replace_copy_if(first, last, result, pred, new_value);
 		}
 
-		template<typename Result, typename InputIterator, typename T, typename Predicate>
+		template<typename Result, typename InputIterator, typename Predicate, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 		replace_copy_if(InputIterator first, InputIterator last, Predicate pred, T const& new_value) {
 			return sprout::fixed::replace_copy_if(first, last, sprout::pit<Result>(), pred, new_value);
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::replace_copy_if;
+	template<
+		typename InputIterator, typename Result, typename Predicate, typename T,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	replace_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value) {
+		return sprout::fixed::replace_copy_if(first, last, result, pred, new_value);
+	}
+
+	template<typename Result, typename InputIterator, typename Predicate, typename T>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	replace_copy_if(InputIterator first, InputIterator last, Predicate pred, T const& new_value) {
+		return sprout::fixed::replace_copy_if<Result>(first, last, pred, new_value);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_REPLACE_COPY_IF_HPP

@@ -17,6 +17,8 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/replace_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -146,7 +148,20 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::replace_copy;
+	template<
+		typename InputIterator, typename Result, typename T,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	replace_copy(InputIterator first, InputIterator last, Result const& result, T const& old_value, T const& new_value) {
+		return sprout::fixed::replace_copy(first, last, result, old_value, new_value);
+	}
+
+	template<typename Result, typename InputIterator, typename T>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	replace_copy(InputIterator first, InputIterator last, T const& old_value, T const& new_value) {
+		return sprout::fixed::replace_copy<Result>(first, last, old_value, new_value);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_REPLACE_COPY_HPP

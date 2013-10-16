@@ -9,6 +9,20 @@
 #define SPROUT_ALGORITHM_FILL_HPP
 
 #include <sprout/config.hpp>
+
+namespace sprout {
+	//
+	// 25.3.6 Fill
+	//
+	template<typename ForwrdIterator, typename T>
+	inline SPROUT_CXX14_CONSTEXPR void
+	fill(ForwrdIterator first, ForwrdIterator last, T const& value) {
+		while (first != last) {
+			*first++ = value;
+		}
+	}
+}	// namespace sprout
+
 #include <sprout/algorithm/fixed/fill.hpp>
 #include <sprout/algorithm/fit/fill.hpp>
 

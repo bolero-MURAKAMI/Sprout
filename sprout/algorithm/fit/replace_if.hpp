@@ -19,7 +19,7 @@
 namespace sprout {
 	namespace fit {
 		namespace detail {
-			template<typename Container, typename T, typename Predicate>
+			template<typename Container, typename Predicate, typename T>
 			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
 			replace_if_impl(
 				Container const& cont, Predicate pred, T const& new_value,
@@ -36,7 +36,7 @@ namespace sprout {
 		//
 		// replace_if
 		//
-		template<typename Container, typename T, typename Predicate>
+		template<typename Container, typename Predicate, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
 		replace_if(Container const& cont, Predicate pred, T const& new_value) {
 			return sprout::fit::detail::replace_if_impl(cont, pred, new_value, sprout::internal_begin_offset(cont));
