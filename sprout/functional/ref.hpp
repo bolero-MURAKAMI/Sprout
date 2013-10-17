@@ -191,6 +191,7 @@ namespace sprout {
 	void ref(T const&&) SPROUT_DELETED_FUNCTION_DECL
 	template<typename T>
 	void cref(T const&&) SPROUT_DELETED_FUNCTION_DECL
+
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T>
 	ref(sprout::reference_wrapper<T> t) SPROUT_NOEXCEPT {
@@ -198,7 +199,7 @@ namespace sprout {
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::reference_wrapper<T const>
-	ref(sprout::reference_wrapper<T> t) SPROUT_NOEXCEPT {
+	cref(sprout::reference_wrapper<T> t) SPROUT_NOEXCEPT {
 		return sprout::reference_wrapper<T const>(t.get());
 	}
 
