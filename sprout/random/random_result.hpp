@@ -114,6 +114,12 @@ namespace sprout {
 			SPROUT_CONSTEXPR distribution_type const& distribution() const SPROUT_NOEXCEPT {
 				return distribution_;
 			}
+			SPROUT_CXX14_CONSTEXPR operator result_type&() SPROUT_NOEXCEPT {
+				return generated_value();
+			}
+			SPROUT_CONSTEXPR operator result_type const&() const SPROUT_NOEXCEPT {
+				return generated_value();
+			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return distribution_.min();
 			}
@@ -232,6 +238,12 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR random_result const& next_generator() const SPROUT_NOEXCEPT {
 				return *this;
+			}
+			SPROUT_CXX14_CONSTEXPR operator result_type&() SPROUT_NOEXCEPT {
+				return generated_value();
+			}
+			SPROUT_CONSTEXPR operator result_type const&() const SPROUT_NOEXCEPT {
+				return generated_value();
 			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return engine_.min();

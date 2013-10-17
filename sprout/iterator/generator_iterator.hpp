@@ -72,6 +72,9 @@ namespace sprout {
 		SPROUT_CONSTEXPR generator_iterator next_generator() const {
 			return (*this)();
 		}
+		SPROUT_CONSTEXPR operator reference() const {
+			return generated_value();
+		}
 		SPROUT_CXX14_CONSTEXPR void swap(generator_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(gen_, other.gen_)))
 		{
