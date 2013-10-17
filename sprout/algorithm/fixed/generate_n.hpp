@@ -32,7 +32,20 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::generate_n;
+	template<
+		typename Container, typename Size, typename Generator,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Container>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+	generate_n(Container const& cont, Size n, Generator const& gen) {
+		return sprout::fixed::generate_n(cont, n, gen);
+	}
+
+	template<typename Container, typename Size, typename Generator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+	generate_n(Size n, Generator const& gen) {
+		return sprout::fixed::generate_n<Container>(n, gen);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_GENERATE_N_HPP
