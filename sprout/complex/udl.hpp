@@ -25,15 +25,15 @@ namespace sprout {
 			}
 
 			//
-			// _i_f
-			// _i_F
+			// _if
+			// _iF
 			//
 			inline SPROUT_CONSTEXPR sprout::complex<float>
-			operator"" _i_f(long double x) {
+			operator"" _if(long double x) {
 				return sprout::complex<float>(0, x);
 			}
 			inline SPROUT_CONSTEXPR sprout::complex<float>
-			operator"" _i_F(long double x) {
+			operator"" _iF(long double x) {
 				return sprout::complex<float>(0, x);
 			}
 
@@ -52,15 +52,15 @@ namespace sprout {
 		}	// namespace complex
 
 		using sprout::udl::complex::operator"" _i;
-		using sprout::udl::complex::operator"" _i_f;
-		using sprout::udl::complex::operator"" _i_F;
+		using sprout::udl::complex::operator"" _if;
+		using sprout::udl::complex::operator"" _iF;
 		using sprout::udl::complex::operator"" _il;
 		using sprout::udl::complex::operator"" _iL;
 	}	// namespace udl
 
 	using sprout::udl::complex::operator"" _i;
-	using sprout::udl::complex::operator"" _i_f;
-	using sprout::udl::complex::operator"" _i_F;
+	using sprout::udl::complex::operator"" _if;
+	using sprout::udl::complex::operator"" _iF;
 	using sprout::udl::complex::operator"" _il;
 	using sprout::udl::complex::operator"" _iL;
 }	// namespace sprout
