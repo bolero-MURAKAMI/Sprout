@@ -182,7 +182,7 @@ namespace sprout {
 
 	template<
 		typename InputIterator, typename Result,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	unique_copy(InputIterator first, InputIterator last, Result const& result) {
@@ -197,7 +197,7 @@ namespace sprout {
 
 	template<
 		typename InputIterator, typename Result, typename BinaryPredicate,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
@@ -206,7 +206,7 @@ namespace sprout {
 
 	template<
 		typename Result, typename InputIterator, typename BinaryPredicate,
-		typename sprout::enabler_if<!sprout::is_output_iterator<BinaryPredicate>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<BinaryPredicate>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	unique_copy(InputIterator first, InputIterator last, BinaryPredicate pred) {

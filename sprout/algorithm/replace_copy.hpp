@@ -18,7 +18,7 @@ namespace sprout {
 	//
 	template<
 		typename InputIterator, typename OutputIterator, typename T,
-		typename sprout::enabler_if<sprout::is_output_iterator<OutputIterator>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout::is_iterator_outputable<OutputIterator>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CXX14_CONSTEXPR void
 	replace_copy(InputIterator first, InputIterator last, OutputIterator result, T const& old_value, T const& new_value) {

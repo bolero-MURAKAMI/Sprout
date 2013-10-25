@@ -19,7 +19,7 @@ namespace sprout {
 	inline SPROUT_CXX14_CONSTEXPR ForwardIterator2
 	swap_ranges(ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2) {
 		while (first1 != last1) {
-			sprout::iter_swap(*first1++, *first2++);
+			sprout::iter_swap(first1++, first2++);
 		}
 		return first2;
 	}

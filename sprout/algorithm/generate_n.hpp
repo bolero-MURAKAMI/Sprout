@@ -16,7 +16,7 @@ namespace sprout {
 	//
 	template<
 		typename OutputIterator, typename Size, typename Generator,
-		typename sprout::enabler_if<sprout::is_output_iterator<OutputIterator>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout::is_iterator_outputable<OutputIterator>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CXX14_CONSTEXPR OutputIterator
 	generate_n(OutputIterator first, Size n, Generator gen) {

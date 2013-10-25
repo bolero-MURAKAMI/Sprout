@@ -72,6 +72,17 @@ namespace sprout {
 	struct is_random_access_iterator
 		: public sprout::is_iterator_of<MaybeIterator, std::random_access_iterator_tag>
 	{};
+
+	//
+	// is_iterator_outputable
+	//
+	template<typename MaybeIterator>
+	struct is_iterator_outputable
+		: public std::integral_constant<
+			bool,
+			sprout::is_output_iterator<MaybeIterator>::value || sprout::is_forward_iterator<MaybeIterator>::value
+		>
+	{};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ITERATOR_TYPE_TRAITS_IS_ITERATOR_OF_HPP

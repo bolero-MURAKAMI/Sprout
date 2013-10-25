@@ -129,7 +129,7 @@ namespace sprout {
 
 	template<
 		typename BidirectionalIterator, typename Result,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	copy_backward(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {

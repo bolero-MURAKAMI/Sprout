@@ -19,7 +19,7 @@ namespace sprout {
 	//
 	template<
 		typename InputIterator, typename OutputIterator,
-		typename sprout::enabler_if<sprout::is_output_iterator<OutputIterator>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout::is_iterator_outputable<OutputIterator>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CXX14_CONSTEXPR OutputIterator
 	unique_copy(InputIterator first, InputIterator last, OutputIterator result) {
@@ -39,7 +39,7 @@ namespace sprout {
 
 	template<
 		typename InputIterator, typename OutputIterator, typename BinaryPredicate,
-		typename sprout::enabler_if<sprout::is_output_iterator<OutputIterator>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout::is_iterator_outputable<OutputIterator>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CXX14_CONSTEXPR OutputIterator
 	unique_copy(InputIterator first, InputIterator last, OutputIterator result, BinaryPredicate pred) {

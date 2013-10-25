@@ -18,6 +18,11 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
+#include <sprout/algorithm/copy.hpp>
+#include <sprout/algorithm/move.hpp>
+#include <sprout/algorithm/fill_n.hpp>
+#include <sprout/algorithm/swap_ranges.hpp>
+#include <sprout/utility/swap.hpp>
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -63,68 +68,68 @@ namespace sprout {
 	public:
 		// construct/copy/destroy:
 		template<typename T2>
-		array& operator=(array<T2, N> const& rhs) {
-			std::copy(rhs.begin(), rhs.end(), begin());
+		SPROUT_CXX14_CONSTEXPR array& operator=(array<T2, N> const& rhs) {
+			sprout::copy(rhs.begin(), rhs.end(), begin());
 			return *this;
 		}
 		template<typename T2>
-		array& operator=(array<T2, N>&& rhs) {
-			std::move(rhs.begin(), rhs.end(), begin());
+		SPROUT_CXX14_CONSTEXPR array& operator=(array<T2, N>&& rhs) {
+			sprout::move(rhs.begin(), rhs.end(), begin());
 			return *this;
 		}
 		// modifiers:
-		void fill(const_reference value) {
-			std::fill_n(begin(), size(), value);
+		SPROUT_CXX14_CONSTEXPR void fill(const_reference value) {
+			sprout::fill_n(begin(), size(), value);
 		}
 		SPROUT_CONSTEXPR array fill(const_reference value) const {
 			return fill_impl(value, sprout::index_n<0, N>::make());
 		}
-		void assign(const_reference value) {
+		SPROUT_CXX14_CONSTEXPR void assign(const_reference value) {
 			fill(value);
 		}
 		SPROUT_CONSTEXPR array assign(const_reference value) const {
 			return fill(value);
 		}
-		void swap(array& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())))
+		SPROUT_CXX14_CONSTEXPR void swap(array& other)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(std::declval<T&>(), std::declval<T&>())))
 		{
-			std::swap_ranges(other.begin(), other.end(), begin());
+			sprout::swap_ranges(other.begin(), other.end(), begin());
 		}
 		// iterators:
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		iterator begin() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR iterator begin() SPROUT_NOEXCEPT {
 			return iterator(*this, 0);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
 			return const_iterator(*this, 0);
 		}
-		iterator end() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT {
 			return iterator(*this, size());
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
 			return const_iterator(*this, size());
 		}
 #else
-		iterator begin() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR iterator begin() SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
-		iterator end() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT {
 			return &elems[0] + size();
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
 			return &elems[0] + size();
 		}
 #endif
-		reverse_iterator rbegin() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator rbegin() SPROUT_NOEXCEPT {
 			return reverse_iterator(end());
 		}
 		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
-		reverse_iterator rend() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator rend() SPROUT_NOEXCEPT {
 			return reverse_iterator(begin());
 		}
 		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
@@ -162,13 +167,13 @@ namespace sprout {
 			return size() == 0;
 		}
 		// element access:
-		reference operator[](size_type i) {
+		SPROUT_CXX14_CONSTEXPR reference operator[](size_type i) {
 			return elems[i];
 		}
 		SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
 			return elems[i];
 		}
-		reference at(size_type i) {
+		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
 			return i < size()
 				? elems[i]
 				: (throw std::out_of_range("array<>: index out of range"), elems[i])
@@ -180,33 +185,33 @@ namespace sprout {
 				: (throw std::out_of_range("array<>: index out of range"), elems[i])
 				;
 		}
-		reference front() {
+		SPROUT_CXX14_CONSTEXPR reference front() {
 			return elems[0];
 		}
 		SPROUT_CONSTEXPR const_reference front() const {
 			return elems[0];
 		}
-		reference back() {
+		SPROUT_CXX14_CONSTEXPR reference back() {
 			return elems[size() - 1];
 		}
 		SPROUT_CONSTEXPR const_reference back() const {
 			return elems[size() - 1];
 		}
 
-		pointer data() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR pointer data() SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
 		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
-		pointer c_array() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR pointer c_array() SPROUT_NOEXCEPT {
 			return data();
 		}
 		SPROUT_CONSTEXPR const_pointer c_array() const SPROUT_NOEXCEPT {
 			return data();
 		}
 		// others:
-		void rangecheck(size_type i) const {
+		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
 			if (i >= size()) {
 				throw std::out_of_range("array<>: index out of range");
 			}
@@ -219,7 +224,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T, std::size_t N>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

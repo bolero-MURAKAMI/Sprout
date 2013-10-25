@@ -34,7 +34,7 @@ namespace sprout {
 
 	template<
 		typename Container, typename Size, typename Generator,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Container>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Container>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
 	generate_n(Container const& cont, Size n, Generator const& gen) {

@@ -18,7 +18,7 @@ namespace sprout {
 	//
 	template<
 		typename BidirectionalIterator1, typename BidirectionalIterator2,
-		typename sprout::enabler_if<sprout::is_output_iterator<BidirectionalIterator2>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout::is_iterator_outputable<BidirectionalIterator2>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CXX14_CONSTEXPR BidirectionalIterator2
 	copy_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 result) {

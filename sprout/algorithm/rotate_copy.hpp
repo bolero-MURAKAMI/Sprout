@@ -19,7 +19,7 @@ namespace sprout {
 	//
 	template<
 		typename ForwardIterator, typename OutputIterator,
-		typename sprout::enabler_if<sprout::is_output_iterator<OutputIterator>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout::is_iterator_outputable<OutputIterator>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CXX14_CONSTEXPR OutputIterator
 	rotate_copy(ForwardIterator first, ForwardIterator middle, ForwardIterator last, OutputIterator result) {

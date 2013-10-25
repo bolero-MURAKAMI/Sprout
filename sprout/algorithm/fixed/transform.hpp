@@ -264,7 +264,7 @@ namespace sprout {
 
 	template<
 		typename InputIterator, typename Result, typename UnaryOperation,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	transform(InputIterator first, InputIterator last, Result const& result, UnaryOperation op) {
@@ -272,7 +272,7 @@ namespace sprout {
 	}
 	template<
 		typename Result, typename InputIterator, typename UnaryOperation,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	transform(InputIterator first, InputIterator last, UnaryOperation op) {
@@ -281,7 +281,7 @@ namespace sprout {
 
 	template<
 		typename InputIterator1, typename InputIterator2, typename Result, typename BinaryOperation,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, Result const& result, BinaryOperation op) {
@@ -289,7 +289,7 @@ namespace sprout {
 	}
 	template<
 		typename Result, typename InputIterator1, typename InputIterator2, typename BinaryOperation,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, BinaryOperation op) {

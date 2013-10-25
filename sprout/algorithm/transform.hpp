@@ -18,7 +18,7 @@ namespace sprout {
 	//
 	template<
 		typename InputIterator, typename OutputIterator, typename UnaryOperation,
-		typename sprout::enabler_if<sprout::is_output_iterator<OutputIterator>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout::is_iterator_outputable<OutputIterator>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CXX14_CONSTEXPR OutputIterator
 	transform(InputIterator first, InputIterator last, OutputIterator result, UnaryOperation op) {
@@ -29,7 +29,7 @@ namespace sprout {
 	}
 	template<
 		typename InputIterator1, typename InputIterator2, typename OutputIterator, typename BinaryOperation,
-		typename sprout::enabler_if<sprout::is_output_iterator<OutputIterator>::value>::type = sprout::enabler
+		typename sprout::enabler_if<sprout::is_iterator_outputable<OutputIterator>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CXX14_CONSTEXPR OutputIterator
 	transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, OutputIterator result, BinaryOperation op) {

@@ -149,7 +149,7 @@ namespace sprout {
 
 	template<
 		typename InputIterator, typename Result, typename Predicate, typename T,
-		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
 	replace_copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred, T const& new_value) {
