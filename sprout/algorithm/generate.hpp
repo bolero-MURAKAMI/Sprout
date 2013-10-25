@@ -14,9 +14,9 @@ namespace sprout {
 	//
 	// 25.3.7 Generate
 	//
-	template<typename ForwrdIterator, typename Generator>
+	template<typename ForwardIterator, typename Generator>
 	inline SPROUT_CXX14_CONSTEXPR void
-	generate(ForwrdIterator first, ForwrdIterator last, Generator gen) {
+	generate(ForwardIterator first, ForwardIterator last, Generator gen) {
 		while (first != last) {
 			*first++ = gen();
 		}

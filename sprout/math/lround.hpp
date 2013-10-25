@@ -20,35 +20,52 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR long
-			lround(FloatType x) {
-				return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<long>::min()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::lround(x)
-#else
-					: sprout::math::iround<long>(x);
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
 			inline SPROUT_CONSTEXPR long
-			lround(IntType x) {
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-				return std::lround(x);
-#else
-				return sprout::math::iround<long>(x);
-#endif
+			builtin_lround(float x) {
+				return __builtin_lroundf(x);
 			}
+			inline SPROUT_CONSTEXPR long
+			builtin_lround(double x) {
+				return __builtin_lround(x);
+			}
+			inline SPROUT_CONSTEXPR long
+			builtin_lround(long double x) {
+				return __builtin_lroundl(x);
+			}
+#endif
 		}	// namespace detail
-
-		using sprout::math::detail::lround;
+		//
+		// lround
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR long
+		lround(FloatType x) {
+			return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<long>::min()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_lround(x)
+#else
+				: sprout::math::iround<long>(x);
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR long
+		lround(IntType x) {
+			return
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				sprout::math::detail::builtin_lround(x)
+#else
+				sprout::math::iround<long>(x)
+#endif
+				;
+		}
 	}	// namespace math
 
 	using sprout::math::lround;

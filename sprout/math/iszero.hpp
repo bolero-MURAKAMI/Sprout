@@ -14,18 +14,25 @@
 
 namespace sprout {
 	namespace math {
-		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR bool
-			iszero(FloatType x) {
-				return x == 0;
-			}
-		}	// namespace detail
-
-		using sprout::math::detail::iszero;
+		//
+		// iszero
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		iszero(FloatType x) {
+			return x == 0;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		iszero(IntType x) {
+			return x == 0;
+		}
 	}	// namespace math
 
 	using sprout::math::iszero;

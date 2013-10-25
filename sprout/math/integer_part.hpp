@@ -18,31 +18,30 @@
 
 namespace sprout {
 	namespace math {
-		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			integer_part(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
-					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::infinity()
-					: x == 0 ? x
-					: sprout::math::trunc(x)
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			integer_part(IntType x) {
-				return sprout::math::detail::integer_part(static_cast<double>(x));
-			}
-		}	// namespace detail
-
-		using sprout::math::detail::integer_part;
+		//
+		// integer_part
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		integer_part(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+				: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::infinity()
+				: x == 0 ? x
+				: sprout::math::trunc(x)
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		integer_part(IntType x) {
+			return sprout::math::integer_part(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::integer_part;

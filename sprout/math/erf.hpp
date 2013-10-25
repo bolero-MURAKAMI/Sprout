@@ -22,6 +22,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_erf(float x) {
+				return __builtin_erff(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_erf(double x) {
+				return __builtin_erf(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_erf(long double x) {
+				return __builtin_erfl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			erf_impl_3(T x, T y) {
@@ -125,35 +140,35 @@ namespace sprout {
 			erf_impl(T x) {
 				return sprout::math::detail::erf_impl_1(x, x < 0 ? -x : x);
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			erf(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == sprout::numeric_limits<FloatType>::infinity() ? FloatType(1)
-					: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(-1)
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::erf(x)
-#else
-					: x == 0 ? x
-					: static_cast<FloatType>(sprout::math::detail::erf_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			erf(IntType x) {
-				return sprout::math::detail::erf(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::erf;
+		//
+		// erf
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		erf(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == sprout::numeric_limits<FloatType>::infinity() ? FloatType(1)
+				: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(-1)
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_erf(x)
+#else
+				: x == 0 ? x
+				: static_cast<FloatType>(sprout::math::detail::erf_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		erf(IntType x) {
+			return sprout::math::erf(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::erf;

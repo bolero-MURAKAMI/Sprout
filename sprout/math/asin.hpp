@@ -24,6 +24,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_asin(float x) {
+				return __builtin_asinf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_asin(double x) {
+				return __builtin_asin(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_asin(long double x) {
+				return __builtin_asinl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			asin_impl_center_1(T x, T x2) {
@@ -76,37 +91,37 @@ namespace sprout {
 					: sprout::math::detail::asin_impl_center(x)
 					;
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			asin(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: sprout::math::fabs(x) > 1 ? sprout::numeric_limits<FloatType>::quiet_NaN()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::asin(x)
-#else
-					: x == 0 ? x
-					: static_cast<FloatType>(
-						x < 0 ? -sprout::math::detail::asin_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(-x))
-							: sprout::math::detail::asin_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x))
-						)
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			asin(IntType x) {
-				return sprout::math::detail::asin(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::asin;
+		//
+		// asin
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		asin(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: sprout::math::fabs(x) > 1 ? sprout::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_asin(x)
+#else
+				: x == 0 ? x
+				: static_cast<FloatType>(
+					x < 0 ? -sprout::math::detail::asin_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(-x))
+						: sprout::math::detail::asin_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x))
+					)
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		asin(IntType x) {
+			return sprout::math::asin(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::asin;

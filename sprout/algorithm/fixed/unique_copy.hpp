@@ -14,6 +14,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/unique_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -178,7 +180,38 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::unique_copy;
+	template<
+		typename InputIterator, typename Result,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	unique_copy(InputIterator first, InputIterator last, Result const& result) {
+		return sprout::fixed::unique_copy(first, last, result);
+	}
+
+	template<typename Result, typename InputIterator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	unique_copy(InputIterator first, InputIterator last) {
+		return sprout::fixed::unique_copy<Result>(first, last);
+	}
+
+	template<
+		typename InputIterator, typename Result, typename BinaryPredicate,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
+		return sprout::fixed::unique_copy(first, last, result, pred);
+	}
+
+	template<
+		typename Result, typename InputIterator, typename BinaryPredicate,
+		typename sprout::enabler_if<!sprout::is_output_iterator<BinaryPredicate>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	unique_copy(InputIterator first, InputIterator last, BinaryPredicate pred) {
+		return sprout::fixed::unique_copy<Result>(first, last, pred);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_UNIQUE_COPY_HPP

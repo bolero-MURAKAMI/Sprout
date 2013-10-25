@@ -14,9 +14,9 @@ namespace sprout {
 	//
 	// 25.3.6 Fill
 	//
-	template<typename ForwrdIterator, typename T>
+	template<typename ForwardIterator, typename T>
 	inline SPROUT_CXX14_CONSTEXPR void
-	fill(ForwrdIterator first, ForwrdIterator last, T const& value) {
+	fill(ForwardIterator first, ForwardIterator last, T const& value) {
 		while (first != last) {
 			*first++ = value;
 		}

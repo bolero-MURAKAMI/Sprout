@@ -25,6 +25,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_logb(float x) {
+				return __builtin_logbf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_logb(double x) {
+				return __builtin_logb(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_logb(long double x) {
+				return __builtin_logbl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			logb_impl_3_neg_lo(T x, T x0, T base, T exp) {
@@ -100,39 +115,39 @@ namespace sprout {
 					: sprout::math::detail::logb_impl_1(x, sprout::math::trunc(sprout::math::log_a(T(sprout::numeric_limits<T>::radix), x)))
 					;
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			logb(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == 0 ? -sprout::numeric_limits<FloatType>::infinity()
+		}	// namespace detail
+		//
+		// logb
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		logb(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == 0 ? -sprout::numeric_limits<FloatType>::infinity()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 #	if defined(__GNUC__)
-					: x == -sprout::numeric_limits<FloatType>::infinity()
-						? sprout::numeric_limits<FloatType>::infinity()
+				: x == -sprout::numeric_limits<FloatType>::infinity()
+					? sprout::numeric_limits<FloatType>::infinity()
 #	endif
-					: std::logb(x)
+				: sprout::math::detail::builtin_logb(x)
 #else
-					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
-						? sprout::numeric_limits<FloatType>::infinity()
-					: static_cast<FloatType>(sprout::math::detail::logb_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+				: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+					? sprout::numeric_limits<FloatType>::infinity()
+				: static_cast<FloatType>(sprout::math::detail::logb_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
 #endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			logb(IntType x) {
-				return sprout::math::detail::logb(static_cast<double>(x));
-			}
-		}	// namespace detail
-
-		using sprout::math::detail::logb;
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		logb(IntType x) {
+			return sprout::math::logb(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::logb;

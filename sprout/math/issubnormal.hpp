@@ -18,6 +18,9 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+			//
+			// issubnormal_or_zero
+			//
 			template<
 				typename FloatType,
 				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
@@ -29,21 +32,21 @@ namespace sprout {
 					: x > -sprout::numeric_limits<double>::min()
 					;
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR bool
-			issubnormal(FloatType x) {
-				return !sprout::math::isnan(x)
-					&& !sprout::math::iszero(x)
-					&& sprout::math::detail::issubnormal_or_zero(x)
-					;
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::issubnormal;
+		//
+		// issubnormal
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		issubnormal(FloatType x) {
+			return !sprout::math::isnan(x)
+				&& !sprout::math::iszero(x)
+				&& sprout::math::detail::issubnormal_or_zero(x)
+				;
+		}
 	}	// namespace math
 
 	using sprout::math::issubnormal;

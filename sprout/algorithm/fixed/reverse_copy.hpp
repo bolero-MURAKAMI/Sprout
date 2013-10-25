@@ -137,7 +137,20 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::reverse_copy;
+	template<
+		typename BidirectionalIterator, typename Result,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	reverse_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
+		return sprout::fixed::reverse_copy(first, last, result);
+	}
+
+	template<typename Result, typename BidirectionalIterator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	reverse_copy(BidirectionalIterator first, BidirectionalIterator last) {
+		return sprout::fixed::reverse_copy<Result>(first, last);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_REVERSE_COPY_HPP

@@ -23,6 +23,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_atan(float x) {
+				return __builtin_atanf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_atan(double x) {
+				return __builtin_atan(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_atan(long double x) {
+				return __builtin_atanl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			atan_impl_1(T x, std::size_t n, std::size_t last) {
@@ -43,37 +58,38 @@ namespace sprout {
 					;
 			}
 
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			atan(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
-					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::atan(x)
-#else
-					: x == 0 ? x
-					: static_cast<FloatType>(
-						x < 0 ? -sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(-x))
-							: sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x))
-						)
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			atan(IntType x) {
-				return sprout::math::detail::atan(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::atan;
+		//
+		// atan
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		atan(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::math::half_pi<FloatType>()
+				: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::math::half_pi<FloatType>()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_atan(x)
+#else
+				: x == 0 ? x
+				: static_cast<FloatType>(
+					x < 0 ? -sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(-x))
+						: sprout::math::detail::atan_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x))
+					)
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		atan(IntType x) {
+			return sprout::math::atan(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::atan;

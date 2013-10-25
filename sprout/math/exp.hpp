@@ -22,6 +22,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_exp(float x) {
+				return __builtin_expf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_exp(double x) {
+				return __builtin_exp(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_exp(long double x) {
+				return __builtin_expl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			exp_impl_1(T x, std::size_t n, std::size_t last) {
@@ -38,35 +53,35 @@ namespace sprout {
 					: T(1) + sprout::math::detail::exp_impl_1(x, 1, sprout::math::factorial_limit<T>() / 2 + 1)
 					;
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			exp(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(0)
-					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::exp(x)
-#else
-					: x == 0 ? FloatType(1)
-					: static_cast<FloatType>(sprout::math::detail::exp_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			exp(IntType x) {
-				return sprout::math::detail::exp(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::exp;
+		//
+		// exp
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		exp(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(0)
+				: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_exp(x)
+#else
+				: x == 0 ? FloatType(1)
+				: static_cast<FloatType>(sprout::math::detail::exp_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		exp(IntType x) {
+			return sprout::math::exp(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::exp;

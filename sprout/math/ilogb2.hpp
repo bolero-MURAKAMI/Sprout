@@ -25,49 +25,45 @@
 
 namespace sprout {
 	namespace math {
-		namespace detail {
 #if SPROUT_FLT_RADIX_IS_2
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR int
-			ilogb2(FloatType x) {
-				return sprout::math::ilogb(x);
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR int
-			ilogb2(IntType x) {
-				return sprout::math::ilogb(x);
-			}
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		ilogb2(FloatType x) {
+			return sprout::math::ilogb(x);
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		ilogb2(IntType x) {
+			return sprout::math::ilogb(x);
+		}
 #else
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR int
-			ilogb2(FloatType x) {
-				return sprout::math::iszero(x) ? FP_ILOGB0
-					: sprout::math::isinf(x) ? INT_MAX
-					: sprout::math::isnan(x) ? FP_ILOGBNAN
-					: static_cast<int>(sprout::math::logb2(x))
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR int
-			ilogb2(IntType x) {
-				return sprout::math::detail::ilogb2(static_cast<double>(x));
-			}
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		ilogb2(FloatType x) {
+			return sprout::math::iszero(x) ? FP_ILOGB0
+				: sprout::math::isinf(x) ? INT_MAX
+				: sprout::math::isnan(x) ? FP_ILOGBNAN
+				: static_cast<int>(sprout::math::logb2(x))
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		ilogb2(IntType x) {
+			return sprout::math::ilogb2(static_cast<double>(x));
+		}
 #endif
-		}	// namespace detail
-
-		using sprout::math::detail::ilogb2;
 	}	// namespace math
 
 	using sprout::math::ilogb2;

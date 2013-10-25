@@ -22,6 +22,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_floor(float x) {
+				return __builtin_floorf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_floor(double x) {
+				return __builtin_floor(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_floor(long double x) {
+				return __builtin_floorl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			floor_impl_1(T x, T x0) {
@@ -36,37 +51,37 @@ namespace sprout {
 					: static_cast<T>(static_cast<std::uintmax_t>(x))
 					;
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			floor(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
-					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::infinity()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::floor(x)
-#else
-					: x == 0 ? x
-					: sprout::numeric_limits<std::uintmax_t>::max() < x || sprout::numeric_limits<std::uintmax_t>::max() < -x
-						? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("floor: large float rounding."), x)
-					: static_cast<FloatType>(sprout::math::detail::floor_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			floor(IntType x) {
-				return sprout::math::detail::floor(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::floor;
+		//
+		// floor
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		floor(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+				: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::infinity()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_floor(x)
+#else
+				: x == 0 ? x
+				: sprout::numeric_limits<std::uintmax_t>::max() < x || sprout::numeric_limits<std::uintmax_t>::max() < -x
+					? SPROUT_MATH_THROW_LARGE_FLOAT_ROUNDING(std::runtime_error("floor: large float rounding."), x)
+				: static_cast<FloatType>(sprout::math::detail::floor_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		floor(IntType x) {
+			return sprout::math::floor(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::floor;

@@ -19,20 +19,41 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			template<typename FloatType>
 			inline SPROUT_CONSTEXPR bool
-			isnormal(FloatType x) {
-				return !sprout::math::isnan(x)
-					&& !sprout::math::isinf(x)
-					&& !sprout::math::detail::issubnormal_or_zero(x)
-					;
+			builtin_isnormal(FloatType x) {
+				return __builtin_isnormal(x);
 			}
+#endif
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::isnormal;
+		//
+		// isnormal
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		isnormal(FloatType x) {
+			return
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				sprout::math::detail::builtin_isnormal(x)
+#else
+				!sprout::math::isnan(x)
+				&& !sprout::math::isinf(x)
+				&& !sprout::math::detail::issubnormal_or_zero(x)
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		isnormal(IntType x) {
+			return x != 0;
+		}
 	}	// namespace math
 
 	using sprout::math::isnormal;

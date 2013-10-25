@@ -22,20 +22,20 @@ namespace sprout {
 			is_integer_unchecked(T x) {
 				return x == sprout::math::trunc(x);
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR bool
-			is_integer(FloatType x) {
-				return sprout::math::isfinite(x)
-					&& sprout::math::detail::is_integer_unchecked(x)
-					;
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::is_integer;
+		//
+		// is_integer
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		is_integer(FloatType x) {
+			return sprout::math::isfinite(x)
+				&& sprout::math::detail::is_integer_unchecked(x)
+				;
+		}
 	}	// namespace math
 
 	using sprout::math::is_integer;

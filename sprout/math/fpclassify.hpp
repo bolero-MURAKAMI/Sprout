@@ -21,22 +21,45 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			template<typename FloatType>
 			inline SPROUT_CONSTEXPR int
-			fpclassify(FloatType x) {
-				return sprout::math::isnan(x) ? FP_NAN
-					: sprout::math::isinf(x) ? FP_INFINITE
-					: sprout::math::iszero(x) ? FP_ZERO
-					: sprout::math::detail::issubnormal_or_zero(x) ? FP_SUBNORMAL
-					: FP_NORMAL
-					;
+			builtin_fpclassify(FloatType x) {
+				return __builtin_fpclassify(FP_NAN, FP_INFINITE, FP_NORMAL, FP_SUBNORMAL, FP_ZERO, x);
 			}
+#endif
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::fpclassify;
+		//
+		// fpclassify
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		fpclassify(FloatType x) {
+			return
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				sprout::math::detail::builtin_fpclassify(x)
+#else
+				sprout::math::isnan(x) ? FP_NAN
+				: sprout::math::isinf(x) ? FP_INFINITE
+				: sprout::math::iszero(x) ? FP_ZERO
+				: sprout::math::detail::issubnormal_or_zero(x) ? FP_SUBNORMAL
+				: FP_NORMAL
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR int
+		fpclassify(IntType x) {
+			return x ? FP_NORMAL
+				: FP_ZERO
+				;
+		}
 	}	// namespace math
 
 	using sprout::math::fpclassify;

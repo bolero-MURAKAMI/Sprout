@@ -18,28 +18,48 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			fabs(FloatType x) {
-				return sprout::math::isnan(x) ? sprout::numeric_limits<FloatType>::quiet_NaN()
-					: x == 0 ? FloatType(0)
-					: sprout::math::copysign(x, FloatType(0))
-					;
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_fabs(float x) {
+				return __builtin_fabsf(x);
 			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
 			inline SPROUT_CONSTEXPR double
-			fabs(IntType x) {
-				return sprout::math::detail::fabs(static_cast<double>(x));
+			builtin_fabs(double x) {
+				return __builtin_fabs(x);
 			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_fabs(long double x) {
+				return __builtin_fabsl(x);
+			}
+#endif
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::fabs;
+		//
+		// fabs
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		fabs(FloatType x) {
+			return
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				sprout::math::detail::builtin_fabs(x)
+#else
+				sprout::math::isnan(x) ? sprout::numeric_limits<FloatType>::quiet_NaN()
+				: x == 0 ? FloatType(0)
+				: sprout::math::copysign(x, FloatType(0))
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		fabs(IntType x) {
+			return sprout::math::fabs(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::fabs;

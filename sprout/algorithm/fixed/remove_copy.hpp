@@ -14,6 +14,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/remove_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -93,7 +95,20 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::remove_copy;
+	template<
+		typename InputIterator, typename Result, typename T,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	remove_copy(InputIterator first, InputIterator last, Result const& result, T const& value) {
+		return sprout::fixed::remove_copy(first, last, result, value);
+	}
+
+	template<typename Result, typename InputIterator, typename T>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	remove_copy(InputIterator first, InputIterator last, T const& value) {
+		return sprout::fixed::remove_copy<Result>(first, last, value);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_REMOVE_COPY_HPP

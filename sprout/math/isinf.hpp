@@ -17,19 +17,40 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			template<typename FloatType>
 			inline SPROUT_CONSTEXPR bool
-			isinf(FloatType x) {
-				return x == sprout::numeric_limits<FloatType>::infinity()
-					|| x == -sprout::numeric_limits<FloatType>::infinity()
-					;
+			builtin_isinf(FloatType x) {
+				return __builtin_isinf(x);
 			}
+#endif
 		}	// namespace detail
-
-		using NS_SPROUT_MATH_DETAIL::isinf;
+		//
+		// isinf
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		isinf(FloatType x) {
+			return
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				sprout::math::detail::builtin_isinf(x)
+#else
+				x == sprout::numeric_limits<FloatType>::infinity()
+				|| x == -sprout::numeric_limits<FloatType>::infinity()
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		isinf(IntType x) {
+			return false;
+		}
 	}	// namespace math
 
 	using sprout::math::isinf;

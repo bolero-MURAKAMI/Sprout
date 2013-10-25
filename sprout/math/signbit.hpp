@@ -17,15 +17,16 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			template<typename FloatType>
 			inline SPROUT_CONSTEXPR bool
-			signbit(FloatType x) {
-				return !sprout::math::isnan(x) && x < 0;
+			builtin_signbit(FloatType x) {
+				return __builtin_signbit(x);
 			}
+#endif
 		}	// namespace detail
+		//
+		// signbit
 		//
 		// issue:
 		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
@@ -34,7 +35,28 @@ namespace sprout {
 		//	signbit(-NaN) returns false .
 		//		# returns true . ( same as signbit(+NaN) )
 		//
-		using NS_SPROUT_MATH_DETAIL::signbit;
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		signbit(FloatType x) {
+			return
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				sprout::math::detail::builtin_signbit(x)
+#else
+				!sprout::math::isnan(x) && x < 0
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		signbit(IntType x) {
+			return x < 0;
+		}
 	}	// namespace math
 
 	using sprout::math::signbit;

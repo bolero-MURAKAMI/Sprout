@@ -21,6 +21,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_cosh(float x) {
+				return __builtin_coshf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_cosh(double x) {
+				return __builtin_cosh(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_cosh(long double x) {
+				return __builtin_coshl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			cosh_impl_1(T t) {
@@ -31,35 +46,35 @@ namespace sprout {
 			cosh_impl(T x) {
 				return sprout::math::detail::cosh_impl_1(sprout::math::exp(x));
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			cosh(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
-						? sprout::numeric_limits<FloatType>::infinity()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::cosh(x)
-#else
-					: x == 0 ? FloatType(1)
-					: static_cast<FloatType>(sprout::math::detail::cosh_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			cosh(IntType x) {
-				return sprout::math::detail::cosh(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::cosh;
+		//
+		// cosh
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		cosh(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+					? sprout::numeric_limits<FloatType>::infinity()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_cosh(x)
+#else
+				: x == 0 ? FloatType(1)
+				: static_cast<FloatType>(sprout::math::detail::cosh_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		cosh(IntType x) {
+			return sprout::math::cosh(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::cosh;

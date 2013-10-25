@@ -26,6 +26,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_lgamma(float x) {
+				return __builtin_lgammaf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_lgamma(double x) {
+				return __builtin_lgamma(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_lgamma(long double x) {
+				return __builtin_lgammal(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			lgamma_impl_3(T x, T y) {
@@ -183,38 +198,38 @@ namespace sprout {
 			lgamma_impl(T x) {
 				return sprout::math::detail::lgamma_impl_1(x, x < 0 ? -x : x);
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			lgamma(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x <= 0 && sprout::math::is_integer(x) ? sprout::numeric_limits<FloatType>::infinity()
-					: x == -sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
-					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
-//#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-//					: std::lgamma(x)
-//#else
-					: x == 1 ? FloatType(0)
-					: x == 2 ? FloatType(0)
-					: static_cast<FloatType>(sprout::math::detail::lgamma_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-//#endif
-					;
-			}
-
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			lgamma(IntType x) {
-				return sprout::math::detail::lgamma(static_cast<double>(x));
-			}
 		}	// namespace detail
+		//
+		// lgamma
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		lgamma(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x <= 0 && sprout::math::is_integer(x) ? sprout::numeric_limits<FloatType>::infinity()
+				: x == -sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+				: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+//#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+//				: sprout::math::detail::builtin_lgamma(x)
+//#else
+				: x == 1 ? FloatType(0)
+				: x == 2 ? FloatType(0)
+				: static_cast<FloatType>(sprout::math::detail::lgamma_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+//#endif
+				;
+		}
 
-		using sprout::math::detail::lgamma;
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		lgamma(IntType x) {
+			return sprout::math::lgamma(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::lgamma;

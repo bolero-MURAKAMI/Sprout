@@ -24,6 +24,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_log(float x) {
+				return __builtin_logf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_log(double x) {
+				return __builtin_log(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_log(long double x) {
+				return __builtin_logl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			log_impl_2(T x, std::size_t n, std::size_t last) {
@@ -48,36 +63,36 @@ namespace sprout {
 					: sprout::math::detail::log_impl_1(x)
 					;
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			log(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == 0 ? -sprout::numeric_limits<FloatType>::infinity()
-					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
-					: x < 0 ? sprout::numeric_limits<FloatType>::quiet_NaN()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::log(x)
-#else
-					: x == 1 ? FloatType(0)
-					: static_cast<FloatType>(sprout::math::detail::log_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			log(IntType x) {
-				return sprout::math::detail::log(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::log;
+		//
+		// log
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		log(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == 0 ? -sprout::numeric_limits<FloatType>::infinity()
+				: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+				: x < 0 ? sprout::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_log(x)
+#else
+				: x == 1 ? FloatType(0)
+				: static_cast<FloatType>(sprout::math::detail::log_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		log(IntType x) {
+			return sprout::math::log(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::log;

@@ -28,34 +28,34 @@ namespace sprout {
 					: sprout::math::log(y) / sprout::math::log(x)
 					;
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			log_a(FloatType x, FloatType y) {
-				return static_cast<FloatType>(sprout::math::detail::log_a_impl(
-					static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
-					static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y)
-					));
-			}
-
-			template<
-				typename ArithmeticType1,
-				typename ArithmeticType2,
-				typename sprout::enabler_if<
-					std::is_arithmetic<ArithmeticType1>::value && std::is_arithmetic<ArithmeticType2>::value
-				>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type
-			log_a(ArithmeticType1 x, ArithmeticType2 y) {
-				typedef typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type type;
-				return sprout::math::detail::log_a(static_cast<type>(x), static_cast<type>(y));
-			}
 		}	// namespace detail
+		//
+		// log_a
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		log_a(FloatType x, FloatType y) {
+			return static_cast<FloatType>(sprout::math::detail::log_a_impl(
+				static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
+				static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y)
+				));
+		}
 
-		using sprout::math::detail::log_a;
+		template<
+			typename ArithmeticType1,
+			typename ArithmeticType2,
+			typename sprout::enabler_if<
+				std::is_arithmetic<ArithmeticType1>::value && std::is_arithmetic<ArithmeticType2>::value
+			>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type
+		log_a(ArithmeticType1 x, ArithmeticType2 y) {
+			typedef typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type type;
+			return sprout::math::log_a(static_cast<type>(x), static_cast<type>(y));
+		}
 	}	// namespace math
 
 	using sprout::math::log_a;

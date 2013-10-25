@@ -22,20 +22,20 @@ namespace sprout {
 			is_odd_unchecked(T x) {
 				return sprout::math::fmod(x, T(2)) == T(1);
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR bool
-			is_odd(FloatType x) {
-				return sprout::math::isfinite(x)
-					&& sprout::math::detail::is_odd_unchecked(x)
-					;
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::is_odd;
+		//
+		// is_odd
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR bool
+		is_odd(FloatType x) {
+			return sprout::math::isfinite(x)
+				&& sprout::math::detail::is_odd_unchecked(x)
+				;
+		}
 	}	// namespace math
 
 	using sprout::math::is_odd;

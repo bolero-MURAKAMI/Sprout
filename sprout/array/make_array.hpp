@@ -25,6 +25,15 @@ namespace sprout {
 	make_array(Types&&... args) {
 		return sprout::array<T, sizeof...(Types)>{{T(sprout::forward<Types>(args))...}};
 	}
+//	template<typename... Types>
+//	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types&&...>::type, sizeof...(Types)>
+//	make_array(Types&&... args) {
+//		typedef sprout::array<
+//			typename sprout::common_decay<Types&&...>::type,
+//			sizeof...(Types)
+//		> type;
+//		return type{{typename sprout::common_decay<Types&&...>::type(sprout::forward<Types>(args))...}};
+//	}
 
 	//
 	// make_common_array

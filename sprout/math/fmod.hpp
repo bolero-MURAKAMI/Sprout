@@ -71,49 +71,49 @@ namespace sprout {
 			fmod_impl(T x, T y) {
 				return sprout::math::detail::fmod_impl_1(x, sprout::math::fabs(y), sprout::math::fabs(x));
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			fmod(FloatType x, FloatType y) {
-				return sprout::math::isnan(y)
-						? sprout::math::isnan(x)
-							? sprout::math::signbit(y) || sprout::math::signbit(x) ? -sprout::numeric_limits<FloatType>::quiet_NaN()
-								: sprout::numeric_limits<FloatType>::quiet_NaN()
-							: y
-					: sprout::math::isnan(x) ? x
-					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity() || y == 0
-						? -sprout::numeric_limits<FloatType>::quiet_NaN()
-					: x == 0 ? x
-					: y == sprout::numeric_limits<FloatType>::infinity() || y == -sprout::numeric_limits<FloatType>::infinity() ? x
-					: static_cast<FloatType>(sprout::math::detail::fmod_impl(
-						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
-						static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y)
-						))
-					;
-			}
-
-			template<
-				typename ArithmeticType1,
-				typename ArithmeticType2,
-				typename sprout::enabler_if<
-					std::is_arithmetic<ArithmeticType1>::value && std::is_arithmetic<ArithmeticType2>::value
-				>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type
-			fmod(ArithmeticType1 x, ArithmeticType2 y) {
-				typedef typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type type;
-				return sprout::math::detail::fmod(static_cast<type>(x), static_cast<type>(y));
-			}
 		}	// namespace detail
+		//
+		// fmod
 		//
 		// issue:
 		//	fmod(-NaN, -NaN) returns -NaN .
 		//		# returns +NaN . ( same as fmod(+NaN, +NaN) )
 		//
-		using sprout::math::detail::fmod;
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		fmod(FloatType x, FloatType y) {
+			return sprout::math::isnan(y)
+					? sprout::math::isnan(x)
+						? sprout::math::signbit(y) || sprout::math::signbit(x) ? -sprout::numeric_limits<FloatType>::quiet_NaN()
+							: sprout::numeric_limits<FloatType>::quiet_NaN()
+						: y
+				: sprout::math::isnan(x) ? x
+				: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity() || y == 0
+					? -sprout::numeric_limits<FloatType>::quiet_NaN()
+				: x == 0 ? x
+				: y == sprout::numeric_limits<FloatType>::infinity() || y == -sprout::numeric_limits<FloatType>::infinity() ? x
+				: static_cast<FloatType>(sprout::math::detail::fmod_impl(
+					static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x),
+					static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(y)
+					))
+				;
+		}
+
+		template<
+			typename ArithmeticType1,
+			typename ArithmeticType2,
+			typename sprout::enabler_if<
+				std::is_arithmetic<ArithmeticType1>::value && std::is_arithmetic<ArithmeticType2>::value
+			>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type
+		fmod(ArithmeticType1 x, ArithmeticType2 y) {
+			typedef typename sprout::float_promote<ArithmeticType1, ArithmeticType2>::type type;
+			return sprout::math::fmod(static_cast<type>(x), static_cast<type>(y));
+		}
 	}	// namespace math
 
 	using sprout::math::fmod;

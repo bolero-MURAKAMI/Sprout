@@ -26,31 +26,31 @@ namespace sprout {
 			exp10_impl(T x) {
 				return sprout::math::exp(x * sprout::math::ln_ten<T>());
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			exp10(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(0)
-					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
-					: x == 0 ? FloatType(1)
-					: static_cast<FloatType>(sprout::math::detail::exp10_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			exp10(IntType x) {
-				return sprout::math::detail::exp10(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::exp10;
+		//
+		// exp10
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		exp10(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == -sprout::numeric_limits<FloatType>::infinity() ? FloatType(0)
+				: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+				: x == 0 ? FloatType(1)
+				: static_cast<FloatType>(sprout::math::detail::exp10_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		exp10(IntType x) {
+			return sprout::math::exp10(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::exp10;

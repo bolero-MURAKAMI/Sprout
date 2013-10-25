@@ -40,11 +40,12 @@
 #include <sprout/algorithm/reverse_copy.hpp>
 #include <sprout/algorithm/rotate.hpp>
 #include <sprout/algorithm/rotate_copy.hpp>
+#include <sprout/algorithm/random_shuffle.hpp>
 #include <sprout/algorithm/shuffle.hpp>
 #include <sprout/algorithm/shuffle_result.hpp>
 #include <sprout/algorithm/partition.hpp>
-#include <sprout/algorithm/partition_copy.hpp>
 #include <sprout/algorithm/stable_partition.hpp>
+#include <sprout/algorithm/partition_copy.hpp>
 #include <sprout/algorithm/stable_partition_copy.hpp>
 #include <sprout/algorithm/sort.hpp>
 #include <sprout/algorithm/stable_sort.hpp>

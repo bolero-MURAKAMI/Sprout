@@ -20,35 +20,52 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR long long
-			llround(FloatType x) {
-				return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<long long>::min()
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::llround(x)
-#else
-					: sprout::math::iround<long long>(x);
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
 			inline SPROUT_CONSTEXPR long long
-			llround(IntType x) {
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-				return std::llround(x);
-#else
-				return sprout::math::iround<long long>(x);
-#endif
+			builtin_llround(float x) {
+				return __builtin_llroundf(x);
 			}
+			inline SPROUT_CONSTEXPR long long
+			builtin_llround(double x) {
+				return __builtin_llround(x);
+			}
+			inline SPROUT_CONSTEXPR long long
+			builtin_llround(long double x) {
+				return __builtin_llroundl(x);
+			}
+#endif
 		}	// namespace detail
-
-		using sprout::math::detail::llround;
+		//
+		// llround
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR long long
+		llround(FloatType x) {
+			return sprout::math::isnan(x) || sprout::math::isinf(x) ? sprout::numeric_limits<long long>::min()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_llround(x)
+#else
+				: sprout::math::iround<long long>(x);
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR long long
+		llround(IntType x) {
+			return
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				sprout::math::detail::builtin_llround(x)
+#else
+				sprout::math::iround<long long>(x)
+#endif
+				;
+		}
 	}	// namespace math
 
 	using sprout::math::llround;

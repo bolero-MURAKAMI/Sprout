@@ -32,26 +32,26 @@ namespace sprout {
 					: type(sprout::math::copysign(x - ipart, x), ipart)
 					;
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR sprout::pair<FloatType, FloatType>
-			frac_int(FloatType x) {
-				return sprout::math::detail::frac_int_impl(x, sprout::integer_part(x));
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR sprout::pair<double, double>
-			frac_int(IntType x) {
-				return sprout::math::detail::frac_int(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::frac_int;
+		//
+		// frac_int
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR sprout::pair<FloatType, FloatType>
+		frac_int(FloatType x) {
+			return sprout::math::detail::frac_int_impl(x, sprout::integer_part(x));
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR sprout::pair<double, double>
+		frac_int(IntType x) {
+			return sprout::math::frac_int(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::frac_int;

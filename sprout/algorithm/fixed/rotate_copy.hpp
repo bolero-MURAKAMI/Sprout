@@ -17,6 +17,8 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/joint_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -178,7 +180,20 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::rotate_copy;
+	template<
+		typename ForwardIterator, typename Result,
+		typename sprout::enabler_if<!sprout::is_output_iterator<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	rotate_copy(ForwardIterator first, ForwardIterator middle, ForwardIterator last, Result const& result) {
+		return sprout::fixed::rotate_copy(first, middle, last, result);
+	}
+
+	template<typename Result, typename ForwardIterator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	rotate_copy(ForwardIterator first, ForwardIterator middle, ForwardIterator last) {
+		return sprout::fixed::rotate_copy<Result>(first, middle, last);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_ROTATE_COPY_HPP

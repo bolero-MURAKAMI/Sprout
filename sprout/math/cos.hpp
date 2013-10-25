@@ -27,6 +27,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_cos(float x) {
+				return __builtin_cosf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_cos(double x) {
+				return __builtin_cos(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_cos(long double x) {
+				return __builtin_cosl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			cos_impl_1(T x2, std::size_t n, std::size_t last) {
@@ -70,35 +85,35 @@ namespace sprout {
 //			cos_impl(T x) {
 //				return sprout::math::detail::cos_impl_1(sprout::math::fmod(sprout::math::fabs(x), sprout::math::two_pi<T>()));
 //			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			cos(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
-						? -sprout::numeric_limits<FloatType>::quiet_NaN()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::cos(x)
-#else
-					: x == 0 ? FloatType(1)
-					: static_cast<FloatType>(sprout::math::detail::cos_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			cos(IntType x) {
-				return sprout::math::detail::cos(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::cos;
+		//
+		// cos
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		cos(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+					? -sprout::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_cos(x)
+#else
+				: x == 0 ? FloatType(1)
+				: static_cast<FloatType>(sprout::math::detail::cos_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		cos(IntType x) {
+			return sprout::math::cos(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::cos;

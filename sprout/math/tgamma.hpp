@@ -26,6 +26,21 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_tgamma(float x) {
+				return __builtin_tgammaf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_tgamma(double x) {
+				return __builtin_tgamma(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_tgamma(long double x) {
+				return __builtin_tgammal(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			tgamma_impl_y(T w) {
@@ -107,42 +122,42 @@ namespace sprout {
 						)
 					);
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			tgamma(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == 0 ? sprout::math::copysign(sprout::numeric_limits<FloatType>::infinity(), x)
-					: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::quiet_NaN()
-					: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
-					: x < 0 && sprout::math::is_integer(x) ? sprout::numeric_limits<FloatType>::quiet_NaN()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::tgamma(x)
-#else
-					: static_cast<FloatType>(sprout::math::detail::tgamma_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
-					;
-			}
-
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			tgamma(IntType x) {
-				return sprout::math::detail::tgamma(static_cast<double>(x));
-			}
 		}	// namespace detail
+		//
+		// tgamma
 		//
 		// issue:
 		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
 		//	tgamma(-0) returns -Åá .
 		//		# returns +Åá . ( same as tgamma(+0) )
 		//
-		using sprout::math::detail::tgamma;
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		tgamma(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == 0 ? sprout::math::copysign(sprout::numeric_limits<FloatType>::infinity(), x)
+				: x == -sprout::numeric_limits<FloatType>::infinity() ? -sprout::numeric_limits<FloatType>::quiet_NaN()
+				: x == sprout::numeric_limits<FloatType>::infinity() ? sprout::numeric_limits<FloatType>::infinity()
+				: x < 0 && sprout::math::is_integer(x) ? sprout::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_tgamma(x)
+#else
+				: static_cast<FloatType>(sprout::math::detail::tgamma_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+				;
+		}
+
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		tgamma(IntType x) {
+			return sprout::math::tgamma(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::tgamma;

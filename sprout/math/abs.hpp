@@ -16,24 +16,16 @@
 
 namespace sprout {
 	namespace math {
-		namespace detail {
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			abs(FloatType x) {
-				return sprout::math::fabs(x);
-			}
-		}	// namespace detail
-
+		//
+		// abs
+		//
 		template<
 			typename FloatType,
 			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR FloatType
 		abs(FloatType x) {
-			return NS_SPROUT_MATH_DETAIL::abs(x);
+				return sprout::math::fabs(x);
 		}
 	}	// namespace math
 

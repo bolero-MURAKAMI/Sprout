@@ -9,6 +9,26 @@
 #define SPROUT_ALGORITHM_REVERSE_COPY_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
+
+namespace sprout {
+	//
+	// 25.3.10 Reverse
+	//
+	template<
+		typename BidirectionalIterator, typename OutputIterator,
+		typename sprout::enabler_if<sprout::is_output_iterator<OutputIterator>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CXX14_CONSTEXPR OutputIterator
+	reverse_copy(BidirectionalIterator first, BidirectionalIterator last, OutputIterator result) {
+		while (first != last) {
+			*result++ = *--last;
+		}
+		return result;
+	}
+}	// namespace sprout
+
 #include <sprout/algorithm/fixed/reverse_copy.hpp>
 #include <sprout/algorithm/fit/reverse_copy.hpp>
 

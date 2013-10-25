@@ -21,40 +21,55 @@
 namespace sprout {
 	namespace math {
 		namespace detail {
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+			inline SPROUT_CONSTEXPR float
+			builtin_sin(float x) {
+				return __builtin_sinf(x);
+			}
+			inline SPROUT_CONSTEXPR double
+			builtin_sin(double x) {
+				return __builtin_sin(x);
+			}
+			inline SPROUT_CONSTEXPR long double
+			builtin_sin(long double x) {
+				return __builtin_sinl(x);
+			}
+#endif
+
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			sin_impl(T x) {
 				return -sprout::math::cos(x + sprout::math::half_pi<T>());
 			}
-
-			template<
-				typename FloatType,
-				typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR FloatType
-			sin(FloatType x) {
-				return sprout::math::isnan(x) ? x
-					: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
-						? -sprout::numeric_limits<FloatType>::quiet_NaN()
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
-					: std::sin(x)
-#else
-					: x == 0 ? x
-					: static_cast<FloatType>(sprout::math::detail::sin_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
-#endif
-					;
-			}
-			template<
-				typename IntType,
-				typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
-			>
-			inline SPROUT_CONSTEXPR double
-			sin(IntType x) {
-				return sprout::math::detail::sin(static_cast<double>(x));
-			}
 		}	// namespace detail
-
-		using sprout::math::detail::sin;
+		//
+		// sin
+		//
+		template<
+			typename FloatType,
+			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR FloatType
+		sin(FloatType x) {
+			return sprout::math::isnan(x) ? x
+				: x == sprout::numeric_limits<FloatType>::infinity() || x == -sprout::numeric_limits<FloatType>::infinity()
+					? -sprout::numeric_limits<FloatType>::quiet_NaN()
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+				: sprout::math::detail::builtin_sin(x)
+#else
+				: x == 0 ? x
+				: static_cast<FloatType>(sprout::math::detail::sin_impl(static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x)))
+#endif
+				;
+		}
+		template<
+			typename IntType,
+			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
+		>
+		inline SPROUT_CONSTEXPR double
+		sin(IntType x) {
+			return sprout::math::sin(static_cast<double>(x));
+		}
 	}	// namespace math
 
 	using sprout::math::sin;

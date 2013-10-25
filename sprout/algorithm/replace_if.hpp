@@ -14,9 +14,9 @@ namespace sprout {
 	//
 	// 25.3.5 Replace
 	//
-	template<typename ForwrdIterator, typename Predicate, typename T>
+	template<typename ForwardIterator, typename Predicate, typename T>
 	inline SPROUT_CXX14_CONSTEXPR void
-	replace_if(ForwrdIterator first, ForwrdIterator last, Predicate pred, T const& new_value) {
+	replace_if(ForwardIterator first, ForwardIterator last, Predicate pred, T const& new_value) {
 		for (; first != last; ++first) {
 			if (pred(*first)) {
 				*first = new_value;
