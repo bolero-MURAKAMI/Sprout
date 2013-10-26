@@ -8,25 +8,15 @@
 #ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_MINUS_HPP
 #define SPROUT_FUNCTIONAL_POLYMORPHIC_MINUS_HPP
 
-#include <utility>
 #include <sprout/config.hpp>
-#include <sprout/utility/forward.hpp>
+#include <sprout/functional/minus.hpp>
 
 namespace sprout {
 	//
 	// minus_t
 	// minus_
 	//
-	struct minus_t {
-	public:
-		template<typename T, typename U>
-		SPROUT_CONSTEXPR decltype(std::declval<T>() - std::declval<U>())
-		operator()(T&& x, U&& y)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<T>() - std::declval<U>()))
-		{
-			return sprout::forward<T>(x) - sprout::forward<U>(y);
-		}
-	};
+	typedef sprout::minus<> minus_t;
 	namespace {
 		SPROUT_STATIC_CONSTEXPR sprout::minus_t minus_ = {};
 	}	// anonymous-namespace

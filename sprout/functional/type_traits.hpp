@@ -13,5 +13,6 @@
 #include <sprout/functional/type_traits/inherit_if_type.hpp>
 #include <sprout/functional/type_traits/is_strict_function.hpp>
 #include <sprout/functional/type_traits/weak_result_type.hpp>
+#include <sprout/functional/type_traits/is_transparent_function.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_TYPE_TRAITS_HPP

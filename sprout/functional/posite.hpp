@@ -30,6 +30,8 @@ namespace sprout {
 	template<>
 	struct posite<void> {
 	public:
+		typedef void is_transparent;
+	public:
 		template<typename T>
 		SPROUT_CONSTEXPR decltype(+std::declval<T>())
 		operator()(T&& x)

@@ -29,6 +29,8 @@ namespace sprout {
 	template<>
 	struct bit_or<void> {
 	public:
+		typedef void is_transparent;
+	public:
 		template<typename T, typename U>
 		SPROUT_CONSTEXPR decltype(std::declval<T>() | std::declval<U>())
 		operator()(T&& x, U&& y)
