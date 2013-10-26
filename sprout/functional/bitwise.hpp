@@ -13,5 +13,7 @@
 #include <sprout/functional/bit_or.hpp>
 #include <sprout/functional/bit_xor.hpp>
 #include <sprout/functional/bit_not.hpp>
+#include <sprout/functional/shift_left.hpp>
+#include <sprout/functional/shift_right.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_BITWISE_HPP

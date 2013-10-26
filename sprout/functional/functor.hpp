@@ -13,6 +13,11 @@
 #include <sprout/functional/comparison.hpp>
 #include <sprout/functional/logical.hpp>
 #include <sprout/functional/bitwise.hpp>
+#include <sprout/functional/inc_dec.hpp>
+#include <sprout/functional/reference.hpp>
+#include <sprout/functional/assignment.hpp>
+#include <sprout/functional/members.hpp>
+#include <sprout/functional/various.hpp>
 #include <sprout/functional/binder.hpp>
 #include <sprout/functional/negator.hpp>
 #include <sprout/functional/equiv.hpp>

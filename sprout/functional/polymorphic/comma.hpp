@@ -8,25 +8,15 @@
 #ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_COMMA_HPP
 #define SPROUT_FUNCTIONAL_POLYMORPHIC_COMMA_HPP
 
-#include <utility>
 #include <sprout/config.hpp>
-#include <sprout/utility/forward.hpp>
+#include <sprout/functional/comma.hpp>
 
 namespace sprout {
 	//
 	// comma_t
 	// comma_
 	//
-	struct comma_t {
-	public:
-		template<typename T, typename U>
-		SPROUT_CONSTEXPR decltype(std::declval<T>(), std::declval<U>())
-		operator()(T&& x, U&& y)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR((std::declval<T>(), std::declval<U>())))
-		{
-			return sprout::forward<T>(x), sprout::forward<U>(y);
-		}
-	};
+	typedef sprout::comma<> comma_t;
 	namespace {
 		SPROUT_STATIC_CONSTEXPR sprout::comma_t comma_ = {};
 	}	// anonymous-namespace

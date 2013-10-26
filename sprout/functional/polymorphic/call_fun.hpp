@@ -8,25 +8,15 @@
 #ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_CALL_FUN_HPP
 #define SPROUT_FUNCTIONAL_POLYMORPHIC_CALL_FUN_HPP
 
-#include <utility>
 #include <sprout/config.hpp>
-#include <sprout/utility/forward.hpp>
+#include <sprout/functional/call_fun.hpp>
 
 namespace sprout {
 	//
 	// call_fun_t
 	// call_fun_
 	//
-	struct call_fun_t {
-	public:
-		template<typename F, typename... As>
-		SPROUT_CONSTEXPR decltype(std::declval<F>()(std::declval<As>()...))
-		operator()(F&& f, As&&... as)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<F>()(std::declval<As>()...)))
-		{
-			return sprout::forward<F>(f)(sprout::forward<As>(as)...);
-		}
-	};
+	typedef sprout::call_fun<> call_fun_t;
 	namespace {
 		SPROUT_STATIC_CONSTEXPR sprout::call_fun_t call_fun_ = {};
 	}	// anonymous-namespace

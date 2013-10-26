@@ -9,6 +9,7 @@
 #define SPROUT_FUNCTIONAL_POLYMORPHIC_ASSIGNMENT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/functional/polymorphic/assign.hpp>
 #include <sprout/functional/polymorphic/plus_assign.hpp>
 #include <sprout/functional/polymorphic/minus_assign.hpp>
 #include <sprout/functional/polymorphic/multiplies_assign.hpp>

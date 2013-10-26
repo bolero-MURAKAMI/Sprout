@@ -13,7 +13,7 @@
 
 namespace sprout {
 	//
-	// is_transparent
+	// is_transparent_function
 	//
 	SPROUT_HAS_XXX_TYPE_DEF(is_transparent_function, is_transparent);
 }	// namespace sprout

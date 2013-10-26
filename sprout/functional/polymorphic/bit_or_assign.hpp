@@ -8,25 +8,15 @@
 #ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_BIT_OR_ASSIGN_HPP
 #define SPROUT_FUNCTIONAL_POLYMORPHIC_BIT_OR_ASSIGN_HPP
 
-#include <utility>
 #include <sprout/config.hpp>
-#include <sprout/utility/forward.hpp>
+#include <sprout/functional/bit_or_assign.hpp>
 
 namespace sprout {
 	//
 	// bit_or_assign_t
 	// bit_or_assign_
 	//
-	struct bit_or_assign_t {
-	public:
-		template<typename T, typename U>
-		SPROUT_CONSTEXPR decltype(std::declval<T>() |= std::declval<U>())
-		operator()(T&& x, U&& y)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<T>() |= std::declval<U>()))
-		{
-			return sprout::forward<T>(x) |= sprout::forward<U>(y);
-		}
-	};
+	typedef sprout::bit_or_assign<> bit_or_assign_t;
 	namespace {
 		SPROUT_STATIC_CONSTEXPR sprout::bit_or_assign_t bit_or_assign_ = {};
 	}	// anonymous-namespace
