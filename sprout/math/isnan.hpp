@@ -46,7 +46,7 @@ namespace sprout {
 			typename sprout::enabler_if<std::is_integral<IntType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR bool
-		isnan(IntType x) {
+		isnan(IntType) {
 			return false;
 		}
 	}	// namespace math
