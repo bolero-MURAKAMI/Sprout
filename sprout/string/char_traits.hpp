@@ -17,6 +17,9 @@
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/algorithm/find_if.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
+#include <sprout/algorithm/copy.hpp>
+#include <sprout/algorithm/copy_backward.hpp>
+#include <sprout/algorithm/fill.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/cstring/strlen.hpp>
 
@@ -71,8 +74,8 @@ namespace sprout {
 				;
 		}
 	public:
-		static void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT {
-			impl_type::assign(c1, c2);
+		static SPROUT_CXX14_CONSTEXPR void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT {
+			c1 = c2;
 		}
 #ifdef SPROUT_NO_CXX11_CHAR_TRAITS
 		static SPROUT_CONSTEXPR bool eq(char_type c1, char_type c2) SPROUT_NOEXCEPT {
@@ -110,14 +113,17 @@ namespace sprout {
 				s + n
 				);
 		}
-		static char_type* move(char_type* s1, char_type const* s2, std::size_t n) {
-			return impl_type::move(s1, s2, n);
+		static SPROUT_CXX14_CONSTEXPR char_type* move(char_type* s1, char_type const* s2, std::size_t n) {
+			sprout::copy_backward(s2, s2 + n, s1);
+			return s1;
 		}
-		static char_type* copy(char_type* s1, char_type const* s2, std::size_t n) {
-			return impl_type::copy(s1, s2, n);
+		static SPROUT_CXX14_CONSTEXPR char_type* copy(char_type* s1, char_type const* s2, std::size_t n) {
+			sprout::copy(s2, s2 + n, s1);
+			return s1;
 		}
-		static char_type* assign(char_type* s, std::size_t n, char_type a) {
-			return impl_type::assign(s, n, a);
+		static SPROUT_CXX14_CONSTEXPR char_type* assign(char_type* s, std::size_t n, char_type a) {
+			sprout::fill(s, s + n, a);
+			return s;
 		}
 #ifdef SPROUT_NO_CXX11_CHAR_TRAITS
 		static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT {
@@ -193,18 +199,18 @@ namespace sprout {
 				);
 		}
 		template<typename OutputIterator, typename ConstInputIterator>
-		static OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
-			std::copy_backward(s2, s2 + n, s1);
+		static SPROUT_CXX14_CONSTEXPR OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
+			sprout::copy_backward(s2, s2 + n, s1);
 			return s1;
 		}
 		template<typename OutputIterator, typename ConstInputIterator>
-		static OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
-			std::copy(s2, s2 + n, s1);
+		static SPROUT_CXX14_CONSTEXPR OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
+			sprout::copy(s2, s2 + n, s1);
 			return s1;
 		}
 		template<typename OutputIterator>
-		static OutputIterator assign(OutputIterator s, std::size_t n, char_type a) {
-			std::fill(s, s + n, a);
+		static SPROUT_CXX14_CONSTEXPR OutputIterator assign(OutputIterator s, std::size_t n, char_type a) {
+			sprout::fill(s, s + n, a);
 			return s;
 		}
 #endif

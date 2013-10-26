@@ -25,6 +25,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/algorithm/find.hpp>
+#include <sprout/algorithm/swap_ranges.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/type_traits/identity.hpp>
@@ -281,14 +282,12 @@ namespace sprout {
 				sprout::detail::string_raw_construct_t(), n, sprout::forward<Args>(args)...
 				)
 		{}
-		void
-		maxcheck(size_type n) const {
+		SPROUT_CXX14_CONSTEXPR void maxcheck(size_type n) const {
 			if (n > static_size) {
 				throw std::out_of_range("basic_string<>: index out of range");
 			}
 		}
-		void
-		lengthcheck(size_type n) const {
+		SPROUT_CXX14_CONSTEXPR void lengthcheck(size_type n) const {
 			if (n > static_size) {
 				throw std::length_error("basic_string<>: length error");
 			}
@@ -371,26 +370,26 @@ namespace sprout {
 				)
 		{}
 
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		operator=(basic_string const& rhs) {
 			return assign(rhs);
 		}
 		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 != N)>::type>
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		operator=(basic_string<T, N2, Traits> const& rhs) {
 			return assign(rhs);
 		}
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		operator=(value_type const* rhs) {
 			return assign(rhs);
 		}
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		operator=(value_type rhs) {
 			return assign(1, rhs);
 		}
 		// iterators:
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		iterator
+		SPROUT_CXX14_CONSTEXPR iterator
 		begin() SPROUT_NOEXCEPT {
 			return iterator(*this, 0);
 		}
@@ -398,7 +397,7 @@ namespace sprout {
 		begin() const SPROUT_NOEXCEPT {
 			return const_iterator(*this, 0);
 		}
-		iterator
+		SPROUT_CXX14_CONSTEXPR iterator
 		end() SPROUT_NOEXCEPT {
 			return iterator(*this, size());
 		}
@@ -407,7 +406,7 @@ namespace sprout {
 			return const_iterator(*this, size());
 		}
 #else
-		iterator
+		SPROUT_CXX14_CONSTEXPR iterator
 		begin() SPROUT_NOEXCEPT {
 			return data();
 		}
@@ -415,8 +414,8 @@ namespace sprout {
 		begin() const SPROUT_NOEXCEPT {
 			return data();
 		}
-		iterator end()
-		SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR iterator
+		end() SPROUT_NOEXCEPT {
 			return data() + size();
 		}
 		SPROUT_CONSTEXPR const_iterator
@@ -424,7 +423,7 @@ namespace sprout {
 			return data() + size();
 		}
 #endif
-		reverse_iterator
+		SPROUT_CXX14_CONSTEXPR reverse_iterator
 		rbegin() SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
@@ -432,7 +431,7 @@ namespace sprout {
 		rbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
-		reverse_iterator
+		SPROUT_CXX14_CONSTEXPR reverse_iterator
 		rend() SPROUT_NOEXCEPT {
 			return const_reverse_iterator(begin());
 		}
@@ -480,7 +479,7 @@ namespace sprout {
 		max_size() const SPROUT_NOEXCEPT {
 			return static_size;
 		}
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		resize(size_type n, value_type c) {
 			lengthcheck(n);
 			if (n > size()) {
@@ -489,11 +488,11 @@ namespace sprout {
 			traits_type::assign(begin() + n, static_size - n, value_type());
 			len = n;
 		}
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		resize(size_type n) {
 			resize(n, value_type());
 		}
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		clear() SPROUT_NOEXCEPT {
 			traits_type::assign(begin(), static_size, value_type());
 			len = 0;
@@ -503,7 +502,7 @@ namespace sprout {
 			return size() == 0;
 		}
 		// element access:
-		reference
+		SPROUT_CXX14_CONSTEXPR reference
 		operator[](size_type i) {
 			return elems[i];
 		}
@@ -511,7 +510,7 @@ namespace sprout {
 		operator[](size_type i) const {
 			return elems[i];
 		}
-		reference
+		SPROUT_CXX14_CONSTEXPR reference
 		at(size_type i) {
 			return i < size() ? elems[i]
 				: (throw std::out_of_range("basic_string<>: index out of range"), elems[i])
@@ -523,7 +522,7 @@ namespace sprout {
 				: (throw std::out_of_range("basic_string<>: index out of range"), elems[i])
 				;
 		}
-		reference
+		SPROUT_CXX14_CONSTEXPR reference
 		front() {
 			return elems[0];
 		}
@@ -531,7 +530,7 @@ namespace sprout {
 		front() const {
 			return elems[0];
 		}
-		reference
+		SPROUT_CXX14_CONSTEXPR reference
 		back() {
 			return elems[size() - 1];
 		}
@@ -541,19 +540,19 @@ namespace sprout {
 		}
 		// modifiers:
 		template<std::size_t N2>
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		assign(basic_string<T, N2, Traits> const& str) {
 			return assign(str, 0, npos);
 		}
 		template<std::size_t N2>
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		assign(basic_string<T, N2, Traits> const& str, size_type pos, size_type n) {
 			if (str.size() < pos) {
 				throw std::out_of_range("basic_string<>: index out of range");
 			}
 			return assign(str.begin() + pos, NS_SSCRISK_CEL_OR_SPROUT::min(n, str.size() - pos));
 		}
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		assign(value_type const* s, size_type n) {
 			lengthcheck(n);
 			for (size_type i = 0; i < n; ++i) {
@@ -565,11 +564,11 @@ namespace sprout {
 			len = n;
 			return *this;
 		}
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		assign(value_type const* s) {
 			return assign(s, traits_type::length(s));
 		}
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		assign(size_type n, value_type c) {
 			maxcheck(n);
 			traits_type::assign(begin(), n, c);
@@ -578,7 +577,7 @@ namespace sprout {
 			return *this;
 		}
 		template<typename InputIterator>
-		basic_string&
+		SPROUT_CXX14_CONSTEXPR basic_string&
 		assign(InputIterator first, InputIterator last) {
 			size_type n = 0;
 			for (; n < static_size || first != last; ++n, ++first) {
@@ -590,11 +589,11 @@ namespace sprout {
 			len = n;
 			return *this;
 		}
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		swap(basic_string& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())))
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(std::declval<T&>(), std::declval<T&>())))
 		{
-			std::swap_ranges(other.begin(), other.begin() + other.max_size(), begin());
+			sprout::swap_ranges(other.begin(), other.begin() + other.max_size(), begin());
 			sprout::swap(len, other.len);
 		}
 		// string operations:
@@ -602,7 +601,7 @@ namespace sprout {
 		c_str() const SPROUT_NOEXCEPT {
 			return data();
 		}
-		pointer
+		SPROUT_CXX14_CONSTEXPR pointer
 		data() SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
@@ -610,7 +609,7 @@ namespace sprout {
 		data() const SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
-		pointer
+		SPROUT_CXX14_CONSTEXPR pointer
 		c_array() SPROUT_NOEXCEPT {
 			return &elems[0];
 		}
@@ -765,7 +764,7 @@ namespace sprout {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
 		}
 
-		void
+		SPROUT_CXX14_CONSTEXPR void
 		rangecheck(size_type i) const {
 			if (i >= size()) {
 				throw std::out_of_range("basic_string<>: index out of range");
@@ -775,7 +774,7 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		// construct/copy/destroy (for string iterator):
 		template<typename StringConstIterator>
-		typename std::enable_if<
+		SPROUT_CXX14_CONSTEXPR typename std::enable_if<
 			is_string_iterator<StringConstIterator>::value,
 			basic_string&
 		>::type
@@ -785,7 +784,7 @@ namespace sprout {
 
 		// modifiers (for string iterator):
 		template<typename StringConstIterator>
-		typename std::enable_if<
+		SPROUT_CXX14_CONSTEXPR typename std::enable_if<
 			is_string_iterator<StringConstIterator>::value,
 			basic_string&
 		>::type
@@ -801,7 +800,7 @@ namespace sprout {
 			return *this;
 		}
 		template<typename StringConstIterator>
-		typename std::enable_if<
+		SPROUT_CXX14_CONSTEXPR typename std::enable_if<
 			is_string_iterator<StringConstIterator>::value,
 			basic_string&
 		>::type
@@ -944,7 +943,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T, std::size_t N, typename Traits>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::basic_string<T, N, Traits>& lhs, sprout::basic_string<T, N, Traits>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
