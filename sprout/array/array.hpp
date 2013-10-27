@@ -9,7 +9,6 @@
 #define SPROUT_ARRAY_ARRAY_HPP
 
 #include <cstddef>
-#include <algorithm>
 #include <utility>
 #include <stdexcept>
 #include <sprout/config.hpp>

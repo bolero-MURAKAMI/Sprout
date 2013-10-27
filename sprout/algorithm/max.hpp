@@ -19,31 +19,17 @@
 namespace sprout {
 
 	// 25.4.7 Minimum and maximum
-#ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
 	template<typename T, typename Compare>
-	inline SPROUT_CONSTEXPR T
+	inline SPROUT_INITIALIZER_LIST_CONSTEXPR T
 	max(std::initializer_list<T> t, Compare comp) {
 		return *sprout::max_element(sprout::ptr_index(t.begin(), 0), sprout::ptr_index(t.begin(), t.size()), comp);
 	}
 
 	template<typename T>
-	inline SPROUT_CONSTEXPR T
+	inline SPROUT_INITIALIZER_LIST_CONSTEXPR T
 	max(std::initializer_list<T> t) {
 		return sprout::max(t, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
 	}
-#else	// #ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
-	template<typename T, typename Compare>
-	inline T
-	max(std::initializer_list<T> t, Compare comp) {
-		return *sprout::max_element(sprout::ptr_index(t.begin(), 0), sprout::ptr_index(t.begin(), t.size()), comp);
-	}
-
-	template<typename T>
-	inline T
-	max(std::initializer_list<T> t) {
-		return sprout::max(t, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
-	}
-#endif	// #ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_MAX_HPP

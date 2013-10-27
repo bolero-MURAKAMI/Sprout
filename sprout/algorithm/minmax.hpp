@@ -38,31 +38,17 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-#ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
 	template<typename T, typename Compare>
-	inline SPROUT_CONSTEXPR sprout::pair<T, T>
+	inline SPROUT_INITIALIZER_LIST_CONSTEXPR sprout::pair<T, T>
 	minmax(std::initializer_list<T> t, Compare comp) {
 		return sprout::detail::minmax_impl<T>(sprout::minmax_element(sprout::ptr_index(t.begin(), 0), sprout::ptr_index(t.begin(), t.size()), comp));
 	}
 
 	template<typename T>
-	inline SPROUT_CONSTEXPR sprout::pair<T, T>
+	inline SPROUT_INITIALIZER_LIST_CONSTEXPR sprout::pair<T, T>
 	minmax(std::initializer_list<T> t) {
 		return sprout::minmax(t, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
 	}
-#else	// #ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
-	template<typename T, typename Compare>
-	inline sprout::pair<T, T>
-	minmax(std::initializer_list<T> t, Compare comp) {
-		return sprout::detail::minmax_impl<T>(sprout::minmax_element(sprout::ptr_index(t.begin(), 0), sprout::ptr_index(t.begin(), t.size()), comp));
-	}
-
-	template<typename T>
-	inline sprout::pair<T, T>
-	minmax(std::initializer_list<T> t) {
-		return sprout::minmax(t, NS_SSCRISK_CEL_OR_SPROUT::less<T>());
-	}
-#endif	// #ifdef SPROUT_NO_CXX14_INITIALIZER_LIST
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_MINMAX_HPP

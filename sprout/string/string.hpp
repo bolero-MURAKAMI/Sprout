@@ -10,7 +10,6 @@
 
 #include <cstddef>
 #include <string>
-#include <algorithm>
 #include <iterator>
 #include <utility>
 #include <stdexcept>
@@ -363,7 +362,7 @@ namespace sprout {
 				typename sprout::identity<typename std::iterator_traits<InputIterator>::iterator_category*>::type()
 				)
 		{}
-		basic_string(std::initializer_list<value_type> il)
+		SPROUT_INITIALIZER_LIST_CONSTEXPR basic_string(std::initializer_list<value_type> il)
 			: impl_type(
 				sprout::make_index_tuple<N>::make(),
 				sprout::detail::string_checked_construct_t(), il.begin(), 0, il.size()
