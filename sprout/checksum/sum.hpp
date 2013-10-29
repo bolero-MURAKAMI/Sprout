@@ -49,12 +49,12 @@ namespace sprout {
 				);
 		}
 	public:
-		SPROUT_CONSTEXPR sum_basic() = default;
-		SPROUT_CONSTEXPR sum_basic(sum_basic const&) = default;
+		sum_basic() = default;
+		sum_basic(sum_basic const&) = default;
 		explicit SPROUT_CONSTEXPR sum_basic(sum_type sum)
 			: sum_(sum)
 		{}
-		void reset(sum_type new_sum = 0) {
+		SPROUT_CXX14_CONSTEXPR void reset(sum_type new_sum = 0) {
 			sum_ = new_sum;
 		}
 
@@ -74,19 +74,19 @@ namespace sprout {
 			return process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 
-		void process_byte(std::uint8_t byte) {
+		SPROUT_CXX14_CONSTEXPR void process_byte(std::uint8_t byte) {
 			sum_ += byte;
 		}
 		template<typename InputIterator>
-		void process_block(InputIterator bytes_begin, InputIterator bytes_end) {
+		SPROUT_CXX14_CONSTEXPR void process_block(InputIterator bytes_begin, InputIterator bytes_end) {
 			sum_ = calc_sum(bytes_begin, bytes_end);
 		}
 		template<typename InputIterator>
-		void process_bytes(InputIterator buffer, std::size_t byte_count) {
+		SPROUT_CXX14_CONSTEXPR void process_bytes(InputIterator buffer, std::size_t byte_count) {
 			process_block(buffer, sprout::next(buffer, byte_count));
 		}
 		template<typename InputRange>
-		void process_range(InputRange const& bytes_range) {
+		SPROUT_CXX14_CONSTEXPR void process_range(InputRange const& bytes_range) {
 			process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 

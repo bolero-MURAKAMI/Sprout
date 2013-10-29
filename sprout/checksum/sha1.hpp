@@ -379,7 +379,7 @@ namespace sprout {
 				static_cast<std::uint8_t>((h_[4]) & 0xFF)
 				}};
 		}
-		void process_block() {
+		SPROUT_CXX14_CONSTEXPR void process_block() {
 			std::uint32_t w[80];
 			for (std::size_t i = 0; i < 16; ++i) {
 				w[i] = (block_[i * 4 + 0] << 24);
@@ -424,7 +424,7 @@ namespace sprout {
 			h_[3] += d;
 			h_[4] += e;
 		}
-		void process_byte_impl(unsigned char byte) {
+		SPROUT_CXX14_CONSTEXPR void process_byte_impl(unsigned char byte) {
 			block_[block_byte_index_++] = byte;
 			if (block_byte_index_ == 64) {
 				block_byte_index_ = 0;
@@ -444,7 +444,7 @@ namespace sprout {
 			, block_byte_index_()
 			, bit_count_()
 		{}
-		void reset() {
+		SPROUT_CXX14_CONSTEXPR void reset() {
 			h_[0] = 0x67452301;
 			h_[1] = 0xEFCDAB89;
 			h_[2] = 0x98BADCFE;
@@ -478,23 +478,23 @@ namespace sprout {
 			return process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 
-		void process_byte(std::uint8_t byte) {
+		SPROUT_CXX14_CONSTEXPR void process_byte(std::uint8_t byte) {
 			process_byte_impl(byte);
 			bit_count_ += 8;
 		}
 		template<typename InputIterator>
-		void process_block(InputIterator bytes_begin, InputIterator bytes_end) {
+		SPROUT_CXX14_CONSTEXPR void process_block(InputIterator bytes_begin, InputIterator bytes_end) {
 			process_block_impl(
 				sprout::make_bytes_iterator(bytes_begin),
 				sprout::make_bytes_iterator(bytes_end)
 				);
 		}
 		template<typename InputIterator>
-		void process_bytes(InputIterator buffer, std::size_t byte_count) {
+		SPROUT_CXX14_CONSTEXPR void process_bytes(InputIterator buffer, std::size_t byte_count) {
 			process_block(buffer, sprout::next(buffer, byte_count));
 		}
 		template<typename InputRange>
-		void process_range(InputRange const& bytes_range) {
+		SPROUT_CXX14_CONSTEXPR void process_range(InputRange const& bytes_range) {
 			process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 
