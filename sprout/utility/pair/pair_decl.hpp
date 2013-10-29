@@ -40,8 +40,8 @@ namespace sprout {
 			: first()
 			, second()
 		{}
-		SPROUT_CONSTEXPR pair(pair const&) = default;
-		SPROUT_CONSTEXPR pair(pair&&) = default;
+		pair(pair const&) = default;
+		pair(pair&&) = default;
 		SPROUT_CONSTEXPR pair(T1 const& x, T2 const& y)
 			: first(x)
 			, second(y)
@@ -102,7 +102,11 @@ namespace sprout {
 		>
 		SPROUT_CONSTEXPR pair(sprout::tuples::tuple<U, V>&& other);
 
-		pair& operator=(pair const& rhs) = default;
+		SPROUT_CXX14_CONSTEXPR pair& operator=(pair const& rhs) {
+			first = rhs.first;
+			second = rhs.second;
+			return *this;
+		}
 		SPROUT_CXX14_CONSTEXPR pair& operator=(pair&& rhs)
 		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<T1>::value && std::is_nothrow_move_assignable<T2>::value)
 		{

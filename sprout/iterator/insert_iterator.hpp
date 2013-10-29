@@ -58,7 +58,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR insert_iterator(param_type x, iterator pos)
 			: base_type(x), iter(pos)
 		{}
-		SPROUT_CONSTEXPR insert_iterator(insert_iterator const&) = default;
+		insert_iterator(insert_iterator const&) = default;
 		SPROUT_CONSTEXPR iterator position() const {
 			return iter;
 		}

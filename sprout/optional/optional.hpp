@@ -90,7 +90,7 @@ namespace sprout {
 		bool init;
 		holder_type val;
 	private:
-		void destroy() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR void destroy() SPROUT_NOEXCEPT {
 			init = false;
 		}
 	public:
@@ -106,7 +106,7 @@ namespace sprout {
 			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
 #if defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 8 && __GNUC_PATCHLEVEL__ <= 1))
-		SPROUT_CONSTEXPR optional(optional&&)	= default;
+		optional(optional&&) = default;
 #else
 		SPROUT_CONSTEXPR optional(optional&& v)
 		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_constructible<T>::value)
@@ -159,15 +159,15 @@ namespace sprout {
 			, val(v.is_initialized() ? holder_type(sprout::move(optional<U>::get(v))) : holder_type())
 		{}
 		// 20.6.4.3, assignment
-		optional& operator=(sprout::nullopt_t v) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR optional& operator=(sprout::nullopt_t v) SPROUT_NOEXCEPT {
 			assign(v);
 			return *this;
 		}
-		optional& operator=(optional const& v) {
+		SPROUT_CXX14_CONSTEXPR optional& operator=(optional const& v) {
 			assign(v);
 			return *this;
 		}
-		optional& operator=(optional&& v)
+		SPROUT_CXX14_CONSTEXPR optional& operator=(optional&& v)
 		SPROUT_NOEXCEPT_EXPR(std::is_move_constructible<T>::value && std::is_move_assignable<T>::value)
 		{
 			assign(sprout::forward<optional>(v));
@@ -178,17 +178,17 @@ namespace sprout {
 //			typename = typename std::enable_if<std::is_constructible<T, U>::value && std::is_assignable<U, T>::value>::type
 			typename = typename std::enable_if<std::is_constructible<T, U&&>::value>::type
 		>
-		optional& operator=(U&& v) {
+		SPROUT_CXX14_CONSTEXPR optional& operator=(U&& v) {
 			assign(sprout::forward<U>(v));
 			return *this;
 		}
 		template<typename U>
-		optional& operator=(optional<U> const& v) {
+		SPROUT_CXX14_CONSTEXPR optional& operator=(optional<U> const& v) {
 			assign(v);
 			return *this;
 		}
 		template<typename U>
-		optional& operator=(optional<U>&& v) {
+		SPROUT_CXX14_CONSTEXPR optional& operator=(optional<U>&& v) {
 			assign(sprout::forward<optional<U> >(v));
 			return *this;
 		}
@@ -197,7 +197,7 @@ namespace sprout {
 			typename... Args,
 			typename = typename std::enable_if<is_constructible_args<Args...>::value>::type
 		>
-		void emplace(Args&&... args) {
+		SPROUT_CXX14_CONSTEXPR void emplace(Args&&... args) {
 			optional temp(sprout::in_place, sprout::forward<Args>(args)...);
 			temp.swap(*this);
 		}
@@ -205,19 +205,19 @@ namespace sprout {
 			typename U, typename... Args,
 			typename = typename std::enable_if<is_constructible_args<std::initializer_list<U>&, Args...>::value>::type
 		>
-		void emplace(std::initializer_list<U> il, Args&&... args) {
+		SPROUT_CXX14_CONSTEXPR void emplace(std::initializer_list<U> il, Args&&... args) {
 			optional temp(sprout::in_place, il, sprout::forward<Args>(args)...);
 			temp.swap(*this);
 		}
 
-		void assign(sprout::nullopt_t) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR void assign(sprout::nullopt_t) SPROUT_NOEXCEPT {
 			destroy();
 		}
 		void assign(optional const& v) {
 			optional temp(v);
 			temp.swap(*this);
 		}
-		void assign(optional&& v)
+		SPROUT_CXX14_CONSTEXPR void assign(optional&& v)
 		SPROUT_NOEXCEPT_EXPR(std::is_move_constructible<T>::value && std::is_move_assignable<T>::value)
 		{
 			optional temp(sprout::forward<optional>(v));
@@ -228,25 +228,25 @@ namespace sprout {
 //			typename = typename std::enable_if<std::is_constructible<T, U>::value && std::is_assignable<U, T>::value>::type
 			typename = typename std::enable_if<std::is_constructible<T, U&&>::value>::type
 		>
-		void assign(U&& v) {
+		SPROUT_CXX14_CONSTEXPR void assign(U&& v) {
 			optional temp(sprout::forward<U>(v));
 			temp.swap(*this);
 		}
 		template<typename U>
-		void assign(optional<U> const& v) {
+		SPROUT_CXX14_CONSTEXPR void assign(optional<U> const& v) {
 			optional temp(v);
 			temp.swap(*this);
 		}
 		template<typename U>
-		void assign(optional<U>&& v) {
+		SPROUT_CXX14_CONSTEXPR void assign(optional<U>&& v) {
 			optional temp(sprout::forward<optional<U> >(v));
 			temp.swap(*this);
 		}
 
-		void reset() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR void reset() SPROUT_NOEXCEPT {
 			destroy();
 		}
-		void reset(sprout::nullopt_t v) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR void reset(sprout::nullopt_t v) SPROUT_NOEXCEPT {
 			assign(v);
 		}
 		template<
@@ -254,11 +254,11 @@ namespace sprout {
 //			typename = typename std::enable_if<std::is_constructible<T, U>::value && std::is_assignable<U, T>::value>::type
 			typename = typename std::enable_if<std::is_constructible<T, U&&>::value>::type
 		>
-		void reset(U&& v) {
+		SPROUT_CXX14_CONSTEXPR void reset(U&& v) {
 			assign(sprout::forward<U>(v));
 		}
 		// 20.6.4.4, swap
-		void swap(optional& other)
+		SPROUT_CXX14_CONSTEXPR void swap(optional& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(val, other.val)))
 		{
 			sprout::swap(init, other.init);
@@ -270,7 +270,7 @@ namespace sprout {
 				val.get_pointer()
 				;
 		}
-		pointer_type operator->() {
+		SPROUT_CXX14_CONSTEXPR pointer_type operator->() {
 			return SPROUT_ASSERT(is_initialized()),
 				val.get_pointer()
 				;
@@ -280,7 +280,7 @@ namespace sprout {
 				: 0
 				;
 		}
-		pointer_type get_pointer() {
+		SPROUT_CXX14_CONSTEXPR pointer_type get_pointer() {
 			return is_initialized() ? val.get_pointer()
 				: 0
 				;
@@ -288,7 +288,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR pointer_const_type get_ptr() const {
 			return get_pointer();
 		}
-		pointer_type get_ptr() {
+		SPROUT_CXX14_CONSTEXPR pointer_type get_ptr() {
 			return get_pointer();
 		}
 
@@ -297,7 +297,7 @@ namespace sprout {
 				: val.get()
 				;
 		}
-		reference_type operator*() {
+		SPROUT_CXX14_CONSTEXPR reference_type operator*() {
 			return (SPROUT_ASSERT(is_initialized()), true) ? val.get()
 				: val.get()
 				;
@@ -305,7 +305,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference_const_type value() const {
 			return get();
 		}
-		reference_type value() {
+		SPROUT_CXX14_CONSTEXPR reference_type value() {
 			return get();
 		}
 		SPROUT_CONSTEXPR reference_const_type get() const {
@@ -313,7 +313,7 @@ namespace sprout {
 				: (throw sprout::bad_optional_access("optional<>: bad optional access"), val.get())
 				;
 		}
-		reference_type get() {
+		SPROUT_CXX14_CONSTEXPR reference_type get() {
 			return is_initialized() ? val.get()
 				: (throw sprout::bad_optional_access("optional<>: bad optional access"), val.get())
 				;
@@ -322,7 +322,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference_const_type value_or(reference_const_type& v) const {
 			return get_value_or(v);
 		}
-		reference_type value_or(reference_type& v) {
+		SPROUT_CXX14_CONSTEXPR reference_type value_or(reference_type& v) {
 			return get_value_or(v);
 		}
 		SPROUT_CONSTEXPR reference_const_type get_value_or(reference_const_type& v) const {
@@ -330,7 +330,7 @@ namespace sprout {
 				: v
 				;
 		}
-		reference_type get_value_or(reference_type& v) {
+		SPROUT_CXX14_CONSTEXPR reference_type get_value_or(reference_type& v) {
 			return is_initialized() ? val.get()
 				: v
 				;
@@ -351,7 +351,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::optional<T>& lhs, sprout::optional<T>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

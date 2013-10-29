@@ -115,8 +115,8 @@ namespace sprout {
 				tuple_impl() = default;
 				template<typename... UTypes>
 				explicit SPROUT_CONSTEXPR tuple_impl(UTypes&&...) SPROUT_NOEXCEPT {}
-				SPROUT_CONSTEXPR tuple_impl(tuple_impl const&) = default;
-				SPROUT_CONSTEXPR tuple_impl(tuple_impl&&) = default;
+				tuple_impl(tuple_impl const&) = default;
+				tuple_impl(tuple_impl&&) = default;
 				template<typename... UTypes>
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl<Index, UTypes...> const&) SPROUT_NOEXCEPT {}
 				template<typename... UTypes>

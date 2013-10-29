@@ -62,7 +62,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR uniform_color()
 					: color_()
 				{}
-				SPROUT_CONSTEXPR uniform_color(uniform_color const&) = default;
+				uniform_color(uniform_color const&) = default;
 				explicit SPROUT_CONSTEXPR uniform_color(color_type const& color)
 					: color_(color)
 				{}

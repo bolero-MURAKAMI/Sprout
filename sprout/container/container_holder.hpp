@@ -50,7 +50,7 @@ namespace sprout {
 		explicit SPROUT_CONSTEXPR container_holder(param_type x)
 			: container(x)
 		{}
-		SPROUT_CONSTEXPR container_holder(container_holder const&) = default;
+		container_holder(container_holder const&) = default;
 
 		void swap(container_holder& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(other.container, container)))

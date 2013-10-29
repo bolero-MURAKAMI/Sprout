@@ -83,8 +83,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR basic_string_ref()
 			: ptr_(0), len_(0)
 		{}
-		SPROUT_CONSTEXPR basic_string_ref(basic_string_ref const& rhs) = default;
-		basic_string_ref& operator=(basic_string_ref const& rhs) = default;
+		basic_string_ref(basic_string_ref const& rhs) = default;
+		SPROUT_CXX14_CONSTEXPR basic_string_ref& operator=(basic_string_ref const& rhs) {
+			basic_string_ref temp(rhs);
+			temp.swap(*this);
+			return *this;
+		}
 		SPROUT_CONSTEXPR basic_string_ref(const_pointer str)
 			: ptr_(str), len_(traits_type::length(str))
 		{}

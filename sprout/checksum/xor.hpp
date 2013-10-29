@@ -39,7 +39,7 @@ namespace sprout {
 				);
 		}
 	public:
-		SPROUT_CONSTEXPR xor8(xor8 const&) = default;
+		xor8(xor8 const&) = default;
 		explicit SPROUT_CONSTEXPR xor8(sum_type sum)
 			: sum_(sum)
 		{}

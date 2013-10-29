@@ -222,7 +222,7 @@ namespace sprout {
 			holder_type val;
 			item_holder_type next;
 		private:
-			SPROUT_CONSTEXPR item(item const&) = default;
+			item(item const&) = default;
 			SPROUT_CONSTEXPR item(typename holder_type::argument_type p, item_holder_type const& n)
 				: val(p)
 				, next(n)
@@ -259,7 +259,6 @@ namespace sprout {
 			SPROUT_CONSTEXPR item() SPROUT_NOEXCEPT
 				: val(), next()
 			{}
-			SPROUT_CONSTEXPR item(item&&) = default;
 			SPROUT_CONSTEXPR item(typename holder_type::argument_type p)
 				: val(p)
 				, next()
@@ -324,7 +323,9 @@ namespace sprout {
 				p = &(*p)->next;
 			}
 		}
-		SPROUT_CXX14_CONSTEXPR forward_clist(forward_clist&& x) = default;
+		SPROUT_CXX14_CONSTEXPR forward_clist(forward_clist&& x)
+			: fst(sprout::move(x.fst))
+		{}
 		SPROUT_CXX14_CONSTEXPR forward_clist& operator=(forward_clist&& x) {
 			fst = sprout::move(x.fst);
 			return *this;

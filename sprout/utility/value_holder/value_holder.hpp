@@ -211,8 +211,8 @@ namespace sprout {
 		SPROUT_CONSTEXPR value_holder()
 			: holder_()
 		{}
-		SPROUT_CONSTEXPR value_holder(value_holder const&) = default;
-		SPROUT_CONSTEXPR value_holder(value_holder&&) = default;
+		value_holder(value_holder const&) = default;
+		value_holder(value_holder&&) = default;
 		explicit SPROUT_CONSTEXPR value_holder(argument_type p)
 			: holder_(helper_type::hold(p))
 		{}
@@ -234,8 +234,16 @@ namespace sprout {
 			: holder_(il, sprout::forward<Args>(args)...)
 		{}
 
-		value_holder& operator=(value_holder const&) = default;
-		value_holder& operator=(value_holder&&) = default;
+		SPROUT_CXX14_CONSTEXPR value_holder& operator=(value_holder const& rhs) {
+			value_holder temp(rhs);
+			temp.swap(*this);
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR value_holder& operator=(value_holder&& rhs) {
+			value_holder temp(sprout::move(rhs));
+			temp.swap(*this);
+			return *this;
+		}
 		SPROUT_CXX14_CONSTEXPR value_holder& operator=(argument_type p) {
 			value_holder temp(p);
 			temp.swap(*this);

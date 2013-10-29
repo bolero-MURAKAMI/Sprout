@@ -129,8 +129,8 @@ namespace sprout {
 			SPROUT_CONSTEXPR basic_string_impl()
 				: elems{}, len()
 			{}
-			SPROUT_CONSTEXPR basic_string_impl(basic_string_impl const&) = default;
-			SPROUT_CONSTEXPR basic_string_impl(basic_string_impl&&) SPROUT_NOEXCEPT = default;
+			basic_string_impl(basic_string_impl const&) = default;
+			basic_string_impl(basic_string_impl&&) = default;
 			template<typename String, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR basic_string_impl(
 				sprout::index_tuple<Indexes...>,
@@ -293,8 +293,8 @@ namespace sprout {
 		}
 	public:
 		// construct/copy/destroy:
-		SPROUT_CONSTEXPR basic_string() = default;
-		SPROUT_CONSTEXPR basic_string(basic_string const&) = default;
+		basic_string() = default;
+		basic_string(basic_string const&) = default;
 		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 < N)>::type>
 		SPROUT_CONSTEXPR basic_string(basic_string<T, N2, Traits> const& str)
 			: impl_type(

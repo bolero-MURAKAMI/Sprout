@@ -175,7 +175,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR whitted_style()
 					: infinity_color_()
 				{}
-				SPROUT_CONSTEXPR whitted_style(whitted_style const&) = default;
+				whitted_style(whitted_style const&) = default;
 				explicit SPROUT_CONSTEXPR whitted_style(infinity_color_type const& infinity_color)
 					: infinity_color_(infinity_color)
 				{}

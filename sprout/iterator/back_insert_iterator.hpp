@@ -54,7 +54,7 @@ namespace sprout {
 		explicit SPROUT_CONSTEXPR back_insert_iterator(param_type x)
 			: base_type(x)
 		{}
-		SPROUT_CONSTEXPR back_insert_iterator(back_insert_iterator const&) = default;
+		back_insert_iterator(back_insert_iterator const&) = default;
 		SPROUT_CXX14_CONSTEXPR back_insert_iterator& operator=(typename container_type::value_type const& value) {
 			container->push_back(value);
 			return *this;
