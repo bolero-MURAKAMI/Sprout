@@ -81,47 +81,47 @@ namespace sprout {
 		public:
 			value_type elems[static_size];
 		public:
-			void fill(const_reference value) {
+			SPROUT_CXX14_CONSTEXPR void fill(const_reference value) {
 				std::fill_n(begin(), size(), value);
 			}
-			void swap(uuid& other) SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR void swap(uuid& other) SPROUT_NOEXCEPT {
 				std::swap_ranges(other.begin(), other.end(), begin());
 			}
 			// iterators:
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-			iterator begin() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR iterator begin() SPROUT_NOEXCEPT {
 				return iterator(*this, 0);
 			}
 			SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
 				return const_iterator(*this, 0);
 			}
-			iterator end() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT {
 				return iterator(*this, size());
 			}
 			SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
 				return const_iterator(*this, size());
 			}
 #else
-			iterator begin() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR iterator begin() SPROUT_NOEXCEPT {
 				return &elems[0];
 			}
 			SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
 				return &elems[0];
 			}
-			iterator end() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT {
 				return &elems[0] + size();
 			}
 			SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
 				return &elems[0] + size();
 			}
 #endif
-			reverse_iterator rbegin() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR reverse_iterator rbegin() SPROUT_NOEXCEPT {
 				return reverse_iterator(end());
 			}
 			SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
 				return const_reverse_iterator(end());
 			}
-			reverse_iterator rend() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR reverse_iterator rend() SPROUT_NOEXCEPT {
 				return reverse_iterator(begin());
 			}
 			SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
@@ -159,13 +159,13 @@ namespace sprout {
 				return size() == 0;
 			}
 			// element access:
-			reference operator[](size_type i) {
+			SPROUT_CXX14_CONSTEXPR reference operator[](size_type i) {
 				return elems[i];
 			}
 			SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
 				return elems[i];
 			}
-			reference at(size_type i) {
+			SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
 				return i < size()
 					? elems[i]
 					: (throw std::out_of_range("uuid: index out of range"), elems[i])
@@ -177,20 +177,20 @@ namespace sprout {
 					: (throw std::out_of_range("uuid: index out of range"), elems[i])
 					;
 			}
-			reference front() {
+			SPROUT_CXX14_CONSTEXPR reference front() {
 				return elems[0];
 			}
 			SPROUT_CONSTEXPR const_reference front() const {
 				return elems[0];
 			}
-			reference back() {
+			SPROUT_CXX14_CONSTEXPR reference back() {
 				return elems[size() - 1];
 			}
 			SPROUT_CONSTEXPR const_reference back() const {
 				return elems[size() - 1];
 			}
 
-			pointer data() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR pointer data() SPROUT_NOEXCEPT {
 				return &elems[0];
 			}
 			SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
@@ -198,13 +198,16 @@ namespace sprout {
 			}
 
 			// others:
-			pointer c_array() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR pointer c_array() SPROUT_NOEXCEPT {
 				return &elems[0];
 			}
-			void assign(const_reference value) {
+			SPROUT_CONSTEXPR const_pointer c_array() SPROUT_NOEXCEPT {
+				return &elems[0];
+			}
+			SPROUT_CXX14_CONSTEXPR void assign(const_reference value) {
 				fill(value);
 			}
-			void rangecheck(size_type i) const {
+			SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
 				if (i >= size()) {
 					throw std::out_of_range("uuid: index out of range");
 				}
@@ -267,7 +270,7 @@ namespace sprout {
 		//
 		// swap
 		//
-		inline void
+		inline SPROUT_CXX14_CONSTEXPR void
 		swap(sprout::uuids::uuid& lhs, sprout::uuids::uuid& rhs)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 		{

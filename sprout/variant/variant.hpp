@@ -63,7 +63,7 @@ namespace sprout {
 				static_assert(Index::value < sizeof...(Types), "variant<>: invalid operand");
 			}
 		public:
-			void swap(variant_impl& other)
+			SPROUT_CXX14_CONSTEXPR void swap(variant_impl& other)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(tuple_, other.tuple_)))
 			{
 				sprout::swap(tuple_, other.tuple_);
@@ -238,23 +238,23 @@ namespace sprout {
 				)
 		{}
 		// modifiers
-		void swap(variant& other)
+		SPROUT_CXX14_CONSTEXPR void swap(variant& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<impl_type&>().swap(other)))
 		{
 			impl_type::swap(other);
 		}
-		variant& operator=(variant const& rhs) {
+		SPROUT_CXX14_CONSTEXPR variant& operator=(variant const& rhs) {
 			static_cast<impl_type&>(*this) = rhs;
 			return *this;
 		}
-		variant& operator=(variant&& rhs)
+		SPROUT_CXX14_CONSTEXPR variant& operator=(variant&& rhs)
 		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<impl_type>::value)
 		{
 			static_cast<impl_type&>(*this) = sprout::move(rhs);
 			return *this;
 		}
 		template<typename T>
-		variant& operator=(T&& rhs) {
+		SPROUT_CXX14_CONSTEXPR variant& operator=(T&& rhs) {
 			static_cast<impl_type&>(*this) = variant(sprout::forward<T>(rhs));
 			return *this;
 		}
@@ -302,7 +302,7 @@ namespace sprout {
 				;
 		}
 		template<std::size_t I>
-		typename std::enable_if<
+		SPROUT_CXX14_CONSTEXPR typename std::enable_if<
 			I != sizeof...(Types),
 			typename sprout::tuples::tuple_element<I, tuple_type>::type&
 		>::type get_at() {
@@ -318,7 +318,7 @@ namespace sprout {
 			return get_at<sprout::types::find_index<tuple_type, U>::value>();
 		}
 		template<typename U>
-		typename std::enable_if<
+		SPROUT_CXX14_CONSTEXPR typename std::enable_if<
 			sprout::types::find_index<tuple_type, U>::value != sizeof...(Types),
 			U&
 		>::type get() {
@@ -334,7 +334,7 @@ namespace sprout {
 				;
 		}
 		template<typename Visitor>
-		typename visitor_result<typename std::remove_reference<Visitor>::type, variant>::type
+		SPROUT_CXX14_CONSTEXPR typename visitor_result<typename std::remove_reference<Visitor>::type, variant>::type
 		apply_visitor(Visitor&& visitor) {
 			typedef typename visitor_result<typename std::remove_reference<Visitor>::type, variant>::type result_type;
 			return SPROUT_ASSERT(0 <= which_ && sprout::math::less(which_, sizeof...(Types))),
@@ -347,7 +347,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename... Types>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::variant<Types...>& lhs, sprout::variant<Types...>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

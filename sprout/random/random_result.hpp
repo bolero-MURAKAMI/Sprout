@@ -84,31 +84,31 @@ namespace sprout {
 			SPROUT_CONSTEXPR random_result operator()() const {
 				return distribution_(engine_);
 			}
-			result_type& result() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR result_type& result() SPROUT_NOEXCEPT {
 				return result_;
 			}
 			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			result_type& generated_value() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR result_type& generated_value() SPROUT_NOEXCEPT {
 				return result_;
 			}
 			SPROUT_CONSTEXPR result_type const& generated_value() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			engine_type& engine() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR engine_type& engine() SPROUT_NOEXCEPT {
 				return engine_;
 			}
 			SPROUT_CONSTEXPR engine_type const& engine() const SPROUT_NOEXCEPT {
 				return engine_;
 			}
-			random_result& next_generator() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR random_result& next_generator() SPROUT_NOEXCEPT {
 				return *this;
 			}
 			SPROUT_CONSTEXPR random_result const& next_generator() const SPROUT_NOEXCEPT {
 				return *this;
 			}
-			distribution_type& distribution() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR distribution_type& distribution() SPROUT_NOEXCEPT {
 				return distribution_;
 			}
 			SPROUT_CONSTEXPR distribution_type const& distribution() const SPROUT_NOEXCEPT {
@@ -126,7 +126,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return distribution_.max();
 			}
-			void swap(random_result& other)
+			SPROUT_CXX14_CONSTEXPR void swap(random_result& other)
 			SPROUT_NOEXCEPT_EXPR(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(result_, other.result_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(engine_, other.engine_))
@@ -152,12 +152,12 @@ namespace sprout {
 			SPROUT_CONSTEXPR pointer operator->() const SPROUT_NOEXCEPT {
 				return &result_;
 			}
-			random_result& operator++() {
+			SPROUT_CXX14_CONSTEXPR random_result& operator++() {
 				random_result temp((*this)());
 				temp.swap(*this);
 				return *this;
 			}
-			random_result operator++(int) {
+			SPROUT_CXX14_CONSTEXPR random_result operator++(int) {
 				random_result result(*this);
 				++*this;
 				return result;
@@ -215,25 +215,25 @@ namespace sprout {
 			SPROUT_CONSTEXPR random_result operator()() const {
 				return engine_();
 			}
-			result_type& result() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR result_type& result() SPROUT_NOEXCEPT {
 				return result_;
 			}
 			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			result_type& generated_value() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR result_type& generated_value() SPROUT_NOEXCEPT {
 				return result_;
 			}
 			SPROUT_CONSTEXPR result_type const& generated_value() const SPROUT_NOEXCEPT {
 				return result_;
 			}
-			engine_type& engine() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR engine_type& engine() SPROUT_NOEXCEPT {
 				return engine_;
 			}
 			SPROUT_CONSTEXPR engine_type const& engine() const SPROUT_NOEXCEPT {
 				return engine_;
 			}
-			random_result& next_generator() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR random_result& next_generator() SPROUT_NOEXCEPT {
 				return *this;
 			}
 			SPROUT_CONSTEXPR random_result const& next_generator() const SPROUT_NOEXCEPT {
@@ -274,12 +274,12 @@ namespace sprout {
 			SPROUT_CONSTEXPR pointer operator->() const SPROUT_NOEXCEPT {
 				return &result_;
 			}
-			random_result& operator++() {
+			SPROUT_CXX14_CONSTEXPR random_result& operator++() {
 				random_result temp((*this)());
 				temp.swap(*this);
 				return *this;
 			}
-			random_result operator++(int) {
+			SPROUT_CXX14_CONSTEXPR random_result operator++(int) {
 				random_result result(*this);
 				random_result temp((*this)());
 				temp.swap(*this);
@@ -291,7 +291,7 @@ namespace sprout {
 		// swap
 		//
 		template<typename Engine, typename Distribution>
-		inline void
+		inline SPROUT_CXX14_CONSTEXPR void
 		swap(sprout::random::random_result<Engine, Distribution>& lhs, sprout::random::random_result<Engine, Distribution>& rhs)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 		{

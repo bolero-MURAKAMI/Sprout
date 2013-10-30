@@ -96,11 +96,15 @@ namespace sprout {
 			: base_type(n, d, normalize_g(n, d))
 		{}
 
-		rational& operator=(rational const&) = default;
-		rational& operator=(param_type n) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR rational& operator=(rational const& rhs) SPROUT_NOEXCEPT {
+			rational temp(rhs);
+			sprout::swap(temp, *this);
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR rational& operator=(param_type n) SPROUT_NOEXCEPT {
 			return assign(n, 1);
 		}
-		rational& assign(param_type n, param_type d) {
+		SPROUT_CXX14_CONSTEXPR rational& assign(param_type n, param_type d) {
 			rational temp(n, d);
 			sprout::swap(temp, *this);
 			return *this;
@@ -113,7 +117,7 @@ namespace sprout {
 			return den_;
 		}
 
-		rational& operator+=(rational const& rhs) {
+		SPROUT_CXX14_CONSTEXPR rational& operator+=(rational const& rhs) {
 			IntType g = sprout::gcd(den_, rhs.den_);
 			den_ /= g;
 			num_ = num_ * (rhs.den_ / g) + rhs.num_ * den_;
@@ -122,7 +126,7 @@ namespace sprout {
 			den_ *= rhs.den_ / g;
 			return *this;
 		}
-		rational& operator-=(rational const& rhs) {
+		SPROUT_CXX14_CONSTEXPR rational& operator-=(rational const& rhs) {
 			IntType g = sprout::gcd(den_, rhs.den_);
 			den_ /= g;
 			num_ = num_ * (rhs.den_ / g) - rhs.num_ * den_;
@@ -131,14 +135,14 @@ namespace sprout {
 			den_ *= rhs.den_ / g;
 			return *this;
 		}
-		rational& operator*=(rational const& rhs) {
+		SPROUT_CXX14_CONSTEXPR rational& operator*=(rational const& rhs) {
 			IntType gcd1 = sprout::gcd(num_, rhs.den_);
 			IntType gcd2 = sprout::gcd(rhs.num_, den_);
 			num_ =(num_ / gcd1) * (rhs.num_ / gcd2);
 			den_ =(den_ / gcd2) * (rhs.den_ / gcd1);
 			return *this;
 		}
-		rational& operator/=(rational const& rhs) {
+		SPROUT_CXX14_CONSTEXPR rational& operator/=(rational const& rhs) {
 			if (rhs.num_ == IntType(0)) {
 				throw sprout::bad_rational();
 			}
@@ -155,33 +159,33 @@ namespace sprout {
 			}
 			return *this;
 		}
-		rational& operator+=(param_type rhs) {
+		SPROUT_CXX14_CONSTEXPR rational& operator+=(param_type rhs) {
 			return *this += rational(rhs);
 		}
-		rational& operator-=(param_type rhs) {
+		SPROUT_CXX14_CONSTEXPR rational& operator-=(param_type rhs) {
 			return *this -= rational(rhs);
 		}
-		rational& operator*=(param_type rhs) {
+		SPROUT_CXX14_CONSTEXPR rational& operator*=(param_type rhs) {
 			return *this *= rational(rhs);
 		}
-		rational& operator/=(param_type rhs) {
+		SPROUT_CXX14_CONSTEXPR rational& operator/=(param_type rhs) {
 			return *this /= rational(rhs);
 		}
 
-		rational& operator++() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR rational& operator++() SPROUT_NOEXCEPT {
 			num_ += den_;
 			return *this;
 		}
-		rational& operator--() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR rational& operator--() SPROUT_NOEXCEPT {
 			num_ -= den_;
 			return *this;
 		}
-		rational operator++(int) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR rational operator++(int) SPROUT_NOEXCEPT {
 			rational result(*this);
 			++*this;
 			return result;
 		}
-		rational operator--(int) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR rational operator--(int) SPROUT_NOEXCEPT {
 			rational result(*this);
 			--*this;
 			return result;

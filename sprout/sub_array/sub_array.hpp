@@ -243,11 +243,11 @@ namespace sprout {
 				)
 		{}
 
-		void fill(const_reference value) {
+		SPROUT_CXX14_CONSTEXPR void fill(const_reference value) {
 			std::fill_n(begin(), size(), value);
 		}
 		template<typename Container2>
-		void swap(sub_array<Container2>& other)
+		SPROUT_CXX14_CONSTEXPR void swap(sub_array<Container2>& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(other.array_, array_)))
 		{
 			sprout::swap(other.array_, array_);
@@ -255,13 +255,13 @@ namespace sprout {
 			sprout::swap(other.to_last_, to_last_);
 		}
 		// iterators:
-		iterator begin() {
+		SPROUT_CXX14_CONSTEXPR iterator begin() {
 			return sprout::next(sprout::begin(get_array()), to_first_);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
 			return sprout::next(sprout::begin(get_array()), to_first_);
 		}
-		iterator end() {
+		SPROUT_CXX14_CONSTEXPR iterator end() {
 			return sprout::next(sprout::begin(get_array()), to_last_);
 		}
 		SPROUT_CONSTEXPR const_iterator end() const {
@@ -284,13 +284,13 @@ namespace sprout {
 			return to_first_ == to_last_;
 		}
 		// element access:
-		reference operator[](size_type i) {
+		SPROUT_CXX14_CONSTEXPR reference operator[](size_type i) {
 			return *sprout::next(sprout::begin(get_array()), to_first_ + i);
 		}
 		SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
 			return *sprout::next(sprout::begin(get_array()), to_first_ + i);
 		}
-		reference at(size_type i) {
+		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
 			return i < size() ? *sprout::next(sprout::begin(get_array()), to_first_ + i)
 				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), to_first_ + i))
 				;
@@ -300,20 +300,20 @@ namespace sprout {
 				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), to_first_ + i))
 				;
 		}
-		reference front() {
+		SPROUT_CXX14_CONSTEXPR reference front() {
 			return *sprout::next(sprout::begin(get_array()), to_first_);
 		}
 		SPROUT_CONSTEXPR const_reference front() const {
 			return *sprout::next(sprout::begin(get_array()), to_first_);
 		}
-		reference back() {
+		SPROUT_CXX14_CONSTEXPR reference back() {
 			return *sprout::next(sprout::begin(get_array()), to_last_ - 1);
 		}
 		SPROUT_CONSTEXPR const_reference back() const {
 			return *sprout::next(sprout::begin(get_array()), to_last_ - 1);
 		}
 
-		pointer data() {
+		SPROUT_CXX14_CONSTEXPR pointer data() {
 			return get_array().data() + to_first_;
 		}
 		SPROUT_CONSTEXPR const_pointer data() const {
@@ -321,32 +321,35 @@ namespace sprout {
 		}
 		// others:
 		template<typename Container2>
-		sub_array& operator=(sub_array<Container2> const& rhs) {
+		SPROUT_CXX14_CONSTEXPR sub_array& operator=(sub_array<Container2> const& rhs) {
 			array_ = rhs.array_;
 			to_first_ = rhs.to_first_;
 			to_last_ = rhs.to_last_;
 			return *this;
 		}
 		template<typename Container2>
-		sub_array& operator=(sub_array<Container2>&& rhs) {
+		SPROUT_CXX14_CONSTEXPR sub_array& operator=(sub_array<Container2>&& rhs) {
 			array_ = std::move(rhs.array_);
 			to_first_ = std::move(rhs.to_first_);
 			to_last_ = std::move(rhs.to_last_);
 			return *this;
 		}
-		pointer c_array() {
+		SPROUT_CXX14_CONSTEXPR pointer c_array() {
 			return data();
 		}
-		void assign(const_reference value) {
+		SPROUT_CONSTEXPR const_pointer c_array() const {
+			return data();
+		}
+		SPROUT_CXX14_CONSTEXPR void assign(const_reference value) {
 			fill(value);
 		}
-		void rangecheck(size_type i) const {
+		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
 			if (i >= size()) {
 				throw std::out_of_range("sub_array<>: index out of range");
 			}
 		}
 
-		param_type get_internal() {
+		SPROUT_CXX14_CONSTEXPR param_type get_internal() {
 			return impl_type::template to_param<Container>(array_);
 		}
 		SPROUT_CONSTEXPR const_param_type get_internal() const {
@@ -378,7 +381,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::sub_array<Container>& lhs, sprout::sub_array<Container>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

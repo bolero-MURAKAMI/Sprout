@@ -47,31 +47,31 @@ namespace sprout {
 		value_type elem;
 	public:
 		pit() = default;
-		void swap(pit& other)
+		SPROUT_CXX14_CONSTEXPR void swap(pit& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(elem, other.elem)))
 		{
 			sprout::swap(elem, other.elem);
 		}
 		// iterators:
-		iterator begin() {
+		SPROUT_CXX14_CONSTEXPR iterator begin() {
 			return iterator(elem, enumerable_size);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
 			return const_iterator(elem, enumerable_size);
 		}
-		iterator end() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT {
 			return iterator(elem, 0);
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
 			return const_iterator(elem, 0);
 		}
-		reverse_iterator rbegin() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator rbegin() SPROUT_NOEXCEPT {
 			return reverse_iterator(end());
 		}
 		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
 			return const_reverse_iterator(end());
 		}
-		reverse_iterator rend() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator rend() SPROUT_NOEXCEPT {
 			return reverse_iterator(begin());
 		}
 		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
@@ -100,13 +100,13 @@ namespace sprout {
 			return enumerable_size == 0;
 		}
 		// element access:
-		reference operator[](size_type) {
+		SPROUT_CXX14_CONSTEXPR reference operator[](size_type) {
 			return elem;
 		}
 		SPROUT_CONSTEXPR const_reference operator[](size_type) const {
 			return elem;
 		}
-		reference at(size_type i) {
+		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
 			return i < size()
 				? elem
 				: (throw std::out_of_range("pit<>: index out of range"), elem)
@@ -118,20 +118,20 @@ namespace sprout {
 				: (throw std::out_of_range("pit<>: index out of range"), elem)
 				;
 		}
-		reference front() {
+		SPROUT_CXX14_CONSTEXPR reference front() {
 			return elem;
 		}
 		SPROUT_CONSTEXPR const_reference front() const {
 			return elem;
 		}
-		reference back() {
+		SPROUT_CXX14_CONSTEXPR reference back() {
 			return elem;
 		}
 		SPROUT_CONSTEXPR const_reference back() const {
 			return elem;
 		}
 		// others:
-		void rangecheck(size_type i) const {
+		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
 			if (i >= size()) {
 				throw std::out_of_range("pit<>: index out of range");
 			}
@@ -144,7 +144,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::pit<Container>& lhs, sprout::pit<Container>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{
