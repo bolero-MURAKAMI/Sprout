@@ -17,10 +17,10 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
-#include <sprout/algorithm/copy.hpp>
-#include <sprout/algorithm/move.hpp>
-#include <sprout/algorithm/fill_n.hpp>
-#include <sprout/algorithm/swap_ranges.hpp>
+#include <sprout/algorithm/cxx14/copy.hpp>
+#include <sprout/algorithm/cxx14/move.hpp>
+#include <sprout/algorithm/cxx14/fill_n.hpp>
+#include <sprout/algorithm/cxx14/swap_ranges.hpp>
 #include <sprout/utility/swap.hpp>
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>

@@ -10,9 +10,7 @@
 
 #include <cstddef>
 #include <climits>
-#include <cstring>
 #include <string>
-#include <algorithm>
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -25,6 +23,7 @@
 #include <sprout/algorithm/equal.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
 #include <sprout/algorithm/fixed/fill.hpp>
+#include <sprout/algorithm/cxx14/fill.hpp>
 #include <sprout/numeric/accumulate.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/utility/forward.hpp>
@@ -322,7 +321,7 @@ namespace sprout {
 						}
 						w_[wshift] = w_[0] << offset;
 					}
-					std::fill(w_ + 0, w_ + wshift, static_cast<word_type>(0));
+					sprout::fill(w_ + 0, w_ + wshift, static_cast<word_type>(0));
 				}
 			}
 			SPROUT_CONSTEXPR base_bitset<N>
@@ -351,7 +350,7 @@ namespace sprout {
 						}
 						w_[limit] = w_[N-1] >> offset;
 					}
-					std::fill(w_ + limit + 1, w_ + N, static_cast<word_type>(0));
+					sprout::fill(w_ + limit + 1, w_ + N, static_cast<word_type>(0));
 				}
 			}
 			SPROUT_CONSTEXPR base_bitset<N>
@@ -392,7 +391,7 @@ namespace sprout {
 			}
 			SPROUT_CXX14_CONSTEXPR void
 			do_reset() SPROUT_NOEXCEPT {
-				std::memset(w_, 0, N * sprout::detail::sizeof_<word_type>::value);
+				sprout::fill(w_ + 0, w_ + N, static_cast<word_type>(0));
 			}
 
 			SPROUT_CONSTEXPR bool

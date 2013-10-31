@@ -15,6 +15,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/range/type_traits/lvalue_iterator.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/move.hpp>
+#include <sprout/utility/forward.hpp>
 
 namespace sprout {
 	namespace range {
@@ -95,8 +97,8 @@ namespace sprout {
 			}
 			template<typename Iterator2>
 			SPROUT_CXX14_CONSTEXPR range_container<Iterator>& operator=(range_container<Iterator2>&& rhs) {
-				first_ = std::move(rhs.first_);
-				last_ = std::move(rhs.last_);
+				first_ = sprout::move(rhs.first_);
+				last_ = sprout::move(rhs.last_);
 				return *this;
 			}
 		};

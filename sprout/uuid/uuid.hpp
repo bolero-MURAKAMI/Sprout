@@ -9,7 +9,6 @@
 #define SPROUT_UUID_UUID_HPP
 
 #include <cstddef>
-#include <algorithm>
 #include <utility>
 #include <stdexcept>
 #include <type_traits>
@@ -18,6 +17,8 @@
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/algorithm/equal.hpp>
 #include <sprout/algorithm/lexicographical_compare.hpp>
+#include <sprout/algorithm/cxx14/fill_n.hpp>
+#include <sprout/algorithm/cxx14/swap_ranges.hpp>
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -82,10 +83,10 @@ namespace sprout {
 			value_type elems[static_size];
 		public:
 			SPROUT_CXX14_CONSTEXPR void fill(const_reference value) {
-				std::fill_n(begin(), size(), value);
+				sprout::fill_n(begin(), size(), value);
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(uuid& other) SPROUT_NOEXCEPT {
-				std::swap_ranges(other.begin(), other.end(), begin());
+				sprout::swap_ranges(other.begin(), other.end(), begin());
 			}
 			// iterators:
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION

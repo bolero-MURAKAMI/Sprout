@@ -394,12 +394,12 @@ namespace sprout {
 		-> decltype(
 			sprout::detail::get_bound_helper::get_bound<
 				sprout::detail::bound_position<I, typename std::remove_reference<Bounds>::type, ArgSize>::value
-				>(std::forward<Bounds>(bound_args))
+				>(sprout::forward<Bounds>(bound_args))
 			)
 		{
 			return sprout::detail::get_bound_helper::get_bound<
 				sprout::detail::bound_position<I, typename std::remove_reference<Bounds>::type, ArgSize>::value
-				>(std::forward<Bounds>(bound_args));
+				>(sprout::forward<Bounds>(bound_args));
 		}
 	}	// namespace detail
 

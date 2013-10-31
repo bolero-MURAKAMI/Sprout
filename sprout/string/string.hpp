@@ -24,7 +24,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/algorithm/find.hpp>
-#include <sprout/algorithm/swap_ranges.hpp>
+#include <sprout/algorithm/cxx14/swap_ranges.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/type_traits/identity.hpp>

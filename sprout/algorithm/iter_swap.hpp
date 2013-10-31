@@ -9,17 +9,6 @@
 #define SPROUT_ALGORITHM_ITER_SWAP_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/utility/swap.hpp>
-
-namespace sprout {
-	//
-	// 25.3.3 swap
-	//
-	template<typename ForwardIterator1, typename ForwardIterator2>
-	inline SPROUT_CXX14_CONSTEXPR void
-	iter_swap(ForwardIterator1 a, ForwardIterator2 b) {
-		sprout::swap(*a, *b);
-	}
-}	// namespace sprout
+#include <sprout/algorithm/cxx14/iter_swap.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_ITER_SWAP_HPP

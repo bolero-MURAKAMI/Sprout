@@ -9,26 +9,8 @@
 #define SPROUT_ALGORITHM_REMOVE_IF_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/utility/move.hpp>
-
-namespace sprout {
-	//
-	// 25.3.8 Remove
-	//
-	template<typename ForwardIterator, typename Predicate>
-	inline SPROUT_CXX14_CONSTEXPR ForwardIterator
-	remove_if(ForwardIterator first, ForwardIterator last, Predicate pred) {
-		ForwardIterator result = first;
-		for (; first != last; ++first) {
-			if (!pred(*first)) {
-				*result++ = sprout::move(*first);
-			}
-		}
-		return result;
-	}
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/remove_if.hpp>
 #include <sprout/algorithm/fit/remove_if.hpp>
+#include <sprout/algorithm/cxx14/remove_if.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_REMOVE_IF_HPP

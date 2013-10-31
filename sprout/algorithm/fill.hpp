@@ -9,21 +9,8 @@
 #define SPROUT_ALGORITHM_FILL_HPP
 
 #include <sprout/config.hpp>
-
-namespace sprout {
-	//
-	// 25.3.6 Fill
-	//
-	template<typename ForwardIterator, typename T>
-	inline SPROUT_CXX14_CONSTEXPR void
-	fill(ForwardIterator first, ForwardIterator last, T const& value) {
-		while (first != last) {
-			*first++ = value;
-		}
-	}
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/fill.hpp>
 #include <sprout/algorithm/fit/fill.hpp>
+#include <sprout/algorithm/cxx14/fill.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_FILL_HPP

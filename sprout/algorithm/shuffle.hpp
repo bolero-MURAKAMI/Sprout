@@ -9,17 +9,8 @@
 #define SPROUT_ALGORITHM_SHUFFLE_HPP
 
 #include <sprout/config.hpp>
-
-namespace sprout {
-	//
-	// 25.3.12 Random shuffle
-	//
-	template<typename RandomAccessIterator, typename UniformRandomNumberGenerator>
-	inline SPROUT_CXX14_CONSTEXPR void
-	shuffle(RandomAccessIterator first, RandomAccessIterator last, UniformRandomNumberGenerator&& g); // !!!
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/shuffle.hpp>
 #include <sprout/algorithm/fit/shuffle.hpp>
+#include <sprout/algorithm/cxx14/shuffle.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_SHUFFLE_HPP

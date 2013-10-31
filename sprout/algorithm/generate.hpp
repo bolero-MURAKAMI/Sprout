@@ -9,21 +9,8 @@
 #define SPROUT_ALGORITHM_GENERATE_HPP
 
 #include <sprout/config.hpp>
-
-namespace sprout {
-	//
-	// 25.3.7 Generate
-	//
-	template<typename ForwardIterator, typename Generator>
-	inline SPROUT_CXX14_CONSTEXPR void
-	generate(ForwardIterator first, ForwardIterator last, Generator gen) {
-		while (first != last) {
-			*first++ = gen();
-		}
-	}
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/generate.hpp>
 #include <sprout/algorithm/fit/generate.hpp>
+#include <sprout/algorithm/cxx14/generate.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_GENERATE_HPP

@@ -9,23 +9,8 @@
 #define SPROUT_ALGORITHM_REPLACE_HPP
 
 #include <sprout/config.hpp>
-
-namespace sprout {
-	//
-	// 25.3.5 Replace
-	//
-	template<typename ForwardIterator, typename T>
-	inline SPROUT_CXX14_CONSTEXPR void
-	replace(ForwardIterator first, ForwardIterator last, T const& old_value, T const& new_value) {
-		for (; first != last; ++first) {
-			if (*first == old_value) {
-				*first = new_value;
-			}
-		}
-	}
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/replace.hpp>
 #include <sprout/algorithm/fit/replace.hpp>
+#include <sprout/algorithm/cxx14/replace.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_REPLACE_HPP

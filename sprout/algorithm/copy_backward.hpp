@@ -9,27 +9,8 @@
 #define SPROUT_ALGORITHM_COPY_BACKWARD_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/iterator/type_traits/is_iterator_of.hpp>
-#include <sprout/type_traits/enabler_if.hpp>
-
-namespace sprout {
-	//
-	// 25.3.1 Copy
-	//
-	template<
-		typename BidirectionalIterator1, typename BidirectionalIterator2,
-		typename sprout::enabler_if<sprout::is_iterator_outputable<BidirectionalIterator2>::value>::type = sprout::enabler
-	>
-	inline SPROUT_CXX14_CONSTEXPR BidirectionalIterator2
-	copy_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 result) {
-		while (first != last) {
-			*--result = *--first;
-		}
-		return result;
-	}
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/copy_backward.hpp>
 #include <sprout/algorithm/fit/copy_backward.hpp>
+#include <sprout/algorithm/cxx14/copy_backward.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_COPY_BACKWARD_HPP

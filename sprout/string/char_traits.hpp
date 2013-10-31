@@ -11,15 +11,14 @@
 #include <cstddef>
 #include <cstdio>
 #include <string>
-#include <algorithm>
 #include <sprout/config.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/algorithm/find_if.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
-#include <sprout/algorithm/copy.hpp>
-#include <sprout/algorithm/copy_backward.hpp>
-#include <sprout/algorithm/fill.hpp>
+#include <sprout/algorithm/cxx14/copy.hpp>
+#include <sprout/algorithm/cxx14/copy_backward.hpp>
+#include <sprout/algorithm/cxx14/fill.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/cstring/strlen.hpp>
 

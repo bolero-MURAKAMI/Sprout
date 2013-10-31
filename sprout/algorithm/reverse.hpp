@@ -9,22 +9,8 @@
 #define SPROUT_ALGORITHM_REVERSE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/algorithm/iter_swap.hpp>
-
-namespace sprout {
-	//
-	// 25.3.10 Reverse
-	//
-	template<typename BidirectionalIterator>
-	inline SPROUT_CXX14_CONSTEXPR void
-	reverse(BidirectionalIterator first, BidirectionalIterator last) {
-		for (; first != last && first != --last; ++first) {
-			sprout::iter_swap(first, last);
-		}
-	}
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/reverse.hpp>
 #include <sprout/algorithm/fit/reverse.hpp>
+#include <sprout/algorithm/cxx14/reverse.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_REVERSE_HPP

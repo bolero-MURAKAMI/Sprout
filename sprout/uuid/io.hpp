@@ -9,13 +9,14 @@
 #define SPROUT_UUID_IO_HPP
 
 #include <cstddef>
-#include <algorithm>
 #include <iterator>
 #include <ios>
 #include <ostream>
 #include <istream>
 #include <locale>
 #include <sprout/config.hpp>
+#include <sprout/algorithm/find.hpp>
+#include <sprout/algorithm/cxx14/copy.hpp>
 #include <sprout/string.hpp>
 #include <sprout/uuid/uuid.hpp>
 #include <sprout/uuid/detail/table.hpp>
@@ -45,7 +46,7 @@ namespace sprout {
 				for (sprout::uuids::uuid::size_type i = 0, last = rhs.size(); i < last && lhs; ++i) {
 					lhs >> c;
 					c = ctype.toupper(c);
-					char_type const* f = std::find(xdigits, xdigits_end, c);
+					char_type const* f = sprout::find(xdigits, xdigits_end, c);
 					if (f == xdigits_end) {
 						lhs.setstate(std::ios_base::failbit);
 						break;
@@ -53,7 +54,7 @@ namespace sprout {
 					sprout::uuids::uuid::value_type byte = static_cast<sprout::uuids::uuid::value_type>(std::distance(&xdigits[0], f));
 					lhs >> c;
 					c = ctype.toupper(c);
-					f = std::find(xdigits, xdigits_end, c);
+					f = sprout::find(xdigits, xdigits_end, c);
 					if (f == xdigits_end) {
 						lhs.setstate(std::ios_base::failbit);
 						break;
@@ -72,7 +73,7 @@ namespace sprout {
 					}
 				}
 				if (lhs) {
-					std::copy(data, data + 16, rhs.begin());
+					sprout::copy(data, data + 16, rhs.begin());
 				}
 			}
 			return lhs;

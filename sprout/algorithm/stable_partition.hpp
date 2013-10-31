@@ -9,18 +9,8 @@
 #define SPROUT_ALGORITHM_STABLE_PARTITION_HPP
 
 #include <sprout/config.hpp>
-
-
-namespace sprout {
-	//
-	// 25.3.13 Partitions
-	//
-	template<typename BidirectionalIterator, typename Predicate>
-	inline SPROUT_CXX14_CONSTEXPR BidirectionalIterator
-	stable_partition(BidirectionalIterator first, BidirectionalIterator last, Predicate pred); // !!!
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/stable_partition.hpp>
 #include <sprout/algorithm/fit/stable_partition.hpp>
+#include <sprout/algorithm/cxx14/stable_partition.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_STABLE_PARTITION_HPP

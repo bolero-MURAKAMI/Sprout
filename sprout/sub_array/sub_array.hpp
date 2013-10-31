@@ -8,7 +8,6 @@
 #ifndef SPROUT_SUB_ARRAY_SUB_ARRAY_HPP
 #define SPROUT_SUB_ARRAY_SUB_ARRAY_HPP
 
-#include <algorithm>
 #include <utility>
 #include <stdexcept>
 #include <type_traits>
@@ -17,7 +16,9 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/algorithm/cxx14/fill_n.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/move.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -244,7 +245,7 @@ namespace sprout {
 		{}
 
 		SPROUT_CXX14_CONSTEXPR void fill(const_reference value) {
-			std::fill_n(begin(), size(), value);
+			sprout::fill_n(begin(), size(), value);
 		}
 		template<typename Container2>
 		SPROUT_CXX14_CONSTEXPR void swap(sub_array<Container2>& other)
@@ -329,9 +330,9 @@ namespace sprout {
 		}
 		template<typename Container2>
 		SPROUT_CXX14_CONSTEXPR sub_array& operator=(sub_array<Container2>&& rhs) {
-			array_ = std::move(rhs.array_);
-			to_first_ = std::move(rhs.to_first_);
-			to_last_ = std::move(rhs.to_last_);
+			array_ = sprout::move(rhs.array_);
+			to_first_ = sprout::move(rhs.to_first_);
+			to_last_ = sprout::move(rhs.to_last_);
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR pointer c_array() {

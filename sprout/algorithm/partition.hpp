@@ -9,29 +9,8 @@
 #define SPROUT_ALGORITHM_PARTITION_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/algorithm/iter_swap.hpp>
-#include <sprout/algorithm/find_if.hpp>
-#include <sprout/algorithm/find_if_not.hpp>
-
-namespace sprout {
-	//
-	// 25.3.13 Partitions
-	//
-	template<typename ForwardIterator, typename Predicate>
-	inline SPROUT_CXX14_CONSTEXPR ForwardIterator
-	partition(ForwardIterator first, ForwardIterator last, Predicate pred) {
-		first = sprout::find_if_not(first, last, pred);
-		ForwardIterator it = sprout::find_if(first, last, pred);
-		while (it != last) {
-			sprout::iter_swap(first, it);
-			first = sprout::find_if_not(first, last, pred);
-			it = sprout::find_if(it, last, pred);
-		}
-		return first;
-	}
-}	// namespace sprout
-
 #include <sprout/algorithm/fixed/partition.hpp>
 #include <sprout/algorithm/fit/partition.hpp>
+#include <sprout/algorithm/cxx14/partition.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_PARTITION_HPP
