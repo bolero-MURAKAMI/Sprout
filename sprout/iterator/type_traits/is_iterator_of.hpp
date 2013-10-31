@@ -80,7 +80,8 @@ namespace sprout {
 	struct is_iterator_outputable
 		: public std::integral_constant<
 			bool,
-			sprout::is_output_iterator<MaybeIterator>::value || sprout::is_forward_iterator<MaybeIterator>::value
+			sprout::is_output_iterator<typename std::decay<MaybeIterator>::type>::value
+				|| sprout::is_forward_iterator<typename std::decay<MaybeIterator>::type>::value
 		>
 	{};
 }	// namespace sprout
