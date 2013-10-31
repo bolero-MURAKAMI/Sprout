@@ -44,8 +44,7 @@ namespace sprout {
 		Compare comp;
 		value_type low;
 		value_type up;
-	private:
-		public:
+	public:
 		clamp_iterator() = default;
 		clamp_iterator(clamp_iterator const&) = default;
 		SPROUT_CONSTEXPR clamp_iterator(iterator_type it, value_type const& low, value_type const& up, Compare comp = Compare())
@@ -56,7 +55,7 @@ namespace sprout {
 			: current(it.current), comp(it.comp), low(it.low), up(it.up)
 		{}
 		template<typename U, typename V>
-		clamp_iterator& operator=(clamp_iterator<U, V> const& it) {
+		SPROUT_CXX14_CONSTEXPR clamp_iterator& operator=(clamp_iterator<U, V> const& it) {
 			clamp_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -80,20 +79,20 @@ namespace sprout {
 			return &sprout::clamp(*current, low, up, comp);
 		}
 
-		clamp_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR clamp_iterator& operator++() {
 			++current;
 			return *this;
 		}
-		clamp_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR clamp_iterator operator++(int) {
 			clamp_iterator result(*this);
 			++current;
 			return result;
 		}
-		clamp_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR clamp_iterator& operator--() {
 			--current;
 			return *this;
 		}
-		clamp_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR clamp_iterator operator--(int) {
 			clamp_iterator temp(*this);
 			--current;
 			return temp;
@@ -104,12 +103,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR clamp_iterator operator-(difference_type n) const {
 			return clamp_iterator(sprout::prev(current, n), low, up, comp);
 		}
-		clamp_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR clamp_iterator& operator+=(difference_type n) {
 			clamp_iterator temp(sprout::next(current, n), low, up, comp);
 			temp.swap(*this);
 			return *this;
 		}
-		clamp_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR clamp_iterator& operator-=(difference_type n) {
 			clamp_iterator temp(sprout::prev(current, n), low, up, comp);
 			temp.swap(*this);
 			return *this;
@@ -123,7 +122,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR clamp_iterator prev() const {
 			return clamp_iterator(sprout::prev(current), low, up, comp);
 		}
-		void swap(clamp_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(clamp_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(comp, other.comp))
@@ -215,7 +214,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Iterator, typename Compare>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::clamp_iterator<Iterator, Compare>& lhs, sprout::clamp_iterator<Iterator, Compare>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

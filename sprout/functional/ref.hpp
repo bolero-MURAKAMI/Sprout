@@ -152,9 +152,12 @@ namespace sprout {
 		SPROUT_CONSTEXPR reference_wrapper(T& t) SPROUT_NOEXCEPT
 			: t_(&t)
 		{}
-		reference_wrapper(reference_wrapper<T> const&) SPROUT_NOEXCEPT = default;
+		reference_wrapper(reference_wrapper const&) = default;
 		// assignment
-		reference_wrapper& operator=(reference_wrapper<T> const&) SPROUT_NOEXCEPT = default;
+		SPROUT_CXX14_CONSTEXPR reference_wrapper& operator=(reference_wrapper const& rhs) {
+			t_ = rhs.t_;
+			return *this;
+		}
 		// access
 		SPROUT_CONSTEXPR operator T& () const SPROUT_NOEXCEPT {
 			return *t_;

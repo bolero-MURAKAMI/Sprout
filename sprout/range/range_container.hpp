@@ -48,7 +48,7 @@ namespace sprout {
 			{}
 
 			template<typename Iterator2>
-			void swap(range_container<Iterator2>& other)
+			SPROUT_CXX14_CONSTEXPR void swap(range_container<Iterator2>& other)
 			SPROUT_NOEXCEPT_EXPR(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(other.first_, first_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(other.last_, last_))
@@ -88,13 +88,13 @@ namespace sprout {
 			}
 			// others:
 			template<typename Iterator2>
-			range_container<Iterator>& operator=(range_container<Iterator2> const& rhs) {
+			SPROUT_CXX14_CONSTEXPR range_container<Iterator>& operator=(range_container<Iterator2> const& rhs) {
 				first_ = rhs.first_;
 				last_ = rhs.last_;
 				return *this;
 			}
 			template<typename Iterator2>
-			range_container<Iterator>& operator=(range_container<Iterator2>&& rhs) {
+			SPROUT_CXX14_CONSTEXPR range_container<Iterator>& operator=(range_container<Iterator2>&& rhs) {
 				first_ = std::move(rhs.first_);
 				last_ = std::move(rhs.last_);
 				return *this;
@@ -105,7 +105,8 @@ namespace sprout {
 		// swap
 		//
 		template<typename Iterator>
-		inline void swap(sprout::range::range_container<Iterator>& lhs, sprout::range::range_container<Iterator>& rhs) {
+		inline SPROUT_CXX14_CONSTEXPR void
+		swap(sprout::range::range_container<Iterator>& lhs, sprout::range::range_container<Iterator>& rhs) {
 			lhs.swap(rhs);
 		}
 

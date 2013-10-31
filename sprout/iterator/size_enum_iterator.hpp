@@ -178,7 +178,7 @@ namespace sprout {
 			, is_sep(it.is_sep)
 		{}
 		template<typename U, bool V>
-		size_enum_iterator& operator=(size_enum_iterator<U, V> const& it) {
+		SPROUT_CXX14_CONSTEXPR size_enum_iterator& operator=(size_enum_iterator<U, V> const& it) {
 			size_enum_iterator temp(it);
 			temp.swap(*this);
 			return *this;

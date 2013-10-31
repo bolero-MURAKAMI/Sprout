@@ -18,7 +18,7 @@ namespace sprout {
 		struct ignore_t {
 		public:
 			template<typename T>
-			ignore_t const& operator=(T const&) const {
+			SPROUT_CXX14_CONSTEXPR ignore_t const& operator=(T const&) const {
 				return *this;
 			}
 		};
