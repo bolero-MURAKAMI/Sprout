@@ -76,7 +76,7 @@ namespace sprout {
 			return *this;
 		}
 
-		void swap(front_insert_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(front_insert_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(base_type::swap(other)))
 		{
 			base_type::swap(other);

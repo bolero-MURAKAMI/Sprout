@@ -29,7 +29,7 @@ namespace sprout {
 		private:
 			struct dummy {
 			public:
-				void nonnull() {}
+				SPROUT_CXX14_CONSTEXPR void nonnull() {}
 			};
 			typedef void (dummy::*safe_bool)();
 		public:

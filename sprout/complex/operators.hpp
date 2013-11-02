@@ -134,7 +134,7 @@ namespace sprout {
 		return !(lhs == rhs);
 	}
 	template<typename T, typename Char, typename Traits>
-	std::basic_istream<Char, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_istream<Char, Traits>&
 	operator>>(std::basic_istream<Char, Traits>& lhs, sprout::complex<T>& rhs) {
 		T re, im;
 		Char ch;
@@ -161,7 +161,7 @@ namespace sprout {
 		return lhs;
 	}
 	template<typename T, typename Char, typename Traits>
-	std::basic_ostream<Char, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_ostream<Char, Traits>&
 	operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::complex<T> const& rhs) {
 		return lhs << '(' << rhs.real() << ',' << rhs.imag() << ')';
 	}

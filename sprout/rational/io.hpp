@@ -20,7 +20,7 @@ namespace sprout {
 	// operator<<
 	//
 	template<typename Elem, typename Traits, typename IntType>
-	inline std::basic_istream<Elem, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>&
 	operator>>(std::basic_istream<Elem, Traits>& lhs, sprout::rational<IntType>& rhs) {
 		IntType n = IntType(0);
 		IntType d = IntType(1);
@@ -39,7 +39,7 @@ namespace sprout {
 		return lhs;
 	}
 	template<typename Elem, typename Traits, typename IntType>
-	inline std::basic_ostream<Elem, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>&
 	operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::rational<IntType> const& rhs) {
 		return lhs << rhs.numerator() << Elem('/') << rhs.denominator();
 	}

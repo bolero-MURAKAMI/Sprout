@@ -53,7 +53,7 @@ namespace sprout {
 					return max_;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_istream<Elem, Traits>& operator>>(
+				friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
 					param_type& rhs
 					)
@@ -71,7 +71,7 @@ namespace sprout {
 					return lhs;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator<<(
+				friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 					std::basic_ostream<Elem, Traits>& lhs,
 					param_type const& rhs
 					)
@@ -222,7 +222,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(min_, max_);
 			}
-			void param(param_type const& parm) {
+			SPROUT_CXX14_CONSTEXPR void param(param_type const& parm) {
 				min_ = parm.a();
 				max_ = parm.b();
 			}
@@ -232,7 +232,7 @@ namespace sprout {
 				return generate(eng, typename std::is_integral<base_result>::type());
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_istream<Elem, Traits>& operator>>(
+			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
 				uniform_smallint& rhs
 				)
@@ -244,7 +244,7 @@ namespace sprout {
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator<<(
+			friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 				std::basic_ostream<Elem, Traits>& lhs,
 				uniform_smallint const& rhs
 				)

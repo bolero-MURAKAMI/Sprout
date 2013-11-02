@@ -102,7 +102,7 @@ namespace sprout {
 					return p_;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_istream<Elem, Traits>& operator>>(
+				friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
 					param_type& rhs
 					)
@@ -120,7 +120,7 @@ namespace sprout {
 					return lhs;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator<<(
+				friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 					std::basic_ostream<Elem, Traits>& lhs,
 					param_type const& rhs
 					)
@@ -598,7 +598,7 @@ namespace sprout {
 			generate2(IntType t, Engine const& eng) const {
 				return generate2_0<Engine>(t, generate(eng));
 			}
-			void init() {
+			SPROUT_CXX14_CONSTEXPR void init() {
 				m_ = init_m(t_, p_);
 				if (use_inversion()) {
 					q_n_ = init_q_n(t_, p_);
@@ -643,7 +643,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(t_, p_);
 			}
-			void param(param_type const& parm) {
+			SPROUT_CXX14_CONSTEXPR void param(param_type const& parm) {
 				t_ = parm.t();
 				p_ = parm.p();
 				init();
@@ -659,7 +659,7 @@ namespace sprout {
 					;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_istream<Elem, Traits>& operator>>(
+			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
 				binomial_distribution& rhs
 				)
@@ -671,7 +671,7 @@ namespace sprout {
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator<<(
+			friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 				std::basic_ostream<Elem, Traits>& lhs,
 				binomial_distribution const& rhs
 				)

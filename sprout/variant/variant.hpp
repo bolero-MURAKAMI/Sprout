@@ -187,14 +187,14 @@ namespace sprout {
 				;
 		}
 		template<int I, typename Elem, typename Traits>
-		static typename std::enable_if<
+		static SPROUT_NON_CONSTEXPR typename std::enable_if<
 			static_cast<std::size_t>(I) == sizeof...(Types),
 			std::basic_ostream<Elem, Traits>&
 		>::type output(std::basic_ostream<Elem, Traits>& os, tuple_type const&, int) {
 			return os;
 		}
 		template<int I, typename Elem, typename Traits>
-		static typename std::enable_if<
+		static SPROUT_NON_CONSTEXPR typename std::enable_if<
 			static_cast<std::size_t>(I) != sizeof...(Types),
 			std::basic_ostream<Elem, Traits>&
 		>::type output(std::basic_ostream<Elem, Traits>& os, tuple_type const& t, int which) {
@@ -288,7 +288,7 @@ namespace sprout {
 		}
 
 		template<typename Elem, typename Traits>
-		friend std::basic_ostream<Elem, Traits>& operator<<(std::basic_ostream<Elem, Traits>& lhs, variant const& rhs) {
+		friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(std::basic_ostream<Elem, Traits>& lhs, variant const& rhs) {
 			return output<0>(lhs, rhs.tuple_, rhs.which_);
 		}
 		// get support

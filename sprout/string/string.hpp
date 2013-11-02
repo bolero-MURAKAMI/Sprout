@@ -267,7 +267,7 @@ namespace sprout {
 		static SPROUT_CONSTEXPR basic_string from_c_str(T const* s) {
 			return basic_string(s);
 		}
-		static SPROUT_CONSTEXPR basic_string from_c_str(std::basic_string<T, Traits> const& s) {
+		static SPROUT_NON_CONSTEXPR basic_string from_c_str(std::basic_string<T, Traits> const& s) {
 			return from_c_str(s.data(), s.size());
 		}
 	private:
@@ -759,7 +759,7 @@ namespace sprout {
 		}
 		// conversions:
 		template<typename Allocator>
-		SPROUT_EXPLICIT_CONVERSION operator std::basic_string<T, Traits, Allocator>() const {
+		SPROUT_EXPLICIT_CONVERSION SPROUT_NON_CONSTEXPR operator std::basic_string<T, Traits, Allocator>() const {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
 		}
 
@@ -1022,7 +1022,7 @@ namespace sprout {
 		return sprout::basic_string<T, N>::from_c_str(s);
 	}
 	template<std::size_t N, typename T, typename Traits>
-	inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
+	inline SPROUT_NON_CONSTEXPR sprout::basic_string<T, N, Traits>
 	string_from_c_str(std::basic_string<T, Traits> const& s) {
 		return sprout::basic_string<T, N, Traits>::from_c_str(s);
 	}

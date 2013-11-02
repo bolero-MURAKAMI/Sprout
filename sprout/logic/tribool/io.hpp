@@ -22,26 +22,26 @@ namespace sprout {
 		// get_default_indeterminate_name
 		//
 		template<typename Char>
-		inline std::basic_string<Char>
+		inline SPROUT_NON_CONSTEXPR std::basic_string<Char>
 		get_default_indeterminate_name();
 		template<>
-		inline std::basic_string<char>
+		inline SPROUT_NON_CONSTEXPR std::basic_string<char>
 		get_default_indeterminate_name<char>() {
 			return "indeterminate";
 		}
 		template<>
-		inline std::basic_string<wchar_t>
+		inline SPROUT_NON_CONSTEXPR std::basic_string<wchar_t>
 		get_default_indeterminate_name<wchar_t>() {
 			return L"indeterminate";
 		}
 #if SPROUT_USE_UNICODE_LITERALS
 		template<>
-		inline std::basic_string<char16_t>
+		inline SPROUT_NON_CONSTEXPR std::basic_string<char16_t>
 		get_default_indeterminate_name<char16_t>() {
 			return u"indeterminate";
 		}
 		template<>
-		inline std::basic_string<char32_t>
+		inline SPROUT_NON_CONSTEXPR std::basic_string<char32_t>
 		get_default_indeterminate_name<char32_t>() {
 			return U"indeterminate";
 		}
@@ -63,13 +63,13 @@ namespace sprout {
 		private:
 			string_type name_;
 		public:
-			indeterminate_name()
+			SPROUT_NON_CONSTEXPR indeterminate_name()
 				: name_(sprout::logic::get_default_indeterminate_name<char_type>())
 			{}
-			explicit indeterminate_name(string_type const& initial_name)
+			explicit SPROUT_NON_CONSTEXPR indeterminate_name(string_type const& initial_name)
 				: name_(initial_name)
 			{}
-			string_type name() const {
+			SPROUT_NON_CONSTEXPR string_type name() const {
 				return name_;
 			}
 		};
@@ -80,7 +80,7 @@ namespace sprout {
 		// operator<<
 		//
 		template<typename Char, typename Traits>
-		inline std::basic_ostream<Char, Traits>&
+		inline SPROUT_NON_CONSTEXPR std::basic_ostream<Char, Traits>&
 		operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::logic::tribool rhs) {
 			if (!sprout::logic::indeterminate(rhs)) {
 				lhs << static_cast<bool>(rhs);
@@ -104,7 +104,7 @@ namespace sprout {
 			return lhs;
 		}
 		template<typename Char, typename Traits>
-		inline std::basic_ostream<Char, Traits>&
+		inline SPROUT_NON_CONSTEXPR std::basic_ostream<Char, Traits>&
 		operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::logic::indeterminate_keyword_t) {
 			return lhs << sprout::logic::tribool(indeterminate);
 		}
@@ -113,7 +113,7 @@ namespace sprout {
 		// operator>>
 		//
 		template<typename Char, typename Traits>
-		inline std::basic_istream<Char, Traits>&
+		inline SPROUT_NON_CONSTEXPR std::basic_istream<Char, Traits>&
 		operator>>(std::basic_istream<Char, Traits>& lhs, sprout::logic::tribool& rhs) {
 			if (lhs.flags() & std::ios_base::boolalpha) {
 				typename std::basic_istream<Char, Traits>::sentry cerberus(lhs);

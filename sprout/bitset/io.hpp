@@ -18,7 +18,7 @@ namespace sprout {
 	// 20.5.4 bitset operators:
 
 	template<typename Char, typename Traits, std::size_t N>
-	inline std::basic_istream<Char, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_istream<Char, Traits>&
 	operator>>(std::basic_istream<Char, Traits>& lhs, sprout::bitset<N>& rhs) {
 		typedef typename Traits::char_type char_type;
 		typedef std::basic_istream<Char, Traits> istream_type;
@@ -66,7 +66,7 @@ namespace sprout {
 		return lhs;
 	}
 	template<typename Char, typename Traits, std::size_t N>
-	inline std::basic_ostream<Char, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_ostream<Char, Traits>&
 	operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::bitset<N> const& rhs) {
 		std::basic_string<Char, Traits> tmp;
 		std::ctype<Char> const& ct = std::use_facet<std::ctype<Char> >(lhs.getloc());

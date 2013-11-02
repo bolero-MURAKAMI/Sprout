@@ -36,7 +36,7 @@ namespace sprout {
 				typedef uniform_01 distribution_type;
 			public:
 				template<typename Elem, typename Traits>
-				friend std::basic_istream<Elem, Traits>& operator>>(
+				friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
 					param_type&
 					)
@@ -44,7 +44,7 @@ namespace sprout {
 					return lhs;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator<<(
+				friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 					std::basic_ostream<Elem, Traits>& lhs,
 					param_type const&
 					)
@@ -132,13 +132,13 @@ namespace sprout {
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type();
 			}
-			void param(param_type const&) {}
+			SPROUT_CXX14_CONSTEXPR void param(param_type const&) {}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> operator()(Engine const& eng) const {
 				return generate(eng, eng());
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_istream<Elem, Traits>& operator>>(
+			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
 				uniform_01&
 				)
@@ -146,7 +146,7 @@ namespace sprout {
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator<<(
+			friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 				std::basic_ostream<Elem, Traits>& lhs,
 				uniform_01 const&
 				)

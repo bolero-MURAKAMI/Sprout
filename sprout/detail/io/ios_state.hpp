@@ -29,18 +29,18 @@ namespace sprout {
 			private:
 				ios_flags_saver& operator=(ios_flags_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit ios_flags_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR ios_flags_saver(state_type& s)
 					: s_save_(s)
 					, a_save_(s.flags())
 				{}
-				ios_flags_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR ios_flags_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.flags(a))
 				{}
-				~ios_flags_saver() {
+				SPROUT_NON_CONSTEXPR ~ios_flags_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.flags(a_save_);
 				}
 			};
@@ -55,18 +55,18 @@ namespace sprout {
 			private:
 				ios_precision_saver& operator=(ios_precision_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit ios_precision_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR ios_precision_saver(state_type& s)
 					: s_save_(s)
-				, a_save_(s.precision())
+					, a_save_(s.precision())
 				{}
-				ios_precision_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR ios_precision_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.precision(a))
 				{}
-				~ios_precision_saver() {
+				SPROUT_NON_CONSTEXPR ~ios_precision_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.precision(a_save_);
 				}
 			};
@@ -81,18 +81,18 @@ namespace sprout {
 			private:
 				ios_width_saver& operator=(ios_width_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit ios_width_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR ios_width_saver(state_type& s)
 					: s_save_(s)
 					, a_save_(s.width())
 				{}
-				ios_width_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR ios_width_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.width(a))
 				{}
-				~ios_width_saver() {
+				SPROUT_NON_CONSTEXPR ~ios_width_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.width(a_save_);
 				}
 			};
@@ -108,20 +108,20 @@ namespace sprout {
 			private:
 				basic_ios_iostate_saver& operator=(basic_ios_iostate_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit basic_ios_iostate_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR basic_ios_iostate_saver(state_type& s)
 					: s_save_(s)
 					, a_save_(s.rdstate())
 				{}
-				basic_ios_iostate_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR basic_ios_iostate_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.rdstate())
 				{
 					s.clear(a);
 				}
-				~basic_ios_iostate_saver() {
+				SPROUT_NON_CONSTEXPR ~basic_ios_iostate_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.clear(a_save_);
 				}
 			};
@@ -137,20 +137,20 @@ namespace sprout {
 			private:
 				basic_ios_exception_saver& operator=(basic_ios_exception_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit basic_ios_exception_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR basic_ios_exception_saver(state_type& s)
 					: s_save_(s)
 					, a_save_(s.exceptions())
 				{}
-				basic_ios_exception_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR basic_ios_exception_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.exceptions())
 				{
 					s.exceptions(a);
 				}
-				~basic_ios_exception_saver() {
+				SPROUT_NON_CONSTEXPR ~basic_ios_exception_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.exceptions(a_save_);
 				}
 			};
@@ -166,18 +166,18 @@ namespace sprout {
 			private:
 				basic_ios_tie_saver& operator=(basic_ios_tie_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit basic_ios_tie_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR basic_ios_tie_saver(state_type& s)
 					: s_save_(s)
 					, a_save_(s.tie())
 				{}
-				basic_ios_tie_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR basic_ios_tie_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.tie(a))
 				{}
-				~basic_ios_tie_saver() {
+				SPROUT_NON_CONSTEXPR ~basic_ios_tie_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.tie(a_save_);
 				}
 			};
@@ -193,18 +193,18 @@ namespace sprout {
 			private:
 				basic_ios_rdbuf_saver& operator=(basic_ios_rdbuf_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit basic_ios_rdbuf_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR basic_ios_rdbuf_saver(state_type& s)
 					: s_save_(s)
 					, a_save_(s.rdbuf())
 				{}
-				basic_ios_rdbuf_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR basic_ios_rdbuf_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.rdbuf(a))
 				{}
-				~basic_ios_rdbuf_saver() {
+				SPROUT_NON_CONSTEXPR ~basic_ios_rdbuf_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.rdbuf(a_save_);
 				}
 			};
@@ -220,18 +220,18 @@ namespace sprout {
 			private:
 				basic_ios_fill_saver& operator=(basic_ios_fill_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit basic_ios_fill_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR basic_ios_fill_saver(state_type& s)
 					: s_save_(s)
 					, a_save_(s.fill())
 				{}
-				basic_ios_fill_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR basic_ios_fill_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.fill(a))
 				{}
-				~basic_ios_fill_saver() {
+				SPROUT_NON_CONSTEXPR ~basic_ios_fill_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.fill(a_save_);
 				}
 			};
@@ -247,18 +247,18 @@ namespace sprout {
 			private:
 				basic_ios_locale_saver& operator=(basic_ios_locale_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit basic_ios_locale_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR basic_ios_locale_saver(state_type& s)
 					: s_save_(s)
 					, a_save_(s.getloc())
 				{}
-				basic_ios_locale_saver(state_type& s, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR basic_ios_locale_saver(state_type& s, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.imbue(a))
 				{}
-				~basic_ios_locale_saver() {
+				SPROUT_NON_CONSTEXPR ~basic_ios_locale_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.imbue(a_save_);
 				}
 			};
@@ -275,22 +275,22 @@ namespace sprout {
 			private:
 				ios_iword_saver& operator=(ios_iword_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit ios_iword_saver(state_type& s, index_type i)
+				explicit SPROUT_NON_CONSTEXPR ios_iword_saver(state_type& s, index_type i)
 					: s_save_(s)
 					, a_save_(s.iword(i))
 					, i_save_(i)
 				{}
-				ios_iword_saver(state_type& s, index_type i, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR ios_iword_saver(state_type& s, index_type i, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.iword(i))
 					, i_save_(i)
 				{
 					s.iword(i) = a;
 				}
-				~ios_iword_saver() {
+				SPROUT_NON_CONSTEXPR ~ios_iword_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.iword(i_save_) = a_save_;
 				}
 			};
@@ -307,22 +307,22 @@ namespace sprout {
 			private:
 				ios_pword_saver& operator=(ios_pword_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit ios_pword_saver(state_type& s, index_type i)
+				explicit SPROUT_NON_CONSTEXPR ios_pword_saver(state_type& s, index_type i)
 					: s_save_(s)
 					, a_save_(s.pword(i))
 					, i_save_(i)
 				{}
-				ios_pword_saver(state_type& s, index_type i, aspect_type const& a)
+				SPROUT_NON_CONSTEXPR ios_pword_saver(state_type& s, index_type i, aspect_type const& a)
 					: s_save_(s)
 					, a_save_(s.pword(i))
 					, i_save_(i)
 				{
 					s.pword(i) = a;
 				}
-				~ios_pword_saver() {
+				SPROUT_NON_CONSTEXPR ~ios_pword_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.pword(i_save_) = a_save_;
 				}
 			};
@@ -338,16 +338,16 @@ namespace sprout {
 			private:
 				ios_base_all_saver& operator=(ios_base_all_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit ios_base_all_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR ios_base_all_saver(state_type& s)
 					: s_save_(s)
 					, a1_save_(s.flags())
 					, a2_save_(s.precision())
 					, a3_save_(s.width())
 				{}
-				~ios_base_all_saver() {
+				SPROUT_NON_CONSTEXPR ~ios_base_all_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.width(a3_save_);
 					s_save_.precision(a2_save_);
 					s_save_.flags(a1_save_);
@@ -372,7 +372,7 @@ namespace sprout {
 			private:
 				basic_ios_all_saver& operator=(basic_ios_all_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				explicit basic_ios_all_saver(state_type& s)
+				explicit SPROUT_NON_CONSTEXPR basic_ios_all_saver(state_type& s)
 					: s_save_(s)
 					, a1_save_(s.flags())
 					, a2_save_(s.precision())
@@ -384,10 +384,10 @@ namespace sprout {
 					, a8_save_(s.fill())
 					, a9_save_(s.getloc())
 				{}
-				~basic_ios_all_saver() {
+				SPROUT_NON_CONSTEXPR ~basic_ios_all_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.imbue(a9_save_);
 					s_save_.fill(a8_save_);
 					s_save_.rdbuf(a7_save_);
@@ -412,16 +412,16 @@ namespace sprout {
 			private:
 				ios_all_word_saver& operator=(ios_all_word_saver const&) SPROUT_DELETED_FUNCTION_DECL
 			public:
-				ios_all_word_saver(state_type& s, index_type i)
+				SPROUT_NON_CONSTEXPR ios_all_word_saver(state_type& s, index_type i)
 					: s_save_(s)
 					, i_save_(i)
 					, a1_save_(s.iword(i))
 					, a2_save_(s.pword(i))
 				{}
-				~ios_all_word_saver() {
+				SPROUT_NON_CONSTEXPR ~ios_all_word_saver() {
 					this->restore();
 				}
-				void restore() {
+				SPROUT_NON_CONSTEXPR void restore() {
 					s_save_.pword(i_save_) = a2_save_;
 					s_save_.iword(i_save_) = a1_save_;
 				}

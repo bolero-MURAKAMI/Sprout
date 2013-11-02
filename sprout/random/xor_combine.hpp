@@ -86,7 +86,7 @@ namespace sprout {
 				return !(lhs == rhs);
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_istream<Elem, Traits>& operator>>(
+			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
 				xor_combine_engine& rhs
 				)
@@ -94,7 +94,7 @@ namespace sprout {
 				return lhs >> rhs.rng1_ >> std::ws >> rhs.rng2_;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator<<(
+			friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 				std::basic_ostream<Elem, Traits>& lhs,
 				xor_combine_engine const& rhs
 				)

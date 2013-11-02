@@ -52,19 +52,19 @@ namespace sprout {
 		{}
 		container_holder(container_holder const&) = default;
 
-		void swap(container_holder& other)
+		SPROUT_CXX14_CONSTEXPR void swap(container_holder& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(other.container, container)))
 		{
 			sprout::swap(other.container, container);
 		}
 		// iterators:
-		iterator begin() {
+		SPROUT_CXX14_CONSTEXPR iterator begin() {
 			return sprout::begin(*container);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
 			return sprout::begin(*container);
 		}
-		iterator end() {
+		SPROUT_CXX14_CONSTEXPR iterator end() {
 			return sprout::end(*container);
 		}
 		SPROUT_CONSTEXPR const_iterator end() const {
@@ -84,20 +84,20 @@ namespace sprout {
 			return sprout::empty(*container);
 		}
 
-		param_type get_internal() {
+		SPROUT_CXX14_CONSTEXPR param_type get_internal() {
 			return *container;
 		}
 		SPROUT_CONSTEXPR const_param_type get_internal() const {
 			return *container;
 		}
 		// element access:
-		reference operator[](size_type i) {
+		SPROUT_CXX14_CONSTEXPR reference operator[](size_type i) {
 			return *sprout::next(begin(), i);
 		}
 		SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
 			return *sprout::next(begin(), i);
 		}
-		reference at(size_type i) {
+		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
 			return i < size() ? (*this)[i]
 				: (throw std::out_of_range("container_holder<>: index out of range"), (*this)[i])
 				;
@@ -107,13 +107,13 @@ namespace sprout {
 				: (throw std::out_of_range("container_holder<>: index out of range"), (*this)[i])
 				;
 		}
-		reference front() {
+		SPROUT_CXX14_CONSTEXPR reference front() {
 			return *begin();
 		}
 		SPROUT_CONSTEXPR const_reference front() const {
 			return *begin();
 		}
-		reference back() {
+		SPROUT_CXX14_CONSTEXPR reference back() {
 			return *sprout::next(begin(), size() - 1);
 		}
 		SPROUT_CONSTEXPR const_reference back() const {
@@ -125,7 +125,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename Container>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::container_holder<Container>& lhs, sprout::container_holder<Container>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

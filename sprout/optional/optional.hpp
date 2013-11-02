@@ -213,7 +213,7 @@ namespace sprout {
 		SPROUT_CXX14_CONSTEXPR void assign(sprout::nullopt_t) SPROUT_NOEXCEPT {
 			destroy();
 		}
-		void assign(optional const& v) {
+		SPROUT_CXX14_CONSTEXPR void assign(optional const& v) {
 			optional temp(v);
 			temp.swap(*this);
 		}

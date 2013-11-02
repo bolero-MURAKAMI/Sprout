@@ -97,7 +97,7 @@ namespace sprout {
 			: ptr_(str.data()), len_(str.size())
 		{}
 		template<typename Allocator>
-		SPROUT_CONSTEXPR basic_string_ref(std::basic_string<T, Traits, Allocator> const& str)
+		SPROUT_NON_CONSTEXPR basic_string_ref(std::basic_string<T, Traits, Allocator> const& str)
 			: ptr_(str.data()), len_(str.size())
 		{}
 		SPROUT_CONSTEXPR basic_string_ref(const_pointer str, size_type len)
@@ -411,7 +411,7 @@ namespace sprout {
 		}
 		// others:
 		template<typename Allocator>
-		SPROUT_EXPLICIT_CONVERSION operator std::basic_string<T, Traits, Allocator>() const {
+		SPROUT_EXPLICIT_CONVERSION SPROUT_NON_CONSTEXPR operator std::basic_string<T, Traits, Allocator>() const {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
 		}
 		SPROUT_CONSTEXPR const_pointer
@@ -584,7 +584,7 @@ namespace sprout {
 		return sprout::basic_string_ref<T, Traits>(s);
 	}
 	template<typename T, typename Traits>
-	inline SPROUT_CONSTEXPR sprout::basic_string_ref<T, Traits>
+	inline SPROUT_NON_CONSTEXPR sprout::basic_string_ref<T, Traits>
 	to_string_ref(std::basic_string<T, Traits> const& s) {
 		return sprout::basic_string_ref<T, Traits>(s);
 	}

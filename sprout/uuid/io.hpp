@@ -82,7 +82,7 @@ namespace sprout {
 		// operator<<
 		//
 		template<typename Elem, typename Traits>
-		inline std::basic_ostream<Elem, Traits>&
+		inline SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>&
 		operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::uuids::uuid const& rhs) {
 			sprout::detail::io::ios_flags_saver flags_saver(lhs);
 			sprout::detail::io::basic_ios_fill_saver<Elem, Traits> fill_saver(lhs);

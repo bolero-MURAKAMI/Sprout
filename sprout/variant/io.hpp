@@ -27,7 +27,7 @@ namespace sprout {
 				: out_(out)
 			{}
 			template<typename T>
-			void operator()(T const& operand) const {
+			SPROUT_CXX14_CONSTEXPR void operator()(T const& operand) const {
 				out_ << operand;
 			}
 		};
@@ -36,7 +36,7 @@ namespace sprout {
 	// operator<<
 	//
 	template<typename Elem, typename Traits, typename... Types>
-	inline std::basic_ostream<Elem, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>&
 	operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::variant<Types...> const& rhs) {
 		sprout::detail::variant_output_visitor<std::basic_ostream<Elem, Traits> > visitor(lhs);
 		rhs.apply_visitor(visitor);

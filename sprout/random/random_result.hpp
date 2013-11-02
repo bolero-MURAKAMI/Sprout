@@ -259,7 +259,7 @@ namespace sprout {
 			friend SPROUT_CONSTEXPR bool operator!=(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
 				return !(lhs == rhs);
 			}
-			void swap(random_result& other)
+			SPROUT_CXX14_CONSTEXPR void swap(random_result& other)
 			SPROUT_NOEXCEPT_EXPR(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(result_, other.result_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(engine_, other.engine_))

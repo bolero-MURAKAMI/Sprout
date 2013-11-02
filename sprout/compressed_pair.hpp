@@ -70,19 +70,19 @@ namespace sprout {
 			SPROUT_CONSTEXPR compressed_pair_impl(second_param_type y)
 				: second_(y)
 			{}
-			first_reference first() {
+			SPROUT_CXX14_CONSTEXPR first_reference first() {
 				return first_;
 			}
 			SPROUT_CONSTEXPR first_const_reference first() const {
 				return first_;
 			}
-			second_reference second() {
+			SPROUT_CXX14_CONSTEXPR second_reference second() {
 				return second_;
 			}
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return second_;
 			}
-			void swap(compressed_pair_impl& other)
+			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl& other)
 			SPROUT_NOEXCEPT_EXPR(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_))
@@ -119,19 +119,19 @@ namespace sprout {
 			SPROUT_CONSTEXPR compressed_pair_impl(second_param_type y)
 				: second_(y)
 			{}
-			first_reference first() {
+			SPROUT_CXX14_CONSTEXPR first_reference first() {
 				return *this;
 			}
 			SPROUT_CONSTEXPR first_const_reference first() const {
 				return *this;
 			}
-			second_reference second() {
+			SPROUT_CXX14_CONSTEXPR second_reference second() {
 				return second_;
 			}
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return second_;
 			}
-			void swap(compressed_pair_impl& other)
+			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl& other)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_)))
 			{
 				sprout::swap(second_, other.second_);
@@ -164,19 +164,19 @@ namespace sprout {
 			SPROUT_CONSTEXPR compressed_pair_impl(second_param_type y)
 				: second_type(y)
 			{}
-			first_reference first() {
+			SPROUT_CXX14_CONSTEXPR first_reference first() {
 				return first_;
 			}
 			SPROUT_CONSTEXPR first_const_reference first() const {
 				return first_;
 			}
-			second_reference second() {
+			SPROUT_CXX14_CONSTEXPR second_reference second() {
 				return *this;
 			}
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return *this;
 			}
-			void swap(compressed_pair_impl& other)
+			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl& other)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_)))
 			{
 				sprout::swap(first_, other.first_);
@@ -208,19 +208,19 @@ namespace sprout {
 			SPROUT_CONSTEXPR compressed_pair_impl(second_param_type y)
 				: second_type(y)
 			{}
-			first_reference first() {
+			SPROUT_CXX14_CONSTEXPR first_reference first() {
 				return *this;
 			}
 			SPROUT_CONSTEXPR first_const_reference first() const {
 				return *this;
 			}
-			second_reference second() {
+			SPROUT_CXX14_CONSTEXPR second_reference second() {
 				return *this;
 			}
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return *this;
 			}
-			void swap(compressed_pair_impl&) {}
+			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl&) {}
 		};
 		template<typename T1, typename T2>
 		class compressed_pair_impl<T1, T2, 4>
@@ -247,19 +247,19 @@ namespace sprout {
 				: first_type(x)
 				, second_(x)
 			{}
-			first_reference first() {
+			SPROUT_CXX14_CONSTEXPR first_reference first() {
 				return *this;
 			}
 			SPROUT_CONSTEXPR first_const_reference first() const {
 				return *this;
 			}
-			second_reference second() {
+			SPROUT_CXX14_CONSTEXPR second_reference second() {
 				return second_;
 			}
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return second_;
 			}
-			void swap(compressed_pair_impl&) {}
+			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl&) {}
 		};
 		template<typename T1, typename T2>
 		class compressed_pair_impl<T1, T2, 5>
@@ -286,19 +286,19 @@ namespace sprout {
 				: first_(x)
 				, second_(x)
 			{}
-			first_reference first() {
+			SPROUT_CXX14_CONSTEXPR first_reference first() {
 				return first_;
 			}
 			SPROUT_CONSTEXPR first_const_reference first() const {
 				return first_;
 			}
-			second_reference second() {
+			SPROUT_CXX14_CONSTEXPR second_reference second() {
 				return second_;
 			}
 			SPROUT_CONSTEXPR second_const_reference second() const {
 				return second_;
 			}
-			void swap(compressed_pair_impl& other)
+			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl& other)
 			SPROUT_NOEXCEPT_EXPR(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_))
@@ -355,19 +355,19 @@ namespace sprout {
 		explicit SPROUT_CONSTEXPR compressed_pair(second_param_type y)
 			: base_type(y)
 		{}
-		first_reference first() {
+		SPROUT_CXX14_CONSTEXPR first_reference first() {
 			return base_type::first();
 		}
 		SPROUT_CONSTEXPR first_const_reference first() const {
 			return base_type::first();
 		}
-		second_reference second() {
+		SPROUT_CXX14_CONSTEXPR second_reference second() {
 			return base_type::second();
 		}
 		SPROUT_CONSTEXPR second_const_reference second() const {
 			return base_type::second();
 		}
-		void swap(compressed_pair& other) {
+		SPROUT_CXX14_CONSTEXPR void swap(compressed_pair& other) {
 			base_type::swap(other);
 		}
 	};
@@ -410,19 +410,19 @@ namespace sprout {
 		explicit SPROUT_CONSTEXPR compressed_pair(first_param_type x)
 			: base_type(x)
 		{}
-		first_reference first() {
+		SPROUT_CXX14_CONSTEXPR first_reference first() {
 			return base_type::first();
 		}
 		SPROUT_CONSTEXPR first_const_reference first() const {
 			return base_type::first();
 		}
-		second_reference second() {
+		SPROUT_CXX14_CONSTEXPR second_reference second() {
 			return base_type::second();
 		}
 		SPROUT_CONSTEXPR second_const_reference second() const {
 			return base_type::second();
 		}
-		void swap(compressed_pair& other) {
+		SPROUT_CXX14_CONSTEXPR void swap(compressed_pair& other) {
 			base_type::swap(other);
 		}
 	};
@@ -430,7 +430,7 @@ namespace sprout {
 	// swap
 	//
 	template<typename T1, typename T2>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::compressed_pair<T1, T2>& lhs, sprout::compressed_pair<T1, T2>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

@@ -43,7 +43,7 @@ namespace sprout {
 					return p_;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_istream<Elem, Traits>& operator>>(
+				friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 					std::basic_istream<Elem, Traits>& lhs,
 					param_type& rhs
 					)
@@ -59,7 +59,7 @@ namespace sprout {
 					return lhs;
 				}
 				template<typename Elem, typename Traits>
-				friend std::basic_ostream<Elem, Traits>& operator<<(
+				friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 					std::basic_ostream<Elem, Traits>& lhs,
 					param_type const& rhs
 					)
@@ -109,7 +109,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(p_);
 			}
-			void param(param_type const& parm) {
+			SPROUT_CXX14_CONSTEXPR void param(param_type const& parm) {
 				p_ = parm.p();
 			}
 			template<typename Engine>
@@ -120,7 +120,7 @@ namespace sprout {
 					;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_istream<Elem, Traits>& operator>>(
+			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
 				std::basic_istream<Elem, Traits>& lhs,
 				bernoulli_distribution& rhs
 				)
@@ -132,7 +132,7 @@ namespace sprout {
 				return lhs;
 			}
 			template<typename Elem, typename Traits>
-			friend std::basic_ostream<Elem, Traits>& operator<<(
+			friend SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>& operator<<(
 				std::basic_ostream<Elem, Traits>& lhs,
 				bernoulli_distribution const& rhs
 				)

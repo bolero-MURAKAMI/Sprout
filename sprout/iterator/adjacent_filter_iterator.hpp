@@ -59,7 +59,7 @@ namespace sprout {
 		iterator_type last;
 		Predicate pred;
 	private:
-		void satisfy_predicate() {
+		SPROUT_CXX14_CONSTEXPR void satisfy_predicate() {
 			current = sprout::adjacent_find(current, last, pred);
 		}
 		SPROUT_CONSTEXPR adjacent_filter_iterator(Predicate pred, iterator_type it, iterator_type last, private_construct_t)
