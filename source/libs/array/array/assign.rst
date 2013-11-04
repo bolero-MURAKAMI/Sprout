@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  void assign(const_reference value);
+  SPROUT_CXX14_CONSTEXPR void assign(const_reference value);
   
   SPROUT_CONSTEXPR array assign(const_reference value) const;
 

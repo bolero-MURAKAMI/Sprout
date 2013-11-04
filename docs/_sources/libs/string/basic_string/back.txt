@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  reference back();
+  SPROUT_CXX14_CONSTEXPR reference back();
   
   SPROUT_CONSTEXPR const_reference back() const;
 

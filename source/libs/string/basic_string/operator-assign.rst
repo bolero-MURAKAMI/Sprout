@@ -7,12 +7,12 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  basic_string& operator=(basic_string const& rhs);
+  SPROUT_CXX14_CONSTEXPR basic_string& operator=(basic_string const& rhs);
   
   template<std::size_t N2, typename Enable = typename std::enable_if<(N2 != N)>::type>
-  basic_string& operator=(basic_string<T, N2, Traits> const& rhs);
+  SPROUT_CXX14_CONSTEXPR basic_string& operator=(basic_string<T, N2, Traits> const& rhs);
   
-  basic_string& operator=(value_type const* rhs);
+  SPROUT_CXX14_CONSTEXPR basic_string& operator=(value_type const* rhs);
 
 Effects
 ========================================

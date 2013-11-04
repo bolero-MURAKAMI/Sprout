@@ -8,7 +8,7 @@ Interface
 .. sourcecode:: c++
 
   template<typename OutputIterator, typename ConstInputIterator>
-  static OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n);
+  static SPROUT_CXX14_CONSTEXPR OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n);
 
 Pre-condition
 ========================================

@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  iterator begin() SPROUT_NOEXCEPT;
+  SPROUT_CXX14_CONSTEXPR iterator begin() SPROUT_NOEXCEPT;
   
   SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT;
 

@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  reference at(size_type n);
+  SPROUT_CXX14_CONSTEXPR reference at(size_type n);
   
   SPROUT_CONSTEXPR const_reference at(size_type n) const;
 

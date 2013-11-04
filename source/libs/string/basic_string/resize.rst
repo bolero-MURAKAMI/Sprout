@@ -7,9 +7,9 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  void resize(size_type n, value_type c);
+  SPROUT_CXX14_CONSTEXPR void resize(size_type n, value_type c);
   
-  void resize(size_type n);
+  SPROUT_CXX14_CONSTEXPR void resize(size_type n);
 
 Requires
 ========================================

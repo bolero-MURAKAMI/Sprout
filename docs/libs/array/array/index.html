@@ -389,25 +389,25 @@ convertible to pointer</td>
 
   <span class="c1">// construct/copy/destroy:</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-  <span class="n">array</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">array</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
-  <span class="n">array</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">array</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T2</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
 
   <span class="c1">// modifiers:</span>
-  <span class="kt">void</span> <span class="n">fill</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">);</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="kt">void</span> <span class="n">fill</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">);</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">array</span> <span class="n">fill</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">assign</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">);</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="kt">void</span> <span class="n">assign</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">);</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">array</span> <span class="n">assign</span><span class="p">(</span><span class="n">const_reference</span> <span class="n">value</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="o">&amp;</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">())));</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">array</span><span class="o">&amp;</span><span class="p">)</span> <span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">SPROUT_NOEXCEPT_EXPR</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">())));</span>
 
   <span class="c1">// iterators:</span>
-  <span class="n">iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">iterator</span> <span class="n">end</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">iterator</span> <span class="n">end</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">end</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">reverse_iterator</span> <span class="n">rbegin</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">reverse_iterator</span> <span class="n">rbegin</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">rbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">reverse_iterator</span> <span class="n">rend</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">reverse_iterator</span> <span class="n">rend</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reverse_iterator</span> <span class="n">rend</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">cbegin</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_iterator</span> <span class="n">cend</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
@@ -420,17 +420,17 @@ convertible to pointer</td>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="kt">bool</span> <span class="n">empty</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
 
   <span class="c1">// element access:</span>
-  <span class="n">reference</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">reference</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_type</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">reference</span> <span class="n">at</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">reference</span> <span class="n">at</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">);</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">at</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">reference</span> <span class="n">front</span><span class="p">();</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">reference</span> <span class="n">front</span><span class="p">();</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">front</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">reference</span> <span class="n">back</span><span class="p">();</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">reference</span> <span class="n">back</span><span class="p">();</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_reference</span> <span class="n">back</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-  <span class="n">pointer</span> <span class="n">data</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">pointer</span> <span class="n">data</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_pointer</span> <span class="n">data</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
-  <span class="n">pointer</span> <span class="n">c_array</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
+  <span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="n">pointer</span> <span class="n">c_array</span><span class="p">()</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
   <span class="n">SPROUT_CONSTEXPR</span> <span class="n">const_pointer</span> <span class="n">c_array</span><span class="p">()</span> <span class="k">const</span> <span class="n">SPROUT_NOEXCEPT</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>

@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  static char_type* copy(char_type* s1, char_type const* s2, std::size_t n);
+  static SPROUT_CXX14_CONSTEXPR char_type* copy(char_type* s1, char_type const* s2, std::size_t n);
 
 Pre-condition
 ========================================

@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  void swap(array& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
+  SPROUT_CXX14_CONSTEXPR void swap(array& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
 
 Effects
 ========================================

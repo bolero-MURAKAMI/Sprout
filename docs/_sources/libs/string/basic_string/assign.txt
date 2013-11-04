@@ -8,7 +8,7 @@ Interface
 .. sourcecode:: c++
 
   template<std::size_t N2>
-  basic_string& assign(basic_string<T, N2, Traits> const& str);
+  SPROUT_CXX14_CONSTEXPR basic_string& assign(basic_string<T, N2, Traits> const& str);
 
 Effects
 ========================================

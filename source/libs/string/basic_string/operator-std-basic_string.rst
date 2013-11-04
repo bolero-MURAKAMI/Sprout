@@ -8,7 +8,7 @@ Interface
 .. sourcecode:: c++
 
   template<typename Allocator>
-  SPROUT_EXPLICIT_CONVERSION operator std::basic_string<T, Traits, Allocator>() const;
+  SPROUT_EXPLICIT_CONVERSION SPROUT_NON_CONSTEXPR operator std::basic_string<T, Traits, Allocator>() const;
 
 Returns
 ========================================

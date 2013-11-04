@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  static void assign(char_type& c1, char_type const& c2);
+  static SPROUT_CXX14_CONSTEXPR void assign(char_type& c1, char_type const& c2);
 
 Effects
 ========================================

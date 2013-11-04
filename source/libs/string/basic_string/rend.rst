@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  reverse_iterator rend() SPROUT_NOEXCEPT;
+  SPROUT_CXX14_CONSTEXPR reverse_iterator rend() SPROUT_NOEXCEPT;
   
   SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT;
 

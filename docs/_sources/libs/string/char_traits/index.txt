@@ -126,7 +126,7 @@ Interface of all
     typedef typename std::char_traits<Char>::state_type state_type;
 
     // character operations:
-    static void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT;
+    static SPROUT_CXX14_CONSTEXPR void assign(char_type& c1, char_type const& c2) SPROUT_NOEXCEPT;
     static SPROUT_CONSTEXPR bool eq(char_type c1, char_type c2) SPROUT_NOEXCEPT;
     static SPROUT_CONSTEXPR bool lt(char_type c1, char_type c2) SPROUT_NOEXCEPT;
 
@@ -134,9 +134,9 @@ Interface of all
     static SPROUT_CONSTEXPR int compare(char_type const* s1, char_type const* s2, std::size_t n);
     static SPROUT_CONSTEXPR std::size_t length(char_type const* s);
     static SPROUT_CONSTEXPR char_type const* find(char_type const* s, std::size_t n, char_type const& a);
-    static char_type* move(char_type* s1, char_type const* s2, std::size_t n);
-    static char_type* copy(char_type* s1, char_type const* s2, std::size_t n);
-    static char_type* assign(char_type* s, std::size_t n, char_type a);
+    static SPROUT_CXX14_CONSTEXPR char_type* move(char_type* s1, char_type const* s2, std::size_t n);
+    static SPROUT_CXX14_CONSTEXPR char_type* copy(char_type* s1, char_type const* s2, std::size_t n);
+    static SPROUT_CXX14_CONSTEXPR char_type* assign(char_type* s, std::size_t n, char_type a);
 
     // integer type operations:
     static SPROUT_CONSTEXPR int_type not_eof(int_type c) SPROUT_NOEXCEPT;
@@ -157,9 +157,9 @@ Interface of all
     template<typename ConstInputIterator>
     static SPROUT_CONSTEXPR ConstInputIterator find(ConstInputIterator s, std::size_t n, char_type const& a);
     template<typename OutputIterator, typename ConstInputIterator>
-    static OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n);
+    static SPROUT_CXX14_CONSTEXPR OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n);
     template<typename OutputIterator, typename ConstInputIterator>
-    static OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n);
+    static SPROUT_CXX14_CONSTEXPR OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n);
     template<typename OutputIterator>
-    static OutputIterator assign(OutputIterator s, std::size_t n, char_type a);
+    static SPROUT_CXX14_CONSTEXPR OutputIterator assign(OutputIterator s, std::size_t n, char_type a);
   };

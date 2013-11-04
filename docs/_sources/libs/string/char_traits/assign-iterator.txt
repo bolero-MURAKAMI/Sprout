@@ -8,7 +8,7 @@ Interface
 .. sourcecode:: c++
 
   template<typename OutputIterator>
-  static OutputIterator assign(OutputIterator s, std::size_t n, char_type a);
+  static SPROUT_CXX14_CONSTEXPR OutputIterator assign(OutputIterator s, std::size_t n, char_type a);
 
 Effects
 ========================================

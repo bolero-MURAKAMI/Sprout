@@ -307,7 +307,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  basic_string(std::initializer_list<value_type> il);
+  SPROUT_INITIALIZER_LIST_CONSTEXPR basic_string(std::initializer_list<value_type> il);
 
 Requires
 ========================================

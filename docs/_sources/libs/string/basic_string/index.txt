@@ -256,21 +256,21 @@ Interface of all
     SPROUT_CONSTEXPR basic_string(size_type n, value_type c);
     template<typename InputIterator>
     SPROUT_CONSTEXPR basic_string(InputIterator first, InputIterator last);
-    basic_string(std::initializer_list<value_type> il);
-    basic_string& operator=(basic_string const& rhs);
+    SPROUT_INITIALIZER_LIST_CONSTEXPR basic_string(std::initializer_list<value_type> il);
+    SPROUT_CXX14_CONSTEXPR basic_string& operator=(basic_string const& rhs);
     template<std::size_t N2, typename Enable = typename std::enable_if<(N2 != N)>::type>
-    basic_string& operator=(basic_string<T, N2, Traits> const& rhs);
-    basic_string& operator=(value_type const* rhs);
-    basic_string& operator=(value_type rhs);
+    SPROUT_CXX14_CONSTEXPR basic_string& operator=(basic_string<T, N2, Traits> const& rhs);
+    SPROUT_CXX14_CONSTEXPR basic_string& operator=(value_type const* rhs);
+    SPROUT_CXX14_CONSTEXPR basic_string& operator=(value_type rhs);
   
     // iterators:
-    iterator begin() SPROUT_NOEXCEPT;
+    SPROUT_CXX14_CONSTEXPR iterator begin() SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT;
-    iterator end() SPROUT_NOEXCEPT;
+    SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT;
-    reverse_iterator rbegin() SPROUT_NOEXCEPT;
+    SPROUT_CXX14_CONSTEXPR reverse_iterator rbegin() SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT;
-    reverse_iterator rend() SPROUT_NOEXCEPT;
+    SPROUT_CXX14_CONSTEXPR reverse_iterator rend() SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT;
@@ -281,38 +281,38 @@ Interface of all
     SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR size_type length() const SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT;
-    void resize(size_type n, value_type c);
-    void resize(size_type n);
-    void clear() SPROUT_NOEXCEPT;
+    SPROUT_CXX14_CONSTEXPR void resize(size_type n, value_type c);
+    SPROUT_CXX14_CONSTEXPR void resize(size_type n);
+    SPROUT_CXX14_CONSTEXPR void clear() SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT;
   
     // element access:
-    reference operator[](size_type i);
+    SPROUT_CXX14_CONSTEXPR reference operator[](size_type i);
     SPROUT_CONSTEXPR const_reference operator[](size_type i) const;
-    reference at(size_type i);
+    SPROUT_CXX14_CONSTEXPR reference at(size_type i);
     SPROUT_CONSTEXPR const_reference at(size_type i) const;
-    reference front();
+    SPROUT_CXX14_CONSTEXPR reference front();
     SPROUT_CONSTEXPR const_reference front() const;
-    reference back();
+    SPROUT_CXX14_CONSTEXPR reference back();
     SPROUT_CONSTEXPR const_reference back() const;
   
     // modifiers:
     template<std::size_t N2>
-    basic_string& assign(basic_string<T, N2, Traits> const& str);
+    SPROUT_CXX14_CONSTEXPR basic_string& assign(basic_string<T, N2, Traits> const& str);
     template<std::size_t N2>
-    basic_string& assign(basic_string<T, N2, Traits> const& str, size_type pos, size_type n);
-    basic_string& assign(value_type const* s, size_type n);
-    basic_string& assign(value_type const* s);
-    basic_string& assign(size_type n, value_type c);
+    SPROUT_CXX14_CONSTEXPR basic_string& assign(basic_string<T, N2, Traits> const& str, size_type pos, size_type n);
+    SPROUT_CXX14_CONSTEXPR basic_string& assign(value_type const* s, size_type n);
+    SPROUT_CXX14_CONSTEXPR basic_string& assign(value_type const* s);
+    SPROUT_CXX14_CONSTEXPR basic_string& assign(size_type n, value_type c);
     template<typename InputIterator>
-    basic_string& assign(InputIterator first, InputIterator last);
-    void swap(basic_string& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
+    SPROUT_CXX14_CONSTEXPR basic_string& assign(InputIterator first, InputIterator last);
+    SPROUT_CXX14_CONSTEXPR void swap(basic_string& other) SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::swap(std::declval<T&>(), std::declval<T&>())));
   
     // string operations:
     SPROUT_CONSTEXPR const_pointer c_str() const SPROUT_NOEXCEPT;
-    pointer data() SPROUT_NOEXCEPT;
+    SPROUT_CXX14_CONSTEXPR pointer data() SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT;
-    pointer c_array() SPROUT_NOEXCEPT;
+    SPROUT_CXX14_CONSTEXPR pointer c_array() SPROUT_NOEXCEPT;
     SPROUT_CONSTEXPR const_pointer c_array() const SPROUT_NOEXCEPT;
     template<std::size_t N2>
     SPROUT_CONSTEXPR size_type find(basic_string<T, N2, Traits> const& str, size_type pos = 0) const SPROUT_NOEXCEPT;
@@ -357,17 +357,17 @@ Interface of all
   
     // conversions:
     template<typename Allocator>
-    SPROUT_EXPLICIT_CONVERSION operator std::basic_string<T, Traits, Allocator>() const;
+    SPROUT_EXPLICIT_CONVERSION SPROUT_NON_CONSTEXPR operator std::basic_string<T, Traits, Allocator>() const;
 
     // construct/copy/destroy (for string iterator):
     template<typename StringConstIterator>
-    basic_string& operator=(StringConstIterator rhs);
+    SPROUT_CXX14_CONSTEXPR basic_string& operator=(StringConstIterator rhs);
 
     // modifiers (for string iterator):
     template<typename StringConstIterator>
-    basic_string& assign(StringConstIterator s, size_type n);
+    SPROUT_CXX14_CONSTEXPR basic_string& assign(StringConstIterator s, size_type n);
     template<typename StringConstIterator>
-    basic_string& assign(StringConstIterator s);
+    SPROUT_CXX14_CONSTEXPR basic_string& assign(StringConstIterator s);
 
     // string operations (for string iterator):
     template<typename StringConstIterator>

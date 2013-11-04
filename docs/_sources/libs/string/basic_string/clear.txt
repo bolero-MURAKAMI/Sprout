@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  void clear() SPROUT_NOEXCEPT;
+  SPROUT_CXX14_CONSTEXPR void clear() SPROUT_NOEXCEPT;
 
 Effects
 ========================================

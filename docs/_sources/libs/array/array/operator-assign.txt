@@ -8,10 +8,10 @@ Interface
 .. sourcecode:: c++
 
   template<typename T2>
-  array& operator=(array<T2, N> const& rhs);
+  SPROUT_CXX14_CONSTEXPR array& operator=(array<T2, N> const& rhs);
   
   template<typename T2>
-  array& operator=(array<T2, N>&& rhs);
+  SPROUT_CXX14_CONSTEXPR array& operator=(array<T2, N>&& rhs);
 
 Effects
 ========================================

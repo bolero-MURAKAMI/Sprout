@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  static char_type* assign(char_type* s, std::size_t n, char_type a);
+  static SPROUT_CXX14_CONSTEXPR char_type* assign(char_type* s, std::size_t n, char_type a);
 
 Effects
 ========================================

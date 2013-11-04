@@ -8,7 +8,7 @@ Interface
 .. sourcecode:: c++
 
   template<typename StringConstIterator>
-  basic_string& operator=(StringConstIterator rhs);
+  SPROUT_CXX14_CONSTEXPR basic_string& operator=(StringConstIterator rhs);
 
 Requires
 ========================================

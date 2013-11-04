@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  pointer data() SPROUT_NOEXCEPT;
+  SPROUT_CXX14_CONSTEXPR pointer data() SPROUT_NOEXCEPT;
   
   SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT;
 

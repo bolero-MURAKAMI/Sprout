@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  reference front();
+  SPROUT_CXX14_CONSTEXPR reference front();
   
   SPROUT_CONSTEXPR const_reference front() const;
 

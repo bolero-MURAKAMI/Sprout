@@ -8,7 +8,7 @@ Interface
 .. sourcecode:: c++
 
   template<typename T, std::size_t N>
-  inline void
+  inline SPROUT_CXX14_CONSTEXPR void
   swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs)
   SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)));
 

@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  pointer c_array() SPROUT_NOEXCEPT;
+  SPROUT_CXX14_CONSTEXPR pointer c_array() SPROUT_NOEXCEPT;
   
   SPROUT_CONSTEXPR const_pointer c_array() const SPROUT_NOEXCEPT;
 

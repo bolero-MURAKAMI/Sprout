@@ -7,7 +7,7 @@ Interface
 ========================================
 .. sourcecode:: c++
 
-  reference operator[](size_type n);
+  SPROUT_CXX14_CONSTEXPR reference operator[](size_type n);
   
   SPROUT_CONSTEXPR const_reference operator[](size_type n) const;
 
