@@ -129,7 +129,7 @@ namespace sprout {
 				log_1mp_ = init_log_1mp(p_);
 			}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> operator()(Engine const& eng) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> const operator()(Engine const& eng) const {
 				return generate(eng);
 			}
 			template<typename Elem, typename Traits>

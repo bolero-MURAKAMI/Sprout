@@ -89,10 +89,10 @@ namespace sprout {
 			IntType min_;
 			IntType max_;
 		private:
-			template<typename Engine, typename RangeType, typename BaseUnsigned>
+			template<typename Engine, typename EngineResult, typename RangeType, typename BaseUnsigned>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate_true_2(
 				Engine const&,
-				sprout::random::random_result<Engine> const& rnd,
+				EngineResult const& rnd,
 				RangeType range,
 				BaseUnsigned base_range,
 				BaseUnsigned val
@@ -111,10 +111,10 @@ namespace sprout {
 						)
 					;
 			}
-			template<typename Engine, typename RangeType, typename BaseUnsigned>
+			template<typename Engine, typename EngineResult, typename RangeType, typename BaseUnsigned>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate_true_1(
 				Engine const& eng,
-				sprout::random::random_result<Engine> const& rnd,
+				EngineResult const& rnd,
 				RangeType range,
 				BaseUnsigned base_range
 				) const
@@ -227,7 +227,7 @@ namespace sprout {
 				max_ = parm.b();
 			}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> operator()(Engine const& eng) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> const operator()(Engine const& eng) const {
 				typedef typename Engine::result_type base_result;
 				return generate(eng, typename std::is_integral<base_result>::type());
 			}

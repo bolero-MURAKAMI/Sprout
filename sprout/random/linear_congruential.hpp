@@ -82,7 +82,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return static_max();
 			}
-			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> operator()() const {
+			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> const operator()() const {
 				return generate(sprout::random::detail::const_mod<UIntType, m>::mult_add(a, x_, c));
 			}
 			friend SPROUT_CONSTEXPR bool operator==(linear_congruential_engine const& lhs, linear_congruential_engine const& rhs) SPROUT_NOEXCEPT {
@@ -164,10 +164,8 @@ namespace sprout {
 			SPROUT_CONSTEXPR rand48(lcf_type const& lcf, private_construct_t)
 				: lcf_(lcf)
 			{}
-			SPROUT_CONSTEXPR sprout::random::random_result<rand48> generate(
-				sprout::random::random_result<lcf_type> const& lcf_result
-				) const
-			{
+			template<typename LcfResult>
+			SPROUT_CONSTEXPR sprout::random::random_result<rand48> generate(LcfResult const& lcf_result) const {
 				return sprout::random::random_result<rand48>(
 					lcf_result.result() >> 17,
 					rand48(lcf_result.engine(), private_construct_t())
@@ -186,7 +184,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const {
 				return static_max();
 			}
-			SPROUT_CONSTEXPR sprout::random::random_result<rand48> operator()() const {
+			SPROUT_CONSTEXPR sprout::random::random_result<rand48> const operator()() const {
 				return generate(lcf_());
 			}
 			friend SPROUT_CONSTEXPR bool operator==(rand48 const& lhs, rand48 const& rhs) {

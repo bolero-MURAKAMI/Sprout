@@ -8,7 +8,11 @@
 #ifndef SPROUT_CXX14_ALGORITHM_SHUFFLE_HPP
 #define SPROUT_CXX14_ALGORITHM_SHUFFLE_HPP
 
+#include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/iterator/distance.hpp>
+#include <sprout/algorithm/cxx14/iter_swap.hpp>
+#include <sprout/workaround/detail/uniform_int_distribution.hpp>
 
 namespace sprout {
 	//
@@ -16,7 +20,20 @@ namespace sprout {
 	//
 	template<typename RandomAccessIterator, typename UniformRandomNumberGenerator>
 	inline SPROUT_CXX14_CONSTEXPR void
-	shuffle(RandomAccessIterator first, RandomAccessIterator last, UniformRandomNumberGenerator&& g); // !!!
+	shuffle(RandomAccessIterator first, RandomAccessIterator last, UniformRandomNumberGenerator&& g) {
+		typedef typename std::iterator_traits<RandomAccessIterator>::difference_type difference_type;
+		typedef SPROUT_WORKAROUND_DETAIL_UNIFORM_INT_DISTRIBUTION<std::ptrdiff_t> distribution_type;
+		typedef typename distribution_type::param_type param_type;
+		difference_type d = last - first;
+		if (d > 1) {
+			distribution_type dist;
+			for (--last, --d; first < last; ++first, --d) {
+				difference_type i = dist(g, param_type(0, d));
+				if (i != difference_type(0))
+					sprout::iter_swap(first, first + i);
+			}
+		}
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CXX14_ALGORITHM_SHUFFLE_HPP

@@ -386,7 +386,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return static_max();
 			}
-			SPROUT_CONSTEXPR sprout::random::random_result<mersenne_twister_engine> operator()() const {
+			SPROUT_CONSTEXPR sprout::random::random_result<mersenne_twister_engine> const operator()() const {
 				return i_ == n
 					? twist().generate()
 					: generate()

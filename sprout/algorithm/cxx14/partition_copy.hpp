@@ -17,7 +17,16 @@ namespace sprout {
 	//
 	template<typename InputIterator, typename OutputIterator1, typename OutputIterator2, typename Predicate>
 	inline SPROUT_CXX14_CONSTEXPR sprout::pair<OutputIterator1, OutputIterator2>
-	partition_copy(InputIterator first, InputIterator last, OutputIterator1 out_true, OutputIterator2 out_false, Predicate pred); // !!!
+	partition_copy(InputIterator first, InputIterator last, OutputIterator1 out_true, OutputIterator2 out_false, Predicate pred) {
+		for (; first != last; ++first) {
+			if (p(*first)) {
+				*out_true++ = *first;
+			} else {
+				*out_false++ = *first;
+			}
+		}
+		return sprout::pair<OutputIterator1, OutputIterator2>(out_true, out_false);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CXX14_ALGORITHM_PARTITION_COPY_HPP

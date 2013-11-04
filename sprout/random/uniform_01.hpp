@@ -60,22 +60,22 @@ namespace sprout {
 			};
 		private:
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
-			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			template<int D, typename Engine, typename EngineResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate_1(Engine const&, sprout::random::random_result<Engine> const& rnd, result_type result) const {
+			generate_1(Engine const&, EngineResult const& rnd, result_type result) const {
 				return result < result_type(1)
 					? sprout::random::random_result<Engine, uniform_01>(result, rnd.engine(), *this)
 					: generate<D + 1>(rnd.engine(), rnd.engine()())
 					;
 			}
-			template<int D, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			template<int D, typename Engine, typename EngineResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate_1(Engine const&, sprout::random::random_result<Engine> const&, result_type) const {
+			generate_1(Engine const&, EngineResult const&, result_type) const {
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
-			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			template<int D = 16, typename Engine, typename EngineResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
+			generate(Engine const& eng, EngineResult const& rnd) const {
 				typedef typename Engine::result_type base_result;
 				return generate_1<D + 1>(
 					eng,
@@ -89,23 +89,23 @@ namespace sprout {
 						)
 					);
 			}
-			template<int D = 16, typename Engine, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			template<int D = 16, typename Engine, typename EngineResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate(Engine const&, sprout::random::random_result<Engine> const&) const {
+			generate(Engine const&, EngineResult const&) const {
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 #else
-			template<typename Engine>
+			template<typename Engine, typename EngineResult>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate_1(Engine const&, sprout::random::random_result<Engine> const& rnd, result_type result) const {
+			generate_1(Engine const&, EngineResult const& rnd, result_type result) const {
 				return result < result_type(1)
 					? sprout::random::random_result<Engine, uniform_01>(result, rnd.engine(), *this)
 					: generate(rnd.engine(), rnd.engine()())
 					;
 			}
-			template<typename Engine>
+			template<typename Engine, typename EngineResult>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01>
-			generate(Engine const& eng, sprout::random::random_result<Engine> const& rnd) const {
+			generate(Engine const& eng, EngineResult const& rnd) const {
 				typedef typename Engine::result_type base_result;
 				return generate_1(
 					eng,
@@ -134,7 +134,7 @@ namespace sprout {
 			}
 			SPROUT_CXX14_CONSTEXPR void param(param_type const&) {}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> operator()(Engine const& eng) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> const operator()(Engine const& eng) const {
 				return generate(eng, eng());
 			}
 			template<typename Elem, typename Traits>

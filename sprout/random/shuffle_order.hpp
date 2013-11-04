@@ -144,7 +144,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return rng_.max();
 			}
-			SPROUT_CONSTEXPR sprout::random::random_result<shuffle_order_engine> operator()() const {
+			SPROUT_CONSTEXPR sprout::random::random_result<shuffle_order_engine> const operator()() const {
 				typedef typename std::make_unsigned<result_type>::type base_unsigned;
 				return generate(
 					base_unsigned(sprout::random::detail::subtract<result_type>()(max(), min())),

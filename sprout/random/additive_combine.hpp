@@ -82,7 +82,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return base1_type::modulus - 1;
 			}
-			SPROUT_CONSTEXPR sprout::random::random_result<additive_combine_engine> operator()() const {
+			SPROUT_CONSTEXPR sprout::random::random_result<additive_combine_engine> const operator()() const {
 				return generate(mlcg1_(), mlcg2_());
 			}
 			SPROUT_CONSTEXPR base1_type const& base1() const SPROUT_NOEXCEPT {

@@ -1023,7 +1023,7 @@ namespace sprout {
 
 		template<typename Char, typename Traits>
 		SPROUT_CXX14_CONSTEXPR void
-		copy_from_ptr(const Char* s, std::size_t len, std::size_t pos, std::size_t n, Char zero, Char one) {
+		copy_from_ptr(Char const* s, std::size_t len, std::size_t pos, std::size_t n, Char zero, Char one) {
 			reset();
 			std::size_t const nbits = std::min(N, std::min(n, len - pos));
 			for (std::size_t i = nbits; i > 0; --i) {

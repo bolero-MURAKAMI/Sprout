@@ -5,19 +5,23 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_CXX14_ALGORITHM_STABLE_PARTITION_HPP
-#define SPROUT_CXX14_ALGORITHM_STABLE_PARTITION_HPP
+#ifndef SPROUT_CXX14_ALGORITHM_SORT_HPP
+#define SPROUT_CXX14_ALGORITHM_SORT_HPP
 
 #include <sprout/config.hpp>
 
 namespace sprout {
 	//
-	// 25.3.13 Partitions
+	// 25.4.1.1 sort
 	//
 	// !!! TOTO: implementation
-	template<typename BidirectionalIterator, typename Predicate>
-	inline SPROUT_CXX14_CONSTEXPR BidirectionalIterator
-	stable_partition(BidirectionalIterator first, BidirectionalIterator last, Predicate pred);
+	template<typename RandomAccessIterator>
+	inline SPROUT_CXX14_CONSTEXPR void
+	sort(RandomAccessIterator first, RandomAccessIterator last);
+
+	template<typename RandomAccessIterator, typename Compare>
+	inline SPROUT_CXX14_CONSTEXPR void
+	sort(RandomAccessIterator first, RandomAccessIterator last, Compare comp);
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_CXX14_ALGORITHM_STABLE_PARTITION_HPP
+#endif	// #ifndef SPROUT_CXX14_ALGORITHM_SORT_HPP

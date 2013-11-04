@@ -649,8 +649,7 @@ namespace sprout {
 				init();
 			}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
-			operator()(Engine const& eng) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> const operator()(Engine const& eng) const {
 				return use_inversion() ? RealType(0.5) < p_
 						? invert2(t_, 1 - p_, eng)
 						: invert(t_, p_, eng)

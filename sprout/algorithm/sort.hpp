@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/algorithm/fixed/sort.hpp>
 #include <sprout/algorithm/fit/sort.hpp>
+#include <sprout/algorithm/cxx14/sort.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_SORT_HPP

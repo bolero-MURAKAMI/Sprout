@@ -41,5 +41,30 @@
 #include <sprout/algorithm/cxx14/partition.hpp>
 #include <sprout/algorithm/cxx14/stable_partition.hpp>
 #include <sprout/algorithm/cxx14/partition_copy.hpp>
+#include <sprout/algorithm/cxx14/sort.hpp>
+#include <sprout/algorithm/cxx14/stable_sort.hpp>
+#include <sprout/algorithm/cxx14/partial_sort.hpp>
+#include <sprout/algorithm/cxx14/partial_sort_copy.hpp>
+#include <sprout/algorithm/cxx14/nth_element.hpp>
+//#include <sprout/algorithm/cxx14/merge.hpp>
+//#include <sprout/algorithm/cxx14/inplace_merge.hpp>
+//#include <sprout/algorithm/cxx14/set_union.hpp>
+//#include <sprout/algorithm/cxx14/set_intersection.hpp>
+//#include <sprout/algorithm/cxx14/set_difference.hpp>
+//#include <sprout/algorithm/cxx14/set_symmetric_difference.hpp>
+//#include <sprout/algorithm/cxx14/push_heap.hpp>
+//#include <sprout/algorithm/cxx14/pop_heap.hpp>
+//#include <sprout/algorithm/cxx14/make_heap.hpp>
+//#include <sprout/algorithm/cxx14/sort_heap.hpp>
+//#include <sprout/algorithm/cxx14/next_permutation.hpp>
+//#include <sprout/algorithm/cxx14/prev_permutation.hpp>
+//#include <sprout/algorithm/cxx14/copy_while.hpp>
+//#include <sprout/algorithm/cxx14/copy_until.hpp>
+//#include <sprout/algorithm/cxx14/clamp_range.hpp>
+//#include <sprout/algorithm/cxx14/clamp_range_copy.hpp>
+//#include <sprout/algorithm/cxx14/bogo_sort.hpp>
+//#include <sprout/algorithm/cxx14/bogo_sort_result.hpp>
+//#include <sprout/algorithm/cxx14/bozo_sort.hpp>
+//#include <sprout/algorithm/cxx14/bozo_sort_result.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_CXX14_HPP

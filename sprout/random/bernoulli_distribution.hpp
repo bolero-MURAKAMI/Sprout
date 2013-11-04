@@ -76,9 +76,9 @@ namespace sprout {
 		private:
 			RealType p_;
 		private:
-			template<typename Engine>
+			template<typename Engine, typename EngineResult>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, bernoulli_distribution> generate(
-				sprout::random::random_result<Engine> const& rnd
+				EngineResult const& rnd
 				) const
 			{
 				return sprout::random::random_result<Engine, bernoulli_distribution>(
@@ -113,10 +113,10 @@ namespace sprout {
 				p_ = parm.p();
 			}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, bernoulli_distribution> operator()(Engine const& eng) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, bernoulli_distribution> const operator()(Engine const& eng) const {
 				return p_ == RealType(0)
 					? sprout::random::random_result<Engine, bernoulli_distribution>(false, eng, *this)
-					: generate(eng())
+					: generate<Engine>(eng())
 					;
 			}
 			template<typename Elem, typename Traits>

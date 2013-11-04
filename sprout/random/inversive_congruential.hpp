@@ -79,7 +79,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return static_max();
 			}
-			SPROUT_CONSTEXPR sprout::random::random_result<inversive_congruential_engine> operator()() const {
+			SPROUT_CONSTEXPR sprout::random::random_result<inversive_congruential_engine> const operator()() const {
 				typedef sprout::random::detail::const_mod<IntType, p> do_mod;
 				return generate(do_mod::mult_add(a, do_mod::invert(x_), b));
 			}

@@ -406,7 +406,7 @@ namespace sprout {
 			position.item->next = nxt;
 			return iterator(nxt);
 		}
-		template <class InputIterator>
+		template<typename InputIterator>
 		SPROUT_CXX14_CONSTEXPR iterator insert_after(const_iterator position, InputIterator first, InputIterator last) {
 			item_holder_type nxt(position.item->next);
 			item_holder_type pos(position.item);

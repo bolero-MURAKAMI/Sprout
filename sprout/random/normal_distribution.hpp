@@ -206,7 +206,7 @@ namespace sprout {
 				valid_ = false;
 			}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> operator()(Engine const& eng) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> const operator()(Engine const& eng) const {
 				return generate(eng);
 			}
 			template<typename Elem, typename Traits>

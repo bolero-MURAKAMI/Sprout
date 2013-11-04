@@ -35,16 +35,16 @@ namespace sprout {
 			template<int D = 16, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
 			generate_uniform_int(Engine const& eng, T min_value, T max_value, std::true_type);
-			template<int D, typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<int D, typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_3_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, RangeType range,
+				EngineResult const& rnd, T min_value, RangeType range,
 				BaseResult bmin, BaseUnsigned brange, BaseUnsigned bucket_size
 				);
-			template<int D, typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<int D, typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_3_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, RangeType range,
+				EngineResult const& rnd, T min_value, RangeType range,
 				BaseResult bmin, BaseUnsigned brange, BaseUnsigned bucket_size
 				);
 			template<int D, typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
@@ -75,10 +75,10 @@ namespace sprout {
 			{
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
-			template<int D, typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE_DECL(D)>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<int D, typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE_DECL(D)>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_3_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, RangeType range,
+				EngineResult const& rnd, T min_value, RangeType range,
 				BaseResult bmin, BaseUnsigned brange, BaseUnsigned bucket_size
 				)
 			{
@@ -88,10 +88,10 @@ namespace sprout {
 					sprout::random::detail::subtract<BaseResult>()(rnd.result(), bmin) / bucket_size
 					);
 			}
-			template<int D, typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<int D, typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_3_1(
-				sprout::random::random_result<Engine> const&, T, RangeType,
+				EngineResult const&, T, RangeType,
 				BaseResult, BaseUnsigned, BaseUnsigned
 				)
 			{
@@ -219,15 +219,15 @@ namespace sprout {
 				BaseResult bmin, BaseUnsigned brange, RangeType limit,
 				RangeType result = RangeType(0), RangeType mult = RangeType(1)
 				);
-			template<int D, typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<int D, typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_2_1_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, RangeType range,
+				EngineResult const& rnd, T min_value, RangeType range,
 				BaseResult bmin, BaseUnsigned brange, RangeType limit, RangeType result, RangeType mult
 				)
 			{
 				return mult * RangeType(brange) == range - mult + 1
-					? sprout::random::detail::generate_uniform_int_result<T, Engine>{
+					? sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>{
 						static_cast<T>(
 							result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(rnd.result(), bmin) * mult)
 							),
@@ -241,10 +241,10 @@ namespace sprout {
 						)
 					;
 			}
-			template<int D, typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<int D, typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_2_1_1(
-				sprout::random::random_result<Engine> const&, T, RangeType,
+				EngineResult const&, T, RangeType,
 				BaseResult, BaseUnsigned, RangeType, RangeType, RangeType
 				)
 			{
@@ -313,15 +313,15 @@ namespace sprout {
 			{
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
-			template<int D, typename Engine, typename T, typename BaseResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<int D, typename EngineResult, typename T, typename BaseResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_1_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, BaseResult bmin
+				EngineResult const& rnd, T min_value, BaseResult bmin
 				)
 			{
 				typedef T result_type;
 				typedef typename std::make_unsigned<BaseResult>::type base_unsigned;
-				return sprout::random::detail::generate_uniform_int_result<T, Engine>{
+				return sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>{
 					sprout::random::detail::add<base_unsigned, result_type>()(
 						base_unsigned(sprout::random::detail::subtract<BaseResult>()(rnd.result(), bmin)),
 						min_value
@@ -329,10 +329,10 @@ namespace sprout {
 					rnd.engine()
 					};
 			}
-			template<int D, typename Engine, typename T, typename BaseResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<int D, typename EngineResult, typename T, typename BaseResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_1_1(
-				sprout::random::random_result<Engine> const&, T, BaseResult
+				EngineResult const&, T, BaseResult
 				)
 			{
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
@@ -424,10 +424,10 @@ namespace sprout {
 			template<typename Engine, typename T>
 			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
 			generate_uniform_int(Engine const& eng, T min_value, T max_value, std::true_type);
-			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_3_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, RangeType range,
+				EngineResult const& rnd, T min_value, RangeType range,
 				BaseResult bmin, BaseUnsigned brange, BaseUnsigned bucket_size
 				);
 			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
@@ -449,10 +449,10 @@ namespace sprout {
 						)
 					;
 			}
-			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_3_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, RangeType range,
+				EngineResult const& rnd, T min_value, RangeType range,
 				BaseResult bmin, BaseUnsigned brange, BaseUnsigned bucket_size
 				)
 			{
@@ -535,15 +535,15 @@ namespace sprout {
 				BaseResult bmin, BaseUnsigned brange, RangeType limit,
 				RangeType result = RangeType(0), RangeType mult = RangeType(1)
 				);
-			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_2_1_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, RangeType range,
+				EngineResult const& rnd, T min_value, RangeType range,
 				BaseResult bmin, BaseUnsigned brange, RangeType limit, RangeType result, RangeType mult
 				)
 			{
 				return mult * RangeType(brange) == range - mult + 1
-					? sprout::random::detail::generate_uniform_int_result<T, Engine>{
+					? sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>{
 						static_cast<T>(
 							result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(rnd.result(), bmin) * mult)
 							),
@@ -601,15 +601,15 @@ namespace sprout {
 						: (range + 1) / (RangeType(brange) + 1)
 					);
 			}
-			template<typename Engine, typename T, typename BaseResult>
-			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
+			template<typename EngineResult, typename T, typename BaseResult>
+			inline SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>
 			generate_uniform_int_true_1_1(
-				sprout::random::random_result<Engine> const& rnd, T min_value, BaseResult bmin
+				EngineResult const& rnd, T min_value, BaseResult bmin
 				)
 			{
 				typedef T result_type;
 				typedef typename std::make_unsigned<BaseResult>::type base_unsigned;
-				return sprout::random::detail::generate_uniform_int_result<T, Engine>{
+				return sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>{
 					sprout::random::detail::add<base_unsigned, result_type>()(
 						base_unsigned(sprout::random::detail::subtract<BaseResult>()(rnd.result(), bmin)),
 						min_value
@@ -792,7 +792,7 @@ namespace sprout {
 				max_ = parm.b();
 			}
 			template<typename Engine>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_int_distribution> operator()(Engine const& eng) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_int_distribution> const operator()(Engine const& eng) const {
 				return generate<Engine>(sprout::random::detail::generate_uniform_int(eng, min_, max_));
 			}
 			template<typename Elem, typename Traits>

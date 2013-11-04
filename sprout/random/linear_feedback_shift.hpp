@@ -78,7 +78,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return static_max();
 			}
-			SPROUT_CONSTEXPR sprout::random::random_result<linear_feedback_shift_engine> operator()() const {
+			SPROUT_CONSTEXPR sprout::random::random_result<linear_feedback_shift_engine> const operator()() const {
 				return generate(((x_ & ((wordmask() << (w - k)) & wordmask())) << s) ^ ((((x_ << q) ^ x_) & wordmask()) >> (k - s)));
 			}
 			friend SPROUT_CONSTEXPR bool operator==(linear_feedback_shift_engine const& lhs, linear_feedback_shift_engine const& rhs) SPROUT_NOEXCEPT {

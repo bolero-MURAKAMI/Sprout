@@ -5,12 +5,10 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_NUMERIC_MODIFYIING_HPP
-#define SPROUT_NUMERIC_MODIFYIING_HPP
+#ifndef SPROUT_ALGORITHM_PARTIAL_SORT_COPY_HPP
+#define SPROUT_ALGORITHM_PARTIAL_SORT_COPY_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/numeric/fixed.hpp>
-#include <sprout/numeric/fit.hpp>
-#include <sprout/numeric/cxx14.hpp>
+#include <sprout/algorithm/cxx14/partial_sort_copy.hpp>
 
-#endif	// #ifndef SPROUT_NUMERIC_MODIFYIING_HPP
+#endif	// #ifndef SPROUT_ALGORITHM_PARTIAL_SORT_COPY_HPP
