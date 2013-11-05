@@ -19,7 +19,7 @@ namespace sprout {
 	inline SPROUT_CXX14_CONSTEXPR sprout::pair<OutputIterator1, OutputIterator2>
 	partition_copy(InputIterator first, InputIterator last, OutputIterator1 out_true, OutputIterator2 out_false, Predicate pred) {
 		for (; first != last; ++first) {
-			if (p(*first)) {
+			if (pred(*first)) {
 				*out_true++ = *first;
 			} else {
 				*out_false++ = *first;
