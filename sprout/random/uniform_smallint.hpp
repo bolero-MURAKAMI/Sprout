@@ -89,6 +89,39 @@ namespace sprout {
 			IntType min_;
 			IntType max_;
 		private:
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type generate(
+				Engine& eng,
+				std::true_type
+				) const
+			{
+				typedef typename Engine::result_type base_result;
+				typedef typename std::make_unsigned<base_result>::type base_unsigned;
+				typedef typename std::make_unsigned<result_type>::type range_type;
+				range_type range = sprout::random::detail::subtract<result_type>()(max_, min_);
+				base_unsigned base_range = sprout::random::detail::subtract<result_type>()(eng.max(), eng.min());
+				base_unsigned val = sprout::random::detail::subtract<base_result>()(static_cast<base_result>(eng()), eng.min());
+				return range >= base_range
+					? sprout::random::detail::add<range_type, result_type>()(static_cast<range_type>(val), min_)
+					: sprout::random::detail::add<range_type, result_type>()(static_cast<range_type>(val % (static_cast<base_result>(range) + 1)), min_)
+					;
+			}
+			template<class Engine>
+			SPROUT_CXX14_CONSTEXPR result_type generate(
+				Engine& eng,
+				std::false_type
+				) const
+			{
+				typedef typename Engine::result_type base_result;
+				typedef typename std::make_unsigned<result_type>::type range_type;
+				range_type range = sprout::random::detail::subtract<result_type>()(max_, min_);
+				base_result val = sprout::random::uniform_01<base_result>()(eng);
+				range_type offset = static_cast<range_type>(val * (static_cast<base_result>(range) + 1));
+				return offset > range
+					? max_
+					: sprout::random::detail::add<range_type, result_type>()(offset, min_)
+					;
+			}
 			template<typename Engine, typename EngineResult, typename RangeType, typename BaseUnsigned>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate_true_2(
 				Engine const&,
@@ -176,8 +209,8 @@ namespace sprout {
 				return generate_false_2(
 					eng,
 					rnd,
-					RangeType(sprout::random::detail::subtract<result_type>()(max_, min_)),
-					RangeType(static_cast<RangeType>(rnd.result() * (static_cast<base_result>(range) + 1)))
+					static_cast<RangeType>(sprout::random::detail::subtract<result_type>()(max_, min_)),
+					static_cast<RangeType>(rnd.result() * (static_cast<base_result>(range) + 1))
 					);
 			}
 			template<class Engine>
@@ -191,11 +224,11 @@ namespace sprout {
 				return generate_false_1(
 					eng,
 					sprout::random::uniform_01<base_result>()(eng),
-					range_type(sprout::random::detail::subtract<result_type>()(max_, min_))
+					static_cast<range_type>(sprout::random::detail::subtract<result_type>()(max_, min_))
 					);
 			}
 		public:
-			SPROUT_CONSTEXPR uniform_smallint()
+			SPROUT_CONSTEXPR uniform_smallint() SPROUT_NOEXCEPT
 				: min_(0)
 				, max_(9)
 			{}
@@ -203,7 +236,7 @@ namespace sprout {
 				: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 				, max_(max_arg)
 			{}
-			explicit SPROUT_CONSTEXPR uniform_smallint(param_type const& parm)
+			explicit SPROUT_CONSTEXPR uniform_smallint(param_type const& parm) SPROUT_NOEXCEPT
 				: min_(parm.a())
 				, max_(parm.b())
 			{}
@@ -227,9 +260,24 @@ namespace sprout {
 				max_ = parm.b();
 			}
 			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng) const {
+				typedef typename Engine::result_type base_result;
+				return generate(eng, typename std::is_integral<base_result>::type());
+			}
+			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> const operator()(Engine const& eng) const {
 				typedef typename Engine::result_type base_result;
 				return generate(eng, typename std::is_integral<base_result>::type());
+			}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng, param_type const& parm) const {
+				typedef typename Engine::result_type base_result;
+				return uniform_smallint(parm)(eng);
+			}
+			template<typename Engine>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> const operator()(Engine const& eng, param_type const& parm) const {
+				typedef typename Engine::result_type base_result;
+				return uniform_smallint(parm)(eng);
 			}
 			template<typename Elem, typename Traits>
 			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(

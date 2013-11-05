@@ -1,9 +1,9 @@
 /*=============================================================================
-  Copyright (c) 2011-2013 Bolero MURAKAMI
-  https://github.com/bolero-MURAKAMI/Sprout
+	Copyright (c) 2011-2013 Bolero MURAKAMI
+	https://github.com/bolero-MURAKAMI/Sprout
 
-  Distributed under the Boost Software License, Version 1.0. (See accompanying
-  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+	Distributed under the Boost Software License, Version 1.0. (See accompanying
+	file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 #ifndef SPROUT_RANDOM_UNIFORM_01_HPP
 #define SPROUT_RANDOM_UNIFORM_01_HPP
@@ -121,8 +121,8 @@ namespace sprout {
 			}
 #endif
 		public:
-			explicit SPROUT_CONSTEXPR uniform_01() {}
-			explicit SPROUT_CONSTEXPR uniform_01(param_type const&) {}
+			uniform_01() = default;
+			explicit SPROUT_CONSTEXPR uniform_01(param_type const&) SPROUT_NOEXCEPT {}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return result_type(0);
 			}
@@ -132,10 +132,34 @@ namespace sprout {
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type();
 			}
-			SPROUT_CXX14_CONSTEXPR void param(param_type const&) {}
+			SPROUT_CXX14_CONSTEXPR void param(param_type const&) SPROUT_NOEXCEPT {}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng) const {
+				for (; ; ) {
+					typedef typename Engine::result_type base_result;
+					result_type result = result_type(static_cast<base_result>(eng()) - eng.min()) * (
+						result_type(1) / (
+							result_type(eng.max() - eng.min()) + result_type(
+								std::numeric_limits<base_result>::is_integer ? 1 : 0
+								)
+							)
+						);
+					if (result < result_type(1)) {
+						return result;
+					}
+				}
+			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> const operator()(Engine const& eng) const {
 				return generate(eng, eng());
+			}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng, param_type const&) const {
+				return operator()(eng);
+			}
+			template<typename Engine>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_01> const operator()(Engine const& eng, param_type const&) const {
+				return operator()(eng);
 			}
 			template<typename Elem, typename Traits>
 			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(

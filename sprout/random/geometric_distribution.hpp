@@ -129,8 +129,22 @@ namespace sprout {
 				log_1mp_ = init_log_1mp(p_);
 			}
 			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng) const {
+				return static_cast<result_type>(
+					sprout::math::floor(sprout::math::log(RealType(1) - static_cast<RealType>(sprout::random::uniform_01<RealType>()(eng))) / log_1mp_)
+					);
+			}
+			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> const operator()(Engine const& eng) const {
 				return generate(eng);
+			}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng, param_type const& parm) const {
+				return geometric_distribution(parm)(eng);
+			}
+			template<typename Engine>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> const operator()(Engine const& eng, param_type const& parm) const {
+				return geometric_distribution(parm)(eng);
 			}
 			template<typename Elem, typename Traits>
 			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(

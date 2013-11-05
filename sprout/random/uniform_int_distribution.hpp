@@ -28,6 +28,105 @@ namespace sprout {
 				Engine engine;
 			};
 
+			template<typename Engine, typename T>
+			inline SPROUT_CXX14_CONSTEXPR T
+			generate_uniform_int(
+				Engine& eng, T min_value, T max_value, std::true_type
+				)
+			{
+				typedef T result_type;
+				typedef typename std::make_unsigned<T>::type range_type;
+				typedef typename Engine::result_type base_result;
+				typedef typename std::make_unsigned<base_result>::type base_unsigned;
+				range_type const range = sprout::random::detail::subtract<result_type>()(max_value, min_value);
+				base_result const bmin = eng.min();
+				base_unsigned const brange = sprout::random::detail::subtract<base_result>()(eng.max(), eng.min());
+				if (range == 0) {
+					return min_value;
+				} else if (brange == range) {
+					base_unsigned v = sprout::random::detail::subtract<base_result>()(static_cast<base_result>(eng()), bmin);
+					return sprout::random::detail::add<base_unsigned, result_type>()(
+						static_cast<base_unsigned>(sprout::random::detail::subtract<base_result>()(static_cast<base_result>(eng()), bmin)),
+						min_value
+						);
+				} else if (brange < range) {
+					for(; ; ) {
+						range_type limit = range_type();
+						if (range == std::numeric_limits<range_type>::max()) {
+							limit = range / (range_type(brange) + 1);
+							if (range % (range_type(brange) + 1) == range_type(brange)) {
+								++limit;
+							}
+						} else {
+							limit = (range + 1) / (range_type(brange) + 1);
+						}
+						range_type result = range_type(0);
+						range_type mult = range_type(1);
+						while (mult <= limit) {
+							result += static_cast<range_type>(sprout::random::detail::subtract<base_result>()(static_cast<base_result>(eng()), bmin) * mult);
+							if (mult * range_type(brange) == range - mult + 1) {
+								return result;
+							}
+							mult *= range_type(brange) + range_type(1);
+						}
+						range_type result_increment = sprout::random::detail::generate_uniform_int(
+							eng,
+							static_cast<range_type>(0),
+							static_cast<range_type>(range / mult),
+							std::true_type()
+							);
+						if (std::numeric_limits<range_type>::max() / mult < result_increment) {
+							continue;
+						}
+						result_increment *= mult;
+						result += result_increment;
+						if (result < result_increment) {
+							continue;
+						}
+						if (result > range) {
+							continue;
+						}
+						return sprout::random::detail::add<range_type, result_type>()(result, min_value);
+					}
+				} else {
+					base_unsigned bucket_size = base_unsigned();
+					if (brange == std::numeric_limits<base_unsigned>::max()) {
+						bucket_size = brange / (static_cast<base_unsigned>(range) + 1);
+						if (brange % (static_cast<base_unsigned>(range) + 1) == static_cast<base_unsigned>(range)) {
+							++bucket_size;
+						}
+					} else {
+						bucket_size = (brange + 1) / (static_cast<base_unsigned>(range) + 1);
+					}
+					for(; ; ) {
+						base_unsigned result = sprout::random::detail::subtract<base_result>()(static_cast<base_result>(eng()), bmin) / bucket_size;
+						if (result <= static_cast<base_unsigned>(range)) {
+							return sprout::random::detail::add<base_unsigned, result_type>()(result, min_value);
+						}
+					}
+				}
+			}
+			template<typename Engine, typename T>
+			inline SPROUT_CXX14_CONSTEXPR T
+			generate_uniform_int(
+				Engine& eng, T min_value, T max_value, std::false_type
+				)
+			{
+				sprout::random::detail::uniform_int_float<Engine> wrapper(eng);
+				return sprout::random::detail::generate_uniform_int(wrapper, min_value, max_value, std::true_type());
+			}
+			template<typename Engine, typename T>
+			inline SPROUT_CXX14_CONSTEXPR T
+			generate_uniform_int(
+				Engine& eng, T min_value, T max_value
+				)
+			{
+				return sprout::random::detail::generate_uniform_int(
+					eng, min_value, max_value,
+					std::is_integral<typename Engine::result_type>()
+					);
+			}
+
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 			template<int D = 16, typename Engine, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::detail::generate_uniform_int_result<T, Engine>
@@ -760,7 +859,7 @@ namespace sprout {
 					);
 			}
 		public:
-			SPROUT_CONSTEXPR uniform_int_distribution()
+			SPROUT_CONSTEXPR uniform_int_distribution() SPROUT_NOEXCEPT
 				: min_(0)
 				, max_(9)
 			{}
@@ -768,7 +867,7 @@ namespace sprout {
 				: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 				, max_(max_arg)
 			{}
-			explicit SPROUT_CONSTEXPR uniform_int_distribution(param_type const& parm)
+			explicit SPROUT_CONSTEXPR uniform_int_distribution(param_type const& parm) SPROUT_NOEXCEPT
 				: min_(parm.a())
 				, max_(parm.b())
 			{}
@@ -792,8 +891,20 @@ namespace sprout {
 				max_ = parm.b();
 			}
 			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng) const {
+				return sprout::random::detail::generate_uniform_int(eng, min_, max_);
+			}
+			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_int_distribution> const operator()(Engine const& eng) const {
 				return generate<Engine>(sprout::random::detail::generate_uniform_int(eng, min_, max_));
+			}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng, param_type const& parm) const {
+				return sprout::random::detail::generate_uniform_int(eng, parm.a(), parm.b());
+			}
+			template<typename Engine>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_int_distribution> const operator()(Engine const& eng, param_type const& parm) const {
+				return generate<Engine>(sprout::random::detail::generate_uniform_int(eng, parm.a(), parm.b()));
 			}
 			template<typename Elem, typename Traits>
 			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(

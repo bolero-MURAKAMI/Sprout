@@ -32,6 +32,16 @@ namespace sprout {
 				>::fast result_type;
 			private:
 				base_type rng_;
+			private:
+				SPROUT_CONSTEXPR sprout::random::random_result<uniform_int_float> generate(
+					sprout::random::random_result<base_type> const& rnd
+					) const
+				{
+					return sprout::random::random_result<uniform_int_float>(
+						static_cast<result_type>(rnd.result() * (static_cast<base_result>(max()) + 1)),
+						uniform_int_float(rnd.engine())
+						);
+				}
 			public:
 				SPROUT_CONSTEXPR uniform_int_float()
 					: rng_()
@@ -59,16 +69,10 @@ namespace sprout {
 				SPROUT_CONSTEXPR base_type const& base() const {
 					return rng_;
 				}
-				SPROUT_CONSTEXPR sprout::random::random_result<uniform_int_float> generate(
-					sprout::random::random_result<base_type> const& rnd
-					) const
-				{
-					return sprout::random::random_result<uniform_int_float>(
-						static_cast<result_type>(rnd.result() * (static_cast<base_result>(max()) + 1)),
-						uniform_int_float(rnd.engine())
-						);
+				SPROUT_CXX14_CONSTEXPR result_type operator()() {
+					return static_cast<result_type>(static_cast<base_result>(rng_()) * static_cast<base_result>(max()) + 1);
 				}
-				SPROUT_CONSTEXPR sprout::random::random_result<uniform_int_float> operator()() const {
+				SPROUT_CONSTEXPR sprout::random::random_result<uniform_int_float> const operator()() const {
 					return generate(rng_());
 				}
 			};

@@ -88,13 +88,13 @@ namespace sprout {
 					);
 			}
 		public:
-			SPROUT_CONSTEXPR bernoulli_distribution()
+			SPROUT_CONSTEXPR bernoulli_distribution() SPROUT_NOEXCEPT
 				: p_(RealType(0.5))
 			{}
 			explicit SPROUT_CONSTEXPR bernoulli_distribution(RealType p_arg)
 				: p_((SPROUT_ASSERT(p_arg >= RealType(0)), SPROUT_ASSERT(p_arg <= RealType(1)), p_arg))
 			{}
-			explicit SPROUT_CONSTEXPR bernoulli_distribution(param_type const& parm)
+			explicit SPROUT_CONSTEXPR bernoulli_distribution(param_type const& parm) SPROUT_NOEXCEPT
 				: p_(parm.p())
 			{}
 			SPROUT_CONSTEXPR RealType p() const SPROUT_NOEXCEPT {
@@ -113,11 +113,27 @@ namespace sprout {
 				p_ = parm.p();
 			}
 			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng) const {
+				typedef typename Engine::result_type base_result;
+				return p_ == RealType(0)
+					? false
+					: RealType(static_cast<base_result>(eng()) - eng.min()) <= p_ * RealType(eng.max() - eng.min())
+					;
+			}
+			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, bernoulli_distribution> const operator()(Engine const& eng) const {
 				return p_ == RealType(0)
 					? sprout::random::random_result<Engine, bernoulli_distribution>(false, eng, *this)
 					: generate<Engine>(eng())
 					;
+			}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng, param_type const& parm) const {
+				return bernoulli_distribution(parm)(eng);
+			}
+			template<typename Engine>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, bernoulli_distribution> const operator()(Engine const& eng, param_type const& parm) const {
+				return bernoulli_distribution(parm)(eng);
 			}
 			template<typename Elem, typename Traits>
 			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(

@@ -206,8 +206,33 @@ namespace sprout {
 				valid_ = false;
 			}
 			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng) {
+				if (!valid_) {
+					r1_ = static_cast<RealType>(sprout::random::uniform_01<RealType>()(eng));
+					r2_ = static_cast<RealType>(sprout::random::uniform_01<RealType>()(eng));
+					cached_rho_ = sprout::math::sqrt(-result_type(2) * sprout::math::log(result_type(1) - r2_));
+					valid_ = true;
+				} else {
+					valid_ = false;
+				}
+				return cached_rho_
+					* (valid_
+						? sprout::math::cos(sprout::math::two_pi<result_type>() * r1_)
+						: sprout::math::sin(sprout::math::two_pi<result_type>() * r1_))
+					* sigma_ + mean_
+					;
+			}
+			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> const operator()(Engine const& eng) const {
 				return generate(eng);
+			}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng, param_type const& parm) const {
+				return normal_distribution(parm)(eng);
+			}
+			template<typename Engine>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution> const operator()(Engine const& eng, param_type const& parm) const {
+				return normal_distribution(parm)(eng);
 			}
 			template<typename Elem, typename Traits>
 			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(

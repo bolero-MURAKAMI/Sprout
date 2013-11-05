@@ -210,6 +210,91 @@ namespace sprout {
 				return m_ < 11;
 			}
 			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type
+			invert(IntType t, RealType p, Engine& eng) const {
+				RealType q = 1 - p;
+				RealType s = p / q;
+				RealType a = (t + 1) * s;
+				RealType r = q_n_;
+				RealType u = static_cast<RealType>(sprout::random::uniform_01<RealType>()(eng));
+				IntType x = 0;
+				while (u > r) {
+					u = u - r;
+					++x;
+					r = ((a / x) - s) * r;
+				}
+				return x;
+			}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type
+			generate(Engine& eng) const {
+				for (; ; ) {
+					RealType u = RealType();
+					RealType v = static_cast<RealType>(sprout::random::uniform_01<RealType>()(eng));
+					if (v <= btrd_.u_rv_r) {
+						RealType u = v / btrd_.v_r - RealType(0.43);
+						return static_cast<result_type>(sprout::math::floor((2 * btrd_.a / (RealType(0.5) - sprout::math::abs(u)) + btrd_.b) * u + btrd_.c));
+					}
+
+					if (v >= btrd_.v_r) {
+						u = static_cast<RealType>(sprout::random::uniform_01<RealType>()(eng)) - RealType(0.5);
+					} else {
+						u = v / btrd_.v_r - RealType(0.93);
+						u = ((u < 0) ? -RealType(0.5) : RealType(0.5)) - u;
+						v = static_cast<RealType>(sprout::random::uniform_01<RealType>()(eng)) * btrd_.v_r;
+					}
+					RealType us = RealType(0.5) - sprout::math::abs(u);
+					IntType k = static_cast<IntType>(sprout::math::floor((2 * btrd_.a / us + btrd_.b) * u + btrd_.c));
+					if (k < 0 || k > t_) {
+						continue;
+					}
+					v = v * btrd_.alpha / (btrd_.a / (us * us) + btrd_.b);
+					RealType km = sprout::math::abs(k - m_);
+					if (km <= 15) {
+						RealType f = RealType(1);
+						if (m_ < k) {
+							IntType i = m_;
+							do {
+								++i;
+								f = f * (btrd_.nr / i - btrd_.r);
+							} while (i != k);
+						} else if (m_ > k) {
+							IntType i = k;
+							do {
+								++i;
+								v = v * (btrd_.nr / i - btrd_.r);
+							} while (i != m_);
+						}
+						if (v <= f) {
+							return k;
+						} else {
+							continue;
+						}
+					} else {
+						v = sprout::math::log(v);
+						RealType rho = (km / btrd_.npq) * (((km / RealType(3) + RealType(0.625)) * km + RealType(1) / 6) / btrd_.npq + RealType(0.5));
+						RealType t = -km * km / (2 * btrd_.npq);
+						if (v < t - rho) {
+							return k;
+						}
+						if (v > t + rho) {
+							continue;
+						}
+						IntType nm = t_ - m_ + 1;
+						RealType h = (m_ + RealType(0.5)) * sprout::math::log((m_ + 1) / (btrd_.r * nm)) + fc(m_) + fc(t_ - m_);
+						IntType nk = t_ - k + 1;
+						if (v <= h + (t_ + 1) * sprout::math::log(static_cast<RealType>(nm) / nk)
+							+ (k + RealType(0.5)) * sprout::math::log(nk * btrd_.r / (k + 1)) - fc(k) - fc(t_ - k)
+							)
+						{
+							return k;
+						} else {
+							continue;
+						}
+					}
+				}
+			}
+			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			invert_4(Engine const& eng, RealType u, RealType q, RealType s, RealType a, RealType r, IntType x = 0) const {
 				return u > r
@@ -351,7 +436,7 @@ namespace sprout {
 					? generate_7<D + 1>(eng, v, k)
 					: generate_8<D + 1>(
 						eng, sprout::math::log(v), k,
-						(km / btrd_.npq) * (((km / RealType(3.0) + RealType(0.625)) * km + RealType(1.0) / 6) / btrd_.npq + RealType(0.5)),
+						(km / btrd_.npq) * (((km / RealType(3) + RealType(0.625)) * km + RealType(1) / 6) / btrd_.npq + RealType(0.5)),
 						-km * km / (2 * btrd_.npq))
 					;
 			}
@@ -649,6 +734,15 @@ namespace sprout {
 				init();
 			}
 			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng) const {
+				return use_inversion() ? RealType(0.5) < p_
+						? t_ - invert(t_, 1 - p_, eng)
+						: invert(t_, p_, eng)
+					: RealType(0.5) < p_ ? t_ - generate(eng)
+					: generate(eng)
+					;
+			}
+			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> const operator()(Engine const& eng) const {
 				return use_inversion() ? RealType(0.5) < p_
 						? invert2(t_, 1 - p_, eng)
@@ -656,6 +750,14 @@ namespace sprout {
 					: RealType(0.5) < p_ ? generate2(t_, eng)
 					: generate(eng)
 					;
+			}
+			template<typename Engine>
+			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng, param_type const& parm) const {
+				return binomial_distribution(parm)(eng);
+			}
+			template<typename Engine>
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution> const operator()(Engine const& eng, param_type const& parm) const {
+				return binomial_distribution(parm)(eng);
 			}
 			template<typename Elem, typename Traits>
 			friend SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>& operator>>(
