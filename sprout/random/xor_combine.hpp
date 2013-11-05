@@ -70,6 +70,9 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return NS_SSCRISK_CEL_OR_SPROUT::max(rng1_.max(), rng2_.max());
 			}
+			SPROUT_CXX14_CONSTEXPR result_type operator()() {
+				return (static_cast<result_type>(rng1_()) << s1) ^ (static_cast<result_type>(rng2_()) << s2);
+			}
 			SPROUT_CONSTEXPR sprout::random::random_result<xor_combine_engine> const operator()() const {
 				return generate(rng1_(), rng2_());
 			}

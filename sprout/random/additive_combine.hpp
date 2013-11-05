@@ -82,6 +82,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return base1_type::modulus - 1;
 			}
+			SPROUT_CXX14_CONSTEXPR result_type operator()() {
+				result_type val1 = static_cast<result_type>(mlcg1_());
+				result_type val2 = static_cast<result_type>(mlcg2_());
+				return val2 < val1
+					? val1 - val2
+					: val1 - val2 + base1_type::modulus - 1
+					;
+			}
 			SPROUT_CONSTEXPR sprout::random::random_result<additive_combine_engine> const operator()() const {
 				return generate(mlcg1_(), mlcg2_());
 			}

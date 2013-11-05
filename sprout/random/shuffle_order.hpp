@@ -124,7 +124,7 @@ namespace sprout {
 						: sprout::math::less(brange, sprout::numeric_limits<BaseUnsigned>::max() / k) ? BaseUnsigned(k * off / (brange + 1))
 						: sprout::math::less(brange, sprout::numeric_limits<std::uintmax_t>::max() / k)
 							? static_cast<BaseUnsigned>(static_cast<std::uintmax_t>(off) * k / (static_cast<std::uintmax_t>(brange) + 1))
-						//: static_cast<BaseUnsigned>(sprout::random::detail::muldiv(off, k, static_cast<std::uintmax_t>(brange) + 1)) // ???
+//						: static_cast<BaseUnsigned>(sprout::random::detail::muldiv(off, k, static_cast<std::uintmax_t>(brange) + 1)) // ???
 						: (SPROUT_ASSERT_MSG(0, "Sorry, not implemented."), sprout::random::random_result<shuffle_order_engine>())
 					);
 			}
@@ -143,6 +143,21 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return rng_.max();
+			}
+			SPROUT_CXX14_CONSTEXPR result_type operator()() {
+				typedef typename std::make_unsigned<result_type>::type base_unsigned;
+				base_unsigned const brange = sprout::random::detail::subtract<result_type>()(max(), min());
+				base_unsigned const off = sprout::random::detail::subtract<result_type>()(y_, min());
+				base_unsigned j = k == 1 ? base_unsigned(0)
+					: sprout::math::less(brange, sprout::numeric_limits<base_unsigned>::max() / k) ? base_unsigned(k * off / (brange + 1))
+					: sprout::math::less(brange, sprout::numeric_limits<std::uintmax_t>::max() / k)
+						? static_cast<base_unsigned>(static_cast<std::uintmax_t>(off) * k / (static_cast<std::uintmax_t>(brange) + 1))
+//					: static_cast<base_unsigned>(sprout::random::detail::muldiv(off, k, static_cast<std::uintmax_t>(brange) + 1)) // ???
+					: (SPROUT_ASSERT_MSG(0, "Sorry, not implemented."), base_unsigned(0))
+					;
+				y_ = v_[j];
+				v_[j] = static_cast<result_type>(rng_());
+				return y_;
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<shuffle_order_engine> const operator()() const {
 				typedef typename std::make_unsigned<result_type>::type base_unsigned;
