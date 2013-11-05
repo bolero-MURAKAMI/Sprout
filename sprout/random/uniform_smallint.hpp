@@ -271,12 +271,10 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CXX14_CONSTEXPR result_type operator()(Engine& eng, param_type const& parm) const {
-				typedef typename Engine::result_type base_result;
 				return uniform_smallint(parm)(eng);
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> const operator()(Engine const& eng, param_type const& parm) const {
-				typedef typename Engine::result_type base_result;
 				return uniform_smallint(parm)(eng);
 			}
 			template<typename Elem, typename Traits>
