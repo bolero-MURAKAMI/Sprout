@@ -52,7 +52,7 @@ namespace sprout {
 				} else if (brange < range) {
 					for(; ; ) {
 						range_type limit = range_type();
-						if (range == std::numeric_limits<range_type>::max()) {
+						if (range == sprout::numeric_limits<range_type>::max()) {
 							limit = range / (range_type(brange) + 1);
 							if (range % (range_type(brange) + 1) == range_type(brange)) {
 								++limit;
@@ -75,7 +75,7 @@ namespace sprout {
 							static_cast<range_type>(range / mult),
 							std::true_type()
 							);
-						if (std::numeric_limits<range_type>::max() / mult < result_increment) {
+						if (sprout::numeric_limits<range_type>::max() / mult < result_increment) {
 							continue;
 						}
 						result_increment *= mult;
@@ -90,7 +90,7 @@ namespace sprout {
 					}
 				} else {
 					base_unsigned bucket_size = base_unsigned();
-					if (brange == std::numeric_limits<base_unsigned>::max()) {
+					if (brange == sprout::numeric_limits<base_unsigned>::max()) {
 						bucket_size = brange / (static_cast<base_unsigned>(range) + 1);
 						if (brange % (static_cast<base_unsigned>(range) + 1) == static_cast<base_unsigned>(range)) {
 							++bucket_size;

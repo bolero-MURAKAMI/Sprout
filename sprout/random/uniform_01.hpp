@@ -140,7 +140,7 @@ namespace sprout {
 					result_type result = result_type(static_cast<base_result>(eng()) - eng.min()) * (
 						result_type(1) / (
 							result_type(eng.max() - eng.min()) + result_type(
-								std::numeric_limits<base_result>::is_integer ? 1 : 0
+								sprout::numeric_limits<base_result>::is_integer ? 1 : 0
 								)
 							)
 						);
