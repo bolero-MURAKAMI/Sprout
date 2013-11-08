@@ -30,7 +30,7 @@ namespace sprout {
 			builtin_remainder(double x, double y) {
 				return __builtin_remainder(x, y);
 			}
-			inline SPROUT_CONSTEXPR long double 
+			inline SPROUT_CONSTEXPR long double
 			builtin_remainder(long double x, long double y) {
 				return __builtin_remainderl(x, y);
 			}

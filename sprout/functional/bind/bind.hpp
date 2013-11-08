@@ -241,7 +241,7 @@ namespace sprout {
 		{};
 		template<std::size_t I, typename Bounds, std::size_t ArgSize>
 		struct bounds_size_impl<
-			I, Bounds, ArgSize, 
+			I, Bounds, ArgSize,
 			typename std::enable_if<(I < sprout::tuples::tuple_size<Bounds>::value)>::type
 		>
 			: public std::integral_constant<

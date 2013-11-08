@@ -41,7 +41,7 @@ namespace sprout {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? op(first[Indexes - offset])
+						? op(*sprout::next(first, Indexes - offset))
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);
@@ -159,7 +159,7 @@ namespace sprout {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? op(first1[Indexes - offset], first2[Indexes - offset])
+						? op(*sprout::next(first1, Indexes - offset), *sprout::next(first2, Indexes - offset))
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
 					);

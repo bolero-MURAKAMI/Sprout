@@ -43,10 +43,16 @@ namespace sprout {
 		typedef typename sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type enumerable_size = sprout::detail::static_size_or_zero<facade_type>::value;
-	public:
+	private:
 		value_type elem;
 	public:
-		pit() = default;
+		SPROUT_CONSTEXPR pit()
+			: elem()
+		{}
+		pit(pit const&) = default;
+		explicit SPROUT_CONSTEXPR pit(value_type const& t)
+			: elem(t)
+		{}
 		SPROUT_CXX14_CONSTEXPR void swap(pit& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(elem, other.elem)))
 		{
