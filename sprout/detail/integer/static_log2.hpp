@@ -9,6 +9,7 @@
 #define SPROUT_DETAIL_INTEGER_STATIC_LOG2_HPP
 
 #include <cstdint>
+#include <type_traits>
 #include <sprout/config.hpp>
 
 namespace sprout {
@@ -56,11 +57,12 @@ namespace sprout {
 		}	// namespace static_log2_impl
 
 		template<sprout::detail::static_log2_argument_type x>
-		struct static_log2 {
-			SPROUT_STATIC_CONSTEXPR sprout::detail::static_log2_result_type value
-				= sprout::detail::static_log2_impl::static_log2_impl<x>::value
-				;
-		};
+		struct static_log2
+			: public std::integral_constant<
+				sprout::detail::static_log2_result_type,
+				sprout::detail::static_log2_impl::static_log2_impl<x>::value
+				>
+		{};
 		template<>
 		struct static_log2<0> {};
 	}	// namespace detail

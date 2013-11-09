@@ -37,19 +37,19 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t state_size = n;
 			SPROUT_STATIC_CONSTEXPR std::size_t shift_size = m;
 			SPROUT_STATIC_CONSTEXPR std::size_t mask_bits = r;
-			SPROUT_STATIC_CONSTEXPR UIntType xor_mask = a;
+			SPROUT_STATIC_CONSTEXPR result_type xor_mask = a;
 			SPROUT_STATIC_CONSTEXPR std::size_t tempering_u = u;
-			SPROUT_STATIC_CONSTEXPR UIntType tempering_d = d;
+			SPROUT_STATIC_CONSTEXPR result_type tempering_d = d;
 			SPROUT_STATIC_CONSTEXPR std::size_t tempering_s = s;
-			SPROUT_STATIC_CONSTEXPR UIntType tempering_b = b;
+			SPROUT_STATIC_CONSTEXPR result_type tempering_b = b;
 			SPROUT_STATIC_CONSTEXPR std::size_t tempering_t = t;
-			SPROUT_STATIC_CONSTEXPR UIntType tempering_c = c;
+			SPROUT_STATIC_CONSTEXPR result_type tempering_c = c;
 			SPROUT_STATIC_CONSTEXPR std::size_t tempering_l = l;
-			SPROUT_STATIC_CONSTEXPR UIntType initialization_multiplier = f;
-			SPROUT_STATIC_CONSTEXPR UIntType default_seed = 5489u;
+			SPROUT_STATIC_CONSTEXPR result_type initialization_multiplier = f;
+			SPROUT_STATIC_CONSTEXPR result_type default_seed = 5489u;
 		private:
-			SPROUT_STATIC_CONSTEXPR UIntType upper_mask = (~static_cast<UIntType>(0)) << r;
-			SPROUT_STATIC_CONSTEXPR UIntType lower_mask = ~upper_mask;
+			SPROUT_STATIC_CONSTEXPR result_type upper_mask = (~static_cast<result_type>(0)) << r;
+			SPROUT_STATIC_CONSTEXPR result_type lower_mask = ~upper_mask;
 			SPROUT_STATIC_CONSTEXPR std::size_t unroll_factor = 6;
 			SPROUT_STATIC_CONSTEXPR std::size_t unroll_extra1 = (n - m) % unroll_factor;
 			SPROUT_STATIC_CONSTEXPR std::size_t unroll_extra2 = (m - 1) % unroll_factor;
@@ -64,78 +64,78 @@ namespace sprout {
 			template<typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) + 1 == n,
-				sprout::array<UIntType, n>
-			>::type init_seed_1(UIntType const& value, Args const&... args) {
-				return sprout::array<UIntType, n>{{args..., value}};
+				sprout::array<result_type, n>
+			>::type init_seed_1(result_type value, Args const&... args) {
+				return sprout::array<result_type, n>{{args..., value}};
 			}
 			template<typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) + 1 < n,
-				sprout::array<UIntType, n>
-			>::type init_seed_1(UIntType const& value, Args const&... args) {
+				sprout::array<result_type, n>
+			>::type init_seed_1(result_type value, Args const&... args) {
 				return init_seed_1(
 					(f * (value ^ (value >> (w - 2))) + (sizeof...(Args) + 1)) & static_max(),
 					args...,
 					value
 					);
 			}
-			static SPROUT_CONSTEXPR sprout::array<UIntType, n> init_seed(UIntType const& value) {
+			static SPROUT_CONSTEXPR sprout::array<result_type, n> init_seed(result_type value = default_seed) {
 				return init_seed_1(value & static_max());
 			}
 		private:
-			sprout::array<UIntType, n> x_;
+			sprout::array<result_type, n> x_;
 			std::size_t i_;
 		private:
-			SPROUT_CONSTEXPR mersenne_twister_engine(sprout::array<UIntType, n> const& x, std::size_t i, private_construct_t)
+			SPROUT_CONSTEXPR mersenne_twister_engine(sprout::array<result_type, n> const& x, std::size_t i, private_construct_t)
 				: x_(x)
 				, i_(i)
 			{}
-			SPROUT_CONSTEXPR UIntType
-			rewind_find_1(UIntType const* last, std::size_t size, std::size_t index) const {
+			SPROUT_CONSTEXPR result_type
+			rewind_find_1(result_type const* last, std::size_t size, std::size_t index) const {
 				return index < n - size
 					? x_[index]
 					: *(last - (n - 1 - index))
 					;
 			}
-			SPROUT_CONSTEXPR UIntType
-			rewind_find(UIntType const* last, std::size_t size, std::size_t i) const {
+			SPROUT_CONSTEXPR result_type
+			rewind_find(result_type const* last, std::size_t size, std::size_t i) const {
 				return rewind_find_1(last, size, (i + n - size + n - 1) % n);
 			}
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
-			rewind_finish_1(sprout::array<UIntType, n> const&, Args const&... args) const {
-				return sprout::array<UIntType, n>{{args...}};
+			rewind_finish_1(sprout::array<result_type, n> const&, Args const&... args) const {
+				return sprout::array<result_type, n>{{args...}};
 			}
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) < n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
-			rewind_finish_1(sprout::array<UIntType, n> const& data, Args const&... args) const {
+			rewind_finish_1(sprout::array<result_type, n> const& data, Args const&... args) const {
 				return rewind_finish_1(data, args..., data[sizeof...(args)]);
 			}
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
 			rewind_finish(
-				sprout::array<UIntType, n> const&, UIntType const*, std::size_t, std::size_t,
+				sprout::array<result_type, n> const&, result_type const*, std::size_t, std::size_t,
 				Args const&... args
 				) const
 			{
-				return sprout::array<UIntType, n>{{args...}};
+				return sprout::array<result_type, n>{{args...}};
 			}
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) < n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
 			rewind_finish(
-				sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, std::size_t i,
+				sprout::array<result_type, n> const& data, result_type const* last, std::size_t z, std::size_t i,
 				Args const&... args
 				) const
 			{
@@ -147,22 +147,22 @@ namespace sprout {
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
 			rewind_4(
-				sprout::array<UIntType, n> const&, UIntType const*, std::size_t, UIntType, UIntType, std::size_t,
+				sprout::array<result_type, n> const&, result_type const*, std::size_t, result_type, result_type, std::size_t,
 				Args const&... args
 				) const
 			{
-				return sprout::array<UIntType, n>{{args...}};
+				return sprout::array<result_type, n>{{args...}};
 			}
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) < n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
 			rewind_4(
-				sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, UIntType y0, UIntType y1, std::size_t i,
+				sprout::array<result_type, n> const& data, result_type const* last, std::size_t z, result_type y0, result_type y1, std::size_t i,
 				Args const&... args
 				) const
 			{
@@ -174,28 +174,28 @@ namespace sprout {
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
 			rewind_3(
-				sprout::array<UIntType, n> const&, UIntType const*, std::size_t, UIntType, UIntType, std::size_t,
+				sprout::array<result_type, n> const&, result_type const*, std::size_t, result_type, result_type, std::size_t,
 				Args const&... args
 				) const
 			{
-				return sprout::array<UIntType, n>{{args...}};
+				return sprout::array<result_type, n>{{args...}};
 			}
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) < n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
 			rewind_3(
-				sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, UIntType y0, UIntType y1, std::size_t i,
+				sprout::array<result_type, n> const& data, result_type const* last, std::size_t z, result_type y0, result_type y1, std::size_t i,
 				Args const&... args
 				) const
 			{
 				return rewind_4(
 					data, last, z, y0,
-					y1 & (static_cast<UIntType>(1) << (w - 1))
+					y1 & (static_cast<result_type>(1) << (w - 1))
 						? ((y1 ^ a) << 1) | 1
 						: y1 << 1
 						,
@@ -206,22 +206,22 @@ namespace sprout {
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) == n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
 			rewind_2(
-				sprout::array<UIntType, n> const&, UIntType const*, std::size_t, UIntType, std::size_t,
+				sprout::array<result_type, n> const&, result_type const*, std::size_t, result_type, std::size_t,
 				Args const&... args
 				) const
 			{
-				return sprout::array<UIntType, n>{{args...}};
+				return sprout::array<result_type, n>{{args...}};
 			}
 			template<typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) < n,
-				sprout::array<UIntType, n>
+				sprout::array<result_type, n>
 			>::type
 			rewind_2(
-				sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, UIntType y0, std::size_t i,
+				sprout::array<result_type, n> const& data, result_type const* last, std::size_t z, result_type y0, std::size_t i,
 				Args const&... args
 				) const
 			{
@@ -230,25 +230,25 @@ namespace sprout {
 					: rewind_finish(data, last, z, 0, args...)
 					;
 			}
-			SPROUT_CONSTEXPR sprout::array<UIntType, n>
-			rewind_1(sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z, UIntType y0) const {
+			SPROUT_CONSTEXPR sprout::array<result_type, n>
+			rewind_1(sprout::array<result_type, n> const& data, result_type const* last, std::size_t z, result_type y0) const {
 				return rewind_2(
 					data,
 					last,
 					z,
-					y0 & (static_cast<UIntType>(1) << (w - 1))
+					y0 & (static_cast<result_type>(1) << (w - 1))
 						? ((y0 ^ a) << 1) | 1
 						: y0 << 1
 						,
 					0
 					);
 			}
-			SPROUT_CONSTEXPR sprout::array<UIntType, n>
-			rewind(sprout::array<UIntType, n> const& data, UIntType const* last, std::size_t z) const {
+			SPROUT_CONSTEXPR sprout::array<result_type, n>
+			rewind(sprout::array<result_type, n> const& data, result_type const* last, std::size_t z) const {
 				return rewind_1(data, last, z, x_[m - 1] ^ x_[n - 1]);
 			}
 			SPROUT_CONSTEXPR bool
-			equal_impl_2(mersenne_twister_engine const& other, sprout::array<UIntType, n> back, std::size_t offset, std::size_t i = 0) const {
+			equal_impl_2(mersenne_twister_engine const& other, sprout::array<result_type, n> back, std::size_t offset, std::size_t i = 0) const {
 				return i < offset
 					? back[i + n - offset] != other.x_[i]
 						? false
@@ -257,7 +257,7 @@ namespace sprout {
 					;
 			}
 			SPROUT_CONSTEXPR bool
-			equal_impl_1(mersenne_twister_engine const& other, sprout::array<UIntType, n> back, std::size_t offset, std::size_t i = 0) const {
+			equal_impl_1(mersenne_twister_engine const& other, sprout::array<result_type, n> back, std::size_t offset, std::size_t i = 0) const {
 				return i + offset < n
 					? x_[i] != other.x_[i + offset]
 						? false
@@ -267,21 +267,21 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR bool
 			equal_impl(mersenne_twister_engine const& other) const {
-				return equal_impl_1(other, sprout::array<UIntType, n>(), other.i_ - i_);
+				return equal_impl_1(other, sprout::array<result_type, n>(), other.i_ - i_);
 			}
-			SPROUT_CONSTEXPR UIntType generate_impl_4(UIntType z) const {
+			SPROUT_CONSTEXPR result_type generate_impl_4(result_type z) const {
 				return z ^ (z >> l);
 			}
-			SPROUT_CONSTEXPR UIntType generate_impl_3(UIntType z) const {
+			SPROUT_CONSTEXPR result_type generate_impl_3(result_type z) const {
 				return z ^ generate_impl_4((z << t) & c);
 			}
-			SPROUT_CONSTEXPR UIntType generate_impl_2(UIntType z) const {
+			SPROUT_CONSTEXPR result_type generate_impl_2(result_type z) const {
 				return z ^ generate_impl_3((z << s) & b);
 			}
-			SPROUT_CONSTEXPR UIntType generate_impl_1(UIntType z) const {
+			SPROUT_CONSTEXPR result_type generate_impl_1(result_type z) const {
 				return z ^ generate_impl_2((z >> u) & d);
 			}
-			SPROUT_CONSTEXPR UIntType generate_impl() const {
+			SPROUT_CONSTEXPR result_type generate_impl() const {
 				return generate_impl_1(x_[i_]);
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<mersenne_twister_engine> generate() const {
@@ -297,7 +297,7 @@ namespace sprout {
 			template<typename... Args>
 			SPROUT_CONSTEXPR mersenne_twister_engine twist_5(Args const&... args) const {
 				return mersenne_twister_engine(
-					sprout::array<UIntType, n>{{
+					sprout::array<result_type, n>{{
 						args..., x_[m - 1] ^ ((x_[n - 1] & upper_mask) | (x_[0] & lower_mask) >> 1) ^ ((x_[0] & 1) * a)
 						}},
 					0,
@@ -376,7 +376,7 @@ namespace sprout {
 				: x_(init_seed(default_seed))
 				, i_(n)
 			{}
-			explicit SPROUT_CONSTEXPR mersenne_twister_engine(UIntType const& value)
+			explicit SPROUT_CONSTEXPR mersenne_twister_engine(result_type value)
 				: x_(init_seed(value))
 				, i_(n)
 			{}
@@ -419,7 +419,7 @@ namespace sprout {
 				mersenne_twister_engine const& rhs
 				)
 			{
-				sprout::array<UIntType, n> data;
+				sprout::array<result_type, n> data;
 				for(std::size_t i = 0; i < rhs.i_; ++i) {
 					data[i + n - rhs.i_] = rhs.x_[i];
 				}
@@ -550,7 +550,7 @@ namespace sprout {
 		// mt11213b
 		//
 		typedef sprout::random::mersenne_twister_engine<
-			std::uint32_t,
+			std::uint_fast32_t,
 			32,
 			351,
 			175,
@@ -569,7 +569,7 @@ namespace sprout {
 		// mt19937
 		//
 		typedef sprout::random::mersenne_twister_engine<
-			std::uint32_t,
+			std::uint_fast32_t,
 			32,
 			624,
 			397,
@@ -588,7 +588,7 @@ namespace sprout {
 		// mt19937_64
 		//
 		typedef sprout::random::mersenne_twister_engine<
-			std::uint64_t,
+			std::uint_fast64_t,
 			64,
 			312,
 			156,

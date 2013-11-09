@@ -14,6 +14,7 @@
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/random/detail/const_mod.hpp>
+#include <sprout/random/detail/seed_impl.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/math/greater_equal.hpp>
 #include <sprout/assert.hpp>
@@ -33,34 +34,46 @@ namespace sprout {
 		private:
 			struct private_construct_t {};
 		public:
-			SPROUT_STATIC_CONSTEXPR UIntType multiplier = a;
-			SPROUT_STATIC_CONSTEXPR UIntType increment = c;
-			SPROUT_STATIC_CONSTEXPR UIntType modulus = m;
-			SPROUT_STATIC_CONSTEXPR UIntType default_seed = 1;
+			SPROUT_STATIC_CONSTEXPR result_type multiplier = a;
+			SPROUT_STATIC_CONSTEXPR result_type increment = c;
+			SPROUT_STATIC_CONSTEXPR result_type modulus = m;
+			SPROUT_STATIC_CONSTEXPR result_type default_seed = 1;
 		public:
 			static SPROUT_CONSTEXPR result_type static_min() SPROUT_NOEXCEPT {
-				return c == 0 ? 1 : 0;
+				return increment == 0 ? 1 : 0;
 			}
 			static SPROUT_CONSTEXPR result_type static_max() SPROUT_NOEXCEPT {
-				return m - 1;
+				return modulus - 1;
 			}
 		private:
-			static SPROUT_CONSTEXPR UIntType init_seed_3(UIntType const& x0) {
+			static SPROUT_CONSTEXPR result_type init_seed_3(result_type x0) {
 				return SPROUT_ASSERT(sprout::math::greater_equal(x0, static_min())), SPROUT_ASSERT(x0 <= static_max()), x0;
 			}
-			static SPROUT_CONSTEXPR UIntType init_seed_2(UIntType const& x0) {
+			static SPROUT_CONSTEXPR result_type init_seed_2(result_type x0) {
 				return init_seed_3(increment == 0 && x0 == 0 ? 1 : x0);
 			}
-			static SPROUT_CONSTEXPR UIntType init_seed_1(UIntType const& x0) {
+			static SPROUT_CONSTEXPR result_type init_seed_1(result_type x0) {
 				return init_seed_2(x0 <= 0 && x0 != 0 ? x0 + modulus : x0);
 			}
-			static SPROUT_CONSTEXPR UIntType init_seed(UIntType const& x0) {
+			static SPROUT_CONSTEXPR result_type init_seed(result_type x0 = default_seed) {
 				return init_seed_1(modulus == 0 ? x0 : x0 % modulus);
 			}
+			template<typename Sseq>
+			static SPROUT_CXX14_CONSTEXPR result_type init_seed(Sseq& seq) {
+				return init_seed(sprout::random::detail::seed_one_int<result_type, modulus>(seq));
+			}
+			template<typename Sseq>
+			static SPROUT_CONSTEXPR result_type init_seed(Sseq const& seq) {
+				return init_seed(sprout::random::detail::seed_one_int<result_type, modulus>(seq));
+			}
+			template<typename InputIterator>
+			static SPROUT_CONSTEXPR result_type init_seed(InputIterator first, InputIterator last) {
+				return init_seed(sprout::random::detail::get_one_int<result_type, modulus>(first, last));
+			}
 		private:
-			UIntType x_;
+			result_type x_;
 		private:
-			SPROUT_CONSTEXPR linear_congruential_engine(UIntType const& x, private_construct_t)
+			SPROUT_CONSTEXPR linear_congruential_engine(result_type x, private_construct_t)
 				: x_(x)
 			{}
 			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> generate(result_type result) const {
@@ -71,11 +84,38 @@ namespace sprout {
 			}
 		public:
 			SPROUT_CONSTEXPR linear_congruential_engine()
-				: x_(init_seed(default_seed))
+				: x_(init_seed())
 			{}
-			explicit SPROUT_CONSTEXPR linear_congruential_engine(UIntType const& x0)
+			explicit SPROUT_CONSTEXPR linear_congruential_engine(result_type x0)
 				: x_(init_seed(x0))
 			{}
+			template<typename Sseq>
+			explicit SPROUT_CXX14_CONSTEXPR linear_congruential_engine(Sseq& seq)
+				: x_(init_seed(seq))
+			{}
+			template<typename Sseq>
+			explicit SPROUT_CONSTEXPR linear_congruential_engine(Sseq const& seq)
+				: x_(init_seed(seq))
+			{}
+			template<typename InputIterator>
+			SPROUT_CONSTEXPR linear_congruential_engine(InputIterator first, InputIterator last)
+				: x_(init_seed(first, last))
+			{}
+			SPROUT_CXX14_CONSTEXPR void seed(result_type x0 = default_seed) {
+				x_ = init_seed(x0);
+			}
+			template<typename Sseq>
+			SPROUT_CXX14_CONSTEXPR void seed(Sseq& seq) {
+				x_ = init_seed(seq);
+			}
+			template<typename Sseq>
+			SPROUT_CXX14_CONSTEXPR void seed(Sseq const& seq) {
+				x_ = init_seed(seq);
+			}
+			template<typename InputIterator>
+			SPROUT_CXX14_CONSTEXPR void seed(InputIterator first, InputIterator last) {
+				x_ = init_seed(first, last);
+			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return static_min();
 			}
@@ -83,11 +123,11 @@ namespace sprout {
 				return static_max();
 			}
 			SPROUT_CXX14_CONSTEXPR result_type operator()() {
-				x_ = sprout::random::detail::const_mod<UIntType, m>::mult_add(a, x_, c);
+				x_ = sprout::random::detail::const_mod<result_type, modulus>::mult_add(a, x_, c);
 				return x_;
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> const operator()() const {
-				return generate(sprout::random::detail::const_mod<UIntType, m>::mult_add(a, x_, c));
+				return generate(sprout::random::detail::const_mod<result_type, modulus>::mult_add(a, x_, c));
 			}
 			friend SPROUT_CONSTEXPR bool operator==(linear_congruential_engine const& lhs, linear_congruential_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.x_ == rhs.x_;
@@ -101,7 +141,7 @@ namespace sprout {
 				linear_congruential_engine& rhs
 				)
 			{
-				UIntType x;
+				result_type x;
 				if (lhs >> x) {
 					if (sprout::math::greater_equal(x, static_min()) && x <= static_max()) {
 						rhs.x_ = x;
@@ -131,12 +171,10 @@ namespace sprout {
 
 		//
 		// minstd_rand0
-		//
-		typedef sprout::random::linear_congruential_engine<std::uint32_t, 16807, 0, 2147483647> minstd_rand0;
-		//
 		// minstd_rand
 		//
-		typedef sprout::random::linear_congruential_engine<std::uint32_t, 48271, 0, 2147483647> minstd_rand;
+		typedef sprout::random::linear_congruential_engine<std::uint_fast32_t, 16807, 0, 2147483647> minstd_rand0;
+		typedef sprout::random::linear_congruential_engine<std::uint_fast32_t, 48271, 0, 2147483647> minstd_rand;
 
 		//
 		// rand48
@@ -179,7 +217,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR rand48()
 				: lcf_(cnv(static_cast<std::uint32_t>(1)))
 			{}
-			explicit SPROUT_CONSTEXPR rand48(result_type const& x0)
+			explicit SPROUT_CONSTEXPR rand48(result_type x0)
 				: lcf_(cnv(x0))
 			{}
 			SPROUT_CONSTEXPR result_type min() const {

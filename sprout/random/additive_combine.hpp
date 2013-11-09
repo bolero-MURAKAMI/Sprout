@@ -42,12 +42,10 @@ namespace sprout {
 			base2_type mlcg2_;
 		private:
 			SPROUT_CONSTEXPR additive_combine_engine(
-				base1_type const& mlcg1,
-				base2_type const& mlcg2,
+				base1_type const& mlcg1, base2_type const& mlcg2,
 				private_construct_t
 				)
-				: mlcg1_(mlcg1)
-				, mlcg2_(mlcg2)
+				: mlcg1_(mlcg1), mlcg2_(mlcg2)
 			{}
 			template<typename Random1, typename Random2>
 			SPROUT_CONSTEXPR sprout::random::random_result<additive_combine_engine> generate(Random1 const& rnd1, Random2 const& rnd2) const {
@@ -57,25 +55,63 @@ namespace sprout {
 						: rnd1.result() - rnd2.result() + base1_type::modulus - 1
 						,
 					additive_combine_engine(
-						rnd1.engine(),
-						rnd2.engine(),
+						rnd1.engine(), rnd2.engine(),
 						private_construct_t()
 						)
 					);
 			}
 		public:
 			SPROUT_CONSTEXPR additive_combine_engine()
-				: mlcg1_()
-				, mlcg2_()
+				: mlcg1_(), mlcg2_()
 			{}
-			explicit SPROUT_CONSTEXPR additive_combine_engine(result_type const& seed)
-				: mlcg1_(seed)
-				, mlcg2_(seed)
+			explicit SPROUT_CONSTEXPR additive_combine_engine(result_type seed)
+				: mlcg1_(seed), mlcg2_(seed)
 			{}
-			SPROUT_CONSTEXPR additive_combine_engine(typename MLCG1::result_type seed1, typename MLCG2::result_type seed2)
-				: mlcg1_(seed1)
-				, mlcg2_(seed2)
+			template<typename Sseq>
+			explicit SPROUT_CXX14_CONSTEXPR additive_combine_engine(Sseq& seq)
+				: mlcg1_(seq), mlcg2_(seq)
 			{}
+			template<typename Sseq>
+			explicit SPROUT_CONSTEXPR additive_combine_engine(Sseq const& seq)
+				: mlcg1_(seq), mlcg2_(seq)
+			{}
+			template<typename ForwardIterator>
+			SPROUT_CONSTEXPR additive_combine_engine(ForwardIterator first, ForwardIterator last)
+				: mlcg1_(first, last), mlcg2_(first, last)
+			{}
+			SPROUT_CONSTEXPR additive_combine_engine(typename base1_type::result_type seed1, typename base2_type::result_type seed2)
+				: mlcg1_(seed1), mlcg2_(seed2)
+			{}
+			SPROUT_CONSTEXPR additive_combine_engine(base1_type const& rng1, base2_type const& rng2)
+				: mlcg1_(rng1), mlcg2_(rng2)
+			{}
+			SPROUT_CXX14_CONSTEXPR void seed() {
+				mlcg1_.seed();
+				mlcg2_.seed();
+			}
+			SPROUT_CXX14_CONSTEXPR void seed(result_type seed) {
+				mlcg1_.seed(seed);
+				mlcg2_.seed(seed);
+			}
+			template<typename Sseq>
+			SPROUT_CXX14_CONSTEXPR void seed(Sseq& seq) {
+				mlcg1_.seed(seq);
+				mlcg2_.seed(seq);
+			}
+			template<typename Sseq>
+			SPROUT_CXX14_CONSTEXPR void seed(Sseq const& seq) {
+				mlcg1_.seed(seq);
+				mlcg2_.seed(seq);
+			}
+			template<typename ForwardIterator>
+			SPROUT_CXX14_CONSTEXPR void seed(ForwardIterator first, ForwardIterator last) {
+				mlcg1_.seed(first, last);
+				mlcg2_.seed(first, last);
+			}
+			SPROUT_CXX14_CONSTEXPR void seed(typename base1_type::result_type seed1, typename base2_type::result_type seed2) {
+				mlcg1_.seed(seed1);
+				mlcg2_.seed(seed2);
+			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return 1;
 			}
@@ -127,8 +163,8 @@ namespace sprout {
 		// ecuyer1988
 		//
 		typedef sprout::random::additive_combine_engine<
-			sprout::random::linear_congruential_engine<std::uint32_t, 40014, 0, 2147483563>,
-			sprout::random::linear_congruential_engine<std::uint32_t, 40692, 0, 2147483399>
+			sprout::random::linear_congruential_engine<std::uint_fast32_t, 40014, 0, 2147483563>,
+			sprout::random::linear_congruential_engine<std::uint_fast32_t, 40692, 0, 2147483399>
 		> ecuyer1988;
 	}	// namespace random
 

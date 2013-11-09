@@ -36,6 +36,13 @@ namespace sprout {
 				base_type rng_;
 				sprout::array<result_type, k> v_;
 				result_type y_;
+			public:
+				SPROUT_CXX14_CONSTEXPR shuffle_order_engine_member& operator=(shuffle_order_engine_member const& rhs) {
+					rng_ = rhs.rng_;
+					v_ = rhs.v_;
+					y_ = rhs.y_;
+					return *this;
+				}
 			};
 		}	// namespace detail
 		//
@@ -70,7 +77,7 @@ namespace sprout {
 		private:
 			template<typename Random, typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
-				sizeof...(Args) == k,
+				(sizeof...(Args) == k),
 				member_type
 			>::type init_member_1(Random const& rnd, Args const&... args) {
 				return member_type{
@@ -81,7 +88,7 @@ namespace sprout {
 			}
 			template<typename Random, typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
-				sizeof...(Args) < k,
+				(sizeof...(Args) < k),
 				member_type
 			>::type init_member_1(Random const& rnd, Args const&... args) {
 				return init_member_1(rnd(), args..., rnd.result());
@@ -97,7 +104,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR shuffle_order_engine(
 				base_type const& rng,
 				sprout::array<result_type, k> const& v,
-				result_type const& y,
+				result_type y,
 				private_construct_t
 				)
 				: member_type{rng, v, y}
@@ -132,12 +139,42 @@ namespace sprout {
 			SPROUT_CONSTEXPR shuffle_order_engine()
 				: member_type(init_member(base_type()))
 			{}
-			explicit SPROUT_CONSTEXPR shuffle_order_engine(result_type const& s)
-				: member_type(init_member(base_type(s)))
+			explicit SPROUT_CONSTEXPR shuffle_order_engine(result_type seed)
+				: member_type(init_member(base_type(seed)))
+			{}
+			template<typename Sseq>
+			explicit SPROUT_CXX14_CONSTEXPR shuffle_order_engine(Sseq& seq)
+				: member_type(init_member(base_type(seq)))
+			{}
+			template<typename Sseq>
+			explicit SPROUT_CONSTEXPR shuffle_order_engine(Sseq const& seq)
+				: member_type(init_member(base_type(seq)))
+			{}
+			template<typename InputIterator>
+			SPROUT_CONSTEXPR shuffle_order_engine(InputIterator first, InputIterator last)
+				: member_type(init_member(base_type(first, last)))
 			{}
 			explicit SPROUT_CONSTEXPR shuffle_order_engine(base_type const& rng)
 				: member_type(init_member(rng))
 			{}
+			SPROUT_CXX14_CONSTEXPR void seed() {
+				member_type::operator=(init_member(base_type()));
+			}
+			SPROUT_CXX14_CONSTEXPR void seed(result_type seed) {
+				member_type::operator=(init_member(base_type(seed)));
+			}
+			template<typename Sseq>
+			SPROUT_CXX14_CONSTEXPR void seed(Sseq& seq) {
+				member_type::operator=(init_member(base_type(seq)));
+			}
+			template<typename Sseq>
+			SPROUT_CXX14_CONSTEXPR void seed(Sseq const& seq) {
+				member_type::operator=(init_member(base_type(seq)));
+			}
+			template<typename InputIterator>
+			SPROUT_CXX14_CONSTEXPR void seed(InputIterator first, InputIterator last) {
+				member_type::operator=(init_member(base_type(first, last)));
+			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return rng_.min();
 			}
@@ -209,12 +246,10 @@ namespace sprout {
 
 		//
 		// knuth_b
-		//
-		typedef sprout::random::shuffle_order_engine<sprout::random::minstd_rand0, 256> knuth_b;
-		//
 		// kreutzer1986
 		//
-		typedef sprout::random::shuffle_order_engine<sprout::random::linear_congruential_engine<std::uint32_t, 1366, 150889, 714025>, 97> kreutzer1986;
+		typedef sprout::random::shuffle_order_engine<sprout::random::minstd_rand0, 256> knuth_b;
+		typedef sprout::random::shuffle_order_engine<sprout::random::linear_congruential_engine<std::uint_fast32_t, 1366, 150889, 714025>, 97> kreutzer1986;
 	}	// namespace random
 
 	using sprout::random::shuffle_order_engine;

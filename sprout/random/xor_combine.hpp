@@ -46,24 +46,62 @@ namespace sprout {
 				return sprout::random::random_result<xor_combine_engine>(
 					(rnd1.result() << s1) ^ (rnd2.result() << s2),
 					xor_combine_engine(
-						rnd1.engine(),
-						rnd2.engine()
+						rnd1.engine(), rnd2.engine()
 						)
 					);
 			}
 		public:
 			SPROUT_CONSTEXPR xor_combine_engine()
-				: rng1_()
-				, rng2_()
+				: rng1_(), rng2_()
 			{}
-			explicit SPROUT_CONSTEXPR xor_combine_engine(result_type const& seed)
-				: rng1_(seed)
-				, rng2_(seed)
+			explicit SPROUT_CONSTEXPR xor_combine_engine(result_type seed)
+				: rng1_(seed), rng2_(seed)
+			{}
+			template<typename Sseq>
+			explicit SPROUT_CXX14_CONSTEXPR xor_combine_engine(Sseq& seq)
+				: rng1_(seq), rng2_(seq)
+			{}
+			template<typename Sseq>
+			explicit SPROUT_CONSTEXPR xor_combine_engine(Sseq const& seq)
+				: rng1_(seq), rng2_(seq)
+			{}
+			template<typename ForwardIterator>
+			SPROUT_CONSTEXPR xor_combine_engine(ForwardIterator first, ForwardIterator last)
+				: rng1_(first, last), rng2_(first, last)
+			{}
+			SPROUT_CONSTEXPR xor_combine_engine(typename base1_type::result_type seed1, typename base2_type::result_type seed2)
+				: rng1_(seed1), rng2_(seed2)
 			{}
 			SPROUT_CONSTEXPR xor_combine_engine(base1_type const& rng1, base2_type const& rng2)
-				: rng1_(rng1)
-				, rng2_(rng2)
+				: rng1_(rng1), rng2_(rng2)
 			{}
+			SPROUT_CXX14_CONSTEXPR void seed() {
+				rng1_.seed();
+				rng2_.seed();
+			}
+			SPROUT_CXX14_CONSTEXPR void seed(result_type seed) {
+				rng1_.seed(seed);
+				rng2_.seed(seed);
+			}
+			template<typename Sseq>
+			SPROUT_CXX14_CONSTEXPR void seed(Sseq& seq) {
+				rng1_.seed(seq);
+				rng2_.seed(seq);
+			}
+			template<typename Sseq>
+			SPROUT_CXX14_CONSTEXPR void seed(Sseq const& seq) {
+				rng1_.seed(seq);
+				rng2_.seed(seq);
+			}
+			template<typename ForwardIterator>
+			SPROUT_CXX14_CONSTEXPR void seed(ForwardIterator first, ForwardIterator last) {
+				rng1_.seed(first, last);
+				rng2_.seed(first, last);
+			}
+			SPROUT_CXX14_CONSTEXPR void seed(typename base1_type::result_type seed1, typename base2_type::result_type seed2) {
+				rng1_.seed(seed1);
+				rng2_.seed(seed2);
+			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return NS_SSCRISK_CEL_OR_SPROUT::min(rng1_.min(), rng2_.min());
 			}
