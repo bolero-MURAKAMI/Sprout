@@ -12,6 +12,7 @@
 #include <istream>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
@@ -40,9 +41,9 @@ namespace sprout {
 			public:
 				SPROUT_CONSTEXPR param_type()
 					: min_(0)
-					, max_(9)
+					, max_(sprout::numeric_limits<IntType>::max())
 				{}
-				explicit SPROUT_CONSTEXPR param_type(IntType min_arg, IntType max_arg = 9)
+				explicit SPROUT_CONSTEXPR param_type(IntType min_arg, IntType max_arg = sprout::numeric_limits<IntType>::max())
 					: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 					, max_(max_arg)
 				{}
@@ -230,9 +231,9 @@ namespace sprout {
 		public:
 			SPROUT_CONSTEXPR uniform_smallint() SPROUT_NOEXCEPT
 				: min_(0)
-				, max_(9)
+				, max_(sprout::numeric_limits<IntType>::max())
 			{}
-			explicit SPROUT_CONSTEXPR uniform_smallint(IntType min_arg, IntType max_arg = 9)
+			explicit SPROUT_CONSTEXPR uniform_smallint(IntType min_arg, IntType max_arg = sprout::numeric_limits<IntType>::max())
 				: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 				, max_(max_arg)
 			{}
@@ -252,6 +253,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return max_;
 			}
+			SPROUT_CXX14_CONSTEXPR void reset() SPROUT_NOEXCEPT {}
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(min_, max_);
 			}

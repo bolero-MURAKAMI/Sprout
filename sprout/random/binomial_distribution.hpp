@@ -725,6 +725,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return t_;
 			}
+			SPROUT_CXX14_CONSTEXPR void reset() SPROUT_NOEXCEPT {}
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(t_, p_);
 			}

@@ -197,6 +197,9 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return sprout::numeric_limits<RealType>::infinity();
 			}
+			SPROUT_CXX14_CONSTEXPR void reset() SPROUT_NOEXCEPT {
+				valid_ = false;
+			}
 			SPROUT_CONSTEXPR param_type param() const SPROUT_NOEXCEPT {
 				return param_type(mean_, sigma_);
 			}
