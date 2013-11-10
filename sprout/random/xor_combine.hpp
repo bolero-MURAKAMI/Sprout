@@ -108,7 +108,7 @@ namespace sprout {
 				return NS_SSCRISK_CEL_OR_SPROUT::min(rng1_.min(), rng2_.min());
 			}
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
-				return NS_SSCRISK_CEL_OR_SPROUT::max(rng1_.min(), rng2_.max());
+				return NS_SSCRISK_CEL_OR_SPROUT::max(rng1_.max(), rng2_.max());
 			}
 			SPROUT_CXX14_CONSTEXPR result_type operator()() {
 				return (static_cast<result_type>(rng1_()) << s1) ^ (static_cast<result_type>(rng2_()) << s2);
