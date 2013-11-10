@@ -17,6 +17,7 @@
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/iterator/value_iterator.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/move.hpp>
 
 namespace sprout {
 	//
@@ -53,6 +54,22 @@ namespace sprout {
 		explicit SPROUT_CONSTEXPR pit(value_type const& t)
 			: elem(t)
 		{}
+		SPROUT_CXX14_CONSTEXPR pit& operator=(pit const& rhs) {
+			elem = rhs.elem;
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR pit& operator=(pit&& rhs) {
+			elem = sprout::move(rhs.elem);
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR pit& operator=(value_type const& rhs) {
+			elem = rhs;
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR pit& operator=(value_type&& rhs) {
+			elem = sprout::move(rhs);
+			return *this;
+		}
 		SPROUT_CXX14_CONSTEXPR void swap(pit& other)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(elem, other.elem)))
 		{

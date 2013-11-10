@@ -109,7 +109,12 @@ namespace sprout {
 			impl_difference_type to_first_;
 			impl_difference_type to_last_;
 		public:
-			sub_array_impl() = default;
+			SPROUT_CONSTEXPR sub_array_impl()
+				: array_()
+				, to_first_()
+				, to_last_()
+			{}
+			sub_array_impl(sub_array_impl const&) = default;
 		protected:
 			template<typename ContainerTag, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR sub_array_impl(
@@ -207,6 +212,7 @@ namespace sprout {
 	public:
 		// construct/copy/destroy:
 		sub_array() = default;
+		sub_array(sub_array const&) = default;
 		SPROUT_CONSTEXPR sub_array(param_type arr, const_iterator first, const_iterator last)
 			: impl_type(
 				array_tag(),
@@ -243,6 +249,20 @@ namespace sprout {
 				other.to_first_ + to_last
 				)
 		{}
+		template<typename Container2>
+		SPROUT_CXX14_CONSTEXPR sub_array& operator=(sub_array<Container2> const& rhs) {
+			array_ = rhs.array_;
+			to_first_ = rhs.to_first_;
+			to_last_ = rhs.to_last_;
+			return *this;
+		}
+		template<typename Container2>
+		SPROUT_CXX14_CONSTEXPR sub_array& operator=(sub_array<Container2>&& rhs) {
+			array_ = sprout::move(rhs.array_);
+			to_first_ = sprout::move(rhs.to_first_);
+			to_last_ = sprout::move(rhs.to_last_);
+			return *this;
+		}
 
 		SPROUT_CXX14_CONSTEXPR void fill(const_reference value) {
 			sprout::fill_n(begin(), size(), value);
@@ -321,20 +341,6 @@ namespace sprout {
 			return get_array().data() + to_first_;
 		}
 		// others:
-		template<typename Container2>
-		SPROUT_CXX14_CONSTEXPR sub_array& operator=(sub_array<Container2> const& rhs) {
-			array_ = rhs.array_;
-			to_first_ = rhs.to_first_;
-			to_last_ = rhs.to_last_;
-			return *this;
-		}
-		template<typename Container2>
-		SPROUT_CXX14_CONSTEXPR sub_array& operator=(sub_array<Container2>&& rhs) {
-			array_ = sprout::move(rhs.array_);
-			to_first_ = sprout::move(rhs.to_first_);
-			to_last_ = sprout::move(rhs.to_last_);
-			return *this;
-		}
 		SPROUT_CXX14_CONSTEXPR pointer c_array() {
 			return data();
 		}
