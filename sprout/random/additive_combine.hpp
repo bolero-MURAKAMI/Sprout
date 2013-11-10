@@ -14,6 +14,8 @@
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/linear_congruential.hpp>
+#include <sprout/random/type_traits.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace random {
@@ -67,11 +69,11 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR additive_combine_engine(result_type seed)
 				: mlcg1_(seed), mlcg2_(seed)
 			{}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			explicit SPROUT_CXX14_CONSTEXPR additive_combine_engine(Sseq& seq)
 				: mlcg1_(seq), mlcg2_(seq)
 			{}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			explicit SPROUT_CONSTEXPR additive_combine_engine(Sseq const& seq)
 				: mlcg1_(seq), mlcg2_(seq)
 			{}
@@ -93,12 +95,12 @@ namespace sprout {
 				mlcg1_.seed(seed);
 				mlcg2_.seed(seed);
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			SPROUT_CXX14_CONSTEXPR void seed(Sseq& seq) {
 				mlcg1_.seed(seq);
 				mlcg2_.seed(seq);
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			SPROUT_CXX14_CONSTEXPR void seed(Sseq const& seq) {
 				mlcg1_.seed(seq);
 				mlcg2_.seed(seq);

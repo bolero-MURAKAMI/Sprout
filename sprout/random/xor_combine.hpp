@@ -12,6 +12,8 @@
 #include <istream>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/random/type_traits.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -57,11 +59,11 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR xor_combine_engine(result_type seed)
 				: rng1_(seed), rng2_(seed)
 			{}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			explicit SPROUT_CXX14_CONSTEXPR xor_combine_engine(Sseq& seq)
 				: rng1_(seq), rng2_(seq)
 			{}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			explicit SPROUT_CONSTEXPR xor_combine_engine(Sseq const& seq)
 				: rng1_(seq), rng2_(seq)
 			{}
@@ -83,12 +85,12 @@ namespace sprout {
 				rng1_.seed(seed);
 				rng2_.seed(seed);
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			SPROUT_CXX14_CONSTEXPR void seed(Sseq& seq) {
 				rng1_.seed(seq);
 				rng2_.seed(seq);
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			SPROUT_CXX14_CONSTEXPR void seed(Sseq const& seq) {
 				rng1_.seed(seq);
 				rng2_.seed(seq);

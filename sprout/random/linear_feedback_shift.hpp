@@ -13,6 +13,8 @@
 #include <sprout/detail/integer/integer_mask.hpp>
 #include <sprout/random/detail/seed_impl.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/random/type_traits.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace random {
@@ -54,11 +56,11 @@ namespace sprout {
 			static SPROUT_CONSTEXPR result_type init_seed(result_type x0 = default_seed) {
 				return init_seed_1(x0 & wordmask());
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			static SPROUT_CXX14_CONSTEXPR result_type init_seed(Sseq& seq) {
 				return init_seed(sprout::random::detail::seed_one_int<result_type, (result_type(2) << (w - 1))>(seq));
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			static SPROUT_CONSTEXPR result_type init_seed(Sseq const& seq) {
 				return init_seed(sprout::random::detail::seed_one_int<result_type, (result_type(2) << (w - 1))>(seq));
 			}
@@ -85,11 +87,11 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR linear_feedback_shift_engine(result_type x0)
 				: x_(init_seed(x0))
 			{}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			explicit SPROUT_CXX14_CONSTEXPR linear_feedback_shift_engine(Sseq& seq)
 				: x_(init_seed(seq))
 			{}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			explicit SPROUT_CONSTEXPR linear_feedback_shift_engine(Sseq const& seq)
 				: x_(init_seed(seq))
 			{}
@@ -100,11 +102,11 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR void seed(result_type x0 = default_seed) {
 				x_ = init_seed(x0);
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			SPROUT_CXX14_CONSTEXPR void seed(Sseq& seq) {
 				x_ = init_seed(seq);
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			SPROUT_CXX14_CONSTEXPR void seed(Sseq const& seq) {
 				x_ = init_seed(seq);
 			}

@@ -22,6 +22,8 @@
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/linear_congruential.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
+#include <sprout/random/type_traits.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -142,11 +144,11 @@ namespace sprout {
 			explicit SPROUT_CONSTEXPR shuffle_order_engine(result_type seed)
 				: member_type(init_member(base_type(seed)))
 			{}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			explicit SPROUT_CXX14_CONSTEXPR shuffle_order_engine(Sseq& seq)
 				: member_type(init_member(base_type(seq)))
 			{}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			explicit SPROUT_CONSTEXPR shuffle_order_engine(Sseq const& seq)
 				: member_type(init_member(base_type(seq)))
 			{}
@@ -163,11 +165,11 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR void seed(result_type seed) {
 				member_type::operator=(init_member(base_type(seed)));
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			SPROUT_CXX14_CONSTEXPR void seed(Sseq& seq) {
 				member_type::operator=(init_member(base_type(seq)));
 			}
-			template<typename Sseq>
+			template<typename Sseq, typename sprout::enabler_if<sprout::random::is_seed_seq<Sseq>::value>::type = sprout::enabler>
 			SPROUT_CXX14_CONSTEXPR void seed(Sseq const& seq) {
 				member_type::operator=(init_member(base_type(seq)));
 			}
