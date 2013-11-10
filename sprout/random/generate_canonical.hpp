@@ -132,7 +132,6 @@ namespace sprout {
 			template<typename RealType, std::size_t bits, typename URNG, typename Random>
 			inline SPROUT_CONSTEXPR sprout::pair<RealType, URNG> const
 			generate_canonical_impl_0_1(RealType r, RealType limit, RealType s, RealType mult, Random const& rnd) {
-				typedef typename URNG::result_type base_result;
 				typedef sprout::pair<RealType, URNG> const pair_type;
 				return mult * r < limit ? sprout::random::detail::generate_canonical_impl_0_1<RealType, bits, URNG>(
 					r, limit,
@@ -149,7 +148,6 @@ namespace sprout {
 			template<typename RealType, std::size_t bits, typename URNG, typename Random>
 			inline SPROUT_CONSTEXPR sprout::pair<RealType, URNG> const
 			generate_canonical_impl_0_0(RealType r, RealType limit, Random const& rnd) {
-				typedef typename URNG::result_type base_result;
 				typedef sprout::pair<RealType, URNG> const pair_type;
 				return r < limit ? sprout::random::detail::generate_canonical_impl_0_1<RealType, bits, URNG>(
 						r, limit,

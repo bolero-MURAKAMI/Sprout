@@ -209,7 +209,7 @@ namespace sprout {
 			template<typename Result>
 			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type gen1_0(
 				Result const& result,
-				size_type n, size_type s, size_type m, size_type t, size_type p, size_type q
+				size_type n, size_type s, size_type p, size_type q
 				) const
 			{
 				return set1(
@@ -229,7 +229,7 @@ namespace sprout {
 						gen1_1(
 							gen1_0(
 								result,
-								n, s, m, t, p, q
+								n, s, p, q
 								),
 							n, s, m, t, p, q,
 							1
