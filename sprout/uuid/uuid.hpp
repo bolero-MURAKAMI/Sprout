@@ -202,7 +202,7 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR pointer c_array() SPROUT_NOEXCEPT {
 				return &elems[0];
 			}
-			SPROUT_CONSTEXPR const_pointer c_array() SPROUT_NOEXCEPT {
+			SPROUT_CONSTEXPR const_pointer c_array() const SPROUT_NOEXCEPT {
 				return &elems[0];
 			}
 			SPROUT_CXX14_CONSTEXPR void assign(const_reference value) {

@@ -380,7 +380,7 @@ namespace sprout {
 				}};
 		}
 		SPROUT_CXX14_CONSTEXPR void process_block() {
-			std::uint32_t w[80];
+			std::uint32_t w[80] = {};
 			for (std::size_t i = 0; i < 16; ++i) {
 				w[i] = (block_[i * 4 + 0] << 24);
 				w[i] |= (block_[i * 4 + 1] << 16);
