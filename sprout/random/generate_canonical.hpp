@@ -13,13 +13,13 @@
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/assert.hpp>
-#include <sprout/algorithm/min.hpp>
 #include <sprout/math/pow.hpp>
 #include <sprout/math/floor.hpp>
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
 #include <sprout/utility/pair/pair.hpp>
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace random {
@@ -32,7 +32,7 @@ namespace sprout {
 				RealType mult = r;
 				RealType limit = sprout::math::pow(
 					RealType(2),
-					RealType(sprout::min(bits, static_cast<std::size_t>(sprout::numeric_limits<RealType>::digits)))
+					RealType(NS_SSCRISK_CEL_OR_SPROUT::min(bits, static_cast<std::size_t>(sprout::numeric_limits<RealType>::digits)))
 					);
 				RealType s = RealType(sprout::random::detail::subtract<base_result>()(static_cast<base_result>(rng()), rng.min()));
 				while (mult < limit) {
@@ -51,7 +51,7 @@ namespace sprout {
 				RealType r = sprout::math::pow(RealType(2), RealType(sprout::random::detail::generator_bits<URNG>::value()));
 				RealType limit = sprout::math::pow(
 					RealType(2),
-					RealType(sprout::min(bits, static_cast<std::size_t>(sprout::numeric_limits<RealType>::digits)))
+					RealType(NS_SSCRISK_CEL_OR_SPROUT::min(bits, static_cast<std::size_t>(sprout::numeric_limits<RealType>::digits)))
 					);
 				RealType s = RealType(static_cast<base_result>(rng()) - rng.min());
 				RealType mult = r;
@@ -123,7 +123,7 @@ namespace sprout {
 					RealType(rng.max()) - RealType(rng.min()) + 1,
 					sprout::math::pow(
 						RealType(2),
-						RealType(sprout::min(bits, static_cast<std::size_t>(sprout::numeric_limits<RealType>::digits)))
+						RealType(NS_SSCRISK_CEL_OR_SPROUT::min(bits, static_cast<std::size_t>(sprout::numeric_limits<RealType>::digits)))
 						),
 					rng()
 					);
@@ -169,7 +169,7 @@ namespace sprout {
 						sprout::math::pow(RealType(2), RealType(sprout::random::detail::generator_bits<URNG>::value())),
 						sprout::math::pow(
 							RealType(2),
-							RealType(sprout::min(bits, static_cast<std::size_t>(sprout::numeric_limits<RealType>::digits)))
+							RealType(NS_SSCRISK_CEL_OR_SPROUT::min(bits, static_cast<std::size_t>(sprout::numeric_limits<RealType>::digits)))
 							),
 						rng()
 						);

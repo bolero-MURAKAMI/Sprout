@@ -22,7 +22,6 @@
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/result_of.hpp>
-#include <sprout/algorithm/max.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
 #include <sprout/algorithm/cxx14/copy.hpp>
@@ -31,6 +30,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
+#include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace random {
@@ -278,7 +278,7 @@ namespace sprout {
 				sprout::fill(begin, end, static_cast<value_type>(0x8b8b8b8bu));
 				size_type n = end - begin;
 				size_type s = size();
-				size_type m = sprout::max(s + 1, n);
+				size_type m = NS_SSCRISK_CEL_OR_SPROUT::max(s + 1, n);
 				size_type t = tval(n);
 				size_type p = (n - t) / 2;
 				size_type q = p + t;

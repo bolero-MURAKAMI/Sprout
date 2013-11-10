@@ -11,10 +11,10 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>
-#include <sprout/algorithm/detail/max.hpp>
 #include <sprout/math/fabs.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/algorithm/detail/max.hpp>
 
 namespace sprout {
 	namespace math {
