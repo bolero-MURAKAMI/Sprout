@@ -396,8 +396,8 @@ namespace sprout {
 			std::uint32_t d = h_[3];
 			std::uint32_t e = h_[4];
 			for (std::size_t i = 0; i < 80; ++i) {
-				std::uint32_t f;
-				std::uint32_t k;
+				std::uint32_t f = 0;
+				std::uint32_t k = 0;
 				if (i<20) {
 					f = (b & c) | (~b & d);
 					k = 0x5A827999;
