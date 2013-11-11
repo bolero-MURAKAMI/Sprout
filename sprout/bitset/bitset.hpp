@@ -698,9 +698,11 @@ namespace sprout {
 			}
 
 			SPROUT_CXX14_CONSTEXPR word_type&
-			getword(std::size_t) SPROUT_NOEXCEPT {
+			getword(std::size_t, bool c = false) SPROUT_NOEXCEPT {
 				typedef word_type* type;
-				return throw std::out_of_range("base_bitset::getword"), *type();
+				return !c ? *type()
+					: throw std::out_of_range("base_bitset::getword"), *type()
+					;
 			}
 			SPROUT_CONSTEXPR word_type
 			getword(std::size_t) const SPROUT_NOEXCEPT {
