@@ -10,6 +10,7 @@
 
 #include <sstream>
 #include <sprout/bitset.hpp>
+#include <sprout/utility/move.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -20,6 +21,19 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto bits1 = bitset_t(0xDEADBEEF);
 
 			// 20.5.2 bitset operations:
+
+			// operator=
+			{
+				auto bits = bitset_t(0xDEADBACE);
+				bits = bits1;
+				TESTSPR_ASSERT(bits == bits1);
+			}
+			{
+				auto bits2 = bits1;
+				auto bits = bitset_t(0xDEADBACE);
+				bits = sprout::move(bits2);
+				TESTSPR_ASSERT(bits == bits1);
+			}
 
 			// operator&=
 			{

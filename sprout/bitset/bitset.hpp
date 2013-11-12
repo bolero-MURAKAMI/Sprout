@@ -23,10 +23,13 @@
 #include <sprout/algorithm/equal.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
 #include <sprout/algorithm/fixed/fill.hpp>
+#include <sprout/algorithm/cxx14/copy.hpp>
+#include <sprout/algorithm/cxx14/move.hpp>
 #include <sprout/algorithm/cxx14/fill.hpp>
 #include <sprout/numeric/accumulate.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/utility/move.hpp>
 #include <sprout/bit/operation.hpp>
 #include <sprout/math/comparison.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
@@ -227,6 +230,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR base_bitset() SPROUT_NOEXCEPT
 				: w_()
 			{}
+			base_bitset(base_bitset<N> const&) = default;
 			SPROUT_CONSTEXPR base_bitset(unsigned long long val) SPROUT_NOEXCEPT
 				: w_{word_type(val), word_type(val >> (CHAR_BIT * sprout::detail::sizeof_<unsigned long>::value))}
 			{}
@@ -234,6 +238,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR base_bitset(sprout::detail::base_bitset_from_words_construct_tag, Words... words)
 				: w_{words...}
 			{}
+			SPROUT_CXX14_CONSTEXPR base_bitset<N>& operator=(base_bitset<N> const& rhs) {
+				sprout::copy(rhs.w_ + 0, rhs.w_ + N, w_ + 0);
+				return *this;
+			}
+			SPROUT_CXX14_CONSTEXPR base_bitset<N>& operator=(base_bitset<N>&& rhs) {
+				sprout::move(rhs.w_ + 0, rhs.w_ + N, w_ + 0);
+				return *this;
+			}
 
 			SPROUT_CXX14_CONSTEXPR void
 			setword(std::size_t pos, word_type word) SPROUT_NOEXCEPT {
@@ -506,12 +518,21 @@ namespace sprout {
 			SPROUT_CONSTEXPR base_bitset() SPROUT_NOEXCEPT
 				: w_(0)
 			{}
+			base_bitset(base_bitset<1> const&) = default;
 			SPROUT_CONSTEXPR base_bitset(unsigned long long val) SPROUT_NOEXCEPT
 				: w_(val)
 			{}
 			SPROUT_CONSTEXPR base_bitset(sprout::detail::base_bitset_from_words_construct_tag, word_type word)
 				: w_(word)
 			{}
+			SPROUT_CXX14_CONSTEXPR base_bitset<1>& operator=(base_bitset<1> const& rhs) {
+				w_ = rhs.w_;
+				return *this;
+			}
+			SPROUT_CXX14_CONSTEXPR base_bitset<1>& operator=(base_bitset<1>&& rhs) {
+				w_ = sprout::move(rhs.w_);
+				return *this;
+			}
 
 			SPROUT_CXX14_CONSTEXPR void
 			setword(std::size_t, word_type word) SPROUT_NOEXCEPT {
@@ -683,8 +704,15 @@ namespace sprout {
 			}
 		public:
 			SPROUT_CONSTEXPR base_bitset() SPROUT_NOEXCEPT {}
+			base_bitset(base_bitset<0> const&) = default;
 			SPROUT_CONSTEXPR base_bitset(unsigned long long) SPROUT_NOEXCEPT {}
 			SPROUT_CONSTEXPR base_bitset(sprout::detail::base_bitset_from_words_construct_tag) {}
+			SPROUT_CXX14_CONSTEXPR base_bitset<0>& operator=(base_bitset<0> const& rhs) SPROUT_NOEXCEPT {
+				return *this;
+			}
+			SPROUT_CXX14_CONSTEXPR base_bitset<0>& operator=(base_bitset<0>&& rhs) SPROUT_NOEXCEPT {
+				return *this;
+			}
 
 			SPROUT_CXX14_CONSTEXPR void
 			setword(std::size_t, word_type) SPROUT_NOEXCEPT {}
@@ -699,9 +727,8 @@ namespace sprout {
 
 			SPROUT_CXX14_CONSTEXPR word_type
 			getword(std::size_t, bool c = false) SPROUT_NOEXCEPT {
-//				typedef word_type* type;
 				return !c ? 0
-					: throw std::out_of_range("base_bitset::getword"), 0
+					: throw std::out_of_range("base_bitset::getword")
 					;
 			}
 			SPROUT_CONSTEXPR word_type
@@ -1074,7 +1101,10 @@ namespace sprout {
 		}
 	public:
 		// 20.5.1 constructors:
-		SPROUT_CONSTEXPR bitset() SPROUT_NOEXCEPT {}
+		SPROUT_CONSTEXPR bitset() SPROUT_NOEXCEPT
+			: base_type()
+		{}
+		bitset(bitset<N> const&) = default;
 		SPROUT_CONSTEXPR bitset(unsigned long long val) SPROUT_NOEXCEPT
 			: base_type(sprout::detail::sanitize_val<N>::do_sanitize_val(val))
 		{}
@@ -1125,6 +1155,16 @@ namespace sprout {
 			copy_from_ptr<Char, std::char_traits<Char>>(str, n, 0, n, zero, one);
 		}
 		// 20.5.2 bitset operations:
+		SPROUT_CXX14_CONSTEXPR bitset<N>&
+		operator=(bitset<N> const& rhs) {
+			base_type::operator=(rhs);
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR bitset<N>&
+		operator=(bitset<N>&& rhs) {
+			base_type::operator=(sprout::move(rhs));
+			return *this;
+		}
 		SPROUT_CXX14_CONSTEXPR bitset<N>&
 		operator&=(bitset<N> const& rhs) SPROUT_NOEXCEPT {
 			this->do_and(rhs);

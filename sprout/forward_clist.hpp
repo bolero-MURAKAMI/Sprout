@@ -222,6 +222,9 @@ namespace sprout {
 			holder_type val;
 			item_holder_type next;
 		private:
+			item& operator=(item const&) SPROUT_DELETED_FUNCTION_DECL
+			item& operator=(item&&) SPROUT_DELETED_FUNCTION_DECL
+		private:
 			item(item const&) = default;
 			SPROUT_CONSTEXPR item(typename holder_type::argument_type p, item_holder_type const& n)
 				: val(p)
@@ -231,9 +234,6 @@ namespace sprout {
 				: val(sprout::move(p))
 				, next(n)
 			{}
-
-			item& operator=(item const&) = default;
-			item& operator=(item&&) = default;
 
 			SPROUT_CXX14_CONSTEXPR void swap(item& other)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(val, other.val)) && SPROUT_NOEXCEPT_EXPR(sprout::swap(next, other.next)))
