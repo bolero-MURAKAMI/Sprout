@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/transform.hpp>
 
 namespace sprout {
@@ -20,23 +20,23 @@ namespace sprout {
 			// transform
 			//
 			template<typename InputRange, typename Result, typename UnaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(InputRange const& rng, Result const& result, UnaryOperation op) {
 				return sprout::fixed::transform(sprout::begin(rng), sprout::end(rng), result, op);
 			}
 			template<typename InputRange1, typename InputRange2, typename Result, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(InputRange1 const& rng1, InputRange2 const& rng2, Result const& result, BinaryOperation op) {
 				return sprout::fixed::transform(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), result, op);
 			}
 
 			template<typename Result, typename InputRange, typename UnaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(InputRange const& rng, UnaryOperation op) {
 				return sprout::fixed::transform<Result>(sprout::begin(rng), sprout::end(rng), op);
 			}
 			template<typename Result, typename InputRange1, typename InputRange2, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(InputRange1 const& rng1, InputRange2 const& rng2, BinaryOperation op) {
 				return sprout::fixed::transform<Result>(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), op);
 			}

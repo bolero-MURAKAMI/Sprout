@@ -17,7 +17,7 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
@@ -25,7 +25,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			reverse_copy_impl_ra(
 				RandomAccessIterator, RandomAccessIterator last, Result const& result,
 				sprout::index_tuple<Indexes...>,
@@ -44,7 +44,7 @@ namespace sprout {
 					);
 			}
 			template<typename RandomAccessIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			reverse_copy(
 				RandomAccessIterator first, RandomAccessIterator last, Result const& result,
 				std::random_access_iterator_tag*
@@ -62,7 +62,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			reverse_copy_impl(
 				BidirectionalIterator, BidirectionalIterator, Result const& result,
@@ -75,7 +75,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			reverse_copy_impl(
 				BidirectionalIterator first, BidirectionalIterator last, Result const& result,
@@ -89,7 +89,7 @@ namespace sprout {
 					;
 			}
 			template<typename BidirectionalIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			reverse_copy(
 				BidirectionalIterator first, BidirectionalIterator last, Result const& result,
 				std::bidirectional_iterator_tag*
@@ -101,7 +101,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			reverse_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
 				typedef typename std::iterator_traits<BidirectionalIterator>::iterator_category* category;
@@ -111,7 +111,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			reverse_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
 				return sprout::remake<Result>(
@@ -125,13 +125,13 @@ namespace sprout {
 		// reverse_copy
 		//
 		template<typename BidirectionalIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		reverse_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
 			return sprout::fixed::detail::reverse_copy(first, last, result);
 		}
 
 		template<typename Result, typename BidirectionalIterator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		reverse_copy(BidirectionalIterator first, BidirectionalIterator last) {
 			return sprout::fixed::reverse_copy(first, last, sprout::pit<Result>());
 		}
@@ -141,13 +141,13 @@ namespace sprout {
 		typename BidirectionalIterator, typename Result,
 		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	reverse_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result) {
 		return sprout::fixed::reverse_copy(first, last, result);
 	}
 
 	template<typename Result, typename BidirectionalIterator>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	reverse_copy(BidirectionalIterator first, BidirectionalIterator last) {
 		return sprout::fixed::reverse_copy<Result>(first, last);
 	}

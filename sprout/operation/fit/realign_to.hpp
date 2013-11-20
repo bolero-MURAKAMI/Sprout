@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace fit {
-		namespace result_of {
+		namespace results {
 			//
 			// realign_to
 			//
@@ -26,17 +26,17 @@ namespace sprout {
 			public:
 				typedef sprout::sub_array<
 					typename sprout::container_traits<
-						typename sprout::fixed::result_of::realign_to<Result, Container>::type
+						typename sprout::fixed::results::realign_to<Result, Container>::type
 					>::internal_type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// realign_to
 		//
 		template<typename Result, typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::realign_to<Result, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::realign_to<Result, Container>::type
 		realign_to(Container const& cont, T const& v) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::realign_to<Result>(cont, v)),
@@ -45,7 +45,7 @@ namespace sprout {
 				);
 		}
 		template<typename Result, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::realign_to<Result, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::realign_to<Result, Container>::type
 		realign_to(Container const& cont) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::realign_to<Result>(cont)),

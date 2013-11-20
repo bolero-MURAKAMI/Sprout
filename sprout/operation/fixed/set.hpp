@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// set
 			//
@@ -26,7 +26,7 @@ namespace sprout {
 			public:
 				typedef typename sprout::container_construct_traits<Container>::copied_type type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
@@ -50,30 +50,30 @@ namespace sprout {
 		// set
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::set<Container, T>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::set<Container, T>::type
 		set(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos, T const& v) {
-			return sprout::fixed::detail::set_impl<typename sprout::fixed::result_of::set<Container, T>::type>(
+			return sprout::fixed::detail::set_impl<typename sprout::fixed::results::set<Container, T>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::set<Container, T>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::set<Container, T>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), pos),
 				v
 				);
 		}
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::set<Container, T>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::set<Container, T>::type
 		set(Container const& cont, typename sprout::container_traits<Container>::difference_type pos, T const& v) {
-			return sprout::fixed::detail::set_impl<typename sprout::fixed::result_of::set<Container, T>::type>(
+			return sprout::fixed::detail::set_impl<typename sprout::fixed::results::set<Container, T>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::set<Container, T>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::set<Container, T>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				v
 				);
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::set;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::set;
+	}	// namespace results
 
 	using sprout::fixed::set;
 }	// namespace sprout

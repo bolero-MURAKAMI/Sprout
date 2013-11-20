@@ -12,7 +12,7 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/utility/pair/access.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/bozo_sort_result.hpp>
 
 namespace sprout {
@@ -21,14 +21,14 @@ namespace sprout {
 		// bozo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		bozo_sort(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::first(
 				sprout::fixed::bozo_sort_result(cont, sprout::forward<UniformRandomNumberGenerator>(g), comp)
 				);
 		}
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		bozo_sort(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::first(
 				sprout::fixed::bozo_sort_result(cont, sprout::forward<UniformRandomNumberGenerator>(g))

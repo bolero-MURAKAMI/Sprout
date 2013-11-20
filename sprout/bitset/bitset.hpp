@@ -707,10 +707,10 @@ namespace sprout {
 			base_bitset(base_bitset<0> const&) = default;
 			SPROUT_CONSTEXPR base_bitset(unsigned long long) SPROUT_NOEXCEPT {}
 			SPROUT_CONSTEXPR base_bitset(sprout::detail::base_bitset_from_words_construct_tag) {}
-			SPROUT_CXX14_CONSTEXPR base_bitset<0>& operator=(base_bitset<0> const& rhs) SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR base_bitset<0>& operator=(base_bitset<0> const&) SPROUT_NOEXCEPT {
 				return *this;
 			}
-			SPROUT_CXX14_CONSTEXPR base_bitset<0>& operator=(base_bitset<0>&& rhs) SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR base_bitset<0>& operator=(base_bitset<0>&&) SPROUT_NOEXCEPT {
 				return *this;
 			}
 

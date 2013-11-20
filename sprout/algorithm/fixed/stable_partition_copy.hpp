@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
@@ -23,7 +23,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			stable_partition_copy_impl_1(
 				BidirectionalIterator, BidirectionalIterator,
@@ -37,7 +37,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			stable_partition_copy_impl_1(
 				BidirectionalIterator first, BidirectionalIterator last,
@@ -63,7 +63,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			stable_partition_copy_impl(
 				BidirectionalIterator, BidirectionalIterator,
@@ -78,7 +78,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			stable_partition_copy_impl(
 				BidirectionalIterator first, BidirectionalIterator last,
@@ -109,13 +109,13 @@ namespace sprout {
 		// stable_partition_copy
 		//
 		template<typename BidirectionalIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		stable_partition_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result, Predicate pred) {
 			return sprout::fixed::detail::stable_partition_copy_impl(first, last, result, pred, sprout::size(result), first);
 		}
 
 		template<typename Result, typename BidirectionalIterator, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		stable_partition_copy(BidirectionalIterator first, BidirectionalIterator last, Predicate pred) {
 			return sprout::fixed::stable_partition_copy(first, last, sprout::pit<Result>(), pred);
 		}

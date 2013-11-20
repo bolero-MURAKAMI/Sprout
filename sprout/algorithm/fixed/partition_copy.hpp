@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
@@ -23,7 +23,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			partition_copy_impl(
 				InputIterator, InputIterator, Result const& result, Predicate,
@@ -36,7 +36,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			partition_copy_impl(
 				InputIterator first, InputIterator last, Result const& result, Predicate pred,
@@ -56,13 +56,13 @@ namespace sprout {
 		// partition_copy
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		partition_copy(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 			return sprout::fixed::detail::partition_copy_impl(first, last, result, pred, sprout::size(result));
 		}
 
 		template<typename Result, typename InputIterator, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		partition_copy(InputIterator first, InputIterator last, Predicate pred) {
 			return sprout::fixed::partition_copy(first, last, sprout::pit<Result>(), pred);
 		}

@@ -14,7 +14,7 @@
 #include <sprout/weed/eval_result.hpp>
 #include <sprout/weed/expr/tag.hpp>
 #include <sprout/weed/expr/eval.hpp>
-#include <sprout/weed/attr_cnv/result_of/mem_ptr.hpp>
+#include <sprout/weed/attr_cnv/results/mem_ptr.hpp>
 #include <sprout/weed/attr_cnv/mem_ptr.hpp>
 #include <sprout/weed/traits/expr/tag_of.hpp>
 #include <sprout/weed/traits/parser/attribute_of.hpp>
@@ -41,7 +41,7 @@ namespace sprout {
 			typedef typename sprout::tuples::tuple_element<0, typename Expr::args_type>::type expr1_type;
 			typedef typename sprout::tuples::tuple_element<1, typename Expr::args_type>::type expr2_type;
 		public:
-			typedef typename sprout::weed::attr_cnv::result_of::mem_ptr<
+			typedef typename sprout::weed::attr_cnv::results::mem_ptr<
 				typename sprout::weed::traits::attribute_of<expr1_type, Iterator, context_type>::type,
 				typename sprout::tuples::tuple_element<0, typename expr2_type::args_type>::type
 			>::type attribute_type;

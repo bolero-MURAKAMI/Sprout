@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/numeric/dft/fit/spectrum.hpp>
 
 namespace sprout {
@@ -21,13 +21,13 @@ namespace sprout {
 			// spectrum
 			//
 			template<typename InputRange, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			spectrum(InputRange const& rng, Result const& result) {
 				return sprout::fit::spectrum(sprout::begin(rng), sprout::end(rng), result);
 			}
 
 			template<typename Result, typename InputRange>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			spectrum(InputRange const& rng) {
 				return sprout::fit::spectrum<Result>(sprout::begin(rng), sprout::end(rng));
 			}

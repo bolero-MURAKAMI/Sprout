@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// erase
 			//
@@ -31,7 +31,7 @@ namespace sprout {
 			{
 				static_assert(sprout::container_traits<Container>::static_size >= 1, "static_size >= 1");
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Container, sprout::index_t... Indexes>
@@ -58,11 +58,11 @@ namespace sprout {
 		// erase
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::erase<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::erase<Container>::type
 		erase(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos) {
-			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::erase<Container>::type>(
+			return sprout::fixed::detail::erase_impl<typename sprout::fixed::results::erase<Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::erase<Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::erase<Container>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), pos)
 				);
 		}
@@ -70,19 +70,19 @@ namespace sprout {
 		// erase
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::erase<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::erase<Container>::type
 		erase(Container const& cont, typename sprout::container_traits<Container>::difference_type pos) {
-			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::erase<Container>::type>(
+			return sprout::fixed::detail::erase_impl<typename sprout::fixed::results::erase<Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::erase<Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::erase<Container>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos))
 				);
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::erase;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::erase;
+	}	// namespace results
 
 	using sprout::fixed::erase;
 }	// namespace sprout

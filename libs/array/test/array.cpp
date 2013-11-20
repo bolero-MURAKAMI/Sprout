@@ -168,8 +168,8 @@ namespace testspr {
 			TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<1, decltype(arr1)>::type, int const>::value));
 
 			// is_array
-			TESTSPR_BOTH_ASSERT(sprout::is_array<decltype(arr1)>::value);
-			TESTSPR_BOTH_ASSERT(!sprout::is_array<int>::value);
+			TESTSPR_BOTH_ASSERT(sprout::is_array_class<decltype(arr1)>::value);
+			TESTSPR_BOTH_ASSERT(!sprout::is_array_class<int>::value);
 
 			// sprout::to_hash, sprout::hash
 			TESTSPR_BOTH_ASSERT(sprout::to_hash(arr1) == sprout::hash<decltype(arr1)>()(arr1));

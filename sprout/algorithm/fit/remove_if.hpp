@@ -13,7 +13,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/count_if.hpp>
 #include <sprout/algorithm/fixed/remove_if.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -21,7 +21,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			remove_if_impl(
 				Container const& cont, Predicate pred,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -38,7 +38,7 @@ namespace sprout {
 		// remove_if
 		//
 		template<typename Container, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		remove_if(Container const& cont, Predicate pred) {
 			return sprout::fit::detail::remove_if_impl(cont, pred, sprout::internal_begin_offset(cont));
 		}

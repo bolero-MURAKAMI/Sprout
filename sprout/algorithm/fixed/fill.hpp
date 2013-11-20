@@ -14,14 +14,14 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/value_iterator.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename T, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			fill_impl(
 				Container const& cont, T const& value,
 				sprout::index_tuple<Indexes...>,
@@ -41,7 +41,7 @@ namespace sprout {
 			template<typename Container, typename T>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Container>::value,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			fill(Container const& cont, T const& value) {
 				return sprout::fixed::detail::fill_impl(
@@ -55,7 +55,7 @@ namespace sprout {
 			template<typename Container, typename T>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Container>::value,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			fill(Container const& cont, T const& value) {
 				return sprout::remake<Container>(
@@ -69,13 +69,13 @@ namespace sprout {
 		// fill
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		fill(Container const& cont, T const& value) {
 			return sprout::fixed::detail::fill(cont, value);
 		}
 
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		fill(T const& value) {
 			return sprout::fixed::fill(sprout::pit<Container>(), value);
 		}

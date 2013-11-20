@@ -12,7 +12,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/replace_if.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -20,7 +20,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Predicate, typename T>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			replace_if_impl(
 				Container const& cont, Predicate pred, T const& new_value,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -37,7 +37,7 @@ namespace sprout {
 		// replace_if
 		//
 		template<typename Container, typename Predicate, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		replace_if(Container const& cont, Predicate pred, T const& new_value) {
 			return sprout::fit::detail::replace_if_impl(cont, pred, new_value, sprout::internal_begin_offset(cont));
 		}

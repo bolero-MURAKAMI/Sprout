@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/algorithm/string/fit/to_upper_copy.hpp>
 
 namespace sprout {
@@ -21,7 +21,7 @@ namespace sprout {
 				// to_upper_copy
 				//
 				template<typename InputRange, typename Result>
-				inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+				inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 				to_upper_copy(InputRange const& rng, Result const& result) {
 					return sprout::fit::to_upper_copy(sprout::begin(rng), sprout::end(rng), result);
 				}

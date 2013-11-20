@@ -11,9 +11,9 @@
 #if defined(_MSC_VER)
 #	include <cstddef>
 #endif
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/preprocessor/cat.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
 
 //
@@ -27,7 +27,7 @@
 	template<typename T> \
 	struct NAME< \
 		T, \
-		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_type_def_impl_has_, TYPE), __LINE__)<T>::value>::type \
+		typename sprout::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_type_def_impl_has_, TYPE), __LINE__)<T>::value>::type \
 	> { \
 	public: \
 		typedef typename T::TYPE ALIAS; \
@@ -56,7 +56,7 @@
 	template<typename T> \
 	struct NAME< \
 		T, \
-		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
+		typename sprout::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
 	> { \
 	public: \
 		SPROUT_STATIC_CONSTEXPR std::size_t ALIAS = T::CONSTANT; \
@@ -64,7 +64,7 @@
 	template<typename T> \
 	SPROUT_CONSTEXPR_OR_CONST std::size_t NAME< \
 		T, \
-		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
+		typename sprout::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
 	>::ALIAS
 #else
 #define SPROUT_INHERIT_ALIAS_IF_XXX_CONSTANT_DEF(NAME, ALIAS, CONSTANT) \
@@ -74,15 +74,15 @@
 	template<typename T> \
 	struct NAME< \
 		T, \
-		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
+		typename sprout::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
 	> { \
 	public: \
-		SPROUT_STATIC_CONSTEXPR typename std::decay<decltype(T::CONSTANT)>::type ALIAS = T::CONSTANT; \
+		SPROUT_STATIC_CONSTEXPR typename sprout::decay<decltype(T::CONSTANT)>::type ALIAS = T::CONSTANT; \
 	}; \
 	template<typename T> \
-	SPROUT_CONSTEXPR_OR_CONST typename std::decay<decltype(T::CONSTANT)>::type NAME< \
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::decay<decltype(T::CONSTANT)>::type NAME< \
 		T, \
-		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
+		typename sprout::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), __LINE__)<T>::value>::type \
 	>::ALIAS
 #endif
 #define SPROUT_INHERIT_ALIAS_IF_XXX_CONSTANT_DEF_LAZY(ALIAS, CONSTANT) \

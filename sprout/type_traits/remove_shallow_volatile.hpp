@@ -8,8 +8,8 @@
 #ifndef SPROUT_TYPE_TRAITS_REMOVE_SHALLOW_VOLATILE_HPP
 #define SPROUT_TYPE_TRAITS_REMOVE_SHALLOW_VOLATILE_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
@@ -22,7 +22,7 @@ namespace sprout {
 	{};
 	template<typename T>
 	struct remove_shallow_volatile<T volatile>
-		: public std::conditional<std::is_array<T>::value, T volatile, T>
+		: public sprout::conditional<sprout::is_array<T>::value, T volatile, T>
 	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

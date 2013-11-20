@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/clamp_range_copy.hpp>
 
 namespace sprout {
@@ -20,7 +20,7 @@ namespace sprout {
 		// clamp_range
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		clamp_range(
 			Container const& cont,
 			typename sprout::container_traits<Container>::value_type const& low,
@@ -31,7 +31,7 @@ namespace sprout {
 			return sprout::fixed::clamp_range_copy(sprout::begin(cont), sprout::end(cont), cont, low, high, comp);
 		}
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		clamp_range(
 			Container const& cont,
 			typename sprout::container_traits<Container>::value_type const& low,

@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/copy_while.hpp>
 
 namespace sprout {
@@ -20,13 +20,13 @@ namespace sprout {
 			// copy_while
 			//
 			template<typename InputRange, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_while(InputRange const& rng, Result const& result, Predicate pred) {
 				return sprout::fixed::copy_while(sprout::begin(rng), sprout::end(rng), result, pred);
 			}
 
 			template<typename Result, typename InputRange, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_while(InputRange const& rng, Predicate pred) {
 				return sprout::fixed::copy_while<Result>(sprout::begin(rng), sprout::end(rng), pred);
 			}

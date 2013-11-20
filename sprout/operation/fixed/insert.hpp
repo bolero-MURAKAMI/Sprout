@@ -19,7 +19,7 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// insert
 			//
@@ -31,7 +31,7 @@ namespace sprout {
 					sprout::container_traits<Container>::static_size + 1 + sizeof...(Values)
 				>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, typename... Values, sprout::index_t... Indexes>
@@ -60,30 +60,30 @@ namespace sprout {
 		// insert
 		//
 		template<typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::insert<Container, T, Values...>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::insert<Container, T, Values...>::type
 		insert(
 			Container const& cont, typename sprout::container_traits<Container>::const_iterator pos,
 			T const& v, Values const&... values
 			)
 		{
-			return sprout::fixed::detail::insert_impl<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>(
+			return sprout::fixed::detail::insert_impl<typename sprout::fixed::results::insert<Container, T, Values...>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::insert<Container, T, Values...>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), pos),
 				v,
 				values...
 				);
 		}
 		template<typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::insert<Container, T, Values...>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::insert<Container, T, Values...>::type
 		insert(
 			Container const& cont, typename sprout::container_traits<Container>::difference_type pos,
 			T const& v, Values const&... values
 			)
 		{
-			return sprout::fixed::detail::insert_impl<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>(
+			return sprout::fixed::detail::insert_impl<typename sprout::fixed::results::insert<Container, T, Values...>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::insert<Container, T, Values...>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::insert<Container, T, Values...>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				v,
 				values...
@@ -91,9 +91,9 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::insert;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::insert;
+	}	// namespace results
 
 	using sprout::fixed::insert;
 }	// namespace sprout

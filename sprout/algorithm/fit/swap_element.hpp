@@ -12,7 +12,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -21,7 +21,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			swap_element_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::const_iterator pos1,
@@ -40,7 +40,7 @@ namespace sprout {
 		// swap_element
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		swap_element(
 			Container const& cont,
 			typename sprout::container_traits<Container>::const_iterator pos1,

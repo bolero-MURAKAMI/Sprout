@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/numeric/fit/partial_sum.hpp>
 
 namespace sprout {
@@ -21,23 +21,23 @@ namespace sprout {
 			// partial_sum
 			//
 			template<typename InputRange, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			partial_sum(InputRange const& rng, Result const& result) {
 				return sprout::fit::partial_sum(sprout::begin(rng), sprout::end(rng), result);
 			}
 			template<typename InputRange, typename Result, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			partial_sum(InputRange const& rng, Result const& result, BinaryOperation binary_op) {
 				return sprout::fit::partial_sum(sprout::begin(rng), sprout::end(rng), result, binary_op);
 			}
 
 			template<typename Result, typename InputRange>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			partial_sum(InputRange const& rng) {
 				return sprout::fit::partial_sum<Result>(sprout::begin(rng), sprout::end(rng));
 			}
 			template<typename Result, typename InputRange, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			partial_sum(InputRange const& rng, BinaryOperation binary_op) {
 				return sprout::fit::partial_sum<Result>(sprout::begin(rng), sprout::end(rng), binary_op);
 			}

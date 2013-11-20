@@ -18,7 +18,7 @@
 
 namespace sprout {
 	namespace fit {
-		namespace result_of {
+		namespace results {
 			//
 			// insert
 			//
@@ -27,17 +27,17 @@ namespace sprout {
 			public:
 				typedef sprout::sub_array<
 					typename sprout::container_traits<
-						typename sprout::fixed::result_of::insert<Container, T, Values...>::type
+						typename sprout::fixed::results::insert<Container, T, Values...>::type
 					>::internal_type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// insert
 		//
 		template<typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::insert<Container, T, Values...>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::insert<Container, T, Values...>::type
 		insert(
 			Container const& cont, typename sprout::container_traits<Container>::const_iterator pos,
 			T const& v, Values const&... values
@@ -50,7 +50,7 @@ namespace sprout {
 				);
 		}
 		template<typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::insert<Container, T, Values...>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::insert<Container, T, Values...>::type
 		insert(
 			Container const& cont, typename sprout::container_traits<Container>::difference_type pos,
 			T const& v, Values const&... values

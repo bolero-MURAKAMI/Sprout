@@ -23,7 +23,7 @@
 namespace sprout {
 	namespace weed {
 		namespace attr_cnv {
-			namespace result_of {
+			namespace results {
 				//
 				// times
 				//
@@ -39,7 +39,7 @@ namespace sprout {
 						&& sprout::weed::traits::is_container<T>::value
 					>::type
 				>
-					: public sprout::algorithm::result_of::join<
+					: public sprout::algorithm::results::join<
 						sprout::array<T, Limit>
 					>
 				{};
@@ -71,7 +71,7 @@ namespace sprout {
 				>
 					: public sprout::identity<sprout::weed::unused>
 				{};
-			}	// namespace result_of
+			}	// namespace results
 		}	// namespace attr_cnv
 	}	// namespace weed
 }	// namespace sprout

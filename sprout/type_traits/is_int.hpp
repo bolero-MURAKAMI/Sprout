@@ -1,3 +1,4 @@
+#include <sprout/type_traits/std_type_traits.hpp>
 /*=============================================================================
   Copyright (c) 2011-2013 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
@@ -8,8 +9,9 @@
 #ifndef SPROUT_TYPE_TRAITS_IS_INT_HPP
 #define SPROUT_TYPE_TRAITS_IS_INT_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	//
@@ -17,9 +19,9 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_int
-		: public std::integral_constant<
+		: public sprout::integral_constant<
 			bool,
-			std::is_integral<T>::value && std::is_signed<T>::value
+			sprout::is_integral<T>::value && sprout::is_signed<T>::value
 		>
 	{};
 

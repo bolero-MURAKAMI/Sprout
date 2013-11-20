@@ -15,7 +15,7 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// algorithm
 			//
@@ -32,17 +32,17 @@ namespace sprout {
 			struct shuffle {
 			public:
 				typedef sprout::pair<
-					typename sprout::fixed::result_of::algorithm<Container>::type,
+					typename sprout::fixed::results::algorithm<Container>::type,
 					typename std::decay<UniformRandomNumberGenerator>::type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::algorithm;
-		using sprout::fixed::result_of::shuffle;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::algorithm;
+		using sprout::fixed::results::shuffle;
+	}	// namespace results
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_RESULT_OF_HPP

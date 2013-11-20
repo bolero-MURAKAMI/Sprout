@@ -14,7 +14,7 @@
 #include <sprout/weed/eval_result.hpp>
 #include <sprout/weed/expr/tag.hpp>
 #include <sprout/weed/expr/eval.hpp>
-#include <sprout/weed/attr_cnv/result_of/negate.hpp>
+#include <sprout/weed/attr_cnv/results/negate.hpp>
 #include <sprout/weed/attr_cnv/negate.hpp>
 #include <sprout/weed/traits/expr/tag_of.hpp>
 #include <sprout/weed/traits/parser/attribute_of.hpp>
@@ -40,7 +40,7 @@ namespace sprout {
 			typedef sprout::weed::parse_context<Iterator> context_type;
 			typedef typename sprout::tuples::tuple_element<0, typename Expr::args_type>::type expr_type;
 		public:
-			typedef typename sprout::weed::attr_cnv::result_of::negate<
+			typedef typename sprout::weed::attr_cnv::results::negate<
 				typename sprout::weed::traits::attribute_of<expr_type, Iterator, context_type>::type
 			>::type attribute_type;
 			typedef sprout::weed::eval_result<context_type, Iterator, attribute_type> result_type;

@@ -14,7 +14,7 @@
 #include <sprout/weed/eval_result.hpp>
 #include <sprout/weed/expr/tag.hpp>
 #include <sprout/weed/expr/eval.hpp>
-#include <sprout/weed/attr_cnv/result_of/bitwise_or.hpp>
+#include <sprout/weed/attr_cnv/results/bitwise_or.hpp>
 #include <sprout/weed/attr_cnv/bitwise_or.hpp>
 #include <sprout/weed/traits/expr/tag_of.hpp>
 #include <sprout/weed/traits/parser/attribute_of.hpp>
@@ -43,7 +43,7 @@ namespace sprout {
 			typedef typename sprout::weed::traits::attribute_of<expr1_type, Iterator, context_type>::type attr1_type;
 			typedef typename sprout::weed::traits::attribute_of<expr2_type, Iterator, context_type>::type attr2_type;
 		public:
-			typedef typename sprout::weed::attr_cnv::result_of::bitwise_or<
+			typedef typename sprout::weed::attr_cnv::results::bitwise_or<
 				typename sprout::weed::traits::attribute_of<expr1_type, Iterator, context_type>::type,
 				typename sprout::weed::traits::attribute_of<expr2_type, Iterator, context_type>::type
 			>::type attribute_type;

@@ -18,25 +18,25 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// append_back
 			//
 			template<typename Container, typename Input>
 			struct append_back
-				: public sprout::fixed::result_of::append<Container, Input>
+				: public sprout::fixed::results::append<Container, Input>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// append_back
 		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append_back<Container, Input>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::append_back<Container, Input>::type
 		append_back(Container const& cont, Input const& input) {
-			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append_back<Container, Input>::type>(
+			return sprout::fixed::detail::append_impl<typename sprout::fixed::results::append_back<Container, Input>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::append_back<Container, Input>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::append_back<Container, Input>::type>::make(),
 				sprout::internal_end_offset(cont),
 				sprout::size(input),
 				input
@@ -44,9 +44,9 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::append_back;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::append_back;
+	}	// namespace results
 
 	using sprout::fixed::append_back;
 }	// namespace sprout

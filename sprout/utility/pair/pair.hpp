@@ -21,8 +21,8 @@ namespace sprout {
 	//
 	// pair
 	//
-	template <typename T1, typename T2>
-	template <typename... Args1, typename... Args2, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
+	template<typename T1, typename T2>
+	template<typename... Args1, typename... Args2, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
 	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(
 		sprout::tuples::tuple<Args1...> first_args, sprout::tuples::tuple<Args2...> second_args,
 		sprout::index_tuple<Indexes1...>, sprout::index_tuple<Indexes2...>
@@ -31,7 +31,7 @@ namespace sprout {
 		, second(sprout::tuples::get<Indexes2>(second_args)...)
 	{}
 #if SPROUT_USE_DELEGATING_CONSTRUCTORS
-	template <typename T1, typename T2>
+	template<typename T1, typename T2>
 	template<
 		typename... Args1, typename... Args2,
 		typename
@@ -48,7 +48,7 @@ namespace sprout {
 			)
 	{}
 #endif	// #if SPROUT_USE_DELEGATING_CONSTRUCTORS
-	template <typename T1, typename T2>
+	template<typename T1, typename T2>
 	template<
 		typename U, typename V,
 		typename
@@ -57,7 +57,7 @@ namespace sprout {
 		: first(sprout::tuples::get<0>(other))
 		, second(sprout::tuples::get<1>(other))
 	{}
-	template <typename T1, typename T2>
+	template<typename T1, typename T2>
 	template<
 		typename U, typename V,
 		typename
@@ -67,7 +67,7 @@ namespace sprout {
 		, second(sprout::forward<V>(sprout::tuples::get<1>(other)))
 	{}
 
-	template <typename T1, typename T2>
+	template<typename T1, typename T2>
 	template<
 		typename U, typename V,
 		typename
@@ -77,7 +77,7 @@ namespace sprout {
 		second = sprout::tuples::get<0>(rhs);
 		return *this;
 	}
-	template <typename T1, typename T2>
+	template<typename T1, typename T2>
 	template<
 		typename U, typename V,
 		typename

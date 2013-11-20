@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/algorithm/fit/transform.hpp>
 
 namespace sprout {
@@ -20,12 +20,12 @@ namespace sprout {
 			// transform
 			//
 			template<typename InputRange, typename Result, typename UnaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(InputRange const& rng, Result const& result, UnaryOperation op) {
 				return sprout::fit::transform(sprout::begin(rng), sprout::end(rng), result, op);
 			}
 			template<typename InputRange1, typename InputRange2, typename Result, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(InputRange1 const& rng1, InputRange2 const& rng2, Result const& result, BinaryOperation op) {
 				return sprout::fit::transform(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), result, op);
 			}

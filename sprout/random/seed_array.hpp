@@ -21,7 +21,7 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
 #include <sprout/algorithm/cxx14/copy.hpp>
@@ -90,7 +90,7 @@ namespace sprout {
 					;
 			}
 			template<typename Result, sprout::index_t... Indexes>
-			static SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set2_impl(
+			static SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type set2_impl(
 				Result const& result,
 				size_type kpn, size_type kqn, size_type kn,
 				typename sprout::container_traits<Result>::value_type r3,
@@ -110,7 +110,7 @@ namespace sprout {
 					);
 			}
 			template<typename Result>
-			static SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set2(
+			static SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type set2(
 				Result const& result,
 				size_type kpn, size_type kqn, size_type kn,
 				typename sprout::container_traits<Result>::value_type r3,
@@ -120,7 +120,7 @@ namespace sprout {
 				return set2_impl(result, kpn, kqn, kn, r3, r3 - r4_3, sprout::container_indexes<Result>::make());
 			}
 			template<typename Result, sprout::index_t... Indexes>
-			static SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set1_impl(
+			static SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type set1_impl(
 				Result const& result,
 				size_type kpn, size_type kqn, size_type kn,
 				typename sprout::container_traits<Result>::value_type r1,
@@ -140,7 +140,7 @@ namespace sprout {
 					);
 			}
 			template<typename Result>
-			static SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type set1(
+			static SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type set1(
 				Result const& result,
 				size_type kpn, size_type kqn, size_type kn,
 				typename sprout::container_traits<Result>::value_type r1,
@@ -150,7 +150,7 @@ namespace sprout {
 				return set1_impl(result, kpn, kqn, kn, r1, r1 + r2_1, sprout::container_indexes<Result>::make());
 			}
 			template<typename Result>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type gen2(
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type gen2(
 				Result const& result,
 				size_type n, size_type s, size_type m, size_type t, size_type p, size_type q,
 				size_type k
@@ -169,7 +169,7 @@ namespace sprout {
 					;
 			}
 			template<typename Result>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type gen1_2(
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type gen1_2(
 				Result const& result,
 				size_type n, size_type s, size_type m, size_type t, size_type p, size_type q,
 				size_type k
@@ -188,7 +188,7 @@ namespace sprout {
 					;
 			}
 			template<typename Result>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type gen1_1(
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type gen1_1(
 				Result const& result,
 				size_type n, size_type s, size_type m, size_type t, size_type p, size_type q,
 				size_type k
@@ -207,7 +207,7 @@ namespace sprout {
 					;
 			}
 			template<typename Result>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type gen1_0(
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type gen1_0(
 				Result const& result,
 				size_type n, size_type s, size_type p, size_type q
 				) const
@@ -219,7 +219,7 @@ namespace sprout {
 					);
 			}
 			template<typename Result>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type gen_impl(
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type gen_impl(
 				Result const& result,
 				size_type n, size_type s, size_type m, size_type t, size_type p, size_type q
 				) const
@@ -242,7 +242,7 @@ namespace sprout {
 					);
 			}
 			template<typename Result, typename TempResult>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type gen(
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type gen(
 				Result const& result, TempResult const& temp_result,
 				size_type n, size_type s, size_type m, size_type t
 				) const
@@ -310,7 +310,7 @@ namespace sprout {
 				}
 			}
 			template<typename Result>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type generate(Result const& result) const {
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type generate(Result const& result) const {
 				typedef typename sprout::container_traits<Result>::value_type value_type;
 				typedef sprout::array<value_type, sprout::container_traits<Result>::static_size> temp_type;
 				return !sprout::empty(result) ? gen(
@@ -322,7 +322,7 @@ namespace sprout {
 					;
 			}
 			template<typename Result>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type generate() const {
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type generate() const {
 				return generate(sprout::pit<Result>());
 			}
 			SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
@@ -342,11 +342,11 @@ namespace sprout {
 				typename Result,
 				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 			>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type param(Result const& result) const {
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type param(Result const& result) const {
 				return sprout::fixed::copy(v.begin(), v.end(), result);
 			}
 			template<typename Result>
-			SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type param() const {
+			SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type param() const {
 				return sprout::fixed::copy<Result>(v.begin(), v.end());
 			}
 		};

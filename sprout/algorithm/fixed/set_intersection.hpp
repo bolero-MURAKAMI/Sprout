@@ -15,7 +15,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/set_intersection_iterator.hpp>
 #include <sprout/functional/less.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
@@ -25,7 +25,7 @@ namespace sprout {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			set_intersection_impl(
 				InputIterator1, InputIterator1,
@@ -40,7 +40,7 @@ namespace sprout {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			set_intersection_impl(
 				InputIterator1 first1, InputIterator1 last1,
@@ -76,7 +76,7 @@ namespace sprout {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			set_intersection(
 				InputIterator1 first1, InputIterator1 last1,
@@ -95,7 +95,7 @@ namespace sprout {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			set_intersection(
 				InputIterator1 first1, InputIterator1 last1,
@@ -114,7 +114,7 @@ namespace sprout {
 		// set_intersection
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		set_intersection(
 			InputIterator1 first1, InputIterator1 last1,
 			InputIterator2 first2, InputIterator2 last2,
@@ -124,7 +124,7 @@ namespace sprout {
 			return sprout::fixed::detail::set_intersection(first1, last1, first2, last2, result, comp);
 		}
 		template<typename InputIterator1, typename InputIterator2, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		set_intersection(
 			InputIterator1 first1, InputIterator1 last1,
 			InputIterator2 first2, InputIterator2 last2,
@@ -135,7 +135,7 @@ namespace sprout {
 		}
 
 		template<typename Result, typename InputIterator1, typename InputIterator2, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		set_intersection(
 			InputIterator1 first1, InputIterator1 last1,
 			InputIterator2 first2, InputIterator2 last2,
@@ -145,7 +145,7 @@ namespace sprout {
 			return sprout::fixed::set_intersection(first1, last1, first2, last2, sprout::pit<Result>(), comp);
 		}
 		template<typename Result, typename InputIterator1, typename InputIterator2>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		set_intersection(
 			InputIterator1 first1, InputIterator1 last1,
 			InputIterator2 first2, InputIterator2 last2

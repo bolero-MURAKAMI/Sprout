@@ -19,7 +19,7 @@
 #include <sprout/iterator/replace_iterator.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
@@ -28,7 +28,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Result, typename T, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			replace_copy_impl_ra(
 				RandomAccessIterator first, RandomAccessIterator,
 				Result const& result, T const& old_value, T const& new_value,
@@ -47,7 +47,7 @@ namespace sprout {
 					);
 			}
 			template<typename RandomAccessIterator, typename Result, typename T>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			replace_copy(
 				RandomAccessIterator first, RandomAccessIterator last,
 				Result const& result, T const& old_value, T const& new_value,
@@ -66,7 +66,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename T, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			replace_copy_impl(
 				InputIterator, InputIterator,
@@ -80,7 +80,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename T, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			replace_copy_impl(
 				InputIterator first, InputIterator last,
@@ -99,7 +99,7 @@ namespace sprout {
 					;
 			}
 			template<typename InputIterator, typename Result, typename T>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			replace_copy(
 				InputIterator first, InputIterator last,
 				Result const& result, T const& old_value, T const& new_value,
@@ -112,7 +112,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename T>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			replace_copy(InputIterator first, InputIterator last, Result const& result, T const& old_value, T const& new_value) {
 				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
@@ -122,7 +122,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename T>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			replace_copy(InputIterator first, InputIterator last, Result const& result, T const& old_value, T const& new_value) {
 				return sprout::remake<Result>(
@@ -136,13 +136,13 @@ namespace sprout {
 		// replace_copy
 		//
 		template<typename InputIterator, typename Result, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		replace_copy(InputIterator first, InputIterator last, Result const& result, T const& old_value, T const& new_value) {
 			return sprout::fixed::detail::replace_copy(first, last, result, old_value, new_value);
 		}
 
 		template<typename Result, typename InputIterator, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		replace_copy(InputIterator first, InputIterator last, T const& old_value, T const& new_value) {
 			return sprout::fixed::replace_copy(first, last, sprout::pit<Result>(), old_value, new_value);
 		}
@@ -152,13 +152,13 @@ namespace sprout {
 		typename InputIterator, typename Result, typename T,
 		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	replace_copy(InputIterator first, InputIterator last, Result const& result, T const& old_value, T const& new_value) {
 		return sprout::fixed::replace_copy(first, last, result, old_value, new_value);
 	}
 
 	template<typename Result, typename InputIterator, typename T>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	replace_copy(InputIterator first, InputIterator last, T const& old_value, T const& new_value) {
 		return sprout::fixed::replace_copy<Result>(first, last, old_value, new_value);
 	}

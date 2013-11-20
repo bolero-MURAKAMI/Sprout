@@ -8,8 +8,9 @@
 #ifndef SPROUT_TYPE_TRAITS_IS_UINT_HPP
 #define SPROUT_TYPE_TRAITS_IS_UINT_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	//
@@ -17,9 +18,9 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_uint
-		: public std::integral_constant<
+		: public sprout::integral_constant<
 			bool,
-			std::is_integral<T>::value && std::is_unsigned<T>::value
+			sprout::is_integral<T>::value && sprout::is_unsigned<T>::value
 		>
 	{};
 

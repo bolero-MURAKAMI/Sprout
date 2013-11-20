@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/make_partial_heap.hpp>
 #include <sprout/algorithm/fixed/sort_heap.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
@@ -21,7 +21,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			partial_sort_impl(
 				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -39,7 +39,7 @@ namespace sprout {
 		// partial_sort
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		partial_sort(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle, Compare comp) {
 			return sprout::fixed::detail::partial_sort_impl(
 				cont, comp,
@@ -49,7 +49,7 @@ namespace sprout {
 				);
 		}
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		partial_sort(Container const& cont, typename sprout::container_traits<Container>::const_iterator middle) {
 			return sprout::fixed::detail::partial_sort_impl(
 				cont, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),

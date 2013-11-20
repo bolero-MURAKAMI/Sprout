@@ -17,7 +17,7 @@
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/traits/type/is_container.hpp>
 #include <sprout/weed/traits/type/is_unused.hpp>
-#include <sprout/weed/attr_cnv/result_of/times.hpp>
+#include <sprout/weed/attr_cnv/results/times.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -29,7 +29,7 @@ namespace sprout {
 			template<std::size_t Limit, typename T, typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::traits::is_container<T>::value,
-				typename sprout::weed::attr_cnv::result_of::times<Limit, T>::type
+				typename sprout::weed::attr_cnv::results::times<Limit, T>::type
 			>::type times(Args const&... args) {
 				return sprout::algorithm::join(
 					sprout::make<sprout::array<T, Limit> >(args...)
@@ -40,16 +40,16 @@ namespace sprout {
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::weed::traits::is_container<T>::value
 				&& !sprout::weed::traits::is_unused<T>::value,
-				typename sprout::weed::attr_cnv::result_of::times<Limit, T>::type
+				typename sprout::weed::attr_cnv::results::times<Limit, T>::type
 			>::type times(Args const&... args) {
-				typedef typename sprout::weed::attr_cnv::result_of::times<Limit, T>::type type;
+				typedef typename sprout::weed::attr_cnv::results::times<Limit, T>::type type;
 				return sprout::make<type>(args...);
 			}
 			// times<N>(unused) -> unused
 			template<std::size_t Limit, typename T, typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::traits::is_unused<T>::value,
-				typename sprout::weed::attr_cnv::result_of::times<Limit, T>::type
+				typename sprout::weed::attr_cnv::results::times<Limit, T>::type
 			>::type times(Args const&...) {
 				return sprout::weed::unused();
 			}

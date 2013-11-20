@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/recurrence.hpp>
 #include <sprout/pit/pit.hpp>
 
@@ -20,13 +20,13 @@ namespace sprout {
 		// recurrence_n
 		//
 		template<typename Container, typename Size, typename Generator, typename... Inits>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		recurrence_n(Container const& cont, Size n, Generator const& gen, Inits const&... inits) {
 			return sprout::fixed::detail::recurrence_impl(cont, gen, n, inits...);
 		}
 
 		template<typename Container, typename Size, typename Generator, typename... Inits>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		recurrence_n(Size n, Generator const& gen, Inits const&... inits) {
 			return sprout::fixed::recurrence_n(sprout::pit<Container>(), n, gen, inits...);
 		}

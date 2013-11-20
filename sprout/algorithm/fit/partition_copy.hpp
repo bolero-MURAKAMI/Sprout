@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/partition_copy.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 #include <sprout/detail/algorithm/count_n_if.hpp>
@@ -24,7 +24,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			partition_copy_impl(
 				InputIterator first, InputIterator last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::difference_type offset
@@ -43,7 +43,7 @@ namespace sprout {
 		// partition_copy
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 		partition_copy(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 			static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
 			return sprout::fit::detail::partition_copy_impl(first, last, result, pred, sprout::internal_begin_offset(result));

@@ -8,29 +8,29 @@
 #ifndef SPROUT_TYPE_TRAITS_ARITHMETIC_PROMOTE_HPP
 #define SPROUT_TYPE_TRAITS_ARITHMETIC_PROMOTE_HPP
 
-#include <type_traits>
 #include <utility>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	namespace detail {
-		template <typename T>
+		template<typename T>
 		struct arithmetic_promote1
 			: public sprout::identity<T>
 		{
 			static_assert(
-				std::is_arithmetic<T>::value,
+				sprout::is_arithmetic<T>::value,
 				"arithmetic_promote requires arithmetic types."
 				);
 		};
 
-		template <typename T, typename U>
+		template<typename T, typename U>
 		struct arithmetic_promote2
-			: public std::decay<decltype(std::declval<T>() + std::declval<U>())>
+			: public sprout::decay<decltype(std::declval<T>() + std::declval<U>())>
 		{
 			static_assert(
-				std::is_arithmetic<T>::value && std::is_arithmetic<U>::value,
+				sprout::is_arithmetic<T>::value && sprout::is_arithmetic<U>::value,
 				"arithmetic_promote requires arithmetic types."
 				);
 		};
@@ -56,7 +56,7 @@ namespace sprout {
 	template<typename... Types>
 	struct arithmetic_promote
 		: public sprout::detail::arithmetic_promote_impl<
-			typename std::remove_cv<Types>::type...
+			typename sprout::remove_cv<Types>::type...
 		>
 	{};
 

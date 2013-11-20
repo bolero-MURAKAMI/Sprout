@@ -13,7 +13,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
@@ -24,7 +24,7 @@ namespace sprout {
 		namespace detail {
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 			template<int D = 16, typename Container, typename Compare, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl(
 				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -34,7 +34,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type r = 2
 				);
 			template<int D = 16, typename Container, typename Compare, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl(
 				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -44,7 +44,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type r = 2
 				);
 			template<int D, typename Container, typename Compare, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl_1(
 				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -80,7 +80,7 @@ namespace sprout {
 					;
 			}
 			template<int D, typename Container, typename Compare, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl_1(
 				Container const&, Compare,
 				typename sprout::container_traits<Container>::difference_type,
@@ -93,7 +93,7 @@ namespace sprout {
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<int D, typename Container, typename Compare, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE_DECL(D)>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl(
 				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -126,7 +126,7 @@ namespace sprout {
 					;
 			}
 			template<int D, typename Container, typename Compare, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl(
 				Container const&, Compare,
 				typename sprout::container_traits<Container>::difference_type,
@@ -140,7 +140,7 @@ namespace sprout {
 			}
 #else
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl(
 				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -150,7 +150,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type r = 2
 				);
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl_1(
 				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -186,7 +186,7 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			make_heap_impl(
 				Container const& cont, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -224,7 +224,7 @@ namespace sprout {
 		// make_heap
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		make_heap(Container const& cont, Compare comp) {
 			return sprout::fixed::detail::make_heap_impl(
 				cont, comp,
@@ -233,7 +233,7 @@ namespace sprout {
 				);
 		}
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		make_heap(Container const& cont) {
 			return sprout::fixed::detail::make_heap_impl(
 				cont, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),

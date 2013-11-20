@@ -17,7 +17,7 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/amplitude_spectrum_iterator.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/math/less.hpp>
 #include <sprout/numeric/dft/amplitude_spectrum_value.hpp>
@@ -27,7 +27,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			amplitude_spectrum_impl_ra(
 				RandomAccessIterator first, RandomAccessIterator, Result const& result,
 				sprout::index_tuple<Indexes...>,
@@ -45,7 +45,7 @@ namespace sprout {
 					);
 			}
 			template<typename RandomAccessIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			amplitude_spectrum(
 				RandomAccessIterator first, RandomAccessIterator last, Result const& result,
 				std::random_access_iterator_tag*
@@ -63,7 +63,7 @@ namespace sprout {
 			template<typename ForwardIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			amplitude_spectrum_impl(
 				ForwardIterator, ForwardIterator, Result const& result,
@@ -76,7 +76,7 @@ namespace sprout {
 			template<typename ForwardIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			amplitude_spectrum_impl(
 				ForwardIterator first, ForwardIterator last, Result const& result,
@@ -93,7 +93,7 @@ namespace sprout {
 					;
 			}
 			template<typename ForwardIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			amplitude_spectrum(
 				ForwardIterator first, ForwardIterator last, Result const& result,
 				std::forward_iterator_tag*
@@ -105,7 +105,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			amplitude_spectrum(InputIterator first, InputIterator last, Result const& result) {
 				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
@@ -115,7 +115,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			amplitude_spectrum(InputIterator first, InputIterator last, Result const& result) {
 				return sprout::remake<Result>(
@@ -129,13 +129,13 @@ namespace sprout {
 		// amplitude_spectrum
 		//
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		amplitude_spectrum(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fixed::detail::amplitude_spectrum(first, last, result);
 		}
 
 		template<typename Result, typename ForwardIterator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		amplitude_spectrum(ForwardIterator first, ForwardIterator last) {
 			return sprout::fixed::amplitude_spectrum(first, last, sprout::pit<Result>());
 		}

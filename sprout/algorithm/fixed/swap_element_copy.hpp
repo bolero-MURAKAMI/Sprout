@@ -16,7 +16,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
@@ -24,7 +24,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			swap_element_copy_impl_ra(
 				RandomAccessIterator first, RandomAccessIterator,
 				Result const& result,
@@ -49,7 +49,7 @@ namespace sprout {
 					);
 			}
 			template<typename RandomAccessIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			swap_element_copy(
 				RandomAccessIterator first, RandomAccessIterator last,
 				Result const& result,
@@ -71,7 +71,7 @@ namespace sprout {
 			template<typename ForwardIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			swap_element_copy_impl(
 				ForwardIterator, ForwardIterator,
@@ -86,7 +86,7 @@ namespace sprout {
 			template<typename ForwardIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			swap_element_copy_impl(
 				ForwardIterator first, ForwardIterator last,
@@ -105,7 +105,7 @@ namespace sprout {
 					;
 			}
 			template<typename ForwardIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			swap_element_copy(
 				ForwardIterator first, ForwardIterator last,
 				Result const& result,
@@ -120,14 +120,14 @@ namespace sprout {
 		// swap_element_copy
 		//
 		template<typename ForwardIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		swap_element_copy(ForwardIterator first, ForwardIterator last, Result const& result, ForwardIterator pos1, ForwardIterator pos2) {
 			typedef typename std::iterator_traits<ForwardIterator>::iterator_category* category;
 			return sprout::fixed::detail::swap_element_copy(first, last, result, pos1, pos2, category());
 		}
 
 		template<typename Result, typename ForwardIterator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		swap_element_copy(ForwardIterator first, ForwardIterator last, ForwardIterator pos1, ForwardIterator pos2) {
 			return sprout::fixed::swap_element_copy(first, last, sprout::pit<Result>(), pos1, pos2);
 		}

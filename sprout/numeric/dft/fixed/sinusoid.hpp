@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/sin.hpp>
@@ -23,7 +23,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename Container, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			sinusoid_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& d,
@@ -45,7 +45,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			sinusoid(
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& frequency,
@@ -69,7 +69,7 @@ namespace sprout {
 		// sinusoid
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		sinusoid(
 			Container const& cont,
 			typename sprout::container_traits<Container>::value_type const& frequency = 1,
@@ -81,7 +81,7 @@ namespace sprout {
 		}
 
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		sinusoid(
 			typename sprout::container_traits<Container>::value_type const& frequency = 1,
 			typename sprout::container_traits<Container>::value_type const& amplitude = 1,

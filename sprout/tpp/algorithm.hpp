@@ -13,5 +13,7 @@
 #include <sprout/tpp/algorithm/any_of.hpp>
 #include <sprout/tpp/algorithm/none_of.hpp>
 #include <sprout/tpp/algorithm/one_of.hpp>
+#include <sprout/tpp/algorithm/min_element.hpp>
+#include <sprout/tpp/algorithm/max_element.hpp>
 
 #endif	// #ifndef SPROUT_TPP_ALGORITHM_HPP

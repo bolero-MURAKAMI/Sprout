@@ -16,7 +16,7 @@
 #include <sprout/iterator/filter_iterator.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 
@@ -26,7 +26,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_if_impl(InputIterator, InputIterator, Result const& result, Predicate,
 				typename sprout::container_traits<Result>::size_type,
@@ -38,7 +38,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_if_impl(
 				InputIterator first, InputIterator last, Result const& result, Predicate pred,
@@ -57,7 +57,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 				return sprout::fixed::detail::copy_if_impl(first, last, result, pred, sprout::size(result));
@@ -66,7 +66,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 				return sprout::remake<Result>(
@@ -80,13 +80,13 @@ namespace sprout {
 		// copy_if
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 			return sprout::fixed::detail::copy_if(first, last, result, pred);
 		}
 
 		template<typename Result, typename InputIterator, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		copy_if(InputIterator first, InputIterator last, Predicate pred) {
 			return sprout::fixed::copy_if(first, last, sprout::pit<Result>(), pred);
 		}
@@ -96,13 +96,13 @@ namespace sprout {
 		typename InputIterator, typename Result, typename Predicate,
 		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 		return sprout::fixed::copy_if(first, last, result, pred);
 	}
 
 	template<typename Result, typename InputIterator, typename Predicate>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	copy_if(InputIterator first, InputIterator last, Predicate pred) {
 		return sprout::fixed::copy_if<Result>(first, last, pred);
 	}

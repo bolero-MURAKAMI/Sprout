@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/math/floor.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -29,7 +29,7 @@ namespace sprout {
 			}
 
 			template<typename Container, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			sawtooth_impl(
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& frequency,
@@ -50,7 +50,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			sawtooth(
 				Container const& cont,
 				typename sprout::container_traits<Container>::value_type const& frequency,
@@ -73,7 +73,7 @@ namespace sprout {
 		// sawtooth
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		sawtooth(
 			Container const& cont,
 			typename sprout::container_traits<Container>::value_type const& frequency = 1,
@@ -85,7 +85,7 @@ namespace sprout {
 		}
 
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		sawtooth(
 			typename sprout::container_traits<Container>::value_type const& frequency = 1,
 			typename sprout::container_traits<Container>::value_type const& amplitude = 1,

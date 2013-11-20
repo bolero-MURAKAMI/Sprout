@@ -18,25 +18,25 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// push_back
 			//
 			template<typename Container, typename T, typename... Values>
 			struct push_back
-				: public sprout::fixed::result_of::insert<Container, T, Values...>
+				: public sprout::fixed::results::insert<Container, T, Values...>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// push_back
 		//
 		template<typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::push_back<Container, T, Values...>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::push_back<Container, T, Values...>::type
 		push_back(Container const& cont, T const& v, Values const&... values) {
-			return sprout::fixed::detail::insert_impl<typename sprout::fixed::result_of::push_back<Container, T, Values...>::type>(
+			return sprout::fixed::detail::insert_impl<typename sprout::fixed::results::push_back<Container, T, Values...>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::push_back<Container, T, Values...>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::push_back<Container, T, Values...>::type>::make(),
 				sprout::internal_end_offset(cont),
 				v,
 				values...
@@ -44,9 +44,9 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::push_back;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::push_back;
+	}	// namespace results
 
 	using sprout::fixed::push_back;
 }	// namespace sprout

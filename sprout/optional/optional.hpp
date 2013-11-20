@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <initializer_list>
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/value_holder/get.hpp>
 #include <sprout/utility/swap.hpp>
@@ -105,7 +106,7 @@ namespace sprout {
 			: init(v.init)
 			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
-#if defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 8 && __GNUC_PATCHLEVEL__ <= 1))
+#if SPROUT_GCC_BETWEEN(4, 8, 0, 4, 8, 2)
 		optional(optional&&) = default;
 #else
 		SPROUT_CONSTEXPR optional(optional&& v)

@@ -12,12 +12,12 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/metafunctions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 
 namespace sprout {
 	namespace fit {
-		namespace result_of {
+		namespace results {
 			//
 			// algorithm
 			//
@@ -27,12 +27,12 @@ namespace sprout {
 				typedef sprout::sub_array<
 					typename std::decay<
 						typename sprout::containers::internal<
-							typename sprout::fixed::result_of::algorithm<Result>::type
+							typename sprout::fixed::results::algorithm<Result>::type
 						>::type
 					>::type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 	}	// namespace fit
 }	// namespace sprout
 

@@ -5,27 +5,26 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_MODULUS_HPP
-#define SPROUT_WEED_ATTR_CNV_RESULT_OF_MODULUS_HPP
+#ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_MEM_PTR_HPP
+#define SPROUT_WEED_ATTR_CNV_RESULT_OF_MEM_PTR_HPP
 
-#include <cstddef>
+#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/weed/attr_cnv/result_of/times.hpp>
 
 namespace sprout {
 	namespace weed {
 		namespace attr_cnv {
-			namespace result_of {
+			namespace results {
 				//
-				// modulus
+				// mem_ptr
 				//
-				template<std::size_t Limit, typename T, typename = void>
-				struct modulus
-					: public sprout::weed::attr_cnv::result_of::times<Limit, T>
+				template<typename T, typename U, typename = void>
+				struct mem_ptr
+					: public std::result_of<U(T)>
 				{};
-			}	// namespace result_of
+			}	// namespace results
 		}	// namespace attr_cnv
 	}	// namespace weed
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_MODULUS_HPP
+#endif	// #ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_MEM_PTR_HPP

@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace tuples {
-		namespace result_of {
+		namespace results {
 			//
 			// copy
 			//
@@ -26,7 +26,7 @@ namespace sprout {
 			public:
 				typedef typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Tuple, typename InputTuple, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
@@ -45,10 +45,10 @@ namespace sprout {
 			template<typename Tuple, typename InputTuple>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				(sprout::tuples::tuple_size<Tuple>::value > sprout::tuples::tuple_size<InputTuple>::value),
-				typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type
+				typename sprout::tuples::results::copy<Tuple, InputTuple>::type
 			>::type
 			copy(Tuple const& t, InputTuple const& input) {
-				return sprout::tuples::detail::copy_impl<typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type>(
+				return sprout::tuples::detail::copy_impl<typename sprout::tuples::results::copy<Tuple, InputTuple>::type>(
 					t, input,
 					sprout::index_range<sprout::tuples::tuple_size<InputTuple>::value, sprout::tuples::tuple_size<Tuple>::value>::make(),
 					sprout::tuple_indexes<InputTuple>::make()
@@ -57,10 +57,10 @@ namespace sprout {
 			template<typename Tuple, typename InputTuple>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!(sprout::tuples::tuple_size<Tuple>::value > sprout::tuples::tuple_size<InputTuple>::value),
-				typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type
+				typename sprout::tuples::results::copy<Tuple, InputTuple>::type
 			>::type
 			copy(Tuple const& t, InputTuple const& input) {
-				return sprout::tuples::detail::copy_impl<typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type>(
+				return sprout::tuples::detail::copy_impl<typename sprout::tuples::results::copy<Tuple, InputTuple>::type>(
 					t, input,
 					sprout::index_tuple<>(),
 					sprout::tuple_indexes<Tuple>::make()
@@ -71,7 +71,7 @@ namespace sprout {
 		// copy
 		//
 		template<typename Tuple, typename InputTuple>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::copy<Tuple, InputTuple>::type
+		inline SPROUT_CONSTEXPR typename sprout::tuples::results::copy<Tuple, InputTuple>::type
 		copy(Tuple const& t, InputTuple const& input) {
 			return sprout::tuples::detail::copy(t, input);
 		}

@@ -16,7 +16,7 @@
 #include <sprout/iterator/unique_iterator.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
@@ -27,7 +27,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Head, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
 				InputIterator, InputIterator,
@@ -42,7 +42,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Head, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
 				InputIterator first, InputIterator last,
@@ -63,7 +63,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy(InputIterator first, InputIterator last, Result const& result) {
 				return first != last
@@ -75,7 +75,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy(InputIterator first, InputIterator last, Result const& result) {
 				static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
@@ -90,13 +90,13 @@ namespace sprout {
 		// unique_copy
 		//
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		unique_copy(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fixed::detail::unique_copy(first, last, result);
 		}
 
 		template<typename Result, typename InputIterator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		unique_copy(InputIterator first, InputIterator last) {
 			return sprout::fixed::unique_copy(first, last, sprout::pit<Result>());
 		}
@@ -105,7 +105,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename BinaryPredicate, typename Head, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args) + 1,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
 				InputIterator, InputIterator,
@@ -120,7 +120,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename BinaryPredicate, typename Head, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args) + 1,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
 				InputIterator first, InputIterator last,
@@ -141,7 +141,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename BinaryPredicate>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
 				return first != last
@@ -153,7 +153,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename BinaryPredicate>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
 				static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
@@ -168,13 +168,13 @@ namespace sprout {
 		// unique_copy
 		//
 		template<typename InputIterator, typename Result, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
 			return sprout::fixed::detail::unique_copy(first, last, result, pred);
 		}
 
 		template<typename Result, typename InputIterator, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		unique_copy(InputIterator first, InputIterator last, BinaryPredicate pred) {
 			return sprout::fixed::unique_copy(first, last, sprout::pit<Result>(), pred);
 		}
@@ -184,13 +184,13 @@ namespace sprout {
 		typename InputIterator, typename Result,
 		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	unique_copy(InputIterator first, InputIterator last, Result const& result) {
 		return sprout::fixed::unique_copy(first, last, result);
 	}
 
 	template<typename Result, typename InputIterator>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	unique_copy(InputIterator first, InputIterator last) {
 		return sprout::fixed::unique_copy<Result>(first, last);
 	}
@@ -199,7 +199,7 @@ namespace sprout {
 		typename InputIterator, typename Result, typename BinaryPredicate,
 		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
 		return sprout::fixed::unique_copy(first, last, result, pred);
 	}
@@ -208,7 +208,7 @@ namespace sprout {
 		typename Result, typename InputIterator, typename BinaryPredicate,
 		typename sprout::enabler_if<!sprout::is_iterator_outputable<BinaryPredicate>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 	unique_copy(InputIterator first, InputIterator last, BinaryPredicate pred) {
 		return sprout::fixed::unique_copy<Result>(first, last, pred);
 	}

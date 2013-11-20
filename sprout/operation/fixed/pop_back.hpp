@@ -18,33 +18,33 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// pop_back
 			//
 			template<typename Container>
 			struct pop_back
-				: public sprout::fixed::result_of::erase<Container>
+				: public sprout::fixed::results::erase<Container>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// pop_back
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::pop_back<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::pop_back<Container>::type
 		pop_back(Container const& cont) {
-			return sprout::fixed::detail::erase_impl<typename sprout::fixed::result_of::pop_back<Container>::type>(
+			return sprout::fixed::detail::erase_impl<typename sprout::fixed::results::pop_back<Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::pop_back<Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::pop_back<Container>::type>::make(),
 				sprout::internal_end_offset(cont) - 1
 				);
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::pop_back;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::pop_back;
+	}	// namespace results
 
 	using sprout::fixed::pop_back;
 }	// namespace sprout

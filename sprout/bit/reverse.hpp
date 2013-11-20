@@ -37,7 +37,7 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t next_size = Size / 2;
 			SPROUT_STATIC_CONSTEXPR std::size_t shift_bits = next_size * CHAR_BIT;
 		public:
-			template <typename IntType>
+			template<typename IntType>
 			SPROUT_CONSTEXPR IntType
 			operator()(IntType x) const {
 				return (sprout::detail::bit_rev<next_size>().template operator()(x) << shift_bits)
@@ -72,7 +72,7 @@ namespace sprout {
 	//
 	// bit_reverse_in
 	//
-	template <typename IntType>
+	template<typename IntType>
 	inline SPROUT_CONSTEXPR typename std::enable_if<
 		std::is_integral<IntType>::value,
 		IntType

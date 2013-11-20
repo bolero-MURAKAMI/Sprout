@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
@@ -22,7 +22,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator, typename Result, typename UnaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			transform_impl(
 				InputIterator first, InputIterator last, Result const& result, UnaryOperation op,
 				typename sprout::container_traits<Result>::difference_type offset
@@ -39,7 +39,7 @@ namespace sprout {
 		// transform
 		//
 		template<typename InputIterator, typename Result, typename UnaryOperation>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 		transform(InputIterator first, InputIterator last, Result const& result, UnaryOperation op) {
 			static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
 			return sprout::fit::detail::transform_impl(first, last, result, op, sprout::internal_begin_offset(result));
@@ -47,7 +47,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename BinaryOperation>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			transform_impl(
 				InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, Result const& result, BinaryOperation op,
 				typename sprout::container_traits<Result>::difference_type offset
@@ -64,7 +64,7 @@ namespace sprout {
 		// transform
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result, typename BinaryOperation>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 		transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, Result const& result, BinaryOperation op) {
 			static_assert(sprout::is_forward_iterator<InputIterator1>::value, "Sorry, not implemented.");
 			return sprout::fit::detail::transform_impl(first1, last1, first2, result, op, sprout::internal_begin_offset(result));

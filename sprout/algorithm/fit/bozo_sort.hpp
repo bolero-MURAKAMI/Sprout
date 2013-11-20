@@ -12,7 +12,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/bozo_sort.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -20,7 +20,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			bozo_sort_impl(
 				Container const& cont, UniformRandomNumberGenerator&& g, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -37,7 +37,7 @@ namespace sprout {
 		// bozo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		bozo_sort(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fit::detail::bozo_sort_impl(
 				cont, sprout::forward<UniformRandomNumberGenerator>(g), comp,
@@ -47,7 +47,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename Container, typename UniformRandomNumberGenerator>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			bozo_sort_impl(
 				Container const& cont, UniformRandomNumberGenerator&& g,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -64,7 +64,7 @@ namespace sprout {
 		// bozo_sort
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		bozo_sort(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::bozo_sort_impl(
 				cont, sprout::forward<UniformRandomNumberGenerator>(g),

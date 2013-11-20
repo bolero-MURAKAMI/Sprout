@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace fit {
-		namespace result_of {
+		namespace results {
 			//
 			// append_back
 			//
@@ -25,17 +25,17 @@ namespace sprout {
 			struct append_back {
 				typedef sprout::sub_array<
 					typename sprout::container_traits<
-						typename sprout::fixed::result_of::append_back<Container, Input>::type
+						typename sprout::fixed::results::append_back<Container, Input>::type
 					>::internal_type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// append_back
 		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append_back<Container, Input>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::append_back<Container, Input>::type
 		append_back(Container const& cont, Input const& input) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::append_back(cont, input)),

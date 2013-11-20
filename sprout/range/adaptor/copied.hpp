@@ -12,7 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/range/adaptor/detail/adapted_range_default.hpp>
 #include <sprout/range/algorithm/copy.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
@@ -90,7 +90,7 @@ namespace sprout {
 		// operator|
 		//
 		template<typename Range, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		operator|(Range&& lhs, sprout::adaptors::copy_holder<Result> const& rhs) {
 			return sprout::range::fixed::copy(sprout::lvalue_forward<Range>(lhs), rhs.result());
 		}

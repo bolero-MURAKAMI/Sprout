@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// realign
 			//
@@ -26,7 +26,7 @@ namespace sprout {
 			public:
 				typedef typename sprout::container_construct_traits<Container>::copied_type type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
@@ -48,11 +48,11 @@ namespace sprout {
 		// realign
 		//
 		template<typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::realign<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::realign<Container>::type
 		realign(Container const& cont, T const& v) {
-			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign<Container>::type>(
+			return sprout::fixed::detail::realign_impl<typename sprout::fixed::results::realign<Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::realign<Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::realign<Container>::type>::make(),
 				sprout::size(cont),
 				v
 				);
@@ -78,19 +78,19 @@ namespace sprout {
 		// realign
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::realign<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::realign<Container>::type
 		realign(Container const& cont) {
-			return sprout::fixed::detail::realign_impl<typename sprout::fixed::result_of::realign<Container>::type>(
+			return sprout::fixed::detail::realign_impl<typename sprout::fixed::results::realign<Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::realign<Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::realign<Container>::type>::make(),
 				sprout::size(cont)
 				);
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::realign;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::realign;
+	}	// namespace results
 
 	using sprout::fixed::realign;
 }	// namespace sprout

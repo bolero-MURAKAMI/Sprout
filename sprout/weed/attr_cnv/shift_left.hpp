@@ -28,7 +28,7 @@
 #include <sprout/weed/detail/is_elem_and_unused.hpp>
 #include <sprout/weed/detail/is_unused_and_elem.hpp>
 #include <sprout/weed/detail/is_both_unused.hpp>
-#include <sprout/weed/attr_cnv/result_of/shift_left.hpp>
+#include <sprout/weed/attr_cnv/results/shift_left.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -40,7 +40,7 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_same_container<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
 				return sprout::fixed::append_back(t, u);
 			}
@@ -48,7 +48,7 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_container_and_elem<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
 				return sprout::fixed::push_back(t, u);
 			}
@@ -56,7 +56,7 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_elem_and_container<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
 				return sprout::fixed::push_front(u, t);
 			}
@@ -64,7 +64,7 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_both_tuple<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
 				return sprout::tuples::append_back(t, u);
 			}
@@ -72,7 +72,7 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_tuple_and_elem<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
 				return sprout::tuples::push_back(t, u);
 			}
@@ -80,7 +80,7 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_elem_and_tuple<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
 				return sprout::tuples::push_front(u, t);
 			}
@@ -88,24 +88,24 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_same_elem<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
-				typedef typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type type;
+				typedef typename sprout::weed::attr_cnv::results::shift_left<T, U>::type type;
 				return sprout::make<type>(t, u);
 			}
 			// V >> W -> tuple<V, W>
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_different_elem<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const& u) {
-				return typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type(t, u);
+				return typename sprout::weed::attr_cnv::results::shift_left<T, U>::type(t, u);
 			}
 			// V >> unused -> V
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_elem_and_unused<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const& t, U const&) {
 				return t;
 			}
@@ -113,7 +113,7 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_unused_and_elem<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const&, U const& u) {
 				return u;
 			}
@@ -121,7 +121,7 @@ namespace sprout {
 			template<typename T, typename U>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::detail::is_both_unused<T, U>::value,
-				typename sprout::weed::attr_cnv::result_of::shift_left<T, U>::type
+				typename sprout::weed::attr_cnv::results::shift_left<T, U>::type
 			>::type shift_left(T const&, U const&) {
 				return sprout::weed::unused();
 			}

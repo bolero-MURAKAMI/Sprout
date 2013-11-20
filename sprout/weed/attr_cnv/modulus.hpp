@@ -10,7 +10,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
-#include <sprout/weed/attr_cnv/result_of/modulus.hpp>
+#include <sprout/weed/attr_cnv/results/modulus.hpp>
 #include <sprout/weed/attr_cnv/times.hpp>
 
 namespace sprout {
@@ -20,7 +20,7 @@ namespace sprout {
 			// modulus
 			//
 			template<std::size_t Limit, typename T, typename... Args>
-			inline SPROUT_CONSTEXPR typename sprout::weed::attr_cnv::result_of::modulus<Limit, T>::type
+			inline SPROUT_CONSTEXPR typename sprout::weed::attr_cnv::results::modulus<Limit, T>::type
 			modulus(Args const&... args) {
 				return sprout::weed::attr_cnv::times<Limit, T>(args...);
 			}

@@ -36,7 +36,7 @@
 namespace sprout {
 	namespace weed {
 		namespace attr_cnv {
-			namespace result_of {
+			namespace results {
 				//
 				// shift_left
 				//
@@ -51,7 +51,7 @@ namespace sprout {
 						sprout::weed::detail::is_same_container<T, U>::value
 					>::type
 				>
-					: public sprout::fixed::result_of::append_back<T, U>
+					: public sprout::fixed::results::append_back<T, U>
 				{};
 				// container<V, N> >> V -> container<V, N + 1>
 				template<typename T, typename U>
@@ -62,7 +62,7 @@ namespace sprout {
 						sprout::weed::detail::is_container_and_elem<T, U>::value
 					>::type
 				>
-					: public sprout::fixed::result_of::push_back<T, U>
+					: public sprout::fixed::results::push_back<T, U>
 				{};
 				// V >> container<V, N> -> container<V, N + 1>
 				template<typename T, typename U>
@@ -73,7 +73,7 @@ namespace sprout {
 						sprout::weed::detail::is_elem_and_container<T, U>::value
 					>::type
 				>
-					: public sprout::fixed::result_of::push_front<U, T>
+					: public sprout::fixed::results::push_front<U, T>
 				{};
 				// tuple<Vs...> >> tuple<Ws...> -> tuple<Vs..., Ws...>
 				template<typename T, typename U>
@@ -84,7 +84,7 @@ namespace sprout {
 						sprout::weed::detail::is_both_tuple<T, U>::value
 					>::type
 				>
-					: public sprout::tuples::result_of::append_back<T, U>
+					: public sprout::tuples::results::append_back<T, U>
 				{};
 				// tuple<Vs...> >> V -> tuple<Vs..., V>
 				template<typename T, typename U>
@@ -95,7 +95,7 @@ namespace sprout {
 						sprout::weed::detail::is_tuple_and_elem<T, U>::value
 					>::type
 				>
-					: public sprout::tuples::result_of::push_back<T, U>
+					: public sprout::tuples::results::push_back<T, U>
 				{};
 				// V >> tuple<Vs...> -> tuple<V, Vs...>
 				template<typename T, typename U>
@@ -106,7 +106,7 @@ namespace sprout {
 						sprout::weed::detail::is_elem_and_tuple<T, U>::value
 					>::type
 				>
-					: public sprout::tuples::result_of::push_front<U, T>
+					: public sprout::tuples::results::push_front<U, T>
 				{};
 				// V >> V -> container<V, 2>
 				template<typename T, typename U>
@@ -167,7 +167,7 @@ namespace sprout {
 				>
 					: public sprout::identity<sprout::weed::unused>
 				{};
-			}	// namespace result_of
+			}	// namespace results
 		}	// namespace attr_cnv
 	}	// namespace weed
 }	// namespace sprout

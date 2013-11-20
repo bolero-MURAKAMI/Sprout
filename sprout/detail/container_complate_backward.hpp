@@ -13,14 +13,14 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 
 namespace sprout {
 	namespace detail {
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size == sizeof...(Args),
-			typename sprout::fixed::result_of::algorithm<Result>::type
+			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_backward_2(Result const& result, Args const&... args) {
 			return sprout::remake<Result>(result, sprout::size(result), args...);
@@ -28,7 +28,7 @@ namespace sprout {
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size != sizeof...(Args),
-			typename sprout::fixed::result_of::algorithm<Result>::type
+			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_backward_2(Result const& result, Args const&... args) {
 			return container_complate_backward_2(result, *sprout::prev(sprout::internal_end(result), sizeof...(Args) + 1), args...);
@@ -36,7 +36,7 @@ namespace sprout {
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size == sizeof...(Args),
-			typename sprout::fixed::result_of::algorithm<Result>::type
+			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_backward_1(
 			Result const& result,
@@ -49,7 +49,7 @@ namespace sprout {
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size != sizeof...(Args),
-			typename sprout::fixed::result_of::algorithm<Result>::type
+			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_backward_1(
 			Result const& result,
@@ -65,7 +65,7 @@ namespace sprout {
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size == sizeof...(Args),
-			typename sprout::fixed::result_of::algorithm<Result>::type
+			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_backward(Result const& result, Args const&... args) {
 			return sprout::remake<Result>(result, sprout::size(result), args...);
@@ -73,7 +73,7 @@ namespace sprout {
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::container_traits<Result>::static_size != sizeof...(Args),
-			typename sprout::fixed::result_of::algorithm<Result>::type
+			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_backward(Result const& result, Args const&... args) {
 			return container_complate_backward_1(result, sprout::internal_end_offset_backward(result), args...);

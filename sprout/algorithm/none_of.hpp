@@ -103,7 +103,7 @@ namespace sprout {
 	//	recursion depth:
 	//		O(log N)
 	//
-	template <typename InputIterator, typename Predicate>
+	template<typename InputIterator, typename Predicate>
 	inline SPROUT_CONSTEXPR bool
 	none_of(InputIterator first, InputIterator last, Predicate pred) {
 		typedef typename std::iterator_traits<InputIterator>::iterator_category* category;

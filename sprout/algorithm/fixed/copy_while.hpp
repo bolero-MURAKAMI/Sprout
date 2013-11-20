@@ -16,7 +16,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/while_iterator.hpp>
 #include <sprout/algorithm/find_if_not.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -25,7 +25,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_while(
 				RandomAccessIterator first, RandomAccessIterator last, Result const& result, Predicate pred,
 				std::random_access_iterator_tag*
@@ -37,7 +37,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_while_impl(
 				InputIterator, InputIterator, Result const& result, Predicate,
@@ -50,7 +50,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_while_impl(
 				InputIterator first, InputIterator last, Result const& result, Predicate pred,
@@ -64,7 +64,7 @@ namespace sprout {
 					;
 			}
 			template<typename InputIterator, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_while(
 				InputIterator first, InputIterator last, Result const& result, Predicate pred,
 				std::input_iterator_tag*
@@ -76,7 +76,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
@@ -86,7 +86,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 				return sprout::remake<Result>(
@@ -100,13 +100,13 @@ namespace sprout {
 		// copy_while
 		//
 		template<typename InputIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
 			return sprout::fixed::detail::copy_while(first, last, result, pred);
 		}
 
 		template< typename Result, typename InputIterator,typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		copy_while(InputIterator first, InputIterator last, Predicate pred) {
 			return sprout::fixed::copy_while(first, last, sprout::pit<Result>(), pred);
 		}

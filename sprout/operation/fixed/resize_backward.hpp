@@ -19,15 +19,15 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// resize_backward
 			//
 			template<std::size_t N, typename Container>
 			struct resize_backward
-				: public sprout::fixed::result_of::resize<N, Container>
+				: public sprout::fixed::results::resize<N, Container>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
@@ -51,14 +51,14 @@ namespace sprout {
 		// resize_backward
 		//
 		template<std::size_t N, typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::resize_backward<N, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::resize_backward<N, Container>::type
 		resize_backward(Container const& cont, T const& v) {
-			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
+			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::results::resize_backward<N, Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::resize_backward<N, Container>::type>::make(),
 				sprout::size(cont),
 				static_cast<typename sprout::container_traits<Container>::difference_type>(
-					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
+					sprout::container_traits<typename sprout::fixed::results::resize_backward<N, Container>::type>::static_size
 					)
 					- sprout::size(cont),
 				v
@@ -86,23 +86,23 @@ namespace sprout {
 		// resize_backward
 		//
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::resize_backward<N, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::resize_backward<N, Container>::type
 		resize_backward(Container const& cont) {
-			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::result_of::resize_backward<N, Container>::type>(
+			return sprout::fixed::detail::resize_backward_impl<typename sprout::fixed::results::resize_backward<N, Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::resize_backward<N, Container>::type>::make(),
 				sprout::size(cont),
 				static_cast<typename sprout::container_traits<Container>::difference_type>(
-					sprout::container_traits<typename sprout::fixed::result_of::resize_backward<N, Container>::type>::static_size
+					sprout::container_traits<typename sprout::fixed::results::resize_backward<N, Container>::type>::static_size
 					)
 					- sprout::size(cont)
 				);
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::resize_backward;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::resize_backward;
+	}	// namespace results
 
 	using sprout::fixed::resize_backward;
 }	// namespace sprout

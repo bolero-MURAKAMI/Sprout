@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/math/tan.hpp>
@@ -75,13 +75,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_lpf(T const& fc, T const& q, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_lpf_impl<result_type>(sprout::compost::detail::iir_fc(fc), q, a, b);
 		}
@@ -127,13 +127,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_hpf(T const& fc, T const& q, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_hpf_impl<result_type>(sprout::compost::detail::iir_fc(fc), q, a, b);
 		}
@@ -180,13 +180,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_bpf(T const& fc1, T const& fc2, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_bpf_impl<result_type>(
 				sprout::compost::detail::iir_fc(fc1), sprout::compost::detail::iir_fc(fc2),
@@ -236,13 +236,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_bef(T const& fc1, T const& fc2, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_bef_impl<result_type>(
 				sprout::compost::detail::iir_fc(fc1), sprout::compost::detail::iir_fc(fc2),
@@ -291,13 +291,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_resonator(T const& fc, T const& q, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_resonator_impl<result_type>(sprout::compost::detail::iir_fc(fc), q, a, b);
 		}
@@ -343,13 +343,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_notch(T const& fc, T const& q, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_notch_impl<result_type>(sprout::compost::detail::iir_fc(fc), q, a, b);
 		}
@@ -396,13 +396,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_low_shelving(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_low_shelving_impl<result_type>(
 				sprout::compost::detail::iir_fc(fc), q, sprout::compost::detail::iir_g(g),
@@ -452,13 +452,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_high_shelving(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_high_shelving_impl<result_type>(
 				sprout::compost::detail::iir_fc(fc), q, sprout::compost::detail::iir_g(g),
@@ -507,13 +507,13 @@ namespace sprout {
 		//
 		template<typename T, typename A, typename B>
 		inline SPROUT_CONSTEXPR sprout::pair<
-			typename sprout::fixed::result_of::algorithm<A>::type,
-			typename sprout::fixed::result_of::algorithm<B>::type
+			typename sprout::fixed::results::algorithm<A>::type,
+			typename sprout::fixed::results::algorithm<B>::type
 		>
 		iir_peaking(T const& fc, T const& q, T const& g, A const& a, B const& b) {
 			typedef sprout::pair<
-				typename sprout::fixed::result_of::algorithm<A>::type,
-				typename sprout::fixed::result_of::algorithm<B>::type
+				typename sprout::fixed::results::algorithm<A>::type,
+				typename sprout::fixed::results::algorithm<B>::type
 			> result_type;
 			return sprout::compost::detail::iir_peaking_impl<result_type>(
 				sprout::compost::detail::iir_fc(fc), q, sprout::compost::detail::iir_g(g),
@@ -541,16 +541,16 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<
 			T,
 			sprout::pair<
-				typename sprout::fixed::result_of::algorithm<DelayA>::type,
-				typename sprout::fixed::result_of::algorithm<DelayB>::type
+				typename sprout::fixed::results::algorithm<DelayA>::type,
+				typename sprout::fixed::results::algorithm<DelayB>::type
 			>
 		>
 		apply_iir(T const& base, A const& a, B const& b, DelayA const& da, DelayB const& db) {
 			typedef sprout::pair<
 				T,
 				sprout::pair<
-					typename sprout::fixed::result_of::algorithm<DelayA>::type,
-					typename sprout::fixed::result_of::algorithm<DelayB>::type
+					typename sprout::fixed::results::algorithm<DelayA>::type,
+					typename sprout::fixed::results::algorithm<DelayB>::type
 				>
 			> result_type;
 			return sprout::compost::detail::apply_iir_impl<result_type>(

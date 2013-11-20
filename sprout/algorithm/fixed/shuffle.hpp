@@ -18,7 +18,7 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/numeric/fixed/iota.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>
@@ -55,7 +55,7 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename Shuffled, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			shuffle_impl_1(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
@@ -74,7 +74,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			shuffle_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...> indexes,
@@ -99,7 +99,7 @@ namespace sprout {
 		// shuffle
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		shuffle(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::shuffle_impl(
 				cont,

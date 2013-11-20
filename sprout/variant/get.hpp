@@ -17,15 +17,15 @@ namespace sprout {
 	//
 	// get
 	//
-	template<typename U, typename... Types>
-	inline SPROUT_CONSTEXPR U const&
+	template<typename T, typename... Types>
+	inline SPROUT_CONSTEXPR T const&
 	get(sprout::variant<Types...> const& operand) {
-		return operand.template get<U>();
+		return operand.template get<T>();
 	}
-	template<typename U, typename... Types>
-	inline SPROUT_CONSTEXPR U&
+	template<typename T, typename... Types>
+	inline SPROUT_CONSTEXPR T&
 	get(sprout::variant<Types...>& operand) {
-		return operand.template get<U>();
+		return operand.template get<T>();
 	}
 }	// namespace sprout
 

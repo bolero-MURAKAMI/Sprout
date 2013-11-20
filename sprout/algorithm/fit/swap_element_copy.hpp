@@ -12,7 +12,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/swap_element_copy.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 #include <sprout/iterator/operation.hpp>
@@ -21,7 +21,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename ForwardIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			swap_element_copy_impl(
 				ForwardIterator first, ForwardIterator last, Result const& result, ForwardIterator pos1, ForwardIterator pos2,
 				typename sprout::container_traits<Result>::difference_type offset
@@ -38,7 +38,7 @@ namespace sprout {
 		// swap_element_copy
 		//
 		template<typename ForwardIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 		swap_element_copy(ForwardIterator first, ForwardIterator last, Result const& result, ForwardIterator pos1, ForwardIterator pos2) {
 			return sprout::fit::detail::swap_element_copy_impl(first, last, result, pos1, pos2, sprout::internal_begin_offset(result));
 		}

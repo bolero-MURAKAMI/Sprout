@@ -39,7 +39,7 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t next_size = Size - 1;
 			SPROUT_STATIC_CONSTEXPR std::size_t shift_bits = next_size * CHAR_BIT;
 		private:
-			template <typename IntType>
+			template<typename IntType>
 			SPROUT_CONSTEXPR IntType
 			impl(IntType x, unsigned char i) const {
 				return bit_len_8_table[i]
@@ -48,7 +48,7 @@ namespace sprout {
 					;
 			}
 		public:
-			template <typename IntType>
+			template<typename IntType>
 			SPROUT_CONSTEXPR IntType
 			operator()(IntType x) const {
 				return impl(x, static_cast<unsigned char>((x >> shift_bits) & UCHAR_MAX));

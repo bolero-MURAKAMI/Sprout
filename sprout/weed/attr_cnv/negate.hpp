@@ -12,7 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/traits/type/is_unused.hpp>
-#include <sprout/weed/attr_cnv/result_of/negate.hpp>
+#include <sprout/weed/attr_cnv/results/negate.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -24,7 +24,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::weed::traits::is_unused<T>::value,
-				typename sprout::weed::attr_cnv::result_of::negate<T>::type
+				typename sprout::weed::attr_cnv::results::negate<T>::type
 			>::type negate(T const&, bool) {
 				return sprout::weed::unused();
 			}

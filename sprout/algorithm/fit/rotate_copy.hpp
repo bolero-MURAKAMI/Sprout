@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/rotate_copy.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -21,7 +21,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename ForwardIterator, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			rotate_copy_impl(
 				ForwardIterator first, ForwardIterator middle, ForwardIterator last, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset
@@ -38,7 +38,7 @@ namespace sprout {
 		// rotate_copy
 		//
 		template<typename ForwardIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 		rotate_copy(ForwardIterator first, ForwardIterator middle, ForwardIterator last, Result const& result) {
 			return sprout::fit::detail::rotate_copy_impl(first, middle, last, result, sprout::internal_begin_offset(result));
 		}

@@ -13,7 +13,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/count_if.hpp>
 #include <sprout/algorithm/fixed/stable_partition_copy.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -21,7 +21,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename BidirectionalIterator, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			stable_partition_copy_impl(
 				BidirectionalIterator first, BidirectionalIterator last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::difference_type offset
@@ -38,7 +38,7 @@ namespace sprout {
 		// stable_partition_copy
 		//
 		template<typename BidirectionalIterator, typename Result, typename Predicate>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 		stable_partition_copy(BidirectionalIterator first, BidirectionalIterator last, Result const& result, Predicate pred) {
 			return sprout::fit::detail::stable_partition_copy_impl(first, last, result, pred, sprout::internal_begin_offset(result));
 		}

@@ -12,7 +12,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/reverse_copy.hpp>
 #include <sprout/algorithm/fixed/reverse.hpp>
@@ -92,18 +92,18 @@ namespace sprout {
 		// next_permutation
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fixed::result_of::algorithm<Container>::type, bool>
+		inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fixed::results::algorithm<Container>::type, bool>
 		next_permutation(Container const& cont, Compare comp) {
-			typedef sprout::pair<typename sprout::fixed::result_of::algorithm<Container>::type, bool> type;
+			typedef sprout::pair<typename sprout::fixed::results::algorithm<Container>::type, bool> type;
 			return sprout::fixed::detail::next_permutation_impl<type>(
 				cont, comp,
 				sprout::begin(cont), sprout::end(cont)
 				);
 		}
 		template<typename Container>
-		inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fixed::result_of::algorithm<Container>::type, bool>
+		inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fixed::results::algorithm<Container>::type, bool>
 		next_permutation(Container const& cont) {
-			typedef sprout::pair<typename sprout::fixed::result_of::algorithm<Container>::type, bool> type;
+			typedef sprout::pair<typename sprout::fixed::results::algorithm<Container>::type, bool> type;
 			return sprout::fixed::detail::next_permutation_impl<type>(
 				cont, NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>(),
 				sprout::begin(cont), sprout::end(cont)

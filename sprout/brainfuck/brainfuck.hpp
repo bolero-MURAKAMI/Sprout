@@ -18,7 +18,7 @@
 #include <sprout/iterator/value_iterator.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
@@ -67,7 +67,7 @@ namespace sprout {
 				typename BidirectionalIteratorSource, typename Output, typename InputIteratorInput,
 				typename Buffer, typename OutputBuffer
 			>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Output>::type
 			exec_impl(
 				BidirectionalIteratorSource first, BidirectionalIteratorSource last,
 				Output const& output, InputIteratorInput in_first, InputIteratorInput in_last,
@@ -144,7 +144,7 @@ namespace sprout {
 		// exec
 		//
 		template<std::size_t BufferSize = 32, typename BidirectionalIteratorSource, typename Output, typename InputIteratorInput>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Output>::type
 		exec(
 			BidirectionalIteratorSource first, BidirectionalIteratorSource last,
 			Output const& output, InputIteratorInput in_first, InputIteratorInput in_last
@@ -158,7 +158,7 @@ namespace sprout {
 				);
 		}
 		template<std::size_t BufferSize = 32, typename BidirectionalIteratorSource, typename Output>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Output>::type
 		exec(
 			BidirectionalIteratorSource first, BidirectionalIteratorSource last,
 			Output const& output
@@ -170,7 +170,7 @@ namespace sprout {
 				);
 		}
 		template<std::size_t BufferSize = 32, typename BidirectionalIteratorSource>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<
 			sprout::array<typename std::iterator_traits<BidirectionalIteratorSource>::value_type, BufferSize>
 		>::type
 		exec(
@@ -187,21 +187,21 @@ namespace sprout {
 		// exec_range
 		//
 		template<std::size_t BufferSize = 32, typename BidirectionalRangeSource, typename Output, typename InputRangeInput>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Output>::type
 		exec_range(BidirectionalRangeSource const& source, Output const& output, InputRangeInput const& input) {
 			return sprout::brainfuck::exec<BufferSize>(
 				sprout::begin(source), sprout::end(source), output, sprout::begin(input), sprout::end(input)
 				);
 		}
 		template<std::size_t BufferSize = 32, typename BidirectionalRangeSource, typename Output>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Output>::type
 		exec_range(BidirectionalRangeSource const& source, Output const& output) {
 			return sprout::brainfuck::exec<BufferSize>(
 				sprout::begin(source), sprout::end(source), output
 				);
 		}
 		template<std::size_t BufferSize = 32, typename BidirectionalRangeSource>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<
 			sprout::array<typename sprout::container_traits<BidirectionalRangeSource>::value_type, BufferSize>
 		>::type
 		exec_range(BidirectionalRangeSource const& source) {

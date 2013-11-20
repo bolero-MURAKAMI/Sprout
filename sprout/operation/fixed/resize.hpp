@@ -18,7 +18,7 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// resize
 			//
@@ -30,7 +30,7 @@ namespace sprout {
 					N
 				>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Container, typename T, sprout::index_t... Indexes>
@@ -52,11 +52,11 @@ namespace sprout {
 		// resize
 		//
 		template<std::size_t N, typename Container, typename T>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::resize<N, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::resize<N, Container>::type
 		resize(Container const& cont, T const& v) {
-			return sprout::fixed::detail::resize_impl<typename sprout::fixed::result_of::resize<N, Container>::type>(
+			return sprout::fixed::detail::resize_impl<typename sprout::fixed::results::resize<N, Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::resize<N, Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::resize<N, Container>::type>::make(),
 				sprout::size(cont),
 				v
 				);
@@ -82,19 +82,19 @@ namespace sprout {
 		// resize
 		//
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::resize<N, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::resize<N, Container>::type
 		resize(Container const& cont) {
-			return sprout::fixed::detail::resize_impl<typename sprout::fixed::result_of::resize<N, Container>::type>(
+			return sprout::fixed::detail::resize_impl<typename sprout::fixed::results::resize<N, Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::resize<N, Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::resize<N, Container>::type>::make(),
 				sprout::size(cont)
 				);
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::resize;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::resize;
+	}	// namespace results
 
 	using sprout::fixed::resize;
 }	// namespace sprout

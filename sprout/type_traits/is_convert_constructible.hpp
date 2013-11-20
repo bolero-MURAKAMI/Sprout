@@ -9,8 +9,8 @@
 #define SPROUT_TYPE_TRAITS_IS_CONVERT_CONSTRUCTIBLE_HPP
 
 #include <utility>
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -21,8 +21,8 @@ namespace sprout {
 		struct is_convert_constructible_test {
 		public:
 			template<typename To = T>
-			static std::true_type test(To);
-			static std::false_type test(...);
+			static sprout::true_type test(To);
+			static sprout::false_type test(...);
 		};
 	}	// namespace detail
 	template<typename T, typename Arg>

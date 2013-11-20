@@ -12,7 +12,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/recurrence.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -20,7 +20,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Generator, typename... Inits>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			recurrence_impl(
 				Container const& cont, Generator const& gen,
 				typename sprout::container_traits<Container>::difference_type offset,
@@ -38,7 +38,7 @@ namespace sprout {
 		// recurrence
 		//
 		template<typename Container, typename Generator, typename... Inits>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		recurrence(Container const& cont, Generator const& gen, Inits const&... inits) {
 			return sprout::fit::detail::recurrence_impl(cont, gen, sprout::internal_begin_offset(cont), inits...);
 		}

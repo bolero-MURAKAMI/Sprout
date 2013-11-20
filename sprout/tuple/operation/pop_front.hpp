@@ -16,7 +16,7 @@
 
 namespace sprout {
 	namespace tuples {
-		namespace result_of {
+		namespace results {
 			//
 			// pop_front
 			//
@@ -24,7 +24,7 @@ namespace sprout {
 			struct pop_front
 				: public sprout::types::pop_front<Tuple>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Tuple, sprout::index_t... Indexes>
@@ -40,9 +40,9 @@ namespace sprout {
 		// pop_front
 		//
 		template<typename Tuple>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::pop_front<Tuple>::type
+		inline SPROUT_CONSTEXPR typename sprout::tuples::results::pop_front<Tuple>::type
 		pop_front(Tuple const& t) {
-			return sprout::tuples::detail::pop_front_impl<typename sprout::tuples::result_of::pop_front<Tuple>::type>(
+			return sprout::tuples::detail::pop_front_impl<typename sprout::tuples::results::pop_front<Tuple>::type>(
 				t,
 				sprout::index_range<1, sprout::tuples::tuple_size<Tuple>::value>::make()
 				);

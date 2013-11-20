@@ -12,7 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/generator/functions.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -23,7 +23,7 @@ namespace sprout {
 			template<typename Container, typename Next, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size == sizeof...(Args) + 1,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			generate_impl_1(
 				Container const& cont, Next const& next,
@@ -36,7 +36,7 @@ namespace sprout {
 			template<typename Container, typename Next, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size != sizeof...(Args) + 1,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			generate_impl_1(
 				Container const& cont, Next const& next,
@@ -55,7 +55,7 @@ namespace sprout {
 			template<typename Container, typename Generator>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size == 0,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			generate_impl(
 				Container const& cont, Generator const&,
@@ -67,7 +67,7 @@ namespace sprout {
 			template<typename Container, typename Generator>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size != 0,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			generate_impl(
 				Container const& cont, Generator const& gen,
@@ -84,13 +84,13 @@ namespace sprout {
 		// generate
 		//
 		template<typename Container, typename Generator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		generate(Container const& cont, Generator const& gen) {
 			return sprout::fixed::detail::generate_impl(cont, gen, sprout::size(cont));
 		}
 
 		template<typename Container, typename Generator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		generate(Generator const& gen) {
 			return sprout::fixed::generate(sprout::pit<Container>(), gen);
 		}

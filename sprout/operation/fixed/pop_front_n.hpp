@@ -18,33 +18,33 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// pop_front_n
 			//
 			template<std::size_t N, typename Container>
 			struct pop_front_n
-				: public sprout::fixed::result_of::erase_n<N, Container>
+				: public sprout::fixed::results::erase_n<N, Container>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// pop_front_n
 		//
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::pop_front_n<N, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::pop_front_n<N, Container>::type
 		pop_front_n(Container const& cont) {
-			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::result_of::pop_front_n<N, Container>::type>(
+			return sprout::fixed::detail::erase_n_impl<N, typename sprout::fixed::results::pop_front_n<N, Container>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::pop_front_n<N, Container>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::pop_front_n<N, Container>::type>::make(),
 				sprout::internal_begin_offset(cont)
 				);
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::pop_front_n;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::pop_front_n;
+	}	// namespace results
 
 	using sprout::fixed::pop_front_n;
 }	// namespace sprout

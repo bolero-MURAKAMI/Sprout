@@ -207,7 +207,7 @@ namespace testspr {
 
 			// tuple_cat
 			{
-				typedef sprout::tuples::result_of::tuple_cat<decltype(tup1), decltype(tup2)>::type concatenated_type;
+				typedef sprout::tuples::results::tuple_cat<decltype(tup1), decltype(tup2)>::type concatenated_type;
 				TESTSPR_BOTH_ASSERT(sprout::tuples::tuple_size<concatenated_type>::value == 4);
 				TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<0, concatenated_type>::type, int>::value));
 				TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<1, concatenated_type>::type, double>::value));

@@ -17,7 +17,7 @@
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/utility/pair/access.hpp>
 #include <sprout/algorithm/is_sorted.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/random_swap_result.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
@@ -63,9 +63,9 @@ namespace sprout {
 					;
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type
 			bozo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
-				typedef typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type result_type;
+				typedef typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type result_type;
 				typedef sprout::pair<result_type, bool> type;
 				return sprout::is_sorted(sprout::begin(cont), sprout::end(cont), comp)
 					? result_type(sprout::deep_copy(cont), sprout::forward<UniformRandomNumberGenerator>(g))
@@ -80,7 +80,7 @@ namespace sprout {
 		// bozo_sort_result
 		//
 		template<typename Container, typename UniformRandomNumberGenerator, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type
 		bozo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fixed::detail::bozo_sort_result(
 				cont,
@@ -89,7 +89,7 @@ namespace sprout {
 				);
 		}
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type
 		bozo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::bozo_sort_result(
 				cont,

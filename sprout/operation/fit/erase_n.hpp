@@ -18,7 +18,7 @@
 
 namespace sprout {
 	namespace fit {
-		namespace result_of {
+		namespace results {
 			//
 			// erase_n
 			//
@@ -27,17 +27,17 @@ namespace sprout {
 			public:
 				typedef sprout::sub_array<
 					typename sprout::container_traits<
-						typename sprout::fixed::result_of::erase_n<N, Container>::type
+						typename sprout::fixed::results::erase_n<N, Container>::type
 					>::internal_type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// erase_n
 		//
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase_n<N, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::erase_n<N, Container>::type
 		erase_n(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::erase_n<N>(cont, pos)),
@@ -46,7 +46,7 @@ namespace sprout {
 				);
 		}
 		template<std::size_t N, typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase_n<N, Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::erase_n<N, Container>::type
 		erase_n(Container const& cont, typename sprout::container_traits<Container>::difference_type pos) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::erase_n<N>(cont, pos)),

@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/replace_copy_if.hpp>
 
 namespace sprout {
@@ -20,13 +20,13 @@ namespace sprout {
 			// replace_copy_if
 			//
 			template<typename InputRange, typename Result, typename T, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			replace_copy_if(InputRange const& rng, Result const& result, Predicate pred, T const& new_value) {
 				return sprout::fixed::replace_copy_if(sprout::begin(rng), sprout::end(rng), result, pred, new_value);
 			}
 
 			template<typename Result, typename InputRange, typename T, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			replace_copy_if(InputRange const& rng, Predicate pred, T const& new_value) {
 				return sprout::fixed::replace_copy_if<Result>(sprout::begin(rng), sprout::end(rng), pred, new_value);
 			}

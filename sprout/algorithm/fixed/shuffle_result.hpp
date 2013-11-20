@@ -21,7 +21,7 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/utility/pair/access.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/numeric/fixed/iota.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>
@@ -66,7 +66,7 @@ namespace sprout {
 					;
 			}
 			template<typename UniformRandomNumberGenerator, typename Container, typename Shuffled, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type
 			shuffle_result_impl_1(
 				Container const& cont,
 				sprout::index_tuple<Indexes...>,
@@ -75,7 +75,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
-				typedef typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type result_type;
+				typedef typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type result_type;
 				return result_type(
 					sprout::remake<Container>(
 						cont,
@@ -89,7 +89,7 @@ namespace sprout {
 					);
 			}
 			template<typename Container, typename UniformRandomNumberGenerator, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type
 			shuffle_result_impl(
 				Container const& cont,
 				sprout::index_tuple<Indexes...> indexes,
@@ -114,7 +114,7 @@ namespace sprout {
 		// shuffle_result
 		//
 		template<typename Container, typename UniformRandomNumberGenerator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::shuffle<Container, UniformRandomNumberGenerator>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type
 		shuffle_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::shuffle_result_impl(
 				cont,

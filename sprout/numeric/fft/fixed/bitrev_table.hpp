@@ -16,7 +16,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/bit/reverse.hpp>
 #include <sprout/bit/length.hpp>
 
@@ -24,7 +24,7 @@ namespace sprout {
 		namespace fixed {
 			namespace detail {
 			template<typename Container, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			bitrev_table_impl(
 				Container const& cont, sprout::index_tuple<Indexes...>,
 				std::size_t bit_length,
@@ -49,7 +49,7 @@ namespace sprout {
 		// bitrev_table
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		bitrev_table(Container const& cont) {
 			return sprout::fixed::detail::bitrev_table_impl(
 				cont,

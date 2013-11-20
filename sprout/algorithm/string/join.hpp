@@ -65,7 +65,7 @@ namespace sprout {
 			}
 		}	// namespace detail
 
-		namespace result_of {
+		namespace results {
 			//
 			// join
 			//
@@ -98,7 +98,7 @@ namespace sprout {
 					* sprout::container_traits<ContainerContainer>::static_size
 				>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename ContIterator, typename SizeIterator, typename Sizes>
@@ -238,10 +238,10 @@ namespace sprout {
 						>::iterator
 					>::value
 					,
-				typename sprout::algorithm::result_of::join<ContainerContainer>::type
+				typename sprout::algorithm::results::join<ContainerContainer>::type
 			>::type
 			join(ContainerContainer const& cont_cont) {
-				typedef typename sprout::algorithm::result_of::join<ContainerContainer>::type result_type;
+				typedef typename sprout::algorithm::results::join<ContainerContainer>::type result_type;
 				return sprout::algorithm::detail::join_impl_ra<result_type>(cont_cont);
 			}
 			template<typename ContainerContainer>
@@ -255,10 +255,10 @@ namespace sprout {
 						>::iterator
 					>::value
 					),
-				typename sprout::algorithm::result_of::join<ContainerContainer>::type
+				typename sprout::algorithm::results::join<ContainerContainer>::type
 			>::type
 			join(ContainerContainer const& cont_cont) {
-				typedef typename sprout::algorithm::result_of::join<ContainerContainer>::type result_type;
+				typedef typename sprout::algorithm::results::join<ContainerContainer>::type result_type;
 				return sprout::algorithm::detail::join_impl<result_type>(
 					sprout::begin(cont_cont),
 					sprout::end(cont_cont)
@@ -269,7 +269,7 @@ namespace sprout {
 		// join
 		//
 		template<typename ContainerContainer>
-		inline SPROUT_CONSTEXPR typename sprout::algorithm::result_of::join<ContainerContainer>::type
+		inline SPROUT_CONSTEXPR typename sprout::algorithm::results::join<ContainerContainer>::type
 		join(ContainerContainer const& cont_cont) {
 			return sprout::algorithm::detail::join(cont_cont);
 		}
@@ -453,10 +453,10 @@ namespace sprout {
 						typename sprout::container_traits<Separator const>::iterator
 					>::value
 					,
-				typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type
+				typename sprout::algorithm::results::join<ContainerContainer, Separator>::type
 			>::type
 			join(ContainerContainer const& cont_cont, Separator const& separator) {
-				typedef typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type result_type;
+				typedef typename sprout::algorithm::results::join<ContainerContainer, Separator>::type result_type;
 				return sprout::algorithm::detail::join_impl_ra<result_type>(cont_cont, separator);
 			}
 			template<typename ContainerContainer, typename Separator>
@@ -473,10 +473,10 @@ namespace sprout {
 						typename sprout::container_traits<Separator const>::iterator
 					>::value
 					),
-				typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type
+				typename sprout::algorithm::results::join<ContainerContainer, Separator>::type
 			>::type
 			join(ContainerContainer const& cont_cont, Separator const& separator) {
-				typedef typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type result_type;
+				typedef typename sprout::algorithm::results::join<ContainerContainer, Separator>::type result_type;
 				return sprout::algorithm::detail::join_impl<result_type>(
 					sprout::begin(cont_cont),
 					sprout::end(cont_cont),
@@ -490,7 +490,7 @@ namespace sprout {
 		// join
 		//
 		template<typename ContainerContainer, typename Separator>
-		inline SPROUT_CONSTEXPR typename sprout::algorithm::result_of::join<ContainerContainer, Separator>::type
+		inline SPROUT_CONSTEXPR typename sprout::algorithm::results::join<ContainerContainer, Separator>::type
 		join(ContainerContainer const& cont_cont, Separator const& separator) {
 			return sprout::algorithm::detail::join(cont_cont, separator);
 		}

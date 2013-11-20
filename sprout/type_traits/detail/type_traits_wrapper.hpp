@@ -5,26 +5,23 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_MEM_PTR_HPP
-#define SPROUT_WEED_ATTR_CNV_RESULT_OF_MEM_PTR_HPP
+#ifndef SPROUT_TYPE_TRAITS_DETAIL_TYPE_TRAITS_WRAPPER_HPP
+#define SPROUT_TYPE_TRAITS_DETAIL_TYPE_TRAITS_WRAPPER_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
-	namespace weed {
-		namespace attr_cnv {
-			namespace result_of {
-				//
-				// mem_ptr
-				//
-				template<typename T, typename U, typename = void>
-				struct mem_ptr
-					: public std::result_of<U(T)>
-				{};
-			}	// namespace result_of
-		}	// namespace attr_cnv
-	}	// namespace weed
+	namespace detail {
+		//
+		// type_traits_wrapper
+		//
+		template<typename T>
+		struct type_traits_wrapper
+			: public sprout::integral_constant<typename T::value_type, T::value>
+		{};
+	}	// namespace detail
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_MEM_PTR_HPP
+#endif	// #ifndef SPROUT_TYPE_TRAITS_DETAIL_TYPE_TRAITS_WRAPPER_HPP

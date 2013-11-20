@@ -11,16 +11,16 @@
 #include <utility>
 #include <sprout/config.hpp>
 #include <sprout/utility/as_const.hpp>
+#include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	//
 	// const_reference
 	//
 	template<typename T>
-	struct const_reference {
-	public:
-		typedef decltype(sprout::as_const(std::declval<T&&>())) type;
-	};
+	struct const_reference
+		: public sprout::identity<decltype(sprout::as_const(std::declval<T&&>()))>
+	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>

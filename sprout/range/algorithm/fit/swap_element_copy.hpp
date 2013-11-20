@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/algorithm/fit/swap_element_copy.hpp>
 
 namespace sprout {
@@ -21,7 +21,7 @@ namespace sprout {
 			// swap_element_copy
 			//
 			template<typename ForwardRange, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			swap_element_copy(
 				ForwardRange const& rng, Result const& result,
 				typename sprout::container_traits<ForwardRange>::const_iterator pos1,

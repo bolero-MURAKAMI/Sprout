@@ -15,7 +15,7 @@
 #include <sprout/weed/expr/make_terminal_or_expr.hpp>
 #include <sprout/weed/expr/eval.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
-#include <sprout/weed/attr_cnv/result_of/times.hpp>
+#include <sprout/weed/attr_cnv/results/times.hpp>
 #include <sprout/weed/attr_cnv/times.hpp>
 #include <sprout/weed/traits/expr/terminal_or_expr_of.hpp>
 #include <sprout/weed/traits/parser/attribute_of.hpp>
@@ -151,7 +151,7 @@ namespace sprout {
 		public:
 			template<typename Context, typename Iterator>
 			struct attribute
-				: public sprout::weed::attr_cnv::result_of::times<
+				: public sprout::weed::attr_cnv::results::times<
 					sprout::weed::traits::limit_of<Parser, Iterator, Context>::value,
 					typename sprout::weed::traits::attribute_of<Parser, Iterator, Context>::type
 				>

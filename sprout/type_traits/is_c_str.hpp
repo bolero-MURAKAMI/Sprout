@@ -8,8 +8,9 @@
 #ifndef SPROUT_TYPE_TRAITS_IS_C_STR_HPP
 #define SPROUT_TYPE_TRAITS_IS_C_STR_HPP
 
-#include <type_traits>
+#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -17,7 +18,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_c_str
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T>
 	struct is_c_str<T const>
@@ -37,15 +38,15 @@ namespace sprout {
 	{};
 	template<std::size_t N>
 	struct is_c_str<wchar_t[N]>
-		: public std::true_type
+		: public sprout::true_type
 	{};
 	template<std::size_t N>
 	struct is_c_str<char16_t[N]>
-		: public std::true_type
+		: public sprout::true_type
 	{};
 	template<std::size_t N>
 	struct is_c_str<char32_t[N]>
-		: public std::true_type
+		: public sprout::true_type
 	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

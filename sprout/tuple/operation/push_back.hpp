@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace tuples {
-		namespace result_of {
+		namespace results {
 			//
 			// push_back
 			//
@@ -25,7 +25,7 @@ namespace sprout {
 			struct push_back
 				: public sprout::types::push_back<Tuple, Args...>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Tuple, typename... Args, sprout::index_t... Indexes>
@@ -42,9 +42,9 @@ namespace sprout {
 		// push_back
 		//
 		template<typename Tuple, typename... Args>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::push_back<Tuple, Args...>::type
+		inline SPROUT_CONSTEXPR typename sprout::tuples::results::push_back<Tuple, Args...>::type
 		push_back(Tuple const& t, Args const&... args) {
-			return sprout::tuples::detail::push_back_impl<typename sprout::tuples::result_of::push_back<Tuple, Args...>::type>(
+			return sprout::tuples::detail::push_back_impl<typename sprout::tuples::results::push_back<Tuple, Args...>::type>(
 				t,
 				sprout::tuple_indexes<Tuple>::make(),
 				args...

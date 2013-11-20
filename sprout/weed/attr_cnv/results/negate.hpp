@@ -17,7 +17,7 @@
 namespace sprout {
 	namespace weed {
 		namespace attr_cnv {
-			namespace result_of {
+			namespace results {
 				//
 				// negate
 				//
@@ -33,7 +33,7 @@ namespace sprout {
 				>
 					: public sprout::identity<sprout::weed::unused>
 				{};
-			}	// namespace result_of
+			}	// namespace results
 		}	// namespace attr_cnv
 	}	// namespace weed
 }	// namespace sprout

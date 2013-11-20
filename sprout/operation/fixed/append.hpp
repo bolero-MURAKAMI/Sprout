@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace fixed {
-		namespace result_of {
+		namespace results {
 			//
 			// append
 			//
@@ -29,7 +29,7 @@ namespace sprout {
 					sprout::container_traits<Container>::static_size + sprout::container_traits<Input>::static_size
 				>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Container, typename Input, sprout::index_t... Indexes>
@@ -60,30 +60,30 @@ namespace sprout {
 		// append
 		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append<Container, Input>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::append<Container, Input>::type
 		append(
 			Container const& cont, typename sprout::container_traits<Container>::const_iterator pos,
 			Input const& input
 			)
 		{
-			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append<Container, Input>::type>(
+			return sprout::fixed::detail::append_impl<typename sprout::fixed::results::append<Container, Input>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::append<Container, Input>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::append<Container, Input>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), pos),
 				sprout::size(input),
 				input
 				);
 		}
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::append<Container, Input>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::append<Container, Input>::type
 		append(
 			Container const& cont, typename sprout::container_traits<Container>::difference_type pos,
 			Input const& input
 			)
 		{
-			return sprout::fixed::detail::append_impl<typename sprout::fixed::result_of::append<Container, Input>::type>(
+			return sprout::fixed::detail::append_impl<typename sprout::fixed::results::append<Container, Input>::type>(
 				cont,
-				sprout::container_indexes<typename sprout::fixed::result_of::append<Container, Input>::type>::make(),
+				sprout::container_indexes<typename sprout::fixed::results::append<Container, Input>::type>::make(),
 				sprout::distance(sprout::internal_begin(cont), sprout::next(sprout::begin(cont), pos)),
 				sprout::size(input),
 				input
@@ -91,9 +91,9 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	namespace result_of {
-		using sprout::fixed::result_of::append;
-	}	// namespace result_of
+	namespace results {
+		using sprout::fixed::results::append;
+	}	// namespace results
 
 	using sprout::fixed::append;
 }	// namespace sprout

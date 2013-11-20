@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace fit {
-		namespace result_of {
+		namespace results {
 			//
 			// append_front
 			//
@@ -25,17 +25,17 @@ namespace sprout {
 			struct append_front {
 				typedef sprout::sub_array<
 					typename sprout::container_traits<
-						typename sprout::fixed::result_of::append_front<Container, Input>::type
+						typename sprout::fixed::results::append_front<Container, Input>::type
 					>::internal_type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// append_front
 		//
 		template<typename Container, typename Input>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::append_front<Container, Input>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::append_front<Container, Input>::type
 		append_front(Container const& cont, Input const& input) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::append_front(cont, input)),

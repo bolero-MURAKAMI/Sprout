@@ -8,8 +8,8 @@
 #ifndef SPROUT_TPP_ALGORITHM_NONE_OF_HPP
 #define SPROUT_TPP_ALGORITHM_NONE_OF_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace tpp {
@@ -18,23 +18,23 @@ namespace sprout {
 			struct none_of_impl;
 			template<>
 			struct none_of_impl<>
-				: public std::true_type
+				: public sprout::true_type
 			{};
 			template<>
 			struct none_of_impl<true>
-				: public std::false_type
+				: public sprout::false_type
 			{};
 			template<>
 			struct none_of_impl<false>
-				: public std::true_type
+				: public sprout::true_type
 			{};
 			template<bool... Tail>
 			struct none_of_impl<true, Tail...>
-				: public std::false_type
+				: public sprout::false_type
 			{};
 			template<bool... Tail>
 			struct none_of_impl<false, Tail...>
-				: public std::integral_constant<bool, sprout::tpp::detail::none_of_impl<Tail...>::value>
+				: public sprout::integral_constant<bool, sprout::tpp::detail::none_of_impl<Tail...>::value>
 			{};
 		}	// namespace detail
 		//

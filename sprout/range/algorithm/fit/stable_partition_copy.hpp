@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/algorithm/fit/stable_partition_copy.hpp>
 
 namespace sprout {
@@ -20,7 +20,7 @@ namespace sprout {
 			// stable_partition_copy
 			//
 			template<typename InputRange, typename Result, typename Predicate>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			stable_partition_copy(InputRange const& rng, Result const& result, Predicate pred) {
 				return sprout::fit::stable_partition_copy(sprout::begin(rng), sprout::end(rng), result, pred);
 			}

@@ -18,7 +18,7 @@
 
 namespace sprout {
 	namespace hash_detail {
-		template <typename T>
+		template<typename T>
 		struct is_basic_number
 			: public std::integral_constant<
 				bool,
@@ -26,7 +26,7 @@ namespace sprout {
 					&& (sizeof(T) <= sizeof(std::size_t))
 			>
 		{};
-		template <typename T>
+		template<typename T>
 		struct is_long_number
 			: public std::integral_constant<
 				bool,
@@ -35,7 +35,7 @@ namespace sprout {
 					&& std::is_signed<T>::value
 			>
 		{};
-		template <typename T>
+		template<typename T>
 		struct is_ulong_number
 			: public std::integral_constant<
 				bool,

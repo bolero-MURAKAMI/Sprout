@@ -11,12 +11,13 @@
 #include <climits>
 #include <cstdint>
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 
 //
 // SPROUT_INT[N]_C
 // SPROUT_UINT[N]_C
 //
-#if defined(__clang__) && (__clang_major__ == 3 && __clang_minor__ == 2) && !defined(__STDC_CONSTANT_MACROS)
+#if SPROUT_CLANG_BETWEEN(3, 2, 0, 3, 3, 0) && !defined(__STDC_CONSTANT_MACROS)
 #	define SPROUT_INT8_C(n) n
 #	define SPROUT_UINT8_C(n) n
 #	define SPROUT_INT16_C(n) n

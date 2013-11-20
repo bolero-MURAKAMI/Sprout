@@ -12,7 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/generator/functions.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -23,7 +23,7 @@ namespace sprout {
 			template<typename Container, typename Generator, typename Next, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size == sizeof...(Args) + 1,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			unfold_impl_1(
 				Container const& cont, Generator const&, Next const& next,
@@ -36,7 +36,7 @@ namespace sprout {
 			template<typename Container, typename Generator, typename Next, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size != sizeof...(Args) + 1,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			unfold_impl_1(
 				Container const& cont, Generator const& gen, Next const& next,
@@ -55,7 +55,7 @@ namespace sprout {
 			template<typename Container, typename Generator, typename Init>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size == 0,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type unfold_impl(
 				Container const& cont, Generator const&, Init const&,
 				typename sprout::container_traits<Container>::size_type size
@@ -66,7 +66,7 @@ namespace sprout {
 			template<typename Container, typename Generator, typename Init>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Container>::static_size != 0,
-				typename sprout::fixed::result_of::algorithm<Container>::type
+				typename sprout::fixed::results::algorithm<Container>::type
 			>::type
 			unfold_impl(
 				Container const& cont, Generator const& gen, Init const& init,
@@ -83,13 +83,13 @@ namespace sprout {
 		// unfold
 		//
 		template<typename Container, typename Generator, typename Init>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		unfold(Container const& cont, Generator const& gen, Init const& init) {
 			return sprout::fixed::detail::unfold_impl(cont, gen, init, sprout::size(cont));
 		}
 
 		template<typename Container, typename Generator, typename Init>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		unfold(Generator const& gen, Init const& init) {
 			return sprout::fixed::unfold(sprout::pit<Container>(), gen, init);
 		}

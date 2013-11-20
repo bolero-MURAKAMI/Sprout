@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/nth_element.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -21,7 +21,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename Container, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			nth_element_impl(
 				Container const& cont, typename sprout::container_traits<Container>::const_iterator nth, Compare comp,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -38,14 +38,14 @@ namespace sprout {
 		// nth_element
 		//
 		template<typename Container, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		nth_element(Container const& cont, typename sprout::container_traits<Container>::const_iterator nth, Compare comp) {
 			return sprout::fit::detail::nth_element_impl(cont, nth, comp, sprout::internal_begin_offset(cont));
 		}
 
 		namespace detail {
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			nth_element_impl(
 				Container const& cont, typename sprout::container_traits<Container>::const_iterator nth,
 				typename sprout::container_traits<Container>::difference_type offset
@@ -62,7 +62,7 @@ namespace sprout {
 		// nth_element
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		nth_element(Container const& cont, typename sprout::container_traits<Container>::const_iterator nth) {
 			return sprout::fit::detail::nth_element_impl(cont, nth, sprout::internal_begin_offset(cont));
 		}

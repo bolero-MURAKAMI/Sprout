@@ -12,7 +12,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/string/fixed/to_lower.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 
@@ -21,7 +21,7 @@ namespace sprout {
 		namespace fit {
 			namespace detail {
 				template<typename Container>
-				inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+				inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 				to_lower_impl(
 					Container const& cont,
 					typename sprout::container_traits<Container>::difference_type offset
@@ -38,7 +38,7 @@ namespace sprout {
 			// to_lower
 			//
 			template<typename Container>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Container>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 			to_lower(Container const& cont) {
 				return sprout::algorithm::fit::detail::to_lower_impl(cont, sprout::internal_begin_offset(cont));
 			}

@@ -13,7 +13,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/algorithm/fixed/merge.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
@@ -22,7 +22,7 @@ namespace sprout {
 	namespace fit {
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			merge_impl(
 				InputIterator1 first1, InputIterator1 last1,
 				InputIterator2 first2, InputIterator2 last2,
@@ -41,7 +41,7 @@ namespace sprout {
 		// merge
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 		merge(
 			InputIterator1 first1, InputIterator1 last1,
 			InputIterator2 first2, InputIterator2 last2,
@@ -57,7 +57,7 @@ namespace sprout {
 
 		namespace detail {
 			template<typename InputIterator1, typename InputIterator2, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			merge_impl(
 				InputIterator1 first1, InputIterator1 last1,
 				InputIterator2 first2, InputIterator2 last2,
@@ -76,7 +76,7 @@ namespace sprout {
 		// merge
 		//
 		template<typename InputIterator1, typename InputIterator2, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 		merge(
 			InputIterator1 first1, InputIterator1 last1,
 			InputIterator2 first2, InputIterator2 last2,

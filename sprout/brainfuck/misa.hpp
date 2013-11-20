@@ -13,7 +13,7 @@
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/weed/parse.hpp>
 #include <sprout/weed/parser/lim.hpp>
 #include <sprout/weed/parser/lit.hpp>
@@ -31,7 +31,7 @@ namespace sprout {
 			// to_brainfuck
 			//
 			template<typename InputIterator, typename Result>
-			inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fixed::result_of::algorithm<Result>::type, bool>
+			inline SPROUT_CONSTEXPR sprout::pair<typename sprout::fixed::results::algorithm<Result>::type, bool>
 			to_brainfuck(InputIterator first, InputIterator last, Result const& result) {
 				return sprout::brainfuck::detail::parsed_to_brainfuck(
 					sprout::weed::parse(
@@ -65,7 +65,7 @@ namespace sprout {
 			// exec_range
 			//
 			template<std::size_t BufferSize = 32, typename BidirectionalRangeSource, typename Output, typename InputRangeInput>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Output>::type
 			exec_range(BidirectionalRangeSource const& source, Output const& output, InputRangeInput const& input) {
 				typedef typename sprout::container_construct_traits<BidirectionalRangeSource>::copied_type copied_type;
 				return sprout::brainfuck::exec_range<BufferSize>(
@@ -74,7 +74,7 @@ namespace sprout {
 					);
 			}
 			template<std::size_t BufferSize = 32, typename BidirectionalRangeSource, typename Output>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Output>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Output>::type
 			exec_range(BidirectionalRangeSource const& source, Output const& output) {
 				typedef typename sprout::container_construct_traits<BidirectionalRangeSource>::copied_type copied_type;
 				return sprout::brainfuck::exec_range<BufferSize>(
@@ -83,7 +83,7 @@ namespace sprout {
 					);
 			}
 			template<std::size_t BufferSize = 32, typename BidirectionalRangeSource>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<
 				sprout::array<typename sprout::container_traits<BidirectionalRangeSource>::value_type, BufferSize>
 			>::type
 			exec_range(BidirectionalRangeSource const& source) {

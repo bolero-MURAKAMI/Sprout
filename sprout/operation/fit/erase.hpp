@@ -18,7 +18,7 @@
 
 namespace sprout {
 	namespace fit {
-		namespace result_of {
+		namespace results {
 			//
 			// erase
 			//
@@ -27,17 +27,17 @@ namespace sprout {
 			public:
 				typedef sprout::sub_array<
 					typename sprout::container_traits<
-						typename sprout::fixed::result_of::erase<Container>::type
+						typename sprout::fixed::results::erase<Container>::type
 					>::internal_type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// erase
 		//
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::erase<Container>::type
 		erase(Container const& cont, typename sprout::container_traits<Container>::const_iterator pos) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::erase(cont, pos)),
@@ -46,7 +46,7 @@ namespace sprout {
 				);
 		}
 		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::erase<Container>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::erase<Container>::type
 		erase(Container const& cont, typename sprout::container_traits<Container>::difference_type pos) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::erase(cont, pos)),

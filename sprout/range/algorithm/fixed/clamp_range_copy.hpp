@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/clamp_range_copy.hpp>
 
 namespace sprout {
@@ -21,7 +21,7 @@ namespace sprout {
 			// clamp_range_copy
 			//
 			template<typename InputRange, typename Result, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy(
 				InputRange const& rng, Result const& result,
 				typename sprout::container_traits<InputRange>::value_type const& low,
@@ -32,7 +32,7 @@ namespace sprout {
 				return sprout::fixed::clamp_range_copy(sprout::begin(rng), sprout::end(rng), result, low, high, comp);
 			}
 			template<typename InputRange, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy(
 				InputRange const& rng, Result const& result,
 				typename sprout::container_traits<InputRange>::value_type const& low,
@@ -43,7 +43,7 @@ namespace sprout {
 			}
 
 			template<typename Result, typename InputRange, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy(
 				InputRange const& rng,
 				typename sprout::container_traits<InputRange>::value_type const& low,
@@ -54,7 +54,7 @@ namespace sprout {
 				return sprout::fixed::clamp_range_copy<Result>(sprout::begin(rng), sprout::end(rng), low, high, comp);
 			}
 			template<typename Result, typename InputRange>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy(
 				InputRange const& rng,
 				typename sprout::container_traits<InputRange>::value_type const& low,

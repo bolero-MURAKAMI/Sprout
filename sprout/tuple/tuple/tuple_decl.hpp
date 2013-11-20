@@ -13,6 +13,7 @@
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
@@ -187,7 +188,7 @@ namespace sprout {
 					, base_type(sprout::forward<UHead>(h))
 				{}
 				tuple_impl(tuple_impl const&) = default;
-#if defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 8 && __GNUC_PATCHLEVEL__ <= 1))
+#if SPROUT_GCC_BETWEEN(4, 8, 0, 4, 8, 2)
 				tuple_impl(tuple_impl&&) = default;
 #else
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl&& t)

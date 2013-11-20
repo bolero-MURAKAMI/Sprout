@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace fit {
-		namespace result_of {
+		namespace results {
 			//
 			// push_front
 			//
@@ -26,17 +26,17 @@ namespace sprout {
 			public:
 				typedef sprout::sub_array<
 					typename sprout::container_traits<
-						typename sprout::fixed::result_of::push_front<Container, T, Values...>::type
+						typename sprout::fixed::results::push_front<Container, T, Values...>::type
 					>::internal_type
 				> type;
 			};
-		}	// namespace result_of
+		}	// namespace results
 
 		//
 		// push_front
 		//
 		template<typename Container, typename T, typename... Values>
-		inline SPROUT_CONSTEXPR typename sprout::fit::result_of::push_front<Container, T, Values...>::type
+		inline SPROUT_CONSTEXPR typename sprout::fit::results::push_front<Container, T, Values...>::type
 		push_front(Container const& cont, T const& v, Values const&... values) {
 			return sprout::sub_copy(
 				sprout::get_internal(sprout::fixed::push_front(cont, v, values...)),

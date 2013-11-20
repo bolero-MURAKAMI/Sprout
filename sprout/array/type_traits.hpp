@@ -15,22 +15,22 @@
 
 namespace sprout {
 	//
-	// is_array
+	// is_array_class
 	//
 	template<typename T>
-	struct is_array
+	struct is_array_class
 		: public std::false_type
 	{};
 	template<typename T>
-	struct is_array<T const>
-		: public sprout::is_array<T>
+	struct is_array_class<T const>
+		: public sprout::is_array_class<T>
 	{};
 	template<typename T>
-	struct is_array<T const volatile>
-		: public sprout::is_array<T>
+	struct is_array_class<T const volatile>
+		: public sprout::is_array_class<T>
 	{};
 	template<typename T, std::size_t N>
-	struct is_array<sprout::array<T, N> >
+	struct is_array_class<sprout::array<T, N> >
 		: public std::true_type
 	{};
 }	// namespace sprout

@@ -46,7 +46,7 @@ namespace sprout {
 			return sprout::tuples::tuple<Types&...>(args...);
 		}
 
-		namespace result_of {
+		namespace results {
 			namespace detail {
 				template<typename... Tuples>
 				struct tuple_cat_impl;
@@ -83,7 +83,7 @@ namespace sprout {
 						> type;
 					};
 				public:
-					typedef typename sprout::tuples::result_of::detail::tuple_cat_impl<
+					typedef typename sprout::tuples::results::detail::tuple_cat_impl<
 						typename make<
 							T, typename sprout::tuple_indexes<T>::type,
 							U, typename sprout::tuple_indexes<U>::type
@@ -97,11 +97,11 @@ namespace sprout {
 			//
 			template<typename... Tuples>
 			struct tuple_cat
-				: public sprout::tuples::result_of::detail::tuple_cat_impl<
+				: public sprout::tuples::results::detail::tuple_cat_impl<
 					typename std::decay<Tuples>::type...
 				>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename... Tuples>
@@ -148,19 +148,19 @@ namespace sprout {
 		// tuple_cat
 		//
 		template<typename... Tuples>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::tuple_cat<Tuples...>::type
+		inline SPROUT_CONSTEXPR typename sprout::tuples::results::tuple_cat<Tuples...>::type
 		tuple_cat(Tuples&&... tuples) {
 			return sprout::tuples::detail::tuple_cat_impl<
-				typename sprout::tuples::result_of::tuple_cat<Tuples...>::type,
+				typename sprout::tuples::results::tuple_cat<Tuples...>::type,
 				typename sprout::tuples::detail::tuple_cat_1st_indexes<Tuples...>::type,
 				Tuples...
 			>::call(sprout::forward<Tuples>(tuples)...);
 		}
 	}	// namespace tuples
 
-	namespace result_of {
-		using sprout::tuples::result_of::tuple_cat;
-	}	// namespace result_of
+	namespace results {
+		using sprout::tuples::results::tuple_cat;
+	}	// namespace results
 
 	using sprout::tuples::make_tuple;
 	using sprout::tuples::forward_as_tuple;

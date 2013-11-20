@@ -17,7 +17,7 @@
 
 namespace sprout {
 	namespace tuples {
-		namespace result_of {
+		namespace results {
 			//
 			// append_front
 			//
@@ -25,7 +25,7 @@ namespace sprout {
 			struct append_front
 				: public sprout::types::append_front<Tuple, InputTuple>
 			{};
-		}	// namespace result_of
+		}	// namespace results
 
 		namespace detail {
 			template<typename Result, typename Tuple, typename InputTuple, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
@@ -46,9 +46,9 @@ namespace sprout {
 		// append_front
 		//
 		template<typename Tuple, typename InputTuple>
-		inline SPROUT_CONSTEXPR typename sprout::tuples::result_of::append_front<Tuple, InputTuple>::type
+		inline SPROUT_CONSTEXPR typename sprout::tuples::results::append_front<Tuple, InputTuple>::type
 		append_front(Tuple const& t, InputTuple const& input) {
-			return sprout::tuples::detail::append_front_impl<typename sprout::tuples::result_of::append_front<Tuple, InputTuple>::type>(
+			return sprout::tuples::detail::append_front_impl<typename sprout::tuples::results::append_front<Tuple, InputTuple>::type>(
 				t, input,
 				sprout::tuple_indexes<Tuple>::make(),
 				sprout::tuple_indexes<InputTuple>::make()

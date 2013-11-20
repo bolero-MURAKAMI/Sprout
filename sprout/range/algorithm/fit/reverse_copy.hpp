@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
-#include <sprout/algorithm/fit/result_of.hpp>
+#include <sprout/algorithm/fit/results.hpp>
 #include <sprout/algorithm/fit/reverse_copy.hpp>
 
 namespace sprout {
@@ -20,7 +20,7 @@ namespace sprout {
 			// reverse_copy
 			//
 			template<typename BidirectionalRange, typename Result>
-			inline SPROUT_CONSTEXPR typename sprout::fit::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			reverse_copy(BidirectionalRange const& rng, Result const& result) {
 				return sprout::fit::reverse_copy(sprout::begin(rng), sprout::end(rng), result);
 			}

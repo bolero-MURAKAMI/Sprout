@@ -21,7 +21,7 @@ namespace sprout {
 	//
 	// pair
 	//
-	template <typename T1, typename T2>
+	template<typename T1, typename T2>
 	struct pair {
 	public:
 		typedef T1 first_type;
@@ -30,7 +30,7 @@ namespace sprout {
 		T1 first;
 		T2 second;
 	private:
-		template <typename... Args1, typename... Args2, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
+		template<typename... Args1, typename... Args2, sprout::index_t... Indexes1, sprout::index_t... Indexes2>
 		SPROUT_CONSTEXPR pair(
 			sprout::tuples::tuple<Args1...> first_args, sprout::tuples::tuple<Args2...> second_args,
 			sprout::index_tuple<Indexes1...>, sprout::index_tuple<Indexes2...>

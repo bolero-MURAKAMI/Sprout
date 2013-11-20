@@ -17,7 +17,7 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/clamp_iterator.hpp>
-#include <sprout/algorithm/fixed/result_of.hpp>
+#include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/clamp.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -27,7 +27,7 @@ namespace sprout {
 	namespace fixed {
 		namespace detail {
 			template<typename RandomAccessIterator, typename Result, typename Compare, sprout::index_t... Indexes>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy_impl_ra(
 				RandomAccessIterator first, RandomAccessIterator, Result const& result,
 				typename std::iterator_traits<RandomAccessIterator>::value_type const& low,
@@ -49,7 +49,7 @@ namespace sprout {
 					);
 			}
 			template<typename RandomAccessIterator, typename Result, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy(
 				RandomAccessIterator first, RandomAccessIterator last, Result const& result,
 				typename std::iterator_traits<RandomAccessIterator>::value_type const& low,
@@ -70,7 +70,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Compare, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			clamp_range_copy_impl(
 				InputIterator, InputIterator, Result const& result,
@@ -86,7 +86,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Compare, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			clamp_range_copy_impl(
 				InputIterator first, InputIterator last, Result const& result,
@@ -107,7 +107,7 @@ namespace sprout {
 					;
 			}
 			template<typename InputIterator, typename Result, typename Compare>
-			inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy(
 				InputIterator first, InputIterator last, Result const& result,
 				typename std::iterator_traits<InputIterator>::value_type const& low,
@@ -122,7 +122,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Compare>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			clamp_range_copy(
 				InputIterator first, InputIterator last, Result const& result,
@@ -138,7 +138,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Compare>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				!sprout::is_fixed_container<Result>::value,
-				typename sprout::fixed::result_of::algorithm<Result>::type
+				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			clamp_range_copy(
 				InputIterator first, InputIterator last, Result const& result,
@@ -158,7 +158,7 @@ namespace sprout {
 		// clamp_range_copy
 		//
 		template<typename InputIterator, typename Result, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		clamp_range_copy(
 			InputIterator first, InputIterator last, Result const& result,
 			typename std::iterator_traits<InputIterator>::value_type const& low,
@@ -169,7 +169,7 @@ namespace sprout {
 			return sprout::fixed::detail::clamp_range_copy(first, last, result, low, high, comp);
 		}
 		template<typename InputIterator, typename Result>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		clamp_range_copy(
 			InputIterator first, InputIterator last, Result const& result,
 			typename std::iterator_traits<InputIterator>::value_type const& low,
@@ -183,7 +183,7 @@ namespace sprout {
 		}
 
 		template<typename Result, typename InputIterator, typename Compare>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		clamp_range_copy(
 			InputIterator first, InputIterator last,
 			typename std::iterator_traits<InputIterator>::value_type const& low,
@@ -194,7 +194,7 @@ namespace sprout {
 			return sprout::fixed::clamp_range_copy(first, last, sprout::pit<Result>(), low, high, comp);
 		}
 		template<typename Result, typename InputIterator>
-		inline SPROUT_CONSTEXPR typename sprout::fixed::result_of::algorithm<Result>::type
+		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		clamp_range_copy(
 			InputIterator first, InputIterator last,
 			typename std::iterator_traits<InputIterator>::value_type const& low,
