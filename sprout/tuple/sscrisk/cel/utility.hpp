@@ -9,11 +9,11 @@
 #define SPROUT_TUPLE_SSCRISK_CEL_UTILITY_HPP
 
 #include <cstddef>
-#include <type_traits>
 #include <sscrisk/cel/utility.hpp>
 #include <sprout/config.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -22,7 +22,7 @@ namespace sprout {
 		//
 		template<typename T1, typename T2>
 		struct tuple_size<sscrisk::cel::pair<T1, T2> >
-			: public std::integral_constant<std::size_t, 2>
+			: public sprout::integral_constant<std::size_t, 2>
 		{};
 
 		namespace detail {

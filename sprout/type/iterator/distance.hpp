@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type/iterator/next.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace types {
@@ -30,7 +31,7 @@ namespace sprout {
 					std::is_same<First, Last>::value
 				>::type
 			>
-				: public std::integral_constant<std::ptrdiff_t, N>
+				: public sprout::integral_constant<std::ptrdiff_t, N>
 			{};
 			template<typename First, typename Last, std::ptrdiff_t N>
 			struct distance_impl<

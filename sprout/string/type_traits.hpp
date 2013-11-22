@@ -9,9 +9,9 @@
 #define SPROUT_STRING_TYPE_TRAITS_HPP
 
 #include <cstddef>
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/string/string.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -52,7 +52,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_basic_string
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T>
 	struct is_basic_string<T const>
@@ -64,7 +64,7 @@ namespace sprout {
 	{};
 	template<typename T, std::size_t N, typename Traits>
 	struct is_basic_string<sprout::basic_string<T, N, Traits> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 
 	//
@@ -72,7 +72,7 @@ namespace sprout {
 	//
 	template<typename T, typename Elem>
 	struct is_string_of
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T, typename Elem>
 	struct is_string_of<T const, Elem>
@@ -84,7 +84,7 @@ namespace sprout {
 	{};
 	template<typename T, std::size_t N, typename Traits, typename Elem>
 	struct is_string_of<sprout::basic_string<T, N, Traits>, Elem>
-		: public std::true_type
+		: public sprout::true_type
 	{};
 
 	//

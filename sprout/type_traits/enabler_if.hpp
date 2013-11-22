@@ -8,8 +8,8 @@
 #ifndef SPROUT_TYPE_TRAITS_ENABLER_IF_HPP
 #define SPROUT_TYPE_TRAITS_ENABLER_IF_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	//
@@ -23,7 +23,7 @@ namespace sprout {
 	//
 	template<bool C>
 	class enabler_if
-		: public sprout::enable_if<C, sprout::enabler_t&>
+		: public std::enable_if<C, sprout::enabler_t&>
 	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

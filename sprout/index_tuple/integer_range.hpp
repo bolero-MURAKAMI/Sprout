@@ -12,12 +12,13 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/integer_sequence.hpp>
 #include <sprout/index_tuple/enable_make_indexes.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace detail {
 		template<typename T, T First, T Last>
 		struct integer_range_default_step
-			: public std::integral_constant<typename std::make_signed<T>::type, (First <= Last ? 1 : -1)>
+			: public sprout::integral_constant<typename std::make_signed<T>::type, (First <= Last ? 1 : -1)>
 		{};
 	}	// namespace detail
 

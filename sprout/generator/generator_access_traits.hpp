@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace generators {
@@ -23,8 +24,8 @@ namespace sprout {
 					typename U = T,
 					typename = decltype(std::declval<U>().generated_value())
 				>
-				static std::true_type test(int);
-				static std::false_type test(...);
+				static sprout::true_type test(int);
+				static sprout::false_type test(...);
 			};
 #if defined(_MSC_VER)
 			template<typename T, typename Base_ = decltype(sprout::generators::detail::has_mem_generated_value_test<T>::test(0))>
@@ -98,8 +99,8 @@ namespace sprout {
 					typename U = T,
 					typename = decltype(std::declval<U>().next_generator())
 				>
-				static std::true_type test(int);
-				static std::false_type test(...);
+				static sprout::true_type test(int);
+				static sprout::false_type test(...);
 			};
 #if defined(_MSC_VER)
 			template<typename T, typename Base_ = decltype(sprout::generators::detail::has_mem_next_generator_test<T>::test(0))>

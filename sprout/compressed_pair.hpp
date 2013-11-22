@@ -12,6 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/detail/call_traits.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -19,27 +20,27 @@ namespace sprout {
 		struct compressed_pair_switch;
 		template<typename T1, typename T2>
 		struct compressed_pair_switch<T1, T2, false, false, false>
-			: public std::integral_constant<int, 0>
+			: public sprout::integral_constant<int, 0>
 		{};
 		template<typename T1, typename T2>
 		struct compressed_pair_switch<T1, T2, false, true, false>
-			: public std::integral_constant<int, 1>
+			: public sprout::integral_constant<int, 1>
 		{};
 		template<typename T1, typename T2>
 		struct compressed_pair_switch<T1, T2, false, false, true>
-			: public std::integral_constant<int, 2>
+			: public sprout::integral_constant<int, 2>
 		{};
 		template<typename T1, typename T2>
 		struct compressed_pair_switch<T1, T2, false, true, true>
-			: public std::integral_constant<int, 3>
+			: public sprout::integral_constant<int, 3>
 		{};
 		template<typename T1, typename T2>
 		struct compressed_pair_switch<T1, T2, true, true, true>
-			: public std::integral_constant<int, 4>
+			: public sprout::integral_constant<int, 4>
 		{};
 		template<typename T1, typename T2>
 		struct compressed_pair_switch<T1, T2, true, false, false>
-			: public std::integral_constant<int, 5>
+			: public sprout::integral_constant<int, 5>
 		{};
 
 		template<typename T1, typename T2, int Version>

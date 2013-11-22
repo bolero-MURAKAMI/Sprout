@@ -16,6 +16,7 @@
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/seq/algorithm/find_if.hpp>
 #include <sprout/type/iterator/distance.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace types {
@@ -27,11 +28,11 @@ namespace sprout {
 			public:
 				template<typename T, typename Enable = void>
 				struct apply
-					: public std::false_type
+					: public sprout::false_type
 				{};
 				template<typename T>
 				struct apply<T, typename std::enable_if<T::value == 0>::type>
-					: public std::true_type
+					: public sprout::true_type
 				{};
 			};
 			template<typename Sequence>

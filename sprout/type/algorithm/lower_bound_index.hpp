@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type/functional/less.hpp>
 #include <sprout/type/tuple.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace types {
@@ -29,7 +30,7 @@ namespace sprout {
 				Tuple, T, Compare, First, Last,
 				0
 			>
-				: public std::integral_constant<std::size_t, Last>
+				: public sprout::integral_constant<std::size_t, Last>
 			{};
 			template<
 				typename Tuple, typename T, typename Compare, std::size_t First, std::size_t Last
@@ -38,7 +39,7 @@ namespace sprout {
 				Tuple, T, Compare, First, Last,
 				1
 			>
-				: public std::integral_constant<
+				: public sprout::integral_constant<
 					std::size_t,
 					Compare::template apply<typename sprout::types::tuple_element<First, Tuple>::type, T>::type::value ? Last : First
 				>

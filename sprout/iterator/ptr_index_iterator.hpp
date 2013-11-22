@@ -17,6 +17,7 @@
 #include <sprout/iterator/distance.hpp>
 #include <sprout/iterator/detail/iterator_to_pointer.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -273,7 +274,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_ptr_index_iterator
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T>
 	struct is_ptr_index_iterator<T const>
@@ -285,7 +286,7 @@ namespace sprout {
 	{};
 	template<typename T>
 	struct is_ptr_index_iterator<sprout::ptr_index_iterator<T> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 
 	//

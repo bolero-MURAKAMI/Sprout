@@ -12,12 +12,13 @@
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace detail {
 		template<typename IntType, long N, long D>
 		struct integer_digits_impl
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				std::size_t,
 				(CHAR_BIT * sizeof(IntType) - (std::is_signed<IntType>::value ? 1 : 0)) * N / D
 				+ ((CHAR_BIT * sizeof(IntType) - (std::is_signed<IntType>::value ? 1 : 0)) * N % D ? 1 : 0)

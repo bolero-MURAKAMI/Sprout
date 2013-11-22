@@ -10,11 +10,11 @@
 
 #include <cstddef>
 #include <tuple>
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 #include <sprout/uuid/uuid.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -50,7 +50,7 @@ namespace std {
 	template<>
 	struct tuple_size<sprout::uuids::uuid> {
 	public:
-		typedef std::integral_constant<std::size_t, 16> type;
+		typedef sprout::integral_constant<std::size_t, 16> type;
 		SPROUT_STATIC_CONSTEXPR std::size_t value = type::value;
 	};
 

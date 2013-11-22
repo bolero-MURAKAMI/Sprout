@@ -13,12 +13,13 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/type_traits/is_iterator.hpp>
 #include <sprout/iterator/type_traits/is_iterator_category_of.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace detail {
 		template<typename MaybeIterator, typename Category, typename = void>
 		struct is_iterator_of_impl
-			: public std::false_type
+			: public sprout::false_type
 		{};
 		template<typename MaybeIterator, typename Category>
 		struct is_iterator_of_impl<
@@ -78,7 +79,7 @@ namespace sprout {
 	//
 	template<typename MaybeIterator>
 	struct is_iterator_outputable
-		: public std::integral_constant<
+		: public sprout::integral_constant<
 			bool,
 			sprout::is_output_iterator<typename std::decay<MaybeIterator>::type>::value
 				|| sprout::is_forward_iterator<typename std::decay<MaybeIterator>::type>::value

@@ -9,8 +9,8 @@
 #define SPROUT_ITERATOR_TYPE_TRAITS_IS_ITERATOR_CATEGORY_OF_HPP
 
 #include <iterator>
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	//
@@ -18,7 +18,7 @@ namespace sprout {
 	//
 	template<typename MaybeCategory, typename Category>
 	struct is_iterator_category_of
-		: public std::is_convertible<MaybeCategory, Category>
+		: public sprout::is_convertible<MaybeCategory, Category>
 	{};
 
 	//

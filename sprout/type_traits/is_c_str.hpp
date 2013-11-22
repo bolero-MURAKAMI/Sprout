@@ -34,7 +34,7 @@ namespace sprout {
 	{};
 	template<std::size_t N>
 	struct is_c_str<char[N]>
-		: public std::true_type
+		: public sprout::true_type
 	{};
 	template<std::size_t N>
 	struct is_c_str<wchar_t[N]>

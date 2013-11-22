@@ -8,8 +8,8 @@
 #ifndef SPROUT_TYPE_FUNCTIONAL_LESS_HPP
 #define SPROUT_TYPE_FUNCTIONAL_LESS_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace types {
@@ -18,7 +18,7 @@ namespace sprout {
 		//
 		template<typename T, typename U>
 		struct less
-			: public std::integral_constant<bool, ((T::value) < (U::value))>
+			: public sprout::integral_constant<bool, ((T::value) < (U::value))>
 		{};
 
 		//

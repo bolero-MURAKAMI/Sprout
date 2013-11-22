@@ -8,9 +8,9 @@
 #ifndef SPROUT_SUB_ARRAY_TYPE_TRAITS_HPP
 #define SPROUT_SUB_ARRAY_TYPE_TRAITS_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/sub_array/sub_array.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -18,7 +18,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_sub_array
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T>
 	struct is_sub_array<T const>
@@ -30,7 +30,7 @@ namespace sprout {
 	{};
 	template<typename Container>
 	struct is_sub_array<sprout::sub_array<Container> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 }	// namespace sprout
 

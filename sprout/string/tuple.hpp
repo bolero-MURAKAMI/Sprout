@@ -10,11 +10,11 @@
 
 #include <cstddef>
 #include <tuple>
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/get.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -49,7 +49,7 @@ namespace std {
 	//
 	template<typename T, std::size_t N, typename Traits>
 	struct tuple_size<sprout::basic_string<T, N, Traits> >
-		: public std::integral_constant<std::size_t, N>
+		: public sprout::integral_constant<std::size_t, N>
 	{};
 
 	//

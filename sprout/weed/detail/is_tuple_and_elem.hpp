@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/weed/traits/type/is_tuple.hpp>
 #include <sprout/weed/traits/type/is_unused.hpp>
 
@@ -18,7 +19,7 @@ namespace sprout {
 		namespace detail {
 			template<typename T, typename U, typename = void>
 			struct is_tuple_and_elem
-				: public std::false_type
+				: public sprout::false_type
 			{};
 			template<typename T, typename U>
 			struct is_tuple_and_elem<
@@ -30,7 +31,7 @@ namespace sprout {
 					&& !sprout::weed::traits::is_unused<U>::value
 				>::type
 			>
-				: public std::true_type
+				: public sprout::true_type
 			{};
 		}	// namespace detail
 	}	// namespace weed

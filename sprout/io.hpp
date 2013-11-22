@@ -13,16 +13,17 @@
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/param_at.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/string.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
 #include <sprout/range/numeric/partial_sum.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
-#include <sprout/detail/param_at.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -61,7 +62,7 @@ namespace sprout {
 			//
 			template<sprout::io::flags::fmtflags Flag>
 			struct boolean_flag
-				: public std::integral_constant<sprout::io::flags::fmtflags, Flag>
+				: public sprout::integral_constant<sprout::io::flags::fmtflags, Flag>
 			{
 			private:
 				bool flag_;
@@ -86,7 +87,7 @@ namespace sprout {
 			//
 			template<sprout::io::flags::fmtflags Flag, sprout::io::flags::fmtflags Mask>
 			struct field_flag
-				: public std::integral_constant<sprout::io::flags::fmtflags, Flag>
+				: public sprout::integral_constant<sprout::io::flags::fmtflags, Flag>
 			{
 			public:
 				SPROUT_STATIC_CONSTEXPR sprout::io::flags::fmtflags mask = Mask;
@@ -565,15 +566,15 @@ namespace sprout {
 			struct leaf_count;
 			template<>
 			struct leaf_count<sprout::io::root_t>
-				: public std::integral_constant<std::size_t, 0>
+				: public sprout::integral_constant<std::size_t, 0>
 			{};
 			template<typename T>
 			struct leaf_count<sprout::io::leaf_expression<T> >
-				: public std::integral_constant<std::size_t, 1>
+				: public sprout::integral_constant<std::size_t, 1>
 			{};
 			template<typename Left, typename Right>
 			struct leaf_count<sprout::io::format_expression<Left, Right> >
-				: public std::integral_constant<
+				: public sprout::integral_constant<
 					std::size_t,
 					sprout::io::detail::leaf_count<Left>::value + sprout::io::detail::leaf_count<Right>::value
 				>

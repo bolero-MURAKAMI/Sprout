@@ -8,8 +8,8 @@
 #ifndef SPROUT_FUNCTIONAL_BIND_PLACEHOLDER_HPP
 #define SPROUT_FUNCTIONAL_BIND_PLACEHOLDER_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -171,7 +171,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_placeholder
-		: public std::integral_constant<int, 0>
+		: public sprout::integral_constant<int, 0>
 	{};
 	template<typename T>
 	struct is_placeholder<T const>
@@ -187,7 +187,7 @@ namespace sprout {
 	{};
 	template<int N>
 	struct is_placeholder<sprout::placeholder<N> >
-		: public std::integral_constant<int, N>
+		: public sprout::integral_constant<int, N>
 	{};
 
 	//
@@ -195,7 +195,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_positional_placeholder
-		: public std::integral_constant<int, 0>
+		: public sprout::integral_constant<int, 0>
 	{};
 	template<typename T>
 	struct is_positional_placeholder<T const>
@@ -211,7 +211,7 @@ namespace sprout {
 	{};
 	template<>
 	struct is_positional_placeholder<sprout::positional_placeholder>
-		: public std::integral_constant<int, 1>
+		: public sprout::integral_constant<int, 1>
 	{};
 
 	//
@@ -219,7 +219,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_variadic_placeholder
-		: public std::integral_constant<int, 0>
+		: public sprout::integral_constant<int, 0>
 	{};
 	template<typename T>
 	struct is_variadic_placeholder<T const>
@@ -235,7 +235,7 @@ namespace sprout {
 	{};
 	template<int N>
 	struct is_variadic_placeholder<sprout::variadic_placeholder<N> >
-		: public std::integral_constant<int, N + 1>
+		: public sprout::integral_constant<int, N + 1>
 	{};
 }	// namespace sprout
 

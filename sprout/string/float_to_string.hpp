@@ -14,6 +14,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/string/string.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/isinf.hpp>
 #include <sprout/math/isnan.hpp>
@@ -34,7 +35,7 @@ namespace sprout {
 	//
 	template<typename FloatType>
 	struct printed_float_digits
-		: public std::integral_constant<
+		: public sprout::integral_constant<
 			std::size_t,
 			sprout::numeric_limits<FloatType>::max_exponent10 + sprout::detail::decimal_places_length + 2
 		>
@@ -104,7 +105,7 @@ namespace sprout {
 	namespace detail {
 		template<typename FloatType>
 		struct printed_float_exponent10_digits
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				std::size_t,
 				NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(sprout::numeric_limits<FloatType>::max_exponent10), 2)
 			>
@@ -116,7 +117,7 @@ namespace sprout {
 	//
 	template<typename FloatType>
 	struct printed_float_exp_digits
-		: public std::integral_constant<
+		: public sprout::integral_constant<
 			std::size_t,
 			5 + sprout::detail::decimal_places_length + sprout::detail::printed_float_exponent10_digits<FloatType>::value
 		>

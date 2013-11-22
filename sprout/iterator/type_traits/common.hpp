@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/common_decay.hpp>
 
@@ -21,19 +22,19 @@ namespace sprout {
 		struct iterator_category_hierarchy_impl;
 		template<typename Category, bool IsBidirectional, bool IsForward, bool IsSinglePassOrIncrementable>
 		struct iterator_category_hierarchy_impl<Category, true, IsBidirectional, IsForward, IsSinglePassOrIncrementable>
-			: public std::integral_constant<int, 4>
+			: public sprout::integral_constant<int, 4>
 		{};
 		template<typename Category, bool IsForward, bool IsSinglePassOrIncrementable>
 		struct iterator_category_hierarchy_impl<Category, false, true, IsForward, IsSinglePassOrIncrementable>
-			: public std::integral_constant<int, 3>
+			: public sprout::integral_constant<int, 3>
 		{};
 		template<typename Category, bool IsSinglePassOrIncrementable>
 		struct iterator_category_hierarchy_impl<Category, false, false, true, IsSinglePassOrIncrementable>
-			: public std::integral_constant<int, 2>
+			: public sprout::integral_constant<int, 2>
 		{};
 		template<typename Category>
 		struct iterator_category_hierarchy_impl<Category, false, false, false, true>
-			: public std::integral_constant<int, 1>
+			: public sprout::integral_constant<int, 1>
 		{};
 
 		template<typename Category>
@@ -49,7 +50,7 @@ namespace sprout {
 
 		template<typename Category1, typename Category2>
 		struct iterator_category_less
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				(sprout::detail::iterator_category_hierarchy<Category1>::value < sprout::detail::iterator_category_hierarchy<Category2>::value)
 			>

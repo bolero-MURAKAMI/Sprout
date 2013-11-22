@@ -10,12 +10,12 @@
 
 #include <cstddef>
 #include <tuple>
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/iterator.hpp>
 #include <sprout/type/iterator/index_iterator.hpp>
 #include <sprout/type/rebind_types.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace types {
@@ -76,7 +76,7 @@ namespace std {
 	//
 	template<typename... Types>
 	struct tuple_size<sprout::types::type_tuple<Types...> >
-		: public std::integral_constant<std::size_t, sizeof...(Types)>
+		: public sprout::integral_constant<std::size_t, sizeof...(Types)>
 	{};
 
 	//

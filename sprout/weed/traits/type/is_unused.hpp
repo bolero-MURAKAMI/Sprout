@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/weed/unused.hpp>
 
 namespace sprout {
@@ -20,7 +21,7 @@ namespace sprout {
 			//
 			template<typename T>
 			struct is_unused
-				: public std::false_type
+				: public sprout::false_type
 			{};
 			template<typename T>
 			struct is_unused<T const>
@@ -36,7 +37,7 @@ namespace sprout {
 			{};
 			template<>
 			struct is_unused<sprout::weed::unused>
-				: public std::true_type
+				: public sprout::true_type
 			{};
 		}	// namespace traits
 	}	// namespace weed

@@ -20,6 +20,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/pack.hpp>
 #include <sprout/utility/pair/pair_fwd.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/is_convert_constructible.hpp>
 #include <sprout/tpp/algorithm/all_of.hpp>
 #include <sprout/tuple/tuple/tuple_fwd.hpp>
@@ -290,7 +291,7 @@ namespace sprout {
 
 			template<typename... UTypes>
 			struct is_fixedly_convert_constructible
-				: public std::integral_constant<
+				: public sprout::integral_constant<
 					bool,
 					(sizeof...(UTypes) == sizeof...(Types) && is_flexibly_convert_constructible<UTypes...>::value)
 				>
@@ -495,7 +496,7 @@ namespace std {
 	//
 	template<typename... Types>
 	struct tuple_size<sprout::tuples::tuple<Types...> >
-		: public std::integral_constant<std::size_t, sizeof...(Types)>
+		: public sprout::integral_constant<std::size_t, sizeof...(Types)>
 	{};
 
 	//

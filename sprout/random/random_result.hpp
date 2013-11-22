@@ -18,6 +18,7 @@
 #include <sprout/generator.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace random {
@@ -365,7 +366,7 @@ namespace std {
 	//
 	template<typename Engine, typename Distribution>
 	struct tuple_size<sprout::random::random_result<Engine, Distribution> >
-		: public std::integral_constant<std::size_t, 2>
+		: public sprout::integral_constant<std::size_t, 2>
 	{};
 
 	//

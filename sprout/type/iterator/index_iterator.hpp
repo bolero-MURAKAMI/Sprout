@@ -21,7 +21,7 @@ namespace sprout {
 		//
 		template<typename Tuple, std::ptrdiff_t Index>
 		struct index_iterator
-			: public std::integral_constant<std::ptrdiff_t, Index>
+			: public sprout::integral_constant<std::ptrdiff_t, Index>
 		{
 		public:
 			typedef typename sprout::types::tuple_element<Index, Tuple>::type type;

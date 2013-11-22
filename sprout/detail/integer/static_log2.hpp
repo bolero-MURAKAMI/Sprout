@@ -9,8 +9,8 @@
 #define SPROUT_DETAIL_INTEGER_STATIC_LOG2_HPP
 
 #include <cstdint>
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -58,7 +58,7 @@ namespace sprout {
 
 		template<sprout::detail::static_log2_argument_type x>
 		struct static_log2
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				sprout::detail::static_log2_result_type,
 				sprout::detail::static_log2_impl::static_log2_impl<x>::value
 				>

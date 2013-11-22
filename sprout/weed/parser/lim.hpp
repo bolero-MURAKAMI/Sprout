@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/limited.hpp>
@@ -91,7 +92,7 @@ namespace sprout {
 			//
 			template<typename Parser, std::size_t Limit, typename Iterator, typename Context>
 			struct limit_of<sprout::weed::limit_p<Parser, Limit>, Iterator, Context>
-				: public std::integral_constant<std::size_t, Limit>
+				: public sprout::integral_constant<std::size_t, Limit>
 			{};
 		}	// namespace traits
 	}	// namespace weed

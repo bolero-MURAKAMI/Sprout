@@ -17,6 +17,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace range {
@@ -117,7 +118,7 @@ namespace sprout {
 		//
 		template<typename T>
 		struct is_range_container
-			: public std::false_type
+			: public sprout::false_type
 		{};
 		template<typename T>
 		struct is_range_container<T const>
@@ -133,7 +134,7 @@ namespace sprout {
 		{};
 		template<typename Iterator>
 		struct is_range_container<sprout::range::range_container<Iterator> >
-			: public std::true_type
+			: public sprout::true_type
 		{};
 
 		//

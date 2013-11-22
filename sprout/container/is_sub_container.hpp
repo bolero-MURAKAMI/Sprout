@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/internal.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace containers {
@@ -19,7 +20,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct is_sub_container
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				!std::is_same<typename sprout::containers::internal<Container>::type, Container&&>::value
 			>

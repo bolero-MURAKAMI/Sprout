@@ -27,6 +27,7 @@
 #include <sprout/algorithm/cxx14/swap_ranges.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/less.hpp>
@@ -234,7 +235,7 @@ namespace sprout {
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		template<typename Iterator>
 		class is_string_iterator
-			: public std::false_type
+			: public sprout::false_type
 		{};
 		template<typename Iterator>
 		class is_string_iterator<Iterator const>
@@ -250,11 +251,11 @@ namespace sprout {
 		{};
 		template<std::size_t N2>
 		class is_string_iterator<sprout::index_iterator<basic_string<T, N2, Traits>&, true> >
-			: public std::true_type
+			: public sprout::true_type
 		{};
 		template<std::size_t N2>
 		class is_string_iterator<sprout::index_iterator<basic_string<T, N2, Traits> const&, true> >
-			: public std::true_type
+			: public sprout::true_type
 		{};
 #endif
 	public:

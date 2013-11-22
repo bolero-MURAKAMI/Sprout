@@ -19,6 +19,7 @@
 #include <sprout/range/adaptor/size_enumed.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
 #include <sprout/range/numeric/partial_sum.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/is_c_str.hpp>
 
 namespace sprout {
@@ -31,7 +32,7 @@ namespace sprout {
 				String,
 				typename std::enable_if<sprout::is_c_str<String>::value>::type
 			>
-				: public std::integral_constant<
+				: public sprout::integral_constant<
 					typename sprout::container_traits<String>::size_type,
 					sprout::container_traits<String>::static_size - 1
 				>
@@ -41,7 +42,7 @@ namespace sprout {
 				String,
 				typename std::enable_if<!sprout::is_c_str<String>::value>::type
 			>
-				: public std::integral_constant<
+				: public sprout::integral_constant<
 					typename sprout::container_traits<String>::size_type,
 					sprout::container_traits<String>::static_size
 				>

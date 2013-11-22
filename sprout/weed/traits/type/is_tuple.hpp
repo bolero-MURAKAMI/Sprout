@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -20,7 +21,7 @@ namespace sprout {
 			//
 			template<typename T>
 			struct is_tuple
-				: public std::false_type
+				: public sprout::false_type
 			{};
 			template<typename T>
 			struct is_tuple<T const>
@@ -36,7 +37,7 @@ namespace sprout {
 			{};
 			template<typename... Types>
 			struct is_tuple<sprout::tuples::tuple<Types...> >
-				: public std::true_type
+				: public sprout::true_type
 			{};
 		}	// namespace traits
 	}	// namespace weed

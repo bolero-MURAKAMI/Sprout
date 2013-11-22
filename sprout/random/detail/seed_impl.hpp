@@ -16,6 +16,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/array.hpp>
 #include <sprout/pit.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/detail/integer/static_log2.hpp>
 
@@ -26,13 +27,13 @@ namespace sprout {
 			struct seed_log
 				: public std::conditional<
 					m == 0,
-					std::integral_constant<int, sprout::numeric_limits<IntType>::digits>,
-					std::integral_constant<int, sprout::detail::static_log2<m>::value>
+					sprout::integral_constant<int, sprout::numeric_limits<IntType>::digits>,
+					sprout::integral_constant<int, sprout::detail::static_log2<m>::value>
 				>::type
 			{};
 			template<typename IntType, IntType m, int log>
 			struct seed_k
-				: public std::integral_constant<
+				: public sprout::integral_constant<
 					int,
 					(log + ((~(IntType(2) << (log - 1)) & m)? 32 : 31)) / 32
 				>

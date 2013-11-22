@@ -12,6 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/string.hpp>
 #include <sprout/array/array.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -21,7 +22,7 @@ namespace sprout {
 			//
 			template<typename T>
 			struct is_container
-				: public std::false_type
+				: public sprout::false_type
 			{};
 			template<typename T>
 			struct is_container<T const>
@@ -37,11 +38,11 @@ namespace sprout {
 			{};
 			template<typename T, std::size_t N>
 			struct is_container<sprout::array<T, N> >
-				: public std::true_type
+				: public sprout::true_type
 			{};
 			template<typename T, std::size_t N, typename Traits>
 			struct is_container<sprout::basic_string<T, N, Traits> >
-				: public std::true_type
+				: public sprout::true_type
 			{};
 		}	// namespace traits
 	}	// namespace weed

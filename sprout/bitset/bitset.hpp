@@ -14,6 +14,7 @@
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/detail/sizeof.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/iterator/index_iterator.hpp>
 #include <sprout/functional/hash.hpp>
@@ -36,11 +37,6 @@
 
 namespace sprout {
 	namespace detail {
-		template<typename T>
-		struct sizeof_
-			: public std::integral_constant<std::size_t, sizeof(T)>
-		{};
-
 		struct base_bitset_from_words_construct_tag {};
 
 		template<std::size_t N>

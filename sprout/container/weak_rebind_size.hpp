@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/container_transform_traits.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace containers {
@@ -19,9 +20,9 @@ namespace sprout {
 				typename T,
 				template<typename sprout::container_traits<T>::size_type> class = T::template rebind_size
 			>
-			std::true_type sprout_has_xxx_impl_check_template_rebind_size(int);
+			sprout::true_type sprout_has_xxx_impl_check_template_rebind_size(int);
 			template<typename T>
-			std::false_type sprout_has_xxx_impl_check_template_rebind_size(long);
+			sprout::false_type sprout_has_xxx_impl_check_template_rebind_size(long);
 #if defined(_MSC_VER)
 			template<typename T, typename Base_ = decltype(sprout::containers::detail::sprout_has_xxx_impl_check_template_rebind_size<T>(0))>
 			struct has_rebind_size

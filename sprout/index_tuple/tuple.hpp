@@ -10,11 +10,11 @@
 
 #include <cstddef>
 #include <tuple>
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/integer_sequence.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
 #include <sprout/utility/pack.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace std {
 #if defined(__clang__)
@@ -26,7 +26,7 @@ namespace std {
 	//
 	template<typename T, T... Is>
 	struct tuple_size<sprout::integer_sequence<T, Is...> >
-		: public std::integral_constant<std::size_t, sizeof...(Is)>
+		: public sprout::integral_constant<std::size_t, sizeof...(Is)>
 	{};
 	//
 	// tuple_element

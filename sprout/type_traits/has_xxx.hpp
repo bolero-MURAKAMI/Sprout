@@ -11,7 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/preprocessor/cat.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
 
 //
 // SPROUT_HAS_XXX_TYPE_DEF

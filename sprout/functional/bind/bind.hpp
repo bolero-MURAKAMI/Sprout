@@ -28,6 +28,7 @@
 #include <sprout/functional/mem_fn.hpp>
 #include <sprout/functional/type_traits/weak_result_type.hpp>
 #include <sprout/functional/bind/placeholder.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	// 20.8.9 bind
@@ -37,7 +38,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_bind_expression
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T>
 	struct is_bind_expression<T const>
@@ -201,7 +202,7 @@ namespace sprout {
 		public:
 			template<typename T>
 			struct apply
-				: public std::integral_constant<
+				: public sprout::integral_constant<
 					bool,
 					(sprout::is_variadic_placeholder<T>::value > 0)
 				>
@@ -209,7 +210,7 @@ namespace sprout {
 		};
 		template<typename Bounds, typename = void>
 		struct is_variadic_bounds
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				(sprout::types::find_index_if<Bounds, sprout::detail::is_variadic_placeholder_pred>::value != sprout::tuples::tuple_size<Bounds>::value)
 			>
@@ -217,19 +218,19 @@ namespace sprout {
 
 		template<typename T>
 		struct tail_place
-			: public std::integral_constant<int, sprout::is_variadic_placeholder<T>::value - 1>
+			: public sprout::integral_constant<int, sprout::is_variadic_placeholder<T>::value - 1>
 		{};
 
 		template<typename T, std::size_t ArgSize, typename = void>
 		struct bound_size
-			: public std::integral_constant<std::size_t, 1>
+			: public sprout::integral_constant<std::size_t, 1>
 		{};
 		template<typename T, std::size_t ArgSize>
 		struct bound_size<
 			T, ArgSize,
 			typename std::enable_if<(sprout::is_variadic_placeholder<T>::value > 0)>::type
 		>
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				std::size_t,
 				(ArgSize - sprout::detail::tail_place<T>::value)
 			>
@@ -237,14 +238,14 @@ namespace sprout {
 
 		template<std::size_t I, typename Bounds, std::size_t ArgSize, typename = void>
 		struct bounds_size_impl
-			: public std::integral_constant<std::size_t, 0>
+			: public sprout::integral_constant<std::size_t, 0>
 		{};
 		template<std::size_t I, typename Bounds, std::size_t ArgSize>
 		struct bounds_size_impl<
 			I, Bounds, ArgSize,
 			typename std::enable_if<(I < sprout::tuples::tuple_size<Bounds>::value)>::type
 		>
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				std::size_t,
 				(sprout::detail::bound_size<typename sprout::tuples::tuple_element<I, Bounds>::type, ArgSize>::value
 					+ sprout::detail::bounds_size_impl<I + 1, Bounds, ArgSize>::value
@@ -284,11 +285,11 @@ namespace sprout {
 
 		template<sprout::index_t I, typename Bounds, std::size_t ArgSize>
 		struct bound_position
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				sprout::index_t,
 				(sprout::types::lower_bound_index<
 					typename sprout::detail::bounds_partial_size<Bounds, ArgSize>::type,
-					std::integral_constant<std::size_t, I + 1>
+					sprout::integral_constant<std::size_t, I + 1>
 					>::type::value - 1
 					)
 			>
@@ -296,7 +297,7 @@ namespace sprout {
 
 		template<sprout::index_t I, typename Bounds, std::size_t ArgSize>
 		struct is_variadic_part
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				(sprout::is_variadic_placeholder<
 						typename sprout::tuples::tuple_element<
@@ -798,19 +799,19 @@ namespace sprout {
 	//
 	template<typename Signature>
 	struct is_bind_expression<sprout::binder<Signature> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 	template<typename Result, typename Signature>
 	struct is_bind_expression<sprout::res_binder<Result, Signature> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 	template<typename Signature>
 	struct is_bind_expression<sprout::cbinder<Signature> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 	template<typename Result, typename Signature>
 	struct is_bind_expression<sprout::res_cbinder<Result, Signature> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 
 	namespace detail {

@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -18,7 +19,7 @@ namespace sprout {
 	//
 	template<typename MaybeIterator>
 	struct is_constant_distance_iterator
-		: public std::integral_constant<
+		: public sprout::integral_constant<
 			bool,
 #ifdef SPROUT_NO_CXX14_CONSTEXPR
 			sprout::is_random_access_iterator<MaybeIterator>::value && !std::is_pointer<MaybeIterator>::value

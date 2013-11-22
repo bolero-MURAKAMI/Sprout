@@ -8,8 +8,8 @@
 #ifndef SPROUT_INTEGER_STATIC_POW_HPP
 #define SPROUT_INTEGER_STATIC_POW_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -17,7 +17,7 @@ namespace sprout {
 	//
 	template<typename T, T X>
 	struct static_pow2
-		: public std::integral_constant<T, (1 << X)>
+		: public sprout::integral_constant<T, (1 << X)>
 	{};
 
 	namespace detail {
@@ -25,11 +25,11 @@ namespace sprout {
 		struct static_pow2m1;
 		template<typename T, T X>
 		struct static_pow2m1<T, X, true>
-			: public std::integral_constant<T, 1>
+			: public sprout::integral_constant<T, 1>
 		{};
 		template<typename T, T X>
 		struct static_pow2m1<T, X, false>
-			: public std::integral_constant<T, ((((T(1) << (X - 1)) - 1) << 1) + 1)>
+			: public sprout::integral_constant<T, ((((T(1) << (X - 1)) - 1) << 1) + 1)>
 		{};
 	}	// namespace detail
 	//
@@ -45,15 +45,15 @@ namespace sprout {
 		struct static_pow;
 		template<typename T, T X, T Y>
 		struct static_pow<T, X, Y, 0, false>
-			: public std::integral_constant<T, 1>
+			: public sprout::integral_constant<T, 1>
 		{};
 		template<typename T, T X, T Y>
 		struct static_pow<T, X, Y, 1, true>
-			: public std::integral_constant<T, X>
+			: public sprout::integral_constant<T, X>
 		{};
 		template<typename T, T X, T Y>
 		struct static_pow<T, X, Y, 2, false>
-			: public std::integral_constant<T, X * X>
+			: public sprout::integral_constant<T, X * X>
 		{};
 		template<typename T, T X, T Y, int K>
 		struct static_pow<T, X, Y, K, false>
@@ -61,7 +61,7 @@ namespace sprout {
 		{};
 		template<typename T, T X, T Y, int K>
 		struct static_pow<T, X, Y, K, true>
-			: public std::integral_constant<T, X * sprout::detail::static_pow<T, X, Y - 1>::value>
+			: public sprout::integral_constant<T, X * sprout::detail::static_pow<T, X, Y - 1>::value>
 		{};
 	}	// namespace detail
 	//

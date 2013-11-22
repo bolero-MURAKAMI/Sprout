@@ -9,10 +9,10 @@
 #define SPROUT_UTILITY_PAIR_TUPLE_HPP
 
 #include <cstddef>
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -66,7 +66,7 @@ namespace std {
 	//
 	template<typename T1, typename T2>
 	struct tuple_size<sprout::pair<T1, T2> >
-		: public std::integral_constant<std::size_t, 2>
+		: public sprout::integral_constant<std::size_t, 2>
 	{};
 
 	//

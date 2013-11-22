@@ -20,6 +20,7 @@
 #include <sprout/string/npos.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/string/detail/operations.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
@@ -53,7 +54,7 @@ namespace sprout {
 	private:
 		template<typename Iterator>
 		class is_string_ref_iterator
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				std::is_same<Iterator, sprout::index_iterator<basic_string_ref&, true> >::value
 					|| std::is_same<Iterator, sprout::index_iterator<basic_string_ref const&, true> >::value

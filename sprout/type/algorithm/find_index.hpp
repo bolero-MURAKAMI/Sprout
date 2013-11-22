@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type/tuple.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace types {
@@ -26,7 +27,7 @@ namespace sprout {
 					|| std::is_same<typename sprout::types::tuple_element<I, Tuple>::type, T>::value
 				>::type
 			>
-				: public std::integral_constant<std::size_t, I>
+				: public sprout::integral_constant<std::size_t, I>
 			{};
 			template<typename Tuple, typename T, std::size_t I>
 			struct find_index_impl<

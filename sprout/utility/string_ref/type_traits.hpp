@@ -8,9 +8,9 @@
 #ifndef SPROUT_UTILITY_STRING_REF_TYPE_TRAITS_HPP
 #define SPROUT_UTILITY_STRING_REF_TYPE_TRAITS_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/string_ref/string_ref.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -18,7 +18,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_basic_string_ref
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T>
 	struct is_basic_string_ref<T const>
@@ -30,7 +30,7 @@ namespace sprout {
 	{};
 	template<typename T, typename Traits>
 	struct is_basic_string_ref<sprout::basic_string_ref<T, Traits> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 
 	//
@@ -38,7 +38,7 @@ namespace sprout {
 	//
 	template<typename T, typename Elem>
 	struct is_string_ref_of
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T, typename Elem>
 	struct is_string_ref_of<T const, Elem>
@@ -50,7 +50,7 @@ namespace sprout {
 	{};
 	template<typename T, typename Traits, typename Elem>
 	struct is_string_ref_of<sprout::basic_string_ref<T, Traits>, Elem>
-		: public std::true_type
+		: public sprout::true_type
 	{};
 
 	//

@@ -14,6 +14,7 @@
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/integer/integer_digits.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>
@@ -24,7 +25,7 @@ namespace sprout {
 	//
 	template<typename IntType, std::size_t Base = 10>
 	struct printed_integer_digits
-		: public std::integral_constant<
+		: public sprout::integral_constant<
 			std::size_t,
 			sprout::integer_digits<IntType, Base>::value + (std::is_signed<IntType>::value ? 1 : 0)
 		>

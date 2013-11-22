@@ -8,9 +8,9 @@
 #ifndef SPROUT_VARIANT_TYPE_TRAITS_HPP
 #define SPROUT_VARIANT_TYPE_TRAITS_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/variant/variant_fwd.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
@@ -18,7 +18,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_variant
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T>
 	struct is_variant<T const>
@@ -30,7 +30,7 @@ namespace sprout {
 	{};
 	template<typename... Types>
 	struct is_variant<sprout::variant<Types...> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 }	// namespace sprout
 

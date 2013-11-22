@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/weed/expr/expr_fwd.hpp>
 
 namespace sprout {
@@ -20,7 +21,7 @@ namespace sprout {
 			//
 			template<typename T>
 			struct is_expr
-				: public std::false_type
+				: public sprout::false_type
 			{};
 			template<typename T>
 			struct is_expr<T const>
@@ -36,7 +37,7 @@ namespace sprout {
 			{};
 			template<typename Tag, typename... Args>
 			struct is_expr<sprout::weed::expr<Tag, Args...> >
-				: public std::true_type
+				: public sprout::true_type
 			{};
 		}	// namespace traits
 	}	// namespace weed

@@ -13,6 +13,7 @@
 #include <array>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>
 #include <sprout/container/detail/array_like.hpp>
@@ -91,7 +92,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct has_container_nosy_iterator
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				sprout::detail::has_iterator<Container>::value
 					|| sprout::detail::has_const_iterator<Container>::value
@@ -102,7 +103,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct has_container_nosy_value_type
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				sprout::detail::has_value_type<Container>::value
 					|| sprout::detail::has_container_nosy_iterator<Container>::value
@@ -113,7 +114,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct has_container_nosy_static_size
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				sprout::detail::has_static_size<Container>::value
 					|| sprout::detail::is_array_like<Container>::value
@@ -540,7 +541,7 @@ namespace sprout {
 			Container,
 			typename std::enable_if<sprout::is_fixed_container<sprout::container_traits<Container> >::value>::type
 		>
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				typename sprout::container_traits<Container>::size_type,
 				sprout::container_traits<Container>::static_size
 			>
@@ -550,7 +551,7 @@ namespace sprout {
 			Container,
 			typename std::enable_if<!sprout::is_fixed_container<sprout::container_traits<Container> >::value>::type
 		>
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				typename sprout::container_traits<Container>::size_type,
 				0
 			>

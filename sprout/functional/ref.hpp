@@ -12,6 +12,7 @@
 #include <functional>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>
 #include <sprout/functional/base.hpp>
@@ -211,7 +212,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_reference_wrapper
-		: public std::false_type
+		: public sprout::false_type
 	{};
 	template<typename T>
 	struct is_reference_wrapper<T const>
@@ -227,7 +228,7 @@ namespace sprout {
 	{};
 	template<typename T>
 	struct is_reference_wrapper<sprout::reference_wrapper<T> >
-		: public std::true_type
+		: public sprout::true_type
 	{};
 
 	//

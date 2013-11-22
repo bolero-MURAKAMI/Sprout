@@ -14,6 +14,7 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/range/adaptor/detail/sized_range_default.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
@@ -49,7 +50,7 @@ namespace sprout {
 		//
 		template<std::size_t Size>
 		class size_holder
-			: public std::integral_constant<std::size_t, Size>
+			: public sprout::integral_constant<std::size_t, Size>
 		{};
 
 		//

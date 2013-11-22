@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
 #include <sprout/weed/traits/type/is_char_type.hpp>
@@ -32,7 +33,7 @@ namespace sprout {
 					&& !std::is_const<T>::value
 				>::type
 			>
-				: public std::true_type
+				: public sprout::true_type
 			{};
 			template<typename T>
 			struct is_parser<
@@ -42,7 +43,7 @@ namespace sprout {
 					&& !std::is_const<T>::value
 				>::type
 			>
-				: public std::true_type
+				: public sprout::true_type
 			{};
 			template<typename T>
 			struct is_parser<
@@ -52,7 +53,7 @@ namespace sprout {
 					&& !std::is_const<T>::value
 				>::type
 			>
-				: public std::true_type
+				: public sprout::true_type
 			{};
 			template<typename T>
 			struct is_parser<
@@ -62,7 +63,7 @@ namespace sprout {
 					&& !std::is_const<T>::value
 				>::type
 			>
-				: public std::true_type
+				: public sprout::true_type
 			{};
 			template<typename T>
 			struct is_parser<

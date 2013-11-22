@@ -8,8 +8,8 @@
 #ifndef SPROUT_TYPE_TRAITS_REMOVE_CVREF_HPP
 #define SPROUT_TYPE_TRAITS_REMOVE_CVREF_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	//
@@ -17,8 +17,8 @@ namespace sprout {
 	//
 	template<typename T>
 	struct remove_cvref
-		: public sprout::remove_cv<
-			typename sprout::remove_reference<T>::type
+		: public std::remove_cv<
+			typename std::remove_reference<T>::type
 		>
 	{};
 

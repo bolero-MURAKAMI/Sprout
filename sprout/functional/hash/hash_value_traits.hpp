@@ -15,12 +15,13 @@
 #include <sprout/limits.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/functional/hash/detail/hash_float.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace hash_detail {
 		template<typename T>
 		struct is_basic_number
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				std::is_integral<T>::value
 					&& (sizeof(T) <= sizeof(std::size_t))
@@ -28,7 +29,7 @@ namespace sprout {
 		{};
 		template<typename T>
 		struct is_long_number
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				std::is_integral<T>::value
 					&& (sizeof(T) > sizeof(std::size_t))
@@ -37,7 +38,7 @@ namespace sprout {
 		{};
 		template<typename T>
 		struct is_ulong_number
-			: public std::integral_constant<
+			: public sprout::integral_constant<
 				bool,
 				std::is_integral<T>::value
 					&& (sizeof(T) > sizeof(std::size_t))

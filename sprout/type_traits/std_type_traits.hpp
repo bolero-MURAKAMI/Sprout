@@ -335,8 +335,8 @@ namespace sprout {
 	struct is_trivially_destructible
 		: public sprout::integral_constant<
 			bool,
-			sprout::is_scalar<typename std::remove_all_extents<T>::type>::value
-				|| sprout::is_reference<typename std::remove_all_extents<T>::type>::value
+			std::is_scalar<typename std::remove_all_extents<T>::type>::value
+				|| std::is_reference<typename std::remove_all_extents<T>::type>::value
 		>
 	{};
 #endif	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_GREATER_EQUAL(4, 3, 0)
@@ -379,8 +379,8 @@ namespace sprout {
 	struct is_nothrow_destructible
 		: public sprout::integral_constant<
 			bool,
-			sprout::is_scalar<typename std::remove_all_extents<T>::type>::value
-				|| sprout::is_reference<typename std::remove_all_extents<T>::type>::value
+			std::is_scalar<typename std::remove_all_extents<T>::type>::value
+				|| std::is_reference<typename std::remove_all_extents<T>::type>::value
 		>
 	{};
 #else	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_LESS(4, 8, 0)
@@ -460,9 +460,9 @@ namespace sprout {
 #if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION < 1101)
 	template<std::size_t Len, typename... Types>
 	struct aligned_union
-		: public sprout::aligned_storage<
+		: public std::aligned_storage<
 			sprout::tpp::max_element_c<std::size_t, Len, sizeof(Types)...>::value,
-			sprout::tpp::max_element_c<std::size_t, sprout::alignment_of<Types>::value...>::value
+			sprout::tpp::max_element_c<std::size_t, std::alignment_of<Types>::value...>::value
 		>
 	{};
 #else	// #if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION < 1101)

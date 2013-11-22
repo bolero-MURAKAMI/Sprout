@@ -9,9 +9,9 @@
 #define SPROUT_UTILITY_PACK_HPP
 
 #include <cstddef>
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -45,7 +45,7 @@ namespace sprout {
 	//
 	template<std::size_t I, typename T, T... Args>
 	struct tppack_c_at
-		: public sprout::tppack_at<I, std::integral_constant<T, Args>...>::type
+		: public sprout::tppack_at<I, sprout::integral_constant<T, Args>...>::type
 	{};
 
 	//
