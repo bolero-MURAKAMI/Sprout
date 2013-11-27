@@ -1,0 +1,6 @@
+add_executable( libs_string_example_c_str_to_sprout_string c_str_to_sprout_string.cpp )
+set_target_properties( libs_string_example_c_str_to_sprout_string PROPERTIES OUTPUT_NAME "c_str_to_sprout_string" )
+add_executable( libs_string_example_literals_to_string literals_to_string.cpp )
+set_target_properties( libs_string_example_literals_to_string PROPERTIES OUTPUT_NAME "literals_to_string" )
+add_executable( libs_string_example_simple simple.cpp )
+set_target_properties( libs_string_example_simple PROPERTIES OUTPUT_NAME "simple" )

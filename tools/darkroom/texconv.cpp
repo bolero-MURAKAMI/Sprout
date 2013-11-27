@@ -14,7 +14,7 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include <opencv/cv.hpp>
-#include <opencv/highgui.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 int main(int argc, char* argv[]) {
 	if (argc < 2) {

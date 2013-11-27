@@ -1,0 +1,8 @@
+add_executable( libs_random_example_array array.cpp )
+set_target_properties( libs_random_example_array PROPERTIES OUTPUT_NAME "array" )
+#add_executable( libs_random_example_distribution distribution.cpp )
+#set_target_properties( libs_random_example_distribution PROPERTIES OUTPUT_NAME "distribution" )
+#add_executable( libs_random_example_random random.cpp )
+#set_target_properties( libs_random_example_random PROPERTIES OUTPUT_NAME "random" )
+#add_executable( libs_random_example_seed seed.cpp )
+#set_target_properties( libs_random_example_seed PROPERTIES OUTPUT_NAME "seed" )
