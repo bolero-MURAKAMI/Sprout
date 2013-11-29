@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 
 namespace sprout {
 	namespace types {
@@ -34,7 +35,7 @@ namespace sprout {
 		//
 		template<typename T, typename Enable = void>
 		struct tuple_size
-			: public std::tuple_size<T>
+			: public sprout::detail::type_traits_wrapper<std::tuple_size<T> >
 		{};
 		//
 		// tuple_element

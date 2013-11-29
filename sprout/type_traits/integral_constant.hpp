@@ -27,6 +27,10 @@ namespace sprout {
 		operator value_type() const SPROUT_NOEXCEPT {
 			return std::integral_constant<T, v>::value;
 		}
+		SPROUT_CONSTEXPR bool
+		operator!() const SPROUT_NOEXCEPT {
+			return !std::integral_constant<T, v>::value;
+		}
 		SPROUT_CONSTEXPR value_type
 		operator()() const SPROUT_NOEXCEPT {
 			return std::integral_constant<T, v>::value;

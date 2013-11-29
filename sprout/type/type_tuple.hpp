@@ -10,12 +10,14 @@
 
 #include <cstddef>
 #include <tuple>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/iterator.hpp>
 #include <sprout/type/iterator/index_iterator.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	namespace types {
@@ -48,16 +50,41 @@ namespace sprout {
 		};
 
 		namespace detail {
-			template<std::size_t I, typename T>
-			struct tuple_element_impl;
+			template<typename T>
+			struct tuple_head;
 			template<typename Head, typename... Tail>
-			struct tuple_element_impl<0, sprout::types::type_tuple<Head, Tail...> > {
-			public:
-				typedef Head type;
-			};
-			template<std::size_t I, typename Head, typename... Tail>
-			struct tuple_element_impl<I, sprout::types::type_tuple<Head, Tail...> >
-				: public sprout::types::detail::tuple_element_impl<I - 1, sprout::types::type_tuple<Tail...> >
+			struct tuple_head<sprout::types::type_tuple<Head, Tail...> >
+				: public sprout::identity<Head>
+			{};
+
+			template<std::size_t I, std::size_t N, typename T, typename Enable = void>
+			struct tuple_skip;
+			template<std::size_t I, std::size_t N, typename Head, typename... Tail>
+			struct tuple_skip<
+				I, N, sprout::types::type_tuple<Head, Tail...>,
+				typename std::enable_if<(I == 0)>::type
+			>
+				: public sprout::identity<sprout::types::type_tuple<Head, Tail...> >
+			{};
+			template<std::size_t I, std::size_t N, typename Head, typename... Tail>
+			struct tuple_skip<
+				I, N, sprout::types::type_tuple<Head, Tail...>,
+				typename std::enable_if<(I != 0 && I < N / 2)>::type
+			>
+				: public sprout::types::detail::tuple_skip<
+					I - 1, N / 2 - 1,
+					sprout::types::type_tuple<Tail...>
+				>
+			{};
+			template<std::size_t I, std::size_t N, typename Head, typename... Tail>
+			struct tuple_skip<
+				I, N, sprout::types::type_tuple<Head, Tail...>,
+				typename std::enable_if<(I != 0 && I >= N / 2)>::type
+			>
+				: public sprout::types::detail::tuple_skip<
+					I - N / 2, N - N / 2,
+					typename sprout::types::detail::tuple_skip<N / 2 - 1, N / 2, sprout::types::type_tuple<Tail...> >::type
+				>
 			{};
 		}	// namespace detail
 	}	// namespace types
@@ -84,7 +111,9 @@ namespace std {
 	//
 	template<std::size_t I, typename... Types>
 	struct tuple_element<I, sprout::types::type_tuple<Types...> >
-		: public sprout::types::detail::tuple_element_impl<I, sprout::types::type_tuple<Types...> >
+		: public sprout::types::detail::tuple_head<
+			typename sprout::types::detail::tuple_skip<I, sizeof...(Types), sprout::types::type_tuple<Types...> >::type
+		>
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop

@@ -267,8 +267,8 @@ namespace sprout {
 			struct is_flexibly_convert_constructible_impl<sprout::index_tuple<Indexes...>, Utypes...>
 				: public sprout::tpp::all_of<
 					sprout::is_convert_constructible<
-						typename sprout::tppack_at<Indexes, Types...>::type,
-						typename sprout::tppack_at<Indexes, Utypes...>::type
+						typename sprout::pack_element<Indexes, Types...>::type,
+						typename sprout::pack_element<Indexes, Utypes...>::type
 					>...
 				>
 			{};
@@ -466,20 +466,6 @@ namespace sprout {
 		{
 			lhs.swap(rhs);
 		}
-
-		namespace detail {
-			template<std::size_t I, typename T>
-			struct tuple_element_impl;
-			template<typename Head, typename... Tail>
-			struct tuple_element_impl<0, sprout::tuples::tuple<Head, Tail...> > {
-			public:
-				typedef Head type;
-			};
-			template<std::size_t I, typename Head, typename... Tail>
-			struct tuple_element_impl<I, sprout::tuples::tuple<Head, Tail...> >
-				: public sprout::tuples::detail::tuple_element_impl<I - 1, sprout::tuples::tuple<Tail...> >
-			{};
-		}	// namespace detail
 	}	// namespace tuples
 
 	using sprout::tuples::tuple;
@@ -504,7 +490,7 @@ namespace std {
 	//
 	template<std::size_t I, typename... Types>
 	struct tuple_element<I, sprout::tuples::tuple<Types...> >
-		: public sprout::tuples::detail::tuple_element_impl<I, sprout::tuples::tuple<Types...> >
+		: public sprout::pack_element<I, Types...>
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop

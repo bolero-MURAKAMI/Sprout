@@ -14,6 +14,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/optional/in_place.hpp>
 
 namespace sprout {
@@ -184,7 +185,7 @@ namespace sprout {
 	public:
 		template<typename... Args>
 		struct is_constructible_args
-			: public std::is_constructible<T, Args&&...>
+			: public sprout::is_constructible<T, Args&&...>
 		{};
 	public:
 		static SPROUT_CONSTEXPR reference get(value_holder& t) SPROUT_NOEXCEPT {

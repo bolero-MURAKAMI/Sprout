@@ -35,7 +35,7 @@ namespace std {
 	struct tuple_element<I, sprout::integer_sequence<T, Is...> > {
 		static_assert(I < sizeof...(Is), "tuple_element<>: index out of range");
 	public:
-		typedef typename sprout::tppack_c_at<I, T, Is...>::type type;
+		typedef typename sprout::pack_element_c<I, T, Is...>::type type;
 	};
 
 #if !SPROUT_USE_TEMPLATE_ALIASES
