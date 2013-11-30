@@ -13,6 +13,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/index_n.hpp>
+#include <sprout/index_tuple/make_index_tuple.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/iterator.hpp>
 #include <sprout/type/iterator/index_iterator.hpp>
@@ -51,21 +52,21 @@ namespace sprout {
 		};
 
 		namespace detail {
-			template<typename T>
+			template<typename Tup>
 			struct head_element;
 			template<typename Head, typename... Tail>
 			struct head_element<sprout::types::type_tuple<Head, Tail...> >
 				: public sprout::identity<Head>
 			{};
 
-			template<typename T>
+			template<typename Tup>
 			struct tuple_head;
 			template<typename Head, typename... Tail>
 			struct tuple_head<sprout::types::type_tuple<Head, Tail...> >
 				: public sprout::identity<sprout::types::type_tuple<Head> >
 			{};
 
-			template<typename T>
+			template<typename Tup>
 			struct tuple_tail;
 			template<typename Head, typename... Tail>
 			struct tuple_tail<sprout::types::type_tuple<Head, Tail...> >
@@ -74,7 +75,14 @@ namespace sprout {
 
 			template<sprout::index_t, typename T = void>
 			struct dummy_index
-				: sprout::identity<T>
+				: public sprout::identity<T>
+			{};
+
+			template<typename Tup1, typename Tup2>
+			struct tuple_cat;
+			template<typename... Types1, typename... Types2>
+			struct tuple_cat<sprout::types::type_tuple<Types1...>, sprout::types::type_tuple<Types2...> >
+				: public sprout::identity<sprout::types::type_tuple<Types1..., Types2...> >
 			{};
 
 			template<typename IndexTuple>
@@ -85,58 +93,47 @@ namespace sprout {
 				static sprout::types::type_tuple<typename Types::type...>
 				eval(typename sprout::types::detail::dummy_index<Indexes>::type*..., Types*...);
 			};
-			template<std::size_t I, typename T>
+			template<std::size_t I, typename Tup>
 			struct tuple_drop_impl;
 			template<std::size_t I, typename... Types>
 			struct tuple_drop_impl<I, sprout::types::type_tuple<Types...> >
 				: public sprout::identity<decltype(
-					sprout::types::detail::tuple_drop_helper<typename sprout::index_n<0, I>::type>::eval(
-						static_cast<sprout::identity<Types>*>(0)...
-						)
+					sprout::types::detail::tuple_drop_helper<typename sprout::index_n<0, I>::type>
+						::eval(static_cast<sprout::identity<Types>*>(0)...)
 				)>::type
 			{};
-			template<std::size_t I, typename T>
+			template<std::size_t I, typename Tup>
 			struct tuple_drop;
 			template<std::size_t I, typename... Types>
 			struct tuple_drop<I, sprout::types::type_tuple<Types...> >
 				: public sprout::types::detail::tuple_drop_impl<I, sprout::types::type_tuple<Types...> >
 			{};
 
-//			template<std::size_t I, std::size_t N, typename T, typename Enable = void>
-//			struct tuple_drop_impl;
-//			template<std::size_t I, std::size_t N, typename Head, typename... Tail>
-//			struct tuple_drop_impl<
-//				I, N, sprout::types::type_tuple<Head, Tail...>,
-//				typename std::enable_if<(I == 0)>::type
-//			>
-//				: public sprout::identity<sprout::types::type_tuple<Head, Tail...> >
-//			{};
-//			template<std::size_t I, std::size_t N, typename Head, typename... Tail>
-//			struct tuple_drop_impl<
-//				I, N, sprout::types::type_tuple<Head, Tail...>,
-//				typename std::enable_if<(I != 0 && I < N / 2)>::type
-//			>
-//				: public sprout::types::detail::tuple_drop_impl<
-//					I - 1, N / 2 - 1,
-//					sprout::types::type_tuple<Tail...>
-//				>
-//			{};
-//			template<std::size_t I, std::size_t N, typename Head, typename... Tail>
-//			struct tuple_drop_impl<
-//				I, N, sprout::types::type_tuple<Head, Tail...>,
-//				typename std::enable_if<(I != 0 && I >= N / 2)>::type
-//			>
-//				: public sprout::types::detail::tuple_drop_impl<
-//					I - N / 2, N - N / 2,
-//					typename sprout::types::detail::tuple_drop_impl<N / 2 - 1, N / 2, sprout::types::type_tuple<Tail...> >::type
-//				>
-//			{};
-//			template<std::size_t I, typename T>
-//			struct tuple_drop;
-//			template<std::size_t I, typename... Types>
-//			struct tuple_drop<I, sprout::types::type_tuple<Types...> >
-//				: public sprout::types::detail::tuple_drop_impl<I, sizeof...(Types), sprout::types::type_tuple<Types...> >
-//			{};
+			template<std::size_t I, typename Tup>
+			struct tuple_element;
+			template<std::size_t I, typename... Types>
+			struct tuple_element<I, sprout::types::type_tuple<Types...> >
+				: public sprout::types::detail::head_element<
+					typename sprout::types::detail::tuple_drop<I, sprout::types::type_tuple<Types...> >::type
+				>
+			{};
+
+			template<std::size_t I, typename Tup, typename IndexTuple>
+			struct tuple_take_impl;
+			template<std::size_t I, typename... Types, sprout::index_t... Indexes>
+			struct tuple_take_impl<I, sprout::types::type_tuple<Types...>, sprout::index_tuple<Indexes...> >
+				: public sprout::identity<
+					sprout::types::type_tuple<
+						typename sprout::types::detail::tuple_element<Indexes, sprout::types::type_tuple<Types...> >::type...
+					>
+				>::type
+			{};
+			template<std::size_t I, typename Tup>
+			struct tuple_take;
+			template<std::size_t I, typename... Types>
+			struct tuple_take<I, sprout::types::type_tuple<Types...> >
+				: public sprout::types::detail::tuple_take_impl<I, sprout::types::type_tuple<Types...>, typename sprout::make_index_tuple<I>::type>
+			{};
 		}	// namespace detail
 	}	// namespace types
 
@@ -162,9 +159,7 @@ namespace std {
 	//
 	template<std::size_t I, typename... Types>
 	struct tuple_element<I, sprout::types::type_tuple<Types...> >
-		: public sprout::types::detail::head_element<
-			typename sprout::types::detail::tuple_drop<I, sprout::types::type_tuple<Types...> >::type
-		>
+		: public sprout::types::detail::tuple_element<I, sprout::types::type_tuple<Types...> >
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop
