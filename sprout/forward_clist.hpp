@@ -117,7 +117,7 @@ namespace sprout {
 				return result;
 			}
 			SPROUT_CONSTEXPR bool is_initialized() const SPROUT_NOEXCEPT {
-				return item->is_initialized();
+				return item.is_initialized();
 			}
 		};
 
