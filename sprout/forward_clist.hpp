@@ -225,7 +225,6 @@ namespace sprout {
 			item& operator=(item const&) SPROUT_DELETED_FUNCTION_DECL
 			item& operator=(item&&) SPROUT_DELETED_FUNCTION_DECL
 		private:
-			item(item const&) = default;
 			SPROUT_CONSTEXPR item(typename holder_type::argument_type p, item_holder_type const& n)
 				: val(p)
 				, next(n)
@@ -259,6 +258,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR item() SPROUT_NOEXCEPT
 				: val(), next()
 			{}
+			item(item const&) = default;
 			SPROUT_CONSTEXPR item(typename holder_type::argument_type p)
 				: val(p), next()
 			{}
