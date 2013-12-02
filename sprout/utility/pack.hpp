@@ -36,23 +36,6 @@ namespace sprout {
 	// pack_get
 	//
 	namespace detail {
-//		template<
-//			std::size_t I, typename R, typename Head, typename... Tail,
-//			typename sprout::enabler_if<I == 0>::type = sprout::enabler
-//		>
-//		inline SPROUT_CONSTEXPR R
-//		pack_get_impl(Head&& head, Tail&&...) {
-//			return sprout::forward<Head>(head);
-//		}
-//		template<
-//			std::size_t I, typename R, typename Head, typename... Tail,
-//			typename sprout::enabler_if<I != 0>::type = sprout::enabler
-//		>
-//		inline SPROUT_CONSTEXPR R
-//		pack_get_impl(Head&&, Tail&&... tail) {
-//			return sprout::detail::pack_get_impl<I - 1, R>(sprout::forward<Tail>(tail)...);
-//		}
-
 		template<typename Tup>
 		struct pack_get_helper;
 		template<typename... Args>
@@ -70,10 +53,6 @@ namespace sprout {
 		return sprout::detail::pack_get_helper<
 			typename sprout::types::detail::tuple_take<I, sprout::types::type_tuple<Args...> >::type
 		>::eval(sprout::forward<Args>(args)...);
-//		return sprout::detail::pack_get_impl<
-//			I,
-//			typename sprout::pack_element<I, Args&&...>::type
-//		>(sprout::forward<Args>(args)...);
 	}
 }	// namespace sprout
 

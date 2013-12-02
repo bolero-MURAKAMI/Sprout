@@ -246,13 +246,13 @@ namespace sprout {
 				if (next.is_initialized()) {
 					next->unlink_all();
 					{
-						item_holder_type temp;
+						item_holder_type temp = item_holder_type();
 						temp.swap(next);
 					}
 				}
 			}
 			SPROUT_CXX14_CONSTEXPR void unlink() {
-				item_holder_type temp;
+				item_holder_type temp = item_holder_type();
 				temp.swap(next);
 			}
 		public:
@@ -260,8 +260,7 @@ namespace sprout {
 				: val(), next()
 			{}
 			SPROUT_CONSTEXPR item(typename holder_type::argument_type p)
-				: val(p)
-				, next()
+				: val(p), next()
 			{}
 			SPROUT_CONSTEXPR item(typename holder_type::movable_argument_type p)
 				: val(sprout::move(p)), next()
