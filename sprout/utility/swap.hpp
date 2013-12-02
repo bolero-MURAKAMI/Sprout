@@ -10,12 +10,22 @@
 
 #include <cstddef>
 #include <utility>
+#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/utility/move.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout_swap_detail {
 	using std::swap;
 
-	template<typename T>
+	template<typename T, typename sprout::enabler_if<std::is_scalar<T>::value>::type = sprout::enabler>
+	inline SPROUT_CXX14_CONSTEXPR void
+	swap_impl(T& a, T& b) SPROUT_NOEXCEPT {
+		T temp = sprout::move(a);
+		a = sprout::move(b);
+		b = sprout::move(temp);
+	}
+	template<typename T, typename sprout::enabler_if<!std::is_scalar<T>::value>::type = sprout::enabler>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap_impl(T& a, T& b)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(swap(a, b)))
@@ -25,10 +35,10 @@ namespace sprout_swap_detail {
 	template<typename T, std::size_t N>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap_impl(T (& a)[N], T (& b)[N])
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(swap(*a, *b)))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout_swap_detail::swap_impl(*a, *b)))
 	{
 		for (std::size_t i = 0; i < N; ++i) {
-			swap(a[i], b[i]);
+			sprout_swap_detail::swap_impl(a[i], b[i]);
 		}
 	}
 }	// namespace sprout_swap_detail
