@@ -127,7 +127,9 @@ namespace sprout {
 			bool
 		>::type
 		operator==(sprout::detail::forward_item_iterator<List1> const& lhs, sprout::detail::forward_item_iterator<List2> const& rhs) {
-			return !(lhs.is_initialized() || rhs.is_initialized()) || &*lhs == &*rhs;
+			return !lhs.is_initialized() ? !rhs.is_initialized()
+				: rhs.is_initialized() && &*lhs == &*rhs
+				;
 		}
 		template<typename List1, typename List2>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
