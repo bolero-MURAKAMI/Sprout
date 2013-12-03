@@ -40,10 +40,10 @@ namespace sprout {
 		struct pack_get_helper;
 		template<typename... Args>
 		struct pack_get_helper<sprout::types::type_tuple<Args...> > {
-			template<typename T>
-			static SPROUT_CONSTEXPR T&&
-			eval(Args&&..., T&& t, ...) {
-				return sprout::forward<T>(t);
+			template<typename Head, typename... Tail>
+			static SPROUT_CONSTEXPR Head&&
+			eval(Args&&..., Head&& head, Tail&&...) {
+				return sprout::forward<Head>(head);
 			}
 		};
 	}	// namespace detail

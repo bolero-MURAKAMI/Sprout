@@ -21,26 +21,22 @@ namespace darkcult {
 			objects::aa_plane_direction::y,
 			-2.0,
 			materials::make_plaid_material_image(
-				colors::rgb_f(1.0, 0.0, 0.0),
-				colors::rgb_f(1.0, 1.0, 0.0),
-				0.0,
-				0.0
+				colors::rgb_f(1.0, 0.0, 0.0), colors::rgb_f(1.0, 1.0, 0.0),
+				0.0, 0.0
 				)
 			),
 		objects::make_sphere(
 			coords::vector3d(-1.0, 0.5, 7.5),
 			2.5,
 			materials::make_uniform_material_image(
-				colors::rgb_f(0.0, 0.0, 1.0),
-				0.2
+				colors::rgb_f(0.0, 0.0, 1.0), 0.2
 				)
 			),
 		objects::make_sphere(
 			coords::vector3d(1.0, -1.0, 4.0),
 			1.0,
 			materials::make_uniform_material_image(
-				colors::rgb_f(0.0, 1.0, 0.0),
-				0.2
+				colors::rgb_f(0.0, 1.0, 0.0), 0.2
 				)
 			)
 		);

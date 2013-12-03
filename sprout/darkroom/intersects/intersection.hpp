@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
 #include <sprout/darkroom/materials/material.hpp>
@@ -19,11 +20,32 @@ namespace sprout {
 	namespace darkroom {
 		namespace intersects {
 			//
+			// intersection
+			//
+			typedef sprout::tuples::tuple<
+				bool,
+				double,
+				sprout::darkroom::coords::vector3d_t,
+				sprout::darkroom::coords::vector3d_t,
+				sprout::darkroom::materials::material,
+				bool
+			> intersection;
+
+			//
+			// has_is_from_inside
+			//
+			template<typename T>
+			struct has_is_from_inside
+				: public sprout::integral_constant<bool, (sprout::darkroom::access::size<T>::value >= 6)>
+			{};
+
+			//
 			// does_intersect
 			// distance
 			// point_of_intersection
 			// normal
 			// material
+			// is_from_inside
 			//
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
@@ -65,26 +87,36 @@ namespace sprout {
 			{
 				return sprout::darkroom::access::get<4>(sprout::forward<T>(t));
 			}
+			template<
+				typename T,
+				typename sprout::enabler_if<sprout::darkroom::intersects::has_is_from_inside<T>::value>::type = sprout::enabler
+			>
+			inline SPROUT_CONSTEXPR auto
+			is_from_inside(T&& t)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<5>(sprout::forward<T>(t))))
+			-> decltype(sprout::darkroom::access::get<5>(sprout::forward<T>(t)))
+			{
+				return sprout::darkroom::access::get<5>(sprout::forward<T>(t));
+			}
+			template<
+				typename T,
+				typename sprout::enabler_if<!sprout::darkroom::intersects::has_is_from_inside<T>::value>::type = sprout::enabler
+			>
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::element<5, sprout::darkroom::intersects::intersection>::type
+			is_from_inside(T&&)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR((typename sprout::darkroom::access::element<5, sprout::darkroom::intersects::intersection>::type())))
+			{
+				return typename sprout::darkroom::access::element<5, sprout::darkroom::intersects::intersection>::type();
+			}
 
 			//
 			// make_intersection
 			//
-			template<typename Distance, typename Point, typename Normal, typename Material>
-			inline SPROUT_CONSTEXPR sprout::tuples::tuple<bool, Distance, Point, Normal, Material>
-			make_intersection(bool b, Distance const& dist, Point const& p, Normal const& nor, Material const& mat) {
-				return sprout::tuples::make_tuple(b, dist, p, nor, mat);
+			template<typename... Elements>
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<Elements...>
+			make_material_image(Elements const&... elems) {
+				return sprout::tuples::make_tuple(elems...);
 			}
-
-			//
-			// intersection
-			//
-			typedef sprout::tuples::tuple<
-				bool,
-				double,
-				sprout::darkroom::coords::vector3d_t,
-				sprout::darkroom::coords::vector3d_t,
-				sprout::darkroom::materials::material
-			> intersection;
 		}	// namespace intersects
 	}	// namespace darkroom
 }	// namespace sprout

@@ -14,11 +14,21 @@
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/darkroom/access/access.hpp>
 
 namespace sprout {
 	namespace darkroom {
 		namespace colors {
+			//
+			// has_alpha
+			//
+			template<typename T>
+			struct has_alpha
+				: public sprout::integral_constant<bool, (sprout::darkroom::access::size<T>::value >= 4)>
+			{};
+
 			//
 			// r
 			// g
@@ -49,7 +59,13 @@ namespace sprout {
 			{
 				return sprout::darkroom::access::get<2>(sprout::forward<T>(t));
 			}
-			template<typename T>
+			//
+			// a
+			//
+			template<
+				typename T,
+				typename sprout::enabler_if<sprout::darkroom::colors::has_alpha<T>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR auto
 			a(T&& t)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<3>(sprout::forward<T>(t))))
@@ -57,13 +73,22 @@ namespace sprout {
 			{
 				return sprout::darkroom::access::get<3>(sprout::forward<T>(t));
 			}
+			template<
+				typename T,
+				typename sprout::enabler_if<!sprout::darkroom::colors::has_alpha<T>::value>::type = sprout::enabler
+			>
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::unit<T>::type
+			a(T&&)
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(typename sprout::darkroom::access::unit<T>::type()))
+			{
+				return typename sprout::darkroom::access::unit<T>::type();
+			}
 
 			//
 			// rgb_t
 			// rgb
 			//
 			typedef sprout::tuples::tuple<std::uint8_t, std::uint8_t, std::uint8_t> rgb_t;
-
 			inline SPROUT_CONSTEXPR sprout::darkroom::colors::rgb_t
 			rgb(std::uint8_t r = 0, std::uint8_t g = 0, std::uint8_t b = 0) {
 				return sprout::darkroom::colors::rgb_t(r, g, b);
@@ -74,7 +99,6 @@ namespace sprout {
 			// rgb_f
 			//
 			typedef sprout::tuples::tuple<double, double, double> rgb_f_t;
-
 			inline SPROUT_CONSTEXPR sprout::darkroom::colors::rgb_f_t
 			rgb_f(double r = 0, double g = 0, double b = 0) {
 				return sprout::darkroom::colors::rgb_f_t(r, g, b);

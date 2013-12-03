@@ -44,15 +44,13 @@ namespace sprout {
 			//
 			// make_uniform_material_image
 			//
-			template<typename Color, typename Reflection>
+			template<typename... Elements>
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
-				sprout::darkroom::materials::uniform_element<Color>,
-				sprout::darkroom::materials::uniform_element<Reflection>
+				sprout::darkroom::materials::uniform_element<Elements>...
 			>
-			make_uniform_material_image(Color const& col, Reflection const& ref) {
+			make_uniform_material_image(Elements const&... elems) {
 				return sprout::tuples::make_tuple(
-					sprout::darkroom::materials::make_uniform(col),
-					sprout::darkroom::materials::make_uniform(ref)
+					sprout::darkroom::materials::make_uniform(elems)...
 					);
 			}
 		}	// namespace materials

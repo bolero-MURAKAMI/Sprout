@@ -11,6 +11,9 @@
 #include <cstdint>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/index_tuple/make_index_tuple.hpp>
+#include <sprout/utility/pack.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/fmod.hpp>
 
 namespace sprout {
@@ -74,36 +77,56 @@ namespace sprout {
 			//
 			// make_plaid_material_image
 			//
-			template<typename Color, typename Reflection>
-			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
-				sprout::darkroom::materials::plaid_element<Color>,
-				sprout::darkroom::materials::plaid_element<Reflection>
+			namespace detail {
+				template<typename... Elements, sprout::index_t... Indexes>
+				inline SPROUT_CONSTEXPR auto
+				make_plaid_material_image_impl(
+					sprout::index_tuple<Indexes...>,
+					Elements const&... elems
+					)
+				-> decltype(sprout::tuples::make_tuple(
+					sprout::darkroom::materials::make_plaid(sprout::pack_get<Indexes * 2>(elems...), sprout::pack_get<Indexes * 2 + 1>(elems...))...
+					))
+				{
+					return sprout::tuples::make_tuple(
+						sprout::darkroom::materials::make_plaid(sprout::pack_get<Indexes * 2>(elems...), sprout::pack_get<Indexes * 2 + 1>(elems...))...
+						);
+				}
+				template<typename Unit, typename... Elements, sprout::index_t... Indexes>
+				inline SPROUT_CONSTEXPR auto
+				make_plaid_material_image_impl(
+					Unit const& scale,
+					sprout::index_tuple<Indexes...>,
+					Elements const&... elems
+					)
+				-> decltype(sprout::tuples::make_tuple(
+					sprout::darkroom::materials::make_plaid(sprout::pack_get<Indexes * 2>(elems...), sprout::pack_get<Indexes * 2 + 1>(elems...), scale)...
+					))
+				{
+					return sprout::tuples::make_tuple(
+						sprout::darkroom::materials::make_plaid(sprout::pack_get<Indexes * 2>(elems...), sprout::pack_get<Indexes * 2 + 1>(elems...), scale)...
+						);
+				}
+			}	// namespace detail
+			template<
+				typename... Elements,
+				typename sprout::enabler_if<sizeof...(Elements) % 2 == 0>::type = sprout::enabler
 			>
-			make_plaid_material_image(
-				Color const& col1, Color const& col2,
-				Reflection const& ref1, Reflection const& ref2
-				)
+			inline SPROUT_CONSTEXPR auto
+			make_plaid_material_image(Elements const&... elems)
+			-> decltype(sprout::darkroom::materials::detail::make_plaid_material_image_impl(sprout::make_index_tuple<sizeof...(Elements) / 2>::make(), elems...))
 			{
-				return sprout::tuples::make_tuple(
-					sprout::darkroom::materials::make_plaid(col1, col2),
-					sprout::darkroom::materials::make_plaid(ref1, ref2)
-					);
+				return sprout::darkroom::materials::detail::make_plaid_material_image_impl(sprout::make_index_tuple<sizeof...(Elements) / 2>::make(), elems...);
 			}
-			template<typename Color, typename Reflection, typename Unit>
-			inline SPROUT_CONSTEXPR sprout::tuples::tuple<
-				sprout::darkroom::materials::plaid_element<Color, Unit>,
-				sprout::darkroom::materials::plaid_element<Reflection, Unit>
+			template<
+				typename Unit, typename... Elements,
+				typename sprout::enabler_if<sizeof...(Elements) % 2 == 0>::type = sprout::enabler
 			>
-			make_plaid_material_image(
-				Color const& col1, Color const& col2,
-				Reflection const& ref1, Reflection const& ref2,
-				Unit const& scale
-				)
+			inline SPROUT_CONSTEXPR auto
+			make_plaid_material_image(Unit const& scale, Elements const&... elems)
+			-> decltype(sprout::darkroom::materials::detail::make_plaid_material_image_impl(scale, sprout::make_index_tuple<sizeof...(Elements) / 2>::make(), elems...))
 			{
-				return sprout::tuples::make_tuple(
-					sprout::darkroom::materials::make_plaid(col1, col2, scale),
-					sprout::darkroom::materials::make_plaid(ref1, ref2, scale)
-					);
+				return sprout::darkroom::materials::detail::make_plaid_material_image_impl(scale, sprout::make_index_tuple<sizeof...(Elements) / 2>::make(), elems...);
 			}
 		}	// namespace materials
 	}	// namespace darkroom
