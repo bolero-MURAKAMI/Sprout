@@ -43,7 +43,8 @@ namespace sprout {
 							std::declval<material_type const&>(),
 							std::declval<unit_type const&>(),
 							std::declval<unit_type const&>()
-							))
+							)),
+						bool
 					> type;
 				};
 			private:
@@ -72,7 +73,8 @@ namespace sprout {
 							: position_type(0, 0, 0)
 							,
 						normal_,//hit_side > 0 ? normal_ : sprout::darkroom::coords::negate(normal_),
-						sprout::darkroom::materials::calculate_material(mat_, unit_type(0), unit_type(0))	// ???
+						sprout::darkroom::materials::calculate_material(mat_, unit_type(0), unit_type(0)),	// ???
+						false	// !!! is_from_inside
 						);
 				}
 				template<typename Ray>

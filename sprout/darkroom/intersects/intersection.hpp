@@ -114,7 +114,7 @@ namespace sprout {
 			//
 			template<typename... Elements>
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<Elements...>
-			make_material_image(Elements const&... elems) {
+			make_intersection(Elements const&... elems) {
 				return sprout::tuples::make_tuple(elems...);
 			}
 		}	// namespace intersects
