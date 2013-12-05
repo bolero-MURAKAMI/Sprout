@@ -8,6 +8,7 @@
 #ifndef SPROUT_DARKROOM_INTERSECTS_INTERSECTION_HPP
 #define SPROUT_DARKROOM_INTERSECTS_INTERSECTION_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/utility/forward.hpp>
@@ -89,7 +90,7 @@ namespace sprout {
 			}
 			template<
 				typename T,
-				typename sprout::enabler_if<sprout::darkroom::intersects::has_is_from_inside<T>::value>::type = sprout::enabler
+				typename sprout::enabler_if<sprout::darkroom::intersects::has_is_from_inside<typename std::decay<T>::type>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR auto
 			is_from_inside(T&& t)
@@ -100,7 +101,7 @@ namespace sprout {
 			}
 			template<
 				typename T,
-				typename sprout::enabler_if<!sprout::darkroom::intersects::has_is_from_inside<T>::value>::type = sprout::enabler
+				typename sprout::enabler_if<!sprout::darkroom::intersects::has_is_from_inside<typename std::decay<T>::type>::value>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::element<5, sprout::darkroom::intersects::intersection>::type
 			is_from_inside(T&&)

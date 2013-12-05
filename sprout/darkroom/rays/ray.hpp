@@ -9,6 +9,7 @@
 #define SPROUT_DARKROOM_RAYS_RAY_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/limits.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/darkroom/access/access.hpp>
@@ -61,6 +62,32 @@ namespace sprout {
 				return sprout::darkroom::coords::add(
 					sprout::darkroom::rays::position(ray),
 					sprout::darkroom::coords::scale(sprout::darkroom::rays::direction(ray), dist)
+					);
+			}
+
+			//
+			// detach_position
+			//
+			template<typename Position, typename Direction>
+			inline SPROUT_CONSTEXPR Position
+			detach_position(Position const& pos, Direction const& dir) {
+				return sprout::darkroom::coords::add(
+					pos,
+					sprout::darkroom::coords::resize(
+						dir,
+						sprout::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256
+						)
+					);
+			}
+			//
+			// make_detached_ray
+			//
+			template<typename Position, typename Direction>
+			inline SPROUT_CONSTEXPR sprout::tuples::tuple<Position, Direction>
+			make_detached_ray(Position const& pos, Direction const& dir) {
+				return sprout::darkroom::rays::make_ray(
+					sprout::darkroom::rays::detach_position(pos, dir),
+					dir
 					);
 			}
 		}	// namespace rays

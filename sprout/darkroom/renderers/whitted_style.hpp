@@ -43,7 +43,7 @@ namespace sprout {
 					Camera const& camera, Objects const& objs, Lights const& lights,
 					Ray const& ray, Intersection const& inter, Renderer const& renderer,
 					std::size_t depth_max,
-					Direction const& reflect_dir
+					Direction const& new_dir
 					) const
 				{
 					return sprout::darkroom::renderers::calculate<Color>(
@@ -51,19 +51,8 @@ namespace sprout {
 						camera, objs, lights,
 						sprout::tuples::remake<Ray>(
 							ray,
-							sprout::darkroom::coords::add(
-								sprout::darkroom::intersects::point_of_intersection(inter),
-								sprout::darkroom::coords::scale(
-									reflect_dir,
-									sprout::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256
-									)
-								// ???
-//								sprout::darkroom::coords::scale(
-//									sprout::darkroom::intersects::normal(inter),
-//									sprout::numeric_limits<typename sprout::darkroom::access::unit<Direction>::type>::epsilon() * 256
-//									)
-								),
-							reflect_dir
+							sprout::darkroom::rays::detach_position(sprout::darkroom::intersects::point_of_intersection(inter), new_dir),
+							new_dir
 							),
 						depth_max - 1
 						);
@@ -102,6 +91,80 @@ namespace sprout {
 				}
 			};
 			//
+			// whitted_transparent
+			//
+			class whitted_transparent {
+			private:
+				template<
+					typename Color,
+					typename Camera, typename Objects, typename Lights,
+					typename Ray, typename Intersection, typename Renderer,
+					typename Direction
+				>
+				SPROUT_CONSTEXPR Color
+				color_1(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, Intersection const& inter, Renderer const& renderer,
+					std::size_t depth_max,
+					Direction const& new_dir
+					) const
+				{
+					return !sprout::darkroom::coords::is_zero(new_dir)
+						? sprout::darkroom::renderers::calculate<Color>(
+							renderer,
+							camera, objs, lights,
+							sprout::tuples::remake<Ray>(
+								ray,
+								sprout::darkroom::rays::detach_position(sprout::darkroom::intersects::point_of_intersection(inter), new_dir),
+								new_dir
+								),
+							depth_max - 1
+							)
+						: sprout::tuples::make<Color>(0, 0, 0)
+						;
+				}
+			public:
+				template<
+					typename Color,
+					typename Camera, typename Objects, typename Lights,
+					typename Ray, typename Intersection, typename Renderer
+				>
+				SPROUT_CONSTEXPR Color
+				operator()(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, Intersection const& inter, Renderer const& renderer,
+					std::size_t depth_max
+					) const
+				{
+					typedef typename std::decay<
+						decltype(sprout::darkroom::materials::alpha(sprout::darkroom::intersects::material(inter)))
+					>::type alpha_type;
+					typedef typename std::decay<
+						decltype(sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter)))
+					>::type refraction_type;
+					return depth_max > 0
+						&& sprout::darkroom::intersects::does_intersect(inter)
+						&& sprout::darkroom::materials::alpha(sprout::darkroom::intersects::material(inter))
+							> sprout::numeric_limits<alpha_type>::epsilon()
+						&& sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter))
+							> sprout::numeric_limits<refraction_type>::epsilon()
+						? color_1<Color>(
+							camera, objs, lights,
+							ray, inter, renderer,
+							depth_max,
+							sprout::darkroom::coords::refract(
+								sprout::darkroom::rays::direction(ray),
+								sprout::darkroom::intersects::normal(inter),
+								sprout::darkroom::intersects::is_from_inside(inter)
+									? 1 / sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter))
+									: sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter))
+								)
+							)
+						: sprout::tuples::make<Color>(0, 0, 0)
+						;
+				}
+			};
+			//
 			// whitted_style
 			//
 			template<typename InfinityColor = sprout::darkroom::renderers::direction_gradation>
@@ -115,18 +178,24 @@ namespace sprout {
 				SPROUT_CONSTEXPR Color
 				color_3(
 					Ray const& ray, Intersection const& inter,
-					Color const& diffuse_color, Color const& mirror_color
+					Color const& diffuse_color, Color const& mirror_color, Color const& transparent_color
 					) const
 				{
 					return sprout::darkroom::intersects::does_intersect(inter)
 						? sprout::darkroom::colors::add(
 							sprout::darkroom::colors::mul(
 								diffuse_color,
-								1 - sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
+								1
+									- sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
+									- sprout::darkroom::materials::alpha(sprout::darkroom::intersects::material(inter))
 								),
 							sprout::darkroom::colors::mul(
 								mirror_color,
 								sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
+								),
+							sprout::darkroom::colors::mul(
+								transparent_color,
+								sprout::darkroom::materials::alpha(sprout::darkroom::intersects::material(inter))
 								)
 							)
 						: sprout::darkroom::renderers::calculate_infinity<Color>(infinity_color_, sprout::darkroom::rays::direction(ray))
@@ -148,6 +217,11 @@ namespace sprout {
 						ray, inter,
 						diffuse_color,
 						sprout::darkroom::renderers::whitted_mirror().template operator()<Color>(
+							camera, objs, lights,
+							ray, inter, *this,
+							depth_max
+							),
+						sprout::darkroom::renderers::whitted_transparent().template operator()<Color>(
 							camera, objs, lights,
 							ray, inter, *this,
 							depth_max

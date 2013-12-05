@@ -110,12 +110,15 @@ namespace sprout {
 				}
 				template<typename Ray, typename Vec>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type
-				intersect_6(Ray const& ray, zwo_type const& zwo, drei_type const& drei, Vec const& normal) const {
+				intersect_6(Ray const& ray, zwo_type const& zwo, drei_type const& drei,bool is_from_inside, Vec const& normal) const {
 					return typename intersection<Ray>::type(
 						sprout::tuples::get<zw::does_intersect>(zwo),
 						sprout::tuples::get<zw::distance>(zwo),
 						sprout::tuples::get<dr::point_of_intersection>(drei),
-						sprout::tuples::get<dr::normal>(drei),
+						is_from_inside
+							? sprout::darkroom::coords::negate(normal)
+							: normal
+							,
 						sprout::darkroom::materials::calculate_material(	// ! Spherical
 							mat_,
 							sprout::atan2(
@@ -133,7 +136,7 @@ namespace sprout {
 								)
 								/ sprout::math::half_pi<unit_type>()
 							),
-						sprout::darkroom::coords::dot(normal, sprout::darkroom::rays::direction(ray)) > 0
+						is_from_inside
 						);
 				}
 				template<typename Ray>
@@ -143,6 +146,7 @@ namespace sprout {
 						ray,
 						zwo,
 						drei,
+						sprout::darkroom::coords::dot(sprout::tuples::get<dr::normal>(drei), sprout::darkroom::rays::direction(ray)) > 0,
 						sprout::tuples::get<dr::normal>(drei)
 						);
 				}

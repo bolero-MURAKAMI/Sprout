@@ -117,6 +117,14 @@ namespace sprout {
 					sprout::darkroom::colors::b(lhs) * rhs
 					);
 			}
+			template<typename Color, typename Fac, typename... Tail>
+			inline SPROUT_CONSTEXPR Color
+			mul(Color const& lhs, Fac const& rhs, Tail const&... tail) {
+				return sprout::darkroom::colors::mul(
+					sprout::darkroom::colors::mul(lhs, rhs),
+					tail...
+					);
+			}
 			//
 			// add
 			//
@@ -130,6 +138,14 @@ namespace sprout {
 					sprout::darkroom::colors::b(lhs) + sprout::darkroom::colors::b(rhs)
 					);
 			}
+			template<typename Color1, typename Color2, typename... Tail>
+			inline SPROUT_CONSTEXPR Color1
+			add(Color1 const& lhs, Color2 const& rhs, Tail const&... tail) {
+				return sprout::darkroom::colors::add(
+					sprout::darkroom::colors::add(lhs, rhs),
+					tail...
+					);
+			}
 			//
 			// filter
 			//
@@ -141,6 +157,14 @@ namespace sprout {
 					sprout::darkroom::colors::r(lhs) * sprout::darkroom::colors::r(rhs),
 					sprout::darkroom::colors::g(lhs) * sprout::darkroom::colors::g(rhs),
 					sprout::darkroom::colors::b(lhs) * sprout::darkroom::colors::b(rhs)
+					);
+			}
+			template<typename Color1, typename Color2, typename... Tail>
+			inline SPROUT_CONSTEXPR Color1
+			filter(Color1 const& lhs, Color2 const& rhs, Tail const&... tail) {
+				return sprout::darkroom::colors::filter(
+					sprout::darkroom::colors::filter(lhs, rhs),
+					tail...
 					);
 			}
 

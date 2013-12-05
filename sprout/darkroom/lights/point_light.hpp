@@ -83,14 +83,8 @@ namespace sprout {
 						direction,
 						sprout::darkroom::objects::intersect(
 							objs,
-							sprout::darkroom::rays::make_ray(
-								sprout::darkroom::coords::add(
-									sprout::darkroom::coords::scale(
-										direction,
-										sprout::numeric_limits<unit_type>::epsilon() * 256
-										),
-									sprout::darkroom::intersects::point_of_intersection(inter)
-									),
+							sprout::darkroom::rays::make_detached_ray(
+								sprout::darkroom::intersects::point_of_intersection(inter),
 								direction
 								)
 							)
