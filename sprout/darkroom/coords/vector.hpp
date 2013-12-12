@@ -218,62 +218,6 @@ namespace sprout {
 			//
 			// refract
 			//
-//			namespace detail {
-//				template<typename Incident, typename Normal, typename Refraction, typename InNor, typename K>
-//				inline SPROUT_CONSTEXPR Incident
-//				refract_impl_1(Incident const& incid, Normal const& nor, Refraction const& eta, InNor const& t, K const& k) {
-//					return k < 0 ? sprout::tuples::remake<Incident>(incid, 0, 0, 0)
-//						: sprout::darkroom::coords::sub(
-//							sprout::darkroom::coords::scale(incid, eta),
-//							sprout::darkroom::coords::scale(nor, eta * t * sprout::sqrt(k))
-//							)
-//						;
-//				}
-//				template<typename Incident, typename Normal, typename Refraction, typename InNor>
-//				inline SPROUT_CONSTEXPR Incident
-//				refract_impl(Incident const& incid, Normal const& nor, Refraction const& eta, InNor const& t) {
-//					return sprout::darkroom::coords::detail::refract_impl_1(
-//						incid, nor, eta,
-//						t, 1 - eta * eta * (1 - t * t)
-//						);
-//				}
-//			}	// namespace detail
-//			template<typename Incident, typename Normal, typename Refraction>
-//			inline SPROUT_CONSTEXPR Incident
-//			refract(Incident const& incid, Normal const& nor, Refraction const& eta) {
-//				return sprout::darkroom::coords::detail::refract_impl(
-//					incid, nor, eta,
-//					sprout::darkroom::coords::dot(incid, nor)
-//					);
-//			}
-//			namespace detail {
-//				template<typename Incident, typename Normal, typename Refraction, typename InNor, typename K>
-//				inline SPROUT_CONSTEXPR Incident
-//				refract_impl_1(Incident const& incid, Normal const& nor, Refraction const& eta, InNor const& t, K const& k) {
-//					return k < 0 ? sprout::tuples::remake<Incident>(incid, 0, 0, 0)
-//						: sprout::darkroom::coords::sub(
-//							sprout::darkroom::coords::scale(sprout::darkroom::coords::sub(incid, sprout::darkroom::coords::scale(nor, t)), eta),
-//							sprout::darkroom::coords::scale(nor, eta * t * sprout::math::sqrt(k))
-//							)
-//						;
-//				}
-//				template<typename Incident, typename Normal, typename Refraction, typename InNor>
-//				inline SPROUT_CONSTEXPR Incident
-//				refract_impl(Incident const& incid, Normal const& nor, Refraction const& eta, InNor const& t) {
-//					return sprout::darkroom::coords::detail::refract_impl_1(
-//						incid, nor, eta,
-//						t, 1 - eta * eta * (1 - t * t)
-//						);
-//				}
-//			}	// namespace detail
-//			template<typename Incident, typename Normal, typename Refraction>
-//			inline SPROUT_CONSTEXPR Incident
-//			refract(Incident const& incid, Normal const& nor, Refraction const& eta) {
-//				return sprout::darkroom::coords::detail::refract_impl(
-//					incid, nor, eta,
-//					sprout::darkroom::coords::dot(incid, nor)
-//					);
-//			}
 			namespace detail {
 				template<typename Incident, typename Normal, typename Refraction, typename InNor, typename K>
 				inline SPROUT_CONSTEXPR Incident

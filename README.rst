@@ -6,7 +6,7 @@ Sprout C++ Libraries
 Welcome to the Sprout C++ Libraries
 *******************************************************************************
 
-| C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, Synthesizer, and others.
+| C++11/14 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, Synthesizer, and others.
 
 *******************************************************************************
 Library Documentation
