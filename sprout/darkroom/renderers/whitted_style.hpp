@@ -12,7 +12,13 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>
+#include <sprout/utility/pair.hpp>
 #include <sprout/tuple/functions.hpp>
+#include <sprout/tuple/tuple/type_traits.hpp>
+#include <sprout/tuple/tuple/make_tuple.hpp>
+#include <sprout/tuple/tuple/get.hpp>
+//#include <sprout/tuple/operation/push_back.hpp>
+//#include <sprout/tuple/operation/pop_back.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 #include <sprout/darkroom/coords/vector.hpp>
@@ -35,14 +41,14 @@ namespace sprout {
 				template<
 					typename Color,
 					typename Camera, typename Objects, typename Lights,
-					typename Ray, typename Intersection, typename Renderer,
+					typename Ray, typename Refractions, typename Intersection, typename Renderer,
 					typename Direction
 				>
 				SPROUT_CONSTEXPR Color
 				color_1(
 					Camera const& camera, Objects const& objs, Lights const& lights,
 					Ray const& ray, Intersection const& inter, Renderer const& renderer,
-					std::size_t depth_max,
+					std::size_t depth_max, Refractions const& refracs,
 					Direction const& new_dir
 					) const
 				{
@@ -54,20 +60,21 @@ namespace sprout {
 							sprout::darkroom::rays::detach_position(sprout::darkroom::intersects::point_of_intersection(inter), new_dir),
 							new_dir
 							),
-						depth_max - 1
+						depth_max - 1,
+						refracs
 						);
 				}
 			public:
 				template<
 					typename Color,
 					typename Camera, typename Objects, typename Lights,
-					typename Ray, typename Intersection, typename Renderer
+					typename Ray, typename Refractions, typename Intersection, typename Renderer
 				>
 				SPROUT_CONSTEXPR Color
 				operator()(
 					Camera const& camera, Objects const& objs, Lights const& lights,
 					Ray const& ray, Intersection const& inter, Renderer const& renderer,
-					std::size_t depth_max
+					std::size_t depth_max, Refractions const& refracs
 					) const
 				{
 					typedef typename std::decay<
@@ -80,7 +87,7 @@ namespace sprout {
 						? color_1<Color>(
 							camera, objs, lights,
 							ray, inter, renderer,
-							depth_max,
+							depth_max, refracs,
 							sprout::darkroom::coords::reflect(
 								sprout::darkroom::rays::direction(ray),
 								sprout::darkroom::intersects::normal(inter)
@@ -91,49 +98,68 @@ namespace sprout {
 				}
 			};
 			//
-			// whitted_transparent
+			// whitted_transmit
 			//
-			class whitted_transparent {
+			class whitted_transmit {
 			private:
 				template<
 					typename Color,
 					typename Camera, typename Objects, typename Lights,
-					typename Ray, typename Intersection, typename Renderer,
+					typename Ray, typename Refractions, typename Intersection, typename Renderer,
 					typename Direction
 				>
-				SPROUT_CONSTEXPR Color
+				SPROUT_CONSTEXPR sprout::pair<Color, bool>
 				color_1(
 					Camera const& camera, Objects const& objs, Lights const& lights,
 					Ray const& ray, Intersection const& inter, Renderer const& renderer,
-					std::size_t depth_max,
+					std::size_t depth_max, Refractions const& refracs,
 					Direction const& new_dir
 					) const
 				{
-					return !sprout::darkroom::coords::is_zero(new_dir)
-						? sprout::darkroom::renderers::calculate<Color>(
-							renderer,
-							camera, objs, lights,
-							sprout::tuples::remake<Ray>(
-								ray,
-								sprout::darkroom::rays::detach_position(sprout::darkroom::intersects::point_of_intersection(inter), new_dir),
-								new_dir
+					return sprout::darkroom::coords::is_zero(new_dir) ? sprout::pair<Color, bool>(sprout::tuples::make<Color>(0, 0, 0), true)
+						: sprout::darkroom::intersects::is_from_inside(inter) ? sprout::pair<Color, bool>(
+							sprout::darkroom::renderers::calculate<Color>(
+								renderer,
+								camera, objs, lights,
+								sprout::tuples::remake<Ray>(
+									ray,
+									sprout::darkroom::rays::detach_position(sprout::darkroom::intersects::point_of_intersection(inter), new_dir),
+									new_dir
+									),
+								depth_max - 1,
+								sprout::tuples::remake<Refractions>(refracs, 1.0)
+								//sprout::tuples::pop_back(refracs)
 								),
-							depth_max - 1
+							false
 							)
-						: sprout::tuples::make<Color>(0, 0, 0)
+						: sprout::pair<Color, bool>(
+							sprout::darkroom::renderers::calculate<Color>(
+								renderer,
+								camera, objs, lights,
+								sprout::tuples::remake<Ray>(
+									ray,
+									sprout::darkroom::rays::detach_position(sprout::darkroom::intersects::point_of_intersection(inter), new_dir),
+									new_dir
+									),
+								depth_max - 1,
+								sprout::tuples::remake<Refractions>(refracs, sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter)))
+								//sprout::tuples::push_back(refracs, sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter)))
+								),
+							false
+							)
 						;
 				}
 			public:
 				template<
 					typename Color,
 					typename Camera, typename Objects, typename Lights,
-					typename Ray, typename Intersection, typename Renderer
+					typename Ray, typename Refractions, typename Intersection, typename Renderer
 				>
-				SPROUT_CONSTEXPR Color
+				SPROUT_CONSTEXPR sprout::pair<Color, bool>
 				operator()(
 					Camera const& camera, Objects const& objs, Lights const& lights,
 					Ray const& ray, Intersection const& inter, Renderer const& renderer,
-					std::size_t depth_max
+					std::size_t depth_max, Refractions const& refracs
 					) const
 				{
 					typedef typename std::decay<
@@ -151,16 +177,18 @@ namespace sprout {
 						? color_1<Color>(
 							camera, objs, lights,
 							ray, inter, renderer,
-							depth_max,
+							depth_max, refracs,
 							sprout::darkroom::coords::refract(
 								sprout::darkroom::rays::direction(ray),
 								sprout::darkroom::intersects::normal(inter),
 								sprout::darkroom::intersects::is_from_inside(inter)
-									? 1 / sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter))
+									? sprout::tuples::get<sprout::tuples::tuple_size<Refractions>::value - 1>(refracs)
+										/ sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter))
 									: sprout::darkroom::materials::refraction(sprout::darkroom::intersects::material(inter))
+										/ sprout::tuples::get<sprout::tuples::tuple_size<Refractions>::value - 1>(refracs)
 								)
 							)
-						: sprout::tuples::make<Color>(0, 0, 0)
+						: sprout::pair<Color, bool>(sprout::tuples::make<Color>(0, 0, 0), false)
 						;
 				}
 			};
@@ -174,11 +202,11 @@ namespace sprout {
 			private:
 				infinity_color_type infinity_color_;
 			private:
-				template<typename Color, typename Ray, typename Intersection>
+				template<typename Color, typename Ray, typename Intersection, typename DiffuseColor, typename MirrorColor, typename TransparentColors>
 				SPROUT_CONSTEXPR Color
 				color_3(
 					Ray const& ray, Intersection const& inter,
-					Color const& diffuse_color, Color const& mirror_color, Color const& transparent_color
+					DiffuseColor const& diffuse_color, MirrorColor const& mirror_color, TransparentColors const& transmit_colors
 					) const
 				{
 					return sprout::darkroom::intersects::does_intersect(inter)
@@ -191,11 +219,16 @@ namespace sprout {
 								),
 							sprout::darkroom::colors::mul(
 								mirror_color,
-								sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
+								!transmit_colors.second
+									? sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
+									: sprout::darkroom::materials::reflection(sprout::darkroom::intersects::material(inter))
+										+ sprout::darkroom::materials::alpha(sprout::darkroom::intersects::material(inter))
 								),
 							sprout::darkroom::colors::mul(
-								transparent_color,
-								sprout::darkroom::materials::alpha(sprout::darkroom::intersects::material(inter))
+								transmit_colors.first,
+								!transmit_colors.second
+									? sprout::darkroom::materials::alpha(sprout::darkroom::intersects::material(inter))
+									: 0
 								)
 							)
 						: sprout::darkroom::renderers::calculate_infinity<Color>(infinity_color_, sprout::darkroom::rays::direction(ray))
@@ -204,12 +237,12 @@ namespace sprout {
 				template<
 					typename Color,
 					typename Camera, typename Objects, typename Lights,
-					typename Ray, typename Intersection
+					typename Ray, typename Refractions, typename Intersection
 				>
 				SPROUT_CONSTEXPR Color
 				color_2(
 					Camera const& camera, Objects const& objs, Lights const& lights,
-					Ray const& ray, std::size_t depth_max, Intersection const& inter,
+					Ray const& ray, std::size_t depth_max, Refractions const& refracs, Intersection const& inter,
 					Color const& diffuse_color
 					) const
 				{
@@ -219,29 +252,29 @@ namespace sprout {
 						sprout::darkroom::renderers::whitted_mirror().template operator()<Color>(
 							camera, objs, lights,
 							ray, inter, *this,
-							depth_max
+							depth_max, refracs
 							),
-						sprout::darkroom::renderers::whitted_transparent().template operator()<Color>(
+						sprout::darkroom::renderers::whitted_transmit().template operator()<Color>(
 							camera, objs, lights,
 							ray, inter, *this,
-							depth_max
+							depth_max, refracs
 							)
 						);
 				}
 				template<
 					typename Color,
 					typename Camera, typename Objects, typename Lights,
-					typename Ray, typename Intersection
+					typename Ray, typename Refractions, typename Intersection
 				>
 				SPROUT_CONSTEXPR Color
 				color_1(
 					Camera const& camera, Objects const& objs, Lights const& lights,
-					Ray const& ray, std::size_t depth_max, Intersection const& inter
+					Ray const& ray, std::size_t depth_max, Refractions const& refracs, Intersection const& inter
 					) const
 				{
 					return color_2<Color>(
 						camera, objs, lights,
-						ray, depth_max, inter,
+						ray, depth_max, refracs, inter,
 						sprout::darkroom::lights::calculate(lights, inter, objs)
 						);
 				}
@@ -253,6 +286,37 @@ namespace sprout {
 				explicit SPROUT_CONSTEXPR whitted_style(infinity_color_type const& infinity_color)
 					: infinity_color_(infinity_color)
 				{}
+				template<
+					typename Color, typename Camera, typename Objects, typename Lights, typename Ray, typename Refractions,
+					typename sprout::enabler_if<sprout::tuples::is_tuple<Refractions>::value>::type = sprout::enabler
+				>
+				SPROUT_CONSTEXPR Color
+				operator()(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, std::size_t depth_max, Refractions const& refracs
+					) const
+				{
+					return color_1<Color>(
+						camera, objs, lights,
+						ray, depth_max, refracs,
+						sprout::darkroom::objects::intersect(objs, ray)
+						);
+				}
+				template<
+					typename Color, typename Camera, typename Objects, typename Lights, typename Ray, typename Refractions,
+					typename sprout::enabler_if<!sprout::tuples::is_tuple<Refractions>::value>::type = sprout::enabler
+				>
+				SPROUT_CONSTEXPR Color
+				operator()(
+					Camera const& camera, Objects const& objs, Lights const& lights,
+					Ray const& ray, std::size_t depth_max, Refractions const& refracs
+					) const
+				{
+					return operator()<Color>(
+						camera, objs, lights,
+						ray, depth_max, sprout::tuples::make_tuple(refracs)
+						);
+				}
 				template<typename Color, typename Camera, typename Objects, typename Lights, typename Ray>
 				SPROUT_CONSTEXPR Color
 				operator()(
@@ -260,10 +324,9 @@ namespace sprout {
 					Ray const& ray, std::size_t depth_max
 					) const
 				{
-					return color_1<Color>(
+					return operator()<Color>(
 						camera, objs, lights,
-						ray, depth_max,
-						sprout::darkroom::objects::intersect(objs, ray)
+						ray, depth_max, sprout::tuples::make_tuple(1.0)
 						);
 				}
 			};

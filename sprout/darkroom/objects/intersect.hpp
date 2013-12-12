@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/tuple/flex.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/darkroom/access/traits.hpp>
 #include <sprout/darkroom/access/access.hpp>
@@ -22,16 +23,27 @@ namespace sprout {
 			struct intersection_result;
 
 			namespace detail {
+				template<typename Object, typename Ray, typename IndexTuple>
+				struct intersection_result_impl;
+				template<typename Object, typename Ray, sprout::index_t... Indexes>
+				struct intersection_result_impl<Object, Ray, sprout::index_tuple<Indexes...> >
+					: public sprout::tuples::common_recursive_flex_type<
+						typename sprout::darkroom::objects::intersection_result<typename sprout::darkroom::access::element<Indexes, Object>::type, Ray>::type...
+					>
+				{};
+
 				template<typename Object, typename Ray, bool IsTuple>
 				struct intersection_result;
-
 				template<typename Object, typename Ray>
 				struct intersection_result<Object, Ray, false>
 					: public Object::template intersection<Ray>
 				{};
 				template<typename Object, typename Ray>
 				struct intersection_result<Object, Ray, true>
-					: public sprout::darkroom::objects::intersection_result<typename sprout::darkroom::access::unit<Object>::type, Ray>
+					: public sprout::darkroom::objects::detail::intersection_result_impl<
+						Object, Ray,
+						typename sprout::make_index_tuple<sprout::darkroom::access::size<Object>::value>::type
+					>
 				{};
 			}	// namespace detail
 
@@ -81,14 +93,15 @@ namespace sprout {
 					template<typename Objects, typename Ray, typename A, typename B>
 					SPROUT_CONSTEXPR typename sprout::darkroom::objects::intersection_result<Objects, Ray>::type
 					comp(A const& a, B const& b) const {
+						typedef typename sprout::darkroom::objects::intersection_result<Objects, Ray>::type type;
 						return sprout::darkroom::intersects::does_intersect(a)
 								&& sprout::darkroom::intersects::does_intersect(b)
 							? sprout::darkroom::intersects::distance(a) < sprout::darkroom::intersects::distance(b)
-								? a
-								: b
+								? sprout::tuples::recursive_flex<type>(a)
+								: sprout::tuples::recursive_flex<type>(b)
 							: sprout::darkroom::intersects::does_intersect(a)
-								? a
-								: b
+								? sprout::tuples::recursive_flex<type>(a)
+								: sprout::tuples::recursive_flex<type>(b)
 							;
 					}
 				public:
@@ -107,7 +120,9 @@ namespace sprout {
 					template<typename Objects, typename Ray>
 					SPROUT_CONSTEXPR typename sprout::darkroom::objects::intersection_result<Objects, Ray>::type
 					operator()(Objects const& objs, Ray const& ray) const {
-						return sprout::darkroom::objects::intersect(sprout::darkroom::access::get<0>(objs), ray);
+						return sprout::tuples::recursive_flex(
+							sprout::darkroom::objects::intersect(sprout::darkroom::access::get<0>(objs), ray)
+							);
 					}
 				};
 			}	// namespace detail

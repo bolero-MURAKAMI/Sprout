@@ -16,6 +16,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
+#include <sprout/darkroom/renderers/calculate.hpp>
 #include <sprout/darkroom/tracers/calculate.hpp>
 
 namespace sprout {
@@ -114,7 +115,7 @@ namespace sprout {
 						>::static_size,
 				typename sprout::container_traits<Pixels>::size_type height
 					= sprout::container_traits<Pixels>::static_size,
-				std::size_t depth_max = 8
+				std::size_t depth_max = sprout::darkroom::renderers::default_depth
 				)
 			{
 				return sprout::darkroom::pixels::detail::generate_impl<Pixels>(

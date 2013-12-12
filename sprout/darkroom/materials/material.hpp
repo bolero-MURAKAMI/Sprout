@@ -143,7 +143,7 @@ namespace sprout {
 			refraction(T&&)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR((typename sprout::darkroom::access::element<3, sprout::darkroom::materials::material>::type())))
 			{
-				return typename sprout::darkroom::access::element<1, sprout::darkroom::materials::material>::type();
+				return typename sprout::darkroom::access::element<3, sprout::darkroom::materials::material>::type();
 			}
 
 			//

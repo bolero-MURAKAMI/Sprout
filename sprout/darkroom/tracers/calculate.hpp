@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/identity.hpp>
+#include <sprout/darkroom/renderers/calculate.hpp>
 
 namespace sprout {
 	namespace darkroom {
@@ -38,13 +39,24 @@ namespace sprout {
 			//
 			// calculate
 			//
+			template<typename Tracer, typename Renderer, typename Camera, typename Objects, typename Lights, typename Unit2D, typename Refractions>
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::tracers::calculate_result<Tracer, Renderer, Camera, Objects, Lights, Unit2D>::type
+			calculate(
+				Tracer const& tracer,
+				Renderer const& renderer, Camera const& camera, Objects const& objs, Lights const& lights,
+				Unit2D const& x, Unit2D const& y, Unit2D const& width, Unit2D const& height,
+				std::size_t depth_max, Refractions const& refracs
+				)
+			{
+				return tracer(renderer, camera, objs, lights, x, y, width, height, depth_max, refracs);
+			}
 			template<typename Tracer, typename Renderer, typename Camera, typename Objects, typename Lights, typename Unit2D>
 			inline SPROUT_CONSTEXPR typename sprout::darkroom::tracers::calculate_result<Tracer, Renderer, Camera, Objects, Lights, Unit2D>::type
 			calculate(
 				Tracer const& tracer,
 				Renderer const& renderer, Camera const& camera, Objects const& objs, Lights const& lights,
 				Unit2D const& x, Unit2D const& y, Unit2D const& width, Unit2D const& height,
-				std::size_t depth_max = 8
+				std::size_t depth_max = sprout::darkroom::renderers::default_depth
 				)
 			{
 				return tracer(renderer, camera, objs, lights, x, y, width, height, depth_max);

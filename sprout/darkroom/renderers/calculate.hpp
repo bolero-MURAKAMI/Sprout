@@ -16,28 +16,43 @@ namespace sprout {
 	namespace darkroom {
 		namespace renderers {
 			//
+			// 
+			//
+			SPROUT_STATIC_CONSTEXPR std::size_t default_depth = 4;
+
+			//
 			// calculate_result
 			//
-			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray>
+			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray, typename Refractions = double>
 			struct calculate_result
 				: public sprout::identity<Color>
 			{};
-			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray>
-			struct calculate_result<Color, Renderer const, Camera, Objects, Lights, Ray>
-				: public sprout::darkroom::renderers::calculate_result<Color, Renderer, Camera, Objects, Lights, Ray>
+			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray, typename Refractions>
+			struct calculate_result<Color, Renderer const, Camera, Objects, Lights, Ray, Refractions>
+				: public sprout::darkroom::renderers::calculate_result<Color, Renderer, Camera, Objects, Lights, Ray, Refractions>
 			{};
-			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray>
-			struct calculate_result<Color, Renderer volatile, Camera, Objects, Lights, Ray>
-				: public sprout::darkroom::renderers::calculate_result<Color, Renderer, Camera, Objects, Lights, Ray>
+			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray, typename Refractions>
+			struct calculate_result<Color, Renderer volatile, Camera, Objects, Lights, Ray, Refractions>
+				: public sprout::darkroom::renderers::calculate_result<Color, Renderer, Camera, Objects, Lights, Ray, Refractions>
 			{};
-			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray>
-			struct calculate_result<Color, Renderer const volatile, Camera, Objects, Lights, Ray>
-				: public sprout::darkroom::renderers::calculate_result<Color, Renderer, Camera, Objects, Lights, Ray>
+			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray, typename Refractions>
+			struct calculate_result<Color, Renderer const volatile, Camera, Objects, Lights, Ray, Refractions>
+				: public sprout::darkroom::renderers::calculate_result<Color, Renderer, Camera, Objects, Lights, Ray, Refractions>
 			{};
 
 			//
 			// calculate
 			//
+			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray, typename Refractions>
+			inline SPROUT_CONSTEXPR typename sprout::darkroom::renderers::calculate_result<Color, Renderer, Camera, Objects, Lights, Ray, Refractions>::type
+			calculate(
+				Renderer const& renderer,
+				Camera const& camera, Objects const& objs, Lights const& lights,
+				Ray const& ray, std::size_t depth_max, Refractions const& refracs
+				)
+			{
+				return renderer.template operator()<Color>(camera, objs, lights, ray, depth_max, refracs);
+			}
 			template<typename Color, typename Renderer, typename Camera, typename Objects, typename Lights, typename Ray>
 			inline SPROUT_CONSTEXPR typename sprout::darkroom::renderers::calculate_result<Color, Renderer, Camera, Objects, Lights, Ray>::type
 			calculate(

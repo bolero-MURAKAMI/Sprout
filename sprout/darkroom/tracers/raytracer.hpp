@@ -25,11 +25,25 @@ namespace sprout {
 			public:
 				typedef Color color_type;
 			public:
+				template<typename Renderer, typename Camera, typename Objects, typename Lights, typename Unit2D, typename Refractions>
+				SPROUT_CONSTEXPR color_type operator()(
+					Renderer const& renderer, Camera const& camera, Objects const& objs, Lights const& lights,
+					Unit2D const& x, Unit2D const& y, Unit2D const& width, Unit2D const& height,
+					std::size_t depth_max, Refractions const& refracs
+					) const
+				{
+					return sprout::darkroom::renderers::calculate<color_type>(
+						renderer,
+						camera, objs, lights,
+						sprout::darkroom::cameras::calculate(camera, x, y, width, height),
+						depth_max, refracs
+						);
+				}
 				template<typename Renderer, typename Camera, typename Objects, typename Lights, typename Unit2D>
 				SPROUT_CONSTEXPR color_type operator()(
 					Renderer const& renderer, Camera const& camera, Objects const& objs, Lights const& lights,
 					Unit2D const& x, Unit2D const& y, Unit2D const& width, Unit2D const& height,
-					std::size_t depth_max = 8
+					std::size_t depth_max = sprout::darkroom::renderers::default_depth
 					) const
 				{
 					return sprout::darkroom::renderers::calculate<color_type>(

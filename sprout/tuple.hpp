@@ -14,5 +14,6 @@
 #include <sprout/tuple/metafunctions.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/tuple/fused.hpp>
+#include <sprout/tuple/flex.hpp>
 
 #endif	// #ifndef SPROUT_TUPLE_HPP
