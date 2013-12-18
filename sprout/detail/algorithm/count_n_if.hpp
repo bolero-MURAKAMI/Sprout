@@ -14,6 +14,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
 #include <sprout/utility/pair/pair.hpp>
+#include <sprout/algorithm/count.hpp>
 #include <sprout/algorithm/count_if.hpp>
 
 namespace sprout {
