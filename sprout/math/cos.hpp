@@ -19,7 +19,7 @@
 //#include <sprout/math/detail/sinp.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/isnan.hpp>
-#include <sprout/math/fabs.hpp>
+//#include <sprout/math/fabs.hpp>
 #include <sprout/math/factorial.hpp>
 #include <sprout/math/fmod.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
