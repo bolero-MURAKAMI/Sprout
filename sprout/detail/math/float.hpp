@@ -34,21 +34,89 @@ namespace sprout {
 		//
 		// float_exponent10
 		//
-		// !!! TODO: O(logN)
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR sprout::pair<int, FloatType>
+		float_exponent10_positive_1(sprout::pair<int, FloatType> const& current, int n) {
+			typedef sprout::pair<int, FloatType> type;
+			return (current.second) < 10 ? current
+				: n == 1 ? type(current.first + 1, current.second / 10)
+				: sprout::detail::float_exponent10_positive_1(
+					sprout::detail::float_exponent10_positive_1(
+						current,
+						n / 2
+						),
+					n - n / 2
+					)
+				;
+		}
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR sprout::pair<int, FloatType>
+		float_exponent10_positive_0(sprout::pair<int, FloatType> const& current, int n) {
+			return (current.second) < 10 ? current
+				: sprout::detail::float_exponent10_positive_0(
+					sprout::detail::float_exponent10_positive_1(
+						current,
+						n
+						),
+					n * 2
+					)
+				;
+		}
 		template<typename FloatType>
 		inline SPROUT_CONSTEXPR int
 		float_exponent10_positive(FloatType val) {
-			return val < 10 ? 0
-				: 1 + sprout::detail::float_exponent10_positive(val / 10)
+			typedef sprout::pair<int, FloatType> type;
+			return float_exponent10_positive_0(type(val, 0), 1).first;
+		}
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR sprout::pair<int, FloatType>
+		float_exponent10_negative_1(sprout::pair<int, FloatType> const& current, int n) {
+			typedef sprout::pair<int, FloatType> type;
+			return !((current.second) < 1) ? current
+				: n == 1 ? type(current.first + 1, current.second * 10)
+				: sprout::detail::float_exponent10_negative_1(
+					sprout::detail::float_exponent10_negative_1(
+						current,
+						n / 2
+						),
+					n - n / 2
+					)
+				;
+		}
+		template<typename FloatType>
+		inline SPROUT_CONSTEXPR sprout::pair<int, FloatType>
+		float_exponent10_negative_0(sprout::pair<int, FloatType> const& current, int n) {
+			return !((current.second) < 1) ? current
+				: sprout::detail::float_exponent10_negative_0(
+					sprout::detail::float_exponent10_negative_1(
+						current,
+						n
+						),
+					n * 2
+					)
 				;
 		}
 		template<typename FloatType>
 		inline SPROUT_CONSTEXPR int
 		float_exponent10_negative(FloatType val) {
-			return val < 1 ? 1 + sprout::detail::float_exponent10_negative(val * 10)
-				: 0
-				;
+			typedef sprout::pair<int, FloatType> type;
+			return float_exponent10_negative_0(type(val, 0), 1).first;
 		}
+		// !!! OLD:
+//		template<typename FloatType>
+//		inline SPROUT_CONSTEXPR int
+//		float_exponent10_positive(FloatType val) {
+//			return val < 10 ? 0
+//				: 1 + sprout::detail::float_exponent10_positive(val / 10)
+//				;
+//		}
+//		template<typename FloatType>
+//		inline SPROUT_CONSTEXPR int
+//		float_exponent10_negative(FloatType val) {
+//			return val < 1 ? 1 + sprout::detail::float_exponent10_negative(val * 10)
+//				: 0
+//				;
+//		}
 		template<
 			typename FloatType,
 			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler

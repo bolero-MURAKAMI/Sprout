@@ -16,7 +16,7 @@ namespace sprout {
 	namespace darkroom {
 		namespace renderers {
 			//
-			//
+			// default_depth
 			//
 			SPROUT_STATIC_CONSTEXPR std::size_t default_depth = 4;
 
