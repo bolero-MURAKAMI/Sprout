@@ -14,7 +14,7 @@ namespace sprout {
 	//
 	// 25.4.1.4 partial_sort_copy
 	//
-	// !!! TOTO: implementation
+	// !!! TODO: implementation
 	template<typename InputIterator, typename RandomAccessIterator>
 	inline SPROUT_CXX14_CONSTEXPR RandomAccessIterator
 	partial_sort_copy(InputIterator first, InputIterator last, RandomAccessIterator result_first, RandomAccessIterator result_last);

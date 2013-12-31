@@ -14,7 +14,7 @@ namespace sprout {
 	//
 	// 25.4.2 Nth element
 	//
-	// !!! TOTO: implementation
+	// !!! TODO: implementation
 	template<typename RandomAccessIterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	nth_element(RandomAccessIterator first, RandomAccessIterator nth, RandomAccessIterator last);

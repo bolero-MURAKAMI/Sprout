@@ -14,7 +14,7 @@ namespace sprout {
 	//
 	// 25.3.13 Partitions
 	//
-	// !!! TOTO: implementation
+	// !!! TODO: implementation
 	template<typename BidirectionalIterator, typename Predicate>
 	inline SPROUT_CXX14_CONSTEXPR BidirectionalIterator
 	stable_partition(BidirectionalIterator first, BidirectionalIterator last, Predicate pred);

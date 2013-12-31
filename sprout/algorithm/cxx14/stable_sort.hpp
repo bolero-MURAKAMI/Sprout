@@ -14,7 +14,7 @@ namespace sprout {
 	//
 	// 25.4.1.2 stable_sort
 	//
-	// !!! TOTO: implementation
+	// !!! TODO: implementation
 	template<typename RandomAccessIterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	stable_sort(RandomAccessIterator first, RandomAccessIterator last);
