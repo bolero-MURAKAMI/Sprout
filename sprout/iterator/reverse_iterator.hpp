@@ -14,7 +14,9 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/iterator/const_iterator_cast.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	//
@@ -199,6 +201,26 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::reverse_iterator<Iterator>
 	iterator_prev(sprout::reverse_iterator<Iterator> const& it) {
 		return it.prev();
+	}
+
+	//
+	// is_const_iterator_cast_convertible
+	//
+	template<typename FromIterator, typename ToIterator>
+	struct is_const_iterator_cast_convertible<sprout::reverse_iterator<FromIterator>, sprout::reverse_iterator<ToIterator> >
+		: public sprout::is_const_iterator_cast_convertible<FromIterator, ToIterator>
+	{};
+	//
+	// const_iterator_conversion
+	//
+	template<
+		typename T,
+		typename Iterator,
+		typename sprout::enabler_if<sprout::is_const_iterator_cast_convertible<sprout::reverse_iterator<Iterator>, T>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR T
+	const_iterator_conversion(sprout::reverse_iterator<Iterator> const& it) {
+		return T(sprout::const_iterator_cast<typename T::iterator_type>(it.base()));
 	}
 }	// namespace sprout
 
