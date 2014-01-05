@@ -120,7 +120,7 @@ namespace sprout {
 			: init(true)
 			, val(v)
 		{}
-		// !!! for T const&
+		// !!! TEMP: for T const&
 //		SPROUT_CONSTEXPR optional(T&& v)
 //			: init(true)
 //			, val(sprout::move(v))
@@ -145,7 +145,7 @@ namespace sprout {
 			: init(cond)
 			, val(cond ? holder_type(v) : holder_type())
 		{}
-		// !!! for T const&
+		// !!! TEMP: for T const&
 //		SPROUT_CONSTEXPR optional(bool cond, T&& v)
 //			: init(cond)
 //			, val(cond ? holder_type(sprout::move(v)) : holder_type())

@@ -167,7 +167,7 @@ namespace sprout {
 					64,
 					bit_count_ + 64 * 8
 					)
-				// !!!
+				// !!! TEMP:
 //				: process<D + 1>(
 //					h_,
 //					sprout::make_array<std::uint8_t>(args...),
@@ -192,7 +192,7 @@ namespace sprout {
 					bit_count_ + sizeof...(Args) * 8
 					)
 				: block_byte_index_ + sizeof...(Args) == 64
-				// !!!
+				// !!! TEMP:
 //					? process<D + 1>(
 //						h_,
 //						sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),

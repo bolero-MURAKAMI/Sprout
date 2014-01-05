@@ -72,9 +72,9 @@ namespace sprout {
 							? sprout::darkroom::rays::point_of_intersection(ray, distance)
 							: position_type(0, 0, 0)
 							,
-						normal_,//hit_side > 0 ? normal_ : sprout::darkroom::coords::negate(normal_),
+						normal_,// !!! TEMP: hit_side > 0 ? normal_ : sprout::darkroom::coords::negate(normal_),
 						sprout::darkroom::materials::calculate_material(mat_, unit_type(0), unit_type(0)),	// ???
-						false	// !!! is_from_inside
+						false	// !!! TEMP: is_from_inside
 						);
 				}
 				template<typename Ray>

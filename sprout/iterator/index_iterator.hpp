@@ -16,10 +16,13 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/iterator/const_iterator_cast.hpp>
 #include <sprout/iterator/detail/iterator_to_pointer.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	//
@@ -282,6 +285,26 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::index_iterator<Container, C>
 	iterator_prev(sprout::index_iterator<Container, C> const& it) {
 		return it.prev();
+	}
+
+	//
+	// is_const_iterator_cast_convertible
+	//
+	template<typename FromContainer, typename ToContainer, bool C>
+	struct is_const_iterator_cast_convertible<sprout::index_iterator<FromContainer, C>, sprout::index_iterator<ToContainer, C> >
+		: public std::is_same<typename std::decay<FromContainer>::type, typename std::decay<ToContainer>::type>
+	{};
+	//
+	// const_iterator_conversion
+	//
+	template<
+		typename T,
+		typename Container, bool C,
+		typename sprout::enabler_if<sprout::is_const_iterator_cast_convertible<sprout::index_iterator<Container, C>, T>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR T
+	const_iterator_conversion(sprout::index_iterator<Container, C> const& it) {
+		return T(const_cast<typename T::container_type>(it.base()), it.index());
 	}
 }	// namespace sprout
 

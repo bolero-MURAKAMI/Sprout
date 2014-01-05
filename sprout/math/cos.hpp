@@ -60,7 +60,7 @@ namespace sprout {
 					);
 			}
 
-			// !!!
+			// !!! OLD:
 //			template<typename T>
 //			inline SPROUT_CONSTEXPR T
 //			cos_impl_2(T x) {
