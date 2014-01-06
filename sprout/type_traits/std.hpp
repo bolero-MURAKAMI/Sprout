@@ -12,5 +12,6 @@
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/type_traits/std_type_aliases.hpp>
+#include <sprout/type_traits/std_value_variables.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_STD_HPP
