@@ -19,6 +19,7 @@
 namespace testspr {
 	static void algorithm_bogo_sort_result_test() {
 		using namespace sprout;
+#if !defined(__clang__) || !(__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 4))
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 1, 4, 2, 3}};
 			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
@@ -175,6 +176,164 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
 		}
+#else
+		{
+			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 4>{{1, 4, 2, 3}};
+			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
+
+			// ソート
+			{
+				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
+					arr1,
+					g
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get<0>(sorted),
+					array<int, 4>{{1, 2, 3, 4}}
+					));
+				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
+					sprout::get<0>(sorted),
+					sprout::get<1>(sorted)
+					);
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort_result(
+					arr1,
+					g
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get<0>(sorted),
+					array<int, 4>{{1, 2, 3, 4}}
+					));
+				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
+					sprout::get<0>(sorted),
+					sprout::get<1>(sorted)
+					);
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+			}
+			// ソート
+			// 範囲の切り出し
+			{
+				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
+					sprout::sub(arr1, 1, 3),
+					g
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get<0>(sorted),
+					array<int, 2>{{2, 4}}
+					));
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get_internal(sprout::get<0>(sorted)),
+					array<int, 4>{{1, 2, 4, 3}}
+					));
+				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
+					sprout::get<0>(sorted),
+					sprout::get<1>(sorted)
+					);
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort_result(
+					sprout::sub(arr1, 1, 3),
+					g
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get<0>(sorted),
+					array<int, 2>{{2, 4}}
+					));
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get_internal(sprout::get<0>(sorted)),
+					array<int, 4>{{1, 2, 4, 3}}
+					));
+				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
+					sprout::get<0>(sorted),
+					sprout::get<1>(sorted)
+					);
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+			}
+		}
+		{
+			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 4>{{1, 4, 2, 3}};
+			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
+
+			// ソート
+			{
+				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
+					arr1,
+					g,
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get<0>(sorted),
+					array<int, 4>{{1, 2, 3, 4}}
+					));
+				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
+					sprout::get<0>(sorted),
+					sprout::get<1>(sorted)
+					);
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort_result(
+					arr1,
+					g,
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get<0>(sorted),
+					array<int, 4>{{1, 2, 3, 4}}
+					));
+				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
+					sprout::get<0>(sorted),
+					sprout::get<1>(sorted)
+					);
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+			}
+			// ソート
+			// 範囲の切り出し
+			{
+				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
+					sprout::sub(arr1, 1, 3),
+					g,
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get<0>(sorted),
+					array<int, 2>{{2, 4}}
+					));
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get_internal(sprout::get<0>(sorted)),
+					array<int, 4>{{1, 2, 4, 3}}
+					));
+				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
+					sprout::get<0>(sorted),
+					sprout::get<1>(sorted)
+					);
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::fit::bogo_sort_result(
+					sprout::sub(arr1, 1, 3),
+					g,
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get<0>(sorted),
+					array<int, 2>{{2, 4}}
+					));
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get_internal(sprout::get<0>(sorted)),
+					array<int, 4>{{1, 2, 4, 3}}
+					));
+				SPROUT_STATIC_CONSTEXPR auto sorted2 = sprout::bogo_sort_result(
+					sprout::get<0>(sorted),
+					sprout::get<1>(sorted)
+					);
+				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
+			}
+		}
+#endif
 	}
 }	// namespace testspr
 
