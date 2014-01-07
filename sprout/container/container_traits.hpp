@@ -20,6 +20,7 @@
 #if SPROUT_USE_PTR_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/ptr_index_iterator.hpp>
 #endif
+#include <sprout/workaround/base_class_construct.hpp>
 
 namespace sprout {
 	template<typename Container>
@@ -520,7 +521,24 @@ namespace sprout {
 		, public sprout::detail::inherit_if_const_pointer<sprout::container_traits<Container> >
 		, public sprout::detail::inherit_if_static_size<sprout::container_traits<Container> >
 		, public sprout::detail::container_nosy_fixed_size<sprout::container_traits<Container> >
-	{};
+	{
+#if SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
+	public:
+		SPROUT_CONSTEXPR container_traits_facade()
+			: SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_value_type<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_iterator<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_const_iterator<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_reference<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_const_reference<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_size_type<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_difference_type<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_pointer<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_const_pointer<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_static_size<sprout::container_traits<Container> >)
+			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::container_nosy_fixed_size<sprout::container_traits<Container> >)
+		{}
+#endif
+	};
 
 	//
 	// is_fixed_container
