@@ -222,7 +222,7 @@ namespace sprout {
 			--lm1;
 			unsigned n_swaps = 0;
 			{
-				difference_type delta;
+				difference_type delta = 0;
 				if (len >= 1000) {
 					delta = len / 2;
 					m += delta;
