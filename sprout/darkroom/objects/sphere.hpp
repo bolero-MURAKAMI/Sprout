@@ -110,7 +110,7 @@ namespace sprout {
 				}
 				template<typename Ray, typename Vec>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type
-				intersect_6(Ray const& ray, zwo_type const& zwo, drei_type const& drei,bool is_from_inside, Vec const& normal) const {
+				intersect_6(zwo_type const& zwo, drei_type const& drei,bool is_from_inside, Vec const& normal) const {
 					return typename intersection<Ray>::type(
 						sprout::tuples::get<zw::does_intersect>(zwo),
 						sprout::tuples::get<zw::distance>(zwo),
@@ -142,8 +142,7 @@ namespace sprout {
 				template<typename Ray>
 				SPROUT_CONSTEXPR typename intersection<Ray>::type
 				intersect_5(Ray const& ray, zwo_type const& zwo, drei_type const& drei) const {
-					return intersect_6(
-						ray,
+					return intersect_6<Ray>(
 						zwo,
 						drei,
 						sprout::darkroom::coords::dot(sprout::tuples::get<dr::normal>(drei), sprout::darkroom::rays::direction(ray)) > 0,

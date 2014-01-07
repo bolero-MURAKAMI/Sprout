@@ -12,6 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/algorithm/min_element.hpp>
 #include <sprout/functional/less.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/move.hpp>
@@ -187,7 +188,7 @@ namespace sprout {
 			typedef typename std::decay<RandomAccessIterator>::type iterator;
 			typedef typename std::iterator_traits<iterator>::difference_type difference_type;
 			typedef typename std::iterator_traits<iterator>::value_type value_type;
-			SPROUT_STATIC_CONSTEXPR difference_type limit
+			difference_type const limit
 				= sprout::is_trivially_copy_constructible<value_type>::value && sprout::is_trivially_copy_assignable<value_type>::value
 				? 30
 				: 6
