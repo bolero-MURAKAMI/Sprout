@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2013 Bolero MURAKAMI
+  Copyright (c) 2011-2014 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
