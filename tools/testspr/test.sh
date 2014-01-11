@@ -21,6 +21,8 @@ force=0
 use_help=0
 std="c++11"
 declare -a common_options=()
+declare -a compiler_options=()
+declare -A compiler_specific_options=()
 declare -a version_options=()
 declare -A version_specific_options=(
 #	[clang-3.3]='-ftemplate-depth=512'
@@ -53,7 +55,7 @@ get_std_option() {
 	fi
 }
 
-args=`getopt -o S:g:c:O:V:D:I:P:f -l stagedir:,gcc-version:,clang-version:,gcc-root:,clang-root:,std:,option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
+args=`getopt -o S:g:c:O:C:V:D:I:P:f -l stagedir:,gcc-version:,clang-version:,gcc-root:,clang-root:,std:,option:,compiler-option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'test.sh --help'"
 	exit 1
@@ -68,6 +70,7 @@ while [ -n "$1" ]; do
 		--clang-root) clang_root="$2"; shift 2;;
 		--std) std="$2"; shift 2;;
 		-O|--option) common_options=("${common_options[@]}" "$2"); shift 2;;
+		-C|--compiler-option) compiler_options=("${compiler_options[@]}" "$2"); shift 2;;
 		-V|--version-option) version_options=("${version_options[@]}" "$2"); shift 2;;
 		-D|--define) user_macros=("${user_macros[@]}" "$2"); shift 2;;
 		-I|--include) include_paths=("${include_paths[@]}" "$2"); shift 2;;
@@ -104,6 +107,9 @@ if [ ${use_help} -ne 0 ]; then
 	echo ""
 	echo "  -O, --option=<opt>          Add compile option."
 	echo ""
+	echo "  -C, --compiler-option=<opt> Add compiler specific compile option."
+	echo "                              Example; 'clang -ftemplate-depth=512'"
+	echo ""
 	echo "  -V, --version-option=<opt>  Add version specific compile option."
 	echo "                              Example; 'clang-3.3 -ftemplate-depth=512'"
 	echo ""
@@ -129,6 +135,7 @@ echo "  gcc-root = '${gcc_root}'"
 echo "  clang-root = '${clang_root}'"
 echo "  std = '${std}'"
 echo "  common-options = (${common_options[*]})"
+echo "  compiler-options = (${compiler_options[*]})"
 echo "  version-options = (${version_options[*]})"
 echo "  user-macros = (${user_macros[*]})"
 echo "  include-paths = (${include_paths[*]})"
@@ -141,7 +148,7 @@ done
 for include_path in ${include_paths}; do
 	include_options="${include_options} -I${include_path}"
 done
-compile_options="-v -Wall -pedantic ${define_options} ${include_options} ${common_options[*]}"
+all_options="-v -Wall -pedantic ${define_options} ${include_options} ${common_options[*]}"
 vo=0
 vkey=""
 for option in ${version_options}; do
@@ -204,12 +211,12 @@ if [ -z "${max_procs}" ]; then
 	fail_count=0
 	for version in ${gcc_version}; do
 		std_option=`get_std_option "gcc" "${version}" "${std}"`
-		compile "gcc" "${version}" "${test_cpp}" "${std_option} ${compile_options}" "${gcc_root}"
+		compile "gcc" "${version}" "${test_cpp}" "${std_option} ${all_options} ${compiler_specific_options[gcc]}" "${gcc_root}"
 		let fail_count=${fail_count}+$?
 	done
 	for version in ${clang_version}; do
 		std_option=`get_std_option "clang" "${version}" "${std}"`
-		compile "clang" "${version}" "${test_cpp}" "${std_option} ${compile_options}" "${clang_root}"
+		compile "clang" "${version}" "${test_cpp}" "${std_option} ${all_options} ${compiler_specific_options[clang]}" "${clang_root}"
 		let fail_count=${fail_count}+$?
 	done
 	if [ ${fail_count} -ne 0 ]; then
@@ -220,6 +227,12 @@ if [ -z "${max_procs}" ]; then
 else
 	echo "  processing in parallel mode."
 	echo -n "  "
+	serialized_compiler_specific_options={`
+		for key in $(echo ${!compiler_specific_options[*]}); do
+			echo \'${key}\':\'${compiler_specific_options[${key}]}\',
+		done
+		echo \'_\':\'\'
+	`}
 	serialized_version_specific_options={`
 		for key in $(echo ${!version_specific_options[*]}); do
 			echo \'${key}\':\'${version_specific_options[${key}]}\',
@@ -251,8 +264,9 @@ else
 		"--stagedir=${stagedir}" \
 		"--gcc_version=${gcc_version}" "--clang_version=${clang_version}" \
 		"--gcc_root=${gcc_root}" "--clang_root=${clang_root}" \
-		"--compile_options=${compile_options}" "--test_cpp=${test_cpp}" \
+		"--all_options=${all_options}" "--test_cpp=${test_cpp}" \
 		"--serialized_std_options=${serialized_std_options}" \
+		"--serialized_compiler_specific_options=${serialized_compiler_specific_options}" \
 		"--serialized_version_specific_options=${serialized_version_specific_options}" \
 		"--max_procs=${max_procs}"
 	fail_count=$?
