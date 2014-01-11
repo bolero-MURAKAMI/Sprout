@@ -142,6 +142,12 @@ echo "  include-paths = (${include_paths[*]})"
 echo "  max-procs = ${max_procs}"
 echo "  force = ${force}"
 
+if [ -z "${gcc_version}" ]; then
+	gcc_version=" "
+fi
+if [ -z "${clang_version}" ]; then
+	clang_version=" "
+fi
 for user_macro in ${user_macros}; do
 	define_options="${define_options} -D${user_macro}"
 done
