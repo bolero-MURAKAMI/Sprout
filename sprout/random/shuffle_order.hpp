@@ -23,8 +23,10 @@
 #include <sprout/random/linear_congruential.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/type_traits.hpp>
+#include <sprout/random/generate_array.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/assert.hpp>
+#include <sprout/workaround/recursive_function_template.hpp>
 
 namespace sprout {
 	namespace random {
@@ -77,6 +79,36 @@ namespace sprout {
 				return base_type::static_max();
 			}
 		private:
+			template<std::size_t M, typename Random, typename... Args, sprout::index_t... Indexes>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				(M + sizeof...(Args) == k),
+				member_type
+			>::type init_member_4(sprout::index_tuple<Indexes...>, sprout::array<result_type, M> const& a, Random const& rnd, Args const&... args) {
+				return member_type{
+					rnd.engine(),
+					sprout::array<result_type, k>{{a[Indexes]..., args...}},
+					rnd.result()
+					};
+			}
+			template<std::size_t M, typename Random, typename... Args>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				(M + sizeof...(Args) == k),
+				member_type
+			>::type init_member_3(sprout::array<result_type, M> const& a, Random const& rnd, Args const&... args) {
+				return init_member_4(sprout::make_index_tuple<M>::make(), a, rnd, args...);
+			}
+			template<std::size_t M, typename Random, typename... Args>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				(M + sizeof...(Args) < k),
+				member_type
+			>::type init_member_3(sprout::array<result_type, M> const& a, Random const& rnd, Args const&... args) {
+				return init_member_3(a, rnd(), args..., rnd.result());
+			}
+			template<typename Pair>
+			static SPROUT_CONSTEXPR member_type init_member_2(Pair const& p) {
+				return init_member_3(p.first, p.second());
+			}
+
 			template<typename Random, typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				(sizeof...(Args) == k),
@@ -95,8 +127,14 @@ namespace sprout {
 			>::type init_member_1(Random const& rnd, Args const&... args) {
 				return init_member_1(rnd(), args..., rnd.result());
 			}
-			static SPROUT_CONSTEXPR member_type init_member(base_type const& rng) {
+			static SPROUT_CONSTEXPR member_type init_member_0(base_type const& rng, std::true_type) {
+				return init_member_2(sprout::random::generate_array<k / 2>(rng));
+			}
+			static SPROUT_CONSTEXPR member_type init_member_0(base_type const& rng, std::false_type) {
 				return init_member_1(rng());
+			}
+			static SPROUT_CONSTEXPR member_type init_member(base_type const& rng) {
+				return init_member_0(rng, std::integral_constant<bool, (k >= SPROUT_RECURSIVE_FUNCTION_TEMPLATE_INSTANTIATION_LIMIT)>());
 			}
 		private:
 			using member_type::rng_;

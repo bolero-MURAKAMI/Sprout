@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/generate_canonical.hpp>
+#include <sprout/random/generate_array.hpp>
 #include <sprout/random/variate_generator.hpp>
 #include <sprout/random/iterator.hpp>
 #include <sprout/random/range.hpp>

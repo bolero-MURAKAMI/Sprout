@@ -23,8 +23,8 @@ std="c++11"
 declare -a common_options=()
 declare -a version_options=()
 declare -A version_specific_options=(
-	[clang-3.3]='-ftemplate-depth=512'
-	[clang-3.4]='-ftemplate-depth=512'
+#	[clang-3.3]='-ftemplate-depth=512'
+#	[clang-3.4]='-ftemplate-depth=512'
 )
 test_cpp=$(cd $(dirname $0); pwd)/test.cpp
 test_py=$(cd $(dirname $0); pwd)/test.py
