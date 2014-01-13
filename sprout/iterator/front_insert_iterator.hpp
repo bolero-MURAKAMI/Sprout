@@ -50,7 +50,7 @@ namespace sprout {
 	protected:
 		using base_type::container;
 	public:
-		front_insert_iterator() = default;
+		SPROUT_CONSTEXPR front_insert_iterator() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 		explicit SPROUT_CONSTEXPR front_insert_iterator(param_type x)
 			: base_type(x)
 		{}

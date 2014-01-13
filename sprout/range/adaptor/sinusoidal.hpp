@@ -41,7 +41,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
 		public:
-			sinusoidal_range() = default;
+			SPROUT_CONSTEXPR sinusoidal_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			sinusoidal_range(sinusoidal_range const&) = default;
 			explicit SPROUT_CONSTEXPR sinusoidal_range(
 				range_type& range,
@@ -79,7 +79,7 @@ namespace sprout {
 			typedef typename base_type::value_type value_type;
 			typedef typename base_type::difference_type difference_type;
 		public:
-			sinusoidal_range() = default;
+			SPROUT_CONSTEXPR sinusoidal_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			sinusoidal_range(sinusoidal_range const&) = default;
 			explicit SPROUT_CONSTEXPR sinusoidal_range(
 				value_type const& frequency = 1,

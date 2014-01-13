@@ -42,7 +42,7 @@ namespace sprout {
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			size_enumed_range() = default;
+			SPROUT_CONSTEXPR size_enumed_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			size_enumed_range(size_enumed_range const&) = default;
 			explicit SPROUT_CONSTEXPR size_enumed_range(range_type& range)
 				: base_type(
@@ -72,7 +72,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
 		public:
-			size_enumed_range() = default;
+			SPROUT_CONSTEXPR size_enumed_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			size_enumed_range(size_enumed_range const&) = default;
 			explicit SPROUT_CONSTEXPR size_enumed_range(
 				range_type& range,
@@ -101,7 +101,7 @@ namespace sprout {
 			size_type sep_size_;
 			bool omit_last_;
 		public:
-			size_enum_holder() = default;
+			SPROUT_CONSTEXPR size_enum_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			size_enum_holder(size_enum_holder const&) = default;
 			explicit SPROUT_CONSTEXPR size_enum_holder(size_type size, bool omit_last = false)
 				: sep_size_(size)

@@ -40,7 +40,9 @@ namespace testspr {
 	protected:
 		iterator_type current;
 	public:
-		SPROUT_CONSTEXPR reduct_iterator() {};
+		SPROUT_CONSTEXPR reduct_iterator()
+			: current()
+		{}
 		SPROUT_CONSTEXPR reduct_iterator(reduct_iterator const& other) = default;
 		explicit SPROUT_CONSTEXPR reduct_iterator(iterator_type it)
 			: current(it)

@@ -46,7 +46,7 @@ namespace sprout {
 		private:
 			T t_;
 		public:
-			lit_str_p() = default;
+			SPROUT_CONSTEXPR lit_str_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			explicit SPROUT_CONSTEXPR lit_str_p(T const& t)
 				: t_(t)
 			{}
@@ -119,7 +119,7 @@ namespace sprout {
 		private:
 			T t_;
 		public:
-			str_p() = default;
+			SPROUT_CONSTEXPR str_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			explicit SPROUT_CONSTEXPR str_p(T const& t)
 				: t_(t)
 			{}

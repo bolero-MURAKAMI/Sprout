@@ -47,7 +47,7 @@ namespace sprout {
 			typedef typename base_type::value_type value_type;
 			typedef typename base_type::difference_type difference_type;
 		public:
-			blanked_range() = default;
+			SPROUT_CONSTEXPR blanked_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			blanked_range(blanked_range const&) = default;
 			explicit SPROUT_CONSTEXPR blanked_range(range_type& range)
 				: base_type(

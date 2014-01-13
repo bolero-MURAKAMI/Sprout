@@ -49,7 +49,7 @@ namespace sprout {
 			typedef typename base_type::range2_type range2_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			merged_range() = default;
+			SPROUT_CONSTEXPR merged_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			merged_range(merged_range const&) = default;
 			SPROUT_CONSTEXPR merged_range(range1_type& range1, range2_type& range2, Compare comp = Compare())
 				: base_type(
@@ -71,7 +71,7 @@ namespace sprout {
 			sprout::value_holder<range2_type&> range_;
 			Compare comp_;
 		public:
-			merge_holder() = default;
+			SPROUT_CONSTEXPR merge_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			merge_holder(merge_holder const&) = default;
 			explicit SPROUT_CONSTEXPR merge_holder(range2_type& range, Compare comp = Compare())
 				: range_(range)

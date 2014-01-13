@@ -29,7 +29,7 @@ namespace sprout {
 			private:
 				sprout::value_holder<range2_type&> range_;
 			public:
-				superpose_holder() = default;
+				SPROUT_CONSTEXPR superpose_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				superpose_holder(superpose_holder const&) = default;
 				explicit SPROUT_CONSTEXPR superpose_holder(range2_type& range)
 					: range_(range)

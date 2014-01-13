@@ -56,7 +56,7 @@ namespace sprout {
 				value_type rate_;
 				int_type samples_per_sec_;
 			public:
-				tremolo_holder() = default;
+				SPROUT_CONSTEXPR tremolo_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				tremolo_holder(tremolo_holder const&) = default;
 				SPROUT_CONSTEXPR tremolo_holder(value_type const& depth, value_type const& rate, int_type samples_per_sec = 44100)
 					: depth_(depth), rate_(rate), samples_per_sec_(samples_per_sec)

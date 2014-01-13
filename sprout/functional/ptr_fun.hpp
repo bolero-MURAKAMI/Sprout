@@ -21,7 +21,7 @@ namespace sprout {
 	protected:
 		Result (*ptr_)(Arg);
 	public:
-		pointer_to_unary_function() = default;
+		SPROUT_CONSTEXPR pointer_to_unary_function() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 		explicit SPROUT_CONSTEXPR pointer_to_unary_function(Result (*x)(Arg))
 			: ptr_(x)
 		{}
@@ -43,7 +43,7 @@ namespace sprout {
 	protected:
 		Result (*ptr_)(Arg1, Arg2);
 	public:
-		pointer_to_binary_function() = default;
+		SPROUT_CONSTEXPR pointer_to_binary_function() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 		explicit SPROUT_CONSTEXPR pointer_to_binary_function(Result (*x)(Arg1, Arg2))
 			: ptr_(x)
 		{}

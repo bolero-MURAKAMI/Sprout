@@ -41,7 +41,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
 		public:
-			square_wave_range() = default;
+			SPROUT_CONSTEXPR square_wave_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			square_wave_range(square_wave_range const&) = default;
 			explicit SPROUT_CONSTEXPR square_wave_range(
 				range_type& range,
@@ -83,7 +83,7 @@ namespace sprout {
 			typedef typename base_type::value_type value_type;
 			typedef typename base_type::difference_type difference_type;
 		public:
-			square_wave_range() = default;
+			SPROUT_CONSTEXPR square_wave_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			square_wave_range(square_wave_range const&) = default;
 			explicit SPROUT_CONSTEXPR square_wave_range(
 				value_type const& frequency = 1,

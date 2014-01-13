@@ -28,7 +28,7 @@ namespace sprout {
 				value_type gain_;
 				value_type level_;
 			public:
-				fuzz_holder() = default;
+				SPROUT_CONSTEXPR fuzz_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				fuzz_holder(fuzz_holder const&) = default;
 				SPROUT_CONSTEXPR fuzz_holder(value_type const& gain, value_type const& level)
 					: gain_(gain), level_(level)

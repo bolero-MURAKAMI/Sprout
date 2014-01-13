@@ -62,7 +62,7 @@ namespace sprout {
 					;
 			}
 		public:
-			as_tuple_p() = default;
+			SPROUT_CONSTEXPR as_tuple_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			explicit SPROUT_CONSTEXPR as_tuple_p(
 				Parser const& p
 				)

@@ -39,7 +39,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename iterator::index_type index_type;
 		public:
-			indexed_range() = default;
+			SPROUT_CONSTEXPR indexed_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			indexed_range(indexed_range const&) = default;
 			explicit SPROUT_CONSTEXPR indexed_range(range_type& range)
 				: base_type(
@@ -65,7 +65,7 @@ namespace sprout {
 		private:
 			index_type index_;
 		public:
-			indexed_holder() = default;
+			SPROUT_CONSTEXPR indexed_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			indexed_holder(indexed_holder const&) = default;
 			explicit SPROUT_CONSTEXPR indexed_holder(index_type index)
 				: index_(index)

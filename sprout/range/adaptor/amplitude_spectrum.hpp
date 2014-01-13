@@ -47,7 +47,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
 		public:
-			amplitude_spectrum_range() = default;
+			SPROUT_CONSTEXPR amplitude_spectrum_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			amplitude_spectrum_range(amplitude_spectrum_range const&) = default;
 			explicit SPROUT_CONSTEXPR amplitude_spectrum_range(range_type& range)
 				: base_type(

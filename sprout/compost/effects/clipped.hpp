@@ -26,7 +26,7 @@ namespace sprout {
 				value_type low_;
 				value_type up_;
 			public:
-				clip_holder() = default;
+				SPROUT_CONSTEXPR clip_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				clip_holder(clip_holder const&) = default;
 				explicit SPROUT_CONSTEXPR clip_holder(value_type const& low = -1, value_type const& up = 1)
 					: low_(low), up_(up)

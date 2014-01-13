@@ -49,7 +49,7 @@ namespace sprout {
 			typedef typename base_type::range2_type range2_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			set_difference_range() = default;
+			SPROUT_CONSTEXPR set_difference_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			set_difference_range(set_difference_range const&) = default;
 			SPROUT_CONSTEXPR set_difference_range(range1_type& range1, range2_type& range2, Compare comp = Compare())
 				: base_type(
@@ -71,7 +71,7 @@ namespace sprout {
 			sprout::value_holder<range2_type&> range_;
 			Compare comp_;
 		public:
-			set_difference_holder() = default;
+			SPROUT_CONSTEXPR set_difference_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			set_difference_holder(set_difference_holder const&) = default;
 			explicit SPROUT_CONSTEXPR set_difference_holder(range2_type& range, Compare comp = Compare())
 				: range_(range)

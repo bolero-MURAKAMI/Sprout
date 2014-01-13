@@ -78,7 +78,7 @@ namespace sprout {
 				std::size_t repeat_;
 				int_type samples_per_sec_;
 			public:
-				reverb_holder() = default;
+				SPROUT_CONSTEXPR reverb_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				reverb_holder(reverb_holder const&) = default;
 				SPROUT_CONSTEXPR reverb_holder(
 					value_type const& attenuation, value_type const& delay,

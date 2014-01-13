@@ -39,7 +39,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename iterator::param_type param_type;
 		public:
-			valued_range() = default;
+			SPROUT_CONSTEXPR valued_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			valued_range(valued_range const&) = default;
 			SPROUT_CONSTEXPR valued_range(param_type param, range_type& range)
 				: base_type(
@@ -62,7 +62,7 @@ namespace sprout {
 		private:
 			holder_type holder_;
 		public:
-			valued_holder() = default;
+			SPROUT_CONSTEXPR valued_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			valued_holder(valued_holder const&) = default;
 			explicit SPROUT_CONSTEXPR valued_holder(param_type param)
 				: holder_(param)

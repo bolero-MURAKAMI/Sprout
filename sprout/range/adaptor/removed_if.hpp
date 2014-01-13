@@ -46,7 +46,7 @@ namespace sprout {
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			removed_if_range() = default;
+			SPROUT_CONSTEXPR removed_if_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			removed_if_range(removed_if_range const&) = default;
 			SPROUT_CONSTEXPR removed_if_range(range_type& range, Predicate pred)
 				: base_type(

@@ -55,7 +55,7 @@ namespace sprout {
 				value_type gain_;
 				value_type level_;
 			public:
-				overdrive_holder() = default;
+				SPROUT_CONSTEXPR overdrive_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				overdrive_holder(overdrive_holder const&) = default;
 				SPROUT_CONSTEXPR overdrive_holder(value_type const& gain, value_type const& level)
 					: gain_(gain), level_(level)

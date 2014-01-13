@@ -40,7 +40,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
 		public:
-			filled_range() = default;
+			SPROUT_CONSTEXPR filled_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			filled_range(filled_range const&) = default;
 			SPROUT_CONSTEXPR filled_range(
 				range_type& range,

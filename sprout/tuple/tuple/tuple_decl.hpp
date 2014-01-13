@@ -114,7 +114,7 @@ namespace sprout {
 			protected:
 				SPROUT_CXX14_CONSTEXPR void swap(tuple_impl&) SPROUT_NOEXCEPT {}
 			public:
-				tuple_impl() = default;
+				SPROUT_CONSTEXPR tuple_impl() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				template<typename... UTypes>
 				explicit SPROUT_CONSTEXPR tuple_impl(UTypes&&...) SPROUT_NOEXCEPT {}
 				tuple_impl(tuple_impl const&) = default;
@@ -439,7 +439,7 @@ namespace sprout {
 		class tuple<> {
 		public:
 			// tuple construction
-			tuple() = default;
+			SPROUT_CONSTEXPR tuple() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			tuple(tuple const&) = default;
 			tuple(tuple&&) = default;
 			template<typename... UTypes>

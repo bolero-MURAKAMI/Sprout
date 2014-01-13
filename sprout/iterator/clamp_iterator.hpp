@@ -45,7 +45,7 @@ namespace sprout {
 		value_type low;
 		value_type up;
 	public:
-		clamp_iterator() = default;
+		SPROUT_CONSTEXPR clamp_iterator() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 		clamp_iterator(clamp_iterator const&) = default;
 		SPROUT_CONSTEXPR clamp_iterator(iterator_type it, value_type const& low, value_type const& up, Compare comp = Compare())
 			: current(it), comp(comp), low(low), up(up)

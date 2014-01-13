@@ -60,7 +60,10 @@ namespace sprout {
 			first_type first_;
 			second_type second_;
 		public:
-			SPROUT_CONSTEXPR compressed_pair_impl() {}
+			SPROUT_CONSTEXPR compressed_pair_impl()
+				: first_()
+				, second_()
+			{}
 			SPROUT_CONSTEXPR compressed_pair_impl(first_param_type x, second_param_type y)
 				: first_(x)
 				, second_(y)
@@ -109,7 +112,9 @@ namespace sprout {
 		private:
 			second_type second_;
 		public:
-			SPROUT_CONSTEXPR compressed_pair_impl() {}
+			SPROUT_CONSTEXPR compressed_pair_impl()
+				: second_()
+			{}
 			SPROUT_CONSTEXPR compressed_pair_impl(first_param_type x, second_param_type y)
 				: first_type(x)
 				, second_(y)
@@ -154,7 +159,10 @@ namespace sprout {
 		private:
 			first_type first_;
 		public:
-			SPROUT_CONSTEXPR compressed_pair_impl() {}
+			SPROUT_CONSTEXPR compressed_pair_impl()
+				: first_()
+				, second_type()
+			{}
 			SPROUT_CONSTEXPR compressed_pair_impl(first_param_type x, second_param_type y)
 				: first_(x)
 				, second_type(y)
@@ -198,7 +206,10 @@ namespace sprout {
 			typedef typename sprout::detail::call_traits<first_type>::const_reference first_const_reference;
 			typedef typename sprout::detail::call_traits<second_type>::const_reference second_const_reference;
 		public:
-			SPROUT_CONSTEXPR compressed_pair_impl() {}
+			SPROUT_CONSTEXPR compressed_pair_impl()
+				: first_type()
+				, second_type()
+			{}
 			SPROUT_CONSTEXPR compressed_pair_impl(first_param_type x, second_param_type y)
 				: first_type(x)
 				, second_type(y)
@@ -239,7 +250,10 @@ namespace sprout {
 		private:
 			second_type second_;
 		public:
-			SPROUT_CONSTEXPR compressed_pair_impl() {}
+			SPROUT_CONSTEXPR compressed_pair_impl()
+				: first_type()
+				, second_()
+			{}
 			SPROUT_CONSTEXPR compressed_pair_impl(first_param_type x, second_param_type y)
 				: first_type(x)
 				, second_(y)
@@ -278,7 +292,10 @@ namespace sprout {
 			first_type first_;
 			second_type second_;
 		public:
-			SPROUT_CONSTEXPR compressed_pair_impl() {}
+			SPROUT_CONSTEXPR compressed_pair_impl()
+				: first_()
+				, second_()
+			{}
 			SPROUT_CONSTEXPR compressed_pair_impl(first_param_type x, second_param_type y)
 				: first_(x)
 				, second_(y)

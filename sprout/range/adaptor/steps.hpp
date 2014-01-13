@@ -41,7 +41,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::difference_type difference_type;
 		public:
-			steps_range() = default;
+			SPROUT_CONSTEXPR steps_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			steps_range(steps_range const&) = default;
 			explicit SPROUT_CONSTEXPR steps_range(range_type& range)
 				: base_type(
@@ -74,7 +74,7 @@ namespace sprout {
 			difference_type width_;
 			difference_type init_;
 		public:
-			step_holder() = default;
+			SPROUT_CONSTEXPR step_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			step_holder(step_holder const&) = default;
 			explicit SPROUT_CONSTEXPR step_holder(difference_type width, difference_type init = 0)
 				: width_(width), init_(init)

@@ -46,7 +46,7 @@ namespace sprout {
 			typedef typename base_type::range2_type range2_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			jointed_range() = default;
+			SPROUT_CONSTEXPR jointed_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			jointed_range(jointed_range const&) = default;
 			SPROUT_CONSTEXPR jointed_range(range1_type& range1, range2_type& range2)
 				: base_type(
@@ -66,7 +66,7 @@ namespace sprout {
 		private:
 			sprout::value_holder<range2_type&> range_;
 		public:
-			joint_holder() = default;
+			SPROUT_CONSTEXPR joint_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			joint_holder(joint_holder const&) = default;
 			explicit SPROUT_CONSTEXPR joint_holder(range2_type& range)
 				: range_(range)

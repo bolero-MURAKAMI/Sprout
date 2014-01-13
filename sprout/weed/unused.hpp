@@ -17,7 +17,7 @@ namespace sprout {
 		//
 		struct unused {
 		public:
-			unused() = default;
+			SPROUT_CONSTEXPR unused() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			template<typename T>
 			SPROUT_CONSTEXPR unused(T) {}
 			template<typename T>

@@ -27,7 +27,7 @@ namespace sprout {
 			private:
 				value_type value_;
 			public:
-				change_volume_holder() = default;
+				SPROUT_CONSTEXPR change_volume_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				change_volume_holder(change_volume_holder const&) = default;
 				explicit SPROUT_CONSTEXPR change_volume_holder(value_type const& value)
 					: value_(value)

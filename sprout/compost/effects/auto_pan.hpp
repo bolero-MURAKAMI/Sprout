@@ -78,7 +78,7 @@ namespace sprout {
 				value_type rate_;
 				int_type samples_per_sec_;
 			public:
-				auto_pan_holder() = default;
+				SPROUT_CONSTEXPR auto_pan_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				auto_pan_holder(auto_pan_holder const&) = default;
 				SPROUT_CONSTEXPR auto_pan_holder(
 					value_type const& depth, value_type const& rate,

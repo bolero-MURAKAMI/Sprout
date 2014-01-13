@@ -131,7 +131,7 @@ namespace sprout {
 				typedef sprout::range::range_container<Iterator> base_type;
 				typedef typename base_type::iterator iterator;
 			public:
-				jointed_range_default() = default;
+				SPROUT_CONSTEXPR jointed_range_default() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				jointed_range_default(jointed_range_default const&) = default;
 				explicit SPROUT_CONSTEXPR jointed_range_default(iterator const& first, iterator const& last)
 					: base_type(first, last)

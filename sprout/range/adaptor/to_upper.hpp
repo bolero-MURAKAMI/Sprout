@@ -46,7 +46,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
 		public:
-			to_upper_range() = default;
+			SPROUT_CONSTEXPR to_upper_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			to_upper_range(to_upper_range const&) = default;
 			explicit SPROUT_CONSTEXPR to_upper_range(range_type& range)
 				: base_type(

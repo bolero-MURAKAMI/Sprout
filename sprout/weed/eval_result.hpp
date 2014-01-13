@@ -24,7 +24,7 @@ namespace sprout {
 			presult_type presult_;
 			Context ctx_;
 		public:
-			eval_result() = default;
+			SPROUT_CONSTEXPR eval_result() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			SPROUT_CONSTEXPR eval_result(
 				bool success,
 				Iterator current,

@@ -55,7 +55,7 @@ namespace sprout {
 				return f_(sprout::tuples::get<Indexes>(sprout::forward<Tuple>(t))...);
 			}
 		public:
-			fused() = default;
+			SPROUT_CONSTEXPR fused() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			fused(fused const&) = default;
 			explicit SPROUT_CONSTEXPR fused(F f)
 				: f_(f)

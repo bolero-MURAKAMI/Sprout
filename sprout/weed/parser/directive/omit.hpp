@@ -56,7 +56,7 @@ namespace sprout {
 					;
 			}
 		public:
-			omit_p() = default;
+			SPROUT_CONSTEXPR omit_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			explicit SPROUT_CONSTEXPR omit_p(
 				Parser const& p
 				)

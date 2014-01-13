@@ -42,7 +42,7 @@ namespace sprout {
 	protected:
 		iterator_type current;
 	public:
-		reverse_iterator() = default;
+		SPROUT_CONSTEXPR reverse_iterator() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 		SPROUT_CONSTEXPR reverse_iterator(reverse_iterator const& other)
 			: current(other.current)
 		{}

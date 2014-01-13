@@ -38,7 +38,7 @@ namespace sprout {
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			idft_range() = default;
+			SPROUT_CONSTEXPR idft_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			idft_range(idft_range const&) = default;
 			explicit SPROUT_CONSTEXPR idft_range(range_type& range)
 				: base_type(

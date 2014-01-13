@@ -211,7 +211,7 @@ namespace sprout {
 		using impl_type::to_last_;
 	public:
 		// construct/copy/destroy:
-		sub_array() = default;
+		SPROUT_CONSTEXPR sub_array() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 		sub_array(sub_array const&) = default;
 		SPROUT_CONSTEXPR sub_array(param_type arr, const_iterator first, const_iterator last)
 			: impl_type(

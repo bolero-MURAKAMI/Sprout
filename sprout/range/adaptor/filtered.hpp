@@ -45,7 +45,7 @@ namespace sprout {
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			filtered_range() = default;
+			SPROUT_CONSTEXPR filtered_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			filtered_range(filtered_range const&) = default;
 			SPROUT_CONSTEXPR filtered_range(Predicate pred, range_type& range)
 				: base_type(
@@ -65,7 +65,7 @@ namespace sprout {
 		private:
 			Predicate pred_;
 		public:
-			filter_holder() = default;
+			SPROUT_CONSTEXPR filter_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			filter_holder(filter_holder const&) = default;
 			SPROUT_CONSTEXPR filter_holder(Predicate pred)
 				: pred_(pred)

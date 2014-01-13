@@ -83,7 +83,7 @@ namespace sprout {
 				value_type rate_;
 				int_type samples_per_sec_;
 			public:
-				chorus_holder() = default;
+				SPROUT_CONSTEXPR chorus_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				chorus_holder(chorus_holder const&) = default;
 				SPROUT_CONSTEXPR chorus_holder(
 					value_type const& d, value_type const& depth, value_type const& rate,

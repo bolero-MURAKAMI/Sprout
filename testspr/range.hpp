@@ -40,7 +40,7 @@ namespace testspr {
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			reducted_range() = default;
+			SPROUT_CONSTEXPR reducted_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			reducted_range(reducted_range const&) = default;
 			explicit SPROUT_CONSTEXPR reducted_range(range_type& range)
 				: base_type(

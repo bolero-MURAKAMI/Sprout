@@ -67,7 +67,7 @@ namespace sprout {
 			private:
 				bool flag_;
 			public:
-				boolean_flag() = default;
+				SPROUT_CONSTEXPR boolean_flag() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				boolean_flag(boolean_flag const&) = default;
 				SPROUT_CONSTEXPR boolean_flag(bool flag)
 					: flag_(flag)
@@ -92,7 +92,7 @@ namespace sprout {
 			public:
 				SPROUT_STATIC_CONSTEXPR sprout::io::flags::fmtflags mask = Mask;
 			public:
-				field_flag() = default;
+				SPROUT_CONSTEXPR field_flag() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				field_flag(field_flag const&) = default;
 			};
 			template<sprout::io::flags::fmtflags Flag, sprout::io::flags::fmtflags Mask>
@@ -320,7 +320,7 @@ namespace sprout {
 			sprout::value_holder<T const&> holder_;
 			sprout::io::format_settings settings_;
 		public:
-			format_holder() = default;
+			SPROUT_CONSTEXPR format_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			format_holder(format_holder const&) = default;
 			explicit SPROUT_CONSTEXPR format_holder(T const& value)
 				: holder_(value)

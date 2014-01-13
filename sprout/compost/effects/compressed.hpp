@@ -78,7 +78,7 @@ namespace sprout {
 				value_type threshold_;
 				value_type ratio_;
 			public:
-				compress_holder() = default;
+				SPROUT_CONSTEXPR compress_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				compress_holder(compress_holder const&) = default;
 				SPROUT_CONSTEXPR compress_holder(value_type const& threshold, value_type const& ratio)
 					: threshold_(threshold), ratio_(ratio)

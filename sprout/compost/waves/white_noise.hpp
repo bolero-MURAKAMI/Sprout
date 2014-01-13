@@ -52,7 +52,7 @@ namespace sprout {
 				typedef typename generator_type::engine_type engine_type;
 				typedef typename generator_type::distribution_type distribution_type;
 			public:
-				white_noise_range() = default;
+				SPROUT_CONSTEXPR white_noise_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				white_noise_range(white_noise_range const&) = default;
 				explicit SPROUT_CONSTEXPR white_noise_range(
 					range_type& range,
@@ -92,7 +92,7 @@ namespace sprout {
 				typedef typename generator_type::engine_type engine_type;
 				typedef typename generator_type::distribution_type distribution_type;
 			public:
-				white_noise_range() = default;
+				SPROUT_CONSTEXPR white_noise_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				white_noise_range(white_noise_range const&) = default;
 				explicit SPROUT_CONSTEXPR white_noise_range(
 					engine_type const& gen,

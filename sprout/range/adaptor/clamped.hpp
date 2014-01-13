@@ -44,7 +44,7 @@ namespace sprout {
 			typedef typename base_type::value_type value_type;
 			typedef typename iterator::compare_type compare_type;
 		public:
-			clamped_range() = default;
+			SPROUT_CONSTEXPR clamped_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			clamped_range(clamped_range const&) = default;
 			explicit SPROUT_CONSTEXPR clamped_range(
 				range_type& range,

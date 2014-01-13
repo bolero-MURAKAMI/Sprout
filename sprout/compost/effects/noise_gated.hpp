@@ -71,7 +71,7 @@ namespace sprout {
 			private:
 				value_type threshold_;
 			public:
-				noise_gate_holder() = default;
+				SPROUT_CONSTEXPR noise_gate_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				noise_gate_holder(noise_gate_holder const&) = default;
 				explicit SPROUT_CONSTEXPR noise_gate_holder(value_type const& threshold)
 					: threshold_(threshold)

@@ -33,7 +33,7 @@ namespace sprout {
 			typedef sprout::adaptors::detail::adapted_range_default<Range> base_type;
 			typedef typename base_type::range_type range_type;
 		public:
-			copied_range() = default;
+			SPROUT_CONSTEXPR copied_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			copied_range(copied_range const&) = default;
 			explicit SPROUT_CONSTEXPR copied_range(range_type& range)
 				: base_type(
@@ -57,7 +57,7 @@ namespace sprout {
 		private:
 			sprout::value_holder<result_type&> result_;
 		public:
-			copy_holder() = default;
+			SPROUT_CONSTEXPR copy_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			copy_holder(copy_holder const&) = default;
 			explicit SPROUT_CONSTEXPR copy_holder(result_type& result)
 				: result_(result)

@@ -27,7 +27,7 @@ namespace sprout {
 				value_type gain_;
 				value_type level_;
 			public:
-				distort_holder() = default;
+				SPROUT_CONSTEXPR distort_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				distort_holder(distort_holder const&) = default;
 				SPROUT_CONSTEXPR distort_holder(value_type const& gain, value_type const& level)
 					: gain_(gain), level_(level)

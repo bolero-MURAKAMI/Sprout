@@ -22,7 +22,7 @@ namespace sprout {
 			Iterator current_;
 			Attribute attr_;
 		public:
-			parser_result() = default;
+			SPROUT_CONSTEXPR parser_result() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			SPROUT_CONSTEXPR parser_result(
 				bool success,
 				Iterator current,

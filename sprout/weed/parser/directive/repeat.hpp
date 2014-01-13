@@ -166,7 +166,7 @@ namespace sprout {
 			expr_type expr_;
 			std::size_t count_;
 		public:
-			repeat_p() = default;
+			SPROUT_CONSTEXPR repeat_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			explicit SPROUT_CONSTEXPR repeat_p(Parser const& p, std::size_t count = -1)
 				: expr_(sprout::weed::make_terminal_or_expr(p))
 				, count_(count)

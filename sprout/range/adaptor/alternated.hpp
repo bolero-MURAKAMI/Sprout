@@ -48,7 +48,7 @@ namespace sprout {
 			typedef typename base_type::range2_type range2_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			alternated_range() = default;
+			SPROUT_CONSTEXPR alternated_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			alternated_range(alternated_range const&) = default;
 			SPROUT_CONSTEXPR alternated_range(range1_type& range1, range2_type& range2)
 				: base_type(
@@ -71,7 +71,7 @@ namespace sprout {
 		private:
 			sprout::value_holder<range2_type&> range_;
 		public:
-			alternate_holder() = default;
+			SPROUT_CONSTEXPR alternate_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			alternate_holder(alternate_holder const&) = default;
 			explicit SPROUT_CONSTEXPR alternate_holder(range2_type& range)
 				: range_(range)

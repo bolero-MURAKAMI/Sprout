@@ -57,7 +57,7 @@ namespace sprout {
 					;
 			}
 		public:
-			replace_p() = default;
+			SPROUT_CONSTEXPR replace_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			SPROUT_CONSTEXPR replace_p(
 				Parser const& p,
 				value_type const& value

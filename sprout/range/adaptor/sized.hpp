@@ -33,7 +33,7 @@ namespace sprout {
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::size_type size_type;
 		public:
-			sized_range() = default;
+			SPROUT_CONSTEXPR sized_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			sized_range(sized_range const&) = default;
 			explicit SPROUT_CONSTEXPR sized_range(range_type& range)
 				: base_type(

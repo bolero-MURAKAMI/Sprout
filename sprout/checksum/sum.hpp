@@ -49,7 +49,7 @@ namespace sprout {
 				);
 		}
 	public:
-		sum_basic() = default;
+		SPROUT_CONSTEXPR sum_basic() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 		sum_basic(sum_basic const&) = default;
 		explicit SPROUT_CONSTEXPR sum_basic(sum_type sum)
 			: sum_(sum)

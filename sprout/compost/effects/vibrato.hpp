@@ -82,7 +82,7 @@ namespace sprout {
 				value_type rate_;
 				int_type samples_per_sec_;
 			public:
-				vibrato_holder() = default;
+				SPROUT_CONSTEXPR vibrato_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				vibrato_holder(vibrato_holder const&) = default;
 				SPROUT_CONSTEXPR vibrato_holder(
 					value_type const& d, value_type const& depth, value_type const& rate,

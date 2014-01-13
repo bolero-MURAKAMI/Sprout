@@ -40,7 +40,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
 		public:
-			counting_range() = default;
+			SPROUT_CONSTEXPR counting_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			counting_range(counting_range const&) = default;
 			explicit SPROUT_CONSTEXPR counting_range(range_type& range)
 				: base_type(
@@ -83,7 +83,7 @@ namespace sprout {
 			typedef typename base_type::iterator iterator;
 			typedef typename base_type::value_type value_type;
 		public:
-			counting_range() = default;
+			SPROUT_CONSTEXPR counting_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			counting_range(counting_range const&) = default;
 			explicit SPROUT_CONSTEXPR counting_range(value_type const& first)
 				: base_type(

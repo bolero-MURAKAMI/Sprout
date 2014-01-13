@@ -78,7 +78,7 @@ namespace sprout {
 				value_type delay_;
 				int_type samples_per_sec_;
 			public:
-				pseudo_stereo_holder() = default;
+				SPROUT_CONSTEXPR pseudo_stereo_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				pseudo_stereo_holder(pseudo_stereo_holder const&) = default;
 				explicit SPROUT_CONSTEXPR pseudo_stereo_holder(
 					value_type const& delay, int_type samples_per_sec = 44100

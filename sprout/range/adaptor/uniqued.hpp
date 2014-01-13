@@ -47,7 +47,7 @@ namespace sprout {
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			uniqued_range() = default;
+			SPROUT_CONSTEXPR uniqued_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			uniqued_range(uniqued_range const&) = default;
 			SPROUT_CONSTEXPR uniqued_range(range_type& range, Predicate pred)
 				: base_type(

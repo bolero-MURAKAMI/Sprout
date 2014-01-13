@@ -49,7 +49,7 @@ namespace sprout {
 			> base_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			transformed_range() = default;
+			SPROUT_CONSTEXPR transformed_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			transformed_range(transformed_range const&) = default;
 			SPROUT_CONSTEXPR transformed_range(BinaryFunction func, range1_type& range1, range2_type& range2)
 				: base_type(
@@ -81,7 +81,7 @@ namespace sprout {
 			> base_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			transformed_range() = default;
+			SPROUT_CONSTEXPR transformed_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			transformed_range(transformed_range const&) = default;
 			SPROUT_CONSTEXPR transformed_range(UnaryFunction func, range1_type& range)
 				: base_type(
@@ -103,7 +103,7 @@ namespace sprout {
 			BinaryFunction func_;
 			sprout::value_holder<range2_type&> range_;
 		public:
-			transform_holder() = default;
+			SPROUT_CONSTEXPR transform_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			transform_holder(transform_holder const&) = default;
 			SPROUT_CONSTEXPR transform_holder(BinaryFunction func, range2_type& range)
 				: func_(func)
@@ -123,7 +123,7 @@ namespace sprout {
 		private:
 			UnaryFunction func_;
 		public:
-			transform_holder() = default;
+			SPROUT_CONSTEXPR transform_holder() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			transform_holder(transform_holder const&) = default;
 			explicit SPROUT_CONSTEXPR transform_holder(UnaryFunction func)
 				: func_(func)

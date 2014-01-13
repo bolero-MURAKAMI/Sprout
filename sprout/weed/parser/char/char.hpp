@@ -47,7 +47,7 @@ namespace sprout {
 		private:
 			T t_;
 		public:
-			lit_char_p() = default;
+			SPROUT_CONSTEXPR lit_char_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			explicit SPROUT_CONSTEXPR lit_char_p(T const& t)
 				: t_(t)
 			{}
@@ -104,7 +104,7 @@ namespace sprout {
 		private:
 			T t_;
 		public:
-			char_p() = default;
+			SPROUT_CONSTEXPR char_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			explicit SPROUT_CONSTEXPR char_p(T const& t)
 				: t_(t)
 			{}
@@ -145,7 +145,7 @@ namespace sprout {
 			T f_;
 			T l_;
 		public:
-			char_range_p() = default;
+			SPROUT_CONSTEXPR char_range_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			SPROUT_CONSTEXPR char_range_p(T const& f, T const& l)
 				: f_(f), l_(l)
 			{}
@@ -185,7 +185,7 @@ namespace sprout {
 		private:
 			T t_;
 		public:
-			char_set_p() = default;
+			SPROUT_CONSTEXPR char_set_p() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			explicit SPROUT_CONSTEXPR char_set_p(T const& t)
 				: t_(t)
 			{}

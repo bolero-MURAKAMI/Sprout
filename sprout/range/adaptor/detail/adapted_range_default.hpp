@@ -30,7 +30,7 @@ namespace sprout {
 				typedef sprout::range::range_container<Iterator> base_type;
 				typedef typename base_type::iterator iterator;
 			public:
-				adapted_range_default() = default;
+				SPROUT_CONSTEXPR adapted_range_default() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				adapted_range_default(adapted_range_default const&) = default;
 				explicit SPROUT_CONSTEXPR adapted_range_default(iterator const& first, iterator const& last)
 					: base_type(first, last)

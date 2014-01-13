@@ -38,7 +38,7 @@ namespace sprout {
 			typedef typename base_type::range_type range_type;
 			typedef typename base_type::iterator iterator;
 		public:
-			reversed_range() = default;
+			SPROUT_CONSTEXPR reversed_range() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			reversed_range(reversed_range const&) = default;
 			explicit SPROUT_CONSTEXPR reversed_range(range_type& range)
 				: base_type(
