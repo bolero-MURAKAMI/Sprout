@@ -56,15 +56,17 @@ def main():
 	pool = multiprocessing.Pool(opts.max_procs if opts.max_procs != 0 else None)
 	return sum(result != 0 for result in pool.map(
 		build,
-		[format_command('gcc', version, opts.gcc_root)
+		([format_command('gcc', version, opts.gcc_root)
 			for version in opts.gcc_version.split(' ')
 			] if opts.gcc_version != ' '
 			else []
+			)
 		+
-		[format_command('clang', version, opts.clang_root)
+		([format_command('clang', version, opts.clang_root)
 			for version in opts.clang_version.split(' ')
 			] if opts.clang_version != ' '
 			else []
+			)
 		))
 
 if __name__ == "__main__":

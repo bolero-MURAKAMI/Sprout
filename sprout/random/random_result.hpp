@@ -79,9 +79,6 @@ namespace sprout {
 				, engine_(engine)
 				, distribution_(distribution)
 			{}
-			SPROUT_CONSTEXPR operator result_type() const SPROUT_NOEXCEPT {
-				return result_;
-			}
 			SPROUT_CONSTEXPR random_result operator()() const {
 				return distribution_(engine_);
 			}
@@ -210,9 +207,6 @@ namespace sprout {
 				: result_(result)
 				, engine_(engine)
 			{}
-			SPROUT_CONSTEXPR operator result_type() const SPROUT_NOEXCEPT {
-				return result_;
-			}
 			SPROUT_CONSTEXPR random_result operator()() const {
 				return engine_();
 			}
