@@ -11,7 +11,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/random/detail/ptr_helper.hpp>
-#include <sprout/random/random_result.hpp>
+#include <sprout/random/random_result_fwd.hpp>
+#include <sprout/utility/swap.hpp>
 
 namespace sprout {
 	namespace random {
@@ -41,6 +42,11 @@ namespace sprout {
 			engine_type engine_;
 			distribution_type distribution_;
 		public:
+			SPROUT_CONSTEXPR variate_generator()
+				: engine_()
+				, distribution_()
+			{}
+			variate_generator(variate_generator const&) = default;
 			SPROUT_CONSTEXPR variate_generator(
 				engine_param_type engine,
 				distribution_param_type distribution
@@ -48,7 +54,7 @@ namespace sprout {
 				: engine_(engine)
 				, distribution_(distribution)
 			{}
-			SPROUT_CONSTEXPR random_result_type operator()() const {
+			SPROUT_CONSTEXPR random_result_type const operator()() const {
 				return distribution_(engine_);
 			}
 			engine_reference_type engine() SPROUT_NOEXCEPT {
@@ -69,7 +75,35 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
 				return distribution_.max();
 			}
+			SPROUT_CXX14_CONSTEXPR void swap(variate_generator& other)
+			SPROUT_NOEXCEPT_EXPR(
+				SPROUT_NOEXCEPT_EXPR(sprout::swap(engine_, other.engine_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(distribution_, other.distribution_))
+				)
+			{
+				sprout::swap(engine_, other.engine_);
+				sprout::swap(distribution_, other.distribution_);
+			}
+			friend SPROUT_CONSTEXPR bool operator==(variate_generator const& lhs, variate_generator const& rhs) SPROUT_NOEXCEPT {
+				return lhs.engine_ == rhs.engine_
+					&& lhs.distribution_ == rhs.distribution_
+					;
+			}
+			friend SPROUT_CONSTEXPR bool operator!=(variate_generator const& lhs, variate_generator const& rhs) SPROUT_NOEXCEPT {
+				return !(lhs == rhs);
+			}
 		};
+
+		//
+		// swap
+		//
+		template<typename Engine, typename Distribution>
+		inline SPROUT_CXX14_CONSTEXPR void
+		swap(sprout::random::variate_generator<Engine, Distribution>& lhs, sprout::random::variate_generator<Engine, Distribution>& rhs)
+		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		{
+			lhs.swap(rhs);
+		}
 
 		//
 		// combine
@@ -92,5 +126,7 @@ namespace sprout {
 
 	using sprout::random::variate_generator;
 }	// namespace sprout
+
+#include <sprout/random/random_result.hpp>
 
 #endif	// #ifndef SPROUT_RANDOM_VARIATE_GENERATOR_HPP

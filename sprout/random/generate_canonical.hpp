@@ -18,6 +18,7 @@
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
@@ -89,13 +90,23 @@ namespace sprout {
 				typedef sprout::pair<RealType, URNG> const pair_type;
 				return mult * r < limit ? sprout::random::detail::generate_canonical_impl_1_1<RealType, bits, URNG>(
 					r, limit,
-					s + RealType(sprout::random::detail::subtract<base_result>()(rnd.result(), rnd.engine().min())) * mult,
+					s + RealType(
+						sprout::random::detail::subtract<base_result>()(
+							sprout::generators::generated_value(rnd),
+							sprout::generators::next_generator(rnd).min()
+							)
+						) * mult,
 					mult * r,
 					rnd()
 					)
 					: pair_type(
-						(s + RealType(sprout::random::detail::subtract<base_result>()(rnd.result(), rnd.engine().min())) * mult) / (mult * r),
-						rnd.engine()
+						(s + RealType(
+							sprout::random::detail::subtract<base_result>()(
+								sprout::generators::generated_value(rnd),
+								sprout::generators::next_generator(rnd).min()
+								)
+							) * mult) / (mult * r),
+						sprout::generators::next_generator(rnd)
 						)
 					;
 			}
@@ -106,13 +117,23 @@ namespace sprout {
 				typedef sprout::pair<RealType, URNG> const pair_type;
 				return r < limit ? sprout::random::detail::generate_canonical_impl_1_1<RealType, bits, URNG>(
 						r, limit,
-						RealType(sprout::random::detail::subtract<base_result>()(rnd.result(), rnd.engine().min())),
+						RealType(
+							sprout::random::detail::subtract<base_result>()(
+								sprout::generators::generated_value(rnd),
+								sprout::generators::next_generator(rnd).min()
+								)
+							),
 						r,
 						rnd()
 						)
 					: pair_type(
-						RealType(sprout::random::detail::subtract<base_result>()(rnd.result(), rnd.engine().min())) / r,
-						rnd.engine()
+						RealType(
+							sprout::random::detail::subtract<base_result>()(
+								sprout::generators::generated_value(rnd),
+								sprout::generators::next_generator(rnd).min()
+								)
+							) / r,
+						sprout::generators::next_generator(rnd)
 						)
 					;
 			}
@@ -135,13 +156,17 @@ namespace sprout {
 				typedef sprout::pair<RealType, URNG> const pair_type;
 				return mult * r < limit ? sprout::random::detail::generate_canonical_impl_0_1<RealType, bits, URNG>(
 					r, limit,
-					s + sprout::math::floor((RealType(rnd.result()) - RealType(rnd.engine().min())) * r) * mult,
+					s + sprout::math::floor(
+						(RealType(sprout::generators::generated_value(rnd)) - RealType(sprout::generators::next_generator(rnd).min())) * r
+						) * mult,
 					mult * r,
 					rnd()
 					)
 					: pair_type(
-						(s + sprout::math::floor((RealType(rnd.result()) - RealType(rnd.engine().min())) * r) * mult) / (mult * r),
-						rnd.engine()
+						(s + sprout::math::floor(
+							(RealType(sprout::generators::generated_value(rnd)) - RealType(sprout::generators::next_generator(rnd).min())) * r
+							) * mult) / (mult * r),
+						sprout::generators::next_generator(rnd)
 						)
 					;
 			}
@@ -151,13 +176,13 @@ namespace sprout {
 				typedef sprout::pair<RealType, URNG> const pair_type;
 				return r < limit ? sprout::random::detail::generate_canonical_impl_0_1<RealType, bits, URNG>(
 						r, limit,
-						RealType(rnd.result() - rnd.engine().min()),
+						RealType(sprout::generators::generated_value(rnd) - sprout::generators::next_generator(rnd).min()),
 						r,
 						rnd()
 						)
 					: pair_type(
-						RealType(rnd.result() - rnd.engine().min()) / r,
-						rnd.engine()
+						RealType(sprout::generators::generated_value(rnd) - sprout::generators::next_generator(rnd).min()) / r,
+						sprout::generators::next_generator(rnd)
 						)
 					;
 			}

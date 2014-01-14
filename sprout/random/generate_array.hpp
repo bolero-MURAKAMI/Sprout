@@ -12,16 +12,18 @@
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/utility/pair/pair.hpp>
+#include <sprout/generator/functions.hpp>
+#include <sprout/generator/results.hpp>
 
 namespace sprout {
 	namespace random {
 		//
 		// generate_array
 		//
-		template<std::size_t N, typename URNG>
-		inline SPROUT_CXX14_CONSTEXPR sprout::array<typename URNG::result_type, N>
-		generate_array(URNG& rng) {
-			sprout::array<typename URNG::result_type, N> result{{}};
+		template<std::size_t N, typename RandomNumberGenerator>
+		inline SPROUT_CXX14_CONSTEXPR sprout::array<typename RandomNumberGenerator::result_type, N>
+		generate_array(RandomNumberGenerator& rng) {
+			sprout::array<typename RandomNumberGenerator::result_type, N> result{{}};
 			for (std::size_t i = 0; i != N; ++i) {
 				result[i] = rng();
 			}
@@ -29,32 +31,47 @@ namespace sprout {
 		}
 
 		namespace detail {
-			template<std::size_t N, typename URNG, typename Random, typename... Args>
+			template<std::size_t N, typename RandomNumberGenerator, typename Random, typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				(sizeof...(Args) + 1 == N),
-				sprout::pair<sprout::array<typename URNG::result_type, N>, URNG> const
+				sprout::pair<
+					sprout::array<typename sprout::generators::results::generated_value<RandomNumberGenerator const>::type, N>,
+					typename sprout::generators::results::next_generator<RandomNumberGenerator const>::type
+				> const
 			>::type generate_array_impl(Random const& rnd, Args const&... args) {
-				typedef sprout::pair<sprout::array<typename URNG::result_type, N>, URNG> const pair_type;
+				typedef sprout::pair<
+					sprout::array<typename sprout::generators::results::generated_value<RandomNumberGenerator const>::type, N>,
+					typename sprout::generators::results::next_generator<RandomNumberGenerator const>::type
+				> const pair_type;
 				return pair_type{
-					sprout::array<typename URNG::result_type, N>{{args..., rnd.result()}},
-					rnd.engine()
+					sprout::array<typename RandomNumberGenerator::result_type, N>{{args..., sprout::generators::generated_value(rnd)}},
+					sprout::generators::next_generator(rnd)
 					};
 			}
-			template<std::size_t N, typename URNG, typename Random, typename... Args>
+			template<std::size_t N, typename RandomNumberGenerator, typename Random, typename... Args>
 			static SPROUT_CONSTEXPR typename std::enable_if<
 				(sizeof...(Args) + 1 < N),
-				sprout::pair<sprout::array<typename URNG::result_type, N>, URNG> const
+				sprout::pair<
+					sprout::array<typename sprout::generators::results::generated_value<RandomNumberGenerator const>::type, N>,
+					typename sprout::generators::results::next_generator<RandomNumberGenerator const>::type
+				> const
 			>::type generate_array_impl(Random const& rnd, Args const&... args) {
-				return sprout::random::detail::generate_array_impl<N, URNG>(rnd(), args..., rnd.result());
+				return sprout::random::detail::generate_array_impl<N, RandomNumberGenerator>(
+					sprout::generators::next_generator(rnd)(),
+					args..., sprout::generators::generated_value(rnd)
+					);
 			}
 		}	// namespace detail
 		//
 		// generate_array
 		//
-		template<std::size_t N, typename URNG>
-		inline SPROUT_CONSTEXPR sprout::pair<sprout::array<typename URNG::result_type, N>, URNG> const
-		generate_array(URNG const& rng) {
-			return sprout::random::detail::generate_array_impl<N, URNG>(rng());
+		template<std::size_t N, typename RandomNumberGenerator>
+		inline SPROUT_CONSTEXPR sprout::pair<
+			sprout::array<typename sprout::generators::results::generated_value<RandomNumberGenerator const>::type, N>,
+			typename sprout::generators::results::next_generator<RandomNumberGenerator const>::type
+		> const
+		generate_array(RandomNumberGenerator const& rng) {
+			return sprout::random::detail::generate_array_impl<N, RandomNumberGenerator>(rng());
 		}
 	}	// namespace random
 }	// namespace sprout

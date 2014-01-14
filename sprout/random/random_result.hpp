@@ -15,7 +15,9 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/tuple/tuple.hpp>
-#include <sprout/generator.hpp>
+#include <sprout/generator/functions.hpp>
+#include <sprout/random/random_result_fwd.hpp>
+#include <sprout/random/variate_generator.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
@@ -25,9 +27,6 @@ namespace sprout {
 		//
 		// random_result
 		//
-		template<typename Engine, typename Distribution = void, typename Enable = void>
-		class random_result;
-
 		template<typename Engine, typename Distribution>
 		class random_result<
 			Engine,
@@ -46,6 +45,7 @@ namespace sprout {
 			typedef Engine engine_type;
 			typedef Distribution distribution_type;
 			typedef typename distribution_type::result_type result_type;
+			typedef sprout::random::variate_generator<engine_type, distribution_type> generator_type;
 		private:
 			typedef std::iterator<
 				std::input_iterator_tag,
@@ -62,31 +62,23 @@ namespace sprout {
 			typedef typename base_type::reference reference;
 		private:
 			result_type result_;
-			engine_type engine_;
-			distribution_type distribution_;
+			generator_type generator_;
 		public:
 			SPROUT_CONSTEXPR random_result()
 				: result_()
-				, engine_()
-				, distribution_()
+				, generator_()
 			{}
+			random_result(random_result const&) = default;
 			SPROUT_CONSTEXPR random_result(
 				result_type result,
 				engine_type const& engine,
 				distribution_type const& distribution
 				)
 				: result_(result)
-				, engine_(engine)
-				, distribution_(distribution)
+				, generator_(engine, distribution)
 			{}
 			SPROUT_CONSTEXPR random_result operator()() const {
-				return distribution_(engine_);
-			}
-			SPROUT_CXX14_CONSTEXPR result_type& result() SPROUT_NOEXCEPT {
-				return result_;
-			}
-			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
-				return result_;
+				return generator_();
 			}
 			SPROUT_CXX14_CONSTEXPR result_type& generated_value() SPROUT_NOEXCEPT {
 				return result_;
@@ -94,51 +86,54 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type const& generated_value() const SPROUT_NOEXCEPT {
 				return result_;
 			}
+			SPROUT_CXX14_CONSTEXPR generator_type& next_generator() SPROUT_NOEXCEPT {
+				return generator_;
+			}
+			SPROUT_CONSTEXPR generator_type const& next_generator() const SPROUT_NOEXCEPT {
+				return generator_;
+			}
+			SPROUT_CXX14_CONSTEXPR result_type& result() SPROUT_NOEXCEPT {
+				return result_;
+			}
+			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
+				return result_;
+			}
 			SPROUT_CXX14_CONSTEXPR engine_type& engine() SPROUT_NOEXCEPT {
-				return engine_;
+				return generator_.engine();
 			}
 			SPROUT_CONSTEXPR engine_type const& engine() const SPROUT_NOEXCEPT {
-				return engine_;
-			}
-			SPROUT_CXX14_CONSTEXPR random_result& next_generator() SPROUT_NOEXCEPT {
-				return *this;
-			}
-			SPROUT_CONSTEXPR random_result const& next_generator() const SPROUT_NOEXCEPT {
-				return *this;
+				return generator_.engine();
 			}
 			SPROUT_CXX14_CONSTEXPR distribution_type& distribution() SPROUT_NOEXCEPT {
-				return distribution_;
+				return generator_.distribution();
 			}
 			SPROUT_CONSTEXPR distribution_type const& distribution() const SPROUT_NOEXCEPT {
-				return distribution_;
+				return generator_.distribution();
 			}
 			SPROUT_CXX14_CONSTEXPR operator result_type&() SPROUT_NOEXCEPT {
-				return generated_value();
+				return result_;
 			}
 			SPROUT_CONSTEXPR operator result_type const&() const SPROUT_NOEXCEPT {
-				return generated_value();
+				return result_;
 			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
-				return distribution_.min();
+				return distribution().min();
 			}
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
-				return distribution_.max();
+				return distribution().max();
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(random_result& other)
 			SPROUT_NOEXCEPT_EXPR(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(result_, other.result_))
-				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(engine_, other.engine_))
-				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(distribution_, other.distribution_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(generator_, other.generator_))
 				)
 			{
 				sprout::swap(result_, other.result_);
-				sprout::swap(engine_, other.engine_);
-				sprout::swap(distribution_, other.distribution_);
+				sprout::swap(generator_, other.generator_);
 			}
 			friend SPROUT_CONSTEXPR bool operator==(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
 				return lhs.result_ == rhs.result_
-					&& lhs.engine_ == rhs.engine_
-					&& lhs.distribution_ == rhs.distribution_
+					&& lhs.generator_ == rhs.generator_
 					;
 			}
 			friend SPROUT_CONSTEXPR bool operator!=(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
@@ -178,6 +173,7 @@ namespace sprout {
 		public:
 			typedef Engine engine_type;
 			typedef typename engine_type::result_type result_type;
+			typedef engine_type generator_type;
 		private:
 			typedef std::iterator<
 				std::input_iterator_tag,
@@ -194,27 +190,22 @@ namespace sprout {
 			typedef typename base_type::reference reference;
 		private:
 			result_type result_;
-			engine_type engine_;
+			generator_type generator_;
 		public:
 			SPROUT_CONSTEXPR random_result()
 				: result_()
-				, engine_()
+				, generator_()
 			{}
+			random_result(random_result const&) = default;
 			SPROUT_CONSTEXPR random_result(
 				result_type result,
 				engine_type const& engine
 				)
 				: result_(result)
-				, engine_(engine)
+				, generator_(engine)
 			{}
 			SPROUT_CONSTEXPR random_result operator()() const {
-				return engine_();
-			}
-			SPROUT_CXX14_CONSTEXPR result_type& result() SPROUT_NOEXCEPT {
-				return result_;
-			}
-			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
-				return result_;
+				return generator_();
 			}
 			SPROUT_CXX14_CONSTEXPR result_type& generated_value() SPROUT_NOEXCEPT {
 				return result_;
@@ -222,33 +213,39 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type const& generated_value() const SPROUT_NOEXCEPT {
 				return result_;
 			}
+			SPROUT_CXX14_CONSTEXPR generator_type& next_generator() SPROUT_NOEXCEPT {
+				return generator_;
+			}
+			SPROUT_CONSTEXPR generator_type const& next_generator() const SPROUT_NOEXCEPT {
+				return generator_;
+			}
+			SPROUT_CXX14_CONSTEXPR result_type& result() SPROUT_NOEXCEPT {
+				return result_;
+			}
+			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
+				return result_;
+			}
 			SPROUT_CXX14_CONSTEXPR engine_type& engine() SPROUT_NOEXCEPT {
-				return engine_;
+				return generator_;
 			}
 			SPROUT_CONSTEXPR engine_type const& engine() const SPROUT_NOEXCEPT {
-				return engine_;
-			}
-			SPROUT_CXX14_CONSTEXPR random_result& next_generator() SPROUT_NOEXCEPT {
-				return *this;
-			}
-			SPROUT_CONSTEXPR random_result const& next_generator() const SPROUT_NOEXCEPT {
-				return *this;
+				return generator_;
 			}
 			SPROUT_CXX14_CONSTEXPR operator result_type&() SPROUT_NOEXCEPT {
-				return generated_value();
+				return result_;
 			}
 			SPROUT_CONSTEXPR operator result_type const&() const SPROUT_NOEXCEPT {
-				return generated_value();
+				return result_;
 			}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
-				return engine_.min();
+				return engine().min();
 			}
 			SPROUT_CONSTEXPR result_type max() const SPROUT_NOEXCEPT {
-				return engine_.max();
+				return engine().max();
 			}
 			friend SPROUT_CONSTEXPR bool operator==(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
 				return lhs.result_ == rhs.result_
-					&& lhs.engine_ == rhs.engine_
+					&& lhs.generator_ == rhs.generator_
 					;
 			}
 			friend SPROUT_CONSTEXPR bool operator!=(random_result const& lhs, random_result const& rhs) SPROUT_NOEXCEPT {
@@ -257,11 +254,11 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR void swap(random_result& other)
 			SPROUT_NOEXCEPT_EXPR(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(result_, other.result_))
-				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(engine_, other.engine_))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(generator_, other.generator_))
 				)
 			{
 				sprout::swap(result_, other.result_);
-				sprout::swap(engine_, other.engine_);
+				sprout::swap(generator_, other.generator_);
 			}
 			SPROUT_CONSTEXPR reference operator*() const SPROUT_NOEXCEPT {
 				return result_;
@@ -303,8 +300,6 @@ namespace sprout {
 		}
 	}	// namespace random
 
-	using sprout::random::random_result;
-
 	namespace tuples {
 		namespace detail {
 			template<std::size_t I, typename T>
@@ -317,7 +312,7 @@ namespace sprout {
 			template<typename Engine, typename Distribution>
 			struct tuple_element_impl<1, sprout::random::random_result<Engine, Distribution> > {
 			public:
-				typedef sprout::random::random_result<Engine, Distribution> type;
+				typedef typename sprout::random::random_result<Engine, Distribution>::generator_type type;
 			};
 
 			template<std::size_t I, typename T>
@@ -337,11 +332,11 @@ namespace sprout {
 			template<typename Engine, typename Distribution>
 			struct get_impl<1, sprout::random::random_result<Engine, Distribution> > {
 			public:
-				SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution>&
+				SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::generator_type&
 				operator()(sprout::random::random_result<Engine, Distribution>& t) const {
 					return t.next_generator();
 				}
-				SPROUT_CONSTEXPR sprout::random::random_result<Engine, Distribution> const&
+				SPROUT_CONSTEXPR typename sprout::random::random_result<Engine, Distribution>::generator_type const&
 				operator()(sprout::random::random_result<Engine, Distribution> const& t) const {
 					return t.next_generator();
 				}
