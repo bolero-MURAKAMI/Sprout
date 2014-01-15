@@ -16,6 +16,7 @@
 #include <sprout/random/default_random_engine.hpp>
 #include <sprout/random/uniform_int_distribution.hpp>
 #include <sprout/random/variate_generator.hpp>
+#include <sprout/generator/functions.hpp>
 
 namespace sprout {
 	namespace uuids {
@@ -58,14 +59,14 @@ namespace sprout {
 				sizeof...(Args) == 3,
 				result_type
 			>::type random_to_uuid(Random const& rnd, Args... args) const {
-				return random_to_uuid_1(args..., rnd.result());
+				return random_to_uuid_1(args..., sprout::generators::generated_value(rnd));
 			}
 			template<typename Random, typename... Args>
 			SPROUT_CONSTEXPR typename std::enable_if<
 				sizeof...(Args) != 3,
 				result_type
 			>::type random_to_uuid(Random const& rnd, Args... args) const {
-				return random_to_uuid(rnd(), args..., rnd.result());
+				return random_to_uuid(sprout::generators::next_generator(rnd)(), args..., sprout::generators::generated_value(rnd));
 			}
 		public:
 			SPROUT_CONSTEXPR basic_random_generator()

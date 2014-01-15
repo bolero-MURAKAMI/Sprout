@@ -20,6 +20,7 @@
 #include <sprout/math/floor.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/assert.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
@@ -320,7 +321,7 @@ namespace sprout {
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			invert_0(IntType t, RealType p, Random const& rnd) const {
-				return invert_1(t, p, rnd.engine(), rnd.result());
+				return invert_1(t, p, sprout::generators::next_generator(rnd).engine(), sprout::generators::generated_value(rnd));
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -330,7 +331,11 @@ namespace sprout {
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			invert2_0(IntType t, sprout::random::random_result<Engine, binomial_distribution> const& rnd) const {
-				return sprout::random::random_result<Engine, binomial_distribution>(t - rnd.result(), rnd.engine(), rnd.distribution());
+				return sprout::random::random_result<Engine, binomial_distribution>(
+					t - sprout::generators::generated_value(rnd),
+					sprout::generators::next_generator(rnd).engine(),
+					sprout::generators::next_generator(rnd).distribution()
+					);
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -483,11 +488,11 @@ namespace sprout {
 			generate_2(Random const& rnd, RealType v) const {
 				return v >= btrd_.v_r
 					? generate_3<D + 1>(
-						rnd.engine(), v,
-						rnd.result() - RealType(0.5)
+						sprout::generators::next_generator(rnd).engine(), v,
+						sprout::generators::generated_value(rnd) - RealType(0.5)
 						)
 					: generate_3<D + 1>(
-						rnd.engine(), rnd.result() * btrd_.v_r,
+						sprout::generators::next_generator(rnd).engine(), sprout::generators::generated_value(rnd) * btrd_.v_r,
 						((v / btrd_.v_r - RealType(0.93)) < 0 ? RealType(-0.5) : RealType(0.5)) - (v / btrd_.v_r - RealType(0.93))
 						)
 					;
@@ -526,7 +531,7 @@ namespace sprout {
 			template<int D, typename Engine, typename Random, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_0(Random const& rnd) const {
-				return generate_1<D + 1>(rnd.engine(), rnd.result());
+				return generate_1<D + 1>(sprout::generators::next_generator(rnd).engine(), sprout::generators::generated_value(rnd));
 			}
 			template<int D, typename Engine, typename Random, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -634,13 +639,13 @@ namespace sprout {
 			generate_2(Random const& rnd, RealType v) const {
 				return v >= btrd_.v_r
 					? generate_3(
-						rnd.engine(),
+						sprout::generators::next_generator(rnd).engine(),
 						v,
-						rnd.result() - RealType(0.5)
+						sprout::generators::generated_value(rnd) - RealType(0.5)
 						)
 					: generate_3(
-						rnd.engine(),
-						rnd.result() * btrd_.v_r,
+						sprout::generators::next_generator(rnd).engine(),
+						sprout::generators::generated_value(rnd) * btrd_.v_r,
 						((v / btrd_.v_r - RealType(0.93)) < 0 ? RealType(-0.5) : RealType(0.5)) - (v / btrd_.v_r - RealType(0.93))
 						)
 					;
@@ -665,7 +670,7 @@ namespace sprout {
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate_0(Random const& rnd) const {
-				return generate_1(rnd.engine(), rnd.result());
+				return generate_1(sprout::generators::next_generator(rnd).engine(), sprout::generators::generated_value(rnd));
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
@@ -676,7 +681,11 @@ namespace sprout {
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>
 			generate2_0(IntType t, sprout::random::random_result<Engine, binomial_distribution> const& rnd) const {
-				return sprout::random::random_result<Engine, binomial_distribution>(t - rnd.result(), rnd.engine(), rnd.distribution());
+				return sprout::random::random_result<Engine, binomial_distribution>(
+					t - sprout::generators::generated_value(rnd),
+					sprout::generators::next_generator(rnd).engine(),
+					sprout::generators::next_generator(rnd).distribution()
+					);
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, binomial_distribution>

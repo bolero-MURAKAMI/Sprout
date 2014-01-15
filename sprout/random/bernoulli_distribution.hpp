@@ -11,6 +11,7 @@
 #include <iosfwd>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -82,8 +83,10 @@ namespace sprout {
 				) const
 			{
 				return sprout::random::random_result<Engine, bernoulli_distribution>(
-					RealType(rnd.result() - rnd.engine().min()) <= p_ * RealType(rnd.engine().max() - rnd.engine().min()),
-					rnd.engine(),
+					RealType(sprout::generators::generated_value(rnd) - sprout::generators::next_generator(rnd).min())
+						<= p_ * RealType(sprout::generators::next_generator(rnd).max() - sprout::generators::next_generator(rnd).min())
+						,
+					sprout::generators::next_generator(rnd),
 					*this
 					);
 			}

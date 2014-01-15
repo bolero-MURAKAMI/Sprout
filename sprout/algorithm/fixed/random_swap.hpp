@@ -18,6 +18,7 @@
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>
 
 namespace sprout {
@@ -26,14 +27,14 @@ namespace sprout {
 			template<typename Random>
 			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, 2>
 			make_random_swap_indexes_2(Random const& rnd, std::ptrdiff_t i0) {
-				return sprout::array<std::ptrdiff_t, 2>{{i0, rnd.result()}};
+				return sprout::array<std::ptrdiff_t, 2>{{i0, sprout::generators::generated_value(rnd)}};
 			}
 			template<typename Random>
 			inline SPROUT_CONSTEXPR sprout::array<std::ptrdiff_t, 2>
 			make_random_swap_indexes_1(Random const& rnd) {
 				return sprout::fixed::detail::make_random_swap_indexes_2(
-					rnd(),
-					rnd.result()
+					sprout::generators::next_generator(rnd)(),
+					sprout::generators::generated_value(rnd)
 					);
 			}
 			template<typename UniformRandomNumberGenerator>

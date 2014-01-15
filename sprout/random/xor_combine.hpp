@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/type_traits.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
@@ -43,12 +44,12 @@ namespace sprout {
 			base1_type rng1_;
 			base2_type rng2_;
 		private:
-			template<typename Random1, typename Random2>
-			SPROUT_CONSTEXPR sprout::random::random_result<xor_combine_engine> generate(Random1 const& rnd1, Random2 const& rnd2) const {
+			template<typename EngineResult1, typename EngineResult2>
+			SPROUT_CONSTEXPR sprout::random::random_result<xor_combine_engine> generate(EngineResult1 const& rnd1, EngineResult2 const& rnd2) const {
 				return sprout::random::random_result<xor_combine_engine>(
-					(rnd1.result() << s1) ^ (rnd2.result() << s2),
+					(sprout::generators::generated_value(rnd1) << s1) ^ (sprout::generators::generated_value(rnd2) << s2),
 					xor_combine_engine(
-						rnd1.engine(), rnd2.engine()
+						sprout::generators::next_generator(rnd1), sprout::generators::next_generator(rnd2)
 						)
 					);
 			}

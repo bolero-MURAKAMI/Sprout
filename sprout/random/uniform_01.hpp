@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/generator/functions.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
 #endif
@@ -65,7 +66,7 @@ namespace sprout {
 			generate_1(Engine const&, EngineResult const& rnd, result_type result) const {
 				return result < result_type(1)
 					? sprout::random::random_result<Engine, uniform_01>(result, rnd.engine(), *this)
-					: generate<D + 1>(rnd.engine(), rnd.engine()())
+					: generate<D + 1>(sprout::generators::next_generator(rnd), sprout::generators::next_generator(rnd)())
 					;
 			}
 			template<int D, typename Engine, typename EngineResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
@@ -80,7 +81,7 @@ namespace sprout {
 				return generate_1<D + 1>(
 					eng,
 					rnd,
-					result_type(rnd.result() - eng.min()) * (
+					result_type(sprout::generators::generated_value(rnd) - eng.min()) * (
 						result_type(1) / (
 							result_type(eng.max() - eng.min()) + result_type(
 								sprout::numeric_limits<base_result>::is_integer ? 1 : 0
@@ -100,7 +101,7 @@ namespace sprout {
 			generate_1(Engine const&, EngineResult const& rnd, result_type result) const {
 				return result < result_type(1)
 					? sprout::random::random_result<Engine, uniform_01>(result, rnd.engine(), *this)
-					: generate(rnd.engine(), rnd.engine()())
+					: generate(sprout::generators::next_generator(rnd), sprout::generators::next_generator(rnd)())
 					;
 			}
 			template<typename Engine, typename EngineResult>
@@ -110,7 +111,7 @@ namespace sprout {
 				return generate_1(
 					eng,
 					rnd,
-					result_type(rnd.result() - eng.min()) * (
+					result_type(sprout::generators::generated_value(rnd) - eng.min()) * (
 						result_type(1) / (
 							result_type(eng.max() - eng.min()) + result_type(
 								sprout::numeric_limits<base_result>::is_integer ? 1 : 0

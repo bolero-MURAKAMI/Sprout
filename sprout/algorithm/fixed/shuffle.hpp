@@ -21,6 +21,7 @@
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/numeric/fixed/iota.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>
 
 namespace sprout {
@@ -32,11 +33,11 @@ namespace sprout {
 				return i < n - 1
 					? sprout::fixed::detail::make_shuffle_indexes_1(
 						n,
-						rnd(),
-						sprout::fixed::swap_element(arr, arr.begin() + i, arr.begin() + rnd.result()),
+						sprout::generators::next_generator(rnd)(),
+						sprout::fixed::swap_element(arr, arr.begin() + i, arr.begin() + sprout::generators::generated_value(rnd)),
 						i + 1
 						)
-					: sprout::fixed::swap_element(arr, arr.begin() + i, arr.begin() + rnd.result())
+					: sprout::fixed::swap_element(arr, arr.begin() + i, arr.begin() + sprout::generators::generated_value(rnd))
 					;
 			}
 			template<std::size_t N, typename UniformRandomNumberGenerator>

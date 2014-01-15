@@ -14,6 +14,7 @@
 #include <sprout/config.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/random_result.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -148,9 +149,10 @@ namespace sprout {
 				)
 			{
 				return sprout::random::detail::generate_uniform_real_false_2<D + 1>(
-					rnd.engine(),
+					sprout::generators::next_generator(rnd),
 					min_value, max_value,
-					static_cast<T>(rnd.result() - rnd.engine().min()), static_cast<T>(rnd.engine().max() - rnd.engine().min())
+					static_cast<T>(sprout::generators::generated_value(rnd) - sprout::generators::next_generator(rnd).min()),
+					static_cast<T>(sprout::generators::next_generator(rnd).max() - sprout::generators::next_generator(rnd).min())
 					);
 			}
 			template<int D, typename EngineResult, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
@@ -232,10 +234,10 @@ namespace sprout {
 			{
 				typedef typename EngineResult::result_type base_result;
 				return sprout::random::detail::generate_uniform_real_true_2<D + 1>(
-					rnd.engine(),
+					sprout::generators::next_generator(rnd),
 					min_value, max_value,
-					static_cast<T>(sprout::random::detail::subtract<base_result>()(rnd.result(), rnd.engine().min())),
-					static_cast<T>(sprout::random::detail::subtract<base_result>()(rnd.engine().max(), rnd.engine().min())) + 1
+					static_cast<T>(sprout::random::detail::subtract<base_result>()(sprout::generators::generated_value(rnd), sprout::generators::next_generator(rnd).min())),
+					static_cast<T>(sprout::random::detail::subtract<base_result>()(sprout::generators::next_generator(rnd).max(), sprout::generators::next_generator(rnd).min())) + 1
 					);
 			}
 			template<int D, typename EngineResult, typename T, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
@@ -291,9 +293,10 @@ namespace sprout {
 				)
 			{
 				return sprout::random::detail::generate_uniform_real_false_2(
-					rnd.engine(),
+					sprout::generators::next_generator(rnd),
 					min_value, max_value,
-					static_cast<T>(rnd.result() - rnd.engine().min()), static_cast<T>(rnd.engine().max() - rnd.engine().min())
+					static_cast<T>(sprout::generators::generated_value(rnd) - sprout::generators::next_generator(rnd).min()),
+					static_cast<T>(sprout::generators::next_generator(rnd).max() - sprout::generators::next_generator(rnd).min())
 					);
 			}
 			template<typename EngineResult, typename T>
@@ -340,10 +343,10 @@ namespace sprout {
 			{
 				typedef typename EngineResult::result_type base_result;
 				return sprout::random::detail::generate_uniform_real_true_2(
-					rnd.engine(),
+					sprout::generators::next_generator(rnd),
 					min_value, max_value,
-					static_cast<T>(sprout::random::detail::subtract<base_result>()(rnd.result(), rnd.engine().min())),
-					static_cast<T>(sprout::random::detail::subtract<base_result>()(rnd.engine().max(), rnd.engine().min())) + 1
+					static_cast<T>(sprout::random::detail::subtract<base_result>()(sprout::generators::generated_value(rnd), sprout::generators::next_generator(rnd).min())),
+					static_cast<T>(sprout::random::detail::subtract<base_result>()(sprout::generators::next_generator(rnd).max(), sprout::generators::next_generator(rnd).min())) + 1
 					);
 			}
 #endif

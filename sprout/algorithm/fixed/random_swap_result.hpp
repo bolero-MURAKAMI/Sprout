@@ -22,6 +22,7 @@
 #include <sprout/utility/pair/access.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>
 
 namespace sprout {
@@ -32,16 +33,16 @@ namespace sprout {
 			make_random_swap_result_indexes_2(Random const& rnd, std::ptrdiff_t i0) {
 				typedef sprout::pair<sprout::array<std::ptrdiff_t, 2>, typename std::decay<UniformRandomNumberGenerator>::type> result_type;
 				return result_type(
-					sprout::array<std::ptrdiff_t, 2>{{i0, rnd.result()}},
-					rnd.engine()
+					sprout::array<std::ptrdiff_t, 2>{{i0, sprout::generators::generated_value(rnd)}},
+					sprout::generators::next_generator(rnd).engine()
 					);
 			}
 			template<typename UniformRandomNumberGenerator, typename Random>
 			inline SPROUT_CONSTEXPR sprout::pair<sprout::array<std::ptrdiff_t, 2>, typename std::decay<UniformRandomNumberGenerator>::type>
 			make_random_swap_result_indexes_1(Random const& rnd) {
 				return sprout::fixed::detail::make_random_swap_result_indexes_2<UniformRandomNumberGenerator>(
-					rnd(),
-					rnd.result()
+					sprout::generators::next_generator(rnd)(),
+					sprout::generators::generated_value(rnd)
 					);
 			}
 			template<typename UniformRandomNumberGenerator>

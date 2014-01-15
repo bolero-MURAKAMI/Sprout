@@ -14,13 +14,14 @@
 #include <sprout/limits.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/detail/integer.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
 	namespace random {
 		namespace detail {
-			template<class URNG>
+			template<typename URNG>
 			class uniform_int_float {
 			public:
 				typedef URNG base_type;
@@ -38,8 +39,8 @@ namespace sprout {
 					) const
 				{
 					return sprout::random::random_result<uniform_int_float>(
-						static_cast<result_type>(rnd.result() * (static_cast<base_result>(max()) + 1)),
-						uniform_int_float(rnd.engine())
+						static_cast<result_type>(sprout::generators::generated_value(rnd) * (static_cast<base_result>(max()) + 1)),
+						uniform_int_float(sprout::generators::next_generator(rnd))
 						);
 				}
 			public:

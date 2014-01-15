@@ -17,6 +17,7 @@
 #include <sprout/random/detail/seed_impl.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/type_traits.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/greater_equal.hpp>
 #include <sprout/assert.hpp>
@@ -208,11 +209,11 @@ namespace sprout {
 			SPROUT_CONSTEXPR rand48(lcf_type const& lcf, private_construct_t)
 				: lcf_(lcf)
 			{}
-			template<typename LcfResult>
-			SPROUT_CONSTEXPR sprout::random::random_result<rand48> generate(LcfResult const& lcf_result) const {
+			template<typename EngineResult>
+			SPROUT_CONSTEXPR sprout::random::random_result<rand48> generate(EngineResult const& rnd) const {
 				return sprout::random::random_result<rand48>(
-					static_cast<result_type>(lcf_result.result()) >> 17,
-					rand48(lcf_result.engine(), private_construct_t())
+					static_cast<result_type>(sprout::generators::generated_value(rnd)) >> 17,
+					rand48(sprout::generators::next_generator(rnd), private_construct_t())
 					);
 			}
 		public:

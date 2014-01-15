@@ -16,6 +16,7 @@
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
+#include <sprout/generator/functions.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -135,12 +136,12 @@ namespace sprout {
 				return range >= base_range
 					? sprout::random::random_result<Engine, uniform_smallint>(
 						sprout::random::detail::add<RangeType, result_type>()(static_cast<RangeType>(val), min_),
-						rnd.engine(),
+						sprout::generators::next_generator(rnd),
 						*this
 						)
 					: sprout::random::random_result<Engine, uniform_smallint>(
 						sprout::random::detail::add<RangeType, result_type>()(static_cast<RangeType>(val % (static_cast<BaseUnsigned>(range) + 1)), min_),
-						rnd.engine(),
+						sprout::generators::next_generator(rnd),
 						*this
 						)
 					;
@@ -159,7 +160,7 @@ namespace sprout {
 					rnd,
 					range,
 					base_range,
-					BaseUnsigned(sprout::random::detail::subtract<base_result>()(rnd.result(), eng.min()))
+					BaseUnsigned(sprout::random::detail::subtract<base_result>()(sprout::generators::generated_value(rnd), eng.min()))
 					);
 			}
 			template<typename Engine>
@@ -178,10 +179,10 @@ namespace sprout {
 					base_unsigned(sprout::random::detail::subtract<result_type>()(eng.max(), eng.min()))
 					);
 			}
-			template<typename Engine, typename RangeType>
+			template<typename Engine, typename Random, typename RangeType>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate_false_2(
 				Engine const&,
-				sprout::random::random_result<Engine, sprout::random::uniform_01<typename Engine::result_type> > const& rnd,
+				Random const& rnd,
 				RangeType range,
 				RangeType offset
 				) const
@@ -189,20 +190,20 @@ namespace sprout {
 				return offset > range
 					? sprout::random::random_result<Engine, uniform_smallint>(
 						max_,
-						rnd.engine(),
+						sprout::generators::next_generator(rnd).engine(),
 						*this
 						)
 					: sprout::random::random_result<Engine, uniform_smallint>(
 						sprout::random::detail::add<RangeType, result_type>()(offset, min_),
-						rnd.engine(),
+						sprout::generators::next_generator(rnd).engine(),
 						*this
 						)
 					;
 			}
-			template<typename Engine, typename RangeType>
+			template<typename Engine, typename Random, typename RangeType>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate_false_1(
 				Engine const& eng,
-				sprout::random::random_result<Engine, sprout::random::uniform_01<typename Engine::result_type> > const& rnd,
+				Random const& rnd,
 				RangeType range
 				) const
 			{
@@ -211,7 +212,7 @@ namespace sprout {
 					eng,
 					rnd,
 					static_cast<RangeType>(sprout::random::detail::subtract<result_type>()(max_, min_)),
-					static_cast<RangeType>(rnd.result() * (static_cast<base_result>(range) + 1))
+					static_cast<RangeType>(sprout::generators::generated_value(rnd) * (static_cast<base_result>(range) + 1))
 					);
 			}
 			template<class Engine>
