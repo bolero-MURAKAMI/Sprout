@@ -15,7 +15,7 @@
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/linear_congruential.hpp>
 #include <sprout/random/type_traits.hpp>
-#include <sprout/generator/functions.hpp>
+#include <sprout/random/result.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -53,12 +53,12 @@ namespace sprout {
 			template<typename Random1, typename Random2>
 			SPROUT_CONSTEXPR sprout::random::random_result<additive_combine_engine> generate(Random1 const& rnd1, Random2 const& rnd2) const {
 				return sprout::random::random_result<additive_combine_engine>(
-					sprout::generators::generated_value(rnd2) < sprout::generators::generated_value(rnd1)
-						? sprout::generators::generated_value(rnd1) - sprout::generators::generated_value(rnd2)
-						: sprout::generators::generated_value(rnd1) - sprout::generators::generated_value(rnd2) + base1_type::modulus - 1
+					sprout::random::result(rnd2) < sprout::random::result(rnd1)
+						? sprout::random::result(rnd1) - sprout::random::result(rnd2)
+						: sprout::random::result(rnd1) - sprout::random::result(rnd2) + base1_type::modulus - 1
 						,
 					additive_combine_engine(
-						sprout::generators::next_generator(rnd1), sprout::generators::next_generator(rnd2),
+						sprout::random::next(rnd1), sprout::random::next(rnd2),
 						private_construct_t()
 						)
 					);

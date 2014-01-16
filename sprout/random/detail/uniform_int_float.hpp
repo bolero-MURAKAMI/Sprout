@@ -14,7 +14,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
-#include <sprout/generator/functions.hpp>
+#include <sprout/random/result.hpp>
 #include <sprout/detail/integer.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
@@ -39,8 +39,8 @@ namespace sprout {
 					) const
 				{
 					return sprout::random::random_result<uniform_int_float>(
-						static_cast<result_type>(sprout::generators::generated_value(rnd) * (static_cast<base_result>(max()) + 1)),
-						uniform_int_float(sprout::generators::next_generator(rnd))
+						static_cast<result_type>(sprout::random::result(rnd) * (static_cast<base_result>(max()) + 1)),
+						uniform_int_float(sprout::random::next(rnd))
 						);
 				}
 			public:

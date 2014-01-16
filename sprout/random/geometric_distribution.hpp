@@ -15,7 +15,7 @@
 #include <sprout/math/floor.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
-#include <sprout/generator/functions.hpp>
+#include <sprout/random/result.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -91,8 +91,8 @@ namespace sprout {
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, geometric_distribution> generate_1(Random const& rnd) const {
 				return sprout::random::random_result<Engine, geometric_distribution>(
-					static_cast<IntType>(sprout::math::floor(sprout::math::log(RealType(1) - sprout::generators::generated_value(rnd)) / log_1mp_)),
-					sprout::generators::next_generator(rnd).engine(),
+					static_cast<IntType>(sprout::math::floor(sprout::math::log(RealType(1) - sprout::random::result(rnd)) / log_1mp_)),
+					sprout::random::next(rnd).engine(),
 					*this
 					);
 			}

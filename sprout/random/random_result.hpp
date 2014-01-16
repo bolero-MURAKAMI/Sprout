@@ -98,6 +98,12 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
 				return result_;
 			}
+			SPROUT_CXX14_CONSTEXPR generator_type& next() SPROUT_NOEXCEPT {
+				return generator_;
+			}
+			SPROUT_CONSTEXPR generator_type const& next() const SPROUT_NOEXCEPT {
+				return generator_;
+			}
 			SPROUT_CXX14_CONSTEXPR engine_type& engine() SPROUT_NOEXCEPT {
 				return generator_.engine();
 			}
@@ -224,6 +230,12 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR result_type const& result() const SPROUT_NOEXCEPT {
 				return result_;
+			}
+			SPROUT_CXX14_CONSTEXPR generator_type& next() SPROUT_NOEXCEPT {
+				return generator_;
+			}
+			SPROUT_CONSTEXPR generator_type const& next() const SPROUT_NOEXCEPT {
+				return generator_;
 			}
 			SPROUT_CXX14_CONSTEXPR engine_type& engine() SPROUT_NOEXCEPT {
 				return generator_;

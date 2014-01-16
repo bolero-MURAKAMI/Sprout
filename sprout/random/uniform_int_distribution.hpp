@@ -16,7 +16,7 @@
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/detail/uniform_int_float.hpp>
 #include <sprout/random/random_result.hpp>
-#include <sprout/generator/functions.hpp>
+#include <sprout/random/result.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -183,9 +183,9 @@ namespace sprout {
 				)
 			{
 				return sprout::random::detail::generate_uniform_int_true_3_1_1<D + 1>(
-					sprout::generators::next_generator(rnd), min_value, range,
+					sprout::random::next(rnd), min_value, range,
 					bmin, brange, bucket_size,
-					sprout::random::detail::subtract<BaseResult>()(sprout::generators::generated_value(rnd), bmin) / bucket_size
+					sprout::random::detail::subtract<BaseResult>()(sprout::random::result(rnd), bmin) / bucket_size
 					);
 			}
 			template<int D, typename EngineResult, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK_DECL(D)>
@@ -329,14 +329,14 @@ namespace sprout {
 				return mult * RangeType(brange) == range - mult + 1
 					? sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>{
 						static_cast<T>(
-							result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(sprout::generators::generated_value(rnd), bmin) * mult)
+							result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(sprout::random::result(rnd), bmin) * mult)
 							),
-						sprout::generators::next_generator(rnd)
+						sprout::random::next(rnd)
 						}
 					: sprout::random::detail::generate_uniform_int_true_2_1<D + 1>(
-						sprout::generators::next_generator(rnd), min_value, range,
+						sprout::random::next(rnd), min_value, range,
 						bmin, brange, limit,
-						result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(sprout::generators::generated_value(rnd), bmin) * mult),
+						result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(sprout::random::result(rnd), bmin) * mult),
 						mult * (RangeType(brange) + RangeType(1))
 						)
 					;
@@ -423,10 +423,10 @@ namespace sprout {
 				typedef typename std::make_unsigned<BaseResult>::type base_unsigned;
 				return sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>{
 					sprout::random::detail::add<base_unsigned, result_type>()(
-						base_unsigned(sprout::random::detail::subtract<BaseResult>()(sprout::generators::generated_value(rnd), bmin)),
+						base_unsigned(sprout::random::detail::subtract<BaseResult>()(sprout::random::result(rnd), bmin)),
 						min_value
 						),
-					sprout::generators::next_generator(rnd)
+					sprout::random::next(rnd)
 					};
 			}
 			template<int D, typename EngineResult, typename T, typename BaseResult, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
@@ -557,9 +557,9 @@ namespace sprout {
 				)
 			{
 				return sprout::random::detail::generate_uniform_int_true_3_1_1(
-					sprout::generators::next_generator(rnd), min_value, range,
+					sprout::random::next(rnd), min_value, range,
 					bmin, brange, bucket_size,
-					sprout::random::detail::subtract<BaseResult>()(sprout::generators::generated_value(rnd), bmin) / bucket_size
+					sprout::random::detail::subtract<BaseResult>()(sprout::random::result(rnd), bmin) / bucket_size
 					);
 			}
 			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>
@@ -645,14 +645,14 @@ namespace sprout {
 				return mult * RangeType(brange) == range - mult + 1
 					? sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>{
 						static_cast<T>(
-							result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(sprout::generators::generated_value(rnd), bmin) * mult)
+							result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(sprout::random::result(rnd), bmin) * mult)
 							),
-						sprout::generators::next_generator(rnd)
+						sprout::random::next(rnd)
 						}
 					: sprout::random::detail::generate_uniform_int_true_2_1(
-						sprout::generators::next_generator(rnd), min_value, range,
+						sprout::random::next(rnd), min_value, range,
 						bmin, brange, limit,
-						result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(sprout::generators::generated_value(rnd), bmin) * mult),
+						result + static_cast<RangeType>(sprout::random::detail::subtract<BaseResult>()(sprout::random::result(rnd), bmin) * mult),
 						mult * (RangeType(brange) + RangeType(1))
 						)
 					;
@@ -711,10 +711,10 @@ namespace sprout {
 				typedef typename std::make_unsigned<BaseResult>::type base_unsigned;
 				return sprout::random::detail::generate_uniform_int_result<T, typename EngineResult::engine_type>{
 					sprout::random::detail::add<base_unsigned, result_type>()(
-						base_unsigned(sprout::random::detail::subtract<BaseResult>()(sprout::generators::generated_value(rnd), bmin)),
+						base_unsigned(sprout::random::detail::subtract<BaseResult>()(sprout::random::result(rnd), bmin)),
 						min_value
 						),
-					sprout::generators::next_generator(rnd)
+					sprout::random::next(rnd)
 					};
 			}
 			template<typename Engine, typename T, typename RangeType, typename BaseResult, typename BaseUnsigned>

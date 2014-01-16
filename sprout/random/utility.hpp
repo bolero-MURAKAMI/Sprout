@@ -16,5 +16,6 @@
 #include <sprout/random/generate_array.hpp>
 #include <sprout/random/iterator.hpp>
 #include <sprout/random/range.hpp>
+#include <sprout/random/result.hpp>
 
 #endif	// #ifndef SPROUT_RANDOM_UTILITY_HPP

@@ -16,7 +16,7 @@
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/uniform_01.hpp>
-#include <sprout/generator/functions.hpp>
+#include <sprout/random/result.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -136,12 +136,12 @@ namespace sprout {
 				return range >= base_range
 					? sprout::random::random_result<Engine, uniform_smallint>(
 						sprout::random::detail::add<RangeType, result_type>()(static_cast<RangeType>(val), min_),
-						sprout::generators::next_generator(rnd),
+						sprout::random::next(rnd),
 						*this
 						)
 					: sprout::random::random_result<Engine, uniform_smallint>(
 						sprout::random::detail::add<RangeType, result_type>()(static_cast<RangeType>(val % (static_cast<BaseUnsigned>(range) + 1)), min_),
-						sprout::generators::next_generator(rnd),
+						sprout::random::next(rnd),
 						*this
 						)
 					;
@@ -160,7 +160,7 @@ namespace sprout {
 					rnd,
 					range,
 					base_range,
-					BaseUnsigned(sprout::random::detail::subtract<base_result>()(sprout::generators::generated_value(rnd), eng.min()))
+					BaseUnsigned(sprout::random::detail::subtract<base_result>()(sprout::random::result(rnd), eng.min()))
 					);
 			}
 			template<typename Engine>
@@ -190,12 +190,12 @@ namespace sprout {
 				return offset > range
 					? sprout::random::random_result<Engine, uniform_smallint>(
 						max_,
-						sprout::generators::next_generator(rnd).engine(),
+						sprout::random::next(rnd).engine(),
 						*this
 						)
 					: sprout::random::random_result<Engine, uniform_smallint>(
 						sprout::random::detail::add<RangeType, result_type>()(offset, min_),
-						sprout::generators::next_generator(rnd).engine(),
+						sprout::random::next(rnd).engine(),
 						*this
 						)
 					;
@@ -212,7 +212,7 @@ namespace sprout {
 					eng,
 					rnd,
 					static_cast<RangeType>(sprout::random::detail::subtract<result_type>()(max_, min_)),
-					static_cast<RangeType>(sprout::generators::generated_value(rnd) * (static_cast<base_result>(range) + 1))
+					static_cast<RangeType>(sprout::random::result(rnd) * (static_cast<base_result>(range) + 1))
 					);
 			}
 			template<class Engine>

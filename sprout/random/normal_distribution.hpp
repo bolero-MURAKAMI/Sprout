@@ -19,7 +19,7 @@
 #include <sprout/math/sqrt.hpp>
 #include <sprout/random/uniform_01.hpp>
 #include <sprout/random/random_result.hpp>
-#include <sprout/generator/functions.hpp>
+#include <sprout/random/result.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -141,14 +141,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution>
 			generate_1_1(RealType r1, Random const& rnd) const {
 				return generate_2(
-					sprout::generators::next_generator(rnd).engine(), r1, sprout::generators::generated_value(rnd),
-					sprout::sqrt(-result_type(2) * sprout::math::log(result_type(1) - sprout::generators::generated_value(rnd))), true
+					sprout::random::next(rnd).engine(), r1, sprout::random::result(rnd),
+					sprout::sqrt(-result_type(2) * sprout::math::log(result_type(1) - sprout::random::result(rnd))), true
 					);
 			}
 			template<typename Engine, typename Random>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution>
 			generate_1(Random const& rnd) const {
-				return generate_1_1<Engine>(sprout::generators::generated_value(rnd), sprout::generators::next_generator(rnd)());
+				return generate_1_1<Engine>(sprout::random::result(rnd), sprout::random::next(rnd)());
 			}
 			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, normal_distribution>

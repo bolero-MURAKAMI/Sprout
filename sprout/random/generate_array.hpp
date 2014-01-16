@@ -12,7 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/utility/pair/pair.hpp>
-#include <sprout/generator/functions.hpp>
+#include <sprout/random/result.hpp>
 #include <sprout/generator/results.hpp>
 
 namespace sprout {
@@ -44,8 +44,8 @@ namespace sprout {
 					typename sprout::generators::results::next_generator<RandomNumberGenerator const>::type
 				> const pair_type;
 				return pair_type{
-					sprout::array<typename RandomNumberGenerator::result_type, N>{{args..., sprout::generators::generated_value(rnd)}},
-					sprout::generators::next_generator(rnd)
+					sprout::array<typename RandomNumberGenerator::result_type, N>{{args..., sprout::random::result(rnd)}},
+					sprout::random::next(rnd)
 					};
 			}
 			template<std::size_t N, typename RandomNumberGenerator, typename Random, typename... Args>
@@ -57,8 +57,8 @@ namespace sprout {
 				> const
 			>::type generate_array_impl(Random const& rnd, Args const&... args) {
 				return sprout::random::detail::generate_array_impl<N, RandomNumberGenerator>(
-					sprout::generators::next_generator(rnd)(),
-					args..., sprout::generators::generated_value(rnd)
+					sprout::random::next(rnd)(),
+					args..., sprout::random::result(rnd)
 					);
 			}
 		}	// namespace detail

@@ -24,7 +24,7 @@
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/type_traits.hpp>
 #include <sprout/random/generate_array.hpp>
-#include <sprout/generator/functions.hpp>
+#include <sprout/random/result.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/assert.hpp>
 #include <sprout/workaround/recursive_function_template.hpp>
@@ -86,9 +86,9 @@ namespace sprout {
 				member_type
 			>::type init_member_4(sprout::index_tuple<Indexes...>, sprout::array<result_type, M> const& a, EngineResult const& rnd, Args const&... args) {
 				return member_type{
-					sprout::generators::next_generator(rnd),
+					sprout::random::next(rnd),
 					sprout::array<result_type, k>{{a[Indexes]..., args...}},
-					sprout::generators::generated_value(rnd)
+					sprout::random::result(rnd)
 					};
 			}
 			template<std::size_t M, typename EngineResult, typename... Args>
@@ -103,7 +103,7 @@ namespace sprout {
 				(M + sizeof...(Args) < k),
 				member_type
 			>::type init_member_3(sprout::array<result_type, M> const& a, EngineResult const& rnd, Args const&... args) {
-				return init_member_3(a, sprout::generators::next_generator(rnd)(), args..., sprout::generators::generated_value(rnd));
+				return init_member_3(a, sprout::random::next(rnd)(), args..., sprout::random::result(rnd));
 			}
 			template<typename Pair>
 			static SPROUT_CONSTEXPR member_type init_member_2(Pair const& p) {
@@ -116,9 +116,9 @@ namespace sprout {
 				member_type
 			>::type init_member_1(EngineResult const& rnd, Args const&... args) {
 				return member_type{
-					sprout::generators::next_generator(rnd),
+					sprout::random::next(rnd),
 					sprout::array<result_type, k>{{args...}},
-					sprout::generators::generated_value(rnd)
+					sprout::random::result(rnd)
 					};
 			}
 			template<typename EngineResult, typename... Args>
@@ -126,7 +126,7 @@ namespace sprout {
 				(sizeof...(Args) < k),
 				member_type
 			>::type init_member_1(EngineResult const& rnd, Args const&... args) {
-				return init_member_1(sprout::generators::next_generator(rnd)(), args..., sprout::generators::generated_value(rnd));
+				return init_member_1(sprout::random::next(rnd)(), args..., sprout::random::result(rnd));
 			}
 			static SPROUT_CONSTEXPR member_type init_member_0(base_type const& rng, std::true_type) {
 				return init_member_2(sprout::random::generate_array<k / 2>(rng));
@@ -156,8 +156,8 @@ namespace sprout {
 				return sprout::random::random_result<shuffle_order_engine>(
 					v_[j],
 					shuffle_order_engine(
-						sprout::generators::next_generator(rnd),
-						sprout::fixed::set(v_, j, sprout::generators::generated_value(rnd)),
+						sprout::random::next(rnd),
+						sprout::fixed::set(v_, j, sprout::random::result(rnd)),
 						v_[j],
 						private_construct_t()
 						)
