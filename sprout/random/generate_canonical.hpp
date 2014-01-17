@@ -18,7 +18,7 @@
 #include <sprout/random/detail/const_mod.hpp>
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 

@@ -19,7 +19,7 @@
 #include <sprout/math/sqrt.hpp>
 #include <sprout/random/uniform_01.hpp>
 #include <sprout/random/random_result.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {

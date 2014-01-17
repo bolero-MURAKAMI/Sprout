@@ -11,7 +11,7 @@
 #include <iosfwd>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {

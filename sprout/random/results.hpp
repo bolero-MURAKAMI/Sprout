@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_RANDOM_RESULT_HPP
-#define SPROUT_RANDOM_RESULT_HPP
+#ifndef SPROUT_RANDOM_RESULTS_HPP
+#define SPROUT_RANDOM_RESULTS_HPP
 
 #include <utility>
 #include <sprout/config.hpp>
@@ -39,4 +39,4 @@ namespace sprout {
 	}	// namespace random
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_RANDOM_RESULT_HPP
+#endif	// #ifndef SPROUT_RANDOM_RESULTS_HPP

@@ -14,7 +14,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/detail/generator_bits.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/detail/integer.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 

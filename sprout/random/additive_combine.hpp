@@ -15,7 +15,7 @@
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/linear_congruential.hpp>
 #include <sprout/random/type_traits.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {

@@ -12,7 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/utility/pair/pair.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/generator/results.hpp>
 
 namespace sprout {

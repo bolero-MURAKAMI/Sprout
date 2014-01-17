@@ -24,7 +24,7 @@
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/type_traits.hpp>
 #include <sprout/random/generate_array.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/assert.hpp>
 #include <sprout/workaround/recursive_function_template.hpp>

@@ -16,7 +16,7 @@
 #include <sprout/random/default_random_engine.hpp>
 #include <sprout/random/uniform_int_distribution.hpp>
 #include <sprout/random/variate_generator.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 
 namespace sprout {
 	namespace uuids {

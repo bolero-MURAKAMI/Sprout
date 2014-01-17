@@ -17,7 +17,7 @@
 #include <sprout/random/detail/seed_impl.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/type_traits.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/greater_equal.hpp>
 #include <sprout/assert.hpp>

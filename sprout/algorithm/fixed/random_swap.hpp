@@ -18,7 +18,7 @@
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>
 
 namespace sprout {

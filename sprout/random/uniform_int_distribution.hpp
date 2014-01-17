@@ -16,7 +16,7 @@
 #include <sprout/random/detail/signed_unsigned_tools.hpp>
 #include <sprout/random/detail/uniform_int_float.hpp>
 #include <sprout/random/random_result.hpp>
-#include <sprout/random/result.hpp>
+#include <sprout/random/results.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
