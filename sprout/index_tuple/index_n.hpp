@@ -27,13 +27,13 @@ namespace sprout {
 #else	// #if SPROUT_USE_TEMPLATE_ALIASES
 	template<sprout::index_t I, std::size_t N>
 	struct index_n
-		: public typename sprout::integer_n<sprout::index_t, I, N>::type
+		: public sprout::integer_n<sprout::index_t, I, N>::type
 			::template transfer<sprout::index_tuple<> >
 	{};
 
 	template<sprout::uindex_t I, std::size_t N>
 	struct uindex_n
-		: public typename sprout::integer_n<sprout::uindex_t, I, N>::type
+		: public sprout::integer_n<sprout::uindex_t, I, N>::type
 			::template transfer<sprout::uindex_tuple<> >
 	{};
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES

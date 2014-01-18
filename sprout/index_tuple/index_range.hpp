@@ -35,7 +35,7 @@ namespace sprout {
 		typename std::make_signed<sprout::index_t>::type Step = sprout::detail::integer_range_default_step<sprout::index_t, First, Last>::value
 	>
 	struct index_range
-		: public typename sprout::integer_range<sprout::index_t, First, Last, Step>::type
+		: public sprout::integer_range<sprout::index_t, First, Last, Step>::type
 			::template transfer<sprout::index_tuple<> >
 	{};
 
@@ -44,7 +44,7 @@ namespace sprout {
 		typename std::make_signed<sprout::uindex_t>::type Step = sprout::detail::integer_range_default_step<sprout::uindex_t, First, Last>::value
 	>
 	struct uindex_range
-		: public typename sprout::integer_range<sprout::uindex_t, First, Last, Step>::type
+		: public sprout::integer_range<sprout::uindex_t, First, Last, Step>::type
 			::template transfer<sprout::uindex_tuple<> >
 	{};
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
