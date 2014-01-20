@@ -107,7 +107,7 @@ namespace sprout {
 			: init(v.init)
 			, val(v.is_initialized() ? holder_type(*v) : holder_type())
 		{}
-#if SPROUT_GCC_BETWEEN(4, 8, 0, 4, 8, 2)
+#if SPROUT_GCC_BETWEEN((4, 8, 0), (4, 8, 2))
 		optional(optional&&) = default;
 #else
 		SPROUT_CONSTEXPR optional(optional&& v)

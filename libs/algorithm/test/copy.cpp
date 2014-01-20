@@ -114,7 +114,7 @@ namespace testspr {
 					array<int, 10>{{3, 4, 5, 6, 7, 8, 0, 0, 0, 0}}
 					));
 			}
-			// !!!
+			// !!! BUG: sprout::fit::copy implementation requires ForwardIterator
 //			{
 //				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
 //					testspr::reduct_input(sprout::begin(arr1) + 2),
@@ -139,7 +139,7 @@ namespace testspr {
 					array<int, 4>{{3, 4, 5, 6}}
 					));
 			}
-			// !!!
+			// !!! BUG: sprout::fit::copy implementation requires ForwardIterator
 //			{
 //				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
 //					testspr::reduct_input(sprout::begin(arr1) + 2),
@@ -168,7 +168,7 @@ namespace testspr {
 					array<int, 10>{{0, 0, 3, 4, 5, 6, 7, 8, 0, 0}}
 					));
 			}
-			// !!!
+			// !!! BUG: sprout::fit::copy implementation requires ForwardIterator
 //			{
 //				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
 //					testspr::reduct_input(sprout::begin(arr1) + 2),

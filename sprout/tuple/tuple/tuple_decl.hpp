@@ -189,7 +189,7 @@ namespace sprout {
 					, base_type(sprout::forward<UHead>(h))
 				{}
 				tuple_impl(tuple_impl const&) = default;
-#if SPROUT_GCC_BETWEEN(4, 8, 0, 4, 8, 2)
+#if SPROUT_GCC_BETWEEN((4, 8, 0), (4, 8, 2))
 				tuple_impl(tuple_impl&&) = default;
 #else
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl&& t)
