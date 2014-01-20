@@ -38,38 +38,28 @@
 #	define SPROUT_VERSION_GCC SPROUT_VERSION_NUMBER_ZERO
 #endif
 //
-// SPROUT_GCC_LESS
-// SPROUT_GCC_GREATER
-// SPROUT_GCC_LESS_EQUAL
-// SPROUT_GCC_GREATER_EQUAL
+// SPROUT_GCC_EARLIER
+// SPROUT_GCC_OR_LATER
 //
 #if SPROUT_AVAILABLE_GCC
-#	define SPROUT_GCC_LESS(major, minor, patch) \
+#	define SPROUT_GCC_EARLIER(major, minor, patch) \
 		(SPROUT_VERSION_GCC < SPROUT_VERSION_NUMBER(major, minor, patch))
-#	define SPROUT_GCC_GREATER(major, minor, patch) \
-		(SPROUT_VERSION_GCC > SPROUT_VERSION_NUMBER(major, minor, patch))
-#	define SPROUT_GCC_LESS_EQUAL(major, minor, patch) \
-		(SPROUT_VERSION_GCC <= SPROUT_VERSION_NUMBER(major, minor, patch))
-#	define SPROUT_GCC_GREATER_EQUAL(major, minor, patch) \
+#	define SPROUT_GCC_OR_LATER(major, minor, patch) \
 		(SPROUT_VERSION_GCC >= SPROUT_VERSION_NUMBER(major, minor, patch))
 #else
-#	define SPROUT_GCC_LESS(major, minor, patch) \
+#	define SPROUT_GCC_EARLIER(major, minor, patch) \
 		(0)
-#	define SPROUT_GCC_GREATER(major, minor, patch) \
-		(0)
-#	define SPROUT_GCC_LESS_EQUAL(major, minor, patch) \
-		(0)
-#	define SPROUT_GCC_GREATER_EQUAL(major, minor, patch) \
+#	define SPROUT_GCC_OR_LATER(major, minor, patch) \
 		(0)
 #endif
 //
-// SPROUT_GCC_BETWEEN
+// SPROUT_GCC_IN_RANGE
 //
 #if SPROUT_AVAILABLE_GCC
-#	define SPROUT_GCC_BETWEEN(first_version, last_version) \
-		(SPROUT_GCC_GREATER_EQUAL first_version && SPROUT_GCC_LESS last_version)
+#	define SPROUT_GCC_IN_RANGE(first_version, last_version) \
+		(SPROUT_GCC_OR_LATER first_version && SPROUT_GCC_EARLIER last_version)
 #else
-#	define SPROUT_GCC_BETWEEN(first_version, last_version) \
+#	define SPROUT_GCC_IN_RANGE(first_version, last_version) \
 		(0)
 #endif
 
@@ -98,38 +88,28 @@
 #	define SPROUT_CLANG_HAS_FUTURE(future) (0)
 #endif
 //
-// SPROUT_CLANG_LESS
-// SPROUT_CLANG_GREATER
-// SPROUT_CLANG_LESS_EQUAL
-// SPROUT_CLANG_GREATER_EQUAL
+// SPROUT_CLANG_EARLIER
+// SPROUT_CLANG_OR_LATER
 //
 #if SPROUT_AVAILABLE_CLANG
-#	define SPROUT_CLANG_LESS(major, minor, patch) \
+#	define SPROUT_CLANG_EARLIER(major, minor, patch) \
 		(SPROUT_VERSION_CLANG < SPROUT_VERSION_NUMBER(major, minor, patch))
-#	define SPROUT_CLANG_GREATER(major, minor, patch) \
-		(SPROUT_VERSION_CLANG > SPROUT_VERSION_NUMBER(major, minor, patch))
-#	define SPROUT_CLANG_LESS_EQUAL(major, minor, patch) \
-		(SPROUT_VERSION_CLANG <= SPROUT_VERSION_NUMBER(major, minor, patch))
-#	define SPROUT_CLANG_GREATER_EQUAL(major, minor, patch) \
+#	define SPROUT_CLANG_OR_LATER(major, minor, patch) \
 		(SPROUT_VERSION_CLANG >= SPROUT_VERSION_NUMBER(major, minor, patch))
 #else
-#	define SPROUT_CLANG_LESS(major, minor, patch) \
+#	define SPROUT_CLANG_EARLIER(major, minor, patch) \
 		(0)
-#	define SPROUT_CLANG_GREATER(major, minor, patch) \
-		(0)
-#	define SPROUT_CLANG_LESS_EQUAL(major, minor, patch) \
-		(0)
-#	define SPROUT_CLANG_GREATER_EQUAL(major, minor, patch) \
+#	define SPROUT_CLANG_OR_LATER(major, minor, patch) \
 		(0)
 #endif
 //
-// SPROUT_CLANG_BETWEEN
+// SPROUT_CLANG_IN_RANGE
 //
 #if SPROUT_AVAILABLE_CLANG
-#	define SPROUT_CLANG_BETWEEN(first_version, last_version) \
-		(SPROUT_CLANG_GREATER_EQUAL first_version && SPROUT_CLANG_LESS last_version)
+#	define SPROUT_CLANG_IN_RANGE(first_version, last_version) \
+		(SPROUT_CLANG_OR_LATER first_version && SPROUT_CLANG_EARLIER last_version)
 #else
-#	define SPROUT_CLANG_BETWEEN(first_version, last_version) \
+#	define SPROUT_CLANG_IN_RANGE(first_version, last_version) \
 		(0)
 #endif
 

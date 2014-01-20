@@ -9,19 +9,16 @@
 #define SPROUT_WORKAROUND_BASE_CLASS_CONSTRUCT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 
 //
 // SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
 //
 #ifndef SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
-#	if defined(__clang__)
-#		if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 4))
-#			define SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT 1
-#		else
-#			define SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT 0
-#		endif
+#	if SPROUT_CLANG_OR_LATER(3, 4, 0)
+#		define SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT (1)
 #	else
-#		define SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT 0
+#		define SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT (0)
 #	endif
 #endif
 

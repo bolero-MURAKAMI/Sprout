@@ -209,17 +209,17 @@ namespace sprout {
 	struct is_trivially_constructible
 		: public sprout::false_type
 	{};
-#if SPROUT_CLANG_HAS_FUTURE(has_trivial_constructor) || SPROUT_GCC_GREATER_EQUAL(4, 3, 0)
+#if SPROUT_CLANG_HAS_FUTURE(has_trivial_constructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_constructible<T>
 		: public sprout::integral_constant<bool, __has_trivial_constructor(T)>
 	{};
-#else	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_constructor) || SPROUT_GCC_GREATER_EQUAL(4, 3, 0)
+#else	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_constructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_constructible<T>
 		: public sprout::is_scalar<T>
 	{};
-#endif	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_constructor) || SPROUT_GCC_GREATER_EQUAL(4, 3, 0)
+#endif	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_constructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_constructible<T, T&>
 		: public sprout::is_scalar<T>
@@ -324,13 +324,13 @@ namespace sprout {
 		: public sprout::detail::type_traits_wrapper<std::is_trivially_move_assignable<T> >
 	{};
 #endif	// #if !defined(_LIBCPP_VERSION)
-#if !defined(_LIBCPP_VERSION) && SPROUT_GCC_LESS(4, 8, 0)
-#if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_GREATER_EQUAL(4, 3, 0)
+#if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
+#if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_destructible
 		: public sprout::integral_constant<bool, __has_trivial_destructor(T)>
 	{};
-#else	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_GREATER_EQUAL(4, 3, 0)
+#else	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_destructible
 		: public sprout::integral_constant<
@@ -339,13 +339,13 @@ namespace sprout {
 				|| std::is_reference<typename std::remove_all_extents<T>::type>::value
 		>
 	{};
-#endif	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_GREATER_EQUAL(4, 3, 0)
-#else	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_LESS(4, 8, 0)
+#endif	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
+#else	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
 	template<typename T>
 	struct is_trivially_destructible
 		: public sprout::detail::type_traits_wrapper<std::is_trivially_destructible<T> >
 	{};
-#endif	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_LESS(4, 8, 0)
+#endif	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
 	template<typename T, typename... Args>
 	struct is_nothrow_constructible
 		: public sprout::detail::type_traits_wrapper<std::is_nothrow_constructible<T, Args...> >
@@ -374,7 +374,7 @@ namespace sprout {
 	struct is_nothrow_move_assignable
 		: public sprout::detail::type_traits_wrapper<std::is_nothrow_move_assignable<T> >
 	{};
-#if !defined(_LIBCPP_VERSION) && SPROUT_GCC_LESS(4, 8, 0)
+#if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
 	template<typename T>
 	struct is_nothrow_destructible
 		: public sprout::integral_constant<
@@ -383,12 +383,12 @@ namespace sprout {
 				|| std::is_reference<typename std::remove_all_extents<T>::type>::value
 		>
 	{};
-#else	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_LESS(4, 8, 0)
+#else	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
 	template<typename T>
 	struct is_nothrow_destructible
 		: public sprout::detail::type_traits_wrapper<std::is_nothrow_destructible<T> >
 	{};
-#endif	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_LESS(4, 8, 0)
+#endif	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
 	template<typename T>
 	struct has_virtual_destructor
 		: public sprout::detail::type_traits_wrapper<std::has_virtual_destructor<T> >

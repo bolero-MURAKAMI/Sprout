@@ -14,12 +14,13 @@
 #include <sprout/array.hpp>
 #include <sprout/sub_array.hpp>
 #include <sprout/container.hpp>
+#include <sprout/detail/predef.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
 	static void algorithm_bogo_sort_test() {
 		using namespace sprout;
-#if !defined(__clang__) || !(__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 4))
+#if SPROUT_CLANG_OR_LATER(3, 4, 0)
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 1, 4, 2, 3}};
 

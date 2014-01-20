@@ -17,7 +17,7 @@
 // SPROUT_INT[N]_C
 // SPROUT_UINT[N]_C
 //
-#if SPROUT_CLANG_BETWEEN((3, 0, 0), (3, 3, 0)) && !defined(__STDC_CONSTANT_MACROS)
+#if SPROUT_CLANG_IN_RANGE((3, 0, 0), (3, 3, 0)) && !defined(__STDC_CONSTANT_MACROS)
 #	define SPROUT_INT8_C(n) n
 #	define SPROUT_UINT8_C(n) n
 #	define SPROUT_INT16_C(n) n
