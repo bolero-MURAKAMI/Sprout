@@ -48,7 +48,7 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BINOMIAL_TABLE_DEF)
 					;
 			};
-			template<class RealType>
+			template<typename RealType>
 			SPROUT_CONSTEXPR_OR_CONST typename sprout::random::detail::binomial_table<RealType>::table_type
 			sprout::random::detail::binomial_table<RealType>::table
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_BINOMIAL_TABLE_DEF)

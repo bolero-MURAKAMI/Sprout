@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/preprocessor/cat.hpp>
+#include <sprout/preprocessor/some_number.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 //
@@ -17,26 +18,28 @@
 // SPROUT_HAS_XXX_TYPE_DEF_LAZY
 //
 #if defined(_MSC_VER)
-#define SPROUT_HAS_XXX_TYPE_DEF(NAME, TYPE) \
+#define SPROUT_HAS_XXX_TYPE_DEF_IMPL(NAME, TYPE, NUM) \
 	template<typename T, typename = typename T::TYPE> \
-	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), __LINE__)(int); \
+	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)(int); \
 	template<typename T> \
-	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), __LINE__)(long); \
-	template<typename T, typename Base_ = decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), __LINE__)<T>(0))> \
+	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)(long); \
+	template<typename T, typename Base_ = decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)<T>(0))> \
 	struct NAME \
 		: public Base_ \
 	{}
 #else
-#define SPROUT_HAS_XXX_TYPE_DEF(NAME, TYPE) \
+#define SPROUT_HAS_XXX_TYPE_DEF_IMPL(NAME, TYPE, NUM) \
 	template<typename T, typename = typename T::TYPE> \
-	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), __LINE__)(int); \
+	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)(int); \
 	template<typename T> \
-	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), __LINE__)(long); \
+	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)(long); \
 	template<typename T> \
 	struct NAME \
-		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), __LINE__)<T>(0)) \
+		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)<T>(0)) \
 	{}
 #endif
+#define SPROUT_HAS_XXX_TYPE_DEF(NAME, TYPE) \
+	SPROUT_HAS_XXX_TYPE_DEF_IMPL(NAME, TYPE, SPROUT_PP_SOME_NUMBER())
 #define SPROUT_HAS_XXX_TYPE_DEF_LAZY(TYPE) \
 	SPROUT_HAS_XXX_TYPE_DEF(SPROUT_PP_CAT(has_, TYPE), TYPE)
 
@@ -45,26 +48,28 @@
 // SPROUT_HAS_XXX_VALUE_DEF_LAZY
 //
 #if defined(_MSC_VER)
-#define SPROUT_HAS_XXX_VALUE_DEF(NAME, VALUE) \
+#define SPROUT_HAS_XXX_VALUE_DEF_IMPL(NAME, VALUE, NUM) \
 	template<typename T, decltype(&T::VALUE) = &T::VALUE> \
-	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), __LINE__)(int); \
+	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(int); \
 	template<typename T> \
-	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), __LINE__)(long); \
-	template<typename T, typename Base_ = decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), __LINE__)<T>(0))> \
+	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(long); \
+	template<typename T, typename Base_ = decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)<T>(0))> \
 	struct NAME \
 		: public Base_ \
 	{}
 #else
-#define SPROUT_HAS_XXX_VALUE_DEF(NAME, VALUE) \
+#define SPROUT_HAS_XXX_VALUE_DEF_IMPL(NAME, VALUE, NUM) \
 	template<typename T, decltype(&T::VALUE) = &T::VALUE> \
-	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), __LINE__)(int); \
+	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(int); \
 	template<typename T> \
-	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), __LINE__)(long); \
+	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(long); \
 	template<typename T> \
 	struct NAME \
-		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), __LINE__)<T>(0)) \
+		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)<T>(0)) \
 	{}
 #endif
+#define SPROUT_HAS_XXX_VALUE_DEF(NAME, VALUE) \
+	SPROUT_HAS_XXX_VALUE_DEF_IMPL(NAME, VALUE, SPROUT_PP_SOME_NUMBER())
 #define SPROUT_HAS_XXX_VALUE_DEF_LAZY(VALUE) \
 	SPROUT_HAS_XXX_VALUE_DEF(SPROUT_PP_CAT(has_, VALUE), VALUE)
 
@@ -73,26 +78,28 @@
 // SPROUT_HAS_XXX_TEMPLATE_DEF_LAZY
 //
 #if defined(_MSC_VER)
-#define SPROUT_HAS_XXX_TEMPLATE_DEF(NAME, TEMPLATE) \
+#define SPROUT_HAS_XXX_TEMPLATE_DEF_IMPL(NAME, TEMPLATE, NUM) \
 	template<typename T, template<typename...> class = T::template TEMPLATE> \
-	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), __LINE__)(int); \
+	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)(int); \
 	template<typename T> \
-	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), __LINE__)(long); \
-	template<typename T, typename Base_ = decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), __LINE__)<T>(0))> \
+	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)(long); \
+	template<typename T, typename Base_ = decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)<T>(0))> \
 	struct NAME \
 		: public Base_ \
 	{}
 #else
-#define SPROUT_HAS_XXX_TEMPLATE_DEF(NAME, TEMPLATE) \
+#define SPROUT_HAS_XXX_TEMPLATE_DEF_IMPL(NAME, TEMPLATE, NUM) \
 	template<typename T, template<typename...> class = T::template TEMPLATE> \
-	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), __LINE__)(int); \
+	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)(int); \
 	template<typename T> \
-	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), __LINE__)(long); \
+	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)(long); \
 	template<typename T> \
 	struct NAME \
-		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), __LINE__)<T>(0)) \
+		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)<T>(0)) \
 	{}
 #endif
+#define SPROUT_HAS_XXX_TEMPLATE_DEF(NAME, TEMPLATE) \
+	SPROUT_HAS_XXX_TEMPLATE_DEF_IMPL(NAME, TEMPLATE, SPROUT_PP_SOME_NUMBER())
 #define SPROUT_HAS_XXX_TEMPLATE_DEF_LAZY(TEMPLATE) \
 	SPROUT_HAS_XXX_TEMPLATE_DEF(SPROUT_PP_CAT(has_, TEMPLATE), TEMPLATE)
 

@@ -45,7 +45,7 @@ namespace testspr {
 	//
 	// is_found
 	//
-	template<class InputIterator, typename T>
+	template<typename InputIterator, typename T>
 	inline SPROUT_CONSTEXPR bool
 	is_found(InputIterator first, InputIterator last, T const& value) {
 		return first == last ? false

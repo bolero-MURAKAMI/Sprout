@@ -108,7 +108,7 @@ namespace sprout {
 					: sprout::random::detail::add<range_type, result_type>()(static_cast<range_type>(val % (static_cast<base_result>(range) + 1)), min_)
 					;
 			}
-			template<class Engine>
+			template<typename Engine>
 			SPROUT_CXX14_CONSTEXPR result_type generate(
 				Engine& eng,
 				std::false_type
@@ -215,7 +215,7 @@ namespace sprout {
 					static_cast<RangeType>(sprout::random::result(rnd) * (static_cast<base_result>(range) + 1))
 					);
 			}
-			template<class Engine>
+			template<typename Engine>
 			SPROUT_CONSTEXPR sprout::random::random_result<Engine, uniform_smallint> generate(
 				Engine const& eng,
 				std::false_type

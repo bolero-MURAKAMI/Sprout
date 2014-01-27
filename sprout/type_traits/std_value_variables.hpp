@@ -157,7 +157,7 @@ namespace sprout {
 	template<typename From, typename To>
 	SPROUT_STATIC_CONSTEXPR bool is_base_of_v = sprout::is_base_of<From, To>::value;
 	template<typename From, typename To>
-	SPROUT_STATIC_CONSTEXPR bool is_convertible_v = sprout::is_convertible<From, To>>::value;
+	SPROUT_STATIC_CONSTEXPR bool is_convertible_v = sprout::is_convertible<From, To>::value;
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 

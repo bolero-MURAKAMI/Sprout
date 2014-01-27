@@ -522,7 +522,7 @@ namespace sprout {
 		, public sprout::detail::inherit_if_static_size<sprout::container_traits<Container> >
 		, public sprout::detail::container_nosy_fixed_size<sprout::container_traits<Container> >
 	{
-#if SPROUT_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
+#ifdef SPROUT_WORKAROUND_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
 	public:
 		SPROUT_CONSTEXPR container_traits_facade()
 			: SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_value_type<sprout::container_traits<Container> >)

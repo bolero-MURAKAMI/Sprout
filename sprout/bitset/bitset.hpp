@@ -1310,12 +1310,12 @@ namespace sprout {
 		to_string(Char zero, Char one = Char('1')) const {
 			return to_string<Char, Traits, std::allocator<Char> >(zero, one);
 		}
-		template<class Char>
+		template<typename Char>
 		SPROUT_NON_CONSTEXPR std::basic_string<Char, std::char_traits<Char>, std::allocator<Char> >
 		to_string() const {
 			return to_string<Char, std::char_traits<Char>, std::allocator<Char> >();
 		}
-		template<class Char>
+		template<typename Char>
 		SPROUT_NON_CONSTEXPR std::basic_string<Char, std::char_traits<Char>, std::allocator<Char> >
 		to_string(Char zero, Char one = Char('1')) const {
 			return to_string<Char, std::char_traits<Char>, std::allocator<Char> >(zero, one);

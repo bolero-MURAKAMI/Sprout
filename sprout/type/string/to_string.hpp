@@ -19,6 +19,7 @@
 #include <sprout/container/begin.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/preprocessor/cat.hpp>
+#include <sprout/preprocessor/some_number.hpp>
 
 namespace sprout {
 	namespace types {
@@ -69,8 +70,8 @@ namespace sprout {
 		//
 		// SPROUT_TYPES_STRING_TYPEDEF
 		//
-#		define SPROUT_TYPES_STRING_TYPEDEF(SOURCE, TYPE) \
-		struct SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_PROXY_, __LINE__) { \
+#		define SPROUT_TYPES_STRING_TYPEDEF_IMPL(SOURCE, TYPE, NUM) \
+		struct SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_PROXY_, NUM) { \
 		private: \
 			typedef typename std::remove_reference<decltype(SOURCE)>::type src_type; \
 			typedef sprout::types::detail::string_typedef_impl<src_type, std::is_array<src_type>::value> impl_type; \
@@ -81,7 +82,9 @@ namespace sprout {
 				return impl_type()(SOURCE); \
 			} \
 		}; \
-		typedef typename sprout::types::to_string<SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_PROXY_, __LINE__)>::type TYPE
+		typedef typename sprout::types::to_string<SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_PROXY_, NUM)>::type TYPE
+#		define SPROUT_TYPES_STRING_TYPEDEF(SOURCE, TYPE) \
+			SPROUT_TYPES_STRING_TYPEDEF_IMPL(SOURCE, TYPE, SPROUT_PP_SOME_NUMBER())
 	}	// namespace types
 }	// namespace sprout
 

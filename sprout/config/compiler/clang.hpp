@@ -44,14 +44,20 @@
 #	define SPROUT_NO_CXX11_UNICODE_LITERALS
 #endif
 
-#if (!__has_feature(cxx_constexpr) || __cplusplus < 201305L || __clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 4))
+#if !__has_feature(cxx_relaxed_constexpr)
 #	define SPROUT_NO_CXX14_CONSTEXPR
 #endif
 
-#define SPROUT_NO_CXX14_VARIABLE_TEMPLATES
+#if !__has_feature(cxx_variable_templates)
+#	define SPROUT_NO_CXX14_VARIABLE_TEMPLATES
+#endif
 
 #if !defined(SPROUT_NO_CXX11_CONSTEXPR)
 #	define SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
+#endif
+
+#if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 4))
+#	define SPROUT_WORKAROUND_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
 #endif
 
 #endif	// #ifndef SPROUT_CONFIG_COMPILER_CLANG_HPP
