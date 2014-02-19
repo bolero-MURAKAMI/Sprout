@@ -16,7 +16,6 @@
 #include <sprout/array.hpp>
 #include <sprout/string.hpp>
 #include <sprout/numeric/iota.hpp>
-#include <sprout/pit.hpp>
 #include <iostream>
 
 
@@ -24,7 +23,7 @@ struct fizzbuzz{
 	typedef sprout::string<12> result_type;
 
 	constexpr result_type
-	operator ()(int n) const{
+	operator()(int n) const {
 		return n % 15 == 0 ? sprout::to_string("FizzBuzz")
 			 : n %  3 == 0 ? sprout::to_string("Fizz")
 			 : n %  5 == 0 ? sprout::to_string("Buzz")
@@ -40,29 +39,25 @@ main(){
 	//
 	// Test
 	//
-	static_assert(fizzbuzz()( 1) == "1", "");
-	static_assert(fizzbuzz()( 2) == "2", "");
-	static_assert(fizzbuzz()( 3) == "Fizz", "");
-	static_assert(fizzbuzz()( 5) == "Buzz", "");
+	static_assert(fizzbuzz()( 1) == "1",        "");
+	static_assert(fizzbuzz()( 2) == "2",        "");
+	static_assert(fizzbuzz()( 3) == "Fizz",     "");
+	static_assert(fizzbuzz()( 5) == "Buzz",     "");
 	static_assert(fizzbuzz()(15) == "FizzBuzz", "");
 	
 	//
 	// Sequence [1..15]
 	//
-	constexpr auto source = sprout::iota(
-		sprout::pit<sprout::array<int, 15> >(),
-		1
-	);
+	constexpr auto source = sprout::iota<sprout::array<int, 15> >(1);
 
 	//
 	// Transform to FizzBuzz
 	//
-	constexpr auto result = sprout::transform(
+	constexpr auto result = sprout::transform<sprout::array<string, 15> >(
 		sprout::begin(source),
 		sprout::end(source),
-		sprout::pit<sprout::array<string, 15> >(),
 		fizzbuzz()
-	);
+		);
 	
 	//
 	// Check result
@@ -83,14 +78,14 @@ main(){
 		sprout::to_string("13"),
 		sprout::to_string("14"),
 		sprout::to_string("FizzBuzz")
-	);
+		);
 	// Equal result sequence
 	static_assert(result == fizzbuzz_result, "");
 
 	//
 	// Output
 	//
-	for(auto&& str : result){
+	for (auto&& str : result){
 		std::cout << str << ", ";
 	}
 	std::cout << std::endl;

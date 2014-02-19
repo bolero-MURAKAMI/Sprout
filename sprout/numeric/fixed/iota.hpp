@@ -34,7 +34,7 @@ namespace sprout {
 					cont,
 					sprout::size(cont),
 					(Indexes >= offset && Indexes < offset + size
-						? value + (Indexes - offset)
+						? static_cast<typename sprout::container_traits<Container>::value_type>(value + (Indexes - offset))
 						: *sprout::next(sprout::internal_begin(cont), Indexes)
 						)...
 					);
