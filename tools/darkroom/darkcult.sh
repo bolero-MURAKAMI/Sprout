@@ -28,11 +28,12 @@ declare -a include_paths=()
 max_procs=
 force=0
 continuable=0
+runtime=0
 use_help=0
 darkcult_cpp=$(cd $(dirname $0); pwd)/darkcult.cpp
 darkcult_py=$(cd $(dirname $0); pwd)/darkcult.py
 
-args=`getopt -o s:S:o:C:w:h:W:H:l:t:r:b:O:D:I:P:fc -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,left:,top:,right:,bottom:,option:,define:,include:,max-procs:,force,continuable,help -- "$@"`
+args=`getopt -o s:S:o:C:w:h:W:H:l:t:r:b:O:D:I:P:fc -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,left:,top:,right:,bottom:,option:,define:,include:,max-procs:,force,continuable,runtime,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'darkcult.sh --help'"
 	exit 1
@@ -58,6 +59,7 @@ while [ -n "$1" ]; do
 		-P|--max-procs) max_procs=$2; shift 2;;
 		-f|--force) force=1; shift;;
 		-c|--continuable) continuable=1; shift;;
+		--runtime) runtime=1; shift;;
 		--help) use_help=1; shift;;
 		--) shift; break;;
 		*) echo >&2 "error: unknown option($1) used."; exit 1;;
@@ -121,6 +123,8 @@ if [ ${use_help} -ne 0 ]; then
 	echo "                              Press <Enter>; check finished."
 	echo "                              Press 'q'    ; terminate compile."
 	echo ""
+	echo "      --runtime               Enable runtime mode."
+	echo ""
 	echo "      --help                  This message."
 	exit 0
 fi
@@ -143,6 +147,7 @@ echo "  include-paths = (${include_paths[*]})"
 echo "  max-procs = ${max_procs}"
 echo "  force = ${force}"
 echo "  continuable = ${continuable}"
+echo "  runtime = ${runtime}"
 
 if [ ! -f "${src}" -a ! -f "$(cd $(dirname $0); pwd)/${src}" ]; then
 	echo >&2 "error: source(${src}) not exists."
@@ -156,6 +161,9 @@ for include_path in ${include_paths}; do
 	include_options="${include_options} -I${include_path}"
 done
 compile_options="-std=c++11 ${define_options} ${include_options} ${common_options[*]}"
+if [ ${runtime} -ne 0 ]; then
+	compile_options="${compile_options} -DDARKROOM_RUNTIME"
+fi
 
 if [ -d "${stagedir}" ]; then
 	if [ ${force} -eq 0 ]; then

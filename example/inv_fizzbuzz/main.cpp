@@ -14,7 +14,7 @@
 #include <sprout/range/algorithm.hpp>
 #include <sprout/range/adaptor.hpp>
 
-static constexpr auto token_table = sprout::to_string_array<sprout::string<8> >(
+static constexpr auto token_table = sprout::make_array<sprout::string<8> >(
 	"Fizz", "Buzz", "Fizz", "Fizz", "Buzz", "Fizz", "FizzBuzz",
 	"Fizz", "Buzz", "Fizz", "Fizz", "Buzz", "Fizz"
 	);
@@ -65,7 +65,7 @@ void print(ForwardRange const& input, Pair const& answer) {
 
 int main() {
 	{
-		constexpr auto input = sprout::to_string_array<sprout::string<8> >(
+		constexpr auto input = sprout::make_array<sprout::string<8> >(
 			"Fizz", "FizzBuzz", "Fizz", "Buzz"
 			);
 		constexpr auto answer = inv_fizzbuzz(input);
@@ -74,7 +74,7 @@ int main() {
 		print(input, answer);
 	}
 	{
-		constexpr auto input = sprout::to_string_array<sprout::string<8> >(
+		constexpr auto input = sprout::make_array<sprout::string<8> >(
 			"FizzBuzz", "Fizz", "Buzz", "Fizz", "Fizz", "Buzz", "Fizz",
 			"FizzBuzz", "Fizz", "Buzz", "Fizz", "Fizz", "Buzz", "Fizz",
 			"FizzBuzz", "Fizz", "Buzz"
@@ -85,7 +85,7 @@ int main() {
 		print(input, answer);
 	}
 	{
-		constexpr auto input = sprout::to_string_array<sprout::string<8> >(
+		constexpr auto input = sprout::make_array<sprout::string<8> >(
 			"Fizz", "FizzBuzz", "Buzz"
 			);
 		constexpr auto answer = inv_fizzbuzz(input);

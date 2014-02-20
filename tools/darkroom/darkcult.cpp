@@ -47,6 +47,15 @@
 #	define DARKROOM_OFFSET_Y 0
 #endif
 
+//
+// DARKROOM_RUNTIME/DARKROOM_VARIABLE
+//
+#ifndef DARKROOM_RUNTIME
+#	define DARKROOM_VARIABLE SPROUT_STATIC_CONSTEXPR
+#else
+#	define DARKROOM_VARIABLE
+#endif
+
 #include <cstddef>
 #include <iostream>
 #include <sprout/darkroom.hpp>
@@ -64,7 +73,7 @@ int main() {
 	using namespace sprout::darkroom;
 
 	typedef pixels::color_pixels<darkcult::tile_width, darkcult::tile_height>::type image_type;
-	SPROUT_STATIC_CONSTEXPR auto image = pixels::generate<image_type>(
+	DARKROOM_VARIABLE auto image = pixels::generate<image_type>(
 		darkcult::raytracer, darkcult::renderer, darkcult::camera,
 		darkcult::object, darkcult::light,
 		darkcult::offset_x, darkcult::offset_y,
