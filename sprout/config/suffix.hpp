@@ -76,6 +76,17 @@
 #endif	// #ifndef SPROUT_CONFIG_DISABLE_DELETED_FUNCTIONS
 
 //
+// SPROUT_DEPRECATED
+//
+#if defined(__GNUC__) || defined(__clang__)
+#	define SPROUT_DEPRECATED __attribute__((deprecated))
+#elif defined(_MSC_VER)
+#	define SPROUT_DEPRECATED) __declspec(deprecated)
+#else
+#	define SPROUT_DEPRECATED
+#endif
+
+//
 // SPROUT_USE_EXPLICIT_CONVERSION_OPERATORS
 // SPROUT_EXPLICIT_CONVERSION
 //

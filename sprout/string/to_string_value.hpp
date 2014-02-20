@@ -16,8 +16,9 @@
 namespace sprout {
 	//
 	// to_string_value
+	//	[[deprecated]]
 	//
-	struct to_string_value {
+	struct SPROUT_DEPRECATED to_string_value {
 	public:
 		template<typename T>
 		SPROUT_CONSTEXPR decltype(sprout::to_string(std::declval<T>()))

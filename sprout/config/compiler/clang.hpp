@@ -44,6 +44,10 @@
 #	define SPROUT_NO_CXX11_UNICODE_LITERALS
 #endif
 
+#if !__has_feature(cxx_attributes)
+#	define SPROUT_NO_CXX11_ATTRIBUTES
+#endif
+
 #if !__has_feature(cxx_relaxed_constexpr)
 #	define SPROUT_NO_CXX14_CONSTEXPR
 #endif

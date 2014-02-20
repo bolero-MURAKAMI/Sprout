@@ -51,8 +51,10 @@ namespace sprout {
 
 	//
 	// convert_array
+	//	[[deprecated]]
 	//
 	template<typename T, typename Converter, typename... Types>
+	SPROUT_DEPRECATED
 	inline SPROUT_CONSTEXPR sprout::array<T, sizeof...(Types)>
 	convert_array(Converter&& conv, Types&&... args) {
 		return sprout::make_array<T>(sprout::forward<Converter>(conv)(sprout::forward<Types>(args))...);
