@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/preprocessor/cat.hpp>
 #include <sprout/preprocessor/some_number.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 //
@@ -35,7 +36,7 @@
 	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)(long); \
 	template<typename T> \
 	struct NAME \
-		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)<T>(0)) \
+		: public sprout::identity<decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)<T>(0))>::type \
 	{}
 #endif
 #define SPROUT_HAS_XXX_TYPE_DEF(NAME, TYPE) \
@@ -65,7 +66,7 @@
 	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(long); \
 	template<typename T> \
 	struct NAME \
-		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)<T>(0)) \
+		: public sprout::identity<decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)<T>(0))>::type \
 	{}
 #endif
 #define SPROUT_HAS_XXX_VALUE_DEF(NAME, VALUE) \
@@ -95,7 +96,7 @@
 	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)(long); \
 	template<typename T> \
 	struct NAME \
-		: public decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)<T>(0)) \
+		: public sprout::identity<decltype(SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)<T>(0))>::type \
 	{}
 #endif
 #define SPROUT_HAS_XXX_TEMPLATE_DEF(NAME, TEMPLATE) \

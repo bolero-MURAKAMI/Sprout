@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/container_transform_traits.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
@@ -31,7 +32,7 @@ namespace sprout {
 #else
 			template<typename T>
 			struct has_rebind_size
-				: public decltype(sprout::containers::detail::sprout_has_xxx_impl_check_template_rebind_size<T>(0))
+				: public sprout::identity<decltype(sprout::containers::detail::sprout_has_xxx_impl_check_template_rebind_size<T>(0))>::type
 			{};
 #endif
 		}	// namespace detail

@@ -27,7 +27,7 @@ namespace sprout {
 	}	// namespace detail
 	template<typename T, typename Arg>
 	struct is_convert_constructible
-		: public decltype(sprout::detail::is_convert_constructible_test<T>::test(std::declval<Arg>()))
+		: public sprout::identity<decltype(sprout::detail::is_convert_constructible_test<T>::test(std::declval<Arg>()))>::type
 	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

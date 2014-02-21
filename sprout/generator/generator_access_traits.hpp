@@ -35,7 +35,7 @@ namespace sprout {
 #else
 			template<typename T>
 			struct has_mem_generated_value
-				: public decltype(sprout::generators::detail::has_mem_generated_value_test<T>::test(0))
+				: public sprout::identity<decltype(sprout::generators::detail::has_mem_generated_value_test<T>::test(0))>::type
 			{};
 #endif
 
@@ -110,7 +110,7 @@ namespace sprout {
 #else
 			template<typename T>
 			struct has_mem_next_generator
-				: public decltype(sprout::generators::detail::has_mem_next_generator_test<T>::test(0))
+				: public sprout::identity<decltype(sprout::generators::detail::has_mem_next_generator_test<T>::test(0))>::type
 			{};
 #endif
 
