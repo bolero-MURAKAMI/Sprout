@@ -16,14 +16,24 @@ namespace sprout {
 	// enabler_t
 	// enabler
 	//
-	typedef void* enabler_t;
+	typedef void** enabler_t;
+#if defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
+	namespace {
+		SPROUT_STATIC_CONSTEXPR sprout::enabler_t enabler = {};
+	}	// anonymous-namespace
+#else
 	extern enabler_t enabler;
+#endif
 	//
 	// enabler_if
 	//
 	template<bool C>
 	class enabler_if
+#if defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
+		: public std::enable_if<C, sprout::enabler_t>
+#else
 		: public std::enable_if<C, sprout::enabler_t&>
+#endif
 	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

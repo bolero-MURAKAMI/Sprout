@@ -41,7 +41,7 @@ namespace sprout {
 		// tie
 		//
 		template<typename... Types>
-		inline sprout::tuples::tuple<Types&...>
+		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types&...>
 		tie(Types&... args) SPROUT_NOEXCEPT {
 			return sprout::tuples::tuple<Types&...>(args...);
 		}
