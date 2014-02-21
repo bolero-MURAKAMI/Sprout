@@ -18,7 +18,7 @@ namespace sprout {
 	namespace math {
 		namespace detail {
 #		define SPROUT_BERNOULLI_TABLE_DEF_FLOAT \
-			table_type{{ \
+			{{ \
 				1.F, \
 				1.F / 6, \
 				-1.F / 30, \
@@ -54,7 +54,7 @@ namespace sprout {
 				-2.09380059113463784091e38F \
 			}}
 #		define SPROUT_BERNOULLI_TABLE_DEF_DOUBLE \
-			table_type{{ \
+			{{ \
 				1., \
 				1. / 6, \
 				-1. / 30, \
@@ -108,7 +108,7 @@ namespace sprout {
 				-2.838224957069370695926e78 \
 			}}
 #		define SPROUT_BERNOULLI_TABLE_DEF_LONG_DOUBLE \
-			table_type{{ \
+			{{ \
 				1.L, \
 				1.L / 6, \
 				-1.L / 30, \

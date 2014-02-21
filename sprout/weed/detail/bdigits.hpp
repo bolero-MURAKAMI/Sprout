@@ -72,7 +72,7 @@ namespace sprout {
 			struct bvalues;
 
 #		define SPROUT_WEED_BDIGITS_TABLE_DEF \
-			table_type{{0, 1}}
+			{{0, 1}}
 
 			template<>
 			struct bvalues<void> {

@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {

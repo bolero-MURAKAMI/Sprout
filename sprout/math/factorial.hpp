@@ -21,7 +21,7 @@ namespace sprout {
 	namespace math {
 		namespace detail {
 #		define SPROUT_FACTORIAL_TABLE_DEF_INT_1 \
-			table_type{{ \
+			{{ \
 				1, \
 				1, \
 				2, \
@@ -30,7 +30,7 @@ namespace sprout {
 				120 \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_UINT_1 \
-			table_type{{ \
+			{{ \
 				1, \
 				1, \
 				2, \
@@ -39,7 +39,7 @@ namespace sprout {
 				120 \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_INT_2 \
-			table_type{{ \
+			{{ \
 				1, \
 				1, \
 				2, \
@@ -50,7 +50,7 @@ namespace sprout {
 				5040 \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_UINT_2 \
-			table_type{{ \
+			{{ \
 				1, \
 				1, \
 				2, \
@@ -62,7 +62,7 @@ namespace sprout {
 				40320 \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_INT_4 \
-			table_type{{ \
+			{{ \
 				1, \
 				1, \
 				2, \
@@ -77,7 +77,7 @@ namespace sprout {
 				39916800 \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_UINT_4 \
-			table_type{{ \
+			{{ \
 				1, \
 				1, \
 				2, \
@@ -92,7 +92,7 @@ namespace sprout {
 				39916800 \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_INT_8 \
-			table_type{{ \
+			{{ \
 				SPROUT_INT64_C(1), \
 				SPROUT_INT64_C(1), \
 				SPROUT_INT64_C(2), \
@@ -116,7 +116,7 @@ namespace sprout {
 				SPROUT_INT64_C(2432902008176640000) \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_UINT_8 \
-			table_type{{ \
+			{{ \
 				SPROUT_UINT64_C(1), \
 				SPROUT_UINT64_C(1), \
 				SPROUT_UINT64_C(2), \
@@ -140,7 +140,7 @@ namespace sprout {
 				SPROUT_UINT64_C(2432902008176640000) \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_FLOAT \
-			table_type{{ \
+			{{ \
 				1.0F, \
 				1.0F, \
 				2.0F, \
@@ -178,7 +178,7 @@ namespace sprout {
 				0.29523279903960414084761860964352e39F \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_DOUBLE \
-			table_type{{ \
+			{{ \
 				1.0, \
 				1.0, \
 				2.0, \
@@ -352,7 +352,7 @@ namespace sprout {
 				0.7257415615307998967396728211129263114717e307 \
 			}}
 #		define SPROUT_FACTORIAL_TABLE_DEF_LONG_DOUBLE \
-			table_type{{ \
+			{{ \
 				1.0L, \
 				1.0L, \
 				2.0L, \

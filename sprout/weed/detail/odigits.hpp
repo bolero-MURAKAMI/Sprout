@@ -72,7 +72,7 @@ namespace sprout {
 			struct ovalues;
 
 #		define SPROUT_WEED_ODIGITS_TABLE_DEF \
-			table_type{{0, 1, 2, 3, 4, 5, 6, 7}}
+			{{0, 1, 2, 3, 4, 5, 6, 7}}
 
 			template<>
 			struct ovalues<void> {

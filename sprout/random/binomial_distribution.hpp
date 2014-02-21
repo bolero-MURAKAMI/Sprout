@@ -30,7 +30,7 @@ namespace sprout {
 	namespace random {
 		namespace detail {
 #		define SPROUT_BINOMIAL_TABLE_DEF \
-			table_type{{ \
+			{{ \
 				1, \
 				1, \
 				2, \

@@ -18,8 +18,8 @@
 #include <sprout/type/iterator.hpp>
 #include <sprout/type/iterator/index_iterator.hpp>
 #include <sprout/type/rebind_types.hpp>
-#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace types {
