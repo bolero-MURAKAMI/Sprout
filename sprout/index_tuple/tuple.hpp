@@ -38,7 +38,7 @@ namespace std {
 		typedef typename sprout::pack_element_c<I, T, Is...>::type type;
 	};
 
-#if !SPROUT_USE_TEMPLATE_ALIASES
+#if !(SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES))
 	//
 	// tuple_size
 	//
@@ -68,7 +68,7 @@ namespace std {
 	struct tuple_element<I, sprout::uindex_tuple<Indexes...> >
 		: public std::tuple_element<I, sprout::integer_sequence<sprout::uindex_t, Indexes...> >
 	{};
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+#endif	// #if !(SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES))
 
 #if defined(__clang__)
 #	pragma clang diagnostic pop
@@ -87,7 +87,7 @@ namespace sprout {
 		return type();
 	}
 
-#if !SPROUT_USE_TEMPLATE_ALIASES
+#if !(SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES))
 	//
 	// tuple_get
 	//
@@ -109,7 +109,7 @@ namespace sprout {
 		typedef typename std::tuple_element<I, sprout::uindex_tuple<Indexes...> >::type type;
 		return type();
 	}
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+#endif	// #if !(SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES))
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_TUPLE_HPP

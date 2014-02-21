@@ -104,13 +104,13 @@ namespace sprout {
 	//
 	// integer_range
 	//
-#if SPROUT_USE_TEMPLATE_ALIASES
+#if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<
 		typename T, T First, T Last,
 		typename std::make_signed<T>::type Step = sprout::detail::integer_range_default_step<T, First, Last>::value
 	>
 	using integer_range = typename sprout::detail::integer_range<T, First, Last, Step>::type;
-#else	// #if SPROUT_USE_TEMPLATE_ALIASES
+#else	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<
 		typename T, T First, T Last,
 		typename std::make_signed<T>::type Step = sprout::detail::integer_range_default_step<T, First, Last>::value
@@ -118,7 +118,7 @@ namespace sprout {
 	struct integer_range
 		: public sprout::detail::integer_range<T, First, Last, Step>
 	{};
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_INTEGER_RANGE_HPP

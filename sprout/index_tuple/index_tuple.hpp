@@ -17,13 +17,13 @@ namespace sprout {
 	// index_tuple
 	// uindex_tuple
 	//
-#if SPROUT_USE_TEMPLATE_ALIASES
+#if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<sprout::index_t... Indexes>
 	using index_tuple = sprout::integer_sequence<sprout::index_t, Indexes...>;
 
 	template<sprout::uindex_t... Indexes>
 	using uindex_tuple = sprout::integer_sequence<sprout::uindex_t, Indexes...>;
-#else	// #if SPROUT_USE_TEMPLATE_ALIASES
+#else	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<sprout::index_t... Indexes>
 	struct index_tuple
 		: public sprout::integer_sequence<sprout::index_t, Indexes...>
@@ -55,7 +55,7 @@ namespace sprout {
 			return type();
 		}
 	};
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_INDEX_TUPLE_HPP

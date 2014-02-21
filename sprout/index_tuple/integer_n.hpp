@@ -79,15 +79,15 @@ namespace sprout {
 	//
 	// integer_range
 	//
-#if SPROUT_USE_TEMPLATE_ALIASES
+#if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<typename T, T I, std::size_t N>
 	using integer_n = typename sprout::detail::integer_n<T, I, N>::type;
-#else	// #if SPROUT_USE_TEMPLATE_ALIASES
+#else	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<typename T, T I, std::size_t N>
 	struct integer_n
 		: public sprout::detail::integer_n<T, I, N>
 	{};
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_INTEGER_N_HPP

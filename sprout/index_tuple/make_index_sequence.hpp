@@ -16,15 +16,15 @@ namespace sprout {
 	//
 	// make_index_sequence
 	//
-#if SPROUT_USE_TEMPLATE_ALIASES
+#if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<sprout::uindex_t N>
 	using make_index_sequence = sprout::make_uindex_tuple<N>;
-#else	// #if SPROUT_USE_TEMPLATE_ALIASES
+#else	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<sprout::uindex_t N>
 	struct make_index_sequence
 		: public sprout::make_uindex_tuple<N>
 	{};
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_MAKE_INDEX_SEQUENCE_HPP
