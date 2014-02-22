@@ -71,11 +71,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::superpose_holder<T> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::transformed(rhs.range(), sprout::plus<>())
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::transformed(rhs.range(), sprout::plus<>())
 					;
 			}

@@ -28,7 +28,7 @@ namespace sprout {
 		operator()(T&& x, U&& y)
 		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<T>() -= std::declval<U>()))
 		{
-			return sprout::forward<T>(x) -= sprout::forward<U>(y);
+			return SPROUT_FORWARD(T, x) -= SPROUT_FORWARD(U, y);
 		}
 	};
 }	// namespace sprout

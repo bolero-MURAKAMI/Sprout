@@ -39,8 +39,8 @@ namespace sprout {
 			Arg2
 		>::type operator%(Arg1&& arg1, Arg2&& arg2) {
 			return sprout::weed::make_expr<sprout::weed::tag::modulus>(
-				sprout::forward<Arg1>(arg1),
-				sprout::forward<Arg2>(arg2)
+				SPROUT_FORWARD(Arg1, arg1),
+				SPROUT_FORWARD(Arg2, arg2)
 				);
 		}
 	}	// namespace weed

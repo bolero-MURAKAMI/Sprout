@@ -53,8 +53,8 @@ namespace sprout {
 			>::type
 		>
 		SPROUT_CONSTEXPR pair(U&& x, V&& y)
-			: first(sprout::forward<U>(x))
-			, second(sprout::forward<V>(y))
+			: first(SPROUT_FORWARD(U, x))
+			, second(SPROUT_FORWARD(V, y))
 		{}
 		template<
 			typename U, typename V,
@@ -73,8 +73,8 @@ namespace sprout {
 			>::type
 		>
 		SPROUT_CONSTEXPR pair(sprout::pair<U, V>&& other)
-			: first(sprout::forward<U>(other.first))
-			, second(sprout::forward<V>(other.second))
+			: first(SPROUT_FORWARD(U, other.first))
+			, second(SPROUT_FORWARD(V, other.second))
 		{}
 		template<
 			typename... Args1, typename... Args2,
@@ -110,8 +110,8 @@ namespace sprout {
 		SPROUT_CXX14_CONSTEXPR pair& operator=(pair&& rhs)
 		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<T1>::value && std::is_nothrow_move_assignable<T2>::value)
 		{
-			first = sprout::forward<T1>(rhs.first);
-			second = sprout::forward<T2>(rhs.second);
+			first = SPROUT_FORWARD(T1, rhs.first);
+			second = SPROUT_FORWARD(T2, rhs.second);
 			return *this;
 		}
 		template<
@@ -132,8 +132,8 @@ namespace sprout {
 			>::type
 		>
 		SPROUT_CXX14_CONSTEXPR pair& operator=(sprout::pair<U, V>&& rhs) {
-			first = sprout::forward<U>(rhs.first);
-			second = sprout::forward<V>(rhs.second);
+			first = SPROUT_FORWARD(U, rhs.first);
+			second = SPROUT_FORWARD(V, rhs.second);
 			return *this;
 		}
 		template<

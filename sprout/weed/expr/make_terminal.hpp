@@ -28,7 +28,7 @@ namespace sprout {
 			typename sprout::weed::traits::terminal_of<Arg>::type
 		>::type make_terminal(Arg&& arg) {
 			return typename sprout::weed::traits::terminal_of<Arg>::type(
-				sprout::forward<Arg>(arg)
+				SPROUT_FORWARD(Arg, arg)
 				);
 		}
 		template<typename Arg>
@@ -39,7 +39,7 @@ namespace sprout {
 			typename sprout::weed::traits::terminal_of<Arg>::type
 		>::type make_terminal(Arg&& arg) {
 			return typename sprout::weed::traits::terminal_of<Arg>::type(
-				sprout::to_string(sprout::forward<Arg>(arg))
+				sprout::to_string(SPROUT_FORWARD(Arg, arg))
 				);
 		}
 	}	// namespace weed

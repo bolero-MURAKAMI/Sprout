@@ -24,10 +24,10 @@ namespace sprout {
 		is_heap_until(RandomAccessRange&& range) {
 			return sprout::range::range_return<RandomAccessRange>::pack(
 				sprout::is_heap_until(
-					sprout::begin(sprout::forward<RandomAccessRange>(range)),
-					sprout::end(sprout::forward<RandomAccessRange>(range))
+					sprout::begin(SPROUT_FORWARD(RandomAccessRange, range)),
+					sprout::end(SPROUT_FORWARD(RandomAccessRange, range))
 					),
-				sprout::forward<RandomAccessRange>(range)
+				SPROUT_FORWARD(RandomAccessRange, range)
 				);
 		}
 
@@ -36,11 +36,11 @@ namespace sprout {
 		is_heap_until(RandomAccessRange&& range, Compare comp) {
 			return sprout::range::range_return<RandomAccessRange>::pack(
 				sprout::is_heap_until(
-					sprout::begin(sprout::forward<RandomAccessRange>(range)),
-					sprout::end(sprout::forward<RandomAccessRange>(range)),
+					sprout::begin(SPROUT_FORWARD(RandomAccessRange, range)),
+					sprout::end(SPROUT_FORWARD(RandomAccessRange, range)),
 					comp
 					),
-				sprout::forward<RandomAccessRange>(range)
+				SPROUT_FORWARD(RandomAccessRange, range)
 				);
 		}
 
@@ -49,10 +49,10 @@ namespace sprout {
 		is_heap_until(RandomAccessRange&& range) {
 			return sprout::range::range_return<RandomAccessRange, RetV>::pack(
 				sprout::is_heap_until(
-					sprout::begin(sprout::forward<RandomAccessRange>(range)),
-					sprout::end(sprout::forward<RandomAccessRange>(range))
+					sprout::begin(SPROUT_FORWARD(RandomAccessRange, range)),
+					sprout::end(SPROUT_FORWARD(RandomAccessRange, range))
 					),
-				sprout::forward<RandomAccessRange>(range)
+				SPROUT_FORWARD(RandomAccessRange, range)
 				);
 		}
 
@@ -61,11 +61,11 @@ namespace sprout {
 		is_heap_until(RandomAccessRange&& range, Compare comp) {
 			return sprout::range::range_return<RandomAccessRange, RetV>::pack(
 				sprout::is_heap_until(
-					sprout::begin(sprout::forward<RandomAccessRange>(range)),
-					sprout::end(sprout::forward<RandomAccessRange>(range)),
+					sprout::begin(SPROUT_FORWARD(RandomAccessRange, range)),
+					sprout::end(SPROUT_FORWARD(RandomAccessRange, range)),
 					comp
 					),
-				sprout::forward<RandomAccessRange>(range)
+				SPROUT_FORWARD(RandomAccessRange, range)
 				);
 		}
 	}	// namespace range

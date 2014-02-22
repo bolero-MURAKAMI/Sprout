@@ -37,7 +37,7 @@ namespace sprout {
 		>::type
 		default_make_container(Args&&... args) {
 			typedef typename sprout::container_construct_traits<Container>::copied_type copied_type;
-			return copied_type{{sprout::forward<Args>(args)...}};
+			return copied_type{{SPROUT_FORWARD(Args, args)...}};
 		}
 		template<typename Container, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -46,7 +46,7 @@ namespace sprout {
 		>::type
 		default_make_container(Args&&... args) {
 			typedef typename sprout::container_construct_traits<Container>::copied_type copied_type;
-			return copied_type{sprout::forward<Args>(args)...};
+			return copied_type{SPROUT_FORWARD(Args, args)...};
 		}
 
 		template<typename Container, typename Cont, typename... Args>
@@ -55,7 +55,7 @@ namespace sprout {
 			typename sprout::container_construct_traits<Container>::copied_type
 		>::type
 		default_remake_container(Cont&&, typename sprout::container_traits<Container>::difference_type, Args&&... args) {
-			return sprout::container_construct_traits<Container>::make(sprout::forward<Args>(args)...);
+			return sprout::container_construct_traits<Container>::make(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename Container, typename Cont, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -65,7 +65,7 @@ namespace sprout {
 			typename sprout::container_construct_traits<Container>::copied_type
 		>::type
 		default_remake_container(Cont&&, typename sprout::container_traits<Container>::difference_type, Args&&... args) {
-			return sprout::container_construct_traits<Container>::make(sprout::forward<Args>(args)...);
+			return sprout::container_construct_traits<Container>::make(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename Container, typename Cont, typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -96,19 +96,19 @@ namespace sprout {
 			template<typename Cont>
 			static SPROUT_CONSTEXPR copied_type
 			deep_copy(Cont&& cont) {
-				return sprout::forward<Cont>(cont);
+				return SPROUT_FORWARD(Cont, cont);
 			}
 			template<typename... Args>
 			static SPROUT_CONSTEXPR copied_type
 			make(Args&&... args) {
-				return sprout::detail::default_make_container<Container>(sprout::forward<Args>(args)...);
+				return sprout::detail::default_make_container<Container>(SPROUT_FORWARD(Args, args)...);
 			}
 			template<typename Cont, typename... Args>
 			static SPROUT_CONSTEXPR copied_type
 			remake(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
 				return sprout::detail::default_remake_container<Container>(
-					sprout::forward<Cont>(cont), size,
-					sprout::forward<Args>(args)...
+					SPROUT_FORWARD(Cont, cont), size,
+					SPROUT_FORWARD(Args, args)...
 					);
 			}
 		};

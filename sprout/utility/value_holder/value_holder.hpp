@@ -225,14 +225,14 @@ namespace sprout {
 			typename = typename std::enable_if<is_constructible_args<Args...>::value>::type
 		>
 		explicit SPROUT_CONSTEXPR value_holder(sprout::in_place_t, Args&&... args)
-			: holder_(sprout::forward<Args>(args)...)
+			: holder_(SPROUT_FORWARD(Args, args)...)
 		{}
 		template<
 			typename U, typename... Args,
 			typename = typename std::enable_if<is_constructible_args<std::initializer_list<U>&, Args...>::value>::type
 		>
 		explicit SPROUT_CONSTEXPR value_holder(sprout::in_place_t, std::initializer_list<U> il, Args&&... args)
-			: holder_(il, sprout::forward<Args>(args)...)
+			: holder_(il, SPROUT_FORWARD(Args, args)...)
 		{}
 
 		SPROUT_CXX14_CONSTEXPR value_holder& operator=(value_holder const& rhs) {

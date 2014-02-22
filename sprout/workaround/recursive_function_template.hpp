@@ -75,7 +75,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR T&&
 	throw_recursive_function_template_instantiation_exeeded(T&& t) {
-		return throw sprout::recursive_function_template_instantiation_exeeded(), sprout::forward<T>(t);
+		return throw sprout::recursive_function_template_instantiation_exeeded(), SPROUT_FORWARD(T, t);
 	}
 }	// namespace sprout
 

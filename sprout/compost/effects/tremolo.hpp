@@ -103,14 +103,14 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::tremolo_holder<T, IntType> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
 						sprout::compost::tremolo_outdirected_value<T, IntType>(rhs.depth(), rhs.rate(), rhs.samples_per_sec())
 						)
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
 						sprout::compost::tremolo_outdirected_value<T, IntType>(rhs.depth(), rhs.rate(), rhs.samples_per_sec())

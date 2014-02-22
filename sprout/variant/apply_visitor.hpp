@@ -23,7 +23,7 @@ namespace sprout {
 		typename std::remove_reference<Visitable>::type
 	>::type
 	apply_visitor(Visitor&& visitor, Visitable&& visitable) {
-		return sprout::forward<Visitable>(visitable).apply_visitor(sprout::forward<Visitor>(visitor));
+		return SPROUT_FORWARD(Visitable, visitable).apply_visitor(SPROUT_FORWARD(Visitor, visitor));
 	}
 }	// namespace sprout
 

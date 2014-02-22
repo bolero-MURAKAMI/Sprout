@@ -24,11 +24,11 @@ namespace sprout {
 		partition_point(ForwardRange&& range, Predicate pred) {
 			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::partition_point(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					pred
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 	}	// namespace range

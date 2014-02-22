@@ -23,7 +23,7 @@ namespace sprout {
 	>::copied_type
 	deep_copy(Container&& cont) {
 		typedef typename std::remove_reference<Container>::type container_type;
-		return sprout::container_construct_traits<container_type>::deep_copy(sprout::forward<Container>(cont));
+		return sprout::container_construct_traits<container_type>::deep_copy(SPROUT_FORWARD(Container, cont));
 	}
 }	// namespace sprout
 

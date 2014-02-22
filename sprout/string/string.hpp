@@ -57,7 +57,7 @@ namespace sprout {
 			{}
 			template<typename... Args>
 			explicit SPROUT_CONSTEXPR constant_size_source(size_type n, Args&&... args)
-				: arr_{{static_cast<T>(sprout::forward<Args>(args))...}}, size_(n)
+				: arr_{{static_cast<T>(SPROUT_FORWARD(Args, args))...}}, size_(n)
 			{}
 			SPROUT_CONSTEXPR size_type size() const {
 				return size_;
@@ -194,7 +194,7 @@ namespace sprout {
 				sprout::detail::string_raw_construct_t, size_type n, Args&&... args
 				)
 				: elems{
-					(sprout::math::less(Indexes, n) ? static_cast<value_type>(sprout::forward<Args>(args))
+					(sprout::math::less(Indexes, n) ? static_cast<value_type>(SPROUT_FORWARD(Args, args))
 						: value_type()
 						)...
 					}
@@ -279,7 +279,7 @@ namespace sprout {
 		SPROUT_CONSTEXPR basic_string(sprout::detail::string_raw_construct_t, size_type n, Args&&... args)
 			: impl_type(
 				sprout::index_pack<Args...>::make(),
-				sprout::detail::string_raw_construct_t(), n, sprout::forward<Args>(args)...
+				sprout::detail::string_raw_construct_t(), n, SPROUT_FORWARD(Args, args)...
 				)
 		{}
 		SPROUT_CXX14_CONSTEXPR void maxcheck(size_type n) const {
@@ -957,7 +957,7 @@ namespace sprout {
 			template<typename... Args>
 			static SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
 			raw_construct(typename sprout::basic_string<T, N, Traits>::size_type n, Args&&... args) {
-				return sprout::basic_string<T, N, Traits>(sprout::detail::string_raw_construct_t(), n, sprout::forward<Args>(args)...);
+				return sprout::basic_string<T, N, Traits>(sprout::detail::string_raw_construct_t(), n, SPROUT_FORWARD(Args, args)...);
 			}
 		};
 
@@ -978,19 +978,19 @@ namespace sprout {
 			template<typename... Args>
 			static SPROUT_CONSTEXPR typename copied_type::size_type
 			length(Args&&... args) {
-				return length_impl(sprout::make_array<T>(sprout::forward<Args>(args)...));
+				return length_impl(sprout::make_array<T>(SPROUT_FORWARD(Args, args)...));
 			}
 			template<typename... Args>
 			static SPROUT_CONSTEXPR copied_type
 			make(Args&&... args) {
 				typedef sprout::detail::string_construct_access<T, N, Traits> access_type;
-				return access_type::raw_construct(length(args...), sprout::forward<Args>(args)...);
+				return access_type::raw_construct(length(args...), SPROUT_FORWARD(Args, args)...);
 			}
 			template<typename... Args>
 			static SPROUT_CONSTEXPR copied_type
 			make(typename copied_type::size_type size, Args&&... args) {
 				typedef sprout::detail::string_construct_access<T, N, Traits> access_type;
-				return access_type::raw_construct(size, sprout::forward<Args>(args)...);
+				return access_type::raw_construct(size, SPROUT_FORWARD(Args, args)...);
 			}
 		};
 	}	// namespace detail

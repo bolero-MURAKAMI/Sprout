@@ -107,7 +107,7 @@ namespace sprout {
 				) const volatile
 			-> decltype(arg(std::declval<Args>()...))
 			{
-				return arg(sprout::forward<Args>(sprout::tuples::get<Indexes>(tuple))...);
+				return arg(SPROUT_FORWARD(Args, sprout::tuples::get<Indexes>(tuple))...);
 			}
 		public:
 			template<typename CVArg, typename... Args>
@@ -136,9 +136,8 @@ namespace sprout {
 			template<typename Tuple>
 			typename result<mu (Arg, Tuple)>::type
 			SPROUT_CONSTEXPR operator()(Arg /*const volatile&*/, Tuple& tuple) const volatile {
-				return sprout::forward<typename result<mu (Arg, Tuple)>::type>(
-					sprout::tuples::get<(sprout::is_placeholder<Arg>::value - 1)>(tuple)
-					);
+			typedef typename result<mu (Arg, Tuple)>::type type;
+				return SPROUT_FORWARD(type, sprout::tuples::get<(sprout::is_placeholder<Arg>::value - 1)>(tuple));
 			}
 		};
 		template<typename Arg>
@@ -154,7 +153,7 @@ namespace sprout {
 		public:
 			template<typename CVArg, typename Tuple>
 			SPROUT_CONSTEXPR CVArg&& operator()(CVArg&& arg, Tuple&) const volatile {
-				return sprout::forward<CVArg>(arg);
+				return SPROUT_FORWARD(CVArg, arg);
 			}
 		};
 
@@ -395,12 +394,12 @@ namespace sprout {
 		-> decltype(
 			sprout::detail::get_bound_helper::get_bound<
 				sprout::detail::bound_position<I, typename std::remove_reference<Bounds>::type, ArgSize>::value
-				>(sprout::forward<Bounds>(bound_args))
+				>(SPROUT_FORWARD(Bounds, bound_args))
 			)
 		{
 			return sprout::detail::get_bound_helper::get_bound<
 				sprout::detail::bound_position<I, typename std::remove_reference<Bounds>::type, ArgSize>::value
-				>(sprout::forward<Bounds>(bound_args));
+				>(SPROUT_FORWARD(Bounds, bound_args));
 		}
 	}	// namespace detail
 
@@ -490,7 +489,7 @@ namespace sprout {
 			template<typename... Args>
 			explicit SPROUT_CONSTEXPR binder_impl(Functor const& f, Args&&... args)
 				: f_(f)
-				, bound_args_(sprout::forward<Args>(args)...)
+				, bound_args_(SPROUT_FORWARD(Args, args)...)
 			{}
 			binder_impl(binder_impl const&) = default;
 		};
@@ -510,7 +509,7 @@ namespace sprout {
 	public:
 		template<typename... Args>
 		explicit SPROUT_CONSTEXPR binder(Functor const& f, Args&&... args)
-			: impl_type(f, sprout::forward<Args>(args)...)
+			: impl_type(f, SPROUT_FORWARD(Args, args)...)
 		{}
 		binder(binder const&) = default;
 		template<
@@ -521,7 +520,7 @@ namespace sprout {
 		>
 		Result operator()(Args&&... args) {
 			return impl_type::template call<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
@@ -533,7 +532,7 @@ namespace sprout {
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const {
 			return impl_type::template call_c<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
@@ -545,7 +544,7 @@ namespace sprout {
 		>
 		Result operator()(Args&&... args) volatile {
 			return impl_type::template call_v<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
@@ -557,7 +556,7 @@ namespace sprout {
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const volatile {
 			return impl_type::template call_cv<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
@@ -577,7 +576,7 @@ namespace sprout {
 	public:
 		template<typename... Args>
 		explicit SPROUT_CONSTEXPR cbinder(Functor const& f, Args&&... args)
-			: impl_type(f, sprout::forward<Args>(args)...)
+			: impl_type(f, SPROUT_FORWARD(Args, args)...)
 		{}
 		cbinder(cbinder const&) = default;
 		template<
@@ -588,7 +587,7 @@ namespace sprout {
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const {
 			return impl_type::template call_c<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
@@ -600,7 +599,7 @@ namespace sprout {
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const volatile {
 			return impl_type::template call_cv<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
@@ -704,7 +703,7 @@ namespace sprout {
 			template<typename... Args>
 			explicit SPROUT_CONSTEXPR res_binder_impl(Functor const& f, Args&&... args)
 				: f_(f)
-				, bound_args_(sprout::forward<Args>(args)...)
+				, bound_args_(SPROUT_FORWARD(Args, args)...)
 			{}
 			res_binder_impl(res_binder_impl const&) = default;
 		};
@@ -726,34 +725,34 @@ namespace sprout {
 	public:
 		template<typename... Args>
 		explicit res_binder(Functor const& f, Args&&... args)
-			: impl_type(f, sprout::forward<Args>(args)...)
+			: impl_type(f, SPROUT_FORWARD(Args, args)...)
 		{}
 		res_binder(res_binder const&) = default;
 		template<typename... Args>
 		result_type operator()(Args&&... args) {
 			return impl_type::template call<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
 		template<typename... Args>
 		SPROUT_CONSTEXPR result_type operator()(Args&&... args) const {
 			return impl_type::template call<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
 		template<typename... Args>
 		result_type operator()(Args&&... args) volatile {
 			return impl_type::template call<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
 		template<typename... Args>
 		SPROUT_CONSTEXPR result_type operator()(Args&&... args) const volatile {
 			return impl_type::template call<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
@@ -775,20 +774,20 @@ namespace sprout {
 	public:
 		template<typename... Args>
 		explicit SPROUT_CONSTEXPR res_cbinder(Functor const& f, Args&&... args)
-			: impl_type(f, sprout::forward<Args>(args)...)
+			: impl_type(f, SPROUT_FORWARD(Args, args)...)
 		{}
 		res_cbinder(res_cbinder const&) = default;
 		template<typename... Args>
 		SPROUT_CONSTEXPR result_type operator()(Args&&... args) const {
 			return impl_type::template call<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
 		template<typename... Args>
 		SPROUT_CONSTEXPR result_type operator()(Args&&... args) const volatile {
 			return impl_type::template call<Result>(
-				sprout::tuples::forward_as_tuple(sprout::forward<Args>(args)...),
+				sprout::tuples::forward_as_tuple(SPROUT_FORWARD(Args, args)...),
 				sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make()
 				);
 		}
@@ -999,7 +998,7 @@ namespace sprout {
 		typedef sprout::detail::bind_helper<false, F, BoundArgs...> helper_type;
 		typedef typename helper_type::maybe_type maybe_type;
 		typedef typename helper_type::type result_type;
-		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
+		return result_type(maybe_type::do_wrap(SPROUT_FORWARD(F, f)), SPROUT_FORWARD(BoundArgs, args)...);
 	}
 	template<typename R, typename F, typename... BoundArgs>
 	inline SPROUT_CONSTEXPR typename sprout::res_bind_result<R, F, BoundArgs...>::type
@@ -1007,7 +1006,7 @@ namespace sprout {
 		typedef sprout::detail::res_bind_helper<false, R, F, BoundArgs...> helper_type;
 		typedef typename helper_type::maybe_type maybe_type;
 		typedef typename helper_type::type result_type;
-		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
+		return result_type(maybe_type::do_wrap(SPROUT_FORWARD(F, f)), SPROUT_FORWARD(BoundArgs, args)...);
 	}
 
 	//
@@ -1019,7 +1018,7 @@ namespace sprout {
 		typedef sprout::detail::bind_helper<true, F, BoundArgs...> helper_type;
 		typedef typename helper_type::maybe_type maybe_type;
 		typedef typename helper_type::type result_type;
-		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
+		return result_type(maybe_type::do_wrap(SPROUT_FORWARD(F, f)), SPROUT_FORWARD(BoundArgs, args)...);
 	}
 	template<typename R, typename F, typename... BoundArgs>
 	inline SPROUT_CONSTEXPR typename sprout::res_cbind_result<R, F, BoundArgs...>::type
@@ -1027,7 +1026,7 @@ namespace sprout {
 		typedef sprout::detail::res_bind_helper<true, R, F, BoundArgs...> helper_type;
 		typedef typename helper_type::maybe_type maybe_type;
 		typedef typename helper_type::type result_type;
-		return result_type(maybe_type::do_wrap(sprout::forward<F>(f)), sprout::forward<BoundArgs>(args)...);
+		return result_type(maybe_type::do_wrap(SPROUT_FORWARD(F, f)), SPROUT_FORWARD(BoundArgs, args)...);
 	}
 }	// namespace sprout
 

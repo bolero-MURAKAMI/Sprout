@@ -22,9 +22,9 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR typename sprout::container_construct_traits<Container>::copied_type
 	remake(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
 		return sprout::container_construct_traits<Container>::remake(
-			sprout::forward<Cont>(cont),
+			SPROUT_FORWARD(Cont, cont),
 			size,
-			sprout::forward<Args>(args)...
+			SPROUT_FORWARD(Args, args)...
 			);
 	}
 }	// namespace sprout

@@ -21,9 +21,9 @@ namespace sprout {
 			template<typename... Objects>
 			inline SPROUT_CONSTEXPR auto
 			make_object_list(Objects&&... objs)
-			-> decltype(sprout::make_tuple(sprout::forward<Objects>(objs)...))
+			-> decltype(sprout::make_tuple(SPROUT_FORWARD(Objects, objs)...))
 			{
-				return sprout::make_tuple(sprout::forward<Objects>(objs)...);
+				return sprout::make_tuple(SPROUT_FORWARD(Objects, objs)...);
 			}
 		}	// namespace objects
 	}	// namespace darkroom

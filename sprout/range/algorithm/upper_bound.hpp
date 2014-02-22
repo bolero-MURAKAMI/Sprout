@@ -24,11 +24,11 @@ namespace sprout {
 		upper_bound(ForwardRange&& range, T const& value) {
 			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::upper_bound(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					value
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -37,12 +37,12 @@ namespace sprout {
 		upper_bound(ForwardRange&& range, T const& value, Compare comp) {
 			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::upper_bound(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					value,
 					comp
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -51,11 +51,11 @@ namespace sprout {
 		upper_bound(ForwardRange&& range, T const& value) {
 			return sprout::range::range_return<ForwardRange, RetV>::pack(
 				sprout::upper_bound(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					value
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -64,12 +64,12 @@ namespace sprout {
 		upper_bound(ForwardRange&& range, T const& value, Compare comp) {
 			return sprout::range::range_return<ForwardRange, RetV>::pack(
 				sprout::upper_bound(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					value,
 					comp
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 	}	// namespace range

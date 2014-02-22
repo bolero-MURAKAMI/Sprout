@@ -65,11 +65,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::clip_holder<T> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::clamped(rhs.lower(), rhs.upper())
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::clamped(rhs.lower(), rhs.upper())
 					;
 			}
@@ -77,11 +77,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::clipped_forwarder const&)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::clamped(-1., 1.)
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::clamped(-1., 1.)
 					;
 			}

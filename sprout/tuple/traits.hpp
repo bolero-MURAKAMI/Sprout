@@ -66,7 +66,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type
 			default_make_tuple(Args&&... args) {
 				typedef typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type copied_type;
-				return copied_type(sprout::forward<Args>(args)...);
+				return copied_type(SPROUT_FORWARD(Args, args)...);
 			}
 		}	// namespace detail
 
@@ -80,11 +80,11 @@ namespace sprout {
 		public:
 			template<typename Tup>
 			static SPROUT_CONSTEXPR copied_type deep_copy(Tup&& tup) {
-				return sprout::forward<Tup>(tup);
+				return SPROUT_FORWARD(Tup, tup);
 			}
 			template<typename... Args>
 			static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
-				return sprout::tuples::detail::default_make_tuple<Tuple>(sprout::forward<Args>(args)...);
+				return sprout::tuples::detail::default_make_tuple<Tuple>(SPROUT_FORWARD(Args, args)...);
 			}
 			template<typename Tup, typename... Args>
 			static SPROUT_CONSTEXPR copied_type remake(
@@ -92,7 +92,7 @@ namespace sprout {
 				Args&&... args
 				)
 			{
-				return make(sprout::forward<Args>(args)...);
+				return make(SPROUT_FORWARD(Args, args)...);
 			}
 		};
 		template<typename Tuple>

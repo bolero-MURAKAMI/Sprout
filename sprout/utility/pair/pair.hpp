@@ -63,8 +63,8 @@ namespace sprout {
 		typename
 	>
 	inline SPROUT_CONSTEXPR sprout::pair<T1, T2>::pair(sprout::tuples::tuple<U, V>&& other)
-		: first(sprout::forward<U>(sprout::tuples::get<0>(other)))
-		, second(sprout::forward<V>(sprout::tuples::get<1>(other)))
+		: first(SPROUT_FORWARD(U, sprout::tuples::get<0>(other)))
+		, second(SPROUT_FORWARD(V, sprout::tuples::get<1>(other)))
 	{}
 
 	template<typename T1, typename T2>
@@ -83,8 +83,8 @@ namespace sprout {
 		typename
 	>
 	inline SPROUT_CXX14_CONSTEXPR sprout::pair<T1, T2>& sprout::pair<T1, T2>::operator=(sprout::tuples::tuple<U, V>&& rhs) {
-		first = sprout::forward<U>(sprout::tuples::get<0>(rhs));
-		second = sprout::forward<V>(sprout::tuples::get<1>(rhs));
+		first = SPROUT_FORWARD(U, sprout::tuples::get<0>(rhs));
+		second = SPROUT_FORWARD(V, sprout::tuples::get<1>(rhs));
 		return *this;
 	}
 }	// namespace sprout

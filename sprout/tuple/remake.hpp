@@ -22,8 +22,8 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type
 		remake(Tup&& tup, Args&&... args) {
 			return sprout::tuples::tuple_construct_traits<Tuple>::remake(
-				sprout::forward<Tup>(tup),
-				sprout::forward<Args>(args)...
+				SPROUT_FORWARD(Tup, tup),
+				SPROUT_FORWARD(Args, args)...
 				);
 		}
 	}	// namespace tuples

@@ -52,7 +52,7 @@ namespace sprout {
 			template<typename Result, typename Tuple, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR Result
 			call(Tuple&& t, sprout::index_tuple<Indexes...>) const {
-				return f_(sprout::tuples::get<Indexes>(sprout::forward<Tuple>(t))...);
+				return f_(sprout::tuples::get<Indexes>(SPROUT_FORWARD(Tuple, t))...);
 			}
 		public:
 			SPROUT_CONSTEXPR fused() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
@@ -67,7 +67,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename result<Tuple>::type
 			operator()(Tuple&& t) const {
 				return call<typename result<Tuple>::type>(
-					sprout::forward<Tuple>(t),
+					SPROUT_FORWARD(Tuple, t),
 					sprout::tuple_indexes<typename std::remove_reference<Tuple>::type>::make()
 					);
 			}

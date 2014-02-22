@@ -128,13 +128,13 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::auto_pan_holder<T, IntType> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
 						sprout::compost::auto_pan_outdirected_value<T, IntType, true>(rhs.depth(), rhs.rate(), rhs.samples_per_sec())
 						)
 					| sprout::compost::formats::stereo(
-						sprout::forward<Range>(lhs)
+						SPROUT_FORWARD(Range, lhs)
 							| sprout::adaptors::indexed | sprout::adaptors::outdirected
 							| sprout::adaptors::transformed(
 								sprout::compost::auto_pan_outdirected_value<T, IntType, false>(rhs.depth(), rhs.rate(), rhs.samples_per_sec())
@@ -142,13 +142,13 @@ namespace sprout {
 						)
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
 						sprout::compost::auto_pan_outdirected_value<T, IntType, true>(rhs.depth(), rhs.rate(), rhs.samples_per_sec())
 						)
 					| sprout::compost::formats::stereo(
-						sprout::forward<Range>(lhs)
+						SPROUT_FORWARD(Range, lhs)
 							| sprout::adaptors::indexed | sprout::adaptors::outdirected
 							| sprout::adaptors::transformed(
 								sprout::compost::auto_pan_outdirected_value<T, IntType, false>(rhs.depth(), rhs.rate(), rhs.samples_per_sec())

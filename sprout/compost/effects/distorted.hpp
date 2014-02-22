@@ -66,13 +66,13 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::distort_holder<T> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::compost::effects::changed_volume(rhs.gain())
 					| sprout::compost::effects::clipped()
 					| sprout::compost::effects::changed_volume(rhs.level())
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::compost::effects::changed_volume(rhs.gain())
 					| sprout::compost::effects::clipped()
 					| sprout::compost::effects::changed_volume(rhs.level())

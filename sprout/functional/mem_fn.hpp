@@ -59,25 +59,25 @@ namespace sprout {
 	private:
 		template<typename T>
 		Res call(T& object, Class const volatile*, Args... args) const {
-			return (object.*pmf_)(sprout::forward<Args>(args)...);
+			return (object.*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename T>
 		Res call(T& ptr, void const volatile*, Args... args) const {
-			return ((*ptr).*pmf_)(sprout::forward<Args>(args)...);
+			return ((*ptr).*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 	public:
 		explicit SPROUT_CONSTEXPR mem_fn_adaptor(Res (Class::*pmf)(Args...))
 			: pmf_(pmf)
 		{}
 		Res operator()(Class& object, Args... args) const {
-			return (object.*pmf_)(sprout::forward<Args>(args)...);
+			return (object.*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		Res operator()(Class* object, Args... args) const {
-			return (object->*pmf_)(sprout::forward<Args>(args)...);
+			return (object->*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename T>
 		Res operator()(T& object, Args... args) const {
-			return call(object, &object, sprout::forward<Args>(args)...);
+			return call(object, &object, SPROUT_FORWARD(Args, args)...);
 		}
 	};
 	template<typename Res, typename Class, typename... Args>
@@ -93,25 +93,25 @@ namespace sprout {
 	private:
 		template<typename T>
 		SPROUT_CONSTEXPR Res call(T const& object, Class const volatile*, Args... args) const {
-			return (object.*pmf_)(sprout::forward<Args>(args)...);
+			return (object.*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename T>
 		SPROUT_CONSTEXPR Res call(T const& ptr, void const volatile*, Args... args) const {
-			return ((*ptr).*pmf_)(sprout::forward<Args>(args)...);
+			return ((*ptr).*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 	public:
 		explicit SPROUT_CONSTEXPR mem_fn_adaptor(Res (Class::*pmf)(Args...) const)
 			: pmf_(pmf)
 		{}
 		SPROUT_CONSTEXPR Res operator()(Class const& object, Args... args) const {
-			return (object.*pmf_)(sprout::forward<Args>(args)...);
+			return (object.*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		SPROUT_CONSTEXPR Res operator()(Class const* object, Args... args) const {
-			return (object->*pmf_)(sprout::forward<Args>(args)...);
+			return (object->*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename T>
 		SPROUT_CONSTEXPR Res operator()(T const& object, Args... args) const {
-			return call(object, &object, sprout::forward<Args>(args)...);
+			return call(object, &object, SPROUT_FORWARD(Args, args)...);
 		}
 	};
 	template<typename Res, typename Class, typename... Args>
@@ -127,25 +127,25 @@ namespace sprout {
 	private:
 		template<typename T>
 		Res call(T& object, Class const volatile*, Args... args) const {
-			return (object.*pmf_)(sprout::forward<Args>(args)...);
+			return (object.*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename T>
 		Res call(T& ptr, void const volatile*, Args... args) const {
-			return ((*ptr).*pmf_)(sprout::forward<Args>(args)...);
+			return ((*ptr).*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 	public:
 		explicit SPROUT_CONSTEXPR mem_fn_adaptor(Res (Class::*pmf)(Args...) volatile)
 			: pmf_(pmf)
 		{}
 		Res operator()(Class volatile& object, Args... args) const {
-			return (object.*pmf_)(sprout::forward<Args>(args)...);
+			return (object.*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		Res operator()(Class volatile* object, Args... args) const {
-			return (object->*pmf_)(sprout::forward<Args>(args)...);
+			return (object->*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename T>
 		Res operator()(T& object, Args... args) const {
-			return call(object, &object, sprout::forward<Args>(args)...);
+			return call(object, &object, SPROUT_FORWARD(Args, args)...);
 		}
 	};
 	template<typename Res, typename Class, typename... Args>
@@ -161,25 +161,25 @@ namespace sprout {
 	private:
 		template<typename T>
 		SPROUT_CONSTEXPR Res call(T const& object, Class const volatile*, Args... args) const {
-			return (object.*pmf_)(sprout::forward<Args>(args)...);
+			return (object.*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename T>
 		SPROUT_CONSTEXPR Res call(T const& ptr, void const volatile*, Args... args) const {
-			return ((*ptr).*pmf_)(sprout::forward<Args>(args)...);
+			return ((*ptr).*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 	public:
 		explicit SPROUT_CONSTEXPR mem_fn_adaptor(Res (Class::*pmf)(Args...) const volatile)
 			: pmf_(pmf)
 		{}
 		SPROUT_CONSTEXPR Res operator()(Class const volatile& object, Args... args) const {
-			return (object.*pmf_)(sprout::forward<Args>(args)...);
+			return (object.*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		SPROUT_CONSTEXPR Res operator()(Class const volatile* object, Args... args) const {
-			return (object->*pmf_)(sprout::forward<Args>(args)...);
+			return (object->*pmf_)(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename T>
 		SPROUT_CONSTEXPR Res operator()(T const& object, Args... args) const {
-			return call(object, &object, sprout::forward<Args>(args)...);
+			return call(object, &object, SPROUT_FORWARD(Args, args)...);
 		}
 	};
 

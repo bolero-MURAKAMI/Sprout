@@ -131,7 +131,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::reverb_holder<T, IntType> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
 						sprout::compost::reverb_outdirected_value<T, IntType>(
@@ -140,7 +140,7 @@ namespace sprout {
 						)
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
 						sprout::compost::reverb_outdirected_value<T, IntType>(

@@ -20,10 +20,10 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR auto
 	second(T&& t)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::get<1>(sprout::forward<T>(t))))
-	-> decltype(sprout::tuples::get<1>(sprout::forward<T>(t)))
+	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tuples::get<1>(SPROUT_FORWARD(T, t))))
+	-> decltype(sprout::tuples::get<1>(SPROUT_FORWARD(T, t)))
 	{
-		return sprout::tuples::get<1>(sprout::forward<T>(t));
+		return sprout::tuples::get<1>(SPROUT_FORWARD(T, t));
 	}
 }	// namespace sprout
 

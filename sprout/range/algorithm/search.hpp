@@ -24,12 +24,12 @@ namespace sprout {
 		search(ForwardRange1&& range1, ForwardRange2&& range2) {
 			return sprout::range::range_return<ForwardRange1>::pack(
 				sprout::search(
-					sprout::begin(sprout::forward<ForwardRange1>(range1)),
-					sprout::end(sprout::forward<ForwardRange1>(range1)),
-					sprout::begin(sprout::forward<ForwardRange2>(range2)),
-					sprout::end(sprout::forward<ForwardRange2>(range2))
+					sprout::begin(SPROUT_FORWARD(ForwardRange1, range1)),
+					sprout::end(SPROUT_FORWARD(ForwardRange1, range1)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange2, range2)),
+					sprout::end(SPROUT_FORWARD(ForwardRange2, range2))
 					),
-				sprout::forward<ForwardRange1>(range1)
+				SPROUT_FORWARD(ForwardRange1, range1)
 				);
 		}
 
@@ -38,13 +38,13 @@ namespace sprout {
 		search(ForwardRange1&& range1, ForwardRange2&& range2, BinaryPredicate pred) {
 			return sprout::range::range_return<ForwardRange1>::pack(
 				sprout::search(
-					sprout::begin(sprout::forward<ForwardRange1>(range1)),
-					sprout::end(sprout::forward<ForwardRange1>(range1)),
-					sprout::begin(sprout::forward<ForwardRange2>(range2)),
-					sprout::end(sprout::forward<ForwardRange2>(range2)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange1, range1)),
+					sprout::end(SPROUT_FORWARD(ForwardRange1, range1)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange2, range2)),
+					sprout::end(SPROUT_FORWARD(ForwardRange2, range2)),
 					pred
 					),
-				sprout::forward<ForwardRange1>(range1)
+				SPROUT_FORWARD(ForwardRange1, range1)
 				);
 		}
 
@@ -53,12 +53,12 @@ namespace sprout {
 		search(ForwardRange1&& range1, ForwardRange2&& range2) {
 			return sprout::range::range_return<ForwardRange1, RetV>::pack(
 				sprout::search(
-					sprout::begin(sprout::forward<ForwardRange1>(range1)),
-					sprout::end(sprout::forward<ForwardRange1>(range1)),
-					sprout::begin(sprout::forward<ForwardRange2>(range2)),
-					sprout::end(sprout::forward<ForwardRange2>(range2))
+					sprout::begin(SPROUT_FORWARD(ForwardRange1, range1)),
+					sprout::end(SPROUT_FORWARD(ForwardRange1, range1)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange2, range2)),
+					sprout::end(SPROUT_FORWARD(ForwardRange2, range2))
 					),
-				sprout::forward<ForwardRange1>(range1)
+				SPROUT_FORWARD(ForwardRange1, range1)
 				);
 		}
 
@@ -67,13 +67,13 @@ namespace sprout {
 		search(ForwardRange1&& range1, ForwardRange2&& range2, BinaryPredicate pred) {
 			return sprout::range::range_return<ForwardRange1, RetV>::pack(
 				sprout::search(
-					sprout::begin(sprout::forward<ForwardRange1>(range1)),
-					sprout::end(sprout::forward<ForwardRange1>(range1)),
-					sprout::begin(sprout::forward<ForwardRange2>(range2)),
-					sprout::end(sprout::forward<ForwardRange2>(range2)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange1, range1)),
+					sprout::end(SPROUT_FORWARD(ForwardRange1, range1)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange2, range2)),
+					sprout::end(SPROUT_FORWARD(ForwardRange2, range2)),
 					pred
 					),
-				sprout::forward<ForwardRange1>(range1)
+				SPROUT_FORWARD(ForwardRange1, range1)
 				);
 		}
 	}	// namespace range

@@ -34,7 +34,7 @@ namespace sprout {
 			Arg
 		>::type operator&(Arg&& arg) {
 			return sprout::weed::make_expr<sprout::weed::tag::address_of>(
-				sprout::forward<Arg>(arg)
+				SPROUT_FORWARD(Arg, arg)
 				);
 		}
 	}	// namespace weed

@@ -30,7 +30,7 @@ namespace sprout {
 		public:
 			template<typename... As>
 			explicit SPROUT_CONSTEXPR expr(As&&... args)
-				: args_(sprout::forward<As>(args)...)
+				: args_(SPROUT_FORWARD(As, args)...)
 			{}
 			SPROUT_CONSTEXPR args_type const& args() const {
 				return args_;

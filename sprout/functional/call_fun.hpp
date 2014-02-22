@@ -28,7 +28,7 @@ namespace sprout {
 		operator()(F&& f, As&&... as)
 		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<F>()(std::declval<As>()...)))
 		{
-			return sprout::forward<F>(f)(sprout::forward<As>(as)...);
+			return SPROUT_FORWARD(F, f)(SPROUT_FORWARD(As, as)...);
 		}
 	};
 }	// namespace sprout

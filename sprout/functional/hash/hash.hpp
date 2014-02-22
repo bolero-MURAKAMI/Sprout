@@ -48,9 +48,9 @@ namespace sprout {
 		template<typename T>
 		SPROUT_CONSTEXPR std::size_t
 		operator()(T&& v)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::to_hash(sprout::forward<T>(v))))
+		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::to_hash(SPROUT_FORWARD(T, v))))
 		{
-			return sprout::to_hash(sprout::forward<T>(v));
+			return sprout::to_hash(SPROUT_FORWARD(T, v));
 		}
 	};
 

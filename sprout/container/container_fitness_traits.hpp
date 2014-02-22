@@ -24,7 +24,7 @@ namespace sprout {
 		template<typename Cont>
 		static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
 		fit_size(Cont&& cont, typename sprout::container_traits<Container>::difference_type size) {
-			return NS_SSCRISK_CEL_OR_SPROUT::min(size, sprout::size(sprout::forward<Cont>(cont)));
+			return NS_SSCRISK_CEL_OR_SPROUT::min(size, sprout::size(SPROUT_FORWARD(Cont, cont)));
 		}
 	};
 	template<typename Container>

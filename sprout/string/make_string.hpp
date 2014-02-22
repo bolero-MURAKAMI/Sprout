@@ -25,7 +25,7 @@ namespace sprout {
 		typedef sprout::detail::make_construct_impl<
 			sprout::basic_string<typename std::decay<T>::type, 1 + sizeof...(Types)>
 		> impl_type;
-		return impl_type::make(sprout::forward<T>(t), sprout::forward<Types>(args)...);
+		return impl_type::make(SPROUT_FORWARD(T, t), SPROUT_FORWARD(Types, args)...);
 	}
 
 	//
@@ -42,7 +42,7 @@ namespace sprout {
 		typedef sprout::detail::make_construct_impl<
 			sprout::basic_string<typename std::decay<T>::type, sizeof...(Types)>
 		> impl_type;
-		return impl_type::make(sprout::forward<Types>(args)...);
+		return impl_type::make(SPROUT_FORWARD(Types, args)...);
 	}
 }	// namespace sprout
 

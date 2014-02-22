@@ -44,9 +44,8 @@ namespace sprout {
 		template<std::size_t I, typename... Types>
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&&
 		tuple_get(sprout::tuples::tuple<Types...>&& t) SPROUT_NOEXCEPT {
-			return sprout::forward<typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type>(
-				sprout::tuples::tuple_get<I>(t)
-				);
+			typedef typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type type;
+			return SPROUT_FORWARD(type, sprout::tuples::tuple_get<I>(t));
 		}
 		template<std::size_t I, typename... Types>
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const&
@@ -96,7 +95,7 @@ namespace sprout_tuple_detail {
 	call_tuple_get(T&& t)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(tuple_get<I>(std::declval<T>())))
 	{
-		return tuple_get<I>(sprout::forward<T>(t));
+		return tuple_get<I>(SPROUT_FORWARD(T, t));
 	}
 }	// namespace sprout_tuple_detail
 
@@ -116,7 +115,7 @@ namespace sprout {
 		get(T&& t)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout_tuple_detail::call_tuple_get<I>(std::declval<T>())))
 		{
-			return sprout_tuple_detail::call_tuple_get<I>(sprout::forward<T>(t));
+			return sprout_tuple_detail::call_tuple_get<I>(SPROUT_FORWARD(T, t));
 		}
 	}	// namespace tuples
 

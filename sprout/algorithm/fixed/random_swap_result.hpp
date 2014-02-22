@@ -52,12 +52,12 @@ namespace sprout {
 				return n > 1
 					? sprout::fixed::detail::make_random_swap_result_indexes_1<UniformRandomNumberGenerator>(
 						SPROUT_WORKAROUND_DETAIL_UNIFORM_INT_DISTRIBUTION<std::ptrdiff_t>(0, n - 1)(
-							sprout::forward<UniformRandomNumberGenerator>(g)
+							SPROUT_FORWARD(UniformRandomNumberGenerator, g)
 							)
 						)
 					: result_type(
 						sprout::array<std::ptrdiff_t, 2>{{}},
-						sprout::forward<UniformRandomNumberGenerator>(g)
+						SPROUT_FORWARD(UniformRandomNumberGenerator, g)
 						)
 					;
 			}
@@ -88,7 +88,7 @@ namespace sprout {
 					cont,
 					sprout::fixed::detail::make_random_swap_result_indexes(
 						size,
-						sprout::forward<UniformRandomNumberGenerator>(g)
+						SPROUT_FORWARD(UniformRandomNumberGenerator, g)
 						)
 					);
 			}
@@ -100,7 +100,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type
 		random_swap_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::random_swap_result_impl(
-				cont, sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				sprout::size(cont)
 				);
 		}

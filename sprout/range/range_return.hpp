@@ -55,7 +55,7 @@ namespace sprout {
 				Range&& range
 				)
 			{
-				return type(found, sprout::end(sprout::forward<Range>(range)));
+				return type(found, sprout::end(SPROUT_FORWARD(Range, range)));
 			}
 		};
 		template<typename Range>
@@ -68,7 +68,7 @@ namespace sprout {
 				Range&& range
 				)
 			{
-				return type(sprout::begin(sprout::forward<Range>(range)), found);
+				return type(sprout::begin(SPROUT_FORWARD(Range, range)), found);
 			}
 		};
 	}	// namespace range

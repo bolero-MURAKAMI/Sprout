@@ -52,7 +52,7 @@ namespace sprout {
 //				{}
 //				template<typename UHead>
 //				explicit SPROUT_CONSTEXPR head_base(UHead&& v)
-//					: Head(sprout::forward<UHead>(v))
+//					: Head(SPROUT_FORWARD(UHead, v))
 //				{}
 //			};
 			template<std::size_t Index, typename Head>
@@ -75,7 +75,7 @@ namespace sprout {
 				{}
 				template<typename UHead>
 				explicit SPROUT_CONSTEXPR head_base(UHead&& v)
-					: head_(sprout::forward<UHead>(v))
+					: head_(SPROUT_FORWARD(UHead, v))
 				{}
 			};
 			template<std::size_t Index, typename Head>
@@ -98,7 +98,7 @@ namespace sprout {
 				{}
 				template<typename UHead>
 				explicit SPROUT_CONSTEXPR head_base(UHead&& v)
-					: head_(sprout::forward<UHead>(v))
+					: head_(SPROUT_FORWARD(UHead, v))
 				{}
 			};
 
@@ -185,8 +185,8 @@ namespace sprout {
 				{}
 				template<typename UHead, typename... UTail>
 				explicit SPROUT_CONSTEXPR tuple_impl(UHead&& h, UTail&&... tail)
-					: inherited_type(sprout::forward<UTail>(tail)...)
-					, base_type(sprout::forward<UHead>(h))
+					: inherited_type(SPROUT_FORWARD(UTail, tail)...)
+					, base_type(SPROUT_FORWARD(UHead, h))
 				{}
 				tuple_impl(tuple_impl const&) = default;
 #if SPROUT_GCC_IN_RANGE((4, 8, 0), (4, 8, 2))
@@ -195,7 +195,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl&& t)
 				SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_constructible<Head>::value && std::is_nothrow_move_constructible<inherited_type>::value)
 					: inherited_type(sprout::move(tail(t)))
-					, base_type(sprout::forward<Head>(head(t)))
+					, base_type(SPROUT_FORWARD(Head, head(t)))
 				{}
 #endif
 				template<typename... UTypes>
@@ -206,7 +206,7 @@ namespace sprout {
 				template<typename UHead, typename... UTail>
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl<Index, UHead, UTail...>&& t)
 					: inherited_type(sprout::move(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::tail(t)))
-					, base_type(sprout::forward<UHead>(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::head(t)))
+					, base_type(SPROUT_FORWARD(UHead, (sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::head(t))))
 				{}
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl<Index> const&)
 					: inherited_type()
@@ -224,7 +224,7 @@ namespace sprout {
 				SPROUT_CXX14_CONSTEXPR tuple_impl& operator=(tuple_impl&& t)
 				SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<Head>::value && std::is_nothrow_move_assignable<inherited_type>::value)
 				{
-					head(*this) = sprout::forward<Head>(head(t));
+					head(*this) = SPROUT_FORWARD(Head, head(t));
 					tail(*this) = sprout::move(tail(t));
 					return *this;
 				}
@@ -236,7 +236,7 @@ namespace sprout {
 				}
 				template<typename UHead, typename... UTail>
 				SPROUT_CXX14_CONSTEXPR tuple_impl& operator=(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>&& t) {
-					head(*this) = sprout::forward<UHead>(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::head(t));
+					head(*this) = SPROUT_FORWARD(UHead, (sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::head(t)));
 					tail(*this) = sprout::move(sprout::tuples::detail::tuple_impl<Index, UHead, UTail...>::tail(t));
 					return *this;
 				}
@@ -319,7 +319,7 @@ namespace sprout {
 				>::type
 			>
 			explicit SPROUT_CONSTEXPR tuple(UTypes&&... elements)
-				: impl_type(sprout::forward<UTypes>(elements)...)
+				: impl_type(SPROUT_FORWARD(UTypes, elements)...)
 			{}
 			tuple(tuple const&) = default;
 			tuple(tuple&&) = default;
@@ -363,7 +363,7 @@ namespace sprout {
 				>::type
 			>
 			explicit SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, UTypes&&... elements)
-				: impl_type(sprout::forward<UTypes>(elements)...)
+				: impl_type(SPROUT_FORWARD(UTypes, elements)...)
 			{}
 			template<
 				typename... UTypes,

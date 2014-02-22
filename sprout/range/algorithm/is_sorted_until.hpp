@@ -24,10 +24,10 @@ namespace sprout {
 		is_sorted_until(ForwardRange&& range) {
 			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::is_sorted_until(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range))
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range))
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -36,11 +36,11 @@ namespace sprout {
 		is_sorted_until(ForwardRange&& range, Compare comp) {
 			return sprout::range::range_return<ForwardRange>::pack(
 				sprout::is_sorted_until(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					comp
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -49,10 +49,10 @@ namespace sprout {
 		is_sorted_until(ForwardRange&& range) {
 			return sprout::range::range_return<ForwardRange, RetV>::pack(
 				sprout::is_sorted_until(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range))
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range))
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -61,11 +61,11 @@ namespace sprout {
 		is_sorted_until(ForwardRange&& range, Compare comp) {
 			return sprout::range::range_return<ForwardRange, RetV>::pack(
 				sprout::is_sorted_until(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					comp
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 	}	// namespace range

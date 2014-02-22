@@ -25,7 +25,7 @@ namespace sprout {
 		operator()(T&& x)
 		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::to_string(std::declval<T>())))
 		{
-			return sprout::to_string(sprout::forward<T>(x));
+			return sprout::to_string(SPROUT_FORWARD(T, x));
 		}
 	};
 }	// namespace sprout

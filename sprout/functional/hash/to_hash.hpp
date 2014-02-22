@@ -34,7 +34,7 @@ namespace sprout {
 	to_hash(T&& v) {
 		using sprout::hash_value;
 		using sprout_adl::hash_value;
-		return hash_value(sprout::forward<T>(v));
+		return hash_value(SPROUT_FORWARD(T, v));
 	}
 }	// namespace sprout
 

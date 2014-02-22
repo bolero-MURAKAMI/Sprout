@@ -63,11 +63,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::change_volume_holder<T> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::transformed(sprout::bind2nd(sprout::multiplies<>(), rhs.value()))
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::transformed(sprout::bind2nd(sprout::multiplies<>(), rhs.value()))
 					;
 			}

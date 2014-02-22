@@ -24,11 +24,11 @@ namespace sprout {
 		find_if(InputRange&& range, Predicate pred) {
 			return sprout::range::range_return<InputRange>::pack(
 				sprout::find_if(
-					sprout::begin(sprout::forward<InputRange>(range)),
-					sprout::end(sprout::forward<InputRange>(range)),
+					sprout::begin(SPROUT_FORWARD(InputRange, range)),
+					sprout::end(SPROUT_FORWARD(InputRange, range)),
 					pred
 					),
-				sprout::forward<InputRange>(range)
+				SPROUT_FORWARD(InputRange, range)
 				);
 		}
 
@@ -37,11 +37,11 @@ namespace sprout {
 		find_if(InputRange&& range, Predicate pred) {
 			return sprout::range::range_return<InputRange, RetV>::pack(
 				sprout::find_if(
-					sprout::begin(sprout::forward<InputRange>(range)),
-					sprout::end(sprout::forward<InputRange>(range)),
+					sprout::begin(SPROUT_FORWARD(InputRange, range)),
+					sprout::end(SPROUT_FORWARD(InputRange, range)),
 					pred
 					),
-				sprout::forward<InputRange>(range)
+				SPROUT_FORWARD(InputRange, range)
 				);
 		}
 	}	// namespace range

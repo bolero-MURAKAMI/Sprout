@@ -20,12 +20,12 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::optional<typename std::decay<T>::type>
 	make_optional(T&& v) {
-		return sprout::optional<typename std::decay<T>::type>(sprout::forward<T>(v));
+		return sprout::optional<typename std::decay<T>::type>(SPROUT_FORWARD(T, v));
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::optional<typename std::decay<T>::type>
 	make_optional(bool cond, T&& v) {
-		return sprout::optional<typename std::decay<T>::type>(cond, sprout::forward<T>(v));
+		return sprout::optional<typename std::decay<T>::type>(cond, SPROUT_FORWARD(T, v));
 	}
 }	// namespace sprout
 

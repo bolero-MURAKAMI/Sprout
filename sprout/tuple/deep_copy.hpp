@@ -24,7 +24,7 @@ namespace sprout {
 		>::copied_type
 		deep_copy(Tuple&& tup) {
 			typedef typename std::remove_reference<Tuple>::type tuple_type;
-			return sprout::tuples::tuple_construct_traits<tuple_type>::deep_copy(sprout::forward<Tuple>(tup));
+			return sprout::tuples::tuple_construct_traits<tuple_type>::deep_copy(SPROUT_FORWARD(Tuple, tup));
 		}
 	}	// namespace tuples
 }	// namespace sprout

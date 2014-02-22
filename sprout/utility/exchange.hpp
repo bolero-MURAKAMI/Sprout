@@ -20,7 +20,7 @@ namespace sprout {
 	inline SPROUT_CXX14_CONSTEXPR T
 	exchange(T& obj, U&& new_val) {
 		T old_val = sprout::move(obj);
-		obj = sprout::forward<U>(new_val);
+		obj = SPROUT_FORWARD(U, new_val);
 		return old_val;
 	}
 }	// namespace sprout

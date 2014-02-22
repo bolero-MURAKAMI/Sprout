@@ -23,7 +23,7 @@ namespace sprout {
 		typename std::remove_reference<T>::type const&&
 	>::type
 	as_const(T&& t) {
-		return sprout::forward<T>(t);
+		return SPROUT_FORWARD(T, t);
 	}
 }	// namespace sprout
 

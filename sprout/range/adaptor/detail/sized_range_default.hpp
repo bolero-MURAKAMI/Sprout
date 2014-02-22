@@ -97,11 +97,11 @@ namespace sprout {
 	public:
 		template<typename Cont>
 		static SPROUT_CONSTEXPR copied_type deep_copy(Cont&& cont) {
-			return sprout::range::fixed::copy(sprout::forward<Cont>(cont), sprout::pit<copied_type>());
+			return sprout::range::fixed::copy(SPROUT_FORWARD(Cont, cont), sprout::pit<copied_type>());
 		}
 		template<typename... Args>
 		static SPROUT_CONSTEXPR copied_type make(Args&&... args) {
-			return sprout::make<copied_type>(sprout::forward<Args>(args)...);
+			return sprout::make<copied_type>(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type remake(
@@ -110,7 +110,7 @@ namespace sprout {
 			Args&&... args
 			)
 		{
-			return sprout::remake<copied_type>(sprout::forward<Cont>(cont), size, sprout::forward<Args>(args)...);
+			return sprout::remake<copied_type>(SPROUT_FORWARD(Cont, cont), size, SPROUT_FORWARD(Args, args)...);
 		}
 	};
 }	// namespace sprout

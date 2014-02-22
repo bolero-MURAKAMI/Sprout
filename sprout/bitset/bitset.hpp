@@ -878,7 +878,7 @@ namespace sprout {
 	public:
 		template<typename Cont>
 		static SPROUT_CONSTEXPR copied_type deep_copy(Cont&& cont) {
-			return sprout::forward<Cont>(cont);
+			return SPROUT_FORWARD(Cont, cont);
 		}
 		template<typename... Args>
 		static SPROUT_CONSTEXPR copied_type make(Args&&... args) {

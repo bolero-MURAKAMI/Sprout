@@ -27,9 +27,9 @@ namespace sprout {
 		>
 		mismatch(InputRange1&& range1, InputRange2&& range2) {
 			return sprout::mismatch(
-				sprout::begin(sprout::forward<InputRange1>(range1)),
-				sprout::end(sprout::forward<InputRange1>(range1)),
-				sprout::begin(sprout::forward<InputRange2>(range2))
+				sprout::begin(SPROUT_FORWARD(InputRange1, range1)),
+				sprout::end(SPROUT_FORWARD(InputRange1, range1)),
+				sprout::begin(SPROUT_FORWARD(InputRange2, range2))
 				);
 		}
 
@@ -40,9 +40,9 @@ namespace sprout {
 		>
 		mismatch(InputRange1&& range1, InputRange2&& range2, BinaryPredicate pred) {
 			return sprout::mismatch(
-				sprout::begin(sprout::forward<InputRange1>(range1)),
-				sprout::end(sprout::forward<InputRange1>(range1)),
-				sprout::begin(sprout::forward<InputRange2>(range2)),
+				sprout::begin(SPROUT_FORWARD(InputRange1, range1)),
+				sprout::end(SPROUT_FORWARD(InputRange1, range1)),
+				sprout::begin(SPROUT_FORWARD(InputRange2, range2)),
 				pred
 				);
 		}

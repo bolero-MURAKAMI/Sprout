@@ -29,7 +29,7 @@ namespace sprout {
 	>::copied_type
 	internal_deep_copy(Container&& cont) {
 		return sprout::deep_copy(
-			sprout::get_deep_internal(sprout::forward<Container>(cont))
+			sprout::get_deep_internal(SPROUT_FORWARD(Container, cont))
 			);
 	}
 }	// namespace sprout

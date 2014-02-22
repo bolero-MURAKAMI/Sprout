@@ -134,17 +134,17 @@ namespace sprout {
 		template<typename Cont>
 		static SPROUT_CONSTEXPR copied_type
 		deep_copy(Cont&& cont) {
-			return sprout::deep_copy(sprout::get_internal(sprout::forward<Cont>(cont)));
+			return sprout::deep_copy(sprout::get_internal(SPROUT_FORWARD(Cont, cont)));
 		}
 		template<typename... Args>
 		static SPROUT_CONSTEXPR copied_type
 		make(Args&&... args) {
-			return sprout::make<copied_type>(sprout::forward<Args>(args)...);
+			return sprout::make<copied_type>(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type
 		remake(Cont&& cont, typename sprout::container_traits<Container>::difference_type, Args&&... args) {
-			return remake_impl(sprout::get_internal(sprout::forward<Cont>(cont)), sprout::forward<Args>(args)...);
+			return remake_impl(sprout::get_internal(SPROUT_FORWARD(Cont, cont)), SPROUT_FORWARD(Args, args)...);
 		}
 	};
 
@@ -157,7 +157,7 @@ namespace sprout {
 		template<typename Cont>
 		static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
 		fit_size(Cont&& cont, typename sprout::container_traits<Container>::difference_type size) {
-			return size + sprout::size(sprout::forward<Cont>(cont));
+			return size + sprout::size(SPROUT_FORWARD(Cont, cont));
 		}
 	};
 

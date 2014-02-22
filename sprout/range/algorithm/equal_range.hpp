@@ -32,8 +32,8 @@ namespace sprout {
 		equal_range(ForwardRange&& range, T const& value) {
 			return sprout::range::detail::pair_to_range<ForwardRange>(
 				sprout::equal_range(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					value
 					)
 				);
@@ -44,8 +44,8 @@ namespace sprout {
 		equal_range(ForwardRange&& range, T const& value, Compare comp) {
 			return sprout::range::detail::pair_to_range<ForwardRange>(
 				sprout::equal_range(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					value,
 					comp
 					)

@@ -34,7 +34,7 @@ namespace sprout {
 			Arg
 		>::type operator+(Arg&& arg) {
 			return sprout::weed::make_expr<sprout::weed::tag::unary_plus>(
-				sprout::forward<Arg>(arg)
+				SPROUT_FORWARD(Arg, arg)
 				);
 		}
 	}	// namespace weed

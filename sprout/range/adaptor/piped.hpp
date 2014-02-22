@@ -23,23 +23,23 @@ namespace sprout {
 			template<typename Range>
 			inline SPROUT_CONSTEXPR auto
 			apply_adaptors_impl(Range&& range)
-			-> decltype(sprout::forward<Range>(range))
+			-> decltype(SPROUT_FORWARD(Range, range))
 			{
-				return sprout::forward<Range>(range);
+				return SPROUT_FORWARD(Range, range);
 			}
 			template<typename Range, typename Adaptor>
 			inline SPROUT_CONSTEXPR auto
 			apply_adaptors_impl(Range&& range, Adaptor const& adaptor)
-			-> decltype(sprout::forward<Range>(range) | adaptor)
+			-> decltype(SPROUT_FORWARD(Range, range) | adaptor)
 			{
-				return sprout::forward<Range>(range) | adaptor;
+				return SPROUT_FORWARD(Range, range) | adaptor;
 			}
 			template<typename Range, typename Adaptor, typename... Tail>
 			inline SPROUT_CONSTEXPR auto
 			apply_adaptors_impl(Range&& range, Adaptor const& adaptor, Tail const&... tail)
-			-> decltype(sprout::adaptors::detail::apply_adaptors_impl(sprout::forward<Range>(range) | adaptor, tail...))
+			-> decltype(sprout::adaptors::detail::apply_adaptors_impl(SPROUT_FORWARD(Range, range) | adaptor, tail...))
 			{
-				return sprout::adaptors::detail::apply_adaptors_impl(sprout::forward<Range>(range) | adaptor, tail...);
+				return sprout::adaptors::detail::apply_adaptors_impl(SPROUT_FORWARD(Range, range) | adaptor, tail...);
 			}
 		}	// namespace detail
 		//
@@ -48,31 +48,31 @@ namespace sprout {
 		template<typename Range, typename... Adaptors>
 		SPROUT_CONSTEXPR auto
 		apply_adaptors(Range&& range, Adaptors const&... adaptors)
-		-> decltype(sprout::adaptors::detail::apply_adaptors_impl(sprout::forward<Range>(range), adaptors...))
+		-> decltype(sprout::adaptors::detail::apply_adaptors_impl(SPROUT_FORWARD(Range, range), adaptors...))
 		{
-			return sprout::adaptors::detail::apply_adaptors_impl(sprout::forward<Range>(range), adaptors...);
+			return sprout::adaptors::detail::apply_adaptors_impl(SPROUT_FORWARD(Range, range), adaptors...);
 		}
 
 		namespace detail {
 			template<typename Range, typename AdaptorsTuple, sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR auto
 			apply_adaptors_tuple_impl(Range&& range, AdaptorsTuple const& adaptors, sprout::index_tuple<Indexes...>)
-			-> decltype(sprout::adaptors::apply_adaptors(sprout::forward<Range>(range), sprout::tuples::get<Indexes>(adaptors)...))
+			-> decltype(sprout::adaptors::apply_adaptors(SPROUT_FORWARD(Range, range), sprout::tuples::get<Indexes>(adaptors)...))
 			{
-				return sprout::adaptors::apply_adaptors(sprout::forward<Range>(range), sprout::tuples::get<Indexes>(adaptors)...);
+				return sprout::adaptors::apply_adaptors(SPROUT_FORWARD(Range, range), sprout::tuples::get<Indexes>(adaptors)...);
 			}
 			template<typename Range, typename AdaptorsTuple>
 			SPROUT_CONSTEXPR auto
 			apply_adaptors_tuple(Range&& range, AdaptorsTuple const& adaptors)
 			-> decltype(
 				sprout::adaptors::detail::apply_adaptors_tuple_impl(
-					sprout::forward<Range>(range), adaptors,
+					SPROUT_FORWARD(Range, range), adaptors,
 					sprout::make_index_tuple<sprout::tuples::tuple_size<AdaptorsTuple>::value>::make()
 					)
 				)
 			{
 				return sprout::adaptors::detail::apply_adaptors_tuple_impl(
-					sprout::forward<Range>(range), adaptors,
+					SPROUT_FORWARD(Range, range), adaptors,
 					sprout::make_index_tuple<sprout::tuples::tuple_size<AdaptorsTuple>::value>::make()
 					);
 			}
@@ -97,9 +97,9 @@ namespace sprout {
 			template<typename Range>
 			SPROUT_CONSTEXPR auto
 			apply(Range&& range) const
-			-> decltype(sprout::adaptors::detail::apply_adaptors_tuple(sprout::forward<Range>(range), std::declval<pipe_holder const&>().adaptors()))
+			-> decltype(sprout::adaptors::detail::apply_adaptors_tuple(SPROUT_FORWARD(Range, range), std::declval<pipe_holder const&>().adaptors()))
 			{
-				return sprout::adaptors::detail::apply_adaptors_tuple(sprout::forward<Range>(range), adaptors());
+				return sprout::adaptors::detail::apply_adaptors_tuple(SPROUT_FORWARD(Range, range), adaptors());
 			}
 		};
 

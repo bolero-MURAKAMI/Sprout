@@ -47,7 +47,7 @@ namespace sprout {
 			template<typename T, typename U>
 			SPROUT_CONSTEXPR decltype(!std::declval<Predicate const&>()(std::declval<T>(), std::declval<U>()))
 			operator()(T&& x, U&& y) const {
-				return !fn(sprout::forward<T>(x), sprout::forward<U>(y));
+				return !fn(SPROUT_FORWARD(T, x), SPROUT_FORWARD(U, y));
 			}
 		};
 	}	// namespace detail

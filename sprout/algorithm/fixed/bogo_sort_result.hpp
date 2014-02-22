@@ -68,9 +68,9 @@ namespace sprout {
 				typedef typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type result_type;
 				typedef sprout::pair<result_type, bool> type;
 				return sprout::is_sorted(sprout::begin(cont), sprout::end(cont), comp)
-					? result_type(sprout::deep_copy(cont), sprout::forward<UniformRandomNumberGenerator>(g))
+					? result_type(sprout::deep_copy(cont), SPROUT_FORWARD(UniformRandomNumberGenerator, g))
 					: sprout::fixed::detail::bogo_sort_result_impl<result_type>(
-						type(sprout::fixed::shuffle_result(cont, sprout::forward<UniformRandomNumberGenerator>(g)), false),
+						type(sprout::fixed::shuffle_result(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g)), false),
 						comp, static_cast<typename sprout::container_traits<Container>::difference_type>(1)
 						).first
 					;
@@ -84,7 +84,7 @@ namespace sprout {
 		bogo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fixed::detail::bogo_sort_result(
 				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				comp
 				);
 		}
@@ -93,7 +93,7 @@ namespace sprout {
 		bogo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::bogo_sort_result(
 				cont,
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				NS_SSCRISK_CEL_OR_SPROUT::less<typename sprout::container_traits<Container>::value_type>()
 				);
 		}

@@ -23,7 +23,7 @@ namespace sprout {
 		result(T&& t)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::generated_value(std::declval<T>())))
 		{
-			return sprout::generators::generated_value(sprout::forward<T>(t));
+			return sprout::generators::generated_value(SPROUT_FORWARD(T, t));
 		}
 
 		//
@@ -34,7 +34,7 @@ namespace sprout {
 		next(T&& t)
 			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::next_generator(std::declval<T>())))
 		{
-			return sprout::generators::next_generator(sprout::forward<T>(t));
+			return sprout::generators::next_generator(SPROUT_FORWARD(T, t));
 		}
 	}	// namespace random
 }	// namespace sprout

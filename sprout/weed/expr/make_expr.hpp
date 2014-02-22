@@ -23,7 +23,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::weed::traits::expr_of<Tag, Args...>::type
 		make_expr(Args&&... args) {
 			return typename sprout::weed::traits::expr_of<Tag, Args...>::type(
-				sprout::weed::make_terminal_or_expr(sprout::forward<Args>(args))...
+				sprout::weed::make_terminal_or_expr(SPROUT_FORWARD(Args, args))...
 				);
 		}
 	}	// namespace weed

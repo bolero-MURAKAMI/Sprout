@@ -26,8 +26,8 @@ namespace sprout {
 			>
 			pack_pair(Pair const& pair, ForwardRange&& range) {
 				return {
-					sprout::range::range_return<ForwardRange>::pack(pair.first, sprout::forward<ForwardRange>(range)),
-					sprout::range::range_return<ForwardRange>::pack(pair.second, sprout::forward<ForwardRange>(range))
+					sprout::range::range_return<ForwardRange>::pack(pair.first, SPROUT_FORWARD(ForwardRange, range)),
+					sprout::range::range_return<ForwardRange>::pack(pair.second, SPROUT_FORWARD(ForwardRange, range))
 					};
 			}
 
@@ -38,8 +38,8 @@ namespace sprout {
 			>
 			pack_pair(Pair const& pair, ForwardRange&& range) {
 				return {
-					sprout::range::range_return<ForwardRange, RetV>::pack(pair.first, sprout::forward<ForwardRange>(range)),
-					sprout::range::range_return<ForwardRange, RetV>::pack(pair.second, sprout::forward<ForwardRange>(range))
+					sprout::range::range_return<ForwardRange, RetV>::pack(pair.first, SPROUT_FORWARD(ForwardRange, range)),
+					sprout::range::range_return<ForwardRange, RetV>::pack(pair.second, SPROUT_FORWARD(ForwardRange, range))
 					};
 			}
 		}	// namespace detail
@@ -54,10 +54,10 @@ namespace sprout {
 		minmax_element(ForwardRange&& range) {
 			return sprout::range::detail::pack_pair<ForwardRange>(
 				sprout::minmax_element(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range))
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range))
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -69,11 +69,11 @@ namespace sprout {
 		minmax_element(ForwardRange&& range, Compare comp) {
 			return sprout::range::detail::pack_pair<ForwardRange>(
 				sprout::minmax_element(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					comp
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -85,10 +85,10 @@ namespace sprout {
 		minmax_element(ForwardRange&& range) {
 			return sprout::range::detail::pack_pair<RetV, ForwardRange>(
 				sprout::minmax_element(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range))
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range))
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 
@@ -100,11 +100,11 @@ namespace sprout {
 		minmax_element(ForwardRange&& range, Compare comp) {
 			return sprout::range::detail::pack_pair<RetV, ForwardRange>(
 				sprout::minmax_element(
-					sprout::begin(sprout::forward<ForwardRange>(range)),
-					sprout::end(sprout::forward<ForwardRange>(range)),
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
 					comp
 					),
-				sprout::forward<ForwardRange>(range)
+				SPROUT_FORWARD(ForwardRange, range)
 				);
 		}
 	}	// namespace range

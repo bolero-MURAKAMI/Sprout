@@ -38,26 +38,26 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
 			r(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<0>(sprout::forward<T>(t))))
-			-> decltype(sprout::darkroom::access::get<0>(sprout::forward<T>(t)))
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<0>(SPROUT_FORWARD(T, t))))
+			-> decltype(sprout::darkroom::access::get<0>(SPROUT_FORWARD(T, t)))
 			{
-				return sprout::darkroom::access::get<0>(sprout::forward<T>(t));
+				return sprout::darkroom::access::get<0>(SPROUT_FORWARD(T, t));
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
 			g(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<1>(sprout::forward<T>(t))))
-			-> decltype(sprout::darkroom::access::get<1>(sprout::forward<T>(t)))
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<1>(SPROUT_FORWARD(T, t))))
+			-> decltype(sprout::darkroom::access::get<1>(SPROUT_FORWARD(T, t)))
 			{
-				return sprout::darkroom::access::get<1>(sprout::forward<T>(t));
+				return sprout::darkroom::access::get<1>(SPROUT_FORWARD(T, t));
 			}
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
 			b(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<2>(sprout::forward<T>(t))))
-			-> decltype(sprout::darkroom::access::get<2>(sprout::forward<T>(t)))
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<2>(SPROUT_FORWARD(T, t))))
+			-> decltype(sprout::darkroom::access::get<2>(SPROUT_FORWARD(T, t)))
 			{
-				return sprout::darkroom::access::get<2>(sprout::forward<T>(t));
+				return sprout::darkroom::access::get<2>(SPROUT_FORWARD(T, t));
 			}
 			//
 			// a
@@ -68,10 +68,10 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR auto
 			a(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<3>(sprout::forward<T>(t))))
-			-> decltype(sprout::darkroom::access::get<3>(sprout::forward<T>(t)))
+			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<3>(SPROUT_FORWARD(T, t))))
+			-> decltype(sprout::darkroom::access::get<3>(SPROUT_FORWARD(T, t)))
 			{
-				return sprout::darkroom::access::get<3>(sprout::forward<T>(t));
+				return sprout::darkroom::access::get<3>(SPROUT_FORWARD(T, t));
 			}
 			template<
 				typename T,

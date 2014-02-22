@@ -136,8 +136,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::chorus_holder<T, IntType> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
-					| sprout::adaptors::valued(sprout::size(sprout::forward<Range>(lhs)))
+				SPROUT_FORWARD(Range, lhs)
+					| sprout::adaptors::valued(sprout::size(SPROUT_FORWARD(Range, lhs)))
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
 						sprout::compost::chorus_outdirected_value<T, IntType>(
@@ -146,8 +146,8 @@ namespace sprout {
 						)
 				)
 			{
-				return sprout::forward<Range>(lhs)
-					| sprout::adaptors::valued(sprout::size(sprout::forward<Range>(lhs)))
+				return SPROUT_FORWARD(Range, lhs)
+					| sprout::adaptors::valued(sprout::size(SPROUT_FORWARD(Range, lhs)))
 					| sprout::adaptors::indexed | sprout::adaptors::outdirected
 					| sprout::adaptors::transformed(
 						sprout::compost::chorus_outdirected_value<T, IntType>(

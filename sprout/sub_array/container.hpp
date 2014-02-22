@@ -60,16 +60,16 @@ namespace sprout {
 		static SPROUT_CONSTEXPR copied_type
 		make(Args&&... args) {
 			return make_impl(
-				sprout::make<internal_type>(sprout::forward<Args>(args)...)
+				sprout::make<internal_type>(SPROUT_FORWARD(Args, args)...)
 				);
 		}
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type
 		remake(Cont&& cont, typename sprout::container_traits<sprout::sub_array<Container> >::difference_type size, Args&&... args) {
 			return remake_impl(
-				sprout::forward<Cont>(cont),
+				SPROUT_FORWARD(Cont, cont),
 				size,
-				sprout::remake<internal_type>(cont, size, sprout::forward<Args>(args)...)
+				sprout::remake<internal_type>(cont, size, SPROUT_FORWARD(Args, args)...)
 				);
 		}
 	};
@@ -115,7 +115,7 @@ namespace sprout {
 		template<typename Cont>
 		static SPROUT_CONSTEXPR typename internal<Cont>::type
 		get_internal(Cont&& cont) {
-			return call(sprout::forward<Cont>(cont));
+			return call(SPROUT_FORWARD(Cont, cont));
 		}
 	};
 }	// namespace sprout

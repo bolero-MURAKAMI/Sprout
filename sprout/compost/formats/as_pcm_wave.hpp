@@ -81,11 +81,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::formats::as_pcm_wave_forwarder<IntType> const&)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::transformed(sprout::compost::normalized_to_pcm_wave<IntType>())
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::transformed(sprout::compost::normalized_to_pcm_wave<IntType>())
 					;
 			}

@@ -24,7 +24,7 @@ namespace sprout {
 		>
 		inline SPROUT_CONSTEXPR typename sprout::containers::deep_internal<Container>::type
 		get_deep_internal_impl(Container&& cont) {
-			return sprout::forward<Container>(cont);
+			return SPROUT_FORWARD(Container, cont);
 		}
 		template<
 			typename Container,
@@ -33,7 +33,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::containers::deep_internal<Container>::type
 		get_deep_internal_impl(Container&& cont) {
 			return sprout::detail::get_deep_internal_impl(
-				sprout::get_internal(sprout::forward<Container>(cont))
+				sprout::get_internal(SPROUT_FORWARD(Container, cont))
 				);
 		}
 	}	// namespace detail
@@ -43,7 +43,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::containers::deep_internal<Container>::type
 	get_deep_internal(Container&& cont) {
-		return sprout::detail::get_deep_internal_impl(sprout::forward<Container>(cont));
+		return sprout::detail::get_deep_internal_impl(SPROUT_FORWARD(Container, cont));
 	}
 }	// namespace sprout
 

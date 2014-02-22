@@ -27,10 +27,10 @@ namespace sprout {
 		>
 		next_symmetric_difference(Range1&& range1, Range2&& range2, Compare comp) {
 			return sprout::next_symmetric_difference(
-				sprout::begin(sprout::forward<Range1>(range1)),
-				sprout::end(sprout::forward<Range1>(range1)),
-				sprout::begin(sprout::forward<Range2>(range2)),
-				sprout::end(sprout::forward<Range2>(range2)),
+				sprout::begin(SPROUT_FORWARD(Range1, range1)),
+				sprout::end(SPROUT_FORWARD(Range1, range1)),
+				sprout::begin(SPROUT_FORWARD(Range2, range2)),
+				sprout::end(SPROUT_FORWARD(Range2, range2)),
 				comp
 				);
 		}
@@ -42,10 +42,10 @@ namespace sprout {
 		>
 		next_symmetric_difference(Range1&& range1, Range2&& range2) {
 			return sprout::next_symmetric_difference(
-				sprout::begin(sprout::forward<Range1>(range1)),
-				sprout::end(sprout::forward<Range1>(range1)),
-				sprout::begin(sprout::forward<Range2>(range2)),
-				sprout::end(sprout::forward<Range2>(range2))
+				sprout::begin(SPROUT_FORWARD(Range1, range1)),
+				sprout::end(SPROUT_FORWARD(Range1, range1)),
+				sprout::begin(SPROUT_FORWARD(Range2, range2)),
+				sprout::end(SPROUT_FORWARD(Range2, range2))
 				);
 		}
 	}	// namespace range

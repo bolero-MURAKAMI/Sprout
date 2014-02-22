@@ -173,7 +173,7 @@ namespace sprout {
 		template<typename... Args>
 		SPROUT_CONSTEXPR typename std::result_of<T& (Args&&...)>::type
 		operator()(Args&&... args) const {
-			return (*t_)(sprout::forward<Args>(args)...);
+			return (*t_)(SPROUT_FORWARD(Args, args)...);
 		}
 	};
 

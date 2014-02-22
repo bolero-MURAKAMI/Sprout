@@ -47,7 +47,7 @@ namespace sprout {
 					? sprout::fixed::detail::make_shuffle_indexes_1(
 						n,
 						SPROUT_WORKAROUND_DETAIL_UNIFORM_INT_DISTRIBUTION<std::ptrdiff_t>(0, n - 1)(
-							sprout::forward<UniformRandomNumberGenerator>(g)
+							SPROUT_FORWARD(UniformRandomNumberGenerator, g)
 							),
 						sprout::fixed::iota(sprout::pit<sprout::array<std::ptrdiff_t, N> >(), 0),
 						0
@@ -89,7 +89,7 @@ namespace sprout {
 					indexes,
 					sprout::fixed::detail::make_shuffle_indexes<sprout::container_traits<Container>::static_size>(
 						size,
-						sprout::forward<UniformRandomNumberGenerator>(g)
+						SPROUT_FORWARD(UniformRandomNumberGenerator, g)
 						),
 					offset,
 					size
@@ -105,7 +105,7 @@ namespace sprout {
 			return sprout::fixed::detail::shuffle_impl(
 				cont,
 				sprout::container_indexes<Container>::make(),
-				sprout::forward<UniformRandomNumberGenerator>(g),
+				SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				sprout::internal_begin_offset(cont),
 				sprout::size(cont)
 				);

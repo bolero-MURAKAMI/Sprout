@@ -90,7 +90,7 @@ namespace testspr {
 			std::input_iterator_tag
 		>
 		reduct_input(Range&& rng) {
-			return testspr::range::make_reduct_range<std::input_iterator_tag>(sprout::forward<Range>(rng));
+			return testspr::range::make_reduct_range<std::input_iterator_tag>(SPROUT_FORWARD(Range, rng));
 		}
 		template<typename Range>
 		inline SPROUT_CONSTEXPR testspr::range::reducted_range<
@@ -98,7 +98,7 @@ namespace testspr {
 			std::forward_iterator_tag
 		>
 		reduct_forward(Range&& rng) {
-			return testspr::range::make_reduct_range<std::forward_iterator_tag>(sprout::forward<Range>(rng));
+			return testspr::range::make_reduct_range<std::forward_iterator_tag>(SPROUT_FORWARD(Range, rng));
 		}
 		template<typename Range>
 		inline SPROUT_CONSTEXPR testspr::range::reducted_range<
@@ -106,7 +106,7 @@ namespace testspr {
 			std::bidirectional_iterator_tag
 		>
 		reduct_bidirectional(Range&& rng) {
-			return testspr::range::make_reduct_range<std::bidirectional_iterator_tag>(sprout::forward<Range>(rng));
+			return testspr::range::make_reduct_range<std::bidirectional_iterator_tag>(SPROUT_FORWARD(Range, rng));
 		}
 		template<typename Range>
 		inline SPROUT_CONSTEXPR testspr::range::reducted_range<
@@ -114,7 +114,7 @@ namespace testspr {
 			std::random_access_iterator_tag
 		>
 		reduct_random_access(Range&& rng) {
-			return testspr::range::make_reduct_range<std::random_access_iterator_tag>(sprout::forward<Range>(rng));
+			return testspr::range::make_reduct_range<std::random_access_iterator_tag>(SPROUT_FORWARD(Range, rng));
 		}
 	}	// namespace range
 }	// namespace testspr

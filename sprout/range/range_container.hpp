@@ -144,8 +144,8 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::range::range_container<typename sprout::range::lvalue_iterator<Range>::type>
 		make_range_container(Range&& range) {
 			return sprout::range::range_container<typename sprout::range::lvalue_iterator<Range>::type>(
-				sprout::begin(sprout::forward<Range>(range)),
-				sprout::end(sprout::forward<Range>(range))
+				sprout::begin(SPROUT_FORWARD(Range, range)),
+				sprout::end(SPROUT_FORWARD(Range, range))
 				);
 		}
 	}	// namespace range

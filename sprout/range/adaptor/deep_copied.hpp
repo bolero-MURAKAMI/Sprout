@@ -35,7 +35,7 @@ namespace sprout {
 			typename std::remove_reference<Range>::type
 		>::copied_type
 		operator|(Range&& lhs, sprout::adaptors::deep_copied_forwarder const&) {
-			return sprout::deep_copy(sprout::forward<Range>(lhs));
+			return sprout::deep_copy(SPROUT_FORWARD(Range, lhs));
 		}
 	}	// namespace adaptors
 }	// namespace sprout

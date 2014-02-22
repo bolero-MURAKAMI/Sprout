@@ -21,7 +21,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR typename sprout::lvalue_reference<T>::type
 	lvalue_forward(typename std::remove_reference<T>::type& t) {
-		return sprout::as_lvalue(sprout::forward<T>(t));
+		return sprout::as_lvalue(SPROUT_FORWARD(T, t));
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR typename sprout::lvalue_reference<T>::type

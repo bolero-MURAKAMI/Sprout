@@ -90,7 +90,7 @@ namespace sprout {
 		next_generator(T&& t)
 		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout_generator_detail::call_get_next_generator(std::declval<T>())))
 		{
-			return sprout_generator_detail::call_get_next_generator(sprout::forward<T>(t));
+			return sprout_generator_detail::call_get_next_generator(SPROUT_FORWARD(T, t));
 		}
 	}	// namespace generators
 

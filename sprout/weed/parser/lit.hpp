@@ -28,7 +28,7 @@ namespace sprout {
 			>::result_type
 			operator()(T&& t) const {
 				typedef eval<typename sprout::remove_shallow_cvref<T>::type> eval_type;
-				return eval_type()(sprout::forward<T>(t));
+				return eval_type()(SPROUT_FORWARD(T, t));
 			}
 		};
 		//

@@ -34,7 +34,7 @@ namespace sprout {
 			typename
 		>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types...>::tuple(sprout::pair<UType1, UType2>&& t)
-			: impl_type(sprout::forward<typename sprout::pair<UType1, UType2>::first_type>(t.first), sprout::forward<typename sprout::pair<UType1, UType2>::second_type>(t.second))
+			: impl_type(SPROUT_FORWARD(UType1, t.first), SPROUT_FORWARD(UType2, t.second))
 		{}
 
 		template<typename... Types>
@@ -51,7 +51,7 @@ namespace sprout {
 			typename
 		>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types...>::tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UType1, UType2>&& t)
-			: impl_type(sprout::forward<typename sprout::pair<UType1, UType2>::first_type>(t.first), sprout::forward<typename sprout::pair<UType1, UType2>::second_type>(t.second))
+			: impl_type(SPROUT_FORWARD(UType1, t.first), SPROUT_FORWARD(UType2, t.second))
 		{}
 	}	// namespace tuples
 }	// namespace sprout

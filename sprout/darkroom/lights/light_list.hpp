@@ -21,9 +21,9 @@ namespace sprout {
 			template<typename... Lights>
 			inline SPROUT_CONSTEXPR auto
 			make_light_list(Lights&&... lights)
-			-> decltype(sprout::make_tuple(sprout::forward<Lights>(lights)...))
+			-> decltype(sprout::make_tuple(SPROUT_FORWARD(Lights, lights)...))
 			{
-				return sprout::make_tuple(sprout::forward<Lights>(lights)...);
+				return sprout::make_tuple(SPROUT_FORWARD(Lights, lights)...);
 			}
 		}	// namespace lights
 	}	// namespace darkroom

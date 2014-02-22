@@ -118,11 +118,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR auto
 			operator|(Range&& lhs, sprout::compost::effects::compress_holder<T> const& rhs)
 			-> decltype(
-				sprout::forward<Range>(lhs)
+				SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::transformed(sprout::compost::compress_value<T>(rhs.threshold(), rhs.ratio()))
 				)
 			{
-				return sprout::forward<Range>(lhs)
+				return SPROUT_FORWARD(Range, lhs)
 					| sprout::adaptors::transformed(sprout::compost::compress_value<T>(rhs.threshold(), rhs.ratio()))
 					;
 			}

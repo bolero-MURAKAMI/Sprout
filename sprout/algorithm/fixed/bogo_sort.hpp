@@ -24,14 +24,14 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		bogo_sort(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::first(
-				sprout::fixed::bogo_sort_result(cont, sprout::forward<UniformRandomNumberGenerator>(g), comp)
+				sprout::fixed::bogo_sort_result(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g), comp)
 				);
 		}
 		template<typename Container, typename UniformRandomNumberGenerator>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		bogo_sort(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::first(
-				sprout::fixed::bogo_sort_result(cont, sprout::forward<UniformRandomNumberGenerator>(g))
+				sprout::fixed::bogo_sort_result(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g))
 				);
 		}
 	}	// namespace fixed

@@ -22,7 +22,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type
 		make(Args&&... args) {
 			return sprout::tuples::tuple_construct_traits<Tuple>::make(
-				sprout::forward<Args>(args)...
+				SPROUT_FORWARD(Args, args)...
 				);
 		}
 	}	// namespace tuples

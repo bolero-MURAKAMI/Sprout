@@ -433,7 +433,7 @@ namespace sprout {
 			operator()(T&& x, U&& y)
 			const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tolower(std::declval<T>()) == sprout::tolower(std::declval<U>())))
 			{
-				return sprout::tolower(sprout::forward<T>(x)) == sprout::tolower(sprout::forward<U>(y));
+				return sprout::tolower(SPROUT_FORWARD(T, x)) == sprout::tolower(SPROUT_FORWARD(U, y));
 			}
 		};
 
@@ -459,7 +459,7 @@ namespace sprout {
 			operator()(T&& x, U&& y)
 			const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::tolower(std::declval<T>()) != sprout::tolower(std::declval<U>())))
 			{
-				return sprout::tolower(sprout::forward<T>(x)) != sprout::tolower(sprout::forward<U>(y));
+				return sprout::tolower(SPROUT_FORWARD(T, x)) != sprout::tolower(SPROUT_FORWARD(U, y));
 			}
 		};
 	}	// namespace ctypes

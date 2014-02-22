@@ -28,7 +28,7 @@ namespace sprout {
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_internal(sprout::fixed::random_swap(cont, sprout::forward<UniformRandomNumberGenerator>(g))),
+					sprout::get_internal(sprout::fixed::random_swap(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g))),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -41,7 +41,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		random_swap(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::random_swap_impl(
-				cont, sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				sprout::internal_begin_offset(cont)
 				);
 		}

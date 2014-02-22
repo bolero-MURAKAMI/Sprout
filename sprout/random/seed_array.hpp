@@ -358,7 +358,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::random::seed_array<sizeof...(Args)>
 		make_seed_array(Args&&... args) {
 			return sprout::random::seed_array<sizeof...(Args)>(
-				sprout::make_common_array(sprout::forward<Args>(args)...)
+				sprout::make_common_array(SPROUT_FORWARD(Args, args)...)
 				);
 		}
 	}	// namespace random

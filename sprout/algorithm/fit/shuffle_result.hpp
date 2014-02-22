@@ -56,7 +56,7 @@ namespace sprout {
 				)
 			{
 				return sprout::fit::detail::shuffle_result_impl_1<Container, UniformRandomNumberGenerator>(
-					sprout::fixed::shuffle_result(cont, sprout::forward<UniformRandomNumberGenerator>(g)),
+					sprout::fixed::shuffle_result(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g)),
 					offset
 					);
 			}
@@ -71,7 +71,7 @@ namespace sprout {
 		>
 		shuffle_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::shuffle_result_impl(
-				cont, sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				sprout::internal_begin_offset(cont)
 				);
 		}

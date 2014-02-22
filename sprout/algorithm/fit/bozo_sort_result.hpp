@@ -56,7 +56,7 @@ namespace sprout {
 				)
 			{
 				return sprout::fit::detail::bozo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
-					sprout::fixed::bozo_sort_result(cont, sprout::forward<UniformRandomNumberGenerator>(g), comp),
+					sprout::fixed::bozo_sort_result(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g), comp),
 					offset
 					);
 			}
@@ -71,7 +71,7 @@ namespace sprout {
 		>
 		bozo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fit::detail::bozo_sort_result_impl(
-				cont, sprout::forward<UniformRandomNumberGenerator>(g), comp,
+				cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g), comp,
 				sprout::internal_begin_offset(cont)
 				);
 		}
@@ -88,7 +88,7 @@ namespace sprout {
 				)
 			{
 				return sprout::fit::detail::bozo_sort_result_impl_1<Container, UniformRandomNumberGenerator>(
-					sprout::fixed::bozo_sort_result(cont, sprout::forward<UniformRandomNumberGenerator>(g)),
+					sprout::fixed::bozo_sort_result(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g)),
 					offset
 					);
 			}
@@ -103,7 +103,7 @@ namespace sprout {
 		>
 		bozo_sort_result(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::bozo_sort_result_impl(
-				cont, sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				sprout::internal_begin_offset(cont)
 				);
 		}

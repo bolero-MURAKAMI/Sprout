@@ -27,7 +27,7 @@ namespace sprout {
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_internal(sprout::fixed::bozo_sort(cont, sprout::forward<UniformRandomNumberGenerator>(g), comp)),
+					sprout::get_internal(sprout::fixed::bozo_sort(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g), comp)),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -40,7 +40,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		bozo_sort(Container const& cont, UniformRandomNumberGenerator&& g, Compare comp) {
 			return sprout::fit::detail::bozo_sort_impl(
-				cont, sprout::forward<UniformRandomNumberGenerator>(g), comp,
+				cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g), comp,
 				sprout::internal_begin_offset(cont)
 				);
 		}
@@ -54,7 +54,7 @@ namespace sprout {
 				)
 			{
 				return sprout::sub_copy(
-					sprout::get_internal(sprout::fixed::bozo_sort(cont, sprout::forward<UniformRandomNumberGenerator>(g))),
+					sprout::get_internal(sprout::fixed::bozo_sort(cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g))),
 					offset,
 					offset + sprout::size(cont)
 					);
@@ -67,7 +67,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Container>::type
 		bozo_sort(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fit::detail::bozo_sort_impl(
-				cont, sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				sprout::internal_begin_offset(cont)
 				);
 		}

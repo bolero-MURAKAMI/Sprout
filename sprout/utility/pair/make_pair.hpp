@@ -27,8 +27,8 @@ namespace sprout {
 			typename sprout::strip_reference<typename std::decay<T1>::type>::type,
 			typename sprout::strip_reference<typename std::decay<T2>::type>::type
 		>(
-			sprout::forward<T1>(x),
-			sprout::forward<T2>(y)
+			SPROUT_FORWARD(T1, x),
+			SPROUT_FORWARD(T2, y)
 			);
 	}
 }	// namespace sprout

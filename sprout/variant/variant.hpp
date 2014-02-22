@@ -44,7 +44,7 @@ namespace sprout {
 				return sprout::tuples::make<tuple_type>(
 					sprout::tuples::flexibly_construct,
 					typename sprout::tuples::tuple_element<Indexes, tuple_type>::type()...,
-					sprout::forward<T>(operand)
+					SPROUT_FORWARD(T, operand)
 					);
 			}
 		protected:
@@ -57,7 +57,7 @@ namespace sprout {
 			{}
 			template<typename T, typename Index>
 			SPROUT_CONSTEXPR variant_impl(T&& operand, Index)
-				: tuple_(init(sprout::forward<T>(operand), sprout::make_index_tuple<Index::value>::make()))
+				: tuple_(init(SPROUT_FORWARD(T, operand), sprout::make_index_tuple<Index::value>::make()))
 				, which_(Index::value)
 			{
 				static_assert(Index::value < sizeof...(Types), "variant<>: invalid operand");
@@ -208,7 +208,7 @@ namespace sprout {
 			I == sizeof...(Types) - 1,
 			Result
 		>::type visit(Tuple&& t, Visitor&& v, int) {
-			return sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)));
+			return SPROUT_FORWARD(Visitor, v)(sprout::tuples::get<I>(SPROUT_FORWARD(Tuple, t)));
 		}
 		template<typename Result, int I, typename Tuple, typename Visitor>
 		static SPROUT_CONSTEXPR typename std::enable_if<
@@ -216,8 +216,8 @@ namespace sprout {
 			Result
 		>::type visit(Tuple&& t, Visitor&& v, int which) {
 			return I == which
-				? sprout::forward<Visitor>(v)(sprout::tuples::get<I>(sprout::forward<Tuple>(t)))
-				: visit<Result, I + 1>(sprout::forward<Tuple>(t), sprout::forward<Visitor>(v), which)
+				? SPROUT_FORWARD(Visitor, v)(sprout::tuples::get<I>(SPROUT_FORWARD(Tuple, t)))
+				: visit<Result, I + 1>(SPROUT_FORWARD(Tuple, t), SPROUT_FORWARD(Visitor, v), which)
 				;
 		}
 	private:
@@ -233,7 +233,7 @@ namespace sprout {
 		template<typename T>
 		SPROUT_CONSTEXPR variant(T&& operand)
 			: impl_type(
-				sprout::forward<T>(operand),
+				SPROUT_FORWARD(T, operand),
 				sprout::types::find_index<decayed_tuple_type, typename std::decay<T>::type>()
 				)
 		{}
@@ -255,7 +255,7 @@ namespace sprout {
 		}
 		template<typename T>
 		SPROUT_CXX14_CONSTEXPR variant& operator=(T&& rhs) {
-			static_cast<impl_type&>(*this) = variant(sprout::forward<T>(rhs));
+			static_cast<impl_type&>(*this) = variant(SPROUT_FORWARD(T, rhs));
 			return *this;
 		}
 		// queries
@@ -330,7 +330,7 @@ namespace sprout {
 		apply_visitor(Visitor&& visitor) const {
 			typedef typename visitor_result<typename std::remove_reference<Visitor>::type, variant const>::type result_type;
 			return SPROUT_ASSERT(0 <= which_ && sprout::math::less(which_, sizeof...(Types))),
-				visit<result_type, 0>(tuple_, sprout::forward<Visitor>(visitor), which_)
+				visit<result_type, 0>(tuple_, SPROUT_FORWARD(Visitor, visitor), which_)
 				;
 		}
 		template<typename Visitor>
@@ -338,7 +338,7 @@ namespace sprout {
 		apply_visitor(Visitor&& visitor) {
 			typedef typename visitor_result<typename std::remove_reference<Visitor>::type, variant>::type result_type;
 			return SPROUT_ASSERT(0 <= which_ && sprout::math::less(which_, sizeof...(Types))),
-				visit<result_type, 0>(tuple_, sprout::forward<Visitor>(visitor), which_)
+				visit<result_type, 0>(tuple_, SPROUT_FORWARD(Visitor, visitor), which_)
 				;
 		}
 	};

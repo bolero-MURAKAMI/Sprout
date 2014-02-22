@@ -25,7 +25,7 @@ namespace sprout {
 		template<typename... Types>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<typename sprout::strip_reference<typename std::decay<Types>::type>::type...>
 		make_tuple(Types&&... args) {
-			return sprout::tuples::tuple<typename std::decay<Types>::type...>(sprout::forward<Types>(args)...);
+			return sprout::tuples::tuple<typename std::decay<Types>::type...>(SPROUT_FORWARD(Types, args)...);
 		}
 
 		//
@@ -34,7 +34,7 @@ namespace sprout {
 		template<typename... Types>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types&&...>
 		forward_as_tuple(Types&&... args) SPROUT_NOEXCEPT {
-			return sprout::tuples::tuple<Types&&...>(sprout::forward<Types>(args)...);
+			return sprout::tuples::tuple<Types&&...>(SPROUT_FORWARD(Types, args)...);
 		}
 
 		//
@@ -124,7 +124,7 @@ namespace sprout {
 				template<typename... Args>
 				static SPROUT_CONSTEXPR Result
 				call(Args&&... args) {
-					return Result(sprout::forward<Args>(args)...);
+					return Result(SPROUT_FORWARD(Args, args)...);
 				}
 			};
 			template<typename Result, sprout::index_t... Indexes, typename Head, typename... Tail>
@@ -138,8 +138,8 @@ namespace sprout {
 						typename sprout::tuples::detail::tuple_cat_1st_indexes<Tail...>::type,
 						Tail...
 					>::call(
-						sprout::forward<Args>(args)...,
-						sprout::tuples::get<Indexes>(sprout::forward<T>(t))...
+						SPROUT_FORWARD(Args, args)...,
+						sprout::tuples::get<Indexes>(SPROUT_FORWARD(T, t))...
 						);
 				}
 			};
@@ -154,7 +154,7 @@ namespace sprout {
 				typename sprout::tuples::results::tuple_cat<Tuples...>::type,
 				typename sprout::tuples::detail::tuple_cat_1st_indexes<Tuples...>::type,
 				Tuples...
-			>::call(sprout::forward<Tuples>(tuples)...);
+			>::call(SPROUT_FORWARD(Tuples, tuples)...);
 		}
 	}	// namespace tuples
 

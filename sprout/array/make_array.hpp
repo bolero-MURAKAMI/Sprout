@@ -23,7 +23,7 @@ namespace sprout {
 	template<typename T, typename... Types>
 	inline SPROUT_CONSTEXPR sprout::array<typename std::remove_cv<T>::type, sizeof...(Types)>
 	make_array(Types&&... args) {
-		return sprout::array<typename std::remove_cv<T>::type, sizeof...(Types)>{{T(sprout::forward<Types>(args))...}};
+		return sprout::array<typename std::remove_cv<T>::type, sizeof...(Types)>{{T(SPROUT_FORWARD(Types, args))...}};
 	}
 	// !!! OLD:
 //	template<typename... Types>
@@ -33,7 +33,7 @@ namespace sprout {
 //			typename sprout::common_decay<Types...>::type,
 //			sizeof...(Types)
 //		> type;
-//		return type{{typename sprout::common_decay<Types...>::type(sprout::forward<Types>(args))...}};
+//		return type{{typename sprout::common_decay<Types...>::type(SPROUT_FORWARD(Types, args))...}};
 //	}
 
 	//
@@ -46,7 +46,7 @@ namespace sprout {
 			typename sprout::common_decay<Types...>::type,
 			sizeof...(Types)
 		> type;
-		return type{{typename sprout::common_decay<Types...>::type(sprout::forward<Types>(args))...}};
+		return type{{typename sprout::common_decay<Types...>::type(SPROUT_FORWARD(Types, args))...}};
 	}
 
 	//
@@ -57,7 +57,7 @@ namespace sprout {
 	SPROUT_DEPRECATED
 	inline SPROUT_CONSTEXPR sprout::array<T, sizeof...(Types)>
 	convert_array(Converter&& conv, Types&&... args) {
-		return sprout::make_array<T>(sprout::forward<Converter>(conv)(sprout::forward<Types>(args))...);
+		return sprout::make_array<T>(SPROUT_FORWARD(Converter, conv)(SPROUT_FORWARD(Types, args))...);
 	}
 }	// namespace sprout
 

@@ -27,7 +27,7 @@ namespace sprout {
 			>::value,
 			typename sprout::weed::traits::terminal_or_expr_of<Arg>::type
 		>::type make_terminal_or_expr(Arg&& arg) {
-			return sprout::forward<Arg>(arg);
+			return SPROUT_FORWARD(Arg, arg);
 		}
 		template<typename Arg>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -36,7 +36,7 @@ namespace sprout {
 			>::value,
 			typename sprout::weed::traits::terminal_or_expr_of<Arg>::type
 		>::type make_terminal_or_expr(Arg&& arg) {
-			return sprout::weed::make_terminal(sprout::forward<Arg>(arg));
+			return sprout::weed::make_terminal(SPROUT_FORWARD(Arg, arg));
 		}
 	}	// namespace weed
 }	// namespace sprout

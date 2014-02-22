@@ -25,4 +25,15 @@ namespace sprout {
 	forward(typename std::remove_reference<T>::type&&) SPROUT_NOEXCEPT SPROUT_DELETED_FUNCTION_DECL
 }	// namespace sprout
 
+//
+// SPROUT_FORWARD
+//
+#if defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
+#	define SPROUT_FORWARD(TYPE, VALUE) \
+		static_cast<decltype(::sprout::forward<TYPE>(VALUE))>(VALUE)
+#else
+#	define SPROUT_FORWARD(TYPE, VALUE) \
+		::sprout::forward<TYPE>(VALUE)
+#endif
+
 #endif	// #ifndef SPROUT_UTILITY_FORWARD_HPP

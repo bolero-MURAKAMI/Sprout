@@ -19,7 +19,7 @@ namespace sprout {
 	template<typename Container, typename... Args>
 	inline SPROUT_CONSTEXPR typename sprout::container_construct_traits<Container>::copied_type
 	make(Args&&... args) {
-		return sprout::container_construct_traits<Container>::make(sprout::forward<Args>(args)...);
+		return sprout::container_construct_traits<Container>::make(SPROUT_FORWARD(Args, args)...);
 	}
 }	// namespace sprout
 

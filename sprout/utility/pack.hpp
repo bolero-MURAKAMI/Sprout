@@ -43,7 +43,7 @@ namespace sprout {
 			template<typename Head, typename... Tail>
 			static SPROUT_CONSTEXPR Head&&
 			eval(Args&&..., Head&& head, Tail&&...) {
-				return sprout::forward<Head>(head);
+				return SPROUT_FORWARD(Head, head);
 			}
 		};
 	}	// namespace detail
@@ -52,7 +52,7 @@ namespace sprout {
 	pack_get(Args&&... args) {
 		return sprout::detail::pack_get_helper<
 			typename sprout::types::detail::tuple_take<I, sprout::types::type_tuple<Args...> >::type
-		>::eval(sprout::forward<Args>(args)...);
+		>::eval(SPROUT_FORWARD(Args, args)...);
 	}
 }	// namespace sprout
 

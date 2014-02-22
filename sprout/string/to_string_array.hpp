@@ -22,7 +22,7 @@ namespace sprout {
 	SPROUT_DEPRECATED
 	inline SPROUT_CONSTEXPR sprout::array<T, sizeof...(Types)>
 	to_string_array(Types&&... args) {
-		return sprout::convert_array<T>(sprout::to_string_value(), sprout::forward<Types>(args)...);
+		return sprout::convert_array<T>(sprout::to_string_value(), SPROUT_FORWARD(Types, args)...);
 	}
 }	// namespace sprout
 

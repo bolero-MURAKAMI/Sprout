@@ -34,7 +34,7 @@ namespace sprout {
 			Arg
 		>::type operator*(Arg&& arg) {
 			return sprout::weed::make_expr<sprout::weed::tag::dereference>(
-				sprout::forward<Arg>(arg)
+				SPROUT_FORWARD(Arg, arg)
 				);
 		}
 	}	// namespace weed

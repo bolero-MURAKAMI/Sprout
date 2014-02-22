@@ -43,7 +43,7 @@ namespace sprout {
 				return n > 1
 					? sprout::fixed::detail::make_random_swap_indexes_1(
 						SPROUT_WORKAROUND_DETAIL_UNIFORM_INT_DISTRIBUTION<std::ptrdiff_t>(0, n - 1)(
-							sprout::forward<UniformRandomNumberGenerator>(g)
+							SPROUT_FORWARD(UniformRandomNumberGenerator, g)
 							)
 						)
 					: sprout::array<std::ptrdiff_t, 2>{{}}
@@ -72,7 +72,7 @@ namespace sprout {
 					cont,
 					sprout::fixed::detail::make_random_swap_indexes(
 						size,
-						sprout::forward<UniformRandomNumberGenerator>(g)
+						SPROUT_FORWARD(UniformRandomNumberGenerator, g)
 						)
 					);
 			}
@@ -84,7 +84,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 		random_swap(Container const& cont, UniformRandomNumberGenerator&& g) {
 			return sprout::fixed::detail::random_swap_impl(
-				cont, sprout::forward<UniformRandomNumberGenerator>(g),
+				cont, SPROUT_FORWARD(UniformRandomNumberGenerator, g),
 				sprout::size(cont)
 				);
 		}
