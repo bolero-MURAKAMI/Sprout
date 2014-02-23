@@ -109,10 +109,18 @@ namespace sprout {
 			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
 				: std::is_signed<IntType>::value
 					? sizeof(IntType) <= sizeof(long) ? static_cast<IntType>(std::strtol(&*str, endptr, base))
+#ifdef __MINGW32__
+						: sizeof(IntType) <= sizeof(long long) ? static_cast<IntType>(strtoll(&*str, endptr, base))
+#else
 						: sizeof(IntType) <= sizeof(long long) ? static_cast<IntType>(std::strtoll(&*str, endptr, base))
+#endif
 						: static_cast<IntType>(std::strtoimax(&*str, endptr, base))
 					: sizeof(IntType) <= sizeof(unsigned long) ? static_cast<IntType>(std::strtoul(&*str, endptr, base))
+#ifdef __MINGW32__
+						: sizeof(IntType) <= sizeof(unsigned long long) ? static_cast<IntType>(strtoull(&*str, endptr, base))
+#else
 						: sizeof(IntType) <= sizeof(unsigned long long) ? static_cast<IntType>(std::strtoull(&*str, endptr, base))
+#endif
 						: static_cast<IntType>(std::strtoumax(&*str, endptr, base))
 				;
 #endif
