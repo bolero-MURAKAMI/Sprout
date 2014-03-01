@@ -157,6 +157,15 @@ done
 all_options="-v -Wall -pedantic ${define_options} ${include_options} ${common_options[*]}"
 vo=0
 vkey=""
+for option in ${compiler_options}; do
+	if [ ${vo} -eq 0 ]; then
+		vkey=${option}
+		vo=1
+	else
+		compiler_specific_options[${vkey}]="${compiler_specific_options[${vkey}]} ${option}"
+		vo=0
+	fi
+done
 for option in ${version_options}; do
 	if [ ${vo} -eq 0 ]; then
 		vkey=${option}
