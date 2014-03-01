@@ -99,31 +99,29 @@ namespace sprout {
 		template<typename IntType, typename CStrIterator, typename CharPtr>
 		inline SPROUT_CONSTEXPR IntType
 		str_to_int(CStrIterator str, CharPtr* endptr, int base) {
-#if defined(_MSC_VER)
 			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
+#if defined(_MSC_VER)
 				: std::is_signed<IntType>::value
 					? static_cast<IntType>(std::strtol(&*str, endptr, base))
 					: static_cast<IntType>(std::strtoul(&*str, endptr, base))
-				;
-#else
-			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
+#elif defined(__MINGW32__)
 				: std::is_signed<IntType>::value
 					? sizeof(IntType) <= sizeof(long) ? static_cast<IntType>(std::strtol(&*str, endptr, base))
-#ifdef __MINGW32__
-						: sizeof(IntType) <= sizeof(long long) ? static_cast<IntType>(strtoll(&*str, endptr, base))
-#else
-						: sizeof(IntType) <= sizeof(long long) ? static_cast<IntType>(std::strtoll(&*str, endptr, base))
-#endif
+						: sizeof(IntType) <= sizeof(long long) ? static_cast<IntType>(::strtoll(&*str, endptr, base))
 						: static_cast<IntType>(std::strtoimax(&*str, endptr, base))
 					: sizeof(IntType) <= sizeof(unsigned long) ? static_cast<IntType>(std::strtoul(&*str, endptr, base))
-#ifdef __MINGW32__
-						: sizeof(IntType) <= sizeof(unsigned long long) ? static_cast<IntType>(strtoull(&*str, endptr, base))
-#else
-						: sizeof(IntType) <= sizeof(unsigned long long) ? static_cast<IntType>(std::strtoull(&*str, endptr, base))
-#endif
+						: sizeof(IntType) <= sizeof(unsigned long long) ? static_cast<IntType>(::strtoull(&*str, endptr, base))
 						: static_cast<IntType>(std::strtoumax(&*str, endptr, base))
-				;
+#else
+				: std::is_signed<IntType>::value
+					? sizeof(IntType) <= sizeof(long) ? static_cast<IntType>(std::strtol(&*str, endptr, base))
+						: sizeof(IntType) <= sizeof(long long) ? static_cast<IntType>(std::strtoll(&*str, endptr, base))
+						: static_cast<IntType>(std::strtoimax(&*str, endptr, base))
+					: sizeof(IntType) <= sizeof(unsigned long) ? static_cast<IntType>(std::strtoul(&*str, endptr, base))
+						: sizeof(IntType) <= sizeof(unsigned long long) ? static_cast<IntType>(std::strtoull(&*str, endptr, base))
+						: static_cast<IntType>(std::strtoumax(&*str, endptr, base))
 #endif
+				;
 		}
 	}	// namespace detail
 

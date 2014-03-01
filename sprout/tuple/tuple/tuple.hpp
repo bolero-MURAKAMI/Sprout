@@ -53,6 +53,29 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types...>::tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UType1, UType2>&& t)
 			: impl_type(SPROUT_FORWARD(UType1, t.first), SPROUT_FORWARD(UType2, t.second))
 		{}
+		// tuple assignment
+		template<typename... Types>
+		template<
+			typename UType1, typename UType2,
+			typename
+		>
+		inline SPROUT_CXX14_CONSTEXPR sprout::tuples::tuple<Types...>&
+		sprout::tuples::tuple<Types...>::operator=(sprout::pair<UType1, UType2> const& rhs) {
+			sprout::tuples::detail::tuple_impl<0, Types...>::head(*this) = rhs.first;
+			sprout::tuples::detail::tuple_impl<1, Types...>::head(*this) = rhs.second;
+			return *this;
+		}
+		template<typename... Types>
+		template<
+			typename UType1, typename UType2,
+			typename
+		>
+		inline SPROUT_CXX14_CONSTEXPR sprout::tuples::tuple<Types...>&
+		sprout::tuples::tuple<Types...>::operator=(sprout::pair<UType1, UType2>&& rhs) {
+			sprout::tuples::detail::tuple_impl<0, Types...>::head(*this) = sprout::move(rhs.first);
+			sprout::tuples::detail::tuple_impl<1, Types...>::head(*this) = sprout::move(rhs.second);
+			return *this;
+		}
 	}	// namespace tuples
 }	// namespace sprout
 

@@ -18,5 +18,6 @@
 #include <sprout/type/functional.hpp>
 #include <sprout/type/algorithm.hpp>
 #include <sprout/type/operation.hpp>
+#include <sprout/type/print.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_HPP

@@ -241,15 +241,13 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float(CStrIterator str, CharPtr* endptr) {
 			return !endptr ? sprout::detail::str_to_float<FloatType>(str)
-#ifdef __MINGW32__
-				: std::is_same<typename std::remove_cv<FloatType>::type, float>::value ? strtof(&*str, endptr)
+#if defined(__MINGW32__)
+				: std::is_same<typename std::remove_cv<FloatType>::type, float>::value ? ::strtof(&*str, endptr)
+				: std::is_same<typename std::remove_cv<FloatType>::type, double>::value ? std::strtod(&*str, endptr)
+				: ::strtold(&*str, endptr)
 #else
 				: std::is_same<typename std::remove_cv<FloatType>::type, float>::value ? std::strtof(&*str, endptr)
-#endif
 				: std::is_same<typename std::remove_cv<FloatType>::type, double>::value ? std::strtod(&*str, endptr)
-#ifdef __MINGW32__
-				: strtold(&*str, endptr)
-#else
 				: std::strtold(&*str, endptr)
 #endif
 				;

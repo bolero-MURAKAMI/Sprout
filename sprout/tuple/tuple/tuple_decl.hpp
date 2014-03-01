@@ -272,6 +272,18 @@ namespace sprout {
 					>...
 				>
 			{};
+
+			template<typename TndexTuple, typename... Utypes>
+			struct is_flexibly_assignable_impl;
+			template<sprout::index_t... Indexes, typename... Utypes>
+			struct is_flexibly_assignable_impl<sprout::index_tuple<Indexes...>, Utypes...>
+				: public sprout::tpp::all_of<
+					std::is_assignable<
+						typename sprout::pack_element<Indexes, Types...>::type,
+						typename sprout::pack_element<Indexes, Utypes...>::type
+					>...
+				>
+			{};
 		public:
 			template<typename... UTypes>
 			struct is_flexibly_convert_constructible
@@ -303,6 +315,38 @@ namespace sprout {
 			template<typename... UTypes>
 			struct is_clvref_fixedly_convert_constructible
 				: public is_fixedly_convert_constructible<UTypes const&...>
+			{};
+
+			template<typename... UTypes>
+			struct is_flexibly_assignable
+				: public is_flexibly_assignable_impl<
+					typename sprout::make_index_tuple<(sizeof...(UTypes) < sizeof...(Types) ? sizeof...(UTypes) : sizeof...(Types))>::type,
+					UTypes...
+				>
+			{};
+			template<typename... UTypes>
+			struct is_rvref_flexibly_assignable
+				: public is_flexibly_assignable<UTypes&&...>
+			{};
+			template<typename... UTypes>
+			struct is_clvref_flexibly_assignable
+				: public is_flexibly_assignable<UTypes const&...>
+			{};
+
+			template<typename... UTypes>
+			struct is_fixedly_assignable
+				: public sprout::integral_constant<
+					bool,
+					(sizeof...(UTypes) == sizeof...(Types) && is_flexibly_assignable<UTypes...>::value)
+				>
+			{};
+			template<typename... UTypes>
+			struct is_rvref_fixedly_assignable
+				: public is_fixedly_assignable<UTypes&&...>
+			{};
+			template<typename... UTypes>
+			struct is_clvref_fixedly_assignable
+				: public is_fixedly_assignable<UTypes const&...>
 			{};
 		public:
 			// tuple construction
@@ -428,6 +472,20 @@ namespace sprout {
 				static_cast<impl_type&>(*this) = sprout::move(rhs);
 				return *this;
 			}
+			template<
+				typename UType1, typename UType2,
+				typename = typename std::enable_if<
+					is_clvref_fixedly_assignable<UType1, UType2>::value
+				>::type
+			>
+			SPROUT_CXX14_CONSTEXPR tuple& operator=(sprout::pair<UType1, UType2> const& rhs);
+			template<
+				typename UType1, typename UType2,
+				typename = typename std::enable_if<
+					is_rvref_fixedly_assignable<UType1, UType2>::value
+				>::type
+			>
+			SPROUT_CXX14_CONSTEXPR tuple& operator=(sprout::pair<UType1, UType2>&& rhs);
 			// tuple swap
 			SPROUT_CXX14_CONSTEXPR void swap(tuple& other)
 			SPROUT_NOEXCEPT_EXPR(sprout::tpp::all_of_c<SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(sprout::swap(std::declval<Types&>(), std::declval<Types&>()), false)...>::value)

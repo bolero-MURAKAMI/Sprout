@@ -10,10 +10,10 @@
 
 #include <string>
 #include <stdexcept>
-#ifdef TESTSPR_CONFIG_ENABLE_STATIC_WARNING
-#	include <boost/serialization/static_warning.hpp>
-#endif
 #include <sprout/assert.hpp>
+#ifdef TESTSPR_CONFIG_ENABLE_STATIC_WARNING
+#	include <sprout/static_warning.hpp>
+#endif
 
 namespace testspr {
 	//

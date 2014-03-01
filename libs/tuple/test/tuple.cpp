@@ -10,6 +10,7 @@
 
 #include <sstream>
 #include <sprout/tuple/tuple.hpp>
+#include <sprout/utility/pair.hpp>
 #include <testspr/tools.hpp>
 
 namespace testspr {
@@ -89,6 +90,18 @@ namespace testspr {
 			{
 				auto tup3 = tup2;
 				tup3 = sprout::tuples::tuple<long, float>(1l, 1.0f);
+				TESTSPR_ASSERT(sprout::tuples::get<0>(tup3) == 1);
+				TESTSPR_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
+			}
+			{
+				auto tup3 = tup2;
+				tup3 = sprout::pair<int, double>(1, 1.0);
+				TESTSPR_ASSERT(sprout::tuples::get<0>(tup3) == 1);
+				TESTSPR_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
+			}
+			{
+				auto tup3 = tup2;
+				tup3 = sprout::pair<long, float>(1l, 1.0f);
 				TESTSPR_ASSERT(sprout::tuples::get<0>(tup3) == 1);
 				TESTSPR_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
 			}
