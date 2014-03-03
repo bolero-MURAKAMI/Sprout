@@ -16,7 +16,7 @@ namespace sprout {
 	// enabler_t
 	// enabler
 	//
-	typedef void** enabler_t;
+	typedef void* enabler_t;
 #if defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
 	namespace {
 		SPROUT_STATIC_CONSTEXPR sprout::enabler_t enabler = {};
