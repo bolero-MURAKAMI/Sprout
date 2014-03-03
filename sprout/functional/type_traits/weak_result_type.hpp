@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/functional/type_traits/inherit_if_type.hpp>
+#include <sprout/workaround/base_class_construct.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -78,7 +79,14 @@ namespace sprout {
 	template<typename F>
 	struct weak_result_type
 		: public sprout::detail::weak_result_type_impl<typename std::remove_cv<F>::type>
-	{};
+	{
+#ifdef SPROUT_WORKAROUND_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
+	public:
+		SPROUT_CONSTEXPR weak_result_type()
+			: SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::weak_result_type_impl<typename std::remove_cv<F>::type>)
+		{}
+#endif
+	};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_TYPE_TRAITS_WEAK_RESULT_TYPE_HPP
