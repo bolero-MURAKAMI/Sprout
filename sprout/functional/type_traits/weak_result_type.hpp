@@ -83,8 +83,8 @@ namespace sprout {
 #ifdef SPROUT_WORKAROUND_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
 	public:
 		SPROUT_CONSTEXPR weak_result_type()
-			: SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::weak_result_type_impl<typename std::remove_cv<F>::type>)
-		{}
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::weak_result_type_impl<typename std::remove_cv<F>::type>)
+		SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_BODY
 #endif
 	};
 }	// namespace sprout

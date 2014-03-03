@@ -525,18 +525,18 @@ namespace sprout {
 #ifdef SPROUT_WORKAROUND_NEEDS_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT
 	public:
 		SPROUT_CONSTEXPR container_traits_facade()
-			: SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_value_type<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_iterator<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_const_iterator<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_reference<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_const_reference<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_size_type<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_difference_type<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_pointer<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_const_pointer<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_static_size<sprout::container_traits<Container> >)
-			, SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::container_nosy_fixed_size<sprout::container_traits<Container> >)
-		{}
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT(sprout::detail::inherit_if_value_type<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_iterator<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_const_iterator<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_reference<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_const_reference<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_size_type<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_difference_type<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_pointer<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_const_pointer<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::inherit_if_static_size<sprout::container_traits<Container> >)
+			SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_TRAIL(sprout::detail::container_nosy_fixed_size<sprout::container_traits<Container> >)
+		SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_BODY
 #endif
 	};
 
