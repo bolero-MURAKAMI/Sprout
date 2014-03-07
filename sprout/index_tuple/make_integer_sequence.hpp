@@ -15,15 +15,15 @@ namespace sprout {
 	//
 	// make_integer_sequence
 	//
-#if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
+#if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_WORKAROUND_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<typename T, T N>
 	using make_integer_sequence = sprout::integer_range<T, 0, N>;
-#else	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
+#else	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_WORKAROUND_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 	template<typename T, T N>
 	struct make_integer_sequence
 		: public sprout::integer_range<T, 0, N>
 	{};
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_WORKAROUND_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_INDEX_TUPLE_MAKE_INTEGER_SEQUENCE_HPP

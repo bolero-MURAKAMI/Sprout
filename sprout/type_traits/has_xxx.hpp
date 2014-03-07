@@ -50,7 +50,7 @@
 //
 #if defined(_MSC_VER)
 #define SPROUT_HAS_XXX_VALUE_DEF_IMPL(NAME, VALUE, NUM) \
-	template<typename T, decltype(&T::VALUE) = &T::VALUE> \
+	template<typename T, typename sprout::identity<decltype(&T::VALUE)>::type = &T::VALUE> \
 	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(int); \
 	template<typename T> \
 	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(long); \
@@ -60,7 +60,7 @@
 	{}
 #else
 #define SPROUT_HAS_XXX_VALUE_DEF_IMPL(NAME, VALUE, NUM) \
-	template<typename T, decltype(&T::VALUE) = &T::VALUE> \
+	template<typename T, typename sprout::identity<decltype(&T::VALUE)>::type = &T::VALUE> \
 	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(int); \
 	template<typename T> \
 	sprout::false_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(long); \
