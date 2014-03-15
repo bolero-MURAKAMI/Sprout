@@ -36,6 +36,7 @@
 #include <sprout/cwctype.hpp>
 #include <sprout/darkroom.hpp>
 #include <sprout/endian_traits.hpp>
+#include <sprout/exempt_ptr.hpp>
 #include <sprout/functional.hpp>
 #include <sprout/generator.hpp>
 #include <sprout/index_tuple.hpp>
