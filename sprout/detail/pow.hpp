@@ -10,7 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/is_int.hpp>
+#include <sprout/type_traits/is_sint.hpp>
 #include <sprout/type_traits/is_uint.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -48,7 +48,7 @@ namespace sprout {
 		}
 		template<
 			typename T, typename IntType,
-			typename sprout::enabler_if<sprout::is_int<IntType>::value>::type = sprout::enabler
+			typename sprout::enabler_if<sprout::is_sint<IntType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR T
 		pow_n(T const& x, IntType n) {

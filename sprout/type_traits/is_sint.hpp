@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_TYPE_TRAITS_IS_INT_HPP
-#define SPROUT_TYPE_TRAITS_IS_INT_HPP
+#ifndef SPROUT_TYPE_TRAITS_IS_SINT_HPP
+#define SPROUT_TYPE_TRAITS_IS_SINT_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -14,10 +14,10 @@
 
 namespace sprout {
 	//
-	// is_int
+	// is_sint
 	//
 	template<typename T>
-	struct is_int
+	struct is_sint
 		: public sprout::integral_constant<
 			bool,
 			std::is_integral<T>::value && std::is_signed<T>::value
@@ -26,8 +26,8 @@ namespace sprout {
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename T>
-	using is_int_t = typename sprout::is_int<T>::type;
+	using is_sint_t = typename sprout::is_sint<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TYPE_TRAITS_IS_INT_HPP
+#endif	// #ifndef SPROUT_TYPE_TRAITS_IS_SINT_HPP

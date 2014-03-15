@@ -13,7 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/cstdint.hpp>
 #include <sprout/array/array.hpp>
-#include <sprout/type_traits/is_int.hpp>
+#include <sprout/type_traits/is_sint.hpp>
 #include <sprout/type_traits/is_uint.hpp>
 #include <sprout/assert.hpp>
 
@@ -530,7 +530,7 @@ namespace sprout {
 			struct factorials;
 
 			template<typename T>
-			struct factorials<T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 1>::type> {
+			struct factorials<T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 1>::type> {
 			public:
 				typedef T type;
 			public:
@@ -544,9 +544,9 @@ namespace sprout {
 			};
 			template<typename T>
 			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::factorials<
-				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 1>::type
+				T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 1>::type
 			>::table_type sprout::math::detail::factorials<
-				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 1>::type
+				T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 1>::type
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_FACTORIAL_TABLE_DEF_INT_1);
 
 			template<typename T>
@@ -570,7 +570,7 @@ namespace sprout {
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_FACTORIAL_TABLE_DEF_UINT_1);
 
 			template<typename T>
-			struct factorials<T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 2>::type> {
+			struct factorials<T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 2>::type> {
 			public:
 				typedef T type;
 			public:
@@ -584,9 +584,9 @@ namespace sprout {
 			};
 			template<typename T>
 			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::factorials<
-				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 2>::type
+				T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 2>::type
 			>::table_type sprout::math::detail::factorials<
-				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 2>::type
+				T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 2>::type
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_FACTORIAL_TABLE_DEF_INT_2);
 
 			template<typename T>
@@ -610,7 +610,7 @@ namespace sprout {
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_FACTORIAL_TABLE_DEF_UINT_2);
 
 			template<typename T>
-			struct factorials<T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 4>::type> {
+			struct factorials<T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 4>::type> {
 			public:
 				typedef T type;
 			public:
@@ -624,9 +624,9 @@ namespace sprout {
 			};
 			template<typename T>
 			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::factorials<
-				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 4>::type
+				T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 4>::type
 			>::table_type sprout::math::detail::factorials<
-				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 4>::type
+				T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 4>::type
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_FACTORIAL_TABLE_DEF_INT_4);
 
 			template<typename T>
@@ -650,7 +650,7 @@ namespace sprout {
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_FACTORIAL_TABLE_DEF_UINT_4);
 
 			template<typename T>
-			struct factorials<T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 8>::type> {
+			struct factorials<T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 8>::type> {
 			public:
 				typedef T type;
 			public:
@@ -664,9 +664,9 @@ namespace sprout {
 			};
 			template<typename T>
 			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::factorials<
-				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 8>::type
+				T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 8>::type
 			>::table_type sprout::math::detail::factorials<
-				T, typename std::enable_if<sprout::is_int<T>::value && sizeof(T) == 8>::type
+				T, typename std::enable_if<sprout::is_sint<T>::value && sizeof(T) == 8>::type
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_FACTORIAL_TABLE_DEF_INT_8);
 
 			template<typename T>

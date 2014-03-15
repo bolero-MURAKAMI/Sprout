@@ -11,7 +11,10 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/std.hpp>
 #include <sprout/type_traits/is_convert_constructible.hpp>
-#include <sprout/type_traits/is_int.hpp>
+#include <sprout/type_traits/is_const_unqualified.hpp>
+#include <sprout/type_traits/is_volatile_unqualified.hpp>
+#include <sprout/type_traits/is_cv_unqualified.hpp>
+#include <sprout/type_traits/is_sint.hpp>
 #include <sprout/type_traits/is_uint.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/type_traits/is_c_str.hpp>

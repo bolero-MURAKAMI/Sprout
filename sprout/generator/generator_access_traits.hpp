@@ -23,13 +23,13 @@ namespace sprout {
 			public:
 				template<
 					typename U = T,
-					typename = decltype(std::declval<U>().generated_value())
+					typename = typename sprout::identity<decltype(std::declval<U>().generated_value())>::type
 				>
 				static sprout::true_type test(int);
 				static sprout::false_type test(...);
 			};
 #if defined(_MSC_VER)
-			template<typename T, typename Base_ = decltype(sprout::generators::detail::has_mem_generated_value_test<T>::test(0))>
+			template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::generators::detail::has_mem_generated_value_test<T>::test(0))>::type>
 			struct has_mem_generated_value
 				: public Base_
 			{};
@@ -98,13 +98,13 @@ namespace sprout {
 			public:
 				template<
 					typename U = T,
-					typename = decltype(std::declval<U>().next_generator())
+					typename = typename sprout::identity<decltype(std::declval<U>().next_generator())>::type
 				>
 				static sprout::true_type test(int);
 				static sprout::false_type test(...);
 			};
 #if defined(_MSC_VER)
-			template<typename T, typename Base_ = decltype(sprout::generators::detail::has_mem_next_generator_test<T>::test(0))>
+			template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::generators::detail::has_mem_next_generator_test<T>::test(0))>::type>
 			struct has_mem_next_generator
 				: public Base_
 			{};

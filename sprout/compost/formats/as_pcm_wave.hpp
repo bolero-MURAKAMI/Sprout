@@ -14,7 +14,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/algorithm/clamp.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/type_traits/is_int.hpp>
+#include <sprout/type_traits/is_sint.hpp>
 #include <sprout/type_traits/is_uint.hpp>
 #include <sprout/range/adaptor/transformed.hpp>
 
@@ -26,7 +26,7 @@ namespace sprout {
 			template<typename IntType>
 			struct normalized_to_pcm_wave<
 				IntType,
-				typename std::enable_if<sprout::is_int<IntType>::value>::type
+				typename std::enable_if<sprout::is_sint<IntType>::value>::type
 			> {
 			public:
 				typedef IntType result_type;

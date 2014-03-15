@@ -29,6 +29,7 @@
 #include <sprout/functional/type_traits/weak_result_type.hpp>
 #include <sprout/functional/bind/placeholder.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	// 20.8.9 bind
@@ -514,9 +515,9 @@ namespace sprout {
 		binder(binder const&) = default;
 		template<
 			typename... Args,
-			typename Result = decltype(
+			typename Result = typename sprout::identity<decltype(
 				impl_type::template call_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make())
-				)
+				)>::type
 		>
 		Result operator()(Args&&... args) {
 			return impl_type::template call<Result>(
@@ -526,9 +527,9 @@ namespace sprout {
 		}
 		template<
 			typename... Args,
-			typename Result = decltype(
+			typename Result = typename sprout::identity<decltype(
 				impl_type::template call_c_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make())
-				)
+				)>::type
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const {
 			return impl_type::template call_c<Result>(
@@ -538,9 +539,9 @@ namespace sprout {
 		}
 		template<
 			typename... Args,
-			typename Result = decltype(
+			typename Result = typename sprout::identity<decltype(
 				impl_type::template call_v_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make())
-				)
+				)>::type
 		>
 		Result operator()(Args&&... args) volatile {
 			return impl_type::template call_v<Result>(
@@ -550,9 +551,9 @@ namespace sprout {
 		}
 		template<
 			typename... Args,
-			typename Result = decltype(
+			typename Result = typename sprout::identity<decltype(
 				impl_type::template call_cv_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make())
-				)
+				)>::type
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const volatile {
 			return impl_type::template call_cv<Result>(
@@ -581,9 +582,9 @@ namespace sprout {
 		cbinder(cbinder const&) = default;
 		template<
 			typename... Args,
-			typename Result = decltype(
+			typename Result = typename sprout::identity<decltype(
 				impl_type::template call_c_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make())
-				)
+				)>::type
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const {
 			return impl_type::template call_c<Result>(
@@ -593,9 +594,9 @@ namespace sprout {
 		}
 		template<
 			typename... Args,
-			typename Result = decltype(
+			typename Result = typename sprout::identity<decltype(
 				impl_type::template call_cv_(std::declval<sprout::tuples::tuple<Args...> >(), sprout::detail::bound_indexes<bounds_type, sizeof...(Args)>::make())
-				)
+				)>::type
 		>
 		SPROUT_CONSTEXPR Result operator()(Args&&... args) const volatile {
 			return impl_type::template call_cv<Result>(

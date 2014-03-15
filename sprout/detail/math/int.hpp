@@ -11,7 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/is_int.hpp>
+#include <sprout/type_traits/is_sint.hpp>
 #include <sprout/type_traits/is_uint.hpp>
 
 namespace sprout {
@@ -56,7 +56,7 @@ namespace sprout {
 		//
 		template<
 			int Base = 10, typename IntType,
-			typename sprout::enabler_if<sprout::is_int<IntType>::value>::type = sprout::enabler
+			typename sprout::enabler_if<sprout::is_sint<IntType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR int
 		int_digit_at(IntType val, int digits) {
