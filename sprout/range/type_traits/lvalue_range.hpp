@@ -22,6 +22,11 @@ namespace sprout {
 		public:
 			typedef sprout::range::range_container<typename sprout::range::lvalue_iterator<Range>::type> type;
 		};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Range>
+		using lvalue_range_t = typename sprout::range::lvalue_range<Range>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 	}	// namespace range
 }	// namespace sprout
 

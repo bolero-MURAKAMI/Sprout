@@ -25,39 +25,50 @@ namespace sprout {
 		// is_int_std_random_parameter
 		// is_uint_std_random_parameter
 		//
-		template<typename RealType>
+		template<typename T>
 		struct is_real_std_random_parameter
 			: public sprout::integral_constant<
 				bool,
-				std::is_same<RealType, float>::value
-					|| std::is_same<RealType, double>::value
-					|| std::is_same<RealType, long double>::value
+				std::is_same<T, float>::value
+					|| std::is_same<T, double>::value
+					|| std::is_same<T, long double>::value
 			>
 		{};
-		template<typename IntType>
+		template<typename T>
 		struct is_int_std_random_parameter
 			: public sprout::integral_constant<
 				bool,
-				std::is_same<IntType, short>::value
-					|| std::is_same<IntType, int>::value
-					|| std::is_same<IntType, long>::value
-					|| std::is_same<IntType, long long>::value
-					|| std::is_same<IntType, unsigned short>::value
-					|| std::is_same<IntType, unsigned int>::value
-					|| std::is_same<IntType, unsigned long>::value
-					|| std::is_same<IntType, unsigned long long>::value
+				std::is_same<T, short>::value
+					|| std::is_same<T, int>::value
+					|| std::is_same<T, long>::value
+					|| std::is_same<T, long long>::value
+					|| std::is_same<T, unsigned short>::value
+					|| std::is_same<T, unsigned int>::value
+					|| std::is_same<T, unsigned long>::value
+					|| std::is_same<T, unsigned long long>::value
 			>
 		{};
-		template<typename UIntType>
+		template<typename T>
 		struct is_uint_std_random_parameter
 			: public sprout::integral_constant<
 				bool,
-				std::is_same<UIntType, unsigned short>::value
-					|| std::is_same<UIntType, unsigned int>::value
-					|| std::is_same<UIntType, unsigned long>::value
-					|| std::is_same<UIntType, unsigned long long>::value
+				std::is_same<T, unsigned short>::value
+					|| std::is_same<T, unsigned int>::value
+					|| std::is_same<T, unsigned long>::value
+					|| std::is_same<T, unsigned long long>::value
 			>
 		{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+		template<typename T>
+		SPROUT_STATIC_CONSTEXPR bool is_seed_seq_v = sprout::random::is_seed_seq<T>::value;
+		template<typename T>
+		SPROUT_STATIC_CONSTEXPR bool is_real_std_random_parameter_v = sprout::random::is_real_std_random_parameter<T>::value;
+		template<typename T>
+		SPROUT_STATIC_CONSTEXPR bool is_int_std_random_parameter_v = sprout::random::is_int_std_random_parameter<T>::value;
+		template<typename T>
+		SPROUT_STATIC_CONSTEXPR bool is_uint_std_random_parameter_v = sprout::random::is_uint_std_random_parameter<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 	}	// namespace random
 }	// namespace sprout
 

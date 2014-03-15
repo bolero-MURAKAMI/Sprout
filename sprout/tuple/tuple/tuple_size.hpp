@@ -8,6 +8,7 @@
 #ifndef SPROUT_TUPLE_TUPLE_TUPLE_SIZE_HPP
 #define SPROUT_TUPLE_TUPLE_TUPLE_SIZE_HPP
 
+#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
@@ -36,6 +37,15 @@ namespace sprout {
 	}	// namespace tuples
 
 	using sprout::tuples::tuple_size;
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	namespace tuples {
+		template<typename T>
+		SPROUT_STATIC_CONSTEXPR std::size_t tuple_size_v = sprout::tuples::tuple_size<T>::value;
+	}	// namespace tuples
+
+	using sprout::tuples::tuple_size_v;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_TUPLE_SIZE_HPP

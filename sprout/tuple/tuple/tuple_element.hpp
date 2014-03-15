@@ -43,6 +43,15 @@ namespace sprout {
 	}	// namespace tuples
 
 	using sprout::tuples::tuple_element;
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+	namespace tuples {
+		template<std::size_t I, typename T>
+		using tuple_element_t = typename sprout::tuples::tuple_element<I, T>::type;
+	}	// namespace tuples
+
+	using sprout::tuples::tuple_element_t;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_TUPLE_ELEMENT_HPP

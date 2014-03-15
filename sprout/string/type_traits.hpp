@@ -115,6 +115,21 @@ namespace sprout {
 	struct is_u32string
 		: public sprout::is_string_of<T, char32_t>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_basic_string_v = sprout::is_basic_string<T>::value;
+	template<typename T, typename Elem>
+	SPROUT_STATIC_CONSTEXPR bool is_string_of_v = sprout::is_string_of<T, Elem>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_string_v = sprout::is_string<T>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_wstring_v = sprout::is_wstring<T>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_u16string_v = sprout::is_u16string<T>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_u32string_v = sprout::is_u32string<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_STRING_TYPE_TRAITS_HPP

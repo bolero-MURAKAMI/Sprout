@@ -15,6 +15,7 @@
 namespace sprout {
 	//
 	// is_strict_unary_function
+	// is_strict_binary_function
 	//
 	template<typename Fn>
 	struct is_strict_unary_function
@@ -24,9 +25,6 @@ namespace sprout {
 				&& sprout::has_argument_type<Fn>::value
 		>
 	{};
-	//
-	// is_strict_binary_function
-	//
 	template<typename Fn>
 	struct is_strict_binary_function
 		: public sprout::integral_constant<
@@ -36,6 +34,13 @@ namespace sprout {
 				&& sprout::has_second_argument_type<Fn>::value
 		>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_strict_unary_function_v = sprout::is_strict_unary_function<T>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_strict_binary_function_v = sprout::is_strict_binary_function<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_TYPE_TRAITS_IS_STRICT_FUNCTION_HPP

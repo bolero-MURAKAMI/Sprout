@@ -32,6 +32,11 @@ namespace sprout {
 	struct is_pit<sprout::pit<Container> >
 		: public sprout::true_type
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_pit_v = sprout::is_pit<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_PIT_TYPE_TRAITS_HPP

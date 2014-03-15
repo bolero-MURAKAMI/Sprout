@@ -36,6 +36,15 @@ namespace sprout {
 	}	// namespace tuples
 
 	using sprout::tuples::is_tuple;
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	namespace tuples {
+		template<typename T>
+		SPROUT_STATIC_CONSTEXPR bool is_tuple_v = sprout::tuples::is_tuple_v<T>::value;
+	}	// namespace tuples
+
+	using sprout::tuples::is_tuple;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_TYPE_TRAITS_HPP

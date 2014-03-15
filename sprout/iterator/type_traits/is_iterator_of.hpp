@@ -85,6 +85,23 @@ namespace sprout {
 				|| sprout::is_forward_iterator<typename std::decay<MaybeIterator>::type>::value
 		>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename MaybeIterator, typename Category>
+	SPROUT_STATIC_CONSTEXPR bool is_iterator_of_v = sprout::is_iterator_of<MaybeIterator, Category>::value;
+	template<typename MaybeIterator>
+	SPROUT_STATIC_CONSTEXPR bool is_input_iterator_v = sprout::is_input_iterator<MaybeIterator>::value;
+	template<typename MaybeIterator>
+	SPROUT_STATIC_CONSTEXPR bool is_output_iterator_v = sprout::is_output_iterator<MaybeIterator>::value;
+	template<typename MaybeIterator>
+	SPROUT_STATIC_CONSTEXPR bool is_forward_iterator_v = sprout::is_forward_iterator<MaybeIterator>::value;
+	template<typename MaybeIterator>
+	SPROUT_STATIC_CONSTEXPR bool is_bidirectional_iterator_v = sprout::is_bidirectional_iterator<MaybeIterator>::value;
+	template<typename MaybeIterator>
+	SPROUT_STATIC_CONSTEXPR bool is_random_access_iterator_v = sprout::is_random_access_iterator<MaybeIterator>::value;
+	template<typename MaybeIterator>
+	SPROUT_STATIC_CONSTEXPR bool is_iterator_outputable_v = sprout::is_iterator_outputable<MaybeIterator>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ITERATOR_TYPE_TRAITS_IS_ITERATOR_OF_HPP

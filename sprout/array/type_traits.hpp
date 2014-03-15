@@ -33,6 +33,11 @@ namespace sprout {
 	struct is_array_class<sprout::array<T, N> >
 		: public sprout::true_type
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_array_class_v = sprout::is_array_class<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ARRAY_TYPE_TRAITS_HPP

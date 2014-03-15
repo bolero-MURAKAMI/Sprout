@@ -81,6 +81,21 @@ namespace sprout {
 	struct is_u32string_ref
 		: public sprout::is_string_ref_of<T, char32_t>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_basic_string_ref_v = sprout::is_basic_string_ref<T>::value;
+	template<typename T, typename Elem>
+	SPROUT_STATIC_CONSTEXPR bool is_string_ref_of_v = sprout::is_string_ref_of<T, Elem>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_string_ref_v = sprout::is_string_ref<T>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_wstring_ref_v = sprout::is_wstring_ref<T>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_u16string_ref_v = sprout::is_u16string_ref<T>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_u32string_ref_v = sprout::is_u32string_ref<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_STRING_REF_TYPE_TRAITS_HPP

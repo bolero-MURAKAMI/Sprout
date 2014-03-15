@@ -167,6 +167,21 @@ namespace sprout {
 	struct common_iterator_difference_type
 		: public sprout::common_decay<typename std::iterator_traits<Iterators>::difference_type...>
 	{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<typename Head, typename... Tail>
+	using min_iterator_category_t = typename sprout::min_iterator_category<Head, Tail...>::type;
+	template<typename... Iterators>
+	using common_iterator_category_t = typename sprout::common_iterator_category<Iterators...>::type;
+	template<typename... Iterators>
+	using common_iterator_reference_t = typename sprout::common_iterator_reference<Iterators...>::type;
+	template<typename... Iterators>
+	using common_iterator_value_type_t = typename sprout::common_iterator_value_type<Iterators...>::type;
+	template<typename... Iterators>
+	using common_iterator_pointer_t = typename sprout::common_iterator_pointer<Iterators...>::type;
+	template<typename... Iterators>
+	using common_iterator_difference_type_t = typename sprout::common_iterator_difference_type<Iterators...>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ITERATOR_TYPE_TRAITS_COMMON_HPP

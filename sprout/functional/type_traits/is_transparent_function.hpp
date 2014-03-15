@@ -16,6 +16,11 @@ namespace sprout {
 	// is_transparent_function
 	//
 	SPROUT_HAS_XXX_TYPE_DEF(is_transparent_function, is_transparent);
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_transparent_function_v = sprout::is_transparent_function<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_TYPE_TRAITS_IS_TRANSPARENT_FUNCTION_HPP

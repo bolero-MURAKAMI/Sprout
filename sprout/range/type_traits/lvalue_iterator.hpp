@@ -25,6 +25,11 @@ namespace sprout {
 				typename std::remove_reference<typename sprout::lvalue_reference<Range>::type>::type
 			>::iterator type;
 		};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Range>
+		using lvalue_iterator_t = typename sprout::range::lvalue_iterator<Range>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 	}	// namespace range
 }	// namespace sprout
 

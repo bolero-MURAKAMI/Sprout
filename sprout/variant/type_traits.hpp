@@ -32,6 +32,11 @@ namespace sprout {
 	struct is_variant<sprout::variant<Types...> >
 		: public sprout::true_type
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_variant_v = sprout::is_variant<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_VARIANT_TYPE_TRAITS_HPP

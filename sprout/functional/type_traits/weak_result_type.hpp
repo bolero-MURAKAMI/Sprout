@@ -87,6 +87,11 @@ namespace sprout {
 		SPROUT_EXPLICIT_EMPTY_BASE_CLASS_CONSTRUCT_BODY
 #endif
 	};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<typename T>
+	using weak_result_type_t = typename sprout::weak_result_type<T>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_TYPE_TRAITS_WEAK_RESULT_TYPE_HPP

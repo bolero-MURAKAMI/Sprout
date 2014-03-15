@@ -47,11 +47,6 @@ namespace sprout {
 	struct is_char_type<char32_t>
 		: public sprout::true_type
 	{};
-
-#if SPROUT_USE_TEMPLATE_ALIASES
-	template<typename T>
-	using is_char_type_t = typename sprout::is_char_type<T>::type;
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IS_CHAR_TYPE_HPP

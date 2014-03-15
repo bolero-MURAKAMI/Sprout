@@ -30,11 +30,6 @@ namespace sprout {
 	struct is_convert_constructible
 		: public sprout::identity<decltype(sprout::detail::is_convert_constructible_test<T>::test(std::declval<Arg>()))>::type
 	{};
-
-#if SPROUT_USE_TEMPLATE_ALIASES
-	template<typename T, typename Arg>
-	using is_convert_constructible_t = typename sprout::is_convert_constructible<T, Arg>::type;
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IS_CONVERT_CONSTRUCTIBLE_HPP

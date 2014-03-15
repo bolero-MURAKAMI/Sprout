@@ -23,10 +23,15 @@ namespace sprout {
 	//
 	// is_iterator
 	//
-	template<typename MaybeIterator>
+	template<typename T>
 	struct is_iterator
-		: public sprout::detail::has_iterator_category<std::iterator_traits<MaybeIterator> >
+		: public sprout::detail::has_iterator_category<std::iterator_traits<T> >
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_iterator_v = sprout::is_iterator<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ITERATOR_TYPE_TRAITS_IS_ITERATOR_HPP

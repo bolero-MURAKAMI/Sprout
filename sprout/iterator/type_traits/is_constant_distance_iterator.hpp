@@ -28,6 +28,11 @@ namespace sprout {
 #endif	// #ifdef SPROUT_NO_CXX14_CONSTEXPR
 		>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename MaybeIterator>
+	SPROUT_STATIC_CONSTEXPR bool is_constant_distance_iterator_v = sprout::is_constant_distance_iterator<MaybeIterator>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ITERATOR_TYPE_TRAITS_IS_CONSTANT_DISTANCE_ITERATOR_HPP

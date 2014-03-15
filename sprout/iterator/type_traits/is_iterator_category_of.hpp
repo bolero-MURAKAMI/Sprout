@@ -56,6 +56,21 @@ namespace sprout {
 	struct is_random_access_iterator_category
 		: public sprout::is_iterator_category_of<MaybeCategory, std::random_access_iterator_tag>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename MaybeCategory, typename Category>
+	SPROUT_STATIC_CONSTEXPR bool is_iterator_category_of_v = sprout::is_iterator_category_of<MaybeCategory, Category>::value;
+	template<typename MaybeCategory>
+	SPROUT_STATIC_CONSTEXPR bool is_input_iterator_category_v = sprout::is_input_iterator_category<MaybeCategory>::value;
+	template<typename MaybeCategory>
+	SPROUT_STATIC_CONSTEXPR bool is_output_iterator_category_v = sprout::is_output_iterator_category<MaybeCategory>::value;
+	template<typename MaybeCategory>
+	SPROUT_STATIC_CONSTEXPR bool is_forward_iterator_category_v = sprout::is_forward_iterator_category<MaybeCategory>::value;
+	template<typename MaybeCategory>
+	SPROUT_STATIC_CONSTEXPR bool is_bidirectional_iterator_category_v = sprout::is_bidirectional_iterator_category<MaybeCategory>::value;
+	template<typename MaybeCategory>
+	SPROUT_STATIC_CONSTEXPR bool is_random_access_iterator_category_v = sprout::is_random_access_iterator_category<MaybeCategory>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ITERATOR_TYPE_TRAITS_IS_ITERATOR_CATEGORY_OF_HPP
