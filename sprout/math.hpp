@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/math/functions.hpp>
 #include <sprout/math/constants.hpp>
+#include <sprout/math/constant_variables.hpp>
 
 #endif	// #ifndef SPROUT_MATH_HPP
