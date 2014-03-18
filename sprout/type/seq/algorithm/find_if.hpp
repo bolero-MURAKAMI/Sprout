@@ -18,6 +18,33 @@ namespace sprout {
 			namespace detail {
 				template<typename First, typename Last, typename Predicate, typename = void>
 				struct find_if_impl;
+
+				template<typename First, typename Last, typename Predicate, typename = void>
+				struct find_if_impl_1;
+				template<typename First, typename Last, typename Predicate>
+				struct find_if_impl_1<
+					First, Last, Predicate,
+					typename std::enable_if<
+						Predicate::template apply<typename sprout::types::deref<First>::type>::type::value
+					>::type
+				> {
+				public:
+					typedef First type;
+				};
+				template<typename First, typename Last, typename Predicate>
+				struct find_if_impl_1<
+					First, Last, Predicate,
+					typename std::enable_if<
+						!Predicate::template apply<typename sprout::types::deref<First>::type>::type::value
+					>::type
+				>
+					: public sprout::types::seq::detail::find_if_impl<
+						typename sprout::types::next<First>::type,
+						Last,
+						Predicate
+					>
+				{};
+
 				template<typename First, typename Last, typename Predicate>
 				struct find_if_impl<
 					First, Last, Predicate,
@@ -33,25 +60,9 @@ namespace sprout {
 					First, Last, Predicate,
 					typename std::enable_if<
 						!std::is_same<First, Last>::value
-						&& Predicate::template apply<typename sprout::types::deref<First>::type>::type::value
-					>::type
-				> {
-				public:
-					typedef First type;
-				};
-				template<typename First, typename Last, typename Predicate>
-				struct find_if_impl<
-					First, Last, Predicate,
-					typename std::enable_if<
-						!std::is_same<First, Last>::value
-						&& !Predicate::template apply<typename sprout::types::deref<First>::type>::type::value
 					>::type
 				>
-					: public sprout::types::seq::detail::find_if_impl<
-						typename sprout::types::next<First>::type,
-						Last,
-						Predicate
-					>
+					: public sprout::types::seq::detail::find_if_impl_1<First, Last, Predicate>
 				{};
 			}	// namespace detail
 			//

@@ -18,6 +18,33 @@ namespace sprout {
 			namespace detail {
 				template<typename First, typename Last, typename T, typename = void>
 				struct find_impl;
+
+				template<typename First, typename Last, typename T, typename = void>
+				struct find_impl_1;
+				template<typename First, typename Last, typename T>
+				struct find_impl_1<
+					First, Last, T,
+					typename std::enable_if<
+						std::is_same<typename sprout::types::deref<First>::type, T>::value
+					>::type
+				> {
+				public:
+					typedef First type;
+				};
+				template<typename First, typename Last, typename T>
+				struct find_impl_1<
+					First, Last, T,
+					typename std::enable_if<
+						!std::is_same<typename sprout::types::deref<First>::type, T>::value
+					>::type
+				>
+					: public sprout::types::seq::detail::find_impl<
+						typename sprout::types::next<First>::type,
+						Last,
+						T
+					>
+				{};
+
 				template<typename First, typename Last, typename T>
 				struct find_impl<
 					First, Last, T,
@@ -33,25 +60,9 @@ namespace sprout {
 					First, Last, T,
 					typename std::enable_if<
 						!std::is_same<First, Last>::value
-						&& std::is_same<typename sprout::types::deref<First>::type, T>::value
-					>::type
-				> {
-				public:
-					typedef First type;
-				};
-				template<typename First, typename Last, typename T>
-				struct find_impl<
-					First, Last, T,
-					typename std::enable_if<
-						!std::is_same<First, Last>::value
-						&& !std::is_same<typename sprout::types::deref<First>::type, T>::value
 					>::type
 				>
-					: public sprout::types::seq::detail::find_impl<
-						typename sprout::types::next<First>::type,
-						Last,
-						T
-					>
+					: public sprout::types::seq::detail::find_impl_1<First, Last, T>
 				{};
 			}	// namespace detail
 			//
