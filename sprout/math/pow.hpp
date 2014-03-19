@@ -51,7 +51,7 @@ namespace sprout {
 		// pow
 		//
 		// issue:
-		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
+		//	[ !(SPROUT_USE_BUILTIN_CMATH_FUNCTION || SPROUT_USE_BUILTIN_COPYSIGN_FUNCTION) ]
 		//	pow(-0, y) returns -Åá for y an odd integer < 0.
 		//		# returns +Åá . ( same as pow(+0, y) )
 		//

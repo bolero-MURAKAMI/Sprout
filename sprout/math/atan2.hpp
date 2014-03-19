@@ -55,7 +55,7 @@ namespace sprout {
 		// atan2
 		//
 		// issue:
-		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
+		//	[ !(SPROUT_USE_BUILTIN_CMATH_FUNCTION || SPROUT_USE_BUILTIN_COPYSIGN_FUNCTION) ]
 		//	atan2(Å}0, -0) returns Å}ÉŒ .
 		//		# returns Å}0 . ( same as atan2(Å}0, +0) )
 		//	atan2(-0, x) returns -ÉŒ for x < 0.

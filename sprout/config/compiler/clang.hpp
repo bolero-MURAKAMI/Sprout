@@ -56,6 +56,10 @@
 #	define SPROUT_NO_CXX14_VARIABLE_TEMPLATES
 #endif
 
+#if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 0))
+#	define SPROUT_HAS_CONSTEXPR_COPYSIGN_FUNCTION
+#endif
+
 #if !defined(SPROUT_NO_CXX11_CONSTEXPR)
 #	define SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #endif

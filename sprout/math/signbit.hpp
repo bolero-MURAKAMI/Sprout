@@ -11,7 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
-#include <sprout/math/isnan.hpp>
+#include <sprout/math/copysign.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -29,7 +29,7 @@ namespace sprout {
 		// signbit
 		//
 		// issue:
-		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
+		//	[ !(SPROUT_USE_BUILTIN_CMATH_FUNCTION || SPROUT_USE_BUILTIN_COPYSIGN_FUNCTION) ]
 		//	signbit(-0) returns false .
 		//		# returns true . ( same as signbit(+0) )
 		//	signbit(-NaN) returns false .
@@ -44,8 +44,10 @@ namespace sprout {
 			return
 #if SPROUT_USE_BUILTIN_CMATH_FUNCTION
 				sprout::math::detail::builtin_signbit(x)
+#elif SPROUT_USE_BUILTIN_COPYSIGN_FUNCTION
+				sprout::math::copysign(FloatType(1), x) < FloatType(0)
 #else
-				!sprout::math::isnan(x) && x < 0
+				sprout::math::detail::broken_signbit(x)
 #endif
 				;
 		}

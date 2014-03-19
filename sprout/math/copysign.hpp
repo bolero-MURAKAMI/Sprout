@@ -13,14 +13,13 @@
 #include <sprout/limits.hpp>
 #include <sprout/math/detail/config.hpp>
 #include <sprout/math/isnan.hpp>
-#include <sprout/math/signbit.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
 	namespace math {
 		namespace detail {
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION || SPROUT_USE_BUILTIN_COPYSIGN_FUNCTION
 			inline SPROUT_CONSTEXPR float
 			builtin_copysign(float x, float y) {
 				return __builtin_copysignf(x, y);
@@ -34,12 +33,17 @@ namespace sprout {
 				return __builtin_copysignl(x, y);
 			}
 #endif
+			template<typename FloatType>
+			inline SPROUT_CONSTEXPR bool
+			broken_signbit(FloatType x) {
+				return !sprout::math::isnan(x) && x < 0;
+			}
 		}	// namespace detail
 		//
 		// copysign
 		//
 		// issue:
-		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
+		//	[ !(SPROUT_USE_BUILTIN_CMATH_FUNCTION || SPROUT_USE_BUILTIN_COPYSIGN_FUNCTION) ]
 		//	copysign(}x, -0) returns -x for |x| is not 0 .
 		//		# returns +x . ( same as copysign(}x, +0) )
 		//	copysign(}x, -NaN) returns -x for |x| is not NaN .
@@ -52,18 +56,18 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR FloatType
 		copysign(FloatType x, FloatType y) {
 			return
-#if SPROUT_USE_BUILTIN_CMATH_FUNCTION
+#if SPROUT_USE_BUILTIN_CMATH_FUNCTION || SPROUT_USE_BUILTIN_COPYSIGN_FUNCTION
 				sprout::math::detail::builtin_copysign(x, y)
 #else
 				x == 0
 					? y == 0 ? y
-						: sprout::math::signbit(y) ? -FloatType(0)
+						: sprout::math::detail::broken_signbit(y) ? -FloatType(0)
 						: FloatType(0)
 				: sprout::math::isnan(x)
 					? sprout::math::isnan(y) ? y
-						: sprout::math::signbit(y) ? -sprout::numeric_limits<FloatType>::quiet_NaN()
+						: sprout::math::detail::broken_signbit(y) ? -sprout::numeric_limits<FloatType>::quiet_NaN()
 						: sprout::numeric_limits<FloatType>::quiet_NaN()
-				: sprout::math::signbit(y) != sprout::math::signbit(x) ? -x
+				: sprout::math::detail::broken_signbit(y) != sprout::math::detail::broken_signbit(x) ? -x
 				: x
 #endif
 				;

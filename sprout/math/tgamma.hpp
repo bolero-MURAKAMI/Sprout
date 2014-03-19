@@ -127,7 +127,7 @@ namespace sprout {
 		// tgamma
 		//
 		// issue:
-		//	[ !SPROUT_USE_BUILTIN_CMATH_FUNCTION ]
+		//	[ !(SPROUT_USE_BUILTIN_CMATH_FUNCTION || SPROUT_USE_BUILTIN_COPYSIGN_FUNCTION) ]
 		//	tgamma(-0) returns -Åá .
 		//		# returns +Åá . ( same as tgamma(+0) )
 		//
