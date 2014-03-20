@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/range/adaptor/copied.hpp>
+#include <sprout/range/adaptor/moved.hpp>
 #include <sprout/range/adaptor/transformed.hpp>
 #include <sprout/range/adaptor/replaced.hpp>
 #include <sprout/range/adaptor/replaced_if.hpp>

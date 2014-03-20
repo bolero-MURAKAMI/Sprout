@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
+#include <sprout/iterator/move_iterator.hpp>
 #include <sprout/iterator/transform_iterator.hpp>
 #include <sprout/iterator/replace_iterator.hpp>
 #include <sprout/iterator/replace_if_iterator.hpp>
