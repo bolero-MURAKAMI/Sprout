@@ -18,62 +18,109 @@
 namespace sprout {
     namespace net {
         namespace detail {
+            /*
+             * lshift_by
+             * Left shift 'val' by 'n' bytes
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T lshift(T val, uint_fast8_t byte) {
-                return val << (byte * 8);
+            SPROUT_CONSTEXPR T lshift_by(T val, uint_fast8_t n) {
+                return val << (n * 8);
             }
 
+            /*
+             * rshift_by
+             * Right shift 'val' by 'n' bytes
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T rshift(T val, uint_fast8_t byte) {
-                return val >> (byte * 8);
+            SPROUT_CONSTEXPR T rshift_by(T val, uint_fast8_t n) {
+                return val >> (n * 8);
             }
 
+            /*
+             * mask_t
+             * Mask 'n'th byte
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T mask(uint_fast8_t byte) {
-                return lshift(T(0xFF), byte);
+            SPROUT_CONSTEXPR T mask_at(uint_fast8_t n) {
+                return lshift_by(T(0xFF), n);
             }
 
+            /*
+             * byte_at
+             * Get 'n'th byte from 'val'
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T byte_at(T val, uint_fast8_t byte) {
-                return rshift((val & mask<T>(byte)), byte);
+            SPROUT_CONSTEXPR T byte_at(T val, uint_fast8_t n) {
+                return rshift_by((val & mask_at<T>(n)), n);
             }
 
+            /*
+             * replace_at
+             * Replace, in 'val', 'n'th byte with 'byte_val'
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T overwrite(T val, uint8_t byte_val, uint_fast8_t to) {
-                return (val & ~mask<T>(to)) | lshift(T(byte_val), to);
+            SPROUT_CONSTEXPR T replace_at(T val, uint8_t byte_val, uint_fast8_t n) {
+                return (val & ~mask_at<T>(n)) | lshift_by(T(byte_val), n);
             }
 
+            /*
+             * copy
+             * Copy, in 'val', byte at index 'from' to byte at index 'to'
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T move(T val, uint_fast8_t from, uint_fast8_t to) {
-                return overwrite(val, byte_at(val, from), to);
+            SPROUT_CONSTEXPR T copy(T val, uint_fast8_t from, uint_fast8_t to) {
+                return replace_at(val, byte_at(val, from), to);
             }
 
+            /*
+             * swap
+             * Swap, in 'val', byte at index 'n1' with byte at index 'n2'
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T swap(T val, uint_fast8_t byte1, uint_fast8_t byte2) {
-                return overwrite(move(val, byte1, byte2), byte_at(val, byte2), byte1);
+            SPROUT_CONSTEXPR T swap(T val, uint_fast8_t n1, uint_fast8_t n2) {
+                return replace_at(copy(val, n1, n2), byte_at(val, n2), n1);
             }
 
+            /*
+             * reverse_impl
+             * Swap, in 'val', byte at index 'n1' with byte at index 'n2' in 'val', increment n1, decrement n2 until n1 > n2
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T reverse_impl(T val, uint_fast8_t byte1, uint_fast8_t byte2) {
-                return byte1 > byte2 ? val : reverse_impl(swap(val, byte1, byte2), byte1 + 1, byte2 - 1);
+            SPROUT_CONSTEXPR T reverse_impl(T val, uint_fast8_t n1, uint_fast8_t n2) {
+                return n1 > n2 ? val : reverse_impl(swap(val, n1, n2), n1 + 1, n2 - 1);
             }
 
+            /*
+             * reverse
+             * Reverse 'val'
+             */
             template<typename T>
             SPROUT_CONSTEXPR T reverse(T val) {
                 return reverse_impl(val, 0, sizeof(T) - 1);
             }
 
+            /*
+             * reverse_words_impl
+             * Swap, in 'val', byte at index 'n' - 1 with byte at index 'n' - 2, decrement n by 2 until n == 0
+             */
             template<typename T>
-            SPROUT_CONSTEXPR T reverse_words_impl(T val, uint_fast8_t byte) {
-                return byte == 0 ? val : reverse_words_impl(swap(val, byte - 1, byte - 2), byte - 2);
+            SPROUT_CONSTEXPR T reverse_words_impl(T val, uint_fast8_t n) {
+                return n == 0 ? val : reverse_words_impl(swap(val, n - 1, n - 2), n - 2);
             }
 
+            /*
+             * reverse_words
+             * Reverse each word in 'val'
+             */
             template<typename T>
             SPROUT_CONSTEXPR T reverse_words(T val) {
                 return reverse_words_impl(val, sizeof(T));
             }
         }
 
+        // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
+        // template<>
+        // constexpr unsigned-integral hton(unsigned-integral host)
         template<typename T>
         SPROUT_CONSTEXPR T hton(T host) {
 #if defined(BOOST_BIG_ENDIAN)
@@ -85,6 +132,9 @@ namespace sprout {
 #endif
         }
 
+        // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
+        // template<>
+        // constexpr unsigned-integral ntoh(unsigned-integral net)
         template<typename T>
         SPROUT_CONSTEXPR T ntoh(T net) {
 #if defined(BOOST_BIG_ENDIAN)
@@ -96,18 +146,26 @@ namespace sprout {
 #endif
         }
 
+        // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
+        // uint32_t htonl(uint32_t host32)
         SPROUT_CONSTEXPR uint32_t htonl(uint32_t host32) {
             return hton(host32);
         }
 
+        // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
+        // uint16_t htons(uint16_t host16)
         SPROUT_CONSTEXPR uint16_t htons(uint16_t host16) {
             return hton(host16);
         }
 
+        // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
+        // uint32_t ntohl(uint32_t net32)
         SPROUT_CONSTEXPR uint32_t ntohl(uint32_t net32) {
             return ntoh(net32);
         }
 
+        // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
+        // uint16_t ntohs(uint32_t net16)
         SPROUT_CONSTEXPR uint16_t ntohs(uint16_t net16) {
             return ntoh(net16);
         }
