@@ -19,12 +19,25 @@ namespace testspr {
     static void endian_test() {
         using namespace sprout;
 
-        {
-            TESTSPR_ASSERT(sprout::net::detail::reverse(0xDEADBEEF) == 0xEFBEADDE);
-            TESTSPR_ASSERT(sprout::net::detail::reverse(0xEFBEADDE) == 0xDEADBEEF);
+        { // 16
+            TESTSPR_ASSERT(sprout::net::detail::reverse(uint16_t(0x0A1B)) == uint16_t(0x1B0A));
+            TESTSPR_ASSERT(sprout::net::detail::reverse(uint16_t(0x1B0A)) == uint16_t(0x0A1B));
+            TESTSPR_ASSERT(sprout::net::detail::reverse_words(uint16_t(0x0A1B)) == uint16_t(0x1B0A));
+            TESTSPR_ASSERT(sprout::net::detail::reverse_words(uint16_t(0x1B0A)) == uint16_t(0x0A1B));
+        }
 
-            TESTSPR_ASSERT(sprout::net::detail::reverse_words(0xDEADBEEF) == 0xADDEEFBE);
-            TESTSPR_ASSERT(sprout::net::detail::reverse_words(0xADDEEFBE) == 0xDEADBEEF);
+        { // 32
+            TESTSPR_ASSERT(sprout::net::detail::reverse(uint32_t(0x0A1B2C3D)) == uint32_t(0x3D2C1B0A));
+            TESTSPR_ASSERT(sprout::net::detail::reverse(uint32_t(0x3D2C1B0A)) == uint32_t(0x0A1B2C3D));
+            TESTSPR_ASSERT(sprout::net::detail::reverse_words(uint32_t(0x0A1B2C3D)) == uint32_t(0x1B0A3D2C));
+            TESTSPR_ASSERT(sprout::net::detail::reverse_words(uint32_t(0x1B0A3D2C)) == uint32_t(0x0A1B2C3D));
+        }
+
+        { // 64
+            TESTSPR_ASSERT(sprout::net::detail::reverse(uint64_t(0x0A1B2C3D4E5F6A7B)) == uint64_t(0x7B6A5F4E3D2C1B0A));
+            TESTSPR_ASSERT(sprout::net::detail::reverse(uint64_t(0x7B6A5F4E3D2C1B0A)) == uint64_t(0x0A1B2C3D4E5F6A7B));
+            TESTSPR_ASSERT(sprout::net::detail::reverse_words(uint64_t(0x0A1B2C3D4E5F6A7B)) == uint64_t(0x1B0A3D2C5F4E7B6A));
+            TESTSPR_ASSERT(sprout::net::detail::reverse_words(uint64_t(0x1B0A3D2C5F4E7B6A)) == uint64_t(0x0A1B2C3D4E5F6A7B));
         }
     }
 }   // namespace testspr
