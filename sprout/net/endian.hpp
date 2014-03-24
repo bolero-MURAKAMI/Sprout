@@ -116,7 +116,7 @@ namespace sprout {
             SPROUT_CONSTEXPR T reverse_words(T val) {
                 return reverse_words_impl(val, sizeof(T));
             }
-        }
+        }   // namespace detail
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // template<>
