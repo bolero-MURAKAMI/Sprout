@@ -13,7 +13,6 @@
 
 #include <sprout/net/endian.hpp>
 #include <testspr/tools.hpp>
-#include <iostream>
 
 namespace testspr {
     static void endian_test() {
