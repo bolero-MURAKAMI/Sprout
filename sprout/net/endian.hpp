@@ -42,7 +42,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T mask_at(std::uint_fast8_t n) {
-                return lshift_by(T(0xFF), n);
+                return sprout::net::detail::lshift_by(T(0xFF), n);
             }
 
             /*
@@ -51,7 +51,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T byte_at(T val, std::uint_fast8_t n) {
-                return rshift_by((val & mask_at<T>(n)), n);
+                return sprout::net::detail::rshift_by((val & sprout::net::detail::mask_at<T>(n)), n);
             }
 
             /*
@@ -60,7 +60,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T replace_at(T val, std::uint8_t byte_val, std::uint_fast8_t n) {
-                return (val & ~mask_at<T>(n)) | lshift_by(T(byte_val), n);
+                return (val & ~sprout::net::detail::mask_at<T>(n)) | sprout::net::detail::lshift_by(T(byte_val), n);
             }
 
             /*
@@ -69,7 +69,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T copy(T val, std::uint_fast8_t from, std::uint_fast8_t to) {
-                return replace_at(val, byte_at(val, from), to);
+                return sprout::net::detail::replace_at(val, sprout::net::detail::byte_at(val, from), to);
             }
 
             /*
@@ -78,7 +78,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T swap(T val, std::uint_fast8_t n1, std::uint_fast8_t n2) {
-                return replace_at(copy(val, n1, n2), byte_at(val, n2), n1);
+                return sprout::net::detail::replace_at(sprout::net::detail::copy(val, n1, n2), sprout::net::detail::byte_at(val, n2), n1);
             }
 
             /*
@@ -87,7 +87,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T reverse_impl(T val, std::uint_fast8_t n1, std::uint_fast8_t n2) {
-                return n1 > n2 ? val : reverse_impl(swap(val, n1, n2), n1 + 1, n2 - 1);
+                return n1 > n2 ? val : sprout::net::detail::reverse_impl(swap(val, n1, n2), n1 + 1, n2 - 1);
             }
 
             /*
@@ -96,7 +96,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T reverse(T val) {
-                return reverse_impl(val, 0, sizeof(T) - 1);
+                return sprout::net::detail::reverse_impl(val, 0, sizeof(T) - 1);
             }
 
             /*
@@ -105,7 +105,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T reverse_words_impl(T val, std::uint_fast8_t n) {
-                return n == 0 ? val : reverse_words_impl(swap(val, n - 1, n - 2), n - 2);
+                return n == 0 ? val : sprout::net::detail::reverse_words_impl(swap(val, n - 1, n - 2), n - 2);
             }
 
             /*
@@ -114,7 +114,7 @@ namespace sprout {
              */
             template<typename T>
             SPROUT_CONSTEXPR T reverse_words(T val) {
-                return reverse_words_impl(val, sizeof(T));
+                return sprout::net::detail::reverse_words_impl(val, sizeof(T));
             }
         }   // namespace detail
 
@@ -126,9 +126,9 @@ namespace sprout {
 #if defined(BOOST_BIG_ENDIAN)
             return host;
 #elif defined(BOOST_LITTLE_ENDIAN)
-            return detail::reverse(host);
+            return sprout::net::detail::reverse(host);
 #elif defined(BOOST_PDP_ENDIAN)
-            return detail::reverse_words(host);
+            return sprout::net::detail::reverse_words(host);
 #endif
         }
 
@@ -140,34 +140,34 @@ namespace sprout {
 #if defined(BOOST_BIG_ENDIAN)
             return net;
 #elif defined(BOOST_LITTLE_ENDIAN)
-            return detail::reverse(net);
+            return sprout::net::detail::reverse(net);
 #elif defined(BOOST_PDP_ENDIAN)
-            return detail::reverse_words(host);
+            return sprout::net::detail::reverse_words(host);
 #endif
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint32_t htonl(uint32_t host32)
         SPROUT_CONSTEXPR std::uint32_t htonl(std::uint32_t host32) {
-            return hton(host32);
+            return sprout::net::hton(host32);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint16_t htons(uint16_t host16)
         SPROUT_CONSTEXPR std::uint16_t htons(std::uint16_t host16) {
-            return hton(host16);
+            return sprout::net::hton(host16);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint32_t ntohl(uint32_t net32)
         SPROUT_CONSTEXPR std::uint32_t ntohl(std::uint32_t net32) {
-            return ntoh(net32);
+            return sprout::net::ntoh(net32);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint16_t ntohs(uint32_t net16)
         SPROUT_CONSTEXPR std::uint16_t ntohs(std::uint16_t net16) {
-            return ntoh(net16);
+            return sprout::net::ntoh(net16);
         }
     }   //namespace net
 }	// namespace sprout
