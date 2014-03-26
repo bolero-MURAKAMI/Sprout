@@ -23,6 +23,7 @@
 #include "../libs/random/test/random.cpp"
 #include "../libs/utility/string_ref/test/string_ref.cpp"
 #include "../libs/cstring/test/cstring.cpp"
+#include "../libs/net/test/endian.cpp"
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_TESTSPR_SPROUT_HPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -40,6 +41,7 @@ namespace testspr {
 		testspr::random_test();
 		testspr::string_ref_test();
 		testspr::cstring_test();
+		testspr::endian_test();
 	}
 }	// namespace testspr
 

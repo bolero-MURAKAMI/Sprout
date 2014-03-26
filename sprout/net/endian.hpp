@@ -8,8 +8,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_NET_NET_HPP
-#define SPROUT_NET_NET_HPP
+#ifndef SPROUT_NET_ENDIAN_HPP
+#define SPROUT_NET_ENDIAN_HPP
 
 #include <cstdint>
 #include <sprout/config.hpp>
@@ -23,7 +23,7 @@ namespace sprout {
              * Left shift 'val' by 'n' bytes
              */
             template<typename T>
-            SPROUT_CONSTEXPR T lshift_by(T val, uint_fast8_t n) {
+            SPROUT_CONSTEXPR T lshift_by(T val, std::uint_fast8_t n) {
                 return val << (n * 8);
             }
 
@@ -32,7 +32,7 @@ namespace sprout {
              * Right shift 'val' by 'n' bytes
              */
             template<typename T>
-            SPROUT_CONSTEXPR T rshift_by(T val, uint_fast8_t n) {
+            SPROUT_CONSTEXPR T rshift_by(T val, std::uint_fast8_t n) {
                 return val >> (n * 8);
             }
 
@@ -41,7 +41,7 @@ namespace sprout {
              * Mask 'n'th byte
              */
             template<typename T>
-            SPROUT_CONSTEXPR T mask_at(uint_fast8_t n) {
+            SPROUT_CONSTEXPR T mask_at(std::uint_fast8_t n) {
                 return lshift_by(T(0xFF), n);
             }
 
@@ -50,7 +50,7 @@ namespace sprout {
              * Get 'n'th byte from 'val'
              */
             template<typename T>
-            SPROUT_CONSTEXPR T byte_at(T val, uint_fast8_t n) {
+            SPROUT_CONSTEXPR T byte_at(T val, std::uint_fast8_t n) {
                 return rshift_by((val & mask_at<T>(n)), n);
             }
 
@@ -59,7 +59,7 @@ namespace sprout {
              * Replace, in 'val', 'n'th byte with 'byte_val'
              */
             template<typename T>
-            SPROUT_CONSTEXPR T replace_at(T val, uint8_t byte_val, uint_fast8_t n) {
+            SPROUT_CONSTEXPR T replace_at(T val, std::uint8_t byte_val, std::uint_fast8_t n) {
                 return (val & ~mask_at<T>(n)) | lshift_by(T(byte_val), n);
             }
 
@@ -68,7 +68,7 @@ namespace sprout {
              * Copy, in 'val', byte at index 'from' to byte at index 'to'
              */
             template<typename T>
-            SPROUT_CONSTEXPR T copy(T val, uint_fast8_t from, uint_fast8_t to) {
+            SPROUT_CONSTEXPR T copy(T val, std::uint_fast8_t from, std::uint_fast8_t to) {
                 return replace_at(val, byte_at(val, from), to);
             }
 
@@ -77,7 +77,7 @@ namespace sprout {
              * Swap, in 'val', byte at index 'n1' with byte at index 'n2'
              */
             template<typename T>
-            SPROUT_CONSTEXPR T swap(T val, uint_fast8_t n1, uint_fast8_t n2) {
+            SPROUT_CONSTEXPR T swap(T val, std::uint_fast8_t n1, std::uint_fast8_t n2) {
                 return replace_at(copy(val, n1, n2), byte_at(val, n2), n1);
             }
 
@@ -86,7 +86,7 @@ namespace sprout {
              * Swap, in 'val', byte at index 'n1' with byte at index 'n2' in 'val', increment n1, decrement n2 until n1 > n2
              */
             template<typename T>
-            SPROUT_CONSTEXPR T reverse_impl(T val, uint_fast8_t n1, uint_fast8_t n2) {
+            SPROUT_CONSTEXPR T reverse_impl(T val, std::uint_fast8_t n1, std::uint_fast8_t n2) {
                 return n1 > n2 ? val : reverse_impl(swap(val, n1, n2), n1 + 1, n2 - 1);
             }
 
@@ -104,7 +104,7 @@ namespace sprout {
              * Swap, in 'val', byte at index 'n' - 1 with byte at index 'n' - 2, decrement n by 2 until n == 0
              */
             template<typename T>
-            SPROUT_CONSTEXPR T reverse_words_impl(T val, uint_fast8_t n) {
+            SPROUT_CONSTEXPR T reverse_words_impl(T val, std::uint_fast8_t n) {
                 return n == 0 ? val : reverse_words_impl(swap(val, n - 1, n - 2), n - 2);
             }
 
@@ -148,28 +148,28 @@ namespace sprout {
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint32_t htonl(uint32_t host32)
-        SPROUT_CONSTEXPR uint32_t htonl(uint32_t host32) {
+        SPROUT_CONSTEXPR std::uint32_t htonl(std::uint32_t host32) {
             return hton(host32);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint16_t htons(uint16_t host16)
-        SPROUT_CONSTEXPR uint16_t htons(uint16_t host16) {
+        SPROUT_CONSTEXPR std::uint16_t htons(std::uint16_t host16) {
             return hton(host16);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint32_t ntohl(uint32_t net32)
-        SPROUT_CONSTEXPR uint32_t ntohl(uint32_t net32) {
+        SPROUT_CONSTEXPR std::uint32_t ntohl(std::uint32_t net32) {
             return ntoh(net32);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint16_t ntohs(uint32_t net16)
-        SPROUT_CONSTEXPR uint16_t ntohs(uint16_t net16) {
+        SPROUT_CONSTEXPR std::uint16_t ntohs(std::uint16_t net16) {
             return ntoh(net16);
         }
     }   //namespace net
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_NET_NET_HPP
+#endif	// #ifndef SPROUT_NET_ENDIAN_HPP
