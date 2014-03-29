@@ -48,6 +48,11 @@ namespace sprout {
 	struct is_c_str<char32_t[N]>
 		: public sprout::true_type
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_c_str_v = sprout::is_c_str<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IS_C_STR_HPP

@@ -5,25 +5,17 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_TYPE_TRAITS_COMMON_DECAY_HPP
-#define SPROUT_TYPE_TRAITS_COMMON_DECAY_HPP
+#ifndef SPROUT_TYPE_TRAITS_INHERIT_IF_TYPE_HPP
+#define SPROUT_TYPE_TRAITS_INHERIT_IF_TYPE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/type_traits/common_type.hpp>
+#include <sprout/type_traits/inherit_if_xxx.hpp>
 
 namespace sprout {
 	//
-	// common_decay
+	// inherit_if_type
 	//
-	template<typename... Types>
-	struct common_decay
-		: public sprout::common_type<Types...>
-	{};
-
-#if SPROUT_USE_TEMPLATE_ALIASES
-	template<typename... Types>
-	using common_decay_t = typename sprout::common_decay<Types...>::type;
-#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+	SPROUT_INHERIT_IF_XXX_TYPE_DEF_LAZY(type);
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TYPE_TRAITS_COMMON_DECAY_HPP
+#endif	// #ifndef SPROUT_TYPE_TRAITS_INHERIT_IF_TYPE_HPP

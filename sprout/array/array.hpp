@@ -10,6 +10,7 @@
 
 #include <cstddef>
 #include <utility>
+#include <type_traits>
 #include <stdexcept>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
@@ -232,17 +233,17 @@ namespace sprout {
 
 	namespace detail {
 		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		inline SPROUT_CONSTEXPR sprout::array<T, N>
-		to_array_impl(T const (& arr)[N], sprout::index_tuple<Indexes...>) {
-			return sprout::array<T, N>{{arr[Indexes]...}};
+		inline SPROUT_CONSTEXPR sprout::array<typename std::remove_cv<T>::type, N>
+		to_array_impl(T (& arr)[N], sprout::index_tuple<Indexes...>) {
+			return sprout::array<typename std::remove_cv<T>::type, N>{{arr[Indexes]...}};
 		}
 	}	// namespace detail
 	//
 	// to_array
 	//
 	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR sprout::array<T, N>
-	to_array(T const (& arr)[N]) {
+	inline SPROUT_CONSTEXPR sprout::array<typename std::remove_cv<T>::type, N>
+	to_array(T (& arr)[N]) {
 		return sprout::detail::to_array_impl(arr, sprout::make_index_tuple<N>::make());
 	}
 }	// namespace sprout

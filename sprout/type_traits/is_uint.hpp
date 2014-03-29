@@ -23,6 +23,11 @@ namespace sprout {
 			std::is_integral<T>::value && std::is_unsigned<T>::value
 		>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_uint_v = sprout::is_uint<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IS_UINT_HPP

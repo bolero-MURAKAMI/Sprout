@@ -24,6 +24,11 @@ namespace sprout {
 			sprout::is_const_unqualified<T>::value && sprout::is_volatile_unqualified<T>::value
 		>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_cv_unqualified_v = sprout::is_cv_unqualified<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IS_CV_UNQUALIFIED_HPP

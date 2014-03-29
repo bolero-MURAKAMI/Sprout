@@ -5,29 +5,22 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_TYPE_TRAITS_IS_CONST_UNQUALIFIED_HPP
-#define SPROUT_TYPE_TRAITS_IS_CONST_UNQUALIFIED_HPP
+#ifndef SPROUT_TYPE_TRAITS_HAS_TYPE_HPP
+#define SPROUT_TYPE_TRAITS_HAS_TYPE_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/has_xxx.hpp>
 
 namespace sprout {
 	//
-	// is_const_unqualified
+	// has_type
 	//
-	template<typename T>
-	struct is_const_unqualified
-		: public sprout::integral_constant<
-			bool,
-			std::is_const<T>::value
-		>
-	{};
+	SPROUT_HAS_XXX_TYPE_DEF_LAZY(type);
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T>
-	SPROUT_STATIC_CONSTEXPR bool is_const_unqualified_v = sprout::is_const_unqualified<T>::value;
+	SPROUT_STATIC_CONSTEXPR bool has_type_v = sprout::has_type<T>::value;
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TYPE_TRAITS_IS_CONST_UNQUALIFIED_HPP
+#endif	// #ifndef SPROUT_TYPE_TRAITS_HAS_TYPE_HPP

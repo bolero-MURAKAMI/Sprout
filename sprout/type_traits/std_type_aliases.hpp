@@ -78,8 +78,8 @@ namespace sprout {
 	using enable_if_t = typename sprout::enable_if<B, T>::type;
 	template<bool B, typename T, typename F>
 	using conditional_t = typename sprout::conditional<B, T, F>::type;
-	template<typename... Types>
-	using common_type_t = typename sprout::common_type<Types...>::type;
+//	template<typename... Types>
+//	using common_type_t = typename sprout::common_type<Types...>::type;
 	template<typename T>
 	using underlying_type_t = typename sprout::underlying_type<T>::type;
 	template<typename F, typename... ArgTypes>

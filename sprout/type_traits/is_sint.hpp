@@ -23,6 +23,11 @@ namespace sprout {
 			std::is_integral<T>::value && std::is_signed<T>::value
 		>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_sint_v = sprout::is_sint<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IS_SINT_HPP

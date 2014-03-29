@@ -12,6 +12,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/detail/predef.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/common_type.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 #if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION < 1101)
 #	include <sprout/tpp/algorithm/max_element.hpp>
@@ -471,7 +473,7 @@ namespace sprout {
 	using std::decay;
 	using std::enable_if;
 	using std::conditional;
-	using std::common_type;
+//	using std::common_type;
 	using std::underlying_type;
 	using std::result_of;
 }	// namespace sprout

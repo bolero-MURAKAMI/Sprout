@@ -13,6 +13,7 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
 namespace sprout {
@@ -53,6 +54,23 @@ namespace sprout {
 		return sprout::detail::pack_get_helper<
 			typename sprout::types::detail::tuple_take<I, sprout::types::type_tuple<Args...> >::type
 		>::eval(SPROUT_FORWARD(Args, args)...);
+	}
+
+	//
+	// head_element
+	//
+	template<typename Head, typename... Tail>
+	struct head_element
+		: public sprout::identity<Head>
+	{};
+
+	//
+	// head_get
+	//
+	template<typename Head, typename... Tail>
+	inline SPROUT_CONSTEXPR Head&&
+	head_get(Head&& head, Tail&&... tail) {
+		return SPROUT_FORWARD(Head, head);
 	}
 }	// namespace sprout
 
