@@ -5,10 +5,24 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_BIT_LENGTH_HPP
-#define SPROUT_BIT_LENGTH_HPP
+#ifndef SPROUT_BIT_RSTT1_HPP
+#define SPROUT_BIT_RSTT1_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/bit/bit_length.hpp>
 
-#endif	// #ifndef SPROUT_BIT_LENGTH_HPP
+namespace sprout {
+	//
+	// rstt1
+	//
+	template<typename Integral>
+	inline SPROUT_CONSTEXPR typename std::enable_if<
+		std::is_integral<Integral>::value,
+		Integral
+	>::type
+	rstt1(Integral x) SPROUT_NOEXCEPT {
+		return x & (x + 1);
+	}
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_BIT_RSTT1_HPP

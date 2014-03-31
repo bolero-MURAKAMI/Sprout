@@ -17,8 +17,8 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
-#include <sprout/bit/reverse.hpp>
-#include <sprout/bit/length.hpp>
+#include <sprout/bit/bit_reverse.hpp>
+#include <sprout/bit/bit_length.hpp>
 
 namespace sprout {
 		namespace fixed {

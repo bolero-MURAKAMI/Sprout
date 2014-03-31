@@ -69,7 +69,7 @@ namespace sprout {
 	//
 	template<typename Head, typename... Tail>
 	inline SPROUT_CONSTEXPR Head&&
-	head_get(Head&& head, Tail&&... tail) {
+	head_get(Head&& head, Tail&&...) {
 		return SPROUT_FORWARD(Head, head);
 	}
 }	// namespace sprout
