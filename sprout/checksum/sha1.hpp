@@ -23,7 +23,7 @@
 #include <sprout/algorithm/fixed/fill.hpp>
 #include <sprout/range/algorithm/fixed/copy.hpp>
 #include <sprout/operation/fixed/set.hpp>
-#include <sprout/bit/rotate.hpp>
+#include <sprout/bit/rotl.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
 #endif
@@ -61,7 +61,7 @@ namespace sprout {
 					| (block_[i * 4 + 1] << 16)
 					| (block_[i * 4 + 2] << 8)
 					| (block_[i * 4 + 3])
-				: sprout::left_rotate(
+				: sprout::rotl(
 					calc_w(i - 3) ^ calc_w(i - 8) ^ calc_w(i - 14) ^ calc_w(i - 16),
 					1
 					)
@@ -98,9 +98,9 @@ namespace sprout {
 			) const
 		{
 			return process_block_1<D + 1>(
-				sprout::left_rotate(a, 5) + f + e + k + calc_w(i),
+				sprout::rotl(a, 5) + f + e + k + calc_w(i),
 				a,
-				sprout::left_rotate(b, 30),
+				sprout::rotl(b, 30),
 				c,
 				d,
 				i + 1
@@ -227,9 +227,9 @@ namespace sprout {
 			) const
 		{
 			return process_block_1(
-				sprout::left_rotate(a, 5) + f + e + k + calc_w(i),
+				sprout::rotl(a, 5) + f + e + k + calc_w(i),
 				a,
-				sprout::left_rotate(b, 30),
+				sprout::rotl(b, 30),
 				c,
 				d,
 				i + 1
@@ -388,7 +388,7 @@ namespace sprout {
 				w[i] |= (block_[i * 4 + 3]);
 			}
 			for (std::size_t i = 16; i < 80; ++i) {
-				w[i] = sprout::left_rotate((w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]), 1);
+				w[i] = sprout::rotl((w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]), 1);
 			}
 			std::uint32_t a = h_[0];
 			std::uint32_t b = h_[1];
@@ -411,10 +411,10 @@ namespace sprout {
 					f = b ^ c ^ d;
 					k = 0xCA62C1D6;
 				}
-				unsigned temp = sprout::left_rotate(a, 5) + f + e + k + w[i];
+				unsigned temp = sprout::rotl(a, 5) + f + e + k + w[i];
 				e = d;
 				d = c;
-				c = sprout::left_rotate(b, 30);
+				c = sprout::rotl(b, 30);
 				b = a;
 				a = temp;
 			}

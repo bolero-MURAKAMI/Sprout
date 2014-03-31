@@ -8,6 +8,7 @@
 #ifndef SPROUT_BIT_CTZ_HPP
 #define SPROUT_BIT_CTZ_HPP
 
+#include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
 
@@ -15,47 +16,54 @@ namespace sprout {
 	namespace detail {
 #	if SPROUT_USE_BUILTIN_BIT_OPERATION
 		inline SPROUT_CONSTEXPR int
-		ctz(unsigned n) {
-			return __builtin_ctz(n);
+		ctz_non0(unsigned x) {
+			return __builtin_ctz(x);
 		}
 		inline SPROUT_CONSTEXPR int
-		ctz(unsigned long n) {
-			return __builtin_ctzl(n);
+		ctz_non0(unsigned long x) {
+			return __builtin_ctzl(x);
 		}
 		inline SPROUT_CONSTEXPR int
-		ctz(unsigned long long n) {
-			return __builtin_ctzll(n);
+		ctz_non0(unsigned long long x) {
+			return __builtin_ctzll(x);
 		}
 #	endif
-		template<typename T>
+		template<typename Integral>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_unsigned<T>::value,
+			std::is_unsigned<Integral>::value,
 			int
 		>::type
-		ctz(T n) {
-			return n & 1 ? 0
-				: 1 + sprout::detail::ctz(static_cast<T>(n >> 1))
+		ctz_non0(Integral x) {
+			return x & 1 ? 0
+				: 1 + sprout::detail::ctz_non0(static_cast<Integral>(x >> 1))
 				;
 		}
-		template<typename T>
+		template<typename Integral>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_signed<T>::value,
+			std::is_signed<Integral>::value,
 			int
 		>::type
-		ctz(T n) {
-			return sprout::detail::ctz(static_cast<typename std::make_unsigned<T>::type>(n));
+		ctz_non0(Integral x) {
+			return sprout::detail::ctz_non0(static_cast<typename std::make_unsigned<Integral>::type>(x));
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR int
+		ctz(Integral x) {
+			return x == 0 ? static_cast<int>(sizeof(x) * CHAR_BIT)
+				: sprout::detail::ctz_non0(x)
+				;
 		}
 	}	// namespace detail
 	//
 	// ctz
 	//
-	template<typename T>
+	template<typename Integral>
 	inline SPROUT_CONSTEXPR typename std::enable_if<
-		std::is_integral<T>::value,
+		std::is_integral<Integral>::value,
 		int
 	>::type
-	ctz(T n) {
-		return sprout::detail::ctz(n);
+	ctz(Integral x) {
+		return sprout::detail::ctz(x);
 	}
 }	// namespace sprout
 

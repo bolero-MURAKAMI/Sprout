@@ -5,38 +5,25 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_BIT_ROTATE_HPP
-#define SPROUT_BIT_ROTATE_HPP
+#ifndef SPROUT_BIT_CNTL1_HPP
+#define SPROUT_BIT_CNTL1_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/bit/rotl.hpp>
-#include <sprout/bit/rotr.hpp>
+#include <sprout/bit/clrsb.hpp>
 
 namespace sprout {
 	//
-	// left_rotate
+	// cntl1
 	//
 	template<typename Integral>
 	inline SPROUT_CONSTEXPR typename std::enable_if<
 		std::is_integral<Integral>::value,
-		Integral
+		int
 	>::type
-	left_rotate(Integral x, int s) {
-		return sprout::rotl(x, s);
-	}
-
-	//
-	// right_rotate
-	//
-	template<typename Integral>
-	inline SPROUT_CONSTEXPR typename std::enable_if<
-		std::is_integral<Integral>::value,
-		Integral
-	>::type
-	right_rotate(Integral x, int s) {
-		return sprout::rotr(x, s);
+	cntl1(Integral x) SPROUT_NOEXCEPT {
+		return sprout::clrsb(x);
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_BIT_ROTATE_HPP
+#endif	// #ifndef SPROUT_BIT_CNTL0_HPP

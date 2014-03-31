@@ -16,52 +16,59 @@ namespace sprout {
 	namespace detail {
 #	if SPROUT_USE_BUILTIN_BIT_OPERATION
 		inline SPROUT_CONSTEXPR int
-		clz(unsigned n) {
-			return __builtin_clz(n);
+		clz_non0(unsigned x) {
+			return __builtin_clz(x);
 		}
 		inline SPROUT_CONSTEXPR int
-		clz(unsigned long n) {
-			return __builtin_clzl(n);
+		clz_non0(unsigned long x) {
+			return __builtin_clzl(x);
 		}
 		inline SPROUT_CONSTEXPR int
-		clz(unsigned long long n) {
-			return __builtin_clzll(n);
+		clz_non0(unsigned long long x) {
+			return __builtin_clzll(x);
 		}
 #	endif
-		template<typename T>
+		template<typename Integral>
 		inline SPROUT_CONSTEXPR int
-		clz_impl(T n, T m = T(1) << (CHAR_BIT * sizeof(T) - 1)) {
-			return m == 0 || n & m ? 0
-				: 1 + sprout::detail::clz_impl(n, static_cast<T>(m >> 1))
+		clz_non0_impl(Integral x, Integral m = Integral(1) << (CHAR_BIT * sizeof(Integral) - 1)) {
+			return m == 0 || x & m ? 0
+				: 1 + sprout::detail::clz_non0_impl(x, static_cast<Integral>(m >> 1))
 				;
 		}
-		template<typename T>
+		template<typename Integral>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_unsigned<T>::value,
+			std::is_unsigned<Integral>::value,
 			int
 		>::type
-		clz(T n) {
-			return sprout::detail::clz_impl(static_cast<T>(n));
+		clz_non0(Integral x) {
+			return sprout::detail::clz_non0_impl(static_cast<Integral>(x));
 		}
-		template<typename T>
+		template<typename Integral>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_signed<T>::value,
+			std::is_signed<Integral>::value,
 			int
 		>::type
-		clz(T n) {
-			return sprout::detail::clz(static_cast<typename std::make_unsigned<T>::type>(n));
+		clz_non0(Integral x) {
+			return sprout::detail::clz_non0(static_cast<typename std::make_unsigned<Integral>::type>(x));
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR int
+		clz(Integral x) {
+			return x == 0 ? static_cast<int>(sizeof(x) * CHAR_BIT)
+				: sprout::detail::clz_non0(x)
+				;
 		}
 	}	// namespace detail
 	//
 	// clz
 	//
-	template<typename T>
+	template<typename Integral>
 	inline SPROUT_CONSTEXPR typename std::enable_if<
-		std::is_integral<T>::value,
+		std::is_integral<Integral>::value,
 		int
 	>::type
-	clz(T n) {
-		return sprout::detail::clz(n);
+	clz(Integral x) {
+		return sprout::detail::clz(x);
 	}
 }	// namespace sprout
 

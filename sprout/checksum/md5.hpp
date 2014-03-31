@@ -18,7 +18,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
 #include <sprout/operation/fixed/set.hpp>
-#include <sprout/bit/rotate.hpp>
+#include <sprout/bit/rotl.hpp>
 
 namespace sprout {
 	static_assert(CHAR_BIT == 8, "CHAR_BIT == 8");
@@ -45,28 +45,28 @@ namespace sprout {
 		public:
 			SPROUT_CONSTEXPR std::uint32_t
 			operator()(std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t x, std::uint32_t t, std::uint32_t s) const {
-				return b + sprout::left_rotate(a + sprout::md5_detail::func_f(b, c, d) + x + t, s);
+				return b + sprout::rotl(a + sprout::md5_detail::func_f(b, c, d) + x + t, s);
 			}
 		};
 		struct round2_op {
 		public:
 			inline SPROUT_CONSTEXPR std::uint32_t
 			operator()(std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t x, std::uint32_t t, std::uint32_t s) const {
-				return b + sprout::left_rotate(a + sprout::md5_detail::func_g(b, c, d) + x + t, s);
+				return b + sprout::rotl(a + sprout::md5_detail::func_g(b, c, d) + x + t, s);
 			}
 		};
 		struct round3_op {
 		public:
 			inline SPROUT_CONSTEXPR std::uint32_t
 			operator()(std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t x, std::uint32_t t, std::uint32_t s) const {
-				return b + sprout::left_rotate(a + sprout::md5_detail::func_h(b, c, d) + x + t, s);
+				return b + sprout::rotl(a + sprout::md5_detail::func_h(b, c, d) + x + t, s);
 			}
 		};
 		struct round4_op {
 		public:
 			inline SPROUT_CONSTEXPR std::uint32_t
 			operator()(std::uint32_t a, std::uint32_t b, std::uint32_t c, std::uint32_t d, std::uint32_t x, std::uint32_t t, std::uint32_t s) const {
-				return b + sprout::left_rotate(a + sprout::md5_detail::func_i(b, c, d) + x + t, s);
+				return b + sprout::rotl(a + sprout::md5_detail::func_i(b, c, d) + x + t, s);
 			}
 		};
 
