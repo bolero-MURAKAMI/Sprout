@@ -11,6 +11,8 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/clamp_range_copy.hpp>
 
@@ -20,7 +22,10 @@ namespace sprout {
 			//
 			// clamp_range_copy
 			//
-			template<typename InputRange, typename Result, typename Compare>
+			template<
+				typename InputRange, typename Result, typename Compare,
+				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy(
 				InputRange const& rng, Result const& result,
@@ -31,7 +36,10 @@ namespace sprout {
 			{
 				return sprout::fixed::clamp_range_copy(sprout::begin(rng), sprout::end(rng), result, low, high, comp);
 			}
-			template<typename InputRange, typename Result>
+			template<
+				typename InputRange, typename Result,
+				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			clamp_range_copy(
 				InputRange const& rng, Result const& result,

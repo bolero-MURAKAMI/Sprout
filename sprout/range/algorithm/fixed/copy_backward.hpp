@@ -10,6 +10,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/copy_backward.hpp>
 
@@ -19,7 +21,10 @@ namespace sprout {
 			//
 			// copy_backward
 			//
-			template<typename BidirectionalRange, typename Result>
+			template<
+				typename BidirectionalRange, typename Result,
+				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_backward(BidirectionalRange const& rng, Result const& result) {
 				return sprout::fixed::copy_backward(sprout::begin(rng), sprout::end(rng), result);

@@ -9,8 +9,8 @@
 #define SPROUT_NUMERIC_CXX14_HPP
 
 #include <sprout/config.hpp>
-//#include <sprout/numeric/cxx14/partial_sum.hpp>
-//#include <sprout/numeric/cxx14/adjacent_difference.hpp>
-//#include <sprout/numeric/cxx14/iota.hpp>
+#include <sprout/numeric/cxx14/partial_sum.hpp>
+#include <sprout/numeric/cxx14/adjacent_difference.hpp>
+#include <sprout/numeric/cxx14/iota.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_CXX14_HPP

@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_CXX14_ALGORITHM_REVERSE_HPP
-#define SPROUT_CXX14_ALGORITHM_REVERSE_HPP
+#ifndef SPROUT_ALGORITHM_CXX14_REVERSE_HPP
+#define SPROUT_ALGORITHM_CXX14_REVERSE_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/algorithm/cxx14/iter_swap.hpp>
@@ -24,4 +24,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_CXX14_ALGORITHM_REVERSE_HPP
+#endif	// #ifndef SPROUT_ALGORITHM_CXX14_REVERSE_HPP

@@ -11,6 +11,8 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/rotate_copy.hpp>
 
@@ -20,7 +22,10 @@ namespace sprout {
 			//
 			// rotate_copy
 			//
-			template<typename ForwardRange, typename Result>
+			template<
+				typename ForwardRange, typename Result,
+				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			rotate_copy(
 				ForwardRange const& rng, typename sprout::container_traits<ForwardRange>::const_iterator middle,

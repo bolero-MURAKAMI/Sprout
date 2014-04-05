@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_CXX14_ALGORITHM_STABLE_PARTITION_HPP
-#define SPROUT_CXX14_ALGORITHM_STABLE_PARTITION_HPP
+#ifndef SPROUT_ALGORITHM_CXX14_STABLE_PARTITION_HPP
+#define SPROUT_ALGORITHM_CXX14_STABLE_PARTITION_HPP
 
 #include <sprout/config.hpp>
 
@@ -20,4 +20,4 @@ namespace sprout {
 	stable_partition(BidirectionalIterator first, BidirectionalIterator last, Predicate pred);
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_CXX14_ALGORITHM_STABLE_PARTITION_HPP
+#endif	// #ifndef SPROUT_ALGORITHM_CXX14_STABLE_PARTITION_HPP

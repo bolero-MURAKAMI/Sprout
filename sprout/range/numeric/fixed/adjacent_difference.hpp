@@ -11,6 +11,8 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/numeric/fixed/adjacent_difference.hpp>
 
@@ -20,12 +22,18 @@ namespace sprout {
 			//
 			// adjacent_difference
 			//
-			template<typename InputRange, typename Result>
+			template<
+				typename InputRange, typename Result,
+				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			adjacent_difference(InputRange const& rng, Result const& result) {
 				return sprout::fixed::adjacent_difference(sprout::begin(rng), sprout::end(rng), result);
 			}
-			template<typename InputRange, typename Result, typename BinaryOperation>
+			template<
+				typename InputRange, typename Result, typename BinaryOperation,
+				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			adjacent_difference(InputRange const& rng, Result const& result, BinaryOperation binary_op) {
 				return sprout::fixed::adjacent_difference(sprout::begin(rng), sprout::end(rng), result, binary_op);

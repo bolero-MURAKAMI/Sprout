@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_CXX14_ALGORITHM_PARTIAL_SORT_COPY_HPP
-#define SPROUT_CXX14_ALGORITHM_PARTIAL_SORT_COPY_HPP
+#ifndef SPROUT_ALGORITHM_CXX14_PARTIAL_SORT_COPY_HPP
+#define SPROUT_ALGORITHM_CXX14_PARTIAL_SORT_COPY_HPP
 
 #include <sprout/config.hpp>
 
@@ -24,4 +24,4 @@ namespace sprout {
 	partial_sort_copy(InputIterator first, InputIterator last, RandomAccessIterator result_first, RandomAccessIterator result_last, Compare comp);
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_CXX14_ALGORITHM_PARTIAL_SORT_COPY_HPP
+#endif	// #ifndef SPROUT_ALGORITHM_CXX14_PARTIAL_SORT_COPY_HPP

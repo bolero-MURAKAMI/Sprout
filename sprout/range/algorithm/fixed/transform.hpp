@@ -10,6 +10,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/transform.hpp>
 
@@ -19,12 +21,18 @@ namespace sprout {
 			//
 			// transform
 			//
-			template<typename InputRange, typename Result, typename UnaryOperation>
+			template<
+				typename InputRange, typename Result, typename UnaryOperation,
+				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(InputRange const& rng, Result const& result, UnaryOperation op) {
 				return sprout::fixed::transform(sprout::begin(rng), sprout::end(rng), result, op);
 			}
-			template<typename InputRange1, typename InputRange2, typename Result, typename BinaryOperation>
+			template<
+				typename InputRange1, typename InputRange2, typename Result, typename BinaryOperation,
+				typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+			>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(InputRange1 const& rng1, InputRange2 const& rng2, Result const& result, BinaryOperation op) {
 				return sprout::fixed::transform(sprout::begin(rng1), sprout::end(rng1), sprout::begin(rng2), result, op);
