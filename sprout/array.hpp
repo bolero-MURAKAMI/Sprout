@@ -15,5 +15,6 @@
 #include <sprout/array/tuple.hpp>
 #include <sprout/array/make_array.hpp>
 #include <sprout/array/type_traits.hpp>
+#include <sprout/array/nested_array.hpp>
 
 #endif	// #ifndef SPROUT_ARRAY_HPP
