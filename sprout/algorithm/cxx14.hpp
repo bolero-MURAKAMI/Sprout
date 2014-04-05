@@ -59,10 +59,9 @@
 //#include <sprout/algorithm/cxx14/next_permutation.hpp>
 //#include <sprout/algorithm/cxx14/prev_permutation.hpp>
 #include <sprout/algorithm/cxx14/sample.hpp>
-//#include <sprout/algorithm/cxx14/copy_while.hpp>
-//#include <sprout/algorithm/cxx14/copy_until.hpp>
-//#include <sprout/algorithm/cxx14/clamp_range.hpp>
-//#include <sprout/algorithm/cxx14/clamp_range_copy.hpp>
+#include <sprout/algorithm/cxx14/copy_while.hpp>
+#include <sprout/algorithm/cxx14/copy_until.hpp>
+#include <sprout/algorithm/cxx14/clamp_range.hpp>
 //#include <sprout/algorithm/cxx14/bogo_sort.hpp>
 //#include <sprout/algorithm/cxx14/bogo_sort_result.hpp>
 //#include <sprout/algorithm/cxx14/bozo_sort.hpp>
