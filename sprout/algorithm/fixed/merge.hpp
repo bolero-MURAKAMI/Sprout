@@ -14,6 +14,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/merge_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/functional/less.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
@@ -158,7 +160,52 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::merge;
+	template<
+		typename InputIterator1, typename InputIterator2, typename Result, typename Compare,
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	merge(
+		InputIterator1 first1, InputIterator1 last1,
+		InputIterator2 first2, InputIterator2 last2,
+		Result const& result, Compare comp
+		)
+	{
+		return sprout::fixed::merge(first1, last1, first2, last2, result, comp);
+	}
+	template<
+		typename InputIterator1, typename InputIterator2, typename Result,
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	merge(
+		InputIterator1 first1, InputIterator1 last1,
+		InputIterator2 first2, InputIterator2 last2,
+		Result const& result
+		)
+	{
+		return sprout::fixed::merge(first1, last1, first2, last2, result);
+	}
+
+	template<typename Result, typename InputIterator1, typename InputIterator2, typename Compare>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	merge(
+		InputIterator1 first1, InputIterator1 last1,
+		InputIterator2 first2, InputIterator2 last2,
+		Compare comp
+		)
+	{
+		return sprout::fixed::merge<Result>(first1, last1, first2, last2, comp);
+	}
+	template<typename Result, typename InputIterator1, typename InputIterator2>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	merge(
+		InputIterator1 first1, InputIterator1 last1,
+		InputIterator2 first2, InputIterator2 last2
+		)
+	{
+		return sprout::fixed::merge<Result>(first1, last1, first2, last2);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_MERGE_HPP

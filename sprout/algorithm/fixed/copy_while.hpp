@@ -15,6 +15,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/while_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/find_if_not.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
@@ -112,7 +114,20 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::copy_while;
+	template<
+		typename InputIterator, typename Result, typename Predicate,
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+		return sprout::fixed::copy_while(first, last, result, pred);
+	}
+
+	template< typename Result, typename InputIterator,typename Predicate>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	copy_while(InputIterator first, InputIterator last, Predicate pred) {
+		return sprout::fixed::copy_while<Result>(first, last, pred);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_COPY_WHILE_HPP

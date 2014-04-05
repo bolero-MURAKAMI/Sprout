@@ -16,6 +16,8 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -133,7 +135,21 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::swap_element_copy;
+	template<
+		typename ForwardIterator, typename Result,
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	swap_element_copy(ForwardIterator first, ForwardIterator last, Result const& result, ForwardIterator pos1, ForwardIterator pos2) {
+		typedef typename std::iterator_traits<ForwardIterator>::iterator_category* category;
+		return sprout::fixed::detail::swap_element_copy(first, last, result, pos1, pos2, category());
+	}
+
+	template<typename Result, typename ForwardIterator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	swap_element_copy(ForwardIterator first, ForwardIterator last, ForwardIterator pos1, ForwardIterator pos2) {
+		return sprout::fixed::swap_element_copy(first, last, sprout::pit<Result>(), pos1, pos2);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_FIXED_SWAP_ELEMENT_COPY_HPP
