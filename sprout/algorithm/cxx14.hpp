@@ -62,9 +62,8 @@
 #include <sprout/algorithm/cxx14/copy_while.hpp>
 #include <sprout/algorithm/cxx14/copy_until.hpp>
 #include <sprout/algorithm/cxx14/clamp_range.hpp>
-//#include <sprout/algorithm/cxx14/bogo_sort.hpp>
-//#include <sprout/algorithm/cxx14/bogo_sort_result.hpp>
-//#include <sprout/algorithm/cxx14/bozo_sort.hpp>
-//#include <sprout/algorithm/cxx14/bozo_sort_result.hpp>
+#include <sprout/algorithm/fixed/random_swap.hpp>
+#include <sprout/algorithm/cxx14/bogo_sort.hpp>
+#include <sprout/algorithm/cxx14/bozo_sort.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_CXX14_HPP
