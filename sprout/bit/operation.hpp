@@ -13,8 +13,8 @@
 #include <sprout/bit/count.hpp>
 #include <sprout/bit/rightmost.hpp>
 #include <sprout/bit/reverse.hpp>
-//#include <sprout/bit/single.hpp>
-//#include <sprout/bit/range.hpp>
+#include <sprout/bit/single.hpp>
+#include <sprout/bit/range.hpp>
 //#include <sprout/bit/pow2.hpp>
 //#include <sprout/bit/saturated.hpp>
 //#include <sprout/bit/align.hpp>
