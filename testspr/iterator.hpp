@@ -15,6 +15,8 @@
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/is_convert_constructible.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 
 namespace testspr {
 	//
@@ -47,11 +49,11 @@ namespace testspr {
 		explicit SPROUT_CONSTEXPR reduct_iterator(iterator_type it)
 			: current(it)
 		{}
-		template<typename U, typename V>
+		template<typename U, typename V, typename sprout::enabler_if<sprout::is_convert_constructible<Iterator, U>::value>::type = sprout::enabler>
 		SPROUT_CONSTEXPR reduct_iterator(reduct_iterator<U, V> const& it)
 			: current(it.base())
 		{}
-		template<typename U, typename V>
+		template<typename U, typename V, typename sprout::enabler_if<sprout::is_convert_constructible<Iterator, U>::value>::type = sprout::enabler>
 		reduct_iterator& operator=(reduct_iterator<U, V> const& it) {
 			reduct_iterator temp(it);
 			temp.swap(*this);

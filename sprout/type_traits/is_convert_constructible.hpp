@@ -21,8 +21,7 @@ namespace sprout {
 		template<typename T>
 		struct is_convert_constructible_test {
 		public:
-			template<typename To = T>
-			static sprout::true_type test(To);
+			static sprout::true_type test(T);
 			static sprout::false_type test(...);
 		};
 	}	// namespace detail
@@ -32,8 +31,8 @@ namespace sprout {
 	{};
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
-	template<typename T>
-	SPROUT_STATIC_CONSTEXPR bool is_convert_constructible_v = sprout::is_convert_constructible<T>::value;
+	template<typename T, typename Arg>
+	SPROUT_STATIC_CONSTEXPR bool is_convert_constructible_v = sprout::is_convert_constructible<T, Arg>::value;
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
