@@ -58,6 +58,7 @@
 //#include <sprout/algorithm/cxx14/sort_heap.hpp>
 //#include <sprout/algorithm/cxx14/next_permutation.hpp>
 //#include <sprout/algorithm/cxx14/prev_permutation.hpp>
+#include <sprout/algorithm/cxx14/sample.hpp>
 //#include <sprout/algorithm/cxx14/copy_while.hpp>
 //#include <sprout/algorithm/cxx14/copy_until.hpp>
 //#include <sprout/algorithm/cxx14/clamp_range.hpp>
