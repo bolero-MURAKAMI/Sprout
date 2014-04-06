@@ -40,7 +40,7 @@ namespace sprout {
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	namespace tuples {
 		template<typename T>
-		SPROUT_STATIC_CONSTEXPR bool is_tuple_v = sprout::tuples::is_tuple_v<T>::value;
+		SPROUT_STATIC_CONSTEXPR bool is_tuple_v = sprout::tuples::is_tuple<T>::value;
 	}	// namespace tuples
 
 	using sprout::tuples::is_tuple;

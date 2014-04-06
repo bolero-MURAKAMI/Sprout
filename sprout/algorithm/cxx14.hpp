@@ -46,8 +46,8 @@
 #include <sprout/algorithm/cxx14/partial_sort.hpp>
 #include <sprout/algorithm/cxx14/partial_sort_copy.hpp>
 #include <sprout/algorithm/cxx14/nth_element.hpp>
-//#include <sprout/algorithm/cxx14/merge.hpp>
-//#include <sprout/algorithm/cxx14/inplace_merge.hpp>
+#include <sprout/algorithm/cxx14/merge.hpp>
+#include <sprout/algorithm/cxx14/inplace_merge.hpp>
 //#include <sprout/algorithm/cxx14/set_union.hpp>
 //#include <sprout/algorithm/cxx14/set_intersection.hpp>
 //#include <sprout/algorithm/cxx14/set_difference.hpp>
