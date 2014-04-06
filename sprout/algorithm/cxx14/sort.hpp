@@ -16,7 +16,6 @@
 #include <sprout/utility/swap.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
-
 namespace sprout {
 	namespace detail {
 		template<typename Compare, typename RandomAccessIterator>
