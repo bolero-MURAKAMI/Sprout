@@ -13,6 +13,8 @@
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
@@ -87,7 +89,6 @@ namespace sprout {
 		adjacent_difference(InputIterator first, InputIterator last, Result const& result) {
 			return sprout::fixed::detail::adjacent_difference_impl(first, last, result, sprout::size(result));
 		}
-
 		template<typename Result, typename InputIterator>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		adjacent_difference(InputIterator first, InputIterator last) {
@@ -162,7 +163,6 @@ namespace sprout {
 		adjacent_difference(InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op) {
 			return sprout::fixed::detail::adjacent_difference_impl(first, last, result, binary_op, sprout::size(result));
 		}
-
 		template<typename Result, typename InputIterator, typename BinaryOperation>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 		adjacent_difference(InputIterator first, InputIterator last, BinaryOperation binary_op) {
@@ -170,7 +170,33 @@ namespace sprout {
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::adjacent_difference;
+	template<
+		typename InputIterator, typename Result,
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	adjacent_difference(InputIterator first, InputIterator last, Result const& result) {
+		return sprout::fixed::adjacent_difference(first, last, result);
+	}
+	template<typename Result, typename InputIterator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	adjacent_difference(InputIterator first, InputIterator last) {
+		return sprout::fixed::adjacent_difference<Result>(first, last);
+	}
+
+	template<
+		typename InputIterator, typename Result, typename BinaryOperation,
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	adjacent_difference(InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op) {
+		return sprout::fixed::adjacent_difference(first, last, result, binary_op);
+	}
+	template<typename Result, typename InputIterator, typename BinaryOperation>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	adjacent_difference(InputIterator first, InputIterator last, BinaryOperation binary_op) {
+		return sprout::fixed::adjacent_difference<Result>(first, last, binary_op);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_NUMERIC_FIXED_ADJACENT_DIFFERENCE_HPP
