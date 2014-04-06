@@ -132,23 +132,32 @@ namespace sprout {
 					return;
 				}
 				do {
+					bool not_sorted_flag = false;
 					if (n_swaps == 0) {
 						if (nth < i) {
 							j = m = first;
 							while (++j != i) {
 								if (comp(*j, *m)) {
+									not_sorted_flag = true;
 									break;
 								}
 								m = j;
+							}
+							if (not_sorted_flag) {
+								break;
 							}
 							return;
 						} else {
 							j = m = i;
 							while (++j != last) {
 								if (comp(*j, *m)) {
+									not_sorted_flag = true;
 									break;
 								}
 								m = j;
+							}
+							if (not_sorted_flag) {
+								break;
 							}
 							return;
 						}
