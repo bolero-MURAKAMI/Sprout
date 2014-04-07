@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/algorithm/fixed/merge.hpp>
 #include <sprout/algorithm/fit/merge.hpp>
+#include <sprout/algorithm/cxx14/merge.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_MERGE_HPP

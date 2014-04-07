@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/algorithm/fixed/next_permutation.hpp>
 #include <sprout/algorithm/fit/next_permutation.hpp>
+#include <sprout/algorithm/cxx14/next_permutation.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_NEXT_PERMUTATION_HPP
