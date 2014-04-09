@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/range/algorithm/fixed.hpp>
 #include <sprout/range/algorithm/fit.hpp>
+#include <sprout/range/algorithm/cxx14.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_ALGORITHM_MODIFYIING_HPP

@@ -18,11 +18,11 @@ namespace sprout {
 	// 25.3.2 Move
 	//
 	template<
-		typename InputIterator, typename OutputIterator,
-		typename sprout::enabler_if<sprout::is_iterator_outputable<OutputIterator>::value>::type = sprout::enabler
+		typename BidirectionalIterator1, typename BidirectionalIterator2,
+		typename sprout::enabler_if<sprout::is_iterator_outputable<BidirectionalIterator2>::value>::type = sprout::enabler
 	>
-	inline SPROUT_CXX14_CONSTEXPR OutputIterator
-	move_backward(InputIterator first, InputIterator last, OutputIterator result) {
+	inline SPROUT_CXX14_CONSTEXPR BidirectionalIterator2
+	move_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 result) {
 		while (first != last) {
 			*--result = sprout::move(*--first);
 		}
