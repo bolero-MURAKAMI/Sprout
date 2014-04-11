@@ -413,6 +413,25 @@ namespace sprout {
 		// nil_expression
 		//
 		class nil_expression {};
+		//
+		// is_nil_expression
+		//
+		template<typename T>
+		struct is_nil_expression
+			: public sprout::false_type
+		{};
+		template<typename T>
+		struct is_nil_expression<T const>
+			: public sprout::io::is_nil_expression<T>
+		{};
+		template<typename T>
+		struct is_nil_expression<T const volatile>
+			: public sprout::io::is_nil_expression<T>
+		{};
+		template<>
+		struct is_nil_expression<sprout::io::nil_expression>
+			: public sprout::true_type
+		{};
 
 		//
 		// root_expression
@@ -432,6 +451,25 @@ namespace sprout {
 				return settings_;
 			}
 		};
+		//
+		// is_root_expression
+		//
+		template<typename T>
+		struct is_root_expression
+			: public sprout::false_type
+		{};
+		template<typename T>
+		struct is_root_expression<T const>
+			: public sprout::io::is_root_expression<T>
+		{};
+		template<typename T>
+		struct is_root_expression<T const volatile>
+			: public sprout::io::is_root_expression<T>
+		{};
+		template<>
+		struct is_root_expression<sprout::io::root_expression>
+			: public sprout::true_type
+		{};
 
 		//
 		// leaf_expression
@@ -452,6 +490,25 @@ namespace sprout {
 				return value_;
 			}
 		};
+		//
+		// is_leaf_expression
+		//
+		template<typename T>
+		struct is_leaf_expression
+			: public sprout::false_type
+		{};
+		template<typename T>
+		struct is_leaf_expression<T const>
+			: public sprout::io::is_leaf_expression<T>
+		{};
+		template<typename T>
+		struct is_leaf_expression<T const volatile>
+			: public sprout::io::is_leaf_expression<T>
+		{};
+		template<typename T>
+		struct is_leaf_expression<sprout::io::leaf_expression<T> >
+			: public sprout::true_type
+		{};
 
 		//
 		// format_expression
@@ -460,43 +517,36 @@ namespace sprout {
 		class format_expression {
 		private:
 			typedef typename std::conditional<
-				std::is_same<Left, sprout::io::root_expression>::value,
+				sprout::io::is_root_expression<Left>::value,
 				Left,
 				Left const&
 			>::type left_held_type;
 			typedef typename std::conditional<
-				std::is_same<Right, sprout::io::nil_expression>::value,
+				sprout::io::is_nil_expression<Right>::value || sprout::io::is_leaf_expression<Right>::value,
 				Right,
 				Right const&
 			>::type right_held_type;
+			typedef sprout::value_holder<left_held_type> left_holder_type;
+			typedef sprout::value_holder<right_held_type> right_holder_type;
 		private:
-			sprout::value_holder<left_held_type> left_;
-			sprout::value_holder<right_held_type> right_;
+			left_holder_type left_;
+			right_holder_type right_;
 		public:
 			SPROUT_CONSTEXPR format_expression()
-				: left_()
-				, right_()
+				: left_(), right_()
 			{}
 			format_expression(format_expression const&) = default;
 			explicit SPROUT_CONSTEXPR format_expression(Left const& left)
-				: left_(left)
+				: left_(left), right_()
 			{}
-			explicit SPROUT_CONSTEXPR format_expression(sprout::value_holder<left_held_type> left)
-				: left_(left)
+			explicit SPROUT_CONSTEXPR format_expression(left_holder_type left)
+				: left_(left), right_()
 			{}
-			SPROUT_CONSTEXPR format_expression(
-				Left const& left,
-				Right const& right
-				)
-				: left_(left)
-				, right_(right)
+			SPROUT_CONSTEXPR format_expression(Left const& left, Right const& right)
+				: left_(left) , right_(right)
 			{}
-			SPROUT_CONSTEXPR format_expression(
-				sprout::value_holder<left_held_type> left,
-				sprout::value_holder<right_held_type> right
-				)
-				: left_(left)
-				, right_(right)
+			SPROUT_CONSTEXPR format_expression(left_holder_type left, right_holder_type right)
+				: left_(left), right_(right)
 			{}
 			SPROUT_CONSTEXPR Left const& left() const {
 				return left_;
@@ -516,6 +566,25 @@ namespace sprout {
 				return sprout::io::output<N, Elem>(*this);
 			}
 		};
+		//
+		// is_format_expression
+		//
+		template<typename T>
+		struct is_format_expression
+			: public sprout::false_type
+		{};
+		template<typename T>
+		struct is_format_expression<T const>
+			: public sprout::io::is_format_expression<T>
+		{};
+		template<typename T>
+		struct is_format_expression<T const volatile>
+			: public sprout::io::is_format_expression<T>
+		{};
+		template<typename Left, typename Right>
+		struct is_format_expression<sprout::io::format_expression<Left, Right> >
+			: public sprout::true_type
+		{};
 
 		//
 		// root_t
