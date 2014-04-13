@@ -8,10 +8,12 @@
 #ifndef SPROUT_BIT_PARITY_HPP
 #define SPROUT_BIT_PARITY_HPP
 
+#include <cstddef>
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/bit/popcount.hpp>
+//#include <sprout/bit/popcount.hpp>
+#include <sprout/bit/shlr.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -29,10 +31,62 @@ namespace sprout {
 			return __builtin_parityll(x);
 		}
 #	endif
+//		template<typename Integral>
+//		inline SPROUT_CONSTEXPR int
+//		parity(Integral x) {
+//			return sprout::popcount(x) & 1;
+//		}
+		template<std::size_t N, typename Integral>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			(N == 1),
+			Integral
+		>::type
+		parity_bytes(Integral x) SPROUT_NOEXCEPT {
+			return x;
+		}
+		template<std::size_t N, typename Integral>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			(N > 1),
+			Integral
+		>::type
+		parity_bytes(Integral x) SPROUT_NOEXCEPT {
+			return sprout::detail::parity_bytes<N / 2>(
+				x ^ sprout::shlr(x, N / 2 * CHAR_BIT)
+				);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR Integral
+		parity_bytes(Integral x) SPROUT_NOEXCEPT {
+			return sprout::detail::parity_bytes<sizeof(Integral)>(x);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR Integral
+		parity_bits4(Integral x) SPROUT_NOEXCEPT {
+			return x ^ sprout::shlr(x, 4);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR Integral
+		parity_bits2(Integral x) SPROUT_NOEXCEPT {
+			return sprout::detail::parity_bits4(
+				x ^ sprout::shlr(x, 2)
+				);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR Integral
+		parity_bits1(Integral x) SPROUT_NOEXCEPT {
+			return sprout::detail::parity_bits2(
+				x ^ sprout::shlr(x, 1)
+				);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR Integral
+		parity_bits(Integral x) SPROUT_NOEXCEPT {
+			return sprout::detail::parity_bits1(x);
+		}
 		template<typename Integral>
 		inline SPROUT_CONSTEXPR int
 		parity(Integral x) {
-			return sprout::popcount(x) & 1;
+			return static_cast<int>(sprout::detail::parity_bytes(sprout::detail::parity_bits(x))) & 1;
 		}
 	}	// namespace detail
 	//

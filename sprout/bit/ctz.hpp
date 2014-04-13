@@ -8,6 +8,7 @@
 #ifndef SPROUT_BIT_CTZ_HPP
 #define SPROUT_BIT_CTZ_HPP
 
+#include <cstddef>
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
