@@ -11,6 +11,9 @@
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/utility/pair/pair.hpp>
+#include <sprout/bit/shlr.hpp>
+#include <sprout/bit/shll.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -28,32 +31,68 @@ namespace sprout {
 			return __builtin_clzll(x);
 		}
 #	endif
+		template<std::size_t N, typename Integral>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			(N == 1),
+			sprout::pair<Integral, int>
+		>::type
+		clz_bytes(sprout::pair<Integral, int> const& xn) SPROUT_NOEXCEPT {
+			return xn;
+		}
+		template<std::size_t N, typename Integral>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			(N > 1),
+			sprout::pair<Integral, int>
+		>::type
+		clz_bytes(sprout::pair<Integral, int> const& xn) SPROUT_NOEXCEPT {
+			typedef sprout::pair<Integral, int> type;
+			return sprout::detail::clz_bytes<N / 2>(
+				sprout::shlr(xn.first, (sizeof(Integral) - N / 2) * CHAR_BIT) ? xn
+					: type(sprout::shll(xn.first, N / 2 * CHAR_BIT), xn.second + N / 2 * CHAR_BIT)
+				);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR sprout::pair<Integral, int>
+		clz_bytes(sprout::pair<Integral, int> const& xn) SPROUT_NOEXCEPT {
+			return sprout::detail::clz_bytes<sizeof(Integral)>(xn);
+		}
 		template<typename Integral>
 		inline SPROUT_CONSTEXPR int
-		clz_non0_impl(Integral x, Integral m = Integral(1) << (CHAR_BIT * sizeof(Integral) - 1)) {
-			return m == 0 || x & m ? 0
-				: 1 + sprout::detail::clz_non0_impl(x, static_cast<Integral>(m >> 1))
-				;
-		}
-		template<typename Integral>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_unsigned<Integral>::value,
-			int
-		>::type
-		clz_non0(Integral x) {
-			return sprout::detail::clz_non0_impl(static_cast<Integral>(x));
-		}
-		template<typename Integral>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_signed<Integral>::value,
-			int
-		>::type
-		clz_non0(Integral x) {
-			return sprout::detail::clz_non0(static_cast<typename std::make_unsigned<Integral>::type>(x));
+		clz_bits1(sprout::pair<Integral, int> const& xn) SPROUT_NOEXCEPT {
+			return xn.second - sprout::shlr(xn.first, sizeof(Integral) * CHAR_BIT - 1);
 		}
 		template<typename Integral>
 		inline SPROUT_CONSTEXPR int
-		clz(Integral x) {
+		clz_bits2(sprout::pair<Integral, int> const& xn) SPROUT_NOEXCEPT {
+			typedef sprout::pair<Integral, int> type;
+			return sprout::detail::clz_bits1(
+				sprout::shlr(xn.first, sizeof(Integral) * CHAR_BIT - 2) ? xn
+					: type(sprout::shll(xn.first, 2), xn.second + 2)
+				);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR int
+		clz_bits4(sprout::pair<Integral, int> const& xn) SPROUT_NOEXCEPT {
+			typedef sprout::pair<Integral, int> type;
+			return sprout::detail::clz_bits2(
+				sprout::shlr(xn.first, sizeof(Integral) * CHAR_BIT - 4) ? xn
+					: type(sprout::shll(xn.first, 4), xn.second + 4)
+				);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR int
+		clz_bits(sprout::pair<Integral, int> const& xn) SPROUT_NOEXCEPT {
+			return sprout::detail::clz_bits4(xn);
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR int
+		clz_non0(Integral x) SPROUT_NOEXCEPT {
+			typedef sprout::pair<Integral, int> type;
+			return sprout::detail::clz_bits(sprout::detail::clz_bytes(type(x, 1)));
+		}
+		template<typename Integral>
+		inline SPROUT_CONSTEXPR int
+		clz(Integral x) SPROUT_NOEXCEPT {
 			return x == 0 ? static_cast<int>(sizeof(x) * CHAR_BIT)
 				: sprout::detail::clz_non0(x)
 				;
@@ -67,7 +106,7 @@ namespace sprout {
 		std::is_integral<Integral>::value,
 		int
 	>::type
-	clz(Integral x) {
+	clz(Integral x) SPROUT_NOEXCEPT {
 		return sprout::detail::clz(x);
 	}
 }	// namespace sprout

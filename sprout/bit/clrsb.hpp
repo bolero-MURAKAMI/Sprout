@@ -30,7 +30,7 @@ namespace sprout {
 #	endif
 		template<typename Integral>
 		inline SPROUT_CONSTEXPR int
-		clrsb(Integral x) {
+		clrsb(Integral x) SPROUT_NOEXCEPT {
 			return sprout::clz(~x);
 		}
 	}	// namespace detail
@@ -42,7 +42,7 @@ namespace sprout {
 		std::is_integral<Integral>::value,
 		int
 	>::type
-	clrsb(Integral x) {
+	clrsb(Integral x) SPROUT_NOEXCEPT {
 		return sprout::detail::clrsb(x);
 	}
 }	// namespace sprout
