@@ -6,7 +6,7 @@
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 #ifndef SPROUT_BIT_ISOLS0B_HPP
-#define SPROUT_BIT_RSTLS0B_HPP
+#define SPROUT_BIT_ISOLS0B_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -25,4 +25,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_BIT_RSTLS0B_HPP
+#endif	// #ifndef SPROUT_BIT_ISOLS0B_HPP
