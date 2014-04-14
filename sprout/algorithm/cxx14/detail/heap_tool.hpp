@@ -59,7 +59,6 @@ namespace sprout {
 			typename std::iterator_traits<RandomAccessIterator>::difference_type len
 			)
 		{
-			typedef typename std::iterator_traits<RandomAccessIterator>::difference_type difference_type;
 			typedef typename std::iterator_traits<RandomAccessIterator>::value_type value_type;
 			if (len > 1) {
 				len = (len - 2) / 2;

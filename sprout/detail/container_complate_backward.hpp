@@ -31,7 +31,7 @@ namespace sprout {
 			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_backward_2(Result const& result, Args const&... args) {
-			return container_complate_backward_2(result, *sprout::prev(sprout::internal_end(result), sizeof...(Args) + 1), args...);
+			return sprout::detail::container_complate_backward_2(result, *sprout::prev(sprout::internal_end(result), sizeof...(Args) + 1), args...);
 		}
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -58,8 +58,8 @@ namespace sprout {
 			)
 		{
 			return remain != 0
-				? container_complate_backward_1(result, remain - 1, args..., *sprout::prev(sprout::internal_end(result), remain))
-				: container_complate_backward_2(result, args...)
+				? sprout::detail::container_complate_backward_1(result, remain - 1, args..., *sprout::prev(sprout::internal_end(result), remain))
+				: sprout::detail::container_complate_backward_2(result, args...)
 				;
 		}
 		template<typename Result, typename... Args>
@@ -76,7 +76,7 @@ namespace sprout {
 			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_backward(Result const& result, Args const&... args) {
-			return container_complate_backward_1(result, sprout::internal_end_offset_backward(result), args...);
+			return sprout::detail::container_complate_backward_1(result, sprout::internal_end_offset_backward(result), args...);
 		}
 	}	// namespace detail
 }	// namespace sprout

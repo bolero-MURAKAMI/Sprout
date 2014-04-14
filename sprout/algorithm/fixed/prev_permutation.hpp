@@ -15,8 +15,14 @@
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/swap_element.hpp>
 #include <sprout/algorithm/fixed/reverse_copy.hpp>
-#include <sprout/algorithm/fixed/reverse.hpp>
-#include <sprout/sub_array/sub_array.hpp>
+#include <sprout/detail/predef.hpp>
+#if SPROUT_GCC_EARLIER(4, 8, 2)
+#	include <sprout/algorithm/fit/reverse_copy.hpp>
+#	include <sprout/range/algorithm/fixed/copy_backward.hpp>
+#else
+#	include <sprout/iterator/reverse_iterator.hpp>
+#	include <sprout/algorithm/fixed/copy_backward.hpp>
+#endif
 #include <sprout/utility/pair/pair.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
@@ -27,7 +33,11 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR Result
 			prev_permutation_impl_4(Container const& cont, Difference d) {
 				return Result(
-					sprout::get_internal(sprout::fixed::reverse(sprout::sub_array<Container const&>(cont, d, sprout::size(cont)))),
+#if SPROUT_GCC_EARLIER(4, 8, 2)
+					sprout::range::fixed::copy_backward(sprout::fit::reverse_copy(sprout::next(sprout::begin(cont), d), sprout::end(cont), cont), cont),
+#else
+					sprout::fixed::copy_backward(sprout::make_reverse_iterator(sprout::end(cont)), sprout::make_reverse_iterator(sprout::next(sprout::begin(cont), d)), cont),
+#endif
 					true
 					);
 			}

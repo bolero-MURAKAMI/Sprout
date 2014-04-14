@@ -148,16 +148,16 @@ fi
 if [ -z "${clang_version}" ]; then
 	clang_version=" "
 fi
-for user_macro in ${user_macros}; do
+for user_macro in ${user_macros[*]}; do
 	define_options="${define_options} -D${user_macro}"
 done
-for include_path in ${include_paths}; do
+for include_path in ${include_paths[*]}; do
 	include_options="${include_options} -I${include_path}"
 done
 all_options="-v -Wall -pedantic ${define_options} ${include_options} ${common_options[*]}"
 vo=0
 vkey=""
-for option in ${compiler_options}; do
+for option in ${compiler_options[*]}; do
 	if [ ${vo} -eq 0 ]; then
 		vkey=${option}
 		vo=1
@@ -166,7 +166,7 @@ for option in ${compiler_options}; do
 		vo=0
 	fi
 done
-for option in ${version_options}; do
+for option in ${version_options[*]}; do
 	if [ ${vo} -eq 0 ]; then
 		vkey=${option}
 		vo=1

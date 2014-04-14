@@ -12,7 +12,6 @@
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
-//#include <sprout/bit/popcount.hpp>
 #include <sprout/bit/shlr.hpp>
 
 namespace sprout {
@@ -31,11 +30,6 @@ namespace sprout {
 			return __builtin_parityll(x);
 		}
 #	endif
-//		template<typename Integral>
-//		inline SPROUT_CONSTEXPR int
-//		parity(Integral x) {
-//			return sprout::popcount(x) & 1;
-//		}
 		template<std::size_t N, typename Integral>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			(N == 1),

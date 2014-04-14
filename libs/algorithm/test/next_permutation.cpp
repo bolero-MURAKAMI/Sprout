@@ -43,35 +43,34 @@ namespace testspr {
 			}
 			// èáóÒ
 			// îÕàÕÇÃêÿÇËèoÇµ
-			// !!!
-//			{
-//				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::next_permutation(
-//					sprout::sub(arr1, 2, 4)
-//					);
-//				TESTSPR_BOTH_ASSERT(testspr::equal(
-//					permutation.first,
-//					array<int, 3>{{2, 4, 3}}
-//					));
-//				TESTSPR_BOTH_ASSERT(testspr::equal(
-//					sprout::get_internal(permutation.first),
-//					array<int, 5>{{1, 2, 4, 3, 5}}
-//					));
-//				TESTSPR_BOTH_ASSERT(permutation.second);
-//			}
-//			{
-//				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::fit::next_permutation(
-//					sprout::sub(arr1, 2, 4)
-//					);
-//				TESTSPR_BOTH_ASSERT(testspr::equal(
-//					permutation.first,
-//					array<int, 3>{{2, 4, 3}}
-//					));
-//				TESTSPR_BOTH_ASSERT(testspr::equal(
-//					sprout::get_internal(permutation.first),
-//					array<int, 5>{{1, 2, 4, 3, 5}}
-//					));
-//				TESTSPR_BOTH_ASSERT(permutation.second);
-//			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::next_permutation(
+					sprout::sub(arr1, 1, 4)
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					permutation.first,
+					array<int, 3>{{2, 4, 3}}
+					));
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get_internal(permutation.first),
+					array<int, 5>{{1, 2, 4, 3, 5}}
+					));
+				TESTSPR_BOTH_ASSERT(permutation.second);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::fit::next_permutation(
+					sprout::sub(arr1, 1, 4)
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					permutation.first,
+					array<int, 3>{{2, 4, 3}}
+					));
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get_internal(permutation.first),
+					array<int, 5>{{1, 2, 4, 3, 5}}
+					));
+				TESTSPR_BOTH_ASSERT(permutation.second);
+			}
 		}
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{1, 2, 3, 4, 5}};
@@ -101,37 +100,36 @@ namespace testspr {
 			}
 			// èáóÒ
 			// îÕàÕÇÃêÿÇËèoÇµ
-			// !!!
-//			{
-//				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::next_permutation(
-//					sprout::sub(arr1, 2, 4),
-//					testspr::less<int>()
-//					);
-//				TESTSPR_BOTH_ASSERT(testspr::equal(
-//					permutation.first,
-//					array<int, 3>{{2, 4, 3}}
-//					));
-//				TESTSPR_BOTH_ASSERT(testspr::equal(
-//					sprout::get_internal(permutation.first),
-//					array<int, 5>{{1, 2, 4, 3, 5}}
-//					));
-//				TESTSPR_BOTH_ASSERT(permutation.second);
-//			}
-//			{
-//				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::fit::next_permutation(
-//					sprout::sub(arr1, 2, 4),
-//					testspr::less<int>()
-//					);
-//				TESTSPR_BOTH_ASSERT(testspr::equal(
-//					permutation.first,
-//					array<int, 3>{{2, 4, 3}}
-//					));
-//				TESTSPR_BOTH_ASSERT(testspr::equal(
-//					sprout::get_internal(permutation.first),
-//					array<int, 5>{{1, 2, 4, 3, 5}}
-//					));
-//				TESTSPR_BOTH_ASSERT(permutation.second);
-//			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::next_permutation(
+					sprout::sub(arr1, 1, 4),
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					permutation.first,
+					array<int, 3>{{2, 4, 3}}
+					));
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get_internal(permutation.first),
+					array<int, 5>{{1, 2, 4, 3, 5}}
+					));
+				TESTSPR_BOTH_ASSERT(permutation.second);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::fit::next_permutation(
+					sprout::sub(arr1, 1, 4),
+					testspr::less<int>()
+					);
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					permutation.first,
+					array<int, 3>{{2, 4, 3}}
+					));
+				TESTSPR_BOTH_ASSERT(testspr::equal(
+					sprout::get_internal(permutation.first),
+					array<int, 5>{{1, 2, 4, 3, 5}}
+					));
+				TESTSPR_BOTH_ASSERT(permutation.second);
+			}
 		}
 	}
 }	// namespace testspr
