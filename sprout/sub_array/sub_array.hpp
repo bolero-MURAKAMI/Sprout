@@ -104,6 +104,41 @@ namespace sprout {
 			>::type to_const_param(holder_type const& arr) {
 				return arr;
 			}
+			template<typename Arr>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				std::is_reference<Arr>::value,
+				internal_type&
+			>::type to_held(holder_type arr) {
+				return *arr;
+			}
+			template<typename Arr>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				!std::is_reference<Arr>::value,
+				internal_type&
+			>::type to_held(holder_type& arr) {
+				return arr;
+			}
+			template<typename Arr>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				!std::is_reference<Arr>::value,
+				internal_type const&
+			>::type to_held(holder_type const& arr) {
+				return arr;
+			}
+			template<typename Arr>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				std::is_reference<Arr>::value,
+				internal_type const&
+			>::type to_const_held(holder_type arr) {
+				return *arr;
+			}
+			template<typename Arr>
+			static SPROUT_CONSTEXPR typename std::enable_if<
+				!std::is_reference<Arr>::value,
+				internal_type const&
+			>::type to_const_held(holder_type const& arr) {
+				return arr;
+			}
 		protected:
 			holder_type array_;
 			impl_difference_type to_first_;
@@ -356,17 +391,17 @@ namespace sprout {
 			}
 		}
 
-		SPROUT_CXX14_CONSTEXPR param_type get_internal() {
-			return impl_type::template to_param<Container>(array_);
+		SPROUT_CXX14_CONSTEXPR internal_type& get_internal() {
+			return impl_type::template to_held<Container>(array_);
 		}
-		SPROUT_CONSTEXPR const_param_type get_internal() const {
-			return impl_type::template to_const_param<Container>(array_);
+		SPROUT_CONSTEXPR internal_type const& get_internal() const {
+			return impl_type::template to_const_held<Container>(array_);
 		}
-		param_type get_array() {
-			return impl_type::template to_param<Container>(array_);
+		SPROUT_CXX14_CONSTEXPR internal_type& get_array() {
+			return impl_type::template to_held<Container>(array_);
 		}
-		SPROUT_CONSTEXPR const_param_type get_array() const {
-			return impl_type::template to_const_param<Container>(array_);
+		SPROUT_CONSTEXPR internal_type const& get_array() const {
+			return impl_type::template to_const_held<Container>(array_);
 		}
 		SPROUT_CONSTEXPR difference_type to_first() const {
 			return to_first_;
