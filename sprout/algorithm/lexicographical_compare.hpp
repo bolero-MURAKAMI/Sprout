@@ -28,7 +28,7 @@ namespace sprout {
 			int found
 			)
 		{
-			return found < 0 || found == 2 && size1 < size2;
+			return found < 0 || (found == 2 && size1 < size2);
 		}
 
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename Compare>

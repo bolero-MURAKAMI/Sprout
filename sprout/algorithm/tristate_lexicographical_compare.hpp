@@ -131,7 +131,7 @@ namespace sprout {
 				: size == 1
 					? !comp(*first2, delim2) && !comp(delim2, *first2)
 						? !comp(*first1, delim1) && !comp(delim1, *first1) ? 0 : 1
-					: !comp(*first1, delim1) && !comp(delim1, *first1) || comp(*first1, *first2)
+					: (!comp(*first1, delim1) && !comp(delim1, *first1)) || comp(*first1, *first2)
 						? -1
 					: comp(*first2, *first1) ? 1 : 2
 				: sprout::detail::tristate_lexicographical_compare_2_impl_ra(
@@ -180,7 +180,7 @@ namespace sprout {
 				: n == 1
 					? !comp(*current.second, delim2) && !comp(delim2, *current.second)
 						? type(!comp(*current.first, delim1) && !comp(delim1, *current.first) ? last1 : current.first, last2)
-					: !comp(*current.first, delim1) && !comp(delim1, *current.first) || comp(*current.first, *current.second)
+					: (!comp(*current.first, delim1) && !comp(delim1, *current.first)) || comp(*current.first, *current.second)
 						? type(last1, current.second)
 					: comp(*current.second, *current.first) ? type(current.first, last2)
 					: type(sprout::next(current.first), sprout::next(current.second))
