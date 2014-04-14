@@ -31,7 +31,7 @@ namespace sprout {
 			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate_2(Result const& result, Args const&... args) {
-			return container_complate_2(result, args..., *sprout::next(sprout::internal_begin(result), sizeof...(Args)));
+			return sprout::detail::container_complate_2(result, args..., *sprout::next(sprout::internal_begin(result), sizeof...(Args)));
 		}
 		template<typename Result, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -58,8 +58,8 @@ namespace sprout {
 			)
 		{
 			return remain != 0
-				? container_complate_1(result, remain - 1, *sprout::next(sprout::internal_begin(result), remain - 1), args...)
-				: container_complate_2(result, args...)
+				? sprout::detail::container_complate_1(result, remain - 1, *sprout::next(sprout::internal_begin(result), remain - 1), args...)
+				: sprout::detail::container_complate_2(result, args...)
 				;
 		}
 		template<typename Result, typename... Args>
@@ -76,7 +76,7 @@ namespace sprout {
 			typename sprout::fixed::results::algorithm<Result>::type
 		>::type
 		container_complate(Result const& result, Args const&... args) {
-			return container_complate_1(result, sprout::internal_begin_offset(result), args...);
+			return sprout::detail::container_complate_1(result, sprout::internal_begin_offset(result), args...);
 		}
 	}	// namespace detail
 }	// namespace sprout
