@@ -19,7 +19,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR int carr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 			SPROUT_STATIC_CONSTEXPR auto arr1 = sprout::to_array(carr);
 			SPROUT_STATIC_CONSTEXPR auto arr2 = sprout::make_array<int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-			SPROUT_STATIC_CONSTEXPR auto arr3 = sprout::make_common_array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+			SPROUT_STATIC_CONSTEXPR auto arr3 = sprout::make_array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
 			TESTSPR_BOTH_ASSERT(testspr::equal(carr, arr1));
 			TESTSPR_BOTH_ASSERT(testspr::equal(carr, arr2));

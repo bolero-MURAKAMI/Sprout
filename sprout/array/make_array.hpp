@@ -17,6 +17,11 @@
 #include <sprout/type_traits/common_decay.hpp>
 
 namespace sprout {
+	namespace detail {
+		enum make_array_t {
+			make_array_in_common_elements
+		};
+	}	// namespace detail
 	//
 	// make_array
 	//
@@ -25,16 +30,15 @@ namespace sprout {
 	make_array(Types&&... args) {
 		return sprout::array<typename std::remove_cv<T>::type, sizeof...(Types)>{{T(SPROUT_FORWARD(Types, args))...}};
 	}
-	// !!! OLD:
-//	template<typename... Types>
-//	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
-//	make_array(Types&&... args) {
-//		typedef sprout::array<
-//			typename sprout::common_decay<Types...>::type,
-//			sizeof...(Types)
-//		> type;
-//		return type{{typename sprout::common_decay<Types...>::type(SPROUT_FORWARD(Types, args))...}};
-//	}
+    template<sprout::detail::make_array_t = sprout::detail::make_array_in_common_elements, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
+	make_array(Types&&... args) {
+		typedef sprout::array<
+			typename sprout::common_decay<Types...>::type,
+			sizeof...(Types)
+		> type;
+		return type{{typename sprout::common_decay<Types...>::type(SPROUT_FORWARD(Types, args))...}};
+	}
 
 	//
 	// make_common_array
@@ -42,11 +46,7 @@ namespace sprout {
 	template<typename... Types>
 	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
 	make_common_array(Types&&... args) {
-		typedef sprout::array<
-			typename sprout::common_decay<Types...>::type,
-			sizeof...(Types)
-		> type;
-		return type{{typename sprout::common_decay<Types...>::type(SPROUT_FORWARD(Types, args))...}};
+		return sprout::make_array(SPROUT_FORWARD(Types, args)...);
 	}
 
 	//
