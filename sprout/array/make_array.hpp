@@ -30,7 +30,7 @@ namespace sprout {
 	make_array(Types&&... args) {
 		return sprout::array<typename std::remove_cv<T>::type, sizeof...(Types)>{{T(SPROUT_FORWARD(Types, args))...}};
 	}
-    template<sprout::detail::make_array_t = sprout::detail::make_array_in_common_elements, typename... Types>
+	template<sprout::detail::make_array_t = sprout::detail::make_array_in_common_elements, typename... Types>
 	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
 	make_array(Types&&... args) {
 		typedef sprout::array<
