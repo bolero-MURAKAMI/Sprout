@@ -51,10 +51,14 @@ namespace sprout {
 					first[j] += first[j1];
 					value_type x3 = first[j3] - first[j2];
 					first[j2] += first[j3];
-					real(first[j1]) = real(x1) - imag(x3);
-					imag(first[j1]) = imag(x1) + real(x3);
-					real(first[j3]) = real(x1) + imag(x3);
-					imag(first[j3]) = imag(x1) - real(x3);
+					first[j1] = value_type(
+						real(x1) - imag(x3),
+						imag(x1) + real(x3)
+						);
+					first[j3] = value_type(
+						real(x1) + imag(x3),
+						imag(x1) - real(x3)
+						);
 				}
 			}
 			if (m == size) {
@@ -73,12 +77,16 @@ namespace sprout {
 					first[j2] += first[j3];
 					elem_type x0r = real(x1) - imag(x3);
 					elem_type x0i = imag(x1) + real(x3);
-					real(first[j1]) = w1r * (x0r + x0i);
-					imag(first[j1]) = w1r * (x0i - x0r);
+					first[j1] = value_type(
+						w1r * (x0r + x0i),
+						w1r * (x0i - x0r)
+						);
 					x0r = real(x1) + imag(x3);
 					x0i = imag(x1) - real(x3);
-					real(first[j3]) = w1r * (-x0r + x0i);
-					imag(first[j3]) = w1r * (-x0i - x0r);
+					first[j3] = value_type(
+						w1r * (-x0r + x0i),
+						w1r * (-x0i - x0r)
+						);
 				}
 			}
 			for (difference_type i = 2 * m; i < size; i += m) {
@@ -99,12 +107,16 @@ namespace sprout {
 						first[j2] += first[j3];
 						elem_type x0r = real(x1) - imag(x3);
 						elem_type x0i = imag(x1) + real(x3);
-						real(first[j1]) = w1r * x0r - w1i * x0i;
-						imag(first[j1]) = w1r * x0i + w1i * x0r;
+						first[j1] = value_type(
+							w1r * x0r - w1i * x0i,
+							w1r * x0i + w1i * x0r
+							);
 						x0r = real(x1) + imag(x3);
 						x0i = imag(x1) - real(x3);
-						real(first[j3]) = w3r * x0r - w3i * x0i;
-						imag(first[j3]) = w3r * x0i + w3i * x0r;
+						first[j3] = value_type(
+							w3r * x0r - w3i * x0i,
+							w3r * x0i + w3i * x0r
+							);
 					}
 				}
 			}

@@ -16,5 +16,6 @@
 #include <sprout/complex/hash.hpp>
 #include <sprout/complex/nearest.hpp>
 #include <sprout/complex/udl.hpp>
+#include <sprout/complex/type_traits.hpp>
 
 #endif	// #ifndef SPROUT_COMPLEX_HPP

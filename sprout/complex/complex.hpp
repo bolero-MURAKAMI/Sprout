@@ -15,9 +15,9 @@ namespace sprout {
 	class complex;
 
 	namespace detail {
-		template<typename T>
-		inline SPROUT_CONSTEXPR T
-		complex_norm(sprout::complex<T> const& x) {
+		template<typename Complex>
+		inline SPROUT_CONSTEXPR typename Complex::value_type
+		complex_norm(Complex const& x) {
 			return x.real() * x.real() + x.imag() * x.imag();
 		}
 	}	// namespace detail

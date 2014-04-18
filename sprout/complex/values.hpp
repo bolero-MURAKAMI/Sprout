@@ -33,12 +33,12 @@ namespace sprout {
 		return x.imag();
 	}
 	template<typename T>
-	inline SPROUT_CXX14_CONSTEXPR T&
+	inline SPROUT_CONSTEXPR T&
 	real(sprout::complex<T>& x) {
 		return x.real();
 	}
 	template<typename T>
-	inline SPROUT_CXX14_CONSTEXPR T&
+	inline SPROUT_CONSTEXPR T&
 	imag(sprout::complex<T>& x) {
 		return x.imag();
 	}
