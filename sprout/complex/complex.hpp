@@ -41,13 +41,19 @@ namespace sprout {
 		SPROUT_CONSTEXPR complex(complex<X> const& other) SPROUT_NOEXCEPT
 			: re_(other.real()), im_(other.imag())
 		{}
-		SPROUT_CONSTEXPR T real() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR T const& real() const SPROUT_NOEXCEPT {
+			return re_;
+		}
+		SPROUT_CXX14_CONSTEXPR T& real() SPROUT_NOEXCEPT {
 			return re_;
 		}
 		SPROUT_CXX14_CONSTEXPR void real(T re) SPROUT_NOEXCEPT {
 			re_ = re;
 		}
-		SPROUT_CONSTEXPR T imag() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR T const& imag() const SPROUT_NOEXCEPT {
+			return im_;
+		}
+		SPROUT_CXX14_CONSTEXPR T& imag() SPROUT_NOEXCEPT {
 			return im_;
 		}
 		SPROUT_CXX14_CONSTEXPR void imag(T im) SPROUT_NOEXCEPT {

@@ -9,6 +9,8 @@
 #define SPROUT_NUMERIC_FFT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/numeric/fft/fft.hpp>
+#include <sprout/numeric/fft/ifft.hpp>
 #include <sprout/numeric/fft/bitrev_table.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_FFT_HPP

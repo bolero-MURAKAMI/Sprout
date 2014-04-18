@@ -23,13 +23,23 @@ namespace sprout {
 
 	// 26.4.7, values:
 	template<typename T>
-	inline SPROUT_CONSTEXPR T
+	inline SPROUT_CONSTEXPR T const&
 	real(sprout::complex<T> const& x) {
 		return x.real();
 	}
 	template<typename T>
-	inline SPROUT_CONSTEXPR T
+	inline SPROUT_CONSTEXPR T const&
 	imag(sprout::complex<T> const& x) {
+		return x.imag();
+	}
+	template<typename T>
+	inline SPROUT_CXX14_CONSTEXPR T&
+	real(sprout::complex<T>& x) {
+		return x.real();
+	}
+	template<typename T>
+	inline SPROUT_CXX14_CONSTEXPR T&
+	imag(sprout::complex<T>& x) {
 		return x.imag();
 	}
 	template<typename T>
