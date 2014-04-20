@@ -15,18 +15,12 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
-#include <sprout/numeric/dft/fixed/sawtooth.hpp>
 #include <sprout/detail/container_complate.hpp>
+#include <sprout/numeric/dft/detail/square.hpp>
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename T>
-			inline SPROUT_CONSTEXPR T
-			square_value(T const& t, T const& d) {
-				return sprout::fixed::detail::sawtooth_value(t) - sprout::fixed::detail::sawtooth_value(t - d);
-			}
-
 			template<typename Container, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			square_impl(
@@ -40,11 +34,10 @@ namespace sprout {
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
-				typedef typename sprout::container_traits<Container>::value_type value_type;
 				return sprout::remake<Container>(
 					cont, size,
 					(Indexes >= offset && Indexes < offset + size
-						? amplitude * sprout::fixed::detail::square_value(frequency * value_type(Indexes) + phase, duty)
+						? sprout::detail::square_value(frequency, amplitude, phase, duty, Indexes)
 						: *sprout::next(sprout::internal_begin(cont), Indexes)
 						)...
 					);

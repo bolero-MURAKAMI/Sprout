@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/algorithm/fit/results.hpp>
 #include <sprout/numeric/dft/fit/amplitude_spectrum.hpp>
+#include <sprout/numeric/dft/fit/phase_spectrum.hpp>
 
 namespace sprout {
 	namespace fit {
@@ -30,7 +31,5 @@ namespace sprout {
 		}
 	}	// namespace fit
 }	// namespace sprout
-
-#include <sprout/numeric/dft/fit/phase_spectrum.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_DFT_FIT_SPECTRUM_HPP

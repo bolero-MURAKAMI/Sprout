@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/numeric/dft/fixed/spectrum.hpp>
 #include <sprout/numeric/dft/fit/spectrum.hpp>
+#include <sprout/numeric/dft/cxx14/spectrum.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_DFT_SPECTRUM_HPP

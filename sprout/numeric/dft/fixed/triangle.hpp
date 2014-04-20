@@ -15,22 +15,12 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
-#include <sprout/math/sin.hpp>
-#include <sprout/math/asin.hpp>
-#include <sprout/math/constants.hpp>
 #include <sprout/detail/container_complate.hpp>
+#include <sprout/numeric/dft/detail/triangle.hpp>
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename T>
-			inline SPROUT_CONSTEXPR T
-			triangle_value(T const& t) {
-				using sprout::sin;
-				using sprout::asin;
-				return T(sprout::math::two_div_pi<double>()) * asin(sin(T(sprout::math::two_pi<double>()) * t));
-			}
-
 			template<typename Container, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			triangle_impl(
@@ -43,11 +33,10 @@ namespace sprout {
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
-				typedef typename sprout::container_traits<Container>::value_type value_type;
 				return sprout::remake<Container>(
 					cont, size,
 					(Indexes >= offset && Indexes < offset + size
-						? amplitude * sprout::fixed::detail::triangle_value(frequency * value_type(Indexes) + phase)
+						? sprout::detail::triangle_value(frequency, amplitude, phase, Indexes)
 						: *sprout::next(sprout::internal_begin(cont), Indexes)
 						)...
 					);

@@ -16,8 +16,8 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
-#include <sprout/numeric/dft/fixed/square.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/numeric/dft/detail/square.hpp>
 
 namespace sprout {
 	//
@@ -106,7 +106,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
 			return amplitude_ == 0 ? 0
-				: amplitude_ * sprout::fixed::detail::square_value(frequency_ * value_type(index_) + phase_, duty_)
+				: sprout::detail::square_value(frequency_, amplitude_, phase_, duty_, index_)
 				;
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
@@ -148,7 +148,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return amplitude_ == 0 ? 0
-				: amplitude_ * sprout::fixed::detail::square_value(frequency_ * value_type(index_ + n) + phase_, duty_)
+				: sprout::detail::square_value(frequency_, amplitude_, phase_, duty_, index_ + n)
 				;
 		}
 		SPROUT_CONSTEXPR square_iterator next() const {

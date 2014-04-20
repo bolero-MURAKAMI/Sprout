@@ -15,19 +15,12 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
-#include <sprout/math/floor.hpp>
 #include <sprout/detail/container_complate.hpp>
+#include <sprout/numeric/dft/detail/sawtooth.hpp>
 
 namespace sprout {
 	namespace fixed {
 		namespace detail {
-			template<typename T>
-			inline SPROUT_CONSTEXPR T
-			sawtooth_value(T const& t) {
-				using sprout::floor;
-				return 2 * (t - floor(t + T(0.5)));
-			}
-
 			template<typename Container, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Container>::type
 			sawtooth_impl(
@@ -40,11 +33,10 @@ namespace sprout {
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
-				typedef typename sprout::container_traits<Container>::value_type value_type;
 				return sprout::remake<Container>(
 					cont, size,
 					(Indexes >= offset && Indexes < offset + size
-						? amplitude * sprout::fixed::detail::sawtooth_value(frequency * value_type(Indexes) + phase)
+						? sprout::detail::sawtooth_value(frequency, amplitude, phase, Indexes)
 						: *sprout::next(sprout::internal_begin(cont), Indexes)
 						)...
 					);

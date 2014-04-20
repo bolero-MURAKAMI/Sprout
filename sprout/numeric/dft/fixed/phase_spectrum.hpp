@@ -17,6 +17,8 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/phase_spectrum_iterator.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/math/less.hpp>
@@ -60,26 +62,26 @@ namespace sprout {
 					);
 			}
 
-			template<typename ForwardIterator, typename Result, typename... Args>
+			template<typename InputIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			phase_spectrum_impl(
-				ForwardIterator, ForwardIterator, Result const& result,
+				InputIterator, InputIterator, Result const& result,
 				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
 			{
 				return sprout::remake<Result>(result, sprout::size(result), args...);
 			}
-			template<typename ForwardIterator, typename Result, typename... Args>
+			template<typename InputIterator, typename Result, typename... Args>
 			inline SPROUT_CONSTEXPR typename std::enable_if<
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			phase_spectrum_impl(
-				ForwardIterator first, ForwardIterator last, Result const& result,
+				InputIterator first, InputIterator last, Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -92,10 +94,10 @@ namespace sprout {
 					: sprout::detail::container_complate(result, args...)
 					;
 			}
-			template<typename ForwardIterator, typename Result>
+			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			phase_spectrum(
-				ForwardIterator first, ForwardIterator last, Result const& result,
+				InputIterator first, InputIterator last, Result const& result,
 				std::forward_iterator_tag*
 				)
 			{
@@ -134,14 +136,27 @@ namespace sprout {
 			return sprout::fixed::detail::phase_spectrum(first, last, result);
 		}
 
-		template<typename Result, typename ForwardIterator>
+		template<typename Result, typename InputIterator>
 		inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
-		phase_spectrum(ForwardIterator first, ForwardIterator last) {
+		phase_spectrum(InputIterator first, InputIterator last) {
 			return sprout::fixed::phase_spectrum(first, last, sprout::pit<Result>());
 		}
 	}	// namespace fixed
 
-	using sprout::fixed::phase_spectrum;
+	template<
+		typename InputIterator, typename Result,
+		typename sprout::enabler_if<!sprout::is_iterator_outputable<Result>::value>::type = sprout::enabler
+	>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	phase_spectrum(InputIterator first, InputIterator last, Result const& result) {
+		return sprout::fixed::phase_spectrum(first, last, result);
+	}
+
+	template<typename Result, typename InputIterator>
+	inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
+	phase_spectrum(InputIterator first, InputIterator last) {
+		return sprout::fixed::phase_spectrum<Result>(first, last);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_NUMERIC_DFT_FIXED_PHASE_SPECTRUM_HPP

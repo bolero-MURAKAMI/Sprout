@@ -16,8 +16,8 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
-#include <sprout/numeric/dft/fixed/sawtooth.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/numeric/dft/detail/sawtooth.hpp>
 
 namespace sprout {
 	//
@@ -97,7 +97,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
 			return amplitude_ == 0 ? 0
-				: amplitude_ * sprout::fixed::detail::sawtooth_value(frequency_ * value_type(index_) + phase_)
+				: sprout::detail::sawtooth_value(frequency_, amplitude_, phase_, index_)
 				;
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
@@ -139,7 +139,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
 			return amplitude_ == 0 ? 0
-				: amplitude_ * sprout::fixed::detail::sawtooth_value(frequency_ * value_type(index_ + n) + phase_)
+				: sprout::detail::sawtooth_value(frequency_, amplitude_, phase_, index_ + n)
 				;
 		}
 		SPROUT_CONSTEXPR sawtooth_iterator next() const {

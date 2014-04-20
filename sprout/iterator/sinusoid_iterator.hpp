@@ -16,9 +16,8 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
-#include <sprout/math/constants.hpp>
-#include <sprout/math/sin.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/numeric/dft/detail/sinusoid.hpp>
 
 namespace sprout {
 	//
@@ -60,7 +59,7 @@ namespace sprout {
 			, frequency_(1)
 			, amplitude_(1)
 			, phase_(0)
-			, d_(sprout::math::two_pi<value_type>())
+			, d_(sprout::detail::sinusoid_value_d(frequency_))
 		{}
 		sinusoid_iterator(sinusoid_iterator const&) = default;
 		explicit SPROUT_CONSTEXPR sinusoid_iterator(
@@ -73,7 +72,7 @@ namespace sprout {
 			, frequency_(frequency)
 			, amplitude_(amplitude)
 			, phase_(phase)
-			, d_(sprout::math::two_pi<value_type>() * frequency)
+			, d_(sprout::detail::sinusoid_value_d(frequency_))
 		{}
 		template<typename U>
 		SPROUT_CONSTEXPR sinusoid_iterator(sinusoid_iterator<U> const& it)
@@ -102,9 +101,8 @@ namespace sprout {
 			return phase_;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
-			using sprout::sin;
 			return amplitude_ == 0 ? 0
-				: amplitude_ * sin(d_ * value_type(index_) + phase_)
+				: sprout::detail::sinusoid_value(amplitude_, phase_, d_, index_)
 				;
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
@@ -145,9 +143,8 @@ namespace sprout {
 			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
-			using sprout::sin;
 			return amplitude_ == 0 ? 0
-				: amplitude_ * sin(d_ * value_type(index_ + n) + phase_)
+				: sprout::detail::sinusoid_value(amplitude_, phase_, d_, index_ + n)
 				;
 		}
 		SPROUT_CONSTEXPR sinusoid_iterator next() const {

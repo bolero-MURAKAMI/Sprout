@@ -15,9 +15,8 @@
 #include <sprout/container/indexes.hpp>
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
-#include <sprout/math/constants.hpp>
-#include <sprout/math/sin.hpp>
 #include <sprout/detail/container_complate.hpp>
+#include <sprout/numeric/dft/detail/sinusoid.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -35,11 +34,10 @@ namespace sprout {
 				)
 			{
 				typedef typename sprout::container_traits<Container>::value_type value_type;
-				using sprout::sin;
 				return sprout::remake<Container>(
 					cont, size,
 					(Indexes >= offset && Indexes < offset + size
-						? amplitude * sin(d * value_type(Indexes) + phase)
+						? sprout::detail::sinusoid_value(amplitude, phase, d, Indexes)
 						: *sprout::next(sprout::internal_begin(cont), Indexes)
 						)...
 					);
@@ -56,7 +54,7 @@ namespace sprout {
 				typedef typename sprout::container_traits<Container>::value_type value_type;
 				return sprout::fixed::detail::sinusoid_impl(
 					cont,
-					sprout::math::two_pi<value_type>() * frequency / value_type(sprout::size(cont)),
+					sprout::detail::sinusoid_value_d(frequency, sprout::size(cont)),
 					amplitude,
 					phase,
 					sprout::container_indexes<Container>::make(),
