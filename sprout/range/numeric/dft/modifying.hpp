@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/range/numeric/dft/fixed.hpp>
 #include <sprout/range/numeric/dft/fit.hpp>
+#include <sprout/range/numeric/dft/cxx14.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_NUMERIC_DFT_MODIFYIING_HPP

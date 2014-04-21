@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/range/algorithm/fixed/set_difference.hpp>
 #include <sprout/range/algorithm/fit/set_difference.hpp>
+#include <sprout/range/algorithm/cxx14/set_difference.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_ALGORITHM_SET_DIFFERENCE_HPP

@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
+#include <sprout/utility/forward.hpp>
 #include <sprout/numeric/cxx14/iota.hpp>
 
 namespace sprout {
@@ -19,8 +20,8 @@ namespace sprout {
 		//
 		template<typename ForwardRange, typename T>
 		inline SPROUT_CXX14_CONSTEXPR void
-		iota(ForwardRange const& rng, T value) {
-			sprout::iota(sprout::begin(rng), sprout::end(rng), value);
+		iota(ForwardRange&& rng, T value) {
+			sprout::iota(sprout::begin(SPROUT_FORWARD(ForwardRange, rng)), sprout::end(SPROUT_FORWARD(ForwardRange, rng)), value);
 		}
 	}	// namespace range
 }	// namespace sprout

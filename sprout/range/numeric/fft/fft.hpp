@@ -1,0 +1,29 @@
+/*=============================================================================
+  Copyright (c) 2011-2014 Bolero MURAKAMI
+  https://github.com/bolero-MURAKAMI/Sprout
+
+  Distributed under the Boost Software License, Version 1.0. (See accompanying
+  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+=============================================================================*/
+#ifndef SPROUT_RANGE_NUMERIC_FFT_FFT_HPP
+#define SPROUT_RANGE_NUMERIC_FFT_FFT_HPP
+
+#include <sprout/config.hpp>
+#include <sprout/container/functions.hpp>
+#include <sprout/utility/forward.hpp>
+#include <sprout/numeric/fft/fft.hpp>
+
+namespace sprout {
+	namespace range {
+		//
+		// fft
+		//
+		template<typename RandomAccessRange>
+		inline SPROUT_CONSTEXPR void
+		fft(RandomAccessRange&& rng) {
+			sprout::fft(sprout::begin(SPROUT_FORWARD(RandomAccessRange, rng)), sprout::end(SPROUT_FORWARD(RandomAccessRange, rng)));
+		}
+	}	// namespace range
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_RANGE_NUMERIC_FFT_FFT_HPP
