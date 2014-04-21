@@ -33,7 +33,6 @@ namespace sprout {
 				typename sprout::container_traits<Container>::size_type size
 				)
 			{
-				typedef typename sprout::container_traits<Container>::value_type value_type;
 				return sprout::remake<Container>(
 					cont, size,
 					(Indexes >= offset && Indexes < offset + size
@@ -51,7 +50,6 @@ namespace sprout {
 				typename sprout::container_traits<Container>::value_type const& phase
 				)
 			{
-				typedef typename sprout::container_traits<Container>::value_type value_type;
 				return sprout::fixed::detail::sinusoid_impl(
 					cont,
 					sprout::detail::sinusoid_value_d(frequency, sprout::size(cont)),

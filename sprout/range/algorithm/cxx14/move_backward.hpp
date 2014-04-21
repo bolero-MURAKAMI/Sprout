@@ -6,7 +6,7 @@
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 #ifndef SPROUT_RANGE_ALGORITHM_CXX14_MOVE_BACKWARD_HPP
-#define SPROUT_RANGE_ALGORITHM_CXX14_COPY_BACKWARD_HPP
+#define SPROUT_RANGE_ALGORITHM_CXX14_MOVE_BACKWARD_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/container/functions.hpp>
@@ -30,4 +30,4 @@ namespace sprout {
 	}	// namespace range
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_RANGE_ALGORITHM_CXX14_COPY_BACKWARD_HPP
+#endif	// #ifndef SPROUT_RANGE_ALGORITHM_CXX14_MOVE_BACKWARD_HPP
