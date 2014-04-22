@@ -18,19 +18,6 @@
 
 namespace sprout {
 	namespace detail {
-		inline SPROUT_CONSTEXPR unsigned char const*
-		memchr_impl(unsigned char const* found, unsigned char const* last) {
-			return found == last ? nullptr
-				: found
-				;
-		}
-		inline SPROUT_CONSTEXPR unsigned char*
-		memchr_impl(unsigned char* found, unsigned char* last) {
-			return found == last ? nullptr
-				: found
-				;
-		}
-
 		template<typename T>
 		struct memchr_result {
 		private:
@@ -40,6 +27,27 @@ namespace sprout {
 		public:
 			typedef decltype(check(std::declval<T>())) type;
 		};
+
+		template<typename PtrIterator>
+		inline SPROUT_CONSTEXPR PtrIterator
+		memchr_impl(PtrIterator found, PtrIterator last) {
+			return found == last ? nullptr
+				: found
+				;
+		}
+		template<typename PtrIterator, typename T>
+		inline SPROUT_CONSTEXPR PtrIterator
+		memchr(PtrIterator s, T c, std::size_t n) {
+			return sprout::detail::memchr_impl(
+				sprout::ptr_unindex(
+					sprout::find(
+						sprout::ptr_index(s), sprout::ptr_index(s, n),
+						c
+						)
+					),
+				s + n
+				);
+		}
 	}	// namespace detail
 
 	// 7.21.5.1 memchr ä÷êî
@@ -50,28 +58,12 @@ namespace sprout {
 #if 0
 	inline SPROUT_CONSTEXPR void const*
 	memchr(void const* s, int c, std::size_t n) {
-		return sprout::detail::memchr_impl(
-			sprout::ptr_unindex(
-				sprout::find(
-					sprout::ptr_index(static_cast<unsigned char const*>(s)), sprout::ptr_index(static_cast<unsigned char const*>(s), n),
-					static_cast<unsigned char>(c)
-					)
-				),
-			static_cast<unsigned char const*>(s) + n
-			);
+		return sprout::detail::memchr(static_cast<unsigned char const*>(s), static_cast<unsigned char>(c), n);
 	}
 
 	inline SPROUT_CONSTEXPR void*
 	memchr(void* s, int c, std::size_t n) {
-		return sprout::detail::memchr_impl(
-			sprout::ptr_unindex(
-				sprout::find(
-					sprout::ptr_index(static_cast<unsigned char*>(s)), sprout::ptr_index(static_cast<unsigned char*>(s), n),
-					static_cast<unsigned char>(c)
-					)
-				),
-			static_cast<unsigned char*>(s) + n
-			);
+		return sprout::detail::memchr(static_cast<unsigned char*>(s), static_cast<unsigned char>(c), n);
 	}
 #endif
 	template<
@@ -80,15 +72,7 @@ namespace sprout {
 	>
 	inline SPROUT_CONSTEXPR void const*
 	memchr(T s, int c, std::size_t n) {
-		return sprout::detail::memchr_impl(
-			sprout::ptr_unindex(
-				sprout::find(
-					sprout::ptr_index(static_cast<unsigned char const*>(s)), sprout::ptr_index(static_cast<unsigned char const*>(s), n),
-					static_cast<unsigned char>(c)
-					)
-				),
-			static_cast<unsigned char const*>(s) + n
-			);
+		return sprout::detail::memchr(static_cast<unsigned char const*>(s), static_cast<unsigned char>(c), n);
 	}
 
 	template<
@@ -97,15 +81,7 @@ namespace sprout {
 	>
 	inline SPROUT_CONSTEXPR void*
 	memchr(T s, int c, std::size_t n) {
-		return sprout::detail::memchr_impl(
-			sprout::ptr_unindex(
-				sprout::find(
-					sprout::ptr_index(static_cast<unsigned char*>(s)), sprout::ptr_index(static_cast<unsigned char*>(s), n),
-					static_cast<unsigned char>(c)
-					)
-				),
-			static_cast<unsigned char*>(s) + n
-			);
+		return sprout::detail::memchr(static_cast<unsigned char*>(s), static_cast<unsigned char>(c), n);
 	}
 }	// namespace sprout
 

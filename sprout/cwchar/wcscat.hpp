@@ -5,23 +5,20 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_CWCHAR_WMEMCMP_HPP
-#define SPROUT_CWCHAR_WMEMCMP_HPP
+#ifndef SPROUT_CSTRING_WCSCAT_HPP
+#define SPROUT_CSTRING_WCSCAT_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/cstring/memcmp.hpp>
+#include <sprout/cstring/strcat.hpp>
 
 namespace sprout {
+
+	// 7.24.4.3.1 The wcscat function
 	//
-	// wmemcmp
-	//
-	//	recursion depth:
-	//		O(log(N1+N2))
-	//
-	inline SPROUT_CONSTEXPR int
-	wmemcmp(wchar_t const* s1, wchar_t const* s2, std::size_t n) {
-		return sprout::detail::memcmp(s1, s2, n);
+	inline SPROUT_CXX14_CONSTEXPR wchar_t*
+	wcscat(wchar_t* s1, wchar_t const* s2) {
+		return sprout::strcat(s1, s2);
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_CWCHAR_WMEMCMP_HPP
+#endif	// #ifndef SPROUT_CSTRING_WCSCAT_HPP

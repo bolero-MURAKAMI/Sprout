@@ -9,6 +9,12 @@
 #define SPROUT_CWCHER_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/cwchar/wcscpy.hpp>
+#include <sprout/cwchar/wcsncpy.hpp>
+#include <sprout/cwchar/wmemcpy.hpp>
+#include <sprout/cwchar/wmemmove.hpp>
+#include <sprout/cwchar/wcscat.hpp>
+#include <sprout/cwchar/wcsncat.hpp>
 #include <sprout/cwchar/wmemcmp.hpp>
 #include <sprout/cwchar/wcscmp.hpp>
 #include <sprout/cwchar/wcscoll.hpp>
@@ -21,5 +27,6 @@
 #include <sprout/cwchar/wcsspn.hpp>
 #include <sprout/cwchar/wcsstr.hpp>
 #include <sprout/cwchar/wcslen.hpp>
+#include <sprout/cwchar/wmemset.hpp>
 
 #endif	// #ifndef SPROUT_CWCHER_HPP

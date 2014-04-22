@@ -14,6 +14,7 @@
 #include <sprout/cstring/strcmp.hpp>
 
 namespace sprout {
+
 	// 7.21.4.3 strcoll ä÷êî
 	//
 	//	recursion depth:

@@ -19,7 +19,7 @@ namespace sprout {
 		// ifft
 		//
 		template<typename RandomAccessRange>
-		inline SPROUT_CONSTEXPR void
+		inline SPROUT_CXX14_CONSTEXPR void
 		ifft(RandomAccessRange&& rng) {
 			sprout::ifft(sprout::begin(SPROUT_FORWARD(RandomAccessRange, rng)), sprout::end(SPROUT_FORWARD(RandomAccessRange, rng)));
 		}

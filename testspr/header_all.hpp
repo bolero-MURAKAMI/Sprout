@@ -62,6 +62,7 @@
 #include <sprout/range/algorithm.hpp>
 #include <sprout/range/numeric.hpp>
 #include <sprout/range/numeric/dft.hpp>
+#include <sprout/range/numeric/fft.hpp>
 #include <sprout/string.hpp>
 #include <sprout/sub_array.hpp>
 #include <sprout/tpp/algorithm.hpp>
