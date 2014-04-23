@@ -18,7 +18,7 @@ namespace sprout {
 			OutputCStrIterator result = s1;
 			while (*s1++)
 				;
-			while (*s1++ = *s2++)
+			while ((*s1++ = *s2++))
 				;
 			return result;
 		}

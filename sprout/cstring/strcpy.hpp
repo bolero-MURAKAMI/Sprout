@@ -16,7 +16,7 @@ namespace sprout {
 		inline SPROUT_CXX14_CONSTEXPR OutputCStrIterator
 		strcpy(OutputCStrIterator s1, CStrIterator s2) {
 			OutputCStrIterator result = s1;
-			while (*s1++ = *s2++)
+			while ((*s1++ = *s2++))
 				;
 			return result;
 		}
