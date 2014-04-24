@@ -10,6 +10,7 @@
 
 #include <climits>
 #include <cfloat>
+#include <cmath>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/math/detail/config.hpp>
