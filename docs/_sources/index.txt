@@ -49,7 +49,7 @@ Supported Compilers
 Linux:
 
 * GCC, C++11 mode: 4.7.0, 4.7.1, 4.7.2, 4.7.3, 4.8.0, 4.8.1, 4.8.2
-* Clang, C++11 mode: 3.2, 3.3
+* Clang, C++11 mode: 3.2, 3.3, 3.4
 
 .. _sprout-author:
 *******************************************************************************
@@ -64,7 +64,7 @@ Author
 Copyrights
 *******************************************************************************
 
-| Copyright (C) 2011-2013 Bolero MURAKAMI.
+| Copyright (C) 2011-2014 Bolero MURAKAMI.
 | Distributed under the Boost Software License, Version 1.0.
 | (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) 
 

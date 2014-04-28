@@ -111,7 +111,11 @@
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
-<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">sprout</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Types</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">sprout</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_cv</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Types</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="n">make_array</span><span class="p">(</span><span class="n">Types</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">);</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="cm">/*implementation-defined*/</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">SPROUT_CONSTEXPR</span> <span class="n">sprout</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">sprout</span><span class="o">::</span><span class="n">common_decay</span><span class="o">&lt;</span><span class="n">Types</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Types</span><span class="p">)</span><span class="o">&gt;</span>
 <span class="n">make_array</span><span class="p">(</span><span class="n">Types</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -125,7 +129,8 @@
 <div class="section" id="remarks">
 <h2>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">This function needs to be specified in the template parameters explicitly type T of the elements in the array.</div>
+<div class="line">A first version needs to be specified in the template parameters explicitly type T of the elements in the array.</div>
+<div class="line">And, the type of the elements in the array is a decayed common type of all arguments in the second version.</div>
 </div>
 </div>
 <div class="section" id="examples">
@@ -176,7 +181,7 @@
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2013, Bolero MURAKAMI.
+        &copy; Copyright 2013-2014, Bolero MURAKAMI.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
