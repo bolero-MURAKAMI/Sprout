@@ -8,8 +8,8 @@
 #ifndef SPROUT_STRING_SHRINK_HPP
 #define SPROUT_STRING_SHRINK_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/string.hpp>

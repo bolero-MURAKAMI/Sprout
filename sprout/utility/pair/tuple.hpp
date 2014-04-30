@@ -8,8 +8,8 @@
 #ifndef SPROUT_UTILITY_PAIR_TUPLE_HPP
 #define SPROUT_UTILITY_PAIR_TUPLE_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/type_traits/integral_constant.hpp>

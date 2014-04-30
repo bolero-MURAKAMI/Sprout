@@ -8,10 +8,10 @@
 #ifndef SPROUT_ENDIAN_TRAITS_HPP
 #define SPROUT_ENDIAN_TRAITS_HPP
 
-#include <cstddef>
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	namespace detail {

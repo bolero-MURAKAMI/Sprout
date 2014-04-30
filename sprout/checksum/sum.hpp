@@ -8,11 +8,11 @@
 #ifndef SPROUT_CHECKSUM_SUM_HPP
 #define SPROUT_CHECKSUM_SUM_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>

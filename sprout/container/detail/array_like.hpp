@@ -8,8 +8,8 @@
 #ifndef SPROUT_CONTAINER_DETAIL_ARRAY_LIKE_HPP
 #define SPROUT_CONTAINER_DETAIL_ARRAY_LIKE_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {

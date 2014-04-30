@@ -8,11 +8,11 @@
 #ifndef SPROUT_UUID_STRING_GENERATOR_HPP
 #define SPROUT_UUID_STRING_GENERATOR_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <iterator>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string.hpp>
 #include <sprout/uuid/uuid.hpp>
 #include <sprout/uuid/detail/table.hpp>

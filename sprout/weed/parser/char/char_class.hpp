@@ -8,8 +8,8 @@
 #ifndef SPROUT_WEED_PARSER_CHAR_CHAR_CLASS_HPP
 #define SPROUT_WEED_PARSER_CHAR_CHAR_CLASS_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/ctype/ascii.hpp>
 #include <sprout/type_traits/identity.hpp>

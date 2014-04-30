@@ -8,8 +8,8 @@
 #ifndef SPROUT_RANDOM_DETAIL_GENERATOR_BITS_HPP
 #define SPROUT_RANDOM_DETAIL_GENERATOR_BITS_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 
 namespace sprout {

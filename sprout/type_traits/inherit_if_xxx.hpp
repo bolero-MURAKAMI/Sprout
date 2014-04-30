@@ -8,14 +8,14 @@
 #ifndef SPROUT_TYPE_TRAITS_INHERIT_IF_XXX_HPP
 #define SPROUT_TYPE_TRAITS_INHERIT_IF_XXX_HPP
 
-#if defined(_MSC_VER)
-#	include <cstddef>
-#endif
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/preprocessor/cat.hpp>
 #include <sprout/preprocessor/some_number.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
+#if defined(_MSC_VER)
+#	include <sprout/workaround/std/cstddef.hpp>
+#endif
 
 //
 // SPROUT_INHERIT_ALIAS_IF_XXX_TYPE_DEF

@@ -8,13 +8,13 @@
 /*
   requires: OpenCV (http://opencv.jp/)
 */
-#include <cstddef>
 #include <iostream>
 #include <iomanip>
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include <opencv/cv.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 int main(int argc, char* argv[]) {
 	if (argc < 2) {

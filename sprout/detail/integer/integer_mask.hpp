@@ -8,9 +8,9 @@
 #ifndef SPROUT_DETAIL_INTEGER_INTEGER_MASK_HPP
 #define SPROUT_DETAIL_INTEGER_INTEGER_MASK_HPP
 
-#include <cstddef>
 #include <climits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/detail/integer.hpp>
 

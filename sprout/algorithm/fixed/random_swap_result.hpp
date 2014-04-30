@@ -8,9 +8,9 @@
 #ifndef SPROUT_ALGORITHM_FIXED_RANDOM_SWAP_RESULT_HPP
 #define SPROUT_ALGORITHM_FIXED_RANDOM_SWAP_RESULT_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>

@@ -8,8 +8,8 @@
 #ifndef SPROUT_OPERATION_FIT_POP_BACK_HPP
 #define SPROUT_OPERATION_FIT_POP_BACK_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/pop_back.hpp>

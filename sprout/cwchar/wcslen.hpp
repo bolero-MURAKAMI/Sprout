@@ -8,8 +8,8 @@
 #ifndef SPROUT_CWCHAR_WCSLEN_HPP
 #define SPROUT_CWCHAR_WCSLEN_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/cstring/strlen.hpp>
 
 namespace sprout {

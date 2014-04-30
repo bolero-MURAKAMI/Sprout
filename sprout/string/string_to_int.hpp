@@ -8,11 +8,11 @@
 #ifndef SPROUT_STRING_STRING_TO_INT_HPP
 #define SPROUT_STRING_STRING_TO_INT_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <string>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/cstdlib/str_to_int.hpp>
 #include <sprout/type_traits/enabler_if.hpp>

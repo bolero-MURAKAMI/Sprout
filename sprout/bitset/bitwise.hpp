@@ -8,8 +8,8 @@
 #ifndef SPROUT_BITSET_BITWISE_HPP
 #define SPROUT_BITSET_BITWISE_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/bitset/bitset.hpp>
 
 namespace sprout {

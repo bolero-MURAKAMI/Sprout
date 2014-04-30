@@ -9,7 +9,6 @@
 #define TOOLS_COMPOST_WAVE_IO_HPP
 
 #include <climits>
-#include <cstddef>
 #include <cstdint>
 #include <string>
 #include <algorithm>
@@ -22,6 +21,7 @@
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <linux/soundcard.h>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace toolspr {
 	//

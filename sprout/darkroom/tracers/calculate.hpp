@@ -8,8 +8,8 @@
 #ifndef SPROUT_DARKROOM_TRACERS_CALCULATE_HPP
 #define SPROUT_DARKROOM_TRACERS_CALCULATE_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/darkroom/renderers/calculate.hpp>
 

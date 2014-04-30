@@ -8,7 +8,6 @@
 #ifndef SPROUT_STRING_CONTAINER_HPP
 #define SPROUT_STRING_CONTAINER_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/utility/forward.hpp>
 #include <sprout/string/string.hpp>

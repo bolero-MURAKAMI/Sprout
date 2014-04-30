@@ -8,8 +8,8 @@
 #ifndef SPROUT_WEED_PARSER_AUXILIARY_EOL_HPP
 #define SPROUT_WEED_PARSER_AUXILIARY_EOL_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/unused.hpp>

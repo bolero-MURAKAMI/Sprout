@@ -8,8 +8,8 @@
 #ifndef SPROUT_RANDOM_GENERATE_ARRAY_HPP
 #define SPROUT_RANDOM_GENERATE_ARRAY_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/random/results.hpp>

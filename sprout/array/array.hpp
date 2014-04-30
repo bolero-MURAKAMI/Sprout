@@ -8,11 +8,11 @@
 #ifndef SPROUT_ARRAY_ARRAY_HPP
 #define SPROUT_ARRAY_ARRAY_HPP
 
-#include <cstddef>
 #include <utility>
 #include <type_traits>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>

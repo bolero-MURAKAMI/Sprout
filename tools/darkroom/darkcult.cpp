@@ -56,8 +56,8 @@
 #	define DARKROOM_VARIABLE
 #endif
 
-#include <cstddef>
 #include <iostream>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/darkroom.hpp>
 
 namespace darkcult {

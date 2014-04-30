@@ -8,7 +8,6 @@
 #ifndef SPROUT_CINTTYPES_DIV_HPP
 #define SPROUT_CINTTYPES_DIV_HPP
 
-#include <cstddef>
 #include <cstdlib>
 #include <cstdint>
 #if !defined(_MSC_VER)
@@ -16,6 +15,7 @@
 #endif
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	//

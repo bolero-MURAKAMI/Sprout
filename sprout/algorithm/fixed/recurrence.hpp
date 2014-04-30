@@ -8,9 +8,9 @@
 #ifndef SPROUT_ALGORITHM_FIXED_RECURRENCE_HPP
 #define SPROUT_ALGORITHM_FIXED_RECURRENCE_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>

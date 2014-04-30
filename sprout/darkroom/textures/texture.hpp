@@ -8,8 +8,8 @@
 #ifndef SPROUT_DARKROOM_TEXTURES_TEXTURE_HPP
 #define SPROUT_DARKROOM_TEXTURES_TEXTURE_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array.hpp>
 #include <sprout/darkroom/access/access.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>

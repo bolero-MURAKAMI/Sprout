@@ -9,9 +9,9 @@
 #define SPROUT_BIT_BIT_LENGTH_HPP
 
 #include <climits>
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	namespace detail {

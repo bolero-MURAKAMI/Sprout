@@ -8,8 +8,8 @@
 #ifndef SPROUT_UTILITY_STRING_REF_COMPARISON_HPP
 #define SPROUT_UTILITY_STRING_REF_COMPARISON_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string/string.hpp>
 
 namespace sprout {

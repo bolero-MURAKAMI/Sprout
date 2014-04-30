@@ -8,17 +8,17 @@
 #ifndef SPROUT_CSTDLIB_STR_TO_INT_HPP
 #define SPROUT_CSTDLIB_STR_TO_INT_HPP
 
-#include <cstddef>
 #include <cstdlib>
-#if !defined(_MSC_VER)
-#	include <cinttypes>
-#endif
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
 #include <sprout/detail/char_conversion.hpp>
+#if !defined(_MSC_VER)
+#	include <cinttypes>
+#endif
 
 namespace sprout {
 	namespace detail {

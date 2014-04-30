@@ -8,10 +8,10 @@
 #ifndef SPROUT_TUPLE_TUPLE_TUPLE_ELEMENT_HPP
 #define SPROUT_TUPLE_TUPLE_TUPLE_ELEMENT_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	namespace tuples {

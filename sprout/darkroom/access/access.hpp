@@ -8,8 +8,8 @@
 #ifndef SPROUT_DARKROOM_ACCESS_ACCESS_HPP
 #define SPROUT_DARKROOM_ACCESS_ACCESS_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/darkroom/access/traits.hpp>

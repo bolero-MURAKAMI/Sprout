@@ -8,11 +8,11 @@
 #ifndef SPROUT_CONTAINER_CONTAINER_TRAITS_HPP
 #define SPROUT_CONTAINER_CONTAINER_TRAITS_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <array>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>

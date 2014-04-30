@@ -8,10 +8,10 @@
 #ifndef SPROUT_BITSET_IO_HPP
 #define SPROUT_BITSET_IO_HPP
 
-#include <cstddef>
 #include <string>
 #include <iosfwd>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/bitset/bitset.hpp>
 
 namespace sprout {

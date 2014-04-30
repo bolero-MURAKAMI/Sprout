@@ -8,9 +8,9 @@
 #ifndef SPROUT_OPERATION_FIXED_INSERT_N_HPP
 #define SPROUT_OPERATION_FIXED_INSERT_N_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>

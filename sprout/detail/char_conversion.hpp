@@ -8,9 +8,9 @@
 #ifndef SPROUT_DETAIL_CHAR_CONVERSION_HPP
 #define SPROUT_DETAIL_CHAR_CONVERSION_HPP
 
-#include <cstddef>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/ctype/ascii.hpp>
 #include <sprout/assert.hpp>
 

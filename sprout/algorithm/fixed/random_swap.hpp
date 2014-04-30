@@ -8,8 +8,8 @@
 #ifndef SPROUT_ALGORITHM_FIXED_RANDOM_SWAP_HPP
 #define SPROUT_ALGORITHM_FIXED_RANDOM_SWAP_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>

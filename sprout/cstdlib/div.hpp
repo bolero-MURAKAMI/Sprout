@@ -9,10 +9,10 @@
 #ifndef SPROUT_CSTDLIB_DIV_HPP
 #define SPROUT_CSTDLIB_DIV_HPP
 
-#include <cstddef>
 #include <cstdlib>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 

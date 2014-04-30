@@ -8,12 +8,12 @@
 #ifndef SPROUT_FUNCTIONAL_BIND_BIND_HPP
 #define SPROUT_FUNCTIONAL_BIND_BIND_HPP
 
-#include <cstddef>
 #include <utility>
 #include <tuple>
 #include <type_traits>
 #include <functional>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/lvalue_forward.hpp>

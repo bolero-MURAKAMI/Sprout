@@ -8,12 +8,12 @@
 #ifndef SPROUT_BITSET_BITSET_HPP
 #define SPROUT_BITSET_BITSET_HPP
 
-#include <cstddef>
 #include <climits>
 #include <string>
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/detail/sizeof.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/iterator/index_iterator.hpp>

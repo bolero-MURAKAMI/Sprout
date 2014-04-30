@@ -8,8 +8,8 @@
 #ifndef SPROUT_OPERATION_FIXED_PUSH_FRONT_HPP
 #define SPROUT_OPERATION_FIXED_PUSH_FRONT_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>

@@ -8,8 +8,8 @@
 #ifndef SPROUT_DARKROOM_OBJECTS_INTERSECT_HPP
 #define SPROUT_DARKROOM_OBJECTS_INTERSECT_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/tuple/flex.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/darkroom/access/traits.hpp>

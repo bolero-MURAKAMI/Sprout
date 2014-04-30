@@ -8,9 +8,9 @@
 #ifndef SPROUT_TYPE_STRING_STRING_HPP
 #define SPROUT_TYPE_STRING_STRING_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/integral_array.hpp>
 #include <sprout/tuple/tuple/get.hpp>

@@ -8,7 +8,6 @@
 #ifndef SPROUT_STRING_STRING_HPP
 #define SPROUT_STRING_STRING_HPP
 
-#include <cstddef>
 #include <string>
 #include <iterator>
 #include <utility>
@@ -16,6 +15,7 @@
 #include <type_traits>
 #include <initializer_list>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/array/make_array.hpp>

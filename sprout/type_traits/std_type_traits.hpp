@@ -8,9 +8,9 @@
 #ifndef SPROUT_TYPE_TRAITS_STD_TYPE_TRAITS_HPP
 #define SPROUT_TYPE_TRAITS_STD_TYPE_TRAITS_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/detail/predef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/common_type.hpp>

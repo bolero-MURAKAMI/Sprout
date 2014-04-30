@@ -8,10 +8,10 @@
 #ifndef SPROUT_SUB_ARRAY_TUPLE_HPP
 #define SPROUT_SUB_ARRAY_TUPLE_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>

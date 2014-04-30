@@ -8,9 +8,9 @@
 #ifndef SPROUT_DARKROOM_RENDERERS_WHITTED_STYLE_HPP
 #define SPROUT_DARKROOM_RENDERERS_WHITTED_STYLE_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/utility/pair.hpp>
 #include <sprout/tuple/functions.hpp>

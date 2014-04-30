@@ -8,8 +8,8 @@
 #ifndef SPROUT_ARRAY_TYPE_TRAITS_HPP
 #define SPROUT_ARRAY_TYPE_TRAITS_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 

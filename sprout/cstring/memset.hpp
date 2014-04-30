@@ -8,9 +8,9 @@
 #ifndef SPROUT_CSTRING_MEMSET_HPP
 #define SPROUT_CSTRING_MEMSET_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/cxx14/fill.hpp>
 

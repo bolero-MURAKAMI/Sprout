@@ -8,9 +8,9 @@
 #ifndef SPROUT_WEED_PARSER_NUMERIC_INT_HPP
 #define SPROUT_WEED_PARSER_NUMERIC_INT_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/integer/integer_digits.hpp>
 #include <sprout/weed/parser/numeric/int_p.hpp>
 

@@ -8,8 +8,8 @@
 #ifndef SPROUT_FUNCTIONAL_HASH_DETAIL_HASH_FLOAT_HPP
 #define SPROUT_FUNCTIONAL_HASH_DETAIL_HASH_FLOAT_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/math/fpclassify.hpp>

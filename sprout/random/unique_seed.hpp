@@ -8,10 +8,10 @@
 #ifndef SPROUT_RANDOM_UNIQUE_SEED_HPP
 #define SPROUT_RANDOM_UNIQUE_SEED_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/functional/hash.hpp>
 #include <sprout/preprocessor/unique_string.hpp>

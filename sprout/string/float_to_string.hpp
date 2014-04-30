@@ -8,9 +8,9 @@
 #ifndef SPROUT_STRING_FLOAT_TO_STRING_HPP
 #define SPROUT_STRING_FLOAT_TO_STRING_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/string/string.hpp>

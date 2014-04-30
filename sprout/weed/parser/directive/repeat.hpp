@@ -8,8 +8,8 @@
 #ifndef SPROUT_WEED_PARSER_DIRECTIVE_REPEAT_HPP
 #define SPROUT_WEED_PARSER_DIRECTIVE_REPEAT_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/expr/make_terminal_or_expr.hpp>

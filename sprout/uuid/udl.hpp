@@ -13,8 +13,8 @@
 
 #if SPROUT_USE_USER_DEFINED_LITERALS
 
-#include <cstddef>
 #include <type_traits>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string.hpp>
 #include <sprout/uuid/string_generator.hpp>
 #include <sprout/uuid/name_generator.hpp>

@@ -8,12 +8,12 @@
 #ifndef SPROUT_EXEMPT_PTR_HPP
 #define SPROUT_EXEMPT_PTR_HPP
 
-#include <cstddef>
 #include <functional>
 #include <iterator>
 #include <type_traits>
 #include <utility>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	//

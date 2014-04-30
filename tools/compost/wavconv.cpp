@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
+
 #include <climits>
-#include <cstddef>
 #include <cstdint>
 #include <cstdlib>
 #include <string>
@@ -14,6 +14,7 @@
 #include <type_traits>
 #include <iostream>
 #include <fstream>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace toolspr {
 	template<std::size_t N = 4, typename InputIterator>

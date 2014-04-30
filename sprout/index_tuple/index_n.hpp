@@ -8,8 +8,8 @@
 #ifndef SPROUT_INDEX_TUPLE_INDEX_N_HPP
 #define SPROUT_INDEX_TUPLE_INDEX_N_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
 #include <sprout/index_tuple/integer_n.hpp>
 

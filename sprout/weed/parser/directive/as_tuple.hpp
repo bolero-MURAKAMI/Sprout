@@ -8,8 +8,8 @@
 #ifndef SPROUT_WEED_PARSER_DIRECTIVE_AS_TUPLE_HPP
 #define SPROUT_WEED_PARSER_DIRECTIVE_AS_TUPLE_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/weed/parser_result.hpp>

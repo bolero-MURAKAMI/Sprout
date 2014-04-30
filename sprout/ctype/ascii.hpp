@@ -9,8 +9,8 @@
 #ifndef SPROUT_CTYPE_ASCII_HPP
 #define SPROUT_CTYPE_ASCII_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/preprocessor/cat.hpp>
 #include <sprout/preprocessor/empty.hpp>
 #include <sprout/ctype/mask.hpp>

@@ -8,9 +8,9 @@
 #ifndef SPROUT_ALGORITHM_FIXED_SHUFFLE_RESULT_HPP
 #define SPROUT_ALGORITHM_FIXED_SHUFFLE_RESULT_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/pit/pit.hpp>

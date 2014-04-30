@@ -8,9 +8,9 @@
 #ifndef SPROUT_CINTTYPES_STRTOIMAX_HPP
 #define SPROUT_CINTTYPES_STRTOIMAX_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/cstdlib/str_to_int.hpp>
 
 namespace sprout {

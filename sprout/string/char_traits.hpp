@@ -8,10 +8,10 @@
 #ifndef SPROUT_STRING_CHAR_TRAITS_HPP
 #define SPROUT_STRING_CHAR_TRAITS_HPP
 
-#include <cstddef>
 #include <cstdio>
 #include <string>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/algorithm/find_if.hpp>

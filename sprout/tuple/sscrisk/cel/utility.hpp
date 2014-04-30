@@ -8,9 +8,9 @@
 #ifndef SPROUT_TUPLE_SSCRISK_CEL_UTILITY_HPP
 #define SPROUT_TUPLE_SSCRISK_CEL_UTILITY_HPP
 
-#include <cstddef>
 #include <sscrisk/cel/utility.hpp>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/type_traits/integral_constant.hpp>

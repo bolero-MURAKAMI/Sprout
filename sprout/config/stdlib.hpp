@@ -8,10 +8,17 @@
 #ifndef SPROUT_CONFIG_STDLIB_HPP
 #define SPROUT_CONFIG_STDLIB_HPP
 
+// for STLport
+// !!! OLD:
+//#ifdef __cplusplus
+//#	include <cstddef>
+//#else
+//#	include <stddef.h>
+//#endif
 #ifdef __cplusplus
-#	include <cstddef>
+#	include <climits>
 #else
-#	include <stddef.h>
+#	include <limits.h>
 #endif
 
 #if defined(__SGI_STL_PORT) || defined(_STLPORT_VERSION)

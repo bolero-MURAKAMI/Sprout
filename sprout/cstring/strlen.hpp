@@ -8,10 +8,10 @@
 #ifndef SPROUT_CSTRING_STRLEN_HPP
 #define SPROUT_CSTRING_STRLEN_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/utility/pair/pair.hpp>

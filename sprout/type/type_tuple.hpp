@@ -8,10 +8,10 @@
 #ifndef SPROUT_TYPE_TYPE_TUPLE_HPP
 #define SPROUT_TYPE_TYPE_TUPLE_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/index_n.hpp>
 #include <sprout/index_tuple/make_index_tuple.hpp>
 #include <sprout/type/tuple.hpp>

@@ -8,9 +8,9 @@
 #ifndef SPROUT_TYPE_ALGORITHM_LOWER_BOUND_INDEX_HPP
 #define SPROUT_TYPE_ALGORITHM_LOWER_BOUND_INDEX_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type/functional/less.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type_traits/integral_constant.hpp>

@@ -8,8 +8,8 @@
 #ifndef SPROUT_FUNCTIONAL_HASH_HASH_FWD_HPP
 #define SPROUT_FUNCTIONAL_HASH_HASH_FWD_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	//

@@ -8,9 +8,9 @@
 #ifndef SPROUT_DETAIL_PARAM_AT_HPP
 #define SPROUT_DETAIL_PARAM_AT_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	namespace detail {

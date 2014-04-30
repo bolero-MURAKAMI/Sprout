@@ -8,8 +8,8 @@
 #ifndef SPROUT_WEED_TRAITS_PARSER_LIMIT_OF_HPP
 #define SPROUT_WEED_TRAITS_PARSER_LIMIT_OF_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/weed/expr/expr.hpp>
 #include <sprout/weed/expr/tag.hpp>

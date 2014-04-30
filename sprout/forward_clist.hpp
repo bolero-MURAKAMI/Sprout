@@ -8,10 +8,10 @@
 #ifndef SPROUT_FORWARD_CLIST_HPP
 #define SPROUT_FORWARD_CLIST_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>

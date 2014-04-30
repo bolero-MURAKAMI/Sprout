@@ -8,9 +8,9 @@
 #ifndef SPROUT_BITSET_HASH_HPP
 #define SPROUT_BITSET_HASH_HPP
 
-#include <cstddef>
 #include <functional>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/bitset/bitset.hpp>
 
 namespace sprout {

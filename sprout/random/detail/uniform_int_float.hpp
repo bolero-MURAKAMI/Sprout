@@ -8,9 +8,9 @@
 #ifndef SPROUT_RANDOM_DETAIL_UNIFORM_INT_FLOAT_HPP
 #define SPROUT_RANDOM_DETAIL_UNIFORM_INT_FLOAT_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/detail/generator_bits.hpp>

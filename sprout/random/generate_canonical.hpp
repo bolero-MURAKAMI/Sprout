@@ -8,9 +8,9 @@
 #ifndef SPROUT_RANDOM_GENERATE_CANONICAL_HPP
 #define SPROUT_RANDOM_GENERATE_CANONICAL_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/assert.hpp>
 #include <sprout/math/pow.hpp>

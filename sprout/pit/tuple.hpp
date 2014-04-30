@@ -8,10 +8,10 @@
 #ifndef SPROUT_PIT_TUPLE_HPP
 #define SPROUT_PIT_TUPLE_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <type_traits>
-#include <sprout/pit/pit.hpp>
+#include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>#include <sprout/pit/pit.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 

@@ -8,9 +8,9 @@
 #ifndef SPROUT_RANGE_PTR_RANGE_HPP
 #define SPROUT_RANGE_PTR_RANGE_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/range/range_container.hpp>
 #include <sprout/iterator/operation.hpp>

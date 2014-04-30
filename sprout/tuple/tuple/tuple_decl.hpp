@@ -8,11 +8,11 @@
 #ifndef SPROUT_TUPLE_TUPLE_TUPLE_DECL_HPP
 #define SPROUT_TUPLE_TUPLE_TUPLE_DECL_HPP
 
-#include <cstddef>
 #include <utility>
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/detail/predef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/utility/forward.hpp>

@@ -8,11 +8,11 @@
 #ifndef SPROUT_ITERATOR_GENERATOR_ITERATOR_HPP
 #define SPROUT_ITERATOR_GENERATOR_ITERATOR_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/generator/functions.hpp>
 #include <sprout/utility/swap.hpp>

@@ -8,9 +8,9 @@
 #ifndef SPROUT_CONTAINER_CONTAINER_TRANSFORM_TRAITS_HPP
 #define SPROUT_CONTAINER_CONTAINER_TRANSFORM_TRAITS_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/detail/array_like.hpp>
 

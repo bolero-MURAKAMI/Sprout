@@ -8,9 +8,9 @@
 #ifndef SPROUT_TUPLE_TUPLE_TUPLE_ACCESS_TRAITS_HPP
 #define SPROUT_TUPLE_TUPLE_TUPLE_ACCESS_TRAITS_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/tuple/tuple/tuple_element.hpp>
 
 namespace sprout {

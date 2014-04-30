@@ -8,9 +8,9 @@
 #ifndef SPROUT_UTILITY_PAIR_HASH_HPP
 #define SPROUT_UTILITY_PAIR_HASH_HPP
 
-#include <cstddef>
 #include <functional>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/functional/hash.hpp>
 

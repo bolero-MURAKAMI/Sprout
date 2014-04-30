@@ -8,9 +8,9 @@
 #ifndef SPROUT_INDEX_TUPLE_TUPLE_HPP
 #define SPROUT_INDEX_TUPLE_TUPLE_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/integer_sequence.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
 #include <sprout/utility/pack.hpp>

@@ -8,9 +8,9 @@
 #ifndef SPROUT_TYPE_ITERATOR_DISTANCE_HPP
 #define SPROUT_TYPE_ITERATOR_DISTANCE_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type/iterator/next.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 

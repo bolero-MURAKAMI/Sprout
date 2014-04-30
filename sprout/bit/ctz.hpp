@@ -8,10 +8,10 @@
 #ifndef SPROUT_BIT_CTZ_HPP
 #define SPROUT_BIT_CTZ_HPP
 
-#include <cstddef>
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/detail/integer.hpp>
 #include <sprout/utility/pair/pair.hpp>

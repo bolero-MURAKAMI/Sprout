@@ -8,10 +8,10 @@
 #ifndef SPROUT_TUPLE_TUPLE_GET_HPP
 #define SPROUT_TUPLE_TUPLE_GET_HPP
 
-#include <cstddef>
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/tuple_size.hpp>

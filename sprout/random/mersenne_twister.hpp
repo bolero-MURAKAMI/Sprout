@@ -8,10 +8,10 @@
 #ifndef SPROUT_RANDOM_MERSENNE_TWISTER_HPP
 #define SPROUT_RANDOM_MERSENNE_TWISTER_HPP
 
-#include <cstddef>
 #include <ios>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/cstdint.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/array/array.hpp>

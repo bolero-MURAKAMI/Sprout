@@ -8,9 +8,9 @@
 #ifndef SPROUT_CSTRING_STRNCMP_HPP
 #define SPROUT_CSTRING_STRNCMP_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>

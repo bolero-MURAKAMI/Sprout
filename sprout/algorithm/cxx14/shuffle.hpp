@@ -8,9 +8,9 @@
 #ifndef SPROUT_ALGORITHM_CXX14_SHUFFLE_HPP
 #define SPROUT_ALGORITHM_CXX14_SHUFFLE_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/algorithm/cxx14/iter_swap.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>
 

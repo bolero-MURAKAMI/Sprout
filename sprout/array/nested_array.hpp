@@ -8,8 +8,8 @@
 #ifndef SPROUT_ARRAY_NESTED_ARRAY_HPP
 #define SPROUT_ARRAY_NESTED_ARRAY_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/type_traits/identity.hpp>
 

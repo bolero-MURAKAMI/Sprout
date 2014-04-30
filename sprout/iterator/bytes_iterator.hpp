@@ -8,9 +8,9 @@
 #ifndef SPROUT_ITERATOR_BYTES_ITERATOR_HPP
 #define SPROUT_ITERATOR_BYTES_ITERATOR_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>

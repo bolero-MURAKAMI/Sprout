@@ -8,9 +8,9 @@
 #ifndef SPROUT_OPTIONAL_HASH_HPP
 #define SPROUT_OPTIONAL_HASH_HPP
 
-#include <cstddef>
 #include <functional>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/optional/optional.hpp>
 #include <sprout/functional/hash.hpp>
 

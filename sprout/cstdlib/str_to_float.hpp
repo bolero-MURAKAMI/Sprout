@@ -8,11 +8,11 @@
 #ifndef SPROUT_CSTDLIB_STR_TO_FLOAT_HPP
 #define SPROUT_CSTDLIB_STR_TO_FLOAT_HPP
 
-#include <cstddef>
 #include <cstdlib>
 #include <cmath>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>

@@ -8,11 +8,11 @@
 #ifndef SPROUT_CHECKSUM_SHA1_HPP
 #define SPROUT_CHECKSUM_SHA1_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/array/make_array.hpp>
 #include <sprout/sub_array/sub_array.hpp>

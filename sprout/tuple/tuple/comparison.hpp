@@ -8,8 +8,8 @@
 #ifndef SPROUT_TUPLE_TUPLE_COMPARISON_HPP
 #define SPROUT_TUPLE_TUPLE_COMPARISON_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 

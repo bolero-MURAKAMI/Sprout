@@ -8,9 +8,9 @@
 #ifndef SPROUT_DETAIL_SIZEOF_HPP
 #define SPROUT_DETAIL_SIZEOF_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {

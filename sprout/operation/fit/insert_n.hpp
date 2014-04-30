@@ -8,8 +8,8 @@
 #ifndef SPROUT_OPERATION_FIT_INSERT_N_HPP
 #define SPROUT_OPERATION_FIT_INSERT_N_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/insert_n.hpp>

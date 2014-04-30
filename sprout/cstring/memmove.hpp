@@ -8,9 +8,9 @@
 #ifndef SPROUT_CSTRING_MEMMOVE_HPP
 #define SPROUT_CSTRING_MEMMOVE_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/algorithm/cxx14/copy_backward.hpp>
 

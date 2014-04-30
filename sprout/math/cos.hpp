@@ -8,9 +8,9 @@
 #ifndef SPROUT_MATH_COS_HPP
 #define SPROUT_MATH_COS_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/detail/pow.hpp>
 #include <sprout/math/detail/config.hpp>

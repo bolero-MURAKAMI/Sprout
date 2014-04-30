@@ -8,8 +8,8 @@
 #ifndef SPROUT_CONTAINER_CONTAINER_RANGE_TRAITS_HPP
 #define SPROUT_CONTAINER_CONTAINER_RANGE_TRAITS_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/container_traits.hpp>
 
 namespace sprout {

@@ -8,9 +8,9 @@
 #ifndef SPROUT_STRING_MAKE_STRING_HPP
 #define SPROUT_STRING_MAKE_STRING_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/utility/forward.hpp>

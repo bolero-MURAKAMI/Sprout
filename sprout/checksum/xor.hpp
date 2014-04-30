@@ -8,9 +8,9 @@
 #ifndef SPROUT_CHECKSUM_XOR_HPP
 #define SPROUT_CHECKSUM_XOR_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>

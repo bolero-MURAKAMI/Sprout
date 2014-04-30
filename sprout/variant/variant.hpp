@@ -8,11 +8,11 @@
 #ifndef SPROUT_VARIANT_VARIANT_HPP
 #define SPROUT_VARIANT_VARIANT_HPP
 
-#include <cstddef>
 #include <utility>
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>

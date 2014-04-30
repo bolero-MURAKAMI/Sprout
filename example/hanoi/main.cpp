@@ -6,13 +6,14 @@
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 
-#include <cstddef>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/operation/push_back.hpp>
 #include <sprout/operation/append_back.hpp>
 #include <sprout/integer/static_pow.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 //
 // hanoi

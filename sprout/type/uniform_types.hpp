@@ -8,9 +8,9 @@
 #ifndef SPROUT_TYPE_UNIFORM_TYPES_HPP
 #define SPROUT_TYPE_UNIFORM_TYPES_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/iterator.hpp>
 #include <sprout/type/iterator/index_iterator.hpp>

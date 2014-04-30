@@ -8,8 +8,8 @@
 #ifndef SPROUT_COMPOST_SOURCES_SOURCE_HPP
 #define SPROUT_COMPOST_SOURCES_SOURCE_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 
 //

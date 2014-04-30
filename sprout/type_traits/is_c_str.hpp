@@ -8,8 +8,8 @@
 #ifndef SPROUT_TYPE_TRAITS_IS_C_STR_HPP
 #define SPROUT_TYPE_TRAITS_IS_C_STR_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {

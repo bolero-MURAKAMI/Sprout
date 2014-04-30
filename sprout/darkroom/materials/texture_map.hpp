@@ -8,9 +8,9 @@
 #ifndef SPROUT_DARKROOM_MATERIALS_TEXTURE_MAP_HPP
 #define SPROUT_DARKROOM_MATERIALS_TEXTURE_MAP_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/math/floor.hpp>
 #include <sprout/utility/value_holder.hpp>
 #include <sprout/darkroom/materials/interpolation.hpp>

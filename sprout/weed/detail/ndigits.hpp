@@ -8,9 +8,9 @@
 #ifndef SPROUT_WEED_DETAIL_NDIGITS_HPP
 #define SPROUT_WEED_DETAIL_NDIGITS_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/weed/detail/digits.hpp>
 #include <sprout/weed/detail/bdigits.hpp>

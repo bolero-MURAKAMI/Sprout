@@ -11,8 +11,8 @@
 #include <array>
 #include <sprout/config.hpp>
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-#	include <cstddef>
 #	include <type_traits>
+#	include <sprout/workaround/std/cstddef.hpp>
 #	include <sprout/container/traits.hpp>
 #	include <sprout/iterator/index_iterator.hpp>
 #endif

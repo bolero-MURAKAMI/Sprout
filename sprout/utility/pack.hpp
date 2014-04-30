@@ -8,8 +8,8 @@
 #ifndef SPROUT_UTILITY_PACK_HPP
 #define SPROUT_UTILITY_PACK_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type_traits/integral_constant.hpp>

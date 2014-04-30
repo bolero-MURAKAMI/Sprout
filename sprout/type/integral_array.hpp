@@ -8,9 +8,9 @@
 #ifndef SPROUT_TYPE_INTEGRAL_ARRAY_HPP
 #define SPROUT_TYPE_INTEGRAL_ARRAY_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>

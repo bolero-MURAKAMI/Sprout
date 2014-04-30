@@ -8,9 +8,9 @@
 #ifndef SPROUT_TUPLE_TUPLE_HASH_HPP
 #define SPROUT_TUPLE_TUPLE_HASH_HPP
 
-#include <cstddef>
 #include <functional>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/functional/hash.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>

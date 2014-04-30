@@ -8,12 +8,12 @@
 #ifndef SPROUT_RANDOM_SHUFFLE_ORDER_HPP
 #define SPROUT_RANDOM_SHUFFLE_ORDER_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <ios>
 #include <istream>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/array/comparison.hpp>

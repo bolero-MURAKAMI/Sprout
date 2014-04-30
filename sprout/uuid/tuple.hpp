@@ -8,9 +8,9 @@
 #ifndef SPROUT_UUID_TUPLE_HPP
 #define SPROUT_UUID_TUPLE_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 #include <sprout/uuid/uuid.hpp>

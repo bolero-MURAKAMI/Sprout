@@ -8,10 +8,10 @@
 #ifndef SPROUT_UTILITY_SWAP_HPP
 #define SPROUT_UTILITY_SWAP_HPP
 
-#include <cstddef>
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 

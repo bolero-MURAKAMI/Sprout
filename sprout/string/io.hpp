@@ -8,9 +8,9 @@
 #ifndef SPROUT_STRING_IO_HPP
 #define SPROUT_STRING_IO_HPP
 
-#include <cstddef>
 #include <ios>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string/string.hpp>
 
 namespace sprout {

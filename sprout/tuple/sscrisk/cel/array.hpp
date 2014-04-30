@@ -8,10 +8,10 @@
 #ifndef SPROUT_TUPLE_SSCRISK_CEL_ARRAY_HPP
 #define SPROUT_TUPLE_SSCRISK_CEL_ARRAY_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sscrisk/cel/array.hpp>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/tuple_access_traits.hpp>
 #include <sprout/tuple/tuple/get.hpp>

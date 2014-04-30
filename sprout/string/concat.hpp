@@ -8,9 +8,9 @@
 #ifndef SPROUT_STRING_CONCAT_HPP
 #define SPROUT_STRING_CONCAT_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/string/char_traits.hpp>
 #include <sprout/string/string.hpp>

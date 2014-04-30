@@ -8,8 +8,8 @@
 #ifndef SPROUT_DARKROOM_TRACERS_RAYTRACER_HPP
 #define SPROUT_DARKROOM_TRACERS_RAYTRACER_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/darkroom/colors/rgb.hpp>
 #include <sprout/darkroom/cameras/calculate.hpp>
 #include <sprout/darkroom/renderers/calculate.hpp>

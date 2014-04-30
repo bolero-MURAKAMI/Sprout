@@ -8,9 +8,9 @@
 #ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_TIMES_HPP
 #define SPROUT_WEED_ATTR_CNV_RESULT_OF_TIMES_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/algorithm/string/join.hpp>

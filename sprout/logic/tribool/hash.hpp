@@ -8,10 +8,10 @@
 #ifndef SPROUT_LOGIC_TRIBOOL_HASH_HPP
 #define SPROUT_LOGIC_TRIBOOL_HASH_HPP
 
-#include <cstddef>
 #include <functional>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/logic/tribool/tribool.hpp>
 #include <sprout/functional/hash.hpp>
 

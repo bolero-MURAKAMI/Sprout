@@ -8,10 +8,10 @@
 #ifndef SPROUT_CSTRING_STRCSPN_HPP
 #define SPROUT_CSTRING_STRCSPN_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>

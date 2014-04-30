@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #if SPROUT_USE_TEMPLATE_ALIASES
-#	include <cstddef>
+#	include <sprout/workaround/std/cstddef.hpp>
 #	include <sprout/type_traits/std_type_traits.hpp>
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 

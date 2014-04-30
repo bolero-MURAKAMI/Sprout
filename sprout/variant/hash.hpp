@@ -8,9 +8,9 @@
 #ifndef SPROUT_VARIANT_HASH_HPP
 #define SPROUT_VARIANT_HASH_HPP
 
-#include <cstddef>
 #include <functional>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/hash.hpp>
 #include <sprout/variant/variant.hpp>
 #include <sprout/variant/static_visitor.hpp>

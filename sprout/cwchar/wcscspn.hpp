@@ -8,8 +8,8 @@
 #ifndef SPROUT_CWCHAR_WCSCSPN_HPP
 #define SPROUT_CWCHAR_WCSCSPN_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/cstring/strcspn.hpp>
 
 namespace sprout {

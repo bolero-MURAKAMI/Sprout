@@ -8,9 +8,9 @@
 #ifndef SPROUT_COMPOST_EFFECTS_REVERBED_HPP
 #define SPROUT_COMPOST_EFFECTS_REVERBED_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/math/constants.hpp>
 #include <sprout/math/pow.hpp>

@@ -8,9 +8,9 @@
 #ifndef SPROUT_FUNCTIONAL_HASH_SSCRISK_CEL_ARRAY_HPP
 #define SPROUT_FUNCTIONAL_HASH_SSCRISK_CEL_ARRAY_HPP
 
-#include <cstddef>
 #include <sscrisk/cel/array.hpp>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/hash/hash_value_traits.hpp>
 #include <sprout/functional/hash/hash_range.hpp>
 

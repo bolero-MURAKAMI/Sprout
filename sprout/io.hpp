@@ -8,11 +8,11 @@
 #ifndef SPROUT_IO_HPP
 #define SPROUT_IO_HPP
 
-#include <cstddef>
 #include <iosfwd>
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/detail/param_at.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array/array.hpp>

@@ -8,8 +8,8 @@
 #ifndef SPROUT_STRING_STRETCH_HPP
 #define SPROUT_STRING_STRETCH_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string/string.hpp>
 
 namespace sprout {

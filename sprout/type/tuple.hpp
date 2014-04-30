@@ -8,9 +8,9 @@
 #ifndef SPROUT_TYPE_TUPLE_HPP
 #define SPROUT_TYPE_TUPLE_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 
 namespace sprout {

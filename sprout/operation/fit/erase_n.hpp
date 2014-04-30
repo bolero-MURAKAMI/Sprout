@@ -8,8 +8,8 @@
 #ifndef SPROUT_OPERATION_FIT_ERASE_N_HPP
 #define SPROUT_OPERATION_FIT_ERASE_N_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/erase_n.hpp>

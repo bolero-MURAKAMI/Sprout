@@ -8,8 +8,8 @@
 #ifndef SPROUT_DARKROOM_PIXELS_GENERATE_HPP
 #define SPROUT_DARKROOM_PIXELS_GENERATE_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array.hpp>
 #include <sprout/container/traits.hpp>

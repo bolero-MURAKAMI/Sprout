@@ -8,8 +8,8 @@
 #ifndef SPROUT_CWCHAR_WCSNCMP_HPP
 #define SPROUT_CWCHAR_WCSNCMP_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/cstring/strncmp.hpp>
 
 namespace sprout {

@@ -8,9 +8,9 @@
 #ifndef SPROUT_DARKROOM_OBJECTS_SPHERE_HPP
 #define SPROUT_DARKROOM_OBJECTS_SPHERE_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/math/constants.hpp>

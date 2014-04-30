@@ -8,11 +8,11 @@
 #ifndef SPROUT_RANDOM_SEED_ARRAY_HPP
 #define SPROUT_RANDOM_SEED_ARRAY_HPP
 
-#include <iterator>
-#include <cstddef>
 #include <cstdint>
+#include <iterator>
 #include <initializer_list>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/array/make_array.hpp>
 #include <sprout/index_tuple/metafunction.hpp>

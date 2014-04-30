@@ -8,9 +8,9 @@
 #ifndef SPROUT_RANGE_ADAPTOR_SIZED_HPP
 #define SPROUT_RANGE_ADAPTOR_SIZED_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/range/adaptor/detail/sized_range_default.hpp>

@@ -8,8 +8,8 @@
 #ifndef SPROUT_FUNCTIONAL_HASH_HASH_VALUES_HPP
 #define SPROUT_FUNCTIONAL_HASH_HASH_VALUES_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/functional/hash/hash_combine.hpp>
 

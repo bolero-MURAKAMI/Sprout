@@ -8,10 +8,10 @@
 #ifndef SPROUT_BRAINFUCK_BRAINFUCK_HPP
 #define SPROUT_BRAINFUCK_BRAINFUCK_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <stdexcept>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/iterator/operation.hpp>

@@ -8,8 +8,8 @@
 #ifndef SPROUT_CSTDLIB_STRTOLD_HPP
 #define SPROUT_CSTDLIB_STRTOLD_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/cstdlib/str_to_float.hpp>
 
 namespace sprout {

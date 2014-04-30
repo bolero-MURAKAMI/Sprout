@@ -8,9 +8,9 @@
 #ifndef SPROUT_MATH_BERNOULLI_HPP
 #define SPROUT_MATH_BERNOULLI_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/assert.hpp>
 

@@ -8,11 +8,11 @@
 #ifndef SPROUT_UTILITY_STRING_REF_STRING_REF_HPP
 #define SPROUT_UTILITY_STRING_REF_STRING_REF_HPP
 
-#include <cstddef>
 #include <string>
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/swap.hpp>

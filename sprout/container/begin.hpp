@@ -8,8 +8,8 @@
 #ifndef SPROUT_CONTAINER_BEGIN_HPP
 #define SPROUT_CONTAINER_BEGIN_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/container_range_traits.hpp>
 #include <sprout/adl/not_found.hpp>

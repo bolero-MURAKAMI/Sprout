@@ -8,8 +8,8 @@
 #ifndef SPROUT_CWCHAR_WCSPBRK_HPP
 #define SPROUT_CWCHAR_WCSPBRK_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/cstring/strpbrk.hpp>
 
 namespace sprout {

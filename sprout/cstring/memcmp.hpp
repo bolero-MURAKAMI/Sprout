@@ -8,9 +8,9 @@
 #ifndef SPROUT_CSTRING_MEMCMP_HPP
 #define SPROUT_CSTRING_MEMCMP_HPP
 
-#include <cstddef>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>

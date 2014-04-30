@@ -8,8 +8,8 @@
 #ifndef SPROUT_WEED_PARSER_NUMERIC_UINT_P_HPP
 #define SPROUT_WEED_PARSER_NUMERIC_UINT_P_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/integer/integer_digits.hpp>

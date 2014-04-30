@@ -8,13 +8,13 @@
 #ifndef SPROUT_UUID_IO_HPP
 #define SPROUT_UUID_IO_HPP
 
-#include <cstddef>
 #include <iterator>
 #include <ios>
 #include <ostream>
 #include <istream>
 #include <locale>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/algorithm/find.hpp>
 #include <sprout/algorithm/cxx14/copy.hpp>
 #include <sprout/string.hpp>

@@ -8,9 +8,9 @@
 #ifndef SPROUT_STRING_TUPLE_HPP
 #define SPROUT_STRING_TUPLE_HPP
 
-#include <cstddef>
 #include <tuple>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/get.hpp>

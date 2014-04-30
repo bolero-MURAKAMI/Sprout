@@ -8,8 +8,8 @@
 #ifndef SPROUT_OPERATION_FIT_POP_FRONT_HPP
 #define SPROUT_OPERATION_FIT_POP_FRONT_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/operation/fixed/pop_front.hpp>

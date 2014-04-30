@@ -8,8 +8,8 @@
 #ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_MODULUS_HPP
 #define SPROUT_WEED_ATTR_CNV_RESULT_OF_MODULUS_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/weed/attr_cnv/results/times.hpp>
 
 namespace sprout {

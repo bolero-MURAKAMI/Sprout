@@ -8,10 +8,10 @@
 #ifndef SPROUT_INTEGER_INTEGER_DIGITS_HPP
 #define SPROUT_INTEGER_INTEGER_DIGITS_HPP
 
-#include <cstddef>
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {

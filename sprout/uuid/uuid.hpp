@@ -8,11 +8,11 @@
 #ifndef SPROUT_UUID_UUID_HPP
 #define SPROUT_UUID_UUID_HPP
 
-#include <cstddef>
 #include <utility>
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/algorithm/equal.hpp>

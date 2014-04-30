@@ -8,8 +8,8 @@
 #ifndef SPROUT_INDEX_TUPLE_INDEX_T_HPP
 #define SPROUT_INDEX_TUPLE_INDEX_T_HPP
 
-#include <cstddef>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	//

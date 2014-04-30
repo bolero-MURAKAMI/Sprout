@@ -8,11 +8,11 @@
 #ifndef SPROUT_CHECKSUM_MD5_HPP
 #define SPROUT_CHECKSUM_MD5_HPP
 
-#include <cstddef>
 #include <cstdint>
 #include <climits>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
