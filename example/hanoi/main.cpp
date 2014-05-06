@@ -13,7 +13,6 @@
 #include <sprout/operation/append_back.hpp>
 #include <sprout/integer/static_pow.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/workaround/std/cstddef.hpp>
 
 //
 // hanoi

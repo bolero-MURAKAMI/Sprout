@@ -5,15 +5,20 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_UTILITY_OPERATION_EXT_HPP
-#define SPROUT_UTILITY_OPERATION_EXT_HPP
+#ifndef SPROUT_UTILITY_PASS_THROUGH_HPP
+#define SPROUT_UTILITY_PASS_THROUGH_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/utility/compare_pointees.hpp>
-#include <sprout/utility/as_lvalue.hpp>
-#include <sprout/utility/as_const.hpp>
-#include <sprout/utility/lvalue_forward.hpp>
-#include <sprout/utility/pass_through.hpp>
-#include <sprout/utility/limited.hpp>
 
-#endif	// #ifndef SPROUT_UTILITY_OPERATION_EXT_HPP
+namespace sprout {
+	//
+	// pass_through
+	//
+	template<typename T>
+	constexpr T&&
+	pass_through(T&& t) {
+		return static_cast<T&&>(t);
+	}
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_MATH_ACOS_HPP
