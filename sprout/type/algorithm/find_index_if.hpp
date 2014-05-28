@@ -47,6 +47,16 @@ namespace sprout {
 		struct find_index_if
 			: public sprout::types::detail::find_index_if_impl<Tuple, Predicate, 0>
 		{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Tuple, typename Predicate>
+		using find_index_if_t = typename sprout::types::find_index_if<Tuple, Predicate>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+		template<typename Tuple, typename Predicate>
+		SPROUT_STATIC_CONSTEXPR std::size_t find_index_if_v = sprout::types::find_index_if<Tuple, Predicate>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 	}	// namespace types
 }	// namespace sprout
 

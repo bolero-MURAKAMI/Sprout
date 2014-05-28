@@ -39,6 +39,11 @@ namespace sprout {
 				typename sprout::tuple_indexes<InputTuple>::type
 			>::type type;
 		};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Tuple, typename InputTuple>
+		using append_front_t = typename sprout::types::append_front<Tuple, InputTuple>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 	}	// namespace types
 }	// namespace sprout
 

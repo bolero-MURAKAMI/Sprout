@@ -25,11 +25,17 @@ namespace sprout {
 		public:
 			typedef T type;
 		public:
-			static SPROUT_CONSTEXPR std::size_t size() {
+			static SPROUT_CONSTEXPR std::size_t
+			size() {
 				return sizeof(type);
 			}
-			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t) {
+			static SPROUT_CONSTEXPR unsigned char
+			get_byte(type const& t, std::size_t) {
 				return static_cast<unsigned char>(t);
+			}
+			static SPROUT_CXX14_CONSTEXPR void
+			set_byte(type& t, std::size_t, unsigned char value) {
+				t = static_cast<type>(value);
 			}
 		};
 		template<typename T>
@@ -40,14 +46,21 @@ namespace sprout {
 		public:
 			typedef T type;
 		public:
-			static SPROUT_CONSTEXPR std::size_t size() {
+			static SPROUT_CONSTEXPR std::size_t
+			size() {
 				return sizeof(type);
 			}
-			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t i) {
+			static SPROUT_CONSTEXPR unsigned char
+			get_byte(type const& t, std::size_t i) {
 				return static_cast<unsigned char>(
 					(t & (UCHAR_MAX << CHAR_BIT * ((size() - 1) - i)))
 						>> CHAR_BIT * ((size() - 1) - i)
 					);
+			}
+			static SPROUT_CXX14_CONSTEXPR void
+			set_byte(type& t, std::size_t i, unsigned char value) {
+				t &= ~(UCHAR_MAX << CHAR_BIT * ((size() - 1) - i));
+				t |= (value << CHAR_BIT * ((size() - 1) - i));
 			}
 		};
 
@@ -67,6 +80,10 @@ namespace sprout {
 			static SPROUT_CONSTEXPR unsigned char get_byte(type const& t, std::size_t) {
 				return static_cast<unsigned char>(t);
 			}
+			static SPROUT_CXX14_CONSTEXPR void
+			set_byte(type& t, std::size_t, unsigned char value) {
+				t = static_cast<type>(value);
+			}
 		};
 		template<typename T>
 		class default_little_endian_traits<
@@ -84,6 +101,11 @@ namespace sprout {
 					(t & (UCHAR_MAX << CHAR_BIT * i))
 						>> CHAR_BIT * i
 					);
+			}
+			static SPROUT_CXX14_CONSTEXPR void
+			set_byte(type& t, std::size_t i, unsigned char value) {
+				t &= ~(UCHAR_MAX << CHAR_BIT * i);
+				t |= (value << CHAR_BIT * i);
 			}
 		};
 	}	// namespace detail

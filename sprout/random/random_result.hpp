@@ -21,6 +21,8 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	namespace random {
@@ -65,14 +67,12 @@ namespace sprout {
 			generator_type generator_;
 		public:
 			SPROUT_CONSTEXPR random_result()
-				: result_()
-				, generator_()
+				: result_(), generator_()
 			{}
 			random_result(random_result const&) = default;
 			SPROUT_CONSTEXPR random_result(
 				result_type result,
-				engine_type const& engine,
-				distribution_type const& distribution
+				engine_type const& engine, distribution_type const& distribution
 				)
 				: result_(result)
 				, generator_(engine, distribution)
@@ -199,16 +199,11 @@ namespace sprout {
 			generator_type generator_;
 		public:
 			SPROUT_CONSTEXPR random_result()
-				: result_()
-				, generator_()
+				: result_(), generator_()
 			{}
 			random_result(random_result const&) = default;
-			SPROUT_CONSTEXPR random_result(
-				result_type result,
-				engine_type const& engine
-				)
-				: result_(result)
-				, generator_(engine)
+			SPROUT_CONSTEXPR random_result(result_type result, engine_type const& engine)
+				: result_(result), generator_(engine)
 			{}
 			SPROUT_CONSTEXPR random_result operator()() const {
 				return generator_();
@@ -316,16 +311,18 @@ namespace sprout {
 		namespace detail {
 			template<std::size_t I, typename T>
 			struct tuple_element_impl;
+			template<std::size_t I, typename Engine, typename Distribution>
+			struct tuple_element_impl<I, sprout::random::random_result<Engine, Distribution> >
+				: public sprout::detail::nil_base
+			{};
 			template<typename Engine, typename Distribution>
-			struct tuple_element_impl<0, sprout::random::random_result<Engine, Distribution> > {
-			public:
-				typedef typename sprout::random::random_result<Engine, Distribution>::result_type type;
-			};
+			struct tuple_element_impl<0, sprout::random::random_result<Engine, Distribution> >
+				: public sprout::identity<typename sprout::random::random_result<Engine, Distribution>::result_type>
+			{};
 			template<typename Engine, typename Distribution>
-			struct tuple_element_impl<1, sprout::random::random_result<Engine, Distribution> > {
-			public:
-				typedef typename sprout::random::random_result<Engine, Distribution>::generator_type type;
-			};
+			struct tuple_element_impl<1, sprout::random::random_result<Engine, Distribution> >
+				: public sprout::identity<typename sprout::random::random_result<Engine, Distribution>::generator_type>
+			{};
 
 			template<std::size_t I, typename T>
 			struct get_impl;

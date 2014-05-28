@@ -76,6 +76,11 @@ namespace sprout {
 					Predicate
 				>
 			{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+			template<typename ForwardSequence, typename Predicate>
+			using find_if_t = typename sprout::types::seq::find_if<ForwardSequence, Predicate>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 		}	// namespace seq
 	}	// namespace types
 }	// namespace sprout

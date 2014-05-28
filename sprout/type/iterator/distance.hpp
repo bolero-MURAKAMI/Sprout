@@ -53,6 +53,16 @@ namespace sprout {
 		struct distance
 			: public sprout::types::detail::distance_impl<First, Last, 0>
 		{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename First, typename Last>
+		using distance_t = typename sprout::types::distance<First, Last>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+		template<typename First, typename Last>
+		SPROUT_STATIC_CONSTEXPR std::size_t distance_v = sprout::types::distance<First, Last>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 	}	// namespace types
 }	// namespace sprout
 

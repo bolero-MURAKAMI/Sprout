@@ -9,6 +9,11 @@
 #define SPROUT_TYPE_OPERATION_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/type/operation/size.hpp>
+#include <sprout/type/operation/empty.hpp>
+#include <sprout/type/operation/at.hpp>
+#include <sprout/type/operation/back.hpp>
+#include <sprout/type/operation/front.hpp>
 #include <sprout/type/operation/append_back.hpp>
 #include <sprout/type/operation/append_front.hpp>
 #include <sprout/type/operation/push_back.hpp>

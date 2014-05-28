@@ -33,6 +33,11 @@ namespace sprout {
 		struct prev<Iterator const volatile>
 			: public sprout::types::prev<Iterator>
 		{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Iterator>
+		using prev_t = typename sprout::types::prev<Iterator>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 	}	// namespace types
 }	// namespace sprout
 

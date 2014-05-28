@@ -36,6 +36,11 @@ namespace sprout {
 				typename sprout::make_index_tuple<sprout::types::tuple_size<Tuple>::value - 1>::type
 			>::type type;
 		};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Tuple>
+		using pop_back_t = typename sprout::types::pop_back<Tuple>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 	}	// namespace types
 }	// namespace sprout
 

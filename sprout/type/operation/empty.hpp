@@ -5,38 +5,31 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_TYPE_FUNCTIONAL_LESS_HPP
-#define SPROUT_TYPE_FUNCTIONAL_LESS_HPP
+#ifndef SPROUT_TYPE_OPERATION_EMPTY_HPP
+#define SPROUT_TYPE_OPERATION_EMPTY_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type/tuple.hpp>
 
 namespace sprout {
 	namespace types {
 		//
-		// less
+		// empty
 		//
-		template<typename T, typename U>
-		struct less
-			: public sprout::integral_constant<bool, ((T::value) < (U::value))>
+		template<typename Tuple>
+		struct empty
+			: public sprout::integral_constant<
+				bool,
+				(sprout::types::tuple_size<Tuple>::value == 0)
+			>
 		{};
 
-		//
-		// less_
-		//
-		struct less_ {
-		public:
-			template<typename T, typename U>
-			struct apply
-				: public sprout::types::less<T, U>
-			{};
-		};
-
 #if SPROUT_USE_VARIABLE_TEMPLATES
-		template<typename T, typename U>
-		SPROUT_STATIC_CONSTEXPR bool less_v = sprout::types::less<T, U>::value;
+		template<typename Tuple>
+		SPROUT_STATIC_CONSTEXPR bool empty_v = sprout::types::empty<Tuple>::value;
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 	}	// namespace types
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_LESS_HPP
+#endif	// #ifndef SPROUT_TYPE_OPERATION_EMPTY_HPP

@@ -20,6 +20,7 @@
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	namespace types {
@@ -54,6 +55,10 @@ namespace sprout {
 		namespace detail {
 			template<typename Tup>
 			struct head_element;
+			template<>
+			struct head_element<sprout::types::type_tuple<> >
+				: public sprout::detail::nil_base
+			{};
 			template<typename Head, typename... Tail>
 			struct head_element<sprout::types::type_tuple<Head, Tail...> >
 				: public sprout::identity<Head>
@@ -61,6 +66,10 @@ namespace sprout {
 
 			template<typename Tup>
 			struct tuple_head;
+			template<>
+			struct tuple_head<sprout::types::type_tuple<> >
+				: public sprout::detail::nil_base
+			{};
 			template<typename Head, typename... Tail>
 			struct tuple_head<sprout::types::type_tuple<Head, Tail...> >
 				: public sprout::identity<sprout::types::type_tuple<Head> >
@@ -68,6 +77,10 @@ namespace sprout {
 
 			template<typename Tup>
 			struct tuple_tail;
+			template<>
+			struct tuple_tail<sprout::types::type_tuple<> >
+				: public sprout::detail::nil_base
+			{};
 			template<typename Head, typename... Tail>
 			struct tuple_tail<sprout::types::type_tuple<Head, Tail...> >
 				: public sprout::identity<sprout::types::type_tuple<Tail...> >
@@ -93,35 +106,49 @@ namespace sprout {
 				static sprout::types::type_tuple<typename Types::type...>
 				eval(typename sprout::types::detail::dummy_index<Indexes>::type*..., Types*...);
 			};
-			template<std::size_t I, typename Tup>
+			template<std::size_t I, typename Tup, bool = (I <= sprout::types::tuple_size<Tup>::value)>
 			struct tuple_drop_impl;
+			template<std::size_t I, typename Tup>
+			struct tuple_drop_impl<I, Tup, false>
+				: public sprout::detail::nil_base
+			{};
 			template<std::size_t I, typename... Types>
-			struct tuple_drop_impl<I, sprout::types::type_tuple<Types...> >
+			struct tuple_drop_impl<I, sprout::types::type_tuple<Types...>, true>
 				: public sprout::identity<decltype(
 					sprout::types::detail::tuple_drop_helper<typename sprout::index_n<0, I>::type>
 						::eval(static_cast<sprout::identity<Types>*>(0)...)
 				)>::type
 			{};
 			template<std::size_t I, typename Tup>
-			struct tuple_drop;
-			template<std::size_t I, typename... Types>
-			struct tuple_drop<I, sprout::types::type_tuple<Types...> >
-				: public sprout::types::detail::tuple_drop_impl<I, sprout::types::type_tuple<Types...> >
+			struct tuple_drop
+				: public sprout::types::detail::tuple_drop_impl<I, Tup>
 			{};
 
+			template<std::size_t I, typename Tup, bool = (I < sprout::types::tuple_size<Tup>::value)>
+			struct tuple_element_impl;
 			template<std::size_t I, typename Tup>
-			struct tuple_element;
+			struct tuple_element_impl<I, Tup, false>
+				: public sprout::detail::nil_base
+			{};
 			template<std::size_t I, typename... Types>
-			struct tuple_element<I, sprout::types::type_tuple<Types...> >
+			struct tuple_element_impl<I, sprout::types::type_tuple<Types...>, true>
 				: public sprout::types::detail::head_element<
 					typename sprout::types::detail::tuple_drop<I, sprout::types::type_tuple<Types...> >::type
 				>
 			{};
+			template<std::size_t I, typename Tup>
+			struct tuple_element
+				: public sprout::types::detail::tuple_element_impl<I, Tup>
+			{};
 
-			template<std::size_t I, typename Tup, typename IndexTuple>
+			template<std::size_t I, typename Tup, typename IndexTuple, bool = (I <= sprout::types::tuple_size<Tup>::value)>
 			struct tuple_take_impl;
+			template<std::size_t I, typename Tup, typename IndexTuple>
+			struct tuple_take_impl<I, Tup, IndexTuple, false>
+				: public sprout::detail::nil_base
+			{};
 			template<std::size_t I, typename... Types, sprout::index_t... Indexes>
-			struct tuple_take_impl<I, sprout::types::type_tuple<Types...>, sprout::index_tuple<Indexes...> >
+			struct tuple_take_impl<I, sprout::types::type_tuple<Types...>, sprout::index_tuple<Indexes...>, true>
 				: public sprout::identity<
 					sprout::types::type_tuple<
 						typename sprout::types::detail::tuple_element<Indexes, sprout::types::type_tuple<Types...> >::type...
@@ -165,5 +192,65 @@ namespace std {
 #	pragma clang diagnostic pop
 #endif
 }	// namespace std
+
+namespace sprout {
+	namespace types {
+		//
+		// push_back
+		//
+		template<typename Tuple, typename... Ts>
+		struct push_back;
+		template<typename... Types, typename... Ts>
+		struct push_back<sprout::types::type_tuple<Types...>, Ts...>
+			: public sprout::identity<sprout::types::type_tuple<Types..., Ts...> >
+		{};
+		//
+		// push_front
+		//
+		template<typename Tuple, typename... Ts>
+		struct push_front;
+		template<typename... Types, typename... Ts>
+		struct push_front<sprout::types::type_tuple<Types...>, Ts...>
+			: public sprout::identity<sprout::types::type_tuple<Ts..., Types...> >
+		{};
+		//
+		// pop_back
+		//
+		template<typename Tuple>
+		struct pop_back;
+		template<typename... Types>
+		struct pop_back<sprout::types::type_tuple<Types...> >
+			: public sprout::types::detail::tuple_take<(sizeof...(Types) - 1), sprout::types::type_tuple<Types...> >
+		{};
+		//
+		// pop_front
+		//
+		template<typename Tuple>
+		struct pop_front;
+		template<typename Head, typename... Tail>
+		struct pop_front<sprout::types::type_tuple<Head, Tail...> >
+			: public sprout::identity<sprout::types::type_tuple<Tail...> >
+		{};
+
+		//
+		// append_back
+		//
+		template<typename Tuple, typename InputTuple>
+		struct append_back;
+		template<typename Tuple, typename... InputTypes>
+		struct append_back<Tuple, sprout::types::type_tuple<InputTypes...> >
+			: public sprout::types::push_back<Tuple, InputTypes...>
+		{};
+		//
+		// append_front
+		//
+		template<typename Tuple, typename InputTuple>
+		struct append_front;
+		template<typename Tuple, typename... InputTypes>
+		struct append_front<Tuple, sprout::types::type_tuple<InputTypes...> >
+			: public sprout::types::push_front<InputTypes..., Tuple>
+		{};
+	}	// namespace types
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TYPE_TUPLE_HPP

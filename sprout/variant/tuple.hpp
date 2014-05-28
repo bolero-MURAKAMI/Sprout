@@ -13,6 +13,7 @@
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/variant/variant.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/tuple/tuple/tuple_element.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
@@ -63,7 +64,7 @@ namespace std {
 	//
 	template<std::size_t I, typename... Types>
 	struct tuple_element<I, sprout::variant<Types...> >
-		: public std::tuple_element<I, typename sprout::variant<Types...>::tuple_type>
+		: public sprout::tuples::tuple_element<I, typename sprout::variant<Types...>::tuple_type>
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop

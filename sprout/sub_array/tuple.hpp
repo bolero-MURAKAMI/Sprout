@@ -17,6 +17,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/sub_array/sub_array.hpp>
+#include <sprout/tuple/tuple/tuple_element.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
@@ -66,7 +67,7 @@ namespace std {
 	//
 	template<std::size_t I, typename Container>
 	struct tuple_element<I, sprout::sub_array<Container> >
-		: public std::tuple_element<I, typename std::remove_reference<Container>::type>
+		: public sprout::tuples::tuple_element<I, typename std::remove_reference<Container>::type>
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop

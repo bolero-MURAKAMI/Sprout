@@ -47,6 +47,16 @@ namespace sprout {
 		struct find_index
 			: public sprout::types::detail::find_index_impl<Tuple, T, 0>
 		{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Tuple, typename T>
+		using find_index_t = typename sprout::types::find_index<Tuple, T>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+		template<typename Tuple, typename T>
+		SPROUT_STATIC_CONSTEXPR std::size_t find_index_v = sprout::types::find_index<Tuple, T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 	}	// namespace types
 }	// namespace sprout
 

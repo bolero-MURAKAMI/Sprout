@@ -13,5 +13,10 @@
 #include <sprout/type/algorithm/find_index_if.hpp>
 #include <sprout/type/algorithm/lower_bound_index.hpp>
 #include <sprout/type/algorithm/upper_bound_index.hpp>
+#include <sprout/type/algorithm/fold.hpp>
+#include <sprout/type/algorithm/transform.hpp>
+#include <sprout/type/algorithm/contains.hpp>
+#include <sprout/type/algorithm/accumulate.hpp>
+#include <sprout/type/algorithm/partial_sum.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_ALGORITHM_HPP

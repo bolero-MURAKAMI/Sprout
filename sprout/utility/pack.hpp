@@ -15,6 +15,7 @@
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	//
@@ -30,7 +31,7 @@ namespace sprout {
 	//
 	template<std::size_t I, typename T, T... Args>
 	struct pack_element_c
-		: public sprout::pack_element<I, sprout::integral_constant<T, Args>...>::type
+		: public sprout::pack_element<I, sprout::integral_constant<T, Args>...>
 	{};
 
 	//
@@ -59,9 +60,15 @@ namespace sprout {
 	//
 	// head_element
 	//
+	template<typename... Args>
+	struct head_element;
 	template<typename Head, typename... Tail>
-	struct head_element
+	struct head_element<Head, Tail...>
 		: public sprout::identity<Head>
+	{};
+	template<>
+	struct head_element<>
+		: public sprout::detail::nil_base
 	{};
 
 	//

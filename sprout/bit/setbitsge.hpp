@@ -21,7 +21,7 @@ namespace sprout {
 		Integral
 	>::type
 	setbitsge(Integral x, int b) SPROUT_NOEXCEPT {
-		return x | ~((Integral(1) << b)-1);
+		return x | ~((Integral(1) << b) - 1);
 	}
 }	// namespace sprout
 

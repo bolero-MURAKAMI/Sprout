@@ -12,6 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
+#include <sprout/tuple/tuple/tuple_element.hpp>
 
 namespace sprout {
 	namespace types {
@@ -42,8 +43,23 @@ namespace sprout {
 		//
 		template<std::size_t I, typename T, typename Enable = void>
 		struct tuple_element
-			: public std::tuple_element<I, T>
+			: public sprout::tuples::tuple_element<I, T>
 		{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename T>
+		using begin_t = typename sprout::types::begin<T>::type;
+		template<typename T>
+		using end_t = typename sprout::types::end<T>::type;
+
+		template<std::size_t I, typename T>
+		using tuple_element_t = typename sprout::types::tuple_element<I, T>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+		template<typename Tuple>
+		SPROUT_STATIC_CONSTEXPR std::size_t tuple_size_v = sprout::types::tuple_size<Tuple>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 	}	// namespace types
 }	// namespace sprout
 

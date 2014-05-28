@@ -63,6 +63,16 @@ namespace sprout {
 		struct lower_bound_index
 			: public sprout::types::detail::lower_bound_index_impl<Tuple, T, Compare, 0, sprout::types::tuple_size<Tuple>::value>
 		{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Tuple, typename T, typename Compare = sprout::types::less_>
+		using lower_bound_index_t = typename sprout::types::lower_bound_index<Tuple, T, Compare>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+		template<typename Tuple, typename T, typename Compare = sprout::types::less_>
+		SPROUT_STATIC_CONSTEXPR std::size_t lower_bound_index_v = sprout::types::lower_bound_index<Tuple, T, Compare>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 	}	// namespace types
 }	// namespace sprout
 

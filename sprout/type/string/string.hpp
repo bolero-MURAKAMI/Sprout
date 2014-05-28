@@ -48,7 +48,7 @@ namespace std {
 	//
 	template<std::size_t I, typename T, T... Values>
 	struct tuple_element<I, sprout::types::basic_string<T, Values...> >
-		: public std::tuple_element<I, sprout::types::integral_array<T, Values...> >
+		: public sprout::types::tuple_element<I, sprout::types::integral_array<T, Values...> >
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop

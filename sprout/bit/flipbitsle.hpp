@@ -21,7 +21,7 @@ namespace sprout {
 		Integral
 	>::type
 	flipbitsle(Integral x, int b) SPROUT_NOEXCEPT {
-		return x ^ ((Integral(1) << (b+1))-1);
+		return x ^ ((Integral(1) << (b + 1)) - 1);
 	}
 }	// namespace sprout
 

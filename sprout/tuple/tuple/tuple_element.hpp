@@ -12,33 +12,61 @@
 #include <tuple>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	namespace tuples {
 		//
 		// tuple_element
 		//
+		namespace detail {
+			template<std::size_t I, typename T, bool = (I < std::tuple_size<T>::value)>
+			struct tuple_element_default;
+			template<std::size_t I, typename T>
+			struct tuple_element_default<I, T, false>
+				: public sprout::detail::nil_base
+			{};
+			template<std::size_t I, typename T>
+			struct tuple_element_default<I, T, true>
+				: public std::tuple_element<I, T>
+			{};
+		}	// namespace detail
 		template<std::size_t I, typename T>
 		struct tuple_element
-			: public std::tuple_element<I, T>
+			: public sprout::tuples::detail::tuple_element_default<I, T>
 		{};
+
+		namespace detail {
+			template<std::size_t I, typename T>
+			struct tuple_element_default<I, T const, true>
+				: public std::add_const<
+					typename sprout::tuples::tuple_element<I, T>::type
+				>
+			{};
+			template<std::size_t I, typename T>
+			struct tuple_element_default<I, T volatile, true>
+				: public std::add_volatile<
+					typename sprout::tuples::tuple_element<I, T>::type
+				>
+			{};
+			template<std::size_t I, typename T>
+			struct tuple_element_default<I, T const volatile, true>
+				: public std::add_cv<
+					typename sprout::tuples::tuple_element<I, T>::type
+				>
+			{};
+		}	// namespace detail
 		template<std::size_t I, typename T>
 		struct tuple_element<I, T const>
-			: public std::add_const<
-				typename sprout::tuples::tuple_element<I, T>::type
-			>
+			: public sprout::tuples::detail::tuple_element_default<I, T const>
 		{};
 		template<std::size_t I, typename T>
 		struct tuple_element<I, T volatile>
-			: public std::add_volatile<
-				typename sprout::tuples::tuple_element<I, T>::type
-			>
+			: public sprout::tuples::detail::tuple_element_default<I, T volatile>
 		{};
 		template<std::size_t I, typename T>
 		struct tuple_element<I, T const volatile>
-			: public std::add_cv<
-				typename sprout::tuples::tuple_element<I, T>::type
-			>
+			: public sprout::tuples::detail::tuple_element_default<I, T const volatile>
 		{};
 	}	// namespace tuples
 

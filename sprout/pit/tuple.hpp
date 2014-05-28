@@ -14,6 +14,7 @@
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/tuple/tuple/tuple_element.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 
 namespace sprout {
@@ -59,7 +60,7 @@ namespace std {
 	//
 	template<std::size_t I, typename Container>
 	struct tuple_element<I, sprout::pit<Container> >
-		: public std::tuple_element<I, Container>
+		: public sprout::tuples::tuple_element<I, Container>
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop

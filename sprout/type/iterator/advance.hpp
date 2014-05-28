@@ -9,6 +9,7 @@
 #define SPROUT_TYPE_ITERATOR_ADVANCE_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
 	namespace types {
@@ -32,6 +33,11 @@ namespace sprout {
 		struct advance<Iterator const volatile, Disatnce>
 			: public sprout::types::advance<Iterator, Disatnce>
 		{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Iterator, std::ptrdiff_t Disatnce>
+		using advance_t = typename sprout::types::advance<Iterator, Disatnce>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 	}	// namespace types
 }	// namespace sprout
 

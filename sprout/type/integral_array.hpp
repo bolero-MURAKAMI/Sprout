@@ -50,7 +50,7 @@ namespace std {
 	//
 	template<std::size_t I, typename T, T... Values>
 	struct tuple_element<I, sprout::types::integral_array<T, Values...> >
-		: public std::tuple_element<I, sprout::types::type_tuple<sprout::integral_constant<T, Values>...> >
+		: public sprout::types::tuple_element<I, sprout::types::type_tuple<sprout::integral_constant<T, Values>...> >
 	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop

@@ -21,7 +21,6 @@ namespace sprout {
 		//
 		template<typename Tuple, typename... Ts>
 		struct push_back {
-			static_assert(sizeof...(Ts) >= 1, "sizeof...(Ts) >= 1");
 		private:
 			template<typename IndexTuple>
 			struct apply_impl;
@@ -39,6 +38,11 @@ namespace sprout {
 				typename sprout::tuple_indexes<Tuple>::type
 			>::type type;
 		};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		template<typename Tuple, typename... Ts>
+		using push_back_t = typename sprout::types::push_back<Tuple, Ts...>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 	}	// namespace types
 }	// namespace sprout
 

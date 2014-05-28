@@ -76,6 +76,11 @@ namespace sprout {
 					T
 				>
 			{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+			template<typename ForwardSequence, typename T>
+			using find_t = typename sprout::types::seq::find<ForwardSequence, T>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 		}	// namespace seq
 	}	// namespace types
 }	// namespace sprout

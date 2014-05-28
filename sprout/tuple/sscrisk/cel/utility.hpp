@@ -14,6 +14,8 @@
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -28,16 +30,18 @@ namespace sprout {
 		namespace detail {
 			template<std::size_t I, typename T>
 			struct tuple_element_impl;
+			template<std::size_t I, typename T1, typename T2>
+			struct tuple_element_impl<I, sscrisk::cel::pair<T1, T2> >
+				: public sprout::detail::nil_base
+			{};
 			template<typename T1, typename T2>
-			struct tuple_element_impl<0, sscrisk::cel::pair<T1, T2> > {
-			public:
-				typedef T1 type;
-			};
+			struct tuple_element_impl<0, sscrisk::cel::pair<T1, T2> >
+				: public sprout::identity<T1>
+			{};
 			template<typename T1, typename T2>
-			struct tuple_element_impl<1, sscrisk::cel::pair<T1, T2> > {
-			public:
-				typedef T2 type;
-			};
+			struct tuple_element_impl<1, sscrisk::cel::pair<T1, T2> >
+				: public sprout::identity<T2>
+			{};
 		}	// namespace detail
 		//
 		// tuple_element

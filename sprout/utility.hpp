@@ -18,5 +18,6 @@
 #include <sprout/utility/value_holder.hpp>
 #include <sprout/utility/string_ref.hpp>
 #include <sprout/utility/any_convertible.hpp>
+#include <sprout/utility/use_default.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_HPP

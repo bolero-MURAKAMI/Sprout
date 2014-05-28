@@ -8,6 +8,7 @@
 #ifndef SPROUT_TYPE_UNIFORM_TYPES_HPP
 #define SPROUT_TYPE_UNIFORM_TYPES_HPP
 
+#include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
@@ -16,6 +17,8 @@
 #include <sprout/type/iterator/index_iterator.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	namespace types {
@@ -69,11 +72,9 @@ namespace std {
 	// tuple_element
 	//
 	template<std::size_t I, typename T, std::size_t N>
-	struct tuple_element<I, sprout::types::uniform_types<T, N> > {
-		static_assert(I < N, "tuple_element<>: index out of range");
-	public:
-		typedef T type;
-	};
+	struct tuple_element<I, sprout::types::uniform_types<T, N> >
+		: public std::conditional<(I < N), sprout::identity<T>, sprout::detail::nil_base>::type
+	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop
 #endif

@@ -8,6 +8,7 @@
 #ifndef SPROUT_UUID_TUPLE_HPP
 #define SPROUT_UUID_TUPLE_HPP
 
+#include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
@@ -15,6 +16,8 @@
 #include <sprout/tuple/tuple/get.hpp>
 #include <sprout/uuid/uuid.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	//
@@ -48,21 +51,17 @@ namespace std {
 	// tuple_size
 	//
 	template<>
-	struct tuple_size<sprout::uuids::uuid> {
-	public:
-		typedef sprout::integral_constant<std::size_t, 16> type;
-		SPROUT_STATIC_CONSTEXPR std::size_t value = type::value;
-	};
+	struct tuple_size<sprout::uuids::uuid>
+		: public sprout::integral_constant<std::size_t, 16>
+	{};
 
 	//
 	// tuple_element
 	//
 	template<std::size_t I>
-	struct tuple_element<I, sprout::uuids::uuid> {
-		static_assert(I < 16, "tuple_element<>: index out of range");
-	public:
-		typedef sprout::uuids::uuid::value_type type;
-	};
+	struct tuple_element<I, sprout::uuids::uuid>
+		: public std::conditional<(I < 16), sprout::identity<sprout::uuids::uuid::value_type>, sprout::detail::nil_base>::type
+	{};
 #if defined(__clang__)
 #	pragma clang diagnostic pop
 #endif

@@ -8,10 +8,11 @@
 #ifndef SPROUT_TYPE_BOOST_MPL_V_ITER_HPP
 #define SPROUT_TYPE_BOOST_MPL_V_ITER_HPP
 
-#include <sprout/config.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/next_prior.hpp>
 #include <boost/mpl/advance.hpp>
+#include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type/iterator/next.hpp>
 #include <sprout/type/iterator/prev.hpp>
 #include <sprout/type/iterator/advance.hpp>

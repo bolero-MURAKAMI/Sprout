@@ -8,12 +8,14 @@
 #ifndef SPROUT_TYPE_BOOST_MPL_VECTOR_HPP
 #define SPROUT_TYPE_BOOST_MPL_VECTOR_HPP
 
-#include <sprout/config.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/at.hpp>
+#include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/boost/mpl/v_iter.hpp>
+#include <sprout/type/boost/mpl/detail/tuple_element.hpp>
 
 namespace sprout {
 	namespace types {
@@ -44,7 +46,7 @@ namespace sprout {
 		//
 		template<std::size_t I, typename... Types>
 		struct tuple_element<I, boost::mpl::vector<Types...> >
-			: public boost::mpl::at_c<boost::mpl::vector<Types...>, I>
+			: public sprout::types::detail::mpl_tuple_element<I, boost::mpl::vector<Types...> >
 		{};
 	}	// namespace types
 }	// namespace sprout
