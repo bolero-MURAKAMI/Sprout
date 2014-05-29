@@ -8,9 +8,9 @@
 #ifndef SPROUT_ITERATOR_TYPE_TRAITS_IS_ITERATOR_HPP
 #define SPROUT_ITERATOR_TYPE_TRAITS_IS_ITERATOR_HPP
 
-#include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
+#include <sprout/iterator/iterator_traits.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -25,7 +25,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_iterator
-		: public sprout::detail::has_iterator_category<std::iterator_traits<T> >
+		: public sprout::detail::has_iterator_category<sprout::iterator_traits<T> >
 	{};
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
