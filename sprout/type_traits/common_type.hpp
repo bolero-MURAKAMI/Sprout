@@ -9,10 +9,12 @@
 #define SPROUT_TYPE_TRAITS_COMMON_TYPE_HPP
 
 #include <utility>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/has_type.hpp>
 #include <sprout/utility/pack.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	//
@@ -24,7 +26,9 @@ namespace sprout {
 			: public sprout::identity<decltype(std::declval<bool>() ? std::declval<T1>() : std::declval<T2>())>
 		{};
 		template<typename Void, typename... Types>
-		struct undecayed_common_type_impl {};
+		struct undecayed_common_type_impl
+			: public sprout::detail::nil_base
+		{};
 		template<typename T>
 		struct undecayed_common_type_impl<void, T>
 			: public sprout::identity<T>

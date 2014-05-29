@@ -9,7 +9,7 @@
 #define SPROUT_FUNCTIONAL_HASH_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/functional/hash/hash_fwd.hpp>
+#include <sprout/functional/hash_fwd.hpp>
 #include <sprout/functional/hash/hash_value.hpp>
 #include <sprout/functional/hash/to_hash.hpp>
 #include <sprout/functional/hash/hash.hpp>

@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_BITWISE_OR_HPP
-#define SPROUT_WEED_ATTR_CNV_RESULT_OF_BITWISE_OR_HPP
+#ifndef SPROUT_WEED_ATTR_CNV_RESULTS_BITWISE_OR_HPP
+#define SPROUT_WEED_ATTR_CNV_RESULTS_BITWISE_OR_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -164,4 +164,4 @@ namespace sprout {
 	}	// namespace weed
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_WEED_ATTR_CNV_RESULT_OF_BITWISE_OR_HPP
+#endif	// #ifndef SPROUT_WEED_ATTR_CNV_RESULTS_BITWISE_OR_HPP

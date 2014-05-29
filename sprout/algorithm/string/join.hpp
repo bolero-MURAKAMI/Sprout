@@ -18,7 +18,7 @@
 #include <sprout/iterator/type_traits/category.hpp>
 #include <sprout/range/adaptor/size_enumed.hpp>
 #include <sprout/range/algorithm/lower_bound.hpp>
-#include <sprout/range/numeric/partial_sum.hpp>
+#include <sprout/range/numeric/fixed/partial_sum.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/is_c_str.hpp>
 
@@ -144,7 +144,7 @@ namespace sprout {
 				return sprout::algorithm::detail::join_impl_ra_1<Result>(
 					sprout::begin(cont_cont),
 					sprout::container_indexes<Result>::make(),
-					sprout::range::partial_sum(
+					sprout::range::fixed::partial_sum(
 						cont_cont | sprout::adaptors::size_enumed,
 						sprout::pit<sizes_type>()
 						)
@@ -324,7 +324,7 @@ namespace sprout {
 					sprout::begin(cont_cont),
 					sprout::begin(separator),
 					sprout::container_indexes<Result>::make(),
-					sprout::range::partial_sum(
+					sprout::range::fixed::partial_sum(
 						cont_cont | sprout::adaptors::size_enumed(sprout::algorithm::detail::str_size(separator), true),
 						sprout::pit<sizes_type>()
 						)

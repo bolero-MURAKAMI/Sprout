@@ -14,7 +14,7 @@
 #include <sprout/container/functions.hpp>
 #include <sprout/container/metafunctions.hpp>
 #include <sprout/range/range_container.hpp>
-#include <sprout/range/algorithm/copy.hpp>
+#include <sprout/range/algorithm/fixed/copy.hpp>
 #include <sprout/utility/forward.hpp>
 
 namespace sprout {

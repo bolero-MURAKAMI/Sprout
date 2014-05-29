@@ -15,5 +15,6 @@
 #include <sprout/weed/attr_cnv/modulus.hpp>
 #include <sprout/weed/attr_cnv/bitwise_or.hpp>
 #include <sprout/weed/attr_cnv/mem_ptr.hpp>
+#include <sprout/weed/attr_cnv/results.hpp>
 
 #endif	// #ifndef SPROUT_WEED_ATTR_CNV_HPP

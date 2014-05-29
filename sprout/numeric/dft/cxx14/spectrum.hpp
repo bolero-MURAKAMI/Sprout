@@ -11,8 +11,8 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/numeric/dft/amplitude_spectrum.hpp>
-#include <sprout/numeric/dft/phase_spectrum.hpp>
+#include <sprout/numeric/dft/cxx14/amplitude_spectrum.hpp>
+#include <sprout/numeric/dft/cxx14/phase_spectrum.hpp>
 
 namespace sprout {
 	//

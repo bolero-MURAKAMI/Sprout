@@ -251,36 +251,51 @@ namespace sprout {
 		} \
 	}
 
+#if !defined(__FLT_DENORM_MIN__)
 	SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL(
 		float,
 		FLT_MIN, FLT_MAX,
 		FLT_EPSILON, 0.5F,
-#if !defined(__FLT_DENORM_MIN__)
 		INFINITY, NAN, NAN, FLT_MIN
-#else	// #if !defined(__FLT_DENORM_MIN__)
-		__builtin_huge_valf(), __builtin_nanf(""), __builtin_nansf(""), __FLT_DENORM_MIN__
-#endif	// #if !defined(__FLT_DENORM_MIN__)
 		);
+#else	// #if !defined(__FLT_DENORM_MIN__)
+	SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL(
+		float,
+		FLT_MIN, FLT_MAX,
+		FLT_EPSILON, 0.5F,
+		__builtin_huge_valf(), __builtin_nanf(""), __builtin_nansf(""), __FLT_DENORM_MIN__
+		);
+#endif	// #if !defined(__FLT_DENORM_MIN__)
+#if !defined(__DBL_DENORM_MIN__)
 	SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL(
 		double,
 		DBL_MIN, DBL_MAX,
 		DBL_EPSILON, 0.5,
-#if !defined(__DBL_DENORM_MIN__)
 		INFINITY, NAN, NAN, DBL_MIN
-#else	// #if !defined(__DBL_DENORM_MIN__)
-		__builtin_huge_val(), __builtin_nan(""), __builtin_nans(""), __DBL_DENORM_MIN__
-#endif	// #if !defined(__DBL_DENORM_MIN__)
 		);
+#else	// #if !defined(__DBL_DENORM_MIN__)
+	SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL(
+		double,
+		DBL_MIN, DBL_MAX,
+		DBL_EPSILON, 0.5,
+		__builtin_huge_val(), __builtin_nan(""), __builtin_nans(""), __DBL_DENORM_MIN__
+		);
+#endif	// #if !defined(__DBL_DENORM_MIN__)
+#if !defined(__LDBL_DENORM_MIN__)
 	SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL(
 		long double,
 		LDBL_MIN, LDBL_MAX,
 		LDBL_EPSILON, 0.5L,
-#if !defined(__LDBL_DENORM_MIN__)
 		INFINITY, NAN, NAN, LDBL_MIN
-#else	// #if !defined(__LDBL_DENORM_MIN__)
-		__builtin_huge_val(), __builtin_nan(""), __builtin_nans(""), __LDBL_DENORM_MIN__
-#endif	// #if !defined(__LDBL_DENORM_MIN__)
 		);
+#else	// #if !defined(__LDBL_DENORM_MIN__)
+	SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL(
+		long double,
+		LDBL_MIN, LDBL_MAX,
+		LDBL_EPSILON, 0.5L,
+		__builtin_huge_val(), __builtin_nan(""), __builtin_nans(""), __LDBL_DENORM_MIN__
+		);
+#endif	// #if !defined(__LDBL_DENORM_MIN__)
 #undef SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL
 
 #else	// #ifdef SPROUT_NO_CXX11_NUMERIC_LIMITS
