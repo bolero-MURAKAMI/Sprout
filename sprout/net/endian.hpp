@@ -122,7 +122,7 @@ namespace sprout {
         // template<>
         // constexpr unsigned-integral hton(unsigned-integral host)
         template<typename T>
-        SPROUT_CONSTEXPR T hton(T host) {
+        SPROUT_CONSTEXPR T hton SPROUT_PREVENT_MACRO_SUBSTITUTION (T host) {
 #if defined(BOOST_BIG_ENDIAN)
             return host;
 #elif defined(BOOST_LITTLE_ENDIAN)
@@ -136,7 +136,7 @@ namespace sprout {
         // template<>
         // constexpr unsigned-integral ntoh(unsigned-integral net)
         template<typename T>
-        SPROUT_CONSTEXPR T ntoh(T net) {
+        SPROUT_CONSTEXPR T ntoh SPROUT_PREVENT_MACRO_SUBSTITUTION (T net) {
 #if defined(BOOST_BIG_ENDIAN)
             return net;
 #elif defined(BOOST_LITTLE_ENDIAN)
@@ -148,26 +148,26 @@ namespace sprout {
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint32_t htonl(uint32_t host32)
-        SPROUT_CONSTEXPR std::uint32_t htonl(std::uint32_t host32) {
-            return sprout::net::hton(host32);
+        SPROUT_CONSTEXPR std::uint32_t htonl SPROUT_PREVENT_MACRO_SUBSTITUTION (std::uint32_t host32) {
+            return sprout::net::hton SPROUT_PREVENT_MACRO_SUBSTITUTION (host32);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint16_t htons(uint16_t host16)
-        SPROUT_CONSTEXPR std::uint16_t htons(std::uint16_t host16) {
-            return sprout::net::hton(host16);
+        SPROUT_CONSTEXPR std::uint16_t htons SPROUT_PREVENT_MACRO_SUBSTITUTION (std::uint16_t host16) {
+            return sprout::net::hton SPROUT_PREVENT_MACRO_SUBSTITUTION (host16);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint32_t ntohl(uint32_t net32)
-        SPROUT_CONSTEXPR std::uint32_t ntohl(std::uint32_t net32) {
-            return sprout::net::ntoh(net32);
+        SPROUT_CONSTEXPR std::uint32_t ntohl SPROUT_PREVENT_MACRO_SUBSTITUTION (std::uint32_t net32) {
+            return sprout::net::ntoh SPROUT_PREVENT_MACRO_SUBSTITUTION (net32);
         }
 
         // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
         // uint16_t ntohs(uint32_t net16)
-        SPROUT_CONSTEXPR std::uint16_t ntohs(std::uint16_t net16) {
-            return sprout::net::ntoh(net16);
+        SPROUT_CONSTEXPR std::uint16_t ntohs SPROUT_PREVENT_MACRO_SUBSTITUTION (std::uint16_t net16) {
+            return sprout::net::ntoh SPROUT_PREVENT_MACRO_SUBSTITUTION (net16);
         }
     }   //namespace net
 }	// namespace sprout
