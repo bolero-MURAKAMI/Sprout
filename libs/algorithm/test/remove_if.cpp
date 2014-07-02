@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 0, 3, 0, 5, 0, 7, 0, 9, 0}};
 
-			// íœ (is_odd)
+			// remove (odd)
 			{
 				SPROUT_STATIC_CONSTEXPR auto removed = sprout::remove_if(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 5>{{0, 0, 0, 0, 0}}
 					));
 			}
-			// íœ (is_odd)
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// remove (odd)
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto removed = sprout::remove_if(
 					sprout::sub(arr1, 2, 8),

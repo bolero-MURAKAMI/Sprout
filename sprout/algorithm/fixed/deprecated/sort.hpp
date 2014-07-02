@@ -47,7 +47,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end
 				)
-			{	// pivot を選ぶ（中央の要素）
+			{	//  select pivot (center)
 				return *sprout::next(origin, (end + start) / 2);
 			}
 			template<typename Container, typename RandomAccessIterator, typename Compare>
@@ -58,7 +58,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type l,
 				typename sprout::container_traits<Container>::value_type const& p
 				)
-			{	// left を見つける
+			{	// find left
 				return comp(*sprout::next(origin, l), p)
 					? sprout::fixed::detail::sort_find_l<Container>(origin, comp, l + 1, p)
 					: l
@@ -72,7 +72,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type r,
 				typename sprout::container_traits<Container>::value_type const& p
 				)
-			{	// right を見つける
+			{	// find right
 				return comp(p, *sprout::next(origin, r))
 					? sprout::fixed::detail::sort_find_r<Container>(origin, comp, r - 1, p)
 					: r
@@ -86,7 +86,7 @@ namespace sprout {
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type l
 				)
-			{	// 左側をソート
+			{	// sort left side
 				return start < l - 1
 					? sprout::fixed::detail::sort_start(cont, start, l - 1, comp)
 					: sprout::deep_copy(cont)
@@ -100,7 +100,7 @@ namespace sprout {
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type r
 				)
-			{	// 右側をソート
+			{	// sort right side
 				return r + 1 < end
 					? sprout::fixed::detail::sort_start(cont, r + 1, end, comp)
 					: sprout::deep_copy(cont)
@@ -116,7 +116,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type l,
 				typename sprout::container_traits<Container>::difference_type r
 				)
-			{	// 左右に分けてソート
+			{	// sort both side
 				return sprout::fixed::detail::sort_part_r(
 					sprout::fixed::detail::sort_part_l(cont, start, comp, l),
 					end,
@@ -135,7 +135,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type r,
 				typename sprout::container_traits<Container>::value_type const& p
 				)
-			{	// left と right 比較して、左右に分けてソートするか、またはスワップしてこの範囲のソートを続ける
+			{	// comparing right and left, sort both side, or swap and continue
 				return l >= r
 					? sprout::fixed::detail::sort_part_lr(cont, start, end, comp, l, r)
 					: sprout::fixed::detail::sort_lr(
@@ -164,7 +164,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type r,
 				typename sprout::container_traits<Container>::value_type const& p
 				)
-			{	// left と right を検索
+			{	// find left and right
 				return sprout::fixed::detail::sort_next(
 					cont,
 					start,
@@ -183,7 +183,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type end,
 				Compare comp
 				)
-			{	// pivot を選択してソートを開始
+			{	// start sort
 				return sprout::fixed::detail::sort_lr(
 					cont,
 					start,

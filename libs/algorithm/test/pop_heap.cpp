@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{10, 8, 9, 6, 7, 5, 3, 1, 2, 4}};
 
-			// ヒープからポップ
+			// pop heap
 			{
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::pop_heap(
 					arr1
@@ -39,8 +39,8 @@ namespace testspr {
 					array<int, 9>{{9, 8, 5, 6, 7, 4, 3, 1, 2}}
 					));
 			}
-			// ヒープからポップ
-			// 範囲の切り出し
+			// pop heap
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::pop_heap(
 					sprout::sub(arr1, 2, 10)

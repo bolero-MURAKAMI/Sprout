@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲を置換 (is_odd -> -1)
+			// replace in range [2 .. 8) (odd -> -1)
 			{
 				SPROUT_STATIC_CONSTEXPR auto replaced = sprout::replace_copy_if(
 					sprout::begin(arr1) + 2,
@@ -49,8 +49,8 @@ namespace testspr {
 					array<int, 6>{{-1, 0, -1, 0, -1, 0}}
 					));
 			}
-			// [2 .. 8) の範囲を置換 (is_odd -> -1)
-			// 出力範囲をオーバーする場合
+			// replace in range [2 .. 8) (odd -> -1)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto replaced = sprout::replace_copy_if(
 					sprout::begin(arr1) + 2,
@@ -77,8 +77,8 @@ namespace testspr {
 					array<int, 4>{{-1, 0, -1, 0}}
 					));
 			}
-			// [2 .. 8) の範囲を置換 (is_odd -> -1)
-			// 出力範囲の切り出し
+			// replace in range [2 .. 8) (odd -> -1)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto replaced = sprout::replace_copy_if(
 					sprout::begin(arr1) + 2,

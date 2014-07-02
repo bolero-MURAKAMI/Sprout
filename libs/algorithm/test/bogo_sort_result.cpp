@@ -25,7 +25,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 1, 4, 2, 3}};
 			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
 					arr1,
@@ -56,8 +56,8 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
 					sprout::sub(arr1, 1, 4),
@@ -101,7 +101,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 1, 4, 2, 3}};
 			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
 					arr1,
@@ -134,8 +134,8 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
 					sprout::sub(arr1, 1, 4),
@@ -182,7 +182,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 4>{{1, 4, 2, 3}};
 			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
 					arr1,
@@ -213,8 +213,8 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
 					sprout::sub(arr1, 1, 3),
@@ -258,7 +258,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 4>{{1, 4, 2, 3}};
 			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
 					arr1,
@@ -291,8 +291,8 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(sprout::get<1>(sorted) == sprout::get<1>(sorted2));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bogo_sort_result(
 					sprout::sub(arr1, 1, 3),

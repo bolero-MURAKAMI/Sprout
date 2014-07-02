@@ -21,11 +21,11 @@ namespace sprout {
 		template<typename T>
 		struct memchr_result {
 		private:
-			static void const* check(void const*);
-			static void* check(void*);
-			static void check(...);
+			static void const* test(void const*);
+			static void* test(void*);
+			static void test(...);
 		public:
-			typedef decltype(check(std::declval<T>())) type;
+			typedef decltype(test(std::declval<T>())) type;
 		};
 
 		template<typename PtrIterator>

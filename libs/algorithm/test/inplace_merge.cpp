@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 3, 5, 7, 9, 2, 4, 6, 8, 10}};
 
-			// マージ
+			// merge
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::inplace_merge(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
 			}
-			// マージ
-			// 範囲の切り出し
+			// merge
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::inplace_merge(
 					sprout::sub(arr1, 2, 8),
@@ -75,7 +75,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 3, 5, 7, 9, 2, 4, 6, 8, 10}};
 
-			// マージ
+			// merge
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::inplace_merge(
 					arr1,
@@ -98,8 +98,8 @@ namespace testspr {
 					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
 			}
-			// マージ
-			// 範囲の切り出し
+			// merge
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::inplace_merge(
 					sprout::sub(arr1, 2, 8),

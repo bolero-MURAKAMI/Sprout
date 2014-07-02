@@ -31,6 +31,7 @@
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/inherit_if_type.hpp>
+#include <sprout/type_traits/enable_if.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>

@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲を変換
+			// transform in range [2 .. 8) (a * 2)
 			{
 				SPROUT_STATIC_CONSTEXPR auto transformed = sprout::transform(
 					sprout::begin(arr1) + 2,
@@ -47,8 +47,8 @@ namespace testspr {
 					array<int, 6>{{6, 8, 10, 12, 14, 16}}
 					));
 			}
-			// [2 .. 8) の範囲を変換
-			// 出力範囲をオーバーする場合
+			// transform in range [2 .. 8) (a * 2)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto transformed = sprout::transform(
 					sprout::begin(arr1) + 2,
@@ -73,8 +73,8 @@ namespace testspr {
 					array<int, 4>{{6, 8, 10, 12}}
 					));
 			}
-			// [2 .. 8) の範囲を変換
-			// 出力範囲の切り出し
+			// transform in range [2 .. 8) (a * 2)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto transformed = sprout::transform(
 					sprout::begin(arr1) + 2,
@@ -114,7 +114,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲を変換
+			// transform in range [2 .. 8) (a + b)
 			{
 				SPROUT_STATIC_CONSTEXPR auto transformed = sprout::transform(
 					sprout::begin(arr1) + 2,
@@ -141,8 +141,8 @@ namespace testspr {
 					array<int, 6>{{6, 8, 10, 12, 14, 16}}
 					));
 			}
-			// [2 .. 8) の範囲を変換
-			// 出力範囲をオーバーする場合
+			// transform in range [2 .. 8) (a + b)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto transformed = sprout::transform(
 					sprout::begin(arr1) + 2,
@@ -169,8 +169,8 @@ namespace testspr {
 					array<int, 4>{{6, 8, 10, 12}}
 					));
 			}
-			// [2 .. 8) の範囲を変換
-			// 出力範囲の切り出し
+			// transform in range [2 .. 8) (a + b)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto transformed = sprout::transform(
 					sprout::begin(arr1) + 2,

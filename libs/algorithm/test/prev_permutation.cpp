@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 4, 3, 2, 1}};
 
-			// ‡—ñ
+			// prev permutation
 			{
 				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::prev_permutation(
 					arr1
@@ -41,8 +41,8 @@ namespace testspr {
 					));
 				TESTSPR_BOTH_ASSERT(permutation.second);
 			}
-			// ‡—ñ
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// prev permutation
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::prev_permutation(
 					sprout::sub(arr1, 1, 4)
@@ -75,7 +75,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 4, 3, 2, 1}};
 
-			// ‡—ñ
+			// prev permutation
 			{
 				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::prev_permutation(
 					arr1,
@@ -98,8 +98,8 @@ namespace testspr {
 					));
 				TESTSPR_BOTH_ASSERT(permutation.second);
 			}
-			// ‡—ñ
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// prev permutation
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto permutation = sprout::prev_permutation(
 					sprout::sub(arr1, 1, 4),

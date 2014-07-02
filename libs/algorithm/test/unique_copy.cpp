@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{{}};
 
-			// [2 .. 8) の範囲「……ユニーク」
+			// "...Unique". in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique_copy(
 					sprout::begin(arr1) + 2,
@@ -45,8 +45,8 @@ namespace testspr {
 					array<int, 3>{{3, 5, 7}}
 					));
 			}
-			// [2 .. 8) の範囲「……ユニーク」
-			// 出力範囲をオーバーする場合
+			// "...Unique". in range [2 .. 8)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique_copy(
 					sprout::begin(arr1) + 2,
@@ -69,8 +69,8 @@ namespace testspr {
 					array<int, 2>{{3, 5}}
 					));
 			}
-			// [2 .. 8) の範囲「……ユニーク」
-			// 出力範囲の切り出し
+			// "...Unique". in range [2 .. 8)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique_copy(
 					sprout::begin(arr1) + 2,
@@ -107,7 +107,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{{}};
 
-			// [2 .. 8) の範囲「……ユニーク」
+			// "...Unique". in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique_copy(
 					sprout::begin(arr1) + 2,
@@ -132,8 +132,8 @@ namespace testspr {
 					array<int, 3>{{3, 5, 7}}
 					));
 			}
-			// [2 .. 8) の範囲「……ユニーク」
-			// 出力範囲をオーバーする場合
+			// "...Unique". in range [2 .. 8)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique_copy(
 					sprout::begin(arr1) + 2,
@@ -158,8 +158,8 @@ namespace testspr {
 					array<int, 2>{{3, 5}}
 					));
 			}
-			// [2 .. 8) の範囲「……ユニーク」
-			// 出力範囲の切り出し
+			// "...Unique". in range [2 .. 8)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique_copy(
 					sprout::begin(arr1) + 2,

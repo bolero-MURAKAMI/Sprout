@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 1, 3, 3, 5, 5, 7, 7, 9, 9}};
 
-			// 「……ユニーク」
+			// "...Unique".
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique(
 					arr1
@@ -39,8 +39,8 @@ namespace testspr {
 					array<int, 5>{{1, 3, 5, 7, 9}}
 					));
 			}
-			// 「……ユニーク」
-			// 範囲の切り出し
+			// "...Unique".
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique(
 					sprout::sub(arr1, 2, 8)
@@ -71,7 +71,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 1, 3, 3, 5, 5, 7, 7, 9, 9}};
 
-			// 「……ユニーク」
+			// "...Unique".
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique(
 					arr1,
@@ -92,8 +92,8 @@ namespace testspr {
 					array<int, 5>{{1, 3, 5, 7, 9}}
 					));
 			}
-			// 「……ユニーク」
-			// 範囲の切り出し
+			// "...Unique".
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto uniqued = sprout::unique(
 					sprout::sub(arr1, 2, 8),

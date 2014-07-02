@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// ‰ñ“]
+			// rotate
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 10>{{6, 7, 8, 9, 10, 1, 2, 3, 4, 5}}
 					));
 			}
-			// ‰ñ“]
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// rotate
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate(
 					sprout::sub(arr1, 2, 8),

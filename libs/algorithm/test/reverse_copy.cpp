@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲を反転
+			// reverse in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto reversed = sprout::reverse_copy(
 					sprout::begin(arr1) + 2,
@@ -45,8 +45,8 @@ namespace testspr {
 					array<int, 6>{{8, 7, 6, 5, 4, 3}}
 					));
 			}
-			// [2 .. 8) の範囲を反転
-			// 出力範囲をオーバーする場合
+			// reverse in range [2 .. 8)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto reversed = sprout::reverse_copy(
 					sprout::begin(arr1) + 2,
@@ -69,8 +69,8 @@ namespace testspr {
 					array<int, 4>{{8, 7, 6, 5}}
 					));
 			}
-			// [2 .. 8) の範囲を反転
-			// 出力範囲の切り出し
+			// reverse in range [2 .. 8)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto reversed = sprout::reverse_copy(
 					sprout::begin(arr1) + 2,

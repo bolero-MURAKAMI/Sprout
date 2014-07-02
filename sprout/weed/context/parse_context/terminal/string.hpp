@@ -58,8 +58,7 @@ namespace sprout {
 					&&sprout::equal(sprout::begin(arg), sprout::end(arg), ctx.begin())
 					? result_type(
 						true,
-						sprout::next(ctx.begin(),
-						sprout::size(arg)),
+						sprout::next(ctx.begin(), sprout::size(arg)),
 						attribute_type(),
 						context_type(ctx, sprout::next(ctx.begin(), sprout::size(arg)))
 						)

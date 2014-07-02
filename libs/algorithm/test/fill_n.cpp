@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// [“U (-1)
+			// fill (-1)
 			{
 				SPROUT_STATIC_CONSTEXPR auto filled = sprout::fill_n(
 					arr1,
@@ -43,8 +43,8 @@ namespace testspr {
 					array<int, 4>{{-1, -1, -1, -1}}
 					));
 			}
-			// [“U (-1)
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// fill (-1)
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto filled = sprout::fill_n(
 					sprout::sub(arr1, 2, 8),

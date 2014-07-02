@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 0, 3, 0, 5, 0, 7, 0, 9, 0}};
 
-			// íœ (0)
+			// remove (0)
 			{
 				SPROUT_STATIC_CONSTEXPR auto removed = sprout::remove(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 5>{{1, 3, 5, 7, 9}}
 					));
 			}
-			// íœ (0)
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// remove (0)
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto removed = sprout::remove(
 					sprout::sub(arr1, 2, 8),

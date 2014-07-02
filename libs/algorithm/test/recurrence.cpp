@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// ¶¬
+			// generate
 			{
 				SPROUT_STATIC_CONSTEXPR auto recurrenced = sprout::recurrence(
 					arr1,
@@ -43,8 +43,8 @@ namespace testspr {
 					array<int, 10>{{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}}
 					));
 			}
-			// ¶¬
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// generate
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto recurrenced = sprout::recurrence(
 					sprout::sub(arr1, 2, 8),

@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// パーティション (is_odd)
+			// partition (odd)
 			{
 				SPROUT_STATIC_CONSTEXPR auto partitioned = sprout::stable_partition(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 5>{{1, 3, 5, 7, 9}}
 					));
 			}
-			// パーティション (is_odd)
-			// 範囲の切り出し
+			// partition (odd)
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto partitioned = sprout::stable_partition(
 					sprout::sub(arr1, 2, 8),

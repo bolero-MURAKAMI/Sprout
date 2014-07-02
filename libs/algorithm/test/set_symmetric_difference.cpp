@@ -23,7 +23,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// 排他的論理和
+			// symmetric difference
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_symmetric_difference(
 					sprout::begin(arr1),
@@ -50,8 +50,8 @@ namespace testspr {
 					array<int, 6>{{5, 15, 25, 30, 40, 50}}
 					));
 			}
-			// 排他的論理和
-			// 出力範囲をオーバーする場合
+			// symmetric difference
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_symmetric_difference(
 					sprout::begin(arr1),
@@ -78,8 +78,8 @@ namespace testspr {
 					array<int, 4>{{5, 15, 25, 30}}
 					));
 			}
-			// 排他的論理和
-			// 出力範囲の切り出し
+			// symmetric difference
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_symmetric_difference(
 					sprout::begin(arr1),
@@ -121,7 +121,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// 排他的論理和
+			// symmetric difference
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_symmetric_difference(
 					sprout::begin(arr1),
@@ -150,8 +150,8 @@ namespace testspr {
 					array<int, 6>{{5, 15, 25, 30, 40, 50}}
 					));
 			}
-			// 排他的論理和
-			// 出力範囲をオーバーする場合
+			// symmetric difference
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_symmetric_difference(
 					sprout::begin(arr1),
@@ -180,8 +180,8 @@ namespace testspr {
 					array<int, 4>{{5, 15, 25, 30}}
 					));
 			}
-			// 排他的論理和
-			// 出力範囲の切り出し
+			// symmetric difference
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_symmetric_difference(
 					sprout::begin(arr1),

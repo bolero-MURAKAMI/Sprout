@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 0, 3, 0, 5, 0, 7, 0, 9, 0}};
 
-			// ’uŠ· (is_odd -> -1)
+			// replace (odd -> -1)
 			{
 				SPROUT_STATIC_CONSTEXPR auto replaced = sprout::replace_if(
 					arr1,
@@ -43,8 +43,8 @@ namespace testspr {
 					array<int, 10>{{-1, 0, -1, 0, -1, 0, -1, 0, -1, 0}}
 					));
 			}
-			// ’uŠ· (is_odd -> -1)
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// replace (odd -> -1)
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto replaced = sprout::replace_if(
 					sprout::sub(arr1, 2, 8),

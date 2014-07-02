@@ -23,7 +23,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{{}};
 
-			// 論理差
+			// difference
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_difference(
 					sprout::begin(arr1),
@@ -50,8 +50,8 @@ namespace testspr {
 					array<int, 3>{{5, 15, 25}}
 					));
 			}
-			// 論理差
-			// 出力範囲をオーバーする場合
+			// difference
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_difference(
 					sprout::begin(arr1),
@@ -78,8 +78,8 @@ namespace testspr {
 					array<int, 2>{{5, 15}}
 					));
 			}
-			// 論理差
-			// 出力範囲の切り出し
+			// difference
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_difference(
 					sprout::begin(arr1),
@@ -121,7 +121,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 2>{{}};
 
-			// 論理差
+			// difference
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_difference(
 					sprout::begin(arr1),
@@ -150,8 +150,8 @@ namespace testspr {
 					array<int, 3>{{5, 15, 25}}
 					));
 			}
-			// 論理差
-			// 出力範囲をオーバーする場合
+			// difference
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_difference(
 					sprout::begin(arr1),
@@ -180,8 +180,8 @@ namespace testspr {
 					array<int, 2>{{5, 15}}
 					));
 			}
-			// 論理差
-			// 出力範囲の切り出し
+			// difference
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_difference(
 					sprout::begin(arr1),

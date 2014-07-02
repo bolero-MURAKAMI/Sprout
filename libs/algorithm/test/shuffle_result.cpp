@@ -23,7 +23,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 			SPROUT_STATIC_CONSTEXPR auto g = sprout::random::default_random_engine(SPROUT_UNIQUE_SEED);
 
-			// シャッフル
+			// shuffle
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::shuffle_result(
 					arr1,
@@ -54,8 +54,8 @@ namespace testspr {
 					);
 				TESTSPR_BOTH_ASSERT(sprout::get<1>(shuffled) == sprout::get<1>(shuffled2));
 			}
-			// シャッフル
-			// 範囲の切り出し
+			// shuffle
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::shuffle_result(
 					sprout::sub(arr1, 2, 8),

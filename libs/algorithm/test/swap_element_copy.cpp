@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲をスワップ
+			// swap in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto swapped = sprout::swap_element_copy(
 					sprout::begin(arr1) + 2,
@@ -49,8 +49,8 @@ namespace testspr {
 					array<int, 6>{{8, 4, 5, 6, 7, 3}}
 					));
 			}
-			// [2 .. 8) の範囲をスワップ
-			// 出力範囲をオーバーする場合
+			// swap in range [2 .. 8)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto swapped = sprout::swap_element_copy(
 					sprout::begin(arr1) + 2,
@@ -77,8 +77,8 @@ namespace testspr {
 					array<int, 4>{{8, 4, 5, 6}}
 					));
 			}
-			// [2 .. 8) の範囲をスワップ
-			// 出力範囲の切り出し
+			// swap in range [2 .. 8)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto swapped = sprout::swap_element_copy(
 					sprout::begin(arr1) + 2,

@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲をパーティション (is_odd)
+			// partition in range [2 .. 8) (odd)
 			{
 				SPROUT_STATIC_CONSTEXPR auto partitioned = sprout::partition_copy(
 					sprout::begin(arr1) + 2,
@@ -47,8 +47,8 @@ namespace testspr {
 					array<int, 3>{{7, 5, 3}}
 					));
 			}
-			// [2 .. 8) の範囲をパーティション (is_odd)
-			// 出力範囲をオーバーする場合
+			// partition in range [2 .. 8) (odd)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto partitioned = sprout::partition_copy(
 					sprout::begin(arr1) + 2,
@@ -73,8 +73,8 @@ namespace testspr {
 					array<int, 2>{{5, 3}}
 					));
 			}
-			// [2 .. 8) の範囲をパーティション (is_odd)
-			// 出力範囲の切り出し
+			// partition in range [2 .. 8) (odd)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto partitioned = sprout::partition_copy(
 					sprout::begin(arr1) + 2,

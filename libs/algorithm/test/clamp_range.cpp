@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// クランプ (4 <= x <= 7)
+			// clamp (4 <= x <= 7)
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range(
 					arr1,
@@ -43,8 +43,8 @@ namespace testspr {
 					array<int, 10>{{4, 4, 4, 4, 5, 6, 7, 7, 7, 7}}
 					));
 			}
-			// クランプ (4 <= x <= 7)
-			// 範囲の切り出し
+			// clamp (4 <= x <= 7)
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range(
 					sprout::sub(arr1, 2, 8),
@@ -79,7 +79,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// クランプ (4 <= x <= 7)
+			// clamp (4 <= x <= 7)
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range(
 					arr1,
@@ -104,8 +104,8 @@ namespace testspr {
 					array<int, 10>{{4, 4, 4, 4, 5, 6, 7, 7, 7, 7}}
 					));
 			}
-			// クランプ (4 <= x <= 7)
-			// 範囲の切り出し
+			// clamp (4 <= x <= 7)
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range(
 					sprout::sub(arr1, 2, 8),

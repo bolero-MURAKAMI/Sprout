@@ -26,10 +26,10 @@ namespace sprout {
 	merge(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2, OutputIterator result, Compare comp) {
 		while (true) {
 			if (first1 == last1) {
-				return std::copy(first2, last2, result);
+				return sprout::copy(first2, last2, result);
 			}
 			if (first2 == last2) {
-				return std::copy(first1, last1, result);
+				return sprout::copy(first1, last1, result);
 			}
 			*result++ = comp(*first2, *first1)
 				? *first2++

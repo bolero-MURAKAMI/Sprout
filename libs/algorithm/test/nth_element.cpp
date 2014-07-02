@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{10, 7, 8, 6, 9, 2, 5, 3, 4, 1}};
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto nth = sprout::nth_element(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 5>{{2, 4, 1, 3, 5}}
 					));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto nth = sprout::nth_element(
 					sprout::sub(arr1, 2, 8),
@@ -75,7 +75,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{10, 7, 8, 6, 9, 2, 5, 3, 4, 1}};
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto nth = sprout::nth_element(
 					arr1,
@@ -98,8 +98,8 @@ namespace testspr {
 					array<int, 5>{{2, 4, 1, 3, 5}}
 					));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto nth = sprout::nth_element(
 					sprout::sub(arr1, 2, 8),

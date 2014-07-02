@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲をクランプ (4 <= x <= 7)
+			// clamp in range [2 .. 8) (4 <= x <= 7)
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range_copy(
 					sprout::begin(arr1) + 2,
@@ -49,8 +49,8 @@ namespace testspr {
 					array<int, 6>{{4, 4, 5, 6, 7, 7}}
 					));
 			}
-			// [2 .. 8) の範囲をクランプ (4 <= x <= 7)
-			// 出力範囲をオーバーする場合
+			// clamp in range [2 .. 8) (4 <= x <= 7)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range_copy(
 					sprout::begin(arr1) + 2,
@@ -77,8 +77,8 @@ namespace testspr {
 					array<int, 4>{{4, 4, 5, 6}}
 					));
 			}
-			// [2 .. 8) の範囲をクランプ (4 <= x <= 7)
-			// 出力範囲の切り出し
+			// clamp in range [2 .. 8) (4 <= x <= 7)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range_copy(
 					sprout::begin(arr1) + 2,
@@ -119,7 +119,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲をクランプ (4 <= x <= 7)
+			// clamp in range [2 .. 8) (4 <= x <= 7)
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range_copy(
 					sprout::begin(arr1) + 2,
@@ -148,8 +148,8 @@ namespace testspr {
 					array<int, 6>{{4, 4, 5, 6, 7, 7}}
 					));
 			}
-			// [2 .. 8) の範囲をクランプ (4 <= x <= 7)
-			// 出力範囲をオーバーする場合
+			// clamp in range [2 .. 8) (4 <= x <= 7)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range_copy(
 					sprout::begin(arr1) + 2,
@@ -178,8 +178,8 @@ namespace testspr {
 					array<int, 4>{{4, 4, 5, 6}}
 					));
 			}
-			// [2 .. 8) の範囲をクランプ (4 <= x <= 7)
-			// 出力範囲の切り出し
+			// clamp in range [2 .. 8) (4 <= x <= 7)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto clamped = sprout::clamp_range_copy(
 					sprout::begin(arr1) + 2,

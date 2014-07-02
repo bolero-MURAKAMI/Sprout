@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{5, 1, 9, 4, 8, 2, 7, 3, 10, 6}};
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::partial_sort(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::partial_sort(
 					sprout::sub(arr1, 2, 8),
@@ -75,7 +75,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{5, 1, 9, 4, 8, 2, 7, 3, 10, 6}};
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::partial_sort(
 					arr1,
@@ -98,8 +98,8 @@ namespace testspr {
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::partial_sort(
 					sprout::sub(arr1, 2, 8),

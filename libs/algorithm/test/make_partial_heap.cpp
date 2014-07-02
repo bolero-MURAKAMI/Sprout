@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{10, 7, 8, 6, 9, 2, 5, 3, 4, 1}};
 
-			// ヒープ作成
+			// make heap
 			{
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::make_partial_heap(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 5>{{5, 4, 1, 3, 2}}
 					));
 			}
-			// ヒープ作成
-			// 範囲の切り出し
+			// make heap
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::make_partial_heap(
 					sprout::sub(arr1, 2, 10),
@@ -75,7 +75,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{10, 7, 8, 6, 9, 2, 5, 3, 4, 1}};
 
-			// ヒープ作成
+			// make heap
 			{
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::make_partial_heap(
 					arr1,
@@ -98,8 +98,8 @@ namespace testspr {
 					array<int, 5>{{5, 4, 1, 3, 2}}
 					));
 			}
-			// ヒープ作成
-			// 範囲の切り出し
+			// make heap
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto heap = sprout::make_partial_heap(
 					sprout::sub(arr1, 2, 10),

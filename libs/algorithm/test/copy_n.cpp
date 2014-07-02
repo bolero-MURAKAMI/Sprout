@@ -21,7 +21,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// 6 要素をコピー
+			// copy 6 elements
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy_n(
 					sprout::begin(arr1) + 2,
@@ -45,8 +45,8 @@ namespace testspr {
 					));
 			}
 
-			// 6 要素をコピー
-			// 出力範囲をオーバーする場合
+			// copy 6 elements
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy_n(
 					sprout::begin(arr1) + 2,
@@ -69,8 +69,8 @@ namespace testspr {
 					array<int, 4>{{3, 4, 5, 6}}
 					));
 			}
-			// 6 要素をコピー
-			// 出力範囲の切り出し
+			// copy 6 elements
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy_n(
 					sprout::begin(arr1) + 2,

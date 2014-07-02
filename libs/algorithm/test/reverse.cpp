@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// ”½“]
+			// reverse
 			{
 				SPROUT_STATIC_CONSTEXPR auto reversed = sprout::reverse(
 					arr1
@@ -39,8 +39,8 @@ namespace testspr {
 					array<int, 10>{{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}}
 					));
 			}
-			// ”½“]
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// reverse
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto reversed = sprout::reverse(
 					sprout::sub(arr1, 2, 8)

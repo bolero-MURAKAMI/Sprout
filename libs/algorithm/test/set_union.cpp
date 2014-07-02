@@ -23,7 +23,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// 論理和
+			// union
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_union(
 					sprout::begin(arr1),
@@ -50,8 +50,8 @@ namespace testspr {
 					array<int, 8>{{5, 10, 15, 20, 25, 30, 40, 50}}
 					));
 			}
-			// 論理和
-			// 出力範囲をオーバーする場合
+			// union
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_union(
 					sprout::begin(arr1),
@@ -78,8 +78,8 @@ namespace testspr {
 					array<int, 4>{{5, 10, 15, 20}}
 					));
 			}
-			// 論理和
-			// 出力範囲の切り出し
+			// union
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_union(
 					sprout::begin(arr1),
@@ -121,7 +121,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// 論理和
+			// union
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_union(
 					sprout::begin(arr1),
@@ -150,8 +150,8 @@ namespace testspr {
 					array<int, 8>{{5, 10, 15, 20, 25, 30, 40, 50}}
 					));
 			}
-			// 論理和
-			// 出力範囲をオーバーする場合
+			// union
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_union(
 					sprout::begin(arr1),
@@ -180,8 +180,8 @@ namespace testspr {
 					array<int, 4>{{5, 10, 15, 20}}
 					));
 			}
-			// 論理和
-			// 出力範囲の切り出し
+			// union
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::set_union(
 					sprout::begin(arr1),

@@ -35,10 +35,19 @@ namespace sprout {
 		: public std::enable_if<C, sprout::enabler_t&>
 #endif
 	{};
+	//
+	// disabler_if
+	//
+	template<bool C>
+	struct disabler_if
+		: public sprout::enabler_if<!C>
+	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<bool C>
 	using enabler_if_t = typename sprout::enabler_if<C>::type;
+	template<bool C>
+	using disabler_if_t = typename sprout::disabler_if<C>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

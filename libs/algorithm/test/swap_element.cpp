@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// スワップ
+			// swap
 			{
 				SPROUT_STATIC_CONSTEXPR auto swapped = sprout::swap_element(
 					arr1,
@@ -43,8 +43,8 @@ namespace testspr {
 					array<int, 10>{{1, 2, 8, 4, 5, 6, 7, 3, 9, 10}}
 					));
 			}
-			// スワップ
-			// 範囲の切り出し
+			// swap
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto swapped = sprout::swap_element(
 					sprout::sub(arr1, 2, 8),

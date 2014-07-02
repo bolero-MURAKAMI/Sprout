@@ -23,7 +23,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// マージ
+			// merge
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::merge(
 					sprout::begin(arr1),
@@ -50,8 +50,8 @@ namespace testspr {
 					array<int, 8>{{2, 3, 4, 5, 6, 7, 8, 9}}
 					));
 			}
-			// マージ
-			// 出力範囲をオーバーする場合
+			// merge
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::merge(
 					sprout::begin(arr1),
@@ -78,8 +78,8 @@ namespace testspr {
 					array<int, 4>{{2, 3, 4, 5}}
 					));
 			}
-			// マージ
-			// 出力範囲の切り出し
+			// merge
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::merge(
 					sprout::begin(arr1),
@@ -121,7 +121,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// マージ
+			// merge
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::merge(
 					sprout::begin(arr1),
@@ -150,8 +150,8 @@ namespace testspr {
 					array<int, 8>{{2, 3, 4, 5, 6, 7, 8, 9}}
 					));
 			}
-			// マージ
-			// 出力範囲をオーバーする場合
+			// merge
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::merge(
 					sprout::begin(arr1),
@@ -180,8 +180,8 @@ namespace testspr {
 					array<int, 4>{{2, 3, 4, 5}}
 					));
 			}
-			// マージ
-			// 出力範囲の切り出し
+			// merge
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto merged = sprout::merge(
 					sprout::begin(arr1),

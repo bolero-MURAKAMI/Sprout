@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// 奇数をコピー
+			// copy odd
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy_if(
 					sprout::begin(arr1),
@@ -47,8 +47,8 @@ namespace testspr {
 					array<int, 5>{{1, 3, 5, 7, 9}}
 					));
 			}
-			// 奇数をコピー
-			// 出力範囲をオーバーする場合
+			// copy odd
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy_if(
 					sprout::begin(arr1),
@@ -73,8 +73,8 @@ namespace testspr {
 					array<int, 4>{{1, 3, 5, 7}}
 					));
 			}
-			// 奇数をコピー
-			// 出力範囲の切り出し
+			// copy odd
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy_if(
 					sprout::begin(arr1),

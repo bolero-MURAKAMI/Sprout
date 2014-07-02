@@ -22,7 +22,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
-			// シャッフル
+			// shuffle
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::shuffle(
 					arr1,
@@ -43,8 +43,8 @@ namespace testspr {
 					arr1
 					));
 			}
-			// シャッフル
-			// 範囲の切り出し
+			// shuffle
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto shuffled = sprout::shuffle(
 					sprout::sub(arr1, 2, 8),

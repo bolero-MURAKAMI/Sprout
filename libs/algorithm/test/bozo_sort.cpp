@@ -22,7 +22,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 1, 4, 2, 3}};
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bozo_sort(
 					arr1,
@@ -43,8 +43,8 @@ namespace testspr {
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bozo_sort(
 					sprout::sub(arr1, 1, 4),
@@ -77,7 +77,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 5>{{5, 1, 4, 2, 3}};
 
-			// ソート
+			// sort
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bozo_sort(
 					arr1,
@@ -100,8 +100,8 @@ namespace testspr {
 					array<int, 5>{{1, 2, 3, 4, 5}}
 					));
 			}
-			// ソート
-			// 範囲の切り出し
+			// sort
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto sorted = sprout::bozo_sort(
 					sprout::sub(arr1, 1, 4),

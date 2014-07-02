@@ -22,7 +22,7 @@ namespace testspr {
 			SPROUT_STATIC_CONSTEXPR auto arr2 = array<int, 10>{{}};
 			SPROUT_STATIC_CONSTEXPR auto arr3 = array<int, 4>{{}};
 
-			// [2 .. 8) の範囲を回転
+			// rotate in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate_copy(
 					sprout::begin(arr1) + 2,
@@ -47,8 +47,8 @@ namespace testspr {
 					array<int, 6>{{6, 7, 8, 3, 4, 5}}
 					));
 			}
-			// [2 .. 8) の範囲を回転
-			// 出力範囲をオーバーする場合
+			// rotate in range [2 .. 8)
+			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate_copy(
 					sprout::begin(arr1) + 2,
@@ -73,8 +73,8 @@ namespace testspr {
 					array<int, 4>{{6, 7, 8, 3}}
 					));
 			}
-			// [2 .. 8) の範囲を回転
-			// 出力範囲の切り出し
+			// rotate in range [2 .. 8)
+			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate_copy(
 					sprout::begin(arr1) + 2,

@@ -20,7 +20,7 @@ namespace testspr {
 		{
 			SPROUT_STATIC_CONSTEXPR auto arr1 = array<int, 10>{{}};
 
-			// ¶¬
+			// generate
 			{
 				SPROUT_STATIC_CONSTEXPR auto generated = sprout::generate(
 					arr1,
@@ -41,8 +41,8 @@ namespace testspr {
 					array<int, 10>{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}
 					));
 			}
-			// ¶¬
-			// ”ÍˆÍ‚ÌØ‚èo‚µ
+			// generate
+			// from sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto generated = sprout::generate(
 					sprout::sub(arr1, 2, 8),
