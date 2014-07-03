@@ -34,12 +34,25 @@ namespace sprout {
 				&& sprout::has_second_argument_type<Fn>::value
 		>
 	{};
+	//
+	// is_strict_function
+	//
+	template<typename Fn>
+	struct is_strict_function
+		: public sprout::integral_constant<
+			bool,
+			sprout::is_strict_unary_function<Fn>::value
+				|| sprout::is_strict_binary_function<Fn>::value
+		>
+	{};
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_strict_unary_function_v = sprout::is_strict_unary_function<T>::value;
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_strict_binary_function_v = sprout::is_strict_binary_function<T>::value;
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_strict_function_v = sprout::is_strict_function<T>::value;
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
