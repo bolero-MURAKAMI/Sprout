@@ -231,7 +231,7 @@ namespace sprout {
 #if SPROUT_PP_VARIADICS
 #	define SPROUT_ASSERT_2(expr, msg) \
 		SPROUT_ASSERT_MSG(expr, msg)
-#	define SPROUT_ASSERT(__VA_ARGS__) \
+#	define SPROUT_ASSERT(...) \
 		SPROUT_PP_CAT(SPROUT_ASSERT_, SPROUT_PP_VARIADIC_SIZE(__VA_ARGS__))(__VA_ARGS__)
 #else
 #	define SPROUT_ASSERT(expr) \
