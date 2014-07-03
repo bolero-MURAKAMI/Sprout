@@ -9,17 +9,35 @@
 #define SPROUT_STATIC_ASSERT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/preprocessor/config.hpp>
+#include <sprout/preprocessor/cat.hpp>
 #include <sprout/preprocessor/stringize.hpp>
+#include <sprout/preprocessor/variadic/size.hpp>
 
 //
 // SPROUT_STATIC_ASSERT_MSG
-// SPROUT_STATIC_ASSERT
-// SPROUT_STATIC_ASSERT_PREPROCESSED
 //
 #define SPROUT_STATIC_ASSERT_MSG(COND, MESSAGE) \
 	static_assert(COND, MESSAGE)
-#define SPROUT_STATIC_ASSERT(COND) \
+
+//
+// SPROUT_STATIC_ASSERT
+//
+#define SPROUT_STATIC_ASSERT_1(COND) \
 	SPROUT_STATIC_ASSERT_MSG(COND, #COND)
+#if SPROUT_PP_VARIADICS
+#	define SPROUT_STATIC_ASSERT_2(COND, MESSAGE) \
+		SPROUT_STATIC_ASSERT_MSG(COND, MESSAGE)
+#	define SPROUT_STATIC_ASSERT(...) \
+		SPROUT_PP_CAT(SPROUT_STATIC_ASSERT_, SPROUT_PP_VARIADIC_SIZE(__VA_ARGS__))(__VA_ARGS__)
+#else
+#	define SPROUT_STATIC_ASSERT(expr) \
+		SPROUT_STATIC_ASSERT_1(expr)
+#endif
+
+//
+// SPROUT_STATIC_ASSERT_PREPROCESSED
+//
 #define SPROUT_STATIC_ASSERT_PREPROCESSED(COND) \
 	SPROUT_STATIC_ASSERT_MSG(COND, #COND " \n[[preprocessed]]: " SPROUT_PP_STRINGIZE(COND))
 
