@@ -51,6 +51,7 @@
 #	else
 #		define SPROUT_UINT32_C(n) n ## UL
 #	endif
+#else
 #	define SPROUT_UINT32_C(n) UINT32_C(n)
 #endif
 #ifndef INT64_C
