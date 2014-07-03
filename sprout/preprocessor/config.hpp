@@ -14,9 +14,10 @@
 // SPROUT_PP_VARIADICS
 //
 #if !defined(SPROUT_PP_VARIADICS)
-#	if defined(__GCCXML__) || defined(__CUDACC__) || defined(__PATHSCALE__) || defined(__clang__) || defined(__DMC__) || defined(__CODEGEARC__) || defined(__BORLANDC__) || defined(__MWERKS__) || defined(__SUNPRO_CC) || (defined(__HP_aCC) && !defined(__EDG__)) || defined(__MRC__) || defined(__SC__) || defined(__IBMCPP__) || defined(__PGI)
+#	if defined(__GCCXML__) || defined(__CUDACC__) || defined(__PATHSCALE__) || defined(__DMC__) || defined(__CODEGEARC__) || defined(__BORLANDC__) || defined(__MWERKS__) || defined(__SUNPRO_CC) || (defined(__HP_aCC) && !defined(__EDG__)) || defined(__MRC__) || defined(__SC__) || defined(__IBMCPP__) || defined(__PGI)
 #		define SPROUT_PP_VARIADICS 0
-#	/* VC++ (C/C++) */
+#	elif defined(__clang__)
+#		define SPROUT_PP_VARIADICS 1
 #	elif defined(_MSC_VER) && _MSC_VER >= 1400 && !defined(__EDG__)
 #		if _MSC_VER >= 1400
 #			define SPROUT_PP_VARIADICS 1
@@ -24,10 +25,8 @@
 #		else
 #			define SPROUT_PP_VARIADICS 0
 #		endif
-#	/* Wave (C/C++), GCC (C++) */
 #	elif defined(__WAVE__) && __WAVE_HAS_VARIADICS__ || defined(__GNUC__) && __GXX_EXPERIMENTAL_CXX0X__
 #		define SPROUT_PP_VARIADICS 1
-#	/* EDG-based (C/C++), GCC (C), and unknown (C/C++) */
 #	elif !defined(__cplusplus) && __STDC_VERSION__ >= 199901L || __cplusplus >= 201103L
 #		define SPROUT_PP_VARIADICS 1
 #	else
