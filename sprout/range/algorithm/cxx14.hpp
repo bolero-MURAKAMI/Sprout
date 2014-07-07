@@ -9,6 +9,7 @@
 #define SPROUT_RANGE_ALGORITHM_CXX14_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/range/algorithm/cxx14/for_each.hpp>
 #include <sprout/range/algorithm/cxx14/copy.hpp>
 #include <sprout/range/algorithm/cxx14/copy_if.hpp>
 #include <sprout/range/algorithm/cxx14/copy_backward.hpp>
@@ -58,6 +59,7 @@
 #include <sprout/range/algorithm/cxx14/copy_while.hpp>
 #include <sprout/range/algorithm/cxx14/copy_until.hpp>
 #include <sprout/range/algorithm/cxx14/clamp_range.hpp>
+#include <sprout/range/algorithm/cxx14/gather.hpp>
 #include <sprout/range/algorithm/cxx14/random_swap.hpp>
 #include <sprout/range/algorithm/cxx14/bogo_sort.hpp>
 #include <sprout/range/algorithm/cxx14/bozo_sort.hpp>
