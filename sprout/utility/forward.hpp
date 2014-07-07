@@ -29,11 +29,16 @@ namespace sprout {
 // SPROUT_FORWARD
 //
 #if defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
-#	define SPROUT_FORWARD(TYPE, VALUE) \
-		static_cast<decltype(::sprout::forward<TYPE>(VALUE))>(VALUE)
+#	define SPROUT_FORWARD(TYPE, VAR) \
+		static_cast<decltype(::sprout::forward<TYPE>(VAR))>(VAR)
 #else
-#	define SPROUT_FORWARD(TYPE, VALUE) \
-		::sprout::forward<TYPE>(VALUE)
+#	define SPROUT_FORWARD(TYPE, VAR) \
+		::sprout::forward<TYPE>(VAR)
 #endif
+
+//
+// SPROUT_AUTO_FORWARD
+//
+#define SPROUT_AUTO_FORWARD(VAR) SPROUT_FORWARD(decltype(VAR), VAR)
 
 #endif	// #ifndef SPROUT_UTILITY_FORWARD_HPP
