@@ -19,44 +19,44 @@ namespace sprout {
 	namespace detail {
 		// Copyright (c) 2011 osyo-manga : http://d.hatena.ne.jp/osyo-manga/
 
-		template<typename IntType, typename CStrIterator>
+		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR IntType
-		ascii_to_int_impl(CStrIterator str, IntType val, bool negative) {
+		ascii_to_int_impl(NullTerminatedIterator str, IntType val, bool negative) {
 			return !sprout::ascii::isdigit(*str)
 				? negative ? -val : val
-				: val > (sprout::numeric_limits<IntType>::max() - (*str - static_cast<typename std::iterator_traits<CStrIterator>::value_type>('0')) - (negative ? 1 : 0)) / 10
+				: val > (sprout::numeric_limits<IntType>::max() - (*str - static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('0')) - (negative ? 1 : 0)) / 10
 				? (negative ? sprout::numeric_limits<IntType>::min() : sprout::numeric_limits<IntType>::max())
 				: sprout::detail::ascii_to_int_impl<IntType>(
 					sprout::next(str),
-					val * 10 + (*str - static_cast<typename std::iterator_traits<CStrIterator>::value_type>('0')),
+					val * 10 + (*str - static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('0')),
 					negative
 					)
 				;
 		}
-		template<typename IntType, typename CStrIterator>
+		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_unsigned<IntType>::value,
 			IntType
 		>::type
-		ascii_to_int(CStrIterator str) {
+		ascii_to_int(NullTerminatedIterator str) {
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
-				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('+')
+				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
 				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), false)
 				: sprout::detail::ascii_to_int_impl<IntType>(str, IntType(), false)
 				;
 		}
-		template<typename IntType, typename CStrIterator>
+		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_signed<IntType>::value,
 			IntType
 		>::type
-		ascii_to_int(CStrIterator str) {
+		ascii_to_int(NullTerminatedIterator str) {
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
-				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('-')
+				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('-')
 				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), true)
-				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('+')
+				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
 				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), false)
 				: sprout::detail::ascii_to_int_impl<IntType>(str, IntType(), false)
 				;

@@ -13,11 +13,11 @@
 
 namespace sprout {
 	namespace detail {
-		template<typename OutputCStrIterator, typename CStrIterator>
-		inline SPROUT_CXX14_CONSTEXPR OutputCStrIterator
-		strncat(OutputCStrIterator s1, CStrIterator s2, std::size_t n) {
-			typedef typename std::iterator_traits<OutputCStrIterator>::value_type value_type;
-			OutputCStrIterator result = s1;
+		template<typename OutputNullTerminatedIterator, typename NullTerminatedIterator>
+		inline SPROUT_CXX14_CONSTEXPR OutputNullTerminatedIterator
+		strncat(OutputNullTerminatedIterator s1, NullTerminatedIterator s2, std::size_t n) {
+			typedef typename std::iterator_traits<OutputNullTerminatedIterator>::value_type value_type;
+			OutputNullTerminatedIterator result = s1;
 			while (*s1) {
 				++s1;
 			}

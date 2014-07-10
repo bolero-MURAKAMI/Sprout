@@ -12,10 +12,10 @@
 
 namespace sprout {
 	namespace detail {
-		template<typename OutputCStrIterator, typename CStrIterator>
-		inline SPROUT_CXX14_CONSTEXPR OutputCStrIterator
-		strcat(OutputCStrIterator s1, CStrIterator s2) {
-			OutputCStrIterator result = s1;
+		template<typename OutputNullTerminatedIterator, typename NullTerminatedIterator>
+		inline SPROUT_CXX14_CONSTEXPR OutputNullTerminatedIterator
+		strcat(OutputNullTerminatedIterator s1, NullTerminatedIterator s2) {
+			OutputNullTerminatedIterator result = s1;
 			while (*s1++)
 				;
 			while ((*s1++ = *s2++))

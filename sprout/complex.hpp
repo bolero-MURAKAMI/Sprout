@@ -14,6 +14,8 @@
 #include <sprout/complex/values.hpp>
 #include <sprout/complex/transcendentals.hpp>
 #include <sprout/complex/hash.hpp>
+#include <sprout/complex/tuple.hpp>
+#include <sprout/complex/container.hpp>
 #include <sprout/complex/nearest.hpp>
 #include <sprout/complex/udl.hpp>
 #include <sprout/complex/type_traits.hpp>

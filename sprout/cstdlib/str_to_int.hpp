@@ -24,9 +24,9 @@ namespace sprout {
 	namespace detail {
 		// Copyright (c) 2011 osyo-manga : http://d.hatena.ne.jp/osyo-manga/
 
-		template<typename IntType, typename CStrIterator>
+		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR IntType
-		str_to_int_impl_1(CStrIterator str, int base, IntType val, IntType x, bool negative) {
+		str_to_int_impl_1(NullTerminatedIterator str, int base, IntType val, IntType x, bool negative) {
 			return x == static_cast<IntType>(-1) ? (negative ? -1 * val : val)
 				: val > (sprout::numeric_limits<IntType>::max() - x - (negative ? 1 : 0)) / base
 					? (negative ? sprout::numeric_limits<IntType>::min() : sprout::numeric_limits<IntType>::max())
@@ -39,12 +39,12 @@ namespace sprout {
 					)
 				;
 		}
-		template<typename IntType, typename CStrIterator>
+		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR IntType
-		str_to_int_impl(CStrIterator str, int base, bool negative) {
-			return *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('0')
-				? *sprout::next(str) == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('x')
-					|| *sprout::next(str) == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('X')
+		str_to_int_impl(NullTerminatedIterator str, int base, bool negative) {
+			return *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('0')
+				? *sprout::next(str) == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('x')
+					|| *sprout::next(str) == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('X')
 					? sprout::detail::str_to_int_impl_1<IntType>(
 						sprout::next(str, 2),
 						base ? base : 16,
@@ -68,37 +68,37 @@ namespace sprout {
 					)
 				;
 		}
-		template<typename IntType, typename CStrIterator>
+		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_unsigned<IntType>::value,
 			IntType
 		>::type
-		str_to_int(CStrIterator str, int base) {
+		str_to_int(NullTerminatedIterator str, int base) {
 			return sprout::ascii::isspace(*str)
 					? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
-				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('+')
+				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
 					? sprout::detail::str_to_int_impl<IntType>(sprout::next(str), base, false)
 				: sprout::detail::str_to_int_impl<IntType>(str, base, false)
 				;
 		}
-		template<typename IntType, typename CStrIterator>
+		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			std::is_signed<IntType>::value,
 			IntType
 		>::type
-		str_to_int(CStrIterator str, int base) {
+		str_to_int(NullTerminatedIterator str, int base) {
 			return sprout::ascii::isspace(*str)
 					? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
-				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('-')
+				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('-')
 					? sprout::detail::str_to_int_impl<IntType>(sprout::next(str), base, true)
-				: *str == static_cast<typename std::iterator_traits<CStrIterator>::value_type>('+')
+				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
 					? sprout::detail::str_to_int_impl<IntType>(sprout::next(str), base, false)
 				: sprout::detail::str_to_int_impl<IntType>(str, base, false)
 				;
 		}
-		template<typename IntType, typename CStrIterator, typename CharPtr>
+		template<typename IntType, typename NullTerminatedIterator, typename CharPtr>
 		inline SPROUT_CONSTEXPR IntType
-		str_to_int(CStrIterator str, CharPtr* endptr, int base) {
+		str_to_int(NullTerminatedIterator str, CharPtr* endptr, int base) {
 			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
 #if defined(_MSC_VER)
 				: std::is_signed<IntType>::value
