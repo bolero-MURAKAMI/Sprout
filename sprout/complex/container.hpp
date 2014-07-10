@@ -30,7 +30,6 @@ namespace sprout {
 		template<typename... Args>
 		static SPROUT_CONSTEXPR copied_type
 		make(Args&&... args) {
-			typedef sprout::detail::make_construct_impl<copied_type> impl_type;
 			return copied_type(SPROUT_FORWARD(Args, args)...);
 		}
 		template<typename Cont, typename... Args>
