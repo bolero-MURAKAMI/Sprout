@@ -15,6 +15,9 @@
 #include <sprout/math/cos.hpp>
 #include <sprout/math/atan2.hpp>
 #include <sprout/math/sqrt.hpp>
+#include <sprout/math/isinf.hpp>
+#include <sprout/math/copysign.hpp>
+#include <sprout/limits.hpp>
 
 namespace sprout {
 	template<typename T>
@@ -62,23 +65,12 @@ namespace sprout {
 	conj(sprout::complex<T> const& x) {
 		return sprout::complex<T>(x.real(), -x.imag());
 	}
-	namespace detail {
-		template<typename T>
-		inline SPROUT_CONSTEXPR sprout::complex<T>
-		proj_impl(sprout::complex<T> const& x, T const& den) {
-			return sprout::complex<T>(
-				T(2) * x.real() / den,
-				T(2) * x.imag() / den
-				);
-		}
-	}	// detail
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	proj(sprout::complex<T> const& x) {
-		return sprout::detail::proj_impl(
-			x,
-			sprout::norm(x) + T(1)
-			);
+		return sprout::isinf(x.real()) || sprout::isinf(x.imag())
+			? sprout::complex<T>(sprout::numeric_limits<T>::infinity(), sprout::copysign(T(), x.imag()))
+			: x;
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
