@@ -35,7 +35,9 @@ namespace sprout {
 	// container_range_traits
 	//
 	template<typename T, std::size_t N>
-	struct container_range_traits<std::array<T, N> > {
+	struct container_range_traits<std::array<T, N> >
+		: public sprout::detail::container_range_traits_default<std::array<T, N> >
+	{
 	public:
 		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::iterator
 		range_begin(std::array<T, N>& cont) {

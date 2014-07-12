@@ -335,93 +335,111 @@ namespace sprout {
 				return *sprout::next(sprout::begin(cont), i);
 			}
 		};
+
+		//
+		// container_range_traits_default
+		//
+		template<typename Container>
+		struct container_range_traits_default
+			: public sprout::detail::container_range_traits_range_size_impl<Container>
+			, public sprout::detail::container_range_traits_range_empty_impl<Container>
+			, public sprout::detail::container_range_traits_range_front_impl<Container>
+			, public sprout::detail::container_range_traits_range_front_const_impl<Container>
+			, public sprout::detail::container_range_traits_range_back_impl<Container>
+			, public sprout::detail::container_range_traits_range_back_const_impl<Container>
+			, public sprout::detail::container_range_traits_range_at_impl<Container>
+			, public sprout::detail::container_range_traits_range_at_const_impl<Container>
+		{
+			using sprout::detail::container_range_traits_range_front_impl<Container>::range_front;
+			using sprout::detail::container_range_traits_range_front_const_impl<Container>::range_front;
+			using sprout::detail::container_range_traits_range_back_impl<Container>::range_back;
+			using sprout::detail::container_range_traits_range_back_const_impl<Container>::range_back;
+			using sprout::detail::container_range_traits_range_at_impl<Container>::range_at;
+			using sprout::detail::container_range_traits_range_at_const_impl<Container>::range_at;
+		public:
+			// iterators:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
+			range_begin(Container& cont) {
+				return cont.begin();
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
+			range_begin(Container const& cont) {
+				return cont.begin();
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
+			range_end(Container& cont) {
+				return cont.end();
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
+			range_end(Container const& cont) {
+				return cont.end();
+			}
+			// data access:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::pointer
+			range_data(Container& cont) {
+				return cont.data();
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
+			range_data(Container const& cont) {
+				return cont.data();
+			}
+		};
+		//
+		// container_range_traits_const_default
+		//
+		template<typename Container>
+		struct container_range_traits_const_default {
+		public:
+			// iterators:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
+			range_begin(Container const& cont) {
+				return sprout::container_range_traits<Container>::range_begin(cont);
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
+			range_end(Container const& cont) {
+				return sprout::container_range_traits<Container>::range_end(cont);
+			}
+			// capacity:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::size_type
+			range_size(Container const& cont) {
+				return sprout::container_range_traits<Container>::range_size(cont);
+			}
+			static SPROUT_CONSTEXPR bool
+			range_empty(Container const& cont) {
+				return sprout::container_range_traits<Container>::range_empty(cont);
+			}
+			// element access:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
+			range_front(Container const& cont) {
+				return sprout::container_range_traits<Container>::range_front(cont);
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
+			range_back(Container const& cont) {
+				return sprout::container_range_traits<Container>::range_back(cont);
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
+			range_at(Container const& cont, typename sprout::container_traits<Container const>::size_type i) {
+				return sprout::container_range_traits<Container>::range_at(cont, i);
+			}
+			// data access:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
+			range_data(Container const& cont) {
+				return sprout::container_range_traits<Container>::range_data(cont);
+			}
+		};
 	}	// namespace detail
 
+	//
+	// container_range_traits
+	//
 	template<typename Container>
 	struct container_range_traits
-		: public sprout::detail::container_range_traits_range_size_impl<Container>
-		, public sprout::detail::container_range_traits_range_empty_impl<Container>
-		, public sprout::detail::container_range_traits_range_front_impl<Container>
-		, public sprout::detail::container_range_traits_range_front_const_impl<Container>
-		, public sprout::detail::container_range_traits_range_back_impl<Container>
-		, public sprout::detail::container_range_traits_range_back_const_impl<Container>
-		, public sprout::detail::container_range_traits_range_at_impl<Container>
-		, public sprout::detail::container_range_traits_range_at_const_impl<Container>
-	{
-		using sprout::detail::container_range_traits_range_front_impl<Container>::range_front;
-		using sprout::detail::container_range_traits_range_front_const_impl<Container>::range_front;
-		using sprout::detail::container_range_traits_range_back_impl<Container>::range_back;
-		using sprout::detail::container_range_traits_range_back_const_impl<Container>::range_back;
-		using sprout::detail::container_range_traits_range_at_impl<Container>::range_at;
-		using sprout::detail::container_range_traits_range_at_const_impl<Container>::range_at;
-	public:
-		// iterators:
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
-		range_begin(Container& cont) {
-			return cont.begin();
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
-		range_begin(Container const& cont) {
-			return cont.begin();
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
-		range_end(Container& cont) {
-			return cont.end();
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
-		range_end(Container const& cont) {
-			return cont.end();
-		}
-		// data access:
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::pointer
-		range_data(Container& cont) {
-			return cont.data();
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
-		range_data(Container const& cont) {
-			return cont.data();
-		}
-	};
+		: public sprout::detail::container_range_traits_default<Container>
+	{};
 	template<typename Container>
-	struct container_range_traits<Container const> {
-	public:
-		// iterators:
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
-		range_begin(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_begin(cont);
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
-		range_end(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_end(cont);
-		}
-		// capacity:
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::size_type
-		range_size(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_size(cont);
-		}
-		static SPROUT_CONSTEXPR bool
-		range_empty(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_empty(cont);
-		}
-		// element access:
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
-		range_front(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_front(cont);
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
-		range_back(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_back(cont);
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
-		range_at(Container const& cont, typename sprout::container_traits<Container const>::size_type i) {
-			return sprout::container_range_traits<Container>::range_at(cont, i);
-		}
-		// data access:
-		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
-		range_data(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_data(cont);
-		}
-	};
+	struct container_range_traits<Container const>
+		: public sprout::detail::container_range_traits_const_default<Container>
+	{};
 
 	template<typename T, std::size_t N>
 	struct container_range_traits<T[N]> {
