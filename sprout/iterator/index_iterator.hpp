@@ -23,12 +23,13 @@
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/functional/subscript.hpp>
 
 namespace sprout {
 	//
 	// index_iterator
 	//
-	template<typename Container, bool ConvertibleToPointer = false>
+	template<typename Container, bool ConvertibleToPointer = false, typename Subscript = sprout::subscript<> >
 	class index_iterator
 		: public std::iterator<
 			std::random_access_iterator_tag,
@@ -64,6 +65,7 @@ namespace sprout {
 			typename std::remove_reference<container_type>::type const
 		>::type const_container_type;
 	private:
+		typedef Subscript subscript_type;
 		typedef std::iterator<
 			std::random_access_iterator_tag,
 			typename traits_type::value_type,
@@ -127,10 +129,10 @@ namespace sprout {
 			sprout::swap(index_, other.index_);
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
-			return holder_.get()[index_];
+			return subscript_type()(holder_.get(), index_);
 		}
 		SPROUT_CONSTEXPR pointer operator->() const {
-			return &holder_.get()[index_];
+			return &subscript_type()(holder_.get(), index_);
 		}
 		SPROUT_CXX14_CONSTEXPR index_iterator& operator++() {
 			index_iterator temp(next());
@@ -169,7 +171,7 @@ namespace sprout {
 			return *this;
 		}
 		SPROUT_CONSTEXPR reference operator[](difference_type n) const {
-			return holder_.get()[index_ + n];
+			return subscript_type()(holder_.get(), index_ + n);
 		}
 	};
 
