@@ -8,6 +8,7 @@
 #ifndef SPROUT_ALGORITHM_FIT_PARTITION_COPY_HPP
 #define SPROUT_ALGORITHM_FIT_PARTITION_COPY_HPP
 
+#include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/container/traits.hpp>
@@ -30,11 +31,12 @@ namespace sprout {
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{
+				typedef typename std::iterator_traits<InputIterator>::difference_type diff_type;
 				return sprout::sub_copy(
 					sprout::get_internal(sprout::fixed::partition_copy(first, last, result, pred)),
 					offset,
 					offset + sprout::fit_size(
-						result, sprout::detail::count_n_if(first, NS_SSCRISK_CEL_OR_SPROUT::min(sprout::distance(first, last), sprout::size(result)), pred)
+						result, sprout::detail::count_n_if(first, NS_SSCRISK_CEL_OR_SPROUT::min<diff_type>(sprout::distance(first, last), sprout::size(result)), pred)
 						)
 					);
 			}

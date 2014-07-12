@@ -9,6 +9,7 @@
 #define SPROUT_CONTAINER_TRAITS_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/container_range_traits.hpp>
 #include <sprout/container/container_construct_traits.hpp>

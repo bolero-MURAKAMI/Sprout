@@ -9,6 +9,7 @@
 #define SPROUT_CONTAINER_CONTAINER_FITNESS_TRAITS_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/size.hpp>
 #include <sprout/utility/forward.hpp>
@@ -23,7 +24,7 @@ namespace sprout {
 	public:
 		template<typename Cont>
 		static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
-		fit_size(Cont&& cont, typename sprout::container_traits<Container>::difference_type size) {
+		fit_size(Cont&& cont, typename sprout::container_traits<Container>::size_type size) {
 			return NS_SSCRISK_CEL_OR_SPROUT::min(size, sprout::size(SPROUT_FORWARD(Cont, cont)));
 		}
 	};

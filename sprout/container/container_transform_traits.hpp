@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/detail/array_like.hpp>
 
@@ -18,9 +19,6 @@ namespace sprout {
 	//
 	// container_transform_traits
 	//
-	template<typename Container>
-	struct container_transform_traits;
-
 	namespace detail {
 		template<typename Container, typename sprout::container_traits<Container>::size_type Size>
 		struct default_array_rebind_size;

@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/container/traits_fwd.hpp>
 
 namespace sprout {
 	//

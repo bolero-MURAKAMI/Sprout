@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/internal_begin.hpp>
 #include <sprout/container/internal_end.hpp>
@@ -26,9 +27,6 @@ namespace sprout {
 	//
 	// container_construct_traits
 	//
-	template<typename Container>
-	struct container_construct_traits;
-
 	namespace detail {
 		template<typename Container, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<

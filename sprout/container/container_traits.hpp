@@ -17,15 +17,13 @@
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>
 #include <sprout/container/detail/array_like.hpp>
+#include <sprout/container/traits_fwd.hpp>
 #if SPROUT_USE_PTR_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/ptr_index_iterator.hpp>
 #endif
 #include <sprout/workaround/base_class_construct.hpp>
 
 namespace sprout {
-	template<typename Container>
-	struct container_traits;
-
 	namespace detail {
 		//
 		// has_value_type
@@ -574,7 +572,7 @@ namespace sprout {
 				0
 			>
 		{};
-	}	// namespace sprout
+	}	// namespace detail
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CONTAINER_CONTAINER_TRAITS_HPP

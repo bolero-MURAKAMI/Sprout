@@ -10,8 +10,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
-#include <sprout/container/container_range_traits.hpp>
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
@@ -80,5 +80,7 @@ namespace sprout {
 		return sprout::begin(arr);
 	}
 }	// namespace sprout
+
+#include <sprout/container/container_range_traits.hpp>
 
 #endif	// #ifndef SPROUT_CONTAINER_BEGIN_HPP
