@@ -33,11 +33,19 @@ namespace sprout {
 			typedef iterator const_iterator;
 			typedef typename std::iterator_traits<Iterator>::value_type value_type;
 			typedef typename std::iterator_traits<Iterator>::reference reference;
-			typedef typename std::remove_reference<reference>::type const& const_reference;
+			typedef typename std::conditional<
+				std::is_reference<reference>::value,
+				typename std::remove_reference<reference>::type const&,
+				reference
+			>::type const_reference;
 			typedef typename std::iterator_traits<Iterator>::difference_type difference_type;
 			typedef typename std::make_unsigned<difference_type>::type size_type;
 			typedef typename std::iterator_traits<Iterator>::pointer pointer;
-			typedef typename std::remove_pointer<pointer>::type const* const_pointer;
+			typedef typename std::conditional<
+				std::is_pointer<pointer>::value,
+				typename std::remove_pointer<pointer>::type const*,
+				pointer
+			>::type const_pointer;
 		private:
 			iterator first_;
 			iterator last_;

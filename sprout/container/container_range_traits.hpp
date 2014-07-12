@@ -348,6 +348,12 @@ namespace sprout {
 		, public sprout::detail::container_range_traits_range_at_impl<Container>
 		, public sprout::detail::container_range_traits_range_at_const_impl<Container>
 	{
+		using sprout::detail::container_range_traits_range_front_impl<Container>::range_front;
+		using sprout::detail::container_range_traits_range_front_const_impl<Container>::range_front;
+		using sprout::detail::container_range_traits_range_back_impl<Container>::range_back;
+		using sprout::detail::container_range_traits_range_back_const_impl<Container>::range_back;
+		using sprout::detail::container_range_traits_range_at_impl<Container>::range_at;
+		using sprout::detail::container_range_traits_range_at_const_impl<Container>::range_at;
 	public:
 		// iterators:
 		static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
