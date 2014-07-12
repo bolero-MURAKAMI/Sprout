@@ -21,12 +21,6 @@ namespace sprout {
 	template<typename Container>
 	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
 	begin(Container const& cont);
-	//
-	// cbegin
-	//
-	template<typename Container>
-	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
-	cbegin(Container const& cont);
 
 	//
 	// end
@@ -37,12 +31,6 @@ namespace sprout {
 	template<typename Container>
 	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
 	end(Container const& cont);
-	//
-	// cend
-	//
-	template<typename Container>
-	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
-	cend(Container const& cont);
 
 	//
 	// size
@@ -57,6 +45,36 @@ namespace sprout {
 	template<typename Container>
 	SPROUT_CONSTEXPR bool
 	empty(Container const& cont);
+
+	//
+	// front
+	//
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container>::reference
+	front(Container& cont);
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
+	front(Container const& cont);
+
+	//
+	// back
+	//
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container>::reference
+	back(Container& cont);
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
+	back(Container const& cont);
+
+	//
+	// at
+	//
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container>::reference
+	at(Container& cont, typename sprout::container_traits<Container>::size_type i);
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
+	at(Container const& cont, typename sprout::container_traits<Container const>::size_type i);
 }	// namespace sprout
 
 

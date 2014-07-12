@@ -14,5 +14,8 @@
 #include <sprout/container/end.hpp>
 #include <sprout/container/size.hpp>
 #include <sprout/container/empty.hpp>
+#include <sprout/container/front.hpp>
+#include <sprout/container/back.hpp>
+#include <sprout/container/at.hpp>
 
 #endif	// #ifndef SPROUT_CONTAINER_RANGE_FUNCTIONS_HPP
