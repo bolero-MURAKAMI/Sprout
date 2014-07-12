@@ -10,7 +10,7 @@
 
 #include <complex>
 #include <sprout/config.hpp>
-//#include <sprout/container/std/complex.hpp>
+#include <sprout/container/std/complex.hpp>
 #include <sprout/functional/hash/std/complex.hpp>
 #include <sprout/tuple/std/complex.hpp>
 
