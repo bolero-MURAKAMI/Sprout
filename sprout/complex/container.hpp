@@ -34,7 +34,7 @@ namespace sprout {
 		}
 		template<typename Cont, typename... Args>
 		static SPROUT_CONSTEXPR copied_type
-		remake(Cont&&, typename sprout::container_traits<sprout::complex<T> >::difference_type size, Args&&... args) {
+		remake(Cont&&, typename sprout::container_traits<sprout::complex<T> >::difference_type, Args&&... args) {
 			return copied_type(SPROUT_FORWARD(Args, args)...);
 		}
 	};
