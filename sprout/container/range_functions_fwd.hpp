@@ -75,6 +75,16 @@ namespace sprout {
 	template<typename Container>
 	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
 	at(Container const& cont, typename sprout::container_traits<Container const>::size_type i);
+
+	//
+	// data
+	//
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container>::pointer
+	data(Container& cont);
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
+	data(Container const& cont);
 }	// namespace sprout
 
 

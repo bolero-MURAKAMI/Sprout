@@ -372,6 +372,15 @@ namespace sprout {
 		range_end(Container const& cont) {
 			return cont.end();
 		}
+		// data access:
+		static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::pointer
+		range_data(Container& cont) {
+			return cont.data();
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
+		range_data(Container const& cont) {
+			return cont.data();
+		}
 	};
 	template<typename Container>
 	struct container_range_traits<Container const> {
@@ -406,6 +415,11 @@ namespace sprout {
 		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
 		range_at(Container const& cont, typename sprout::container_traits<Container const>::size_type i) {
 			return sprout::container_range_traits<Container>::range_at(cont, i);
+		}
+		// data access:
+		static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
+		range_data(Container const& cont) {
+			return sprout::container_range_traits<Container>::range_data(cont);
 		}
 	};
 
@@ -467,6 +481,15 @@ namespace sprout {
 		range_at(T const (& arr)[N], typename sprout::container_traits<T const[N]>::size_type i) {
 			return arr[i];
 		}
+		// data access:
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T[N]>::pointer
+		range_data(T (& arr)[N]) {
+			return &arr[0];
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::pointer
+		range_data(T const (& arr)[N]) {
+			return &arr[0];
+		}
 	};
 	template<typename T, std::size_t N>
 	struct container_range_traits<T const[N]> {
@@ -501,6 +524,11 @@ namespace sprout {
 		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::reference
 		range_at(T const (& arr)[N], typename sprout::container_traits<T const[N]>::size_type i) {
 			return sprout::container_range_traits<T[N]>::range_at(arr, i);
+		}
+		// data access:
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::pointer
+		range_data(T const (& arr)[N]) {
+			return sprout::container_range_traits<T[N]>::range_data(arr);
 		}
 	};
 }	// namespace sprout

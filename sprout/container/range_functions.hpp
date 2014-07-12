@@ -17,5 +17,6 @@
 #include <sprout/container/front.hpp>
 #include <sprout/container/back.hpp>
 #include <sprout/container/at.hpp>
+#include <sprout/container/data.hpp>
 
 #endif	// #ifndef SPROUT_CONTAINER_RANGE_FUNCTIONS_HPP
