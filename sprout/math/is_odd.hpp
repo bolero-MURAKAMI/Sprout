@@ -33,7 +33,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		is_odd(FloatType x) {
 			return sprout::math::isfinite(x)
-				&& sprout::math::detail::is_odd_unchecked(x)
+				&& sprout::math::detail::is_odd_unchecked(x < 0 ? -x : x)
 				;
 		}
 	}	// namespace math
