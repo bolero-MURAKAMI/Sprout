@@ -44,7 +44,11 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			pow_impl(T x, T y) {
-				return sprout::math::exp(y * sprout::math::log(x));
+				return x < 0
+						? is_odd(y) ? -sprout::math::exp(y * sprout::math::log(-x))
+						: sprout::math::exp(y * sprout::math::log(-x))
+					: sprout::math::exp(y * sprout::math::log(x))
+					;
 			}
 		}	// namespace detail
 		//

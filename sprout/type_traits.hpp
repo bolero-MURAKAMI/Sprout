@@ -30,6 +30,7 @@
 #include <sprout/type_traits/common_decay.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/float_promote.hpp>
+#include <sprout/type_traits/complex_promote.hpp>
 #include <sprout/type_traits/inherit_if_type.hpp>
 #include <sprout/type_traits/enable_if.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
