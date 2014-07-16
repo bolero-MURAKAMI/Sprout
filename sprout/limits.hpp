@@ -293,7 +293,7 @@ namespace sprout {
 		long double,
 		LDBL_MIN, LDBL_MAX,
 		LDBL_EPSILON, 0.5L,
-		__builtin_huge_val(), __builtin_nan(""), __builtin_nans(""), __LDBL_DENORM_MIN__
+		__builtin_huge_vall(), __builtin_nanl(""), __builtin_nansl(""), __LDBL_DENORM_MIN__
 		);
 #endif	// #if !defined(__LDBL_DENORM_MIN__)
 #undef SPROUT_NUMERIC_LIMITS_FLOATING_POINT_SPECIALIZED_DECL
