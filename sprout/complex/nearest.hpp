@@ -16,21 +16,33 @@
 #include <sprout/math/round.hpp>
 
 namespace sprout {
+	//
+	// ceil
+	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	ceil(sprout::complex<T> const& x) {
 		return sprout::complex<T>(sprout::math::ceil(x.real()), sprout::math::ceil(x.imag()));
 	}
+	//
+	// floor
+	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	floor(sprout::complex<T> const& x) {
 		return sprout::complex<T>(sprout::math::floor(x.real()), sprout::math::floor(x.imag()));
 	}
+	//
+	// trunc
+	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	trunc(sprout::complex<T> const& x) {
 		return sprout::complex<T>(sprout::math::trunc(x.real()), sprout::math::trunc(x.imag()));
 	}
+	//
+	// round
+	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	round(sprout::complex<T> const& x) {
