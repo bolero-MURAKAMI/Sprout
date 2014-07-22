@@ -14,6 +14,7 @@
 #include <utility>
 #include <iostream>
 #include <iomanip>
+#include <sprout/config.hpp>
 #include <sprout/container.hpp>
 #include <sprout/detail/io/ios_state.hpp>
 #include <testspr/typeinfo.hpp>
@@ -22,9 +23,11 @@ namespace testspr {
 	//
 	// print
 	//
-	void print() {}
+	inline SPROUT_NON_CONSTEXPR void
+	print() {}
 	template<typename Head, typename... Tail>
-	void print(Head const& head, Tail const&... tail) {
+	inline SPROUT_NON_CONSTEXPR void
+	print(Head const& head, Tail const&... tail) {
 		std::cout << head;
 		testspr::print(tail...);
 	}
@@ -32,11 +35,13 @@ namespace testspr {
 	//
 	// print_ln
 	//
-	void print_ln() {
+	inline SPROUT_NON_CONSTEXPR void
+	print_ln() {
 		std::cout << std::endl;
 	}
 	template<typename... Args>
-	void print_ln(Args const&... args) {
+	inline SPROUT_NON_CONSTEXPR void
+	print_ln(Args const&... args) {
 		sprout::detail::io::ios_all_saver saver(std::cout);
 		testspr::print(args...);
 		std::cout << std::endl;
@@ -45,11 +50,13 @@ namespace testspr {
 	//
 	// print_tokens
 	//
-	void print_tokens() {
+	inline SPROUT_NON_CONSTEXPR void
+	print_tokens() {
 		testspr::print_ln();
 	}
 	template<typename Head, typename... Tail>
-	void print_tokens(Head const& head, Tail const&... tail) {
+	inline SPROUT_NON_CONSTEXPR void
+	print_tokens(Head const& head, Tail const&... tail) {
 		sprout::detail::io::ios_all_saver saver(std::cout);
 		testspr::print(head, ' ');
 		testspr::print_tokens(tail...);
@@ -58,11 +65,13 @@ namespace testspr {
 	//
 	// print_quotes
 	//
-	void print_quotes() {
+	inline SPROUT_NON_CONSTEXPR void
+	print_quotes() {
 		testspr::print_ln();
 	}
 	template<typename Head, typename... Tail>
-	void print_quotes(Head const& head, Tail const&... tail) {
+	inline SPROUT_NON_CONSTEXPR void
+	print_quotes(Head const& head, Tail const&... tail) {
 		sprout::detail::io::ios_all_saver saver(std::cout);
 		testspr::print('\"', head, "\" ");
 		testspr::print_quotes(tail...);
@@ -72,7 +81,8 @@ namespace testspr {
 	// print_range
 	//
 	template<typename InputIterator>
-	void print_range(InputIterator first, InputIterator last) {
+	inline SPROUT_NON_CONSTEXPR void
+	print_range(InputIterator first, InputIterator last) {
 		sprout::detail::io::ios_all_saver saver(std::cout);
 		for (; first != last; ++first) {
 			std::cout << *first << ' ';
@@ -80,7 +90,8 @@ namespace testspr {
 		std::cout << std::endl;
 	}
 	template<typename InputRange>
-	void print_range(InputRange const& range) {
+	inline SPROUT_NON_CONSTEXPR void
+	print_range(InputRange const& range) {
 		testspr::print_range(sprout::begin(range), sprout::end(range));
 	}
 
@@ -88,7 +99,8 @@ namespace testspr {
 	// print_bits
 	//
 	template<typename T>
-	void print_bits(T const& t) {
+	inline SPROUT_NON_CONSTEXPR void
+	print_bits(T const& t) {
 		testspr::print_ln(std::bitset<sizeof(T) * 8>(t).template to_string<char>());
 	}
 
@@ -96,7 +108,8 @@ namespace testspr {
 	// print_typename
 	//
 	template<typename T>
-	void print_typename() {
+	inline SPROUT_NON_CONSTEXPR void
+	print_typename() {
 		testspr::print_ln(testspr::typename_of<T>());
 	}
 
@@ -104,14 +117,16 @@ namespace testspr {
 	// print_type
 	//
 	template<typename T>
-	void print_type() {
+	inline SPROUT_NON_CONSTEXPR void
+	print_type() {
 		testspr::print_typename<testspr::id<T> >();
 	}
 
 	//
 	// print_hl
 	//
-	void print_hl() {
+	inline SPROUT_NON_CONSTEXPR void
+	print_hl() {
 		testspr::print_ln("--------------------------------------------------------------------------------");
 	}
 
@@ -125,40 +140,42 @@ namespace testspr {
 	private:
 		value_type m_;
 	public:
-		manip_holder(value_type const& m)
+		SPROUT_CONSTEXPR manip_holder(value_type const& m)
 			: m_(m)
 		{}
-		value_type const& get() const {
+		SPROUT_CONSTEXPR value_type const& get() const {
 			return m_;
 		}
 	};
 	template<typename T, typename Elem, typename Traits>
-	std::basic_ostream<Elem, Traits>& operator<<(std::basic_ostream<Elem, Traits>& lhs, testspr::manip_holder<T> const& rhs) {
+	inline SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>&
+	operator<<(std::basic_ostream<Elem, Traits>& lhs, testspr::manip_holder<T> const& rhs) {
 		return lhs << rhs.get();
 	}
 	template<typename T, typename Elem, typename Traits>
-	std::basic_istream<Elem, Traits>& operator>>(std::basic_istream<Elem, Traits>& lhs, testspr::manip_holder<T> const& rhs) {
+	inline SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>&
+	operator>>(std::basic_istream<Elem, Traits>& lhs, testspr::manip_holder<T> const& rhs) {
 		return lhs >> rhs.get();
 	}
 	//
 	// manip
 	//
 	template<typename T>
-	T&&
+	inline SPROUT_NON_CONSTEXPR T&&
 	manip(T&& t) {
 		return std::forward<T>(t);
 	}
 	template<typename Elem, typename Traits>
-	testspr::manip_holder<std::basic_ostream<Elem, Traits>& (*)(std::basic_ostream<Elem, Traits>&)>
+	inline SPROUT_NON_CONSTEXPR testspr::manip_holder<std::basic_ostream<Elem, Traits>& (*)(std::basic_ostream<Elem, Traits>&)>
 	manip(std::basic_ostream<Elem, Traits>& (*pf)(std::basic_ostream<Elem, Traits>&)) {
 		return pf;
 	}
 	template<typename Elem, typename Traits>
-	testspr::manip_holder<std::basic_ios<Elem, Traits>& (*)(std::basic_ios<Elem, Traits>&)>
+	inline SPROUT_NON_CONSTEXPR testspr::manip_holder<std::basic_ios<Elem, Traits>& (*)(std::basic_ios<Elem, Traits>&)>
 	manip(std::basic_ios<Elem, Traits>& (*pf)(std::basic_ios<Elem, Traits>&)) {
 		return pf;
 	}
-	testspr::manip_holder<std::ios_base& (*)(std::ios_base&)>
+	inline SPROUT_NON_CONSTEXPR testspr::manip_holder<std::ios_base& (*)(std::ios_base&)>
 	manip(std::ios_base& (*pf)(std::ios_base&)) {
 		return pf;
 	}

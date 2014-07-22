@@ -117,7 +117,7 @@ namespace sprout {
 
 namespace sprout {
 	namespace detail {
-		inline bool
+		inline SPROUT_NON_CONSTEXPR bool
 		assertion_failed_msg(char const* formatted, char const* msg) {
 			return (std::cerr << formatted << ": " << msg << std::endl), std::abort(), false;
 		}
@@ -184,7 +184,7 @@ namespace sprout {
 
 namespace sprout {
 	namespace detail {
-		inline bool
+		inline SPROUT_NON_CONSTEXPR bool
 		assertion_failed(bool cond, char const* formatted, char const* expr, char const* function, char const* file, long line) {
 			return cond ? true
 				: ((void)sprout::assertion_failed(sprout::assertion_info(expr, function, file, line)), false)
@@ -210,7 +210,7 @@ namespace sprout {
 
 namespace sprout {
 	namespace detail {
-		inline bool
+		inline SPROUT_NON_CONSTEXPR bool
 		assertion_failed(char const* formatted) {
 			return (std::cerr << formatted << std::endl), std::abort(), false;
 		}

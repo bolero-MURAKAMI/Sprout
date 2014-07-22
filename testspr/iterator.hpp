@@ -54,7 +54,7 @@ namespace testspr {
 			: current(it.base())
 		{}
 		template<typename U, typename V, typename sprout::enabler_if<sprout::is_convert_constructible<Iterator, U>::value>::type = sprout::enabler>
-		reduct_iterator& operator=(reduct_iterator<U, V> const& it) {
+		SPROUT_CXX14_CONSTEXPR reduct_iterator& operator=(reduct_iterator<U, V> const& it) {
 			reduct_iterator temp(it);
 			temp.swap(*this);
 			return *this;
@@ -68,20 +68,20 @@ namespace testspr {
 		SPROUT_CONSTEXPR pointer operator->() const {
 			return &*current;
 		}
-		reduct_iterator& operator++() {
+		SPROUT_CXX14_CONSTEXPR reduct_iterator& operator++() {
 			++current;
 			return *this;
 		}
-		reduct_iterator operator++(int) {
+		SPROUT_CXX14_CONSTEXPR reduct_iterator operator++(int) {
 			reduct_iterator result(*this);
 			++current;
 			return result;
 		}
-		reduct_iterator& operator--() {
+		SPROUT_CXX14_CONSTEXPR reduct_iterator& operator--() {
 			--current;
 			return *this;
 		}
-		reduct_iterator operator--(int) {
+		SPROUT_CXX14_CONSTEXPR reduct_iterator operator--(int) {
 			reduct_iterator temp(*this);
 			--current;
 			return temp;
@@ -92,12 +92,12 @@ namespace testspr {
 		SPROUT_CONSTEXPR reduct_iterator operator-(difference_type n) const {
 			return reduct_iterator(current - n);
 		}
-		reduct_iterator& operator+=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR reduct_iterator& operator+=(difference_type n) {
 			reduct_iterator temp(current + n);
 			temp.swap(*this);
 			return *this;
 		}
-		reduct_iterator& operator-=(difference_type n) {
+		SPROUT_CXX14_CONSTEXPR reduct_iterator& operator-=(difference_type n) {
 			reduct_iterator temp(current - n);
 			temp.swap(*this);
 			return *this;
@@ -111,7 +111,7 @@ namespace testspr {
 		SPROUT_CONSTEXPR reduct_iterator prev() const {
 			return reduct_iterator(sprout::prev(current));
 		}
-		void swap(reduct_iterator& other)
+		SPROUT_CXX14_CONSTEXPR void swap(reduct_iterator& other)
 		SPROUT_NOEXCEPT_EXPR(
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			)
@@ -211,7 +211,7 @@ namespace testspr {
 	// swap
 	//
 	template<typename Category, typename Iterator>
-	inline void
+	inline SPROUT_CXX14_CONSTEXPR void
 	swap(testspr::reduct_iterator<Iterator, Category>& lhs, testspr::reduct_iterator<Iterator, Category>& rhs)
 	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
 	{

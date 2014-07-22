@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>

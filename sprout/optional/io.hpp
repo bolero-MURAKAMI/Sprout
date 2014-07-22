@@ -19,7 +19,7 @@ namespace sprout {
 	// operator>>
 	//
 	template<typename Elem, typename Traits, typename T>
-	inline std::basic_istream<Elem, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>&
 	operator>>(std::basic_istream<Elem, Traits>& lhs, sprout::optional<T>& rhs) {
 		if (lhs.good()) {
 			int d = lhs.get();
@@ -44,7 +44,7 @@ namespace sprout {
 	// operator<<
 	//
 	template<typename Elem, typename Traits, typename T>
-	inline std::basic_ostream<Elem, Traits>&
+	inline SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>&
 	operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::optional<T> const& rhs) {
 		if (lhs.good()) {
 			if (!rhs) {

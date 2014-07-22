@@ -8,6 +8,7 @@
 #ifndef SPROUT_COMPLEX_COMPLEX_HPP
 #define SPROUT_COMPLEX_COMPLEX_HPP
 
+#include <complex>
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
 
@@ -50,8 +51,12 @@ namespace sprout {
 			: elems_{{re, im}}
 		{}
 		SPROUT_CXX14_CONSTEXPR complex(complex const&) = default;
-		template<typename X>
-		SPROUT_CONSTEXPR complex(complex<X> const& other) SPROUT_NOEXCEPT
+		template<typename U>
+		SPROUT_CONSTEXPR complex(complex<U> const& other) SPROUT_NOEXCEPT
+			: elems_{{other.real(), other.imag()}}
+		{}
+		template<typename U>
+		SPROUT_CONSTEXPR complex(std::complex<U> const& other) SPROUT_NOEXCEPT
 			: elems_{{other.real(), other.imag()}}
 		{}
 		SPROUT_CONSTEXPR T const& real() const SPROUT_NOEXCEPT {
@@ -217,6 +222,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR const_pointer c_array() const SPROUT_NOEXCEPT {
 			return elems_.c_array();
+		}
+
+		template<typename U>
+		SPROUT_EXPLICIT_CONVERSION SPROUT_CONSTEXPR operator std::complex<U>() const SPROUT_NOEXCEPT {
+			return std::complex<U>(real(), imag());
 		}
 	};
 	template<typename T>

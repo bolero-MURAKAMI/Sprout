@@ -23,10 +23,10 @@ namespace testspr {
 		: public std::runtime_error
 	{
 	public:
-		explicit assertion_failed(std::string const& msg)
+		explicit SPROUT_NON_CONSTEXPR assertion_failed(std::string const& msg)
 			: std::runtime_error(msg)
 		{}
-		explicit assertion_failed(char const* msg)
+		explicit SPROUT_NON_CONSTEXPR assertion_failed(char const* msg)
 			: std::runtime_error(msg)
 		{}
 	};

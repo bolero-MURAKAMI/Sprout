@@ -5,15 +5,18 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_CONTAINER_FUNCTIONS_HPP
-#define SPROUT_CONTAINER_FUNCTIONS_HPP
+#ifndef SPROUT_UTILITY_UNMOVE_HPP
+#define SPROUT_UTILITY_UNMOVE_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/container/traits_functions.hpp>
-#include <sprout/container/range_functions.hpp>
-#include <sprout/container/construct_functions.hpp>
-#include <sprout/container/fitness_functions.hpp>
-#include <sprout/container/sub_functions.hpp>
-#include <sprout/container/shrink_to_fit.hpp>
 
-#endif	// #ifndef SPROUT_CONTAINER_FUNCTIONS_HPP
+namespace sprout {
+	template<typename T>
+	inline SPROUT_CONSTEXPR typename std::remove_reference<T>::type&
+	unmove(T&& x) SPROUT_NOEXCEPT {
+		return static_cast<typename std::remove_reference<T>::type&>(x);
+	}
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_UTILITY_UNMOVE_HPP

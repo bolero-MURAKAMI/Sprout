@@ -26,6 +26,7 @@
 #	include <cstdlib>
 #	include <cxxabi.h>
 #endif
+#include <sprout/config.hpp>
 
 namespace testspr {
 	//
@@ -42,7 +43,8 @@ namespace testspr {
 	//
 #ifdef TESTSPR_HAS_CXXABI_H
 	namespace detail {
-		std::string cxa_demangle(char const* mangled) {
+		inline SPROUT_NON_CONSTEXPR std::string
+		cxa_demangle(char const* mangled) {
 			int status;
 			char* demangled = abi::__cxa_demangle(mangled, 0, 0, &status);
 			std::string result(demangled);
@@ -51,20 +53,24 @@ namespace testspr {
 		}
 	}	// namespace detail
 	template<typename T>
-	inline std::string typename_of() {
+	inline SPROUT_NON_CONSTEXPR std::string
+	typename_of() {
 		return testspr::detail::cxa_demangle(typeid(T).name());
 	}
 	template<typename T>
-	inline std::string typename_of(T&& t) {
+	inline SPROUT_NON_CONSTEXPR std::string
+	typename_of(T&& t) {
 		return testspr::detail::cxa_demangle(typeid(std::forward<T>(t)).name());
 	}
 #else
 	template<typename T>
-	inline std::string typename_of() {
+	inline SPROUT_NON_CONSTEXPR std::string
+	typename_of() {
 		return std::string(typeid(T).name());
 	}
 	template<typename T>
-	inline std::string typename_of(T&& t) {
+	inline SPROUT_NON_CONSTEXPR std::string
+	typename_of(T&& t) {
 		return std::string(typeid(std::forward<T>(t)).name());
 	}
 #endif
