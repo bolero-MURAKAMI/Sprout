@@ -9,6 +9,12 @@
 #define SPROUT_MATH_COMPARISON_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/math/isgreater.hpp>
+#include <sprout/math/isgreaterequal.hpp>
+#include <sprout/math/isless.hpp>
+#include <sprout/math/islessequal.hpp>
+#include <sprout/math/islessgreater.hpp>
+#include <sprout/math/isunordered.hpp>
 #include <sprout/math/equal_to.hpp>
 #include <sprout/math/not_equal_to.hpp>
 #include <sprout/math/greater.hpp>

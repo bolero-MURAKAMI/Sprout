@@ -55,7 +55,9 @@ namespace sprout {
 		inline SPROUT_CXX14_CONSTEXPR typename std::enable_if<
 			!sprout::detail::has_mem_shrink_to_fit<Container&&>::value
 		>::type
-		container_shrink_to_fit_default(Container&&) {}
+		container_shrink_to_fit_default(Container&&) {
+			return ;
+		}
 	}	// namespace detail
 
 	namespace container_detail {

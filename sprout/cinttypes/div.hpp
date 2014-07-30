@@ -13,9 +13,15 @@
 #if !defined(_MSC_VER)
 #	include <cinttypes>
 #endif
+#include <functional>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/functional/hash.hpp>
+#include <sprout/utility/move.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	//
@@ -88,6 +94,108 @@ namespace sprout {
 	>::type
 	div(T numer, T denom) {
 		return sprout::imaxdiv(numer, denom);
+	}
+}	// namespace sprout
+
+namespace sprout {
+	//
+	// hash_value
+	//
+	inline SPROUT_CONSTEXPR std::size_t
+	hash_value(sprout::imaxdiv_t const& v) {
+		return sprout::hash_values(v.quot, v.rem);
+	}
+}	// namespace sprout
+
+namespace sprout {
+	namespace tuples {
+		namespace detail {
+			template<std::size_t I, typename T>
+			struct tuple_element_impl;
+			template<std::size_t I>
+			struct tuple_element_impl<I, sprout::imaxdiv_t>
+				: public sprout::detail::nil_base
+			{};
+			template<>
+			struct tuple_element_impl<0, sprout::imaxdiv_t>
+				: public sprout::identity<std::intmax_t>
+			{};
+			template<>
+			struct tuple_element_impl<1, sprout::imaxdiv_t>
+				: public sprout::identity<std::intmax_t>
+			{};
+
+			template<std::size_t I, typename T>
+			struct get_impl;
+			template<>
+			struct get_impl<0, sprout::imaxdiv_t> {
+			public:
+				SPROUT_CONSTEXPR std::intmax_t& operator()(sprout::imaxdiv_t& t) const {
+					return t.quot;
+				}
+				SPROUT_CONSTEXPR std::intmax_t const& operator()(sprout::imaxdiv_t const& t) const {
+					return t.quot;
+				}
+			};
+			template<>
+			struct get_impl<1, sprout::imaxdiv_t> {
+			public:
+				SPROUT_CONSTEXPR std::intmax_t& operator()(sprout::imaxdiv_t& t) const {
+					return t.rem;
+				}
+				SPROUT_CONSTEXPR std::intmax_t const& operator()(sprout::imaxdiv_t const& t) const {
+					return t.rem;
+				}
+			};
+		}	// namespace detail
+	}	// namespace tuples
+}	// namespace sprout
+
+namespace std {
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
+	//
+	// tuple_size
+	//
+	template<>
+	struct tuple_size<sprout::imaxdiv_t>
+		: public sprout::integral_constant<std::size_t, 2>
+	{};
+
+	//
+	// tuple_element
+	//
+	template<std::size_t I>
+	struct tuple_element<I, sprout::imaxdiv_t>
+		: public sprout::tuples::detail::tuple_element_impl<I, sprout::imaxdiv_t>
+	{};
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
+}	// namespace std
+
+namespace sprout {
+	//
+	// tuple_get
+	//
+	template<std::size_t I>
+	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::imaxdiv_t>::type&
+	tuple_get(sprout::imaxdiv_t& t) SPROUT_NOEXCEPT {
+		static_assert(I < 2, "tuple_get: index out of range");
+		return sprout::tuples::detail::get_impl<I, sprout::imaxdiv_t>()(t);
+	}
+	template<std::size_t I>
+	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::imaxdiv_t>::type const&
+	tuple_get(sprout::imaxdiv_t const& t) SPROUT_NOEXCEPT {
+		static_assert(I < 2, "tuple_get: index out of range");
+		return sprout::tuples::detail::get_impl<I, sprout::imaxdiv_t>()(t);
+	}
+	template<std::size_t I>
+	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::imaxdiv_t>::type&&
+	tuple_get(sprout::imaxdiv_t&& t) SPROUT_NOEXCEPT {
+		return sprout::move(sprout::tuples::get<I>(t));
 	}
 }	// namespace sprout
 

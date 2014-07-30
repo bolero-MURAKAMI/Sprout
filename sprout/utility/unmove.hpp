@@ -12,6 +12,9 @@
 #include <sprout/config.hpp>
 
 namespace sprout {
+	//
+	// unmove
+	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR typename std::remove_reference<T>::type&
 	unmove(T&& x) SPROUT_NOEXCEPT {

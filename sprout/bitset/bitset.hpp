@@ -32,7 +32,7 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/bit/operation.hpp>
-#include <sprout/math/comparison.hpp>
+#include <sprout/math/comparisons.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
