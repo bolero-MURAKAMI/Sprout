@@ -9,9 +9,10 @@
 #define SPROUT_WORKAROUND_STD_CSTDDEF_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 
 #if defined(__clang__) && defined(__GLIBCXX__)
-#   if (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 5)) && (__GLIBCXX__ >= 20140422)
+#   if SPROUT_CLANG_EARLIER(3, 4, 2) && (__GLIBCXX__ >= 20140422)
 #		include <stddef.h>
 #
 #		if defined(__STDDEF_H)

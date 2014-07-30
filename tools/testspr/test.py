@@ -40,17 +40,25 @@ def main():
 		bin = "%s/test.%s.out" % (opts.stagedir, base.replace('.', ''))
 		compile_log = "%s/test.%s.compile.log" % (opts.stagedir, base.replace('.', ''))
 		execute_log = "%s/test.%s.execute.log" % (opts.stagedir, base.replace('.', ''))
+		fail_log = "%s/fail.log" % (opts.stagedir)
 		compiler = "%s/%s/bin/%s++" % (root, base, name.rstrip('c')) if version != "." else "%s++" % name.rstrip('c')
-		return "%s -o %s" \
+		command = "%s -o %s" \
 			" %s %s" \
 			" %s %s" \
-			" %s > %s 2>&1" \
-			" && %s > %s 2>&1" \
+			" %s" \
 			% (compiler, bin,
 				std_options.get(base, ''), opts.all_options,
 				compiler_specific_options.get(name, ''), version_specific_options.get(base, ''),
-				opts.test_cpp, compile_log,
-				bin, execute_log
+				opts.test_cpp
+				)
+		fail_info = "%s : %s" % (base, command)
+		return "(" \
+			" %s > %s 2>&1" \
+			" && %s > %s 2>&1" \
+			" ) || !(echo %s >> %s)" \
+			% (command, compile_log,
+				bin, execute_log,
+				fail_info, fail_log
 				)
 
 	pool = multiprocessing.Pool(opts.max_procs if opts.max_procs != 0 else None)
