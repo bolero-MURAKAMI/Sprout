@@ -34,7 +34,7 @@ namespace sprout {
 				std::false_type
 				)
 			{
-				for(;;) {
+				for (; ; ) {
 					typedef T result_type;
 					typedef typename Engine::result_type base_result;
 					result_type numerator = static_cast<T>(static_cast<base_result>(eng()) - eng.min());
@@ -54,7 +54,7 @@ namespace sprout {
 				std::true_type
 				)
 			{
-				for(;;) {
+				for (; ; ) {
 					typedef T result_type;
 					typedef typename Engine::result_type base_result;
 					result_type numerator = static_cast<T>(sprout::random::detail::subtract<base_result>()(static_cast<base_result>(eng()), eng.min()));
@@ -413,6 +413,7 @@ namespace sprout {
 					: min_(RealType(0.0))
 					, max_(RealType(1.0))
 				{}
+				param_type(param_type const&) = default;
 				explicit SPROUT_CONSTEXPR param_type(RealType min_arg, RealType max_arg = RealType(1.0))
 					: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 					, max_(max_arg)
@@ -473,6 +474,7 @@ namespace sprout {
 				: min_(RealType(0.0))
 				, max_(RealType(1.0))
 			{}
+			uniform_real_distribution(uniform_real_distribution const&) = default;
 			explicit SPROUT_CONSTEXPR uniform_real_distribution(RealType min_arg, RealType max_arg = RealType(1.0))
 				: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 				, max_(max_arg)

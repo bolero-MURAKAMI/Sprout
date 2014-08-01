@@ -37,6 +37,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR param_type()
 					: p_(RealType(0.5))
 				{}
+				param_type(param_type const&) = default;
 				explicit SPROUT_CONSTEXPR param_type(RealType p_arg)
 					: p_((SPROUT_ASSERT(p_arg >= RealType(0)), SPROUT_ASSERT(p_arg <= RealType(1)), p_arg))
 				{}
@@ -94,6 +95,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR bernoulli_distribution() SPROUT_NOEXCEPT
 				: p_(RealType(0.5))
 			{}
+			bernoulli_distribution(bernoulli_distribution const&) = default;
 			explicit SPROUT_CONSTEXPR bernoulli_distribution(RealType p_arg)
 				: p_((SPROUT_ASSERT(p_arg >= RealType(0)), SPROUT_ASSERT(p_arg <= RealType(1)), p_arg))
 			{}

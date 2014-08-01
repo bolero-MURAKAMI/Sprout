@@ -123,6 +123,7 @@ namespace sprout {
 #endif
 		public:
 			SPROUT_CONSTEXPR uniform_01() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
+			uniform_01(uniform_01 const&) = default;
 			explicit SPROUT_CONSTEXPR uniform_01(param_type const&) SPROUT_NOEXCEPT {}
 			SPROUT_CONSTEXPR result_type min() const SPROUT_NOEXCEPT {
 				return result_type(0);

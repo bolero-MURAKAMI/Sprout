@@ -89,6 +89,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR linear_congruential_engine()
 				: x_(init_seed())
 			{}
+			linear_congruential_engine(linear_congruential_engine const&) = default;
 			explicit SPROUT_CONSTEXPR linear_congruential_engine(result_type x0)
 				: x_(init_seed(x0))
 			{}

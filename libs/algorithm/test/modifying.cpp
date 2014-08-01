@@ -71,10 +71,12 @@
 #include "./swap_element_copy.cpp"
 #include "./random_swap.cpp"
 #include "./random_swap_result.cpp"
-#include "./bogo_sort.cpp"
-#include "./bogo_sort_result.cpp"
-#include "./bozo_sort.cpp"
-#include "./bozo_sort_result.cpp"
+#ifndef TESTSPR_CONFIG_DISABLE_MONKEY_SORT_TEST
+#	include "./bogo_sort.cpp"
+#	include "./bogo_sort_result.cpp"
+#	include "./bozo_sort.cpp"
+#	include "./bozo_sort_result.cpp"
+#endif
 
 #ifdef TESTSPR_CPP_INCLUDE_DISABLE_SPROUT_LIBS_ALGORITHM_TEST_MODIFYIING_CPP
 #	undef TESTSPR_CPP_INCLUDE
@@ -140,10 +142,12 @@ namespace testspr {
 		testspr::algorithm_swap_element_copy_test();
 		testspr::algorithm_random_swap_test();
 		testspr::algorithm_random_swap_result_test();
+#ifndef TESTSPR_CONFIG_DISABLE_MONKEY_SORT_TEST
 		testspr::algorithm_bogo_sort_test();
 		testspr::algorithm_bogo_sort_result_test();
 		testspr::algorithm_bozo_sort_test();
 		testspr::algorithm_bozo_sort_result_test();
+#endif
 	}
 }	// namespace testspr
 

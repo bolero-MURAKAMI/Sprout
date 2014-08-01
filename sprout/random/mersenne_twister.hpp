@@ -376,6 +376,7 @@ namespace sprout {
 				: x_(init_seed(default_seed))
 				, i_(n)
 			{}
+			mersenne_twister_engine(mersenne_twister_engine const&) = default;
 			explicit SPROUT_CONSTEXPR mersenne_twister_engine(result_type value)
 				: x_(init_seed(value))
 				, i_(n)
@@ -420,7 +421,7 @@ namespace sprout {
 				)
 			{
 				sprout::array<result_type, n> data;
-				for(std::size_t i = 0; i < rhs.i_; ++i) {
+				for (std::size_t i = 0; i < rhs.i_; ++i) {
 					data[i + n - rhs.i_] = rhs.x_[i];
 				}
 				if (rhs.i_ != n) {

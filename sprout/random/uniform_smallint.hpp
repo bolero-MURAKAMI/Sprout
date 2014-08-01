@@ -44,6 +44,7 @@ namespace sprout {
 					: min_(0)
 					, max_(sprout::numeric_limits<IntType>::max())
 				{}
+				param_type(param_type const&) = default;
 				explicit SPROUT_CONSTEXPR param_type(IntType min_arg, IntType max_arg = sprout::numeric_limits<IntType>::max())
 					: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 					, max_(max_arg)
@@ -234,6 +235,7 @@ namespace sprout {
 				: min_(0)
 				, max_(sprout::numeric_limits<IntType>::max())
 			{}
+			uniform_smallint(uniform_smallint const&) = default;
 			explicit SPROUT_CONSTEXPR uniform_smallint(IntType min_arg, IntType max_arg = sprout::numeric_limits<IntType>::max())
 				: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 				, max_(max_arg)

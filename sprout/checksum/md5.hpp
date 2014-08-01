@@ -353,7 +353,7 @@ namespace sprout {
 		}
 		template<typename InputIterator>
 		SPROUT_CXX14_CONSTEXPR void process_block_impl(InputIterator first, InputIterator last) {
-			for(; first != last; ++first) {
+			for (; first != last; ++first) {
 				process_byte(*first);
 			}
 		}

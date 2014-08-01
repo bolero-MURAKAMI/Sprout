@@ -92,6 +92,7 @@ namespace sprout {
 					: t_(1)
 					, p_(0.5)
 				{}
+				param_type(param_type const&) = default;
 				explicit SPROUT_CONSTEXPR param_type(IntType t_arg, RealType p_arg = RealType(0.5))
 					: t_((SPROUT_ASSERT(t_arg >= IntType(0)), t_arg))
 					, p_((SPROUT_ASSERT(RealType(0) <= p_arg && p_arg <= RealType(1)), p_arg))
@@ -708,6 +709,7 @@ namespace sprout {
 				, btrd_(!init_use_inversion(1, RealType(0.5)) ? init_btrd(1, RealType(0.5)) : btrd_type())
 				, q_n_(init_use_inversion(1, RealType(0.5)) ? init_q_n(1, RealType(0.5)) : RealType())
 			{}
+			binomial_distribution(binomial_distribution const&) = default;
 			explicit SPROUT_CONSTEXPR binomial_distribution(IntType t_arg, RealType p_arg = RealType(0.5))
 				: t_((SPROUT_ASSERT(t_arg >= IntType(0)), t_arg))
 				, p_((SPROUT_ASSERT(RealType(0) <= p_arg && p_arg <= RealType(1)), p_arg))

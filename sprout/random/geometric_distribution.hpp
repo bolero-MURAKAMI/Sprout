@@ -41,6 +41,7 @@ namespace sprout {
 				SPROUT_CONSTEXPR param_type()
 					: p_(RealType(0.5))
 				{}
+				param_type(param_type const&) = default;
 				explicit SPROUT_CONSTEXPR param_type(RealType p_arg)
 					: p_((SPROUT_ASSERT(RealType(0) < p_arg), SPROUT_ASSERT(p_arg < RealType(1)), p_arg))
 				{}
@@ -105,6 +106,7 @@ namespace sprout {
 				: p_(RealType(0.5))
 				, log_1mp_(init_log_1mp(RealType(0.5)))
 			{}
+			geometric_distribution(geometric_distribution const&) = default;
 			explicit SPROUT_CONSTEXPR geometric_distribution(RealType p_arg)
 				: p_((SPROUT_ASSERT(RealType(0) < p_arg), SPROUT_ASSERT(p_arg < RealType(1)), p_arg))
 				, log_1mp_(init_log_1mp(p_arg))

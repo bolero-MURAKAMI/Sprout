@@ -49,6 +49,7 @@ namespace sprout {
 					: mean_(RealType(0.0))
 					, sigma_(RealType(1.0))
 				{}
+				param_type(param_type const&) = default;
 				explicit SPROUT_CONSTEXPR param_type(RealType mean_arg, RealType sigma_arg = RealType(1.0))
 					: mean_(mean_arg)
 					, sigma_((SPROUT_ASSERT(sigma_arg >= RealType(0)), sigma_arg))
@@ -167,6 +168,7 @@ namespace sprout {
 				, cached_rho_(0)
 				, valid_(false)
 			{}
+			normal_distribution(normal_distribution const&) = default;
 			explicit SPROUT_CONSTEXPR normal_distribution(RealType mean_arg, RealType sigma_arg = RealType(1.0))
 				: mean_(mean_arg)
 				, sigma_((SPROUT_ASSERT(sigma_arg >= RealType(0)), sigma_arg))

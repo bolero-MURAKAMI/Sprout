@@ -57,6 +57,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR xor_combine_engine()
 				: rng1_(), rng2_()
 			{}
+			xor_combine_engine(xor_combine_engine const&) = default;
 			explicit SPROUT_CONSTEXPR xor_combine_engine(result_type seed)
 				: rng1_(seed), rng2_(seed)
 			{}

@@ -24,6 +24,7 @@ namespace sprout {
 	class exempt_ptr {
 	public:
 		typedef T value_type;
+		typedef T element_type;
 		typedef T* pointer;
 		typedef T const* const_pointer;
 		typedef T& reference;

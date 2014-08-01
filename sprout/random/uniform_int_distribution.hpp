@@ -51,7 +51,7 @@ namespace sprout {
 						min_value
 						);
 				} else if (brange < range) {
-					for(; ; ) {
+					for (; ; ) {
 						range_type limit = range_type();
 						if (range == sprout::numeric_limits<range_type>::max()) {
 							limit = range / (range_type(brange) + 1);
@@ -99,7 +99,7 @@ namespace sprout {
 					} else {
 						bucket_size = (brange + 1) / (static_cast<base_unsigned>(range) + 1);
 					}
-					for(; ; ) {
+					for (; ; ) {
 						base_unsigned result = sprout::random::detail::subtract<base_result>()(static_cast<base_result>(eng()), bmin) / bucket_size;
 						if (result <= static_cast<base_unsigned>(range)) {
 							return sprout::random::detail::add<base_unsigned, result_type>()(result, min_value);
@@ -804,6 +804,7 @@ namespace sprout {
 					: min_(0)
 					, max_(sprout::numeric_limits<IntType>::max())
 				{}
+				param_type(param_type const&) = default;
 				explicit SPROUT_CONSTEXPR param_type(IntType min_arg, IntType max_arg = sprout::numeric_limits<IntType>::max())
 					: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 					, max_(max_arg)
@@ -864,6 +865,7 @@ namespace sprout {
 				: min_(0)
 				, max_(sprout::numeric_limits<IntType>::max())
 			{}
+			uniform_int_distribution(uniform_int_distribution const&) = default;
 			explicit SPROUT_CONSTEXPR uniform_int_distribution(IntType min_arg, IntType max_arg = sprout::numeric_limits<IntType>::max())
 				: min_((SPROUT_ASSERT(min_arg <= max_arg), min_arg))
 				, max_(max_arg)

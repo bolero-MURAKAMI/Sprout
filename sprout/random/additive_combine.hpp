@@ -67,6 +67,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR additive_combine_engine()
 				: mlcg1_(), mlcg2_()
 			{}
+			additive_combine_engine(additive_combine_engine const&) = default;
 			explicit SPROUT_CONSTEXPR additive_combine_engine(result_type seed)
 				: mlcg1_(seed), mlcg2_(seed)
 			{}

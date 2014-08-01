@@ -180,6 +180,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR shuffle_order_engine()
 				: member_type(init_member(base_type()))
 			{}
+			shuffle_order_engine(shuffle_order_engine const&) = default;
 			explicit SPROUT_CONSTEXPR shuffle_order_engine(result_type seed)
 				: member_type(init_member(base_type(seed)))
 			{}
