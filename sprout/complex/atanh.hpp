@@ -17,10 +17,9 @@
 #include <sprout/math/log.hpp>
 #include <sprout/math/atan2.hpp>
 #include <sprout/complex/complex.hpp>
+#include <sprout/complex/operators.hpp>
 #include <sprout/complex/log.hpp>
 #include <sprout/complex/sqrt.hpp>
-
-#include <sprout/complex/operators.hpp>
 
 namespace sprout {
 	//
@@ -40,25 +39,6 @@ namespace sprout {
 	// catanh(NaN + iÅá) returns Å}0 + ip /2 (where the sign of the real part of the result is unspecified).
 	// catanh(NaN + iNaN) returns NaN + iNaN.
 	//
-	namespace detail {
-		template<typename T>
-		inline SPROUT_CONSTEXPR sprout::complex<T>
-		atanh_impl_1(sprout::complex<T> const& x, T const& i2, T const& z, T const& num, T const& den) {
-			return sprout::complex<T>(
-				sprout::math::quarter<T>() * (sprout::math::log(i2 + num * num) - sprout::math::log(i2 + den * den)),
-				sprout::math::half<T>() * sprout::math::atan2(T(2) * x.imag(), z)
-				);
-		}
-		template<typename T>
-		inline SPROUT_CONSTEXPR sprout::complex<T>
-		atanh_impl(sprout::complex<T> const& x, T const& i2) {
-			return sprout::detail::atanh_impl_1(
-				x, i2,
-				T(1) - i2 - x.real() * x.real(),
-				T(1) + x.imag(), T(1) - x.imag()
-				);
-		}
-	}	// namespace detail
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::complex<T>
 	atanh(sprout::complex<T> const& x) {
@@ -75,7 +55,6 @@ namespace sprout {
 				? type(sprout::math::copysign(T(0), x.real()), sprout::math::copysign(sprout::math::half_pi<T>(), x.imag()))
 			: x.real() == 0 && x.imag() == 0 ? x
 			: (x.real() == 1 || x.real() == -1) && x.imag() == 0 ? type(sprout::math::copysign(sprout::numeric_limits<T>::infinity(), x.real()), x.imag())
-//			: sprout::detail::atanh_impl(x, x.imag() * x.imag())
 			: (sprout::log(T(1) + x) - sprout::log(T(1) - x)) / T(2)
 			;
 	}

@@ -10,9 +10,11 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/complex/complex.hpp>
 #include <sprout/type_traits/float_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/math/isnan.hpp>
+#include <sprout/math/isinf.hpp>
+#include <sprout/complex/complex.hpp>
 
 namespace sprout {
 	//
@@ -21,7 +23,11 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR T
 	norm(sprout::complex<T> const& x) {
-		return x.real() * x.real() + x.imag() * x.imag();
+		return sprout::math::isinf(x.imag()) || sprout::math::isinf(x.real()) ? sprout::numeric_limits<T>::infinity()
+			: sprout::math::isnan(x.real()) ? x.real()
+			: sprout::math::isnan(x.imag()) ? x.imag()
+			: x.real() * x.real() + x.imag() * x.imag()
+			;
 	}
 	template<
 		typename ArithmeticType,
@@ -30,7 +36,10 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR typename sprout::float_promote<ArithmeticType>::type
 	norm(ArithmeticType x) {
 		typedef typename sprout::float_promote<ArithmeticType>::type type;
-		return type(x) * type(x);
+		return sprout::math::isinf(x) ? sprout::numeric_limits<type>::infinity()
+			: sprout::math::isnan(x) ? type(x)
+			: type(x) * type(x)
+			;
 	}
 }	// namespace sprout
 
