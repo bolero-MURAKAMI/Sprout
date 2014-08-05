@@ -15,10 +15,12 @@
 #include <sprout/type/string.hpp>
 #include <sprout/type/uniform_types.hpp>
 #include <sprout/type/rebind_types.hpp>
+#include <sprout/type/joint_types.hpp>
 #include <sprout/type/functional.hpp>
 #include <sprout/type/algorithm.hpp>
 #include <sprout/type/seq/algorithm.hpp>
 #include <sprout/type/operation.hpp>
 #include <sprout/type/print.hpp>
+#include <sprout/type/index_tuple.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_HPP
