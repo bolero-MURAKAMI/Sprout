@@ -11,10 +11,10 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/type/type_tuple.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/type/type_tuple.hpp>
 #include <sprout/detail/nil_base.hpp>
 
 namespace sprout {

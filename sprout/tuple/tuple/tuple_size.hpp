@@ -12,15 +12,29 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
+#include <sprout/type_traits/has_value.hpp>
+#include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
 	namespace tuples {
 		//
 		// tuple_size
 		//
+		namespace detail {
+			template<typename T, bool = sprout::has_value<std::tuple_size<T> >::value>
+			struct tuple_size_default;
+			template<typename T>
+			struct tuple_size_default<T, false>
+				: public sprout::detail::nil_base
+			{};
+			template<typename T>
+			struct tuple_size_default<T, true>
+				: public sprout::detail::type_traits_wrapper<std::tuple_size<T> >
+			{};
+		}	// namespace detail
 		template<typename T>
 		struct tuple_size
-			: public sprout::detail::type_traits_wrapper<std::tuple_size<T> >
+			: public sprout::tuples::detail::tuple_size_default<T>
 		{};
 		template<typename T>
 		struct tuple_size<T const>

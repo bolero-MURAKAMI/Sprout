@@ -12,6 +12,9 @@
 #include <tuple>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/has_type.hpp>
+#include <sprout/type_traits/has_value.hpp>
 #include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
@@ -20,7 +23,18 @@ namespace sprout {
 		// tuple_element
 		//
 		namespace detail {
-			template<std::size_t I, typename T, bool = (I < std::tuple_size<T>::value)>
+			template<std::size_t I, typename T, bool = sprout::has_value<std::tuple_size<T> >::value>
+			struct valid_tuple_index;
+			template<std::size_t I, typename T>
+			struct valid_tuple_index<I, T, false>
+				: public sprout::false_type
+			{};
+			template<std::size_t I, typename T>
+			struct valid_tuple_index<I, T, true>
+				: public sprout::integral_constant<bool, (I < std::tuple_size<T>::value)>
+			{};
+
+			template<std::size_t I, typename T, bool = sprout::has_type<std::tuple_element<I, T> >::value && sprout::tuples::detail::valid_tuple_index<I, T>::value>
 			struct tuple_element_default;
 			template<std::size_t I, typename T>
 			struct tuple_element_default<I, T, false>
