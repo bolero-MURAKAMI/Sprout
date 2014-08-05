@@ -1,4 +1,7 @@
 /*=============================================================================
+  Copyright (c) 2014 fimbul
+  https://github.com/fimbul/shiro
+
   Copyright (c) 2011-2014 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
