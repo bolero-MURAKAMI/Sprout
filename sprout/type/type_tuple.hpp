@@ -218,25 +218,6 @@ namespace sprout {
 		struct pop_front<sprout::types::type_tuple<Head, Tail...> >
 			: public sprout::identity<sprout::types::type_tuple<Tail...> >
 		{};
-
-		//
-		// append_back
-		//
-		template<typename Tuple, typename InputTuple>
-		struct append_back;
-		template<typename Tuple, typename... InputTypes>
-		struct append_back<Tuple, sprout::types::type_tuple<InputTypes...> >
-			: public sprout::types::push_back<Tuple, InputTypes...>
-		{};
-		//
-		// append_front
-		//
-		template<typename Tuple, typename InputTuple>
-		struct append_front;
-		template<typename Tuple, typename... InputTypes>
-		struct append_front<Tuple, sprout::types::type_tuple<InputTypes...> >
-			: public sprout::types::push_front<InputTypes..., Tuple>
-		{};
 	}	// namespace types
 }	// namespace sprout
 

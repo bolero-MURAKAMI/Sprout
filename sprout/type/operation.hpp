@@ -9,7 +9,6 @@
 #define SPROUT_TYPE_OPERATION_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/type/operation/tuple_cat.hpp>
 #include <sprout/type/operation/size.hpp>
 #include <sprout/type/operation/empty.hpp>
 #include <sprout/type/operation/at.hpp>
@@ -21,5 +20,8 @@
 #include <sprout/type/operation/push_front.hpp>
 #include <sprout/type/operation/pop_back.hpp>
 #include <sprout/type/operation/pop_front.hpp>
+#include <sprout/type/operation/tuple_cat.hpp>
+#include <sprout/type/operation/rebind.hpp>
+#include <sprout/type/operation/assign.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_OPERATION_HPP

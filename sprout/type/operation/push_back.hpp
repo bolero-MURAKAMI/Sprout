@@ -9,10 +9,8 @@
 #define SPROUT_TYPE_OPERATION_PUSH_BACK_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/index_tuple/metafunction.hpp>
-#include <sprout/type/tuple.hpp>
-#include <sprout/type/rebind_types.hpp>
-#include <sprout/tuple/indexes.hpp>
+#include <sprout/type/type_tuple.hpp>
+#include <sprout/type/operation/tuple_cat.hpp>
 
 namespace sprout {
 	namespace types {
@@ -20,24 +18,9 @@ namespace sprout {
 		// push_back
 		//
 		template<typename Tuple, typename... Ts>
-		struct push_back {
-		private:
-			template<typename IndexTuple>
-			struct apply_impl;
-			template<sprout::index_t... Indexes>
-			struct apply_impl<sprout::index_tuple<Indexes...> >
-				: public sprout::types::rebind_types<
-					Tuple
-				>::template apply<
-					typename sprout::types::tuple_element<Indexes, Tuple>::type...,
-					Ts...
-				>
-			{};
-		public:
-			typedef typename apply_impl<
-				typename sprout::tuple_indexes<Tuple>::type
-			>::type type;
-		};
+		struct push_back
+			: public sprout::types::tuple_cat<Tuple, sprout::types::type_tuple<Ts...> >
+		{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 		template<typename Tuple, typename... Ts>
