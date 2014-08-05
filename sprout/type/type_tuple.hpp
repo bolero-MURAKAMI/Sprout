@@ -39,19 +39,6 @@ namespace sprout {
 		template<typename... Types>
 		SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::types::type_tuple<Types...>::static_size;
 
-		//
-		// rebind_types
-		//
-		template<typename... Ts>
-		struct rebind_types<sprout::types::type_tuple<Ts...> > {
-		public:
-			template<typename... Types>
-			struct apply {
-			public:
-				typedef sprout::types::type_tuple<Types...> type;
-			};
-		};
-
 		namespace detail {
 			template<typename Tup>
 			struct head_element;

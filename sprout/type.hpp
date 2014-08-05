@@ -21,6 +21,5 @@
 #include <sprout/type/seq/algorithm.hpp>
 #include <sprout/type/operation.hpp>
 #include <sprout/type/print.hpp>
-#include <sprout/type/index_tuple.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_HPP

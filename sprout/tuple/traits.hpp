@@ -16,25 +16,6 @@
 #include <sprout/utility/forward.hpp>
 
 namespace sprout {
-	namespace types {
-		//
-		// rebind_types
-		//
-		template<typename... Ts>
-		struct rebind_types<sprout::tuples::tuple<Ts...> > {
-		public:
-			template<typename... Types>
-			struct apply {
-			public:
-				typedef sprout::tuples::tuple<Types...> type;
-			};
-		};
-	}	// namespace types
-
-	using sprout::types::rebind_types;
-}	// namespace sprout
-
-namespace sprout {
 	namespace tuples {
 		//
 		// rebind_types
