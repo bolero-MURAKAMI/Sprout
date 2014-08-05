@@ -39,8 +39,18 @@ namespace sprout {
 				>::type type;
 			};
 
+			template<typename Tuple, typename Tup>
+			struct joint_types_default_apply;
+
 			template<typename Tuple>
-			struct joint_types_default {};
+			struct joint_types_default {
+			public:
+				template<typename Tup>
+				struct apply
+					: public sprout::types::detail::joint_types_impl<Tuple, Tup>
+				{};
+			};
+
 			template<template<typename...> class TupleClass, typename... Ts>
 			struct joint_types_default<TupleClass<Ts...> > {
 			public:
@@ -48,21 +58,120 @@ namespace sprout {
 				struct apply
 					: public sprout::types::detail::joint_types_impl<TupleClass<Ts...>, Tup>
 				{};
-				template<typename... Types>
-				struct apply<TupleClass<Types...> >
+				template<template<typename...> class TupClass, typename... Types>
+				struct apply<TupClass<Types...> >
 					: public sprout::identity<TupleClass<Ts..., Types...> >
 				{};
 			};
-			template<template<typename VT, VT...> class ValueTupleClass, typename T, T... Vs>
-			struct joint_types_default<ValueTupleClass<T, Vs...> > {
+
+			template<
+				template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs,
+				typename Tup
+			>
+			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, Tup>
+				: public sprout::types::detail::joint_types_impl<IntegerSequenceClass<T, Vs...>, Tup>
+			{};
+			template<
+				template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs,
+				template<typename VType, VType...> class IntSeqClass, typename Type, Type... Values
+				>
+			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, IntSeqClass<Type, Values...> >
+				: public sprout::identity<IntegerSequenceClass<T, Vs..., Values...> >
+			{};
+			template<
+				template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs,
+				template<sprout::index_t...> class IndexTupClass, sprout::index_t... Values
+				>
+			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, IndexTupClass<Values...> >
+				: public sprout::identity<IntegerSequenceClass<T, Vs..., Values...> >
+			{};
+			template<
+				template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs,
+				template<sprout::uindex_t...> class UIndexTupClass, sprout::uindex_t... Values
+				>
+			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, UIndexTupClass<Values...> >
+				: public sprout::identity<IntegerSequenceClass<T, Vs..., Values...> >
+			{};
+			template<template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs>
+			struct joint_types_default<IntegerSequenceClass<T, Vs...> > {
 			public:
 				template<typename Tup>
 				struct apply
-					: public sprout::types::detail::joint_types_impl<ValueTupleClass<T, Vs...>, Tup>
+					: public sprout::types::detail::joint_types_default_apply<IntegerSequenceClass<T, Vs...>, Tup>
 				{};
-				template<T... Values>
-				struct apply<ValueTupleClass<T, Values...> >
-					: public sprout::identity<ValueTupleClass<T, Vs..., Values...> >
+			};
+
+			template<
+				template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs,
+				typename Tup
+			>
+			struct joint_types_default_apply<IndexTupleClass<Vs...>, Tup>
+				: public sprout::types::detail::joint_types_impl<IndexTupleClass<Vs...>, Tup>
+			{};
+			template<
+				template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs,
+				template<typename VType, VType...> class IntSeqClass, typename Type, Type... Values
+				>
+			struct joint_types_default_apply<IndexTupleClass<Vs...>, IntSeqClass<Type, Values...> >
+				: public sprout::identity<IndexTupleClass<Vs..., Values...> >
+			{};
+			template<
+				template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs,
+				template<sprout::index_t...> class IndexTupClass, sprout::index_t... Values
+				>
+			struct joint_types_default_apply<IndexTupleClass<Vs...>, IndexTupClass<Values...> >
+				: public sprout::identity<IndexTupleClass<Vs..., Values...> >
+			{};
+			template<
+				template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs,
+				template<sprout::uindex_t...> class UIndexTupClass, sprout::uindex_t... Values
+				>
+			struct joint_types_default_apply<IndexTupleClass<Vs...>, UIndexTupClass<Values...> >
+				: public sprout::identity<IndexTupleClass<Vs..., Values...> >
+			{};
+			template<template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs>
+			struct joint_types_default<IndexTupleClass<Vs...> > {
+			public:
+				template<typename Tup>
+				struct apply
+					: public sprout::types::detail::joint_types_default_apply<IndexTupleClass<Vs...>, Tup>
+				{};
+			};
+
+			template<
+				template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs,
+				typename Tup
+			>
+			struct joint_types_default_apply<UIndexTupleClass<Vs...>, Tup>
+				: public sprout::types::detail::joint_types_impl<UIndexTupleClass<Vs...>, Tup>
+			{};
+			template<
+				template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs,
+				template<typename VType, VType...> class IntSeqClass, typename Type, Type... Values
+				>
+			struct joint_types_default_apply<UIndexTupleClass<Vs...>, IntSeqClass<Type, Values...> >
+				: public sprout::identity<UIndexTupleClass<Vs..., Values...> >
+			{};
+			template<
+				template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs,
+				template<sprout::index_t...> class IndexTupClass, sprout::index_t... Values
+				>
+			struct joint_types_default_apply<UIndexTupleClass<Vs...>, IndexTupClass<Values...> >
+				: public sprout::identity<UIndexTupleClass<Vs..., Values...> >
+			{};
+			template<
+				template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs,
+				template<sprout::uindex_t...> class UIndexTupClass, sprout::uindex_t... Values
+				>
+			struct joint_types_default_apply<UIndexTupleClass<Vs...>, UIndexTupClass<Values...> >
+				: public sprout::identity<UIndexTupleClass<Vs..., Values...> >
+			{};
+			template<template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs>
+			struct joint_types_default<UIndexTupleClass<Vs...> > {
+			public:
+				template<typename Tup>
+				struct apply
+					: public sprout::types::detail::joint_types_default_apply<UIndexTupleClass<Vs...>, Tup>
 				{};
 			};
 		}	// namespace detail

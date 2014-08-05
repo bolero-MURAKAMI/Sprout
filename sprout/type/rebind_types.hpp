@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/type_traits/identity.hpp>
+#include <sprout/index_tuple/index_t.hpp>
 
 namespace sprout {
 	namespace types {
@@ -24,12 +25,28 @@ namespace sprout {
 					: public sprout::identity<TupleClass<Types...> >
 				{};
 			};
-			template<template<typename VT, VT...> class ValueTupleClass, typename T, T... Vs>
-			struct rebind_types_default<ValueTupleClass<T, Vs...> > {
+			template<template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs>
+			struct rebind_types_default<IntegerSequenceClass<T, Vs...> > {
 			public:
 				template<typename... Types>
 				struct apply
-					: public sprout::identity<ValueTupleClass<T, Types::value...> >
+					: public sprout::identity<IntegerSequenceClass<T, Types::value...> >
+				{};
+			};
+			template<template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs>
+			struct rebind_types_default<IndexTupleClass<Vs...> > {
+			public:
+				template<typename... Types>
+				struct apply
+					: public sprout::identity<IndexTupleClass<Types::value...> >
+				{};
+			};
+			template<template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs>
+			struct rebind_types_default<UIndexTupleClass<Vs...> > {
+			public:
+				template<typename... Types>
+				struct apply
+					: public sprout::identity<UIndexTupleClass<Types::value...> >
 				{};
 			};
 		}	// namespace detail
