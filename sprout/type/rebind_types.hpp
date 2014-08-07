@@ -33,22 +33,34 @@ namespace sprout {
 					: public sprout::identity<IntegerSequenceClass<T, Types::value...> >
 				{};
 			};
-			template<template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs>
-			struct rebind_types_default<IndexTupleClass<Vs...> > {
-			public:
-				template<typename... Types>
-				struct apply
-					: public sprout::identity<IndexTupleClass<Types::value...> >
-				{};
-			};
-			template<template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs>
-			struct rebind_types_default<UIndexTupleClass<Vs...> > {
-			public:
-				template<typename... Types>
-				struct apply
-					: public sprout::identity<UIndexTupleClass<Types::value...> >
-				{};
-			};
+
+#define SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(TYPE) \
+			template<template<TYPE...> class IndexTupleClass, TYPE... Vs> \
+			struct rebind_types_default<IndexTupleClass<Vs...> > { \
+			public: \
+				template<typename... Types> \
+				struct apply \
+					: public sprout::identity<IndexTupleClass<Types::value...> > \
+				{}; \
+			}
+
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(bool);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(char);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(signed char);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(unsigned char);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(char16_t);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(char32_t);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(wchar_t);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(short);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(unsigned short);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(int);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(unsigned int);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(long);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(unsigned long);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(long long);
+			SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL(unsigned long long);
+
+#undef SPROUT_TYPES_DETAIL_REBIND_TYPES_DEFAULT_INTEGER_SEQUENCE_LIKE_DECL
 		}	// namespace detail
 
 		//

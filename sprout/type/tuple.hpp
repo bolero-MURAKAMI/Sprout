@@ -42,31 +42,47 @@ namespace sprout {
 		//
 		namespace detail {
 			template<typename Tuple>
-			struct tuple_size_impl
+			struct tuple_size_default_impl
 				: public sprout::detail::nil_base
 			{};
 			template<template<typename...> class TupleClass, typename... Ts>
-			struct tuple_size_impl<TupleClass<Ts...> >
+			struct tuple_size_default_impl<TupleClass<Ts...> >
 				: public sprout::integral_constant<std::size_t, sizeof...(Ts)>
 			{};
 			template<template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs>
-			struct tuple_size_impl<IntegerSequenceClass<T, Vs...> >
+			struct tuple_size_default_impl<IntegerSequenceClass<T, Vs...> >
 				: public sprout::integral_constant<std::size_t, sizeof...(Vs)>
 			{};
-			template<template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs>
-			struct tuple_size_impl<IndexTupleClass<Vs...> >
-				: public sprout::integral_constant<std::size_t, sizeof...(Vs)>
-			{};
-			template<template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs>
-			struct tuple_size_impl<UIndexTupleClass<Vs...> >
-				: public sprout::integral_constant<std::size_t, sizeof...(Vs)>
-			{};
+
+#define SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(TYPE) \
+			template<template<TYPE...> class IntegerSequenceClass, TYPE... Vs> \
+			struct tuple_size_default_impl<IntegerSequenceClass<Vs...> > \
+				: public sprout::integral_constant<std::size_t, sizeof...(Vs)> \
+			{}
+
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(bool);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(char);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(signed char);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned char);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(char16_t);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(char32_t);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(wchar_t);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(short);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned short);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(int);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned int);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(long);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned long);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(long long);
+			SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned long long);
+
+#undef SPROUT_TYPES_DETAIL_TUPLE_SIZE_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL
 
 			template<typename Tuple, bool = sprout::has_value<sprout::tuples::tuple_size<Tuple> >::value>
 			struct tuple_size_default;
 			template<typename Tuple>
 			struct tuple_size_default<Tuple, false>
-				: public sprout::types::detail::tuple_size_impl<Tuple>
+				: public sprout::types::detail::tuple_size_default_impl<Tuple>
 			{};
 			template<typename Tuple>
 			struct tuple_size_default<Tuple, true>
@@ -94,14 +110,30 @@ namespace sprout {
 			struct tuple_element_default_impl<I, IntegerSequenceClass<T, Vs...> >
 				: public std::tuple_element<I, sprout::types::type_tuple<sprout::integral_constant<T, Vs>...> >
 			{};
-			template<std::size_t I, template<sprout::index_t...> class IndexTupleClass, sprout::index_t... Vs>
-			struct tuple_element_default_impl<I, IndexTupleClass<Vs...> >
-				: public std::tuple_element<I, sprout::types::type_tuple<sprout::integral_constant<sprout::index_t, Vs>...> >
-			{};
-			template<std::size_t I, template<sprout::uindex_t...> class UIndexTupleClass, sprout::uindex_t... Vs>
-			struct tuple_element_default_impl<I, UIndexTupleClass<Vs...> >
-				: public std::tuple_element<I, sprout::types::type_tuple<sprout::integral_constant<sprout::uindex_t, Vs>...> >
-			{};
+
+#define SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(TYPE) \
+			template<std::size_t I, template<TYPE...> class IntegerSequenceClass, TYPE... Vs> \
+			struct tuple_element_default_impl<I, IntegerSequenceClass<Vs...> > \
+				: public std::tuple_element<I, sprout::types::type_tuple<sprout::integral_constant<TYPE, Vs>...> > \
+			{}
+
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(bool);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(char);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(signed char);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned char);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(char16_t);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(char32_t);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(wchar_t);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(short);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned short);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(int);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned int);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(long);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned long);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(long long);
+			SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL(unsigned long long);
+
+#undef SPROUT_TYPES_DETAIL_TUPLE_ELEMENT_DEFAULT_IMPL_INTEGER_SEQUENCE_LIKE_DECL
 
 			template<std::size_t I, typename Tuple, bool = sprout::has_type<sprout::tuples::tuple_element<I, Tuple> >::value>
 			struct tuple_element_default;
