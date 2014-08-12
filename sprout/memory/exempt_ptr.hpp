@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_EXEMPT_PTR_HPP
-#define SPROUT_EXEMPT_PTR_HPP
+#ifndef SPROUT_MEMORY_EXEMPT_PTR_HPP
+#define SPROUT_MEMORY_EXEMPT_PTR_HPP
 
 #include <functional>
 #include <iterator>
@@ -276,4 +276,4 @@ namespace std {
 #endif
 }	// namespace std
 
-#endif	// #ifndef SPROUT_EXEMPT_PTR_HPP
+#endif	// #ifndef SPROUT_MEMORY_EXEMPT_PTR_HPP
