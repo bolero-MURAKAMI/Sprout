@@ -10,8 +10,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/preprocessor/config.hpp>
-#include <sprout/preprocessor/cat.hpp>
 #include <sprout/preprocessor/stringize.hpp>
+#include <sprout/preprocessor/cat.hpp>
 #include <sprout/preprocessor/variadic/size.hpp>
 
 //
