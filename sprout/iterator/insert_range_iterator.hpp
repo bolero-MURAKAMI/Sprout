@@ -177,7 +177,7 @@ namespace sprout {
 				;
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(insert_range_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current1, other.current1))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(pos1, other.pos1))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(current2, other.current2))
@@ -304,7 +304,7 @@ namespace sprout {
 		sprout::insert_range_iterator<DstIterator, SrcIterator>& lhs,
 		sprout::insert_range_iterator<DstIterator, SrcIterator>& rhs
 		)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

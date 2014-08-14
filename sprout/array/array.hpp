@@ -91,7 +91,7 @@ namespace sprout {
 			return fill(value);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(array& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(std::declval<T&>(), std::declval<T&>())))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(std::declval<T&>(), std::declval<T&>()))
 		{
 			sprout::swap_ranges(other.begin(), other.end(), begin());
 		}
@@ -226,7 +226,7 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::array<T, N>& lhs, sprout::array<T, N>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

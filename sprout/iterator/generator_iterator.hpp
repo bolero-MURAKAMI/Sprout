@@ -76,7 +76,7 @@ namespace sprout {
 			return generated_value();
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(generator_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(gen_, other.gen_)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(gen_, other.gen_))
 		{
 			sprout::swap(gen_, other.gen_);
 			sprout::swap(index_, other.index_);
@@ -141,7 +141,7 @@ namespace sprout {
 	template<typename Generator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::generator_iterator<Generator>& lhs, sprout::generator_iterator<Generator>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

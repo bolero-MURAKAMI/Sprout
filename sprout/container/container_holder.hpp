@@ -53,7 +53,7 @@ namespace sprout {
 		container_holder(container_holder const&) = default;
 
 		SPROUT_CXX14_CONSTEXPR void swap(container_holder& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(other.container, container)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(other.container, container))
 		{
 			sprout::swap(other.container, container);
 		}
@@ -127,7 +127,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::container_holder<Container>& lhs, sprout::container_holder<Container>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

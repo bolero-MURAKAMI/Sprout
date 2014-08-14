@@ -87,7 +87,7 @@ namespace sprout {
 				return second_;
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl& other)
-			SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_IF(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_))
 				)
@@ -138,7 +138,7 @@ namespace sprout {
 				return second_;
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl& other)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_)))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(second_, other.second_))
 			{
 				sprout::swap(second_, other.second_);
 			}
@@ -186,7 +186,7 @@ namespace sprout {
 				return *this;
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl& other)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_)))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(first_, other.first_))
 			{
 				sprout::swap(first_, other.first_);
 			}
@@ -317,7 +317,7 @@ namespace sprout {
 				return second_;
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(compressed_pair_impl& other)
-			SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_IF(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(second_, other.second_))
 				)
@@ -450,7 +450,7 @@ namespace sprout {
 	template<typename T1, typename T2>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::compressed_pair<T1, T2>& lhs, sprout::compressed_pair<T1, T2>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

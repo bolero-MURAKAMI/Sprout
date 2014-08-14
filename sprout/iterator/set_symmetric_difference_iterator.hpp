@@ -198,7 +198,7 @@ namespace sprout {
 				);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(set_symmetric_difference_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst1, other.lst1))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst2, other.lst2))
@@ -259,7 +259,7 @@ namespace sprout {
 		sprout::set_symmetric_difference_iterator<LIterator, RIterator, Compare>& lhs,
 		sprout::set_symmetric_difference_iterator<LIterator, RIterator, Compare>& rhs
 		)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

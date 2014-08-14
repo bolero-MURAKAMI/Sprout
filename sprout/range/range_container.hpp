@@ -60,7 +60,7 @@ namespace sprout {
 
 			template<typename Iterator2>
 			SPROUT_CXX14_CONSTEXPR void swap(range_container<Iterator2>& other)
-			SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_IF(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(other.first_, first_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(other.last_, last_))
 				)

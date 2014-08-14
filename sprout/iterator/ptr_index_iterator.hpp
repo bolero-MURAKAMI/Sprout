@@ -211,7 +211,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::ptr_index_iterator<T>& lhs, sprout::ptr_index_iterator<T>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

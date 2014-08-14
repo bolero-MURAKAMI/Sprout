@@ -36,7 +36,7 @@ namespace sprout {
 	template<std::size_t I, typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::pit<Container> >::value_type&&
 	tuple_get(sprout::pit<Container>&& t)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::move(sprout::tuples::get<I>(t))))
+	SPROUT_NOEXCEPT_IF_EXPR(sprout::move(sprout::tuples::get<I>(t)))
 	{
 		return sprout::move(sprout::tuples::get<I>(t));
 	}

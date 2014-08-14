@@ -86,8 +86,9 @@ namespace sprout {
 			return next_iterator(current);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(next_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
-			SPROUT_NOEXCEPT_EXPR(swap(holder_, other.holder_)) && SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
+		SPROUT_NOEXCEPT_IF(
+			SPROUT_NOEXCEPT_EXPR(swap(holder_, other.holder_))
+			&& SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			)
 		{
 			swap(holder_, other.holder_);
@@ -121,7 +122,7 @@ namespace sprout {
 	template<typename Iterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::next_iterator<Iterator>& lhs, sprout::next_iterator<Iterator>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

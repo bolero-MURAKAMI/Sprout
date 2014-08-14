@@ -71,7 +71,7 @@ namespace sprout {
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(pit& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(elem, other.elem)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(elem, other.elem))
 		{
 			sprout::swap(elem, other.elem);
 		}
@@ -169,7 +169,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::pit<Container>& lhs, sprout::pit<Container>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

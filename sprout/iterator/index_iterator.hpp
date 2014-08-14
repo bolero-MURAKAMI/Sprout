@@ -123,7 +123,7 @@ namespace sprout {
 			return index_iterator(holder_, index_ - 1);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(index_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(holder_, other.holder_)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(holder_, other.holder_))
 		{
 			sprout::swap(holder_, other.holder_);
 			sprout::swap(index_, other.index_);
@@ -246,7 +246,7 @@ namespace sprout {
 	template<typename Container, bool C>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::index_iterator<Container, C>& lhs, sprout::index_iterator<Container, C>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

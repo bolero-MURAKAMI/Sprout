@@ -33,17 +33,17 @@ namespace sprout {
 //
 // SPROUT_STATIC_WARNING
 //
-#define SPROUT_STATIC_WARNING_IMPL_2(cond, msg, line) \
-	struct sprout_static_warning_line_ ## line { \
-		struct msg {}; \
-		sprout_static_warning_line_ ## line() { \
-			::sprout::static_warning<(cond)>:: \
-				warn<void***** (msg::*****)()>(); \
+#define SPROUT_STATIC_WARNING_IMPL_2(COND, MSG, LINE) \
+	struct sprout_static_warning_line_ ## LINE { \
+		struct MSG {}; \
+		sprout_static_warning_line_ ## LINE() { \
+			::sprout::static_warning<(COND)>:: \
+				warn<void***** (MSG::*****)()>(); \
 		} \
 	}
-#define SPROUT_STATIC_WARNING_IMPL(cond, msg) \
-	SPROUT_STATIC_WARNING_IMPL_2(cond, msg, __LINE__)
-#define SPROUT_STATIC_WARNING(cond) \
-	SPROUT_STATIC_WARNING_IMPL(cond, static_warning_failed)
+#define SPROUT_STATIC_WARNING_IMPL(COND, MSG) \
+	SPROUT_STATIC_WARNING_IMPL_2(COND, MSG, __LINE__)
+#define SPROUT_STATIC_WARNING(COND) \
+	SPROUT_STATIC_WARNING_IMPL(COND, static_warning_failed)
 
 #endif	// #ifndef SPROUT_STATIC_WARNING_HPP

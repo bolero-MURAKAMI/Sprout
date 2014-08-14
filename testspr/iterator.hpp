@@ -112,7 +112,7 @@ namespace testspr {
 			return reduct_iterator(sprout::prev(current));
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(reduct_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			)
 		{
@@ -213,7 +213,7 @@ namespace testspr {
 	template<typename Category, typename Iterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(testspr::reduct_iterator<Iterator, Category>& lhs, testspr::reduct_iterator<Iterator, Category>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

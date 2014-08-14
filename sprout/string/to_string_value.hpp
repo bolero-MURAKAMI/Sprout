@@ -22,7 +22,7 @@ namespace sprout {
 		template<typename T>
 		SPROUT_CONSTEXPR decltype(sprout::to_string(std::declval<T>()))
 		operator()(T&& x)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::to_string(std::declval<T>())))
+		const SPROUT_NOEXCEPT_IF_EXPR(sprout::to_string(std::declval<T>()))
 		{
 			return sprout::to_string(SPROUT_FORWARD(T, x));
 		}

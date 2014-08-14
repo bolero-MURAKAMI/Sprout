@@ -123,7 +123,7 @@ namespace sprout {
 			return size_enum_iterator(sprout::prev(current));
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(size_enum_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(current, other.current))
 		{
 			sprout::swap(current, other.current);
 		}
@@ -268,7 +268,7 @@ namespace sprout {
 				;
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(size_enum_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(current, other.current))
 		{
 			sprout::swap(current, other.current);
 			sprout::swap(sep_size, other.sep_size);
@@ -408,7 +408,7 @@ namespace sprout {
 	template<typename Iterator, bool Separated>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::size_enum_iterator<Iterator, Separated>& lhs, sprout::size_enum_iterator<Iterator, Separated>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

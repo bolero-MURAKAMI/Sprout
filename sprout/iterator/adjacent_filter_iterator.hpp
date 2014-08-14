@@ -124,7 +124,7 @@ namespace sprout {
 			return adjacent_filter_iterator(pred, checked_next(find_next(current, last, pred), last), last, private_construct_t());
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(adjacent_filter_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(last, other.last))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(pred, other.pred))
@@ -168,7 +168,7 @@ namespace sprout {
 	template<typename Predicate, typename Iterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::adjacent_filter_iterator<Predicate, Iterator>& lhs, sprout::adjacent_filter_iterator<Predicate, Iterator>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

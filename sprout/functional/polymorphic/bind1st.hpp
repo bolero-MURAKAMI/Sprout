@@ -30,7 +30,7 @@ namespace sprout {
 		template<typename Arg>
 		SPROUT_CONSTEXPR decltype(op(value, std::declval<Arg>()))
 		operator()(Arg&& x)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(op(value, std::declval<Arg>())))
+		const SPROUT_NOEXCEPT_IF_EXPR(op(value, std::declval<Arg>()))
 		{
 			return op(value, SPROUT_FORWARD(Arg, x));
 		}

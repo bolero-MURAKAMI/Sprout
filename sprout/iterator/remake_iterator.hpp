@@ -201,7 +201,7 @@ namespace sprout {
 				);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(remake_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(swap(current2, other.current2))
 			&& SPROUT_NOEXCEPT_EXPR(swap(fst, other.fst))
@@ -327,7 +327,7 @@ namespace sprout {
 	template<typename DstIterator, typename SrcIterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::remake_iterator<DstIterator, SrcIterator>& lhs, sprout::remake_iterator<DstIterator, SrcIterator>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

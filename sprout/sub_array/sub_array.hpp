@@ -304,7 +304,7 @@ namespace sprout {
 		}
 		template<typename Container2>
 		SPROUT_CXX14_CONSTEXPR void swap(sub_array<Container2>& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(other.array_, array_)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(other.array_, array_))
 		{
 			sprout::swap(other.array_, array_);
 			sprout::swap(other.to_first_, to_first_);
@@ -425,7 +425,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::sub_array<Container>& lhs, sprout::sub_array<Container>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

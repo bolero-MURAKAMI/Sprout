@@ -146,7 +146,7 @@ namespace sprout {
 			return while_iterator(pred, find_prev(sprout::prev(current), pred), last, private_construct_t());
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(while_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(last, other.last))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(pred, other.pred))
@@ -190,7 +190,7 @@ namespace sprout {
 	template<typename Predicate, typename Iterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::while_iterator<Predicate, Iterator>& lhs, sprout::while_iterator<Predicate, Iterator>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

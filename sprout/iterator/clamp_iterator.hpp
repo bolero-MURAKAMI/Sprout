@@ -123,7 +123,7 @@ namespace sprout {
 			return clamp_iterator(sprout::prev(current), low, up, comp);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(clamp_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(comp, other.comp))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(low, other.low))
@@ -216,7 +216,7 @@ namespace sprout {
 	template<typename Iterator, typename Compare>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::clamp_iterator<Iterator, Compare>& lhs, sprout::clamp_iterator<Iterator, Compare>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

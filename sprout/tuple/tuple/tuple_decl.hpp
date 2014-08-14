@@ -29,6 +29,11 @@
 namespace sprout {
 	namespace tuples {
 		namespace detail {
+			template<typename Dummy, typename T, T Value>
+			struct dummy_integral_constant
+				: public sprout::integral_constant<T, Value>
+			{};
+
 			template<std::size_t Index, typename Head, bool IsEmpty>
 			class head_base;
 			// EBO disabled
@@ -166,7 +171,7 @@ namespace sprout {
 				}
 			public:
 				SPROUT_CXX14_CONSTEXPR void swap(tuple_impl& t)
-				SPROUT_NOEXCEPT_EXPR(
+				SPROUT_NOEXCEPT_IF(
 					SPROUT_NOEXCEPT_EXPR(sprout::swap(head(std::declval<tuple_impl&>()), head(t)))
 					&& SPROUT_NOEXCEPT_EXPR(std::declval<inherited_type&>().swap(tail(t)))
 					)
@@ -193,7 +198,7 @@ namespace sprout {
 				tuple_impl(tuple_impl&&) = default;
 #else
 				SPROUT_CONSTEXPR tuple_impl(tuple_impl&& t)
-				SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_constructible<Head>::value && std::is_nothrow_move_constructible<inherited_type>::value)
+				SPROUT_NOEXCEPT_IF(std::is_nothrow_move_constructible<Head>::value && std::is_nothrow_move_constructible<inherited_type>::value)
 					: inherited_type(sprout::move(tail(t)))
 					, base_type(SPROUT_FORWARD(Head, head(t)))
 				{}
@@ -222,7 +227,7 @@ namespace sprout {
 					return *this;
 				}
 				SPROUT_CXX14_CONSTEXPR tuple_impl& operator=(tuple_impl&& t)
-				SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<Head>::value && std::is_nothrow_move_assignable<inherited_type>::value)
+				SPROUT_NOEXCEPT_IF(std::is_nothrow_move_assignable<Head>::value && std::is_nothrow_move_assignable<inherited_type>::value)
 				{
 					head(*this) = SPROUT_FORWARD(Head, head(t));
 					tail(*this) = sprout::move(tail(t));
@@ -447,7 +452,7 @@ namespace sprout {
 				return *this;
 			}
 			SPROUT_CXX14_CONSTEXPR tuple& operator=(tuple&& rhs)
-			SPROUT_NOEXCEPT_EXPR(sprout::tpp::all_of<std::is_nothrow_move_assignable<Types>...>::value)
+			SPROUT_NOEXCEPT_IF(sprout::tpp::all_of<std::is_nothrow_move_assignable<Types>...>::value)
 			{
 				static_cast<impl_type&>(*this) = sprout::move(rhs);
 				return *this;
@@ -488,7 +493,14 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR tuple& operator=(sprout::pair<UType1, UType2>&& rhs);
 			// tuple swap
 			SPROUT_CXX14_CONSTEXPR void swap(tuple& other)
-			SPROUT_NOEXCEPT_EXPR(sprout::tpp::all_of_c<SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(sprout::swap(std::declval<Types&>(), std::declval<Types&>()), false)...>::value)
+			SPROUT_NOEXCEPT_IF(
+				sprout::tpp::all_of_c<
+					SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(
+						sprout::swap(std::declval<Types&>(), std::declval<Types&>()),
+						(sprout::tuples::detail::dummy_integral_constant<Types, bool, false>::value)
+						)...
+				>::value
+				)
 			{
 				impl_type::swap(other);
 			}
@@ -520,7 +532,7 @@ namespace sprout {
 		template<typename... Types>
 		inline SPROUT_CXX14_CONSTEXPR void
 		swap(sprout::tuples::tuple<Types...>& lhs, sprout::tuples::tuple<Types...>& rhs)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 		{
 			lhs.swap(rhs);
 		}

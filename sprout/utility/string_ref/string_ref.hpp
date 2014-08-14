@@ -566,7 +566,7 @@ namespace sprout {
 	template<typename T, typename Traits>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::basic_string_ref<T, Traits>& lhs, sprout::basic_string_ref<T, Traits>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

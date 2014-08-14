@@ -21,7 +21,7 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR decltype(sprout::generators::generated_value(std::declval<T>()))
 		result(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::generated_value(std::declval<T>())))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::generators::generated_value(std::declval<T>()))
 		{
 			return sprout::generators::generated_value(SPROUT_FORWARD(T, t));
 		}
@@ -32,7 +32,7 @@ namespace sprout {
 		template<typename T>
 		inline SPROUT_CONSTEXPR decltype(sprout::generators::next_generator(std::declval<T>()))
 		next(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::generators::next_generator(std::declval<T>())))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::generators::next_generator(std::declval<T>()))
 		{
 			return sprout::generators::next_generator(SPROUT_FORWARD(T, t));
 		}

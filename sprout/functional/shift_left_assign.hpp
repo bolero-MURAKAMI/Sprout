@@ -26,7 +26,7 @@ namespace sprout {
 		template<typename T, typename U>
 		SPROUT_CONSTEXPR decltype(std::declval<T>() <<= std::declval<U>())
 		operator()(T&& x, U&& y)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<T>() <<= std::declval<U>()))
+		const SPROUT_NOEXCEPT_IF_EXPR(std::declval<T>() <<= std::declval<U>())
 		{
 			return SPROUT_FORWARD(T, x) <<= SPROUT_FORWARD(U, y);
 		}

@@ -48,31 +48,31 @@ namespace sprout {
 		template<typename T>
 		SPROUT_CONSTEXPR std::size_t
 		operator()(T&& v)
-		const SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::to_hash(SPROUT_FORWARD(T, v))))
+		const SPROUT_NOEXCEPT_IF_EXPR(sprout::to_hash(SPROUT_FORWARD(T, v)))
 		{
 			return sprout::to_hash(SPROUT_FORWARD(T, v));
 		}
 	};
 
-#define SPROUT_HASH_SPECIALIZE(type) \
+#define SPROUT_HASH_SPECIALIZE(TYPE) \
 	template<> \
-	struct hash<type> { \
+	struct hash<TYPE> { \
 	public: \
-		typedef type argument_type; \
+		typedef TYPE argument_type; \
 		typedef std::size_t result_type; \
 	public: \
-		SPROUT_CONSTEXPR std::size_t operator()(type v) const { \
+		SPROUT_CONSTEXPR std::size_t operator()(TYPE v) const { \
 			return sprout::to_hash(v); \
 		} \
 	}
-#define SPROUT_HASH_SPECIALIZE_REF(type) \
+#define SPROUT_HASH_SPECIALIZE_REF(TYPE) \
 	template<> \
-	struct hash<type> { \
+	struct hash<TYPE> { \
 	public: \
-		typedef type argument_type; \
+		typedef TYPE argument_type; \
 		typedef std::size_t result_type; \
 	public: \
-		SPROUT_CONSTEXPR std::size_t operator()(type const& v) const { \
+		SPROUT_CONSTEXPR std::size_t operator()(TYPE const& v) const { \
 			return sprout::to_hash(v); \
 		} \
 	}

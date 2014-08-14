@@ -38,11 +38,11 @@ namespace sprout {
 			SPROUT_STATIC_CONSTEXPR std::size_t bit_count = Bits;
 		};
 
-#define SPROUT_LOW_BITS_MASK_SPECIALIZE(Type) \
+#define SPROUT_LOW_BITS_MASK_SPECIALIZE(TYPE) \
 		template<> \
-		struct low_bits_mask_t<sprout::numeric_limits<Type>::digits> { \
+		struct low_bits_mask_t<sprout::numeric_limits<TYPE>::digits> { \
 		public: \
-			typedef sprout::numeric_limits<Type> limits_type; \
+			typedef sprout::numeric_limits<TYPE> limits_type; \
 			typedef typename sprout::detail::uint_t<limits_type::digits>::least least; \
 			typedef typename sprout::detail::uint_t<limits_type::digits>::fast fast; \
 		public: \

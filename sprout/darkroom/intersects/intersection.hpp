@@ -51,7 +51,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
 			does_intersect(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<0>(SPROUT_FORWARD(T, t))))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::darkroom::access::get<0>(SPROUT_FORWARD(T, t)))
 			-> decltype(sprout::darkroom::access::get<0>(SPROUT_FORWARD(T, t)))
 			{
 				return sprout::darkroom::access::get<0>(SPROUT_FORWARD(T, t));
@@ -59,7 +59,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
 			distance(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<1>(SPROUT_FORWARD(T, t))))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::darkroom::access::get<1>(SPROUT_FORWARD(T, t)))
 			-> decltype(sprout::darkroom::access::get<1>(SPROUT_FORWARD(T, t)))
 			{
 				return sprout::darkroom::access::get<1>(SPROUT_FORWARD(T, t));
@@ -67,7 +67,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
 			point_of_intersection(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<2>(SPROUT_FORWARD(T, t))))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::darkroom::access::get<2>(SPROUT_FORWARD(T, t)))
 			-> decltype(sprout::darkroom::access::get<2>(SPROUT_FORWARD(T, t)))
 			{
 				return sprout::darkroom::access::get<2>(SPROUT_FORWARD(T, t));
@@ -75,7 +75,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
 			normal(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<3>(SPROUT_FORWARD(T, t))))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::darkroom::access::get<3>(SPROUT_FORWARD(T, t)))
 			-> decltype(sprout::darkroom::access::get<3>(SPROUT_FORWARD(T, t)))
 			{
 				return sprout::darkroom::access::get<3>(SPROUT_FORWARD(T, t));
@@ -83,7 +83,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR auto
 			material(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<4>(SPROUT_FORWARD(T, t))))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::darkroom::access::get<4>(SPROUT_FORWARD(T, t)))
 			-> decltype(sprout::darkroom::access::get<4>(SPROUT_FORWARD(T, t)))
 			{
 				return sprout::darkroom::access::get<4>(SPROUT_FORWARD(T, t));
@@ -94,7 +94,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR auto
 			is_from_inside(T&& t)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::darkroom::access::get<5>(SPROUT_FORWARD(T, t))))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::darkroom::access::get<5>(SPROUT_FORWARD(T, t)))
 			-> decltype(sprout::darkroom::access::get<5>(SPROUT_FORWARD(T, t)))
 			{
 				return sprout::darkroom::access::get<5>(SPROUT_FORWARD(T, t));
@@ -105,7 +105,7 @@ namespace sprout {
 			>
 			inline SPROUT_CONSTEXPR typename sprout::darkroom::access::element<5, sprout::darkroom::intersects::intersection>::type
 			is_from_inside(T&&)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR((typename sprout::darkroom::access::element<5, sprout::darkroom::intersects::intersection>::type())))
+			SPROUT_NOEXCEPT_IF_EXPR((typename sprout::darkroom::access::element<5, sprout::darkroom::intersects::intersection>::type()))
 			{
 				return typename sprout::darkroom::access::element<5, sprout::darkroom::intersects::intersection>::type();
 			}

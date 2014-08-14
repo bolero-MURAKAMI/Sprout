@@ -112,7 +112,7 @@ namespace sprout {
 			return reverse_iterator(sprout::next(current));
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(reverse_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			)
 		{
@@ -180,7 +180,7 @@ namespace sprout {
 	template<typename Iterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::reverse_iterator<Iterator>& lhs, sprout::reverse_iterator<Iterator>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

@@ -111,7 +111,7 @@ namespace sprout {
 		optional(optional&&) = default;
 #else
 		SPROUT_CONSTEXPR optional(optional&& v)
-		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_constructible<T>::value)
+		SPROUT_NOEXCEPT_IF(std::is_nothrow_move_constructible<T>::value)
 			: init(v.init)
 			, val(v.is_initialized() ? holder_type(sprout::move(get(v))) : holder_type())
 		{}
@@ -170,7 +170,7 @@ namespace sprout {
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR optional& operator=(optional&& v)
-		SPROUT_NOEXCEPT_EXPR(std::is_move_constructible<T>::value && std::is_move_assignable<T>::value)
+		SPROUT_NOEXCEPT_IF(std::is_move_constructible<T>::value && std::is_move_assignable<T>::value)
 		{
 			assign(SPROUT_FORWARD(optional, v));
 			return *this;
@@ -220,7 +220,7 @@ namespace sprout {
 			temp.swap(*this);
 		}
 		SPROUT_CXX14_CONSTEXPR void assign(optional&& v)
-		SPROUT_NOEXCEPT_EXPR(std::is_move_constructible<T>::value && std::is_move_assignable<T>::value)
+		SPROUT_NOEXCEPT_IF(std::is_move_constructible<T>::value && std::is_move_assignable<T>::value)
 		{
 			optional temp(SPROUT_FORWARD(optional, v));
 			temp.swap(*this);
@@ -261,7 +261,7 @@ namespace sprout {
 		}
 		// 20.6.4.4, swap
 		SPROUT_CXX14_CONSTEXPR void swap(optional& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(val, other.val)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(val, other.val))
 		{
 			sprout::swap(init, other.init);
 			sprout::swap(val, other.val);
@@ -355,7 +355,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::optional<T>& lhs, sprout::optional<T>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

@@ -273,7 +273,7 @@ namespace sprout {
 		//
 		inline SPROUT_CXX14_CONSTEXPR void
 		swap(sprout::uuids::uuid& lhs, sprout::uuids::uuid& rhs)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 		{
 			lhs.swap(rhs);
 		}

@@ -75,7 +75,10 @@ namespace sprout {
 			return dft_iterator(first_, last_, index_, index_ - 1, size_);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(dft_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_)) && SPROUT_NOEXCEPT_EXPR(sprout::swap(last_, other.last_)))
+		SPROUT_NOEXCEPT_IF(
+			SPROUT_NOEXCEPT_EXPR(sprout::swap(first_, other.first_))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(last_, other.last_))
+			)
 		{
 			sprout::swap(first_, other.first_);
 			sprout::swap(last_, other.last_);
@@ -182,7 +185,7 @@ namespace sprout {
 	template<typename Iterator>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::dft_iterator<Iterator>& lhs, sprout::dft_iterator<Iterator>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

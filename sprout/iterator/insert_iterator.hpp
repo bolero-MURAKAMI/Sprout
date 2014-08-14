@@ -84,7 +84,7 @@ namespace sprout {
 		}
 
 		SPROUT_CXX14_CONSTEXPR void swap(insert_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(base_type::swap(other))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(other.iter, iter))
 			)
@@ -100,7 +100,7 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::insert_iterator<Container>& lhs, sprout::insert_iterator<Container>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

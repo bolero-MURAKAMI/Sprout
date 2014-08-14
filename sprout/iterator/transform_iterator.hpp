@@ -158,7 +158,7 @@ namespace sprout {
 			return transform_iterator(sprout::prev(current), sprout::prev(current2), func);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(transform_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(current2, other.current2))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(func, other.func))
@@ -285,7 +285,7 @@ namespace sprout {
 			return transform_iterator(sprout::prev(current), func);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(transform_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(
+		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(func, other.func))
 			)
@@ -404,7 +404,7 @@ namespace sprout {
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>& lhs,
 		sprout::transform_iterator<UnaryOrBinaryFunction, LIterator, RIterator>& rhs
 		)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

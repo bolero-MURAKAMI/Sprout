@@ -28,14 +28,14 @@ namespace sprout_swap_detail {
 	template<typename T, typename sprout::enabler_if<!std::is_scalar<T>::value>::type = sprout::enabler>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap_impl(T& a, T& b)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(swap(a, b)))
+	SPROUT_NOEXCEPT_IF_EXPR(swap(a, b))
 	{
 		swap(a, b);
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap_impl(T (& a)[N], T (& b)[N])
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout_swap_detail::swap_impl(*a, *b)))
+	SPROUT_NOEXCEPT_IF_EXPR(sprout_swap_detail::swap_impl(*a, *b))
 	{
 		for (std::size_t i = 0; i < N; ++i) {
 			sprout_swap_detail::swap_impl(a[i], b[i]);
@@ -50,7 +50,7 @@ namespace sprout {
 	template<typename T1, typename T2>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(T1& lhs, T2& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout_swap_detail::swap_impl(lhs, rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(sprout_swap_detail::swap_impl(lhs, rhs))
 	{
 		return sprout_swap_detail::swap_impl(lhs, rhs);
 	}

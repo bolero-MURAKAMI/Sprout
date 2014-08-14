@@ -257,7 +257,7 @@ namespace sprout {
 		}
 
 		SPROUT_CXX14_CONSTEXPR void swap(value_holder& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(holder_, other.holder_)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(holder_, other.holder_))
 		{
 			sprout::swap(holder_, other.holder_);
 		}
@@ -316,7 +316,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::value_holder<T>& lhs, sprout::value_holder<T>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

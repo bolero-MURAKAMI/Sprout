@@ -13,8 +13,8 @@
 //
 // SPROUT_VERSION_NUMBER
 //
-#define SPROUT_VERSION_NUMBER(major, minor, patch) \
-	((((major) % 100) * 10000000) + (((minor) % 100) * 100000) + ((patch) % 100000))
+#define SPROUT_VERSION_NUMBER(MAJOR, MINOR, PATCH) \
+	((((MAJOR) % 100) * 10000000) + (((MINOR) % 100) * 100000) + ((PATCH) % 100000))
 //
 // SPROUT_VERSION_NUMBER_ZERO
 //
@@ -42,14 +42,14 @@
 // SPROUT_GCC_OR_LATER
 //
 #if SPROUT_AVAILABLE_GCC
-#	define SPROUT_GCC_EARLIER(major, minor, patch) \
-		(SPROUT_VERSION_GCC < SPROUT_VERSION_NUMBER(major, minor, patch))
-#	define SPROUT_GCC_OR_LATER(major, minor, patch) \
-		(SPROUT_VERSION_GCC >= SPROUT_VERSION_NUMBER(major, minor, patch))
+#	define SPROUT_GCC_EARLIER(MAJOR, MINOR, PATCH) \
+		(SPROUT_VERSION_GCC < SPROUT_VERSION_NUMBER(MAJOR, MINOR, PATCH))
+#	define SPROUT_GCC_OR_LATER(MAJOR, MINOR, PATCH) \
+		(SPROUT_VERSION_GCC >= SPROUT_VERSION_NUMBER(MAJOR, MINOR, PATCH))
 #else
-#	define SPROUT_GCC_EARLIER(major, minor, patch) \
+#	define SPROUT_GCC_EARLIER(MAJOR, MINOR, PATCH) \
 		(0)
-#	define SPROUT_GCC_OR_LATER(major, minor, patch) \
+#	define SPROUT_GCC_OR_LATER(MAJOR, MINOR, PATCH) \
 		(0)
 #endif
 //
@@ -92,14 +92,14 @@
 // SPROUT_CLANG_OR_LATER
 //
 #if SPROUT_AVAILABLE_CLANG
-#	define SPROUT_CLANG_EARLIER(major, minor, patch) \
-		(SPROUT_VERSION_CLANG < SPROUT_VERSION_NUMBER(major, minor, patch))
-#	define SPROUT_CLANG_OR_LATER(major, minor, patch) \
-		(SPROUT_VERSION_CLANG >= SPROUT_VERSION_NUMBER(major, minor, patch))
+#	define SPROUT_CLANG_EARLIER(MAJOR, MINOR, PATCH) \
+		(SPROUT_VERSION_CLANG < SPROUT_VERSION_NUMBER(MAJOR, MINOR, PATCH))
+#	define SPROUT_CLANG_OR_LATER(MAJOR, MINOR, PATCH) \
+		(SPROUT_VERSION_CLANG >= SPROUT_VERSION_NUMBER(MAJOR, MINOR, PATCH))
 #else
-#	define SPROUT_CLANG_EARLIER(major, minor, patch) \
+#	define SPROUT_CLANG_EARLIER(MAJOR, MINOR, PATCH) \
 		(0)
-#	define SPROUT_CLANG_OR_LATER(major, minor, patch) \
+#	define SPROUT_CLANG_OR_LATER(MAJOR, MINOR, PATCH) \
 		(0)
 #endif
 //

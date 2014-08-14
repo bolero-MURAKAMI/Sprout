@@ -591,7 +591,7 @@ namespace sprout {
 		}
 		SPROUT_CXX14_CONSTEXPR void
 		swap(basic_string& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(std::declval<T&>(), std::declval<T&>())))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(std::declval<T&>(), std::declval<T&>()))
 		{
 			sprout::swap_ranges(other.begin(), other.begin() + other.max_size(), begin());
 			sprout::swap(len, other.len);
@@ -945,7 +945,7 @@ namespace sprout {
 	template<typename T, std::size_t N, typename Traits>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::basic_string<T, N, Traits>& lhs, sprout::basic_string<T, N, Traits>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

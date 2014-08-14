@@ -64,7 +64,7 @@ namespace sprout {
 			}
 		public:
 			SPROUT_CXX14_CONSTEXPR void swap(variant_impl& other)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(tuple_, other.tuple_)))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(tuple_, other.tuple_))
 			{
 				sprout::swap(tuple_, other.tuple_);
 				sprout::swap(which_, other.which_);
@@ -239,7 +239,7 @@ namespace sprout {
 		{}
 		// modifiers
 		SPROUT_CXX14_CONSTEXPR void swap(variant& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(std::declval<impl_type&>().swap(other)))
+		SPROUT_NOEXCEPT_IF_EXPR(std::declval<impl_type&>().swap(other))
 		{
 			impl_type::swap(other);
 		}
@@ -248,7 +248,7 @@ namespace sprout {
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR variant& operator=(variant&& rhs)
-		SPROUT_NOEXCEPT_EXPR(std::is_nothrow_move_assignable<impl_type>::value)
+		SPROUT_NOEXCEPT_IF(std::is_nothrow_move_assignable<impl_type>::value)
 		{
 			static_cast<impl_type&>(*this) = sprout::move(rhs);
 			return *this;
@@ -349,7 +349,7 @@ namespace sprout {
 	template<typename... Types>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::variant<Types...>& lhs, sprout::variant<Types...>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

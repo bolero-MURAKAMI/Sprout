@@ -120,7 +120,7 @@ namespace sprout {
 			return counting_iterator(current_ - 1);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(counting_iterator& other)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(current_, other.current_)))
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(current_, other.current_))
 		{
 			sprout::swap(current_, other.current_);
 		}
@@ -186,7 +186,7 @@ namespace sprout {
 	template<typename Incrementable>
 	inline SPROUT_CXX14_CONSTEXPR void
 	swap(sprout::counting_iterator<Incrementable>& lhs, sprout::counting_iterator<Incrementable>& rhs)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}

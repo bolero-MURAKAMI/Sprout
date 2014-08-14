@@ -96,7 +96,7 @@ namespace sprout {
 				return forward_item_iterator(item->next);
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(forward_item_iterator& other)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(item, other.item)))
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(item, other.item))
 			{
 				sprout::swap(item, other.item);
 			}
@@ -143,7 +143,7 @@ namespace sprout {
 		template<typename List>
 		inline SPROUT_CXX14_CONSTEXPR void
 		swap(sprout::detail::forward_item_iterator<List>& lhs, sprout::detail::forward_item_iterator<List>& rhs)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 		{
 			lhs.swap(rhs);
 		}
@@ -240,7 +240,10 @@ namespace sprout {
 			{}
 
 			SPROUT_CXX14_CONSTEXPR void swap(item& other)
-			SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::swap(val, other.val)) && SPROUT_NOEXCEPT_EXPR(sprout::swap(next, other.next)))
+			SPROUT_NOEXCEPT_IF(
+				SPROUT_NOEXCEPT_EXPR(sprout::swap(val, other.val))
+				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(next, other.next))
+				)
 			{
 				sprout::swap(val, other.val);
 				sprout::swap(next, other.next);

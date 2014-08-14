@@ -129,7 +129,7 @@ namespace sprout {
 				return distribution().max();
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(random_result& other)
-			SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_IF(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(result_, other.result_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(generator_, other.generator_))
 				)
@@ -259,7 +259,7 @@ namespace sprout {
 				return !(lhs == rhs);
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(random_result& other)
-			SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_IF(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(result_, other.result_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(generator_, other.generator_))
 				)
@@ -292,7 +292,7 @@ namespace sprout {
 		template<typename Engine, typename Distribution>
 		inline SPROUT_CXX14_CONSTEXPR void
 		swap(sprout::random::random_result<Engine, Distribution>& lhs, sprout::random::random_result<Engine, Distribution>& rhs)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 		{
 			lhs.swap(rhs);
 		}

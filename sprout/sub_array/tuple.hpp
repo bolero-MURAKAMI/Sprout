@@ -27,7 +27,7 @@ namespace sprout {
 	template<std::size_t I, typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::sub_array<Container> >::value_type&
 	tuple_get(sprout::sub_array<Container>& t)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::internal_begin(t), I)))
+	SPROUT_NOEXCEPT_IF_EXPR(*sprout::next(sprout::internal_begin(t), I))
 	{
 		static_assert(I < sprout::container_traits<sprout::sub_array<Container> >::static_size, "tuple_get: index out of range");
 		return *sprout::next(sprout::internal_begin(t), I);
@@ -35,7 +35,7 @@ namespace sprout {
 	template<std::size_t I, typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::sub_array<Container> >::value_type const&
 	tuple_get(sprout::sub_array<Container> const& t)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(*sprout::next(sprout::internal_begin(t), I)))
+	SPROUT_NOEXCEPT_IF_EXPR(*sprout::next(sprout::internal_begin(t), I))
 	{
 		static_assert(I < sprout::container_traits<sprout::sub_array<Container> >::static_size, "tuple_get: index out of range");
 		return *sprout::next(sprout::internal_begin(t), I);
@@ -43,7 +43,7 @@ namespace sprout {
 	template<std::size_t I, typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<sprout::sub_array<Container> >::value_type&&
 	tuple_get(sprout::sub_array<Container>&& t)
-	SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(sprout::move(sprout::tuples::get<I>(t))))
+	SPROUT_NOEXCEPT_IF_EXPR(sprout::move(sprout::tuples::get<I>(t)))
 	{
 		return sprout::move(sprout::tuples::get<I>(t));
 	}

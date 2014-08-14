@@ -76,7 +76,7 @@ namespace sprout {
 				return distribution_.max();
 			}
 			SPROUT_CXX14_CONSTEXPR void swap(variate_generator& other)
-			SPROUT_NOEXCEPT_EXPR(
+			SPROUT_NOEXCEPT_IF(
 				SPROUT_NOEXCEPT_EXPR(sprout::swap(engine_, other.engine_))
 				&& SPROUT_NOEXCEPT_EXPR(sprout::swap(distribution_, other.distribution_))
 				)
@@ -100,7 +100,7 @@ namespace sprout {
 		template<typename Engine, typename Distribution>
 		inline SPROUT_CXX14_CONSTEXPR void
 		swap(sprout::random::variate_generator<Engine, Distribution>& lhs, sprout::random::variate_generator<Engine, Distribution>& rhs)
-		SPROUT_NOEXCEPT_EXPR(SPROUT_NOEXCEPT_EXPR(lhs.swap(rhs)))
+		SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 		{
 			lhs.swap(rhs);
 		}
