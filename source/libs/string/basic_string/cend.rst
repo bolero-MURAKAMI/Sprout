@@ -1,13 +1,14 @@
-.. _sprout-string-basic_string-cbegin:
+.. _sprout-string-basic_string-cend:
+
 ###############################################################################
-cbegin
+cend
 ###############################################################################
 
 Interface
 ========================================
 .. sourcecode:: c++
 
-  SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT;
+  SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT;
 
 Returns
 ========================================
@@ -22,7 +23,7 @@ Examples
   using namespace sprout;
   
   SPROUT_STATIC_CONSTEXPR auto input = string<8>("homuhomu");
-  static_assert(*(input.cbegin() - 1) == 'u', "input last element is u.");
+  static_assert(*(input.cend() - 1) == 'u', "input last element is u.");
 
 Complexity
 ========================================

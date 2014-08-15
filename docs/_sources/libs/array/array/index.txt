@@ -1,4 +1,5 @@
 .. _sprout-array-array:
+
 ###############################################################################
 array
 ###############################################################################
@@ -42,24 +43,24 @@ Description
 Member types
 ----------------------------------------
 
-======================================== =============================================================================== =======================================
-type                                     definition                                                                      note
-======================================== =============================================================================== =======================================
-reference                                T&
-const_reference                          T const&
-iterator                                 **ConstexprRandomAccessIterator**                                               convertible to const_iterator,
-                                                                                                                         convertible to pointer
-const_iterator                           **ConstexprRandomAccessIterator**                                               convertible to const_pointer
-size_type                                std::size_t
-difference_type                          std::ptrdiff_t
-value_type                               T
-pointer                                  T*
-const_pointer                            T const*
-reverse_iterator                         sprout::reverse_iterator<iterator>,
-                                         **ConstexprRandomAccessIterator**
-const_reverse_iterator                   sprout::reverse_iterator<const_iterator>,
-                                         **ConstexprRandomAccessIterator**
-======================================== =============================================================================== =======================================
+.. csv-table::
+    :header: type, definition, note
+    :widths: 4, 4, 4
+
+    reference,              T&,                                           ""
+    const_reference,        T const&,                                     ""
+    iterator,               **ConstexprRandomAccessIterator**,            "| convertible to const_iterator
+                                                                             convertible to pointer"
+    const_iterator,         **ConstexprRandomAccessIterator**,            convertible to const_pointer
+    size_type,              std::size_t,                                  ""
+    difference_type,        std::ptrdiff_t,                               ""
+    value_type,             T,                                            ""
+    pointer,                T*,                                           ""
+    const_pointer,          T const*,                                     ""
+    reverse_iterator,       "| sprout::reverse_iterator<iterator>
+                               **ConstexprRandomAccessIterator**",        ""
+    const_reverse_iterator, "| sprout::reverse_iterator<const_iterator>
+                               **ConstexprRandomAccessIterator**",        ""
 
 Member functions
 ----------------------------------------
@@ -67,72 +68,72 @@ Member functions
 (initializer)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`(initializer) <./initializer->`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`(initializer) <./initializer->`, ""
 
 construct/copy/destroy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`operator= <./operator-assign>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`operator= <./operator-assign>`, ""
 
 modifiers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`fill <./fill>`
-:doc:`assign <./assign>`
-:doc:`swap <./swap>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`fill <./fill>`, ""
+    :doc:`assign <./assign>`, ""
+    :doc:`swap <./swap>`, ""
 
 iterators
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`begin <./begin>`
-:doc:`end <./end>`
-:doc:`rbegin <./rbegin>`
-:doc:`rend <./rend>`
-:doc:`cbegin <./cbegin>`
-:doc:`cend <./cend>`
-:doc:`crbegin <./crbegin>`
-:doc:`crend <./crend>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`begin <./begin>`, ""
+    :doc:`end <./end>`, ""
+    :doc:`rbegin <./rbegin>`, ""
+    :doc:`rend <./rend>`, ""
+    :doc:`cbegin <./cbegin>`, ""
+    :doc:`cend <./cend>`, ""
+    :doc:`crbegin <./crbegin>`, ""
+    :doc:`crend <./crend>`, ""
 
 capacity
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`size <./size>`
-:doc:`max_size <./max_size>`
-:doc:`empty <./empty>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`size <./size>`, ""
+    :doc:`max_size <./max_size>`, ""
+    :doc:`empty <./empty>`, ""
 
 element access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`operator[] <./operator-subscript>`
-:doc:`at <./at>`
-:doc:`front <./front>`
-:doc:`back <./back>`
-:doc:`data <./data>`
-:doc:`c_array <./c_array>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`operator[] <./operator-subscript>`, ""
+    :doc:`at <./at>`, ""
+    :doc:`front <./front>`, ""
+    :doc:`back <./back>`, ""
+    :doc:`data <./data>`, ""
+    :doc:`c_array <./c_array>`, ""
 
 Header
 ========================================

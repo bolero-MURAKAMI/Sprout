@@ -1,4 +1,5 @@
 .. _sprout-string-basic_string:
+
 ###############################################################################
 basic_string
 ###############################################################################
@@ -63,25 +64,25 @@ Description
 Member types
 ----------------------------------------
 
-======================================== =============================================================================== =======================================
-type                                     definition                                                                      note
-======================================== =============================================================================== =======================================
-traits_type                              Traits
-value_type                               Traits::char_type
-size_type                                std::size_t
-difference_type                          std::ptrdiff_t
-reference                                value_type&
-const_reference                          value_type const&
-pointer                                  value_type*
-const_pointer                            value_type const*
-iterator                                 **ConstexprRandomAccessIterator**                                               convertible to const_iterator,
-                                                                                                                         convertible to pointer
-const_iterator                           **ConstexprRandomAccessIterator**                                               convertible to const_pointer
-reverse_iterator                         sprout::reverse_iterator<iterator>,
-                                         **ConstexprRandomAccessIterator**
-const_reverse_iterator                   sprout::reverse_iterator<const_iterator>,
-                                         **ConstexprRandomAccessIterator**
-======================================== =============================================================================== =======================================
+.. csv-table::
+    :header: type, definition, note
+    :widths: 4, 4, 4
+
+    traits_type,            Traits,                                     ""
+    value_type,             Traits::char_type,                          ""
+    size_type,              std::size_t,                                ""
+    difference_type,        std::ptrdiff_t,                             ""
+    reference,              value_type&,                                ""
+    const_reference,        value_type const&,                          ""
+    pointer,                value_type*,                                ""
+    const_pointer,          value_type const*,                          ""
+    iterator,               **ConstexprRandomAccessIterator**,          "| convertible to const_iterator
+                                                                           convertible to pointer"
+    const_iterator,         **ConstexprRandomAccessIterator**,          convertible to const_pointer
+    reverse_iterator,       "| sprout::reverse_iterator<iterator>
+                               **ConstexprRandomAccessIterator**",      ""
+    const_reverse_iterator, "| sprout::reverse_iterator<const_iterator>
+                               **ConstexprRandomAccessIterator**",      ""
 
 Member functions
 ----------------------------------------
@@ -89,124 +90,124 @@ Member functions
 construct/copy/destroy
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`(constructor) <./constructor->`
-:doc:`operator= <./operator-assign>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`(constructor) <./constructor->`, ""
+    :doc:`operator= <./operator-assign>`, ""
 
 iterators
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`begin <./begin>`
-:doc:`end <./end>`
-:doc:`rbegin <./rbegin>`
-:doc:`rend <./rend>`
-:doc:`cbegin <./cbegin>`
-:doc:`cend <./cend>`
-:doc:`crbegin <./crbegin>`
-:doc:`crend <./crend>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`begin <./begin>`, ""
+    :doc:`end <./end>`, ""
+    :doc:`rbegin <./rbegin>`, ""
+    :doc:`rend <./rend>`, ""
+    :doc:`cbegin <./cbegin>`, ""
+    :doc:`cend <./cend>`, ""
+    :doc:`crbegin <./crbegin>`, ""
+    :doc:`crend <./crend>`, ""
 
 capacity
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`size <./size>`
-:doc:`length <./length>`
-:doc:`max_size <./max_size>`
-:doc:`resize <./resize>`
-:doc:`clear <./clear>`
-:doc:`empty <./empty>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`size <./size>`, ""
+    :doc:`length <./length>`, ""
+    :doc:`max_size <./max_size>`, ""
+    :doc:`resize <./resize>`, ""
+    :doc:`clear <./clear>`, ""
+    :doc:`empty <./empty>`, ""
 
 element access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`operator[] <./operator-subscript>`
-:doc:`at <./at>`
-:doc:`front <./front>`
-:doc:`back <./back>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`operator[] <./operator-subscript>`, ""
+    :doc:`at <./at>`, ""
+    :doc:`front <./front>`, ""
+    :doc:`back <./back>`, ""
 
 modifiers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`assign <./assign>`
-:doc:`swap <./swap>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`assign <./assign>`, ""
+    :doc:`swap <./swap>`, ""
 
 string operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`data <./data>`
-:doc:`c_array <./c_array>`
-:doc:`find <./find>`
-:doc:`rfind <./rfind>`
-:doc:`find_first_of <./find_first_of>`
-:doc:`find_last_of <./find_last_of>`
-:doc:`find_first_not_of <./find_first_not_of>`
-:doc:`find_last_not_of <./find_last_not_of>`
-:doc:`substr <./substr>`
-:doc:`compare <./compare>`
-============================================================ ===============================================================================
-    
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`data <./data>`, ""
+    :doc:`c_array <./c_array>`, ""
+    :doc:`find <./find>`, ""
+    :doc:`rfind <./rfind>`, ""
+    :doc:`find_first_of <./find_first_of>`, ""
+    :doc:`find_last_of <./find_last_of>`, ""
+    :doc:`find_first_not_of <./find_first_not_of>`, ""
+    :doc:`find_last_not_of <./find_last_not_of>`, ""
+    :doc:`substr <./substr>`, ""
+    :doc:`compare <./compare>`, ""
+
 conversions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-================================================================================ ===============================================================================
-function
-================================================================================ ===============================================================================
-:doc:`operator std::basic_string <./operator-std-basic_string>`
-================================================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`operator std::basic_string <./operator-std-basic_string>`, ""
 
 construct/copy/destroy (for string iterator)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`operator= <./operator-assign-iterator>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`operator= <./operator-assign-iterator>`, ""
 
 modifiers (for string iterator)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`assign <./assign-iterator>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`assign <./assign-iterator>`, ""
 
 string operations (for string iterator)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`find <./find-iterator>`
-:doc:`rfind <./rfind-iterator>`
-:doc:`find_first_of <./find_first_of-iterator>`
-:doc:`find_last_of <./find_last_of-iterator>`
-:doc:`find_first_not_of <./find_first_not_of-iterator>`
-:doc:`find_last_not_of <./find_last_not_of-iterator>`
-:doc:`compare <./compare-iterator>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`find <./find-iterator>`, ""
+    :doc:`rfind <./rfind-iterator>`, ""
+    :doc:`find_first_of <./find_first_of-iterator>`, ""
+    :doc:`find_last_of <./find_last_of-iterator>`, ""
+    :doc:`find_first_not_of <./find_first_not_of-iterator>`, ""
+    :doc:`find_last_not_of <./find_last_not_of-iterator>`, ""
+    :doc:`compare <./compare-iterator>`, ""
 
 Header
 ========================================

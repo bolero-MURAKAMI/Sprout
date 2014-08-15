@@ -1,4 +1,5 @@
 .. _sprout-libraries:
+
 ###############################################################################
 Libraries
 ###############################################################################
@@ -9,8 +10,10 @@ Libraries
     array/index
     algorithm/index
     string/index
+    index_tuple/index
 
 .. _sprout-listed_by_alphabetically:
+
 *******************************************************************************
 Libraries Listed Alphabetically
 *******************************************************************************
@@ -18,13 +21,16 @@ Libraries Listed Alphabetically
 * :doc:`algorithm <./algorithm/index>` - Standard library like generic algorithms.
 * :doc:`array <./array/index>` - Standard library compliant class template for storing fixed-size sequences of objects.
 * :doc:`string <./string/index>` - Compile-time string of fixed-length buffer.
+* :doc:`index_tuple <./index_tuple/index>` - Compile-time integer sequences and generators.
 
 .. _sprout-listed_by_category:
+
 *******************************************************************************
 Libraries Listed by Category
 *******************************************************************************
 
 .. _sprout-listed_by_category-containers:
+
 Containers and Data structures
 =======================================
 
@@ -36,6 +42,7 @@ Containers and Data structures
 * :doc:`bitset <./bitset/index>`
 
 .. _sprout-listed_by_category-algorithms:
+
 Algorithms
 =======================================
 
@@ -46,6 +53,7 @@ Algorithms
 * :doc:`range_adaptor <./range/adaptor/index>`
 
 .. _sprout-listed_by_category-container_supports:
+
 Container supports
 =======================================
 
@@ -55,18 +63,21 @@ Container supports
 * :doc:`container <./container/index>`
 
 .. _sprout-listed_by_category-function_objects:
+
 Function Objects
 =======================================
 
 * :doc:`functional <./functional/index>`
 
 .. _sprout-listed_by_category-iterators:
+
 Iterators
 =======================================
 
 * :doc:`iterator <./iterator/index>`
 
 .. _sprout-listed_by_category-mathematics:
+
 Mathematics
 =======================================
 
@@ -76,6 +87,7 @@ Mathematics
 * :doc:`rational <./rational/index>`
 
 .. _sprout-listed_by_category-template_metaprogramming:
+
 Template Metaprogramming
 =======================================
 
@@ -84,12 +96,14 @@ Template Metaprogramming
 * :doc:`type <./type/index>`
 
 .. _sprout-listed_by_category-preprocessor_metaprogramming:
+
 Preprocessor Metaprogramming
 =======================================
 
 * :doc:`preprocessor <./preprocessor/index>`
 
 .. _sprout-listed_by_category-domain_specific:
+
 Domain specific
 =======================================
 
@@ -97,24 +111,28 @@ Domain specific
 * :doc:`checksum <./checksum/index>`
 
 .. _sprout-listed_by_category-parsing:
+
 Parsing
 =======================================
 
 * :doc:`weed <./weed/index>`
 
 .. _sprout-listed_by_category-ray_tracing:
+
 Ray tracing
 =======================================
 
 * :doc:`darkroom <./darkroom/index>`
 
 .. _sprout-listed_by_category-synthesizer:
+
 Synthesizer
 =======================================
 
 * :doc:`compost <./compost/index>`
 
 .. _sprout-listed_by_category-miscellaneous:
+
 Miscellaneous
 =======================================
 
@@ -122,6 +140,7 @@ Miscellaneous
 * :doc:`bit_operation <./bit_operation/index>`
 
 .. _sprout-listed_by_category-c-compatible:
+
 C-compatible
 =======================================
 

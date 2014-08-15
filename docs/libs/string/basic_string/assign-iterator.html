@@ -71,10 +71,10 @@
 <li><a class="reference internal" href="#returns">Returns</a></li>
 <li><a class="reference internal" href="#throws">Throws</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#id3">Interface</a></li>
-<li><a class="reference internal" href="#id4">Requires</a></li>
-<li><a class="reference internal" href="#id5">Effects</a></li>
-<li><a class="reference internal" href="#id6">Returns</a></li>
+<li><a class="reference internal" href="#id1">Interface</a></li>
+<li><a class="reference internal" href="#id2">Requires</a></li>
+<li><a class="reference internal" href="#id3">Effects</a></li>
+<li><a class="reference internal" href="#id4">Returns</a></li>
 <li><a class="reference internal" href="#header">Header</a></li>
 </ul>
 </li>
@@ -113,7 +113,7 @@
           <div class="body">
             
   <div class="section" id="assign">
-<h1>assign<a class="headerlink" href="#assign" title="Permalink to this headline">¶</a></h1>
+<span id="sprout-string-basic-string-assign-iterator"></span><h1>assign<a class="headerlink" href="#assign" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">StringConstIterator</span><span class="o">&gt;</span>
@@ -130,7 +130,7 @@
 <div class="section" id="effects">
 <h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Replaces the string controlled by <a href="#id1"><span class="problematic" id="id2">*</span></a>this with a string of length n whose elements are a copy of those pointed to by s.</div>
+<div class="line">Replaces the string controlled by <tt class="docutils literal"><span class="pre">*this</span></tt> with a string of length n whose elements are a copy of those pointed to by s.</div>
 </div>
 </div>
 <div class="section" id="returns">
@@ -161,27 +161,27 @@
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="id3">
-<h2>Interface<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>Interface<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">StringConstIterator</span><span class="o">&gt;</span>
 <span class="n">basic_string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="n">StringConstIterator</span> <span class="n">s</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>Requires<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2>Requires<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">s points to an array of at least <tt class="docutils literal"><span class="pre">traits_type::length(s)</span> <span class="pre">+</span> <span class="pre">1</span></tt> elements of value_type.</div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>Effects<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>Effects<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">Calls <tt class="docutils literal"><span class="pre">assign(s,</span> <span class="pre">traits_type::length(s))</span></tt>.</div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>Returns<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><tt class="docutils literal"><span class="pre">*this</span></tt>.</div>
 </div>

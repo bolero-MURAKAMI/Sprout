@@ -1,4 +1,5 @@
 .. _sprout-string-char_traits:
+
 ###############################################################################
 char_traits
 ###############################################################################
@@ -40,15 +41,15 @@ Description
 Member types
 ----------------------------------------
 
-======================================== =============================================================================== =======================================
-type                                     definition                                                                      
-======================================== =============================================================================== =======================================
-char_type                                std::char_traits<Char>::char_type
-int_type                                 std::char_traits<Char>::int_type
-off_type                                 std::char_traits<Char>::off_type
-pos_type                                 std::char_traits<Char>::pos_type
-state_type                               std::char_traits<Char>::state_type
-======================================== =============================================================================== =======================================
+.. csv-table::
+    :header: type, definition
+    :widths: 4, 8
+
+    char_type,  std::char_traits<Char>::char_type
+    int_type,   std::char_traits<Char>::int_type
+    off_type,   std::char_traits<Char>::off_type
+    pos_type,   std::char_traits<Char>::pos_type
+    state_type, std::char_traits<Char>::state_type
 
 Static member functions
 ----------------------------------------
@@ -56,54 +57,54 @@ Static member functions
 character operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`assign <./assign>`
-:doc:`eq <./eq>`
-:doc:`lt <./lt>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`assign <./assign>`, ""
+    :doc:`eq <./eq>`, ""
+    :doc:`lt <./lt>`, ""
 
 string operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`compare <./compare>`
-:doc:`length<./length>`
-:doc:`find <./find>`
-:doc:`move <./move>`
-:doc:`copy <./copy>`
-:doc:`assign <./assign-string>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`compare <./compare>`, ""
+    :doc:`length<./length>`, ""
+    :doc:`find <./find>`, ""
+    :doc:`move <./move>`, ""
+    :doc:`copy <./copy>`, ""
+    :doc:`assign <./assign-string>`, ""
 
 integer type operations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`not_eof <./not_eof>`
-:doc:`to_char_type <./to_char_type>`
-:doc:`to_int_type <./to_int_type>`
-:doc:`eq_int_type <./eq_int_type>`
-:doc:`eof <./eof>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`not_eof <./not_eof>`, ""
+    :doc:`to_char_type <./to_char_type>`, ""
+    :doc:`to_int_type <./to_int_type>`, ""
+    :doc:`eq_int_type <./eq_int_type>`, ""
+    :doc:`eof <./eof>`, ""
 
 string operations (for iterator)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-function
-======================================== ===============================================================================
-:doc:`compare <./compare-iterator>`
-:doc:`length<./length-iterator>`
-:doc:`find <./find-iterator>`
-:doc:`move <./move-iterator>`
-:doc:`copy <./copy-iterator>`
-:doc:`assign <./assign-iterator>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`compare <./compare-iterator>`, ""
+    :doc:`length<./length-iterator>`, ""
+    :doc:`find <./find-iterator>`, ""
+    :doc:`move <./move-iterator>`, ""
+    :doc:`copy <./copy-iterator>`, ""
+    :doc:`assign <./assign-iterator>`, ""
 
 Header
 ========================================

@@ -108,7 +108,7 @@
           <div class="body">
             
   <div class="section" id="resize">
-<h1>resize<a class="headerlink" href="#resize" title="Permalink to this headline">¶</a></h1>
+<span id="sprout-string-basic-string-resize"></span><h1>resize<a class="headerlink" href="#resize" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">SPROUT_CXX14_CONSTEXPR</span> <span class="kt">void</span> <span class="n">resize</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">,</span> <span class="n">value_type</span> <span class="n">c</span><span class="p">);</span>
@@ -126,7 +126,7 @@
 <div class="section" id="effects">
 <h2>Effects<a class="headerlink" href="#effects" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Alters the length of the string designated by <a href="#id1"><span class="problematic" id="id2">*</span></a>this as follows:
+<div class="line">Alters the length of the string designated by <tt class="docutils literal"><span class="pre">*this</span></tt> as follows:
 * If <tt class="docutils literal"><span class="pre">n</span> <span class="pre">&lt;=</span> <span class="pre">size()</span></tt>, the function replaces the string designated by <tt class="docutils literal"><span class="pre">*this</span></tt> with a string of length n whose elements are a copy of the initial elements of the original string designated by <tt class="docutils literal"><span class="pre">*this</span></tt>.
 * If <tt class="docutils literal"><span class="pre">n</span> <span class="pre">&gt;</span> <span class="pre">size()</span></tt>, the function replaces the string designated by <tt class="docutils literal"><span class="pre">*this</span></tt> with a string of length n whose first size() elements are a copy of the original string designated by <tt class="docutils literal"><span class="pre">*this</span></tt>, and whose remaining elements are all initialized to c.</div>
 </div>

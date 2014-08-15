@@ -1,4 +1,5 @@
 .. _sprout-string-basic_string-resize:
+
 ###############################################################################
 resize
 ###############################################################################
@@ -19,7 +20,7 @@ Requires
 Effects
 ========================================
 
-| Alters the length of the string designated by *this as follows:
+| Alters the length of the string designated by ``*this`` as follows:
   * If ``n <= size()``, the function replaces the string designated by ``*this`` with a string of length n whose elements are a copy of the initial elements of the original string designated by ``*this``.
   * If ``n > size()``, the function replaces the string designated by ``*this`` with a string of length n whose first size() elements are a copy of the original string designated by ``*this``, and whose remaining elements are all initialized to c.
 

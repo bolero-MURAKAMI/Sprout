@@ -38,7 +38,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="Sprout 1.0 documentation" href="../../index.html" />
     <link rel="up" title="Sprout.Array" href="index.html" />
-    <link rel="next" title="make_common_array" href="make_common_array.html" />
+    <link rel="next" title="make_array_without_narrowing" href="make_array_without_narrowing.html" />
     <link rel="prev" title="to_array" href="to_array.html" /> 
   </head>
   <body>
@@ -49,7 +49,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="make_common_array.html" title="make_common_array"
+          <a href="make_array_without_narrowing.html" title="make_array_without_narrowing"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="to_array.html" title="to_array"
@@ -78,8 +78,8 @@
   <p class="topless"><a href="to_array.html"
                         title="previous chapter">to_array</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="make_common_array.html"
-                        title="next chapter">make_common_array</a></p>
+  <p class="topless"><a href="make_array_without_narrowing.html"
+                        title="next chapter">make_array_without_narrowing</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/libs/array/make_array.txt"
@@ -107,7 +107,7 @@
           <div class="body">
             
   <div class="section" id="make-array">
-<h1>make_array<a class="headerlink" href="#make-array" title="Permalink to this headline">¶</a></h1>
+<span id="sprout-array-make-array"></span><h1>make_array<a class="headerlink" href="#make-array" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
@@ -131,6 +131,9 @@
 <div class="line-block">
 <div class="line">A first version needs to be specified in the template parameters explicitly type T of the elements in the array.</div>
 <div class="line">And, the type of the elements in the array is a decayed common type of all arguments in the second version.</div>
+<div class="line"><br /></div>
+<div class="line">Narrowing conversion is <strong>not</strong> prohibited in this make_array function. (It behaves like a static_cast)</div>
+<div class="line">If you want to prohibit narrowing conversion, use <a class="reference internal" href="make_array_without_narrowing.html"><em>make_array_without_narrowing</em></a> function.</div>
 </div>
 </div>
 <div class="section" id="examples">
@@ -170,7 +173,7 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="make_common_array.html" title="make_common_array"
+          <a href="make_array_without_narrowing.html" title="make_array_without_narrowing"
              >next</a> |</li>
         <li class="right" >
           <a href="to_array.html" title="to_array"

@@ -1,4 +1,5 @@
 .. _sprout:
+
 ###############################################################################
 Sprout C++ Libraries
 ###############################################################################
@@ -11,6 +12,7 @@ Contents:
     libs/index
 
 .. _sprout-welcome:
+
 *******************************************************************************
 Welcome to the Sprout C++ Libraries
 *******************************************************************************
@@ -18,6 +20,7 @@ Welcome to the Sprout C++ Libraries
 | C++11 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, Synthesizer, and others.
 
 .. _sprout-documentation:
+
 *******************************************************************************
 Library Documentation
 *******************************************************************************
@@ -25,6 +28,7 @@ Library Documentation
 | The starting point for the documentation of individual libraries is the :doc:`Libraries page <./libs/index>`, which gives a brief description of each library and links to its documentation.
 
 .. _sprout-project:
+
 *******************************************************************************
 Project page
 *******************************************************************************
@@ -34,6 +38,7 @@ Project page
 * `Wiki (japanese) <http://www.boleros.x0.com/doc/sproutwiki/>`_
 
 .. _sprout-install:
+
 *******************************************************************************
 Install
 *******************************************************************************
@@ -42,16 +47,18 @@ Install
 | This library can be used in the header only.
 
 .. _sprout-compilers:
+
 *******************************************************************************
 Supported Compilers
 *******************************************************************************
 
 Linux:
 
-* GCC, C++11/14 mode: 4.7.0, 4.7.1, 4.7.2, 4.7.3, 4.8.0, 4.8.1, 4.8.2, 4.9.0
-* Clang, C++11/14 mode: 3.2, 3.3, 3.4
+* GCC, C++11/14 mode: 4.7.0, 4.7.1, 4.7.2, 4.7.3, 4.7.4, 4.8.0, 4.8.1, 4.8.2, 4.8.3, 4.9.0
+* Clang, C++11/14 mode: 3.2, 3.3, 3.4, 3.4.1, 3.4.2
 
 .. _sprout-author:
+
 *******************************************************************************
 Author
 *******************************************************************************
@@ -60,6 +67,7 @@ Author
 | `Website <http://bolero-murakami.github.io/>`_ | `Twitter <https://twitter.com/bolero_murakami>`_ | `Facebook <http://www.facebook.com/genya.murakami>`_ | `Blog <http://boleros.hateblo.jp/>`_ | `Github <https://github.com/bolero-MURAKAMI>`_ | `SlideShare <http://www.slideshare.net/GenyaMurakami>`_
 
 .. _sprout-copyrights:
+
 *******************************************************************************
 Copyrights
 *******************************************************************************

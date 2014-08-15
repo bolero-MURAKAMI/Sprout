@@ -77,18 +77,18 @@
 <li><a class="reference internal" href="#id4">Interface</a></li>
 <li><a class="reference internal" href="#id5">Requires</a></li>
 <li><a class="reference internal" href="#id6">Effects</a></li>
-<li><a class="reference internal" href="#id9">Returns</a></li>
-<li><a class="reference internal" href="#id10">Throws</a></li>
-<li><a class="reference internal" href="#id11">Interface</a></li>
-<li><a class="reference internal" href="#id12">Requires</a></li>
-<li><a class="reference internal" href="#id13">Effects</a></li>
-<li><a class="reference internal" href="#id14">Returns</a></li>
-<li><a class="reference internal" href="#id15">Interface</a></li>
-<li><a class="reference internal" href="#id16">Effects</a></li>
-<li><a class="reference internal" href="#id17">Returns</a></li>
-<li><a class="reference internal" href="#id18">Interface</a></li>
-<li><a class="reference internal" href="#id19">Effects</a></li>
-<li><a class="reference internal" href="#id20">Returns</a></li>
+<li><a class="reference internal" href="#id7">Returns</a></li>
+<li><a class="reference internal" href="#id8">Throws</a></li>
+<li><a class="reference internal" href="#id9">Interface</a></li>
+<li><a class="reference internal" href="#id10">Requires</a></li>
+<li><a class="reference internal" href="#id11">Effects</a></li>
+<li><a class="reference internal" href="#id12">Returns</a></li>
+<li><a class="reference internal" href="#id13">Interface</a></li>
+<li><a class="reference internal" href="#id14">Effects</a></li>
+<li><a class="reference internal" href="#id15">Returns</a></li>
+<li><a class="reference internal" href="#id16">Interface</a></li>
+<li><a class="reference internal" href="#id17">Effects</a></li>
+<li><a class="reference internal" href="#id18">Returns</a></li>
 <li><a class="reference internal" href="#header">Header</a></li>
 </ul>
 </li>
@@ -127,7 +127,7 @@
           <div class="body">
             
   <div class="section" id="assign">
-<h1>assign<a class="headerlink" href="#assign" title="Permalink to this headline">¶</a></h1>
+<span id="sprout-string-basic-string-assign"></span><h1>assign<a class="headerlink" href="#assign" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="interface">
 <h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N2</span><span class="o">&gt;</span>
@@ -210,81 +210,81 @@
 <div class="section" id="id6">
 <h2>Effects<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
-<div class="line">Replaces the string controlled by <a href="#id7"><span class="problematic" id="id8">*</span></a>this with a string of length n whose elements are a copy of those pointed to by s.</div>
+<div class="line">Replaces the string controlled by <tt class="docutils literal"><span class="pre">*this</span></tt> with a string of length n whose elements are a copy of those pointed to by s.</div>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>Returns<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><tt class="docutils literal"><span class="pre">*this</span></tt>.</div>
 </div>
 </div>
-<div class="section" id="id10">
-<h2>Throws<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>Throws<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">std::length_error if <tt class="docutils literal"><span class="pre">n</span> <span class="pre">&gt;</span> <span class="pre">max_size()</span></tt>.</div>
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="id11">
-<h2>Interface<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>Interface<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">basic_string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="n">value_type</span> <span class="k">const</span><span class="o">*</span> <span class="n">s</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id12">
-<h2>Requires<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>Requires<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">s points to an array of at least <tt class="docutils literal"><span class="pre">traits_type::length(s)</span> <span class="pre">+</span> <span class="pre">1</span></tt> elements of value_type.</div>
 </div>
 </div>
-<div class="section" id="id13">
-<h2>Effects<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>Effects<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">Calls <tt class="docutils literal"><span class="pre">assign(s,</span> <span class="pre">traits_type::length(s))</span></tt>.</div>
 </div>
 </div>
-<div class="section" id="id14">
-<h2>Returns<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>Returns<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><tt class="docutils literal"><span class="pre">*this</span></tt>.</div>
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="id15">
-<h2>Interface<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h2>Interface<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="n">basic_string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">,</span> <span class="n">value_type</span> <span class="n">c</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id16">
-<h2>Effects<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2>Effects<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">Equivalent to <tt class="docutils literal"><span class="pre">assign(basic_string(n,</span> <span class="pre">c))</span></tt>.</div>
 </div>
 </div>
-<div class="section" id="id17">
-<h2>Returns<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id15">
+<h2>Returns<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><tt class="docutils literal"><span class="pre">*this</span></tt>.</div>
 </div>
 </div>
 <hr class="docutils" />
-<div class="section" id="id18">
-<h2>Interface<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id16">
+<h2>Interface<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++"><div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">InputIterator</span><span class="o">&gt;</span>
 <span class="n">basic_string</span><span class="o">&amp;</span> <span class="n">assign</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIterator</span> <span class="n">last</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id19">
-<h2>Effects<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h2>Effects<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">Equivalent to <tt class="docutils literal"><span class="pre">assign(basic_string(first,</span> <span class="pre">last))</span></tt>.</div>
 </div>
 </div>
-<div class="section" id="id20">
-<h2>Returns<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id18">
+<h2>Returns<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line"><tt class="docutils literal"><span class="pre">*this</span></tt>.</div>
 </div>

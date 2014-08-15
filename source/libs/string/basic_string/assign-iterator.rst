@@ -1,4 +1,5 @@
 .. _sprout-string-basic_string-assign-iterator:
+
 ###############################################################################
 assign
 ###############################################################################
@@ -18,7 +19,7 @@ Requires
 Effects
 ========================================
 
-| Replaces the string controlled by *this with a string of length n whose elements are a copy of those pointed to by s.
+| Replaces the string controlled by ``*this`` with a string of length n whose elements are a copy of those pointed to by s.
 
 Returns
 ========================================

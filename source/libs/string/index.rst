@@ -1,4 +1,5 @@
 .. _sprout-string:
+
 ###############################################################################
 Sprout.String
 ###############################################################################
@@ -66,32 +67,32 @@ Description
 Character traits
 ----------------------------------------
 
-======================================== ===============================================================================
-class
-======================================== ===============================================================================
-:doc:`char_traits <./char_traits/index>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: class
+    :widths: 4, 8
+
+    :doc:`char_traits <./char_traits/index>`, ""
 
 String classes
 ----------------------------------------
 
-============================================================ ===============================================================================
-class
-============================================================ ===============================================================================
-:doc:`basic_string <./basic_string/index>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: class
+    :widths: 4, 8
+
+    :doc:`basic_string <./basic_string/index>`, ""
 
 basic_string aliases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-======================================== ===============================================================================
-aliases
-======================================== ===============================================================================
-:doc:`string <./string>`
-:doc:`wstring <./wstring>`
-:doc:`u16string <./u16string>`
-:doc:`u32string <./u32string>`
-======================================== ===============================================================================
+.. csv-table::
+    :header: alias
+    :widths: 4, 8
+
+    :doc:`string <./string>`, ""
+    :doc:`wstring <./wstring>`, ""
+    :doc:`u16string <./u16string>`, ""
+    :doc:`u32string <./u32string>`, ""
 
 Non-member functions
 ----------------------------------------
@@ -99,131 +100,131 @@ Non-member functions
 specialized algorithms
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`swap <./basic_string/swap-global>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`swap <./basic_string/swap-global>`, ""
 
 concatenations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`operator+ <./basic_string/operator-plus>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`operator+ <./basic_string/operator-plus>`, ""
 
 comparisons
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`operator== <./basic_string/operator-equal_to>`
-:doc:`operator!= <./basic_string/operator-not_equal_to>`
-:doc:`operator\< <./basic_string/operator-less>`
-:doc:`operator\> <./basic_string/operator-greater>`
-:doc:`operator\<= <./basic_string/operator-less_equal>`
-:doc:`operator\>= <./basic_string/operator-greater_equal>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`operator== <./basic_string/operator-equal_to>`, ""
+    :doc:`operator!= <./basic_string/operator-not_equal_to>`, ""
+    :doc:`operator\< <./basic_string/operator-less>`, ""
+    :doc:`operator\> <./basic_string/operator-greater>`, ""
+    :doc:`operator\<= <./basic_string/operator-less_equal>`, ""
+    :doc:`operator\>= <./basic_string/operator-greater_equal>`, ""
 
 inserters and extractors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`operator\<\< <./basic_string/operator-left_shift>`
-:doc:`operator\>\> <./basic_string/operator-right_shift>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`operator\<\< <./basic_string/operator-left_shift>`, ""
+    :doc:`operator\>\> <./basic_string/operator-right_shift>`, ""
 
 numeric conversions (string to numeric)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-================================================================================ ===============================================================================
-function
-================================================================================ ===============================================================================
-:doc:`string_to_int <./string_to_int>`
-:doc:`stoi <./stoi>`
-:doc:`stol <./stol>`
-:doc:`stoul <./stoul>`
-:doc:`stoll <./stoll>`
-:doc:`stoull <./stoull>`
-:doc:`stoimax <./stoimax>`
-:doc:`stoumax <./stoumax>`
-:doc:`from_string \<IntType\> <./from_string-inttype>`
-:doc:`string_to_float <./string_to_float>`
-:doc:`stof <./stof>`
-:doc:`stod <./stod>`
-:doc:`stold <./stold>`
-:doc:`from_string \<FloatType\> <./from_string-floattype>`
-================================================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`string_to_int <./string_to_int>`, ""
+    :doc:`stoi <./stoi>`, ""
+    :doc:`stol <./stol>`, ""
+    :doc:`stoul <./stoul>`, ""
+    :doc:`stoll <./stoll>`, ""
+    :doc:`stoull <./stoull>`, ""
+    :doc:`stoimax <./stoimax>`, ""
+    :doc:`stoumax <./stoumax>`, ""
+    :doc:`from_string \<IntType\> <./from_string-inttype>`, ""
+    :doc:`string_to_float <./string_to_float>`, ""
+    :doc:`stof <./stof>`, ""
+    :doc:`stod <./stod>`, ""
+    :doc:`stold <./stold>`, ""
+    :doc:`from_string \<FloatType\> <./from_string-floattype>`, ""
 
 numeric conversions (numeric to string)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-================================================================================ ===============================================================================
-function
-================================================================================ ===============================================================================
-:doc:`int_to_string <./int_to_string>`
-:doc:`to_string_of \<IntType\> <./to_string_of-inttype>`
-:doc:`to_string \<IntType\> <./to_string-inttype>`
-:doc:`to_wstring \<IntType\> <./to_wstring-inttype>`
-:doc:`to_u16string \<IntType\> <./to_u16string-inttype>`
-:doc:`to_u32string \<IntType\> <./to_u32string-inttype>`
-:doc:`float_to_string <./float_to_string>`
-:doc:`float_to_string_exp <./float_to_string_exp>`
-:doc:`to_string_of \<FloatType\> <./to_string_of-floattype>`
-:doc:`to_string \<FloatType\> <./to_string-floattype>`
-:doc:`to_wstring \<FloatType\> <./to_wstring-floattype>`
-:doc:`to_u16string \<FloatType\> <./to_u16string-floattype>`
-:doc:`to_u32string \<FloatType\> <./to_u32string-floattype>`
-================================================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`int_to_string <./int_to_string>`, ""
+    :doc:`to_string_of \<IntType\> <./to_string_of-inttype>`, ""
+    :doc:`to_string \<IntType\> <./to_string-inttype>`, ""
+    :doc:`to_wstring \<IntType\> <./to_wstring-inttype>`, ""
+    :doc:`to_u16string \<IntType\> <./to_u16string-inttype>`, ""
+    :doc:`to_u32string \<IntType\> <./to_u32string-inttype>`, ""
+    :doc:`float_to_string <./float_to_string>`, ""
+    :doc:`float_to_string_exp <./float_to_string_exp>`, ""
+    :doc:`to_string_of \<FloatType\> <./to_string_of-floattype>`, ""
+    :doc:`to_string \<FloatType\> <./to_string-floattype>`, ""
+    :doc:`to_wstring \<FloatType\> <./to_wstring-floattype>`, ""
+    :doc:`to_u16string \<FloatType\> <./to_u16string-floattype>`, ""
+    :doc:`to_u32string \<FloatType\> <./to_u32string-floattype>`, ""
 
 string generators
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`to_string <./to_string>`
-:doc:`string_from_c_str <./string_from_c_str>`
-:doc:`make_string <./make_string>`
-:doc:`shrink <./shrink>`
-:doc:`stretch <./stretch>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`to_string <./to_string>`, ""
+    :doc:`string_from_c_str <./string_from_c_str>`, ""
+    :doc:`make_string <./make_string>`, ""
+    :doc:`shrink <./shrink>`, ""
+    :doc:`stretch <./stretch>`, ""
 
 Tuple interface
 ----------------------------------------
 
-============================================================ ===============================================================================
-matafunction
-============================================================ ===============================================================================
-:doc:`std::tuple_size <./basic_string/std-tuple_size>`
-:doc:`std::tuple_element <./basic_string/std-tuple_element>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: matafunction
+    :widths: 4, 8
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`tuple_get <./basic_string/tuple_get>`
-============================================================ ===============================================================================
+    :doc:`std::tuple_size <./basic_string/std-tuple_size>`, ""
+    :doc:`std::tuple_element <./basic_string/std-tuple_element>`, ""
+
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`tuple_get <./basic_string/tuple_get>`, ""
 
 Hash support
 ----------------------------------------
 
-============================================================ ===============================================================================
-class
-============================================================ ===============================================================================
-:doc:`std::hash <./basic_string/std-hash>`
-============================================================ ===============================================================================
+.. csv-table::
+    :header: class
+    :widths: 4, 8
 
-============================================================ ===============================================================================
-function
-============================================================ ===============================================================================
-:doc:`hash_value <./basic_string/hash_value>`
-============================================================ ===============================================================================
+    :doc:`std::hash <./basic_string/std-hash>`, ""
+
+.. csv-table::
+    :header: function
+    :widths: 4, 8
+
+    :doc:`hash_value <./basic_string/hash_value>`, ""
 
 Header
 ========================================
