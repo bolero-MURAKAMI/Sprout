@@ -493,14 +493,7 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR tuple& operator=(sprout::pair<UType1, UType2>&& rhs);
 			// tuple swap
 			SPROUT_CXX14_CONSTEXPR void swap(tuple& other)
-			SPROUT_NOEXCEPT_IF(
-				sprout::tpp::all_of_c<
-					SPROUT_NOEXCEPT_EXPR_OR_DEFAULT(
-						sprout::swap(std::declval<Types&>(), std::declval<Types&>()),
-						(sprout::tuples::detail::dummy_integral_constant<Types, bool, false>::value)
-						)...
-				>::value
-				)
+			SPROUT_NOEXCEPT_IF(sprout::tpp::all_of_c<SPROUT_NOEXCEPT_EXPR(sprout::swap(std::declval<Types&>(), std::declval<Types&>()))...>::value)
 			{
 				impl_type::swap(other);
 			}

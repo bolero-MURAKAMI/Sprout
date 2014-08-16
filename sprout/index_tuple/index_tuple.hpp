@@ -24,37 +24,33 @@ namespace sprout {
 	template<sprout::uindex_t... Indexes>
 	using uindex_tuple = sprout::integer_sequence<sprout::uindex_t, Indexes...>;
 #else	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_WORKAROUND_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
+
+	namespace detail {
+		template<typename T, template<T...> class Derived, T... Is>
+		struct integer_sequence_another_base
+			: public sprout::integer_sequence<T, Is...>
+		{
+		public:
+			typedef Derived<Is...> type;
+			template<T... Js>
+			struct rebind
+				: public Derived<Js...>
+			{};
+		public:
+			static SPROUT_CONSTEXPR type make() SPROUT_NOEXCEPT {
+				return type();
+			}
+		};
+	}	// namespace detail
+
 	template<sprout::index_t... Indexes>
 	struct index_tuple
-		: public sprout::integer_sequence<sprout::index_t, Indexes...>
-	{
-	public:
-		typedef index_tuple type;
-		template<sprout::index_t... J>
-		struct rebind
-			: public index_tuple<J...>
-		{};
-	public:
-		static SPROUT_CONSTEXPR type make() SPROUT_NOEXCEPT {
-			return type();
-		}
-	};
-
+		: public sprout::detail::integer_sequence_another_base<sprout::index_t, sprout::index_tuple, Indexes...>
+	{};
 	template<sprout::uindex_t... Indexes>
 	struct uindex_tuple
-		: public sprout::integer_sequence<sprout::uindex_t, Indexes...>
-	{
-	public:
-		typedef uindex_tuple type;
-		template<sprout::uindex_t... J>
-		struct rebind
-			: public uindex_tuple<J...>
-		{};
-	public:
-		static SPROUT_CONSTEXPR type make() SPROUT_NOEXCEPT {
-			return type();
-		}
-	};
+		: public sprout::detail::integer_sequence_another_base<sprout::uindex_t, sprout::uindex_tuple, Indexes...>
+	{};
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES && !defined(SPROUT_WORKAROUND_NO_TEMPLATE_ARGUMENT_DEDUCTION_WITH_ALIASES)
 }	// namespace sprout
 
