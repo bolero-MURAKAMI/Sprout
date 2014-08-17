@@ -16,6 +16,7 @@
 #include <sprout/type/algorithm/fold.hpp>
 #include <sprout/type/algorithm/transform.hpp>
 #include <sprout/type/algorithm/contains.hpp>
+#include <sprout/type/algorithm/contains_if.hpp>
 #include <sprout/type/algorithm/accumulate.hpp>
 #include <sprout/type/algorithm/partial_sum.hpp>
 

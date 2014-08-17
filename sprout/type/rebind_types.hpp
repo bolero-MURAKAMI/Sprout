@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/index_tuple/index_t.hpp>
+#include <sprout/type/apply.hpp>
 
 namespace sprout {
 	namespace types {
@@ -75,42 +76,27 @@ namespace sprout {
 		struct rebind_types<Tuple const> {
 		public:
 			template<typename... Types>
-			struct apply {
-			public:
-				typedef typename sprout::types::rebind_types<
-					Tuple
-				>::template apply<
-					Types...
-				>::type const type;
-			};
+			struct apply
+				: public sprout::identity<typename sprout::types::apply<sprout::types::rebind_types<Tuple>, Types...>::type const>
+			{};
 		};
 
 		template<typename Tuple>
 		struct rebind_types<Tuple volatile> {
 		public:
 			template<typename... Types>
-			struct apply {
-			public:
-				typedef typename sprout::types::rebind_types<
-					Tuple
-				>::template apply<
-					Types...
-				>::type volatile type;
-			};
+			struct apply
+				: public sprout::identity<typename sprout::types::apply<sprout::types::rebind_types<Tuple>, Types...>::type volatile>
+			{};
 		};
 
 		template<typename Tuple>
 		struct rebind_types<Tuple const volatile> {
 		public:
 			template<typename... Types>
-			struct apply {
-			public:
-				typedef typename sprout::types::rebind_types<
-					Tuple
-				>::template apply<
-					Types...
-				>::type const volatile type;
-			};
+			struct apply
+				: public sprout::identity<typename sprout::types::apply<sprout::types::rebind_types<Tuple>, Types...>::type const volatile>
+			{};
 		};
 	}	// namespace types
 

@@ -9,6 +9,7 @@
 #define SPROUT_TYPE_OPERATION_PUSH_FRONT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type/operation/tuple_cat.hpp>
@@ -21,7 +22,7 @@ namespace sprout {
 		template<typename Tuple, typename... Ts>
 		struct push_front
 			: public sprout::types::tuple_cat<
-				typename sprout::types::rebind_types<Tuple>::template apply<>::type,
+				typename sprout::types::apply<sprout::types::rebind_types<Tuple> >::type,
 				sprout::types::type_tuple<Ts...>, Tuple
 			>
 		{};

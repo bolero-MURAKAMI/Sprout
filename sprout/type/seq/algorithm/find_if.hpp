@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/tuple.hpp>
 
 namespace sprout {
@@ -25,7 +26,7 @@ namespace sprout {
 				struct find_if_impl_1<
 					First, Last, Predicate,
 					typename std::enable_if<
-						Predicate::template apply<typename sprout::types::deref<First>::type>::type::value
+						sprout::types::apply<Predicate, typename sprout::types::deref<First>::type>::type::value
 					>::type
 				> {
 				public:
@@ -35,7 +36,7 @@ namespace sprout {
 				struct find_if_impl_1<
 					First, Last, Predicate,
 					typename std::enable_if<
-						!Predicate::template apply<typename sprout::types::deref<First>::type>::type::value
+						!sprout::types::apply<Predicate, typename sprout::types::deref<First>::type>::type::value
 					>::type
 				>
 					: public sprout::types::seq::detail::find_if_impl<

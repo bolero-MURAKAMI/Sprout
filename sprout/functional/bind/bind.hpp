@@ -20,7 +20,7 @@
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 #include <sprout/tuple/tuple/make_tuple.hpp>
-#include <sprout/type/algorithm/find_index_if.hpp>
+#include <sprout/type/algorithm/contains_if.hpp>
 #include <sprout/type/algorithm/lower_bound_index.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type/integral_array.hpp>
@@ -212,7 +212,7 @@ namespace sprout {
 		struct is_variadic_bounds
 			: public sprout::integral_constant<
 				bool,
-				(sprout::types::find_index_if<Bounds, sprout::detail::is_variadic_placeholder_pred>::value != sprout::tuples::tuple_size<Bounds>::value)
+				sprout::types::contains_if<Bounds, sprout::detail::is_variadic_placeholder_pred>::value
 			>
 		{};
 

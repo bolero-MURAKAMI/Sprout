@@ -11,30 +11,47 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	namespace types {
 		namespace detail {
-			template<typename Tuple, typename Predicate, std::size_t I, typename = void>
+			template<
+				typename Tuple, typename Predicate, std::size_t I,
+				bool Valid = (I != sprout::types::tuple_size<Tuple>::value),
+				typename Enable = void
+			>
 			struct find_index_if_impl;
 			template<typename Tuple, typename Predicate, std::size_t I>
 			struct find_index_if_impl<
-				Tuple, Predicate, I,
+				Tuple, Predicate, I, false,
+				void
+			>
+				: public sprout::integral_constant<std::size_t, I>
+			{
+			public:
+				typedef sprout::false_type found;
+			};
+			template<typename Tuple, typename Predicate, std::size_t I>
+			struct find_index_if_impl<
+				Tuple, Predicate, I, true,
 				typename std::enable_if<
-					I == sprout::types::tuple_size<Tuple>::value
-					|| Predicate::template apply<typename sprout::types::tuple_element<I, Tuple>::type>::type::value
+					sprout::types::apply<Predicate, typename sprout::types::tuple_element<I, Tuple>::type>::type::value
 				>::type
 			>
 				: public sprout::integral_constant<std::size_t, I>
-			{};
+			{
+			public:
+				typedef sprout::true_type found;
+				typedef typename sprout::types::tuple_element<I, Tuple>::type element;
+			};
 			template<typename Tuple, typename Predicate, std::size_t I>
 			struct find_index_if_impl<
-				Tuple, Predicate, I,
+				Tuple, Predicate, I, true,
 				typename std::enable_if<
-					I != sprout::types::tuple_size<Tuple>::value
-					&& !Predicate::template apply<typename sprout::types::tuple_element<I, Tuple>::type>::type::value
+					!sprout::types::apply<Predicate, typename sprout::types::tuple_element<I, Tuple>::type>::type::value
 				>::type
 			>
 				: public sprout::types::detail::find_index_if_impl<Tuple, Predicate, I + 1>

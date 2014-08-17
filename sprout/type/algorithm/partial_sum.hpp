@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/type/functional/plus.hpp>
@@ -23,17 +24,13 @@ namespace sprout {
 			struct partial_sum_impl
 				: public sprout::types::detail::partial_sum_impl<
 					Tuple, BinaryOp, I + 1, N - 1,
-					typename BinaryOp::template apply<T, typename sprout::types::tuple_element<I, Tuple>::type>::type,
+					typename sprout::types::apply<BinaryOp, T, typename sprout::types::tuple_element<I, Tuple>::type>::type,
 					Types..., T
 				>
 			{};
 			template<typename Tuple, typename BinaryOp, std::size_t I, typename T, typename... Types>
 			struct partial_sum_impl<Tuple, BinaryOp, I, 0, T, Types...>
-				: public sprout::types::rebind_types<
-					Tuple
-				>::template apply<
-					Types..., T
-				>
+				: public sprout::types::apply<sprout::types::rebind_types<Tuple>, Types..., T>
 			{};
 
 			template<typename Tuple, typename BinaryOp, std::size_t N>
@@ -42,9 +39,7 @@ namespace sprout {
 			{};
 			template<typename Tuple, typename BinaryOp>
 			struct partial_sum<Tuple, BinaryOp, 0>
-				: public sprout::types::rebind_types<
-					Tuple
-				>::template apply<>
+				: public sprout::types::apply<sprout::types::rebind_types<Tuple> >
 			{};
 		}	// namespace detail
 		//

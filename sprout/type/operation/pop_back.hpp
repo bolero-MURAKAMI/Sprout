@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/rebind_types.hpp>
 
@@ -25,9 +26,8 @@ namespace sprout {
 			struct apply_impl;
 			template<sprout::index_t... Indexes>
 			struct apply_impl<sprout::index_tuple<Indexes...> >
-				: public sprout::types::rebind_types<
-					Tuple
-				>::template apply<
+				: public sprout::types::apply<
+					sprout::types::rebind_types<Tuple>,
 					typename sprout::types::tuple_element<Indexes, Tuple>::type...
 				>
 			{};

@@ -14,6 +14,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/index_tuple.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/joint_types.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type/tuple.hpp>
@@ -28,13 +29,14 @@ namespace sprout {
 			struct tuple_cat_impl;
 			template<typename Tuples, sprout::index_t... LIndexes, sprout::index_t... RIndexes>
 			struct tuple_cat_impl<Tuples, sprout::index_tuple<LIndexes...>, sprout::index_tuple<RIndexes...> >
-				: public sprout::types::joint_types<
-					typename sprout::types::detail::tuple_cat_impl<
-						sprout::types::type_tuple<typename sprout::types::tuple_element<LIndexes, Tuples>::type...>,
-						typename sprout::index_range<0, sizeof...(LIndexes) / 2>::type,
-						typename sprout::index_range<sizeof...(LIndexes) / 2, sizeof...(LIndexes)>::type
-					>::type
-				>::template apply<
+				: public sprout::types::apply<
+					sprout::types::joint_types<
+						typename sprout::types::detail::tuple_cat_impl<
+							sprout::types::type_tuple<typename sprout::types::tuple_element<LIndexes, Tuples>::type...>,
+							typename sprout::index_range<0, sizeof...(LIndexes) / 2>::type,
+							typename sprout::index_range<sizeof...(LIndexes) / 2, sizeof...(LIndexes)>::type
+						>::type
+					>,
 					typename sprout::types::detail::tuple_cat_impl<
 						sprout::types::type_tuple<typename sprout::types::tuple_element<RIndexes, Tuples>::type...>,
 						typename sprout::index_range<0, sizeof...(RIndexes) / 2>::type,

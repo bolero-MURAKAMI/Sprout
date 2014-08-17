@@ -13,6 +13,7 @@
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
 #include <sprout/tuple/indexes.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/rebind_types.hpp>
 
@@ -26,9 +27,8 @@ namespace sprout {
 				struct apply_impl;
 				template<sprout::index_t... Indexes1, sprout::index_t... Indexes2>
 				struct apply_impl<sprout::index_tuple<Indexes1...>, sprout::index_tuple<Indexes2...> >
-					: public sprout::types::rebind_types<
-						Tuple
-					>::template apply<
+					: public sprout::types::apply<
+						sprout::types::rebind_types<Tuple>,
 						typename sprout::types::tuple_element<Indexes1, Tuple>::type...,
 						typename sprout::types::tuple_element<Indexes2, Tup>::type...
 					>
@@ -243,42 +243,28 @@ namespace sprout {
 		struct joint_types<Tuple const> {
 		public:
 			template<typename Tup>
-			struct apply {
-			public:
-				typedef typename sprout::types::joint_types<
-					Tuple
-				>::template apply<
-					Tup
-				>::type const type;
-			};
+			struct apply
+				: public sprout::identity<typename sprout::types::apply<sprout::types::joint_types<Tuple>, Tup>::type const>
+			{};
 		};
 
 		template<typename Tuple>
 		struct joint_types<Tuple volatile> {
 		public:
 			template<typename Tup>
-			struct apply {
-			public:
-				typedef typename sprout::types::joint_types<
-					Tuple
-				>::template apply<
-					Tup
-				>::type volatile type;
-			};
+			struct apply
+				: public sprout::identity<typename sprout::types::apply<sprout::types::joint_types<Tuple>, Tup>::type volatile>
+			{};
 		};
 
 		template<typename Tuple>
 		struct joint_types<Tuple const volatile> {
 		public:
 			template<typename Tup>
-			struct apply {
-			public:
-				typedef typename sprout::types::joint_types<
-					Tuple
-				>::template apply<
-					Tup
-				>::type const volatile type;
-			};
+			struct apply
+				: public sprout::identity<typename sprout::types::apply<sprout::types::joint_types<Tuple>, Tup>::type const volatile>
+			{};
+
 		};
 	}	// namespace types
 

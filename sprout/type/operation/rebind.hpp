@@ -9,6 +9,7 @@
 #define SPROUT_TYPE_OPERATION_REBIND_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/rebind_types.hpp>
 
 namespace sprout {
@@ -18,7 +19,7 @@ namespace sprout {
 		//
 		template<typename Tuple, typename... Ts>
 		struct rebind
-			: public sprout::types::rebind_types<Tuple>::template apply<Ts...>
+			: public sprout::types::apply<sprout::types::rebind_types<Tuple>, Ts...>
 		{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

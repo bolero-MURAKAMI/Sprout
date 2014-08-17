@@ -23,6 +23,7 @@
 #include <sprout/type_traits/common_decay.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type/algorithm/find_index.hpp>
+#include <sprout/type/algorithm/contains.hpp>
 #include <sprout/functional/type_traits/has_type.hpp>
 #include <sprout/functional/type_traits/weak_result_type.hpp>
 #include <sprout/variant/variant_fwd.hpp>
@@ -312,14 +313,14 @@ namespace sprout {
 		}
 		template<typename U>
 		SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::types::find_index<tuple_type, U>::value != sizeof...(Types),
+			sprout::types::contains<tuple_type, U>::value,
 			U const&
 		>::type get() const {
 			return get_at<sprout::types::find_index<tuple_type, U>::value>();
 		}
 		template<typename U>
 		SPROUT_CXX14_CONSTEXPR typename std::enable_if<
-			sprout::types::find_index<tuple_type, U>::value != sizeof...(Types),
+			sprout::types::contains<tuple_type, U>::value,
 			U&
 		>::type get() {
 			return get_at<sprout::types::find_index<tuple_type, U>::value>();

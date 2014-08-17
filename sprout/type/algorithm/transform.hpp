@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
 #include <sprout/tuple/indexes.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/rebind_types.hpp>
 
@@ -21,12 +22,9 @@ namespace sprout {
 			struct transform_impl;
 			template<typename Tuple, typename UnaryOp, sprout::index_t... Indexes>
 			struct transform_impl<Tuple, UnaryOp, sprout::index_tuple<Indexes...> >
-				: public sprout::types::rebind_types<
-					Tuple
-				>::template apply<
-					typename UnaryOp::template apply<
-						typename sprout::types::tuple_element<Indexes, Tuple>::type
-					>::type...
+				: public sprout::types::apply<
+					sprout::types::rebind_types<Tuple>,
+					typename sprout::types::apply<UnaryOp, typename sprout::types::tuple_element<Indexes, Tuple>::type>::type...
 				>
 			{};
 
@@ -34,10 +32,10 @@ namespace sprout {
 			struct transform2_impl;
 			template<typename Tuple1, typename Tuple2, typename BinaryOp, sprout::index_t... Indexes>
 			struct transform2_impl<Tuple1, Tuple2, BinaryOp, sprout::index_tuple<Indexes...> >
-				: public sprout::types::rebind_types<
-					Tuple1
-				>::template apply<
-					typename BinaryOp::template apply<
+				: public sprout::types::apply<
+					sprout::types::rebind_types<Tuple1>,
+					typename sprout::types::apply<
+						BinaryOp,
 						typename sprout::types::tuple_element<Indexes, Tuple1>::type,
 						typename sprout::types::tuple_element<Indexes, Tuple2>::type
 					>::type...

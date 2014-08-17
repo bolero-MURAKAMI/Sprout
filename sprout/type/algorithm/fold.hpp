@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type_traits/identity.hpp>
 
@@ -29,7 +30,7 @@ namespace sprout {
 			struct fold_impl<Tuple, T, BinaryOp, I, false>
 				: public sprout::types::detail::fold_impl<
 					Tuple,
-					typename BinaryOp::template apply<T, typename sprout::types::tuple_element<I, Tuple>::type>::type,
+					typename sprout::types::apply<BinaryOp, T, typename sprout::types::tuple_element<I, Tuple>::type>::type,
 					BinaryOp,
 					I + 1
 				>

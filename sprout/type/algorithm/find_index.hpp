@@ -17,24 +17,40 @@
 namespace sprout {
 	namespace types {
 		namespace detail {
-			template<typename Tuple, typename T, std::size_t I, typename = void>
+			template<
+				typename Tuple, typename T, std::size_t I,
+				bool Valid = (I != sprout::types::tuple_size<Tuple>::value),
+				typename Enable = void
+			>
 			struct find_index_impl;
 			template<typename Tuple, typename T, std::size_t I>
 			struct find_index_impl<
-				Tuple, T, I,
+				Tuple, T, I, false,
+				void
+			>
+				: public sprout::integral_constant<std::size_t, I>
+			{
+			public:
+				typedef sprout::false_type found;
+			};
+			template<typename Tuple, typename T, std::size_t I>
+			struct find_index_impl<
+				Tuple, T, I, true,
 				typename std::enable_if<
-					I == sprout::types::tuple_size<Tuple>::value
-					|| std::is_same<typename sprout::types::tuple_element<I, Tuple>::type, T>::value
+					std::is_same<typename sprout::types::tuple_element<I, Tuple>::type, T>::value
 				>::type
 			>
 				: public sprout::integral_constant<std::size_t, I>
-			{};
+			{
+			public:
+				typedef sprout::true_type found;
+				typedef typename sprout::types::tuple_element<I, Tuple>::type element;
+			};
 			template<typename Tuple, typename T, std::size_t I>
 			struct find_index_impl<
-				Tuple, T, I,
+				Tuple, T, I, true,
 				typename std::enable_if<
-					I != sprout::types::tuple_size<Tuple>::value
-					&& !std::is_same<typename sprout::types::tuple_element<I, Tuple>::type, T>::value
+					!std::is_same<typename sprout::types::tuple_element<I, Tuple>::type, T>::value
 				>::type
 			>
 				: public sprout::types::detail::find_index_impl<Tuple, T, I + 1>

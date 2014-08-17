@@ -12,6 +12,7 @@
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/tuple/indexes.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/utility/forward.hpp>
 
@@ -36,7 +37,8 @@ namespace sprout {
 			struct default_copied;
 			template<typename Tuple, sprout::index_t... Indexes>
 			struct default_copied<Tuple, sprout::index_tuple<Indexes...> >
-				: public sprout::tuples::rebind_types<Tuple>::template apply<
+				: public sprout::types::apply<
+					sprout::tuples::rebind_types<Tuple>,
 					typename std::decay<
 						typename sprout::tuples::tuple_element<Indexes, Tuple>::type
 					>::type...

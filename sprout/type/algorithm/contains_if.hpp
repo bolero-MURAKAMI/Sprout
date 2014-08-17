@@ -5,33 +5,33 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_TYPE_ALGORITHM_CONTAINTS_HPP
-#define SPROUT_TYPE_ALGORITHM_CONTAINTS_HPP
+#ifndef SPROUT_TYPE_ALGORITHM_CONTAINTS_IF_HPP
+#define SPROUT_TYPE_ALGORITHM_CONTAINTS_IF_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/type/tuple.hpp>
-#include <sprout/type/algorithm/find_index.hpp>
+#include <sprout/type/algorithm/find_index_if.hpp>
 
 namespace sprout {
 	namespace types {
 		//
-		// contains
+		// contains_if
 		//
-		template<typename Tuple, typename T>
-		struct contains
-			: public sprout::types::find_index<Tuple, T>::found
+		template<typename Tuple, typename Predicate>
+		struct contains_if
+			: public sprout::types::find_index_if<Tuple, Predicate>::found
 		{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES
-		template<typename Tuple, typename T>
-		using contains_t = typename sprout::types::contains<Tuple, T>::type;
+		template<typename Tuple, typename Predicate>
+		using contains_if_t = typename sprout::types::contains_if<Tuple, Predicate>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
-		template<typename Tuple, typename T>
-		SPROUT_STATIC_CONSTEXPR bool contains_v = sprout::types::contains<Tuple, T>::value;
+		template<typename Tuple, typename Predicate>
+		SPROUT_STATIC_CONSTEXPR bool contains_if_v = sprout::types::contains_if<Tuple, Predicate>::value;
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 	}	// namespace types
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TYPE_ALGORITHM_CONTAINTS_HPP
+#endif	// #ifndef SPROUT_TYPE_ALGORITHM_CONTAINTS_IF_HPP

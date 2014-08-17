@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/type/apply.hpp>
 #include <sprout/type/functional/less.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
@@ -41,7 +42,7 @@ namespace sprout {
 			>
 				: public sprout::integral_constant<
 					std::size_t,
-					Compare::template apply<typename sprout::types::tuple_element<First, Tuple>::type, T>::type::value ? Last : First
+					sprout::types::apply<Compare, typename sprout::types::tuple_element<First, Tuple>::type, T>::type::value ? Last : First
 				>
 			{};
 			template<
@@ -50,7 +51,7 @@ namespace sprout {
 			>
 			struct lower_bound_index_impl
 				: public std::conditional<
-					Compare::template apply<typename sprout::types::tuple_element<First + Distance / 2, Tuple>::type, T>::type::value,
+					sprout::types::apply<Compare, typename sprout::types::tuple_element<First + Distance / 2, Tuple>::type, T>::type::value,
 					sprout::types::detail::lower_bound_index_impl<Tuple, T, Compare, First + Distance / 2, Last>,
 					sprout::types::detail::lower_bound_index_impl<Tuple, T, Compare, First, First + Distance / 2>
 				>::type
