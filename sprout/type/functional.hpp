@@ -9,7 +9,7 @@
 #define SPROUT_TYPE_FUNCTIONAL_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/type/functional/less.hpp>
-#include <sprout/type/functional/plus.hpp>
+#include <sprout/type/functional/arithmetic.hpp>
+#include <sprout/type/functional/comparison.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_HPP

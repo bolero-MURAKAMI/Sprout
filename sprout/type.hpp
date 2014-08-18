@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type/apply.hpp>
 #include <sprout/type/quote.hpp>
+#include <sprout/type/self.hpp>
 #include <sprout/type/tuple.hpp>
 #include <sprout/type/type_tuple.hpp>
 #include <sprout/type/integral_array.hpp>

@@ -19,15 +19,15 @@ namespace sprout {
 		namespace detail {
 			template<
 				typename Tuple, typename T, typename BinaryOp, std::size_t I,
-				bool = (I == sprout::types::tuple_size<Tuple>::value)
+				bool Valid = (I != sprout::types::tuple_size<Tuple>::value)
 			>
 			struct fold_impl;
 			template<typename Tuple, typename T, typename BinaryOp, std::size_t I>
-			struct fold_impl<Tuple, T, BinaryOp, I, true>
+			struct fold_impl<Tuple, T, BinaryOp, I, false>
 				: public sprout::identity<T>
 			{};
 			template<typename Tuple, typename T, typename BinaryOp, std::size_t I>
-			struct fold_impl<Tuple, T, BinaryOp, I, false>
+			struct fold_impl<Tuple, T, BinaryOp, I, true>
 				: public sprout::types::detail::fold_impl<
 					Tuple,
 					typename sprout::types::apply<BinaryOp, T, typename sprout::types::tuple_element<I, Tuple>::type>::type,
