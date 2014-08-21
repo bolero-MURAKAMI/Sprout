@@ -12,6 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/functional/type_traits/inherit_if_type.hpp>
 #include <sprout/workaround/base_class_construct.hpp>
+#include <sprout/detail/predef.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -31,6 +32,10 @@ namespace sprout {
 		struct weak_result_type_impl<F const volatile>
 			: public sprout::detail::weak_result_type_impl<F>
 		{};
+#if SPROUT_CLANG_OR_LATER(3, 6, 0)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wambiguous-ellipsis"
+#endif
 		template<typename R, typename... Args>
 		struct weak_result_type_impl<R (Args...)> {
 		public:
@@ -71,6 +76,9 @@ namespace sprout {
 		public:
 			typedef R result_type;
 		};
+#if SPROUT_CLANG_OR_LATER(3, 6, 0)
+#	pragma clang diagnostic pop
+#endif
 	}	// namespace detail
 
 	//
