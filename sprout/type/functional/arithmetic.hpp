@@ -14,5 +14,7 @@
 #include <sprout/type/functional/multiplies.hpp>
 #include <sprout/type/functional/divides.hpp>
 #include <sprout/type/functional/modulus.hpp>
+#include <sprout/type/functional/posite.hpp>
+#include <sprout/type/functional/negate.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_ARITHMETIC_HPP

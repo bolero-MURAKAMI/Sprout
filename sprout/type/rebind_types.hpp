@@ -10,7 +10,6 @@
 
 #include <sprout/config.hpp>
 #include <sprout/type_traits/identity.hpp>
-#include <sprout/index_tuple/index_t.hpp>
 #include <sprout/type/apply.hpp>
 
 namespace sprout {

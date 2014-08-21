@@ -47,4 +47,38 @@ namespace sprout { \
 #	define SPROUT_TYPES_DETAIL_FUNCTIONAL_ARITHMETIC_BINARY_OP_VT_DECL(NAME)
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 
+#define SPROUT_TYPES_DETAIL_FUNCTIONAL_ARITHMETIC_UNARY_OP_DECL(NAME, OP) \
+namespace sprout { \
+	namespace types { \
+		template<typename T, typename Result = void> \
+		struct NAME \
+			: public sprout::integral_constant<Result, (OP T::value)> \
+		{}; \
+		template<typename T> \
+		struct NAME<T, void> \
+			: public sprout::integral_constant< \
+				typename sprout::arithmetic_promote<typename T::value_type>::type, \
+				(OP T::value) \
+			> \
+		{}; \
+		template<typename Result = void> \
+		struct SPROUT_PP_CAT(NAME, _mf) { \
+		public: \
+			template<typename T> \
+			struct apply \
+				: public sprout::types::NAME<T, Result> \
+			{}; \
+		}; \
+		typedef sprout::types::SPROUT_PP_CAT(NAME, _mf)<> SPROUT_PP_CAT(NAME, _); \
+		SPROUT_TYPES_DETAIL_FUNCTIONAL_ARITHMETIC_UNARY_OP_VT_DECL(NAME) \
+	} \
+}
+#if SPROUT_USE_VARIABLE_TEMPLATES
+#	define SPROUT_TYPES_DETAIL_FUNCTIONAL_ARITHMETIC_UNARY_OP_VT_DECL(NAME) \
+		template<typename T, typename Result = void> \
+		SPROUT_STATIC_CONSTEXPR typename sprout::types::NAME<T, Result>::value_type SPROUT_PP_CAT(NAME, _v) = sprout::types::NAME<T, Result>::value;
+#else	// #if SPROUT_USE_VARIABLE_TEMPLATES
+#	define SPROUT_TYPES_DETAIL_FUNCTIONAL_ARITHMETIC_UNARY_OP_VT_DECL(NAME)
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
+
 #endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_DETAIL_ARITHMETIC_OP_HPP

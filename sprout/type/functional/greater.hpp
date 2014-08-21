@@ -11,6 +11,10 @@
 #include <sprout/config.hpp>
 #include <sprout/type/functional/detail/comparison_op.hpp>
 
+//
+// greater
+// greater_
+//
 SPROUT_TYPES_DETAIL_FUNCTIONAL_COMPARISON_OP_DECL(greater, >)
 
 #endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_GREATER_HPP

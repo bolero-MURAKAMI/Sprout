@@ -22,6 +22,7 @@
 #include <sprout/type/operation/pop_front.hpp>
 #include <sprout/type/operation/tuple_cat.hpp>
 #include <sprout/type/operation/rebind.hpp>
+#include <sprout/type/operation/map.hpp>
 #include <sprout/type/operation/assign.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_OPERATION_HPP

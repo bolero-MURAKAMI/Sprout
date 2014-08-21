@@ -11,6 +11,10 @@
 #include <sprout/config.hpp>
 #include <sprout/type/functional/detail/comparison_op.hpp>
 
+//
+// equal_to
+// equal_to_
+//
 SPROUT_TYPES_DETAIL_FUNCTIONAL_COMPARISON_OP_DECL(equal_to, ==)
 
 #endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_EQUAL_TO_HPP

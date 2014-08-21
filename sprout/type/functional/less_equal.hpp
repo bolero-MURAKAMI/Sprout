@@ -11,6 +11,10 @@
 #include <sprout/config.hpp>
 #include <sprout/type/functional/detail/comparison_op.hpp>
 
+//
+// less_equal
+// less_equal_
+//
 SPROUT_TYPES_DETAIL_FUNCTIONAL_COMPARISON_OP_DECL(less_equal, <=)
 
 #endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_LESS_EQUAL_HPP

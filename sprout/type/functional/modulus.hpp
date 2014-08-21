@@ -11,6 +11,11 @@
 #include <sprout/config.hpp>
 #include <sprout/type/functional/detail/arithmetic_op.hpp>
 
+//
+// modulus
+// modulus_mf
+// modulus_
+//
 SPROUT_TYPES_DETAIL_FUNCTIONAL_ARITHMETIC_BINARY_OP_DECL(modulus, %)
 
 #endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_MODULUS_HPP

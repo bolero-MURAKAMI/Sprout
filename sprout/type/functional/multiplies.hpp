@@ -11,6 +11,11 @@
 #include <sprout/config.hpp>
 #include <sprout/type/functional/detail/arithmetic_op.hpp>
 
+//
+// multiplies
+// multiplies_mf
+// multiplies_
+//
 SPROUT_TYPES_DETAIL_FUNCTIONAL_ARITHMETIC_BINARY_OP_DECL(multiplies, *)
 
 #endif	// #ifndef SPROUT_TYPE_FUNCTIONAL_MULTIPLIES_HPP
