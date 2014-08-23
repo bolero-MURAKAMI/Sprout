@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/tuple_size.hpp>
 #include <sprout/tuple/tuple/tuple_element.hpp>
@@ -81,7 +82,7 @@ namespace sprout_tuple_detail {
 	tuple_get(T&& t)
 	SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::tuple_access_traits<typename std::remove_reference<T>::type>::template tuple_get<I>(std::declval<T&&>()))
 	{
-		return sprout::tuples::tuple_access_traits<T>::template tuple_get<I>(t);
+		return sprout::move(sprout::tuples::tuple_access_traits<T>::template tuple_get<I>(t));
 	}
 	template<std::size_t I, typename T>
 	inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_traits<T const>::template lvalue_reference<I>::type

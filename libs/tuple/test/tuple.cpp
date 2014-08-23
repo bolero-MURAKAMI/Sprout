@@ -220,15 +220,6 @@ namespace testspr {
 
 			// tuple_cat
 			{
-				typedef sprout::tuples::results::tuple_cat<decltype(tup1), decltype(tup2)>::type concatenated_type;
-				TESTSPR_BOTH_ASSERT(sprout::tuples::tuple_size<concatenated_type>::value == 4);
-				TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<0, concatenated_type>::type, int>::value));
-				TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<1, concatenated_type>::type, double>::value));
-				TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<2, concatenated_type>::type, int>::value));
-				TESTSPR_BOTH_ASSERT((std::is_same<sprout::tuples::tuple_element<3, concatenated_type>::type, double>::value));
-			}
-
-			{
 				SPROUT_STATIC_CONSTEXPR auto tup3 = sprout::tuples::tuple_cat(tup1, tup2);
 				TESTSPR_BOTH_ASSERT(sprout::tuples::get<0>(tup3) == 1);
 				TESTSPR_BOTH_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);

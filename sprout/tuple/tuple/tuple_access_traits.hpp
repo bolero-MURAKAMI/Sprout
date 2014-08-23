@@ -11,6 +11,7 @@
 #include <tuple>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple/tuple_element.hpp>
 
 namespace sprout {
@@ -29,7 +30,7 @@ namespace sprout {
 			template<std::size_t I>
 			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, Tuple>::type&&
 			tuple_get(Tuple&& t) SPROUT_NOEXCEPT {
-				return std::get<I>(t);
+				return sprout::move(std::get<I>(t));
 			}
 			template<std::size_t I>
 			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, Tuple>::type const&
