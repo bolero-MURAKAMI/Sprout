@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/pair/pair_decl.hpp>
+#include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/tuple/tuple/tuple_decl.hpp>
 #include <sprout/tuple/flexibly_construct.hpp>
 
@@ -26,7 +27,7 @@ namespace sprout {
 			typename
 		>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types...>::tuple(sprout::pair<UType1, UType2> const& t)
-			: impl_type(t.first, t.second)
+			: base_type(t.first, t.second)
 		{}
 		template<typename... Types>
 		template<
@@ -34,7 +35,7 @@ namespace sprout {
 			typename
 		>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types...>::tuple(sprout::pair<UType1, UType2>&& t)
-			: impl_type(SPROUT_FORWARD(UType1, t.first), SPROUT_FORWARD(UType2, t.second))
+			: base_type(SPROUT_FORWARD(UType1, t.first), SPROUT_FORWARD(UType2, t.second))
 		{}
 
 		template<typename... Types>
@@ -43,7 +44,12 @@ namespace sprout {
 			typename
 		>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types...>::tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UType1, UType2> const& t)
-			: impl_type(t.first, t.second)
+			: base_type(
+				sprout::tuples::flexibly_construct_t(),
+				sprout::index_range<0, 2>::make(),
+				sprout::index_range<2, sizeof...(Types)>::make(),
+				t.first, t.second
+				)
 		{}
 		template<typename... Types>
 		template<
@@ -51,7 +57,12 @@ namespace sprout {
 			typename
 		>
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<Types...>::tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UType1, UType2>&& t)
-			: impl_type(SPROUT_FORWARD(UType1, t.first), SPROUT_FORWARD(UType2, t.second))
+			: base_type(
+				sprout::tuples::flexibly_construct_t(),
+				sprout::index_range<0, 2>::make(),
+				sprout::index_range<2, sizeof...(Types)>::make(),
+				SPROUT_FORWARD(UType1, t.first), SPROUT_FORWARD(UType2, t.second)
+				)
 		{}
 		// tuple assignment
 		template<typename... Types>
@@ -61,8 +72,8 @@ namespace sprout {
 		>
 		inline SPROUT_CXX14_CONSTEXPR sprout::tuples::tuple<Types...>&
 		sprout::tuples::tuple<Types...>::operator=(sprout::pair<UType1, UType2> const& rhs) {
-			sprout::tuples::detail::tuple_impl<0, Types...>::head(*this) = rhs.first;
-			sprout::tuples::detail::tuple_impl<1, Types...>::head(*this) = rhs.second;
+			base_type::template get<0>(*this) = rhs.first;
+			base_type::template get<1>(*this) = rhs.second;
 			return *this;
 		}
 		template<typename... Types>
@@ -72,8 +83,8 @@ namespace sprout {
 		>
 		inline SPROUT_CXX14_CONSTEXPR sprout::tuples::tuple<Types...>&
 		sprout::tuples::tuple<Types...>::operator=(sprout::pair<UType1, UType2>&& rhs) {
-			sprout::tuples::detail::tuple_impl<0, Types...>::head(*this) = sprout::move(rhs.first);
-			sprout::tuples::detail::tuple_impl<1, Types...>::head(*this) = sprout::move(rhs.second);
+			base_type::template get<0>(*this) = sprout::move(rhs.first);
+			base_type::template get<1>(*this) = sprout::move(rhs.second);
 			return *this;
 		}
 	}	// namespace tuples

@@ -23,36 +23,23 @@
 
 namespace sprout {
 	namespace tuples {
-		namespace detail {
-			template<std::size_t I, typename Head, typename... Tail>
-			inline SPROUT_CONSTEXPR typename std::add_lvalue_reference<Head>::type
-			get_helper(sprout::tuples::detail::tuple_impl<I, Head, Tail...>& t) SPROUT_NOEXCEPT {
-				return sprout::tuples::detail::tuple_impl<I, Head, Tail...>::head(t);
-			}
-			template<std::size_t I, typename Head, typename... Tail>
-			inline SPROUT_CONSTEXPR typename std::add_lvalue_reference<typename std::add_const<Head>::type>::type
-			get_helper(sprout::tuples::detail::tuple_impl<I, Head, Tail...> const& t) SPROUT_NOEXCEPT {
-				return sprout::tuples::detail::tuple_impl<I, Head, Tail...>::head(t);
-			}
-		}	// namespace detail
 		//
 		// tuple_get
 		//
 		template<std::size_t I, typename... Types>
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&
 		tuple_get(sprout::tuples::tuple<Types...>& t) SPROUT_NOEXCEPT {
-			return sprout::tuples::detail::get_helper<I>(t);
+			return sprout::tuples::detail::tuple_access<Types...>::template get<I>(t);
 		}
 		template<std::size_t I, typename... Types>
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type&&
 		tuple_get(sprout::tuples::tuple<Types...>&& t) SPROUT_NOEXCEPT {
-			typedef typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type type;
-			return SPROUT_FORWARD(type, sprout::tuples::tuple_get<I>(t));
+			return sprout::tuples::detail::tuple_access<Types...>::template get<I>(sprout::move(t));
 		}
 		template<std::size_t I, typename... Types>
 		inline SPROUT_CONSTEXPR typename sprout::tuples::tuple_element<I, sprout::tuples::tuple<Types...> >::type const&
 		tuple_get(sprout::tuples::tuple<Types...> const& t) SPROUT_NOEXCEPT {
-			return sprout::tuples::detail::get_helper<I>(t);
+			return sprout::tuples::detail::tuple_access<Types...>::template get<I>(t);
 		}
 	}	// namespace tuples
 

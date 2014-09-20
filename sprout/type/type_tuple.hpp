@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/type/iterator.hpp>
 #include <sprout/type/iterator/index_iterator.hpp>
 #include <sprout/type/type_tuple_decl.hpp>
@@ -25,6 +26,11 @@ namespace sprout {
 			typedef type_tuple type;
 			typedef sprout::types::index_iterator<type_tuple, 0> begin;
 			typedef sprout::types::index_iterator<type_tuple, sizeof...(Types)> end;
+		public:
+			template<typename... UTypes>
+			struct apply
+				: public sprout::identity<type_tuple<Types..., UTypes...> >
+			{};
 		public:
 			SPROUT_STATIC_CONSTEXPR std::size_t static_size = sizeof...(Types);
 		};

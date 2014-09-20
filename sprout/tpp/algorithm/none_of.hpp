@@ -8,48 +8,45 @@
 #ifndef SPROUT_TPP_ALGORITHM_NONE_OF_HPP
 #define SPROUT_TPP_ALGORITHM_NONE_OF_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type/type_tuple.hpp>
 
 namespace sprout {
 	namespace tpp {
 		namespace detail {
-			template<bool... Values>
-			struct none_of_impl;
-			template<>
-			struct none_of_impl<>
-				: public sprout::true_type
+			template<typename Tup, std::size_t First, std::size_t Last, bool = (Last - First == 1)>
+			struct none_of_impl
+				: public sprout::integral_constant<bool, !std::tuple_element<First, Tup>::type::value>
 			{};
-			template<>
-			struct none_of_impl<true>
-				: public sprout::false_type
-			{};
-			template<>
-			struct none_of_impl<false>
-				: public sprout::true_type
-			{};
-			template<bool... Tail>
-			struct none_of_impl<true, Tail...>
-				: public sprout::false_type
-			{};
-			template<bool... Tail>
-			struct none_of_impl<false, Tail...>
-				: public sprout::integral_constant<bool, sprout::tpp::detail::none_of_impl<Tail...>::value>
+			template<typename Tup, std::size_t First, std::size_t Last>
+			struct none_of_impl<Tup, First, Last, false>
+				: public sprout::integral_constant<
+					bool,
+					sprout::tpp::detail::none_of_impl<Tup, First, (First + Last) / 2>::value
+						&& sprout::tpp::detail::none_of_impl<Tup, (First + Last) / 2, Last>::value
+				>
 			{};
 		}	// namespace detail
-		//
-		// none_of_c
-		//
-		template<bool... Values>
-		struct none_of_c
-			: public sprout::tpp::detail::none_of_impl<Values...>
-		{};
 		//
 		// none_of
 		//
 		template<typename... Types>
 		struct none_of
-			: public sprout::tpp::none_of_c<Types::value...>
+			: public sprout::tpp::detail::none_of_impl<sprout::types::type_tuple<Types...>, 0, sizeof...(Types)>
+		{};
+		template<>
+		struct none_of<>
+			: public sprout::true_type
+		{};
+		//
+		// none_of_c
+		//
+		template<bool... Values>
+		struct none_of_c
+			: public sprout::tpp::none_of<sprout::integral_constant<bool, Values>...>
 		{};
 	}	// namespace tpp
 }	// namespace sprout

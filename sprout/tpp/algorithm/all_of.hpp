@@ -10,47 +10,43 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type/type_tuple.hpp>
 
 namespace sprout {
 	namespace tpp {
 		namespace detail {
-			template<bool... Values>
-			struct all_of_impl;
-			template<>
-			struct all_of_impl<>
-				: public sprout::true_type
+			template<typename Tup, std::size_t First, std::size_t Last, bool = (Last - First == 1)>
+			struct all_of_impl
+				: public std::tuple_element<First, Tup>::type
 			{};
-			template<>
-			struct all_of_impl<true>
-				: public sprout::true_type
-			{};
-			template<>
-			struct all_of_impl<false>
-				: public sprout::false_type
-			{};
-			template<bool... Tail>
-			struct all_of_impl<true, Tail...>
-				: public sprout::integral_constant<bool, sprout::tpp::detail::all_of_impl<Tail...>::value>
-			{};
-			template<bool... Tail>
-			struct all_of_impl<false, Tail...>
-				: public sprout::false_type
+			template<typename Tup, std::size_t First, std::size_t Last>
+			struct all_of_impl<Tup, First, Last, false>
+				: public sprout::integral_constant<
+					bool,
+					sprout::tpp::detail::all_of_impl<Tup, First, (First + Last) / 2>::value
+						&& sprout::tpp::detail::all_of_impl<Tup, (First + Last) / 2, Last>::value
+				>
 			{};
 		}	// namespace detail
-		//
-		// all_of_c
-		//
-		template<bool... Values>
-		struct all_of_c
-			: public sprout::tpp::detail::all_of_impl<Values...>
-		{};
 		//
 		// all_of
 		//
 		template<typename... Types>
 		struct all_of
-			: public sprout::tpp::all_of_c<Types::value...>
+			: public sprout::tpp::detail::all_of_impl<sprout::types::type_tuple<Types...>, 0, sizeof...(Types)>
+		{};
+		template<>
+		struct all_of<>
+			: public sprout::true_type
+		{};
+		//
+		// all_of_c
+		//
+		template<bool... Values>
+		struct all_of_c
+			: public sprout::tpp::all_of<sprout::integral_constant<bool, Values>...>
 		{};
 	}	// namespace tpp
 }	// namespace sprout
