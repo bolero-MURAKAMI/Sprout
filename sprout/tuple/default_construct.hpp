@@ -19,7 +19,7 @@ namespace sprout {
 		struct default_construct_t {
 		public:
 			template<typename T>
-			operator T() const {
+			SPROUT_CONSTEXPR operator T() const {
 				return T();
 			}
 		};
