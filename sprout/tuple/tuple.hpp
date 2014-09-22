@@ -22,5 +22,6 @@
 #include <sprout/tuple/tuple/type_traits.hpp>
 #include <sprout/tuple/tuple/traits.hpp>
 #include <sprout/tuple/flexibly_construct.hpp>
+#include <sprout/tuple/default_construct.hpp>
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_HPP

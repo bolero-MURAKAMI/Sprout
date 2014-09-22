@@ -27,6 +27,7 @@
 #include <sprout/tpp/algorithm/all_of.hpp>
 #include <sprout/tuple/tuple/tuple_fwd.hpp>
 #include <sprout/tuple/flexibly_construct.hpp>
+#include <sprout/tuple/default_construct.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -35,8 +36,6 @@ namespace sprout {
 			class tuple_access;
 
 			struct from_tuple_construct_t {};
-			struct few_construct_t {};
-			struct excess_construct_t {};
 
 			template<sprout::index_t I, typename IdentityType>
 			struct element_holder {
@@ -53,6 +52,9 @@ namespace sprout {
 				template<typename T>
 				explicit SPROUT_CONSTEXPR element_holder(T&& value)
 					: value_(SPROUT_FORWARD(T, value))
+				{}
+				explicit SPROUT_CONSTEXPR element_holder(sprout::tuples::default_construct_t)
+					: value_()
 				{}
 			protected:
 				static SPROUT_CONSTEXPR value_type&

@@ -16,7 +16,6 @@
 #include <sprout/functional/ref.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
 #include <sprout/tuple/tuple/get.hpp>
-//#include <sprout/tuple/indexes.hpp>
 #include <sprout/type/operation/tuple_cat.hpp>
 
 namespace sprout {
@@ -81,75 +80,7 @@ namespace sprout {
 			typedef sprout::tuples::detail::tuple_cat_indexes<Tuples...> indexes;
 			return sprout::tuples::detail::tuple_cat_impl<type>(indexes::for_pack::make(), indexes::for_element::make(), SPROUT_FORWARD(Tuples, tuples)...);
 		}
-
-//		namespace results {
-//			//
-//			// tuple_cat
-//			//
-//			template<typename... Tuples>
-//			struct tuple_cat
-//				: public sprout::types::tuple_cat<typename std::decay<Tuples>::type...>
-//			{};
-//		}	// namespace results
-//
-//		namespace detail {
-//			template<typename... Tuples>
-//			struct tuple_cat_1st_indexes;
-//			template<>
-//			struct tuple_cat_1st_indexes<> {
-//			public:
-//				typedef sprout::index_tuple<> type;
-//			};
-//			template<typename Head, typename... Tail>
-//			struct tuple_cat_1st_indexes<Head, Tail...>
-//				: public sprout::tuple_indexes<typename std::remove_reference<Head>::type>
-//			{};
-//
-//			template<typename Result, typename IndexTuple, typename... Tuples>
-//			struct tuple_cat_impl;
-//			template<typename Result>
-//			struct tuple_cat_impl<Result, sprout::index_tuple<> > {
-//			public:
-//				template<typename... Args>
-//				static SPROUT_CONSTEXPR Result
-//				call(Args&&... args) {
-//					return Result(SPROUT_FORWARD(Args, args)...);
-//				}
-//			};
-//			template<typename Result, sprout::index_t... Indexes, typename Head, typename... Tail>
-//			struct tuple_cat_impl<Result, sprout::index_tuple<Indexes...>, Head, Tail...> {
-//			public:
-//				template<typename T, typename... Args>
-//				static SPROUT_CONSTEXPR Result
-//				call(T&& t, Args&&... args) {
-//					return sprout::tuples::detail::tuple_cat_impl<
-//						Result,
-//						typename sprout::tuples::detail::tuple_cat_1st_indexes<Tail...>::type,
-//						Tail...
-//					>::call(
-//						SPROUT_FORWARD(Args, args)...,
-//						sprout::tuples::get<Indexes>(SPROUT_FORWARD(T, t))...
-//						);
-//				}
-//			};
-//		}	// namespace detail
-//		//
-//		// tuple_cat
-//		//
-//		template<typename... Tuples>
-//		inline SPROUT_CONSTEXPR typename sprout::tuples::results::tuple_cat<Tuples...>::type
-//		tuple_cat(Tuples&&... tuples) {
-//			return sprout::tuples::detail::tuple_cat_impl<
-//				typename sprout::tuples::results::tuple_cat<Tuples...>::type,
-//				typename sprout::tuples::detail::tuple_cat_1st_indexes<Tuples...>::type,
-//				Tuples...
-//			>::call(SPROUT_FORWARD(Tuples, tuples)...);
-//		}
 	}	// namespace tuples
-
-//	namespace results {
-//		using sprout::tuples::results::tuple_cat;
-//	}	// namespace results
 
 	using sprout::tuples::make_tuple;
 	using sprout::tuples::forward_as_tuple;
