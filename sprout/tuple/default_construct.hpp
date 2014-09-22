@@ -16,7 +16,13 @@ namespace sprout {
 		// default_construct_t
 		// default_construct
 		//
-		struct default_construct_t {};
+		struct default_construct_t {
+		public:
+			template<typename T>
+			operator T() const {
+				return T();
+			}
+		};
 		SPROUT_STATIC_CONSTEXPR sprout::tuples::default_construct_t default_construct = {};
 	}	// namespace tuples
 
