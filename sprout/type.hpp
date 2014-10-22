@@ -17,6 +17,7 @@
 #include <sprout/type/integral_array.hpp>
 #include <sprout/type/string.hpp>
 #include <sprout/type/uniform_types.hpp>
+#include <sprout/type/packer.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/type/map_types.hpp>
 #include <sprout/type/joint_types.hpp>

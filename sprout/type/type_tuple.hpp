@@ -37,6 +37,8 @@ namespace sprout {
 		template<typename... Types>
 		SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::types::type_tuple<Types...>::static_size;
 	}	// namespace types
+
+	using sprout::types::type_tuple;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TYPE_TUPLE_HPP

@@ -30,6 +30,7 @@
 #include <sprout/cstdint.hpp>
 #include <sprout/cstdlib.hpp>
 #include <sprout/cstring.hpp>
+#include <sprout/ctime.hpp>
 #include <sprout/ctype.hpp>
 #include <sprout/current_function.hpp>
 #include <sprout/cwchar.hpp>
