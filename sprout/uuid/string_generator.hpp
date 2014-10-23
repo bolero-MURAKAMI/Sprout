@@ -60,50 +60,30 @@ namespace sprout {
 			SPROUT_CONSTEXPR std::uint8_t get_value(Elem c) const {
 				return value_at(
 					sprout::distance(
-						sprout::uuids::detail::digits<Elem>::table.begin(),
+						sprout::uuids::detail::digits<Elem>::value.begin(),
 						sprout::find(
-							sprout::uuids::detail::digits<Elem>::table.begin(),
-							sprout::uuids::detail::digits<Elem>::table.end(),
+							sprout::uuids::detail::digits<Elem>::value.begin(),
+							sprout::uuids::detail::digits<Elem>::value.end(),
 							c
 							)
 						)
 					);
 			}
-			static SPROUT_CONSTEXPR bool is_dash(char c) {
-				return c == '-';
+			template<typename Elem>
+			static SPROUT_CONSTEXPR bool is_dash(Elem c) {
+				return c == sprout::uuids::detail::dash<Elem>::value;
 			}
-			static SPROUT_CONSTEXPR bool is_dash(wchar_t c) {
-				return c == L'-';
+			template<typename Elem>
+			static SPROUT_CONSTEXPR bool is_open_brace(Elem c) {
+				return c == sprout::uuids::detail::lbrace<Elem>::value;
 			}
-			static SPROUT_CONSTEXPR bool is_dash(char16_t c) {
-				return c == u'-';
+			template<typename Elem>
+			static SPROUT_CONSTEXPR bool is_close_brace(Elem c) {
+				return c == sprout::uuids::detail::rbrace<Elem>::value;
 			}
-			static SPROUT_CONSTEXPR bool is_dash(char32_t c) {
-				return c == U'-';
-			}
-			static SPROUT_CONSTEXPR bool is_open_brace(char c) {
-				return c == '{';
-			}
-			static SPROUT_CONSTEXPR bool is_open_brace(wchar_t c) {
-				return c == L'{';
-			}
-			static SPROUT_CONSTEXPR bool is_open_brace(char16_t c) {
-				return c == u'{';
-			}
-			static SPROUT_CONSTEXPR bool is_open_brace(char32_t c) {
-				return c == U'{';
-			}
-			static SPROUT_CONSTEXPR bool is_close_brace(char c, char open_brace) {
-				return open_brace == '{' && c == '}';
-			}
-			static SPROUT_CONSTEXPR bool is_close_brace(wchar_t c, char open_brace) {
-				return open_brace == L'{' && c == L'}';
-			}
-			static SPROUT_CONSTEXPR bool is_close_brace(char16_t c, char open_brace) {
-				return open_brace == u'{' && c == u'}';
-			}
-			static SPROUT_CONSTEXPR bool is_close_brace(char32_t c, char open_brace) {
-				return open_brace == U'{' && c == U'}';
+			template<typename Elem>
+			static SPROUT_CONSTEXPR bool is_close_brace(Elem c, Elem open_brace) {
+				return is_open_brace(open_brace) && is_close_brace(c);
 			}
 			template<typename ForwardIterator, typename Char, typename... Args>
 			SPROUT_CONSTEXPR result_type

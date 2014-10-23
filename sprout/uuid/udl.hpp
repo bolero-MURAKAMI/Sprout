@@ -23,115 +23,25 @@
 #include <sprout/container/metafunctions.hpp>
 #include <sprout/range/algorithm/equal.hpp>
 #include <sprout/range/ptr_range.hpp>
+#include <sprout/detail/literal_def.hpp>
 
 namespace sprout {
 	namespace uuids {
 		namespace detail {
-			template<typename T>
-			inline SPROUT_CONSTEXPR sprout::basic_string<T, 3>
-			dns_token();
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char, 3>
-			dns_token<char>() {
-				return sprout::to_string("dns");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 3>
-			dns_token<wchar_t>() {
-				return sprout::to_string(L"dns");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, 3>
-			dns_token<char16_t>() {
-				return sprout::to_string(u"dns");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, 3>
-			dns_token<char32_t>() {
-				return sprout::to_string(U"dns");
-			}
-
-			template<typename T>
-			inline SPROUT_CONSTEXPR sprout::basic_string<T, 3>
-			url_token();
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char, 3>
-			url_token<char>() {
-				return sprout::to_string("url");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 3>
-			url_token<wchar_t>() {
-				return sprout::to_string(L"url");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, 3>
-			url_token<char16_t>() {
-				return sprout::to_string(u"url");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, 3>
-			url_token<char32_t>() {
-				return sprout::to_string(U"url");
-			}
-
-			template<typename T>
-			inline SPROUT_CONSTEXPR sprout::basic_string<T, 3>
-			oid_token();
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char, 3>
-			oid_token<char>() {
-				return sprout::to_string("oid");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 3>
-			oid_token<wchar_t>() {
-				return sprout::to_string(L"oid");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, 3>
-			oid_token<char16_t>() {
-				return sprout::to_string(u"oid");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, 3>
-			oid_token<char32_t>() {
-				return sprout::to_string(U"oid");
-			}
-
-			template<typename T>
-			inline SPROUT_CONSTEXPR sprout::basic_string<T, 4>
-			x500_token();
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char, 4>
-			x500_token<char>() {
-				return sprout::to_string("x500");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<wchar_t, 4>
-			x500_token<wchar_t>() {
-				return sprout::to_string(L"x500");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, 4>
-			x500_token<char16_t>() {
-				return sprout::to_string(u"x500");
-			}
-			template<>
-			inline SPROUT_CONSTEXPR sprout::basic_string<char32_t, 4>
-			x500_token<char32_t>() {
-				return sprout::to_string(U"x500");
-			}
+			SPROUT_LITERAL_STRING_DEF(dns_token, "dns", 3);
+			SPROUT_LITERAL_STRING_DEF(url_token, "url", 3);
+			SPROUT_LITERAL_STRING_DEF(oid_token, "oid", 3);
+			SPROUT_LITERAL_STRING_DEF(x500_token, "x500", 4);
 
 			template<typename InputRange>
 			inline SPROUT_CONSTEXPR sprout::uuids::md5_name_generator
 			uuid3_impl(InputRange const& rng) {
 				typedef typename std::decay<typename sprout::containers::value_type<InputRange>::type>::type value_type;
 				typedef sprout::ctypes::nocase_equal_to<value_type> predicate_type;
-				return sprout::range::equal(rng, sprout::uuids::detail::dns_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid3_dns()
-					: sprout::range::equal(rng, sprout::uuids::detail::url_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid3_url()
-					: sprout::range::equal(rng, sprout::uuids::detail::oid_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid3_oid()
-					: sprout::range::equal(rng, sprout::uuids::detail::x500_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid3_x500()
+				return sprout::range::equal(rng, sprout::uuids::detail::dns_token<value_type>::value, predicate_type()) ? sprout::uuids::make_uuid3_dns()
+					: sprout::range::equal(rng, sprout::uuids::detail::url_token<value_type>::value, predicate_type()) ? sprout::uuids::make_uuid3_url()
+					: sprout::range::equal(rng, sprout::uuids::detail::oid_token<value_type>::value, predicate_type()) ? sprout::uuids::make_uuid3_oid()
+					: sprout::range::equal(rng, sprout::uuids::detail::x500_token<value_type>::value, predicate_type()) ? sprout::uuids::make_uuid3_x500()
 					: sprout::uuids::make_uuid3(sprout::uuids::make_uuid(sprout::begin(rng), sprout::end(rng)))
 					;
 			}
@@ -141,10 +51,10 @@ namespace sprout {
 			uuid5_impl(InputRange const& rng) {
 				typedef typename std::decay<typename sprout::containers::value_type<InputRange>::type>::type value_type;
 				typedef sprout::ctypes::nocase_equal_to<value_type> predicate_type;
-				return sprout::range::equal(rng, sprout::uuids::detail::dns_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid5_dns()
-					: sprout::range::equal(rng, sprout::uuids::detail::url_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid5_url()
-					: sprout::range::equal(rng, sprout::uuids::detail::oid_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid5_oid()
-					: sprout::range::equal(rng, sprout::uuids::detail::x500_token<value_type>(), predicate_type()) ? sprout::uuids::make_uuid5_x500()
+				return sprout::range::equal(rng, sprout::uuids::detail::dns_token<value_type>::value, predicate_type()) ? sprout::uuids::make_uuid5_dns()
+					: sprout::range::equal(rng, sprout::uuids::detail::url_token<value_type>::value, predicate_type()) ? sprout::uuids::make_uuid5_url()
+					: sprout::range::equal(rng, sprout::uuids::detail::oid_token<value_type>::value, predicate_type()) ? sprout::uuids::make_uuid5_oid()
+					: sprout::range::equal(rng, sprout::uuids::detail::x500_token<value_type>::value, predicate_type()) ? sprout::uuids::make_uuid5_x500()
 					: sprout::uuids::make_uuid5(sprout::uuids::make_uuid(sprout::begin(rng), sprout::end(rng)))
 					;
 			}

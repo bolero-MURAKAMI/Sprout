@@ -15,58 +15,12 @@
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/find.hpp>
+#include <sprout/detail/literal_def.hpp>
 
 namespace sprout {
 	namespace weed {
 		namespace detail {
-			template<typename Elem>
-			struct xdigits;
-
-			template<>
-			struct xdigits<char> {
-			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char, 22> table
-					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string("0123456789abcdefABCDEF"))
-					;
-			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char, 22> sprout::weed::detail::xdigits<char>::table
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string("0123456789abcdefABCDEF"))
-				;
-
-			template<>
-			struct xdigits<wchar_t> {
-			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<wchar_t, 22> table
-					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(L"0123456789abcdefABCDEF"))
-					;
-			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<wchar_t, 22> sprout::weed::detail::xdigits<wchar_t>::table
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(L"0123456789abcdefABCDEF"))
-				;
-
-#if SPROUT_USE_UNICODE_LITERALS
-			template<>
-			struct xdigits<char16_t> {
-			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char16_t, 22> table
-					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(u"0123456789abcdefABCDEF"))
-					;
-			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char16_t, 22> sprout::weed::detail::xdigits<char16_t>::table
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(u"0123456789abcdefABCDEF"))
-				;
-
-			template<>
-			struct xdigits<char32_t> {
-			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char32_t, 22> table
-					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(U"0123456789abcdefABCDEF"))
-					;
-			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char32_t, 22> sprout::weed::detail::xdigits<char32_t>::table
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(U"0123456789abcdefABCDEF"))
-				;
-#endif
+			SPROUT_LITERAL_STRING_DEF(xdigits, "0123456789abcdefABCDEF", 22);
 
 			template<typename Dummy>
 			struct xvalues;
@@ -77,14 +31,14 @@ namespace sprout {
 			template<>
 			struct xvalues<void> {
 			public:
-				typedef sprout::array<std::uint8_t, 22> table_type;
+				typedef sprout::array<std::uint8_t, 22> value_type;
 			public:
-				SPROUT_STATIC_CONSTEXPR table_type table
+				SPROUT_STATIC_CONSTEXPR value_type value
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_WEED_XDIGITS_TABLE_DEF)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::weed::detail::xvalues<void>::table_type
-			sprout::weed::detail::xvalues<void>::table
+			SPROUT_CONSTEXPR_OR_CONST sprout::weed::detail::xvalues<void>::value_type
+			sprout::weed::detail::xvalues<void>::value
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_WEED_XDIGITS_TABLE_DEF)
 				;
 
@@ -94,7 +48,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> xvalue_at(std::size_t i) {
 				return i < 22
 					? sprout::tuples::tuple<IntType, bool>(
-						static_cast<IntType>(sprout::weed::detail::xvalues<void>::table[i]),
+						static_cast<IntType>(sprout::weed::detail::xvalues<void>::value[i]),
 						true
 						)
 					: sprout::tuples::tuple<IntType, bool>(
@@ -107,10 +61,10 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::tuples::tuple<IntType, bool> from_xdigit(Elem c) {
 				return sprout::weed::detail::xvalue_at<IntType>(
 					sprout::distance(
-						sprout::weed::detail::xdigits<Elem>::table.begin(),
+						sprout::weed::detail::xdigits<Elem>::value.begin(),
 						sprout::find(
-							sprout::weed::detail::xdigits<Elem>::table.begin(),
-							sprout::weed::detail::xdigits<Elem>::table.end(),
+							sprout::weed::detail::xdigits<Elem>::value.begin(),
+							sprout::weed::detail::xdigits<Elem>::value.end(),
 							c
 							)
 						)

@@ -15,48 +15,32 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/noncopyable.hpp>
 #include <sprout/logic/tribool/tribool.hpp>
+#include <sprout/detail/literal_def.hpp>
 
 namespace sprout {
 	namespace logic {
+		namespace detail {
+			SPROUT_LITERAL_STRING_DEF(default_indeterminate_name, "indeterminate", 13);
+		}	// namespace detail
 		//
 		// get_default_indeterminate_name
 		//
-		template<typename Char>
-		inline SPROUT_NON_CONSTEXPR std::basic_string<Char>
-		get_default_indeterminate_name();
-		template<>
-		inline SPROUT_NON_CONSTEXPR std::basic_string<char>
-		get_default_indeterminate_name<char>() {
-			return "indeterminate";
+		template<typename Elem>
+		inline SPROUT_NON_CONSTEXPR std::basic_string<Elem>
+		get_default_indeterminate_name() {
+			return sprout::logic::detail::default_indeterminate_name<Elem>::value.c_str();
 		}
-		template<>
-		inline SPROUT_NON_CONSTEXPR std::basic_string<wchar_t>
-		get_default_indeterminate_name<wchar_t>() {
-			return L"indeterminate";
-		}
-#if SPROUT_USE_UNICODE_LITERALS
-		template<>
-		inline SPROUT_NON_CONSTEXPR std::basic_string<char16_t>
-		get_default_indeterminate_name<char16_t>() {
-			return u"indeterminate";
-		}
-		template<>
-		inline SPROUT_NON_CONSTEXPR std::basic_string<char32_t>
-		get_default_indeterminate_name<char32_t>() {
-			return U"indeterminate";
-		}
-#endif
 
 		//
 		// indeterminate_name
 		//
-		template<typename Char>
+		template<typename Elem>
 		class indeterminate_name
 			: public std::locale::facet
 			, private sprout::noncopyable
 		{
 		public:
-			typedef Char char_type;
+			typedef Elem char_type;
 			typedef std::basic_string<char_type> string_type;
 		public:
 			static std::locale::id id;
@@ -73,28 +57,28 @@ namespace sprout {
 				return name_;
 			}
 		};
-		template<typename Char>
-		std::locale::id sprout::logic::indeterminate_name<Char>::id;
+		template<typename Elem>
+		std::locale::id sprout::logic::indeterminate_name<Elem>::id;
 
 		//
 		// operator<<
 		//
-		template<typename Char, typename Traits>
-		inline SPROUT_NON_CONSTEXPR std::basic_ostream<Char, Traits>&
-		operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::logic::tribool rhs) {
+		template<typename Elem, typename Traits>
+		inline SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>&
+		operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::logic::tribool rhs) {
 			if (!sprout::logic::indeterminate(rhs)) {
 				lhs << static_cast<bool>(rhs);
 			} else {
-				typename std::basic_ostream<Char, Traits>::sentry cerberus(lhs);
+				typename std::basic_ostream<Elem, Traits>::sentry cerberus(lhs);
 				if (cerberus) {
 					if (lhs.flags() & std::ios_base::boolalpha) {
-						if (std::has_facet<sprout::logic::indeterminate_name<Char> >(lhs.getloc())) {
-							indeterminate_name<Char> const& facet
-								= std::use_facet<sprout::logic::indeterminate_name<Char> >(lhs.getloc())
+						if (std::has_facet<sprout::logic::indeterminate_name<Elem> >(lhs.getloc())) {
+							indeterminate_name<Elem> const& facet
+								= std::use_facet<sprout::logic::indeterminate_name<Elem> >(lhs.getloc())
 								;
 							lhs << facet.name();
 						} else {
-							lhs << sprout::logic::get_default_indeterminate_name<Char>();
+							lhs << sprout::logic::get_default_indeterminate_name<Elem>();
 						}
 					} else {
 						lhs << 2;
@@ -103,30 +87,30 @@ namespace sprout {
 			}
 			return lhs;
 		}
-		template<typename Char, typename Traits>
-		inline SPROUT_NON_CONSTEXPR std::basic_ostream<Char, Traits>&
-		operator<<(std::basic_ostream<Char, Traits>& lhs, sprout::logic::indeterminate_keyword_t) {
+		template<typename Elem, typename Traits>
+		inline SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>&
+		operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::logic::indeterminate_keyword_t) {
 			return lhs << sprout::logic::tribool(indeterminate);
 		}
 
 		//
 		// operator>>
 		//
-		template<typename Char, typename Traits>
-		inline SPROUT_NON_CONSTEXPR std::basic_istream<Char, Traits>&
-		operator>>(std::basic_istream<Char, Traits>& lhs, sprout::logic::tribool& rhs) {
+		template<typename Elem, typename Traits>
+		inline SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>&
+		operator>>(std::basic_istream<Elem, Traits>& lhs, sprout::logic::tribool& rhs) {
 			if (lhs.flags() & std::ios_base::boolalpha) {
-				typename std::basic_istream<Char, Traits>::sentry cerberus(lhs);
+				typename std::basic_istream<Elem, Traits>::sentry cerberus(lhs);
 				if (cerberus) {
-					typedef std::basic_string<Char> string_type;
-					const std::numpunct<Char>& numpunct_facet =
-						std::use_facet<std::numpunct<Char> >(lhs.getloc())
+					typedef std::basic_string<Elem> string_type;
+					const std::numpunct<Elem>& numpunct_facet =
+						std::use_facet<std::numpunct<Elem> >(lhs.getloc())
 						;
 					string_type falsename = numpunct_facet.falsename();
 					string_type truename = numpunct_facet.truename();
-					string_type othername = std::has_facet<sprout::logic::indeterminate_name<Char> >(lhs.getloc())
-						? std::use_facet<indeterminate_name<Char> >(lhs.getloc()).name()
-						: sprout::logic::get_default_indeterminate_name<Char>()
+					string_type othername = std::has_facet<sprout::logic::indeterminate_name<Elem> >(lhs.getloc())
+						? std::use_facet<indeterminate_name<Elem> >(lhs.getloc()).name()
+						: sprout::logic::get_default_indeterminate_name<Elem>()
 						;
 					typename string_type::size_type pos = 0;
 					bool falsename_ok = true;

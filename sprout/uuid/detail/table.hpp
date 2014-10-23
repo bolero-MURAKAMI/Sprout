@@ -12,66 +12,15 @@
 #include <sprout/config.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/string.hpp>
+#include <sprout/detail/literal_def.hpp>
 
 namespace sprout {
 	namespace uuids {
 		namespace detail {
-			template<typename Elem>
-			struct digits {};
-
-			template<>
-			struct digits<char> {
-			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char, 22> table
-					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string("0123456789abcdefABCDEF"))
-					;
-				SPROUT_STATIC_CONSTEXPR char dash = '-';
-			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char, 22> sprout::uuids::detail::digits<char>::table
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string("0123456789abcdefABCDEF"))
-				;
-			SPROUT_CONSTEXPR_OR_CONST char sprout::uuids::detail::digits<char>::dash;
-
-			template<>
-			struct digits<wchar_t> {
-			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<wchar_t, 22> table
-					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(L"0123456789abcdefABCDEF"))
-					;
-				SPROUT_STATIC_CONSTEXPR wchar_t dash = L'-';
-			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<wchar_t, 22> sprout::uuids::detail::digits<wchar_t>::table
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(L"0123456789abcdefABCDEF"))
-				;
-			SPROUT_CONSTEXPR_OR_CONST wchar_t sprout::uuids::detail::digits<wchar_t>::dash;
-
-#if SPROUT_USE_UNICODE_LITERALS
-			template<>
-			struct digits<char16_t> {
-			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char16_t, 22> table
-					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(u"0123456789abcdefABCDEF"))
-					;
-				SPROUT_STATIC_CONSTEXPR char16_t dash = u'-';
-			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char16_t, 22> sprout::uuids::detail::digits<char16_t>::table
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(u"0123456789abcdefABCDEF"))
-				;
-			SPROUT_CONSTEXPR_OR_CONST char16_t sprout::uuids::detail::digits<char16_t>::dash;
-
-			template<>
-			struct digits<char32_t> {
-			public:
-				SPROUT_STATIC_CONSTEXPR sprout::basic_string<char32_t, 22> table
-					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(U"0123456789abcdefABCDEF"))
-					;
-				SPROUT_STATIC_CONSTEXPR char32_t dash = U'-';
-			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<char32_t, 22> sprout::uuids::detail::digits<char32_t>::table
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(U"0123456789abcdefABCDEF"))
-				;
-			SPROUT_CONSTEXPR_OR_CONST char32_t sprout::uuids::detail::digits<char32_t>::dash;
-#endif
+			SPROUT_LITERAL_STRING_DEF(digits, "0123456789abcdefABCDEF", 22);
+			SPROUT_LITERAL_CHAR_DEF(dash, '-');
+			SPROUT_LITERAL_CHAR_DEF(lbrace, '{');
+			SPROUT_LITERAL_CHAR_DEF(rbrace, '}');
 
 			template<typename Dummy>
 			struct values;
