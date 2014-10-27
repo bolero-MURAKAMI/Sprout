@@ -20,6 +20,7 @@
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/signbit.hpp>
 #include <sprout/math/floor.hpp>
+#include <sprout/detail/char_literal.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>
 #include <sprout/detail/math/float.hpp>
@@ -49,9 +50,9 @@ namespace sprout {
 			return negative
 				? access_type::raw_construct(
 					static_cast<std::size_t>(digits + 2 + sprout::detail::decimal_places_length),
-					static_cast<Elem>('-'),
+					SPROUT_CHAR_LITERAL('-', Elem),
 					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
-						: Indexes == digits ? static_cast<Elem>('.')
+						: Indexes == digits ? SPROUT_CHAR_LITERAL('.', Elem)
 						: Indexes < digits + 1 + sprout::detail::decimal_places_length
 							? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at(v, digits + sprout::detail::decimal_places_length - Indexes))
 						: Elem()
@@ -60,7 +61,7 @@ namespace sprout {
 				: access_type::raw_construct(
 					static_cast<std::size_t>(digits + 1 + sprout::detail::decimal_places_length),
 					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, digits - 1 - Indexes))
-						: Indexes == digits ? static_cast<Elem>('.')
+						: Indexes == digits ? SPROUT_CHAR_LITERAL('.', Elem)
 						: Indexes < digits + 1 + sprout::detail::decimal_places_length
 							? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at(v, digits + sprout::detail::decimal_places_length - Indexes))
 						: Elem()
@@ -89,11 +90,11 @@ namespace sprout {
 	float_to_string(FloatType val) {
 		typedef sprout::detail::string_construct_access<Elem, sprout::printed_float_digits<FloatType>::value> access_type;
 		return sprout::math::isinf(val) ? sprout::math::signbit(val)
-				? access_type::raw_construct(4, static_cast<Elem>('-'), static_cast<Elem>('i'), static_cast<Elem>('n'), static_cast<Elem>('f'))
-				: access_type::raw_construct(3, static_cast<Elem>('i'), static_cast<Elem>('n'), static_cast<Elem>('f'))
+				? access_type::raw_construct(4, SPROUT_CHAR_LITERAL('-', Elem), SPROUT_CHAR_LITERAL('i', Elem), SPROUT_CHAR_LITERAL('n', Elem), SPROUT_CHAR_LITERAL('f', Elem))
+				: access_type::raw_construct(3, SPROUT_CHAR_LITERAL('i', Elem), SPROUT_CHAR_LITERAL('n', Elem), SPROUT_CHAR_LITERAL('f', Elem))
 			: sprout::math::isnan(val) ? sprout::math::signbit(val)
-				? access_type::raw_construct(4, static_cast<Elem>('-'), static_cast<Elem>('n'), static_cast<Elem>('a'), static_cast<Elem>('n'))
-				: access_type::raw_construct(3, static_cast<Elem>('n'), static_cast<Elem>('a'), static_cast<Elem>('n'))
+				? access_type::raw_construct(4, SPROUT_CHAR_LITERAL('-', Elem), SPROUT_CHAR_LITERAL('n', Elem), SPROUT_CHAR_LITERAL('a', Elem), SPROUT_CHAR_LITERAL('n', Elem))
+				: access_type::raw_construct(3, SPROUT_CHAR_LITERAL('n', Elem), SPROUT_CHAR_LITERAL('a', Elem), SPROUT_CHAR_LITERAL('n', Elem))
 			: sprout::detail::float_to_string<Elem>(
 				sprout::detail::float_round_at(val < 0 ? -val : val, sprout::detail::decimal_places_length),
 				sprout::math::signbit(val),
@@ -131,13 +132,13 @@ namespace sprout {
 			return negative
 				? access_type::raw_construct(
 					static_cast<std::size_t>(5 + sprout::detail::decimal_places_length + e10_digits),
-					static_cast<Elem>('-'),
+					SPROUT_CHAR_LITERAL('-', Elem),
 					(Indexes == 0 ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 0))
-						: Indexes == 1 ? static_cast<Elem>('.')
+						: Indexes == 1 ? SPROUT_CHAR_LITERAL('.', Elem)
 						: Indexes < 2 + sprout::detail::decimal_places_length
 							? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 1 - Indexes))
-						: Indexes == 2 + sprout::detail::decimal_places_length ? static_cast<Elem>('e')
-						: Indexes == 3 + sprout::detail::decimal_places_length ? static_cast<Elem>(exponent10 < 0 ? '-' : '+')
+						: Indexes == 2 + sprout::detail::decimal_places_length ? SPROUT_CHAR_LITERAL('e', Elem)
+						: Indexes == 3 + sprout::detail::decimal_places_length ? (exponent10 < 0 ? SPROUT_CHAR_LITERAL('-', Elem) : SPROUT_CHAR_LITERAL('+', Elem))
 						: Indexes < 4 + sprout::detail::decimal_places_length + e10_digits
 							? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at(exponent10, 3 + sprout::detail::decimal_places_length + e10_digits - Indexes))
 						: Elem()
@@ -146,11 +147,11 @@ namespace sprout {
 				: access_type::raw_construct(
 					static_cast<std::size_t>(4 + sprout::detail::decimal_places_length + e10_digits),
 					(Indexes == 0 ? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 0))
-						: Indexes == 1 ? static_cast<Elem>('.')
+						: Indexes == 1 ? SPROUT_CHAR_LITERAL('.', Elem)
 						: Indexes < 2 + sprout::detail::decimal_places_length
 							? sprout::detail::int_to_char<Elem>(sprout::detail::float_digit_at(val, 1 - Indexes))
-						: Indexes == 2 + sprout::detail::decimal_places_length ? static_cast<Elem>('e')
-						: Indexes == 3 + sprout::detail::decimal_places_length ? static_cast<Elem>(exponent10 < 0 ? '-' : '+')
+						: Indexes == 2 + sprout::detail::decimal_places_length ? SPROUT_CHAR_LITERAL('e', Elem)
+						: Indexes == 3 + sprout::detail::decimal_places_length ? (exponent10 < 0 ? SPROUT_CHAR_LITERAL('-', Elem) : SPROUT_CHAR_LITERAL('+', Elem))
 						: Indexes < 4 + sprout::detail::decimal_places_length + e10_digits
 							? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at(exponent10, 3 + sprout::detail::decimal_places_length + e10_digits - Indexes))
 						: Elem()
@@ -171,11 +172,11 @@ namespace sprout {
 	float_to_string_exp(FloatType val) {
 		typedef sprout::detail::string_construct_access<Elem, sprout::printed_float_exp_digits<FloatType>::value> access_type;
 		return sprout::math::isinf(val) ? sprout::math::signbit(val)
-				? access_type::raw_construct(4, static_cast<Elem>('-'), static_cast<Elem>('i'), static_cast<Elem>('n'), static_cast<Elem>('f'))
-				: access_type::raw_construct(3, static_cast<Elem>('i'), static_cast<Elem>('n'), static_cast<Elem>('f'))
+				? access_type::raw_construct(4, SPROUT_CHAR_LITERAL('-', Elem), SPROUT_CHAR_LITERAL('i', Elem), SPROUT_CHAR_LITERAL('n', Elem), SPROUT_CHAR_LITERAL('f', Elem))
+				: access_type::raw_construct(3, SPROUT_CHAR_LITERAL('i', Elem), SPROUT_CHAR_LITERAL('n', Elem), SPROUT_CHAR_LITERAL('f', Elem))
 			: sprout::math::isnan(val) ? sprout::math::signbit(val)
-				? access_type::raw_construct(4, static_cast<Elem>('-'), static_cast<Elem>('n'), static_cast<Elem>('a'), static_cast<Elem>('n'))
-				: access_type::raw_construct(3, static_cast<Elem>('n'), static_cast<Elem>('a'), static_cast<Elem>('n'))
+				? access_type::raw_construct(4, SPROUT_CHAR_LITERAL('-', Elem), SPROUT_CHAR_LITERAL('n', Elem), SPROUT_CHAR_LITERAL('a', Elem), SPROUT_CHAR_LITERAL('n', Elem))
+				: access_type::raw_construct(3, SPROUT_CHAR_LITERAL('n', Elem), SPROUT_CHAR_LITERAL('a', Elem), SPROUT_CHAR_LITERAL('n', Elem))
 			: sprout::detail::float_to_string_exp<Elem>(
 				sprout::detail::float_round_at(
 					(val < 0 ? -val : val) / sprout::detail::float_pow10<FloatType>(sprout::detail::float_exponent10(val)),

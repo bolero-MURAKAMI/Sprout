@@ -14,6 +14,8 @@
 #include <sprout/limits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
+#include <sprout/detail/char_literal.hpp>
+#include <sprout/detail/char_type_of_consecutive.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -22,13 +24,15 @@ namespace sprout {
 		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR IntType
 		ascii_to_int_impl(NullTerminatedIterator str, IntType val, bool negative) {
+			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type value_type;
+			SPROUT_STATIC_ASSERT(sprout::detail::is_char_type_of_consecutive_digits<value_type>::value);
 			return !sprout::ascii::isdigit(*str)
 				? negative ? -val : val
-				: val > (sprout::numeric_limits<IntType>::max() - (*str - static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('0')) - (negative ? 1 : 0)) / 10
+				: val > (sprout::numeric_limits<IntType>::max() - (*str - SPROUT_CHAR_LITERAL('0', value_type)) - (negative ? 1 : 0)) / 10
 				? (negative ? sprout::numeric_limits<IntType>::min() : sprout::numeric_limits<IntType>::max())
 				: sprout::detail::ascii_to_int_impl<IntType>(
 					sprout::next(str),
-					val * 10 + (*str - static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('0')),
+					val * 10 + (*str - SPROUT_CHAR_LITERAL('0', value_type)),
 					negative
 					)
 				;
@@ -39,9 +43,10 @@ namespace sprout {
 			IntType
 		>::type
 		ascii_to_int(NullTerminatedIterator str) {
+			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type value_type;
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
-				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
+				: *str == SPROUT_CHAR_LITERAL('+', value_type)
 				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), false)
 				: sprout::detail::ascii_to_int_impl<IntType>(str, IntType(), false)
 				;
@@ -52,11 +57,12 @@ namespace sprout {
 			IntType
 		>::type
 		ascii_to_int(NullTerminatedIterator str) {
+			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type value_type;
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
-				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('-')
+				: *str == SPROUT_CHAR_LITERAL('-', value_type)
 				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), true)
-				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
+				: *str == SPROUT_CHAR_LITERAL('+', value_type)
 				? sprout::detail::ascii_to_int_impl<IntType>(sprout::next(str), IntType(), false)
 				: sprout::detail::ascii_to_int_impl<IntType>(str, IntType(), false)
 				;

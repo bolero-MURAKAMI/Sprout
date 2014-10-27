@@ -13,6 +13,7 @@
 #include <sprout/ctype/ascii.hpp>
 #include <sprout/algorithm/equal.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
+#include <sprout/detail/char_conversion.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -44,9 +45,9 @@ namespace sprout {
 	namespace detail {
 		template<typename Elem>
 		inline SPROUT_CONSTEXPR int
-		get_num(Elem e) {
-			return !sprout::isdigit(e) ? 0
-				: e - static_cast<Elem>('0')
+		get_num(Elem c) {
+			return !sprout::isdigit(c) ? 0
+				: sprout::detail::char_to_int(c)
 				;
 		}
 		template<typename InputIterator>

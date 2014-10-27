@@ -16,6 +16,8 @@
 #include <sprout/limits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
+#include <sprout/detail/char_literal.hpp>
+#include <sprout/detail/char_type_of_consecutive.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -83,6 +85,7 @@ namespace sprout {
 			)
 		{
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
+			SPROUT_STATIC_ASSERT(sprout::detail::is_char_type_of_consecutive_digits<char_type>::value);
 			return sprout::ascii::isdigit(*str) ? sprout::detail::str_to_float_impl_exponent_1<FloatType>(
 					sprout::next(str),
 					negative,
@@ -90,7 +93,7 @@ namespace sprout {
 					num_digits,
 					num_decimals,
 					exponent,
-					n * 10 + (*str - static_cast<char_type>('0'))
+					n * 10 + (*str - SPROUT_CHAR_LITERAL('0', char_type))
 					)
 				: sprout::detail::str_to_float_impl_exponent_2<FloatType>(
 					str,
@@ -114,8 +117,8 @@ namespace sprout {
 			)
 		{
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
-			return (*str == static_cast<char_type>('e') || *str == static_cast<char_type>('E'))
-				? *sprout::next(str) == static_cast<char_type>('-')
+			return (*str == SPROUT_CHAR_LITERAL('e', char_type) || *str == SPROUT_CHAR_LITERAL('E', char_type))
+				? *sprout::next(str) == SPROUT_CHAR_LITERAL('-', char_type)
 					? sprout::detail::str_to_float_impl_exponent_1<FloatType>(
 						sprout::next(str, 2),
 						true,
@@ -176,10 +179,11 @@ namespace sprout {
 			)
 		{
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
+			SPROUT_STATIC_ASSERT(sprout::detail::is_char_type_of_consecutive_digits<char_type>::value);
 			return sprout::ascii::isdigit(*str) ? sprout::detail::str_to_float_impl_decimal<FloatType>(
 					sprout::next(str),
 					negative,
-					number * 10 + (*str - static_cast<char_type>('0')),
+					number * 10 + (*str - SPROUT_CHAR_LITERAL('0', char_type)),
 					num_digits + 1,
 					num_decimals + 1,
 					exponent
@@ -205,13 +209,14 @@ namespace sprout {
 			)
 		{
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
+			SPROUT_STATIC_ASSERT(sprout::detail::is_char_type_of_consecutive_digits<char_type>::value);
 			return sprout::ascii::isdigit(*str) ? sprout::detail::str_to_float_impl<FloatType>(
 					sprout::next(str),
 					negative,
-					number * 10 + (*str - static_cast<char_type>('0')),
+					number * 10 + (*str - SPROUT_CHAR_LITERAL('0', char_type)),
 					num_digits + 1
 					)
-				: *str == static_cast<char_type>('.') ? sprout::detail::str_to_float_impl_decimal<FloatType>(
+				: *str == SPROUT_CHAR_LITERAL('.', char_type) ? sprout::detail::str_to_float_impl_decimal<FloatType>(
 					sprout::next(str),
 					negative,
 					number,
@@ -228,11 +233,12 @@ namespace sprout {
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float(NullTerminatedIterator str) {
+			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::str_to_float<FloatType>(sprout::next(str))
-				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('-')
+				: *str == SPROUT_CHAR_LITERAL('-', char_type)
 				? sprout::detail::str_to_float_impl<FloatType>(sprout::next(str), true)
-				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
+				: *str == SPROUT_CHAR_LITERAL('+', char_type)
 				? sprout::detail::str_to_float_impl<FloatType>(sprout::next(str), false)
 				: sprout::detail::str_to_float_impl<FloatType>(str, false)
 				;

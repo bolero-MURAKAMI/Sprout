@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/string.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/preprocessor/cat.hpp>
 
 //
@@ -69,10 +70,8 @@
 #endif
 #define SPROUT_LITERAL_CHAR_DEF_IMPL(NAME, CHAR, ELEM) \
 	template<> \
-	struct NAME<ELEM> { \
-	public: \
-		SPROUT_STATIC_CONSTEXPR ELEM value = CHAR; \
-	}; \
-	SPROUT_CONSTEXPR_OR_CONST ELEM NAME<ELEM>::value
+	struct NAME<ELEM> \
+		: public sprout::integral_constant<ELEM, CHAR> \
+	{}
 
 #endif	// #ifndef SPROUT_DETAIL_LITERAL_DEF_HPP

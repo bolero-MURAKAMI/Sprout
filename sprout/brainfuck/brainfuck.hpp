@@ -21,6 +21,7 @@
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/algorithm/fixed/copy.hpp>
 #include <sprout/operation/fixed/set.hpp>
+#include <sprout/detail/char_literal.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
 namespace sprout {
@@ -30,8 +31,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR InputIterator
 			find_scope_end(InputIterator first, std::size_t count = 0) {
 				typedef typename std::iterator_traits<InputIterator>::value_type value_type;
-				return *first == value_type('[') ? sprout::brainfuck::detail::find_scope_end(sprout::next(first), count + 1)
-					: *first == value_type(']') ? count == 0
+				return *first == SPROUT_CHAR_LITERAL('[', value_type) ? sprout::brainfuck::detail::find_scope_end(sprout::next(first), count + 1)
+					: *first == SPROUT_CHAR_LITERAL(']', value_type) ? count == 0
 						? first
 						: sprout::brainfuck::detail::find_scope_end(sprout::next(first), count - 1)
 					: sprout::brainfuck::detail::find_scope_end(sprout::next(first), count)
@@ -42,8 +43,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR BidirectionalIterator
 			find_scope_start(BidirectionalIterator first, std::size_t count = 0) {
 				typedef typename std::iterator_traits<BidirectionalIterator>::value_type value_type;
-				return *first == value_type(']') ? sprout::brainfuck::detail::find_scope_start(sprout::prev(first), count + 1)
-					: *first == value_type('[') ? count == 0
+				return *first == SPROUT_CHAR_LITERAL(']', value_type) ? sprout::brainfuck::detail::find_scope_start(sprout::prev(first), count + 1)
+					: *first == SPROUT_CHAR_LITERAL('[', value_type) ? count == 0
 						? first
 						: sprout::brainfuck::detail::find_scope_start(sprout::prev(first), count - 1)
 					: sprout::brainfuck::detail::find_scope_start(sprout::prev(first), count)
@@ -55,9 +56,9 @@ namespace sprout {
 			is_well_formed(InputIterator first, InputIterator last, std::size_t count = 0) {
 				typedef typename std::iterator_traits<InputIterator>::value_type value_type;
 				return first == last ? count == 0
-					: *first == value_type('[')
+					: *first == SPROUT_CHAR_LITERAL('[', value_type)
 						? sprout::brainfuck::detail::is_well_formed(sprout::next(first), last, count + 1)
-					: *first == value_type(']')
+					: *first == SPROUT_CHAR_LITERAL(']', value_type)
 						? count != 0 && sprout::brainfuck::detail::is_well_formed(sprout::next(first), last, count - 1)
 					: sprout::brainfuck::detail::is_well_formed(sprout::next(first), last, count)
 					;
@@ -82,39 +83,39 @@ namespace sprout {
 						sprout::next(sprout::begin(out_buffer), NS_SSCRISK_CEL_OR_SPROUT::min(out_pos, sprout::size(out_buffer))),
 						output
 						)
-					: *first == value_type('>')
+					: *first == SPROUT_CHAR_LITERAL('>', value_type)
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(first), last, output, in_first, in_last,
 							buffer, out_buffer, pos + 1, out_pos
 							)
-					: *first == value_type('<')
+					: *first == SPROUT_CHAR_LITERAL('<', value_type)
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(first), last, output, in_first, in_last,
 							buffer, out_buffer, pos - 1, out_pos
 							)
-					: *first == value_type('+')
+					: *first == SPROUT_CHAR_LITERAL('+', value_type)
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(first), last, output, in_first, in_last,
 							sprout::fixed::set(buffer, pos, value_type(buffer.at(pos) + 1)), out_buffer, pos, out_pos
 							)
-					: *first == value_type('-')
+					: *first == SPROUT_CHAR_LITERAL('+', value_type)
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(first), last, output, in_first, in_last,
 							sprout::fixed::set(buffer, pos, value_type(buffer.at(pos) - 1)), out_buffer, pos, out_pos
 							)
-					: *first == value_type('.') ? out_pos != out_buffer.size()
+					: *first == SPROUT_CHAR_LITERAL('.', value_type) ? out_pos != out_buffer.size()
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(first), last, output, in_first, in_last,
 							buffer, sprout::fixed::set(out_buffer, out_pos, out_value_type(buffer.at(pos))), pos, out_pos + 1
 							)
 						: throw std::out_of_range("output out of range")
-					: *first == value_type(',') ? in_first != in_last
+					: *first == SPROUT_CHAR_LITERAL(',', value_type) ? in_first != in_last
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(first), last, output, sprout::next(in_first), in_last,
 							sprout::fixed::set(buffer, pos, value_type(*in_first)), out_buffer, pos, out_pos
 							)
 						: throw std::out_of_range("input out of range")
-					: *first == value_type('[') ? buffer.at(pos) == 0
+					: *first == SPROUT_CHAR_LITERAL('[', value_type) ? buffer.at(pos) == 0
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(sprout::brainfuck::detail::find_scope_end(sprout::next(first))), last, output, in_first, in_last,
 							buffer, out_buffer, pos, out_pos
@@ -123,7 +124,7 @@ namespace sprout {
 							sprout::next(first), last, output, in_first, in_last,
 							buffer, out_buffer, pos, out_pos
 							)
-					: *first == value_type(']') ? buffer.at(pos) != 0
+					: *first == SPROUT_CHAR_LITERAL(']', value_type) ? buffer.at(pos) != 0
 						? sprout::brainfuck::detail::exec_impl(
 							sprout::next(sprout::brainfuck::detail::find_scope_start(sprout::prev(first))), last, output, in_first, in_last,
 							buffer, out_buffer, pos, out_pos

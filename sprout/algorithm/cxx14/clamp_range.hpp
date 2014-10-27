@@ -24,7 +24,7 @@ namespace sprout {
 	inline SPROUT_CXX14_CONSTEXPR OutputIterator
 	clamp_range(
 		InputIterator first, InputIterator last, OutputIterator result,
-		typename std::iterator_traits<InputIterator>::value_type const& low, 
+		typename std::iterator_traits<InputIterator>::value_type const& low,
 		typename std::iterator_traits<InputIterator>::value_type const& high,
 		Compare comp
 		)
@@ -41,7 +41,7 @@ namespace sprout {
 	inline SPROUT_CXX14_CONSTEXPR OutputIterator
 	clamp_range(
 		InputIterator first, InputIterator last, OutputIterator result,
-		typename std::iterator_traits<InputIterator>::value_type const& low, 
+		typename std::iterator_traits<InputIterator>::value_type const& low,
 		typename std::iterator_traits<InputIterator>::value_type const& high
 		)
 	{

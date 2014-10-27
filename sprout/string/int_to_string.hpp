@@ -16,6 +16,7 @@
 #include <sprout/integer/integer_digits.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/detail/char_literal.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>
 
@@ -42,7 +43,7 @@ namespace sprout {
 			typedef sprout::detail::string_construct_access<Elem, sprout::printed_integer_digits<IntType, Base>::value> access_type;
 			return val < 0 ? access_type::raw_construct(
 					static_cast<std::size_t>(digits + 1),
-					static_cast<Elem>('-'),
+					SPROUT_CHAR_LITERAL('-', Elem),
 					(Indexes < digits ? sprout::detail::int_to_char<Elem>(sprout::detail::int_digit_at<Base>(val, digits - 1 - Indexes))
 						: Elem()
 						)...

@@ -15,6 +15,7 @@
 #include <sprout/weed/unused.hpp>
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
+#include <sprout/detail/char_literal.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -45,13 +46,13 @@ namespace sprout {
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				typedef typename std::iterator_traits<Iterator>::value_type elem_type;
 				return first != last
-					? *first == elem_type('\r')
+					? *first == SPROUT_CHAR_LITERAL('\r', elem_type)
 						? sprout::next(first) != last
-							? *sprout::next(first) == elem_type('\n')
+							? *sprout::next(first) == SPROUT_CHAR_LITERAL('\n', elem_type)
 								? result_type(true, sprout::next(sprout::next(first)), attribute_type())
 								: result_type(true, sprout::next(first), attribute_type())
 							: result_type(true, sprout::next(first), attribute_type())
-						: *first == elem_type('\n')
+						: *first == SPROUT_CHAR_LITERAL('\n', elem_type)
 							? result_type(true, sprout::next(first), attribute_type())
 							: result_type(false, first, attribute_type())
 					: result_type(false, first, attribute_type())

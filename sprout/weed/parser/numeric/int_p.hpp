@@ -18,6 +18,7 @@
 #include <sprout/weed/parser_result.hpp>
 #include <sprout/weed/parser/parser_base.hpp>
 #include <sprout/weed/detail/ndigits.hpp>
+#include <sprout/detail/char_literal.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -203,14 +204,14 @@ namespace sprout {
 				typedef typename result<Context, Iterator>::type result_type;
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return first != last
-					? *first == elem_type('+')
+					? *first == SPROUT_CHAR_LITERAL('+', elem_type)
 						? call<Context>(
 							sprout::next(first),
 							last,
 							first,
 							1
 							)
-						: *first == elem_type('-')
+						: *first == SPROUT_CHAR_LITERAL('-', elem_type)
 							? call<Context>(
 								sprout::next(first),
 								last,

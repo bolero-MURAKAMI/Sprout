@@ -15,25 +15,25 @@ namespace sprout {
 	//
 	// integral_constant
 	//
-	template<typename T, T v>
+	template<typename T, T V>
 	struct integral_constant
-		: public std::integral_constant<T, v>
+		: public std::integral_constant<T, V>
 	{
 	public:
-		typedef typename std::integral_constant<T, v>::value_type value_type;
+		typedef typename std::integral_constant<T, V>::value_type value_type;
 		typedef integral_constant type;
 	public:
 		SPROUT_CONSTEXPR
 		operator value_type() const SPROUT_NOEXCEPT {
-			return std::integral_constant<T, v>::value;
+			return std::integral_constant<T, V>::value;
 		}
 		SPROUT_CONSTEXPR bool
 		operator!() const SPROUT_NOEXCEPT {
-			return !std::integral_constant<T, v>::value;
+			return !std::integral_constant<T, V>::value;
 		}
 		SPROUT_CONSTEXPR value_type
 		operator()() const SPROUT_NOEXCEPT {
-			return std::integral_constant<T, v>::value;
+			return std::integral_constant<T, V>::value;
 		}
 	};
 	//

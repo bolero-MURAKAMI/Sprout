@@ -14,6 +14,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
 #include <sprout/utility/pair/pair.hpp>
+#include <sprout/detail/char_literal.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -27,7 +28,7 @@ namespace sprout {
 			{
 				return found != first ? found
 					: pivot == 0 ? (
-						*first == T('-') ? *sprout::prev(first) <= value && *sprout::next(first) >= value
+						*first == SPROUT_CHAR_LITERAL('-', T) ? *sprout::prev(first) <= value && *sprout::next(first) >= value
 							: *first == value
 						) ? first : last
 					: sprout::weed::detail::find_character_set_impl_ra(
@@ -66,7 +67,7 @@ namespace sprout {
 				typedef sprout::pair<BidirectionalIterator, bool> type;
 				return current.second || current.first == last ? current
 					: n == 1 ? (
-						*current.first == T('-') ? *sprout::prev(current.first) <= value && *sprout::next(current.first) >= value
+						*current.first == SPROUT_CHAR_LITERAL('-', T) ? *sprout::prev(current.first) <= value && *sprout::next(current.first) >= value
 							: *current.first == value
 						) ? type(current.first, true) : type(sprout::next(current.first), false)
 					: sprout::weed::detail::find_character_set_impl_1(

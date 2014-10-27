@@ -15,6 +15,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
+#include <sprout/detail/char_literal.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #if !defined(_MSC_VER)
 #	include <cinttypes>
@@ -42,9 +43,10 @@ namespace sprout {
 		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR IntType
 		str_to_int_impl(NullTerminatedIterator str, int base, bool negative) {
-			return *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('0')
-				? *sprout::next(str) == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('x')
-					|| *sprout::next(str) == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('X')
+			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
+			return *str == SPROUT_CHAR_LITERAL('0', char_type)
+				? *sprout::next(str) == SPROUT_CHAR_LITERAL('x', char_type)
+					|| *sprout::next(str) == SPROUT_CHAR_LITERAL('X', char_type)
 					? sprout::detail::str_to_int_impl_1<IntType>(
 						sprout::next(str, 2),
 						base ? base : 16,
@@ -74,9 +76,10 @@ namespace sprout {
 			IntType
 		>::type
 		str_to_int(NullTerminatedIterator str, int base) {
+			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
 			return sprout::ascii::isspace(*str)
 					? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
-				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
+				: *str == SPROUT_CHAR_LITERAL('+', char_type)
 					? sprout::detail::str_to_int_impl<IntType>(sprout::next(str), base, false)
 				: sprout::detail::str_to_int_impl<IntType>(str, base, false)
 				;
@@ -87,11 +90,12 @@ namespace sprout {
 			IntType
 		>::type
 		str_to_int(NullTerminatedIterator str, int base) {
+			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
 			return sprout::ascii::isspace(*str)
 					? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
-				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('-')
+				: *str == SPROUT_CHAR_LITERAL('-', char_type)
 					? sprout::detail::str_to_int_impl<IntType>(sprout::next(str), base, true)
-				: *str == static_cast<typename std::iterator_traits<NullTerminatedIterator>::value_type>('+')
+				: *str == SPROUT_CHAR_LITERAL('+', char_type)
 					? sprout::detail::str_to_int_impl<IntType>(sprout::next(str), base, false)
 				: sprout::detail::str_to_int_impl<IntType>(str, base, false)
 				;

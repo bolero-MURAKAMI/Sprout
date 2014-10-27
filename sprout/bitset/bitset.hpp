@@ -15,6 +15,7 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/detail/sizeof.hpp>
+#include <sprout/detail/char_literal.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/iterator/index_iterator.hpp>
 #include <sprout/functional/hash.hpp>
@@ -1084,12 +1085,12 @@ namespace sprout {
 		template<typename Char, typename Traits, typename Alloc>
 		SPROUT_NON_CONSTEXPR void
 		copy_from_string(std::basic_string<Char, Traits, Alloc> const& s, std::size_t pos, std::size_t n) {
-			copy_from_string(s, pos, n, Char('0'), Char('1'));
+			copy_from_string(s, pos, n, SPROUT_CHAR_LITERAL('0', Char), SPROUT_CHAR_LITERAL('1', Char));
 		}
 		template<typename Char, typename Traits, typename Alloc>
 		SPROUT_NON_CONSTEXPR void
 		copy_to_string(std::basic_string<Char, Traits, Alloc>& s) const {
-			copy_to_string(s, Char('0'), Char('1'));
+			copy_to_string(s, SPROUT_CHAR_LITERAL('0', Char), SPROUT_CHAR_LITERAL('1', Char));
 		}
 
 		SPROUT_CONSTEXPR std::size_t to_hash() const {
@@ -1111,7 +1112,7 @@ namespace sprout {
 			if (position > s.size()) {
 				throw std::out_of_range("bitset::bitset initial position not valid");
 			}
-			copy_from_string(s, position, std::basic_string<Char, Traits, Alloc>::npos, Char('0'), Char('1'));
+			copy_from_string(s, position, std::basic_string<Char, Traits, Alloc>::npos, SPROUT_CHAR_LITERAL('0', Char), SPROUT_CHAR_LITERAL('1', Char));
 		}
 		template<typename Char, typename Traits, typename Alloc>
 		SPROUT_NON_CONSTEXPR bitset(std::basic_string<Char, Traits, Alloc> const& s, std::size_t position, std::size_t n)
@@ -1120,13 +1121,13 @@ namespace sprout {
 			if (position > s.size()) {
 				throw std::out_of_range("bitset::bitset initial position not valid");
 			}
-			copy_from_string(s, position, n, Char('0'), Char('1'));
+			copy_from_string(s, position, n, SPROUT_CHAR_LITERAL('0', Char), SPROUT_CHAR_LITERAL('1', Char));
 		}
 
 		template<typename Char, typename Traits, typename Alloc>
 		SPROUT_NON_CONSTEXPR bitset(
 			std::basic_string<Char, Traits, Alloc> const& s, std::size_t position, std::size_t n,
-			Char zero, Char one = Char('1')
+			Char zero, Char one = SPROUT_CHAR_LITERAL('1', Char)
 			)
 			: base_type()
 		{
@@ -1138,7 +1139,7 @@ namespace sprout {
 		template<typename Char>
 		explicit SPROUT_NON_CONSTEXPR bitset(
 			Char const* str, typename std::basic_string<Char>::std::size_type n = std::basic_string<Char>::npos,
-			Char zero = Char('0'), Char one = Char('1')
+			Char zero = SPROUT_CHAR_LITERAL('0', Char), Char one = SPROUT_CHAR_LITERAL('1', Char)
 			)
 			: base_type()
 		{
@@ -1290,12 +1291,12 @@ namespace sprout {
 		SPROUT_NON_CONSTEXPR std::basic_string<Char, Traits, Alloc>
 		to_string() const {
 			std::basic_string<Char, Traits, Alloc> result;
-			copy_to_string(result, Char('0'), Char('1'));
+			copy_to_string(result, SPROUT_CHAR_LITERAL('0', Char), SPROUT_CHAR_LITERAL('1', Char));
 			return result;
 		}
 		template<typename Char, typename Traits, typename Alloc>
 		SPROUT_NON_CONSTEXPR std::basic_string<Char, Traits, Alloc>
-		to_string(Char zero, Char one = Char('1')) const {
+		to_string(Char zero, Char one = SPROUT_CHAR_LITERAL('1', Char)) const {
 			std::basic_string<Char, Traits, Alloc> result;
 			copy_to_string(result, zero, one);
 			return result;
@@ -1307,7 +1308,7 @@ namespace sprout {
 		}
 		template<typename Char, typename Traits>
 		SPROUT_NON_CONSTEXPR std::basic_string<Char, Traits, std::allocator<Char> >
-		to_string(Char zero, Char one = Char('1')) const {
+		to_string(Char zero, Char one = SPROUT_CHAR_LITERAL('1', Char)) const {
 			return to_string<Char, Traits, std::allocator<Char> >(zero, one);
 		}
 		template<typename Char>
@@ -1317,7 +1318,7 @@ namespace sprout {
 		}
 		template<typename Char>
 		SPROUT_NON_CONSTEXPR std::basic_string<Char, std::char_traits<Char>, std::allocator<Char> >
-		to_string(Char zero, Char one = Char('1')) const {
+		to_string(Char zero, Char one = SPROUT_CHAR_LITERAL('1', Char)) const {
 			return to_string<Char, std::char_traits<Char>, std::allocator<Char> >(zero, one);
 		}
 		SPROUT_NON_CONSTEXPR std::basic_string<char, std::char_traits<char>, std::allocator<char> >

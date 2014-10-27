@@ -30,7 +30,7 @@ namespace sprout {
 				static unsigned const value = 1;
 			};
 #endif
-		}	// namespace detail 
+		}	// namespace detail
 
 		//
 		// print
@@ -65,7 +65,7 @@ namespace sprout {
 #elif defined(__MWERKS__)
 #	pragma warn_hidevirtual reset
 #endif
-	}	// namespace types 
-}	// namespace sprout 
+	}	// namespace types
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_PRINT_HPP
