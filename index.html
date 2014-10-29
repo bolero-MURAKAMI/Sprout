@@ -17,15 +17,15 @@
 	<script type="text/javascript" src="./js/bootstrap.min.js"></script>
 
 	<style type="text/css">
-		.hero-unit {
+		.sprout-header {
 			background: url(./assets/images/two_spheres.jpg) repeat 0 0;
 			background-position: 0 70%, center;
 		}
-		.hero-unit h1 {
+		.sprout-header h1 {
 			color: white;
 			text-shadow: 1px 1px 2px black;
 		}
-		.hero-unit p {
+		.sprout-header p {
 			color: white;
 			text-shadow: 1px 1px 2px black;
 		}
@@ -44,60 +44,87 @@
 	</script>
 	<!-- end Google Analytics -->
 </head>
+
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="brand" href="http://bolero-murakami.github.io/">Bolero's website</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li><a href="http://bolero-murakami.github.io/">Home</a></li>
-						<li class="active"><a href="./index.html">Sprout C++ Libraries</a></li>
-						<li><a href="http://bolero-murakami.github.io/KTL/">KTL (KiriKiri Trivial Libraries)</a></li>
-					</ul>
-				</div>
+				<a class="navbar-brand" href="http://bolero-murakami.github.io/">Bolero's website</a>
 			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="http://bolero-murakami.github.io/">Home</a></li>
+					<li class="active"><a href="./index.html">Sprout C++ Libraries</a></li>
+					<li><a href="http://bolero-murakami.github.io/KTL/">KTL (KiriKiri Trivial Libraries)</a></li>
+				</ul>
+				<ul class="nav navbar-nav pull-right">
+					<li><a href="http://dark-constexpr.github.io/" target="_blank">The Dark constexpr <font color="silver">&raquo;</font></a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
 		</div>
 	</div>
 
-	<div class="container" style="padding-top: 60px; padding-bottom: 40px;">
-		<div class="hero-unit">
-			<h1>Sprout C++ Libraries</h1>
-			<p>C++11/14 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, Synthesizer, and others.</p>
-			<p>
-				<a href="./docs/index.html" class="btn btn-info btn-large">Documentation &raquo;</a>
-				<a href="https://github.com/bolero-MURAKAMI/Sprout/" class="btn btn-primary btn-large" target="_blank">Repository (Github) &raquo;</a>
-			</p>
+	<div class="container" style="padding-top: 10px; padding-bottom: 40px;" role="main">
+		<div class="row container page-header sprout-header" style="padding-top: 40px; padding-bottom: 40px;">
+			<div class="col-md-12">
+				<h1>Sprout C++ Libraries</h1>
+				<p>C++11/14 constexpr based Containers, Algorithms, Random numbers, Parsing, Ray tracing, Synthesizer, and others.</p>
+
+				<p>
+					<a href="./docs/index.html" class="btn btn-info btn-large"><span class="lead">Documentation &raquo;</span></a>
+					<a href="https://github.com/bolero-MURAKAMI/Sprout/" class="btn btn-primary btn-large" target="_blank"><span class="lead">Repository (Github) &raquo;</span></a>
+				</p>
+			</div>
 		</div>
 
 		<div class="row">
-			<blockquote class="pull-right">
-				<p>Und wenn du lange in einen constexpr blickst, blickt der constexpr auch in dich hinein.</p>
-				<small>Certain philosopher</small>
-			</blockquote>
-		</div>
-		<div class="row">
-			<blockquote class="pull-right">
-				<p>constexpr is Mandatory. Citizen, are you constexpr?</p>
-				<small>Certain computer</small>
-			</blockquote>
+			<div class="col-md-12">
+				<blockquote class="pull-right">
+					<p>
+						Und wenn du lange in einen constexpr blickst, blickt der constexpr auch in dich hinein.<br />
+						<small>Certain philosopher</small>
+					</p>
+				</blockquote>
+			</div>
 		</div>
 
-		<h2>Try now!</h2>
-		<p><a href="http://melpon.org/wandbox/" target="_blank">Wandbox</a> and <a href="http://sc.yutopp.net/" target="_blank">ProcGarden</a> are an online compiler that you can use the Sprout C++ Libraries.</p>
-		<p>Examples: <a href="http://melpon.org/wandbox/permlink/iRJUI6iRCgVyH6gy" target="_blank">Compile-time Inverse FizzBuzz</a> (on Wandbox), <a href="http://sc.yutopp.net/entries/5345deb143f75e31400000c4" target="_blank">Compile-time Tower of Hanoi</a> (on ProcGarden)</p>
-		<p>Enjoy it!</p>
-
 		<div class="row">
-			<blockquote class="pull-right">
-				<p>The sprout is a versatile vegetable.</p>
-				<small>@gaogao_9</small>
-			</blockquote>
+			<div class="col-md-7">
+				<h2>Try now!</h2>
+				<p><a href="http://melpon.org/wandbox/" target="_blank">Wandbox</a> and <a href="http://sc.yutopp.net/" target="_blank">ProcGarden</a> are an online compiler that you can use the Sprout C++ Libraries.</p>
+				<p>Examples: <a href="http://melpon.org/wandbox/permlink/iRJUI6iRCgVyH6gy" target="_blank">Compile-time Inverse FizzBuzz</a> (on Wandbox), <a href="http://sc.yutopp.net/entries/5345deb143f75e31400000c4" target="_blank">Compile-time Tower of Hanoi</a> (on ProcGarden)</p>
+				<p>Enjoy it!</p>
+			</div>
+
+			<div class="col-md-5">
+				<div class="row">
+					<div class="col-md-12">
+						<blockquote class="pull-right">
+							<p>
+								constexpr is Mandatory. Citizen, are you constexpr?<br />
+								<small>Certain computer</small>
+							</p>
+						</blockquote>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<blockquote class="pull-right">
+							<p>
+								The sprout is a versatile vegetable.<br />
+								<small>@gaogao_9</small>
+							</p>
+						</blockquote>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<h2>Materials</h2>
@@ -114,21 +141,21 @@
 
 		<h3>Slide</h3>
 		<div class="row">
-			<div class="span4">
+			<div class="col-md-4">
 				<iframe src="http://www.slideshare.net/slideshow/embed_code/10458089" width="360" height="320" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/GenyaMurakami/constexpr-10458089" title="中３女子でもわかる constexpr" target="_blank">中３女子でもわかる constexpr</a> </strong> from <strong><a href="http://www.slideshare.net/GenyaMurakami" target="_blank">Genya Murakami</a></strong> </div>
 			</div>
-			<div class="span4">
+			<div class="col-md-4">
 				<iframe src="http://www.slideshare.net/slideshow/embed_code/11509325" width="360" height="320" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/GenyaMurakami/constexpr-11509325" title="中３女子が狂える本当に気持ちのいい constexpr" target="_blank">中３女子が狂える本当に気持ちのいい constexpr</a> </strong> from <strong><a href="http://www.slideshare.net/GenyaMurakami" target="_blank">Genya Murakami</a></strong> </div>
 			</div>
-			<div class="span4">
+			<div class="col-md-4">
 				<iframe src="http://www.slideshare.net/slideshow/embed_code/23355469" width="360" height="320" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/GenyaMurakami/constexpr-23355469" title="Constexpr 中３女子テクニック" target="_blank">Constexpr 中３女子テクニック</a> </strong> from <strong><a href="http://www.slideshare.net/GenyaMurakami" target="_blank">Genya Murakami</a></strong> </div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="span4">
+			<div class="col-md-4">
 				<iframe src="http://www.slideshare.net/slideshow/embed_code/29223898" width="360" height="320" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/GenyaMurakami/constexpr-29223898" title="すごい constexpr たのしくレイトレ！" target="_blank">すごい constexpr たのしくレイトレ！</a> </strong> from <strong><a href="http://www.slideshare.net/GenyaMurakami" target="_blank">Genya Murakami</a></strong> </div>
 			</div>
-			<div class="span4">
+			<div class="col-md-4">
 				<iframe src="http://www.slideshare.net/slideshow/embed_code/36402422" width="360" height="320" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/GenyaMurakami/onstexprcpu" title="ｃonstexpr関数はコンパイル時処理。これはいい。実行時が霞んで見える。cpuの嬌声が聞こえてきそうだ" target="_blank">ｃonstexpr関数はコンパイル時処理。これはいい。実行時が霞んで見える。cpuの嬌声が聞こえてきそうだ</a> </strong> from <strong><a href="http://www.slideshare.net/GenyaMurakami" target="_blank">Genya Murakami</a></strong> </div>
 			</div>
 		</div>
@@ -136,7 +163,7 @@
 		<h3>Author</h3>
 		<p>Bolero MURAKAMI <a href="mailto:contact-lib@boleros.x0.com">(E-Mail)</a></p>
 		<div class="row">
-			<div class="span6">
+			<div class="col-md-6">
 				<table class="table">
 					<tbody>
 						<tr>
@@ -151,7 +178,7 @@
 			</div>
 		</div>
 		<div id="footer">
-			<p class="muted credit">Copyright (C) 2013-2014 Bolero MURAKAMI.</p>
+			<p class="text-muted">Copyright (C) 2013-2014 Bolero MURAKAMI.</p>
 		</div>
 	</div>
 </body>
