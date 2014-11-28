@@ -8,7 +8,8 @@
 #ifndef SPROUT_RANDOM_LINEAR_FEEDBACK_SHIFT_HPP
 #define SPROUT_RANDOM_LINEAR_FEEDBACK_SHIFT_HPP
 
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/detail/integer/integer_mask.hpp>
 #include <sprout/random/detail/seed_impl.hpp>

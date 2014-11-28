@@ -8,8 +8,8 @@
 #ifndef SPROUT_OPTIONAL_IO_HPP
 #define SPROUT_OPTIONAL_IO_HPP
 
-#include <iosfwd>
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/optional/optional.hpp>
 #include <sprout/none.hpp>

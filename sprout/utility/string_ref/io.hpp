@@ -9,7 +9,8 @@
 #define SPROUT_UTILITY_STRING_IO_HPP
 
 #include <iterator>
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/algorithm/cxx14/copy.hpp>
 #include <sprout/utility/string_ref/string_ref.hpp>

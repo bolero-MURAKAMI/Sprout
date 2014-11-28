@@ -8,8 +8,8 @@
 #ifndef SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_UNIFORM_INT_DISTRIBUTION_HPP
 
-#include <ios>
 #include <istream>
+#include <ostream>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>

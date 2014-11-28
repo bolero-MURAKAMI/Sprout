@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 
 namespace sprout {
-	namespace noncopyable_ {
+	namespace noncopyable_detail {
 		class noncopyable {
 		protected:
 			SPROUT_CONSTEXPR noncopyable() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
@@ -20,11 +20,11 @@ namespace sprout {
 			noncopyable(noncopyable const&) SPROUT_DELETED_FUNCTION_DECL
 			noncopyable& operator=(noncopyable const&) SPROUT_DELETED_FUNCTION_DECL
 		};
-	}	// namespace noncopyable_
+	}	// namespace noncopyable_detail
 	//
 	// noncopyable
 	//
-	typedef sprout::noncopyable_::noncopyable noncopyable;
+	typedef sprout::noncopyable_detail::noncopyable noncopyable;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_NONCOPYABLE_HPP

@@ -8,8 +8,8 @@
 #ifndef SPROUT_COMPLEX_OPERATORS_HPP
 #define SPROUT_COMPLEX_OPERATORS_HPP
 
-#include <iosfwd>
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/complex/complex.hpp>
 

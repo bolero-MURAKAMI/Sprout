@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>
 #include <sprout/functional/base.hpp>
@@ -235,20 +236,17 @@ namespace sprout {
 	// unwrap_reference
 	//
 	template<typename T>
-	struct unwrap_reference {
-	public:
-		typedef T type;
-	};
+	struct unwrap_reference
+		: public sprout::identity<T>
+	{};
 	template<typename T>
-	struct unwrap_reference<sprout::reference_wrapper<T> > {
-	public:
-		typedef T type;
-	};
+	struct unwrap_reference<sprout::reference_wrapper<T> >
+		: public sprout::identity<T>
+	{};
 	template<typename T>
-	struct unwrap_reference<std::reference_wrapper<T> > {
-	public:
-		typedef T type;
-	};
+	struct unwrap_reference<std::reference_wrapper<T> >
+		: public sprout::identity<T>
+	{};
 	template<typename T>
 	struct unwrap_reference<T const>
 		: public sprout::unwrap_reference<T>
@@ -266,20 +264,17 @@ namespace sprout {
 	// strip_reference
 	//
 	template<typename T>
-	struct strip_reference {
-	public:
-		typedef T type;
-	};
+	struct strip_reference
+		: public sprout::identity<T>
+	{};
 	template<typename T>
-	struct strip_reference<sprout::reference_wrapper<T> > {
-	public:
-		typedef T& type;
-	};
+	struct strip_reference<sprout::reference_wrapper<T> >
+		: public sprout::identity<T&>
+	{};
 	template<typename T>
-	struct strip_reference<std::reference_wrapper<T> > {
-	public:
-		typedef T& type;
-	};
+	struct strip_reference<std::reference_wrapper<T> >
+		: public sprout::identity<T&>
+	{};
 	template<typename T>
 	struct strip_reference<T const>
 		: public sprout::strip_reference<T>

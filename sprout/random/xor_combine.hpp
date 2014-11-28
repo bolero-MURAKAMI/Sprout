@@ -8,8 +8,8 @@
 #ifndef SPROUT_RANDOM_XOR_COMBINE_HPP
 #define SPROUT_RANDOM_XOR_COMBINE_HPP
 
-#include <ios>
 #include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/type_traits.hpp>

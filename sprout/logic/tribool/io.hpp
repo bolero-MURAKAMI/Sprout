@@ -10,8 +10,8 @@
 
 #include <locale>
 #include <string>
-#include <iosfwd>
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/utility/noncopyable.hpp>
 #include <sprout/logic/tribool/tribool.hpp>

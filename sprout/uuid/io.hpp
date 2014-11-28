@@ -9,9 +9,8 @@
 #define SPROUT_UUID_IO_HPP
 
 #include <iterator>
-#include <ios>
-#include <ostream>
 #include <istream>
+#include <ostream>
 #include <locale>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>

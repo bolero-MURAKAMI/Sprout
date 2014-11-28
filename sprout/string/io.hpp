@@ -8,7 +8,8 @@
 #ifndef SPROUT_STRING_IO_HPP
 #define SPROUT_STRING_IO_HPP
 
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/string/string.hpp>

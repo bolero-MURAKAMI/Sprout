@@ -5,14 +5,21 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_MEMORY_HPP
-#define SPROUT_MEMORY_HPP
+#ifndef SPROUT_UTILITY_IMPLICIT_CAST_HPP
+#define SPROUT_UTILITY_IMPLICIT_CAST_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/memory/addressof.hpp>
-#include <sprout/memory/exempt_ptr.hpp>
-#include <sprout/memory/observer_ptr.hpp>
-#include <sprout/memory/pointer_cast.hpp>
-#include <sprout/memory/get_pointer.hpp>
+#include <sprout/type_traits/identity.hpp>
 
-#endif	// #ifndef SPROUT_MEMORY_HPP
+namespace sprout {
+	//
+	// implicit_cast
+	//
+	template<typename T>
+	inline SPROUT_CONSTEXPR T
+	implicit_cast (typename sprout::identity<T>::type t) {
+	    return t;
+	}
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_UTILITY_IMPLICIT_CAST_HPP

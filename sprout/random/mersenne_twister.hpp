@@ -8,7 +8,8 @@
 #ifndef SPROUT_RANDOM_MERSENNE_TWISTER_HPP
 #define SPROUT_RANDOM_MERSENNE_TWISTER_HPP
 
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>

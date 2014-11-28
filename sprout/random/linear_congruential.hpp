@@ -9,7 +9,8 @@
 #define SPROUT_RANDOM_LINEAR_CONGRUENTIAL_HPP
 
 #include <cstdint>
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>

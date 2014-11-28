@@ -18,6 +18,8 @@
 #include <sprout/type_traits/is_uint.hpp>
 #include <sprout/type_traits/is_char_type.hpp>
 #include <sprout/type_traits/is_c_str.hpp>
+#include <sprout/type_traits/is_nullptr_cast.hpp>
+#include <sprout/type_traits/is_upcast.hpp>
 #include <sprout/type_traits/has_type.hpp>
 #include <sprout/type_traits/has_value.hpp>
 #include <sprout/type_traits/identity.hpp>

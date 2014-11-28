@@ -12,9 +12,14 @@
 #include <iterator>
 #include <type_traits>
 #include <utility>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/hash.hpp>
+#include <sprout/functional/less.hpp>
+#include <sprout/type_traits/common_decay.hpp>
+#include <sprout/memory/pointer_cast.hpp>
+#include <sprout/memory/get_pointer.hpp>
 
 namespace sprout {
 	//
@@ -100,10 +105,7 @@ namespace sprout {
 		SPROUT_EXPLICIT_CONVERSION SPROUT_CONSTEXPR operator bool() const SPROUT_NOEXCEPT {
 			return get();
 		}
-		SPROUT_CONSTEXPR operator pointer() SPROUT_NOEXCEPT {
-			return get();
-		}
-		SPROUT_CONSTEXPR operator const_pointer() const SPROUT_NOEXCEPT {
+		SPROUT_EXPLICIT_CONVERSION SPROUT_CONSTEXPR operator pointer() const SPROUT_NOEXCEPT {
 			return get();
 		}
 		SPROUT_CXX14_CONSTEXPR pointer
@@ -186,25 +188,27 @@ namespace sprout {
 	operator!=(sprout::exempt_ptr<T> const& x, sprout::exempt_ptr<U> const& y) SPROUT_NOEXCEPT {
 		return !(x == y);
 	}
+
 	template<typename T>
 	inline SPROUT_CONSTEXPR bool
-	operator==(sprout::exempt_ptr<T> const& x, std::nullptr_t y) SPROUT_NOEXCEPT {
-		return x.get() == y;
+	operator==(sprout::exempt_ptr<T> const& x, std::nullptr_t) SPROUT_NOEXCEPT {
+		return !x;
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR bool
-	operator!=(sprout::exempt_ptr<T> const& x, std::nullptr_t y) SPROUT_NOEXCEPT {
-		return !(x == y);
+	operator!=(sprout::exempt_ptr<T> const& x, std::nullptr_t) SPROUT_NOEXCEPT {
+		return static_cast<bool>(x);
+	}
+
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator==(std::nullptr_t, sprout::exempt_ptr<T> const& y) SPROUT_NOEXCEPT {
+		return !y;
 	}
 	template<typename T>
 	inline SPROUT_CONSTEXPR bool
-	operator==(std::nullptr_t x, sprout::exempt_ptr<T> const& y) SPROUT_NOEXCEPT {
-		return x == y.get();
-	}
-	template<typename T>
-	inline SPROUT_CONSTEXPR bool
-	operator!=(std::nullptr_t x, sprout::exempt_ptr<T> const& y) SPROUT_NOEXCEPT {
-		return !(x == y);
+	operator!=(std::nullptr_t, sprout::exempt_ptr<T> const& y) SPROUT_NOEXCEPT {
+		return static_cast<bool>(y);
 	}
 	//
 	// operator<
@@ -215,7 +219,8 @@ namespace sprout {
 	template<typename T, typename U>
 	inline SPROUT_CONSTEXPR bool
 	operator<(sprout::exempt_ptr<T> const& x, sprout::exempt_ptr<U> const& y) {
-		return x.get() < y.get();
+		typedef typename sprout::common_decay<T*, U*>::type type;
+		return sprout::less<type>()(x.get(), y.get());
 	}
 	template<typename T, typename U>
 	inline SPROUT_CONSTEXPR bool
@@ -232,6 +237,48 @@ namespace sprout {
 	operator>=(sprout::exempt_ptr<T> const& x, sprout::exempt_ptr<U> const& y) {
 		return !(x < y);
 	}
+
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<(sprout::exempt_ptr<T> const& x, std::nullptr_t y) {
+		return sprout::less<T*>()(x.get(), y);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>(sprout::exempt_ptr<T> const& x, std::nullptr_t y) {
+		return y < x;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(sprout::exempt_ptr<T> const& x, std::nullptr_t y) {
+		return !(y < x);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(sprout::exempt_ptr<T> const& x, std::nullptr_t y) {
+		return !(x < y);
+	}
+
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<(std::nullptr_t x, sprout::exempt_ptr<T> const& y) {
+		return sprout::less<T*>()(x, y.get());
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>(std::nullptr_t x, sprout::exempt_ptr<T> const& y) {
+		return y < x;
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator<=(std::nullptr_t x, sprout::exempt_ptr<T> const& y) {
+		return !(y < x);
+	}
+	template<typename T>
+	inline SPROUT_CONSTEXPR bool
+	operator>=(std::nullptr_t x, sprout::exempt_ptr<T> const& y) {
+		return !(x < y);
+	}
 	//
 	// operator+
 	// operator-
@@ -245,6 +292,14 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR std::ptrdiff_t
 	operator-(sprout::exempt_ptr<T> const& x, sprout::exempt_ptr<T> const& y) {
 		return x.get() - y.get();
+	}
+	//
+	// operator<<
+	//
+	template<typename T, typename Elem, typename Traits>
+	inline SPROUT_CONSTEXPR std::basic_ostream<Elem, Traits>&
+	operator<<(std::basic_ostream<Elem, Traits>& lhs, sprout::exempt_ptr<T> const& rhs) {
+		return lhs << rhs.get();
 	}
 }	// namespace sprout
 
@@ -275,5 +330,47 @@ namespace std {
 #	pragma clang diagnostic pop
 #endif
 }	// namespace std
+
+namespace sprout {
+	//
+	// static_pointer_cast
+	// const_pointer_cast
+	// dynamic_pointer_cast
+	// reinterpret_pointer_cast
+	//
+	template<typename T, typename U>
+	inline SPROUT_CONSTEXPR sprout::exempt_ptr<T>
+	static_pointer_cast(sprout::exempt_ptr<U> const& p) {
+		typedef typename sprout::exempt_ptr<T>::element_type element_type;
+		return sprout::exempt_ptr<T>(sprout::static_pointer_cast<element_type>(p.get()));
+	}
+	template<typename T, typename U>
+	inline SPROUT_CONSTEXPR sprout::exempt_ptr<T>
+	const_pointer_cast(sprout::exempt_ptr<U> const& p) {
+		typedef typename sprout::exempt_ptr<T>::element_type element_type;
+		return sprout::exempt_ptr<T>(sprout::const_pointer_cast<element_type>(p.get()));
+	}
+	template<typename T, typename U>
+	inline SPROUT_CONSTEXPR sprout::exempt_ptr<T>
+	dynamic_pointer_cast(sprout::exempt_ptr<U> const& p) {
+		typedef typename sprout::exempt_ptr<T>::element_type element_type;
+		return sprout::exempt_ptr<T>(sprout::dynamic_pointer_cast<element_type>(p.get()));
+	}
+	template<typename T, typename U>
+	inline SPROUT_CONSTEXPR sprout::exempt_ptr<T>
+	reinterpret_pointer_cast(sprout::exempt_ptr<U> const& p) {
+		typedef typename sprout::exempt_ptr<T>::element_type element_type;
+		return sprout::exempt_ptr<T>(sprout::reinterpret_pointer_cast<element_type>(p.get()));
+	}
+
+	//
+	// get_pointer
+	//
+	template<typename T>
+	inline SPROUT_NON_CONSTEXPR T*
+	get_pointer(sprout::exempt_ptr<T> const& p) SPROUT_NOEXCEPT {
+	    return p.get();
+	}
+}	// namespace sprout
 
 #endif	// #ifndef SPROUT_MEMORY_EXEMPT_PTR_HPP

@@ -9,8 +9,8 @@
 #define SPROUT_RANDOM_ADDITIVE_COMBINE_HPP
 
 #include <cstdint>
-#include <ios>
 #include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/linear_congruential.hpp>

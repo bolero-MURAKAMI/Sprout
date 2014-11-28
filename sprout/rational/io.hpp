@@ -8,8 +8,8 @@
 #ifndef SPROUT_RATIONAL_IO_HPP
 #define SPROUT_RATIONAL_IO_HPP
 
-#include <ios>
-#include <iostream>
+#include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/rational/rational.hpp>
 #include <sprout/detail/io/ios_state.hpp>

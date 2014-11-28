@@ -8,7 +8,8 @@
 #ifndef SPROUT_RANDOM_GEOMETRIC_DISTRIBUTION_HPP
 #define SPROUT_RANDOM_GEOMETRIC_DISTRIBUTION_HPP
 
-#include <ios>
+#include <istream>
+#include <ostream>
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>
 #include <sprout/math/log.hpp>

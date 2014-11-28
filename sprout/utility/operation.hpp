@@ -14,7 +14,5 @@
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/exchange.hpp>
-#include <sprout/utility/unmove.hpp>
-#include <sprout/utility/eat.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_OPERATION_HPP
