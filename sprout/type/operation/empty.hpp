@@ -19,8 +19,7 @@ namespace sprout {
 		//
 		template<typename Tuple>
 		struct empty
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				(sprout::types::tuple_size<Tuple>::value == 0)
 			>
 		{};

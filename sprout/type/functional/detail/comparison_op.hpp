@@ -18,7 +18,7 @@ namespace sprout { \
 	namespace types { \
 		template<typename T, typename U> \
 		struct NAME \
-			: public sprout::integral_constant<bool, ((T::value) OP (U::value))> \
+			: public sprout::bool_constant<((T::value) OP (U::value))> \
 		{}; \
 		typedef sprout::types::quote<sprout::types::NAME> SPROUT_PP_CAT(NAME, _); \
 		SPROUT_TYPES_DETAIL_FUNCTIONAL_COMPARISON_OP_VT_DECL(NAME) \

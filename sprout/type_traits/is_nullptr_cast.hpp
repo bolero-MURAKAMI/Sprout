@@ -19,8 +19,7 @@ namespace sprout {
 	//
 	template<typename From, typename To>
 	struct is_nullptr_cast
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			sprout::is_pointer<To>::value && sprout::is_same<typename sprout::decay<From>::type, std::nullptr_t>::value
 		>
 	{};

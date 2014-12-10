@@ -20,8 +20,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct is_sub_container
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				!std::is_same<typename sprout::containers::internal<Container>::type, Container&&>::value
 			>
 		{};

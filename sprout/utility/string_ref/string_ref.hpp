@@ -54,8 +54,7 @@ namespace sprout {
 	private:
 		template<typename Iterator>
 		class is_string_ref_iterator
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				std::is_same<Iterator, sprout::index_iterator<basic_string_ref&, true> >::value
 					|| std::is_same<Iterator, sprout::index_iterator<basic_string_ref const&, true> >::value
 			>

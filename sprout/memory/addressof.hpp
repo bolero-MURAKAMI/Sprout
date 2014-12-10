@@ -64,8 +64,7 @@ namespace sprout {
 
 		template<typename T>
 		struct has_address_op
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				sprout::detail::has_mem_address_op<T>::value || sprout::detail::has_nonmem_address_op<T>::value
 			>
 		{};

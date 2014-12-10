@@ -19,12 +19,11 @@ namespace sprout {
 		namespace detail {
 			template<typename Tup, std::size_t First, std::size_t Last, bool = (Last - First == 1)>
 			struct none_of_impl
-				: public sprout::integral_constant<bool, !std::tuple_element<First, Tup>::type::value>
+				: public sprout::bool_constant<!std::tuple_element<First, Tup>::type::value>
 			{};
 			template<typename Tup, std::size_t First, std::size_t Last>
 			struct none_of_impl<Tup, First, Last, false>
-				: public sprout::integral_constant<
-					bool,
+				: public sprout::bool_constant<
 					sprout::tpp::detail::none_of_impl<Tup, First, (First + Last) / 2>::value
 						&& sprout::tpp::detail::none_of_impl<Tup, (First + Last) / 2, Last>::value
 				>
@@ -46,7 +45,7 @@ namespace sprout {
 		//
 		template<bool... Values>
 		struct none_of_c
-			: public sprout::tpp::none_of<sprout::integral_constant<bool, Values>...>
+			: public sprout::tpp::none_of<sprout::bool_constant<Values>...>
 		{};
 	}	// namespace tpp
 }	// namespace sprout

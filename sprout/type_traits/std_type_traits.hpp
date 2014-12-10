@@ -204,7 +204,7 @@ namespace sprout {
 #if SPROUT_CLANG_HAS_FUTURE(is_trivially_constructible)
 	template<typename T, typename... Args>
 	struct is_trivially_constructible
-		: public sprout::integral_constant<bool, __is_trivially_constructible(T, Args...)>
+		: public sprout::bool_constant<__is_trivially_constructible(T, Args...)>
 	{};
 #else	// #if SPROUT_CLANG_HAS_FUTURE(is_trivially_constructible)
 	template<typename T, typename... Args>
@@ -214,7 +214,7 @@ namespace sprout {
 #if SPROUT_CLANG_HAS_FUTURE(has_trivial_constructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_constructible<T>
-		: public sprout::integral_constant<bool, __has_trivial_constructor(T)>
+		: public sprout::bool_constant<__has_trivial_constructor(T)>
 	{};
 #else	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_constructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
@@ -254,7 +254,7 @@ namespace sprout {
 #if SPROUT_CLANG_HAS_FUTURE(is_trivially_assignable)
 	template<typename T, typename U>
 	struct is_trivially_assignable
-		: public sprout::integral_constant<bool, __is_trivially_assignable(T, U)>
+		: public sprout::bool_constant<__is_trivially_assignable(T, U)>
 	{};
 #else	// #if SPROUT_CLANG_HAS_FUTURE(is_trivially_assignable)
 	template<typename T, typename U>
@@ -330,13 +330,12 @@ namespace sprout {
 #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_destructible
-		: public sprout::integral_constant<bool, __has_trivial_destructor(T)>
+		: public sprout::bool_constant<__has_trivial_destructor(T)>
 	{};
 #else	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_destructible
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			std::is_scalar<typename std::remove_all_extents<T>::type>::value
 				|| std::is_reference<typename std::remove_all_extents<T>::type>::value
 		>
@@ -379,8 +378,7 @@ namespace sprout {
 #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
 	template<typename T>
 	struct is_nothrow_destructible
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			std::is_scalar<typename std::remove_all_extents<T>::type>::value
 				|| std::is_reference<typename std::remove_all_extents<T>::type>::value
 		>

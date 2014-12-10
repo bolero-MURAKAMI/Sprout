@@ -36,12 +36,26 @@ namespace sprout {
 			return std::integral_constant<T, V>::value;
 		}
 	};
+
+	//
+	// bool_constant
+	//
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<bool V>
+	using bool_constant = sprout::integral_constant<bool, V>;
+#else	// #if SPROUT_USE_TEMPLATE_ALIASES
+	template<bool V>
+	struct bool_constant
+		: public sprout::integral_constant<bool, V>
+	{};
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+
 	//
 	// true_type
 	// false_type
 	//
-	typedef sprout::integral_constant<bool, true> true_type;
-	typedef sprout::integral_constant<bool, false> false_type;
+	typedef sprout::bool_constant<true> true_type;
+	typedef sprout::bool_constant<false> false_type;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_INTEGRAL_CONSTANT_HPP

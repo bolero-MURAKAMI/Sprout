@@ -19,8 +19,7 @@ namespace sprout {
 	//
 	template<typename From, typename To>
 	struct is_upcast
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			sprout::is_nullptr_cast<From, To>::value
 				|| (sprout::is_pointer<To>::value
 					&& sprout::is_base_of<typename sprout::remove_pointer<To>::type, typename sprout::remove_pointer<typename sprout::decay<From>::type>::type>::value

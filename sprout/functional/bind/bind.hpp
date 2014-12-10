@@ -202,16 +202,14 @@ namespace sprout {
 		public:
 			template<typename T>
 			struct apply
-				: public sprout::integral_constant<
-					bool,
+				: public sprout::bool_constant<
 					(sprout::is_variadic_placeholder<T>::value > 0)
 				>
 			{};
 		};
 		template<typename Bounds, typename = void>
 		struct is_variadic_bounds
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				sprout::types::contains_if<Bounds, sprout::detail::is_variadic_placeholder_pred>::value
 			>
 		{};
@@ -297,8 +295,7 @@ namespace sprout {
 
 		template<sprout::index_t I, typename Bounds, std::size_t ArgSize>
 		struct is_variadic_part
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				(sprout::is_variadic_placeholder<
 						typename sprout::tuples::tuple_element<
 							sprout::detail::bound_position<I, Bounds, ArgSize>::value,

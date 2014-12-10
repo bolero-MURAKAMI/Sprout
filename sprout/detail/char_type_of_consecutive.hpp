@@ -16,8 +16,7 @@ namespace sprout {
 	namespace detail {
 		template<typename CharType>
 		struct is_char_type_of_consecutive_digits
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				SPROUT_CHAR_LITERAL('0', CharType) + 1 == SPROUT_CHAR_LITERAL('1', CharType)
 					&& SPROUT_CHAR_LITERAL('1', CharType) + 1 == SPROUT_CHAR_LITERAL('2', CharType)
 					&& SPROUT_CHAR_LITERAL('2', CharType) + 1 == SPROUT_CHAR_LITERAL('3', CharType)
@@ -44,8 +43,7 @@ namespace sprout {
 
 		template<typename CharType>
 		struct is_char_type_of_consecutive_lower_alphabet
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				SPROUT_CHAR_LITERAL('a', CharType) + 1 == SPROUT_CHAR_LITERAL('b', CharType)
 					&& SPROUT_CHAR_LITERAL('b', CharType) + 1 == SPROUT_CHAR_LITERAL('c', CharType)
 					&& SPROUT_CHAR_LITERAL('c', CharType) + 1 == SPROUT_CHAR_LITERAL('d', CharType)
@@ -88,8 +86,7 @@ namespace sprout {
 
 		template<typename CharType>
 		struct is_char_type_of_consecutive_upper_alphabet
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				SPROUT_CHAR_LITERAL('A', CharType) + 1 == SPROUT_CHAR_LITERAL('B', CharType)
 					&& SPROUT_CHAR_LITERAL('B', CharType) + 1 == SPROUT_CHAR_LITERAL('C', CharType)
 					&& SPROUT_CHAR_LITERAL('C', CharType) + 1 == SPROUT_CHAR_LITERAL('D', CharType)

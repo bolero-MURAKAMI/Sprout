@@ -27,8 +27,7 @@ namespace sprout {
 		//
 		template<typename T>
 		struct is_real_std_random_parameter
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				std::is_same<T, float>::value
 					|| std::is_same<T, double>::value
 					|| std::is_same<T, long double>::value
@@ -36,8 +35,7 @@ namespace sprout {
 		{};
 		template<typename T>
 		struct is_int_std_random_parameter
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				std::is_same<T, short>::value
 					|| std::is_same<T, int>::value
 					|| std::is_same<T, long>::value
@@ -50,8 +48,7 @@ namespace sprout {
 		{};
 		template<typename T>
 		struct is_uint_std_random_parameter
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				std::is_same<T, unsigned short>::value
 					|| std::is_same<T, unsigned int>::value
 					|| std::is_same<T, unsigned long>::value

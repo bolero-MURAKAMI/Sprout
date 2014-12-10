@@ -19,12 +19,11 @@ namespace sprout {
 		namespace detail {
 			template<typename Tup, std::size_t First, std::size_t Last, bool = (Last - First == 1)>
 			struct one_of_impl_1
-				: public sprout::integral_constant<bool, !std::tuple_element<First, Tup>::type::value>
+				: public sprout::bool_constant<!std::tuple_element<First, Tup>::type::value>
 			{};
 			template<typename Tup, std::size_t First, std::size_t Last>
 			struct one_of_impl_1<Tup, First, Last, false>
-				: public sprout::integral_constant<
-					bool,
+				: public sprout::bool_constant<
 					sprout::tpp::detail::one_of_impl_1<Tup, First, (First + Last) / 2>::value
 						&& sprout::tpp::detail::one_of_impl_1<Tup, (First + Last) / 2, Last>::value
 				>
@@ -36,8 +35,7 @@ namespace sprout {
 			{};
 			template<typename Tup, std::size_t First, std::size_t Last>
 			struct one_of_impl<Tup, First, Last, false>
-				: public sprout::integral_constant<
-					bool,
+				: public sprout::bool_constant<
 					sprout::tpp::detail::one_of_impl<Tup, First, (First + Last) / 2>::value
 						? sprout::tpp::detail::one_of_impl_1<Tup, (First + Last) / 2, Last>::value
 						: sprout::tpp::detail::one_of_impl<Tup, (First + Last) / 2, Last>::value
@@ -60,7 +58,7 @@ namespace sprout {
 		//
 		template<bool... Values>
 		struct one_of_c
-			: public sprout::tpp::one_of<sprout::integral_constant<bool, Values>...>
+			: public sprout::tpp::one_of<sprout::bool_constant<Values>...>
 		{};
 //		namespace detail {
 //			template<bool... Values>
@@ -83,7 +81,7 @@ namespace sprout {
 //			{};
 //			template<bool... Tail>
 //			struct one_of_impl<false, Tail...>
-//				: public sprout::integral_constant<bool, sprout::tpp::detail::one_of_impl<Tail...>::value>
+//				: public sprout::bool_constant<sprout::tpp::detail::one_of_impl<Tail...>::value>
 //			{};
 //		}	// namespace detail
 //		//

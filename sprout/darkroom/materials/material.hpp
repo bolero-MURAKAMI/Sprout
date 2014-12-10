@@ -34,19 +34,19 @@ namespace sprout {
 			//
 			template<typename T>
 			struct has_color
-				: public sprout::integral_constant<bool, (sprout::darkroom::access::size<T>::value >= 1)>
+				: public sprout::bool_constant<(sprout::darkroom::access::size<T>::value >= 1)>
 			{};
 			template<typename T>
 			struct has_reflection
-				: public sprout::integral_constant<bool, (sprout::darkroom::access::size<T>::value >= 2)>
+				: public sprout::bool_constant<(sprout::darkroom::access::size<T>::value >= 2)>
 			{};
 			template<typename T>
 			struct has_alpha
-				: public sprout::integral_constant<bool, (sprout::darkroom::access::size<T>::value >= 3)>
+				: public sprout::bool_constant<(sprout::darkroom::access::size<T>::value >= 3)>
 			{};
 			template<typename T>
 			struct has_refraction
-				: public sprout::integral_constant<bool, (sprout::darkroom::access::size<T>::value >= 4)>
+				: public sprout::bool_constant<(sprout::darkroom::access::size<T>::value >= 4)>
 			{};
 
 			//

@@ -31,7 +31,7 @@ namespace sprout {
 			{};
 			template<std::size_t I, typename T>
 			struct valid_tuple_index<I, T, true>
-				: public sprout::integral_constant<bool, (I < std::tuple_size<T>::value)>
+				: public sprout::bool_constant<(I < std::tuple_size<T>::value)>
 			{};
 
 			template<std::size_t I, typename T, bool = sprout::has_type<std::tuple_element<I, T> >::value && sprout::tuples::detail::valid_tuple_index<I, T>::value>

@@ -91,8 +91,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct has_container_nosy_iterator
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				sprout::detail::has_iterator<Container>::value
 					|| sprout::detail::has_const_iterator<Container>::value
 			>
@@ -102,8 +101,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct has_container_nosy_value_type
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				sprout::detail::has_value_type<Container>::value
 					|| sprout::detail::has_container_nosy_iterator<Container>::value
 			>
@@ -113,8 +111,7 @@ namespace sprout {
 		//
 		template<typename Container>
 		struct has_container_nosy_static_size
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				sprout::detail::has_static_size<Container>::value
 					|| sprout::detail::is_array_like<Container>::value
 			>

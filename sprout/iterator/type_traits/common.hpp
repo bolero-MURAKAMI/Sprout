@@ -50,8 +50,7 @@ namespace sprout {
 
 		template<typename Category1, typename Category2>
 		struct iterator_category_less
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				(sprout::detail::iterator_category_hierarchy<Category1>::value < sprout::detail::iterator_category_hierarchy<Category2>::value)
 			>
 		{};

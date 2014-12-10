@@ -18,8 +18,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_sint
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			std::is_integral<T>::value && std::is_signed<T>::value
 		>
 	{};

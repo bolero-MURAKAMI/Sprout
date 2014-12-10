@@ -238,8 +238,7 @@ namespace sprout {
 
 			template<typename... UTypes>
 			struct is_fixedly_convert_constructible
-				: public sprout::integral_constant<
-					bool,
+				: public sprout::bool_constant<
 					(sizeof...(UTypes) == sizeof...(Types) && is_flexibly_convert_constructible<UTypes...>::value)
 				>
 			{};
@@ -270,8 +269,7 @@ namespace sprout {
 
 			template<typename... UTypes>
 			struct is_fixedly_assignable
-				: public sprout::integral_constant<
-					bool,
+				: public sprout::bool_constant<
 					(sizeof...(UTypes) == sizeof...(Types) && is_flexibly_assignable<UTypes...>::value)
 				>
 			{};

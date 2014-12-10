@@ -18,8 +18,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct is_const_unqualified
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			std::is_const<T>::value
 		>
 	{};

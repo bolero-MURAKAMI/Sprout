@@ -79,8 +79,7 @@ namespace sprout {
 	//
 	template<typename MaybeIterator>
 	struct is_iterator_outputable
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			sprout::is_output_iterator<typename std::decay<MaybeIterator>::type>::value
 				|| sprout::is_forward_iterator<typename std::decay<MaybeIterator>::type>::value
 		>

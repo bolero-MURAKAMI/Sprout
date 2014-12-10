@@ -19,8 +19,7 @@ namespace sprout {
 	//
 	template<typename MaybeIterator>
 	struct is_constant_distance_iterator
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 #ifdef SPROUT_NO_CXX14_CONSTEXPR
 			sprout::is_random_access_iterator<MaybeIterator>::value && !std::is_pointer<MaybeIterator>::value
 #else	// #ifdef SPROUT_NO_CXX14_CONSTEXPR

@@ -37,7 +37,7 @@ namespace sprout {
 			//
 			template<typename T>
 			struct has_is_from_inside
-				: public sprout::integral_constant<bool, (sprout::darkroom::access::size<T>::value >= 6)>
+				: public sprout::bool_constant<(sprout::darkroom::access::size<T>::value >= 6)>
 			{};
 
 			//

@@ -23,8 +23,7 @@ namespace sprout {
 			{};
 			template<typename Tup, std::size_t First, std::size_t Last>
 			struct all_of_impl<Tup, First, Last, false>
-				: public sprout::integral_constant<
-					bool,
+				: public sprout::bool_constant<
 					sprout::tpp::detail::all_of_impl<Tup, First, (First + Last) / 2>::value
 						&& sprout::tpp::detail::all_of_impl<Tup, (First + Last) / 2, Last>::value
 				>
@@ -46,7 +45,7 @@ namespace sprout {
 		//
 		template<bool... Values>
 		struct all_of_c
-			: public sprout::tpp::all_of<sprout::integral_constant<bool, Values>...>
+			: public sprout::tpp::all_of<sprout::bool_constant<Values>...>
 		{};
 	}	// namespace tpp
 }	// namespace sprout

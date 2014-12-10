@@ -19,16 +19,14 @@ namespace sprout {
 	//
 	template<typename Fn>
 	struct is_strict_unary_function
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			sprout::has_result_type<Fn>::value
 				&& sprout::has_argument_type<Fn>::value
 		>
 	{};
 	template<typename Fn>
 	struct is_strict_binary_function
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			sprout::has_result_type<Fn>::value
 				&& sprout::has_first_argument_type<Fn>::value
 				&& sprout::has_second_argument_type<Fn>::value
@@ -39,8 +37,7 @@ namespace sprout {
 	//
 	template<typename Fn>
 	struct is_strict_function
-		: public sprout::integral_constant<
-			bool,
+		: public sprout::bool_constant<
 			sprout::is_strict_unary_function<Fn>::value
 				|| sprout::is_strict_binary_function<Fn>::value
 		>

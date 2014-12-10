@@ -18,8 +18,7 @@ namespace sprout {
 	namespace detail {
 		template<typename From, typename To>
 		struct is_same_reinterpret_cast
-			: public sprout::integral_constant<
-				bool,
+			: public sprout::bool_constant<
 				(sprout::is_reference<To>::value
 					&& sprout::is_same<typename sprout::decay<From>::type, typename sprout::decay<To>::type>::value
 					&& sprout::is_convertible<From, To>::value

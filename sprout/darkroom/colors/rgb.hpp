@@ -26,7 +26,7 @@ namespace sprout {
 			//
 			template<typename T>
 			struct has_alpha
-				: public sprout::integral_constant<bool, (sprout::darkroom::access::size<T>::value >= 4)>
+				: public sprout::bool_constant<(sprout::darkroom::access::size<T>::value >= 4)>
 			{};
 
 			//
