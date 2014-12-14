@@ -21,8 +21,6 @@ namespace sprout {
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_void_v = sprout::is_void<T>::value;
 	template<typename T>
-	SPROUT_STATIC_CONSTEXPR bool is_null_pointer_v = sprout::is_null_pointer<T>::value;
-	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_integral_v = sprout::is_integral<T>::value;
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_floating_point_v = sprout::is_floating_point<T>::value;

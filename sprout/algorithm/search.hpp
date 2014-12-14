@@ -149,6 +149,13 @@ namespace sprout {
 	{
 		return sprout::search(first1, last1, first2, last2, sprout::equal_to<>());
 	}
+
+	//
+	template<typename ForwardIterator, typename Searcher>
+	inline SPROUT_CONSTEXPR ForwardIterator
+	search(ForwardIterator first, ForwardIterator last, Searcher const& searcher) {
+		return searcher(first, last);
+	}
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_SEARCH_HPP

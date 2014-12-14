@@ -8,13 +8,9 @@
 #ifndef SPROUT_TUPLE_FUSED_HPP
 #define SPROUT_TUPLE_FUSED_HPP
 
-#include <utility>
-#include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/tuple/tuple/tuple.hpp>
-#include <sprout/tuple/tuple/get.hpp>
-#include <sprout/tuple/indexes.hpp>
+#include <sprout/tuple/apply.hpp>
 #include <sprout/utility/forward.hpp>
 
 namespace sprout {
@@ -26,34 +22,13 @@ namespace sprout {
 		class fused {
 		public:
 			typedef F functor_type;
-		private:
-			template<typename Tuple, typename IndexTuple>
-			struct result_impl;
-			template<typename Tuple, sprout::index_t... Indexes>
-			struct result_impl<Tuple, sprout::index_tuple<Indexes...> > {
-			public:
-				typedef decltype(
-					std::declval<functor_type const&>()(
-						sprout::tuples::get<Indexes>(std::declval<Tuple>())...
-						)
-				) type;
-			};
 		public:
 			template<typename Tuple>
 			struct result
-				: public result_impl<
-					Tuple,
-					typename sprout::tuple_indexes<typename std::remove_reference<Tuple>::type>::type
-				>
+				: public sprout::tuples::apply_result<functor_type const&, Tuple>
 			{};
 		private:
 			functor_type f_;
-		private:
-			template<typename Result, typename Tuple, sprout::index_t... Indexes>
-			SPROUT_CONSTEXPR Result
-			call(Tuple&& t, sprout::index_tuple<Indexes...>) const {
-				return f_(sprout::tuples::get<Indexes>(SPROUT_FORWARD(Tuple, t))...);
-			}
 		public:
 			SPROUT_CONSTEXPR fused() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 			fused(fused const&) = default;
@@ -66,10 +41,7 @@ namespace sprout {
 			template<typename Tuple>
 			SPROUT_CONSTEXPR typename result<Tuple>::type
 			operator()(Tuple&& t) const {
-				return call<typename result<Tuple>::type>(
-					SPROUT_FORWARD(Tuple, t),
-					sprout::tuple_indexes<typename std::remove_reference<Tuple>::type>::make()
-					);
+				return sprout::tuples::apply(f_, SPROUT_FORWARD(Tuple, t));
 			}
 		};
 

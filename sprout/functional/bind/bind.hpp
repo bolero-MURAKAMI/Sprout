@@ -54,6 +54,11 @@ namespace sprout {
 		: public sprout::is_bind_expression<T>
 	{};
 
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_bind_expression_v = sprout::is_bind_expression<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
+
 	namespace detail {
 		struct no_tuple_element;
 

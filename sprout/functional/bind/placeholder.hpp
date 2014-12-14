@@ -190,6 +190,11 @@ namespace sprout {
 		: public sprout::integral_constant<int, N>
 	{};
 
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_placeholder_v = sprout::is_placeholder<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
+
 	//
 	// is_positional_placeholder
 	//
@@ -214,6 +219,11 @@ namespace sprout {
 		: public sprout::integral_constant<int, 1>
 	{};
 
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_positional_placeholder_v = sprout::is_positional_placeholder<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
+
 	//
 	// is_variadic_placeholder
 	//
@@ -237,6 +247,11 @@ namespace sprout {
 	struct is_variadic_placeholder<sprout::variadic_placeholder<N> >
 		: public sprout::integral_constant<int, N + 1>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_variadic_placeholder_v = sprout::is_variadic_placeholder<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_BIND_PLACEHOLDER_HPP

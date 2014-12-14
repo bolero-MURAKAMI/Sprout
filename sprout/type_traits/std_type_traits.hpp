@@ -14,6 +14,7 @@
 #include <sprout/detail/predef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/common_type.hpp>
+#include <sprout/type_traits/is_null_pointer.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 #if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION < 1101)
 #	include <sprout/tpp/algorithm/max_element.hpp>
@@ -26,10 +27,6 @@ namespace sprout {
 	template<typename T>
 	struct is_void
 		: public sprout::detail::type_traits_wrapper<std::is_void<T> >
-	{};
-	template<typename T>
-	struct is_null_pointer
-		: public sprout::detail::type_traits_wrapper<std::is_same<typename std::remove_cv<T>::type, std::nullptr_t> >
 	{};
 	template<typename T>
 	struct is_integral

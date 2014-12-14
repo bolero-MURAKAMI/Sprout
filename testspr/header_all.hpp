@@ -12,6 +12,7 @@
 #include <sprout/adapt/std/utility.hpp>
 #include <sprout/adl/not_found.hpp>
 #include <sprout/algorithm.hpp>
+#include <sprout/algorithm/searching.hpp>
 #include <sprout/algorithm/string.hpp>
 #include <sprout/array.hpp>
 #include <sprout/assert.hpp>

@@ -76,6 +76,33 @@ namespace sprout {
 				SPROUT_FORWARD(ForwardRange1, range1)
 				);
 		}
+
+		//
+		template<typename ForwardRange, typename Searcher>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange>::type
+		search(ForwardRange&& range, Searcher const& searcher) {
+			return sprout::range::range_return<ForwardRange>::pack(
+				sprout::search(
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
+					searcher
+					),
+				SPROUT_FORWARD(ForwardRange, range)
+				);
+		}
+
+		template<sprout::range::range_return_value RetV, typename ForwardRange, typename Searcher>
+		inline SPROUT_CONSTEXPR typename sprout::range::range_return<ForwardRange, RetV>::type
+		search(ForwardRange&& range, Searcher const& searcher) {
+			return sprout::range::range_return<ForwardRange, RetV>::pack(
+				sprout::search(
+					sprout::begin(SPROUT_FORWARD(ForwardRange, range)),
+					sprout::end(SPROUT_FORWARD(ForwardRange, range)),
+					searcher
+					),
+				SPROUT_FORWARD(ForwardRange, range)
+				);
+		}
 	}	// namespace range
 }	// namespace sprout
 
