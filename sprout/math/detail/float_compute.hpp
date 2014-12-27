@@ -18,6 +18,12 @@ namespace sprout {
 			struct float_compute
 				: public sprout::float_promote<double, Types...>
 			{};
+
+			template<typename FloatType>
+			inline SPROUT_CONSTEXPR typename sprout::math::detail::float_compute<FloatType>::type
+			as_float_compute(FloatType const& x) {
+				return static_cast<typename sprout::math::detail::float_compute<FloatType>::type>(x);
+			}
 		}	// namespace detail
 	}	// namespace math
 }	// namespace sprout

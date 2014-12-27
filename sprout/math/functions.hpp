@@ -15,5 +15,6 @@
 #include <sprout/math/bernoulli.hpp>
 #include <sprout/math/comparisons.hpp>
 #include <sprout/math/integer.hpp>
+#include <sprout/math/sigmoid.hpp>
 
 #endif	// #ifndef SPROUT_MATH_FUNCTIONS_HPP

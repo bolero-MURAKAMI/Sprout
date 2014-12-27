@@ -32,22 +32,48 @@ test_cpp=$(cd $(dirname $0); pwd)/test.cpp
 test_py=$(cd $(dirname $0); pwd)/test.py
 
 get_std_option() {
-	if [ "${3}" = "c++1y" ]; then
+	vn=0
+	if [ "${2}" = "." ]; then
 		if [ "${1}" = "gcc" ]; then
-			if [ "${2}" = "." ]; then
-				echo -n "-std=c++1y"
-			elif [ "${2//.}" -lt "480" ]; then
+			read -ra current_version_array <<< `g++ --version`
+			vn=${current_version_array[2]//.}
+		elif [ "${1}" = "clang" ]; then
+			read -ra current_version_array <<< `clang++ --version`
+			vn=${current_version_array[2]//.}
+		fi
+	else
+		vn=${2//.}
+	fi
+	if [ "${3}" = "c++17" -o "${3}" = "c++1z" ]; then
+		if [ "${1}" = "gcc" ]; then
+			if [ "${vn}" -lt "480" ]; then
 				echo -n "-std=c++11"
 			else
 				echo -n "-std=c++1y"
 			fi
 		elif [ "${1}" = "clang" ]; then
-			if [ "${2}" = "." ]; then
+			if [ "${vn}" -lt "32" ]; then
+				echo -n "-std=c++11"
+			elif [ "${vn}" -lt "350" ]; then
 				echo -n "-std=c++1y"
-			elif [ "${2//.}" -lt "32" ]; then
+			else
+				echo -n "-std=c++1z"
+			fi
+		fi
+	elif [ "${3}" = "c++14" -o "${3}" = "c++1y" ]; then
+		if [ "${1}" = "gcc" ]; then
+			if [ "${vn}" -lt "480" ]; then
 				echo -n "-std=c++11"
 			else
 				echo -n "-std=c++1y"
+			fi
+		elif [ "${1}" = "clang" ]; then
+			if [ "${vn}" -lt "32" ]; then
+				echo -n "-std=c++11"
+			elif [ "${vn}" -lt "350" ]; then
+				echo -n "-std=c++1y"
+			else
+				echo -n "-std=c++14"
 			fi
 		fi
 	else
@@ -55,7 +81,7 @@ get_std_option() {
 	fi
 }
 
-args=`getopt -o S:g:c:O:C:V:D:I:P:f -l stagedir:,gcc-version:,clang-version:,gcc-root:,clang-root:,std:,option:,compiler-option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
+args=`getopt -o S:s:g:c:O:C:V:D:I:P:f -l stagedir:,source:,gcc-version:,clang-version:,gcc-root:,clang-root:,std:,option:,compiler-option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'test.sh --help'"
 	exit 1
@@ -64,6 +90,7 @@ eval set -- ${args}
 while [ -n "$1" ]; do
 	case $1 in
 		-S|--stagedir) stagedir=$2; shift 2;;
+		-s|--source) test_cpp=$2; shift 2;;
 		-g|--gcc-version) gcc_version="$2"; shift 2;;
 		-c|--clang-version) clang_version="$2"; shift 2;;
 		--gcc-root) gcc_root="$2"; shift 2;;
@@ -87,6 +114,9 @@ if [ ${use_help} -ne 0 ]; then
 	echo ""
 	echo "  -S, --stagedir=<dir>        Output files here."
 	echo "                              Default; 'testspr'"
+	echo ""
+	echo "  -s, --source=<file>         C++ source file."
+	echo "                              Default; './test.cpp'"
 	echo ""
 	echo "  -g, --gcc-version=<list>    Indicates gcc version list (space separated)."
 	echo "                              If '.', version that is installed on the system."
@@ -115,7 +145,7 @@ if [ ${use_help} -ne 0 ]; then
 	echo ""
 	echo "  -D, --define=<identifier>   Define macro for preprocessor."
 	echo ""
-	echo "  -I, --include=<directory>   Add system include path."
+	echo "  -I, --include=<dir>         Add system include path."
 	echo ""
 	echo "  -P, --max-procs=<value>     The maximum number of process use."
 	echo "                              If other than null, processing in parallel mode."
@@ -129,6 +159,7 @@ fi
 
 echo "settings:"
 echo "  stagedir = '${stagedir}'"
+echo "  source = '${test_cpp}'"
 echo "  gcc-version = (${gcc_version})"
 echo "  clang-version = (${clang_version})"
 echo "  gcc-root = '${gcc_root}'"

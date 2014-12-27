@@ -8,9 +8,11 @@
 #ifndef SPROUT_RANDOM_GENERATE_ARRAY_HPP
 #define SPROUT_RANDOM_GENERATE_ARRAY_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
+#include <sprout/utility/forward.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/random/results.hpp>
 #include <sprout/generator/results.hpp>
@@ -26,6 +28,15 @@ namespace sprout {
 			sprout::array<typename RandomNumberGenerator::result_type, N> result{{}};
 			for (std::size_t i = 0; i != N; ++i) {
 				result[i] = rng();
+			}
+			return result;
+		}
+		template<std::size_t N, typename RandomNumberGenerator, typename Distribution>
+		inline SPROUT_CXX14_CONSTEXPR sprout::array<typename std::remove_reference<Distribution>::type::result_type, N>
+		generate_array(RandomNumberGenerator& rng, Distribution&& dist) {
+			sprout::array<typename std::remove_reference<Distribution>::type::result_type, N> result{{}};
+			for (std::size_t i = 0; i != N; ++i) {
+				result[i] = SPROUT_FORWARD(Distribution, dist)(rng);
 			}
 			return result;
 		}
