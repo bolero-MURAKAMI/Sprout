@@ -48,6 +48,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/logic.hpp>
 #include <sprout/math.hpp>
+#include <sprout/math/curve.hpp>
 #include <sprout/memory.hpp>
 #include <sprout/net.hpp>
 #include <sprout/none.hpp>
