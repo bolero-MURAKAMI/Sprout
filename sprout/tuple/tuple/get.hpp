@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2014 Bolero MURAKAMI
+  Copyright (c) 2011-2015 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -106,9 +106,28 @@ namespace sprout {
 		{
 			return sprout_tuple_detail::call_tuple_get<I>(SPROUT_FORWARD(T, t));
 		}
+
+		//
+		// nested_get
+		//
+		template<std::size_t I, typename T>
+		inline SPROUT_CONSTEXPR decltype(sprout::tuples::get<I>(std::declval<T>()))
+		nested_get(T&& t)
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<I>(std::declval<T>()))
+		{
+			return sprout::tuples::get<I>(SPROUT_FORWARD(T, t));
+		}
+		template<std::size_t IHead, std::size_t... ITail, typename T>
+		inline SPROUT_CONSTEXPR decltype(sprout::tuples::nested_get<ITail...>(sprout::tuples::get<IHead>(std::declval<T>())))
+		nested_get(T&& t)
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::nested_get<ITail...>(sprout::tuples::get<IHead>(std::declval<T>())))
+		{
+			return sprout::tuples::nested_get<ITail...>(sprout::tuples::get<IHead>(SPROUT_FORWARD(T, t)));
+		}
 	}	// namespace tuples
 
 	using sprout::tuples::get;
+	using sprout::tuples::nested_get;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_GET_HPP

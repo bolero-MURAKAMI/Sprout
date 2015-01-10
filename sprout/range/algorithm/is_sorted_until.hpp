@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2014 Bolero MURAKAMI
+  Copyright (c) 2011-2015 Bolero MURAKAMI
   Copyright (C) 2011 RiSK (sscrisk)
   https://github.com/bolero-MURAKAMI/Sprout
 

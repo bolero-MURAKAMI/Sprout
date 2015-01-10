@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2014 Bolero MURAKAMI
+  Copyright (c) 2011-2015 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -15,6 +15,7 @@
 #include <sprout/type/apply.hpp>
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/type_traits/remove_cvref.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -39,7 +40,7 @@ namespace sprout {
 			struct default_copied<Tuple, sprout::index_tuple<Indexes...> >
 				: public sprout::types::apply<
 					sprout::tuples::rebind_types<Tuple>,
-					typename std::decay<
+					typename sprout::remove_cvref<
 						typename sprout::tuples::tuple_element<Indexes, Tuple>::type
 					>::type...
 				>

@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2014 Bolero MURAKAMI
+  Copyright (c) 2011-2015 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -21,11 +21,20 @@ namespace sprout {
 		pow2(T const& x) {
 			return x * x;
 		}
-
 		template<typename T>
 		inline SPROUT_CONSTEXPR T
 		pow3(T const& x) {
 			return x * x * x;
+		}
+		template<typename T>
+		inline SPROUT_CONSTEXPR T
+		pow4(T const& x) {
+			return x * x * x * x;
+		}
+		template<typename T>
+		inline SPROUT_CONSTEXPR T
+		pow5(T const& x) {
+			return x * x * x * x * x;
 		}
 
 		template<typename T, typename IntType>
