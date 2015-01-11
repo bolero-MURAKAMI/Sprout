@@ -11,6 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/math/curve/curve_point.hpp>
 #include <sprout/math/curve/bezier.hpp>
-#include <sprout/math/curve/catmull_rom_sprine.hpp>
+#include <sprout/math/curve/catmull_rom_spline.hpp>
 
 #endif	// #ifndef SPROUT_MATH_CURVE_HPP

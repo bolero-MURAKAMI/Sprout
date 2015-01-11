@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_MATH_CURVE_CATMULL_ROM_SPRINE_HPP
-#define SPROUT_MATH_CURVE_CATMULL_ROM_SPRINE_HPP
+#ifndef SPROUT_MATH_CURVE_CATMULL_ROM_SPLINE_HPP
+#define SPROUT_MATH_CURVE_CATMULL_ROM_SPLINE_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/detail/pow.hpp>
@@ -18,7 +18,7 @@ namespace sprout {
 	namespace math {
 		namespace detail {
 			template<typename Points, typename T>
-			class catmull_rom_sprine_impl {
+			class catmull_rom_spline_impl {
 			public:
 				static SPROUT_CONSTEXPR typename sprout::math::curve_point_result<Points>::type
 				call(Points const& p, T const& t) {
@@ -39,7 +39,7 @@ namespace sprout {
 				}
 			};
 			template<typename Points, typename T>
-			class catmull_rom_sprine_start_impl {
+			class catmull_rom_spline_start_impl {
 			public:
 				static SPROUT_CONSTEXPR typename sprout::math::curve_point_result<Points>::type
 				call(Points const& p, T const& t) {
@@ -57,7 +57,7 @@ namespace sprout {
 				}
 			};
 			template<typename Points, typename T>
-			class catmull_rom_sprine_end_impl {
+			class catmull_rom_spline_end_impl {
 			public:
 				static SPROUT_CONSTEXPR typename sprout::math::curve_point_result<Points>::type
 				call(Points const& p, T const& t) {
@@ -77,46 +77,46 @@ namespace sprout {
 		}	// namespace detail
 
 		//
-		// catmull_rom_sprine
-		// catmull_rom_sprine_start
-		// catmull_rom_sprine_end
+		// catmull_rom_spline
+		// catmull_rom_spline_start
+		// catmull_rom_spline_end
 		//
 		template<typename Points, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::math::curve_point_result<Points>::type
-		catmull_rom_sprine(T const& t, Points const& p) {
-			return sprout::math::detail::catmull_rom_sprine_impl<Points, T>::call(p, t);
+		catmull_rom_spline(T const& t, Points const& p) {
+			return sprout::math::detail::catmull_rom_spline_impl<Points, T>::call(p, t);
 		}
 		template<typename Points, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::math::curve_point_result<Points>::type
-		catmull_rom_sprine_start(T const& t, Points const& p) {
-			return sprout::math::detail::catmull_rom_sprine_start_impl<Points, T>::call(p, t);
+		catmull_rom_spline_start(T const& t, Points const& p) {
+			return sprout::math::detail::catmull_rom_spline_start_impl<Points, T>::call(p, t);
 		}
 		template<typename Points, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::math::curve_point_result<Points>::type
-		catmull_rom_sprine_end(T const& t, Points const& p) {
-			return sprout::math::detail::catmull_rom_sprine_end_impl<Points, T>::call(p, t);
+		catmull_rom_spline_end(T const& t, Points const& p) {
+			return sprout::math::detail::catmull_rom_spline_end_impl<Points, T>::call(p, t);
 		}
 
 		template<typename P0, typename P1, typename P2, typename P3, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::math::curve_point_result<sprout::tuples::tuple<P0 const&, P1 const&, P2 const&, P3 const&> >::type
-		catmull_rom_sprine(T const& t, P0 const& p0, P1 const& p1, P2 const& p2, P3 const& p3) {
-			return sprout::math::catmull_rom_sprine(t, sprout::tuples::forward_as_tuple(p0, p1, p2, p3));
+		catmull_rom_spline(T const& t, P0 const& p0, P1 const& p1, P2 const& p2, P3 const& p3) {
+			return sprout::math::catmull_rom_spline(t, sprout::tuples::forward_as_tuple(p0, p1, p2, p3));
 		}
 		template<typename P0, typename P1, typename P2, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::math::curve_point_result<sprout::tuples::tuple<P0 const&, P1 const&, P2 const&> >::type
-		catmull_rom_sprine_start(T const& t, P0 const& p0, P1 const& p1, P2 const& p2) {
-			return sprout::math::catmull_rom_sprine_start(t, sprout::tuples::forward_as_tuple(p0, p1, p2));
+		catmull_rom_spline_start(T const& t, P0 const& p0, P1 const& p1, P2 const& p2) {
+			return sprout::math::catmull_rom_spline_start(t, sprout::tuples::forward_as_tuple(p0, p1, p2));
 		}
 		template<typename P0, typename P1, typename P2, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::math::curve_point_result<sprout::tuples::tuple<P0 const&, P1 const&, P2 const&> >::type
-		catmull_rom_sprine_end(T const& t, P0 const& p0, P1 const& p1, P2 const& p2) {
-			return sprout::math::catmull_rom_sprine_end(t, sprout::tuples::forward_as_tuple(p0, p1, p2));
+		catmull_rom_spline_end(T const& t, P0 const& p0, P1 const& p1, P2 const& p2) {
+			return sprout::math::catmull_rom_spline_end(t, sprout::tuples::forward_as_tuple(p0, p1, p2));
 		}
 	}	// namespace math
 
-	using sprout::math::catmull_rom_sprine;
-	using sprout::math::catmull_rom_sprine_start;
-	using sprout::math::catmull_rom_sprine_end;
+	using sprout::math::catmull_rom_spline;
+	using sprout::math::catmull_rom_spline_start;
+	using sprout::math::catmull_rom_spline_end;
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_MATH_CURVE_CATMULL_ROM_SPRINE_HPP
+#endif	// #ifndef SPROUT_MATH_CURVE_CATMULL_ROM_SPLINE_HPP
