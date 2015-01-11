@@ -8,6 +8,7 @@
 #ifndef SPROUT_TUPLE_TRAITS_HPP
 #define SPROUT_TUPLE_TRAITS_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/tuple/tuple.hpp>

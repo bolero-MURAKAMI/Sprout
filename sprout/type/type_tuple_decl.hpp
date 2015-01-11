@@ -207,6 +207,4 @@ namespace sprout {
 	}	// namespace types
 }	// namespace sprout
 
-#include <sprout/type/rebind_types.hpp>
-
 #endif	// #ifndef SPROUT_TYPE_TYPE_TUPLE_DECL_HPP
