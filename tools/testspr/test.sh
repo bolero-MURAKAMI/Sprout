@@ -185,7 +185,7 @@ done
 for include_path in ${include_paths[*]}; do
 	include_options="${include_options} -I${include_path}"
 done
-all_options="-v -Wall -pedantic ${define_options} ${include_options} ${common_options[*]}"
+all_options="-v -Wall -pedantic -pedantic-errors ${define_options} ${include_options} ${common_options[*]}"
 vo=0
 vkey=""
 for option in ${compiler_options[*]}; do

@@ -71,7 +71,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR Result
 			tuple_cat_impl(sprout::index_tuple<PackIndexes...>, sprout::index_tuple<ElemIndexes...>, Tuples&&... tuples) {
 				return Result(sprout::tuples::get<ElemIndexes>(sprout::pack_get<PackIndexes>(SPROUT_FORWARD(Tuples, tuples)...))...);
-			};
+			}
 		}	// namespace detail
 		template<typename... Tuples>
 		inline SPROUT_CONSTEXPR typename sprout::types::tuple_cat<typename std::decay<Tuples>::type...>::type
