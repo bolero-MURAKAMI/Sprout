@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2014 fimbul
+  Copyright (c) 2015 fimbul
   https://github.com/fimbul
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying

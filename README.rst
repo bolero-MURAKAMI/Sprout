@@ -35,8 +35,8 @@ Supported Compilers
 
 Linux:
 
-* GCC, C++11/14 mode: 4.7.0, 4.7.1, 4.7.2, 4.7.3, 4.7.4, 4.8.0, 4.8.1, 4.8.2, 4.8.3, 4.9.0, 4.9.1
-* Clang, C++11/14 mode: 3.2, 3.3, 3.4, 3.4.1, 3.5.0
+* GCC, C++11/14 mode: 4.7.0~4.7.4, 4.8.0~4.8.3, 4.9.0~4.9.2
+* Clang, C++11/14 mode: 3.2, 3.3, 3.4~3.4.2, 3.5.0
 
 *******************************************************************************
 Author
@@ -49,7 +49,7 @@ Author
 Copyrights
 *******************************************************************************
 
-| Copyright (C) 2011-2014 Bolero MURAKAMI.
+| Copyright (C) 2011-2015 Bolero MURAKAMI.
 | Distributed under the Boost Software License, Version 1.0.
 | (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) 
 

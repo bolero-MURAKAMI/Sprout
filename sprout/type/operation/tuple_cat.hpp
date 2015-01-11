@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2014 fimbul
+  Copyright (c) 2015 fimbul
   https://github.com/fimbul/shiro
 
   Copyright (c) 2011-2015 Bolero MURAKAMI
