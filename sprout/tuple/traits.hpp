@@ -16,6 +16,7 @@
 #include <sprout/type/rebind_types.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/type_traits/remove_cvref.hpp>
+#include <sprout/container/detail/array_like.hpp>
 
 namespace sprout {
 	namespace tuples {
@@ -47,10 +48,22 @@ namespace sprout {
 			{};
 
 			template<typename Tuple, typename... Args>
-			SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				sprout::detail::is_array_like<Tuple>::value,
+				typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type
+			>::type
 			default_make_tuple(Args&&... args) {
 				typedef typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type copied_type;
-				return copied_type{SPROUT_FORWARD(Args, args)...};
+				return copied_type{{SPROUT_FORWARD(Args, args)...}};
+			}
+			template<typename Tuple, typename... Args>
+			inline SPROUT_CONSTEXPR typename std::enable_if<
+				!sprout::detail::is_array_like<Tuple>::value,
+				typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type
+			>::type
+			default_make_tuple(Args&&... args) {
+				typedef typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type copied_type;
+				return copied_type(SPROUT_FORWARD(Args, args)...);
 			}
 		}	// namespace detail
 
