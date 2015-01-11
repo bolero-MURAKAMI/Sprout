@@ -16,7 +16,6 @@
 #include <sprout/index_tuple/make_index_tuple.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
-#include <sprout/type/rebind_types.hpp>
 #include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
@@ -140,7 +139,6 @@ namespace sprout {
 	}	// namespace types
 
 	using sprout::types::type_tuple;
-	using sprout::types::rebind_types;
 }	// namespace sprout
 
 namespace std {
@@ -208,5 +206,7 @@ namespace sprout {
 		{};
 	}	// namespace types
 }	// namespace sprout
+
+#include <sprout/type/rebind_types.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_TYPE_TUPLE_DECL_HPP

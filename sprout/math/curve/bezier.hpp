@@ -129,12 +129,12 @@ namespace sprout {
 		template<typename P0, typename P1, typename P2, typename... PTail, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::math::curve_point_result<sprout::tuples::tuple<P0 const&, P1 const&, P2 const&, PTail const&...> >::type
 		bezier(T const& t, P0 const& p0, P1 const& p1, P2 const& p2, PTail const&... p) {
-			return sprout::math::bezier(sprout::tuples::forward_as_tuple(p0, p1, p2, p...), t);
+			return sprout::math::bezier(t, sprout::tuples::forward_as_tuple(p0, p1, p2, p...));
 		}
 		template<std::size_t N, typename P0, typename P1, typename P2, typename... PTail, typename T>
 		inline SPROUT_CONSTEXPR typename sprout::math::curve_point_result<sprout::tuples::tuple<P0 const&, P1 const&, P2 const&, PTail const&...> >::type
 		bezier(T const& t, P0 const& p0, P1 const& p1, P2 const& p2, PTail const&... p) {
-			return sprout::math::bezier<N>(sprout::tuples::forward_as_tuple(p0, p1, p2, p...), t);
+			return sprout::math::bezier<N>(t, sprout::tuples::forward_as_tuple(p0, p1, p2, p...));
 		}
 	}	// namespace math
 

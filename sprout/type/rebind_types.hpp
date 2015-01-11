@@ -102,4 +102,32 @@ namespace sprout {
 	using sprout::types::rebind_types;
 }	// namespace sprout
 
+#include <type_traits>
+#include <sprout/tpp/algorithm/all_of.hpp>
+
+namespace sprout {
+	namespace types {
+		namespace detail {
+			template<template<typename, std::size_t> class ArrayLikeClass, typename T, std::size_t N>
+			struct rebind_types_default<ArrayLikeClass<T, N> > {
+			private:
+				template<bool C, typename Head, typename... Tail>
+				struct apply_impl {};
+				template<typename Head, typename... Tail>
+				struct apply_impl<true, Head, Tail...>
+					: public sprout::identity<ArrayLikeClass<Head, 1 + sizeof...(Tail)> >
+				{};
+			public:
+				template<typename Head, typename... Tail>
+				struct apply
+					: public apply_impl<
+						sprout::tpp::all_of_c<std::is_same<Head, Tail>::value...>::value,
+						Head, Tail...
+					>
+				{};
+			};
+		}	// namespace detail
+	}	// namespace types
+}	// namespace sprout
+
 #endif	// #ifndef SPROUT_TYPE_REBIND_TYPES_HPP

@@ -50,7 +50,7 @@ namespace sprout {
 			SPROUT_CONSTEXPR typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type
 			default_make_tuple(Args&&... args) {
 				typedef typename sprout::tuples::tuple_construct_traits<Tuple>::copied_type copied_type;
-				return copied_type(SPROUT_FORWARD(Args, args)...);
+				return copied_type{SPROUT_FORWARD(Args, args)...};
 			}
 		}	// namespace detail
 
