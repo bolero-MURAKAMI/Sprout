@@ -241,6 +241,7 @@ void collect_sysinclude_paths(OutputIterator result, std::string const& command 
 
 int main(int argc, const char* argv[]) {
 	std::string src;
+	std::string command;
 	std::string text;
 
 	if (argc >= 2) {
@@ -252,6 +253,9 @@ int main(int argc, const char* argv[]) {
 			std::istreambuf_iterator<char>(ifs.rdbuf()),
 			std::istreambuf_iterator<char>()
 			);
+	}
+	if (argc >= 3) {
+		command = argv[2];
 	}
 
 	try {
@@ -272,9 +276,19 @@ int main(int argc, const char* argv[]) {
 				)
 			);
 		// インクルードパスの設定
+		if (!command.empty()) {
+			std::cout
+				<< "collect command :\n"
+				<< command << "\n"
+				;
+		}
 		{
 			std::vector<std::string> list;
-			::collect_sysinclude_paths(std::back_inserter(list));
+			if (command.empty()) {
+				::collect_sysinclude_paths(std::back_inserter(list));
+			} else {
+				::collect_sysinclude_paths(std::back_inserter(list), command);
+			}
 			std::cout
 				<< "sysinclude paths :\n"
 				;
