@@ -35,28 +35,37 @@ namespace sprout {
 				comp(*b, *sprout::second(a)) ? sprout::second(a) : b
 				);
 		}
+		template<typename ForwardIterator, typename Compare>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
+		iter_minmax(ForwardIterator a, ForwardIterator b, Compare comp) {
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
+			return comp(*b, *a)
+				? type(b, a)
+				: type(a, b)
+				;
+		}
 
 		template<typename RandomAccessIterator, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<RandomAccessIterator, RandomAccessIterator>
 		minmax_element_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
-			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot
+			RandomAccessIterator first, Compare comp,
+			typename std::iterator_traits<RandomAccessIterator>::difference_type half
 			)
 		{
-			return pivot == 0 ? sprout::pair<RandomAccessIterator, RandomAccessIterator>(first, first)
+			return half == 1
+				? iter_minmax(first, sprout::next(first), comp)
 				: sprout::detail::iter_minmax_pair(
 					sprout::detail::minmax_element_impl_ra(
-						first, sprout::next(first, pivot), comp,
-						pivot / 2
+						first, comp, half / 2
 						),
 					sprout::detail::minmax_element_impl_ra(
-						sprout::next(first, pivot), last, comp,
-						(sprout::distance(first, last) - pivot) / 2
+						sprout::next(first, half - (half & 1)), comp, (half + 1) / 2
 						),
 					comp
 					)
 				;
 		}
+
 		template<typename RandomAccessIterator, typename Compare>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
@@ -67,10 +76,43 @@ namespace sprout {
 			std::random_access_iterator_tag*
 			)
 		{
-			return first == last ? sprout::pair<RandomAccessIterator, RandomAccessIterator>(last, last)
-				: sprout::detail::minmax_element_impl_ra(
-					first, last, comp,
-					sprout::distance(first, last) / 2
+			return first == last || sprout::next(first) == last
+				? sprout::pair<RandomAccessIterator, RandomAccessIterator>(first, first)
+				: sprout::distance(first, last) % 2 == 0
+					? sprout::detail::minmax_element_impl_ra(
+						first, comp,
+						sprout::distance(first, last) / 2
+						)
+					: sprout::detail::iter_minmax(
+						sprout::detail::minmax_element_impl_ra(
+							first, comp,
+							sprout::distance(first, last) / 2
+							),
+						sprout::prev(last),
+						comp
+						)
+				;
+		}
+
+		template<typename ForwardIterator, typename Compare>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> >
+		minmax_element_impl_3(
+			sprout::pair<ForwardIterator, ForwardIterator> minmax,
+			ForwardIterator first, ForwardIterator next,
+			ForwardIterator last, Compare comp) {
+			typedef sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> > type;
+			return next == last
+				? type(
+					next,
+					sprout::detail::iter_minmax(minmax, first, comp)
+					)
+				: type(
+					sprout::next(next),
+					sprout::detail::iter_minmax_pair(
+						minmax,
+						sprout::detail::iter_minmax(first, next, comp),
+						comp
+						)
 					)
 				;
 		}
@@ -82,9 +124,10 @@ namespace sprout {
 			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
-			typedef sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> > type;
 			return current.first == last ? current
-				: n == 1 ? type(sprout::next(current.first), sprout::detail::iter_minmax(current.second, current.first, comp))
+				: n == 1 ? sprout::detail::minmax_element_impl_3(
+						current.second, current.first, sprout::next(current.first),
+						last, comp)
 				: sprout::detail::minmax_element_impl_1(
 					sprout::detail::minmax_element_impl_1(
 						current,
@@ -94,6 +137,7 @@ namespace sprout {
 					)
 				;
 		}
+
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> >
 		minmax_element_impl(
@@ -111,6 +155,19 @@ namespace sprout {
 					)
 				;
 		}
+
+		template<typename ForwardIterator, typename Compare>
+		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> >
+		minmax_element_impl_2(
+			ForwardIterator first, ForwardIterator next, ForwardIterator last, Compare comp
+			)
+		{
+			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
+			return next == last ? sprout::pair<ForwardIterator, type>(next, type(first, first))
+				: sprout::pair<ForwardIterator, type>(sprout::next(next), iter_minmax(first, next, comp))
+				;
+		}
+
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		minmax_element(
@@ -118,9 +175,10 @@ namespace sprout {
 			std::forward_iterator_tag*
 			)
 		{
-			typedef sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> > type;
 			return first == last ? sprout::pair<ForwardIterator, ForwardIterator>(first, first)
-				: sprout::detail::minmax_element_impl(type(sprout::next(first), sprout::pair<ForwardIterator, ForwardIterator>(first, first)), last, comp, 1).second
+				: sprout::detail::minmax_element_impl(
+					sprout::detail::minmax_element_impl_2(first, sprout::next(first), last, comp),
+					last, comp, 1).second
 				;
 		}
 	}	// namespace detail
