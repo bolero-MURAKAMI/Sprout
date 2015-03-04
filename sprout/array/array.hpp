@@ -111,16 +111,16 @@ namespace sprout {
 		}
 #else
 		SPROUT_CXX14_CONSTEXPR iterator begin() SPROUT_NOEXCEPT {
-			return &elems[0];
+			return iterator(elems);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
-			return &elems[0];
+			return iterator(elems);
 		}
 		SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT {
-			return &elems[0] + size();
+			return iterator(elems) + size();
 		}
 		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
-			return &elems[0] + size();
+			return iterator(elems) + size();
 		}
 #endif
 		SPROUT_CXX14_CONSTEXPR reverse_iterator rbegin() SPROUT_NOEXCEPT {
@@ -144,10 +144,10 @@ namespace sprout {
 		}
 #else
 		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
-			return &elems[0];
+			return const_iterator(elems);
 		}
 		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
-			return &elems[0] + size();
+			return const_iterator(elems) + size();
 		}
 #endif
 		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
@@ -199,10 +199,10 @@ namespace sprout {
 		}
 
 		SPROUT_CXX14_CONSTEXPR pointer data() SPROUT_NOEXCEPT {
-			return &elems[0];
+			return pointer(elems);
 		}
 		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
-			return &elems[0];
+			return const_pointer(elems);
 		}
 		SPROUT_CXX14_CONSTEXPR pointer c_array() SPROUT_NOEXCEPT {
 			return data();

@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <initializer_list>
 #include <sprout/config.hpp>
+#include <sprout/memory/addressof.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
@@ -50,10 +51,10 @@ namespace sprout {
 				return r;
 			}
 			static SPROUT_CONSTEXPR pointer ptr(holder_type& r) SPROUT_NOEXCEPT {
-				return &r;
+				return sprout::addressof(r);
 			}
 			static SPROUT_CONSTEXPR const_pointer ptr(holder_type const& r) SPROUT_NOEXCEPT {
-				return &r;
+				return sprout::addressof(r);
 			}
 		};
 		template<typename T>
@@ -87,10 +88,10 @@ namespace sprout {
 				return *r;
 			}
 			static SPROUT_CONSTEXPR pointer ptr(holder_type& r) SPROUT_NOEXCEPT {
-				return &r;
+				return sprout::addressof(r);
 			}
 			static SPROUT_CONSTEXPR const_pointer ptr(holder_type const& r) SPROUT_NOEXCEPT {
-				return &r;
+				return sprout::addressof(r);
 			}
 		};
 		template<typename T>
@@ -112,7 +113,7 @@ namespace sprout {
 			typedef T* holder_type;
 		public:
 			static SPROUT_CONSTEXPR holder_type hold(param_type p) SPROUT_NOEXCEPT {
-				return &p;
+				return sprout::addressof(p);
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type r) {
 				return *r;
@@ -140,7 +141,7 @@ namespace sprout {
 			typedef T const* holder_type;
 		public:
 			static SPROUT_CONSTEXPR holder_type hold(param_type p) SPROUT_NOEXCEPT {
-				return &p;
+				return sprout::addressof(p);
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type r) {
 				return *r;

@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
+#include <sprout/memory/addressof.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
@@ -128,7 +129,7 @@ namespace sprout {
 		>::type
 		operator==(sprout::detail::forward_item_iterator<List1> const& lhs, sprout::detail::forward_item_iterator<List2> const& rhs) {
 			return !lhs.is_initialized() ? !rhs.is_initialized()
-				: rhs.is_initialized() && &*lhs == &*rhs
+				: rhs.is_initialized() && sprout::addressof(*lhs) == sprout::addressof(*rhs)
 				;
 		}
 		template<typename List1, typename List2>
@@ -324,10 +325,10 @@ namespace sprout {
 		SPROUT_CXX14_CONSTEXPR forward_clist(InputIterator first, InputIterator last)
 			: fst()
 		{
-			item_holder_type* p = &fst.next;
+			item_holder_type* p = sprout::addressof(fst.next);
 			for (; first != last; ++first) {
 				*p = *first;
-				p = &(*p)->next;
+				p = sprout::addressof(*p)->next;
 			}
 		}
 		SPROUT_CXX14_CONSTEXPR forward_clist(forward_clist&& x)
@@ -394,10 +395,10 @@ namespace sprout {
 		template<typename InputIterator>
 		SPROUT_CXX14_CONSTEXPR void push_front(InputIterator first, InputIterator last) {
 			item_holder_type nxt(fst.next);
-			item_holder_type* p = &fst.next;
+			item_holder_type* p = sprout::addressof(fst.next);
 			for (; first != last; ++first) {
 				*p = *first;
-				p = &(*p)->next;
+				p = sprout::addressof(*p)->next;
 			}
 			*p = nxt;
 		}
@@ -417,10 +418,10 @@ namespace sprout {
 		SPROUT_CXX14_CONSTEXPR iterator insert_after(const_iterator position, InputIterator first, InputIterator last) {
 			item_holder_type nxt(position.item->next);
 			item_holder_type pos(position.item);
-			item_holder_type* p = &pos;
+			item_holder_type* p = sprout::addressof(pos);
 			for (; first != last; ++first) {
 				(*p)->next = *first;
-				p = &(*p)->next;
+				p = sprout::addressof(*p)->next;
 			}
 			(*p)->next = nxt;
 			return iterator(*p);
@@ -453,7 +454,7 @@ namespace sprout {
 		SPROUT_CXX14_CONSTEXPR void unlink(item& x) {
 			for (iterator first = before_begin(), last = end(); first != last; ++first) {
 				iterator nxt = first.next();
-				if (nxt.item.get_pointer() == &x) {
+				if (nxt.item.get_pointer() == sprout::addressof(x)) {
 					first.item->next = sprout::move(nxt.item->next);
 					nxt.item->unlink();
 					break;

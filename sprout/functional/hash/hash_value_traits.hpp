@@ -143,7 +143,7 @@ namespace sprout {
 		}
 		template<typename T, std::size_t N>
 		inline SPROUT_CONSTEXPR std::size_t
-		hash_value_impl(T const (&v)[N]) {
+		hash_value_impl(T const (& v)[N]) {
 			return sprout::hash_range(v);
 		}
 		template<typename T>
@@ -151,7 +151,7 @@ namespace sprout {
 			!std::is_arithmetic<T>::value && !std::is_enum<T>::value && !std::is_pointer<T>::value,
 			std::size_t
 		>::type
-		hash_value_impl(T const &v) {
+		hash_value_impl(T const& v) {
 			return std::hash<typename std::decay<T>::type>()(v);
 		}
 	}	// namespace hash_detail

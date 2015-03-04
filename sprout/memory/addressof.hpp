@@ -18,6 +18,9 @@
 
 namespace sprout {
 	namespace detail {
+		struct address_op_helper {};
+		void operator&(sprout::detail::address_op_helper const&);
+
 		template<typename T>
 		struct has_mem_address_op_test {
 		public:

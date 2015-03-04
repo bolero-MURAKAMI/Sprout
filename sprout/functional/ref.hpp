@@ -19,6 +19,7 @@
 #include <sprout/functional/base.hpp>
 #include <sprout/functional/type_traits/weak_result_type.hpp>
 #include <sprout/functional/type_traits/has_type.hpp>
+#include <sprout/memory/addressof.hpp>
 
 namespace sprout {
 	// 20.8.3 reference_wrapper
@@ -152,7 +153,7 @@ namespace sprout {
 	public:
 		// construct/copy/destroy
 		SPROUT_CONSTEXPR reference_wrapper(T& t) SPROUT_NOEXCEPT
-			: t_(&t)
+			: t_(sprout::addressof(t))
 		{}
 		reference_wrapper(reference_wrapper const&) = default;
 		// assignment

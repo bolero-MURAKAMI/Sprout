@@ -72,7 +72,7 @@ namespace sprout {
 			sprout::detail::div_t_traits2<T>::offsetof_rem == 0,
 			typename sprout::detail::div_t_traits2<T>::type
 		>::type
-		div_impl2(T const &numer, T const& denom) {
+		div_impl2(T const& numer, T const& denom) {
 #if defined(_MSC_VER)
 			typename sprout::detail::div_t_traits2<T>::type result = {numer % denom, numer / denom};
 			return result;

@@ -55,7 +55,7 @@ namespace sprout {
 				) const
 			{
 				return sprout::distance(ctx.begin(), ctx.end()) >= sprout::size(arg)
-					&&sprout::equal(sprout::begin(arg), sprout::end(arg), ctx.begin())
+					&& sprout::equal(sprout::begin(arg), sprout::end(arg), ctx.begin())
 					? result_type(
 						true,
 						sprout::next(ctx.begin(), sprout::size(arg)),
