@@ -43,6 +43,7 @@ namespace sprout {
 			first, last, pred,
 			sprout::next(first, sprout::distance(first, last) / 2)
 			);
+	}
 #else
 	// 25.3.13 Partitions
 	//
