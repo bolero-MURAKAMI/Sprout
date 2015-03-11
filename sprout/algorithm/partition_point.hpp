@@ -13,7 +13,7 @@
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
-
+#ifdef SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR
 	namespace detail {
 		template<typename ForwardIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR ForwardIterator
@@ -43,7 +43,29 @@ namespace sprout {
 			first, last, pred,
 			sprout::next(first, sprout::distance(first, last) / 2)
 			);
+#else
+	// 25.3.13 Partitions
+	//
+	//	recursion depth:
+	//		0
+	//
+	template<typename ForwardIterator, typename Predicate>
+	inline SPROUT_CONSTEXPR ForwardIterator
+	partition_point(ForwardIterator first, ForwardIterator last, Predicate pred) {
+		typedef typename std::iterator_traits<ForwardIterator>::difference_type difference_type;
+		for (difference_type len = sprout::distance(first, last); len != 0; ) {
+			const difference_type half = len / 2;
+			const ForwardIterator mid = sprout::next(first, half);
+			if (pred(*mid)) {
+				first = sprout::next(mid);
+				len -= half + 1;
+			} else {
+				len = half;
+			}
+		}
+		return first;
 	}
+#endif
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_ALGORITHM_PARTITION_POINT_HPP
