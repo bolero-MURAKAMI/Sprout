@@ -51,12 +51,12 @@ namespace sprout {
 	//		0
 	//
 	template<typename ForwardIterator, typename Predicate>
-	inline SPROUT_CONSTEXPR ForwardIterator
+	inline SPROUT_CXX14_CONSTEXPR ForwardIterator
 	partition_point(ForwardIterator first, ForwardIterator last, Predicate pred) {
 		typedef typename std::iterator_traits<ForwardIterator>::difference_type difference_type;
 		for (difference_type len = sprout::distance(first, last); len != 0; ) {
-			const difference_type half = len / 2;
-			const ForwardIterator mid = sprout::next(first, half);
+			difference_type const half = len / 2;
+			ForwardIterator const mid = sprout::next(first, half);
 			if (pred(*mid)) {
 				first = sprout::next(mid);
 				len -= half + 1;
