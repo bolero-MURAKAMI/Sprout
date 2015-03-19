@@ -415,6 +415,25 @@ namespace sprout {
 		SPROUT_CONSTEXPR difference_type from_end() const {
 			return to_last_ - sprout::size(get_array());
 		}
+
+		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
+			return i < size()
+				? sprout::next(begin(), i)
+				: (throw std::out_of_range("sub_array<>: index out of range"), iterator())
+				;
+		}
+		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
+			return i < size()
+				? sprout::next(begin(), i)
+				: (throw std::out_of_range("array<>: index out of range"), const_iterator())
+				;
+		}
+		SPROUT_CXX14_CONSTEXPR size_type index_of(iterator p) {
+			return sprout::distance(begin(), p);
+		}
+		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const {
+			return sprout::distance(begin(), p);
+		}
 	};
 	template<typename Container>
 	SPROUT_CONSTEXPR_OR_CONST typename sprout::sub_array<Container>::size_type sprout::sub_array<Container>::enumerable_size;

@@ -933,6 +933,46 @@ namespace sprout {
 				;
 		}
 #endif
+
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
+		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
+			return i < size()
+				? iterator(*this, i)
+				: (throw std::out_of_range("basic_string<>: index out of range"), iterator())
+				;
+		}
+		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
+			return i < size()
+				? const_iterator(*this, i)
+				: (throw std::out_of_range("basic_string<>: index out of range"), const_iterator())
+				;
+		}
+		SPROUT_CONSTEXPR size_type index_of(iterator p) const SPROUT_NOEXCEPT {
+			return p.index();
+		}
+		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {
+			return p.index();
+		}
+#else
+		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
+			return i < size()
+				? data() + i
+				: (throw std::out_of_range("basic_string<>: index out of range"), iterator())
+				;
+		}
+		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
+			return i < size()
+				? data() + i
+				: (throw std::out_of_range("basic_string<>: index out of range"), const_iterator())
+				;
+		}
+		SPROUT_CONSTEXPR size_type index_of(iterator p) const SPROUT_NOEXCEPT {
+			return sprout::distance(begin(), p);
+		}
+		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {
+			return sprout::distance(begin(), p);
+		}
+#endif
 	};
 	template<typename T, std::size_t N, typename Traits>
 	SPROUT_CONSTEXPR_OR_CONST typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::npos;

@@ -216,6 +216,46 @@ namespace sprout {
 				throw std::out_of_range("array<>: index out of range");
 			}
 		}
+
+#if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
+		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
+			return i < size()
+				? iterator(*this, i)
+				: (throw std::out_of_range("array<>: index out of range"), iterator())
+				;
+		}
+		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
+			return i < size()
+				? const_iterator(*this, i)
+				: (throw std::out_of_range("array<>: index out of range"), const_iterator())
+				;
+		}
+		SPROUT_CONSTEXPR size_type index_of(iterator p) const SPROUT_NOEXCEPT {
+			return p.index();
+		}
+		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {
+			return p.index();
+		}
+#else
+		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
+			return i < size()
+				? iterator(elems) + i
+				: (throw std::out_of_range("array<>: index out of range"), iterator())
+				;
+		}
+		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
+			return i < size()
+				? const_iterator(elems) + i
+				: (throw std::out_of_range("array<>: index out of range"), const_iterator())
+				;
+		}
+		SPROUT_CONSTEXPR size_type index_of(iterator p) const SPROUT_NOEXCEPT {
+			return sprout::distance(begin(), p);
+		}
+		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {
+			return sprout::distance(begin(), p);
+		}
+#endif
 	};
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR_OR_CONST typename sprout::array<T, N>::size_type sprout::array<T, N>::static_size;
