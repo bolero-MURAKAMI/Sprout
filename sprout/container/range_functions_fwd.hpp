@@ -77,6 +77,26 @@ namespace sprout {
 	at(Container const& cont, typename sprout::container_traits<Container const>::size_type i);
 
 	//
+	// nth
+	//
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
+	nth(Container& cont, typename sprout::container_traits<Container>::size_type i);
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
+	nth(Container const& cont, typename sprout::container_traits<Container const>::size_type i);
+
+	//
+	// index_of
+	//
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container>::size_type
+	index_of(Container& cont, typename sprout::container_traits<Container>::iterator p);
+	template<typename Container>
+	SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::size_type
+	index_of(Container const& cont, typename sprout::container_traits<Container const>::iterator p);
+
+	//
 	// data
 	//
 	template<typename Container>

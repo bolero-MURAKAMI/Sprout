@@ -337,6 +337,150 @@ namespace sprout {
 			}
 		};
 
+		template<typename T>
+		struct has_mem_nth_test {
+		public:
+			template<
+				typename U = T,
+				typename = typename sprout::identity<decltype(std::declval<U>().nth(std::declval<typename sprout::container_traits<U>::size_type>()))>::type
+			>
+			static sprout::true_type test(int);
+			static sprout::false_type test(...);
+		};
+#if defined(_MSC_VER)
+		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_nth_test<T>::test(0))>::type>
+		struct has_mem_nth
+			: public Base_
+		{};
+#else
+		template<typename T>
+		struct has_mem_nth
+			: public sprout::identity<decltype(sprout::detail::has_mem_nth_test<T>::test(0))>::type
+		{};
+#endif
+
+		template<typename Container, typename = void>
+		struct container_range_traits_range_nth_impl;
+		template<typename Container>
+		struct container_range_traits_range_nth_impl<
+			Container,
+			typename std::enable_if<sprout::detail::has_mem_nth<Container>::value>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
+			range_nth(Container& cont, typename sprout::container_traits<Container>::size_type i) {
+				return cont.nth(i);
+			}
+		};
+		template<typename Container>
+		struct container_range_traits_range_nth_impl<
+			Container,
+			typename std::enable_if<!sprout::detail::has_mem_nth<Container>::value>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
+			range_nth(Container& cont, typename sprout::container_traits<Container>::size_type i) {
+				return sprout::next(sprout::begin(cont), i);
+			}
+		};
+
+		template<typename Container, typename = void>
+		struct container_range_traits_range_nth_const_impl;
+		template<typename Container>
+		struct container_range_traits_range_nth_const_impl<
+			Container,
+			typename std::enable_if<sprout::detail::has_mem_nth<Container const>::value>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
+			range_nth(Container const& cont, typename sprout::container_traits<Container const>::size_type i) {
+				return cont.nth(i);
+			}
+		};
+		template<typename Container>
+		struct container_range_traits_range_nth_const_impl<
+			Container,
+			typename std::enable_if<!sprout::detail::has_mem_nth<Container const>::value>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
+			range_nth(Container const& cont, typename sprout::container_traits<Container const>::size_type i) {
+				return sprout::next(sprout::begin(cont), i);
+			}
+		};
+
+		template<typename T>
+		struct has_mem_index_of_test {
+		public:
+			template<
+				typename U = T,
+				typename = typename sprout::identity<decltype(std::declval<U>().index_of(std::declval<typename sprout::container_traits<U>::iterator>()))>::type
+			>
+			static sprout::true_type test(int);
+			static sprout::false_type test(...);
+		};
+#if defined(_MSC_VER)
+		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_index_of_test<T>::test(0))>::type>
+		struct has_mem_index_of
+			: public Base_
+		{};
+#else
+		template<typename T>
+		struct has_mem_index_of
+			: public sprout::identity<decltype(sprout::detail::has_mem_index_of_test<T>::test(0))>::type
+		{};
+#endif
+
+		template<typename Container, typename = void>
+		struct container_range_traits_range_index_of_impl;
+		template<typename Container>
+		struct container_range_traits_range_index_of_impl<
+			Container,
+			typename std::enable_if<sprout::detail::has_mem_index_of<Container>::value>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::size_type
+			range_index_of(Container& cont, typename sprout::container_traits<Container>::iterator p) {
+				return cont.index_of(p);
+			}
+		};
+		template<typename Container>
+		struct container_range_traits_range_index_of_impl<
+			Container,
+			typename std::enable_if<!sprout::detail::has_mem_index_of<Container>::value>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::size_type
+			range_index_of(Container& cont, typename sprout::container_traits<Container>::iterator p) {
+				return sprout::distance(sprout::begin(cont), p);
+			}
+		};
+
+		template<typename Container, typename = void>
+		struct container_range_traits_range_index_of_const_impl;
+		template<typename Container>
+		struct container_range_traits_range_index_of_const_impl<
+			Container,
+			typename std::enable_if<sprout::detail::has_mem_index_of<Container const>::value>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::size_type
+			range_index_of(Container const& cont, typename sprout::container_traits<Container const>::iterator p) {
+				return cont.index_of(p);
+			}
+		};
+		template<typename Container>
+		struct container_range_traits_range_index_of_const_impl<
+			Container,
+			typename std::enable_if<!sprout::detail::has_mem_index_of<Container const>::value>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::size_type
+			range_index_of(Container const& cont, typename sprout::container_traits<Container const>::iterator p) {
+				return sprout::distance(sprout::begin(cont), p);
+			}
+		};
+
 		//
 		// container_range_traits_default
 		//
@@ -350,6 +494,10 @@ namespace sprout {
 			, public sprout::detail::container_range_traits_range_back_const_impl<Container>
 			, public sprout::detail::container_range_traits_range_at_impl<Container>
 			, public sprout::detail::container_range_traits_range_at_const_impl<Container>
+			, public sprout::detail::container_range_traits_range_nth_impl<Container>
+			, public sprout::detail::container_range_traits_range_nth_const_impl<Container>
+			, public sprout::detail::container_range_traits_range_index_of_impl<Container>
+			, public sprout::detail::container_range_traits_range_index_of_const_impl<Container>
 		{
 			using sprout::detail::container_range_traits_range_front_impl<Container>::range_front;
 			using sprout::detail::container_range_traits_range_front_const_impl<Container>::range_front;
@@ -357,6 +505,10 @@ namespace sprout {
 			using sprout::detail::container_range_traits_range_back_const_impl<Container>::range_back;
 			using sprout::detail::container_range_traits_range_at_impl<Container>::range_at;
 			using sprout::detail::container_range_traits_range_at_const_impl<Container>::range_at;
+			using sprout::detail::container_range_traits_range_nth_impl<Container>::range_nth;
+			using sprout::detail::container_range_traits_range_nth_const_impl<Container>::range_nth;
+			using sprout::detail::container_range_traits_range_index_of_impl<Container>::range_index_of;
+			using sprout::detail::container_range_traits_range_index_of_const_impl<Container>::range_index_of;
 		public:
 			// iterators:
 			static SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
@@ -421,6 +573,14 @@ namespace sprout {
 			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
 			range_at(Container const& cont, typename sprout::container_traits<Container const>::size_type i) {
 				return sprout::container_range_traits<Container>::range_at(cont, i);
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
+			range_nth(Container const& cont, typename sprout::container_traits<Container const>::size_type i) {
+				return sprout::container_range_traits<Container>::range_nth(cont, i);
+			}
+			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::size_type
+			range_index_of(Container const& cont, typename sprout::container_traits<Container const>::iterator p) {
+				return sprout::container_range_traits<Container>::range_index_of(cont, p);
 			}
 			// data access:
 			static SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
@@ -500,14 +660,36 @@ namespace sprout {
 		range_at(T const (& arr)[N], typename sprout::container_traits<T const[N]>::size_type i) {
 			return arr[i];
 		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T[N]>::iterator
+		range_nth(T (& arr)[N], typename sprout::container_traits<T[N]>::size_type i) {
+			typedef typename sprout::container_traits<T[N]>::iterator type;
+			return type(arr) + i;
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::iterator
+		range_nth(T const (& arr)[N], typename sprout::container_traits<T const[N]>::size_type i) {
+			typedef typename sprout::container_traits<T const[N]>::iterator type;
+			return type(arr) + i;
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T[N]>::size_type
+		range_index_of(T (& arr)[N], typename sprout::container_traits<T[N]>::iterator p) {
+			typedef typename sprout::container_traits<T[N]>::iterator type;
+			return sprout::distance(type(arr), p);
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::size_type
+		range_index_of(T const (& arr)[N], typename sprout::container_traits<T const[N]>::iterator p) {
+			typedef typename sprout::container_traits<T const[N]>::iterator type;
+			return sprout::distance(type(arr), p);
+		}
 		// data access:
 		static SPROUT_CONSTEXPR typename sprout::container_traits<T[N]>::pointer
 		range_data(T (& arr)[N]) {
-			return &arr[0];
+			typedef typename sprout::container_traits<T[N]>::pointer type;
+			return type(arr);
 		}
 		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::pointer
 		range_data(T const (& arr)[N]) {
-			return &arr[0];
+			typedef typename sprout::container_traits<T const[N]>::pointer type;
+			return type(arr);
 		}
 	};
 	template<typename T, std::size_t N>
@@ -543,6 +725,14 @@ namespace sprout {
 		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::reference
 		range_at(T const (& arr)[N], typename sprout::container_traits<T const[N]>::size_type i) {
 			return sprout::container_range_traits<T[N]>::range_at(arr, i);
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::iterator
+		range_nth(T const (& arr)[N], typename sprout::container_traits<T const[N]>::size_type i) {
+			return sprout::container_range_traits<T[N]>::range_nth(arr, i);
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::size_type
+		range_index_of(T const (& arr)[N], typename sprout::container_traits<T const[N]>::iterator p) {
+			return sprout::container_range_traits<T[N]>::range_index_of(arr, p);
 		}
 		// data access:
 		static SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::pointer

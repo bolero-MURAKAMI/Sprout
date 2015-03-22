@@ -54,7 +54,7 @@ namespace testspr {
 #define TESTSPR_STATIC_ASSERT(expr) \
 	static_assert(expr, #expr)
 #define TESTSPR_ASSERT(expr) \
-	((void)sprout::detail::assertion_check((expr), SPROUT_ASSERTION_FAILED_FORMAT(expr, __FILE__, __LINE__)))
+	SPROUT_ASSERT(expr)
 //
 // TESTSPR_BOTH_ASSERT
 //

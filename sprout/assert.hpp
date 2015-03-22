@@ -26,9 +26,7 @@
 #	include <sprout/preprocessor/cat.hpp>
 #	include <sprout/preprocessor/variadic/size.hpp>
 #endif
-#if !(defined(SPROUT_DISABLE_ASSERTS) || defined(NDEBUG))
-#	include <sprout/preprocessor/stringize.hpp>
-#endif
+#include <sprout/preprocessor/stringize.hpp>
 
 //
 // SPROUT_ASSERTION_FAILED_FORMAT
