@@ -55,7 +55,7 @@ namespace sprout {
 			InputIterator1 last1, InputIterator2 last2, Compare comp, typename std::iterator_traits<InputIterator1>::difference_type n
 			)
 		{
-			return sprout::tuples::get<2>(current) || sprout::tuples::get<0>(current) == last1 ? current
+			return sprout::tuples::get<2>(current) || sprout::tuples::get<0>(current) == last1 || sprout::tuples::get<1>(current) == last2 ? current
 				: sprout::detail::find_symmetric_difference_impl(
 					sprout::detail::find_symmetric_difference_impl_1(
 						current,
