@@ -782,8 +782,7 @@ namespace sprout {
 		//
 		template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value>::type>
 		inline SPROUT_CONSTEXPR T factorial(std::size_t x) {
-			typedef typename std::remove_cv<T>::type type;
-			return SPROUT_ASSERT(x <= sprout::math::factorial_limit<type>()),
+			return SPROUT_ASSERT(x <= sprout::math::factorial_limit<typename std::remove_cv<T>::type>()),
 				sprout::math::unchecked_factorial<T>(x)
 				;
 		}
