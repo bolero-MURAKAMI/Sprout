@@ -947,7 +947,7 @@ namespace sprout {
 				: (throw std::out_of_range("basic_string<>: index out of range"), const_iterator())
 				;
 		}
-		SPROUT_CONSTEXPR size_type index_of(iterator p) const SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR size_type index_of(iterator p) SPROUT_NOEXCEPT {
 			return p.index();
 		}
 		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {
@@ -965,8 +965,8 @@ namespace sprout {
 				? data() + i
 				: (throw std::out_of_range("basic_string<>: index out of range"), const_iterator())
 				;
-		}
-		SPROUT_CONSTEXPR size_type index_of(iterator p) const SPROUT_NOEXCEPT {
+		}SPROUT_CXX14_CONSTEXPR
+		SPROUT_CONSTEXPR size_type index_of(iterator p) SPROUT_NOEXCEPT {
 			return sprout::distance(begin(), p);
 		}
 		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {

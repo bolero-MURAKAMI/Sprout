@@ -271,8 +271,8 @@ namespace sprout {
 				array_tag(),
 				impl_type::template to_param<Container>(other.array_),
 				sprout::make_index_tuple<enumerable_size>::make(),
-				sprout::distance(sprout::begin(other.get_array()), first),
-				sprout::distance(sprout::begin(other.get_array()), last)
+				sprout::distance(sprout::begin(other.get_internal()), first),
+				sprout::distance(sprout::begin(other.get_internal()), last)
 				)
 		{}
 		SPROUT_CONSTEXPR sub_array(sub_array const& other, difference_type to_first, difference_type to_last)
@@ -312,22 +312,22 @@ namespace sprout {
 		}
 		// iterators:
 		SPROUT_CXX14_CONSTEXPR iterator begin() {
-			return sprout::next(sprout::begin(get_array()), to_first_);
+			return sprout::next(sprout::begin(get_internal()), to_first_);
 		}
 		SPROUT_CONSTEXPR const_iterator begin() const {
-			return sprout::next(sprout::begin(get_array()), to_first_);
+			return sprout::next(sprout::begin(get_internal()), to_first_);
 		}
 		SPROUT_CXX14_CONSTEXPR iterator end() {
-			return sprout::next(sprout::begin(get_array()), to_last_);
+			return sprout::next(sprout::begin(get_internal()), to_last_);
 		}
 		SPROUT_CONSTEXPR const_iterator end() const {
-			return sprout::next(sprout::begin(get_array()), to_last_);
+			return sprout::next(sprout::begin(get_internal()), to_last_);
 		}
 		SPROUT_CONSTEXPR const_iterator cbegin() const {
-			return sprout::next(sprout::begin(get_array()), to_first_);
+			return sprout::next(sprout::begin(get_internal()), to_first_);
 		}
 		SPROUT_CONSTEXPR const_iterator cend() const {
-			return sprout::next(sprout::begin(get_array()), to_last_);
+			return sprout::next(sprout::begin(get_internal()), to_last_);
 		}
 		// capacity:
 		SPROUT_CONSTEXPR size_type size() const {
@@ -341,39 +341,39 @@ namespace sprout {
 		}
 		// element access:
 		SPROUT_CXX14_CONSTEXPR reference operator[](size_type i) {
-			return *sprout::next(sprout::begin(get_array()), to_first_ + i);
+			return *sprout::next(sprout::begin(get_internal()), to_first_ + i);
 		}
 		SPROUT_CONSTEXPR const_reference operator[](size_type i) const {
-			return *sprout::next(sprout::begin(get_array()), to_first_ + i);
+			return *sprout::next(sprout::begin(get_internal()), to_first_ + i);
 		}
 		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
-			return i < size() ? *sprout::next(sprout::begin(get_array()), to_first_ + i)
-				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), to_first_ + i))
+			return i < size() ? *sprout::next(sprout::begin(get_internal()), to_first_ + i)
+				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_internal()), to_first_ + i))
 				;
 		}
 		SPROUT_CONSTEXPR const_reference at(size_type i) const {
-			return i < size() ? *sprout::next(sprout::begin(get_array()), to_first_ + i)
-				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_array()), to_first_ + i))
+			return i < size() ? *sprout::next(sprout::begin(get_internal()), to_first_ + i)
+				: (throw std::out_of_range("sub_array<>: index out of range"), *sprout::next(sprout::begin(get_internal()), to_first_ + i))
 				;
 		}
 		SPROUT_CXX14_CONSTEXPR reference front() {
-			return *sprout::next(sprout::begin(get_array()), to_first_);
+			return *sprout::next(sprout::begin(get_internal()), to_first_);
 		}
 		SPROUT_CONSTEXPR const_reference front() const {
-			return *sprout::next(sprout::begin(get_array()), to_first_);
+			return *sprout::next(sprout::begin(get_internal()), to_first_);
 		}
 		SPROUT_CXX14_CONSTEXPR reference back() {
-			return *sprout::next(sprout::begin(get_array()), to_last_ - 1);
+			return *sprout::next(sprout::begin(get_internal()), to_last_ - 1);
 		}
 		SPROUT_CONSTEXPR const_reference back() const {
-			return *sprout::next(sprout::begin(get_array()), to_last_ - 1);
+			return *sprout::next(sprout::begin(get_internal()), to_last_ - 1);
 		}
 
 		SPROUT_CXX14_CONSTEXPR pointer data() {
-			return get_array().data() + to_first_;
+			return get_internal().data() + to_first_;
 		}
 		SPROUT_CONSTEXPR const_pointer data() const {
-			return get_array().data() + to_first_;
+			return get_internal().data() + to_first_;
 		}
 		// others:
 		SPROUT_CXX14_CONSTEXPR pointer c_array() {
@@ -413,7 +413,7 @@ namespace sprout {
 			return to_first_;
 		}
 		SPROUT_CONSTEXPR difference_type from_end() const {
-			return to_last_ - sprout::size(get_array());
+			return to_last_ - sprout::size(get_internal());
 		}
 
 		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
