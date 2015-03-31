@@ -13,6 +13,7 @@
 #include <sprout/math/not_equal_to.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	namespace math {
@@ -32,7 +33,7 @@ namespace sprout {
 				typename IntType1, typename IntType2,
 				typename sprout::enabler_if<
 					std::is_integral<typename sprout::arithmetic_promote<IntType1, IntType2>::type>::value
-					&& (std::is_unsigned<IntType1>::value == std::is_unsigned<IntType2>::value)
+					&& (sprout::is_unsigned<IntType1>::value == sprout::is_unsigned<IntType2>::value)
 				>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR bool
@@ -43,7 +44,7 @@ namespace sprout {
 				typename IntType1, typename IntType2,
 				typename sprout::enabler_if<
 					std::is_integral<typename sprout::arithmetic_promote<IntType1, IntType2>::type>::value
-					&& std::is_signed<IntType1>::value && std::is_unsigned<IntType2>::value
+					&& sprout::is_signed<IntType1>::value && sprout::is_unsigned<IntType2>::value
 				>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR bool
@@ -57,7 +58,7 @@ namespace sprout {
 				typename IntType1, typename IntType2,
 				typename sprout::enabler_if<
 					std::is_integral<typename sprout::arithmetic_promote<IntType1, IntType2>::type>::value
-					&& std::is_unsigned<IntType1>::value && std::is_signed<IntType2>::value
+					&& sprout::is_unsigned<IntType1>::value && sprout::is_signed<IntType2>::value
 				>::type = sprout::enabler
 			>
 			inline SPROUT_CONSTEXPR bool

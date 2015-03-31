@@ -1,6 +1,8 @@
 /*=============================================================================
+  Copyright (c) 2011 RiSK (sscrisk)
+  https://github.com/sscrisk/CEL---ConstExpr-Library
+
   Copyright (c) 2011-2015 Bolero MURAKAMI
-  Copyright (C) 2011 RiSK (sscrisk)
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -11,6 +13,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 
@@ -43,7 +46,7 @@ namespace sprout {
 	namespace {
 		template<typename IntType>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_integral<IntType>::value && std::is_signed<IntType>::value,
+			std::is_integral<IntType>::value && sprout::is_signed<IntType>::value,
 			IntType
 		>::type
 		abs(IntType j) {
@@ -52,7 +55,7 @@ namespace sprout {
 
 		template<typename IntType>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_integral<IntType>::value && std::is_unsigned<IntType>::value,
+			std::is_integral<IntType>::value && sprout::is_unsigned<IntType>::value,
 			IntType
 		>::type
 		abs(IntType j) {

@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -29,7 +30,7 @@ namespace sprout {
 #	endif
 		template<typename T>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_unsigned<T>::value,
+			sprout::is_unsigned<T>::value,
 			int
 		>::type
 		popcount(T n) {
@@ -39,7 +40,7 @@ namespace sprout {
 		}
 		template<typename T>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_signed<T>::value,
+			sprout::is_signed<T>::value,
 			int
 		>::type
 		popcount(T n) {

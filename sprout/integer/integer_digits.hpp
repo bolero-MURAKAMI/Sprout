@@ -12,7 +12,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
-#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -20,8 +20,8 @@ namespace sprout {
 		struct integer_digits_impl
 			: public sprout::integral_constant<
 				std::size_t,
-				(CHAR_BIT * sizeof(IntType) - (std::is_signed<IntType>::value ? 1 : 0)) * N / D
-				+ ((CHAR_BIT * sizeof(IntType) - (std::is_signed<IntType>::value ? 1 : 0)) * N % D ? 1 : 0)
+				(CHAR_BIT * sizeof(IntType) - (sprout::is_signed<IntType>::value ? 1 : 0)) * N / D
+				+ ((CHAR_BIT * sizeof(IntType) - (sprout::is_signed<IntType>::value ? 1 : 0)) * N % D ? 1 : 0)
 			>
 		{};
 	}	// namespace detail

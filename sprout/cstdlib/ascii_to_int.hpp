@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/limits.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
 #include <sprout/detail/char_literal.hpp>
@@ -39,7 +40,7 @@ namespace sprout {
 		}
 		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_unsigned<IntType>::value,
+			sprout::is_unsigned<IntType>::value,
 			IntType
 		>::type
 		ascii_to_int(NullTerminatedIterator str) {
@@ -53,7 +54,7 @@ namespace sprout {
 		}
 		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_signed<IntType>::value,
+			sprout::is_signed<IntType>::value,
 			IntType
 		>::type
 		ascii_to_int(NullTerminatedIterator str) {

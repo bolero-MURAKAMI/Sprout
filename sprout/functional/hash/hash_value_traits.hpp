@@ -15,7 +15,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/functional/hash/detail/hash_float.hpp>
-#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	namespace hash_detail {
@@ -31,7 +31,7 @@ namespace sprout {
 			: public sprout::bool_constant<
 				std::is_integral<T>::value
 					&& (sizeof(T) > sizeof(std::size_t))
-					&& std::is_signed<T>::value
+					&& sprout::is_signed<T>::value
 			>
 		{};
 		template<typename T>
@@ -39,7 +39,7 @@ namespace sprout {
 			: public sprout::bool_constant<
 				std::is_integral<T>::value
 					&& (sizeof(T) > sizeof(std::size_t))
-					&& std::is_unsigned<T>::value
+					&& sprout::is_unsigned<T>::value
 			>
 		{};
 

@@ -15,6 +15,8 @@
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/common_type.hpp>
 #include <sprout/type_traits/is_null_pointer.hpp>
+#include <sprout/type_traits/is_signed.hpp>
+#include <sprout/type_traits/is_unsigned.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 #if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION < 1101)
 #	include <sprout/tpp/algorithm/max_element.hpp>
@@ -157,14 +159,14 @@ namespace sprout {
 	struct is_abstract
 		: public sprout::detail::type_traits_wrapper<std::is_abstract<T> >
 	{};
-	template<typename T>
-	struct is_signed
-		: public sprout::detail::type_traits_wrapper<std::is_signed<T> >
-	{};
-	template<typename T>
-	struct is_unsigned
-		: public sprout::detail::type_traits_wrapper<std::is_unsigned<T> >
-	{};
+//	template<typename T>
+//	struct is_signed
+//		: public sprout::detail::type_traits_wrapper<std::is_signed<T> >
+//	{};
+//	template<typename T>
+//	struct is_unsigned
+//		: public sprout::detail::type_traits_wrapper<std::is_unsigned<T> >
+//	{};
 	template<typename T, typename... Args>
 	struct is_constructible
 		: public sprout::detail::type_traits_wrapper<std::is_constructible<T, Args...> >

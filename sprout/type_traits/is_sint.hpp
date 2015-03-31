@@ -10,7 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	//
@@ -19,7 +19,7 @@ namespace sprout {
 	template<typename T>
 	struct is_sint
 		: public sprout::bool_constant<
-			std::is_integral<T>::value && std::is_signed<T>::value
+			std::is_integral<T>::value && sprout::is_signed<T>::value
 		>
 	{};
 

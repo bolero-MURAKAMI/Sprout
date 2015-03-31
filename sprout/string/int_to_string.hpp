@@ -14,8 +14,8 @@
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/integer/integer_digits.hpp>
-#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/detail/char_literal.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>
@@ -28,7 +28,7 @@ namespace sprout {
 	struct printed_integer_digits
 		: public sprout::integral_constant<
 			std::size_t,
-			sprout::integer_digits<IntType, Base>::value + (std::is_signed<IntType>::value ? 1 : 0)
+			sprout::integer_digits<IntType, Base>::value + (sprout::is_signed<IntType>::value ? 1 : 0)
 		>
 	{};
 
@@ -36,7 +36,7 @@ namespace sprout {
 		template<
 			typename Elem, int Base, typename IntType,
 			sprout::index_t... Indexes,
-			typename sprout::enabler_if<std::is_signed<IntType>::value>::type = sprout::enabler
+			typename sprout::enabler_if<sprout::is_signed<IntType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
 		int_to_string(IntType val, int digits, sprout::index_tuple<Indexes...>) {
@@ -59,7 +59,7 @@ namespace sprout {
 		template<
 			typename Elem, int Base, typename IntType,
 			sprout::index_t... Indexes,
-			typename sprout::enabler_if<std::is_unsigned<IntType>::value>::type = sprout::enabler
+			typename sprout::enabler_if<sprout::is_unsigned<IntType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR sprout::basic_string<Elem, sprout::printed_integer_digits<IntType, Base>::value>
 		int_to_string(IntType val, int digits, sprout::index_tuple<Indexes...>) {
