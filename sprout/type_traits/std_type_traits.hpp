@@ -17,6 +17,7 @@
 #include <sprout/type_traits/is_null_pointer.hpp>
 #include <sprout/type_traits/is_signed.hpp>
 #include <sprout/type_traits/is_unsigned.hpp>
+#include <sprout/type_traits/is_destructible.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 #if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION < 1101)
 #	include <sprout/tpp/algorithm/max_element.hpp>
@@ -195,10 +196,10 @@ namespace sprout {
 	struct is_move_assignable
 		: public sprout::detail::type_traits_wrapper<std::is_move_assignable<T> >
 	{};
-	template<typename T>
-	struct is_destructible
-		: public sprout::detail::type_traits_wrapper<std::is_destructible<T> >
-	{};
+//	template<typename T>
+//	struct is_destructible
+//		: public sprout::detail::type_traits_wrapper<std::is_destructible<T> >
+//	{};
 #if !defined(_LIBCPP_VERSION)
 #if SPROUT_CLANG_HAS_FUTURE(is_trivially_constructible)
 	template<typename T, typename... Args>
