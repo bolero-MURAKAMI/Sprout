@@ -17,6 +17,7 @@
 #include <sprout/type_traits/is_signed.hpp>
 #include <sprout/type_traits/is_unsigned.hpp>
 #include <sprout/type_traits/is_destructible.hpp>
+#include <sprout/type_traits/is_nothrow_destructible.hpp>
 #include <sprout/type_traits/result_of.hpp>
 #include <sprout/type_traits/is_null_pointer.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
@@ -331,14 +332,16 @@ namespace sprout {
 #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_destructible
-		: public sprout::bool_constant<__has_trivial_destructor(T)>
+		: public sprout::bool_constant<sprout::is_destructible<T>::value && __has_trivial_destructor(T)>
 	{};
 #else	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
 	template<typename T>
 	struct is_trivially_destructible
 		: public sprout::bool_constant<
-			std::is_scalar<typename std::remove_all_extents<T>::type>::value
+			sprout::is_destructible<T>::value
+			&& (std::is_scalar<typename std::remove_all_extents<T>::type>::value
 				|| std::is_reference<typename std::remove_all_extents<T>::type>::value
+				)
 		>
 	{};
 #endif	// #if SPROUT_CLANG_HAS_FUTURE(has_trivial_destructor) || SPROUT_GCC_OR_LATER(4, 3, 0)
@@ -376,20 +379,10 @@ namespace sprout {
 	struct is_nothrow_move_assignable
 		: public sprout::detail::type_traits_wrapper<std::is_nothrow_move_assignable<T> >
 	{};
-#if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
-	template<typename T>
-	struct is_nothrow_destructible
-		: public sprout::bool_constant<
-			std::is_scalar<typename std::remove_all_extents<T>::type>::value
-				|| std::is_reference<typename std::remove_all_extents<T>::type>::value
-		>
-	{};
-#else	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
-	template<typename T>
-	struct is_nothrow_destructible
-		: public sprout::detail::type_traits_wrapper<std::is_nothrow_destructible<T> >
-	{};
-#endif	// #if !defined(_LIBCPP_VERSION) && SPROUT_GCC_EARLIER(4, 8, 0)
+//	template<typename T>
+//	struct is_nothrow_destructible
+//		: public sprout::detail::type_traits_wrapper<std::is_nothrow_destructible<T> >
+//	{};
 	template<typename T>
 	struct has_virtual_destructor
 		: public sprout::detail::type_traits_wrapper<std::has_virtual_destructor<T> >
