@@ -17,6 +17,7 @@
 #include <sprout/iterator/distance.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	//
@@ -27,7 +28,7 @@ namespace sprout {
 		: public std::iterator<
 			typename sprout::common_iterator_category<LIterator, RIterator>::type,
 			typename std::remove_reference<
-				typename std::result_of<
+				typename sprout::result_of<
 					BinaryFunction (
 						typename std::iterator_traits<LIterator>::reference,
 						typename std::iterator_traits<RIterator>::reference
@@ -36,14 +37,14 @@ namespace sprout {
 			>::type,
 			typename std::iterator_traits<LIterator>::difference_type,
 			typename std::remove_reference<
-				typename std::result_of<
+				typename sprout::result_of<
 					BinaryFunction (
 						typename std::iterator_traits<LIterator>::reference,
 						typename std::iterator_traits<RIterator>::reference
 						)
 				>::type
 			>::type*,
-			typename std::result_of<
+			typename sprout::result_of<
 				BinaryFunction (
 					typename std::iterator_traits<LIterator>::reference,
 					typename std::iterator_traits<RIterator>::reference
@@ -56,7 +57,7 @@ namespace sprout {
 		typedef LIterator iterator_type;
 		typedef RIterator iterator2_type;
 		typedef typename sprout::common_iterator_category<LIterator, RIterator>::type iterator_category;
-		typedef typename std::result_of<
+		typedef typename sprout::result_of<
 			BinaryFunction (
 				typename std::iterator_traits<LIterator>::reference,
 				typename std::iterator_traits<RIterator>::reference
@@ -178,17 +179,17 @@ namespace sprout {
 		: public std::iterator<
 			typename std::iterator_traits<Iterator>::iterator_category,
 			typename std::remove_reference<
-				typename std::result_of<
+				typename sprout::result_of<
 					UnaryFunction (typename std::iterator_traits<Iterator>::reference)
 				>::type
 			>::type,
 			typename std::iterator_traits<Iterator>::difference_type,
 			typename std::remove_reference<
-				typename std::result_of<
+				typename sprout::result_of<
 					UnaryFunction (typename std::iterator_traits<Iterator>::reference)
 				>::type
 			>::type*,
-			typename std::result_of<
+			typename sprout::result_of<
 				UnaryFunction (typename std::iterator_traits<Iterator>::reference)
 			>::type
 		>
@@ -197,7 +198,7 @@ namespace sprout {
 		typedef UnaryFunction functor_type;
 		typedef Iterator iterator_type;
 		typedef typename std::iterator_traits<iterator_type>::iterator_category iterator_category;
-		typedef typename std::result_of<
+		typedef typename sprout::result_of<
 			UnaryFunction (typename std::iterator_traits<Iterator>::reference)
 		>::type reference;
 		typedef typename std::remove_reference<reference>::type value_type;

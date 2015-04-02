@@ -12,7 +12,7 @@
 #include <functional>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>
@@ -173,7 +173,7 @@ namespace sprout {
 		}
 		// invocation
 		template<typename... Args>
-		SPROUT_CONSTEXPR typename std::result_of<T& (Args&&...)>::type
+		SPROUT_CONSTEXPR typename sprout::result_of<T& (Args&&...)>::type
 		operator()(Args&&... args) const {
 			return (*t_)(SPROUT_FORWARD(Args, args)...);
 		}

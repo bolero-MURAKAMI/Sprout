@@ -8,8 +8,8 @@
 #ifndef SPROUT_WEED_ATTR_CNV_RESULTS_MEM_PTR_HPP
 #define SPROUT_WEED_ATTR_CNV_RESULTS_MEM_PTR_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/std_type_traits.hpp>
 
 namespace sprout {
 	namespace weed {
@@ -20,7 +20,7 @@ namespace sprout {
 				//
 				template<typename T, typename U, typename = void>
 				struct mem_ptr
-					: public std::result_of<U(T)>
+					: public sprout::result_of<U(T)>
 				{};
 			}	// namespace results
 		}	// namespace attr_cnv

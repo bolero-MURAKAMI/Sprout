@@ -13,7 +13,6 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
-#include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 
 namespace sprout {
 	//
@@ -92,8 +91,8 @@ namespace sprout {
 
 		template<
 			typename T,
-			bool = std::is_void<T>::value || (std::is_array<T>::value && !std::extent<T>::value),
-			bool = std::is_reference<T>::value || std::is_function<T>::value
+			bool = std::is_void<T>::value || (std::is_array<T>::value && !std::extent<T>::value) || std::is_function<T>::value,
+			bool = std::is_reference<T>::value || std::is_scalar<T>::value
 		>
 		struct is_destructible_impl;
 		template<typename T>

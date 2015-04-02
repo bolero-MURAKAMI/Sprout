@@ -14,10 +14,11 @@
 #include <sprout/detail/predef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/common_type.hpp>
-#include <sprout/type_traits/is_null_pointer.hpp>
 #include <sprout/type_traits/is_signed.hpp>
 #include <sprout/type_traits/is_unsigned.hpp>
 #include <sprout/type_traits/is_destructible.hpp>
+#include <sprout/type_traits/result_of.hpp>
+#include <sprout/type_traits/is_null_pointer.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 #if !defined(_LIBCPP_VERSION) || (_LIBCPP_VERSION < 1101)
 #	include <sprout/tpp/algorithm/max_element.hpp>
@@ -473,7 +474,7 @@ namespace sprout {
 	using std::conditional;
 //	using std::common_type;
 	using std::underlying_type;
-	using std::result_of;
+//	using std::result_of;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_STD_TYPE_TRAITS_HPP
