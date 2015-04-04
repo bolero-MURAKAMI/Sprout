@@ -6,7 +6,7 @@
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 #ifndef SPROUT_TYPE_TRAITS_REMOVE_CV_HPP
-#define SPROUT_TYPE_TRAITS_REMOVE_CONST_HPP
+#define SPROUT_TYPE_TRAITS_REMOVE_CV_HPP
 
 #include <type_traits>
 #include <sprout/config.hpp>
