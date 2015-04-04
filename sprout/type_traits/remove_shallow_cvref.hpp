@@ -8,6 +8,7 @@
 #ifndef SPROUT_TYPE_TRAITS_REMOVE_SHALLOW_CVREF_HPP
 #define SPROUT_TYPE_TRAITS_REMOVE_SHALLOW_CVREF_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/remove_shallow_cv.hpp>
 
@@ -18,7 +19,7 @@ namespace sprout {
 	template<typename T>
 	struct remove_shallow_cvref
 		: public sprout::remove_shallow_cv<
-			typename sprout::remove_reference<T>::type
+			typename std::remove_reference<T>::type
 		>
 	{};
 

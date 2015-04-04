@@ -13,7 +13,8 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/is_signed.hpp>
+#include <sprout/type_traits/is_unsigned.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
 #include <sprout/detail/char_literal.hpp>

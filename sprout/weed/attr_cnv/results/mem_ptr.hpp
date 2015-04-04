@@ -9,7 +9,7 @@
 #define SPROUT_WEED_ATTR_CNV_RESULTS_MEM_PTR_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/result_of.hpp>
 
 namespace sprout {
 	namespace weed {

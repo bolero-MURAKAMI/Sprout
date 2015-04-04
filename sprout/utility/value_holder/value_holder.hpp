@@ -15,7 +15,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/is_constructible.hpp>
 #include <sprout/optional/in_place.hpp>
 
 namespace sprout {

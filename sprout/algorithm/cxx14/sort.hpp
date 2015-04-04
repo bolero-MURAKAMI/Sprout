@@ -12,7 +12,8 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/algorithm/cxx14/detail/sort_tool.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/is_trivially_copy_constructible.hpp>
+#include <sprout/type_traits/is_trivially_copy_assignable.hpp>
 #include <sprout/utility/swap.hpp>
 #include HDR_FUNCTIONAL_SSCRISK_CEL_OR_SPROUT
 

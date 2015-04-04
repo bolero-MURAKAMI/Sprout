@@ -15,7 +15,9 @@
 #include <sprout/limits.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
 #include <sprout/functional/hash/detail/hash_float.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/is_signed.hpp>
+#include <sprout/type_traits/is_unsigned.hpp>
 
 namespace sprout {
 	namespace hash_detail {

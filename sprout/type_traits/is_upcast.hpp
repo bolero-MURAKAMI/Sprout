@@ -8,9 +8,9 @@
 #ifndef SPROUT_TYPE_TRAITS_IS_UPCAST_HPP
 #define SPROUT_TYPE_TRAITS_IS_UPCAST_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/type_traits/is_nullptr_cast.hpp>
 
 namespace sprout {
@@ -21,11 +21,11 @@ namespace sprout {
 	struct is_upcast
 		: public sprout::bool_constant<
 			sprout::is_nullptr_cast<From, To>::value
-				|| (sprout::is_pointer<To>::value
-					&& sprout::is_base_of<typename sprout::remove_pointer<To>::type, typename sprout::remove_pointer<typename sprout::decay<From>::type>::type>::value
+				|| (std::is_pointer<To>::value
+					&& std::is_base_of<typename std::remove_pointer<To>::type, typename std::remove_pointer<typename std::decay<From>::type>::type>::value
 					)
-				|| (sprout::is_reference<To>::value
-					&& sprout::is_base_of<typename sprout::remove_reference<To>::type, typename sprout::remove_reference<From>::type>::value
+				|| (std::is_reference<To>::value
+					&& std::is_base_of<typename std::remove_reference<To>::type, typename std::remove_reference<From>::type>::value
 					)
 		>
 	{};

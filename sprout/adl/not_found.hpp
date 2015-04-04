@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/is_same.hpp>
 
 namespace sprout {
 	//

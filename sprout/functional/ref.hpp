@@ -12,7 +12,8 @@
 #include <functional>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/result_of.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/has_xxx.hpp>
 #include <sprout/type_traits/inherit_if_xxx.hpp>

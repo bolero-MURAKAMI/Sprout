@@ -13,7 +13,8 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/is_signed.hpp>
+#include <sprout/type_traits/is_unsigned.hpp>
 
 namespace sprout {
 

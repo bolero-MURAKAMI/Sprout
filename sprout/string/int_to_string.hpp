@@ -15,7 +15,9 @@
 #include <sprout/string/string.hpp>
 #include <sprout/integer/integer_digits.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/is_signed.hpp>
+#include <sprout/type_traits/is_unsigned.hpp>
 #include <sprout/detail/char_literal.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>

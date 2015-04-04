@@ -8,9 +8,9 @@
 #ifndef SPROUT_UTILITY_REINTER_CAST_HPP
 #define SPROUT_UTILITY_REINTER_CAST_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/utility/forward.hpp>
 
@@ -19,12 +19,12 @@ namespace sprout {
 		template<typename From, typename To>
 		struct is_same_reinterpret_cast
 			: public sprout::bool_constant<
-				(sprout::is_reference<To>::value
-					&& sprout::is_same<typename sprout::decay<From>::type, typename sprout::decay<To>::type>::value
-					&& sprout::is_convertible<From, To>::value
+				(std::is_reference<To>::value
+					&& std::is_same<typename std::decay<From>::type, typename std::decay<To>::type>::value
+					&& std::is_convertible<From, To>::value
 					)
-					|| ((sprout::is_integral<To>::type || sprout::is_enum<To>::type || sprout::is_pointer<To>::type)
-						&& sprout::is_same<typename sprout::decay<From>::type, To>::value
+					|| ((std::is_integral<To>::type || std::is_enum<To>::type || std::is_pointer<To>::type)
+						&& std::is_same<typename std::decay<From>::type, To>::value
 						)
 
 			>

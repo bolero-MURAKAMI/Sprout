@@ -13,7 +13,8 @@
 #include <sprout/math/not_equal_to.hpp>
 #include <sprout/type_traits/arithmetic_promote.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/is_signed.hpp>
+#include <sprout/type_traits/is_unsigned.hpp>
 
 namespace sprout {
 	namespace math {

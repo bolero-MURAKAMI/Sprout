@@ -17,7 +17,7 @@
 #include <sprout/iterator/distance.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/utility/swap.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/result_of.hpp>
 
 namespace sprout {
 	//

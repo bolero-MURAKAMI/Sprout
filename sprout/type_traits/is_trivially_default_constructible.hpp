@@ -10,6 +10,7 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/is_trivially_constructible.hpp>
 #include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 
 namespace sprout {

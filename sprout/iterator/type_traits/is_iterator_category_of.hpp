@@ -10,7 +10,7 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/std_type_traits.hpp>
+#include <sprout/type_traits/is_convertible.hpp>
 
 namespace sprout {
 	//
