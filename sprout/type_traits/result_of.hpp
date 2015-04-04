@@ -194,6 +194,11 @@ namespace sprout {
 			Functor, Args...
 		>
 	{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+	template<typename F, typename... ArgTypes>
+	using result_of_t = typename sprout::result_of<F(ArgTypes...)>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_RESULT_OF_HPP

@@ -5,32 +5,22 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_TYPE_TRAITS_ENABLE_IF_HPP
-#define SPROUT_TYPE_TRAITS_ENABLE_IF_HPP
+#ifndef SPROUT_TYPE_TRAITS_MAKE_UNSIGNED_HPP
+#define SPROUT_TYPE_TRAITS_MAKE_UNSIGNED_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 
 namespace sprout {
 	//
-	// enable_if
+	// make_unsigned
 	//
-	using std::enable_if;
-
-	//
-	// disable_if
-	//
-	template<bool B, typename T = void>
-	struct disable_if
-		: public sprout::enable_if<!B, T>
-	{};
+	using std::make_unsigned;
 
 #if SPROUT_USE_TEMPLATE_ALIASES
-	template<bool B, typename T = void>
-	using enable_if_t = typename sprout::enable_if<B, T>::type;
-
-	template<bool B, typename T = void>
-	using disable_if_t = typename sprout::disable_if<B, T>::type;
+	template<typename T>
+	using make_unsigned_t = typename sprout::make_unsigned<T>::type;
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TYPE_TRAITS_ENABLE_IF_HPP
+#endif	// #ifndef SPROUT_TYPE_TRAITS_MAKE_UNSIGNED_HPP

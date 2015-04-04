@@ -61,6 +61,11 @@ namespace sprout {
 	struct is_nothrow_destructible
 		: public sprout::detail::is_nothrow_destructible_impl<T>
 	{};
+
+#if SPROUT_USE_VARIABLE_TEMPLATES
+	template<typename T>
+	SPROUT_STATIC_CONSTEXPR bool is_nothrow_destructible_v = sprout::is_nothrow_destructible<T>::value;
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_IS_NOTHROW_DESTRUCTIBLE_HPP
