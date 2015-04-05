@@ -464,12 +464,20 @@ namespace sprout {
 				z ^= (z >> l);
 				return z;
 			}
+#ifndef SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR
+			SPROUT_CXX14_CONSTEXPR sprout::random::random_result<mersenne_twister_engine> const operator()() const {
+				mersenne_twister_engine eng(*this);
+				result_type value = eng();
+				return sprout::random::random_result<mersenne_twister_engine>(value, eng);
+			}
+#else	// #ifndef SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR
 			SPROUT_CONSTEXPR sprout::random::random_result<mersenne_twister_engine> const operator()() const {
 				return i_ == n
 					? twist().generate()
 					: generate()
 					;
 			}
+#endif	// #ifndef SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR
 #ifndef SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR
 			friend SPROUT_CXX14_CONSTEXPR bool operator==(mersenne_twister_engine const& lhs, mersenne_twister_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.i_ < rhs.i_
