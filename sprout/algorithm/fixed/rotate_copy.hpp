@@ -29,7 +29,8 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			rotate_copy_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last,
+				RandomAccessIterator first, RandomAccessIterator middle,
+				typename sprout::container_traits<Result>::size_type last_half_size,
 				Result const& result,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
@@ -41,9 +42,9 @@ namespace sprout {
 					result,
 					sprout::size(result),
 					(Indexes >= offset && Indexes < offset + size && Indexes < offset + input_size
-						? (Indexes < offset + sprout::distance(middle, last)
+						? (Indexes < offset + last_half_size
 							? middle[Indexes - offset]
-							: first[(Indexes - offset) - sprout::distance(first, middle)]
+							: first[(Indexes - offset) - last_half_size]
 							)
 						: *sprout::next(sprout::internal_begin(result), Indexes)
 						)...
@@ -58,7 +59,8 @@ namespace sprout {
 				)
 			{
 				return sprout::fixed::detail::rotate_copy_impl_ra(
-					first, middle, last,
+					first, middle,
+					sprout::distance(middle, last),
 					result,
 					sprout::container_indexes<Result>::make(),
 					sprout::internal_begin_offset(result),
@@ -138,7 +140,7 @@ namespace sprout {
 				std::forward_iterator_tag*
 				)
 			{
-				return sprout::fixed::detail::rotate_copy_impl(first, middle, last, result, sprout::size(result));
+				return sprout::fixed::detail::rotate_copy_impl(first, middle, middle, last, result, sprout::size(result));
 			}
 
 			template<typename ForwardIterator, typename Result>

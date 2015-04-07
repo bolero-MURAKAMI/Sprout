@@ -24,21 +24,21 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate(
 					arr1,
-					sprout::begin(arr1) + 5
+					sprout::begin(arr1) + 4
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					rotated,
-					array<int, 10>{{6, 7, 8, 9, 10, 1, 2, 3, 4, 5}}
+					array<int, 10>{{5, 6, 7, 8, 9, 10, 1, 2, 3, 4}}
 					));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::fit::rotate(
 					arr1,
-					sprout::begin(arr1) + 5
+					sprout::begin(arr1) + 4
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					rotated,
-					array<int, 10>{{6, 7, 8, 9, 10, 1, 2, 3, 4, 5}}
+					array<int, 10>{{5, 6, 7, 8, 9, 10, 1, 2, 3, 4}}
 					));
 			}
 			// rotate
@@ -46,29 +46,29 @@ namespace testspr {
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate(
 					sprout::sub(arr1, 2, 8),
-					sprout::begin(arr1) + 5
+					sprout::begin(arr1) + 4
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					rotated,
-					array<int, 6>{{6, 7, 8, 3, 4, 5}}
+					array<int, 6>{{5, 6, 7, 8, 3, 4}}
 					));
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(rotated),
-					array<int, 10>{{1, 2, 6, 7, 8, 3, 4, 5, 9, 10}}
+					array<int, 10>{{1, 2, 5, 6, 7, 8, 3, 4, 9, 10}}
 					));
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::fit::rotate(
 					sprout::sub(arr1, 2, 8),
-					sprout::begin(arr1) + 5
+					sprout::begin(arr1) + 4
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					rotated,
-					array<int, 6>{{6, 7, 8, 3, 4, 5}}
+					array<int, 6>{{5, 6, 7, 8, 3, 4}}
 					));
 				TESTSPR_BOTH_ASSERT(testspr::equal(
 					sprout::get_internal(rotated),
-					array<int, 10>{{1, 2, 6, 7, 8, 3, 4, 5, 9, 10}}
+					array<int, 10>{{1, 2, 5, 6, 7, 8, 3, 4, 9, 10}}
 					));
 			}
 		}
