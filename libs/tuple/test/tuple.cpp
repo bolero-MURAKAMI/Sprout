@@ -193,6 +193,14 @@ namespace testspr {
 				TESTSPR_ASSERT(sprout::tuples::get<0>(tup3) == 1);
 				TESTSPR_ASSERT(sprout::tuples::get<1>(tup3) == 1.0);
 			}
+			// get
+			TESTSPR_BOTH_ASSERT(sprout::tuples::get<int>(tup1) == 1);
+			TESTSPR_BOTH_ASSERT(sprout::tuples::get<double>(tup1) == 1.0);
+			{
+				auto tup3 = tup1;
+				TESTSPR_ASSERT(sprout::tuples::get<int>(tup3) == 1);
+				TESTSPR_ASSERT(sprout::tuples::get<double>(tup3) == 1.0);
+			}
 
 			// tuple_size
 			TESTSPR_BOTH_ASSERT(sprout::tuples::tuple_size<decltype(tup1)>::value == 2);

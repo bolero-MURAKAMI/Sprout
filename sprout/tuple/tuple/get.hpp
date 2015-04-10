@@ -19,6 +19,9 @@
 #include <sprout/tuple/tuple/tuple_element.hpp>
 #include <sprout/tuple/tuple/tuple_traits.hpp>
 #include <sprout/tuple/tuple/tuple_access_traits.hpp>
+#include <sprout/type/algorithm/find_index.hpp>
+#include <sprout/type/algorithm/count.hpp>
+#include <sprout/type_traits/remove_cvref.hpp>
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout {
@@ -105,6 +108,18 @@ namespace sprout {
 		SPROUT_NOEXCEPT_IF_EXPR(sprout_tuple_detail::call_tuple_get<I>(std::declval<T>()))
 		{
 			return sprout_tuple_detail::call_tuple_get<I>(SPROUT_FORWARD(T, t));
+		}
+
+		//
+		// get
+		//
+		template<typename Type, typename T>
+		inline SPROUT_CONSTEXPR decltype(sprout::tuples::get<(sprout::types::find_index<typename sprout::remove_cvref<T>::type, Type>::value)>(std::declval<T>()))
+		get(T&& t)
+		SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<(sprout::types::find_index<typename sprout::remove_cvref<T>::type, Type>::value)>(std::declval<T>()))
+		{
+			static_assert(sprout::types::count<typename sprout::remove_cvref<T>::type, Type>::value == 1, "Requires: The type 'Type' occurs exactly once in type list.");
+			return sprout::tuples::get<(sprout::types::find_index<typename sprout::remove_cvref<T>::type, Type>::value)>(SPROUT_FORWARD(T, t));
 		}
 
 		//

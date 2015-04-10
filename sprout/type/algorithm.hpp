@@ -11,6 +11,8 @@
 #include <sprout/config.hpp>
 #include <sprout/type/algorithm/find_index.hpp>
 #include <sprout/type/algorithm/find_index_if.hpp>
+#include <sprout/type/algorithm/count.hpp>
+#include <sprout/type/algorithm/count_if.hpp>
 #include <sprout/type/algorithm/lower_bound_index.hpp>
 #include <sprout/type/algorithm/upper_bound_index.hpp>
 #include <sprout/type/algorithm/fold.hpp>

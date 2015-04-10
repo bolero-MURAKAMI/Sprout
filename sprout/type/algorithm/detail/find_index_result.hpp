@@ -21,7 +21,7 @@ namespace sprout {
 				: public sprout::integral_constant<std::size_t, Found>
 			{
 			public:
-				typedef sprout::bool_constant<Found != sprout::types::tuple_size<Tuple>::value> found;
+				typedef sprout::bool_constant<Found != sprout::types::tuple_size<Tuple>::value> is_found;
 			};
 		}	// namespace detail
 	}	// namespace types

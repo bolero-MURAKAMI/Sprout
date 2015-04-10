@@ -8,7 +8,6 @@
 #ifndef SPROUT_TYPE_ALGORITHM_FIND_INDEX_IF_HPP
 #define SPROUT_TYPE_ALGORITHM_FIND_INDEX_IF_HPP
 
-#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type/apply.hpp>

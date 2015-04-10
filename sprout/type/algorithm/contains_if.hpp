@@ -19,7 +19,7 @@ namespace sprout {
 		//
 		template<typename Tuple, typename Predicate>
 		struct contains_if
-			: public sprout::types::find_index_if<Tuple, Predicate>::found
+			: public sprout::types::find_index_if<Tuple, Predicate>::is_found
 		{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES
