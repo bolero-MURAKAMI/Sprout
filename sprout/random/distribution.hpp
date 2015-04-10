@@ -16,6 +16,7 @@
 #include <sprout/random/bernoulli_distribution.hpp>
 #include <sprout/random/binomial_distribution.hpp>
 #include <sprout/random/geometric_distribution.hpp>
+#include <sprout/random/poisson_distribution.hpp>
 #include <sprout/random/normal_distribution.hpp>
 
 #endif	// #ifndef SPROUT_RANDOM_DISTRIBUTION_HPP

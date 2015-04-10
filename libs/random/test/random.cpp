@@ -26,6 +26,7 @@
 #include "./bernoulli_distribution.cpp"
 #include "./binomial_distribution.cpp"
 #include "./geometric_distribution.cpp"
+#include "./poisson_distribution.cpp"
 #include "./normal_distribution.cpp"
 #include <testspr/tools.hpp>
 
@@ -50,6 +51,7 @@ namespace testspr {
 		testspr::random_bernoulli_distribution_test();
 		testspr::random_binomial_distribution_test();
 		testspr::random_geometric_distribution_test();
+		testspr::random_poisson_distribution_test();
 		testspr::random_normal_distribution_test();
 	}
 }	// namespace testspr

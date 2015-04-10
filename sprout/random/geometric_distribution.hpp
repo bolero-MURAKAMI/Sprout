@@ -81,12 +81,10 @@ namespace sprout {
 				}
 			};
 		private:
-		public:
 			static SPROUT_CONSTEXPR RealType init_log_1mp(RealType p) {
 				return sprout::math::log(1 - p);
 			}
 		private:
-		public:
 			RealType p_;
 			RealType log_1mp_;
 		private:
