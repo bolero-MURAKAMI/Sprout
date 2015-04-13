@@ -61,6 +61,8 @@
 #include <sprout/algorithm/next_difference.hpp>
 #include <sprout/algorithm/next_symmetric_difference.hpp>
 #include <sprout/algorithm/clamp.hpp>
+#include <sprout/algorithm/fold_while.hpp>
+#include <sprout/algorithm/fold_until.hpp>
 #include <sprout/algorithm/abs_diff.hpp>
 
 #endif	// #ifndef SPROUT_ALGORITHM_NON_MODIFYIING_HPP

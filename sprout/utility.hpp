@@ -21,5 +21,6 @@
 #include <sprout/utility/string_view.hpp>
 #include <sprout/utility/any_convertible.hpp>
 #include <sprout/utility/use_default.hpp>
+#include <sprout/utility/loop.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_HPP
