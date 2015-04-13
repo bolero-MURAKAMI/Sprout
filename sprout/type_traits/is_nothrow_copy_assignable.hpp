@@ -10,15 +10,26 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/detail/type_traits_wrapper.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/is_nothrow_assignable.hpp>
 
 namespace sprout {
 	//
 	// is_nothrow_copy_assignable
 	//
+	namespace detail {
+		template<typename T, bool = std::is_void<T>::value>
+		struct is_nothrow_copy_assignable_impl
+			: public sprout::false_type
+		{};
+		template<typename T>
+		struct is_nothrow_copy_assignable_impl<T, false>
+			: public sprout::is_nothrow_assignable<T, T const&>
+		{};
+	}	// namespace detail
 	template<typename T>
 	struct is_nothrow_copy_assignable
-		: public sprout::detail::type_traits_wrapper<std::is_nothrow_copy_assignable<T> >
+		: public sprout::detail::is_nothrow_copy_assignable_impl<T>
 	{};
 
 #if SPROUT_USE_VARIABLE_TEMPLATES

@@ -10,24 +10,27 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/is_trivially_constructible.hpp>
-#include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 
 namespace sprout {
 	//
 	// is_trivially_copy_constructible
 	//
-#if !defined(_LIBCPP_VERSION)
+	namespace detail {
+		template<typename T, bool = std::is_void<T>::value>
+		struct is_trivially_copy_constructible_impl
+			: public sprout::false_type
+		{};
+		template<typename T>
+		struct is_trivially_copy_constructible_impl<T, false>
+			: public sprout::is_trivially_constructible<T, T const&>
+		{};
+	}	// namespace detail
 	template<typename T>
 	struct is_trivially_copy_constructible
-		: public sprout::is_trivially_constructible<T, typename std::add_lvalue_reference<T>::type const>
+		: public sprout::detail::is_trivially_copy_constructible_impl<T>
 	{};
-#else	// #if !defined(_LIBCPP_VERSION)
-	template<typename T>
-	struct is_trivially_copy_constructible
-		: public sprout::detail::type_traits_wrapper<std::is_trivially_copy_constructible<T> >
-	{};
-#endif	// #if !defined(_LIBCPP_VERSION)
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T>

@@ -10,15 +10,25 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/type_traits/detail/type_traits_wrapper.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 	//
 	// is_move_constructible
 	//
+	namespace detail {
+		template<typename T, bool = std::is_void<T>::value>
+		struct is_move_constructible_impl
+			: public sprout::false_type
+		{};
+		template<typename T>
+		struct is_move_constructible_impl<T, false>
+			: public std::is_constructible<T, T&&>
+		{};
+	}	// namespace detail
 	template<typename T>
 	struct is_move_constructible
-		: public sprout::detail::type_traits_wrapper<std::is_move_constructible<T> >
+		: public sprout::detail::is_move_constructible_impl<T>
 	{};
 
 #if SPROUT_USE_VARIABLE_TEMPLATES

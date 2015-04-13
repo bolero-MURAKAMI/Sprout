@@ -10,27 +10,27 @@
 
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/is_trivially_assignable.hpp>
-#include <sprout/type_traits/detail/type_traits_wrapper.hpp>
 
 namespace sprout {
 	//
 	// is_trivially_move_assignable
 	//
-#if !defined(_LIBCPP_VERSION)
+	namespace detail {
+		template<typename T, bool = std::is_void<T>::value>
+		struct is_trivially_move_assignable_impl
+			: public sprout::false_type
+		{};
+		template<typename T>
+		struct is_trivially_move_assignable_impl<T, false>
+			: public sprout::is_trivially_assignable<T, T&&>
+		{};
+	}	// namespace detail
 	template<typename T>
 	struct is_trivially_move_assignable
-		: public sprout::is_trivially_assignable<
-			typename std::add_lvalue_reference<T>::type,
-			typename std::add_rvalue_reference<T>::type
-		>
+		: public sprout::detail::is_trivially_move_assignable_impl<T>
 	{};
-#else	// #if !defined(_LIBCPP_VERSION)
-	template<typename T>
-	struct is_trivially_move_assignable
-		: public sprout::detail::type_traits_wrapper<std::is_trivially_move_assignable<T> >
-	{};
-#endif	// #if !defined(_LIBCPP_VERSION)
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T>
