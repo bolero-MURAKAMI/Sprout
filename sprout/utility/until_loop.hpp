@@ -19,30 +19,30 @@ namespace sprout {
 		until_loop_check(T const& init, Predicate pred) {
 			return sprout::pair<T, bool>(init, pred(init));
 		}
-		template<typename T, typename UnaryOperation, typename Predicate>
+		template<typename T, typename Predicate, typename UnaryOperation>
 		inline SPROUT_CONSTEXPR sprout::pair<T, bool>
-		until_loop_impl_1(sprout::pair<T, bool> const& current, UnaryOperation unary_op, Predicate pred, std::size_t n) {
+		until_loop_impl_1(sprout::pair<T, bool> const& current, Predicate pred, UnaryOperation unary_op, std::size_t n) {
 			return current.second || pred(current.first) ? current
 				: n == 1 ? sprout::detail::until_loop_check<T>(unary_op(current.first), pred)
 				: sprout::detail::until_loop_impl_1(
 					sprout::detail::until_loop_impl_1(
 						current,
-						unary_op, pred, n / 2
+						pred, unary_op, n / 2
 						),
-					unary_op, pred, n - n / 2
+					pred, unary_op, n - n / 2
 					)
 				;
 		}
-		template<typename T, typename UnaryOperation, typename Predicate>
+		template<typename T, typename Predicate, typename UnaryOperation>
 		inline SPROUT_CONSTEXPR sprout::pair<T, bool>
-		until_loop_impl(sprout::pair<T, bool> const& current, UnaryOperation unary_op, Predicate pred, std::size_t n) {
+		until_loop_impl(sprout::pair<T, bool> const& current, Predicate pred, UnaryOperation unary_op, std::size_t n) {
 			return current.second || pred(current.first) ? current
 				: sprout::detail::until_loop_impl(
 					sprout::detail::until_loop_impl_1(
 						current,
-						unary_op, pred, n
+						pred, unary_op, n
 						),
-					unary_op, pred, n * 2
+					pred, unary_op, n * 2
 					)
 				;
 		}
@@ -54,11 +54,11 @@ namespace sprout {
 	//	recursion depth:
 	//		O(log N)
 	//
-	template<typename T, typename UnaryOperation, typename Predicate>
+	template<typename T, typename Predicate, typename UnaryOperation>
 	inline SPROUT_CONSTEXPR T
-	until_loop(T init, UnaryOperation unary_op, Predicate pred) {
+	until_loop(T init, Predicate pred, UnaryOperation unary_op) {
 		typedef sprout::pair<T, bool> type;
-		return sprout::detail::until_loop_impl(type(init, false), unary_op, pred, 1).second;
+		return sprout::detail::until_loop_impl(type(init, false), pred, unary_op, 1).second;
 	}
 #else
 	//
@@ -67,12 +67,11 @@ namespace sprout {
 	//	recursion depth:
 	//		0
 	//
-	template<typename T, typename UnaryOperation, typename Predicate>
+	template<typename T, typename Predicate, typename UnaryOperation>
 	inline SPROUT_CXX14_CONSTEXPR T
-	until_loop(T init, UnaryOperation unary_op, Predicate pred) {
-		while (!pred(init)) {
-			init = unary_op(init);
-		}
+	until_loop(T init, Predicate pred, UnaryOperation unary_op) {
+		for (; !pred(init); init = unary_op(init))
+			;
 		return init;
 	}
 #endif
