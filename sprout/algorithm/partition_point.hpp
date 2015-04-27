@@ -11,11 +11,13 @@
 #ifndef SPROUT_ALGORITHM_PARTITION_POINT_HPP
 #define SPROUT_ALGORITHM_PARTITION_POINT_HPP
 
+#include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
-#ifdef SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR
+#if defined(SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR) || SPROUT_GCC_IN_RANGE((5, 1, 0), (5, 1, 1))
 	namespace detail {
 		template<typename ForwardIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR ForwardIterator

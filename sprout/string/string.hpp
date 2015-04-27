@@ -15,6 +15,7 @@
 #include <type_traits>
 #include <initializer_list>
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
 #include <sprout/array/array.hpp>
@@ -603,19 +604,19 @@ namespace sprout {
 		}
 		SPROUT_CXX14_CONSTEXPR pointer
 		data() SPROUT_NOEXCEPT {
-			return &elems[0];
+			return elems;
 		}
 		SPROUT_CONSTEXPR const_pointer
 		data() const SPROUT_NOEXCEPT {
-			return &elems[0];
+			return elems;
 		}
 		SPROUT_CXX14_CONSTEXPR pointer
 		c_array() SPROUT_NOEXCEPT {
-			return &elems[0];
+			return elems;
 		}
 		SPROUT_CONSTEXPR const_pointer
 		c_array() const SPROUT_NOEXCEPT {
-			return &elems[0];
+			return elems;
 		}
 		template<std::size_t N2>
 		SPROUT_CONSTEXPR size_type
@@ -692,7 +693,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_not_of(value_type const* s, size_type pos, size_type n) const {
+#if SPROUT_GCC_IN_RANGE((5, 1, 0), (5, 1, 1))
+			return sprout::string_detail::find_first_not_of_impl<basic_string>(begin(), size(), sprout::ptr_index(s), pos, n);
+#else
 			return sprout::string_detail::find_first_not_of_impl<basic_string>(begin(), size(), s, pos, n);
+#endif
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_not_of(value_type const* s, size_type pos = 0) const {
@@ -709,7 +714,11 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_not_of(value_type const* s, size_type pos, size_type n) const {
+#if SPROUT_GCC_IN_RANGE((5, 1, 0), (5, 1, 1))
+			return sprout::string_detail::find_last_not_of_impl<basic_string>(begin(), size(), sprout::ptr_index(s), pos, n);
+#else
 			return sprout::string_detail::find_last_not_of_impl<basic_string>(begin(), size(), s, pos, n);
+#endif
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_not_of(value_type const* s, size_type pos = npos) const {
@@ -764,11 +773,10 @@ namespace sprout {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
 		}
 
-		SPROUT_CXX14_CONSTEXPR void
-		rangecheck(size_type i) const {
-			if (i >= size()) {
-				throw std::out_of_range("basic_string<>: index out of range");
-			}
+		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
+			return i >= size() ? throw std::out_of_range("uuid: index out of range")
+				: (void)0
+				;
 		}
 
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION

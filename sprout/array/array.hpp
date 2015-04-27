@@ -212,9 +212,9 @@ namespace sprout {
 		}
 		// others:
 		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
-			if (i >= size()) {
-				throw std::out_of_range("array<>: index out of range");
-			}
+			return i >= size() ? throw std::out_of_range("uuid: index out of range")
+				: (void)0
+				;
 		}
 
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION

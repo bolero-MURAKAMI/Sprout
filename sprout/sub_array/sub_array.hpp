@@ -386,9 +386,9 @@ namespace sprout {
 			fill(value);
 		}
 		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
-			if (i >= size()) {
-				throw std::out_of_range("sub_array<>: index out of range");
-			}
+			return i >= size() ? throw std::out_of_range("uuid: index out of range")
+				: (void)0
+				;
 		}
 
 		SPROUT_CXX14_CONSTEXPR internal_type& get_internal() {

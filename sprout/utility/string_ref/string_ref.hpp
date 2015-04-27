@@ -423,11 +423,10 @@ namespace sprout {
 			return data();
 		}
 		// others:
-		SPROUT_CXX14_CONSTEXPR void
-		rangecheck(size_type i) const {
-			if (i >= size()) {
-				throw std::out_of_range("basic_string_ref<>: index out of range");
-			}
+		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
+			return i >= size() ? throw std::out_of_range("uuid: index out of range")
+				: (void)0
+				;
 		}
 
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
