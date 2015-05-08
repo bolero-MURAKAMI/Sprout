@@ -39,6 +39,7 @@
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
+#include <sprout/workaround/enable_if_with_array.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -317,15 +318,15 @@ namespace sprout {
 				str, pos, NS_SSCRISK_CEL_OR_SPROUT::min(n, str.size() - pos)
 				)
 		{}
-		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 - 1 <= N)>::type>
-		SPROUT_CONSTEXPR basic_string(T const(& arr)[N2])
+		template<std::size_t N2 SPROUT_ENABLE_IF_WITH_ARRAY_IN_TEMPLATE_PARAMS((N2 - 1 <= N))>
+		SPROUT_CONSTEXPR basic_string(T const(& arr)[N2] SPROUT_ENABLE_IF_WITH_ARRAY_IN_PARAMS((N2 - 1 <= N)))
 			: impl_type(
 				sprout::make_index_tuple<N2 - 1>::make(),
 				arr, 0, sprout::char_traits_helper<typename sprout::basic_string<T, N2 - 1>::traits_type>::length(arr, N2 - 1)
 				)
 		{}
-		template<std::size_t N2, typename Enable = typename std::enable_if<(N2 - 1 <= N)>::type>
-		SPROUT_CONSTEXPR basic_string(T const(& arr)[N2], size_type n)
+		template<std::size_t N2 SPROUT_ENABLE_IF_WITH_ARRAY_IN_TEMPLATE_PARAMS((N2 - 1 <= N))>
+		SPROUT_CONSTEXPR basic_string(T const(& arr)[N2], size_type n SPROUT_ENABLE_IF_WITH_ARRAY_IN_PARAMS((N2 - 1 <= N)))
 			: impl_type(
 				sprout::make_index_tuple<N2 - 1>::make(),
 				arr, 0, NS_SSCRISK_CEL_OR_SPROUT::min(n, sprout::char_traits_helper<typename sprout::basic_string<T, N2 - 1>::traits_type>::length(arr, N2 - 1))

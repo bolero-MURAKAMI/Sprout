@@ -70,7 +70,8 @@ namespace sprout {
 				SPROUT_CONSTEXPR boolean_flag() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
 				boolean_flag(boolean_flag const&) = default;
 				SPROUT_CONSTEXPR boolean_flag(bool flag)
-					: flag_(flag)
+					: sprout::integral_constant<sprout::io::flags::fmtflags, Flag>()
+					, flag_(flag)
 				{}
 				SPROUT_CONSTEXPR boolean_flag operator()(bool flag) const {
 					return boolean_flag(flag);

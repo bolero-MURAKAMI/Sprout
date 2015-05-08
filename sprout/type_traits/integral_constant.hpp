@@ -23,6 +23,10 @@ namespace sprout {
 		typedef typename std::integral_constant<T, V>::value_type value_type;
 		typedef integral_constant type;
 	public:
+#if defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
+		SPROUT_CONSTEXPR integral_constant() SPROUT_NOEXCEPT {}
+		integral_constant(integral_constant const&) = default;
+#endif
 		SPROUT_CONSTEXPR
 		operator value_type() const SPROUT_NOEXCEPT {
 			return std::integral_constant<T, V>::value;

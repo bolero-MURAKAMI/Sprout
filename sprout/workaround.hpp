@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/recursive_function_template.hpp>
 #include <sprout/workaround/base_class_construct.hpp>
+#include <sprout/workaround/enable_if_with_array.hpp>
 
 #endif	// #ifndef SPROUT_WORKAROUND_HPP
