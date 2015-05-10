@@ -199,10 +199,10 @@ namespace sprout {
 		}
 
 		SPROUT_CXX14_CONSTEXPR pointer data() SPROUT_NOEXCEPT {
-			return pointer(elems);
+			return elems;
 		}
 		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
-			return const_pointer(elems);
+			return elems;
 		}
 		SPROUT_CXX14_CONSTEXPR pointer c_array() SPROUT_NOEXCEPT {
 			return data();

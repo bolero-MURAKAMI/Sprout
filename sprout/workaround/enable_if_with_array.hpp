@@ -20,7 +20,7 @@
 #	define SPROUT_ENABLE_IF_WITH_ARRAY_IN_PARAMS(EXPR) , typename std::enable_if<(EXPR)>::type* = 0
 #else
 #	define SPROUT_ENABLE_IF_WITH_ARRAY_IN_TEMPLATE_PARAMS(EXPR) , typename = typename std::enable_if<(EXPR)>::type
-#	define SPROUT_SFINAE_WITH_ARRAY_IN_PARAMS(EXPR)
+#	define SPROUT_ENABLE_IF_WITH_ARRAY_IN_PARAMS(EXPR)
 #endif
 
 #endif	// #ifndef SPROUT_WORKAROUND_ENABLE_IF_WITH_ARRAY_HPP
