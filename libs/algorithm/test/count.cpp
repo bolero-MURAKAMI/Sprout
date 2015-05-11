@@ -54,32 +54,32 @@ namespace testspr {
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
 					5
 					);
 				TESTSPR_BOTH_ASSERT(result == 4);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
 					11
 					);
 				TESTSPR_BOTH_ASSERT(result == 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::begin(arr1) + 5),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::begin(arr1) + 5),
 					5
 					);
 				TESTSPR_BOTH_ASSERT(result == 2);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::begin(arr1) + 5),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::begin(arr1) + 5),
 					11
 					);
 				TESTSPR_BOTH_ASSERT(result == 0);
@@ -87,32 +87,32 @@ namespace testspr {
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
 					5
 					);
 				TESTSPR_BOTH_ASSERT(result == 4);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
 					11
 					);
 				TESTSPR_BOTH_ASSERT(result == 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
 					5
 					);
 				TESTSPR_BOTH_ASSERT(result == 2);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::count(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
 					11
 					);
 				TESTSPR_BOTH_ASSERT(result == 0);

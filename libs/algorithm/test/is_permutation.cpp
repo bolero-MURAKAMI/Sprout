@@ -93,139 +93,139 @@ namespace testspr {
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::end(arr1)),
-					testspr::reduct_forward(sprout::begin(arr2))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::end(arr1)),
+					testspr::reduce_forward(sprout::begin(arr2))
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::end(arr1)),
-					testspr::reduct_forward(sprout::begin(arr3))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::end(arr1)),
+					testspr::reduce_forward(sprout::begin(arr3))
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::begin(arr1) + 5),
-					testspr::reduct_forward(sprout::begin(arr2))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::begin(arr1) + 5),
+					testspr::reduce_forward(sprout::begin(arr2))
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::begin(arr1) + 5),
-					testspr::reduct_forward(sprout::begin(arr3))
-					);
-				TESTSPR_BOTH_ASSERT(result);
-			}
-
-			{
-				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::end(arr1)),
-					testspr::reduct_forward(sprout::begin(arr2)),
-					testspr::equal_to<int>()
-					);
-				TESTSPR_BOTH_ASSERT(result);
-			}
-			{
-				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::end(arr1)),
-					testspr::reduct_forward(sprout::begin(arr3)),
-					testspr::equal_to<int>()
-					);
-				TESTSPR_BOTH_ASSERT(!result);
-			}
-			{
-				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::begin(arr1) + 5),
-					testspr::reduct_forward(sprout::begin(arr2)),
-					testspr::equal_to<int>()
-					);
-				TESTSPR_BOTH_ASSERT(!result);
-			}
-			{
-				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::begin(arr1) + 5),
-					testspr::reduct_forward(sprout::begin(arr3)),
-					testspr::equal_to<int>()
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::begin(arr1) + 5),
+					testspr::reduce_forward(sprout::begin(arr3))
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr2))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::end(arr1)),
+					testspr::reduce_forward(sprout::begin(arr2)),
+					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr3))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::end(arr1)),
+					testspr::reduce_forward(sprout::begin(arr3)),
+					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr2))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::begin(arr1) + 5),
+					testspr::reduce_forward(sprout::begin(arr2)),
+					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr3))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::begin(arr1) + 5),
+					testspr::reduce_forward(sprout::begin(arr3)),
+					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr2))
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr3))
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr2))
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr3))
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr2)),
 					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr3)),
 					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr2)),
 					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr3)),
 					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result);
@@ -311,155 +311,155 @@ namespace testspr {
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::end(arr1)),
-					testspr::reduct_forward(sprout::begin(arr2)),
-					testspr::reduct_forward(sprout::end(arr2))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::end(arr1)),
+					testspr::reduce_forward(sprout::begin(arr2)),
+					testspr::reduce_forward(sprout::end(arr2))
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::end(arr1)),
-					testspr::reduct_forward(sprout::begin(arr3)),
-					testspr::reduct_forward(sprout::end(arr3))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::end(arr1)),
+					testspr::reduce_forward(sprout::begin(arr3)),
+					testspr::reduce_forward(sprout::end(arr3))
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::begin(arr1) + 5),
-					testspr::reduct_forward(sprout::begin(arr2)),
-					testspr::reduct_forward(sprout::begin(arr2) + 5)
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::begin(arr1) + 5),
+					testspr::reduce_forward(sprout::begin(arr2)),
+					testspr::reduce_forward(sprout::begin(arr2) + 5)
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::begin(arr1) + 5),
-					testspr::reduct_forward(sprout::begin(arr3)),
-					testspr::reduct_forward(sprout::begin(arr3) + 5)
-					);
-				TESTSPR_BOTH_ASSERT(result);
-			}
-
-			{
-				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::end(arr1)),
-					testspr::reduct_forward(sprout::begin(arr2)),
-					testspr::reduct_forward(sprout::end(arr2)),
-					testspr::equal_to<int>()
-					);
-				TESTSPR_BOTH_ASSERT(result);
-			}
-			{
-				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::end(arr1)),
-					testspr::reduct_forward(sprout::begin(arr3)),
-					testspr::reduct_forward(sprout::end(arr3)),
-					testspr::equal_to<int>()
-					);
-				TESTSPR_BOTH_ASSERT(!result);
-			}
-			{
-				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::begin(arr1) + 5),
-					testspr::reduct_forward(sprout::begin(arr2)),
-					testspr::reduct_forward(sprout::begin(arr2) + 5),
-					testspr::equal_to<int>()
-					);
-				TESTSPR_BOTH_ASSERT(!result);
-			}
-			{
-				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_forward(sprout::begin(arr1)),
-					testspr::reduct_forward(sprout::begin(arr1) + 5),
-					testspr::reduct_forward(sprout::begin(arr3)),
-					testspr::reduct_forward(sprout::begin(arr3) + 5),
-					testspr::equal_to<int>()
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::begin(arr1) + 5),
+					testspr::reduce_forward(sprout::begin(arr3)),
+					testspr::reduce_forward(sprout::begin(arr3) + 5)
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::end(arr2))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::end(arr1)),
+					testspr::reduce_forward(sprout::begin(arr2)),
+					testspr::reduce_forward(sprout::end(arr2)),
+					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr3)),
-					testspr::reduct_random_access(sprout::end(arr3))
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::end(arr1)),
+					testspr::reduce_forward(sprout::begin(arr3)),
+					testspr::reduce_forward(sprout::end(arr3)),
+					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::begin(arr2) + 5)
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::begin(arr1) + 5),
+					testspr::reduce_forward(sprout::begin(arr2)),
+					testspr::reduce_forward(sprout::begin(arr2) + 5),
+					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr3)),
-					testspr::reduct_random_access(sprout::begin(arr3) + 5)
+					testspr::reduce_forward(sprout::begin(arr1)),
+					testspr::reduce_forward(sprout::begin(arr1) + 5),
+					testspr::reduce_forward(sprout::begin(arr3)),
+					testspr::reduce_forward(sprout::begin(arr3) + 5),
+					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::end(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::end(arr2))
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::end(arr3))
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr2) + 5)
+					);
+				TESTSPR_BOTH_ASSERT(!result);
+			}
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::begin(arr3) + 5)
+					);
+				TESTSPR_BOTH_ASSERT(result);
+			}
+
+			{
+				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::end(arr2)),
 					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr3)),
-					testspr::reduct_random_access(sprout::end(arr3)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::end(arr3)),
 					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::begin(arr2) + 5),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr2) + 5),
 					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(!result);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::is_permutation(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr3)),
-					testspr::reduct_random_access(sprout::begin(arr3) + 5),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::begin(arr3) + 5),
 					testspr::equal_to<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result);

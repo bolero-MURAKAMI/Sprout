@@ -158,133 +158,133 @@ namespace testspr {
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
-					testspr::reduct_input(sprout::begin(arr2)),
-					testspr::reduct_input(sprout::end(arr2))
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr2)),
+					testspr::reduce_input(sprout::end(arr2))
 					);
 				TESTSPR_BOTH_ASSERT(result == 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
-					testspr::reduct_input(sprout::begin(arr3)),
-					testspr::reduct_input(sprout::end(arr3))
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr3)),
+					testspr::reduce_input(sprout::end(arr3))
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
-					testspr::reduct_input(sprout::begin(arr4)),
-					testspr::reduct_input(sprout::end(arr4))
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr4)),
+					testspr::reduce_input(sprout::end(arr4))
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::begin(arr1) + 5),
-					testspr::reduct_input(sprout::begin(arr2)),
-					testspr::reduct_input(sprout::end(arr2))
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::begin(arr1) + 5),
+					testspr::reduce_input(sprout::begin(arr2)),
+					testspr::reduce_input(sprout::end(arr2))
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::begin(arr1) + 5),
-					testspr::reduct_input(sprout::begin(arr3)),
-					testspr::reduct_input(sprout::end(arr3))
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::begin(arr1) + 5),
+					testspr::reduce_input(sprout::begin(arr3)),
+					testspr::reduce_input(sprout::end(arr3))
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::begin(arr1) + 5),
-					testspr::reduct_input(sprout::begin(arr4)),
-					testspr::reduct_input(sprout::end(arr4))
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::begin(arr1) + 5),
+					testspr::reduce_input(sprout::begin(arr4)),
+					testspr::reduce_input(sprout::end(arr4))
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
-					testspr::reduct_input(sprout::begin(arr2)),
-					testspr::reduct_input(sprout::begin(arr2) + 5)
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr2)),
+					testspr::reduce_input(sprout::begin(arr2) + 5)
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
-					testspr::reduct_input(sprout::begin(arr2)),
-					testspr::reduct_input(sprout::end(arr2)),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr2)),
+					testspr::reduce_input(sprout::end(arr2)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result == 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
-					testspr::reduct_input(sprout::begin(arr3)),
-					testspr::reduct_input(sprout::end(arr3)),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr3)),
+					testspr::reduce_input(sprout::end(arr3)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
-					testspr::reduct_input(sprout::begin(arr4)),
-					testspr::reduct_input(sprout::end(arr4)),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr4)),
+					testspr::reduce_input(sprout::end(arr4)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::begin(arr1) + 5),
-					testspr::reduct_input(sprout::begin(arr2)),
-					testspr::reduct_input(sprout::end(arr2)),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::begin(arr1) + 5),
+					testspr::reduce_input(sprout::begin(arr2)),
+					testspr::reduce_input(sprout::end(arr2)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::begin(arr1) + 5),
-					testspr::reduct_input(sprout::begin(arr3)),
-					testspr::reduct_input(sprout::end(arr3)),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::begin(arr1) + 5),
+					testspr::reduce_input(sprout::begin(arr3)),
+					testspr::reduce_input(sprout::end(arr3)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::begin(arr1) + 5),
-					testspr::reduct_input(sprout::begin(arr4)),
-					testspr::reduct_input(sprout::end(arr4)),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::begin(arr1) + 5),
+					testspr::reduce_input(sprout::begin(arr4)),
+					testspr::reduce_input(sprout::end(arr4)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_input(sprout::begin(arr1)),
-					testspr::reduct_input(sprout::end(arr1)),
-					testspr::reduct_input(sprout::begin(arr2)),
-					testspr::reduct_input(sprout::begin(arr2) + 5),
+					testspr::reduce_input(sprout::begin(arr1)),
+					testspr::reduce_input(sprout::end(arr1)),
+					testspr::reduce_input(sprout::begin(arr2)),
+					testspr::reduce_input(sprout::begin(arr2) + 5),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
@@ -292,133 +292,133 @@ namespace testspr {
 
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::end(arr2))
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::end(arr2))
 					);
 				TESTSPR_BOTH_ASSERT(result == 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr3)),
-					testspr::reduct_random_access(sprout::end(arr3))
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::end(arr3))
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr4)),
-					testspr::reduct_random_access(sprout::end(arr4))
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr4)),
+					testspr::reduce_random_access(sprout::end(arr4))
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::end(arr2))
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::end(arr2))
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr3)),
-					testspr::reduct_random_access(sprout::end(arr3))
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::end(arr3))
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr4)),
-					testspr::reduct_random_access(sprout::end(arr4))
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr4)),
+					testspr::reduce_random_access(sprout::end(arr4))
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::begin(arr2) + 5)
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr2) + 5)
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::end(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::end(arr2)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result == 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr3)),
-					testspr::reduct_random_access(sprout::end(arr3)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::end(arr3)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr4)),
-					testspr::reduct_random_access(sprout::end(arr4)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr4)),
+					testspr::reduce_random_access(sprout::end(arr4)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::end(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::end(arr2)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr3)),
-					testspr::reduct_random_access(sprout::end(arr3)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr3)),
+					testspr::reduce_random_access(sprout::end(arr3)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr1) + 5),
-					testspr::reduct_random_access(sprout::begin(arr4)),
-					testspr::reduct_random_access(sprout::end(arr4)),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr1) + 5),
+					testspr::reduce_random_access(sprout::begin(arr4)),
+					testspr::reduce_random_access(sprout::end(arr4)),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result < 0);
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto result = sprout::tristate_lexicographical_compare(
-					testspr::reduct_random_access(sprout::begin(arr1)),
-					testspr::reduct_random_access(sprout::end(arr1)),
-					testspr::reduct_random_access(sprout::begin(arr2)),
-					testspr::reduct_random_access(sprout::begin(arr2) + 5),
+					testspr::reduce_random_access(sprout::begin(arr1)),
+					testspr::reduce_random_access(sprout::end(arr1)),
+					testspr::reduce_random_access(sprout::begin(arr2)),
+					testspr::reduce_random_access(sprout::begin(arr2) + 5),
 					testspr::less<int>()
 					);
 				TESTSPR_BOTH_ASSERT(result > 0);

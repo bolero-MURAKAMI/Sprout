@@ -111,9 +111,9 @@ namespace testspr {
 			// rotate in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate_copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 4),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 4),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					arr2
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -123,9 +123,9 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::fit::rotate_copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 4),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 4),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					arr2
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -137,9 +137,9 @@ namespace testspr {
 			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate_copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 4),
-					testspr::reduct_forward(sprout::begin(arr1) + 7),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 4),
+					testspr::reduce_forward(sprout::begin(arr1) + 7),
 					arr3
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -149,9 +149,9 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::fit::rotate_copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 4),
-					testspr::reduct_forward(sprout::begin(arr1) + 7),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 4),
+					testspr::reduce_forward(sprout::begin(arr1) + 7),
 					arr3
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -163,9 +163,9 @@ namespace testspr {
 			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::rotate_copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 4),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 4),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					sprout::sub(arr2, 2, 8)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -179,9 +179,9 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto rotated = sprout::fit::rotate_copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 4),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 4),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					sprout::sub(arr2, 2, 8)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(

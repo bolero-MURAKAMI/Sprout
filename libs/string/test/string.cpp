@@ -83,7 +83,7 @@ namespace testspr {
 				TESTSPR_BOTH_ASSERT(s1 == "ffffff");
 			}
 			{
-				SPROUT_STATIC_CONSTEXPR auto s1 = sprout::string_t<10>::type(testspr::reduct_input(str1.begin()), testspr::reduct_input(str1.begin() + 6));
+				SPROUT_STATIC_CONSTEXPR auto s1 = sprout::string_t<10>::type(testspr::reduce_input(str1.begin()), testspr::reduce_input(str1.begin() + 6));
 				TESTSPR_BOTH_ASSERT(s1 == "foobar");
 			}
 			{

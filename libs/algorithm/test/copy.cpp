@@ -105,8 +105,8 @@ namespace testspr {
 			// copy in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_input(sprout::begin(arr1) + 2),
-					testspr::reduct_input(sprout::begin(arr1) + 8),
+					testspr::reduce_input(sprout::begin(arr1) + 2),
+					testspr::reduce_input(sprout::begin(arr1) + 8),
 					arr2
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -117,8 +117,8 @@ namespace testspr {
 			// !!! BUG: sprout::fit::copy implementation requires ForwardIterator
 //			{
 //				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-//					testspr::reduct_input(sprout::begin(arr1) + 2),
-//					testspr::reduct_input(sprout::begin(arr1) + 8),
+//					testspr::reduce_input(sprout::begin(arr1) + 2),
+//					testspr::reduce_input(sprout::begin(arr1) + 8),
 //					arr2
 //					);
 //				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -130,8 +130,8 @@ namespace testspr {
 			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_input(sprout::begin(arr1) + 2),
-					testspr::reduct_input(sprout::begin(arr1) + 8),
+					testspr::reduce_input(sprout::begin(arr1) + 2),
+					testspr::reduce_input(sprout::begin(arr1) + 8),
 					arr3
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -142,8 +142,8 @@ namespace testspr {
 			// !!! BUG: sprout::fit::copy implementation requires ForwardIterator
 //			{
 //				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-//					testspr::reduct_input(sprout::begin(arr1) + 2),
-//					testspr::reduct_input(sprout::begin(arr1) + 8),
+//					testspr::reduce_input(sprout::begin(arr1) + 2),
+//					testspr::reduce_input(sprout::begin(arr1) + 8),
 //					arr3
 //					);
 //				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -155,8 +155,8 @@ namespace testspr {
 			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_input(sprout::begin(arr1) + 2),
-					testspr::reduct_input(sprout::begin(arr1) + 8),
+					testspr::reduce_input(sprout::begin(arr1) + 2),
+					testspr::reduce_input(sprout::begin(arr1) + 8),
 					sprout::sub(arr2, 2, 8)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -171,8 +171,8 @@ namespace testspr {
 			// !!! BUG: sprout::fit::copy implementation requires ForwardIterator
 //			{
 //				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-//					testspr::reduct_input(sprout::begin(arr1) + 2),
-//					testspr::reduct_input(sprout::begin(arr1) + 8),
+//					testspr::reduce_input(sprout::begin(arr1) + 2),
+//					testspr::reduce_input(sprout::begin(arr1) + 8),
 //					sprout::sub(arr2, 2, 8)
 //					);
 //				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -188,8 +188,8 @@ namespace testspr {
 			// copy in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					arr2
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -199,8 +199,8 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					arr2
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -212,8 +212,8 @@ namespace testspr {
 			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					arr3
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -223,8 +223,8 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					arr3
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -236,8 +236,8 @@ namespace testspr {
 			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					sprout::sub(arr2, 2, 8)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -251,8 +251,8 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-					testspr::reduct_forward(sprout::begin(arr1) + 2),
-					testspr::reduct_forward(sprout::begin(arr1) + 8),
+					testspr::reduce_forward(sprout::begin(arr1) + 2),
+					testspr::reduce_forward(sprout::begin(arr1) + 8),
 					sprout::sub(arr2, 2, 8)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -268,8 +268,8 @@ namespace testspr {
 			// copy in range [2 .. 8)
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_random_access(sprout::begin(arr1) + 2),
-					testspr::reduct_random_access(sprout::begin(arr1) + 8),
+					testspr::reduce_random_access(sprout::begin(arr1) + 2),
+					testspr::reduce_random_access(sprout::begin(arr1) + 8),
 					arr2
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -279,8 +279,8 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-					testspr::reduct_random_access(sprout::begin(arr1) + 2),
-					testspr::reduct_random_access(sprout::begin(arr1) + 8),
+					testspr::reduce_random_access(sprout::begin(arr1) + 2),
+					testspr::reduce_random_access(sprout::begin(arr1) + 8),
 					arr2
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -292,8 +292,8 @@ namespace testspr {
 			// overrun from output range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_random_access(sprout::begin(arr1) + 2),
-					testspr::reduct_random_access(sprout::begin(arr1) + 8),
+					testspr::reduce_random_access(sprout::begin(arr1) + 2),
+					testspr::reduce_random_access(sprout::begin(arr1) + 8),
 					arr3
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -303,8 +303,8 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-					testspr::reduct_random_access(sprout::begin(arr1) + 2),
-					testspr::reduct_random_access(sprout::begin(arr1) + 8),
+					testspr::reduce_random_access(sprout::begin(arr1) + 2),
+					testspr::reduce_random_access(sprout::begin(arr1) + 8),
 					arr3
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -316,8 +316,8 @@ namespace testspr {
 			// to sub range
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::copy(
-					testspr::reduct_random_access(sprout::begin(arr1) + 2),
-					testspr::reduct_random_access(sprout::begin(arr1) + 8),
+					testspr::reduce_random_access(sprout::begin(arr1) + 2),
+					testspr::reduce_random_access(sprout::begin(arr1) + 8),
 					sprout::sub(arr2, 2, 8)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
@@ -331,8 +331,8 @@ namespace testspr {
 			}
 			{
 				SPROUT_STATIC_CONSTEXPR auto copied = sprout::fit::copy(
-					testspr::reduct_random_access(sprout::begin(arr1) + 2),
-					testspr::reduct_random_access(sprout::begin(arr1) + 8),
+					testspr::reduce_random_access(sprout::begin(arr1) + 2),
+					testspr::reduce_random_access(sprout::begin(arr1) + 8),
 					sprout::sub(arr2, 2, 8)
 					);
 				TESTSPR_BOTH_ASSERT(testspr::equal(
