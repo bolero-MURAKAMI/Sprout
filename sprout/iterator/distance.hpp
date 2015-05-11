@@ -48,7 +48,7 @@ namespace sprout {
 			sprout::is_constant_distance_iterator<RandomAccessIterator>::value,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type
 		>::type
-		iterator_distance(RandomAccessIterator first, RandomAccessIterator last, std::random_access_iterator_tag*) {
+		iterator_distance_dispatch(RandomAccessIterator first, RandomAccessIterator last) {
 			return last - first;
 		}
 
@@ -90,27 +90,28 @@ namespace sprout {
 		}
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<InputIterator>::value,
+			!sprout::is_constant_distance_iterator<InputIterator>::value && sprout::is_input_iterator<InputIterator>::value
+				&& std::is_literal_type<InputIterator>::value,
 			typename std::iterator_traits<InputIterator>::difference_type
 		>::type
-		iterator_distance(InputIterator first, InputIterator last, std::input_iterator_tag*) {
+		iterator_distance_dispatch(InputIterator first, InputIterator last) {
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
 			return sprout::iterator_detail::iterator_distance_impl(type(first, 0), last, 1).second;
 		}
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!std::is_literal_type<InputIterator>::value,
+			!sprout::is_constant_distance_iterator<InputIterator>::value && sprout::is_input_iterator<InputIterator>::value
+				&& !std::is_literal_type<InputIterator>::value,
 			typename std::iterator_traits<InputIterator>::difference_type
 		>::type
-		iterator_distance(InputIterator first, InputIterator last, std::input_iterator_tag*) {
+		iterator_distance_dispatch(InputIterator first, InputIterator last) {
 			return sprout::iterator_detail::cxx14_distance(first, last);
 		}
 
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 		iterator_distance(InputIterator first, InputIterator last) {
-			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
-			return sprout::iterator_detail::iterator_distance(first, last, category());
+			return sprout::iterator_detail::iterator_distance_dispatch(first, last);
 		}
 	}	// namespace iterator_detail
 }	// namespace sprout
