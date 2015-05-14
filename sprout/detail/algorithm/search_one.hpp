@@ -30,7 +30,10 @@ namespace sprout {
 				;
 		}
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
-		inline SPROUT_CONSTEXPR RandomAccessIterator1
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::is_constant_distance_iterator<RandomAccessIterator1>::value && sprout::is_constant_distance_iterator<RandomAccessIterator2>::value,
+			RandomAccessIterator1
+		>::type
 		search_one(
 			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred,
 			std::random_access_iterator_tag*

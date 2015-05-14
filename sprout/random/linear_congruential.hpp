@@ -21,6 +21,7 @@
 #include <sprout/random/results.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/math/greater_equal.hpp>
+#include <sprout/utility/while_loop.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
@@ -86,6 +87,79 @@ namespace sprout {
 					linear_congruential_engine(result, private_construct_t())
 					);
 			}
+			struct discard_init {
+			public:
+				unsigned long long exponent;
+				result_type b_gcd;
+				result_type a_zm1_over_gcd;
+				result_type a_km1_over_gcd;
+			};
+			struct discard_pred {
+			public:
+				SPROUT_CONSTEXPR bool operator()(discard_init const& init) const {
+					return static_cast<bool>(init.exponent);
+				}
+			};
+			struct discard_op {
+			public:
+				SPROUT_CONSTEXPR discard_init operator()(discard_init const& init) const {
+					typedef sprout::random::detail::const_mod<result_type, modulus> mod_type;
+					return discard_init{
+						init.exponent / 2,
+						init.b_gcd,
+						!(init.exponent % 2 == 1) ? init.a_zm1_over_gcd
+							: mod_type::mult_add(
+								init.b_gcd,
+								mod_type::mult(init.a_zm1_over_gcd, init.a_km1_over_gcd),
+								mod_type::add(init.a_zm1_over_gcd, init.a_km1_over_gcd)
+								)
+							,
+						mod_type::mult_add(
+							init.b_gcd,
+							mod_type::mult(init.a_km1_over_gcd, init.a_km1_over_gcd),
+							mod_type::add(init.a_km1_over_gcd, init.a_km1_over_gcd)
+							)
+						};
+				}
+			};
+			SPROUT_CONSTEXPR linear_congruential_engine const discard_impl_1_2(result_type b_gcd, result_type a_zm1_over_gcd) const {
+				typedef sprout::random::detail::const_mod<result_type, modulus> mod_type;
+				return linear_congruential_engine(
+					mod_type::mult_add(
+						mod_type::mult_add(b_gcd, a_zm1_over_gcd, 1),
+						x_,
+						mod_type::mult(mod_type::invert((multiplier - 1) / b_gcd), mod_type::mult(increment, a_zm1_over_gcd))
+						),
+					private_construct_t()
+					);
+			}
+			SPROUT_CONSTEXPR linear_congruential_engine const discard_impl_1_1(result_type b_inv, result_type a_z) const {
+				typedef sprout::random::detail::const_mod<result_type, modulus> mod_type;
+				return linear_congruential_engine(
+					mod_type::mult_add(a_z, x_, mod_type::mult(mod_type::mult(increment, b_inv), a_z - 1)),
+					private_construct_t()
+					);
+			}
+			SPROUT_CONSTEXPR linear_congruential_engine const discard_impl_1(unsigned long long z, result_type b_inv, result_type b_gcd) const {
+				typedef sprout::random::detail::const_mod<result_type, modulus> mod_type;
+				return b_gcd == 1 ? discard_impl_1_1(b_inv, mod_type::pow(multiplier, z))
+					: discard_impl_1_2(
+						b_gcd,
+						sprout::while_loop(
+							discard_init{z, b_gcd, 0, (multiplier - 1) / b_gcd},
+							discard_pred(),
+							discard_op()
+							).a_zm1_over_gcd
+						)
+					;
+			}
+			SPROUT_CONSTEXPR linear_congruential_engine const discard_impl(unsigned long long z, result_type b_inv) const {
+				typedef sprout::random::detail::const_mod<result_type, modulus> mod_type;
+				return discard_impl_1(
+					z, b_inv,
+					mod_type::mult(multiplier - 1, b_inv)
+					);
+			}
 		public:
 			SPROUT_CONSTEXPR linear_congruential_engine()
 				: x_(init_seed())
@@ -133,6 +207,43 @@ namespace sprout {
 			}
 			SPROUT_CONSTEXPR sprout::random::random_result<linear_congruential_engine> const operator()() const {
 				return generate(sprout::random::detail::const_mod<result_type, modulus>::mult_add(a, x_, c));
+			}
+			SPROUT_CONSTEXPR linear_congruential_engine const discard(unsigned long long z) const {
+				typedef sprout::random::detail::const_mod<result_type, modulus> mod_type;
+				return discard_impl(z, mod_type::invert(multiplier - 1));
+			}
+			SPROUT_CXX14_CONSTEXPR void discard(unsigned long long z) {
+				typedef sprout::random::detail::const_mod<result_type, modulus> mod_type;
+				result_type b_inv = mod_type::invert(multiplier - 1);
+				result_type b_gcd = mod_type::mult(multiplier - 1, b_inv);
+				if (b_gcd == 1) {
+					result_type a_z = mod_type::pow(multiplier, z);
+					x_ = mod_type::mult_add(a_z, x_, mod_type::mult(mod_type::mult(increment, b_inv), a_z - 1));
+				} else {
+					result_type a_zm1_over_gcd = 0;
+					result_type a_km1_over_gcd = (multiplier - 1) / b_gcd;
+					unsigned long long exponent = z;
+					while (exponent) {
+						if (exponent % 2 == 1) {
+							a_zm1_over_gcd = mod_type::mult_add(
+								b_gcd,
+								mod_type::mult(a_zm1_over_gcd, a_km1_over_gcd),
+								mod_type::add(a_zm1_over_gcd, a_km1_over_gcd)
+								);
+						}
+						a_km1_over_gcd = mod_type::mult_add(
+							b_gcd,
+							mod_type::mult(a_km1_over_gcd, a_km1_over_gcd),
+							mod_type::add(a_km1_over_gcd, a_km1_over_gcd)
+							);
+						exponent /= 2;
+					}
+					x_ = mod_type::mult_add(
+						mod_type::mult_add(b_gcd, a_zm1_over_gcd, 1),
+						x_,
+						mod_type::mult(mod_type::invert((multiplier - 1) / b_gcd), mod_type::mult(increment, a_zm1_over_gcd))
+						);
+				}
 			}
 			friend SPROUT_CONSTEXPR bool operator==(linear_congruential_engine const& lhs, linear_congruential_engine const& rhs) SPROUT_NOEXCEPT {
 				return lhs.x_ == rhs.x_;

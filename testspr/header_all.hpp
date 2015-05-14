@@ -60,7 +60,6 @@
 #include <sprout/pit.hpp>
 #include <sprout/preprocessor.hpp>
 #include <sprout/random.hpp>
-#include <sprout/rational.hpp>
 #include <sprout/range.hpp>
 #include <sprout/range/adaptor.hpp>
 #include <sprout/range/algorithm.hpp>
@@ -68,6 +67,8 @@
 #include <sprout/range/numeric.hpp>
 #include <sprout/range/numeric/dft.hpp>
 #include <sprout/range/numeric/fft.hpp>
+#include <sprout/rational.hpp>
+#include <sprout/stateful.hpp>
 #include <sprout/static_assert.hpp>
 #include <sprout/static_warning.hpp>
 #include <sprout/string.hpp>
