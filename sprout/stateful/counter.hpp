@@ -9,14 +9,10 @@
 #define SPROUT_STATEFUL_COUNTER_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 
 namespace sprout {
 #ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
-
-	namespace detail {
-		SPROUT_STATIC_CONSTEXPR std::size_t counter_default_call_limit = 128;
-	}	// namespace detail
 
 	namespace counter_detail {
 #if defined(__GNUC__) && !defined(__clang__)
@@ -43,61 +39,52 @@ namespace sprout {
 			friend SPROUT_CONSTEXPR int adl_counter(sprout::counter_detail::tag<N>) {
 				return N;
 			}
-			SPROUT_STATIC_CONSTEXPR int value = N - 1;
+			SPROUT_STATIC_CONSTEXPR int value = N;
 		};
 		template<int N>
 		SPROUT_CONSTEXPR_OR_CONST int sprout::counter_detail::state<N>::value;
-		template<>
-		struct state<1> {
-			friend SPROUT_CONSTEXPR int adl_counter(sprout::counter_detail::tag<1>) {
-				return 1;
-			}
-			static SPROUT_CONSTEXPR int value = 0;
-		};
-		SPROUT_CONSTEXPR_OR_CONST int sprout::counter_detail::state<1>::value;
 
-		template<int N, int R = adl_counter(sprout::counter_detail::tag<N>())>
-		SPROUT_CONSTEXPR int counter(
-			int, sprout::counter_detail::tag<N>
+		template<int N, int = adl_counter(sprout::counter_detail::tag<N>())>
+		SPROUT_CONSTEXPR bool check_impl(int, sprout::counter_detail::tag<N>) {
+			return true;
+		}
+		template<int N>
+		SPROUT_CONSTEXPR bool check_impl(long, sprout::counter_detail::tag<N>) {
+			return false;
+		}
+		template<int N>
+		SPROUT_CONSTEXPR bool check(bool R = sprout::counter_detail::check_impl(0, sprout::counter_detail::tag<N>())) {
+			return R;
+		}
+
+		template<int N>
+		SPROUT_CONSTEXPR int counter_impl(sprout::false_type, sprout::counter_detail::tag<N>) {
+			return 0;
+		}
+		template<int N>
+		SPROUT_CONSTEXPR int counter_impl(
+			sprout::true_type, sprout::counter_detail::tag<N>,
+			int R = !sprout::counter_detail::check<N>() ? N
+				: counter_impl(sprout::bool_constant<sprout::counter_detail::check<N>()>(), sprout::counter_detail::tag<N + 1>())
 			)
 		{
 			return R;
 		}
-		SPROUT_CONSTEXPR int counter(
-			long, sprout::counter_detail::tag<0>
-			)
-		{
-			return 0;
-		}
-		template<int N>
-		SPROUT_CONSTEXPR int counter(
-			long, sprout::counter_detail::tag<N>,
-			int R = counter(0, sprout::counter_detail::tag<N - 1>())
-			)
-		{
+		template<int N = 0>
+		SPROUT_CONSTEXPR int counter(int R = sprout::counter_detail::counter_impl(sprout::true_type(), sprout::counter_detail::tag<N>())) {
 			return R;
 		}
 	}	// namespace counter_detail
 	//
 	// counter
-	// counter_before
 	//
 	template<
-		std::size_t Limit = sprout::detail::counter_default_call_limit,
+		int N = 1,
 		int R = sprout::counter_detail::state<
-			sprout::counter_detail::counter(0, sprout::counter_detail::tag<Limit>()) + 1
+			sprout::counter_detail::counter() + N - 1
 			>::value
 	>
 	SPROUT_CONSTEXPR int counter() {
-		return R;
-	}
-	template<
-		std::size_t Limit = sprout::detail::counter_default_call_limit,
-		int R = sprout::counter_detail::state<
-			sprout::counter_detail::counter(0, sprout::counter_detail::tag<Limit>())
-			>::value
-	>
-	SPROUT_CONSTEXPR int counter_before() {
 		return R;
 	}
 

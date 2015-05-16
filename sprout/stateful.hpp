@@ -12,5 +12,7 @@
 #include <sprout/stateful/counter.hpp>
 #include <sprout/stateful/rand.hpp>
 #include <sprout/stateful/slot.hpp>
+#include <sprout/stateful/typed_id.hpp>
+#include <sprout/stateful/typed_slot.hpp>
 
 #endif	// #ifndef SPROUT_STATEFUL_HPP

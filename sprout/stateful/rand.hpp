@@ -15,6 +15,7 @@
 #include <sprout/random/default_random_engine.hpp>
 #include <sprout/random/random_result.hpp>
 #include <sprout/random/unique_seed.hpp>
+#include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/workaround/detail/uniform_int_distribution.hpp>
 
 namespace sprout {
@@ -29,7 +30,6 @@ namespace sprout {
 		> rand_result_type;
 
 		SPROUT_STATIC_CONSTEXPR std::size_t rand_default_seed = SPROUT_UNIQUE_SEED;
-		SPROUT_STATIC_CONSTEXPR std::size_t rand_default_call_limit = 128;
 	}	// namespace detail
 
 	namespace rand_detail {
@@ -68,7 +68,8 @@ namespace sprout {
 			// generate a next random number
 			SPROUT_STATIC_CONSTEXPR sprout::detail::rand_result_type result
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER((
-					!IsSrand ? sprout::rand_detail::state<
+					!IsSrand
+						? sprout::rand_detail::state<
 							N - 1,
 							adl_is_srand(sprout::rand_detail::tag<N - 1>()),
 							adl_seed(sprout::rand_detail::tag<N - 1>())
@@ -85,7 +86,8 @@ namespace sprout {
 		template<int N, bool IsSrand, unsigned Seed>
 		SPROUT_CONSTEXPR_OR_CONST sprout::detail::rand_result_type sprout::rand_detail::state<N, IsSrand, Seed>::result
 			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER((
-				!IsSrand ? sprout::rand_detail::state<
+				!IsSrand
+					? sprout::rand_detail::state<
 						N - 1,
 						adl_is_srand(sprout::rand_detail::tag<N - 1>()),
 						adl_seed(sprout::rand_detail::tag<N - 1>())
@@ -100,65 +102,85 @@ namespace sprout {
 		template<int N, bool IsSrand, unsigned Seed>
 		SPROUT_CONSTEXPR_OR_CONST int sprout::rand_detail::state<N, IsSrand, Seed>::value;
 		template<bool IsSrand, unsigned Seed>
-		struct state<1, IsSrand, Seed> {
-			friend SPROUT_CONSTEXPR int adl_counter(sprout::rand_detail::tag<1>) {
-				return 1;
+		struct state<0, IsSrand, Seed> {
+			friend SPROUT_CONSTEXPR int adl_counter(sprout::rand_detail::tag<0>) {
+				return 0;
 			}
-			friend SPROUT_CONSTEXPR bool adl_is_srand(sprout::rand_detail::tag<1>) {
+			friend SPROUT_CONSTEXPR bool adl_is_srand(sprout::rand_detail::tag<0>) {
 				return IsSrand;
 			}
-			friend SPROUT_CONSTEXPR unsigned adl_seed(sprout::rand_detail::tag<1>) {
+			friend SPROUT_CONSTEXPR unsigned adl_seed(sprout::rand_detail::tag<0>) {
 				return Seed;
 			}
 			// generate a first random number between [0, RAND_MAX]
 			SPROUT_STATIC_CONSTEXPR sprout::detail::rand_result_type result
-				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(
-					sprout::detail::rand_distribution_type(0, RAND_MAX)
-						(sprout::as_const(sprout::detail::rand_generator_type(!IsSrand ? sprout::detail::rand_default_seed : Seed)))
-					)
+				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER((
+					!IsSrand
+						? sprout::detail::rand_distribution_type(0, RAND_MAX)
+							(sprout::as_const(sprout::detail::rand_generator_type(!IsSrand ? sprout::detail::rand_default_seed : Seed)))
+						: sprout::detail::rand_result_type(
+							Seed,
+							sprout::detail::rand_generator_type(Seed),
+							sprout::detail::rand_distribution_type(0, RAND_MAX)
+							)
+					))
 				;
 			static SPROUT_CONSTEXPR int value = result;
 		};
 		template<bool IsSrand, unsigned Seed>
-		SPROUT_CONSTEXPR_OR_CONST sprout::detail::rand_result_type sprout::rand_detail::state<1, IsSrand, Seed>::result
+		SPROUT_CONSTEXPR_OR_CONST sprout::detail::rand_result_type sprout::rand_detail::state<0, IsSrand, Seed>::result
 			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(
-				sprout::detail::rand_distribution_type(0, RAND_MAX)
-					(sprout::as_const(sprout::detail::rand_generator_type(!IsSrand ? sprout::detail::rand_default_seed : Seed)))
+				!IsSrand
+					? sprout::detail::rand_distribution_type(0, RAND_MAX)
+						(sprout::as_const(sprout::detail::rand_generator_type(!IsSrand ? sprout::detail::rand_default_seed : Seed)))
+					: sprout::detail::rand_result_type(
+						Seed,
+						sprout::detail::rand_generator_type(Seed),
+						sprout::detail::rand_distribution_type(0, RAND_MAX)
+						)
 				)
 			;
 		template<bool IsSrand, unsigned Seed>
-		SPROUT_CONSTEXPR_OR_CONST int sprout::rand_detail::state<1, IsSrand, Seed>::value;
+		SPROUT_CONSTEXPR_OR_CONST int sprout::rand_detail::state<0, IsSrand, Seed>::value;
 
-		template<int N, int R = adl_counter(sprout::rand_detail::tag<N>())>
-		SPROUT_CONSTEXPR int counter(
-			int, sprout::rand_detail::tag<N>
+		template<int N, int = adl_counter(sprout::rand_detail::tag<N>())>
+		SPROUT_CONSTEXPR bool check_impl(int, sprout::rand_detail::tag<N>) {
+			return true;
+		}
+		template<int N>
+		SPROUT_CONSTEXPR bool check_impl(long, sprout::rand_detail::tag<N>) {
+			return false;
+		}
+		template<int N>
+		SPROUT_CONSTEXPR bool check(bool R = sprout::rand_detail::check_impl(0, sprout::rand_detail::tag<N>())) {
+			return R;
+		}
+
+		template<int N>
+		SPROUT_CONSTEXPR int counter_impl(sprout::false_type, sprout::rand_detail::tag<N>) {
+			return 0;
+		}
+		template<int N>
+		SPROUT_CONSTEXPR int counter_impl(
+			sprout::true_type, sprout::rand_detail::tag<N>,
+			int R = !sprout::rand_detail::check<N>() ? N
+				: counter_impl(sprout::bool_constant<sprout::rand_detail::check<N>()>(), sprout::rand_detail::tag<N + 1>())
 			)
 		{
 			return R;
 		}
-		SPROUT_CONSTEXPR int counter(
-			long, sprout::rand_detail::tag<0>
-			)
-		{
-			return 0;
-		}
-		template<int N>
-		SPROUT_CONSTEXPR int counter(
-			long, sprout::rand_detail::tag<N>,
-			int R = counter(0, sprout::rand_detail::tag<N - 1>())
-			)
-		{
+		template<int N = 0>
+		SPROUT_CONSTEXPR int counter(int R = sprout::rand_detail::counter_impl(sprout::true_type(), sprout::rand_detail::tag<N>())) {
 			return R;
 		}
 	}	// namespace rand_detail
 	//
 	// rand
-	// rand_before
 	//
 	template<
-		std::size_t Limit = sprout::detail::rand_default_call_limit,
+		int N = 1,
 		int R = sprout::rand_detail::state<
-			sprout::rand_detail::counter(0, sprout::rand_detail::tag<Limit>()) + 1
+			sprout::rand_detail::counter() + N - 1
 			>::value
 	>
 	SPROUT_CONSTEXPR int rand() {
@@ -171,18 +193,18 @@ namespace sprout {
 	//
 	template<
 		unsigned Seed,
-		std::size_t Limit = sprout::detail::rand_default_call_limit,
+		int N = 1,
 		int = sprout::rand_detail::state<
-			sprout::rand_detail::counter(0, sprout::rand_detail::tag<Limit>()) + 1,
+			sprout::rand_detail::counter() + N - 1,
 			true, Seed
 			>::value
 	>
 	SPROUT_CXX14_CONSTEXPR void srand() {}
 	template<
 		unsigned Seed,
-		std::size_t Limit = sprout::detail::rand_default_call_limit,
+		int N = 1,
 		int R = sprout::rand_detail::state<
-			sprout::rand_detail::counter(0, sprout::rand_detail::tag<Limit>()) + 1,
+			sprout::rand_detail::counter() + N - 1,
 			true, Seed
 			>::value
 	>

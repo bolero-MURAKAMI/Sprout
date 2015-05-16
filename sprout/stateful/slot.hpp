@@ -10,16 +10,11 @@
 
 #include <cstdint>
 #include <sprout/config.hpp>
-#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/assert.hpp>
 
 namespace sprout {
 #ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
-
-	namespace detail {
-		SPROUT_STATIC_CONSTEXPR std::size_t slot_default_call_limit = 128;
-	}	// namespace detail
 
 	namespace slot_detail {
 #if defined(__GNUC__) && !defined(__clang__)
@@ -46,7 +41,9 @@ namespace sprout {
 #endif
 
 		template<int N, int Key, std::intmax_t Value>
-		struct state {
+		struct state
+			: public sprout::integral_constant<std::intmax_t, Value>
+		{
 			friend SPROUT_CONSTEXPR int adl_counter(sprout::slot_detail::tag<N>) {
 				return N;
 			}
@@ -72,18 +69,20 @@ namespace sprout {
 			}
 		};
 		template<int Key, std::intmax_t Value>
-		struct state<1, Key, Value> {
-			friend SPROUT_CONSTEXPR int adl_counter(sprout::slot_detail::tag<1>) {
-				return 1;
+		struct state<0, Key, Value>
+			: public sprout::integral_constant<std::intmax_t, Value>
+		{
+			friend SPROUT_CONSTEXPR int adl_counter(sprout::slot_detail::tag<0>) {
+				return 0;
 			}
-			friend SPROUT_CONSTEXPR int adl_key(sprout::slot_detail::tag<1>) {
+			friend SPROUT_CONSTEXPR int adl_key(sprout::slot_detail::tag<0>) {
 				return Key;
 			}
-			friend SPROUT_CONSTEXPR std::intmax_t adl_value(sprout::slot_detail::tag<1>) {
+			friend SPROUT_CONSTEXPR std::intmax_t adl_value(sprout::slot_detail::tag<0>) {
 				return Value;
 			}
 			template<int K>
-			friend SPROUT_CONSTEXPR std::intmax_t adl_get(sprout::slot_detail::tag<1>, sprout::integral_constant<int, K>) {
+			friend SPROUT_CONSTEXPR std::intmax_t adl_get(sprout::slot_detail::tag<0>, sprout::integral_constant<int, K>) {
 				return get<K>();
 			}
 			template<int K>
@@ -92,48 +91,52 @@ namespace sprout {
 			}
 		};
 
-		template<int N, int R = adl_counter(sprout::slot_detail::tag<N>())>
-		SPROUT_CONSTEXPR int counter(
-			int, sprout::slot_detail::tag<N>
-			)
-		{
-			return R;
-		}
-		SPROUT_CONSTEXPR int counter(
-			long, sprout::slot_detail::tag<0>
-			)
-		{
-			return 0;
+		template<int N, int = adl_counter(sprout::slot_detail::tag<N>())>
+		SPROUT_CONSTEXPR bool check_impl(int, sprout::slot_detail::tag<N>) {
+			return true;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR int counter(
-			long, sprout::slot_detail::tag<N>,
-			int R = counter(0, sprout::slot_detail::tag<N - 1>())
-			)
-		{
+		SPROUT_CONSTEXPR bool check_impl(long, sprout::slot_detail::tag<N>) {
+			return false;
+		}
+		template<int N>
+		SPROUT_CONSTEXPR bool check(bool R = sprout::slot_detail::check_impl(0, sprout::slot_detail::tag<N>())) {
 			return R;
 		}
 
-		template<int K, int N, std::intmax_t R = adl_get(sprout::slot_detail::tag<N>(), sprout::integral_constant<int, K>())>
-		SPROUT_CONSTEXPR std::intmax_t get(
-			int, sprout::slot_detail::tag<N>
+		template<int N>
+		SPROUT_CONSTEXPR int counter_impl(sprout::false_type, sprout::slot_detail::tag<N>) {
+			return 0;
+		}
+		template<int N>
+		SPROUT_CONSTEXPR int counter_impl(
+			sprout::true_type, sprout::slot_detail::tag<N>,
+			int R = !sprout::slot_detail::check_impl(0, sprout::slot_detail::tag<N>()) ? N
+				: counter_impl(sprout::bool_constant<sprout::slot_detail::check_impl(0, sprout::slot_detail::tag<N>())>(), sprout::slot_detail::tag<N + 1>())
 			)
 		{
 			return R;
 		}
-		template<int K>
-		SPROUT_CONSTEXPR std::intmax_t get(
-			long, sprout::slot_detail::tag<0>
-			)
-		{
+		template<int N = 0>
+		SPROUT_CONSTEXPR int counter(int R = sprout::slot_detail::counter_impl(sprout::true_type(), sprout::slot_detail::tag<N>())) {
+			return R;
+		}
+
+		template<int K, int N>
+		SPROUT_CONSTEXPR std::intmax_t get_impl(sprout::false_type, sprout::slot_detail::tag<N>) {
 			return 0;
 		}
 		template<int K, int N>
-		SPROUT_CONSTEXPR std::intmax_t get(
-			long, sprout::slot_detail::tag<N>,
-			std::intmax_t R = get<K>(0, sprout::slot_detail::tag<N - 1>())
+		SPROUT_CONSTEXPR std::intmax_t get_impl(
+			sprout::true_type, sprout::slot_detail::tag<N>,
+			std::intmax_t R = !sprout::slot_detail::check<N>() ? adl_get(sprout::slot_detail::tag<N - 1>(), sprout::integral_constant<int, K>())
+				: get_impl<K>(sprout::bool_constant<sprout::slot_detail::check<N>()>(), sprout::slot_detail::tag<N + 1>())
 			)
 		{
+			return R;
+		}
+		template<int K, int N = 0>
+		SPROUT_CONSTEXPR std::intmax_t get(int R = sprout::slot_detail::get_impl<K>(sprout::true_type(), sprout::slot_detail::tag<N>())) {
 			return R;
 		}
 	}	// namespace slot_detail
@@ -142,8 +145,7 @@ namespace sprout {
 	//
 	template<
 		int K,
-		std::size_t Limit = sprout::detail::slot_default_call_limit,
-		std::intmax_t R = sprout::slot_detail::get<K>(0, sprout::slot_detail::tag<Limit>())
+		std::intmax_t R = sprout::slot_detail::get<K>()
 	>
 	SPROUT_CONSTEXPR std::intmax_t slot() {
 		return R;
@@ -153,23 +155,19 @@ namespace sprout {
 	// assign_slot_return
 	//
 	template<
-		int K,
-		std::intmax_t Value,
-		std::size_t Limit = sprout::detail::slot_default_call_limit,
+		int K, std::intmax_t Value,
 		std::intmax_t = sprout::slot_detail::state<
-			sprout::slot_detail::counter(0, sprout::slot_detail::tag<Limit>()) + 1,
+			sprout::slot_detail::counter(),
 			K, Value
-			>::template get<K>()
+			>::value
 	>
 	SPROUT_CXX14_CONSTEXPR void assign_slot() {}
 	template<
-		int K,
-		std::intmax_t Value,
-		std::size_t Limit = sprout::detail::slot_default_call_limit,
+		int K, std::intmax_t Value,
 		std::intmax_t R = sprout::slot_detail::state<
-			sprout::slot_detail::counter(0, sprout::slot_detail::tag<Limit>()) + 1,
+			sprout::slot_detail::counter(),
 			K, Value
-			>::template get<K>()
+			>::value
 	>
 	SPROUT_CONSTEXPR std::intmax_t assign_slot_return() {
 		return R;
