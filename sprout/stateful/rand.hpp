@@ -144,33 +144,33 @@ namespace sprout {
 		SPROUT_CONSTEXPR_OR_CONST int sprout::rand_detail::state<0, IsSrand, Seed>::value;
 
 		template<int N, int = adl_counter(sprout::rand_detail::tag<N>())>
-		SPROUT_CONSTEXPR bool check_impl(int, sprout::rand_detail::tag<N>) {
+		SPROUT_CONSTEXPR bool check(int, sprout::rand_detail::tag<N>) {
 			return true;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check_impl(long, sprout::rand_detail::tag<N>) {
+		SPROUT_CONSTEXPR bool check(long, sprout::rand_detail::tag<N>) {
 			return false;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check(bool R = sprout::rand_detail::check_impl(0, sprout::rand_detail::tag<N>())) {
+		SPROUT_CONSTEXPR bool check(bool R = sprout::rand_detail::check(0, sprout::rand_detail::tag<N>())) {
 			return R;
 		}
 
 		template<int N>
-		SPROUT_CONSTEXPR int counter_impl(sprout::false_type, sprout::rand_detail::tag<N>) {
+		SPROUT_CONSTEXPR int counter(sprout::false_type, sprout::rand_detail::tag<N>) {
 			return 0;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR int counter_impl(
+		SPROUT_CONSTEXPR int counter(
 			sprout::true_type, sprout::rand_detail::tag<N>,
 			int R = !sprout::rand_detail::check<N>() ? N
-				: counter_impl(sprout::bool_constant<sprout::rand_detail::check<N>()>(), sprout::rand_detail::tag<N + 1>())
+				: counter(sprout::bool_constant<sprout::rand_detail::check<N>()>(), sprout::rand_detail::tag<N + 1>())
 			)
 		{
 			return R;
 		}
 		template<int N = 0>
-		SPROUT_CONSTEXPR int counter(int R = sprout::rand_detail::counter_impl(sprout::true_type(), sprout::rand_detail::tag<N>())) {
+		SPROUT_CONSTEXPR int counter(int R = sprout::rand_detail::counter(sprout::true_type(), sprout::rand_detail::tag<N>())) {
 			return R;
 		}
 	}	// namespace rand_detail

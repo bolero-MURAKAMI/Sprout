@@ -35,43 +35,42 @@ namespace sprout {
 #endif
 
 		template<int N>
-		struct state {
+		struct state
+			: public sprout::integral_constant<int, N>
+		{
 			friend SPROUT_CONSTEXPR int adl_counter(sprout::counter_detail::tag<N>) {
 				return N;
 			}
-			SPROUT_STATIC_CONSTEXPR int value = N;
 		};
-		template<int N>
-		SPROUT_CONSTEXPR_OR_CONST int sprout::counter_detail::state<N>::value;
 
 		template<int N, int = adl_counter(sprout::counter_detail::tag<N>())>
-		SPROUT_CONSTEXPR bool check_impl(int, sprout::counter_detail::tag<N>) {
+		SPROUT_CONSTEXPR bool check(int, sprout::counter_detail::tag<N>) {
 			return true;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check_impl(long, sprout::counter_detail::tag<N>) {
+		SPROUT_CONSTEXPR bool check(long, sprout::counter_detail::tag<N>) {
 			return false;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check(bool R = sprout::counter_detail::check_impl(0, sprout::counter_detail::tag<N>())) {
+		SPROUT_CONSTEXPR bool check(bool R = sprout::counter_detail::check(0, sprout::counter_detail::tag<N>())) {
 			return R;
 		}
 
 		template<int N>
-		SPROUT_CONSTEXPR int counter_impl(sprout::false_type, sprout::counter_detail::tag<N>) {
+		SPROUT_CONSTEXPR int counter(sprout::false_type, sprout::counter_detail::tag<N>) {
 			return 0;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR int counter_impl(
+		SPROUT_CONSTEXPR int counter(
 			sprout::true_type, sprout::counter_detail::tag<N>,
 			int R = !sprout::counter_detail::check<N>() ? N
-				: counter_impl(sprout::bool_constant<sprout::counter_detail::check<N>()>(), sprout::counter_detail::tag<N + 1>())
+				: counter(sprout::bool_constant<sprout::counter_detail::check<N>()>(), sprout::counter_detail::tag<N + 1>())
 			)
 		{
 			return R;
 		}
 		template<int N = 0>
-		SPROUT_CONSTEXPR int counter(int R = sprout::counter_detail::counter_impl(sprout::true_type(), sprout::counter_detail::tag<N>())) {
+		SPROUT_CONSTEXPR int counter(int R = sprout::counter_detail::counter(sprout::true_type(), sprout::counter_detail::tag<N>())) {
 			return R;
 		}
 	}	// namespace counter_detail

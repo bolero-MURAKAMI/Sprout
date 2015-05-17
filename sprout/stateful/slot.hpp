@@ -92,33 +92,33 @@ namespace sprout {
 		};
 
 		template<int N, int = adl_counter(sprout::slot_detail::tag<N>())>
-		SPROUT_CONSTEXPR bool check_impl(int, sprout::slot_detail::tag<N>) {
+		SPROUT_CONSTEXPR bool check(int, sprout::slot_detail::tag<N>) {
 			return true;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check_impl(long, sprout::slot_detail::tag<N>) {
+		SPROUT_CONSTEXPR bool check(long, sprout::slot_detail::tag<N>) {
 			return false;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check(bool R = sprout::slot_detail::check_impl(0, sprout::slot_detail::tag<N>())) {
+		SPROUT_CONSTEXPR bool check(bool R = sprout::slot_detail::check(0, sprout::slot_detail::tag<N>())) {
 			return R;
 		}
 
 		template<int N>
-		SPROUT_CONSTEXPR int counter_impl(sprout::false_type, sprout::slot_detail::tag<N>) {
+		SPROUT_CONSTEXPR int counter(sprout::false_type, sprout::slot_detail::tag<N>) {
 			return 0;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR int counter_impl(
+		SPROUT_CONSTEXPR int counter(
 			sprout::true_type, sprout::slot_detail::tag<N>,
-			int R = !sprout::slot_detail::check_impl(0, sprout::slot_detail::tag<N>()) ? N
-				: counter_impl(sprout::bool_constant<sprout::slot_detail::check_impl(0, sprout::slot_detail::tag<N>())>(), sprout::slot_detail::tag<N + 1>())
+			int R = !sprout::slot_detail::check(0, sprout::slot_detail::tag<N>()) ? N
+				: counter(sprout::bool_constant<sprout::slot_detail::check(0, sprout::slot_detail::tag<N>())>(), sprout::slot_detail::tag<N + 1>())
 			)
 		{
 			return R;
 		}
 		template<int N = 0>
-		SPROUT_CONSTEXPR int counter(int R = sprout::slot_detail::counter_impl(sprout::true_type(), sprout::slot_detail::tag<N>())) {
+		SPROUT_CONSTEXPR int counter(int R = sprout::slot_detail::counter(sprout::true_type(), sprout::slot_detail::tag<N>())) {
 			return R;
 		}
 
@@ -156,16 +156,18 @@ namespace sprout {
 	//
 	template<
 		int K, std::intmax_t Value,
+		int N = 0,
 		std::intmax_t = sprout::slot_detail::state<
-			sprout::slot_detail::counter(),
+			sprout::slot_detail::counter(sprout::true_type(), sprout::slot_detail::tag<N>()),
 			K, Value
 			>::value
 	>
 	SPROUT_CXX14_CONSTEXPR void assign_slot() {}
 	template<
 		int K, std::intmax_t Value,
+		int N = 0,
 		std::intmax_t R = sprout::slot_detail::state<
-			sprout::slot_detail::counter(),
+			sprout::slot_detail::counter(sprout::true_type(), sprout::slot_detail::tag<N>()),
 			K, Value
 			>::value
 	>

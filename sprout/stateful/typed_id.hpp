@@ -47,33 +47,33 @@ namespace sprout {
 			};
 
 			template<int N, int = adl_counter(tag<N>())>
-			static SPROUT_CONSTEXPR bool check_impl(int, tag<N>) {
+			static SPROUT_CONSTEXPR bool check(int, tag<N>) {
 				return true;
 			}
 			template<int N>
-			static SPROUT_CONSTEXPR bool check_impl(long, tag<N>) {
+			static SPROUT_CONSTEXPR bool check(long, tag<N>) {
 				return false;
 			}
 			template<int N>
-			static SPROUT_CONSTEXPR bool check(bool R = check_impl(0, tag<N>())) {
+			static SPROUT_CONSTEXPR bool check(bool R = check(0, tag<N>())) {
 				return R;
 			}
 
 			template<int N>
-			static SPROUT_CONSTEXPR int counter_impl(sprout::false_type, tag<N>) {
+			static SPROUT_CONSTEXPR int counter(sprout::false_type, tag<N>) {
 				return 0;
 			}
 			template<int N>
-			static SPROUT_CONSTEXPR int counter_impl(
+			static SPROUT_CONSTEXPR int counter(
 				sprout::true_type, tag<N>,
 				int R = !check<N>() ? N
-					: counter_impl(sprout::bool_constant<check<N>()>(), tag<N + 1>())
+					: counter(sprout::bool_constant<check<N>()>(), tag<N + 1>())
 				)
 			{
 				return R;
 			}
 			template<int N = 0>
-			static SPROUT_CONSTEXPR int counter(int R = counter_impl(sprout::true_type(), tag<N>())) {
+			static SPROUT_CONSTEXPR int counter(int R = counter(sprout::true_type(), tag<N>())) {
 				return R;
 			}
 
