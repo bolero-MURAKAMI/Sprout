@@ -178,7 +178,7 @@ namespace sprout {
 			sprout::typed_rand_detail::typed<T>::template counter(sprout::true_type(), typename sprout::typed_rand_detail::typed<T>::template tag<N - 1>()) + N - 1
 			>::value
 	>
-	SPROUT_CONSTEXPR int rand() {
+	inline SPROUT_CONSTEXPR int rand() {
 		return R;
 	}
 
@@ -194,7 +194,7 @@ namespace sprout {
 			true, Seed
 			>::value
 	>
-	SPROUT_CXX14_CONSTEXPR void srand() {}
+	inline SPROUT_CXX14_CONSTEXPR void srand() {}
 	template<
 		typename T, unsigned Seed,
 		int N = 1,
@@ -203,7 +203,7 @@ namespace sprout {
 			true, Seed
 			>::value
 	>
-	SPROUT_CONSTEXPR unsigned srand_return() {
+	inline SPROUT_CONSTEXPR unsigned srand_return() {
 		return R;
 	}
 

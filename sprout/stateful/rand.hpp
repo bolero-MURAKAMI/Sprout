@@ -144,24 +144,24 @@ namespace sprout {
 		SPROUT_CONSTEXPR_OR_CONST int sprout::rand_detail::state<0, IsSrand, Seed>::value;
 
 		template<int N, int = adl_counter(sprout::rand_detail::tag<N>())>
-		SPROUT_CONSTEXPR bool check(int, sprout::rand_detail::tag<N>) {
+		inline SPROUT_CONSTEXPR bool check(int, sprout::rand_detail::tag<N>) {
 			return true;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check(long, sprout::rand_detail::tag<N>) {
+		inline SPROUT_CONSTEXPR bool check(long, sprout::rand_detail::tag<N>) {
 			return false;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check(bool R = sprout::rand_detail::check(0, sprout::rand_detail::tag<N>())) {
+		inline SPROUT_CONSTEXPR bool check(bool R = sprout::rand_detail::check(0, sprout::rand_detail::tag<N>())) {
 			return R;
 		}
 
 		template<int N>
-		SPROUT_CONSTEXPR int counter(sprout::false_type, sprout::rand_detail::tag<N>) {
+		inline SPROUT_CONSTEXPR int counter(sprout::false_type, sprout::rand_detail::tag<N>) {
 			return 0;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR int counter(
+		inline SPROUT_CONSTEXPR int counter(
 			sprout::true_type, sprout::rand_detail::tag<N>,
 			int R = !sprout::rand_detail::check<N>() ? N
 				: counter(sprout::bool_constant<sprout::rand_detail::check<N>()>(), sprout::rand_detail::tag<N + 1>())
@@ -170,7 +170,7 @@ namespace sprout {
 			return R;
 		}
 		template<int N = 0>
-		SPROUT_CONSTEXPR int counter(int R = sprout::rand_detail::counter(sprout::true_type(), sprout::rand_detail::tag<N>())) {
+		inline SPROUT_CONSTEXPR int counter(int R = sprout::rand_detail::counter(sprout::true_type(), sprout::rand_detail::tag<N>())) {
 			return R;
 		}
 	}	// namespace rand_detail
@@ -183,7 +183,7 @@ namespace sprout {
 			sprout::rand_detail::counter() + N - 1
 			>::value
 	>
-	SPROUT_CONSTEXPR int rand() {
+	inline SPROUT_CONSTEXPR int rand() {
 		return R;
 	}
 
@@ -208,7 +208,7 @@ namespace sprout {
 			true, Seed
 			>::value
 	>
-	SPROUT_CONSTEXPR unsigned srand_return() {
+	inline SPROUT_CONSTEXPR unsigned srand_return() {
 		return R;
 	}
 

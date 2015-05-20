@@ -87,7 +87,7 @@ namespace sprout {
 			sprout::typed_counter_detail::typed<T>::template counter(sprout::true_type(), typename sprout::typed_counter_detail::typed<T>::template tag<N - 1>()) + N - 1
 			>::value
 	>
-	SPROUT_CONSTEXPR int counter() {
+	inline SPROUT_CONSTEXPR int counter() {
 		return R;
 	}
 

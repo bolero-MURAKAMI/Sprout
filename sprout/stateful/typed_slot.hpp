@@ -108,7 +108,7 @@ namespace sprout {
 		int N = 1,
 		std::intmax_t R = sprout::typed_slot_detail::typed<T>::template val(sprout::true_type(), typename sprout::typed_slot_detail::typed<T>::template tag<N>())
 	>
-	SPROUT_CONSTEXPR std::intmax_t slot() {
+	inline SPROUT_CONSTEXPR std::intmax_t slot() {
 		return R;
 	}
 
@@ -124,7 +124,7 @@ namespace sprout {
 			Value
 			>::value
 	>
-	SPROUT_CXX14_CONSTEXPR void assign_slot() {}
+	inline SPROUT_CXX14_CONSTEXPR void assign_slot() {}
 	template<
 		typename T, std::intmax_t Value,
 		int N = 1,
@@ -133,7 +133,7 @@ namespace sprout {
 			Value
 			>::value
 	>
-	SPROUT_CONSTEXPR std::intmax_t assign_slot_return() {
+	inline SPROUT_CONSTEXPR std::intmax_t assign_slot_return() {
 		return R;
 	}
 

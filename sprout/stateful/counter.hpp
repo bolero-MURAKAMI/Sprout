@@ -44,24 +44,24 @@ namespace sprout {
 		};
 
 		template<int N, int = adl_counter(sprout::counter_detail::tag<N>())>
-		SPROUT_CONSTEXPR bool check(int, sprout::counter_detail::tag<N>) {
+		inline SPROUT_CONSTEXPR bool check(int, sprout::counter_detail::tag<N>) {
 			return true;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check(long, sprout::counter_detail::tag<N>) {
+		inline SPROUT_CONSTEXPR bool check(long, sprout::counter_detail::tag<N>) {
 			return false;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR bool check(bool R = sprout::counter_detail::check(0, sprout::counter_detail::tag<N>())) {
+		inline SPROUT_CONSTEXPR bool check(bool R = sprout::counter_detail::check(0, sprout::counter_detail::tag<N>())) {
 			return R;
 		}
 
 		template<int N>
-		SPROUT_CONSTEXPR int counter(sprout::false_type, sprout::counter_detail::tag<N>) {
+		inline SPROUT_CONSTEXPR int counter(sprout::false_type, sprout::counter_detail::tag<N>) {
 			return 0;
 		}
 		template<int N>
-		SPROUT_CONSTEXPR int counter(
+		inline SPROUT_CONSTEXPR int counter(
 			sprout::true_type, sprout::counter_detail::tag<N>,
 			int R = !sprout::counter_detail::check<N>() ? N
 				: counter(sprout::bool_constant<sprout::counter_detail::check<N>()>(), sprout::counter_detail::tag<N + 1>())
@@ -70,7 +70,7 @@ namespace sprout {
 			return R;
 		}
 		template<int N = 0>
-		SPROUT_CONSTEXPR int counter(int R = sprout::counter_detail::counter(sprout::true_type(), sprout::counter_detail::tag<N>())) {
+		inline SPROUT_CONSTEXPR int counter(int R = sprout::counter_detail::counter(sprout::true_type(), sprout::counter_detail::tag<N>())) {
 			return R;
 		}
 	}	// namespace counter_detail
@@ -83,7 +83,7 @@ namespace sprout {
 			sprout::counter_detail::counter() + N - 1
 			>::value
 	>
-	SPROUT_CONSTEXPR int counter() {
+	inline SPROUT_CONSTEXPR int counter() {
 		return R;
 	}
 
