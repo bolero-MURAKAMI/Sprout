@@ -260,7 +260,7 @@ namespace sprout {
 				return sprout::throw_recursive_function_template_instantiation_exeeded();
 			}
 			template<typename Engine, int D, typename Random, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
-			SPROUT_CONSTEXPR sprout::random::random_result<Engine, poisson_distribution> generate_1_3(Random const& rnd, RealType v, RealType u) const {
+			SPROUT_CONSTEXPR sprout::random::random_result<Engine, poisson_distribution> generate_1_3(Random const& rnd, RealType, RealType u) const {
 				return generate_2<Engine, D + 1>(rnd, sprout::random::result(rnd), ((u < 0) ? -0.5 : 0.5) - u, generate_us(((u < 0) ? -0.5 : 0.5) - u));
 			}
 			template<typename Engine, int D, typename Random, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
