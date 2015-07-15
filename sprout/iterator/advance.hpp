@@ -45,9 +45,9 @@ namespace sprout {
 	//
 	// advance
 	//
-	template<typename Iterator, typename Distance>
+	template<typename Iterator, typename Distance = typename std::iterator_traits<Iterator>::difference_type>
 	inline SPROUT_CXX14_CONSTEXPR void
-	advance(Iterator& it, Distance n) {
+	advance(Iterator& it, Distance n = 1) {
 		typedef typename std::iterator_traits<Iterator>::iterator_category* category;
 		sprout::detail::advance_impl(it, n, category());
 	}
