@@ -691,7 +691,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		find_first_not_of(value_type const* s, size_type pos, size_type n) const {
-#if SPROUT_GCC_IN_RANGE((5, 1, 0), (5, 1, 1))
+#if SPROUT_GCC_IN_RANGE((5, 1, 0), (5, 3, 0))
 			return sprout::string_detail::find_first_not_of_impl<basic_string>(begin(), size(), sprout::ptr_index(s), pos, n);
 #else
 			return sprout::string_detail::find_first_not_of_impl<basic_string>(begin(), size(), s, pos, n);
@@ -712,7 +712,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type
 		find_last_not_of(value_type const* s, size_type pos, size_type n) const {
-#if SPROUT_GCC_IN_RANGE((5, 1, 0), (5, 1, 1))
+#if SPROUT_GCC_IN_RANGE((5, 1, 0), (5, 3, 0))
 			return sprout::string_detail::find_last_not_of_impl<basic_string>(begin(), size(), sprout::ptr_index(s), pos, n);
 #else
 			return sprout::string_detail::find_last_not_of_impl<basic_string>(begin(), size(), s, pos, n);
