@@ -229,7 +229,7 @@ namespace sprout {
 			}
 			template<typename Engine>
 			SPROUT_CXX14_CONSTEXPR result_type
-			generate(Engine& eng) const {
+			generate_cxx14(Engine& eng) const {
 				for (; ; ) {
 					RealType u = RealType();
 					RealType v = static_cast<RealType>(sprout::random::uniform_01<RealType>()(eng));
@@ -750,8 +750,8 @@ namespace sprout {
 				return use_inversion() ? RealType(0.5) < p_
 						? t_ - invert(t_, 1 - p_, eng)
 						: invert(t_, p_, eng)
-					: RealType(0.5) < p_ ? t_ - generate(eng)
-					: generate(eng)
+					: RealType(0.5) < p_ ? t_ - generate_cxx14(eng)
+					: generate_cxx14(eng)
 					;
 			}
 			template<typename Engine>

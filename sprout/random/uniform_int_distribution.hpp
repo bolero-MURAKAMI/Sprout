@@ -34,7 +34,7 @@ namespace sprout {
 
 			template<typename Engine, typename T>
 			inline SPROUT_CXX14_CONSTEXPR T
-			generate_uniform_int(
+			generate_uniform_int_cxx14(
 				Engine& eng, T min_value, T max_value, std::true_type
 				)
 			{
@@ -73,7 +73,7 @@ namespace sprout {
 							}
 							mult *= range_type(brange) + range_type(1);
 						}
-						range_type result_increment = sprout::random::detail::generate_uniform_int(
+						range_type result_increment = sprout::random::detail::generate_uniform_int_cxx14(
 							eng,
 							static_cast<range_type>(0),
 							static_cast<range_type>(range / mult),
@@ -112,12 +112,12 @@ namespace sprout {
 			}
 			template<typename Engine, typename T>
 			inline SPROUT_CXX14_CONSTEXPR T
-			generate_uniform_int(
+			generate_uniform_int_cxx14(
 				Engine& eng, T min_value, T max_value, std::false_type
 				)
 			{
 				sprout::random::detail::uniform_int_float<Engine> wrapper(eng);
-				return sprout::random::detail::generate_uniform_int(wrapper, min_value, max_value, std::true_type());
+				return sprout::random::detail::generate_uniform_int_cxx14(wrapper, min_value, max_value, std::true_type());
 			}
 			template<typename Engine, typename T>
 			inline SPROUT_CXX14_CONSTEXPR T
@@ -125,7 +125,7 @@ namespace sprout {
 				Engine& eng, T min_value, T max_value
 				)
 			{
-				return sprout::random::detail::generate_uniform_int(
+				return sprout::random::detail::generate_uniform_int_cxx14(
 					eng, min_value, max_value,
 					std::is_integral<typename Engine::result_type>()
 					);
