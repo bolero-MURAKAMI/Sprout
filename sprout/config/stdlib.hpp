@@ -25,7 +25,12 @@
 #	include <sprout/config/stdlib/stlport.hpp>
 #else
 
+#if !defined(__LIBCOMO__) && !defined(__STD_RWCOMPILER_H__) && !defined(_RWSTD_VER) \
+	&& !defined(_LIBCPP_VERSION) && !defined(__GLIBCPP__) && !defined(__GLIBCXX__) \
+	&& !defined(__STL_CONFIG_H) && !defined(__MSL_CPP__) && !defined(__IBMCPP__) \
+	&& !defined(MSIPL_COMPILE_H) && !defined(_YVALS) && !defined(_CPPLIB_VER)
 #	include <utility>
+#endif
 
 #	if defined(__LIBCOMO__)
 #		include <sprout/config/stdlib/libcomo.hpp>

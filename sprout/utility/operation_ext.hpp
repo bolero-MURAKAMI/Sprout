@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/compare_pointees.hpp>
 #include <sprout/utility/eat.hpp>
+#include <sprout/utility/ignore_unused.hpp>
 #include <sprout/utility/limited.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_OPERATION_EXT_HPP

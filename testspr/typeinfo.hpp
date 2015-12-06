@@ -41,39 +41,53 @@ namespace testspr {
 	//
 	// typename_of
 	//
-#ifdef TESTSPR_HAS_CXXABI_H
 	namespace detail {
-		inline SPROUT_NON_CONSTEXPR std::string
-		cxa_demangle(char const* mangled) {
-			int status;
-			char* demangled = abi::__cxa_demangle(mangled, 0, 0, &status);
-			std::string result(demangled);
-			std::free(demangled);
-			return result;
+#ifdef TESTSPR_HAS_CXXABI_H
+		inline SPROUT_NON_CONSTEXPR char*
+		demangle_alloc(char const* name) {
+			int status = 0;
+			return abi::__cxa_demangle(name, 0, 0, &status);
 		}
+		inline SPROUT_NON_CONSTEXPR void
+		demangle_free(char* demangled) {
+			std::free(demangled);
+		}
+		class scoped_demangled_name {
+		private:
+			char* demangled_;
+		public:
+			explicit SPROUT_NON_CONSTEXPR scoped_demangled_name(char const* name) SPROUT_NOEXCEPT
+				: demangled_(testspr::detail::demangle_alloc(name))
+			{}
+			~scoped_demangled_name() SPROUT_NOEXCEPT {
+				testspr::detail::demangle_free(demangled_);
+			}
+			SPROUT_NON_CONSTEXPR char const* get() const SPROUT_NOEXCEPT {
+				return demangled_;
+			}
+		};
+		inline SPROUT_NON_CONSTEXPR std::string
+		demangle(char const* name) {
+			scoped_demangled_name demangled(name);
+			return demangled.get() ? demangled.get() : name;
+		}
+#else
+		inline SPROUT_NON_CONSTEXPR std::string
+		demangle(char const* name) {
+			return name;
+		}
+#endif
 	}	// namespace detail
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR std::string
 	typename_of() {
-		return testspr::detail::cxa_demangle(typeid(T).name());
+		return testspr::detail::demangle(typeid(T).name());
 	}
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR std::string
 	typename_of(T&& t) {
-		return testspr::detail::cxa_demangle(typeid(std::forward<T>(t)).name());
+		return testspr::detail::demangle(typeid(std::forward<T>(t)).name());
 	}
-#else
-	template<typename T>
-	inline SPROUT_NON_CONSTEXPR std::string
-	typename_of() {
-		return std::string(typeid(T).name());
-	}
-	template<typename T>
-	inline SPROUT_NON_CONSTEXPR std::string
-	typename_of(T&& t) {
-		return std::string(typeid(std::forward<T>(t)).name());
-	}
-#endif
 }	// namespace testspr
 
 #endif	// #ifndef TESTSPR_TYPEINFO_HPP

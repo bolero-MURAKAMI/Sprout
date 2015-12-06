@@ -58,6 +58,7 @@
 #include <sprout/operation.hpp>
 #include <sprout/optional.hpp>
 #include <sprout/pit.hpp>
+#include <sprout/predef.hpp>
 #include <sprout/preprocessor.hpp>
 #include <sprout/random.hpp>
 #include <sprout/range.hpp>

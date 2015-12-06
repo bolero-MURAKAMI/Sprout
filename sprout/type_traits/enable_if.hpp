@@ -8,7 +8,9 @@
 #ifndef SPROUT_TYPE_TRAITS_ENABLE_IF_HPP
 #define SPROUT_TYPE_TRAITS_ENABLE_IF_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/type_traits/enable_if_has_type.hpp>
 
 namespace sprout {
 	//
