@@ -17,6 +17,30 @@
 namespace sprout {
 	namespace detail {
 		//
+		// int_digits_mf
+		//
+		template<typename IntType, IntType Val, int Base = 10, bool = Val != 0>
+		struct int_digits_mf_impl;
+		template<typename IntType, IntType Val, int Base>
+		struct int_digits_mf_impl<IntType, Val, Base, false>
+			: public sprout::integral_constant<IntType, 0>
+		{};
+		template<typename IntType, IntType Val, int Base>
+		struct int_digits_mf_impl<IntType, Val, Base, true>
+			: public sprout::integral_constant<IntType, 1 + sprout::detail::int_digits_mf_impl<IntType, Val / Base, Base>::value>
+		{};
+		template<typename IntType, IntType Val, int Base = 10, bool = Val != 0>
+		struct int_digits_mf;
+		template<typename IntType, IntType Val, int Base>
+		struct int_digits_mf<IntType, Val, Base, false>
+			: public sprout::integral_constant<IntType, 1>
+		{};
+		template<typename IntType, IntType Val, int Base>
+		struct int_digits_mf<IntType, Val, Base, true>
+			: public sprout::integral_constant<IntType, 1 + sprout::detail::int_digits_mf_impl<IntType, Val / Base, Base>::value>
+		{};
+
+		//
 		// int_pow
 		//
 		template<

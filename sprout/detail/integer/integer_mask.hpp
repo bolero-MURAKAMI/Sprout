@@ -43,8 +43,8 @@ namespace sprout {
 		struct low_bits_mask_t<sprout::numeric_limits<TYPE>::digits> { \
 		public: \
 			typedef sprout::numeric_limits<TYPE> limits_type; \
-			typedef typename sprout::detail::uint_t<limits_type::digits>::least least; \
-			typedef typename sprout::detail::uint_t<limits_type::digits>::fast fast; \
+			typedef sprout::detail::uint_t<limits_type::digits>::least least; \
+			typedef sprout::detail::uint_t<limits_type::digits>::fast fast; \
 		public: \
 			SPROUT_STATIC_CONSTEXPR least sig_bits = ~(least(0u)); \
 			SPROUT_STATIC_CONSTEXPR fast sig_bits_fast = fast(sig_bits); \

@@ -9,17 +9,7 @@
 #define SPROUT_DETAIL_PREDEF_HPP
 
 #include <sprout/config.hpp>
-
-//
-// SPROUT_VERSION_NUMBER
-//
-#define SPROUT_VERSION_NUMBER(MAJOR, MINOR, PATCH) \
-	((((MAJOR) % 100) * 10000000) + (((MINOR) % 100) * 100000) + ((PATCH) % 100000))
-//
-// SPROUT_VERSION_NUMBER_ZERO
-//
-#define SPROUT_VERSION_NUMBER_ZERO \
-    SPROUT_VERSION_NUMBER(0, 0, 0)
+#include <sprout/predef/version_number.hpp>
 
 //
 // SPROUT_AVAILABLE_GCC

@@ -178,7 +178,7 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BERNOULLI_TABLE_DEF_FLOAT)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
+			SPROUT_CONSTEXPR_OR_CONST sprout::math::detail::bernoulli_numbers<
 				float
 			>::table_type sprout::math::detail::bernoulli_numbers<
 				float
@@ -197,7 +197,7 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BERNOULLI_TABLE_DEF_DOUBLE)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
+			SPROUT_CONSTEXPR_OR_CONST sprout::math::detail::bernoulli_numbers<
 				double
 			>::table_type sprout::math::detail::bernoulli_numbers<
 				double
@@ -216,7 +216,7 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BERNOULLI_TABLE_DEF_LONG_DOUBLE)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
+			SPROUT_CONSTEXPR_OR_CONST sprout::math::detail::bernoulli_numbers<
 				long double
 			>::table_type sprout::math::detail::bernoulli_numbers<
 				long double

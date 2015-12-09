@@ -192,51 +192,51 @@ namespace sprout {
 #define SPROUT_CTYPE_ASCII_DECL(CHAR_TYPE, PREFIX) \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, alnum))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & (sprout::ascii::detail::alpha | sprout::ascii::detail::digit); \
+			return (sprout::ascii::detail::get_value(c) & (sprout::ascii::detail::alpha | sprout::ascii::detail::digit)) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, alpha))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::alpha; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::alpha) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, blank))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::blank; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::blank) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, cntrl))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::cntrl; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::cntrl) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, digit))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::digit; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::digit) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, graph))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::graph; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::graph) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, lower))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::lower; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::lower) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, print))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::print; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::print) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, punct))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::punct; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::punct) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, space))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::space; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::space) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, upper))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::upper; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::upper) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
 		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, xdigit))(CHAR_TYPE c) { \
-			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::xdigit; \
+			return (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::xdigit) != 0; \
 		} \
 		inline SPROUT_CONSTEXPR CHAR_TYPE \
 		SPROUT_PP_CAT(to, SPROUT_PP_CAT(PREFIX, lower))(CHAR_TYPE c) { \

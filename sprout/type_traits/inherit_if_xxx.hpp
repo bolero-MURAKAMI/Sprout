@@ -63,12 +63,12 @@
 	> { \
 	public: \
 		SPROUT_STATIC_CONSTEXPR std::size_t ALIAS = T::CONSTANT; \
-	}; \
+	};/* \
 	template<typename T> \
 	SPROUT_CONSTEXPR_OR_CONST std::size_t NAME< \
 		T, \
 		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), NUM)<T>::value>::type \
-	>::ALIAS
+	>::ALIAS !!! */
 #else
 #define SPROUT_INHERIT_ALIAS_IF_XXX_CONSTANT_DEF_IMPL(NAME, ALIAS, CONSTANT, NUM) \
 	SPROUT_HAS_XXX_VALUE_DEF(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), NUM), CONSTANT); \

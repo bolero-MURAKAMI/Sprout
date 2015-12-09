@@ -23,6 +23,7 @@
 
 namespace sprout {
 	namespace types {
+#ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
 		//
 		// to_string
 		//
@@ -85,6 +86,7 @@ namespace sprout {
 		typedef typename sprout::types::to_string<SPROUT_PP_CAT(SPROUT_TYPES_STRING_TYPEDEF_PROXY_, NUM)>::type TYPE
 #		define SPROUT_TYPES_STRING_TYPEDEF(SOURCE, TYPE) \
 			SPROUT_TYPES_STRING_TYPEDEF_IMPL(SOURCE, TYPE, SPROUT_PP_SOME_NUMBER())
+#endif
 	}	// namespace types
 }	// namespace sprout
 

@@ -24,7 +24,7 @@ namespace sprout {
 			sprout::true_type sprout_has_xxx_impl_check_template_rebind_size(int);
 			template<typename T>
 			sprout::false_type sprout_has_xxx_impl_check_template_rebind_size(long);
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 			template<typename T, typename Base_ = decltype(sprout::containers::detail::sprout_has_xxx_impl_check_template_rebind_size<T>(0))>
 			struct has_rebind_size
 				: public Base_

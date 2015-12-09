@@ -16,6 +16,7 @@
 #include <sprout/limits.hpp>
 #include <sprout/generator/functions.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	//
@@ -34,7 +35,7 @@ namespace sprout {
 	public:
 		typedef Generator generator_type;
 		typedef std::forward_iterator_tag iterator_category;
-		typedef decltype(sprout::generators::generated_value(std::declval<Generator const>())) reference;
+		typedef typename sprout::identity<decltype(sprout::generators::generated_value(std::declval<Generator const>()))>::type reference;
 		typedef typename std::remove_reference<reference>::type value_type;
 		typedef std::ptrdiff_t difference_type;
 		typedef value_type* pointer;

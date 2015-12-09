@@ -32,7 +32,7 @@ namespace sprout {
 			static sprout::true_type test(int);
 			static sprout::false_type test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_shrink_to_fit_test<T>::test(0))>::type>
 		struct has_mem_shrink_to_fit
 			: public Base_

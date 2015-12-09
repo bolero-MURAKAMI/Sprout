@@ -20,6 +20,7 @@
 #include <sprout/math/isnan.hpp>
 #include <sprout/math/signbit.hpp>
 #include <sprout/math/floor.hpp>
+#include <sprout/tpp/algorithm/max_element.hpp>
 #include <sprout/detail/char_literal.hpp>
 #include <sprout/detail/char_conversion.hpp>
 #include <sprout/detail/math/int.hpp>
@@ -108,7 +109,7 @@ namespace sprout {
 		struct printed_float_exponent10_digits
 			: public sprout::integral_constant<
 				std::size_t,
-				NS_SSCRISK_CEL_OR_SPROUT::max(sprout::detail::int_digits(sprout::numeric_limits<FloatType>::max_exponent10), 2)
+				sprout::tpp::max_element_c<int, sprout::detail::int_digits_mf<int, sprout::numeric_limits<FloatType>::max_exponent10>::value, 2>::value
 			>
 		{};
 	}	// namespace detail

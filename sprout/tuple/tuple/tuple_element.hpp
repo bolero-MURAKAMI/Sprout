@@ -23,7 +23,11 @@ namespace sprout {
 		// tuple_element
 		//
 		namespace detail {
+#if defined(_MSC_VER)
+			template<std::size_t I, typename T, bool = true>
+#else
 			template<std::size_t I, typename T, bool = sprout::has_value<std::tuple_size<T> >::value>
+#endif
 			struct valid_tuple_index;
 			template<std::size_t I, typename T>
 			struct valid_tuple_index<I, T, false>
@@ -34,7 +38,11 @@ namespace sprout {
 				: public sprout::bool_constant<(I < std::tuple_size<T>::value)>
 			{};
 
+#if defined(_MSC_VER)
+			template<std::size_t I, typename T, bool = true>
+#else
 			template<std::size_t I, typename T, bool = sprout::has_type<std::tuple_element<I, T> >::value && sprout::tuples::detail::valid_tuple_index<I, T>::value>
+#endif
 			struct tuple_element_default;
 			template<std::size_t I, typename T>
 			struct tuple_element_default<I, T, false>

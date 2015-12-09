@@ -8,13 +8,23 @@
 #ifndef SPROUT_TYPE_TRAITS_RESULT_OF_HPP
 #define SPROUT_TYPE_TRAITS_RESULT_OF_HPP
 
+#if defined(_MSC_VER) && (_MSC_VER <= 1900)
+#	include <functional>
+#endif
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/detail/nil_base.hpp>
+#include <sprout/type/type_tuple.hpp>
 
 namespace sprout {
+#if defined(_MSC_VER) && (_MSC_VER <= 1900)
+	//
+	// result_of
+	//
+	using std::result_of;
+#else
 	//
 	// result_of
 	//
@@ -26,7 +36,7 @@ namespace sprout {
 			template<typename...>
 			static sprout::detail::nil_base test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<
 			typename MemPtr, typename Arg, typename... Args,
 			typename Base_ = sprout::identity<decltype(sprout::detail::result_of_memfun_ref_helper::test<MemPtr, Arg, Args...>(0))>::type
@@ -48,7 +58,7 @@ namespace sprout {
 			template<typename...>
 			static sprout::detail::nil_base test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<
 			typename MemPtr, typename Arg, typename... Args,
 			typename Base_ = sprout::identity<decltype(sprout::detail::result_of_memfun_deref_helper::test<MemPtr, Arg, Args...>(0))>::type
@@ -70,7 +80,7 @@ namespace sprout {
 			template<typename, typename>
 			static sprout::detail::nil_base test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<
 			typename MemPtr, typename Arg,
 			typename Base_ = sprout::identity<decltype(sprout::detail::result_of_memobj_ref_helper::test<MemPtr, Arg>(0))>::type
@@ -92,7 +102,7 @@ namespace sprout {
 			template<typename, typename>
 			static sprout::detail::nil_base test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<
 			typename MemPtr, typename Arg,
 			typename Base_ = sprout::identity<decltype(sprout::detail::result_of_memobj_deref_helper::test<MemPtr, Arg>(0))>::type
@@ -147,7 +157,7 @@ namespace sprout {
 		public:
 			template<typename F, typename... Args>
 			static sprout::identity<decltype(std::declval<F>()(std::declval<Args>()...))> test(int);
-			template<typename...>
+			template<typename, typename...>
 			static sprout::detail::nil_base test(...);
 		};
 #if defined(_MSC_VER)
@@ -194,6 +204,7 @@ namespace sprout {
 			Functor, Args...
 		>
 	{};
+#endif
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	template<typename F, typename... ArgTypes>

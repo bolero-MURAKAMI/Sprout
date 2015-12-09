@@ -30,11 +30,11 @@ namespace sprout {
 			//
 			inline SPROUT_CONSTEXPR sprout::complex<float>
 			operator"" _if(long double x) {
-				return sprout::complex<float>(0, x);
+				return sprout::complex<float>(0, static_cast<float>(x));
 			}
 			inline SPROUT_CONSTEXPR sprout::complex<float>
 			operator"" _iF(long double x) {
-				return sprout::complex<float>(0, x);
+				return sprout::complex<float>(0, static_cast<float>(x));
 			}
 
 			//

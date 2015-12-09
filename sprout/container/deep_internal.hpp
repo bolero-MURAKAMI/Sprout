@@ -17,7 +17,12 @@ namespace sprout {
 	namespace containers {
 		namespace detail {
 			template<typename Container, typename Prev, typename = void>
-			struct deep_internal_impl
+			struct deep_internal_impl;
+			template<typename Container, typename Prev>
+			struct deep_internal_impl<
+				Container, Prev,
+				typename std::enable_if<!std::is_same<Container, Prev&&>::value>::type
+			>
 				: public sprout::containers::detail::deep_internal_impl<
 					typename sprout::containers::internal<Container>::type, Container
 				>

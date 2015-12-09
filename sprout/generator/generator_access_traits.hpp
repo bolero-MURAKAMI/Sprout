@@ -28,7 +28,7 @@ namespace sprout {
 				static sprout::true_type test(int);
 				static sprout::false_type test(...);
 			};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 			template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::generators::detail::has_mem_generated_value_test<T>::test(0))>::type>
 			struct has_mem_generated_value
 				: public Base_
@@ -103,7 +103,7 @@ namespace sprout {
 				static sprout::true_type test(int);
 				static sprout::false_type test(...);
 			};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 			template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::generators::detail::has_mem_next_generator_test<T>::test(0))>::type>
 			struct has_mem_next_generator
 				: public Base_

@@ -21,7 +21,7 @@ namespace sprout {
 			//
 			inline SPROUT_CONSTEXPR sprout::rational<int>
 			operator"" _r(unsigned long long x) {
-				return sprout::rational<int>(x);
+				return sprout::rational<int>(static_cast<int>(x));
 			}
 
 			//
@@ -30,11 +30,11 @@ namespace sprout {
 			//
 			inline SPROUT_CONSTEXPR sprout::rational<long>
 			operator"" _rl(unsigned long long x) {
-				return sprout::rational<long>(x);
+				return sprout::rational<long>(static_cast<long>(x));
 			}
 			inline SPROUT_CONSTEXPR sprout::rational<long>
 			operator"" _rL(unsigned long long x) {
-				return sprout::rational<long>(x);
+				return sprout::rational<long>(static_cast<long>(x));
 			}
 
 			//

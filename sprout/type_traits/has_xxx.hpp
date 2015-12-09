@@ -18,7 +18,7 @@
 // SPROUT_HAS_XXX_TYPE_DEF
 // SPROUT_HAS_XXX_TYPE_DEF_LAZY
 //
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 #define SPROUT_HAS_XXX_TYPE_DEF_IMPL(NAME, TYPE, NUM) \
 	template<typename T, typename = typename T::TYPE> \
 	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TYPE), NAME), NUM)(int); \
@@ -48,7 +48,7 @@
 // SPROUT_HAS_XXX_VALUE_DEF
 // SPROUT_HAS_XXX_VALUE_DEF_LAZY
 //
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 #define SPROUT_HAS_XXX_VALUE_DEF_IMPL(NAME, VALUE, NUM) \
 	template<typename T, typename sprout::identity<decltype(&T::VALUE)>::type = &T::VALUE> \
 	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_value_, VALUE), NAME), NUM)(int); \
@@ -78,7 +78,7 @@
 // SPROUT_HAS_XXX_TEMPLATE_DEF
 // SPROUT_HAS_XXX_TEMPLATE_DEF_LAZY
 //
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 #define SPROUT_HAS_XXX_TEMPLATE_DEF_IMPL(NAME, TEMPLATE, NUM) \
 	template<typename T, template<typename...> class = T::template TEMPLATE> \
 	sprout::true_type SPROUT_PP_CAT(SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_has_xxx_impl_check_type_, TEMPLATE), NAME), NUM)(int); \

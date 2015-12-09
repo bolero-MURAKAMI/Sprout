@@ -41,41 +41,49 @@ namespace sprout {
 		public:
 			typedef R result_type;
 		};
+#if !defined(_MSC_VER)
 		template<typename R, typename... Args>
 		struct weak_result_type_impl<R (Args......)> {
 		public:
 			typedef R result_type;
 		};
+#endif
 		template<typename R, typename... Args>
 		struct weak_result_type_impl<R (&)(Args...)> {
 		public:
 			typedef R result_type;
 		};
+#if !defined(_MSC_VER)
 		template<typename R, typename... Args>
 		struct weak_result_type_impl<R (&)(Args......)> {
 		public:
 			typedef R result_type;
 		};
+#endif
 		template<typename R, typename... Args>
 		struct weak_result_type_impl<R (*)(Args...)> {
 		public:
 			typedef R result_type;
 		};
+#if !defined(_MSC_VER)
 		template<typename R, typename... Args>
 		struct weak_result_type_impl<R (*)(Args......)> {
 		public:
 			typedef R result_type;
 		};
+#endif
 		template<typename R, typename Class, typename... Args>
 		struct weak_result_type_impl<R (Class::*)(Args...)> {
 		public:
 			typedef R result_type;
 		};
+#if !defined(_MSC_VER)
 		template<typename R, typename Class, typename... Args>
 		struct weak_result_type_impl<R (Class::*)(Args......)> {
 		public:
 			typedef R result_type;
 		};
+#endif
 #if SPROUT_CLANG_OR_LATER(3, 6, 0)
 #	pragma clang diagnostic pop
 #endif

@@ -37,7 +37,7 @@ namespace sprout {
 			static sprout::true_type test(int);
 			static sprout::false_type test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_size_test<T>::test(0))>::type>
 		struct has_mem_size
 			: public Base_
@@ -84,7 +84,7 @@ namespace sprout {
 			static sprout::true_type test(int);
 			static sprout::false_type test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_empty_test<T>::test(0))>::type>
 		struct has_mem_empty
 			: public Base_
@@ -131,7 +131,7 @@ namespace sprout {
 			static sprout::true_type test(int);
 			static sprout::false_type test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_front_test<T>::test(0))>::type>
 		struct has_mem_front
 			: public Base_
@@ -203,7 +203,7 @@ namespace sprout {
 			static sprout::true_type test(int);
 			static sprout::false_type test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_back_test<T>::test(0))>::type>
 		struct has_mem_back
 			: public Base_
@@ -275,7 +275,7 @@ namespace sprout {
 			static sprout::true_type test(int);
 			static sprout::false_type test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_at_test<T>::test(0))>::type>
 		struct has_mem_at
 			: public Base_
@@ -347,7 +347,7 @@ namespace sprout {
 			static sprout::true_type test(int);
 			static sprout::false_type test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_nth_test<T>::test(0))>::type>
 		struct has_mem_nth
 			: public Base_
@@ -419,7 +419,7 @@ namespace sprout {
 			static sprout::true_type test(int);
 			static sprout::false_type test(...);
 		};
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_index_of_test<T>::test(0))>::type>
 		struct has_mem_index_of
 			: public Base_

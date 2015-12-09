@@ -174,11 +174,11 @@ namespace sprout {
 		struct uint_value_t {
 			typedef typename sprout::detail::int_least_helper<
 				5
-				+ (MaxValue <= sprout::numeric_limits<long long>::max())
-				+ (MaxValue <= sprout::numeric_limits<long>::max())
-				+ (MaxValue <= sprout::numeric_limits<int>::max())
-				+ (MaxValue <= sprout::numeric_limits<short>::max())
-				+ (MaxValue <= sprout::numeric_limits<signed char>::max())
+				+ (MaxValue <= static_cast<unsigned long long>(sprout::numeric_limits<long long>::max()))
+				+ (MaxValue <= static_cast<unsigned long long>(sprout::numeric_limits<long>::max()))
+				+ (MaxValue <= static_cast<unsigned long long>(sprout::numeric_limits<int>::max()))
+				+ (MaxValue <= static_cast<unsigned long long>(sprout::numeric_limits<short>::max()))
+				+ (MaxValue <= static_cast<unsigned long long>(sprout::numeric_limits<signed char>::max()))
 			>::least least;
 			typedef typename sprout::detail::int_fast_t<least>::type fast;
 		};

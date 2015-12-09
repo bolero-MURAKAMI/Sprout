@@ -21,7 +21,11 @@ namespace sprout {
 		// tuple_size
 		//
 		namespace detail {
+#if defined(_MSC_VER)
+			template<typename T, bool = true>
+#else
 			template<typename T, bool = sprout::has_value<std::tuple_size<T> >::value>
+#endif
 			struct tuple_size_default;
 			template<typename T>
 			struct tuple_size_default<T, false>

@@ -54,9 +54,11 @@ namespace sprout {
 			 * Get 'n'th byte from 'val'
 			 */
 			template<typename T>
-			inline SPROUT_CONSTEXPR T
+			inline SPROUT_CONSTEXPR std::uint_fast8_t
 			byte_at(T val, std::uint_fast8_t n) {
-				return sprout::net::detail::rshift_by((val & sprout::net::detail::mask_at<T>(n)), n);
+				return static_cast<std::uint_fast8_t>(
+					sprout::net::detail::rshift_by((val & sprout::net::detail::mask_at<T>(n)), n)
+					);
 			}
 
 			/*
@@ -96,7 +98,7 @@ namespace sprout {
 			template<typename T>
 			inline SPROUT_CONSTEXPR T
 			reverse_impl(T val, std::uint_fast8_t n1, std::uint_fast8_t n2) {
-				return n1 > n2 ? val : sprout::net::detail::reverse_impl(swap(val, n1, n2), n1 + 1, n2 - 1);
+				return n1 > n2 ? val : sprout::net::detail::reverse_impl(sprout::net::detail::swap(val, n1, n2), n1 + 1, n2 - 1);
 			}
 
 			/*

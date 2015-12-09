@@ -72,13 +72,49 @@ namespace sprout {
 				: public sprout::identity<sprout::types::type_tuple<Types1..., Types2...> >
 			{};
 
+			// !!! OLD:
+			//template<std::size_t I, std::size_t N, typename T, typename Enable = void>
+			//struct tuple_skip;
+			//template<std::size_t I, std::size_t N, typename Head, typename... Tail>
+			//struct tuple_skip<
+			//	I, N, sprout::types::type_tuple<Head, Tail...>,
+			//	typename std::enable_if<(I == 0)>::type
+			//>
+			//	: public sprout::identity<sprout::types::type_tuple<Head, Tail...> >
+			//{};
+			//template<std::size_t I, std::size_t N, typename Head, typename... Tail>
+			//struct tuple_skip<
+			//	I, N, sprout::types::type_tuple<Head, Tail...>,
+			//	typename std::enable_if<(I != 0 && I < N / 2)>::type
+			//>
+			//	: public sprout::types::detail::tuple_skip<
+			//		I - 1, N / 2 - 1,
+			//		sprout::types::type_tuple<Tail...>
+			//	>
+			//{};
+			//template<std::size_t I, std::size_t N, typename Head, typename... Tail>
+			//struct tuple_skip<
+			//	I, N, sprout::types::type_tuple<Head, Tail...>,
+			//	typename std::enable_if<(I != 0 && I >= N / 2)>::type
+			//>
+			//	: public sprout::types::detail::tuple_skip<
+			//		I - N / 2, N - N / 2,
+			//		typename sprout::types::detail::tuple_skip<N / 2 - 1, N / 2, sprout::types::type_tuple<Tail...> >::type
+			//	>
+			//{};
+			//template<std::size_t I, typename Tup>
+			//struct tuple_drop;
+			//template<std::size_t I, typename... Types>
+			//struct tuple_drop<I, sprout::types::type_tuple<Types...> >
+			//	: public sprout::types::detail::tuple_skip<I, sizeof...(Types), sprout::types::type_tuple<Types...>>
+			//{};
 			template<typename IndexTuple>
 			struct tuple_drop_helper;
 			template<sprout::index_t... Indexes>
 			struct tuple_drop_helper<sprout::index_tuple<Indexes...> > {
 				template<typename... Types>
 				static sprout::types::type_tuple<typename Types::type...>
-				eval(typename sprout::types::detail::dummy_index<Indexes>::type*..., Types*...);
+					eval(typename sprout::types::detail::dummy_index<Indexes>::type*..., Types*...);
 			};
 			template<std::size_t I, typename Tup, bool = (I <= std::tuple_size<Tup>::value)>
 			struct tuple_drop_impl;
@@ -90,8 +126,8 @@ namespace sprout {
 			struct tuple_drop_impl<I, sprout::types::type_tuple<Types...>, true>
 				: public sprout::identity<decltype(
 					sprout::types::detail::tuple_drop_helper<typename sprout::index_n<0, I>::type>
-						::eval(static_cast<sprout::identity<Types>*>(0)...)
-				)>::type
+					::eval(typename sprout::identity<sprout::identity<Types>*>::type()...)
+					)>::type
 			{};
 			template<std::size_t I, typename Tup>
 			struct tuple_drop

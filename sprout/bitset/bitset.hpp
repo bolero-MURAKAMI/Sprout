@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/assert.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/detail/sizeof.hpp>
 #include <sprout/detail/char_literal.hpp>
@@ -519,7 +520,7 @@ namespace sprout {
 			{}
 			base_bitset(base_bitset<1> const&) = default;
 			SPROUT_CONSTEXPR base_bitset(unsigned long long val) SPROUT_NOEXCEPT
-				: w_(val)
+				: w_(static_cast<word_type>(val))
 			{}
 			SPROUT_CONSTEXPR base_bitset(sprout::detail::base_bitset_from_words_construct_tag, word_type word)
 				: w_(word)
@@ -728,8 +729,8 @@ namespace sprout {
 
 			SPROUT_CXX14_CONSTEXPR word_type
 			getword(size_type, bool c = false) SPROUT_NOEXCEPT {
-				return !c ? 0
-					: throw std::out_of_range("base_bitset::getword")
+				return SPROUT_ASSERT_MSG(!c, "base_bitset::getword"),
+					0
 					;
 			}
 			SPROUT_CONSTEXPR word_type

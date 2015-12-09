@@ -44,7 +44,7 @@ namespace sprout {
 //
 // SPROUT_FORWARD
 //
-#if SPROUT_PP_VARIADICS
+#if SPROUT_PP_VARIADICS && !defined(_MSC_VER)
 #	define SPROUT_FORWARD_1(VAR) \
 		SPROUT_AUTO_FORWARD(VAR)
 #	define SPROUT_FORWARD(...) \

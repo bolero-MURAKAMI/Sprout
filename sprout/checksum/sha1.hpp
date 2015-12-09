@@ -218,7 +218,7 @@ namespace sprout {
 		{
 			return block_byte_index != 64
 				? const_type(h, block, block_byte_index, bit_count)
-				: const_type(h, block, 0, bit_count).process_block()
+				: const_type(h, block, 0, bit_count).c_process_block()
 				;
 		}
 		SPROUT_CONSTEXPR sha1 const process_block_2(
@@ -263,6 +263,9 @@ namespace sprout {
 				;
 		}
 		SPROUT_CONSTEXPR sha1 const process_block() const {
+			return process_block_1(h_[0], h_[1], h_[2], h_[3], h_[4]);
+		}
+		SPROUT_CONSTEXPR sha1 const c_process_block() const {
 			return process_block_1(h_[0], h_[1], h_[2], h_[3], h_[4]);
 		}
 		template<typename InputIterator, typename... Args>

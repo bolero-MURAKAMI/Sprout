@@ -116,13 +116,13 @@ namespace sprout {
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SS) \
 				; \
 		}; \
-		SPROUT_CONSTEXPR_OR_CONST typename sprout::md5_detail::round_table<N>::xis_type sprout::md5_detail::round_table<N>::xis \
+		SPROUT_CONSTEXPR_OR_CONST sprout::md5_detail::round_table<N>::xis_type sprout::md5_detail::round_table<N>::xis \
 			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(XIS) \
 			; \
-		SPROUT_CONSTEXPR_OR_CONST typename sprout::md5_detail::round_table<N>::ts_type sprout::md5_detail::round_table<N>::ts \
+		SPROUT_CONSTEXPR_OR_CONST sprout::md5_detail::round_table<N>::ts_type sprout::md5_detail::round_table<N>::ts \
 			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(TS) \
 			; \
-		SPROUT_CONSTEXPR_OR_CONST typename sprout::md5_detail::round_table<N>::ss_type sprout::md5_detail::round_table<N>::ss \
+		SPROUT_CONSTEXPR_OR_CONST sprout::md5_detail::round_table<N>::ss_type sprout::md5_detail::round_table<N>::ss \
 			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SS)
 
 		SPROUT_MD5_DETAIL_ROUND_TABLE_DEF( \
@@ -251,7 +251,7 @@ namespace sprout {
 			) const
 		{
 			return bit_count % (64 * 8) != 0 ? const_type(k, block, bit_count)
-				: const_type(k, block, bit_count).process_block()
+				: const_type(k, block, bit_count).c_process_block()
 				;
 		}
 		SPROUT_CONSTEXPR md5 const process_block_1(sprout::array<std::uint32_t, 4> const& x) const {
@@ -261,6 +261,9 @@ namespace sprout {
 				);
 		}
 		SPROUT_CONSTEXPR md5 const process_block() const {
+			return process_block_1(sprout::md5_detail::round_all(k_, block_));
+		}
+		SPROUT_CONSTEXPR md5 const c_process_block() const {
 			return process_block_1(sprout::md5_detail::round_all(k_, block_));
 		}
 		SPROUT_CONSTEXPR md5 const process_bit_impl(bool bit, std::size_t index, std::size_t offset) const {
