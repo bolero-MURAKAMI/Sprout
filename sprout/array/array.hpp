@@ -11,6 +11,7 @@
 #include <utility>
 #include <type_traits>
 #include <stdexcept>
+#include <array>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
@@ -23,6 +24,7 @@
 #include <sprout/algorithm/cxx14/fill_n.hpp>
 #include <sprout/algorithm/cxx14/swap_ranges.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/type_traits/is_nothrow_copy_constructible.hpp>
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 #	include <sprout/iterator/index_iterator.hpp>
 #endif
@@ -271,19 +273,46 @@ namespace sprout {
 		lhs.swap(rhs);
 	}
 
-	namespace detail {
-		template<typename T, std::size_t N, sprout::index_t... Indexes>
-		inline SPROUT_CONSTEXPR sprout::array<typename std::remove_cv<T>::type, N>
-		to_array_impl(T (& arr)[N], sprout::index_tuple<Indexes...>) {
-			return sprout::array<typename std::remove_cv<T>::type, N>{{arr[Indexes]...}};
-		}
-	}	// namespace detail
 	//
 	// to_array
 	//
 	template<typename T, std::size_t N>
+	inline SPROUT_CONSTEXPR sprout::array<T, N>
+	to_array(sprout::array<T, N> const& arr)
+	SPROUT_NOEXCEPT_IF(sprout::is_nothrow_copy_constructible<T>::value)
+	{
+		return arr;
+	}
+	namespace detail {
+		template<typename T, std::size_t N, sprout::index_t... Indexes>
+		inline SPROUT_CONSTEXPR sprout::array<typename std::remove_cv<T>::type, N>
+		to_array_impl(T (& arr)[N], sprout::index_tuple<Indexes...>)
+		SPROUT_NOEXCEPT_IF(sprout::is_nothrow_copy_constructible<typename std::remove_cv<T>::type>::value)
+		{
+			return sprout::array<typename std::remove_cv<T>::type, N>{{arr[Indexes]...}};
+		}
+	}	// namespace detail
+	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::array<typename std::remove_cv<T>::type, N>
-	to_array(T (& arr)[N]) {
+	to_array(T (& arr)[N])
+	SPROUT_NOEXCEPT_IF(sprout::is_nothrow_copy_constructible<typename std::remove_cv<T>::type>::value)
+	{
+		return sprout::detail::to_array_impl(arr, sprout::make_index_tuple<N>::make());
+	}
+	namespace detail {
+		template<typename T, std::size_t N, sprout::index_t... Indexes>
+		inline SPROUT_CONSTEXPR sprout::array<T, N>
+		to_array_impl(std::array<T, N> const& arr, sprout::index_tuple<Indexes...>)
+		SPROUT_NOEXCEPT_IF(sprout::is_nothrow_copy_constructible<T>::value)
+		{
+			return sprout::array<T, N>{{arr[Indexes]...}};
+		}
+	}	// namespace detail
+	template<typename T, std::size_t N>
+	inline SPROUT_CONSTEXPR sprout::array<T, N>
+	to_array(std::array<T, N> const& arr)
+	SPROUT_NOEXCEPT_IF(sprout::is_nothrow_copy_constructible<T>::value)
+	{
 		return sprout::detail::to_array_impl(arr, sprout::make_index_tuple<N>::make());
 	}
 }	// namespace sprout
