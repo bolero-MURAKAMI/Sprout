@@ -59,19 +59,34 @@ namespace sprout {
 		}
 
 		SPROUT_CONSTEXPR sum_basic const process_byte(std::uint8_t byte) const {
-			return sum_basic(sum_ + byte);
+			return c_process_byte(byte);
 		}
 		template<typename InputIterator>
 		SPROUT_CONSTEXPR sum_basic const process_block(InputIterator bytes_begin, InputIterator bytes_end) const {
-			return sum_basic(calc_sum(bytes_begin, bytes_end));
+			return c_process_block(bytes_begin, bytes_end);
 		}
 		template<typename InputIterator>
 		SPROUT_CONSTEXPR sum_basic const process_bytes(InputIterator buffer, std::size_t byte_count) const {
-			return process_block(buffer, sprout::next(buffer, byte_count));
+			return c_process_bytes(buffer, byte_count);
 		}
 		template<typename InputRange>
 		SPROUT_CONSTEXPR sum_basic const process_range(InputRange const& bytes_range) const {
-			return process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
+			return c_process_range(bytes_range);
+		}
+		SPROUT_CONSTEXPR sum_basic const c_process_byte(std::uint8_t byte) const {
+			return sum_basic(sum_ + byte);
+		}
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR sum_basic const c_process_block(InputIterator bytes_begin, InputIterator bytes_end) const {
+			return sum_basic(calc_sum(bytes_begin, bytes_end));
+		}
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR sum_basic const c_process_bytes(InputIterator buffer, std::size_t byte_count) const {
+			return c_process_block(buffer, sprout::next(buffer, byte_count));
+		}
+		template<typename InputRange>
+		SPROUT_CONSTEXPR sum_basic const c_process_range(InputRange const& bytes_range) const {
+			return c_process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 
 		SPROUT_CXX14_CONSTEXPR void process_byte(std::uint8_t byte) {

@@ -23,7 +23,7 @@ namespace sprout {
 		public:
 			typedef sprout::uuids::uuid result_type;
 		private:
-			typedef typename result_type::value_type value_type;
+			typedef result_type::value_type value_type;
 		private:
 			sprout::sha1 sum_;
 		private:
@@ -52,26 +52,26 @@ namespace sprout {
 			}
 		public:
 			SPROUT_CONSTEXPR sha1_name_generator()
-				: sum_(sprout::sha1::const_type().process_range(sprout::uuids::uuid{{0}}))
+				: sum_(sprout::sha1().c_process_range(sprout::uuids::uuid{{0}}))
 			{}
 			explicit SPROUT_CONSTEXPR sha1_name_generator(sprout::uuids::uuid const& namespace_uuid)
-				: sum_(sprout::sha1::const_type().process_range(namespace_uuid))
+				: sum_(sprout::sha1().c_process_range(namespace_uuid))
 			{}
 			template<typename Elem, std::size_t N, typename Traits>
 			SPROUT_CONSTEXPR result_type operator()(sprout::basic_string<Elem, N, Traits> const& name) const {
-				return sha_to_uuid(sum_.process_range(name));
+				return sha_to_uuid(sum_.c_process_range(name));
 			}
 			SPROUT_CONSTEXPR result_type operator()(char const* name) const {
-				return sha_to_uuid(sum_.process_bytes(name, sprout::char_traits<char>::length(name)));
+				return sha_to_uuid(sum_.c_process_bytes(name, sprout::char_traits<char>::length(name)));
 			}
 			SPROUT_CONSTEXPR result_type operator()(wchar_t const* name) const {
-				return sha_to_uuid(sum_.process_bytes(name, sprout::char_traits<wchar_t>::length(name)));
+				return sha_to_uuid(sum_.c_process_bytes(name, sprout::char_traits<wchar_t>::length(name)));
 			}
 			SPROUT_CONSTEXPR result_type operator()(char16_t const* name) const {
-				return sha_to_uuid(sum_.process_bytes(name, sprout::char_traits<char16_t>::length(name)));
+				return sha_to_uuid(sum_.c_process_bytes(name, sprout::char_traits<char16_t>::length(name)));
 			}
 			SPROUT_CONSTEXPR result_type operator()(char32_t const* name) const {
-				return sha_to_uuid(sum_.process_bytes(name, sprout::char_traits<char32_t>::length(name)));
+				return sha_to_uuid(sum_.c_process_bytes(name, sprout::char_traits<char32_t>::length(name)));
 			}
 		};
 

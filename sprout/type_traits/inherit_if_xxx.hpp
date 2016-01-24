@@ -62,7 +62,7 @@
 		typename std::enable_if<SPROUT_PP_CAT(SPROUT_PP_CAT(sprout_inherit_if_xxx_constant_def_impl_has_, CONSTANT), NUM)<T>::value>::type \
 	> { \
 	public: \
-		SPROUT_STATIC_CONSTEXPR std::size_t ALIAS = T::CONSTANT; \
+		SPROUT_STATIC_CONSTEXPR typename std::decay<decltype(T::CONSTANT)>::type/*std::size_t*/ ALIAS = T::CONSTANT; \
 	};/* \
 	template<typename T> \
 	SPROUT_CONSTEXPR_OR_CONST std::size_t NAME< \

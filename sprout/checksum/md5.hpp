@@ -279,7 +279,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR md5 const process_bits_impl(std::uint8_t bits, std::size_t i) const {
 			return i == 0 ? *this
-				: process_bit(((bits >> (i - 1)) & 1) != 0).process_bits_impl(bits, i - 1)
+				: c_process_bit(((bits >> (i - 1)) & 1) != 0).process_bits_impl(bits, i - 1)
 				;
 		}
 		SPROUT_CONSTEXPR md5 const process_byte_impl(std::uint8_t byte, std::size_t index, std::size_t offset) const {
@@ -304,7 +304,7 @@ namespace sprout {
 		template<typename InputIterator>
 		SPROUT_CONSTEXPR md5 const process_block_impl(InputIterator first, InputIterator last) const {
 			return first == last ? *this
-				: process_byte(*first).process_block_impl(sprout::next(first), last)
+				: c_process_byte(*first).process_block_impl(sprout::next(first), last)
 				;
 		}
 		SPROUT_CONSTEXPR std::uint64_t pad_size() const {
@@ -312,18 +312,18 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR md5 const process_padding(std::uint64_t pad_size) const {
 			return pad_size == 0 ? *this
-				: process_bit(false).process_padding(pad_size - 1)
+				: c_process_bit(false).process_padding(pad_size - 1)
 				;
 		}
 		SPROUT_CONSTEXPR md5 const process_length(std::uint64_t bit_count) const {
-			return process_byte(static_cast<std::uint8_t>(bit_count & 0xFF))
-				.process_byte(static_cast<std::uint8_t>((bit_count >> 8) & 0xFF))
-				.process_byte(static_cast<std::uint8_t>((bit_count >> 16) & 0xFF))
-				.process_byte(static_cast<std::uint8_t>((bit_count >> 24) & 0xFF))
-				.process_byte(static_cast<std::uint8_t>((bit_count >> 32) & 0xFF))
-				.process_byte(static_cast<std::uint8_t>((bit_count >> 40) & 0xFF))
-				.process_byte(static_cast<std::uint8_t>((bit_count >> 48) & 0xFF))
-				.process_byte(static_cast<std::uint8_t>((bit_count >> 56) & 0xFF))
+			return c_process_byte(static_cast<std::uint8_t>(bit_count & 0xFF))
+				.c_process_byte(static_cast<std::uint8_t>((bit_count >> 8) & 0xFF))
+				.c_process_byte(static_cast<std::uint8_t>((bit_count >> 16) & 0xFF))
+				.c_process_byte(static_cast<std::uint8_t>((bit_count >> 24) & 0xFF))
+				.c_process_byte(static_cast<std::uint8_t>((bit_count >> 32) & 0xFF))
+				.c_process_byte(static_cast<std::uint8_t>((bit_count >> 40) & 0xFF))
+				.c_process_byte(static_cast<std::uint8_t>((bit_count >> 48) & 0xFF))
+				.c_process_byte(static_cast<std::uint8_t>((bit_count >> 56) & 0xFF))
 				;
 		}
 		SPROUT_CONSTEXPR value_type make_value() const {
@@ -376,45 +376,66 @@ namespace sprout {
 		}
 
 		SPROUT_CONSTEXPR md5 const process_bit(bool bit) const {
+			return c_process_bit(bit);
+		}
+		SPROUT_CONSTEXPR md5 const process_bits(std::uint8_t bits, std::size_t bit_count) const {
+			return c_process_bits(bits, bit_count);
+		}
+		SPROUT_CONSTEXPR md5 const process_byte(std::uint8_t byte) const {
+			return c_process_byte(byte);
+		}
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR md5 const process_block(InputIterator bytes_begin, InputIterator bytes_end) const {
+			return c_process_block(bytes_begin, bytes_end);
+		}
+		template<typename InputIterator>
+		SPROUT_CONSTEXPR md5 const process_bytes(InputIterator buffer, std::size_t byte_count) const {
+			return c_process_bytes(buffer, byte_count);
+		}
+		template<typename InputRange>
+		SPROUT_CONSTEXPR md5 const process_range(InputRange const& bytes_range) const {
+			return c_process_range(bytes_range);
+		}
+		SPROUT_CONSTEXPR md5 const c_process_bit(bool bit) const {
 			return process_bit_impl(
 				bit,
 				static_cast<std::size_t>(bit_count_ % (64 * 8) / 32),
 				static_cast<std::size_t>(bit_count_ % 32)
 				);
 		}
-		SPROUT_CONSTEXPR md5 const process_bits(std::uint8_t bits, std::size_t bit_count) const {
+		SPROUT_CONSTEXPR md5 const c_process_bits(std::uint8_t bits, std::size_t bit_count) const {
 			return process_bits_impl(bits, bit_count);
 		}
-		SPROUT_CONSTEXPR md5 const process_byte(std::uint8_t byte) const {
+		SPROUT_CONSTEXPR md5 const c_process_byte(std::uint8_t byte) const {
 			return bit_count_ % 8 == 0 ? process_byte_impl(
 					byte,
 					static_cast<std::size_t>(bit_count_ % (64 * 8) / 32),
 					static_cast<std::size_t>(bit_count_ % 32)
 					)
-				: process_bit(((byte >> 7) & 1) != 0)
-					.process_bit(((byte >> 6) & 1) != 0)
-					.process_bit(((byte >> 5) & 1) != 0)
-					.process_bit(((byte >> 4) & 1) != 0)
-					.process_bit(((byte >> 3) & 1) != 0)
-					.process_bit(((byte >> 2) & 1) != 0)
-					.process_bit(((byte >> 1) & 1) != 0)
-					.process_bit((byte & 1) != 0)
+				: c_process_bit(((byte >> 7) & 1) != 0)
+					.c_process_bit(((byte >> 6) & 1) != 0)
+					.c_process_bit(((byte >> 5) & 1) != 0)
+					.c_process_bit(((byte >> 4) & 1) != 0)
+					.c_process_bit(((byte >> 3) & 1) != 0)
+					.c_process_bit(((byte >> 2) & 1) != 0)
+					.c_process_bit(((byte >> 1) & 1) != 0)
+					.c_process_bit((byte & 1) != 0)
 				;
 		}
 		template<typename InputIterator>
-		SPROUT_CONSTEXPR md5 const process_block(InputIterator bytes_begin, InputIterator bytes_end) const {
+		SPROUT_CONSTEXPR md5 const c_process_block(InputIterator bytes_begin, InputIterator bytes_end) const {
 			return process_block_impl(
 				sprout::make_bytes_iterator(bytes_begin),
 				sprout::make_bytes_iterator(bytes_end)
 				);
 		}
 		template<typename InputIterator>
-		SPROUT_CONSTEXPR md5 const process_bytes(InputIterator buffer, std::size_t byte_count) const {
-			return process_block(buffer, sprout::next(buffer, byte_count));
+		SPROUT_CONSTEXPR md5 const c_process_bytes(InputIterator buffer, std::size_t byte_count) const {
+			return c_process_block(buffer, sprout::next(buffer, byte_count));
 		}
 		template<typename InputRange>
-		SPROUT_CONSTEXPR md5 const process_range(InputRange const& bytes_range) const {
-			return process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
+		SPROUT_CONSTEXPR md5 const c_process_range(InputRange const& bytes_range) const {
+			return c_process_block(sprout::begin(bytes_range), sprout::end(bytes_range));
 		}
 
 		SPROUT_CXX14_CONSTEXPR void process_bit(bool bit) {

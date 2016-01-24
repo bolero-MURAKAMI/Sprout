@@ -207,7 +207,7 @@ namespace sprout {
 		struct result_type
 			: public sprout::detail::mem_fn_const_or_non<
 				Res,
-				(sizeof(two) == sizeof(check_const<T>(get_ref<T>(), sprout::identity<T*>::type())))
+				(sizeof(two) == sizeof(check_const<T>(get_ref<T>(), typename sprout::identity<T*>::type())))
 			>
 		{};
 		template<typename Signature>
