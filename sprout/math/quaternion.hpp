@@ -1501,6 +1501,28 @@ namespace sprout {
 				;
 		}
 	}	// namespace math
+
+	using sprout::math::quaternion;
+	using sprout::math::real;
+	using sprout::math::unreal;
+	using sprout::math::sup;
+	using sprout::math::l1;
+	using sprout::math::abs;
+	using sprout::math::conj;
+	using sprout::math::norm;
+	using sprout::math::spherical;
+	using sprout::math::semipolar;
+	using sprout::math::multipolar;
+	using sprout::math::cylindrospherical;
+	using sprout::math::cylindrical;
+//	using sprout::math::exp;
+//	using sprout::math::cos;
+//	using sprout::math::sin;
+//	using sprout::math::tan;
+//	using sprout::math::cosh;
+//	using sprout::math::sinh;
+//	using sprout::math::tanh;
+	using sprout::math::pow;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_MATH_QUATERNION_HPP
