@@ -10,6 +10,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <sprout/config.hpp>
 #include <sprout/assert.hpp>
 #ifdef TESTSPR_CONFIG_ENABLE_STATIC_WARNING
 #	include <sprout/static_warning.hpp>
@@ -58,11 +59,11 @@ namespace testspr {
 //
 // TESTSPR_BOTH_ASSERT
 //
-#ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
+#if !defined(SPROUT_CONFIG_DISABLE_CONSTEXPR) && !defined(SPROUT_NO_STATIC_CONSTEXPR_INITIALIZATION)
 #	define TESTSPR_BOTH_ASSERT(expr) TESTSPR_STATIC_ASSERT(expr); TESTSPR_ASSERT(expr)
-#else	// #ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
+#else
 #	define TESTSPR_BOTH_ASSERT(expr) TESTSPR_ASSERT(expr)
-#endif	// #ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
+#endif
 
 //
 // TESTSPR_STATIC_WARNING

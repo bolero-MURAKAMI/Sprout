@@ -943,14 +943,14 @@ namespace sprout {
 		typedef bool value_type;
 	public:
 		class reference {
-			friend class bitset;
+			friend class bitset<N>;
 		private:
 			word_type* wp_;
 			size_type bpos_;
 		private:
 			reference() SPROUT_DELETED_FUNCTION_DECL
 		public:
-			SPROUT_CONSTEXPR reference(bitset& b, size_type pos) SPROUT_NOEXCEPT
+			SPROUT_CONSTEXPR reference(bitset<N>& b, size_type pos) SPROUT_NOEXCEPT
 				: wp_(&b.getword(pos))
 				, bpos_(base_type::whichbit(pos))
 			{}
