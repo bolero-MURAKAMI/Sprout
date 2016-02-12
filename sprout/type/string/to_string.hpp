@@ -23,7 +23,7 @@
 
 namespace sprout {
 	namespace types {
-#ifndef SPROUT_CONFIG_DISABLE_CONSTEXPR
+#if !defined(SPROUT_CONFIG_DISABLE_CONSTEXPR) && !defined(SPROUT_NO_STATIC_CONSTEXPR_INITIALIZATION)
 		//
 		// to_string
 		//

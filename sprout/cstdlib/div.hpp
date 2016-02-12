@@ -56,7 +56,7 @@ namespace sprout {
 			typename sprout::detail::div_t_traits<T>::type
 		>::type
 		div_impl(T const& numer, T const& denom) {
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
 			typename sprout::detail::div_t_traits<T>::type result = {numer / denom, numer % denom};
 			return result;
 #else
