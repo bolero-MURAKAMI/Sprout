@@ -67,6 +67,12 @@ namespace sprout {
 		}
 	public:
 		value_type elems[static_size ? static_size : 1];
+	private:
+		template<sprout::index_t... Indexes>
+		SPROUT_CONSTEXPR std::array<T, N>
+		to_std_array(sprout::index_tuple<Indexes...>) const {
+			return std::array<T, N>{{elems[Indexes]...}};
+		}
 	public:
 		// construct/copy/destroy:
 		template<typename T2>
@@ -258,6 +264,10 @@ namespace sprout {
 			return sprout::distance(begin(), p);
 		}
 #endif
+
+		SPROUT_CONSTEXPR operator std::array<T, N>() const {
+			return to_std_array(sprout::make_index_tuple<N>::make());
+		}
 	};
 	template<typename T, std::size_t N>
 	SPROUT_CONSTEXPR_OR_CONST typename sprout::array<T, N>::size_type sprout::array<T, N>::static_size;
