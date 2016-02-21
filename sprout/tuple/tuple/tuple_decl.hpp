@@ -22,6 +22,7 @@
 #include <sprout/utility/pack.hpp>
 #include <sprout/utility/pair/pair_fwd.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/is_nothrow_copy_constructible.hpp>
 #include <sprout/type_traits/is_convert_constructible.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/tpp/algorithm/all_of.hpp>
@@ -298,6 +299,11 @@ namespace sprout {
 				typedef typename std::decay<Tuple>::type type;
 				sprout::eat((sprout::eat(base_type::template get<Indexes>(*this) = sprout::move(type::template get<Indexes>(SPROUT_FORWARD(Tuple, t)))), 0)...);
 			}
+			template<sprout::index_t... Indexes>
+			SPROUT_CONSTEXPR std::tuple<Types...>
+			to_std_tuple(sprout::index_tuple<Indexes...>) {
+				return std::tuple<Types...>(base_type::template get<Indexes>(*this)...);
+			}
 		public:
 			// tuple construction
 			SPROUT_CONSTEXPR tuple()
@@ -462,6 +468,12 @@ namespace sprout {
 			{
 				swap_impl(other, index_tuple_type());
 			}
+
+			SPROUT_EXPLICIT_CONVERSION SPROUT_CONSTEXPR operator std::tuple<Types...>() const
+			SPROUT_NOEXCEPT_IF(sprout::tpp::all_of<sprout::is_nothrow_copy_constructible<Types>...>::value)
+			{
+				return to_std_tuple(index_tuple_type());;
+			}
 		};
 		template<>
 		class tuple<> {
@@ -489,6 +501,10 @@ namespace sprout {
 			SPROUT_CONSTEXPR tuple(sprout::tuples::flexibly_construct_t, sprout::pair<UType1, UType2>&&) SPROUT_NOEXCEPT {}
 			// tuple swap
 			SPROUT_CXX14_CONSTEXPR void swap(tuple&) SPROUT_NOEXCEPT {}
+
+			SPROUT_CONSTEXPR operator std::tuple<>() const SPROUT_NOEXCEPT {
+				return std::tuple<>();;
+			}
 		};
 
 		//

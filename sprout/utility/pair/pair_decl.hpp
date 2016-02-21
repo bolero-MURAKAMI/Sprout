@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/metafunction.hpp>
+#include <sprout/type_traits/is_nothrow_copy_constructible.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/pair/pair_fwd.hpp>
@@ -161,6 +162,12 @@ namespace sprout {
 		{
 			sprout::swap(first, other.first);
 			sprout::swap(second, other.second);
+		}
+
+		SPROUT_EXPLICIT_CONVERSION SPROUT_CONSTEXPR operator std::pair<T1, T2>() const
+		SPROUT_NOEXCEPT_IF(sprout::is_nothrow_copy_constructible<T1>::value && sprout::is_nothrow_copy_constructible<T2>::value)
+		{
+			return std::pair<T1, T2>(first, second);
 		}
 	};
 

@@ -70,7 +70,9 @@ namespace sprout {
 	private:
 		template<sprout::index_t... Indexes>
 		SPROUT_CONSTEXPR std::array<T, N>
-		to_std_array(sprout::index_tuple<Indexes...>) const {
+		to_std_array(sprout::index_tuple<Indexes...>) const
+		SPROUT_NOEXCEPT_IF(sprout::is_nothrow_copy_constructible<typename std::remove_cv<T>::type>::value)
+		{
 			return std::array<T, N>{{elems[Indexes]...}};
 		}
 	public:
@@ -265,7 +267,9 @@ namespace sprout {
 		}
 #endif
 
-		SPROUT_CONSTEXPR operator std::array<T, N>() const {
+		SPROUT_CONSTEXPR operator std::array<T, N>() const
+		SPROUT_NOEXCEPT_IF(sprout::is_nothrow_copy_constructible<typename std::remove_cv<T>::type>::value)
+		{
 			return to_std_array(sprout::make_index_tuple<N>::make());
 		}
 	};
