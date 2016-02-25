@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2015 Bolero MURAKAMI
+  Copyright (c) 2011-2016 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <initializer_list>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/detail/predef.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/value_holder/get.hpp>
@@ -19,6 +20,8 @@
 #include <sprout/utility/move.hpp>
 #include <sprout/type_traits/is_constructible.hpp>
 #include <sprout/type_traits/is_convert_constructible.hpp>
+#include <sprout/iterator/reverse_iterator.hpp>
+#include <sprout/iterator/value_iterator.hpp>
 #include <sprout/none.hpp>
 #include <sprout/optional/nullopt.hpp>
 #include <sprout/optional/in_place.hpp>
@@ -51,11 +54,20 @@ namespace sprout {
 		typedef typename holder_type::reference_const_type reference_const_type;
 		typedef typename holder_type::pointer_type pointer_type;
 		typedef typename holder_type::pointer_const_type pointer_const_type;
+		//
+		typedef typename sprout::value_iterator<reference> iterator;
+		typedef typename sprout::value_iterator<const_reference> const_iterator;
+		typedef std::size_t size_type;
+		typedef std::ptrdiff_t difference_type;
+		typedef typename sprout::reverse_iterator<iterator> reverse_iterator;
+		typedef typename sprout::reverse_iterator<const_iterator> const_reverse_iterator;
 	public:
 		template<typename... Args>
 		struct is_constructible_args
 			: public sprout::is_constructible<T, Args&&...>
 		{};
+	public:
+		SPROUT_STATIC_CONSTEXPR size_type static_size = 1;
 	public:
 		static SPROUT_CONSTEXPR reference_type get(optional& t) SPROUT_NOEXCEPT {
 			return sprout::get(t.val);
@@ -347,7 +359,99 @@ namespace sprout {
 		SPROUT_CONSTEXPR bool is_initialized() const SPROUT_NOEXCEPT {
 			return init;
 		}
+		// iterators:
+		SPROUT_CXX14_CONSTEXPR iterator begin() {
+			return is_initialized() ? iterator(val, static_size)
+				: iterator()
+				;
+		}
+		SPROUT_CONSTEXPR const_iterator begin() const {
+			return is_initialized() ? const_iterator(val, static_size)
+				: const_iterator()
+				;
+		}
+		SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT {
+			return iterator();
+		}
+		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
+			return const_iterator();
+		}
+		SPROUT_CXX14_CONSTEXPR reverse_iterator rbegin() SPROUT_NOEXCEPT {
+			return reverse_iterator(end());
+		}
+		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(end());
+		}
+		SPROUT_CXX14_CONSTEXPR reverse_iterator rend() SPROUT_NOEXCEPT {
+			return reverse_iterator(begin());
+		}
+		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(begin());
+		}
+		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+			return is_initialized() ? const_iterator(val, static_size)
+				: const_iterator()
+				;
+		}
+		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+			return const_iterator();
+		}
+		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(end());
+		}
+		SPROUT_CONSTEXPR const_reverse_iterator crend() const SPROUT_NOEXCEPT {
+			return const_reverse_iterator(begin());
+		}
+		// capacity:
+		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
+			return is_initialized() ? static_size
+				: 0
+				;
+		}
+		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
+			return size();
+		}
+		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
+			return !is_initialized();
+		}
+		// element access:
+		SPROUT_CXX14_CONSTEXPR reference operator[](size_type) {
+			return val.get();
+		}
+		SPROUT_CONSTEXPR const_reference operator[](size_type) const {
+			return val.get();
+		}
+		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
+			return i < size() ? val.get()
+				: (throw std::out_of_range("optional<>: index out of range"), val.get())
+				;
+		}
+		SPROUT_CONSTEXPR const_reference at(size_type i) const {
+			return i < size() ? val.get()
+				: (throw std::out_of_range("optional<>: index out of range"), val.get())
+				;
+		}
+		SPROUT_CXX14_CONSTEXPR reference front() {
+			return val.get();
+		}
+		SPROUT_CONSTEXPR const_reference front() const {
+			return val.get();
+		}
+		SPROUT_CXX14_CONSTEXPR reference back() {
+			return val.get();
+		}
+		SPROUT_CONSTEXPR const_reference back() const {
+			return val.get();
+		}
+		// others:
+		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
+			return i >= size() ? throw std::out_of_range("optional<>: index out of range")
+				: (void)0
+				;
+		}
 	};
+	template<typename T>
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::optional<T>::size_type sprout::optional<T>::static_size;
 
 	//
 	// swap

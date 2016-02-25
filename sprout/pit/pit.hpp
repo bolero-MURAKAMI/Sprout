@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2015 Bolero MURAKAMI
+  Copyright (c) 2011-2016 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -130,14 +130,12 @@ namespace sprout {
 			return elem;
 		}
 		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
-			return i < size()
-				? elem
+			return i < size() ? elem
 				: (throw std::out_of_range("pit<>: index out of range"), elem)
 				;
 		}
 		SPROUT_CONSTEXPR const_reference at(size_type i) const {
-			return i < size()
-				? elem
+			return i < size() ? elem
 				: (throw std::out_of_range("pit<>: index out of range"), elem)
 				;
 		}
@@ -155,7 +153,7 @@ namespace sprout {
 		}
 		// others:
 		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
-			return i >= size() ? throw std::out_of_range("uuid: index out of range")
+			return i >= size() ? throw std::out_of_range("pit<>: index out of range")
 				: (void)0
 				;
 		}

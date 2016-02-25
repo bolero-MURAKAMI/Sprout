@@ -2,7 +2,7 @@
   Copyright (c) 2011 RiSK (sscrisk)
   https://github.com/sscrisk/CEL---ConstExpr-Library
 
-  Copyright (c) 2011-2015 Bolero MURAKAMI
+  Copyright (c) 2011-2016 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
