@@ -5,10 +5,10 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_QUATERNION_CONTAINER_HPP
-#define SPROUT_QUATERNION_CONTAINER_HPP
+#ifndef SPROUT_MATH_QUATERNION_CONTAINER_HPP
+#define SPROUT_MATH_QUATERNION_CONTAINER_HPP
 
-#include <type_traits>
+#include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/math/quaternion/quaternion.hpp>
 #include <sprout/container/traits.hpp>
@@ -40,4 +40,4 @@ namespace sprout {
 	};
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_QUATERNION_CONTAINER_HPP
+#endif	// #ifndef SPROUT_MATH_QUATERNION_CONTAINER_HPP

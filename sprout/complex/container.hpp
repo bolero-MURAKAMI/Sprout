@@ -8,7 +8,7 @@
 #ifndef SPROUT_COMPLEX_CONTAINER_HPP
 #define SPROUT_COMPLEX_CONTAINER_HPP
 
-#include <type_traits>
+#include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/complex/complex.hpp>
 #include <sprout/container/traits.hpp>
