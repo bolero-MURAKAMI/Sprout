@@ -40,8 +40,8 @@ namespace sprout {
 		typedef typename array_type::size_type size_type;
 		typedef typename array_type::pointer pointer;
 		typedef typename array_type::const_pointer const_pointer;
-		typedef typename array_type::pointer reverse_iterator;
-		typedef typename array_type::pointer const_reverse_iterator;
+		typedef typename array_type::reverse_iterator reverse_iterator;
+		typedef typename array_type::const_reverse_iterator const_reverse_iterator;
 	public:
 		SPROUT_STATIC_CONSTEXPR size_type static_size = array_type::static_size;
 	private:
