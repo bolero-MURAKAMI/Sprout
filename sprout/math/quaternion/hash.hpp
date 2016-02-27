@@ -15,14 +15,16 @@
 #include <sprout/functional/hash.hpp>
 
 namespace sprout {
-	//
-	// hash_value
-	//
-	template<typename T>
-	inline SPROUT_CONSTEXPR std::size_t
-	hash_value(sprout::math::quaternion<T> const& v) {
-		return sprout::hash_values(v[0], v[1], v[2], v[3]);
-	}
+	namespace math {
+		//
+		// hash_value
+		//
+		template<typename T>
+		inline SPROUT_CONSTEXPR std::size_t
+		hash_value(sprout::math::quaternion<T> const& v) {
+			return sprout::hash_values(v[0], v[1], v[2], v[3]);
+		}
+	}	// namespace math
 }	// namespace sprout
 
 namespace std {
