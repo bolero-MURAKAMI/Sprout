@@ -18,33 +18,34 @@
 //
 #if SPROUT_USE_UNICODE_LITERALS
 #	define SPROUT_LITERAL_STRING_DEF(NAME, STRING, LENGTH) \
-		template<typename Elem> \
+		template<typename Elem, typename X = void> \
 		struct NAME; \
 		SPROUT_LITERAL_STRING_DEF_IMPL(NAME, STRING, LENGTH, char); \
 		SPROUT_LITERAL_STRING_DEF_IMPL(NAME, SPROUT_PP_CAT(L, STRING), LENGTH, wchar_t); \
 		SPROUT_LITERAL_STRING_DEF_IMPL(NAME, SPROUT_PP_CAT(u, STRING), LENGTH, char16_t); \
 		SPROUT_LITERAL_STRING_DEF_IMPL(NAME, SPROUT_PP_CAT(U, STRING), LENGTH, char32_t); \
-		template<typename Elem> \
+		template<typename Elem, typename X> \
 		struct NAME {}
 #else
 #	define SPROUT_LITERAL_STRING_DEF(NAME, STRING, LENGTH) \
-		template<typename Elem> \
+		template<typename Elem, typename X = void> \
 		struct NAME; \
 		SPROUT_LITERAL_STRING_DEF_IMPL(NAME, STRING, LENGTH, char); \
 		SPROUT_LITERAL_STRING_DEF_IMPL(NAME, SPROUT_PP_CAT(L, STRING), LENGTH, wchar_t); \
-		template<typename Elem> \
+		template<typename Elem, typename X> \
 		struct NAME {}
 #endif
 #define SPROUT_LITERAL_STRING_DEF_IMPL(NAME, STRING, LENGTH, ELEM) \
-	template<> \
-	struct NAME<ELEM> { \
+	template<typename X> \
+	struct NAME<ELEM, X> { \
 	public: \
 		SPROUT_STATIC_CONSTEXPR sprout::basic_string<ELEM, LENGTH> value \
-			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(STRING) \
+			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(sprout::to_string(STRING)) \
 			; \
 	}; \
-	SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<ELEM, LENGTH> NAME<ELEM>::value \
-		SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(STRING)
+	template<typename X> \
+	SPROUT_CONSTEXPR_OR_CONST sprout::basic_string<ELEM, LENGTH> NAME<ELEM, X>::value \
+		SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(sprout::to_string(STRING))
 
 //
 // SPROUT_LITERAL_CHAR_DEF

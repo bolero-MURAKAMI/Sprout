@@ -22,14 +22,14 @@ namespace sprout {
 		namespace detail {
 			SPROUT_LITERAL_STRING_DEF(odigits, "01234567", 8);
 
-			template<typename Dummy>
+			template<typename Dummy, typename X = void>
 			struct ovalues;
 
 #		define SPROUT_WEED_ODIGITS_TABLE_DEF \
 			{{0, 1, 2, 3, 4, 5, 6, 7}}
 
-			template<>
-			struct ovalues<void> {
+			template<typename X>
+			struct ovalues<void, X> {
 			public:
 				typedef sprout::array<std::uint8_t, 8> value_type;
 			public:
@@ -37,8 +37,9 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_WEED_ODIGITS_TABLE_DEF)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::weed::detail::ovalues<void>::value_type
-			sprout::weed::detail::ovalues<void>::value
+			template<typename X>
+			SPROUT_CONSTEXPR_OR_CONST typename sprout::weed::detail::ovalues<void, X>::value_type
+			sprout::weed::detail::ovalues<void, X>::value
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_WEED_ODIGITS_TABLE_DEF)
 				;
 

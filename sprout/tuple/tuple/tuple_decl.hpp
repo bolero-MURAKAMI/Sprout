@@ -301,7 +301,7 @@ namespace sprout {
 			}
 			template<sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR std::tuple<Types...>
-			to_std_tuple(sprout::index_tuple<Indexes...>) {
+			to_std_tuple(sprout::index_tuple<Indexes...>) const {
 				return std::tuple<Types...>(base_type::template get<Indexes>(*this)...);
 			}
 		public:

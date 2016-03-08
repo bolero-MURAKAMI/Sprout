@@ -22,14 +22,14 @@ namespace sprout {
 		namespace detail {
 			SPROUT_LITERAL_STRING_DEF(bdigits, "01", 2);
 
-			template<typename Dummy>
+			template<typename Dummy, typename X = void>
 			struct bvalues;
 
 #		define SPROUT_WEED_BDIGITS_TABLE_DEF \
 			{{0, 1}}
 
-			template<>
-			struct bvalues<void> {
+			template<typename X>
+			struct bvalues<void, X> {
 			public:
 				typedef sprout::array<std::uint8_t, 2> value_type;
 			public:
@@ -37,8 +37,9 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_WEED_BDIGITS_TABLE_DEF)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::weed::detail::bvalues<void>::value_type
-			sprout::weed::detail::bvalues<void>::value
+			template<typename X>
+			SPROUT_CONSTEXPR_OR_CONST typename sprout::weed::detail::bvalues<void, X>::value_type
+			sprout::weed::detail::bvalues<void, X>::value
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_WEED_BDIGITS_TABLE_DEF)
 				;
 

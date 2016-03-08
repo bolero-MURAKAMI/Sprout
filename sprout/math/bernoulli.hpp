@@ -179,6 +179,10 @@ namespace sprout {
 					;
 			};
 			template<typename X>
+			SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::math::detail::bernoulli_numbers<
+				float, X
+			>::limit;
+			template<typename X>
 			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
 				float, X
 			>::table_type sprout::math::detail::bernoulli_numbers<
@@ -199,6 +203,10 @@ namespace sprout {
 					;
 			};
 			template<typename X>
+			SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::math::detail::bernoulli_numbers<
+				double, X
+			>::limit;
+			template<typename X>
 			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
 				double, X
 			>::table_type sprout::math::detail::bernoulli_numbers<
@@ -218,6 +226,10 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BERNOULLI_TABLE_DEF_LONG_DOUBLE)
 					;
 			};
+			template<typename X>
+			SPROUT_CONSTEXPR_OR_CONST std::size_t sprout::math::detail::bernoulli_numbers<
+				long double, X
+			>::limit;
 			template<typename X>
 			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
 				long double, X
