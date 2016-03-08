@@ -56,33 +56,33 @@ namespace sprout {
 		typedef sprout::pair<iterator_type, iterator2_type> pair_type;
 	protected:
 		pair_type current;
-		iterator_type lst1;
-		iterator2_type lst2;
+		iterator_type lst_1;
+		iterator2_type lst_2;
 		Compare comp;
 	private:
 		SPROUT_CONSTEXPR set_intersection_iterator(set_intersection_iterator const& other, pair_type const& next)
 			: current(next)
-			, lst1(other.lst1), lst2(other.lst2)
+			, lst_1(other.lst_1), lst_2(other.lst_2)
 			, comp(other.comp)
 		{}
 	public:
 		SPROUT_CONSTEXPR set_intersection_iterator()
-			: current(), lst1(), lst2(), comp()
+			: current(), lst_1(), lst_2(), comp()
 		{}
 		set_intersection_iterator(set_intersection_iterator const&) = default;
 		SPROUT_CONSTEXPR set_intersection_iterator(
-			iterator_type it1, iterator_type lst1,
-			iterator2_type it2, iterator2_type lst2,
+			iterator_type it1, iterator_type lst_1,
+			iterator2_type it2, iterator2_type lst_2,
 			Compare comp = Compare()
 			)
-			: current(sprout::find_intersection(it1, lst1, it2, lst2, comp))
-			, lst1(lst1), lst2(lst2)
+			: current(sprout::find_intersection(it1, lst_1, it2, lst_2, comp))
+			, lst_1(lst_1), lst_2(lst_2)
 			, comp(comp)
 		{}
 		template<typename U, typename V, typename W>
 		SPROUT_CONSTEXPR set_intersection_iterator(set_intersection_iterator<U, V, W> const& it)
 			: current(it.base(), it.base2())
-			, lst1(it.last1()), lst2(it.last2())
+			, lst_1(it.last1()), lst_2(it.last2())
 			, comp(it.compare())
 		{}
 		template<typename U, typename V, typename W>
@@ -95,13 +95,13 @@ namespace sprout {
 			return current.first;
 		}
 		SPROUT_CONSTEXPR iterator_type last1() const {
-			return lst1;
+			return lst_1;
 		}
 		SPROUT_CONSTEXPR iterator2_type base2() const {
 			return current.second;
 		}
 		SPROUT_CONSTEXPR iterator2_type last2() const {
-			return lst2;
+			return lst_2;
 		}
 		SPROUT_CONSTEXPR Compare compare() const {
 			return comp;
@@ -116,31 +116,31 @@ namespace sprout {
 			return &*(*this);
 		}
 		SPROUT_CXX14_CONSTEXPR set_intersection_iterator& operator++() {
-			current = sprout::next_intersection(current.first, lst1, current.second, lst2, comp);
+			current = sprout::next_intersection(current.first, lst_1, current.second, lst_2, comp);
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR set_intersection_iterator operator++(int) {
 			set_intersection_iterator result(*this);
-			current = sprout::next_intersection(current.first, lst1, current.second, lst2, comp);
+			current = sprout::next_intersection(current.first, lst_1, current.second, lst_2, comp);
 			return result;
 		}
 		SPROUT_CONSTEXPR set_intersection_iterator next() const {
 			return set_intersection_iterator(
 				*this,
-				sprout::next_intersection(current.first, lst1, current.second, lst2, comp)
+				sprout::next_intersection(current.first, lst_1, current.second, lst_2, comp)
 				);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(set_intersection_iterator& other)
 		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
-			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst1, other.lst1))
-			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst2, other.lst2))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst_1, other.lst_1))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst_2, other.lst_2))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(comp, other.comp))
 			)
 		{
 			sprout::swap(current, other.current);
-			sprout::swap(lst1, other.lst1);
-			sprout::swap(lst2, other.lst2);
+			sprout::swap(lst_1, other.lst_1);
+			sprout::swap(lst_2, other.lst_2);
 			sprout::swap(comp, other.comp);
 		}
 	};
@@ -173,13 +173,13 @@ namespace sprout {
 	//
 	template<typename LIterator, typename RIterator, typename Compare>
 	inline SPROUT_CONSTEXPR sprout::set_intersection_iterator<LIterator, RIterator, Compare>
-	make_set_intersection_iterator(LIterator it1, LIterator lst1, RIterator it2, RIterator lst2, Compare comp) {
-		return sprout::set_intersection_iterator<LIterator, RIterator, Compare>(it1, lst1, it2, lst2, comp);
+	make_set_intersection_iterator(LIterator it1, LIterator lst_1, RIterator it2, RIterator lst_2, Compare comp) {
+		return sprout::set_intersection_iterator<LIterator, RIterator, Compare>(it1, lst_1, it2, lst_2, comp);
 	}
 	template<typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR sprout::set_intersection_iterator<LIterator, RIterator>
-	make_set_intersection_iterator(LIterator it1, LIterator lst1, RIterator it2, RIterator lst2) {
-		return sprout::set_intersection_iterator<LIterator, RIterator>(it1, lst1, it2, lst2);
+	make_set_intersection_iterator(LIterator it1, LIterator lst_1, RIterator it2, RIterator lst_2) {
+		return sprout::set_intersection_iterator<LIterator, RIterator>(it1, lst_1, it2, lst_2);
 	}
 
 	//

@@ -46,23 +46,23 @@ namespace sprout {
 				? remake_iterator(
 					sprout::next(current, n),
 					begin_off - n >= 0 ? fst
-						: (end_off - begin_off >= sprout::distance(fst, lst) && begin_off - n <= -sprout::distance(fst, lst)) ? lst
+						: (end_off - begin_off >= sprout::distance(fst, lst_) && begin_off - n <= -sprout::distance(fst, lst_)) ? lst_
 						: begin_off <= 0
-							? sprout::next(current2, NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::min(n, end_off), sprout::distance(current2, lst)))
-							: sprout::next(current2, NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::min(n - begin_off, end_off), sprout::distance(current2, lst)))
+							? sprout::next(current2, NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::min(n, end_off), sprout::distance(current2, lst_)))
+							: sprout::next(current2, NS_SSCRISK_CEL_OR_SPROUT::min(NS_SSCRISK_CEL_OR_SPROUT::min(n - begin_off, end_off), sprout::distance(current2, lst_)))
 						,
-					fst, lst,
+					fst, lst_,
 					begin_off - n, end_off - n
 					)
 				: remake_iterator(
 					sprout::next(current, n),
 					begin_off - n >= 0 ? fst
-						: (end_off - begin_off >= sprout::distance(fst, lst) && begin_off - n <= -sprout::distance(fst, lst)) ? lst
-						: begin_off >= -sprout::distance(fst, lst)
+						: (end_off - begin_off >= sprout::distance(fst, lst_) && begin_off - n <= -sprout::distance(fst, lst_)) ? lst_
+						: begin_off >= -sprout::distance(fst, lst_)
 							? sprout::next(current2, n)
-							: sprout::next(current2, n - (begin_off + sprout::distance(fst, lst)))
+							: sprout::next(current2, n - (begin_off + sprout::distance(fst, lst_)))
 						,
-					fst, lst,
+					fst, lst_,
 					begin_off - n, end_off - n
 					)
 				;
@@ -71,29 +71,29 @@ namespace sprout {
 		iterator_type current;
 		iterator2_type current2;
 		iterator2_type fst;
-		iterator2_type lst;
+		iterator2_type lst_;
 		difference_type begin_off;
 		difference_type end_off;
 	public:
 		SPROUT_CONSTEXPR remake_iterator()
 			: current(), current2()
-			, fst(), lst()
+			, fst(), lst_()
 			, begin_off(), end_off()
 		{}
 		SPROUT_CONSTEXPR remake_iterator(remake_iterator const& other)
 			: current(other.current), current2(other.current2)
-			, fst(other.fst), lst(other.lst)
+			, fst(other.fst), lst_(other.lst_)
 			, begin_off(other.begin_off), end_off(other.end_off)
 		{}
-		SPROUT_CONSTEXPR remake_iterator(iterator_type it, iterator2_type it2, iterator2_type fst, iterator2_type lst, difference_type begin_off, difference_type end_off)
+		SPROUT_CONSTEXPR remake_iterator(iterator_type it, iterator2_type it2, iterator2_type fst, iterator2_type lst_, difference_type begin_off, difference_type end_off)
 			: current(it), current2(it2)
-			, fst(fst), lst(lst)
+			, fst(fst), lst_(lst_)
 			, begin_off(begin_off), end_off(end_off)
 		{}
 		template<typename U, typename V>
 		SPROUT_CONSTEXPR remake_iterator(remake_iterator<U, V> const& it)
 			: current(it.base()), current2(it.base2())
-			, fst(it.first()), lst(it.last())
+			, fst(it.first()), lst_(it.last())
 			, begin_off(it.begin_offset()), end_off(it.end_offset())
 		{}
 		template<typename U, typename V>
@@ -112,7 +112,7 @@ namespace sprout {
 			return fst;
 		}
 		SPROUT_CONSTEXPR iterator2_type last() const {
-			return lst;
+			return lst_;
 		}
 		SPROUT_CONSTEXPR difference_type begin_offset() const {
 			return begin_off;
@@ -121,7 +121,7 @@ namespace sprout {
 			return end_off;
 		}
 		SPROUT_CONSTEXPR bool is_in_copying() const {
-			return begin_off <= 0 && end_off > 0 && current2 != lst;
+			return begin_off <= 0 && end_off > 0 && current2 != lst_;
 		}
 		SPROUT_CONSTEXPR reference operator*() const {
 			return is_in_copying() ? *current2 : *current;
@@ -189,14 +189,14 @@ namespace sprout {
 		SPROUT_CONSTEXPR remake_iterator next() const {
 			return remake_iterator(
 				sprout::next(current), (is_in_copying() ? sprout::next(current2) : current2),
-				fst, lst,
+				fst, lst_,
 				begin_off - 1, end_off - 1
 				);
 		}
 		SPROUT_CONSTEXPR remake_iterator prev() const {
 			return remake_iterator(
 				sprout::prev(current), (begin_off < 0 && end_off >= 0 ? sprout::prev(current2) : current2),
-				fst, lst,
+				fst, lst_,
 				begin_off + 1, end_off + 1
 				);
 		}
@@ -205,7 +205,7 @@ namespace sprout {
 			SPROUT_NOEXCEPT_EXPR(swap(current, other.current))
 			&& SPROUT_NOEXCEPT_EXPR(swap(current2, other.current2))
 			&& SPROUT_NOEXCEPT_EXPR(swap(fst, other.fst))
-			&& SPROUT_NOEXCEPT_EXPR(swap(lst, other.lst))
+			&& SPROUT_NOEXCEPT_EXPR(swap(lst_, other.lst_))
 			&& SPROUT_NOEXCEPT_EXPR(swap(begin_off, other.begin_off))
 			&& SPROUT_NOEXCEPT_EXPR(swap(end_off, other.end_off))
 			)
@@ -213,7 +213,7 @@ namespace sprout {
 			swap(current, other.current);
 			swap(current2, other.current2);
 			swap(fst, other.fst);
-			swap(lst, other.lst);
+			swap(lst_, other.lst_);
 			swap(begin_off, other.begin_off);
 			swap(end_off, other.end_off);
 		}
@@ -313,12 +313,12 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::remake_iterator<DstIterator, SrcIterator>
 	make_remake_iterator(
 		DstIterator it, SrcIterator it2,
-		SrcIterator fst, SrcIterator lst,
+		SrcIterator fst, SrcIterator lst_,
 		typename sprout::remake_iterator<DstIterator, SrcIterator>::difference_type begin_off,
 		typename sprout::remake_iterator<DstIterator, SrcIterator>::difference_type end_off
 		)
 	{
-		return sprout::remake_iterator<DstIterator, SrcIterator>(it, it2, fst, lst, begin_off, end_off);
+		return sprout::remake_iterator<DstIterator, SrcIterator>(it, it2, fst, lst_, begin_off, end_off);
 	}
 
 	//
