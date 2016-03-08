@@ -162,11 +162,11 @@ namespace sprout {
 				-2.838224957069370695926e78L \
 			}}
 
-			template<typename T>
+			template<typename T, typename X = void>
 			struct bernoulli_numbers;
 
-			template<>
-			struct bernoulli_numbers<float> {
+			template<typename X>
+			struct bernoulli_numbers<float, X> {
 			public:
 				typedef float type;
 			public:
@@ -178,14 +178,15 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BERNOULLI_TABLE_DEF_FLOAT)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::math::detail::bernoulli_numbers<
-				float
+			template<typename X>
+			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
+				float, X
 			>::table_type sprout::math::detail::bernoulli_numbers<
-				float
+				float, X
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_BERNOULLI_TABLE_DEF_FLOAT);
 
-			template<>
-			struct bernoulli_numbers<double> {
+			template<typename X>
+			struct bernoulli_numbers<double, X> {
 			public:
 				typedef double type;
 			public:
@@ -197,14 +198,15 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BERNOULLI_TABLE_DEF_DOUBLE)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::math::detail::bernoulli_numbers<
-				double
+			template<typename X>
+			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
+				double, X
 			>::table_type sprout::math::detail::bernoulli_numbers<
-				double
+				double, X
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_BERNOULLI_TABLE_DEF_DOUBLE);
 
-			template<>
-			struct bernoulli_numbers<long double> {
+			template<typename X>
+			struct bernoulli_numbers<long double, X> {
 			public:
 				typedef long double type;
 			public:
@@ -216,10 +218,11 @@ namespace sprout {
 					SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SPROUT_BERNOULLI_TABLE_DEF_LONG_DOUBLE)
 					;
 			};
-			SPROUT_CONSTEXPR_OR_CONST sprout::math::detail::bernoulli_numbers<
-				long double
+			template<typename X>
+			SPROUT_CONSTEXPR_OR_CONST typename sprout::math::detail::bernoulli_numbers<
+				long double, X
 			>::table_type sprout::math::detail::bernoulli_numbers<
-				long double
+				long double, X
 			>::table SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SPROUT_BERNOULLI_TABLE_DEF_LONG_DOUBLE);
 
 #		undef SPROUT_BERNOULLI_TABLE_DEF_FLOAT
