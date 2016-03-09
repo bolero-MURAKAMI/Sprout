@@ -17,6 +17,21 @@
 #include <sprout/math/quaternion/detail/mul.hpp>
 
 namespace sprout {
+	namespace detail {
+		template<typename T, T V>
+		struct base_static_size {
+		public:
+			SPROUT_STATIC_CONSTEXPR T static_size = V;
+		};
+		template<typename T, T V>
+		SPROUT_CONSTEXPR_OR_CONST T sprout::detail::base_static_size<T, V>::static_size;
+
+		template<typename Container>
+		struct inherit_static_size
+			: public sprout::detail::base_static_size<typename Container::size_type, Container::static_size>
+		{};
+	}	// namespace detail
+
 	namespace math {
 
 #define	SPROUT_QUATERNION_ACCESSOR_GENERATOR(type) \
@@ -77,7 +92,9 @@ namespace sprout {
 		// quaternion
 		//
 		template<typename T>
-		class quaternion {
+		class quaternion
+			: public sprout::detail::inherit_static_size<sprout::array<T, 4> >
+		{
 		private:
 			typedef sprout::array<T, 4> array_type;
 		public:
@@ -91,8 +108,6 @@ namespace sprout {
 			typedef typename array_type::const_pointer const_pointer;
 			typedef typename array_type::reverse_iterator reverse_iterator;
 			typedef typename array_type::const_reverse_iterator const_reverse_iterator;
-		public:
-			SPROUT_STATIC_CONSTEXPR size_type static_size = array_type::static_size;
 		private:
 			array_type elems_;
 		public:
@@ -337,8 +352,6 @@ namespace sprout {
 				return elems_.c_array();
 			}
 		};
-		template<typename T>
-		SPROUT_CONSTEXPR_OR_CONST typename sprout::math::quaternion<T>::size_type sprout::math::quaternion<T>::static_size;
 
 		template<>
 		class quaternion<float>;
@@ -361,8 +374,6 @@ namespace sprout {
 			typedef typename array_type::const_pointer const_pointer; \
 			typedef typename array_type::reverse_iterator reverse_iterator; \
 			typedef typename array_type::const_reverse_iterator const_reverse_iterator; \
-		public: \
-			SPROUT_STATIC_CONSTEXPR size_type static_size = array_type::static_size; \
 		private: \
 			array_type elems_;
 
@@ -640,11 +651,14 @@ namespace sprout {
 				return elems_.c_array(); \
 			}
 
-#define	SPROUT_QUATERNION_MEMBER_STATIC_SIZE_SPECIALIZATION_GENERATOR(type) \
-		SPROUT_CONSTEXPR_OR_CONST typename sprout::math::quaternion<type>::size_type sprout::math::quaternion<type>::static_size;
+#define	SPROUT_QUATERNION_BASE_STATIC_SIZE_DECL(type) \
+			public sprout::detail::inherit_static_size<sprout::array<type, 4> >
+
 
 		template<>
-		class quaternion<float> {
+		class quaternion<float>
+			: SPROUT_QUATERNION_BASE_STATIC_SIZE_DECL(float)
+		{
 		public:
 			SPROUT_QUATERNION_MEMBER_TYPE_DATA_GENERATOR(float)
 		public:
@@ -656,10 +670,11 @@ namespace sprout {
 			SPROUT_QUATERNION_MEMBER_ALGEBRAIC_GENERATOR(float)
 			SPROUT_QUATERNION_MEMBER_CONTAINER_GENERATOR(float)
 		};
-		SPROUT_QUATERNION_MEMBER_STATIC_SIZE_SPECIALIZATION_GENERATOR(float)
 
 		template<>
-		class quaternion<double> {
+		class quaternion<double>
+			: SPROUT_QUATERNION_BASE_STATIC_SIZE_DECL(double)
+		{
 		public:
 			SPROUT_QUATERNION_MEMBER_TYPE_DATA_GENERATOR(double)
 		public:
@@ -671,10 +686,11 @@ namespace sprout {
 			SPROUT_QUATERNION_MEMBER_ALGEBRAIC_GENERATOR(double)
 			SPROUT_QUATERNION_MEMBER_CONTAINER_GENERATOR(double)
 		};
-		SPROUT_QUATERNION_MEMBER_STATIC_SIZE_SPECIALIZATION_GENERATOR(double)
 
 		template<>
-		class quaternion<long double> {
+		class quaternion<long double>
+			: SPROUT_QUATERNION_BASE_STATIC_SIZE_DECL(long double)
+		{
 		public:
 			SPROUT_QUATERNION_MEMBER_TYPE_DATA_GENERATOR(long double)
 		public:
@@ -686,7 +702,6 @@ namespace sprout {
 			SPROUT_QUATERNION_MEMBER_ALGEBRAIC_GENERATOR(long double)
 			SPROUT_QUATERNION_MEMBER_CONTAINER_GENERATOR(long double)
 		};
-		SPROUT_QUATERNION_MEMBER_STATIC_SIZE_SPECIALIZATION_GENERATOR(long double)
 
 		SPROUT_CONSTEXPR sprout::math::quaternion<float>::quaternion(sprout::math::quaternion<double> const& a_recopier)
 			: elems_{{

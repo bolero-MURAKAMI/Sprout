@@ -14,6 +14,7 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
+#include <sprout/array/make_array.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
@@ -95,12 +96,12 @@ namespace sprout {
 			return sprout::md5_detail::round_x_impl(k[0], k[1], k[2], k[3], x, round_op, xis, ts, ss);
 		}
 
-		template<int N>
+		template<int N, typename X = void>
 		struct round_table;
 
 #	define SPROUT_MD5_DETAIL_ROUND_TABLE_DEF(N, XIS, TS, SS) \
-		template<> \
-		struct round_table<N> { \
+		template<typename X> \
+		struct round_table<N, X> { \
 		public: \
 			typedef sprout::array<std::size_t, 16> xis_type; \
 			typedef sprout::array<std::uint32_t, 16> ts_type; \
@@ -116,50 +117,53 @@ namespace sprout {
 				SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_INNER(SS) \
 				; \
 		}; \
-		SPROUT_CONSTEXPR_OR_CONST sprout::md5_detail::round_table<N>::xis_type sprout::md5_detail::round_table<N>::xis \
+		template<typename X> \
+		SPROUT_CONSTEXPR_OR_CONST typename sprout::md5_detail::round_table<N, X>::xis_type sprout::md5_detail::round_table<N, X>::xis \
 			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(XIS) \
 			; \
-		SPROUT_CONSTEXPR_OR_CONST sprout::md5_detail::round_table<N>::ts_type sprout::md5_detail::round_table<N>::ts \
+		template<typename X> \
+		SPROUT_CONSTEXPR_OR_CONST typename sprout::md5_detail::round_table<N, X>::ts_type sprout::md5_detail::round_table<N, X>::ts \
 			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(TS) \
 			; \
-		SPROUT_CONSTEXPR_OR_CONST sprout::md5_detail::round_table<N>::ss_type sprout::md5_detail::round_table<N>::ss \
+		template<typename X> \
+		SPROUT_CONSTEXPR_OR_CONST typename sprout::md5_detail::round_table<N, X>::ss_type sprout::md5_detail::round_table<N, X>::ss \
 			SPROUT_STATIC_CONSTEXPR_DATA_MEMBER_OUTER(SS)
 
 		SPROUT_MD5_DETAIL_ROUND_TABLE_DEF( \
 			1, \
-			(xis_type{{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}}), \
-			(ts_type{{ \
+			sprout::make_array<std::size_t>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), \
+			sprout::make_array<std::uint32_t>( \
 				0xD76AA478, 0xE8C7B756, 0x242070DB, 0xC1BDCEEE, 0xF57C0FAF, 0x4787C62A, 0xA8304613, 0xFD469501, \
 				0x698098D8, 0x8B44F7AF, 0xFFFF5BB1, 0x895CD7BE, 0x6B901122, 0xFD987193, 0xA679438E, 0x49B40821 \
-				}}), \
-			(ss_type{{7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22}}) \
+				), \
+			sprout::make_array<std::uint32_t>(7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22) \
 			);
 		SPROUT_MD5_DETAIL_ROUND_TABLE_DEF( \
 			2, \
-			(xis_type{{1, 6, 11, 0, 5, 10, 15, 4, 9, 14, 3, 8, 13, 2, 7, 12}}), \
-			(ts_type{{ \
+			sprout::make_array<std::size_t>(1, 6, 11, 0, 5, 10, 15, 4, 9, 14, 3, 8, 13, 2, 7, 12), \
+			sprout::make_array<std::uint32_t>( \
 				0xF61E2562, 0xC040B340, 0x265E5A51, 0xE9B6C7AA, 0xD62F105D, 0x02441453, 0xD8A1E681, 0xE7D3FBC8, \
 				0x21E1CDE6, 0xC33707D6, 0xF4D50D87, 0x455A14ED, 0xA9E3E905, 0xFCEFA3F8, 0x676F02D9, 0x8D2A4C8A \
-				}}), \
-			(ss_type{{5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20}}) \
+				), \
+			sprout::make_array<std::uint32_t>(5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20) \
 			);
 		SPROUT_MD5_DETAIL_ROUND_TABLE_DEF( \
 			3, \
-			(xis_type{{5, 8, 11, 14, 1, 4, 7, 10, 13, 0, 3, 6, 9, 12, 15, 2}}), \
-			(ts_type{{ \
+			sprout::make_array<std::size_t>(5, 8, 11, 14, 1, 4, 7, 10, 13, 0, 3, 6, 9, 12, 15, 2), \
+			sprout::make_array<std::uint32_t>( \
 				0xFFFA3942, 0x8771F681, 0x6D9D6122, 0xFDE5380C, 0xA4BEEA44, 0x4BDECFA9, 0xF6BB4B60, 0xBEBFBC70, \
 				0x289B7EC6, 0xEAA127FA, 0xD4EF3085, 0x04881D05, 0xD9D4D039, 0xE6DB99E5, 0x1FA27CF8, 0xC4AC5665 \
-				}}), \
-			(ss_type{{4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23}}) \
+				), \
+			sprout::make_array<std::uint32_t>(4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23) \
 			);
 		SPROUT_MD5_DETAIL_ROUND_TABLE_DEF( \
 			4, \
-			(xis_type{{0, 7, 14, 5, 12, 3, 10, 1, 8, 15, 6, 13, 4, 11, 2, 9}}), \
-			(ts_type{{ \
+			sprout::make_array<std::size_t>(0, 7, 14, 5, 12, 3, 10, 1, 8, 15, 6, 13, 4, 11, 2, 9), \
+			sprout::make_array<std::uint32_t>( \
 				0xF4292244, 0x432AFF97, 0xAB9423A7, 0xFC93A039, 0x655B59C3, 0x8F0CCC92, 0xFFEFF47D, 0x85845DD1, \
 				0x6FA87E4F, 0xFE2CE6E0, 0xA3014314, 0x4E0811A1, 0xF7537E82, 0xBD3AF235, 0x2AD7D2BB, 0xEB86D391 \
-				}}), \
-			(ss_type{{6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21}}) \
+				), \
+			sprout::make_array<std::uint32_t>(6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21) \
 			);
 #	undef SPROUT_MD5_DETAIL_ROUND_TABLE_DEF
 
