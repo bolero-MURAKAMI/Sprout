@@ -201,6 +201,7 @@ namespace sprout {
 
 	SPROUT_NUMERIC_LIMITS_INTEGRAL_SPECIALIZED_DECL(signed char, SCHAR_MIN, SCHAR_MAX);
 	SPROUT_NUMERIC_LIMITS_INTEGRAL_SPECIALIZED_DECL(unsigned char, static_cast<unsigned char>(0), UCHAR_MAX);
+#if SPROUT_USE_UNICODE_LITERALS
 	SPROUT_NUMERIC_LIMITS_INTEGRAL_SPECIALIZED_DECL(
 		char16_t,
 		static_cast<char16_t>(sprout::numeric_limits<std::uint_least16_t>::min()),
@@ -211,6 +212,7 @@ namespace sprout {
 		static_cast<char16_t>(sprout::numeric_limits<std::uint_least32_t>::min()),
 		static_cast<char16_t>(sprout::numeric_limits<std::uint_least32_t>::max())
 		);
+#endif
 	SPROUT_NUMERIC_LIMITS_INTEGRAL_SPECIALIZED_DECL(wchar_t, WCHAR_MIN, WCHAR_MAX);
 #undef SPROUT_NUMERIC_LIMITS_INTEGRAL_SPECIALIZED_DECL
 

@@ -72,6 +72,7 @@ namespace sprout {
 			operator"" _uuid(wchar_t const* s, std::size_t size) {
 				return sprout::uuids::make_uuid(s, s + size);
 			}
+#if SPROUT_USE_UNICODE_LITERALS
 			inline SPROUT_CONSTEXPR sprout::uuids::uuid
 			operator"" _uuid(char16_t const* s, std::size_t size) {
 				return sprout::uuids::make_uuid(s, s + size);
@@ -80,6 +81,7 @@ namespace sprout {
 			operator"" _uuid(char32_t const* s, std::size_t size) {
 				return sprout::uuids::make_uuid(s, s + size);
 			}
+#endif
 
 			//
 			// _uuid3
@@ -92,6 +94,7 @@ namespace sprout {
 			operator"" _uuid3(wchar_t const* s, std::size_t size) {
 				return sprout::uuids::detail::uuid3_impl(sprout::range::make_ptr_range(s, size));
 			}
+#if SPROUT_USE_UNICODE_LITERALS
 			inline SPROUT_CONSTEXPR sprout::uuids::md5_name_generator
 			operator"" _uuid3(char16_t const* s, std::size_t size) {
 				return sprout::uuids::detail::uuid3_impl(sprout::range::make_ptr_range(s, size));
@@ -100,6 +103,7 @@ namespace sprout {
 			operator"" _uuid3(char32_t const* s, std::size_t size) {
 				return sprout::uuids::detail::uuid3_impl(sprout::range::make_ptr_range(s, size));
 			}
+#endif
 
 			//
 			// _uuid5
@@ -112,6 +116,7 @@ namespace sprout {
 			operator"" _uuid5(wchar_t const* s, std::size_t size) {
 				return sprout::uuids::detail::uuid5_impl(sprout::range::make_ptr_range(s, size));
 			}
+#if SPROUT_USE_UNICODE_LITERALS
 			inline SPROUT_CONSTEXPR sprout::uuids::sha1_name_generator
 			operator"" _uuid5(char16_t const* s, std::size_t size) {
 				return sprout::uuids::detail::uuid5_impl(sprout::range::make_ptr_range(s, size));
@@ -120,6 +125,7 @@ namespace sprout {
 			operator"" _uuid5(char32_t const* s, std::size_t size) {
 				return sprout::uuids::detail::uuid5_impl(sprout::range::make_ptr_range(s, size));
 			}
+#endif
 		}	// namespace udl
 
 		using sprout::uuids::udl::operator"" _uuid;

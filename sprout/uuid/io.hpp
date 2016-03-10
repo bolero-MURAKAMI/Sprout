@@ -177,6 +177,7 @@ namespace sprout {
 		to_wstring(sprout::uuids::uuid const& u) {
 			return sprout::uuids::to_string_of<wchar_t>(u);
 		}
+#if SPROUT_USE_UNICODE_LITERALS
 		inline SPROUT_CONSTEXPR sprout::basic_string<char16_t, 36>
 		to_u16string(sprout::uuids::uuid const& u) {
 			return sprout::uuids::to_string_of<char16_t>(u);
@@ -185,6 +186,7 @@ namespace sprout {
 		to_u32string(sprout::uuids::uuid const& u) {
 			return sprout::uuids::to_string_of<char32_t>(u);
 		}
+#endif
 	}	// namespace uuids
 }	// namespace sprout
 

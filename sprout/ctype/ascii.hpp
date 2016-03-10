@@ -175,6 +175,7 @@ namespace sprout {
 					: 0
 					;
 			}
+#if SPROUT_USE_UNICODE_LITERALS
 			inline SPROUT_CONSTEXPR std::size_t get_value(char16_t c) {
 				return static_cast<std::size_t>(c) < sprout::ascii::detail::table_size
 					? sprout::ascii::detail::table[static_cast<std::size_t>(c)]
@@ -187,6 +188,7 @@ namespace sprout {
 					: 0
 					;
 			}
+#endif
 		}	// namespace detail
 
 #define SPROUT_CTYPE_ASCII_DECL(CHAR_TYPE, PREFIX) \
@@ -282,8 +284,10 @@ namespace sprout {
 		//
 		SPROUT_CTYPE_ASCII_DECL(char, SPROUT_PP_EMPTY())
 		SPROUT_CTYPE_ASCII_DECL(wchar_t, SPROUT_PP_EMPTY())
+#if SPROUT_USE_UNICODE_LITERALS
 		SPROUT_CTYPE_ASCII_DECL(char16_t, SPROUT_PP_EMPTY())
 		SPROUT_CTYPE_ASCII_DECL(char32_t, SPROUT_PP_EMPTY())
+#endif
 	}	// namespace ascii
 
 	using sprout::ascii::isalnum;

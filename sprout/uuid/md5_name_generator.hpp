@@ -67,12 +67,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type operator()(wchar_t const* name) const {
 				return sha_to_uuid(sum_.c_process_bytes(name, sprout::char_traits<wchar_t>::length(name)));
 			}
+#if SPROUT_USE_UNICODE_LITERALS
 			SPROUT_CONSTEXPR result_type operator()(char16_t const* name) const {
 				return sha_to_uuid(sum_.c_process_bytes(name, sprout::char_traits<char16_t>::length(name)));
 			}
 			SPROUT_CONSTEXPR result_type operator()(char32_t const* name) const {
 				return sha_to_uuid(sum_.c_process_bytes(name, sprout::char_traits<char32_t>::length(name)));
 			}
+#endif
 		};
 
 		//
@@ -91,6 +93,7 @@ namespace sprout {
 		make_uuid3(wchar_t const* name) {
 			return sprout::uuids::md5_name_generator()(name);
 		}
+#if SPROUT_USE_UNICODE_LITERALS
 		inline SPROUT_CONSTEXPR sprout::uuids::uuid
 		make_uuid3(char16_t const* name) {
 			return sprout::uuids::md5_name_generator()(name);
@@ -99,6 +102,7 @@ namespace sprout {
 		make_uuid3(char32_t const* name) {
 			return sprout::uuids::md5_name_generator()(name);
 		}
+#endif
 
 		template<typename Elem, std::size_t N, typename Traits>
 		inline SPROUT_CONSTEXPR sprout::uuids::uuid
@@ -113,6 +117,7 @@ namespace sprout {
 		make_uuid3(sprout::uuids::uuid const& namespace_uuid, wchar_t const* name) {
 			return sprout::uuids::md5_name_generator(namespace_uuid)(name);
 		}
+#if SPROUT_USE_UNICODE_LITERALS
 		inline SPROUT_CONSTEXPR sprout::uuids::uuid
 		make_uuid3(sprout::uuids::uuid const& namespace_uuid, char16_t const* name) {
 			return sprout::uuids::md5_name_generator(namespace_uuid)(name);
@@ -121,6 +126,7 @@ namespace sprout {
 		make_uuid3(sprout::uuids::uuid const& namespace_uuid, char32_t const* name) {
 			return sprout::uuids::md5_name_generator(namespace_uuid)(name);
 		}
+#endif
 
 		inline SPROUT_CONSTEXPR sprout::uuids::md5_name_generator
 		make_uuid3() {

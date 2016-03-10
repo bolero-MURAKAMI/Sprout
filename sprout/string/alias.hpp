@@ -26,10 +26,12 @@ namespace sprout {
 	using string = sprout::basic_string<char, N>;
 	template<std::size_t N>
 	using wstring = sprout::basic_string<wchar_t, N>;
+#if SPROUT_USE_UNICODE_LITERALS
 	template<std::size_t N>
 	using u16string = sprout::basic_string<char16_t, N>;
 	template<std::size_t N>
 	using u32string = sprout::basic_string<char32_t, N>;
+#endif
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 }	// namespace sprout
 

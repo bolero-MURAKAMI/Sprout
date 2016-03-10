@@ -81,7 +81,8 @@ namespace sprout {
 		struct exact_signed_base_helper<sizeof(short) * CHAR_BIT> {
 			typedef short exact;
 		};
-		template<> struct exact_unsigned_base_helper<sizeof(unsigned short) * CHAR_BIT> {
+		template<>
+		struct exact_unsigned_base_helper<sizeof(unsigned short) * CHAR_BIT> {
 			typedef unsigned short exact;
 		};
 #endif

@@ -22,8 +22,10 @@ namespace sprout {
 	//
 	typedef sprout::basic_string_ref<char> string_ref;
 	typedef sprout::basic_string_ref<wchar_t> wstring_ref;
+#if SPROUT_USE_UNICODE_LITERALS
 	typedef sprout::basic_string_ref<char16_t> u16string_ref;
 	typedef sprout::basic_string_ref<char32_t> u32string_ref;
+#endif
 	//
 	// string_view
 	// wstring_view
@@ -32,8 +34,10 @@ namespace sprout {
 	//
 	typedef sprout::basic_string_ref<char> string_view;
 	typedef sprout::basic_string_ref<wchar_t> wstring_view;
+#if SPROUT_USE_UNICODE_LITERALS
 	typedef sprout::basic_string_ref<char16_t> u16string_view;
 	typedef sprout::basic_string_ref<char32_t> u32string_view;
+#endif
 
 #if SPROUT_USE_TEMPLATE_ALIASES
 	//
@@ -122,6 +126,8 @@ namespace sprout {
 		: public sprout::is_wstring_ref<T>
 	{};
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+
+#if SPROUT_USE_UNICODE_LITERALS
 	//
 	// is_u16string_view
 	//
@@ -146,6 +152,7 @@ namespace sprout {
 		: public sprout::is_u32string_ref<T>
 	{};
 #endif	// #if SPROUT_USE_TEMPLATE_ALIASES
+#endif
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T>
@@ -156,10 +163,12 @@ namespace sprout {
 	SPROUT_STATIC_CONSTEXPR bool is_string_view_v = sprout::is_string_view<T>::value;
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_wstring_view_v = sprout::is_wstring_view<T>::value;
+#if SPROUT_USE_UNICODE_LITERALS
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_u16string_view_v = sprout::is_u16string_view<T>::value;
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_u32string_view_v = sprout::is_u32string_view<T>::value;
+#endif
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 

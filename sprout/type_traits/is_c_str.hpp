@@ -40,6 +40,7 @@ namespace sprout {
 	struct is_c_str<wchar_t[N]>
 		: public sprout::true_type
 	{};
+#if SPROUT_USE_UNICODE_LITERALS
 	template<std::size_t N>
 	struct is_c_str<char16_t[N]>
 		: public sprout::true_type
@@ -48,6 +49,7 @@ namespace sprout {
 	struct is_c_str<char32_t[N]>
 		: public sprout::true_type
 	{};
+#endif
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T>

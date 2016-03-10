@@ -39,6 +39,7 @@ namespace sprout {
 	struct is_char_type<wchar_t>
 		: public sprout::true_type
 	{};
+#if SPROUT_USE_UNICODE_LITERALS
 	template<>
 	struct is_char_type<char16_t>
 		: public sprout::true_type
@@ -47,6 +48,7 @@ namespace sprout {
 	struct is_char_type<char32_t>
 		: public sprout::true_type
 	{};
+#endif
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T>

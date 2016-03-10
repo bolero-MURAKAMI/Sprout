@@ -177,12 +177,14 @@ namespace sprout {
 			SPROUT_CONSTEXPR result_type operator()(wchar_t const* s) const {
 				return operator()(s, s + sprout::char_traits<wchar_t>::length(s));
 			}
+#if SPROUT_USE_UNICODE_LITERALS
 			SPROUT_CONSTEXPR result_type operator()(char16_t const* s) const {
 				return operator()(s, s + sprout::char_traits<char16_t>::length(s));
 			}
 			SPROUT_CONSTEXPR result_type operator()(char32_t const* s) const {
 				return operator()(s, s + sprout::char_traits<char32_t>::length(s));
 			}
+#endif
 		};
 
 		//
@@ -206,6 +208,7 @@ namespace sprout {
 		make_uuid(wchar_t const* s) {
 			return sprout::uuids::string_generator()(s);
 		}
+#if SPROUT_USE_UNICODE_LITERALS
 		inline SPROUT_CONSTEXPR sprout::uuids::uuid
 		make_uuid(char16_t const* s) {
 			return sprout::uuids::string_generator()(s);
@@ -214,6 +217,7 @@ namespace sprout {
 		make_uuid(char32_t const* s) {
 			return sprout::uuids::string_generator()(s);
 		}
+#endif
 	}	// namespace uuids
 }	// namespace sprout
 

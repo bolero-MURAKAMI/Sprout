@@ -30,6 +30,7 @@ namespace sprout {
 	public:
 		typedef sprout::basic_string<wchar_t, N> type;
 	};
+#if SPROUT_USE_UNICODE_LITERALS
 	//
 	// u16string_t
 	//
@@ -46,6 +47,7 @@ namespace sprout {
 	public:
 		typedef sprout::basic_string<char32_t, N> type;
 	};
+#endif
 
 	//
 	// is_basic_string
@@ -101,6 +103,7 @@ namespace sprout {
 	struct is_wstring
 		: public sprout::is_string_of<T, wchar_t>
 	{};
+#if SPROUT_USE_UNICODE_LITERALS
 	//
 	// is_u16string
 	//
@@ -115,6 +118,7 @@ namespace sprout {
 	struct is_u32string
 		: public sprout::is_string_of<T, char32_t>
 	{};
+#endif
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T>
@@ -125,10 +129,12 @@ namespace sprout {
 	SPROUT_STATIC_CONSTEXPR bool is_string_v = sprout::is_string<T>::value;
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_wstring_v = sprout::is_wstring<T>::value;
+#if SPROUT_USE_UNICODE_LITERALS
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_u16string_v = sprout::is_u16string<T>::value;
 	template<typename T>
 	SPROUT_STATIC_CONSTEXPR bool is_u32string_v = sprout::is_u32string<T>::value;
+#endif
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 

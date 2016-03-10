@@ -25,16 +25,18 @@ namespace sprout {
 		//
 		template<wchar_t... Values>
 		using wstring = sprout::types::basic_string<wchar_t, Values...>;
+#if SPROUT_USE_UNICODE_LITERALS
 		//
 		// u16string
 		//
 		template<char... Values>
 		using u16string = sprout::types::basic_string<char16_t, Values...>;
 		//
-		// string
+		// u32string
 		//
 		template<char... Values>
 		using u32string = sprout::types::basic_string<char32_t, Values...>;
+#endif
 	}	// namespace types
 }	// namespace sprout
 

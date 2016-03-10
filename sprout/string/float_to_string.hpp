@@ -218,6 +218,7 @@ namespace sprout {
 		return sprout::to_string_of<wchar_t>(val);
 	}
 
+#if SPROUT_USE_UNICODE_LITERALS
 	//
 	// to_u16string
 	//
@@ -235,6 +236,7 @@ namespace sprout {
 	to_u32string(FloatType val) {
 		return sprout::to_string_of<char32_t>(val);
 	}
+#endif
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_STRING_FLOAT_TO_STRING_HPP
