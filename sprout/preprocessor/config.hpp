@@ -43,4 +43,15 @@
 #	define SPROUT_PP_VARIADICS 0
 #endif
 
+//
+// SPROUT_PP_HAS_COUNTER
+//
+#ifdef __COUNTER__
+#	undef SPROUT_PP_HAS_COUNTER
+#	define SPROUT_PP_HAS_COUNTER 1
+#else
+#	undef SPROUT_PP_HAS_COUNTER
+#	define SPROUT_PP_HAS_COUNTER 0
+#endif
+
 #endif	// #ifndef SPROUT_PREPROCESSOR_CONFIG_HPP

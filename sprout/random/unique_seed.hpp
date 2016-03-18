@@ -55,9 +55,16 @@ namespace sprout {
 }	// namespace sprout
 
 //
+// SPROUT_UNIQUE_SEED_
+//
+#define SPROUT_UNIQUE_SEED_(N) \
+	(::sprout::make_seed(SPROUT_PP_UNIQUE_STRING_(N)))
+
+//
 // SPROUT_UNIQUE_SEED
 //
-#define SPROUT_UNIQUE_SEED (::sprout::make_seed(SPROUT_PP_UNIQUE_STRING))
+#define SPROUT_UNIQUE_SEED \
+	(::sprout::make_seed(SPROUT_PP_UNIQUE_STRING))
 
 //
 // SPROUT_UNIQUE_SEED_SEQ

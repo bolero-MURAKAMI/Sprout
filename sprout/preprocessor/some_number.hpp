@@ -9,13 +9,25 @@
 #define SPROUT_PREPROCESSOR_SOME_NUMBER_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/preprocessor/config.hpp>
 #include <sprout/preprocessor/empty.hpp>
+
+//
+// SPROUT_PP_SOME_NUMBER_IS_UNIQUE_IN_LINE
+//
+#if SPROUT_PP_HAS_COUNTER
+#	undef SPROUT_PP_SOME_NUMBER_IS_UNIQUE_IN_LINE
+#	define SPROUT_PP_SOME_NUMBER_IS_UNIQUE_IN_LINE 1
+#else
+#	undef SPROUT_PP_SOME_NUMBER_IS_UNIQUE_IN_LINE
+#	define SPROUT_PP_SOME_NUMBER_IS_UNIQUE_IN_LINE 0
+#endif
 
 //
 // SPROUT_PP_SOME_NUMBER
 // SPROUT_PP_SOME_NUMBER_OR_EMPTY
 //
-#ifdef __COUNTER__
+#if SPROUT_PP_HAS_COUNTER
 #	define SPROUT_PP_SOME_NUMBER() __COUNTER__
 #	define SPROUT_PP_SOME_NUMBER_OR_EMPTY() SPROUT_PP_SOME_NUMBER()
 #else
