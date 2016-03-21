@@ -23,7 +23,7 @@ namespace sprout {
 	inline SPROUT_CXX14_CONSTEXPR BidirectionalIterator2
 	copy_backward(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 result) {
 		while (first != last) {
-			*--result = *--first;
+			*--result = *--last;
 		}
 		return result;
 	}

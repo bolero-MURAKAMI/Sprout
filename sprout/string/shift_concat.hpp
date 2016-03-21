@@ -162,13 +162,14 @@ namespace sprout {
 					)...
 				);
 		}
+	}	// namespace detail
 	//
 	// operator>>
 	//
 	template<typename T, std::size_t N, typename Traits>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
 	operator>>(sprout::basic_string<T, N, Traits> const& lhs, T const& rhs) {
-		return sprout::detail::string_rshift(
+		return sprout::detail::string_lshift(
 			lhs, lhs.size(),
 			rhs,
 			sprout::make_index_tuple<N>::make()
@@ -178,7 +179,7 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
 	operator>>(sprout::basic_string<T, N, Traits> const& lhs, T const (& rhs)[M]) {
 		typedef sprout::char_traits_helper<Traits> traits_type;
-		return sprout::detail::string_rshift(
+		return sprout::detail::string_lshift(
 			lhs, lhs.size(),
 			rhs, traits_type::length(rhs, M - 1),
 			sprout::make_index_tuple<N>::make()
@@ -187,13 +188,12 @@ namespace sprout {
 	template<typename T, std::size_t N1, std::size_t N2, typename Traits>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N1, Traits>
 	operator>>(sprout::basic_string<T, N1, Traits> const& lhs, sprout::basic_string<T, N2, Traits> const& rhs) {
-		return sprout::detail::string_rshift(
+		return sprout::detail::string_lshift(
 			lhs, lhs.size(),
 			rhs, rhs.size(),
 			sprout::make_index_tuple<N1>::make()
 			);
 	}
-	}	// namespace detail
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_STRING_SHIFT_CONCAT_HPP

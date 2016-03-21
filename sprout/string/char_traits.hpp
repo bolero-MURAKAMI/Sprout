@@ -113,7 +113,7 @@ namespace sprout {
 				);
 		}
 		static SPROUT_CXX14_CONSTEXPR char_type* move(char_type* s1, char_type const* s2, std::size_t n) {
-			sprout::copy_backward(s2, s2 + n, s1);
+			sprout::copy_backward(s2, s2 + n, s1 + n);
 			return s1;
 		}
 		static SPROUT_CXX14_CONSTEXPR char_type* copy(char_type* s1, char_type const* s2, std::size_t n) {
@@ -199,7 +199,7 @@ namespace sprout {
 		}
 		template<typename OutputIterator, typename ConstInputIterator>
 		static SPROUT_CXX14_CONSTEXPR OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
-			sprout::copy_backward(s2, s2 + n, s1);
+			sprout::copy_backward(s2, s2 + n, s1 + n);
 			return s1;
 		}
 		template<typename OutputIterator, typename ConstInputIterator>

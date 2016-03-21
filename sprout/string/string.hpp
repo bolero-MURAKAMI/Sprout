@@ -982,7 +982,8 @@ namespace sprout {
 		}
 		template<std::size_t M>
 		SPROUT_CXX14_CONSTEXPR basic_string& operator<<=(T const (& rhs)[M]) {
-			std::size_t rsize = traits_type::length(rhs, M - 1);
+			typedef sprout::char_traits_helper<traits_type> helper_type;
+			std::size_t rsize = helper_type::length(rhs, M - 1);
 			lengthcheck(size() + rsize);
 			traits_type::copy(end(), rhs, rsize);
 			put_terminator(impl_.len + rsize);
@@ -1004,7 +1005,8 @@ namespace sprout {
 		}
 		template<std::size_t M>
 		SPROUT_CXX14_CONSTEXPR basic_string& operator>>=(T const (& rhs)[M]) {
-			std::size_t rsize = traits_type::length(rhs, M - 1);
+			typedef sprout::char_traits_helper<traits_type> helper_type;
+			std::size_t rsize = helper_type::length(rhs, M - 1);
 			lengthcheck(size() + rsize);
 			traits_type::move(begin() + rsize, begin(), size());
 			traits_type::copy(begin(), rhs, rsize);
