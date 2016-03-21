@@ -288,8 +288,15 @@ namespace sprout {
 		}
 		SPROUT_CXX14_CONSTEXPR void lengthcheck(size_type n) const {
 			if (n > static_size) {
-				throw std::length_error("basic_string<>: length error");
+				throw std::length_error("basic_string<>: length exceeded");
 			}
+		}
+		SPROUT_CXX14_CONSTEXPR void put_terminator() {
+			traits_type::assign(begin() + impl_.len, static_size - impl_.len, value_type());
+		}
+		SPROUT_CXX14_CONSTEXPR void put_terminator(size_type n) {
+			impl_.len = n;
+			put_terminator();
 		}
 	public:
 		// construct/copy/destroy:
@@ -484,8 +491,7 @@ namespace sprout {
 			if (n > size()) {
 				traits_type::assign(end(), n - size(), c);
 			}
-			traits_type::assign(begin() + n, static_size - n, value_type());
-			impl_.len = n;
+			put_terminator(n);
 		}
 		SPROUT_CXX14_CONSTEXPR void
 		resize(size_type n) {
@@ -493,8 +499,7 @@ namespace sprout {
 		}
 		SPROUT_CXX14_CONSTEXPR void
 		clear() SPROUT_NOEXCEPT {
-			traits_type::assign(begin(), static_size, value_type());
-			impl_.len = 0;
+			put_terminator(0);
 		}
 		SPROUT_CONSTEXPR bool
 		empty() const SPROUT_NOEXCEPT {
@@ -557,10 +562,7 @@ namespace sprout {
 			for (size_type i = 0; i < n; ++i) {
 				traits_type::assign(impl_.elems[i], s[i]);
 			}
-			for (size_type i = n; i < static_size; ++i) {
-				traits_type::assign(impl_.elems[i], value_type());
-			}
-			impl_.len = n;
+			put_terminator(n);
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR basic_string&
@@ -571,8 +573,7 @@ namespace sprout {
 		assign(size_type n, value_type c) {
 			maxcheck(n);
 			traits_type::assign(begin(), n, c);
-			traits_type::assign(begin() + n, static_size - n, value_type());
-			impl_.len = n;
+			put_terminator(n);
 			return *this;
 		}
 		template<typename InputIterator>
@@ -582,10 +583,7 @@ namespace sprout {
 			for (; n < static_size || first != last; ++n, ++first) {
 				traits_type::assign(impl_.elems[n], *first);
 			}
-			for (size_type i = n; i < static_size; ++i) {
-				traits_type::assign(impl_.elems[i], value_type());
-			}
-			impl_.len = n;
+			put_terminator(n);
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR void
@@ -787,7 +785,6 @@ namespace sprout {
 		operator=(StringConstIterator rhs) {
 			return assign(rhs);
 		}
-
 		// modifiers (for string iterator):
 		template<typename StringConstIterator>
 		SPROUT_CXX14_CONSTEXPR typename std::enable_if<
@@ -799,10 +796,7 @@ namespace sprout {
 			for (size_type i = 0; i < n; ++i) {
 				traits_type::assign(impl_.elems[i], s[i]);
 			}
-			for (size_type i = n; i < static_size; ++i) {
-				traits_type::assign(impl_.elems[i], value_type());
-			}
-			impl_.len = n;
+			put_terminator(n);
 			return *this;
 		}
 		template<typename StringConstIterator>
@@ -979,6 +973,52 @@ namespace sprout {
 			return sprout::distance(begin(), p);
 		}
 #endif
+
+		SPROUT_CXX14_CONSTEXPR basic_string& operator<<=(T const& rhs) {
+			lengthcheck(size() + 1);
+			traits_type::assign(end(), 1, rhs);
+			put_terminator(impl_.len + 1);
+			return *this;
+		}
+		template<std::size_t M>
+		SPROUT_CXX14_CONSTEXPR basic_string& operator<<=(T const (& rhs)[M]) {
+			std::size_t rsize = traits_type::length(rhs, M - 1);
+			lengthcheck(size() + rsize);
+			traits_type::copy(end(), rhs, rsize);
+			put_terminator(impl_.len + rsize);
+			return *this;
+		}
+		template<std::size_t N2>
+		SPROUT_CXX14_CONSTEXPR basic_string& operator<<=(basic_string<T, N2> const& rhs) {
+			lengthcheck(size() + rhs.size());
+			traits_type::copy(end(), rhs.begin(), rhs.size());
+			put_terminator(impl_.len + rhs.size());
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR basic_string& operator>>=(T const& rhs) {
+			lengthcheck(size() + 1);
+			traits_type::move(begin() + 1, begin(), size());
+			traits_type::assign(begin(), 1, rhs);
+			put_terminator(impl_.len + 1);
+			return *this;
+		}
+		template<std::size_t M>
+		SPROUT_CXX14_CONSTEXPR basic_string& operator>>=(T const (& rhs)[M]) {
+			std::size_t rsize = traits_type::length(rhs, M - 1);
+			lengthcheck(size() + rsize);
+			traits_type::move(begin() + rsize, begin(), size());
+			traits_type::copy(begin(), rhs, rsize);
+			put_terminator(impl_.len + rsize);
+			return *this;
+		}
+		template<std::size_t N2>
+		SPROUT_CXX14_CONSTEXPR basic_string& operator>>=(basic_string<T, N2> const& rhs) {
+			lengthcheck(size() + rhs.size());
+			traits_type::move(begin() + rhs.size(), begin(), size());
+			traits_type::copy(begin(), rhs.begin(), rhs.size());
+			put_terminator(impl_.len + rhs.size());
+			return *this;
+		}
 	};
 	template<typename T, std::size_t N, typename Traits>
 	SPROUT_CONSTEXPR_OR_CONST typename sprout::basic_string<T, N, Traits>::size_type sprout::basic_string<T, N, Traits>::npos;

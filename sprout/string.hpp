@@ -14,6 +14,7 @@
 #include <sprout/string/string.hpp>
 #include <sprout/string/comparison.hpp>
 #include <sprout/string/concat.hpp>
+#include <sprout/string/shift_concat.hpp>
 #include <sprout/string/io.hpp>
 #include <sprout/string/hash.hpp>
 #include <sprout/string/tuple.hpp>

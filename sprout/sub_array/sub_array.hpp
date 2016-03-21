@@ -18,6 +18,7 @@
 #include <sprout/iterator/operation.hpp>
 #include <sprout/algorithm/cxx14/fill_n.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
 
 namespace sprout {
@@ -223,6 +224,7 @@ namespace sprout {
 		SPROUT_STATIC_CONSTEXPR bool is_reference = impl_type::is_reference;
 		SPROUT_STATIC_CONSTEXPR bool is_const = impl_type::is_const;
 	public:
+		typedef typename facade_type::value_type value_type;
 		typedef typename facade_type::iterator iterator;
 		typedef typename facade_type::const_iterator const_iterator;
 		typedef typename facade_type::reference reference;
@@ -413,6 +415,41 @@ namespace sprout {
 			return impl_.to_last_ - sprout::size(get_internal());
 		}
 
+		SPROUT_CXX14_CONSTEXPR sub_array& window(difference_type to_first = 0) {
+			impl_.to_first_ = to_first;
+			impl_.to_last_ = size();
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR sub_array& window(difference_type to_first, difference_type to_last) {
+			impl_.to_first_ = to_first;
+			impl_.to_last_ = to_last;
+			return *this;
+		}
+		SPROUT_CONSTEXPR sub_array window(difference_type to_first = 0) const {
+			return sub_array(impl_.array_, to_first, size());
+		}
+		SPROUT_CONSTEXPR sub_array window(difference_type to_first, difference_type to_last) const {
+			return sub_array(impl_.array_, to_first, to_last);
+		}
+		SPROUT_CONSTEXPR sub_array cwindow(difference_type to_first = 0) const {
+			return window(to_first);
+		}
+		SPROUT_CONSTEXPR sub_array cwindow(difference_type to_first, difference_type to_last) const {
+			return window(to_first, to_last);
+		}
+
+		SPROUT_CXX14_CONSTEXPR sub_array& offset(difference_type from_begin = 0, difference_type from_end = 0) {
+			impl_.to_first_ += from_begin;
+			impl_.to_last_ += from_end;
+			return *this;
+		}
+		SPROUT_CONSTEXPR sub_array offset(difference_type from_begin = 0, difference_type from_end = 0) const {
+			return sub_array(impl_.array_, impl_.to_first_ + from_begin, impl_.to_last_ + from_end);
+		}
+		SPROUT_CONSTEXPR sub_array coffset(difference_type from_begin = 0, difference_type from_end = 0) const {
+			return offset(from_begin, from_end);
+		}
+
 		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
 			return i < size()
 				? sprout::next(begin(), i)
@@ -430,6 +467,37 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const {
 			return sprout::distance(begin(), p);
+		}
+
+		SPROUT_CXX14_CONSTEXPR void push_back(value_type const& x) {
+			impl_.array_[impl_.to_last_] = x;
+			++impl_.to_last_;
+		}
+		SPROUT_CXX14_CONSTEXPR void push_back(value_type&& x) {
+			impl_.array_[impl_.to_last_] = sprout::move(x);
+			++impl_.to_last_;
+		}
+		SPROUT_CXX14_CONSTEXPR void pop_back() {
+			impl_.array_[impl_.to_last_ - 1] = value_type();
+			--impl_.to_last_;
+		}
+		SPROUT_CXX14_CONSTEXPR void drop_back() {
+			--impl_.to_last_;
+		}
+		SPROUT_CXX14_CONSTEXPR void push_front(value_type const& x) {
+			impl_.array_[impl_.to_first_ - 1] = x;
+			--impl_.to_first_;
+		}
+		SPROUT_CXX14_CONSTEXPR void push_front(value_type&& x) {
+			impl_.array_[impl_.to_first_ - 1] = sprout::move(x);
+			--impl_.to_first_;
+		}
+		SPROUT_CXX14_CONSTEXPR void pop_front() {
+			impl_.array_[impl_.to_first_] = value_type();
+			++impl_.to_first_;
+		}
+		SPROUT_CXX14_CONSTEXPR void drop_front() {
+			++impl_.to_first_;
 		}
 	};
 	template<typename Container>
