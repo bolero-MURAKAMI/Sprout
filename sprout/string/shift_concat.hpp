@@ -43,11 +43,11 @@ namespace sprout {
 					)...
 				);
 		}
-		template<typename T, std::size_t N, typename Traits, std::size_t M, sprout::index_t... Indexes>
+		template<typename T, std::size_t N, typename Traits, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
 		string_rshift(
 			sprout::basic_string<T, N, Traits> const& lhs, std::size_t lsize,
-			T const (& rhs)[M], std::size_t rsize,
+			T const* rhs, std::size_t rsize,
 			sprout::index_tuple<Indexes...>
 			)
 		{
@@ -90,13 +90,12 @@ namespace sprout {
 			sprout::make_index_tuple<N>::make()
 			);
 	}
-	template<typename T, std::size_t N, typename Traits, std::size_t M>
+	template<typename T, std::size_t N, typename Traits>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
-	operator<<(sprout::basic_string<T, N, Traits> const& lhs, T const (& rhs)[M]) {
-		typedef sprout::char_traits_helper<Traits> traits_type;
+	operator<<(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
 		return sprout::detail::string_rshift(
 			lhs, lhs.size(),
-			rhs, traits_type::length(rhs, M - 1),
+			rhs, Traits::length(rhs),
 			sprout::make_index_tuple<N>::make()
 			);
 	}
@@ -128,11 +127,11 @@ namespace sprout {
 					)...
 				);
 		}
-		template<typename T, std::size_t N, typename Traits, std::size_t M, sprout::index_t... Indexes>
+		template<typename T, std::size_t N, typename Traits, sprout::index_t... Indexes>
 		inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
 		string_lshift(
 			sprout::basic_string<T, N, Traits> const& lhs, std::size_t lsize,
-			T const (& rhs)[M], std::size_t rsize,
+			T const* rhs, std::size_t rsize,
 			sprout::index_tuple<Indexes...>
 			)
 		{
@@ -175,13 +174,12 @@ namespace sprout {
 			sprout::make_index_tuple<N>::make()
 			);
 	}
-	template<typename T, std::size_t N, typename Traits, std::size_t M>
+	template<typename T, std::size_t N, typename Traits>
 	inline SPROUT_CONSTEXPR sprout::basic_string<T, N, Traits>
-	operator>>(sprout::basic_string<T, N, Traits> const& lhs, T const (& rhs)[M]) {
-		typedef sprout::char_traits_helper<Traits> traits_type;
+	operator>>(sprout::basic_string<T, N, Traits> const& lhs, T const* rhs) {
 		return sprout::detail::string_lshift(
 			lhs, lhs.size(),
-			rhs, traits_type::length(rhs, M - 1),
+			rhs, Traits::length(rhs),
 			sprout::make_index_tuple<N>::make()
 			);
 	}

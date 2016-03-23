@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/bind2nd.hpp>
+#include <sprout/iterator/next.hpp>
 #include <sprout/iterator/ptr_index_iterator.hpp>
 #include <sprout/algorithm/find_if.hpp>
 #include <sprout/algorithm/tristate_lexicographical_compare.hpp>
@@ -113,7 +114,7 @@ namespace sprout {
 				);
 		}
 		static SPROUT_CXX14_CONSTEXPR char_type* move(char_type* s1, char_type const* s2, std::size_t n) {
-			sprout::copy_backward(s2, s2 + n, s1 + n);
+			sprout::copy_backward(s2, s2 + n, sprout::next(s1, n));
 			return s1;
 		}
 		static SPROUT_CXX14_CONSTEXPR char_type* copy(char_type* s1, char_type const* s2, std::size_t n) {
@@ -160,56 +161,56 @@ namespace sprout {
 		}
 #endif
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		template<typename ConstInputIterator>
-		static SPROUT_CONSTEXPR int compare(char_type const* s1, ConstInputIterator s2, std::size_t n) {
+		template<typename ForwardIterator>
+		static SPROUT_CONSTEXPR int compare(char_type const* s1, ForwardIterator s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
 				sprout::ptr_index(s1), sprout::ptr_index(s1, n), char_type(),
-				s2, s2 + n, char_type(),
+				s2, sprout::next(s2, n), char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
-		template<typename ConstInputIterator>
-		static SPROUT_CONSTEXPR int compare(ConstInputIterator s1, char_type const* s2, std::size_t n) {
+		template<typename ForwardIterator>
+		static SPROUT_CONSTEXPR int compare(ForwardIterator s1, char_type const* s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
-				s1, s1 + n, char_type(),
+				s1, sprout::next(s1, n), char_type(),
 				sprout::ptr_index(s2), sprout::ptr_index(s2, n), char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
-		template<typename ConstInputIterator1, typename ConstInputIterator2>
-		static SPROUT_CONSTEXPR int compare(ConstInputIterator1 s1, ConstInputIterator2 s2, std::size_t n) {
+		template<typename ForwardIterator1, typename ForwardIterator2>
+		static SPROUT_CONSTEXPR int compare(ForwardIterator1 s1, ForwardIterator2 s2, std::size_t n) {
 			return sprout::tristate_lexicographical_compare(
-				s1, s1 + n, char_type(),
-				s2, s2 + n, char_type(),
+				s1, sprout::next(s1, n), char_type(),
+				s2, sprout::next(s2, n), char_type(),
 				sprout::detail::char_traits_lt<char_traits>()
 				);
 		}
-		template<typename ConstInputIterator>
-		static SPROUT_CONSTEXPR std::size_t length(ConstInputIterator s) {
+		template<typename InputIterator>
+		static SPROUT_CONSTEXPR std::size_t length(InputIterator s) {
 			return sprout::detail::strlen(s);
 		}
-		template<typename ConstInputIterator>
-		static SPROUT_CONSTEXPR ConstInputIterator find(ConstInputIterator s, std::size_t n, char_type const& a) {
+		template<typename ForwardIterator>
+		static SPROUT_CONSTEXPR ForwardIterator find(ForwardIterator s, std::size_t n, char_type const& a) {
 			return sprout::ptr_unindex(
 				sprout::find_if(
-					s, s + n,
+					s, sprout::next(s, n),
 					sprout::bind2nd(sprout::detail::char_traits_eq<char_traits>(), a)
 					)
 				);
 		}
-		template<typename OutputIterator, typename ConstInputIterator>
-		static SPROUT_CXX14_CONSTEXPR OutputIterator move(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
-			sprout::copy_backward(s2, s2 + n, s1 + n);
+		template<typename BidirectionalIterator1, typename BidirectionalIterator2>
+		static SPROUT_CXX14_CONSTEXPR BidirectionalIterator1 move(BidirectionalIterator1 s1, BidirectionalIterator2 s2, std::size_t n) {
+			sprout::copy_backward(s2, sprout::next(s2, n), sprout::next(s1, n));
 			return s1;
 		}
-		template<typename OutputIterator, typename ConstInputIterator>
-		static SPROUT_CXX14_CONSTEXPR OutputIterator copy(OutputIterator s1, ConstInputIterator s2, std::size_t n) {
-			sprout::copy(s2, s2 + n, s1);
+		template<typename OutputIterator, typename BidirectionalIterator>
+		static SPROUT_CXX14_CONSTEXPR OutputIterator copy(OutputIterator s1, BidirectionalIterator s2, std::size_t n) {
+			sprout::copy(s2, sprout::next(s2, n), s1);
 			return s1;
 		}
-		template<typename OutputIterator>
-		static SPROUT_CXX14_CONSTEXPR OutputIterator assign(OutputIterator s, std::size_t n, char_type a) {
-			sprout::fill(s, s + n, a);
+		template<typename ForwardIterator>
+		static SPROUT_CXX14_CONSTEXPR ForwardIterator assign(ForwardIterator s, std::size_t n, char_type a) {
+			sprout::fill(s, sprout::next(s, n), a);
 			return s;
 		}
 #endif
@@ -243,19 +244,19 @@ namespace sprout {
 			return found != last;
 		}
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		template<typename ConstInputIterator>
-		static SPROUT_CONSTEXPR std::size_t length(ConstInputIterator s, std::size_t n) {
+		template<typename InputIterator>
+		static SPROUT_CONSTEXPR std::size_t length(InputIterator s, std::size_t n) {
 			return sprout::detail::strlen(s, n);
 		}
-		template<typename ConstInputIterator>
-		static SPROUT_CONSTEXPR ConstInputIterator find(ConstInputIterator s, std::size_t n, char_type const& a) {
+		template<typename ForwardIterator>
+		static SPROUT_CONSTEXPR ForwardIterator find(ForwardIterator s, std::size_t n, char_type const& a) {
 			return sprout::find_if(
-				s, s + n,
+				s, sprout::next(s, n),
 				sprout::bind2nd(sprout::detail::char_traits_eq<traits_type>(), a)
 				);
 		}
-		template<typename ConstInputIterator>
-		static SPROUT_CONSTEXPR bool is_found(ConstInputIterator found, ConstInputIterator last) {
+		template<typename InputIterator>
+		static SPROUT_CONSTEXPR bool is_found(InputIterator found, InputIterator last) {
 			return found != last;
 		}
 #endif
