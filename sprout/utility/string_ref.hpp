@@ -16,5 +16,7 @@
 #include <sprout/utility/string_ref/conversion.hpp>
 #include <sprout/utility/string_ref/type_traits.hpp>
 #include <sprout/utility/string_ref/alias.hpp>
+#include <sprout/utility/string_ref/udl.hpp>
+#include <sprout/utility/string_ref/string_view.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_STRING_REF_HPP

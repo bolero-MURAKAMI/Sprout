@@ -9,6 +9,7 @@
 #define SPROUT_UTILITY_STRING_REF_STRING_REF_HPP
 
 #include <string>
+#include <memory>
 #include <stdexcept>
 #include <type_traits>
 #include <sprout/config.hpp>
@@ -124,19 +125,19 @@ namespace sprout {
 #else
 		SPROUT_CXX14_CONSTEXPR iterator
 		begin() SPROUT_NOEXCEPT {
-			return data();
+			return ptr_;
 		}
 		SPROUT_CONSTEXPR const_iterator
 		begin() const SPROUT_NOEXCEPT {
-			return data();
+			return ptr_;
 		}
 		SPROUT_CXX14_CONSTEXPR iterator
 		end() SPROUT_NOEXCEPT {
-			return data() + size();
+			return ptr_ + size();
 		}
 		SPROUT_CONSTEXPR const_iterator
 		end() const SPROUT_NOEXCEPT {
-			return data() + size();
+			return ptr_ + size();
 		}
 #endif
 		SPROUT_CONSTEXPR const_reverse_iterator
@@ -159,11 +160,11 @@ namespace sprout {
 #else
 		SPROUT_CONSTEXPR const_iterator
 		cbegin() const SPROUT_NOEXCEPT {
-			return data();
+			return ptr_;
 		}
 		SPROUT_CONSTEXPR const_iterator
 		cend() const SPROUT_NOEXCEPT {
-			return data() + size();
+			return ptr_ + size();
 		}
 #endif
 		SPROUT_CONSTEXPR const_reverse_iterator
@@ -232,8 +233,8 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR basic_string_ref
 		remove_prefix(size_type n) const {
-			return n > size() ? basic_string_ref(data() + size(), 0)
-				: basic_string_ref(data() + n, size() - n)
+			return n > size() ? basic_string_ref(ptr_ + size(), 0)
+				: basic_string_ref(ptr_ + n, size() - n)
 				;
 		}
 		SPROUT_CXX14_CONSTEXPR void
@@ -245,8 +246,8 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR basic_string_ref
 		remove_suffix(size_type n) const {
-			return n > size() ? basic_string_ref(data(), 0)
-				: basic_string_ref(data(), size() - n)
+			return n > size() ? basic_string_ref(ptr_, 0)
+				: basic_string_ref(ptr_, size() - n)
 				;
 		}
 		// string operations:
@@ -355,6 +356,13 @@ namespace sprout {
 		find_last_not_of(value_type c, size_type pos = npos) const {
 			return sprout::string_detail::find_last_not_of_c_impl<basic_string_ref>(begin(), size(), c, pos);
 		}
+		SPROUT_CXX14_CONSTEXPR size_type
+		copy(value_type* s, size_type n, size_type pos = 0) const {
+			rangecheck(pos);
+			size_type llen = NS_SSCRISK_CEL_OR_SPROUT::min(n, size() - pos);
+			traits_type::copy(s, begin() + pos, llen);
+			return llen;
+		}
 		SPROUT_CONSTEXPR basic_string_ref
 		substr(size_type pos = 0, size_type n = npos) const {
 			return !(size() < pos) ? n == npos
@@ -399,7 +407,7 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR bool
 		starts_with(basic_string_ref const& str) const {
-			return size() >= str.size() && traits_type::compare(data(), str.data(), str.size()) == 0;
+			return size() >= str.size() && traits_type::compare(begin(), str.begin(), str.size()) == 0;
 		}
 		SPROUT_CONSTEXPR bool
 		ends_with(value_type c) const {
@@ -407,24 +415,30 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR bool
 		ends_with(basic_string_ref const& str) const {
-			return size() >= str.size() && traits_type::compare(data() + size() - str.size(), str.data(), str.size()) == 0;
+			return size() >= str.size() && traits_type::compare(begin() + size() - str.size(), str.begin(), str.size()) == 0;
 		}
-		// others:
+		template<std::size_t N>
+		SPROUT_NON_CONSTEXPR sprout::basic_string<T, N, Traits>
+		to_string() const {
+			return sprout::basic_string<T, N, Traits>(ptr_, size());
+		}
+		template<typename Allocator = std::allocator<T> >
+		SPROUT_NON_CONSTEXPR std::basic_string<T, Traits, Allocator>
+		to_string() const {
+			return std::basic_string<T, Traits, Allocator>(ptr_, size());
+		}
+		template<std::size_t N>
+		SPROUT_EXPLICIT_CONVERSION SPROUT_NON_CONSTEXPR operator sprout::basic_string<T, N, Traits>() const {
+			return to_string<N>();
+		}
 		template<typename Allocator>
 		SPROUT_EXPLICIT_CONVERSION SPROUT_NON_CONSTEXPR operator std::basic_string<T, Traits, Allocator>() const {
-			return std::basic_string<T, Traits, Allocator>(data(), size());
-		}
-		SPROUT_CONSTEXPR const_pointer
-		c_array() const SPROUT_NOEXCEPT {
-			return data();
-		}
-		SPROUT_CXX14_CONSTEXPR pointer
-		c_array() SPROUT_NOEXCEPT {
-			return data();
+			return to_string<Allocator>();
 		}
 		// others:
-		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
-			return i >= size() ? throw std::out_of_range("uuid: index out of range")
+		SPROUT_CXX14_CONSTEXPR void
+		rangecheck(size_type i) const {
+			return i >= size() ? throw std::out_of_range("basic_string_ref<>: index out of range")
 				: (void)0
 				;
 		}

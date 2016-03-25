@@ -281,28 +281,31 @@ namespace sprout {
 				sprout::detail::string_raw_construct_t(), n, SPROUT_FORWARD(Args, args)...
 				)
 		{}
-		SPROUT_CXX14_CONSTEXPR void maxcheck(size_type n) const {
-			if (n > static_size) {
+		SPROUT_CXX14_CONSTEXPR void
+		maxcheck(size_type n) const {
+			if (n > max_size()) {
 				throw std::out_of_range("basic_string<>: index out of range");
 			}
 		}
-		SPROUT_CXX14_CONSTEXPR void lengthcheck(size_type n) const {
-			if (n > static_size) {
+		SPROUT_CXX14_CONSTEXPR void
+		lengthcheck(size_type n) const {
+			if (n > max_size()) {
 				throw std::length_error("basic_string<>: length exceeded");
 			}
 		}
-		SPROUT_CXX14_CONSTEXPR void put_terminator() {
-			traits_type::assign(begin() + size(), static_size - size(), value_type());
-		}
-		SPROUT_CXX14_CONSTEXPR void put_terminator(size_type n) {
+		SPROUT_CXX14_CONSTEXPR void
+		put_terminator(size_type n) {
+			if (n < size()) {
+				traits_type::assign(begin() + n, size() - n, value_type());
+			}
 			impl_.len = n;
-			put_terminator();
 		}
 		template<typename InputIterator>
-		SPROUT_CXX14_CONSTEXPR basic_string& assign(InputIterator first, InputIterator last, std::input_iterator_tag*) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		assign(InputIterator first, InputIterator last, std::input_iterator_tag*) {
 			iterator it = begin();
 			for (; first != last; ++first, ++it) {
-				if (sprout::distance(begin(), it) > static_size) {
+				if (sprout::distance(begin(), it) > max_size()) {
 					throw std::length_error("basic_string<>: length exceeded");
 				}
 				traits_type::assign(*it, *first);
@@ -311,7 +314,8 @@ namespace sprout {
 			return *this;
 		}
 		template<typename ForwardIterator>
-		SPROUT_CXX14_CONSTEXPR basic_string& assign(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag*) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		assign(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag*) {
 			lengthcheck(sprout::distance(first, last));
 			iterator it = begin();
 			for (; first != last; ++first, ++it) {
@@ -321,10 +325,11 @@ namespace sprout {
 			return *this;
 		}
 		template<typename InputIterator>
-		SPROUT_CXX14_CONSTEXPR basic_string& append(InputIterator first, InputIterator last, std::input_iterator_tag*) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		append(InputIterator first, InputIterator last, std::input_iterator_tag*) {
 			iterator it = end();
 			for (; first != last; ++first, ++it) {
-				if (sprout::distance(begin(), it) > static_size) {
+				if (sprout::distance(begin(), it) > max_size()) {
 					throw std::length_error("basic_string<>: length exceeded");
 				}
 				traits_type::assign(*it, *first);
@@ -333,7 +338,8 @@ namespace sprout {
 			return *this;
 		}
 		template<typename ForwardIterator>
-		SPROUT_CXX14_CONSTEXPR basic_string& append(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag*) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		append(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag*) {
 			lengthcheck(size() + sprout::distance(first, last));
 			iterator it = end();
 			for (; first != last; ++first, ++it) {
@@ -436,6 +442,10 @@ namespace sprout {
 		SPROUT_CXX14_CONSTEXPR basic_string&
 		operator=(value_type rhs) {
 			return assign(1, rhs);
+		}
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator=(std::initializer_list<value_type> il) {
+			return assign(il);
 		}
 		// iterators:
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
@@ -540,6 +550,10 @@ namespace sprout {
 		SPROUT_CXX14_CONSTEXPR void
 		resize(size_type n) {
 			resize(n, value_type());
+		}
+		SPROUT_CONSTEXPR size_type
+		capacity() const SPROUT_NOEXCEPT {
+			return static_size;
 		}
 		SPROUT_CXX14_CONSTEXPR void
 		clear() SPROUT_NOEXCEPT {
@@ -1063,63 +1077,80 @@ namespace sprout {
 #endif
 
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
-		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
+		SPROUT_CXX14_CONSTEXPR iterator
+		nth(size_type i) {
 			return i < size()
 				? iterator(*this, i)
 				: (throw std::out_of_range("basic_string<>: index out of range"), iterator())
 				;
 		}
-		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
+		SPROUT_CONSTEXPR const_iterator
+		nth(size_type i) const {
 			return i < size()
 				? const_iterator(*this, i)
 				: (throw std::out_of_range("basic_string<>: index out of range"), const_iterator())
 				;
 		}
-		SPROUT_CXX14_CONSTEXPR size_type index_of(iterator p) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR size_type
+		index_of(iterator p) SPROUT_NOEXCEPT {
 			return p.index();
 		}
-		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR size_type
+		index_of(const_iterator p) const SPROUT_NOEXCEPT {
 			return p.index();
 		}
 #else
-		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
+		SPROUT_CXX14_CONSTEXPR iterator
+		nth(size_type i) {
 			return i < size()
 				? data() + i
 				: (throw std::out_of_range("basic_string<>: index out of range"), iterator())
 				;
 		}
-		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
+		SPROUT_CONSTEXPR const_iterator
+		th(size_type i) const {
 			return i < size()
 				? data() + i
 				: (throw std::out_of_range("basic_string<>: index out of range"), const_iterator())
 				;
 		}SPROUT_CXX14_CONSTEXPR
-		SPROUT_CONSTEXPR size_type index_of(iterator p) SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR size_type
+		index_of(iterator p) SPROUT_NOEXCEPT {
 			return sprout::distance(begin(), p);
 		}
-		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR size_type
+		index_of(const_iterator p) const SPROUT_NOEXCEPT {
 			return sprout::distance(begin(), p);
 		}
 #endif
-		SPROUT_CXX14_CONSTEXPR basic_string& operator<<=(T const& rhs) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator<<=(T const& rhs) {
 			push_back(rhs);
 			return *this;
 		}
-		SPROUT_CXX14_CONSTEXPR basic_string& operator<<=(value_type const* rhs) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator<<=(value_type const* rhs) {
 			return append(rhs);
 		}
 		template<std::size_t N2>
-		SPROUT_CXX14_CONSTEXPR basic_string& operator<<=(basic_string<T, N2, Traits> const& rhs) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator<<=(basic_string<T, N2, Traits> const& rhs) {
 			return append(rhs);
 		}
-		SPROUT_CXX14_CONSTEXPR basic_string& operator>>=(T const& rhs) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator<<=(std::initializer_list<value_type> rhs) {
+			return append(rhs);
+		}
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator>>=(T const& rhs) {
 			lengthcheck(size() + 1);
 			traits_type::move(begin() + 1, begin(), size());
 			traits_type::assign(begin(), 1, rhs);
 			put_terminator(size() + 1);
 			return *this;
 		}
-		SPROUT_CXX14_CONSTEXPR basic_string& operator>>=(value_type const* rhs) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator>>=(value_type const* rhs) {
 			size_type rlen = traits_type::length(rhs);
 			lengthcheck(size() + rlen);
 			traits_type::move(begin() + rlen, begin(), size());
@@ -1128,7 +1159,16 @@ namespace sprout {
 			return *this;
 		}
 		template<std::size_t N2>
-		SPROUT_CXX14_CONSTEXPR basic_string& operator>>=(basic_string<T, N2, Traits> const& rhs) {
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator>>=(basic_string<T, N2, Traits> const& rhs) {
+			lengthcheck(size() + rhs.size());
+			traits_type::move(begin() + rhs.size(), begin(), size());
+			traits_type::move(begin(), rhs.begin(), rhs.size());
+			put_terminator(size() + rhs.size());
+			return *this;
+		}
+		SPROUT_CXX14_CONSTEXPR basic_string&
+		operator>>=(std::initializer_list<value_type> rhs) {
 			lengthcheck(size() + rhs.size());
 			traits_type::move(begin() + rhs.size(), begin(), size());
 			traits_type::move(begin(), rhs.begin(), rhs.size());
