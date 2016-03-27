@@ -15,9 +15,6 @@
 #include <sprout/string.hpp>
 #include <sprout/algorithm.hpp>
 
-template<typename T, std::size_t N>
-using subbed_array = sprout::sub_array<sprout::array<T, N> >;
-
 template<typename Char>
 struct csv_parser_settings {
 public:
@@ -45,10 +42,10 @@ public:
 };
 
 template<std::size_t N, std::size_t L, typename String, typename ResultString = String>
-constexpr subbed_array<subbed_array<ResultString, N>, L>
+constexpr sprout::array_sub_t<sprout::array_sub_t<ResultString, N>, L>
 parse_csv(String const& src, csv_parser_settings<typename String::value_type> settings = csv_parser_settings<typename String::value_type>()) {
 	typedef typename String::value_type value_type;
-	subbed_array<subbed_array<ResultString, N>, L> result = {};
+	sprout::array_sub_t<sprout::array_sub_t<ResultString, N>, L> result = {};
 	result.window(0, 1);
 	result.back().window(0, 0);
 	auto delimiters = sprout::make_string(settings.delimiter(), value_type('\r'), value_type('\n'));

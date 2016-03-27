@@ -18,5 +18,6 @@
 #include <sprout/sub_array/sub_window.hpp>
 #include <sprout/sub_array/sub_offset.hpp>
 #include <sprout/sub_array/type_traits.hpp>
+#include <sprout/sub_array/array_sub.hpp>
 
 #endif	// #ifndef SPROUT_SUB_ARRAY_HPP
