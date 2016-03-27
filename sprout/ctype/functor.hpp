@@ -384,9 +384,9 @@ namespace sprout {
 			typedef T argument_type;
 			typedef bool result_type;
 		private:
-			sprout::ctypes::mask_t m_;
+			sprout::ctypes::mask m_;
 		public:
-			explicit SPROUT_CONSTEXPR is_classified(sprout::ctypes::mask_t m)
+			explicit SPROUT_CONSTEXPR is_classified(sprout::ctypes::mask m)
 				: m_(m)
 			{}
 			SPROUT_CONSTEXPR bool
@@ -399,9 +399,9 @@ namespace sprout {
 		public:
 			typedef bool result_type;
 		private:
-			sprout::ctypes::mask_t m_;
+			sprout::ctypes::mask m_;
 		public:
-			explicit SPROUT_CONSTEXPR is_classified(sprout::ctypes::mask_t m)
+			explicit SPROUT_CONSTEXPR is_classified(sprout::ctypes::mask m)
 				: m_(m)
 			{}
 			template<typename T>

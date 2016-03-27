@@ -249,7 +249,7 @@ namespace sprout {
 			return sprout::ascii::detail::get_value(c) & sprout::ascii::detail::lower ? c - (0x61 - 0x41) : c; \
 		} \
 		inline SPROUT_CONSTEXPR bool \
-		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, classified))(sprout::ctypes::mask_t m, CHAR_TYPE c) { \
+		SPROUT_PP_CAT(is, SPROUT_PP_CAT(PREFIX, classified))(sprout::ctypes::mask m, CHAR_TYPE c) { \
 			return (m | sprout::ctypes::alnum && (sprout::ascii::detail::get_value(c) & (sprout::ascii::detail::alpha | sprout::ascii::detail::digit))) \
 				|| (m | sprout::ctypes::alpha && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::alpha)) \
 				|| (m | sprout::ctypes::blank && (sprout::ascii::detail::get_value(c) & sprout::ascii::detail::blank)) \

@@ -10,40 +10,59 @@
 
 #include <locale>
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 
 namespace sprout {
 	namespace ctypes {
 		//
-		// mask_t
+		// mask
 		//
-		typedef std::ctype_base::mask mask_t;
-
-		//
-		// space
-		// print
-		// cntrl
-		// upper
-		// lower
-		// alpha
-		// digit
-		// punct
-		// xdigit
-		// blank
-		// alnum
-		// graph
-		//
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t space = std::ctype_base::space;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t print = std::ctype_base::print;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t cntrl = std::ctype_base::cntrl;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t upper = std::ctype_base::upper;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t lower = std::ctype_base::lower;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t alpha = std::ctype_base::alpha;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t digit = std::ctype_base::digit;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t punct = std::ctype_base::punct;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t xdigit = std::ctype_base::xdigit;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t blank = /*std::ctype_base::blank*/1 << 9;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t alnum = std::ctype_base::alnum;
-		SPROUT_STATIC_CONSTEXPR sprout::ctypes::mask_t graph = std::ctype_base::graph;
+		enum mask {
+			space = std::ctype_base::space,
+			print = std::ctype_base::print,
+			cntrl = std::ctype_base::cntrl,
+			upper = std::ctype_base::upper,
+			lower = std::ctype_base::lower,
+			alpha = std::ctype_base::alpha,
+			digit = std::ctype_base::digit,
+			punct = std::ctype_base::punct,
+			xdigit = std::ctype_base::xdigit,
+#if SPROUT_GCC_EARLIER(5, 0, 0)
+			blank = 0x0001,
+#else	// #if SPROUT_GCC_EARLIER(5, 0, 0)
+			blank = std::ctype_base::blank,
+#endif	// #if SPROUT_GCC_EARLIER(5, 0, 0)
+			alnum = std::ctype_base::alnum,
+			graph = std::ctype_base::graph
+		};
+		inline SPROUT_CONSTEXPR sprout::ctypes::mask
+		operator&(sprout::ctypes::mask x, sprout::ctypes::mask y) {
+			return sprout::ctypes::mask(static_cast<int>(x) & static_cast<int>(y));
+		}
+		inline SPROUT_CONSTEXPR sprout::ctypes::mask
+		operator|(sprout::ctypes::mask x, sprout::ctypes::mask y) {
+			return sprout::ctypes::mask(static_cast<int>(x) | static_cast<int>(y));
+		}
+		inline SPROUT_CONSTEXPR sprout::ctypes::mask
+		operator^(sprout::ctypes::mask x, sprout::ctypes::mask y) {
+			return sprout::ctypes::mask(static_cast<int>(x) ^ static_cast<int>(y));
+		}
+		inline SPROUT_CONSTEXPR sprout::ctypes::mask
+		operator~(sprout::ctypes::mask x) {
+			return sprout::ctypes::mask(~static_cast<int>(x));
+		}
+		inline SPROUT_CXX14_CONSTEXPR sprout::ctypes::mask&
+		operator&=(sprout::ctypes::mask& x, sprout::ctypes::mask y) {
+			return x = x & y;
+		}
+		inline SPROUT_CXX14_CONSTEXPR sprout::ctypes::mask&
+		operator|=(sprout::ctypes::mask& x, sprout::ctypes::mask y) {
+			return x = x | y;
+		}
+		inline SPROUT_CXX14_CONSTEXPR sprout::ctypes::mask&
+		operator^=(sprout::ctypes::mask& x, sprout::ctypes::mask y) {
+			return x = x ^ y;
+		}
 	}	// namespace ctypes
 }	// namespace sprout
 
