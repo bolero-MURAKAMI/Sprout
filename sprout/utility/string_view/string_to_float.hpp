@@ -5,13 +5,13 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_UTILITY_STRING_REF_STRING_TO_FLOAT_HPP
-#define SPROUT_UTILITY_STRING_REF_STRING_TO_FLOAT_HPP
+#ifndef SPROUT_UTILITY_STRING_VIEW_STRING_TO_FLOAT_HPP
+#define SPROUT_UTILITY_STRING_VIEW_STRING_TO_FLOAT_HPP
 
 #include <string>
 #include <type_traits>
 #include <sprout/config.hpp>
-#include <sprout/utility/string_ref/string_ref.hpp>
+#include <sprout/utility/string_view/string_view.hpp>
 #include <sprout/cstdlib/str_to_float.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 
@@ -20,7 +20,7 @@ namespace sprout {
 		template<
 			typename FloatType, typename Elem, typename Traits
 		>
-		inline FloatType string_to_float_dynamic(sprout::basic_string_ref<Elem, Traits> const& str, std::size_t* idx) {
+		inline FloatType string_to_float_dynamic(sprout::basic_string_view<Elem, Traits> const& str, std::size_t* idx) {
 			Elem* endptr = nullptr;
 			FloatType result = sprout::detail::str_to_float<FloatType>(str.c_str(), &endptr);
 			*idx = endptr - str.c_str();
@@ -36,7 +36,7 @@ namespace sprout {
 		typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR FloatType
-	string_to_float(sprout::basic_string_ref<Elem, Traits> const& str, std::size_t* idx) {
+	string_to_float(sprout::basic_string_view<Elem, Traits> const& str, std::size_t* idx) {
 		return !idx ? sprout::detail::str_to_float<FloatType>(str.begin())
 			: sprout::detail::string_to_float_dynamic<FloatType>(str, idx)
 			;
@@ -46,7 +46,7 @@ namespace sprout {
 		typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR FloatType
-	string_to_float(sprout::basic_string_ref<Elem, Traits> const& str) {
+	string_to_float(sprout::basic_string_view<Elem, Traits> const& str) {
 		return sprout::detail::str_to_float<FloatType>(str.begin());
 	}
 
@@ -55,12 +55,12 @@ namespace sprout {
 	//
 	template<typename Elem, typename Traits>
 	inline SPROUT_CONSTEXPR float
-	stof(sprout::basic_string_ref<Elem, Traits> const& str, std::size_t* idx) {
+	stof(sprout::basic_string_view<Elem, Traits> const& str, std::size_t* idx) {
 		return sprout::string_to_float<float>(str, idx);
 	}
 	template<typename Elem, typename Traits>
 	inline SPROUT_CONSTEXPR float
-	stof(sprout::basic_string_ref<Elem, Traits> const& str) {
+	stof(sprout::basic_string_view<Elem, Traits> const& str) {
 		return sprout::string_to_float<float>(str);
 	}
 
@@ -69,12 +69,12 @@ namespace sprout {
 	//
 	template<typename Elem, typename Traits>
 	inline SPROUT_CONSTEXPR double
-	stod(sprout::basic_string_ref<Elem, Traits> const& str, std::size_t* idx) {
+	stod(sprout::basic_string_view<Elem, Traits> const& str, std::size_t* idx) {
 		return sprout::string_to_float<double>(str, idx);
 	}
 	template<typename Elem, typename Traits>
 	inline SPROUT_CONSTEXPR double
-	stod(sprout::basic_string_ref<Elem, Traits> const& str) {
+	stod(sprout::basic_string_view<Elem, Traits> const& str) {
 		return sprout::string_to_float<double>(str);
 	}
 
@@ -83,12 +83,12 @@ namespace sprout {
 	//
 	template<typename Elem, typename Traits>
 	inline SPROUT_CONSTEXPR long double
-	stold(sprout::basic_string_ref<Elem, Traits> const& str, std::size_t* idx) {
+	stold(sprout::basic_string_view<Elem, Traits> const& str, std::size_t* idx) {
 		return sprout::string_to_float<long double>(str, idx);
 	}
 	template<typename Elem, typename Traits>
 	inline SPROUT_CONSTEXPR long double
-	stold(sprout::basic_string_ref<Elem, Traits> const& str) {
+	stold(sprout::basic_string_view<Elem, Traits> const& str) {
 		return sprout::string_to_float<long double>(str);
 	}
 
@@ -100,7 +100,7 @@ namespace sprout {
 		typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR FloatType
-	from_string(sprout::basic_string_ref<Elem, Traits> const& str, std::size_t* idx) {
+	from_string(sprout::basic_string_view<Elem, Traits> const& str, std::size_t* idx) {
 		return sprout::string_to_float<FloatType>(str, idx);
 	}
 	template<
@@ -108,9 +108,9 @@ namespace sprout {
 		typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 	>
 	inline SPROUT_CONSTEXPR FloatType
-	from_string(sprout::basic_string_ref<Elem, Traits> const& str) {
+	from_string(sprout::basic_string_view<Elem, Traits> const& str) {
 		return sprout::string_to_float<FloatType>(str);
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_UTILITY_STRING_REF_STRING_TO_FLOAT_HPP
+#endif	// #ifndef SPROUT_UTILITY_STRING_VIEW_STRING_TO_FLOAT_HPP

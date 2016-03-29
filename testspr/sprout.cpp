@@ -21,7 +21,7 @@
 #include "../libs/variant/test/variant.cpp"
 #include "../libs/algorithm/test/algorithm.cpp"
 #include "../libs/random/test/random.cpp"
-#include "../libs/utility/string_ref/test/string_ref.cpp"
+#include "../libs/utility/string_view/test/string_view.cpp"
 #include "../libs/cstring/test/cstring.cpp"
 #include "../libs/net/test/endian.cpp"
 
@@ -39,7 +39,7 @@ namespace testspr {
 		testspr::variant_test();
 		testspr::algorithm_test();
 		testspr::random_test();
-		testspr::string_ref_test();
+		testspr::string_view_test();
 		testspr::cstring_test();
 		testspr::endian_test();
 	}
