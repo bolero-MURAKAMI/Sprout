@@ -12,7 +12,6 @@
 #include <sprout/utility/pair/pair.hpp>
 
 namespace sprout {
-#ifdef SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR
 	namespace detail {
 		template<typename T, typename Predicate>
 		inline SPROUT_CONSTEXPR sprout::pair<T, bool>
@@ -60,21 +59,20 @@ namespace sprout {
 		typedef sprout::pair<T, bool> type;
 		return sprout::detail::until_loop_impl(type(init, false), pred, unary_op, 1).second;
 	}
-#else
+
 	//
-	// until_loop
+	// flat_until_loop
 	//
 	//	recursion depth:
 	//		0
 	//
 	template<typename T, typename Predicate, typename UnaryOperation>
 	inline SPROUT_CXX14_CONSTEXPR T
-	until_loop(T init, Predicate pred, UnaryOperation unary_op) {
+	flat_until_loop(T init, Predicate pred, UnaryOperation unary_op) {
 		for (; !pred(init); init = unary_op(init))
 			;
 		return init;
 	}
-#endif
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_UNTIL_LOOP_HPP
