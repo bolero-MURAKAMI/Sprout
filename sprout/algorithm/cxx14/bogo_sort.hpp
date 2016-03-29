@@ -9,6 +9,7 @@
 #define SPROUT_ALGORITHM_CXX14_BOGO_SORT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/utility/forward.hpp>
 #include <sprout/algorithm/is_sorted.hpp>
 #include <sprout/algorithm/cxx14/shuffle.hpp>
 
@@ -20,14 +21,14 @@ namespace sprout {
 	inline SPROUT_CXX14_CONSTEXPR void
 	bogo_sort(RandomAccessIterator first, RandomAccessIterator last, UniformRandomNumberGenerator&& g) {
 		while (!sprout::is_sorted(first, last)) {
-			sprout::shuffle(first, last, g);
+			sprout::shuffle(first, last, SPROUT_FORWARD(UniformRandomNumberGenerator, g));
 		}
 	}
 	template<typename RandomAccessIterator, typename UniformRandomNumberGenerator, typename Compare>
 	inline SPROUT_CXX14_CONSTEXPR void
 	bogo_sort(RandomAccessIterator first, RandomAccessIterator last, UniformRandomNumberGenerator&& g, Compare comp) {
 		while (!sprout::is_sorted(first, last, comp)) {
-			sprout::shuffle(first, last, g);
+			sprout::shuffle(first, last, SPROUT_FORWARD(UniformRandomNumberGenerator, g));
 		}
 	}
 }	// namespace sprout
