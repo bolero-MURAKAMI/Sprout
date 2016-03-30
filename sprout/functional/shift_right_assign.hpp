@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_FUNCTIONAL_SHIFT_LEFT_ASSIGN_HPP
-#define SPROUT_FUNCTIONAL_SHIFT_LEFT_ASSIGN_HPP
+#ifndef SPROUT_FUNCTIONAL_SHIFT_RIGHT_ASSIGN_HPP
+#define SPROUT_FUNCTIONAL_SHIFT_RIGHT_ASSIGN_HPP
 
 #include <utility>
 #include <sprout/config.hpp>
@@ -33,4 +33,4 @@ namespace sprout {
 	};
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_SHIFT_LEFT_ASSIGN_HPP
+#endif	// #ifndef SPROUT_FUNCTIONAL_SHIFT_RIGHT_ASSIGN_HPP

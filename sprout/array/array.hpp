@@ -184,14 +184,12 @@ namespace sprout {
 			return elems[i];
 		}
 		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
-			return i < size()
-				? elems[i]
+			return i < size() ? elems[i]
 				: (throw std::out_of_range("array<>: index out of range"), elems[i])
 				;
 		}
 		SPROUT_CONSTEXPR const_reference at(size_type i) const {
-			return i < size()
-				? elems[i]
+			return i < size() ? elems[i]
 				: (throw std::out_of_range("array<>: index out of range"), elems[i])
 				;
 		}
@@ -222,21 +220,19 @@ namespace sprout {
 		}
 		// others:
 		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
-			return i >= size() ? throw std::out_of_range("uuid: index out of range")
+			return i >= size() ? throw std::out_of_range("array<>: index out of range")
 				: (void)0
 				;
 		}
 
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
 		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
-			return i < size()
-				? iterator(*this, i)
+			return i < size() ? iterator(*this, i)
 				: (throw std::out_of_range("array<>: index out of range"), iterator())
 				;
 		}
 		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
-			return i < size()
-				? const_iterator(*this, i)
+			return i < size() ? const_iterator(*this, i)
 				: (throw std::out_of_range("array<>: index out of range"), const_iterator())
 				;
 		}
@@ -248,14 +244,12 @@ namespace sprout {
 		}
 #else
 		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
-			return i < size()
-				? iterator(elems) + i
+			return i < size() ? iterator(elems) + i
 				: (throw std::out_of_range("array<>: index out of range"), iterator())
 				;
 		}
 		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
-			return i < size()
-				? const_iterator(elems) + i
+			return i < size() ? const_iterator(elems) + i
 				: (throw std::out_of_range("array<>: index out of range"), const_iterator())
 				;
 		}

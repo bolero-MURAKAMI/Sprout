@@ -157,7 +157,7 @@ namespace sprout {
 						)...
 					}
 				, len(!sprout::math::less(N, n) ? n
-					: throw std::out_of_range("basic_string<>: index out of range")
+					: throw std::length_error("basic_string<>: length exceeded")
 					)
 			{}
 			template<typename RandomAccessIterator, typename Size, sprout::index_t... Indexes>
@@ -172,7 +172,7 @@ namespace sprout {
 						)...
 					}
 				, len(!sprout::math::less(N, n) ? n
-					: throw std::out_of_range("basic_string<>: index out of range")
+					: throw std::length_error("basic_string<>: length exceeded")
 					)
 			{}
 			template<typename InputIterator, typename Source, sprout::index_t... Indexes>
@@ -187,7 +187,7 @@ namespace sprout {
 						)...
 					}
 				, len(!(N < str.size()) ? str.size()
-					: throw std::out_of_range("basic_string<>: index out of range")
+					: throw std::length_error("basic_string<>: length exceeded")
 					)
 			{}
 			template<typename... Args, sprout::index_t... Indexes>
