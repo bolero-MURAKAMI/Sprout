@@ -17,7 +17,7 @@ namespace sprout {
 	namespace detail {
 		template<typename ForwardIterator, typename T, typename Compare>
 		inline SPROUT_CONSTEXPR bool
-		binary_search_impl(ForwardIterator first, ForwardIterator last, T const& value, Compare comp) {
+		binary_search_impl(ForwardIterator const& first, ForwardIterator const& last, T const& value, Compare comp) {
 			return (first != last && !comp(value, *first));
 		}
 	}	// namespace detail

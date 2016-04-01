@@ -55,48 +55,48 @@ namespace sprout {
 		typedef sprout::pair<iterator_type, iterator2_type> pair_type;
 	private:
 		static SPROUT_CONSTEXPR bool check_in_left(
-			iterator_type it1, iterator_type lst_1,
-			iterator2_type it2, iterator2_type lst_2,
+			iterator_type it1, iterator_type las1,
+			iterator2_type it2, iterator2_type las2,
 			Compare comp
 			)
 		{
-			return it1 != lst_1 ? (it2 != lst_2 ? comp(*it1, *it2) || !comp(*it2, *it1) : true)
-				: !(it2 != lst_2)
+			return it1 != las1 ? (it2 != las2 ? comp(*it1, *it2) || !comp(*it2, *it1) : true)
+				: !(it2 != las2)
 				;
 		}
 	protected:
 		pair_type current;
-		iterator_type lst_1;
-		iterator2_type lst_2;
+		iterator_type las1;
+		iterator2_type las2;
 		Compare comp;
 	private:
 		bool in_left;
 	private:
 		SPROUT_CONSTEXPR set_union_iterator(set_union_iterator const& other, pair_type const& next)
 			: current(next)
-			, lst_1(other.lst_1), lst_2(other.lst_2)
+			, las1(other.las1), las2(other.las2)
 			, comp(other.comp)
-			, in_left(check_in_left(next.first, other.lst_1, next.second, other.lst_2, other.comp))
+			, in_left(check_in_left(next.first, other.las1, next.second, other.las2, other.comp))
 		{}
 	public:
 		SPROUT_CONSTEXPR set_union_iterator()
-			: current(), lst_1(), lst_2(), comp(), in_left(true)
+			: current(), las1(), las2(), comp(), in_left(true)
 		{}
 		set_union_iterator(set_union_iterator const&) = default;
 		SPROUT_CONSTEXPR set_union_iterator(
-			iterator_type it1, iterator_type lst_1,
-			iterator2_type it2, iterator2_type lst_2,
+			iterator_type it1, iterator_type las1,
+			iterator2_type it2, iterator2_type las2,
 			Compare comp = Compare()
 			)
 			: current(it1, it2)
-			, lst_1(lst_1), lst_2(lst_2)
+			, las1(las1), las2(las2)
 			, comp(comp)
-			, in_left(check_in_left(it1, lst_1, it2, lst_2, comp))
+			, in_left(check_in_left(it1, las1, it2, las2, comp))
 		{}
 		template<typename U, typename V, typename W>
 		SPROUT_CONSTEXPR set_union_iterator(set_union_iterator<U, V, W> const& it)
 			: current(it.base(), it.base2())
-			, lst_1(it.last1()), lst_2(it.last2())
+			, las1(it.last1()), las2(it.last2())
 			, comp(it.compare())
 			, in_left(it.is_in_left())
 		{}
@@ -110,13 +110,13 @@ namespace sprout {
 			return current.first;
 		}
 		SPROUT_CONSTEXPR iterator_type last1() const {
-			return lst_1;
+			return las1;
 		}
 		SPROUT_CONSTEXPR iterator2_type base2() const {
 			return current.second;
 		}
 		SPROUT_CONSTEXPR iterator2_type last2() const {
-			return lst_2;
+			return las2;
 		}
 		SPROUT_CONSTEXPR Compare compare() const {
 			return comp;
@@ -131,33 +131,33 @@ namespace sprout {
 			return &*(*this);
 		}
 		SPROUT_CXX14_CONSTEXPR set_union_iterator& operator++() {
-			current = sprout::next_union(current.first, lst_1, current.second, lst_2, comp);
-			in_left = check_in_left(current.first, lst_1, current.second, lst_2, comp);
+			current = sprout::next_union(current.first, las1, current.second, las2, comp);
+			in_left = check_in_left(current.first, las1, current.second, las2, comp);
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR set_union_iterator operator++(int) {
 			set_union_iterator result(*this);
-			current = sprout::next_union(current.first, lst_1, current.second, lst_2, comp);
-			in_left = check_in_left(current.first, lst_1, current.second, lst_2, comp);
+			current = sprout::next_union(current.first, las1, current.second, las2, comp);
+			in_left = check_in_left(current.first, las1, current.second, las2, comp);
 			return result;
 		}
 		SPROUT_CONSTEXPR set_union_iterator next() const {
 			return set_union_iterator(
 				*this,
-				sprout::next_union(current.first, lst_1, current.second, lst_2, comp)
+				sprout::next_union(current.first, las1, current.second, las2, comp)
 				);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(set_union_iterator& other)
 		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
-			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst_1, other.lst_1))
-			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst_2, other.lst_2))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(las1, other.las1))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(las2, other.las2))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(comp, other.comp))
 			)
 		{
 			sprout::swap(current, other.current);
-			sprout::swap(lst_1, other.lst_1);
-			sprout::swap(lst_2, other.lst_2);
+			sprout::swap(las1, other.las1);
+			sprout::swap(las2, other.las2);
 			sprout::swap(comp, other.comp);
 			sprout::swap(in_left, other.in_left);
 		}
@@ -191,13 +191,13 @@ namespace sprout {
 	//
 	template<typename LIterator, typename RIterator, typename Compare>
 	inline SPROUT_CONSTEXPR sprout::set_union_iterator<LIterator, RIterator, Compare>
-	make_set_union_iterator(LIterator it1, LIterator lst_1, RIterator it2, RIterator lst_2, Compare comp) {
-		return sprout::set_union_iterator<LIterator, RIterator, Compare>(it1, lst_1, it2, lst_2, comp);
+	make_set_union_iterator(LIterator it1, LIterator las1, RIterator it2, RIterator las2, Compare comp) {
+		return sprout::set_union_iterator<LIterator, RIterator, Compare>(it1, las1, it2, las2, comp);
 	}
 	template<typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR sprout::set_union_iterator<LIterator, RIterator>
-	make_set_union_iterator(LIterator it1, LIterator lst_1, RIterator it2, RIterator lst_2) {
-		return sprout::set_union_iterator<LIterator, RIterator>(it1, lst_1, it2, lst_2);
+	make_set_union_iterator(LIterator it1, LIterator las1, RIterator it2, RIterator las2) {
+		return sprout::set_union_iterator<LIterator, RIterator>(it1, las1, it2, las2);
 	}
 
 	//

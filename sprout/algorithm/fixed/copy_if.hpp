@@ -28,7 +28,7 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy_if_impl(InputIterator, InputIterator, Result const& result, Predicate,
+			copy_if_impl(InputIterator const&, InputIterator const&, Result const& result, Predicate,
 				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)
@@ -41,7 +41,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_if_impl(
-				InputIterator first, InputIterator last, Result const& result, Predicate pred,
+				InputIterator const& first, InputIterator const& last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -59,7 +59,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+			copy_if(InputIterator const& first, InputIterator const& last, Result const& result, Predicate pred) {
 				return sprout::fixed::detail::copy_if_impl(first, last, result, pred, sprout::size(result));
 			}
 
@@ -68,7 +68,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy_if(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+			copy_if(InputIterator const& first, InputIterator const& last, Result const& result, Predicate pred) {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					sprout::make_filter_iterator(pred, first, last),

@@ -24,7 +24,7 @@ namespace sprout {
 			typename std::iterator_traits<RandomAccessIterator>::difference_type
 		>::type
 		count_n(
-			RandomAccessIterator first, typename std::iterator_traits<RandomAccessIterator>::difference_type n, T const& value,
+			RandomAccessIterator const& first, typename std::iterator_traits<RandomAccessIterator>::difference_type n, T const& value,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -52,7 +52,7 @@ namespace sprout {
 		template<typename InputIterator, typename T>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 		count_n(
-			InputIterator first, typename std::iterator_traits<InputIterator>::difference_type n, T const& value,
+			InputIterator const& first, typename std::iterator_traits<InputIterator>::difference_type n, T const& value,
 			std::input_iterator_tag*
 			)
 		{
@@ -70,7 +70,7 @@ namespace sprout {
 		//
 		template<typename InputIterator, typename T>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
-		count_n(InputIterator first, typename std::iterator_traits<InputIterator>::difference_type n, T const& value) {
+		count_n(InputIterator const& first, typename std::iterator_traits<InputIterator>::difference_type n, T const& value) {
 			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 			return sprout::detail::count_n(first, n, value, category());
 		}

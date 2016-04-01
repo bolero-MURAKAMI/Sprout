@@ -14,7 +14,7 @@ namespace sprout {
 	namespace detail {
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR InputIterator
-		str_find_check(InputIterator found) {
+		str_find_check(InputIterator const& found) {
 			return !*found ? InputIterator()
 				: found
 				;
@@ -22,7 +22,7 @@ namespace sprout {
 
 		template<typename InputIterator, typename T>
 		inline SPROUT_CONSTEXPR InputIterator
-		str_find_check(InputIterator found, T const& value) {
+		str_find_check(InputIterator const& found, T const& value) {
 			return !(*found == value) && !*found ? InputIterator()
 				: found
 				;

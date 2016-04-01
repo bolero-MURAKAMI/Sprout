@@ -21,7 +21,7 @@ namespace sprout {
 	namespace detail {
 		template<typename ForwardIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR ForwardIterator
-		partition_point_impl(ForwardIterator first, ForwardIterator last, Predicate pred, ForwardIterator mid) {
+		partition_point_impl(ForwardIterator const& first, ForwardIterator const& last, Predicate pred, ForwardIterator const& mid) {
 			return mid == last ? mid
 				: pred(*mid) ? sprout::detail::partition_point_impl(
 					sprout::next(mid), last, pred,

@@ -20,7 +20,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename T>
 		inline SPROUT_CONSTEXPR bool
 		one_of_equal_impl_ra_1(
-			RandomAccessIterator first, RandomAccessIterator last, T const& value,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, T const& value,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot
 			)
 		{
@@ -38,7 +38,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename T>
 		inline SPROUT_CONSTEXPR bool
 		one_of_equal_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, T const& value,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, T const& value,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot
 			)
 		{
@@ -63,7 +63,7 @@ namespace sprout {
 			bool
 		>::type
 		one_of_equal(
-			RandomAccessIterator first, RandomAccessIterator last, T const& value,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, T const& value,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -76,7 +76,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type>
 		one_of_equal_impl_1(
 			sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> const& current,
-			InputIterator last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
@@ -97,7 +97,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type>
 		one_of_equal_impl(
 			sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> const& current,
-			InputIterator last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, T const& value, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			return current.second > 1 || current.first == last ? current
@@ -113,7 +113,7 @@ namespace sprout {
 		template<typename InputIterator, typename T>
 		inline SPROUT_CONSTEXPR bool
 		one_of_equal(
-			InputIterator first, InputIterator last, T const& value,
+			InputIterator const& first, InputIterator const& last, T const& value,
 			std::input_iterator_tag*
 			)
 		{

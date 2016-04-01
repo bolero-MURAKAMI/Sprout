@@ -21,7 +21,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<RandomAccessIterator>::difference_type
 		overlap_count_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, BinaryPredicate pred,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, BinaryPredicate pred,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot
 			)
 		{
@@ -42,7 +42,7 @@ namespace sprout {
 			typename std::iterator_traits<RandomAccessIterator>::difference_type
 		>::type
 		overlap_count(
-			RandomAccessIterator first, RandomAccessIterator last, BinaryPredicate pred,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, BinaryPredicate pred,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -58,7 +58,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<InputIterator, typename std::iterator_traits<InputIterator>::value_type, typename std::iterator_traits<InputIterator>::difference_type>
 		overlap_count_impl_1(
 			sprout::tuples::tuple<InputIterator, typename std::iterator_traits<InputIterator>::value_type, typename std::iterator_traits<InputIterator>::difference_type> const& current,
-			InputIterator last, BinaryPredicate pred, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, BinaryPredicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			typedef sprout::tuples::tuple<InputIterator, typename std::iterator_traits<InputIterator>::value_type, typename std::iterator_traits<InputIterator>::difference_type> type;
@@ -80,7 +80,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuples::tuple<InputIterator, typename std::iterator_traits<InputIterator>::value_type, typename std::iterator_traits<InputIterator>::difference_type>
 		overlap_count_impl(
 			sprout::tuples::tuple<InputIterator, typename std::iterator_traits<InputIterator>::value_type, typename std::iterator_traits<InputIterator>::difference_type> const& current,
-			InputIterator last, BinaryPredicate pred, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, BinaryPredicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			return sprout::tuples::get<0>(current) == last ? current
@@ -96,7 +96,7 @@ namespace sprout {
 		template<typename InputIterator, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
 		overlap_count(
-			InputIterator first, InputIterator last, BinaryPredicate pred,
+			InputIterator const& first, InputIterator const& last, BinaryPredicate pred,
 			std::input_iterator_tag*
 			)
 		{
@@ -116,14 +116,14 @@ namespace sprout {
 		//
 		template<typename InputIterator, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
-		overlap_count(InputIterator first, InputIterator last, BinaryPredicate pred) {
+		overlap_count(InputIterator const& first, InputIterator const& last, BinaryPredicate pred) {
 			typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 			return sprout::detail::overlap_count(first, last, pred, category());
 		}
 
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::difference_type
-		overlap_count(InputIterator first, InputIterator last) {
+		overlap_count(InputIterator const& first, InputIterator const& last) {
 			return sprout::detail::overlap_count(
 				first, last,
 				NS_SSCRISK_CEL_OR_SPROUT::equal_to<typename std::iterator_traits<InputIterator>::value_type>()

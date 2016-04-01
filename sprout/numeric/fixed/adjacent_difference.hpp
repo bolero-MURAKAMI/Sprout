@@ -28,7 +28,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			adjacent_difference_impl_1(
-				InputIterator, InputIterator, Result const& result,
+				InputIterator const&, InputIterator const&, Result const& result,
 				typename sprout::container_traits<Result>::size_type,
 				typename sprout::container_traits<Result>::value_type const&,
 				Args const&... args
@@ -42,7 +42,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			adjacent_difference_impl_1(
-				InputIterator first, InputIterator last, Result const& result,
+				InputIterator const& first, InputIterator const& last, Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				typename sprout::container_traits<Result>::value_type const& value,
 				Args const&... args
@@ -71,7 +71,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			adjacent_difference_impl_1(
-				InputIterator first, InputIterator last, Result const& result,
+				InputIterator const& first, InputIterator const& last, Result const& result,
 				typename sprout::container_traits<Result>::size_type size
 				)
 			{
@@ -102,7 +102,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			adjacent_difference_impl_1(
-				InputIterator, InputIterator, Result const& result, BinaryOperation,
+				InputIterator const&, InputIterator const&, Result const& result, BinaryOperation,
 				typename sprout::container_traits<Result>::size_type,
 				typename sprout::container_traits<Result>::value_type const&,
 				Args const&... args
@@ -116,7 +116,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			adjacent_difference_impl_1(
-				InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op,
+				InputIterator const& first, InputIterator const& last, Result const& result, BinaryOperation binary_op,
 				typename sprout::container_traits<Result>::size_type size,
 				typename sprout::container_traits<Result>::value_type const& value,
 				Args const&... args
@@ -145,7 +145,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			adjacent_difference_impl_1(
-				InputIterator first, InputIterator last, Result const& result, BinaryOperation binary_op,
+				InputIterator const& first, InputIterator const& last, Result const& result, BinaryOperation binary_op,
 				typename sprout::container_traits<Result>::size_type size
 				)
 			{

@@ -105,8 +105,8 @@ namespace sprout {
 			template<typename Result, typename ContIterator, typename SizeIterator, typename Sizes>
 			inline SPROUT_CONSTEXPR typename sprout::container_traits<Result>::value_type
 			join_impl_ra_2(
-				ContIterator first_cont,
-				SizeIterator found,
+				ContIterator const& first_cont,
+				SizeIterator const& found,
 				Sizes const& sizes,
 				sprout::index_t idx
 				)
@@ -119,7 +119,7 @@ namespace sprout {
 			template<typename Result, typename ContIterator, sprout::index_t... Indexes, typename Sizes>
 			inline SPROUT_CONSTEXPR Result
 			join_impl_ra_1(
-				ContIterator first_cont,
+				ContIterator const& first_cont,
 				sprout::index_tuple<Indexes...>,
 				Sizes const& sizes
 				)
@@ -156,7 +156,7 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				Result
 			>::type join_impl(
-				ContIterator first_cont, ContIterator last_cont,
+				ContIterator const& first_cont, ContIterator const& last_cont,
 				Args const&... args
 				);
 			template<typename Result, typename ContIterator, typename... Args>
@@ -164,7 +164,7 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl(
-				ContIterator first_cont, ContIterator last_cont,
+				ContIterator const& first_cont, ContIterator const& last_cont,
 				Args const&... args
 				);
 			template<typename Result, typename ContIterator, typename InputIterator, typename... Args>
@@ -184,8 +184,8 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl_1(
-				ContIterator first_cont, ContIterator last_cont,
-				InputIterator first, InputIterator last,
+				ContIterator const& first_cont, ContIterator const& last_cont,
+				InputIterator const& first, InputIterator const& last,
 				Args const&... args
 				)
 			{
@@ -214,7 +214,7 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl(
-				ContIterator first_cont, ContIterator last_cont,
+				ContIterator const& first_cont, ContIterator const& last_cont,
 				Args const&... args
 				)
 			{
@@ -279,8 +279,8 @@ namespace sprout {
 			template<typename Result, typename ContIterator, typename SepIterator, typename SizeIterator, typename Sizes>
 			inline SPROUT_CONSTEXPR typename sprout::container_traits<Result>::value_type
 			join_impl_ra_2(
-				ContIterator first_cont, SepIterator first,
-				SizeIterator found,
+				ContIterator const& first_cont, SepIterator const& first,
+				SizeIterator const& found,
 				Sizes const& sizes,
 				sprout::index_t idx
 				)
@@ -294,8 +294,8 @@ namespace sprout {
 			template<typename Result, typename ContIterator, typename SepIterator, sprout::index_t... Indexes, typename Sizes>
 			inline SPROUT_CONSTEXPR Result
 			join_impl_ra_1(
-				ContIterator first_cont,
-				SepIterator first,
+				ContIterator const& first_cont,
+				SepIterator const& first,
 				sprout::index_tuple<Indexes...>,
 				Sizes const& sizes
 				)
@@ -336,7 +336,7 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size == sizeof...(Args),
 				Result
 			>::type join_impl(
-				ContIterator first_cont, ContIterator last_cont,
+				ContIterator const& first_cont, ContIterator const& last_cont,
 				Args const&... args
 				);
 			template<typename Result, typename ContIterator, typename... Args>
@@ -344,7 +344,7 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl(
-				ContIterator first_cont, ContIterator last_cont,
+				ContIterator const& first_cont, ContIterator const& last_cont,
 				Args const&... args
 				);
 			template<typename Result, typename ContIterator, typename SepIterator, typename InputIterator, typename... Args>
@@ -366,10 +366,10 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl_1(
-				ContIterator first_cont, ContIterator last_cont,
-				SepIterator sep_first, SepIterator sep_last,
+				ContIterator const& first_cont, ContIterator const& last_cont,
+				SepIterator const& sep_first, SepIterator const& sep_last,
 				bool sep,
-				InputIterator first, InputIterator last,
+				InputIterator const& first, InputIterator const& last,
 				Args const&... args
 				)
 			{
@@ -414,8 +414,8 @@ namespace sprout {
 				sprout::container_traits<Result>::static_size != sizeof...(Args),
 				Result
 			>::type join_impl(
-				ContIterator first_cont, ContIterator last_cont,
-				SepIterator sep_first, SepIterator sep_last,
+				ContIterator const& first_cont, ContIterator const& last_cont,
+				SepIterator const& sep_first, SepIterator const& sep_last,
 				bool sep,
 				Args const&... args
 				)

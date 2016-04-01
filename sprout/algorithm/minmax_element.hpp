@@ -29,7 +29,7 @@ namespace sprout {
 		}
 		template<typename ForwardIteratorPair, typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR ForwardIteratorPair
-		iter_minmax(ForwardIteratorPair const& a, ForwardIterator b, Compare comp) {
+		iter_minmax(ForwardIteratorPair const& a, ForwardIterator const& b, Compare comp) {
 			return ForwardIteratorPair(
 				comp(*b, *sprout::first(a)) ? b : sprout::first(a),
 				comp(*b, *sprout::second(a)) ? sprout::second(a) : b
@@ -37,7 +37,7 @@ namespace sprout {
 		}
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
-		iter_minmax(ForwardIterator a, ForwardIterator b, Compare comp) {
+		iter_minmax(ForwardIterator const& a, ForwardIterator const& b, Compare comp) {
 			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
 			return comp(*b, *a)
 				? type(b, a)
@@ -48,7 +48,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<RandomAccessIterator, RandomAccessIterator>
 		minmax_element_impl_ra(
-			RandomAccessIterator first, Compare comp,
+			RandomAccessIterator const& first, Compare comp,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type half
 			)
 		{
@@ -72,7 +72,7 @@ namespace sprout {
 			sprout::pair<RandomAccessIterator, RandomAccessIterator>
 		>::type
 		minmax_element(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Compare comp,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -98,8 +98,8 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> >
 		minmax_element_impl_3(
 			sprout::pair<ForwardIterator, ForwardIterator> minmax,
-			ForwardIterator first, ForwardIterator next,
-			ForwardIterator last, Compare comp) {
+			ForwardIterator const& first, ForwardIterator const& next,
+			ForwardIterator const& last, Compare comp) {
 			typedef sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> > type;
 			return next == last
 				? type(
@@ -121,7 +121,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> >
 		minmax_element_impl_1(
 			sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> > const& current,
-			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			ForwardIterator const& last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
 			return current.first == last ? current
@@ -142,7 +142,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> >
 		minmax_element_impl(
 			sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> > const& current,
-			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			ForwardIterator const& last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
 			return current.first == last ? current
@@ -159,7 +159,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, sprout::pair<ForwardIterator, ForwardIterator> >
 		minmax_element_impl_2(
-			ForwardIterator first, ForwardIterator next, ForwardIterator last, Compare comp
+			ForwardIterator const& first, ForwardIterator const& next, ForwardIterator const& last, Compare comp
 			)
 		{
 			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
@@ -171,7 +171,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		minmax_element(
-			ForwardIterator first, ForwardIterator last, Compare comp,
+			ForwardIterator const& first, ForwardIterator const& last, Compare comp,
 			std::forward_iterator_tag*
 			)
 		{

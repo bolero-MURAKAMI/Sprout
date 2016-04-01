@@ -30,7 +30,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
-				InputIterator, InputIterator,
+				InputIterator const&, InputIterator const&,
 				Result const& result,
 				typename sprout::container_traits<Result>::size_type,
 				Head const& head,
@@ -45,7 +45,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
-				InputIterator first, InputIterator last,
+				InputIterator const& first, InputIterator const& last,
 				Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Head const& head,
@@ -65,7 +65,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			unique_copy(InputIterator first, InputIterator last, Result const& result) {
+			unique_copy(InputIterator const& first, InputIterator const& last, Result const& result) {
 				return first != last
 					? sprout::fixed::detail::unique_copy_impl(sprout::next(first), last, result, sprout::size(result), *first)
 					: sprout::detail::container_complate(result)
@@ -77,7 +77,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			unique_copy(InputIterator first, InputIterator last, Result const& result) {
+			unique_copy(InputIterator const& first, InputIterator const& last, Result const& result) {
 				static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
 				return sprout::remake<Result>(
 					result, sprout::size(result),
@@ -108,7 +108,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
-				InputIterator, InputIterator,
+				InputIterator const&, InputIterator const&,
 				Result const& result, BinaryPredicate,
 				typename sprout::container_traits<Result>::size_type,
 				Head const& head,
@@ -123,7 +123,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			unique_copy_impl(
-				InputIterator first, InputIterator last,
+				InputIterator const& first, InputIterator const& last,
 				Result const& result, BinaryPredicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Head const& head,
@@ -143,7 +143,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
+			unique_copy(InputIterator const& first, InputIterator const& last, Result const& result, BinaryPredicate pred) {
 				return first != last
 					? sprout::fixed::detail::unique_copy_impl(sprout::next(first), last, result, pred, sprout::size(result), *first)
 					: sprout::detail::container_complate(result)
@@ -155,7 +155,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			unique_copy(InputIterator first, InputIterator last, Result const& result, BinaryPredicate pred) {
+			unique_copy(InputIterator const& first, InputIterator const& last, Result const& result, BinaryPredicate pred) {
 				static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
 				return sprout::remake<Result>(
 					result, sprout::size(result),

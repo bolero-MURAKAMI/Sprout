@@ -21,7 +21,7 @@ namespace sprout {
 	namespace detail {
 		template<typename RandomAccessIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR bool
-		is_partitioned_impl_ra(RandomAccessIterator first, RandomAccessIterator last, Predicate pred) {
+		is_partitioned_impl_ra(RandomAccessIterator const& first, RandomAccessIterator const& last, Predicate pred) {
 			return first == last ? true
 				: sprout::none_of(sprout::next(first), last, pred)
 				;
@@ -32,7 +32,7 @@ namespace sprout {
 			bool
 		>::type
 		is_partitioned(
-			RandomAccessIterator first, RandomAccessIterator last, Predicate pred,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Predicate pred,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -46,7 +46,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type>
 		is_partitioned_impl_1(
 			sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> const& current,
-			InputIterator last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			typedef sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> type;
@@ -67,7 +67,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type>
 		is_partitioned_impl(
 			sprout::pair<InputIterator, typename std::iterator_traits<InputIterator>::difference_type> const& current,
-			InputIterator last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			return current.second > 1 || current.first == last ? current
@@ -83,7 +83,7 @@ namespace sprout {
 		template<typename InputIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR bool
 		is_partitioned(
-			InputIterator first, InputIterator last, Predicate pred,
+			InputIterator const& first, InputIterator const& last, Predicate pred,
 			std::input_iterator_tag*
 			)
 		{

@@ -19,7 +19,7 @@ namespace sprout {
 		template<typename InputIterator, typename Size>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type
 		dft_element_impl(
-			InputIterator first, InputIterator last, typename std::iterator_traits<InputIterator>::difference_type i,
+			InputIterator const& first, InputIterator const& last, typename std::iterator_traits<InputIterator>::difference_type i,
 			Size size
 			)
 		{

@@ -28,9 +28,9 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			swap_element_copy_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator,
+				RandomAccessIterator const& first, RandomAccessIterator const&,
 				Result const& result,
-				RandomAccessIterator pos1, RandomAccessIterator pos2,
+				RandomAccessIterator const& pos1, RandomAccessIterator const& pos2,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
 				typename sprout::container_traits<Result>::size_type size,
@@ -53,9 +53,9 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			swap_element_copy(
-				RandomAccessIterator first, RandomAccessIterator last,
+				RandomAccessIterator const& first, RandomAccessIterator const& last,
 				Result const& result,
-				RandomAccessIterator pos1, RandomAccessIterator pos2,
+				RandomAccessIterator const& pos1, RandomAccessIterator const& pos2,
 				std::random_access_iterator_tag*
 				)
 			{
@@ -91,9 +91,9 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			swap_element_copy_impl(
-				ForwardIterator first, ForwardIterator last,
+				ForwardIterator const& first, ForwardIterator const& last,
 				Result const& result,
-				ForwardIterator pos1, ForwardIterator pos2,
+				ForwardIterator const& pos1, ForwardIterator const& pos2,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -109,9 +109,9 @@ namespace sprout {
 			template<typename ForwardIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			swap_element_copy(
-				ForwardIterator first, ForwardIterator last,
+				ForwardIterator const& first, ForwardIterator const& last,
 				Result const& result,
-				ForwardIterator pos1, ForwardIterator pos2,
+				ForwardIterator const& pos1, ForwardIterator const& pos2,
 				std::forward_iterator_tag*
 				)
 			{

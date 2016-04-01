@@ -24,7 +24,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename Compare>
 		inline SPROUT_CONSTEXPR bool
 		is_sorted_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Compare comp,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot
 			)
 		{
@@ -45,7 +45,7 @@ namespace sprout {
 			bool
 		>::type
 		is_sorted(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Compare comp,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -60,7 +60,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR bool
 		is_sorted(
-			ForwardIterator first, ForwardIterator last, Compare comp,
+			ForwardIterator const& first, ForwardIterator const& last, Compare comp,
 			std::forward_iterator_tag*
 			)
 		{

@@ -24,7 +24,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename T, typename Compare>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		equal_range(
-			ForwardIterator first, typename std::iterator_traits<ForwardIterator>::difference_type len,
+			ForwardIterator const& first, typename std::iterator_traits<ForwardIterator>::difference_type len,
 			T const& value, Compare comp
 			)
 		{

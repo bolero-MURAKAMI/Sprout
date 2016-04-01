@@ -809,7 +809,7 @@ namespace sprout {
 		namespace detail {
 			template<typename Elem, typename RandomAccessIterator, std::size_t K, typename... Args>
 			inline SPROUT_CONSTEXPR Elem
-			get_param(RandomAccessIterator found, sprout::array<std::size_t, K> const& sizes, std::size_t idx, Args const&... args) {
+			get_param(RandomAccessIterator const& found, sprout::array<std::size_t, K> const& sizes, std::size_t idx, Args const&... args) {
 				return found == sizes.end() ? static_cast<Elem>('\0')
 					: sprout::detail::param_seq_at<Elem>(
 						found - sizes.begin(),

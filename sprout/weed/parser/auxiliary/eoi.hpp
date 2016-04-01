@@ -35,8 +35,7 @@ namespace sprout {
 		public:
 			template<typename Context, typename Iterator>
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type operator()(
-				Iterator first,
-				Iterator last,
+				Iterator first, Iterator last,
 				Context const&
 				) const
 			{

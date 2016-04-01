@@ -24,7 +24,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Compare>
 			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			clamp_range_copy_impl(
-				InputIterator first, InputIterator last, Result const& result,
+				InputIterator const& first, InputIterator const& last, Result const& result,
 				typename std::iterator_traits<InputIterator>::value_type const& low,
 				typename std::iterator_traits<InputIterator>::value_type const& high,
 				Compare comp,

@@ -21,7 +21,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename T, typename BinaryOperation>
 		inline SPROUT_CONSTEXPR T
 		accumulate_ra(
-			RandomAccessIterator first, RandomAccessIterator last, BinaryOperation binary_op,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, BinaryOperation binary_op,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot, T const& init
 			)
 		{
@@ -43,7 +43,7 @@ namespace sprout {
 			T
 		>::type
 		accumulate(
-			RandomAccessIterator first, RandomAccessIterator last, T init, BinaryOperation binary_op,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, T init, BinaryOperation binary_op,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -60,7 +60,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, T>
 		accumulate_impl_1(
 			sprout::pair<InputIterator, T> const& current,
-			InputIterator last, BinaryOperation binary_op, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, BinaryOperation binary_op, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			typedef sprout::pair<InputIterator, T> type;
@@ -79,7 +79,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, T>
 		accumulate_impl(
 			sprout::pair<InputIterator, T> const& current,
-			InputIterator last, BinaryOperation binary_op, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, BinaryOperation binary_op, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			return current.first == last ? current
@@ -95,7 +95,7 @@ namespace sprout {
 		template<typename InputIterator, typename T, typename BinaryOperation>
 		inline SPROUT_CONSTEXPR T
 		accumulate(
-			InputIterator first, InputIterator last, T init, BinaryOperation binary_op,
+			InputIterator const& first, InputIterator const& last, T init, BinaryOperation binary_op,
 			std::input_iterator_tag*
 			)
 		{

@@ -45,8 +45,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR Result
 			next_permutation_impl_3(
 				Container const& cont, Compare comp,
-				BidirectionalIterator first, BidirectionalIterator last,
-				BidirectionalIterator i, BidirectionalIterator ii, BidirectionalIterator j
+				BidirectionalIterator const& first, BidirectionalIterator const& last,
+				BidirectionalIterator const& i, BidirectionalIterator const& ii, BidirectionalIterator const& j
 				)
 			{
 				return !comp(*i, *sprout::prev(j)) ? sprout::fixed::detail::next_permutation_impl_3<Result>(
@@ -63,8 +63,8 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR Result
 			next_permutation_impl_2(
 				Container const& cont, Compare comp,
-				BidirectionalIterator first, BidirectionalIterator last,
-				BidirectionalIterator i, BidirectionalIterator ii
+				BidirectionalIterator const& first, BidirectionalIterator const& last,
+				BidirectionalIterator const& i, BidirectionalIterator const& ii
 				)
 			{
 				return comp(*i, *ii) ? sprout::fixed::detail::next_permutation_impl_3<Result>(
@@ -80,7 +80,12 @@ namespace sprout {
 			}
 			template<typename Result, typename Container, typename Compare, typename BidirectionalIterator>
 			inline SPROUT_CONSTEXPR Result
-			next_permutation_impl_1(Container const& cont, Compare comp, BidirectionalIterator first, BidirectionalIterator last, BidirectionalIterator i) {
+			next_permutation_impl_1(
+				Container const& cont, Compare comp,
+				BidirectionalIterator const& first, BidirectionalIterator const& last,
+				BidirectionalIterator const& i
+				)
+			{
 				return i == last ? Result(sprout::deep_copy(cont), false)
 					: sprout::fixed::detail::next_permutation_impl_2<Result>(
 						cont, comp, first, last,
@@ -90,7 +95,7 @@ namespace sprout {
 			}
 			template<typename Result, typename Container, typename Compare, typename BidirectionalIterator>
 			inline SPROUT_CONSTEXPR Result
-			next_permutation_impl(Container const& cont, Compare comp, BidirectionalIterator first, BidirectionalIterator last) {
+			next_permutation_impl(Container const& cont, Compare comp, BidirectionalIterator const& first, BidirectionalIterator const& last) {
 				return first == last ? Result(sprout::deep_copy(cont), false)
 					: sprout::fixed::detail::next_permutation_impl_1<Result>(
 					cont, comp, first, last,

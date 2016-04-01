@@ -21,14 +21,14 @@ namespace sprout {
 	namespace detail {
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR ForwardIterator
-		iter_min(ForwardIterator a, ForwardIterator b, Compare comp) {
+		iter_min(ForwardIterator const& a, ForwardIterator const& b, Compare comp) {
 			return comp(*b, *a) ? b : a;
 		}
 
 		template<typename RandomAccessIterator, typename Compare>
 		inline SPROUT_CONSTEXPR RandomAccessIterator
 		min_element_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Compare comp,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot
 			)
 		{
@@ -52,7 +52,7 @@ namespace sprout {
 			RandomAccessIterator
 		>::type
 		min_element(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Compare comp,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -68,7 +68,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		min_element_impl_1(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
-			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			ForwardIterator const& last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
 			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
@@ -87,7 +87,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		min_element_impl(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
-			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			ForwardIterator const& last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
 			return current.first == last ? current
@@ -103,7 +103,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR ForwardIterator
 		min_element(
-			ForwardIterator first, ForwardIterator last, Compare comp,
+			ForwardIterator const& first, ForwardIterator const& last, Compare comp,
 			std::forward_iterator_tag*
 			)
 		{

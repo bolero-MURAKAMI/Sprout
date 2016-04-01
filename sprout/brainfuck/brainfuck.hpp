@@ -29,7 +29,7 @@ namespace sprout {
 		namespace detail {
 			template<typename InputIterator>
 			inline SPROUT_CONSTEXPR InputIterator
-			find_scope_end(InputIterator first, std::size_t count = 0) {
+			find_scope_end(InputIterator const& first, std::size_t count = 0) {
 				typedef typename std::iterator_traits<InputIterator>::value_type value_type;
 				return *first == SPROUT_CHAR_LITERAL('[', value_type) ? sprout::brainfuck::detail::find_scope_end(sprout::next(first), count + 1)
 					: *first == SPROUT_CHAR_LITERAL(']', value_type) ? count == 0
@@ -41,7 +41,7 @@ namespace sprout {
 
 			template<typename BidirectionalIterator>
 			inline SPROUT_CONSTEXPR BidirectionalIterator
-			find_scope_start(BidirectionalIterator first, std::size_t count = 0) {
+			find_scope_start(BidirectionalIterator const& first, std::size_t count = 0) {
 				typedef typename std::iterator_traits<BidirectionalIterator>::value_type value_type;
 				return *first == SPROUT_CHAR_LITERAL(']', value_type) ? sprout::brainfuck::detail::find_scope_start(sprout::prev(first), count + 1)
 					: *first == SPROUT_CHAR_LITERAL('[', value_type) ? count == 0
@@ -53,7 +53,7 @@ namespace sprout {
 
 			template<typename InputIterator>
 			inline SPROUT_CONSTEXPR bool
-			is_well_formed(InputIterator first, InputIterator last, std::size_t count = 0) {
+			is_well_formed(InputIterator const& first, InputIterator const& last, std::size_t count = 0) {
 				typedef typename std::iterator_traits<InputIterator>::value_type value_type;
 				return first == last ? count == 0
 					: *first == SPROUT_CHAR_LITERAL('[', value_type)

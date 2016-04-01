@@ -29,7 +29,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Size, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_n(
-				RandomAccessIterator first, Size n, Result const& result,
+				RandomAccessIterator const& first, Size n, Result const& result,
 				std::random_access_iterator_tag*
 				)
 			{
@@ -54,7 +54,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_n_impl(
-				InputIterator first, Size n, Result const& result,
+				InputIterator const& first, Size n, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset,
 				Args const&... args
 				)
@@ -67,7 +67,7 @@ namespace sprout {
 			template<typename InputIterator, typename Size, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_n(
-				InputIterator first, Size n, Result const& result,
+				InputIterator const& first, Size n, Result const& result,
 				std::input_iterator_tag*
 				)
 			{
@@ -79,7 +79,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy_n(InputIterator first, Size n, Result const& result) {
+			copy_n(InputIterator const& first, Size n, Result const& result) {
 				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 				return sprout::fixed::detail::copy_n(first, n, result, category());
 			}
@@ -89,7 +89,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy_n(InputIterator first, Size n, Result const& result) {
+			copy_n(InputIterator const& first, Size n, Result const& result) {
 				static_assert(sprout::is_forward_iterator<InputIterator>::value, "Sorry, not implemented.");
 				return sprout::fixed::copy(first, sprout::next(first, n), result);
 			}

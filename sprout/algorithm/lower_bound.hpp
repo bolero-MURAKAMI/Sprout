@@ -22,7 +22,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename T, typename Compare>
 		inline SPROUT_CONSTEXPR ForwardIterator
 		lower_bound(
-			ForwardIterator first, typename std::iterator_traits<ForwardIterator>::difference_type len,
+			ForwardIterator const& first, typename std::iterator_traits<ForwardIterator>::difference_type len,
 			T const& value, Compare comp
 			)
 		{

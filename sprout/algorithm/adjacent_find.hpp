@@ -20,7 +20,7 @@ namespace sprout {
 	namespace detail {
 		template<typename RandomAccessIterator>
 		inline SPROUT_CONSTEXPR RandomAccessIterator
-		adjacent_find_impl_check_ra(RandomAccessIterator found, RandomAccessIterator last) {
+		adjacent_find_impl_check_ra(RandomAccessIterator const& found, RandomAccessIterator const& last) {
 			return sprout::distance(found, last) == 1 ? last
 				: found
 				;
@@ -28,8 +28,8 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR RandomAccessIterator
 		adjacent_find_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, BinaryPredicate pred,
-			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot, RandomAccessIterator found
+			RandomAccessIterator const& first, RandomAccessIterator const& last, BinaryPredicate pred,
+			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot, RandomAccessIterator const& found
 			)
 		{
 			return found != first ? found
@@ -51,7 +51,7 @@ namespace sprout {
 			RandomAccessIterator
 		>::type
 		adjacent_find(
-			RandomAccessIterator first, RandomAccessIterator last, BinaryPredicate pred,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, BinaryPredicate pred,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -68,7 +68,7 @@ namespace sprout {
 
 		template<typename ForwardIterator>
 		inline SPROUT_CONSTEXPR ForwardIterator
-		adjacent_find_impl_check(ForwardIterator found, ForwardIterator last) {
+		adjacent_find_impl_check(ForwardIterator const& found, ForwardIterator const& last) {
 			return sprout::next(found) == last ? last
 				: found
 				;
@@ -77,7 +77,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		adjacent_find_impl_1(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
-			ForwardIterator last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n
+			ForwardIterator const& last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
 			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
@@ -98,7 +98,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		adjacent_find_impl(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
-			ForwardIterator last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n
+			ForwardIterator const& last, BinaryPredicate pred, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
 			return current.second == last ? current
@@ -114,7 +114,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR ForwardIterator
 		adjacent_find(
-			ForwardIterator first, ForwardIterator last, BinaryPredicate pred,
+			ForwardIterator const& first, ForwardIterator const& last, BinaryPredicate pred,
 			std::forward_iterator_tag*
 			)
 		{

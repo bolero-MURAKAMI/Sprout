@@ -24,16 +24,16 @@ namespace sprout {
 	namespace detail {
 		template<typename Difference, typename ForwardIterator, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR bool
-		is_permutation_impl_check(Difference count, ForwardIterator first, ForwardIterator last, BinaryPredicate pred)
+		is_permutation_impl_check(Difference count, ForwardIterator const& first, ForwardIterator const& last, BinaryPredicate pred)
 		{
 			return count != 0 && sprout::count_if(sprout::next(first), last, sprout::bind2nd(pred, *first)) + 1 == count;
 		}
 		template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR bool
 		is_permutation_impl_ra(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
-			RandomAccessIterator2 first2, RandomAccessIterator2 last2,
-			BinaryPredicate pred, RandomAccessIterator1 current,
+			RandomAccessIterator1 const& first1, RandomAccessIterator1 const& last1,
+			RandomAccessIterator2 const& first2, RandomAccessIterator2 const& last2,
+			BinaryPredicate pred, RandomAccessIterator1 const& current,
 			typename std::iterator_traits<RandomAccessIterator1>::difference_type size
 			)
 		{
@@ -58,7 +58,7 @@ namespace sprout {
 			bool
 		>::type
 		is_permutation(
-			sprout::pair<RandomAccessIterator1, RandomAccessIterator2> first, RandomAccessIterator1 last1, BinaryPredicate pred,
+			sprout::pair<RandomAccessIterator1, RandomAccessIterator2> first, RandomAccessIterator1 const& last1, BinaryPredicate pred,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -73,7 +73,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, bool>
 		is_permutation_impl_1(
 			sprout::pair<ForwardIterator1, bool> const& current,
-			ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2,
+			ForwardIterator1 const& first1, ForwardIterator1 const& last1, ForwardIterator2 const& first2, ForwardIterator2 const& last2,
 			BinaryPredicate pred, typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
@@ -98,7 +98,7 @@ namespace sprout {
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR bool
 		is_permutation_impl(
-			ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2,
+			ForwardIterator1 const& first1, ForwardIterator1 const& last1, ForwardIterator2 const& first2,
 			BinaryPredicate pred, typename std::iterator_traits<ForwardIterator1>::difference_type size
 			)
 		{
@@ -113,7 +113,7 @@ namespace sprout {
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR bool
 		is_permutation(
-			sprout::pair<ForwardIterator1, ForwardIterator2> first, ForwardIterator1 last1, BinaryPredicate pred,
+			sprout::pair<ForwardIterator1, ForwardIterator2> first, ForwardIterator1 const& last1, BinaryPredicate pred,
 			std::forward_iterator_tag*
 			)
 		{
@@ -147,7 +147,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		is_permutation_impl_ra_1(
 			sprout::pair<RandomAccessIterator1, RandomAccessIterator2> first,
-			RandomAccessIterator1 last1, RandomAccessIterator2 last2, BinaryPredicate pred
+			RandomAccessIterator1 const& last1, RandomAccessIterator2 const& last2, BinaryPredicate pred
 			)
 		{
 			return first.first == last1
@@ -163,7 +163,7 @@ namespace sprout {
 			bool
 		>::type
 		is_permutation(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred,
+			RandomAccessIterator1 const& first1, RandomAccessIterator1 const& last1, RandomAccessIterator2 const& first2, RandomAccessIterator2 const& last2, BinaryPredicate pred,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -176,8 +176,8 @@ namespace sprout {
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate, typename Difference1, typename Difference2>
 		inline SPROUT_CONSTEXPR bool
 		is_permutation_impl_3(
-			ForwardIterator1 first1, ForwardIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
+			ForwardIterator1 const& first1, ForwardIterator1 const& last1,
+			ForwardIterator2 const& first2, ForwardIterator2 const& last2, BinaryPredicate pred,
 			Difference1 size1, Difference2 size2
 			)
 		{
@@ -193,7 +193,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR bool
 		is_permutation_impl_2(
 			sprout::pair<ForwardIterator1, ForwardIterator2> first,
-			ForwardIterator1 last1, ForwardIterator2 last2, BinaryPredicate pred
+			ForwardIterator1 const& last1, ForwardIterator2 const& last2, BinaryPredicate pred
 			)
 		{
 			return sprout::detail::is_permutation_impl_3(
@@ -205,7 +205,7 @@ namespace sprout {
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR bool
 		is_permutation(
-			ForwardIterator1 first1, ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
+			ForwardIterator1 const& first1, ForwardIterator1 const& last1, ForwardIterator2 const& first2, ForwardIterator2 const& last2, BinaryPredicate pred,
 			std::forward_iterator_tag*
 			)
 		{

@@ -20,7 +20,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR bool
 		all_of_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, Predicate pred,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Predicate pred,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot
 			)
 		{
@@ -41,7 +41,7 @@ namespace sprout {
 			bool
 		>::type
 		all_of(
-			RandomAccessIterator first, RandomAccessIterator last, Predicate pred,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Predicate pred,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -54,7 +54,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, bool>
 		all_of_impl_1(
 			sprout::pair<InputIterator, bool> const& current,
-			InputIterator last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			typedef sprout::pair<InputIterator, bool> type;
@@ -73,7 +73,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, bool>
 		all_of_impl(
 			sprout::pair<InputIterator, bool> const& current,
-			InputIterator last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			return !current.second || current.first == last ? current
@@ -89,7 +89,7 @@ namespace sprout {
 		template<typename InputIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR bool
 		all_of(
-			InputIterator first, InputIterator last, Predicate pred,
+			InputIterator const& first, InputIterator const& last, Predicate pred,
 			std::input_iterator_tag*
 			)
 		{

@@ -29,7 +29,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_while(
-				RandomAccessIterator first, RandomAccessIterator last, Result const& result, Predicate pred,
+				RandomAccessIterator const& first, RandomAccessIterator const& last, Result const& result, Predicate pred,
 				std::random_access_iterator_tag*
 				)
 			{
@@ -55,7 +55,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_while_impl(
-				InputIterator first, InputIterator last, Result const& result, Predicate pred,
+				InputIterator const& first, InputIterator const& last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -68,7 +68,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_while(
-				InputIterator first, InputIterator last, Result const& result, Predicate pred,
+				InputIterator const& first, InputIterator const& last, Result const& result, Predicate pred,
 				std::input_iterator_tag*
 				)
 			{
@@ -80,7 +80,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+			copy_while(InputIterator const& first, InputIterator const& last, Result const& result, Predicate pred) {
 				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 				return sprout::fixed::detail::copy_while(first, last, result, pred, category());
 			}
@@ -90,7 +90,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy_while(InputIterator first, InputIterator last, Result const& result, Predicate pred) {
+			copy_while(InputIterator const& first, InputIterator const& last, Result const& result, Predicate pred) {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					sprout::make_while_iterator(pred, first, last),

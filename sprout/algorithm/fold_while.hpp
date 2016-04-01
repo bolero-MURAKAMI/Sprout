@@ -19,7 +19,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, T>
 		fold_while_impl_1(
 			sprout::pair<InputIterator, T> const& current,
-			InputIterator last, BinaryOperation binary_op, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, BinaryOperation binary_op, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			typedef sprout::pair<InputIterator, T> type;
@@ -38,7 +38,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<InputIterator, T>
 		fold_while_impl(
 			sprout::pair<InputIterator, T> const& current,
-			InputIterator last, BinaryOperation binary_op, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
+			InputIterator const& last, BinaryOperation binary_op, Predicate pred, typename std::iterator_traits<InputIterator>::difference_type n
 			)
 		{
 			return current.first == last || !pred(current.second) ? current

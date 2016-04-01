@@ -21,10 +21,10 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename Size, typename T, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR RandomAccessIterator
 		search_n_impl_ra(
-			RandomAccessIterator current, RandomAccessIterator last,
+			RandomAccessIterator const& current, RandomAccessIterator const& last,
 			Size count, T const& value, BinaryPredicate pred,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type len,
-			RandomAccessIterator searched
+			RandomAccessIterator const& searched
 			)
 		{
 			return sprout::distance(searched, current) >= count || searched == last ? searched
@@ -44,7 +44,7 @@ namespace sprout {
 			RandomAccessIterator
 		>::type
 		search_n(
-			RandomAccessIterator first, RandomAccessIterator last, Size count, T const& value, BinaryPredicate pred,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Size count, T const& value, BinaryPredicate pred,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -59,7 +59,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR ForwardIterator
 		search_n_impl_check(
 			sprout::tuple<ForwardIterator, ForwardIterator, Size> current,
-			ForwardIterator last, Size count
+			ForwardIterator const& last, Size count
 			)
 		{
 			return sprout::tuples::get<2>(current) == count ? sprout::tuples::get<1>(current) : last;
@@ -68,7 +68,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuple<ForwardIterator, ForwardIterator, Size>
 		search_n_impl_1(
 			sprout::tuple<ForwardIterator, ForwardIterator, Size> current,
-			ForwardIterator last, Size count, T const& value, BinaryPredicate pred,
+			ForwardIterator const& last, Size count, T const& value, BinaryPredicate pred,
 			typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
@@ -91,7 +91,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::tuple<ForwardIterator, ForwardIterator, Size>
 		search_n_impl(
 			sprout::tuple<ForwardIterator, ForwardIterator, Size> current,
-			ForwardIterator last, Size count, T const& value, BinaryPredicate pred,
+			ForwardIterator const& last, Size count, T const& value, BinaryPredicate pred,
 			typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
@@ -108,7 +108,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename Size, typename T, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR ForwardIterator
 		search_n(
-			ForwardIterator first, ForwardIterator last, Size count, T const& value, BinaryPredicate pred,
+			ForwardIterator const& first, ForwardIterator const& last, Size count, T const& value, BinaryPredicate pred,
 			std::forward_iterator_tag*
 			)
 		{

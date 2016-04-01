@@ -18,7 +18,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename Compare>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<RandomAccessIterator>::difference_type
 		is_heap_until_impl(
-			RandomAccessIterator it, Compare comp,
+			RandomAccessIterator const& it, Compare comp,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type first, typename std::iterator_traits<RandomAccessIterator>::difference_type last,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot, typename std::iterator_traits<RandomAccessIterator>::difference_type found
 			)
@@ -40,7 +40,7 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename Compare>
 		inline SPROUT_CONSTEXPR RandomAccessIterator
 		is_heap_until_impl(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Compare comp,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type size
 			)
 		{

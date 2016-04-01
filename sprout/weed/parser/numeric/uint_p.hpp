@@ -65,8 +65,7 @@ namespace sprout {
 				N == limit_digits,
 				typename result<Context, Iterator>::type
 			>::type call_1(
-				Iterator first,
-				Iterator last,
+				Iterator first, Iterator last,
 				Iterator temp_first,
 				UIntType t,
 				std::size_t n,
@@ -78,8 +77,7 @@ namespace sprout {
 				return sprout::tuples::get<1>(res)
 					? n < MaxDigits
 						? call_0<N - 1, Context>(
-							sprout::next(first),
-							last,
+							sprout::next(first), last,
 							temp_first,
 							static_cast<UIntType>(t * Radix + sprout::tuples::get<0>(res)),
 							n
@@ -99,8 +97,7 @@ namespace sprout {
 				N != limit_digits,
 				typename result<Context, Iterator>::type
 			>::type call_1(
-				Iterator first,
-				Iterator last,
+				Iterator first, Iterator last,
 				Iterator temp_first,
 				UIntType t,
 				std::size_t n,
@@ -111,8 +108,7 @@ namespace sprout {
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return sprout::tuples::get<1>(res)
 					? call_0<N, Context>(
-						sprout::next(first),
-						last,
+						sprout::next(first), last,
 						temp_first,
 						static_cast<UIntType>(t * Radix + sprout::tuples::get<0>(res)),
 						n
@@ -124,8 +120,7 @@ namespace sprout {
 			}
 			template<std::size_t N, typename Context, typename Iterator>
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type call_0(
-				Iterator first,
-				Iterator last,
+				Iterator first, Iterator last,
 				Iterator temp_first,
 				UIntType t,
 				std::size_t n
@@ -135,8 +130,7 @@ namespace sprout {
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return first != last
 					? call_1<N + 1, Context>(
-						first,
-						last,
+						first, last,
 						temp_first,
 						t,
 						n + 1,
@@ -149,8 +143,7 @@ namespace sprout {
 			}
 			template<typename Context, typename Iterator, typename PResult>
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type call_i(
-				Iterator first,
-				Iterator last,
+				Iterator first, Iterator last,
 				Iterator temp_first,
 				PResult const& res
 				) const
@@ -159,8 +152,7 @@ namespace sprout {
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return sprout::tuples::get<1>(res)
 					? call_0<1, Context>(
-						sprout::next(first),
-						last,
+						sprout::next(first), last,
 						temp_first,
 						sprout::tuples::get<0>(res),
 						1
@@ -170,14 +162,12 @@ namespace sprout {
 			}
 			template<typename Context, typename Iterator>
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type call(
-				Iterator first,
-				Iterator last,
+				Iterator first, Iterator last,
 				Iterator temp_first
 				) const
 			{
 				return call_i<Context>(
-					first,
-					last,
+					first, last,
 					temp_first,
 					sprout::weed::detail::from_ndigit<Radix, UIntType>(*first)
 					);
@@ -185,8 +175,7 @@ namespace sprout {
 		public:
 			template<typename Context, typename Iterator>
 			SPROUT_CONSTEXPR typename result<Context, Iterator>::type operator()(
-				Iterator first,
-				Iterator last,
+				Iterator first, Iterator last,
 				Context const&
 				) const
 			{
@@ -194,8 +183,7 @@ namespace sprout {
 				typedef typename attribute<Context, Iterator>::type attribute_type;
 				return first != last
 					? call<Context>(
-						first,
-						last,
+						first, last,
 						first
 						)
 					: result_type(false, first, attribute_type())

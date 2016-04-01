@@ -24,7 +24,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename UnaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			transform_impl(
-				InputIterator first, InputIterator last, Result const& result, UnaryOperation op,
+				InputIterator const& first, InputIterator const& last, Result const& result, UnaryOperation op,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{

@@ -20,7 +20,7 @@ namespace sprout {
 		template<typename RandomAccessIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<RandomAccessIterator>::value_type
 		dft_element_gen_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last,
+			RandomAccessIterator const& first, RandomAccessIterator const& last,
 			typename std::iterator_traits<RandomAccessIterator>::value_type::value_type arg,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot,
 			typename std::iterator_traits<RandomAccessIterator>::difference_type k = 0
@@ -41,7 +41,7 @@ namespace sprout {
 		template<typename RandomAccessIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<RandomAccessIterator>::value_type
 		dft_element_gen_impl(
-			RandomAccessIterator first, RandomAccessIterator last,
+			RandomAccessIterator const& first, RandomAccessIterator const& last,
 			typename std::iterator_traits<RandomAccessIterator>::value_type::value_type arg,
 			std::random_access_iterator_tag*
 			)
@@ -55,7 +55,7 @@ namespace sprout {
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type
 		dft_element_gen_impl_1(
-			InputIterator first, InputIterator last,
+			InputIterator const& first, InputIterator const& last,
 			typename std::iterator_traits<InputIterator>::value_type::value_type arg,
 			typename std::iterator_traits<InputIterator>::difference_type k = 0,
 			typename std::iterator_traits<InputIterator>::value_type value
@@ -80,7 +80,7 @@ namespace sprout {
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type
 		dft_element_gen_impl(
-			InputIterator first, InputIterator last,
+			InputIterator const& first, InputIterator const& last,
 			typename std::iterator_traits<InputIterator>::value_type::value_type arg,
 			std::input_iterator_tag*
 			)
@@ -91,7 +91,7 @@ namespace sprout {
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::iterator_traits<InputIterator>::value_type
 		dft_element_gen(
-			InputIterator first, InputIterator last,
+			InputIterator const& first, InputIterator const& last,
 			typename std::iterator_traits<InputIterator>::value_type::value_type arg
 			)
 		{

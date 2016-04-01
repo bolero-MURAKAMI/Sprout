@@ -29,7 +29,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator, Result const& result,
+				RandomAccessIterator const& first, RandomAccessIterator const&, Result const& result,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
 				typename sprout::container_traits<Result>::size_type size,
@@ -47,7 +47,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy(
-				RandomAccessIterator first, RandomAccessIterator last, Result const& result,
+				RandomAccessIterator const& first, RandomAccessIterator const& last, Result const& result,
 				std::random_access_iterator_tag*
 				)
 			{
@@ -79,7 +79,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_impl(
-				InputIterator first, InputIterator last, Result const& result,
+				InputIterator const& first, InputIterator const& last, Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
 				)
@@ -92,7 +92,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			copy(
-				InputIterator first, InputIterator last, Result const& result,
+				InputIterator const& first, InputIterator const& last, Result const& result,
 				std::input_iterator_tag*
 				)
 			{
@@ -104,7 +104,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy(InputIterator first, InputIterator last, Result const& result) {
+			copy(InputIterator const& first, InputIterator const& last, Result const& result) {
 				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 				return sprout::fixed::detail::copy(first, last, result, category());
 			}
@@ -114,7 +114,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			copy(InputIterator first, InputIterator last, Result const& result) {
+			copy(InputIterator const& first, InputIterator const& last, Result const& result) {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					first, last

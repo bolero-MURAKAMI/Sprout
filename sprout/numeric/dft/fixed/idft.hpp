@@ -29,7 +29,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			idft_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator last, Result const& result,
+				RandomAccessIterator const& first, RandomAccessIterator const& last, Result const& result,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
 				typename sprout::container_traits<Result>::size_type size,
@@ -47,7 +47,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			idft(
-				RandomAccessIterator first, RandomAccessIterator last, Result const& result,
+				RandomAccessIterator const& first, RandomAccessIterator const& last, Result const& result,
 				std::random_access_iterator_tag*
 				)
 			{
@@ -80,9 +80,9 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			idft_impl(
-				ForwardIterator first, ForwardIterator last, Result const& result,
+				ForwardIterator const& first, ForwardIterator const& last, Result const& result,
 				typename sprout::container_traits<Result>::size_type size,
-				ForwardIterator first_, typename sprout::container_traits<Result>::difference_type i,
+				ForwardIterator const& first_, typename sprout::container_traits<Result>::difference_type i,
 				Args const&... args
 				)
 			{
@@ -97,7 +97,7 @@ namespace sprout {
 			template<typename ForwardIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			idft(
-				ForwardIterator first, ForwardIterator last, Result const& result,
+				ForwardIterator const& first, ForwardIterator const& last, Result const& result,
 				std::forward_iterator_tag*
 				)
 			{
@@ -109,7 +109,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			idft(ForwardIterator first, ForwardIterator last, Result const& result) {
+			idft(ForwardIterator const& first, ForwardIterator const& last, Result const& result) {
 				typedef typename std::iterator_traits<ForwardIterator>::iterator_category* category;
 				return sprout::fixed::detail::idft(first, last, result, category());
 			}
@@ -119,7 +119,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			idft(ForwardIterator first, ForwardIterator last, Result const& result) {
+			idft(ForwardIterator const& first, ForwardIterator const& last, Result const& result) {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					sprout::make_idft_iterator(first, last),

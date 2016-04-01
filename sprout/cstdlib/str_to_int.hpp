@@ -29,7 +29,7 @@ namespace sprout {
 
 		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR IntType
-		str_to_int_impl_1(NullTerminatedIterator str, int base, IntType val, IntType x, bool negative) {
+		str_to_int_impl_1(NullTerminatedIterator const& str, int base, IntType val, IntType x, bool negative) {
 			return x == static_cast<IntType>(-1) ? (negative ? -1 * val : val)
 				: val > (sprout::numeric_limits<IntType>::max() - x - (negative ? 1 : 0)) / base
 					? (negative ? sprout::numeric_limits<IntType>::min() : sprout::numeric_limits<IntType>::max())
@@ -44,7 +44,7 @@ namespace sprout {
 		}
 		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR IntType
-		str_to_int_impl(NullTerminatedIterator str, int base, bool negative) {
+		str_to_int_impl(NullTerminatedIterator const& str, int base, bool negative) {
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
 			return *str == SPROUT_CHAR_LITERAL('0', char_type)
 				? *sprout::next(str) == SPROUT_CHAR_LITERAL('x', char_type)
@@ -77,7 +77,7 @@ namespace sprout {
 			sprout::is_unsigned<IntType>::value,
 			IntType
 		>::type
-		str_to_int(NullTerminatedIterator str, int base) {
+		str_to_int(NullTerminatedIterator const& str, int base) {
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
 			return sprout::ascii::isspace(*str)
 					? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
@@ -91,7 +91,7 @@ namespace sprout {
 			sprout::is_signed<IntType>::value,
 			IntType
 		>::type
-		str_to_int(NullTerminatedIterator str, int base) {
+		str_to_int(NullTerminatedIterator const& str, int base) {
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
 			return sprout::ascii::isspace(*str)
 					? sprout::detail::str_to_int<IntType>(sprout::next(str), base)
@@ -104,7 +104,7 @@ namespace sprout {
 		}
 		template<typename IntType, typename NullTerminatedIterator, typename CharPtr>
 		inline SPROUT_CONSTEXPR IntType
-		str_to_int(NullTerminatedIterator str, CharPtr* endptr, int base) {
+		str_to_int(NullTerminatedIterator const& str, CharPtr* endptr, int base) {
 			return !endptr ? sprout::detail::str_to_int<IntType>(str, base)
 #if defined(_MSC_VER)
 				: sprout::is_signed<IntType>::value

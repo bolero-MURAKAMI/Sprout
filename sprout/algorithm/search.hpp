@@ -22,10 +22,10 @@ namespace sprout {
 		template<typename RandomAccessIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR RandomAccessIterator1
 		search_impl_ra(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2,
+			RandomAccessIterator1 const& first1, RandomAccessIterator1 const& last1,
+			ForwardIterator2 const& first2, ForwardIterator2 const& last2,
 			BinaryPredicate pred,
-			typename std::iterator_traits<RandomAccessIterator1>::difference_type pivot, RandomAccessIterator1 last1_, RandomAccessIterator1 searched
+			typename std::iterator_traits<RandomAccessIterator1>::difference_type pivot, RandomAccessIterator1 const& last1_, RandomAccessIterator1 const& searched
 			)
 		{
 			return searched < first1 || searched == last1_ ? searched
@@ -47,8 +47,8 @@ namespace sprout {
 			RandomAccessIterator1
 		>::type
 		search(
-			RandomAccessIterator1 first1, RandomAccessIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2,
+			RandomAccessIterator1 const& first1, RandomAccessIterator1 const& last1,
+			ForwardIterator2 const& first2, ForwardIterator2 const& last2,
 			BinaryPredicate pred,
 			std::random_access_iterator_tag*
 			)
@@ -63,7 +63,7 @@ namespace sprout {
 
 		template<typename ForwardIterator1>
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, bool>
-		search_impl_fork(sprout::pair<ForwardIterator1, bool> const& current, ForwardIterator1 last1, ForwardIterator1 searched) {
+		search_impl_fork(sprout::pair<ForwardIterator1, bool> const& current, ForwardIterator1 const& last1, ForwardIterator1 const& searched) {
 			typedef sprout::pair<ForwardIterator1, bool> type;
 			return searched == current.first || searched == last1 ? type(searched, true)
 				: type(sprout::next(current.first), false)
@@ -73,7 +73,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, bool>
 		search_impl_1(
 			sprout::pair<ForwardIterator1, bool> const& current,
-			ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
+			ForwardIterator1 const& last1, ForwardIterator2 const& first2, ForwardIterator2 const& last2, BinaryPredicate pred,
 			typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
@@ -95,7 +95,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator1, bool>
 		search_impl(
 			sprout::pair<ForwardIterator1, bool> const& current,
-			ForwardIterator1 last1, ForwardIterator2 first2, ForwardIterator2 last2, BinaryPredicate pred,
+			ForwardIterator1 const& last1, ForwardIterator2 const& first2, ForwardIterator2 const& last2, BinaryPredicate pred,
 			typename std::iterator_traits<ForwardIterator1>::difference_type n
 			)
 		{
@@ -112,8 +112,8 @@ namespace sprout {
 		template<typename ForwardIterator1, typename ForwardIterator2, typename BinaryPredicate>
 		inline SPROUT_CONSTEXPR ForwardIterator1
 		search(
-			ForwardIterator1 first1, ForwardIterator1 last1,
-			ForwardIterator2 first2, ForwardIterator2 last2,
+			ForwardIterator1 const& first1, ForwardIterator1 const& last1,
+			ForwardIterator2 const& first2, ForwardIterator2 const& last2,
 			BinaryPredicate pred,
 			std::forward_iterator_tag*
 			)

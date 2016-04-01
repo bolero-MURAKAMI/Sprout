@@ -30,7 +30,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, typename UnaryOperation, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator,
+				RandomAccessIterator const& first, RandomAccessIterator const&,
 				Result const& result, UnaryOperation op,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
@@ -49,7 +49,7 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename Result, typename UnaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(
-				RandomAccessIterator first, RandomAccessIterator last,
+				RandomAccessIterator const& first, RandomAccessIterator const& last,
 				Result const& result, UnaryOperation op,
 				std::random_access_iterator_tag*
 				)
@@ -84,7 +84,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			transform_impl(
-				InputIterator first, InputIterator last,
+				InputIterator const& first, InputIterator const& last,
 				Result const& result, UnaryOperation op,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
@@ -98,7 +98,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename UnaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(
-				InputIterator first, InputIterator last,
+				InputIterator const& first, InputIterator const& last,
 				Result const& result, UnaryOperation op,
 				std::input_iterator_tag*
 				)
@@ -111,7 +111,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			transform(InputIterator first, InputIterator last, Result const& result, UnaryOperation op) {
+			transform(InputIterator const& first, InputIterator const& last, Result const& result, UnaryOperation op) {
 				typedef typename std::iterator_traits<InputIterator>::iterator_category* category;
 				return sprout::fixed::detail::transform(first, last, result, op, category());
 			}
@@ -121,7 +121,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			transform(InputIterator first, InputIterator last, Result const& result, UnaryOperation op) {
+			transform(InputIterator const& first, InputIterator const& last, Result const& result, UnaryOperation op) {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					sprout::make_transform_iterator(first, op),
@@ -148,7 +148,7 @@ namespace sprout {
 			template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename Result, typename BinaryOperation, sprout::index_t... Indexes>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform_impl_ra(
-				RandomAccessIterator1 first1, RandomAccessIterator1, RandomAccessIterator2 first2,
+				RandomAccessIterator1 const& first1, RandomAccessIterator1 const&, RandomAccessIterator2 first2,
 				Result const& result, BinaryOperation op,
 				sprout::index_tuple<Indexes...>,
 				typename sprout::container_traits<Result>::difference_type offset,
@@ -167,7 +167,7 @@ namespace sprout {
 			template<typename RandomAccessIterator1, typename RandomAccessIterator2, typename Result, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(
-				RandomAccessIterator1 first1, RandomAccessIterator1 last1, RandomAccessIterator2 first2,
+				RandomAccessIterator1 const& first1, RandomAccessIterator1 const& last1, RandomAccessIterator2 first2,
 				Result const& result, BinaryOperation op,
 				std::random_access_iterator_tag*
 				)
@@ -201,7 +201,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			transform_impl(
-				InputIterator1 first1, InputIterator1 last1, InputIterator2 first2,
+				InputIterator1 const& first1, InputIterator1 const& last1, InputIterator2 first2,
 				Result const& result, BinaryOperation op,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
@@ -215,7 +215,7 @@ namespace sprout {
 			template<typename InputIterator1, typename InputIterator2, typename Result, typename BinaryOperation>
 			inline SPROUT_CONSTEXPR typename sprout::fixed::results::algorithm<Result>::type
 			transform(
-				InputIterator1 first1, InputIterator1 last1, InputIterator2 first2,
+				InputIterator1 const& first1, InputIterator1 const& last1, InputIterator2 first2,
 				Result const& result, BinaryOperation op,
 				std::input_iterator_tag*
 				)
@@ -228,7 +228,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, Result const& result, BinaryOperation op) {
+			transform(InputIterator1 const& first1, InputIterator1 const& last1, InputIterator2 const& first2, Result const& result, BinaryOperation op) {
 				typedef typename sprout::common_iterator_category<InputIterator1, InputIterator2>::type* category;
 				return sprout::fixed::detail::transform(first1, last1, first2, result, op, category());
 			}
@@ -238,7 +238,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			transform(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, Result const& result, BinaryOperation op) {
+			transform(InputIterator1 const& first1, InputIterator1 const& last1, InputIterator2 const& first2, Result const& result, BinaryOperation op) {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					sprout::make_transform_iterator(first1, first2, op),

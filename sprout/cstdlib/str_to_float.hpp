@@ -24,7 +24,7 @@ namespace sprout {
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float_impl_scale(
-			NullTerminatedIterator str,
+			NullTerminatedIterator const& str,
 			bool negative,
 			FloatType number = FloatType(),
 			std::size_t num_digits = 0,
@@ -50,7 +50,7 @@ namespace sprout {
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float_impl_exponent_2(
-			NullTerminatedIterator str,
+			NullTerminatedIterator const& str,
 			bool negative,
 			FloatType number = FloatType(),
 			std::size_t num_digits = 0,
@@ -75,7 +75,7 @@ namespace sprout {
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float_impl_exponent_1(
-			NullTerminatedIterator str,
+			NullTerminatedIterator const& str,
 			bool negative,
 			FloatType number = FloatType(),
 			std::size_t num_digits = 0,
@@ -108,7 +108,7 @@ namespace sprout {
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float_impl_exponent(
-			NullTerminatedIterator str,
+			NullTerminatedIterator const& str,
 			bool negative,
 			FloatType number = FloatType(),
 			std::size_t num_digits = 0,
@@ -148,7 +148,7 @@ namespace sprout {
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float_impl_decimal_1(
-			NullTerminatedIterator str,
+			NullTerminatedIterator const& str,
 			bool negative,
 			FloatType number = FloatType(),
 			std::size_t num_digits = 0,
@@ -170,7 +170,7 @@ namespace sprout {
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float_impl_decimal(
-			NullTerminatedIterator str,
+			NullTerminatedIterator const& str,
 			bool negative,
 			FloatType number = FloatType(),
 			std::size_t num_digits = 0,
@@ -202,7 +202,7 @@ namespace sprout {
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
 		str_to_float_impl(
-			NullTerminatedIterator str,
+			NullTerminatedIterator const& str,
 			bool negative,
 			FloatType number = FloatType(),
 			std::size_t num_digits = 0
@@ -232,7 +232,7 @@ namespace sprout {
 		}
 		template<typename FloatType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR FloatType
-		str_to_float(NullTerminatedIterator str) {
+		str_to_float(NullTerminatedIterator const& str) {
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type char_type;
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::str_to_float<FloatType>(sprout::next(str))
@@ -245,7 +245,7 @@ namespace sprout {
 		}
 		template<typename FloatType, typename NullTerminatedIterator, typename CharPtr>
 		inline SPROUT_CONSTEXPR FloatType
-		str_to_float(NullTerminatedIterator str, CharPtr* endptr) {
+		str_to_float(NullTerminatedIterator const& str, CharPtr* endptr) {
 			return !endptr ? sprout::detail::str_to_float<FloatType>(str)
 #if defined(__MINGW32__)
 				: std::is_same<typename std::remove_cv<FloatType>::type, float>::value ? ::strtof(&*str, endptr)

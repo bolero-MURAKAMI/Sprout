@@ -24,7 +24,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename T>
 			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			replace_copy_impl(
-				InputIterator first, InputIterator last, Result const& result, T const& old_value, T const& new_value,
+				InputIterator const& first, InputIterator const& last, Result const& result, T const& old_value, T const& new_value,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{

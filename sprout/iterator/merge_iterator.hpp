@@ -51,41 +51,41 @@ namespace sprout {
 		typedef typename sprout::common_iterator_reference<LIterator, RIterator>::type reference;
 	private:
 		static SPROUT_CONSTEXPR bool check_in_left(
-			iterator_type it1, iterator_type lst_1,
-			iterator2_type it2, iterator2_type lst_2,
+			iterator_type it1, iterator_type las1,
+			iterator2_type it2, iterator2_type las2,
 			Compare comp
 			)
 		{
-			return it1 != lst_1 ? (it2 != lst_2 ? !comp(*it2, *it1) : true)
-				: !(it2 != lst_2)
+			return it1 != las1 ? (it2 != las2 ? !comp(*it2, *it1) : true)
+				: !(it2 != las2)
 				;
 		}
 	protected:
 		iterator_type current1;
-		iterator_type lst_1;
+		iterator_type las1;
 		iterator2_type current2;
-		iterator2_type lst_2;
+		iterator2_type las2;
 		Compare comp;
 		bool in_left;
 	public:
 		SPROUT_CONSTEXPR merge_iterator()
-			: current1(), lst_1(), current2(), lst_2(), comp(), in_left(true)
+			: current1(), las1(), current2(), las2(), comp(), in_left(true)
 		{}
 		merge_iterator(merge_iterator const&) = default;
 		SPROUT_CONSTEXPR merge_iterator(
-			iterator_type it1, iterator_type lst_1,
-			iterator2_type it2, iterator2_type lst_2,
+			iterator_type it1, iterator_type las1,
+			iterator2_type it2, iterator2_type las2,
 			Compare comp = Compare()
 			)
-			: current1(it1), lst_1(lst_1)
-			, current2(it2), lst_2(lst_2)
+			: current1(it1), las1(las1)
+			, current2(it2), las2(las2)
 			, comp(comp)
-			, in_left(check_in_left(it1, lst_1, it2, lst_2, comp))
+			, in_left(check_in_left(it1, las1, it2, las2, comp))
 		{}
 		template<typename U, typename V, typename W>
 		SPROUT_CONSTEXPR merge_iterator(merge_iterator<U, V, W> const& it)
-			: current1(it.base()), lst_1(it.last1())
-			, current2(it.base2()), lst_2(it.last2())
+			: current1(it.base()), las1(it.last1())
+			, current2(it.base2()), las2(it.last2())
 			, comp(it.compare())
 			, in_left(it.is_in_left())
 		{}
@@ -99,13 +99,13 @@ namespace sprout {
 			return current1;
 		}
 		SPROUT_CONSTEXPR iterator_type last1() const {
-			return lst_1;
+			return las1;
 		}
 		SPROUT_CONSTEXPR iterator2_type base2() const {
 			return current2;
 		}
 		SPROUT_CONSTEXPR iterator2_type last2() const {
-			return lst_2;
+			return las2;
 		}
 		SPROUT_CONSTEXPR Compare compare() const {
 			return comp;
@@ -120,8 +120,8 @@ namespace sprout {
 			return &*(*this);
 		}
 		SPROUT_CXX14_CONSTEXPR merge_iterator& operator++() {
-			if (current1 != lst_1) {
-				if (current2 != lst_2) {
+			if (current1 != las1) {
+				if (current2 != las2) {
 					if (comp(*current2, *current1)) {
 						++current2;
 					} else {
@@ -130,16 +130,16 @@ namespace sprout {
 				} else {
 					++current1;
 				}
-			} else if (current2 != lst_2) {
+			} else if (current2 != las2) {
 				++current2;
 			}
-			in_left = check_in_left(current1, lst_1, current2, lst_2, comp);
+			in_left = check_in_left(current1, las1, current2, las2, comp);
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR merge_iterator operator++(int) {
 			merge_iterator result(*this);
-			if (current1 != lst_1) {
-				if (current2 != lst_2) {
+			if (current1 != las1) {
+				if (current2 != las2) {
 					if (comp(*current2, *current1)) {
 						++current2;
 					} else {
@@ -148,38 +148,38 @@ namespace sprout {
 				} else {
 					++current1;
 				}
-			} else if (current2 != lst_2) {
+			} else if (current2 != las2) {
 				++current2;
 			}
-			in_left = check_in_left(current1, lst_1, current2, lst_2, comp);
+			in_left = check_in_left(current1, las1, current2, las2, comp);
 			return result;
 		}
 		SPROUT_CONSTEXPR merge_iterator next() const {
-			return current1 != lst_1
-				? current2 != lst_2
+			return current1 != las1
+				? current2 != las2
 					? comp(*current2, *current1)
-						? merge_iterator(current1, lst_1, sprout::next(current2), lst_2, comp)
-						: merge_iterator(sprout::next(current1), lst_1, current2, lst_2, comp)
-					: merge_iterator(sprout::next(current1), lst_1, current2, lst_2, comp)
-				: current2 != lst_2
-					? merge_iterator(current1, lst_1, sprout::next(current2), lst_2, comp)
+						? merge_iterator(current1, las1, sprout::next(current2), las2, comp)
+						: merge_iterator(sprout::next(current1), las1, current2, las2, comp)
+					: merge_iterator(sprout::next(current1), las1, current2, las2, comp)
+				: current2 != las2
+					? merge_iterator(current1, las1, sprout::next(current2), las2, comp)
 				: *this
 				;
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(merge_iterator& other)
 		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current1, other.current1))
-			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst_1, other.lst_1))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(las1, other.las1))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(current2, other.current2))
-			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst_2, other.lst_2))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(las2, other.las2))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(comp, other.comp))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(in_left, other.in_left))
 			)
 		{
 			sprout::swap(current1, other.current1);
-			sprout::swap(lst_1, other.lst_1);
+			sprout::swap(las1, other.las1);
 			sprout::swap(current2, other.current2);
-			sprout::swap(lst_2, other.lst_2);
+			sprout::swap(las2, other.las2);
 			sprout::swap(comp, other.comp);
 			sprout::swap(in_left, other.in_left);
 		}
@@ -213,13 +213,13 @@ namespace sprout {
 	//
 	template<typename LIterator, typename RIterator, typename Compare>
 	inline SPROUT_CONSTEXPR sprout::merge_iterator<LIterator, RIterator, Compare>
-	make_merge_iterator(LIterator it1, LIterator lst_1, RIterator it2, RIterator lst_2, Compare comp) {
-		return sprout::merge_iterator<LIterator, RIterator, Compare>(it1, lst_1, it2, lst_2, comp);
+	make_merge_iterator(LIterator it1, LIterator las1, RIterator it2, RIterator las2, Compare comp) {
+		return sprout::merge_iterator<LIterator, RIterator, Compare>(it1, las1, it2, las2, comp);
 	}
 	template<typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR sprout::merge_iterator<LIterator, RIterator>
-	make_merge_iterator(LIterator it1, LIterator lst_1, RIterator it2, RIterator lst_2) {
-		return sprout::merge_iterator<LIterator, RIterator>(it1, lst_1, it2, lst_2);
+	make_merge_iterator(LIterator it1, LIterator las1, RIterator it2, RIterator las2) {
+		return sprout::merge_iterator<LIterator, RIterator>(it1, las1, it2, las2);
 	}
 
 	//

@@ -27,7 +27,7 @@ namespace sprout {
 			template<typename InputIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			partition_copy_impl(
-				InputIterator first, InputIterator last, Result const& result, Predicate pred,
+				InputIterator const& first, InputIterator const& last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{

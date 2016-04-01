@@ -23,7 +23,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result, typename Predicate>
 			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			stable_partition_copy_impl(
-				BidirectionalIterator first, BidirectionalIterator last, Result const& result, Predicate pred,
+				BidirectionalIterator const& first, BidirectionalIterator const& last, Result const& result, Predicate pred,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{

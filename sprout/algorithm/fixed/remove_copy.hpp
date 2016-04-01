@@ -29,7 +29,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			remove_copy_impl(
-				InputIterator, InputIterator,
+				InputIterator const&, InputIterator const&,
 				Result const& result, T const&,
 				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
@@ -43,7 +43,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			remove_copy_impl(
-				InputIterator first, InputIterator last,
+				InputIterator const& first, InputIterator const& last,
 				Result const& result, T const& value,
 				typename sprout::container_traits<Result>::size_type size,
 				Args const&... args
@@ -62,7 +62,7 @@ namespace sprout {
 				sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			remove_copy(InputIterator first, InputIterator last, Result const& result, T const& value) {
+			remove_copy(InputIterator const& first, InputIterator const& last, Result const& result, T const& value) {
 				return sprout::fixed::detail::remove_copy_impl(first, last, result, value, sprout::size(result));
 			}
 
@@ -71,7 +71,7 @@ namespace sprout {
 				!sprout::is_fixed_container<Result>::value,
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
-			remove_copy(InputIterator first, InputIterator last, Result const& result, T const& value) {
+			remove_copy(InputIterator const& first, InputIterator const& last, Result const& result, T const& value) {
 				return sprout::remake<Result>(
 					result, sprout::size(result),
 					sprout::make_remove_iterator(value, first, last),

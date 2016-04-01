@@ -22,8 +22,8 @@ namespace sprout {
 			template<typename RandomAccessIterator, typename T>
 			inline SPROUT_CONSTEXPR RandomAccessIterator
 			find_character_set_impl_ra(
-				RandomAccessIterator first, RandomAccessIterator last, T const& value,
-				typename std::iterator_traits<RandomAccessIterator>::difference_type pivot, RandomAccessIterator found
+				RandomAccessIterator const& first, RandomAccessIterator const& last, T const& value,
+				typename std::iterator_traits<RandomAccessIterator>::difference_type pivot, RandomAccessIterator const& found
 				)
 			{
 				return found != first ? found
@@ -48,7 +48,7 @@ namespace sprout {
 				RandomAccessIterator
 			>::type
 			find_character_set(
-				RandomAccessIterator first, RandomAccessIterator last, T const& value,
+				RandomAccessIterator const& first, RandomAccessIterator const& last, T const& value,
 				std::random_access_iterator_tag*
 				)
 			{
@@ -61,7 +61,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::pair<BidirectionalIterator, bool>
 			find_character_set_impl_1(
 				sprout::pair<BidirectionalIterator, bool> const& current,
-				BidirectionalIterator last, T const& value, typename std::iterator_traits<BidirectionalIterator>::difference_type n
+				BidirectionalIterator const& last, T const& value, typename std::iterator_traits<BidirectionalIterator>::difference_type n
 				)
 			{
 				typedef sprout::pair<BidirectionalIterator, bool> type;
@@ -83,7 +83,7 @@ namespace sprout {
 			inline SPROUT_CONSTEXPR sprout::pair<BidirectionalIterator, bool>
 			find_character_set_impl(
 				sprout::pair<BidirectionalIterator, bool> const& current,
-				BidirectionalIterator last, T const& value, typename std::iterator_traits<BidirectionalIterator>::difference_type n
+				BidirectionalIterator const& last, T const& value, typename std::iterator_traits<BidirectionalIterator>::difference_type n
 				)
 			{
 				return current.second || current.first == last ? current
@@ -99,7 +99,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename T>
 			inline SPROUT_CONSTEXPR BidirectionalIterator
 			find_character_set(
-				BidirectionalIterator first, BidirectionalIterator last, T const& value,
+				BidirectionalIterator const& first, BidirectionalIterator const& last, T const& value,
 				std::input_iterator_tag*
 				)
 			{
@@ -109,7 +109,7 @@ namespace sprout {
 
 			template<typename BidirectionalIterator, typename T>
 			inline SPROUT_CONSTEXPR BidirectionalIterator
-			find_character_set(BidirectionalIterator first, BidirectionalIterator last, T const& value) {
+			find_character_set(BidirectionalIterator const& first, BidirectionalIterator const& last, T const& value) {
 				typedef typename std::iterator_traits<BidirectionalIterator>::iterator_category* category;
 				return sprout::weed::detail::find_character_set(first, last, value, category());
 			}

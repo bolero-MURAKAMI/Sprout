@@ -43,7 +43,7 @@ namespace sprout {
 			template<typename Container, typename RandomAccessIterator>
 			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::value_type const&
 			sort_select_pivot(
-				RandomAccessIterator origin,
+				RandomAccessIterator const& origin,
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end
 				)
@@ -53,7 +53,7 @@ namespace sprout {
 			template<typename Container, typename RandomAccessIterator, typename Compare>
 			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
 			sort_find_l(
-				RandomAccessIterator origin,
+				RandomAccessIterator const& origin,
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type l,
 				typename sprout::container_traits<Container>::value_type const& p
@@ -67,7 +67,7 @@ namespace sprout {
 			template<typename Container, typename RandomAccessIterator, typename Compare>
 			inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::difference_type
 			sort_find_r(
-				RandomAccessIterator origin,
+				RandomAccessIterator const& origin,
 				Compare comp,
 				typename sprout::container_traits<Container>::difference_type r,
 				typename sprout::container_traits<Container>::value_type const& p

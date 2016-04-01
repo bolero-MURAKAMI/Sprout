@@ -23,7 +23,7 @@ namespace sprout {
 			template<typename BidirectionalIterator, typename Result>
 			inline SPROUT_CONSTEXPR typename sprout::fit::results::algorithm<Result>::type
 			copy_backward_impl(
-				BidirectionalIterator first, BidirectionalIterator last, Result const& result,
+				BidirectionalIterator const& first, BidirectionalIterator const& last, Result const& result,
 				typename sprout::container_traits<Result>::difference_type offset
 				)
 			{

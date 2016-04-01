@@ -21,8 +21,8 @@ namespace sprout {
 		template<typename RandomAccessIterator, typename Compare>
 		inline SPROUT_CONSTEXPR RandomAccessIterator
 		is_sorted_until_impl_ra(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
-			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot, RandomAccessIterator found
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Compare comp,
+			typename std::iterator_traits<RandomAccessIterator>::difference_type pivot, RandomAccessIterator const& found
 			)
 		{
 			return found != first ? found
@@ -44,7 +44,7 @@ namespace sprout {
 			RandomAccessIterator
 		>::type
 		is_sorted_until(
-			RandomAccessIterator first, RandomAccessIterator last, Compare comp,
+			RandomAccessIterator const& first, RandomAccessIterator const& last, Compare comp,
 			std::random_access_iterator_tag*
 			)
 		{
@@ -62,7 +62,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		is_sorted_until_impl_1(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
-			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			ForwardIterator const& last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
 			typedef sprout::pair<ForwardIterator, ForwardIterator> type;
@@ -83,7 +83,7 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR sprout::pair<ForwardIterator, ForwardIterator>
 		is_sorted_until_impl(
 			sprout::pair<ForwardIterator, ForwardIterator> const& current,
-			ForwardIterator last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
+			ForwardIterator const& last, Compare comp, typename std::iterator_traits<ForwardIterator>::difference_type n
 			)
 		{
 			return current.second == last ? current
@@ -99,7 +99,7 @@ namespace sprout {
 		template<typename ForwardIterator, typename Compare>
 		inline SPROUT_CONSTEXPR ForwardIterator
 		is_sorted_until(
-			ForwardIterator first, ForwardIterator last, Compare comp,
+			ForwardIterator const& first, ForwardIterator const& last, Compare comp,
 			std::forward_iterator_tag*
 			)
 		{

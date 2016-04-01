@@ -25,7 +25,7 @@ namespace sprout {
 
 		template<typename IntType, typename NullTerminatedIterator>
 		inline SPROUT_CONSTEXPR IntType
-		ascii_to_int_impl(NullTerminatedIterator str, IntType val, bool negative) {
+		ascii_to_int_impl(NullTerminatedIterator const& str, IntType val, bool negative) {
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type value_type;
 			SPROUT_STATIC_ASSERT(sprout::detail::is_char_type_of_consecutive_digits<value_type>::value);
 			return !sprout::ascii::isdigit(*str)
@@ -44,7 +44,7 @@ namespace sprout {
 			sprout::is_unsigned<IntType>::value,
 			IntType
 		>::type
-		ascii_to_int(NullTerminatedIterator str) {
+		ascii_to_int(NullTerminatedIterator const& str) {
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type value_type;
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))
@@ -58,7 +58,7 @@ namespace sprout {
 			sprout::is_signed<IntType>::value,
 			IntType
 		>::type
-		ascii_to_int(NullTerminatedIterator str) {
+		ascii_to_int(NullTerminatedIterator const& str) {
 			typedef typename std::iterator_traits<NullTerminatedIterator>::value_type value_type;
 			return sprout::ascii::isspace(*str)
 				? sprout::detail::ascii_to_int<IntType>(sprout::next(str))

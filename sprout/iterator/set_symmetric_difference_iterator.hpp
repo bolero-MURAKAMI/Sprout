@@ -43,45 +43,45 @@ namespace sprout {
 			typedef sprout::pair<iterator_type, iterator2_type> pair_type;
 		protected:
 			static SPROUT_CONSTEXPR bool check_in_left(
-				iterator_type it1, iterator_type lst_1,
-				iterator2_type it2, iterator2_type lst_2,
+				iterator_type it1, iterator_type las1,
+				iterator2_type it2, iterator2_type las2,
 				Compare comp
 				)
 			{
-				return it1 != lst_1 ? (it2 != lst_2 ? comp(*it1, *it2) : true)
-					: !(it2 != lst_2)
+				return it1 != las1 ? (it2 != las2 ? comp(*it1, *it2) : true)
+					: !(it2 != las2)
 					;
 			}
 		protected:
 			pair_type current;
-			iterator_type lst_1;
-			iterator2_type lst_2;
+			iterator_type las1;
+			iterator2_type las2;
 			Compare comp;
 		protected:
 			bool in_left;
 		protected:
 			SPROUT_CONSTEXPR set_symmetric_difference_iterator_impl()
-				: current(), lst_1(), lst_2(), comp(), in_left(true)
+				: current(), las1(), las2(), comp(), in_left(true)
 			{}
 			set_symmetric_difference_iterator_impl(set_symmetric_difference_iterator_impl const&) = default;
 			SPROUT_CONSTEXPR set_symmetric_difference_iterator_impl(
 				pair_type const& current,
-				iterator_type lst_1, iterator2_type lst_2,
+				iterator_type las1, iterator2_type las2,
 				Compare comp
 				)
 				: current(current)
-				, lst_1(lst_1), lst_2(lst_2)
+				, las1(las1), las2(las2)
 				, comp(comp)
-				, in_left(check_in_left(current.first, lst_1, current.second, lst_2, comp))
+				, in_left(check_in_left(current.first, las1, current.second, las2, comp))
 			{}
 			SPROUT_CONSTEXPR set_symmetric_difference_iterator_impl(
 				pair_type const& current,
-				iterator_type lst_1, iterator2_type lst_2,
+				iterator_type las1, iterator2_type las2,
 				Compare comp,
 				bool in_left
 				)
 				: current(current)
-				, lst_1(lst_1), lst_2(lst_2)
+				, las1(las1), las2(las2)
 				, comp(comp)
 				, in_left(in_left)
 			{}
@@ -125,14 +125,14 @@ namespace sprout {
 		using impl_type::check_in_left;
 	protected:
 		using impl_type::current;
-		using impl_type::lst_1;
-		using impl_type::lst_2;
+		using impl_type::las1;
+		using impl_type::las2;
 		using impl_type::comp;
 	private:
 		using impl_type::in_left;
 	private:
 		SPROUT_CONSTEXPR set_symmetric_difference_iterator(set_symmetric_difference_iterator const& other, pair_type const& next)
-			: impl_type(next, other.lst_1, other.lst_2, other.comp)
+			: impl_type(next, other.las1, other.las2, other.comp)
 		{}
 	public:
 		SPROUT_CONSTEXPR set_symmetric_difference_iterator()
@@ -140,11 +140,11 @@ namespace sprout {
 		{}
 		set_symmetric_difference_iterator(set_symmetric_difference_iterator const&) = default;
 		SPROUT_CONSTEXPR set_symmetric_difference_iterator(
-			iterator_type it1, iterator_type lst_1,
-			iterator2_type it2, iterator2_type lst_2,
+			iterator_type it1, iterator_type las1,
+			iterator2_type it2, iterator2_type las2,
 			Compare comp = Compare()
 			)
-			: impl_type(sprout::find_symmetric_difference(it1, lst_1, it2, lst_2, comp), lst_1, lst_2, comp)
+			: impl_type(sprout::find_symmetric_difference(it1, las1, it2, las2, comp), las1, las2, comp)
 		{}
 		template<typename U, typename V, typename W>
 		SPROUT_CONSTEXPR set_symmetric_difference_iterator(set_symmetric_difference_iterator<U, V, W> const& it)
@@ -160,13 +160,13 @@ namespace sprout {
 			return current.first;
 		}
 		SPROUT_CONSTEXPR iterator_type last1() const {
-			return lst_1;
+			return las1;
 		}
 		SPROUT_CONSTEXPR iterator2_type base2() const {
 			return current.second;
 		}
 		SPROUT_CONSTEXPR iterator2_type last2() const {
-			return lst_2;
+			return las2;
 		}
 		SPROUT_CONSTEXPR Compare compare() const {
 			return comp;
@@ -181,33 +181,33 @@ namespace sprout {
 			return &*(*this);
 		}
 		SPROUT_CXX14_CONSTEXPR set_symmetric_difference_iterator& operator++() {
-			current = sprout::next_symmetric_difference(current.first, lst_1, current.second, lst_2, comp);
-			in_left = check_in_left(current.first, lst_1, current.second, lst_2, comp);
+			current = sprout::next_symmetric_difference(current.first, las1, current.second, las2, comp);
+			in_left = check_in_left(current.first, las1, current.second, las2, comp);
 			return *this;
 		}
 		SPROUT_CXX14_CONSTEXPR set_symmetric_difference_iterator operator++(int) {
 			set_symmetric_difference_iterator result(*this);
-			current = sprout::next_symmetric_difference(current.first, lst_1, current.second, lst_2, comp);
-			in_left = check_in_left(current.first, lst_1, current.second, lst_2, comp);
+			current = sprout::next_symmetric_difference(current.first, las1, current.second, las2, comp);
+			in_left = check_in_left(current.first, las1, current.second, las2, comp);
 			return result;
 		}
 		SPROUT_CONSTEXPR set_symmetric_difference_iterator next() const {
 			return set_symmetric_difference_iterator(
 				*this,
-				sprout::next_symmetric_difference(current.first, lst_1, current.second, lst_2, comp)
+				sprout::next_symmetric_difference(current.first, las1, current.second, las2, comp)
 				);
 		}
 		SPROUT_CXX14_CONSTEXPR void swap(set_symmetric_difference_iterator& other)
 		SPROUT_NOEXCEPT_IF(
 			SPROUT_NOEXCEPT_EXPR(sprout::swap(current, other.current))
-			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst_1, other.lst_1))
-			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(lst_2, other.lst_2))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(las1, other.las1))
+			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(las2, other.las2))
 			&& SPROUT_NOEXCEPT_EXPR(sprout::swap(comp, other.comp))
 			)
 		{
 			sprout::swap(current, other.current);
-			sprout::swap(lst_1, other.lst_1);
-			sprout::swap(lst_2, other.lst_2);
+			sprout::swap(las1, other.las1);
+			sprout::swap(las2, other.las2);
 			sprout::swap(comp, other.comp);
 			sprout::swap(in_left, other.in_left);
 		}
@@ -241,13 +241,13 @@ namespace sprout {
 	//
 	template<typename LIterator, typename RIterator, typename Compare>
 	inline SPROUT_CONSTEXPR sprout::set_symmetric_difference_iterator<LIterator, RIterator, Compare>
-	make_set_symmetric_difference_iterator(LIterator it1, LIterator lst_1, RIterator it2, RIterator lst_2, Compare comp) {
-		return sprout::set_symmetric_difference_iterator<LIterator, RIterator, Compare>(it1, lst_1, it2, lst_2, comp);
+	make_set_symmetric_difference_iterator(LIterator it1, LIterator las1, RIterator it2, RIterator las2, Compare comp) {
+		return sprout::set_symmetric_difference_iterator<LIterator, RIterator, Compare>(it1, las1, it2, las2, comp);
 	}
 	template<typename LIterator, typename RIterator>
 	inline SPROUT_CONSTEXPR sprout::set_symmetric_difference_iterator<LIterator, RIterator>
-	make_set_symmetric_difference_iterator(LIterator it1, LIterator lst_1, RIterator it2, RIterator lst_2) {
-		return sprout::set_symmetric_difference_iterator<LIterator, RIterator>(it1, lst_1, it2, lst_2);
+	make_set_symmetric_difference_iterator(LIterator it1, LIterator las1, RIterator it2, RIterator las2) {
+		return sprout::set_symmetric_difference_iterator<LIterator, RIterator>(it1, las1, it2, las2);
 	}
 
 	//
