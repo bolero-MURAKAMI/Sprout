@@ -25,8 +25,9 @@ namespace sprout {
 			sprout::container_traits<Result>::static_size == sizeof...(Args),
 			typename sprout::results::algorithm<Result>::type
 		>::type
-		mask_index_impl(InputIterator const&, InputIterator const&, Result const& result, Predicate,
+		mask_index_impl(InputIterator const&, InputIterator const&, Result const& result,
 			typename sprout::container_traits<Result>::size_type,
+			typename sprout::container_traits<Result>::difference_type n,
 			Args const&... args
 			)
 		{
@@ -76,7 +77,7 @@ namespace sprout {
 		template<typename Result, typename InputIterator>
 		inline SPROUT_CONSTEXPR typename sprout::results::algorithm<Result>::type
 		mask_index(InputIterator first, InputIterator last) {
-			return sprout::mask_index_(first, last, sprout::pit<Result>());
+			return sprout::detail::mask_index(first, last, sprout::pit<Result>());
 		}
 	}	// namespace detail
 }	// namespace sprout
