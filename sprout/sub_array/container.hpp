@@ -89,6 +89,15 @@ namespace sprout {
 				>::template rebind_size<Size>::type
 			> type;
 		};
+		template<typename Type>
+		struct rebind_type {
+		public:
+			typedef sprout::sub_array<
+				typename sprout::container_transform_traits<
+					typename std::remove_reference<Container>::type
+				>::template rebind_type<Type>::type
+			> type;
+		};
 	};
 
 	//

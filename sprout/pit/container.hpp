@@ -95,6 +95,13 @@ namespace sprout {
 				typename sprout::container_transform_traits<Container>::template rebind_size<Size>::type
 			> type;
 		};
+		template<typename Type>
+		struct rebind_type {
+		public:
+			typedef sprout::pit<
+				typename sprout::container_transform_traits<Container>::template rebind_type<Type>::type
+			> type;
+		};
 	};
 }	// namespace sprout
 

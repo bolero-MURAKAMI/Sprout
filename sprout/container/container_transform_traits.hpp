@@ -33,6 +33,19 @@ namespace sprout {
 			typedef Array<T, Size> type;
 		};
 
+		template<typename Container, typename Type>
+		struct default_array_rebind_type;
+		template<
+			template<typename, std::size_t> class Array,
+			typename T,
+			std::size_t N,
+			typename Type
+		>
+		struct default_array_rebind_type<Array<T, N>, Type> {
+		public:
+			typedef Array<Type, N> type;
+		};
+
 		template<typename Container, typename = void>
 		struct inherit_default_rebind_size {};
 		template<typename Container>
@@ -46,11 +59,26 @@ namespace sprout {
 				: public sprout::detail::default_array_rebind_size<Container, Size>
 			{};
 		};
+
+		template<typename Container, typename = void>
+		struct inherit_default_rebind_type {};
+		template<typename Container>
+		struct inherit_default_rebind_type<
+			Container,
+			typename std::enable_if<sprout::detail::is_array_like<Container>::value>::type
+		> {
+		public:
+			template<typename Type>
+			struct rebind_type
+				: public sprout::detail::default_array_rebind_type<Container, Type>
+			{};
+		};
 	}	// namespace detail
 
 	template<typename Container>
 	struct container_transform_traits
 		: public sprout::detail::inherit_default_rebind_size<Container>
+		, public sprout::detail::inherit_default_rebind_type<Container>
 	{};
 	template<typename Container>
 	struct container_transform_traits<Container const> {
@@ -58,6 +86,10 @@ namespace sprout {
 		template<typename sprout::container_traits<Container>::size_type Size>
 		struct rebind_size {
 			typedef typename sprout::container_transform_traits<Container>::template rebind_size<Size>::type const type;
+		};
+		template<typename Type>
+		struct rebind_type {
+			typedef typename sprout::container_transform_traits<Container>::template rebind_type<Type>::type const type;
 		};
 	};
 
@@ -69,6 +101,11 @@ namespace sprout {
 		public:
 			typedef T type[Size];
 		};
+		template<typename Type>
+		struct rebind_type {
+		public:
+			typedef Type type[N];
+		};
 	};
 	template<typename T, std::size_t N>
 	struct container_transform_traits<T const[N]> {
@@ -77,6 +114,11 @@ namespace sprout {
 		struct rebind_size {
 		public:
 			typedef T const type[Size];
+		};
+		template<typename Type>
+		struct rebind_type {
+		public:
+			typedef Type type[N];
 		};
 	};
 }	// namespace sprout

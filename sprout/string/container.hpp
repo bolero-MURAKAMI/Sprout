@@ -52,6 +52,11 @@ namespace sprout {
 		public:
 			typedef sprout::basic_string<T, Size, Traits> type;
 		};
+		template<typename Type>
+		struct rebind_type {
+		public:
+			typedef sprout::basic_string<Type, N, Traits> type;
+		};
 	};
 }	// namespace sprout
 
