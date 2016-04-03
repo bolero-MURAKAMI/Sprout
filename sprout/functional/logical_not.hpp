@@ -11,6 +11,7 @@
 #include <utility>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/functional/transparent.hpp>
 
 namespace sprout {
 	// 20.8.6 logical operations
@@ -26,9 +27,9 @@ namespace sprout {
 	};
 
 	template<>
-	struct logical_not<void> {
-	public:
-		typedef void is_transparent;
+	struct logical_not<void>
+		: public sprout::transparent<>
+	{
 	public:
 		template<typename T>
 		SPROUT_CONSTEXPR decltype(!std::declval<T>())

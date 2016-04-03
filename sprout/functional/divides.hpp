@@ -14,6 +14,7 @@
 #include <utility>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/functional/transparent.hpp>
 
 namespace sprout {
 
@@ -31,9 +32,9 @@ namespace sprout {
 	};
 
 	template<>
-	struct divides<void> {
-	public:
-		typedef void is_transparent;
+	struct divides<void>
+		: public sprout::transparent<>
+	{
 	public:
 		template<typename T, typename U>
 		SPROUT_CONSTEXPR decltype(std::declval<T>() / std::declval<U>())

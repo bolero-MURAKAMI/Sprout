@@ -11,6 +11,7 @@
 #include <utility>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/functional/transparent.hpp>
 
 namespace sprout {
 	// 20.8.7 bitwise operations
@@ -27,9 +28,9 @@ namespace sprout {
 	};
 
 	template<>
-	struct bit_xor<void> {
-	public:
-		typedef void is_transparent;
+	struct bit_xor<void>
+		: public sprout::transparent<>
+	{
 	public:
 		template<typename T, typename U>
 		SPROUT_CONSTEXPR decltype(std::declval<T>() ^ std::declval<U>())

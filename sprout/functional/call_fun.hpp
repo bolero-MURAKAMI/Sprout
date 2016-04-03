@@ -11,6 +11,7 @@
 #include <utility>
 #include <sprout/config.hpp>
 #include <sprout/utility/forward.hpp>
+#include <sprout/functional/transparent.hpp>
 
 namespace sprout {
 	//
@@ -19,9 +20,9 @@ namespace sprout {
 	template<typename T = void>
 	struct call_fun;
 	template<>
-	struct call_fun<void> {
-	public:
-		typedef void is_transparent;
+	struct call_fun<void>
+		: public sprout::transparent<>
+	{
 	public:
 		template<typename F, typename... As>
 		SPROUT_CONSTEXPR decltype(std::declval<F>()(std::declval<As>()...))

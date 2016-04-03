@@ -13,7 +13,11 @@
 #include <sprout/valarray/valarray.hpp>
 #include <sprout/algorithm/fixed/transform.hpp>
 #include <sprout/functional/equal_to.hpp>
+#include <sprout/functional/not_equal_to.hpp>
+#include <sprout/functional/greater.hpp>
 #include <sprout/functional/less.hpp>
+#include <sprout/functional/greater_equal.hpp>
+#include <sprout/functional/less_equal.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/functional/bind1st.hpp>
 
@@ -42,17 +46,17 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator!=(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return !(lhs == rhs);
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::not_equal_to<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator!=(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return !(lhs == rhs);
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::not_equal_to<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator!=(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return !(lhs == rhs);
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::not_equal_to<>(), lhs));
 	}
 	//
 	// operator<
@@ -78,17 +82,17 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return rhs < lhs;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::greater<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return rhs < lhs;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::greater<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return rhs < lhs;
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::greater<>(), lhs));
 	}
 	//
 	// operator<=
@@ -96,17 +100,17 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<=(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return !(rhs < lhs);
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::less_equal<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<=(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return !(rhs < lhs);
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::less_equal<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<=(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return !(rhs < lhs);
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::less_equal<>(), lhs));
 	}
 	//
 	// operator>=
@@ -114,17 +118,17 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>=(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return !(lhs < rhs);
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::greater_equal<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>=(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return !(lhs < rhs);
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::greater_equal<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>=(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return !(lhs < rhs);
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::greater_equal<>(), lhs));
 	}
 }	// namespace sprout
 
