@@ -1271,4 +1271,6 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+#include <sprout/string/container.hpp>
+
 #endif	// #ifndef SPROUT_STRING_STRING_HPP

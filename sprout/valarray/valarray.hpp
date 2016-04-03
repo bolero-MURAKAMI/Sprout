@@ -670,4 +670,6 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+#include <sprout/valarray/container.hpp>
+
 #endif	// #ifndef SPROUT_VALARRAY_VALARRAY_HPP
