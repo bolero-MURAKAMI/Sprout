@@ -32,11 +32,26 @@ namespace sprout {
 		typedef sprout::detail::make_construct_impl<type> construct_type;
 		return construct_type::make(T(SPROUT_FORWARD(Types, args))...);
 	}
+	template<typename T, std::size_t N, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::valarray<typename std::remove_cv<T>::type, N>
+	make_valarray(Types&&... args) {
+		typedef sprout::valarray<typename std::remove_cv<T>::type, N> type;
+		typedef sprout::detail::make_construct_impl<type> construct_type;
+		return construct_type::make(T(SPROUT_FORWARD(Types, args))...);
+	}
 	template<sprout::detail::make_valarray_t = sprout::detail::make_valarray_in_common_elements, typename... Types>
 	inline SPROUT_CONSTEXPR sprout::valarray<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
 	make_valarray(Types&&... args) {
 		typedef typename sprout::common_decay<Types...>::type value_type;
 		typedef sprout::valarray<value_type, sizeof...(Types)> type;
+		typedef sprout::detail::make_construct_impl<type> construct_type;
+		return construct_type::make(value_type(SPROUT_FORWARD(Types, args))...);
+	}
+	template<std::size_t N, sprout::detail::make_valarray_t = sprout::detail::make_valarray_in_common_elements, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::valarray<typename sprout::common_decay<Types...>::type, N>
+	make_valarray(Types&&... args) {
+		typedef typename sprout::common_decay<Types...>::type value_type;
+		typedef sprout::valarray<value_type, N> type;
 		typedef sprout::detail::make_construct_impl<type> construct_type;
 		return construct_type::make(value_type(SPROUT_FORWARD(Types, args))...);
 	}
@@ -51,11 +66,26 @@ namespace sprout {
 		typedef sprout::detail::make_construct_impl<type> construct_type;
 		return construct_type::make(SPROUT_FORWARD(Types, args)...);
 	}
+	template<typename T, std::size_t N, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::valarray<typename std::remove_cv<T>::type, N>
+	make_valarray_without_narrowing(Types&&... args) {
+		typedef sprout::valarray<typename std::remove_cv<T>::type, N> type;
+		typedef sprout::detail::make_construct_impl<type> construct_type;
+		return construct_type::make(SPROUT_FORWARD(Types, args)...);
+	}
 	template<sprout::detail::make_valarray_t = sprout::detail::make_valarray_in_common_elements, typename... Types>
 	inline SPROUT_CONSTEXPR sprout::valarray<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
 	make_valarray_without_narrowing(Types&&... args) {
 		typedef typename sprout::common_decay<Types...>::type value_type;
 		typedef sprout::valarray<value_type, sizeof...(Types)> type;
+		typedef sprout::detail::make_construct_impl<type> construct_type;
+		return construct_type::make(SPROUT_FORWARD(Types, args)...);
+	}
+	template<std::size_t N, sprout::detail::make_valarray_t = sprout::detail::make_valarray_in_common_elements, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::valarray<typename sprout::common_decay<Types...>::type, N>
+	make_valarray_without_narrowing(Types&&... args) {
+		typedef typename sprout::common_decay<Types...>::type value_type;
+		typedef sprout::valarray<value_type, N> type;
 		typedef sprout::detail::make_construct_impl<type> construct_type;
 		return construct_type::make(SPROUT_FORWARD(Types, args)...);
 	}
@@ -67,6 +97,11 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::valarray<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
 	make_common_valarray(Types&&... args) {
 		return sprout::make_valarray(SPROUT_FORWARD(Types, args)...);
+	}
+	template<std::size_t N, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::valarray<typename sprout::common_decay<Types...>::type, N>
+	make_common_valarray(Types&&... args) {
+		return sprout::make_valarray<N>(SPROUT_FORWARD(Types, args)...);
 	}
 }	// namespace sprout
 

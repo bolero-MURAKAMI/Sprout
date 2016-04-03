@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_VALARRAY_MASKE_ARRAY_HPP
-#define SPROUT_VALARRAY_MASKE_ARRAY_HPP
+#ifndef SPROUT_VALARRAY_MASK_ARRAY_HPP
+#define SPROUT_VALARRAY_MASK_ARRAY_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
@@ -231,4 +231,4 @@ namespace sprout {
 	}
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_VALARRAY_MASKE_ARRAY_HPP
+#endif	// #ifndef SPROUT_VALARRAY_MASK_ARRAY_HPP

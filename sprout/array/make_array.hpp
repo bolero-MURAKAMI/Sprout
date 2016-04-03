@@ -30,11 +30,23 @@ namespace sprout {
 	make_array(Types&&... args) {
 		return sprout::array<typename std::remove_cv<T>::type, sizeof...(Types)>{{T(SPROUT_FORWARD(Types, args))...}};
 	}
+	template<typename T, std::size_t N, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::array<typename std::remove_cv<T>::type, N>
+	make_array(Types&&... args) {
+		return sprout::array<typename std::remove_cv<T>::type, N>{{T(SPROUT_FORWARD(Types, args))...}};
+	}
 	template<sprout::detail::make_array_t = sprout::detail::make_array_in_common_elements, typename... Types>
 	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
 	make_array(Types&&... args) {
 		typedef typename sprout::common_decay<Types...>::type value_type;
 		typedef sprout::array<value_type, sizeof...(Types)> type;
+		return type{{value_type(SPROUT_FORWARD(Types, args))...}};
+	}
+	template<std::size_t N, sprout::detail::make_array_t = sprout::detail::make_array_in_common_elements, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, N>
+	make_array(Types&&... args) {
+		typedef typename sprout::common_decay<Types...>::type value_type;
+		typedef sprout::array<value_type, N> type;
 		return type{{value_type(SPROUT_FORWARD(Types, args))...}};
 	}
 
@@ -46,11 +58,23 @@ namespace sprout {
 	make_array_without_narrowing(Types&&... args) {
 		return sprout::array<typename std::remove_cv<T>::type, sizeof...(Types)>{{SPROUT_FORWARD(Types, args)...}};
 	}
+	template<typename T, std::size_t N, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::array<typename std::remove_cv<T>::type, N>
+	make_array_without_narrowing(Types&&... args) {
+		return sprout::array<typename std::remove_cv<T>::type, N>{{SPROUT_FORWARD(Types, args)...}};
+	}
 	template<sprout::detail::make_array_t = sprout::detail::make_array_in_common_elements, typename... Types>
 	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
 	make_array_without_narrowing(Types&&... args) {
 		typedef typename sprout::common_decay<Types...>::type value_type;
 		typedef sprout::array<value_type, sizeof...(Types)> type;
+		return type{{SPROUT_FORWARD(Types, args)...}};
+	}
+	template<std::size_t N, sprout::detail::make_array_t = sprout::detail::make_array_in_common_elements, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, N>
+	make_array_without_narrowing(Types&&... args) {
+		typedef typename sprout::common_decay<Types...>::type value_type;
+		typedef sprout::array<value_type, N> type;
 		return type{{SPROUT_FORWARD(Types, args)...}};
 	}
 
@@ -61,6 +85,11 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, sizeof...(Types)>
 	make_common_array(Types&&... args) {
 		return sprout::make_array(SPROUT_FORWARD(Types, args)...);
+	}
+	template<std::size_t N, typename... Types>
+	inline SPROUT_CONSTEXPR sprout::array<typename sprout::common_decay<Types...>::type, N>
+	make_common_array(Types&&... args) {
+		return sprout::make_array<N>(SPROUT_FORWARD(Types, args)...);
 	}
 
 	//

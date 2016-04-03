@@ -50,7 +50,7 @@ namespace sprout {
 				typename Sequence::value_type,
 				sprout::types::detail::str_length<Sequence>::value
 			> to_string_constant_impl(sprout::index_tuple<Indexes...>) {
-				return sprout::make_string_as<typename Sequence::value_type>(
+				return sprout::make_string<typename Sequence::value_type>(
 					sprout::types::tuple_element<Indexes, Sequence>::type::value...
 					);
 			}

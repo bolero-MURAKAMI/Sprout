@@ -16,33 +16,55 @@
 #include <sprout/utility/forward.hpp>
 
 namespace sprout {
+	namespace detail {
+		enum make_string_t {
+			make_string_in_head_type
+		};
+	}	// namespace detail
 	//
 	// make_string
 	//
-	template<typename T, typename... Types>
-	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, 1 + sizeof...(Types)>
-	make_string(T&& t, Types&&... args) {
-		typedef sprout::detail::make_construct_impl<
-			sprout::basic_string<typename std::decay<T>::type, 1 + sizeof...(Types)>
-		> impl_type;
-		return impl_type::make(SPROUT_FORWARD(T, t), SPROUT_FORWARD(Types, args)...);
-	}
-
-	//
-	// make_string_as
-	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, 0>
-	make_string_as() {
+	make_string() {
 		return sprout::basic_string<typename std::decay<T>::type, 0>();
 	}
-	template<typename T, typename... Types>
-	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, sizeof...(Types)>
-	make_string_as(Types&&... args) {
+	template<typename T, std::size_t N>
+	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, N>
+	make_string() {
+		return sprout::basic_string<typename std::decay<T>::type, N>();
+	}
+	template<typename T, typename Head, typename... Tail>
+	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, 1 + sizeof...(Tail)>
+	make_string(Head&& head, Tail&&... tail) {
 		typedef sprout::detail::make_construct_impl<
-			sprout::basic_string<typename std::decay<T>::type, sizeof...(Types)>
+			sprout::basic_string<typename std::decay<T>::type, 1 + sizeof...(Tail)>
 		> impl_type;
-		return impl_type::make(SPROUT_FORWARD(Types, args)...);
+		return impl_type::make(SPROUT_FORWARD(Head, head), SPROUT_FORWARD(Tail, tail)...);
+	}
+	template<typename T, std::size_t N, typename Head, typename... Tail>
+	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<T>::type, N>
+	make_string(Head&& head, Tail&&... tail) {
+		typedef sprout::detail::make_construct_impl<
+			sprout::basic_string<typename std::decay<T>::type, N>
+		> impl_type;
+		return impl_type::make(SPROUT_FORWARD(Head, head), SPROUT_FORWARD(Tail, tail)...);
+	}
+	template<sprout::detail::make_string_t = sprout::detail::make_string_in_head_type, typename Head, typename... Tail>
+	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<Head>::type, 1 + sizeof...(Tail)>
+	make_string(Head&& head, Tail&&... tail) {
+		typedef sprout::detail::make_construct_impl<
+			sprout::basic_string<typename std::decay<Head>::type, 1 + sizeof...(Tail)>
+		> impl_type;
+		return impl_type::make(SPROUT_FORWARD(Head, head), SPROUT_FORWARD(Tail, tail)...);
+	}
+	template<std::size_t N, sprout::detail::make_string_t = sprout::detail::make_string_in_head_type, typename Head, typename... Tail>
+	inline SPROUT_CONSTEXPR sprout::basic_string<typename std::decay<Head>::type, N>
+	make_string(Head&& head, Tail&&... tail) {
+		typedef sprout::detail::make_construct_impl<
+			sprout::basic_string<typename std::decay<Head>::type, N>
+		> impl_type;
+		return impl_type::make(SPROUT_FORWARD(Head, head), SPROUT_FORWARD(Tail, tail)...);
 	}
 }	// namespace sprout
 
