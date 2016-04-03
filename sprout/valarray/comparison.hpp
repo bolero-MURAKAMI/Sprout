@@ -20,6 +20,7 @@
 #include <sprout/functional/less_equal.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/functional/bind1st.hpp>
+#include <sprout/sized_pit.hpp>
 
 namespace sprout {
 	//
@@ -28,17 +29,20 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator==(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::equal_to<>());
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sized_pit_type(lhs.size()), sprout::equal_to<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator==(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::equal_to<>(), rhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sized_pit_type(lhs.size()), sprout::bind2nd(sprout::equal_to<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator==(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::equal_to<>(), lhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sized_pit_type(rhs.size()), sprout::bind1st(sprout::equal_to<>(), lhs));
 	}
 	//
 	// operator!=
@@ -46,17 +50,20 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator!=(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::not_equal_to<>());
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sized_pit_type(lhs.size()), sprout::not_equal_to<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator!=(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::not_equal_to<>(), rhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sized_pit_type(lhs.size()), sprout::bind2nd(sprout::not_equal_to<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator!=(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::not_equal_to<>(), lhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sized_pit_type(rhs.size()), sprout::bind1st(sprout::not_equal_to<>(), lhs));
 	}
 	//
 	// operator<
@@ -64,17 +71,20 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::less<>());
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sized_pit_type(lhs.size()), sprout::less<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::less<>(), rhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sized_pit_type(lhs.size()), sprout::bind2nd(sprout::less<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::less<>(), lhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sized_pit_type(rhs.size()), sprout::bind1st(sprout::less<>(), lhs));
 	}
 	//
 	// operator>
@@ -82,17 +92,20 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::greater<>());
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sized_pit_type(lhs.size()), sprout::greater<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::greater<>(), rhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sized_pit_type(lhs.size()), sprout::bind2nd(sprout::greater<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::greater<>(), lhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sized_pit_type(rhs.size()), sprout::bind1st(sprout::greater<>(), lhs));
 	}
 	//
 	// operator<=
@@ -100,17 +113,20 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<=(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::less_equal<>());
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sized_pit_type(lhs.size()), sprout::less_equal<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<=(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::less_equal<>(), rhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sized_pit_type(lhs.size()), sprout::bind2nd(sprout::less_equal<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator<=(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::less_equal<>(), lhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sized_pit_type(rhs.size()), sprout::bind1st(sprout::less_equal<>(), lhs));
 	}
 	//
 	// operator>=
@@ -118,17 +134,20 @@ namespace sprout {
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>=(sprout::valarray<T, N> const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sprout::valarray<bool, N>(lhs.size()), sprout::greater_equal<>());
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), rhs.begin(), sized_pit_type(lhs.size()), sprout::greater_equal<>());
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>=(sprout::valarray<T, N> const& lhs, T const& rhs) {
-		return sprout::fixed::transform(lhs.begin(), lhs.end(), sprout::valarray<bool, N>(lhs.size()), sprout::bind2nd(sprout::greater_equal<>(), rhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(lhs.begin(), lhs.end(), sized_pit_type(lhs.size()), sprout::bind2nd(sprout::greater_equal<>(), rhs));
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR sprout::valarray<bool, N>
 	operator>=(T const& lhs, sprout::valarray<T, N> const& rhs) {
-		return sprout::fixed::transform(rhs.begin(), rhs.end(), sprout::valarray<bool, N>(rhs.size()), sprout::bind1st(sprout::greater_equal<>(), lhs));
+		typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+		return sprout::fixed::transform(rhs.begin(), rhs.end(), sized_pit_type(rhs.size()), sprout::bind1st(sprout::greater_equal<>(), lhs));
 	}
 }	// namespace sprout
 

@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_PIT_PIT_HPP
-#define SPROUT_PIT_PIT_HPP
+#ifndef SPROUT_SIZED_PIT_SIZED_PIT_HPP
+#define SPROUT_SIZED_PIT_SIZED_PIT_HPP
 
 #include <utility>
 #include <stdexcept>
@@ -21,10 +21,10 @@
 
 namespace sprout {
 	//
-	// pit
+	// sized_pit
 	//
 	template<typename Container>
-	class pit
+	class sized_pit
 		: public sprout::container_traits_facade<Container>
 	{
 	private:
@@ -46,31 +46,35 @@ namespace sprout {
 		SPROUT_STATIC_CONSTEXPR size_type enumerable_size = sprout::detail::static_size_or_zero<facade_type>::value;
 	private:
 		value_type elem;
+		size_type size_;
 	public:
-		SPROUT_CONSTEXPR pit()
-			: elem()
+		SPROUT_CONSTEXPR sized_pit()
+			: elem(), size_()
 		{}
-		pit(pit const&) = default;
-		explicit SPROUT_CONSTEXPR pit(value_type const& t)
-			: elem(t)
+		sized_pit(sized_pit const&) = default;
+		explicit SPROUT_CONSTEXPR sized_pit(size_type size)
+			: elem(), size_(size)
 		{}
-		SPROUT_CXX14_CONSTEXPR pit& operator=(pit const& rhs) {
+		SPROUT_CONSTEXPR sized_pit(size_type size, value_type const& t)
+			: elem(t), size_(size)
+		{}
+		SPROUT_CXX14_CONSTEXPR sized_pit& operator=(sized_pit const& rhs) {
 			elem = rhs.elem;
 			return *this;
 		}
-		SPROUT_CXX14_CONSTEXPR pit& operator=(pit&& rhs) {
+		SPROUT_CXX14_CONSTEXPR sized_pit& operator=(sized_pit&& rhs) {
 			elem = sprout::move(rhs.elem);
 			return *this;
 		}
-		SPROUT_CXX14_CONSTEXPR pit& operator=(value_type const& rhs) {
+		SPROUT_CXX14_CONSTEXPR sized_pit& operator=(value_type const& rhs) {
 			elem = rhs;
 			return *this;
 		}
-		SPROUT_CXX14_CONSTEXPR pit& operator=(value_type&& rhs) {
+		SPROUT_CXX14_CONSTEXPR sized_pit& operator=(value_type&& rhs) {
 			elem = sprout::move(rhs);
 			return *this;
 		}
-		SPROUT_CXX14_CONSTEXPR void swap(pit& other)
+		SPROUT_CXX14_CONSTEXPR void swap(sized_pit& other)
 		SPROUT_NOEXCEPT_IF_EXPR(sprout::swap(elem, other.elem))
 		{
 			sprout::swap(elem, other.elem);
@@ -114,7 +118,7 @@ namespace sprout {
 		}
 		// capacity:
 		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
-			return max_size();
+			return size_;
 		}
 		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
 			return enumerable_size;
@@ -131,12 +135,12 @@ namespace sprout {
 		}
 		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
 			return i < size() ? elem
-				: (throw std::out_of_range("pit<>: index out of range"), elem)
+				: (throw std::out_of_range("sized_pit<>: index out of range"), elem)
 				;
 		}
 		SPROUT_CONSTEXPR const_reference at(size_type i) const {
 			return i < size() ? elem
-				: (throw std::out_of_range("pit<>: index out of range"), elem)
+				: (throw std::out_of_range("sized_pit<>: index out of range"), elem)
 				;
 		}
 		SPROUT_CXX14_CONSTEXPR reference front() {
@@ -153,26 +157,26 @@ namespace sprout {
 		}
 		// others:
 		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
-			return i >= size() ? throw std::out_of_range("pit<>: index out of range")
+			return i >= size() ? throw std::out_of_range("sized_pit<>: index out of range")
 				: (void)0
 				;
 		}
 	};
 	template<typename Container>
-	SPROUT_CONSTEXPR_OR_CONST typename sprout::pit<Container>::size_type sprout::pit<Container>::enumerable_size;
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::sized_pit<Container>::size_type sprout::sized_pit<Container>::enumerable_size;
 
 	//
 	// swap
 	//
 	template<typename Container>
 	inline SPROUT_CXX14_CONSTEXPR void
-	swap(sprout::pit<Container>& lhs, sprout::pit<Container>& rhs)
+	swap(sprout::sized_pit<Container>& lhs, sprout::sized_pit<Container>& rhs)
 	SPROUT_NOEXCEPT_IF_EXPR(lhs.swap(rhs))
 	{
 		lhs.swap(rhs);
 	}
 }	// namespace sprout
 
-#include <sprout/pit/container.hpp>
+#include <sprout/sized_pit/container.hpp>
 
-#endif	// #ifndef SPROUT_PIT_PIT_HPP
+#endif	// #ifndef SPROUT_SIZED_PIT_SIZED_PIT_HPP

@@ -342,7 +342,8 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR valarray<bool, N>
 		operator!() const {
-			return sprout::fixed::transform<valarray<bool, N> >(begin(), end(), sprout::logical_not<>());
+			typedef sprout::sized_pit<sprout::valarray<bool, N> > sized_pit_type;
+			return sprout::fixed::transform(begin(), end(), sized_pit_type(size()), sprout::logical_not<>());
 		}
 		// computed assignment:
 		SPROUT_CXX14_CONSTEXPR valarray&

@@ -70,6 +70,7 @@
 #include <sprout/range/numeric/dft.hpp>
 #include <sprout/range/numeric/fft.hpp>
 #include <sprout/rational.hpp>
+#include <sprout/sized_pit.hpp>
 #include <sprout/stateful.hpp>
 #include <sprout/static_assert.hpp>
 #include <sprout/static_warning.hpp>
