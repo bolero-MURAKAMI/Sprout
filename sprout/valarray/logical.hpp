@@ -16,7 +16,7 @@
 #include <sprout/functional/logical_or.hpp>
 #include <sprout/functional/bind2nd.hpp>
 #include <sprout/functional/bind1st.hpp>
-#include <sprout/sized_pit.hpp>
+#include <sprout/sized_pit/sized_pit.hpp>
 
 namespace sprout {
 	//

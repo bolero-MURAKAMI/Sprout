@@ -13,6 +13,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/index_iterator.hpp>
+#include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/functional/multiplies.hpp>
 #include <sprout/algorithm/cxx14/copy.hpp>
 #include <sprout/algorithm/cxx14/fill.hpp>
@@ -35,7 +36,11 @@ namespace sprout {
 		SPROUT_CONSTEXPR gslice()
 			: start_(), size_(), stride_()
 		{}
-		SPROUT_CONSTEXPR gslice(std::size_t start, sprout::valarray<std::size_t, N> const& size, sprout::valarray<std::size_t, N> const& stride)
+		SPROUT_CONSTEXPR gslice(
+			std::size_t start,
+			sprout::valarray<std::size_t, N> const& size,
+			sprout::valarray<std::size_t, N> const& stride
+			)
 			: start_(start), size_(size), stride_(stride)
 		{}
 		SPROUT_CONSTEXPR std::size_t start() const {
@@ -64,6 +69,7 @@ namespace sprout {
 		typedef typename valarray_type::difference_type difference_type;
 		typedef typename valarray_type::pointer pointer;
 		typedef sprout::index_iterator<gslice_array const&> iterator;
+		typedef sprout::reverse_iterator<iterator> reverse_iterator;
 	private:
 		typedef sprout::gslice<M> gslice_type;
 		typedef sprout::valarray<size_type, (M < N ? M : N)> indexes_type;
@@ -222,25 +228,50 @@ namespace sprout {
 		end() const {
 			return iterator(*this, size());
 		}
+		SPROUT_CONSTEXPR reverse_iterator
+		rbegin() const {
+			return reverse_iterator(end());
+		}
+		SPROUT_CONSTEXPR reverse_iterator
+		rend() const {
+			return reverse_iterator(begin());
+		}
 		// capacity:
-		SPROUT_CONSTEXPR size_type size() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR size_type
+		size() const SPROUT_NOEXCEPT {
 			return size_.front();
 		}
-		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR bool
+		empty() const SPROUT_NOEXCEPT {
 			return size() == 0;
 		}
 		// element access:
-		SPROUT_CONSTEXPR reference operator[](size_type i) const {
+		SPROUT_CONSTEXPR reference
+		operator[](size_type i) const {
 			return (*arr_)[index(i)];
 		}
-		SPROUT_CONSTEXPR reference at(size_type i) const {
+		SPROUT_CONSTEXPR reference
+		at(size_type i) const {
 			return arr_->at(index(i));
 		}
-		SPROUT_CONSTEXPR reference front() const {
+		SPROUT_CONSTEXPR reference
+		front() const {
 			return (*this)[0];
 		}
-		SPROUT_CONSTEXPR reference back() const {
+		SPROUT_CONSTEXPR reference
+		back() const {
 			return (*this)[size() - 1];
+		}
+		// others:
+		SPROUT_CONSTEXPR iterator
+		nth(size_type i) const {
+			return i < size() ? begin() + i
+				: (throw std::out_of_range("gslice_array<>: index out of range"), iterator())
+				;
+		}
+		SPROUT_CONSTEXPR size_type
+		index_of(iterator p) const SPROUT_NOEXCEPT {
+			return p - begin();
 		}
 	};
 	template<typename T, std::size_t N, std::size_t M>

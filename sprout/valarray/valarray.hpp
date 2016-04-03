@@ -53,6 +53,7 @@
 #include <sprout/valarray/gslice_array.hpp>
 #include <sprout/valarray/mask_array.hpp>
 #include <sprout/valarray/indirect_array.hpp>
+#include <sprout/sized_pit/sized_pit.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -453,119 +454,152 @@ namespace sprout {
 		}
 
 		// modifiers (array):
-		SPROUT_CXX14_CONSTEXPR void fill(const_reference value) {
+		SPROUT_CXX14_CONSTEXPR void
+		fill(const_reference value) {
 			impl_.array_.fill(value);
 		}
-		SPROUT_CONSTEXPR valarray fill(const_reference value) const {
+		SPROUT_CONSTEXPR valarray
+		fill(const_reference value) const {
 			return valarray(value, size());
 		}
-		SPROUT_CXX14_CONSTEXPR void assign(const_reference value) {
+		SPROUT_CXX14_CONSTEXPR void
+		assign(const_reference value) {
 			impl_.array_.assign(value);
 		}
-		SPROUT_CONSTEXPR valarray assign(const_reference value) const {
+		SPROUT_CONSTEXPR valarray
+		assign(const_reference value) const {
 			return valarray(value, size());
 		}
 		// iterators (array):
-		SPROUT_CXX14_CONSTEXPR iterator begin() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR iterator
+		begin() SPROUT_NOEXCEPT {
 			return impl_.array_.begin();
 		}
-		SPROUT_CONSTEXPR const_iterator begin() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_iterator
+		begin() const SPROUT_NOEXCEPT {
 			return impl_.array_.begin();
 		}
-		SPROUT_CXX14_CONSTEXPR iterator end() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR iterator
+		end() SPROUT_NOEXCEPT {
 			return impl_.array_.begin() + size();
 		}
-		SPROUT_CONSTEXPR const_iterator end() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_iterator
+		end() const SPROUT_NOEXCEPT {
 			return impl_.array_.begin() + size();
 		}
-		SPROUT_CXX14_CONSTEXPR reverse_iterator rbegin() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator
+		rbegin() SPROUT_NOEXCEPT {
 			return impl_.array_.rend() - size();
 		}
-		SPROUT_CONSTEXPR const_reverse_iterator rbegin() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_reverse_iterator
+		rbegin() const SPROUT_NOEXCEPT {
 			return impl_.array_.rend() - size();
 		}
-		SPROUT_CXX14_CONSTEXPR reverse_iterator rend() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR reverse_iterator
+		rend() SPROUT_NOEXCEPT {
 			return impl_.array_.rend();
 		}
-		SPROUT_CONSTEXPR const_reverse_iterator rend() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_reverse_iterator
+		rend() const SPROUT_NOEXCEPT {
 			return impl_.array_.rend();
 		}
-		SPROUT_CONSTEXPR const_iterator cbegin() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_iterator
+		cbegin() const SPROUT_NOEXCEPT {
 			return impl_.array_.cbegin();
 		}
-		SPROUT_CONSTEXPR const_iterator cend() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_iterator
+		cend() const SPROUT_NOEXCEPT {
 			return impl_.array_.cbegin() + size();
 		}
-		SPROUT_CONSTEXPR const_reverse_iterator crbegin() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_reverse_iterator
+		crbegin() const SPROUT_NOEXCEPT {
 			return impl_.array_.crend() - size();
 		}
-		SPROUT_CONSTEXPR const_reverse_iterator crend() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_reverse_iterator
+		crend() const SPROUT_NOEXCEPT {
 			return impl_.array_.crend();
 		}
 		// capacity (array):
-		SPROUT_CONSTEXPR size_type max_size() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR size_type
+		max_size() const SPROUT_NOEXCEPT {
 			return impl_.array_.max_size();
 		}
-		SPROUT_CONSTEXPR bool empty() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR bool
+		empty() const SPROUT_NOEXCEPT {
 			return size() != 0;
 		}
 		// element access (array):
-		SPROUT_CXX14_CONSTEXPR reference at(size_type i) {
+		SPROUT_CXX14_CONSTEXPR reference
+		at(size_type i) {
 			return i < size() ? (*this)[i]
 				: (throw std::out_of_range("valarray<>: index out of range"), (*this)[i])
 				;
 		}
-		SPROUT_CONSTEXPR const_reference at(size_type i) const {
+		SPROUT_CONSTEXPR const_reference
+		at(size_type i) const {
 			return i < size() ? (*this)[i]
 				: (throw std::out_of_range("valarray<>: index out of range"), (*this)[i])
 				;
 		}
-		SPROUT_CXX14_CONSTEXPR reference front() {
+		SPROUT_CXX14_CONSTEXPR reference
+		front() {
 			return impl_.array_.front();
 		}
-		SPROUT_CONSTEXPR const_reference front() const {
+		SPROUT_CONSTEXPR const_reference
+		front() const {
 			return impl_.array_.front();
 		}
-		SPROUT_CXX14_CONSTEXPR reference back() {
+		SPROUT_CXX14_CONSTEXPR reference
+		back() {
 			return (*this)[size() - 1];
 		}
-		SPROUT_CONSTEXPR const_reference back() const {
+		SPROUT_CONSTEXPR const_reference
+		back() const {
 			return (*this)[size() - 1];
 		}
 
-		SPROUT_CXX14_CONSTEXPR pointer data() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR pointer
+		data() SPROUT_NOEXCEPT {
 			return impl_.array_.data();
 		}
-		SPROUT_CONSTEXPR const_pointer data() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_pointer
+		data() const SPROUT_NOEXCEPT {
 			return impl_.array_.data();
 		}
-		SPROUT_CXX14_CONSTEXPR pointer c_array() SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR pointer
+		c_array() SPROUT_NOEXCEPT {
 			return impl_.array_.c_array();
 		}
-		SPROUT_CONSTEXPR const_pointer c_array() const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR const_pointer
+		c_array() const SPROUT_NOEXCEPT {
 			return impl_.array_.c_array();
 		}
 		// others (array):
-		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
+		SPROUT_CXX14_CONSTEXPR void
+		rangecheck(size_type i) const {
 			return i >= size() ? throw std::out_of_range("valarray<>: index out of range")
 				: (void)0
 				;
 		}
 
-		SPROUT_CXX14_CONSTEXPR iterator nth(size_type i) {
+		SPROUT_CXX14_CONSTEXPR iterator
+		nth(size_type i) {
 			return i < size() ? begin() + i
 				: (throw std::out_of_range("valarray<>: index out of range"), iterator())
 				;
 		}
-		SPROUT_CONSTEXPR const_iterator nth(size_type i) const {
+		SPROUT_CONSTEXPR const_iterator
+		nth(size_type i) const {
 			return i < size() ? begin() + i
 				: (throw std::out_of_range("valarray<>: index out of range"), const_iterator())
 				;
 		}
-		SPROUT_CXX14_CONSTEXPR size_type index_of(iterator p) SPROUT_NOEXCEPT {
+		SPROUT_CXX14_CONSTEXPR size_type
+		index_of(iterator p) SPROUT_NOEXCEPT {
 			return impl_.array_.index_of(p);
 		}
-		SPROUT_CONSTEXPR size_type index_of(const_iterator p) const SPROUT_NOEXCEPT {
+		SPROUT_CONSTEXPR size_type
+		index_of(const_iterator p) const SPROUT_NOEXCEPT {
 			return impl_.array_.index_of(p);
 		}
 	};
