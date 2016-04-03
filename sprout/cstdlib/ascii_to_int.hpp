@@ -16,6 +16,7 @@
 #include <sprout/type_traits/is_unsigned.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/ctype/ascii.hpp>
+#include <sprout/static_assert.hpp>
 #include <sprout/detail/char_literal.hpp>
 #include <sprout/detail/char_type_of_consecutive.hpp>
 

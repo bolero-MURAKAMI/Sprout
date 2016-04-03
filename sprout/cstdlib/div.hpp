@@ -14,13 +14,22 @@
 #include <cstdlib>
 #include <functional>
 #include <type_traits>
+#include <tuple>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/hash.hpp>
+#include <sprout/iterator/index_iterator.hpp>
+#include <sprout/iterator/reverse_iterator.hpp>
+#include <sprout/functional/transparent.hpp>
+#include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/tuple/tuple/get.hpp>
+#include <sprout/container/traits.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/detail/nil_base.hpp>
+#include <sprout/detail/static_size.hpp>
+#include <sprout/assert.hpp>
 
 namespace sprout {
 	//
@@ -328,6 +337,208 @@ namespace sprout {
 	tuple_get(sprout::lldiv_t&& t) SPROUT_NOEXCEPT {
 		return sprout::move(sprout::tuples::get<I>(t));
 	}
+}	// namespace sprout
+
+namespace sprout {
+	namespace detail {
+		template<typename Div>
+		SPROUT_CONSTEXPR typename std::remove_reference<decltype(std::declval<Div>().quot)>::type&
+		div_at(Div& d, std::size_t i)
+		SPROUT_NOEXCEPT_IF_EXPR(std::declval<Div>().quot)
+		{
+			return i == 0 ? d.quot
+				: i == 1 ? d.rem
+				: (SPROUT_ASSERT(i < 2), d.quot)
+				;
+		}
+		template<typename Div>
+		SPROUT_CONSTEXPR typename std::remove_reference<decltype(std::declval<Div>().quot)>::type const&
+		div_at(Div const& d, std::size_t i)
+		SPROUT_NOEXCEPT_IF_EXPR(std::declval<Div>().quot)
+		{
+			return i == 0 ? d.quot
+				: i == 1 ? d.rem
+				: (SPROUT_ASSERT(i < 2), d.quot)
+				;
+		}
+
+		template<typename T = void>
+		struct div_at_f;
+		template<>
+		struct div_at_f<void>
+			: public sprout::transparent<>
+		{
+		public:
+			template<typename T, typename U>
+			SPROUT_CONSTEXPR decltype(sprout::detail::div_at(std::declval<T>(), std::declval<U>()))
+			operator()(T&& x, U&& y)
+			const SPROUT_NOEXCEPT_IF_EXPR(sprout::detail::div_at(std::declval<T>(), std::declval<U>()))
+			{
+				return sprout::detail::div_at(SPROUT_FORWARD(T, x), SPROUT_FORWARD(U, y));
+			}
+		};
+	}	// namespace detail
+
+	//
+	// container_traits
+	//
+#	define SPROUT_DETAIL_DIV_T_CONTAINER_TRAITS_IMPL(INT_T, DIV_T) \
+	template<> \
+	struct container_traits<DIV_T> \
+		: public sprout::detail::base_static_size<std::size_t, 2> \
+	{ \
+	public: \
+		typedef INT_T value_type; \
+		typedef sprout::index_iterator<DIV_T&, false, sprout::detail::div_at_f<> > iterator; \
+		typedef sprout::index_iterator<DIV_T const&, false, sprout::detail::div_at_f<> > const_iterator; \
+		typedef INT_T& reference; \
+		typedef INT_T const& const_reference; \
+		typedef std::size_t size_type; \
+		typedef std::ptrdiff_t difference_type; \
+		typedef INT_T* pointer; \
+		typedef INT_T const* const_pointer; \
+		typedef sprout::reverse_iterator<iterator> reverse_iterator; \
+		typedef sprout::reverse_iterator<const_iterator> const_reverse_iterator; \
+	}
+
+	SPROUT_DETAIL_DIV_T_CONTAINER_TRAITS_IMPL(int, sprout::div_t);
+	SPROUT_DETAIL_DIV_T_CONTAINER_TRAITS_IMPL(long, sprout::ldiv_t);
+	SPROUT_DETAIL_DIV_T_CONTAINER_TRAITS_IMPL(long long, sprout::lldiv_t);
+
+	//
+	// container_range_traits
+	//
+#	define SPROUT_DETAIL_DIV_T_CONTAINER_RANGE_TRAITS_IMPL(INT_T, DIV_T) \
+	template<> \
+	struct container_range_traits<DIV_T> { \
+	public: \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T>::iterator \
+		range_begin(DIV_T& t) { \
+			typedef typename sprout::container_traits<DIV_T>::iterator type; \
+			return type(t, 0); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T const>::iterator \
+		range_begin(DIV_T const& t) { \
+			typedef typename sprout::container_traits<DIV_T const>::iterator type; \
+			return type(t, 0); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T>::iterator \
+		range_end(DIV_T& t) { \
+			typedef typename sprout::container_traits<DIV_T>::iterator type; \
+			return type(t, 2); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T const>::iterator \
+		range_end(DIV_T const& t) { \
+			typedef typename sprout::container_traits<DIV_T const>::iterator type; \
+			return type(t, 2); \
+		} \
+		 \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T>::size_type \
+		range_size(DIV_T const&) { \
+			return 2; \
+		} \
+		static SPROUT_CONSTEXPR bool \
+		range_empty(DIV_T const&) { \
+			return false; \
+		} \
+		 \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T>::reference \
+		range_front(DIV_T& t) { \
+			return sprout::detail::div_at(t, 0); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T const>::reference \
+		range_front(DIV_T const& t) { \
+			return sprout::detail::div_at(t, 0); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T>::reference \
+		range_back(DIV_T& t) { \
+			return sprout::detail::div_at(t, 1); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T const>::reference \
+		range_back(DIV_T const& t) { \
+			return sprout::detail::div_at(t, 1); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T>::reference \
+		range_at(DIV_T& t, typename sprout::container_traits<DIV_T>::size_type i) { \
+			return sprout::detail::div_at(t, i); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T const>::reference \
+		range_at(DIV_T const& t, typename sprout::container_traits<DIV_T const>::size_type i) { \
+			return sprout::detail::div_at(t, i); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T>::iterator \
+		range_nth(DIV_T& t, typename sprout::container_traits<DIV_T>::size_type i) { \
+			typedef typename sprout::container_traits<DIV_T>::iterator type; \
+			return type(t, 0) + i; \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T const>::iterator \
+		range_nth(DIV_T const& t, typename sprout::container_traits<DIV_T const>::size_type i) { \
+			typedef typename sprout::container_traits<DIV_T const>::iterator type; \
+			return type(t, 0) + i; \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T>::size_type \
+		range_index_of(DIV_T& t, typename sprout::container_traits<DIV_T>::iterator p) { \
+			typedef typename sprout::container_traits<DIV_T>::iterator type; \
+			return sprout::distance(type(t, 0), p); \
+		} \
+		static SPROUT_CONSTEXPR typename sprout::container_traits<DIV_T const>::size_type \
+		range_index_of(DIV_T const& t, typename sprout::container_traits<DIV_T const>::iterator p) { \
+			typedef typename sprout::container_traits<DIV_T const>::iterator type; \
+			return sprout::distance(type(t, 0), p); \
+		} \
+	}
+
+	SPROUT_DETAIL_DIV_T_CONTAINER_RANGE_TRAITS_IMPL(int, sprout::div_t);
+	SPROUT_DETAIL_DIV_T_CONTAINER_RANGE_TRAITS_IMPL(long, sprout::ldiv_t);
+	SPROUT_DETAIL_DIV_T_CONTAINER_RANGE_TRAITS_IMPL(long long, sprout::lldiv_t);
+
+	//
+	// container_construct_traits
+	//
+#	define SPROUT_DETAIL_DIV_T_CONTAINER_CONSTRUCT_TRAITS_IMPL(INT_T, DIV_T) \
+	template<> \
+	struct container_construct_traits<DIV_T> { \
+	public: \
+		typedef DIV_T copied_type; \
+	public: \
+		template<typename Cont> \
+		static SPROUT_CONSTEXPR copied_type \
+		deep_copy(Cont&& cont) { \
+			return SPROUT_FORWARD(Cont, cont); \
+		} \
+		template<typename... Args> \
+		static SPROUT_CONSTEXPR copied_type \
+		make(Args&&... args) { \
+			return sprout::detail::div_impl<INT_T>(SPROUT_FORWARD(Args, args)...); \
+		} \
+		template<typename Cont, typename... Args> \
+		static SPROUT_CONSTEXPR copied_type \
+		remake(Cont&&, typename sprout::container_traits<DIV_T>::difference_type size, Args&&... args) { \
+			return sprout::detail::div_impl<INT_T>(SPROUT_FORWARD(Args, args)...); \
+		} \
+	}
+
+	SPROUT_DETAIL_DIV_T_CONTAINER_CONSTRUCT_TRAITS_IMPL(int, sprout::div_t);
+	SPROUT_DETAIL_DIV_T_CONTAINER_CONSTRUCT_TRAITS_IMPL(long, sprout::ldiv_t);
+	SPROUT_DETAIL_DIV_T_CONTAINER_CONSTRUCT_TRAITS_IMPL(long long, sprout::lldiv_t);
+
+	//
+	// container_transform_traits
+	//
+#	define SPROUT_DETAIL_DIV_T_CONTAINER_TRANSFORM_TRAITS_IMPL(INT_T, DIV_T) \
+	template<> \
+	struct container_transform_traits<DIV_T> { \
+	public: \
+		template<typename Type> \
+		struct rebind_type { \
+		public: \
+			typedef typename sprout::detail::div_t_traits<Type>::type type; \
+		}; \
+	}
+
+	SPROUT_DETAIL_DIV_T_CONTAINER_TRANSFORM_TRAITS_IMPL(int, sprout::div_t);
+	SPROUT_DETAIL_DIV_T_CONTAINER_TRANSFORM_TRAITS_IMPL(long, sprout::ldiv_t);
+	SPROUT_DETAIL_DIV_T_CONTAINER_TRANSFORM_TRAITS_IMPL(long long, sprout::lldiv_t);
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CSTDLIB_DIV_HPP

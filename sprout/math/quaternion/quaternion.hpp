@@ -15,23 +15,9 @@
 #include <sprout/math/quaternion/detail/abs_max.hpp>
 #include <sprout/math/quaternion/detail/sum.hpp>
 #include <sprout/math/quaternion/detail/mul.hpp>
+#include <sprout/detail/static_size.hpp>
 
 namespace sprout {
-	namespace detail {
-		template<typename T, T V>
-		struct base_static_size {
-		public:
-			SPROUT_STATIC_CONSTEXPR T static_size = V;
-		};
-		template<typename T, T V>
-		SPROUT_CONSTEXPR_OR_CONST T sprout::detail::base_static_size<T, V>::static_size;
-
-		template<typename Container>
-		struct inherit_static_size
-			: public sprout::detail::base_static_size<typename Container::size_type, Container::static_size>
-		{};
-	}	// namespace detail
-
 	namespace math {
 
 #define	SPROUT_QUATERNION_ACCESSOR_GENERATOR(type) \

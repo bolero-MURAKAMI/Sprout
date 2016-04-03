@@ -15,12 +15,16 @@
 #endif
 #include <functional>
 #include <type_traits>
+#include <tuple>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/hash.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/tuple/tuple/get.hpp>
+#include <sprout/container/traits.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
+#include <sprout/cstdlib/div.hpp>
 #include <sprout/detail/nil_base.hpp>
 
 namespace sprout {
@@ -197,6 +201,39 @@ namespace sprout {
 	tuple_get(sprout::imaxdiv_t&& t) SPROUT_NOEXCEPT {
 		return sprout::move(sprout::tuples::get<I>(t));
 	}
+}	// namespace sprout
+
+namespace sprout {
+	//
+	// container_traits
+	//
+	SPROUT_DETAIL_DIV_T_CONTAINER_TRAITS_IMPL(std::intmax_t, sprout::imaxdiv_t);
+
+	//
+	// container_range_traits
+	//
+	SPROUT_DETAIL_DIV_T_CONTAINER_RANGE_TRAITS_IMPL(std::intmax_t, sprout::imaxdiv_t);
+
+	//
+	// container_construct_traits
+	//
+	SPROUT_DETAIL_DIV_T_CONTAINER_CONSTRUCT_TRAITS_IMPL(std::intmax_t, sprout::imaxdiv_t);
+
+	//
+	// container_transform_traits
+	//
+#	define SPROUT_DETAIL_DIV_T_CONTAINER_TRANSFORM_TRAITS2_IMPL(INT_T, DIV_T) \
+	template<> \
+	struct container_transform_traits<DIV_T> { \
+	public: \
+		template<typename Type> \
+		struct rebind_type { \
+		public: \
+			typedef typename sprout::detail::div_t_traits2<Type>::type type; \
+		}; \
+	}
+
+	SPROUT_DETAIL_DIV_T_CONTAINER_TRANSFORM_TRAITS2_IMPL(std::intmax_t, sprout::imaxdiv_t);
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CINTTYPES_DIV_HPP
