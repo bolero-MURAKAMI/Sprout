@@ -27,7 +27,7 @@ namespace sprout {
 		>::type
 		mask_index_impl(InputIterator const&, InputIterator const&, Result const& result,
 			typename sprout::container_traits<Result>::size_type,
-			typename sprout::container_traits<Result>::difference_type n,
+			typename sprout::container_traits<Result>::difference_type,
 			Args const&... args
 			)
 		{

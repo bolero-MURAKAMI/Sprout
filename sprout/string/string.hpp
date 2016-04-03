@@ -1230,7 +1230,7 @@ namespace sprout {
 			}
 			template<typename... Args>
 			static SPROUT_CONSTEXPR copied_type
-			make(typename copied_type::size_type size, Args&&... args) {
+			sized_make(typename copied_type::size_type size, Args&&... args) {
 				typedef sprout::detail::string_construct_access<T, N, Traits> access_type;
 				return access_type::raw_construct(size, SPROUT_FORWARD(Args, args)...);
 			}

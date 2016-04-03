@@ -123,7 +123,7 @@ namespace sprout {
 				)
 			{
 				return first != last && sizeof...(Args) + 1 < size
-					? partial_sum_impl_1(sprout::next(first), last, result, size, binary_op(value, *first), args..., value)
+					? partial_sum_impl_1(sprout::next(first), last, result, binary_op, size, binary_op(value, *first), args..., value)
 					: sprout::detail::container_complate(result, args..., value)
 					;
 			}
