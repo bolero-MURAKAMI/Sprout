@@ -21,7 +21,7 @@ namespace sprout {
 		template<typename Message>
 		static void warn() {}
 	};
-	template <>
+	template<>
 	struct static_warning<false> {
 		template<typename Message>
 		static void warn() {

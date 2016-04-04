@@ -27,7 +27,7 @@ namespace sprout {
 			: public sprout::detail::type_traits_wrapper<std::is_unsigned<T> >
 		{};
 	}	// namespace detail
-	template <typename T>
+	template<typename T>
 	struct is_unsigned
 		: public sprout::detail::is_unsigned_impl<T>
 	{};

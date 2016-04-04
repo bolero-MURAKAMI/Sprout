@@ -30,6 +30,8 @@
 #include <sprout/type_traits/is_assignable.hpp>
 #include <sprout/type_traits/is_copy_assignable.hpp>
 #include <sprout/type_traits/is_move_assignable.hpp>
+#include <sprout/type_traits/is_swappable_with.hpp>
+#include <sprout/type_traits/is_swappable.hpp>
 #include <sprout/type_traits/is_destructible.hpp>
 #include <sprout/type_traits/is_trivially_constructible.hpp>
 #include <sprout/type_traits/is_trivially_default_constructible.hpp>
@@ -46,6 +48,8 @@
 #include <sprout/type_traits/is_nothrow_assignable.hpp>
 #include <sprout/type_traits/is_nothrow_copy_assignable.hpp>
 #include <sprout/type_traits/is_nothrow_move_assignable.hpp>
+#include <sprout/type_traits/is_nothrow_swappable_with.hpp>
+#include <sprout/type_traits/is_nothrow_swappable.hpp>
 #include <sprout/type_traits/is_nothrow_destructible.hpp>
 #include <sprout/type_traits/has_virtual_destructor.hpp>
 

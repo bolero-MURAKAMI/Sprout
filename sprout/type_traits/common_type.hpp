@@ -38,7 +38,7 @@ namespace sprout {
 			: public sprout::detail::undecayed_common_type_impl<void, typename sprout::detail::undecayed_common_type2<T1, T2>::type, Tail...>
 		{};
 	}	// namespace detail
-	template <typename... Types>
+	template<typename... Types>
 	struct undecayed_common_type
 		: public sprout::detail::undecayed_common_type_impl<void, Types...>
 	{};
@@ -58,7 +58,7 @@ namespace sprout {
 			: public std::decay<typename CommonType::type>
 		{};
 	}	// namespace detail
-	template <typename... Types>
+	template<typename... Types>
 	struct common_type
 		: public sprout::detail::common_type_impl<sprout::undecayed_common_type<Types...> >
 	{};

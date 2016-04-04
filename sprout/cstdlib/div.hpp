@@ -13,6 +13,7 @@
 
 #include <cstdlib>
 #include <functional>
+#include <stdexcept>
 #include <type_traits>
 #include <tuple>
 #include <sprout/config.hpp>
@@ -29,7 +30,6 @@
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/detail/nil_base.hpp>
 #include <sprout/detail/static_size.hpp>
-#include <sprout/assert.hpp>
 
 namespace sprout {
 	//
@@ -348,7 +348,7 @@ namespace sprout {
 		{
 			return i == 0 ? d.quot
 				: i == 1 ? d.rem
-				: (SPROUT_ASSERT(i < 2), d.quot)
+				: (throw std::out_of_range("div_at: index out of range"), d.quot)
 				;
 		}
 		template<typename Div>
@@ -358,7 +358,7 @@ namespace sprout {
 		{
 			return i == 0 ? d.quot
 				: i == 1 ? d.rem
-				: (SPROUT_ASSERT(i < 2), d.quot)
+				: (throw std::out_of_range("div_at: index out of range"), d.quot)
 				;
 		}
 

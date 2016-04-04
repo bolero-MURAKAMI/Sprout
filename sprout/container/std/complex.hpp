@@ -9,8 +9,8 @@
 #define SPROUT_CONTAINER_STD_COMPLEX_HPP
 
 #include <complex>
-#include <type_traits>
 #include <stdexcept>
+#include <type_traits>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/container/traits.hpp>
@@ -25,7 +25,7 @@ namespace sprout {
 			operator()(Complex const& c, Index i) const {
 				return i == 0 ? c.real()
 					: i == 1 ? c.imag()
-					: throw std::out_of_range("std_complex_at<>: index out of range")
+					: throw std::out_of_range("std_complex_at: index out of range")
 					;
 			}
 		};

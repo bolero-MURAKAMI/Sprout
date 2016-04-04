@@ -21,5 +21,7 @@
 #include <sprout/type_traits/array_modification.hpp>
 #include <sprout/type_traits/pointer_modification.hpp>
 #include <sprout/type_traits/transformation.hpp>
+#include <sprout/type_traits/logical.hpp>
+#include <sprout/type_traits/voider.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_STD_TYPE_TRAITS_HPP
