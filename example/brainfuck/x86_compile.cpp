@@ -23,8 +23,8 @@
 
 
 //
-// PE関連の構造体
-// <windows.h> からコピペ
+// PE structs
+//   Copy an Paste from <windows.h>
 //
 typedef unsigned long       DWORD;
 typedef int                 BOOL;
@@ -133,21 +133,21 @@ typedef struct _IMAGE_SECTION_HEADER {
 
 
 //
-// 出力バイナリサイズ
+// binary size for output
 //
 #ifndef BRAINFUCK_BINARY_SIZE
 #	define BRAINFUCK_BINARY_SIZE (16 * 1024)
 #endif
 
 //
-// ループ制限
+// loop limit
 //
 #ifndef BRAINFUCK_LOOP_LIMIT
 #	define BRAINFUCK_LOOP_LIMIT 256
 #endif
 
 //
-// 入力ファイル名
+// source file name
 //
 #ifndef BRAINFUCK_SOURCE_FILE
 #	define BRAINFUCK_SOURCE_FILE a.bf
@@ -155,7 +155,7 @@ typedef struct _IMAGE_SECTION_HEADER {
 
 
 //
-// 定数
+// constants
 //
 SPROUT_STATIC_CONSTEXPR std::size_t bin_size = BRAINFUCK_BINARY_SIZE;
 
@@ -171,7 +171,7 @@ SPROUT_STATIC_CONSTEXPR std::int32_t addr_buf = 0x00406000;
 
 
 //
-// 出力用関数
+// output functions
 //
 template<typename OutputIterator, typename T>
 SPROUT_CXX14_CONSTEXPR std::size_t
@@ -384,7 +384,7 @@ write_idata(OutputIterator& out, std::size_t n = 0) {
 	SPROUT_CONSTEXPR int idt[] = {
 		// IDT 1
 		0x5028, 0, 0, 0x5034, 0x5044,
-		// IDT (終端)
+		// IDT (end)
 		0, 0, 0, 0, 0
 	};
 	n += ::write_bytes(
@@ -392,7 +392,7 @@ write_idata(OutputIterator& out, std::size_t n = 0) {
 		idt
 		);
 
-	SPROUT_CONSTEXPR int ilt_iat[]  = {
+	SPROUT_CONSTEXPR int ilt_iat[] = {
 		0x5050, 0x505a, 0
 	};
 
@@ -429,12 +429,12 @@ write_idata(OutputIterator& out, std::size_t n = 0) {
 }
 
 //
-// コンパイル
+// compile
 //
 template<std::size_t LoopLimit = 256, typename InputIterator, typename RandomAccessIterator>
 SPROUT_CXX14_CONSTEXPR std::size_t
 compile(InputIterator first, InputIterator last, RandomAccessIterator& out_first) {
-	sprout::array<int, LoopLimit> loops {{}};	// ループを保存するスタック
+	sprout::array<int, LoopLimit> loops {{}};	// loop stack
 	auto loop_first = sprout::begin(loops);
 	auto loop_last = sprout::end(loops);
 	auto loop = loop_first;
@@ -499,12 +499,12 @@ compile(InputIterator first, InputIterator last, RandomAccessIterator& out_first
 				break;
 			case '[':
 				SPROUT_ASSERT_MSG(loop != loop_last, "loop overflow");
-				*loop++ = idx;	// インデックスをスタックに積む
+				*loop++ = idx;	// push index to stack
 				idx += ::write_bytes(
 					out,
 					(unsigned char)0x80, (unsigned char)0x3c, (unsigned char)0x0f, (unsigned char)0x00,	// cmp byte [edi+ecx],0
-					(unsigned char)0x0f, (unsigned char)0x84,											// jz 対応する]の直後
-					(unsigned char)0xde, (unsigned char)0xad, (unsigned char)0xbe, (unsigned char)0xef	// （アドレスは後で決定）
+					(unsigned char)0x0f, (unsigned char)0x84,											// jz (immediately after corresponding ']')
+					(unsigned char)0xde, (unsigned char)0xad, (unsigned char)0xbe, (unsigned char)0xef	// (set address later)
 					);
 				break;
 			case ']':
@@ -518,7 +518,7 @@ compile(InputIterator first, InputIterator last, RandomAccessIterator& out_first
 				auto out_loop = out_first + (idx_loop + 6);
 				::write_bytes(
 					out_loop,
-					(std::int32_t)(idx - (idx_loop + 10))												// （アドレス）
+					(std::int32_t)(idx - (idx_loop + 10))												// (address)
 					);
 				break;
 			}
@@ -528,7 +528,7 @@ compile(InputIterator first, InputIterator last, RandomAccessIterator& out_first
 
 	SPROUT_ASSERT_MSG(loop == loop_first, "missing ']'");
 
-	// 終了処理
+	// end
 	idx += ::write_bytes(
 		out,
 		(unsigned char)0x5f,																			// pop edi
@@ -540,15 +540,15 @@ compile(InputIterator first, InputIterator last, RandomAccessIterator& out_first
 }
 
 //
-// ビルド
+// build
 //
 template<std::size_t LoopLimit = 256, typename InputIterator, typename RandomAccessIterator>
 SPROUT_CXX14_CONSTEXPR std::size_t
 build(InputIterator first, InputIterator last, RandomAccessIterator& out) {
 	std::size_t n = 0;
-	n += ::write_pe_header(out, n);					// ヘッダ出力
-	n += ::write_idata(out, n);						// .idataセクション出力
-	n += ::compile<LoopLimit>(first, last, out);	// コンパイル
+	n += ::write_pe_header(out, n);					// header
+	n += ::write_idata(out, n);						// .idata section
+	n += ::compile<LoopLimit>(first, last, out);	// compile
 	return n;
 }
 

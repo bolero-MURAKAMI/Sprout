@@ -74,7 +74,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.21.5.5 strrchr ä÷êî
+	// 7.21.5.5 strrchr function
 	//
 	//	recursion depth:
 	//		O(log N)

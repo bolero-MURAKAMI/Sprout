@@ -88,7 +88,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.20.6.2 divCldivC‹y‚Ñ lldiv ŠÖ”
+	// 7.20.6.2 div, ldiv, and lldiv function
 	inline SPROUT_CONSTEXPR sprout::div_t
 	div(int numer, int denom) {
 		return sprout::detail::div_impl(numer, denom);

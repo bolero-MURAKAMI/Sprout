@@ -66,7 +66,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.21.5.6 strspn ä÷êî
+	// 7.21.5.6 strspn function
 	//
 	//	recursion depth:
 	//		O(log(N1+N2))

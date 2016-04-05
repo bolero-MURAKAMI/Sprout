@@ -34,7 +34,7 @@ class include_graph_hooks
 private:
 	typedef boost::wave::context_policies::default_preprocessing_hooks base_type;
 public:
-	// グラフのノード
+	// node of graph
 	struct node_type {
 		boost::filesystem::path absolute;
 		boost::filesystem::path filename;
@@ -99,7 +99,7 @@ public:
 	edges() const {
 		return edge_list_;
 	}
-	// グラフ生成
+	// make graph
 	template<typename Graph>
 	Graph make_graph() const {
 		return Graph(edge_list_.begin(), edge_list_.end(), node_list_.size());
@@ -107,7 +107,7 @@ public:
 	graph_type make_graph() const {
 		return make_graph<graph_type>();
 	}
-	// graphviz 出力
+	// output graphviz
 	void write_graphviz(std::ostream& out) const {
 		boost::write_graphviz(
 			out,
@@ -115,7 +115,7 @@ public:
 			boost::make_label_writer(&node_list_[0])
 		);
 	}
-	// 非インクルードガード検出
+	// collect no include guard files
 	template<typename OutputIterator>
 	void collect_no_include_guard_files(OutputIterator result) const {
 		std::copy_if(
@@ -123,7 +123,7 @@ public:
 			[](node_type const& e) { return !e.has_include_guard; }
 			);
 	}
-	// 循環インクルード検出
+	// collect circulated includes
 	template<typename OutputIterator>
 	void collect_circulated_includes(OutputIterator result) const {
 		boost::depth_first_search(
@@ -131,7 +131,7 @@ public:
 			boost::visitor(sprig::make_back_edge_recorder(result))
 			);
 	}
-	// 孤立ファイル検出
+	// collect isolated files
 	template<typename OutputIterator>
 	void collect_isolated_files(OutputIterator result, boost::filesystem::path const& path) const {
 		typedef boost::filesystem::recursive_directory_iterator iterator;
@@ -139,14 +139,14 @@ public:
 			if (!boost::filesystem::is_directory(*it)) {
 				boost::filesystem::path abspath(boost::filesystem::absolute(*it));
 				auto found = std::find(node_list_.begin(), node_list_.end(), abspath);
-				if (found == node_list_.end()) {	// インクルードされていないならば結果に追加
+				if (found == node_list_.end()) {	// add result if not include
 					*result++ = abspath.generic_string();
 				}
 			}
 		}
 	}
 public:
-	// インクルードファイルパス設定処理をフック
+	// hook the locate include file process
 	template<typename Context>
 	bool locate_include_file(
 		Context& ctx,
@@ -161,10 +161,10 @@ public:
 		if (!base_type::locate_include_file(ctx, file_path, is_system, current_name, dir_path, native_name)) {
 			return false;
 		}
-		dir_path = filename;	// インクルードディレクティブのテキストで上書き
+		dir_path = filename;	// overwrite the include directive text
 		return true;
 	}
-	// インクルードファイル解析開始をフック
+	// hook the opened include file process
 	template<typename Context>
 	void opened_include_file(
 		Context const& /*ctx*/,
@@ -176,20 +176,20 @@ public:
 		boost::filesystem::path abspath(boost::filesystem::absolute(absname));
 		auto found = std::find(node_list_.begin(), node_list_.end(), abspath);
 		auto to = std::distance(node_list_.begin(), found);
-		if (found == node_list_.end()) {	// 最初のインクルードならばノードに追加
+		if (found == node_list_.end()) {	// add node if first include
 			node_list_.emplace_back(abspath, relname);
 		}
 		edge_list_.emplace_back(current_list_.back(), to);
-		current_list_.push_back(to);	// カレントを更新
+		current_list_.push_back(to);	// update current
 		current_ = to;
 	}
-	// インクルードファイル解析完了をフック
+	// hook the returning from include file process
 	template<typename Context>
 	void returning_from_include_file(Context const& /*ctx*/) {
 		current_ = current_list_.back();
-		current_list_.pop_back();	// カレントを戻す
+		current_list_.pop_back();	// revert current
 	}
-	// インクルードガード検出をフック
+	// hook the detected include guard process
 	template<typename Context>
 	void detected_include_guard(
 		Context const& /*ctx*/,
@@ -210,7 +210,7 @@ public:
 	}
 };
 
-// システムインクルードパスの取得
+// collect sysinclude paths
 template<typename OutputIterator>
 void collect_sysinclude_paths(OutputIterator result, std::string const& command = "g++") {
 	{
@@ -224,7 +224,7 @@ void collect_sysinclude_paths(OutputIterator result, std::string const& command 
 			std::istreambuf_iterator<char>()
 			);
 		auto rng = boost::make_iterator_range(text);
-		rng = sprig::find_skip(rng, boost::algorithm::first_finder("#include <...>"));	// インクルードパスの始点までスキップ
+		rng = sprig::find_skip(rng, boost::algorithm::first_finder("#include <...>"));	// skip to begin of the include path
 		rng = sprig::find_skip(rng, boost::algorithm::first_finder("\n"));
 		while (boost::algorithm::starts_with(rng, " ")) {
 			auto found = sprig::find_between(
@@ -247,7 +247,7 @@ int main(int argc, const char* argv[]) {
 	if (argc >= 2) {
 		src = argv[1];
 
-		// ファイルの内容を全部 text に読み込む
+		// read text from file
 		std::ifstream ifs(argv[1]);
 		text = std::string(
 			std::istreambuf_iterator<char>(ifs.rdbuf()),
@@ -259,7 +259,7 @@ int main(int argc, const char* argv[]) {
 	}
 
 	try {
-		// プリプロセッサを用意
+		// prepare preprocessor
 		typedef boost::wave::context<
 			std::string::iterator,
 			boost::wave::cpplexer::lex_iterator<boost::wave::cpplexer::lex_token<> >,
@@ -268,14 +268,14 @@ int main(int argc, const char* argv[]) {
 		> context_type;
 		context_type ctx(text.begin(), text.end(), src.c_str(), ::include_graph_hooks(src));
 
-		// ランゲージの設定
+		// set language
 		ctx.set_language(
 			boost::wave::language_support(
 				boost::wave::support_cpp11
-				| boost::wave::support_option_include_guard_detection	// インクルードガード検出
+				| boost::wave::support_option_include_guard_detection	// include guard detection
 				)
 			);
-		// インクルードパスの設定
+		// set include paths
 		if (!command.empty()) {
 			std::cout
 				<< "collect command :\n"
@@ -304,7 +304,7 @@ int main(int argc, const char* argv[]) {
 		}
 
 		if (!src.empty()) {
-			// プリプロセスを走らせる
+			// run preprocessor
 			for (auto&& e : ctx) {
 				//std::cout << e.get_value();
 			}
@@ -323,7 +323,7 @@ int main(int argc, const char* argv[]) {
 			std::vector<std::string> tokens;
 			boost::algorithm::split(tokens, line, boost::algorithm::is_space());
 			if (tokens.at(0) == "find") {
-				// インクルードファイルを検索
+				// find include paths
 				if (tokens.size() < 2) {
 					std::cout
 						<< "missing parameter.\n"
@@ -348,7 +348,7 @@ int main(int argc, const char* argv[]) {
 					<< std::flush
 					;
 			} else if (tokens.at(0) == "graph") {
-				// グラフ出力
+				// output graph
 				std::cout
 					<< "graph output > out.graph.dot\n"
 					;
@@ -358,7 +358,7 @@ int main(int argc, const char* argv[]) {
 					<< std::flush
 					;
 			} else if (tokens.at(0) == "noguard") {
-				// 非インクルードガードを出力
+				// output no include guarde files
 				std::vector<::include_graph_hooks::node_type> list;
 				ctx.get_hooks().collect_no_include_guard_files(std::back_inserter(list));
 				std::cout
@@ -373,7 +373,7 @@ int main(int argc, const char* argv[]) {
 					<< std::flush
 					;
 			} else if (tokens.at(0) == "circulated") {
-				// 循環インクルードを出力
+				// output circulated includes
 				std::vector<typename boost::graph_traits<::include_graph_hooks::graph_type>::edge_descriptor> list;
 				ctx.get_hooks().collect_circulated_includes(std::back_inserter(list));
 				auto g = ctx.get_hooks().make_graph();
@@ -390,12 +390,12 @@ int main(int argc, const char* argv[]) {
 					<< std::flush
 					;
 			} else if (tokens.at(0) == "isolated") {
-				// Sprout の孤立ファイルを出力
+				// output Sprout isolated files
 				std::cout
 					<< "isolated files output > out.isolated.txt\n"
 					;
 				std::ofstream ofs("out.isolated.txt");
-				// Sprout のシステムインクル－ドパスを取得
+				// get Sprout system include path
 				std::string filepath("sprout/config.hpp");
 				std::string dirpath;
 				if (!ctx.find_include_file(filepath, dirpath, true, 0)) {
@@ -406,7 +406,7 @@ int main(int argc, const char* argv[]) {
 					continue;
 				}
 				dirpath = boost::filesystem::path(filepath).parent_path().generic_string();
-				// リスト出力
+				// output list
 				std::vector<std::string> list;
 				ctx.get_hooks().collect_isolated_files(std::back_inserter(list), dirpath);
 				std::sort(list.begin(), list.end());
@@ -422,7 +422,7 @@ int main(int argc, const char* argv[]) {
 			}
 		}
 	} catch (boost::wave::cpp_exception& e) {
-		// プリプロセスでエラー発生
+		// eorror handling
 		std::cerr
 			<< "#error " << e.file_name() << "(" << e.line_no() << "):" << e.description() << "\n"
 			<< std::flush

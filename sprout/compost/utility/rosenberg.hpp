@@ -16,7 +16,9 @@ namespace sprout {
 	namespace compost {
 		//
 		// rosenberg_value
-		//	Rosenberg 波は，声門開大期と閉小期が周期の40%，16%となる非対称形の波形であり，τ1 が開大期，τ2が閉小期を示す．
+		//   Rosenberg wave is asymmetric waveform,
+		//   expansion period/reduction period of the glottis is 40%/16% of the cycle,
+		//   tau1 is expansion period, tau2 is reduction period
 		//
 		template<typename T>
 		inline SPROUT_CONSTEXPR typename sprout::float_promote<T>::type

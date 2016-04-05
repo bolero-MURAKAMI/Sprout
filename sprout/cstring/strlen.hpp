@@ -64,7 +64,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.21.6.3 strlen ä÷êî
+	// 7.21.6.3 strlen function
 	//
 	//	recursion depth:
 	//		O(log N)

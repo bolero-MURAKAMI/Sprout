@@ -76,7 +76,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.21.4.2 strcmp ä÷êî
+	// 7.21.4.2 strcmp function
 	//
 	//	recursion depth:
 	//		O(log(N1+N2))

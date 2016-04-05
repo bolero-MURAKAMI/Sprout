@@ -186,7 +186,7 @@ void SPROUT_NON_CONSTEXPR print_board(Container const& board) {
 int main() {
 	typedef sprout::array<sprout::array<int, BOARD_WIDTH>, BOARD_HEIGHT> board_type;
 
-	// セルの初期配置
+	// cell initial placement
 #define _ 0
 #define X 1
 	SPROUT_STATIC_CONSTEXPR board_type board0
@@ -211,10 +211,10 @@ int main() {
 #undef _
 #undef X
 
-	// ライフゲームの実行
+	// execute life game
 	SPROUT_STATIC_CONSTEXPR auto boards = ::next_cells<BOARD_COUNT>(board0);
 
-	// 表示
+	// print
 	for (auto&& board : boards) {
 		::print_board(board);
 	}

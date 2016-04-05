@@ -15,7 +15,7 @@
 
 namespace sprout {
 
-	// 7.21.4.3 strcoll ä÷êî
+	// 7.21.4.3 strcoll function
 	//
 	//	recursion depth:
 	//		O(log(N1+N2))

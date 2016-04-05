@@ -28,7 +28,7 @@ main(){
 	// __TIME__ to Sprout.String
 	//
 	static constexpr auto time = sprout::to_string(__TIME__);
-// 	static constexpr auto time = sprout::to_string("23:22:45");
+//	static constexpr auto time = sprout::to_string("23:22:45");
 	
 
 	//
@@ -43,13 +43,13 @@ main(){
 	// get result
 	//
 	static constexpr sprout::array<long long int, 3> result_attr = result.attr();
-	static constexpr auto hour    = result_attr[0];
+	static constexpr auto hour   = result_attr[0];
 	static constexpr auto minute = result_attr[1];
-	static constexpr auto second  = result_attr[2];
+	static constexpr auto second = result_attr[2];
 
-// 	static_assert(hour   == 23, "");
-// 	static_assert(minute == 22, "");
-// 	static_assert(second == 45, "");
+//	static_assert(hour   == 23, "");
+//	static_assert(minute == 22, "");
+//	static_assert(second == 45, "");
 
 	std::cout << hour << std::endl;
 	std::cout << minute << std::endl;

@@ -128,7 +128,7 @@ namespace sprout {
 		}
 	}	// namespace detail
 
-	// 7.21.5.7 strstr ŠÖ”
+	// 7.21.5.7 strstr function
 	//
 	//	recursion depth:
 	//		O(log(N1+N2))

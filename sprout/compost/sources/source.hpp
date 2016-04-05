@@ -34,13 +34,13 @@ namespace sprout {
 			//
 			struct info_type {
 			public:
-				std::uint16_t format_tag;		// フォーマットID
-				std::uint16_t channels;			// チャンネル数
-				std::uint32_t samples_per_sec;	// サンプリングレート
-				std::uint32_t bytes_per_sec;	// データ速度 (Byte/sec)
-				std::uint16_t block_size;		// ブロックサイズ (Byte/sample*チャンネル数)
-				std::uint16_t bits_per_sample;	// サンプルあたりのビット数 (bit/sample)
-				std::size_t size;				// 要素数
+				std::uint16_t format_tag;		// format ID
+				std::uint16_t channels;			// channels
+				std::uint32_t samples_per_sec;	// sampling rate
+				std::uint32_t bytes_per_sec;	// data speed (Byte/sec)
+				std::uint16_t block_size;		// block size (Byte/sample*channels)
+				std::uint16_t bits_per_sample;	// bits per sample (bit/sample)
+				std::size_t size;				// elements
 			};
 			//
 			// sound_type

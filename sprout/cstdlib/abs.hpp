@@ -18,7 +18,7 @@
 
 namespace sprout {
 
-	// 7.20.6.1 absClabsC‹y‚Ñ llabs ŠÖ”
+	// 7.20.6.1 abs, labs, and llabs function
 	inline SPROUT_CONSTEXPR int
 	abs(int j) {
 		return j < 0 ? -j : j;
