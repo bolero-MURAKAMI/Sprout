@@ -20,7 +20,6 @@ namespace sprout {
 	namespace {
 		SPROUT_STATIC_CONSTEXPR sprout::enabler_t enabler = {};
 	}	// anonymous-namespace
-	extern enabler_t enabler;
 	//
 	// enabler_if
 	//
