@@ -25,11 +25,7 @@ namespace sprout {
 	//
 	template<bool C>
 	class enabler_if
-#if defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
 		: public std::enable_if<C, sprout::enabler_t>
-#else
-		: public std::enable_if<C, sprout::enabler_t&>
-#endif
 	{};
 	//
 	// disabler_if

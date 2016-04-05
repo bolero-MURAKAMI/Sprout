@@ -16,5 +16,8 @@
 #include <sprout/type_traits/remove_shallow_volatile.hpp>
 #include <sprout/type_traits/remove_shallow_cv.hpp>
 #include <sprout/type_traits/remove_shallow_cvref.hpp>
+#include <sprout/type_traits/copy_const.hpp>
+#include <sprout/type_traits/copy_volatile.hpp>
+#include <sprout/type_traits/copy_cv.hpp>
 
 #endif	// #ifndef SPROUT_TYPE_TRAITS_COMPOSITE_MODIFICATION_HPP
