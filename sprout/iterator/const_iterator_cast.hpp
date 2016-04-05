@@ -87,18 +87,6 @@ namespace sprout {
 	struct is_const_iterator_cast_convertible<From*, To*>
 		: public std::is_same<typename std::remove_const<From>::type, typename std::remove_const<To>::type>
 	{};
-
-//	//
-//	// pointer_add_const
-//	//
-//	template<typename T>
-//	struct pointer_add_const
-//		: public std::add_const<T>
-//	{};
-//	template<typename T>
-//	struct pointer_add_const<T*>
-//		: public sprout::identity<typename std::add_const<T>::type*>
-//	{};
 }	// namespace sprout
 
 namespace sprout_adl {
