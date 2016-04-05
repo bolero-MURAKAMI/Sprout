@@ -16,9 +16,9 @@ namespace sprout {
 	namespace compost {
 		//
 		// rosenberg_value
-		//   Rosenberg wave is asymmetric waveform,
-		//   expansion period/reduction period of the glottis is 40%/16% of the cycle,
-		//   tau1 is expansion period, tau2 is reduction period
+		//	Rosenberg wave is asymmetric waveform,
+		//	expansion period/reduction period of the glottis is 40%/16% of the cycle,
+		//	tau1 is expansion period, tau2 is reduction period
 		//
 		template<typename T>
 		inline SPROUT_CONSTEXPR typename sprout::float_promote<T>::type

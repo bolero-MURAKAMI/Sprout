@@ -24,7 +24,7 @@
 
 //
 // PE structs
-//   Copy an Paste from <windows.h>
+//	Copy and Paste from <windows.h>
 //
 typedef unsigned long       DWORD;
 typedef int                 BOOL;

@@ -17,13 +17,10 @@ namespace sprout {
 	// enabler
 	//
 	typedef void* enabler_t;
-#if defined(__INTEL_COMPILER) || defined(__ICL) || defined(__ICC) || defined(__ECC)
 	namespace {
 		SPROUT_STATIC_CONSTEXPR sprout::enabler_t enabler = {};
 	}	// anonymous-namespace
-#else
 	extern enabler_t enabler;
-#endif
 	//
 	// enabler_if
 	//
