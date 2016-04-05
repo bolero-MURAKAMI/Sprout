@@ -12,7 +12,7 @@
 #include <sprout/detail/predef.hpp>
 
 #if defined(__clang__) && defined(__GLIBCXX__)
-#   if SPROUT_CLANG_EARLIER(3, 4, 2) && (__GLIBCXX__ >= 20140422)
+#	if SPROUT_CLANG_EARLIER(3, 4, 2) && (__GLIBCXX__ >= 20140422)
 #		include <stddef.h>
 #
 #		if defined(__STDDEF_H)
@@ -21,7 +21,7 @@ struct max_align_t {
 	long double __max_align_ld __attribute__((__aligned__(__alignof__(long double))));
 };
 #		endif
-#   endif
+#	endif
 #endif
 
 #include <cstddef>

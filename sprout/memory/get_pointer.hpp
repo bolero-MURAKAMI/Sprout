@@ -18,26 +18,26 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR T*
 	get_pointer(T* p) SPROUT_NOEXCEPT {
-	    return p;
+		return p;
 	}
 
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR T*
 	get_pointer(std::auto_ptr<T> const& p) SPROUT_NOEXCEPT {
-	    return p.get();
+		return p.get();
 	}
 
 #if !defined(SPROUT_NO_CXX11_SMART_PTR)
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR T*
 	get_pointer(std::unique_ptr<T> const& p) SPROUT_NOEXCEPT {
-	    return p.get();
+		return p.get();
 	}
 
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR T*
 	get_pointer(std::shared_ptr<T> const& p) SPROUT_NOEXCEPT {
-	    return p.get();
+		return p.get();
 	}
 #endif
 }	// namespace sprout

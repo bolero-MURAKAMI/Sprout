@@ -148,7 +148,7 @@ namespace sprout {
 						first1, last1, first2, pred,
 						sprout::distance(first1, last1) / 2
 						)
-				   )
+					)
 				;
 		}
 

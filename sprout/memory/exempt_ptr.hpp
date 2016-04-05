@@ -369,7 +369,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR T*
 	get_pointer(sprout::exempt_ptr<T> const& p) SPROUT_NOEXCEPT {
-	    return p.get();
+		return p.get();
 	}
 }	// namespace sprout
 

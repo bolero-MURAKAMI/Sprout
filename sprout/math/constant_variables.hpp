@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #if SPROUT_USE_VARIABLE_TEMPLATES
 #	include <sprout/math/constants.hpp>
-#endif  // #if SPROUT_USE_VARIABLE_TEMPLATES
+#endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 
 namespace sprout {
 	namespace math {

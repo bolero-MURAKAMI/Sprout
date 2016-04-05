@@ -13,12 +13,12 @@
 #define SPROUT_LANG_OBJC 0
 
 #if defined(__OBJC__)
-#   undef SPROUT_LANG_OBJC
-#   define SPROUT_LANG_OBJC 1
+#	undef SPROUT_LANG_OBJC
+#	define SPROUT_LANG_OBJC 1
 #endif
 
 #if SPROUT_LANG_OBJC
-#   define SPROUT_LANG_OBJC_AVAILABLE
+#	define SPROUT_LANG_OBJC_AVAILABLE
 #endif
 
 #define SPROUT_LANG_OBJC_NAME "Objective-C"

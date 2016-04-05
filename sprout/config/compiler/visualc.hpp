@@ -30,10 +30,10 @@
 #define SPROUT_NO_CXX11_ATTRIBUTES
 
 #if !defined(__cpp_constexpr) || (__cpp_constexpr < 201304)
-#  define SPROUT_NO_CXX14_CONSTEXPR
+#	define SPROUT_NO_CXX14_CONSTEXPR
 #endif
 #if !defined(__cpp_variable_templates) || (__cpp_variable_templates < 201304)
-#  define SPROUT_NO_CXX14_VARIABLE_TEMPLATES
+#	define SPROUT_NO_CXX14_VARIABLE_TEMPLATES
 #endif
 
 #endif	// #ifndef SPROUT_CONFIG_COMPILER_VISUALC_HPP

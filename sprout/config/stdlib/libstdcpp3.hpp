@@ -9,7 +9,7 @@
 #define SPROUT_CONFIG_STDLIB_LIBSTDCPP3_HPP
 
 #if defined(__GXX_EXPERIMENTAL_CXX0X__) || (__cplusplus >= 201103)
-#  define SPROUT_LIBSTDCXX11
+#	define SPROUT_LIBSTDCXX11
 #endif
 
 #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3) || !defined(SPROUT_LIBSTDCXX11)
@@ -73,7 +73,7 @@
 #endif
 
 #if defined(__clang_major__) && ((__clang_major__ < 3) || ((__clang_major__ == 3) && (__clang_minor__ < 7)))
-#  define SPROUT_NO_CXX11_HDR_ATOMIC
+#	define SPROUT_NO_CXX11_HDR_ATOMIC
 #endif
 
 #if __GNUC__ < 5 || (__GNUC__ == 5 && __GNUC_MINOR__ < 1) || !defined(SPROUT_LIBSTDCXX11)

@@ -130,7 +130,7 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR quaternion<T>& operator+=(sprout::complex<T> const& rhs) {
 				T at = elems_[0] + rhs.real();
 				T bt = elems_[1] + rhs.imag();
-				elems_[0] = at; 
+				elems_[0] = at;
 				elems_[1] = bt;
 				return *this;
 			}

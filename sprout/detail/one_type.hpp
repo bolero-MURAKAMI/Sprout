@@ -22,7 +22,7 @@ namespace sprout {
 		//
 		struct not_one_type {
 		public:
-		   char padding[8];
+			char padding[8];
 		};
 	}	// namespace detail
 }	// namespace sprout

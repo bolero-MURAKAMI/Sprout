@@ -47,7 +47,7 @@ namespace sprout {
 				typename sprout::container_traits<Container>::difference_type start,
 				typename sprout::container_traits<Container>::difference_type end
 				)
-			{	//  select pivot (center)
+			{	// select pivot (center)
 				return *sprout::next(origin, (end + start) / 2);
 			}
 			template<typename Container, typename RandomAccessIterator, typename Compare>

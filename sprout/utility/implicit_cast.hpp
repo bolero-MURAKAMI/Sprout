@@ -18,7 +18,7 @@ namespace sprout {
 	template<typename T>
 	inline SPROUT_CONSTEXPR T
 	implicit_cast(typename sprout::identity<T>::type t) {
-	    return t;
+		return t;
 	}
 }	// namespace sprout
 

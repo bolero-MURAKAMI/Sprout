@@ -17,7 +17,7 @@
 #	undef SPROUT_PLAT_WINDOWS_DESKTOP
 #	define SPROUT_PLAT_WINDOWS_DESKTOP 1
 #endif
- 
+
 #if SPROUT_PLAT_WINDOWS_DESKTOP
 #	define SPROUT_PLAT_WINDOWS_DESKTOP_AVALIABLE
 #	include <sprout/predef/detail/platform_detected.hpp>

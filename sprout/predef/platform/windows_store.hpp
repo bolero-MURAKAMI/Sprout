@@ -17,7 +17,7 @@
 #	undef SPROUT_PLAT_WINDOWS_STORE
 #	define SPROUT_PLAT_WINDOWS_STORE 1
 #endif
- 
+
 #if SPROUT_PLAT_WINDOWS_STORE
 #	define SPROUT_PLAT_WINDOWS_STORE_AVALIABLE
 #	include <sprout/predef/detail/platform_detected.hpp>

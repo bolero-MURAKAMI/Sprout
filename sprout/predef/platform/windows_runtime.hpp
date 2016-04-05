@@ -17,7 +17,7 @@
 #	undef SPROUT_PLAT_WINDOWS_RUNTIME
 #	define SPROUT_PLAT_WINDOWS_RUNTIME 1
 #endif
- 
+
 #if SPROUT_PLAT_WINDOWS_RUNTIME
 #	define SPROUT_PLAT_WINDOWS_RUNTIME_AVALIABLE
 #	include <sprout/predef/detail/platform_detected.hpp>

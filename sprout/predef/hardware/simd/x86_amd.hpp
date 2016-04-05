@@ -29,8 +29,8 @@
 #else
 #	include <sprout/predef/hardware/simd/x86.h>
 #	if SPROUT_HW_SIMD_X86 > SPROUT_HW_SIMD_X86_AMD
-#	   undef SPROUT_HW_SIMD_X86_AMD
-#	   define SPROUT_HW_SIMD_X86_AMD SPROUT_HW_SIMD_X86
+#		undef SPROUT_HW_SIMD_X86_AMD
+#		define SPROUT_HW_SIMD_X86_AMD SPROUT_HW_SIMD_X86
 #	endif
 #	define SPROUT_HW_SIMD_X86_AMD_AVAILABLE
 #endif

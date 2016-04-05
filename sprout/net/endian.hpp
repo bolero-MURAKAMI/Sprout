@@ -15,7 +15,7 @@
 #include <sprout/config.hpp>
 #include <sprout/assert.hpp>
 #include <sprout/predef/detail/endian_compat.hpp>
-	
+
 namespace sprout {
 	namespace net {
 		namespace detail {
@@ -130,7 +130,7 @@ namespace sprout {
 			reverse_words(T val) {
 				return sprout::net::detail::reverse_words_impl(val, sizeof(T));
 			}
-		}   // namespace detail
+		}	// namespace detail
 
 		// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3620.pdf
 		// template<>
@@ -193,7 +193,7 @@ namespace sprout {
 		ntohs SPROUT_PREVENT_MACRO_SUBSTITUTION (std::uint16_t net16) {
 			return sprout::net::ntoh SPROUT_PREVENT_MACRO_SUBSTITUTION (net16);
 		}
-	}   //namespace net
+	}	//namespace net
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_NET_ENDIAN_HPP
