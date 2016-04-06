@@ -109,6 +109,19 @@ namespace sprout {
 			return copied_type(SPROUT_FORWARD(Args, args)...);
 		}
 	};
+
+	//
+	// container_transform_traits
+	//
+	template<typename T>
+	struct container_transform_traits<std::complex<T> > {
+	public:
+		template<typename Type>
+		struct rebind_type {
+		public:
+			typedef std::complex<Type> type;
+		};
+	};
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_CONTAINER_STD_COMPLEX_HPP

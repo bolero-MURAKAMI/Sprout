@@ -9,6 +9,7 @@
 #define TESTSPR_HEADER_ALL_HPP
 
 #include <sprout/adapt/std/array.hpp>
+#include <sprout/adapt/std/complex.hpp>
 #include <sprout/adapt/std/utility.hpp>
 #include <sprout/adl/not_found.hpp>
 #include <sprout/algorithm.hpp>

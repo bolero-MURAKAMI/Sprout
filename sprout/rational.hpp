@@ -14,6 +14,8 @@
 #include <sprout/rational/arithmetic.hpp>
 #include <sprout/rational/io.hpp>
 #include <sprout/rational/hash.hpp>
+#include <sprout/rational/tuple.hpp>
+#include <sprout/rational/container.hpp>
 #include <sprout/rational/values.hpp>
 #include <sprout/rational/conversion.hpp>
 #include <sprout/rational/exceptions.hpp>
