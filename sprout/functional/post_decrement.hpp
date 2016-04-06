@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_FUNCTIONAL_MEM_PTR_HPP
-#define SPROUT_FUNCTIONAL_MEM_PTR_HPP
+#ifndef SPROUT_FUNCTIONAL_POST_DECREMENT_HPP
+#define SPROUT_FUNCTIONAL_POST_DECREMENT_HPP
 
 #include <utility>
 #include <sprout/config.hpp>
@@ -15,23 +15,23 @@
 
 namespace sprout {
 	//
-	// mem_ptr
+	// post_decrement
 	//
 	template<typename T = void>
-	struct mem_ptr;
+	struct post_decrement;
 	template<>
-	struct mem_ptr<void>
+	struct post_decrement<void>
 		: public sprout::transparent<>
 	{
 	public:
-		template<typename T, typename U>
-		SPROUT_CONSTEXPR decltype(std::declval<T>()->*std::declval<U>())
-		operator()(T&& x, U&& y)
-		const SPROUT_NOEXCEPT_IF_EXPR(std::declval<T>()->*std::declval<U>())
+		template<typename T>
+		SPROUT_CONSTEXPR decltype(std::declval<T>()--)
+		operator()(T&& x)
+		const SPROUT_NOEXCEPT_IF_EXPR(std::declval<T>()--)
 		{
-			return SPROUT_FORWARD(T, x)->*SPROUT_FORWARD(U, y);
+			return SPROUT_FORWARD(T, x)--;
 		}
 	};
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_MEM_PTR_HPP
+#endif	// #ifndef SPROUT_FUNCTIONAL_POST_DECREMENT_HPP

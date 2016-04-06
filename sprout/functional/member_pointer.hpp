@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_FUNCTIONAL_POST_DEC_HPP
-#define SPROUT_FUNCTIONAL_POST_DEC_HPP
+#ifndef SPROUT_FUNCTIONAL_MEMBER_POINTER_HPP
+#define SPROUT_FUNCTIONAL_MEMBER_POINTER_HPP
 
 #include <utility>
 #include <sprout/config.hpp>
@@ -15,23 +15,23 @@
 
 namespace sprout {
 	//
-	// post_dec
+	// member_pointer
 	//
 	template<typename T = void>
-	struct post_dec;
+	struct member_pointer;
 	template<>
-	struct post_dec<void>
+	struct member_pointer<void>
 		: public sprout::transparent<>
 	{
 	public:
-		template<typename T>
-		SPROUT_CONSTEXPR decltype(~std::declval<T>()--)
-		operator()(T&& x)
-		const SPROUT_NOEXCEPT_IF_EXPR(~std::declval<T>()--)
+		template<typename T, typename U>
+		SPROUT_CONSTEXPR decltype(std::declval<T>()->*std::declval<U>())
+		operator()(T&& x, U&& y)
+		const SPROUT_NOEXCEPT_IF_EXPR(std::declval<T>()->*std::declval<U>())
 		{
-			return SPROUT_FORWARD(T, x)--;
+			return SPROUT_FORWARD(T, x)->*SPROUT_FORWARD(U, y);
 		}
 	};
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_POST_DEC_HPP
+#endif	// #ifndef SPROUT_FUNCTIONAL_MEMBER_POINTER_HPP

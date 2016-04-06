@@ -9,7 +9,7 @@
 #define SPROUT_FUNCTIONAL_MEMBERS_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/functional/mem_ptr.hpp>
+#include <sprout/functional/member_pointer.hpp>
 #include <sprout/functional/member.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_MEMBERS_HPP

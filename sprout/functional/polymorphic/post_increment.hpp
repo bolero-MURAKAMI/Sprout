@@ -5,21 +5,21 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_PRE_DEC_HPP
-#define SPROUT_FUNCTIONAL_POLYMORPHIC_PRE_DEC_HPP
+#ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_POST_INCREMENT_HPP
+#define SPROUT_FUNCTIONAL_POLYMORPHIC_POST_INCREMENT_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/functional/pre_dec.hpp>
+#include <sprout/functional/post_increment.hpp>
 
 namespace sprout {
 	//
-	// pre_dec_t
-	// pre_dec_
+	// post_increment_t
+	// post_increment_
 	//
-	typedef sprout::pre_dec<> pre_dec_t;
+	typedef sprout::post_increment<> post_increment_t;
 	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::pre_dec_t pre_dec_ = {};
+		SPROUT_STATIC_CONSTEXPR sprout::post_increment_t post_increment_ = {};
 	}	// anonymous-namespace
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_PRE_DEC_HPP
+#endif	// #ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_POST_INCREMENT_HPP

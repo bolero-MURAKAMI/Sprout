@@ -5,21 +5,14 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_MEM_PTR_HPP
-#define SPROUT_FUNCTIONAL_POLYMORPHIC_MEM_PTR_HPP
+#ifndef SPROUT_PREPROCESSOR_COMMA_HPP
+#define SPROUT_PREPROCESSOR_COMMA_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/functional/mem_ptr.hpp>
 
-namespace sprout {
-	//
-	// mem_ptr_t
-	// mem_ptr_
-	//
-	typedef sprout::mem_ptr<> mem_ptr_t;
-	namespace {
-		SPROUT_STATIC_CONSTEXPR sprout::mem_ptr_t mem_ptr_ = {};
-	}	// anonymous-namespace
-}	// namespace sprout
+//
+// SPROUT_PP_COMMA
+//
+#define SPROUT_PP_COMMA() ,
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_MEM_PTR_HPP
+#endif	// #ifndef SPROUT_PREPROCESSOR_COMMA_HPP

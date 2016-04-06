@@ -22,7 +22,7 @@ namespace sprout {
 	{};
 	template<typename T, typename U>
 	struct copy_const<T, U volatile>
-		: public std::add_volatile<T>
+		: public std::add_const<T>
 	{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

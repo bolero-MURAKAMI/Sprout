@@ -9,9 +9,9 @@
 #define SPROUT_FUNCTIONAL_POLYMORPHIC_INC_DEC_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/functional/polymorphic/pre_inc.hpp>
-#include <sprout/functional/polymorphic/pre_dec.hpp>
-#include <sprout/functional/polymorphic/post_inc.hpp>
-#include <sprout/functional/polymorphic/post_dec.hpp>
+#include <sprout/functional/polymorphic/pre_increment.hpp>
+#include <sprout/functional/polymorphic/pre_decrement.hpp>
+#include <sprout/functional/polymorphic/post_increment.hpp>
+#include <sprout/functional/polymorphic/post_decrement.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_POLYMORPHIC_INC_DEC_HPP

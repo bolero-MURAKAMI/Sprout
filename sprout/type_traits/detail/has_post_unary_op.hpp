@@ -32,7 +32,7 @@
 	public: \
 		template< \
 			typename U = T, \
-			typename typename sprout::identity<decltype(std::declval<U>() OP)>::type \
+			typename = typename sprout::identity<decltype(std::declval<U>() OP)>::type \
 		> \
 		static sprout::true_type test(int); \
 		static sprout::false_type test(...); \
@@ -45,7 +45,10 @@
 
 #if defined(_MSC_VER) && (_MSC_VER > 1900)
 #	define SPROUT_DETAIL_HAS_POST_UNARY_OP_DECL_IMPL(OP_NAME) \
-		template<typename T, typename R, typename Base_ = typename sprout::identity<decltype(SPROUT_PP_CAT(sprout_detail_has_, OP_NAME)<T, R>::test(0))>::type> \
+		template< \
+			typename T, typename R, \
+			typename Base_ = typename sprout::identity<decltype(SPROUT_PP_CAT(sprout_detail_has_, SPROUT_PP_CAT(OP_NAME, _test))<T, R>::test(0))>::type \
+		> \
 		struct SPROUT_PP_CAT(sprout_detail_has_, OP_NAME) \
 			: public Base_ \
 		{}
@@ -53,7 +56,7 @@
 #	define SPROUT_DETAIL_HAS_POST_UNARY_OP_DECL_IMPL(OP_NAME) \
 		template<typename T, typename R> \
 		struct SPROUT_PP_CAT(sprout_detail_has_, OP_NAME) \
-			: public sprout::identity<decltype(SPROUT_PP_CAT(sprout_detail_has_, OP_NAME)<T, R>::test(0))>::type \
+			: public sprout::identity<decltype(SPROUT_PP_CAT(sprout_detail_has_, SPROUT_PP_CAT(OP_NAME, _test))<T, R>::test(0))>::type \
 		{}
 #endif
 

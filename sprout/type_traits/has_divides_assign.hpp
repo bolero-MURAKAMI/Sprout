@@ -5,8 +5,8 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_TYPE_TRAITS_HAS_ASSIGN_HPP
-#define SPROUT_TYPE_TRAITS_HAS_ASSIGN_HPP
+#ifndef SPROUT_TYPE_TRAITS_HAS_DIVIDES_ASSIGN_HPP
+#define SPROUT_TYPE_TRAITS_HAS_DIVIDES_ASSIGN_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/type_traits/dont_care.hpp>
@@ -15,14 +15,14 @@
 
 namespace sprout {
 	//
-	// has_assign
+	// has_divides_assign
 	//
-	SPROUT_DETAIL_HAS_BINARY_OP_DECL(assign, =, = typename sprout::const_reference<T>::type);
+	SPROUT_DETAIL_HAS_BINARY_OP_DECL(divides_assign, /=, = typename sprout::const_reference<T>::type);
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T, typename U = typename sprout::const_reference<T>::type, typename R = sprout::dont_care>
-	SPROUT_STATIC_CONSTEXPR bool has_assign_v = sprout::has_assign<T, U, R>::value;
+	SPROUT_STATIC_CONSTEXPR bool has_divides_assign_v = sprout::has_divides_assign<T, U, R>::value;
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
-#endif	// #ifndef SPROUT_TYPE_TRAITS_HAS_ASSIGN_HPP
+#endif	// #ifndef SPROUT_TYPE_TRAITS_HAS_DIVIDES_ASSIGN_HPP
