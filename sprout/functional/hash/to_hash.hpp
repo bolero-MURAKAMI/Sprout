@@ -11,33 +11,26 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/functional/hash/hash_fwd.hpp>
-#include <sprout/utility/forward.hpp>
-#include <sprout/adl/not_found.hpp>
-
-namespace sprout_adl {
-	sprout::not_found_via_adl hash_value(...);
-}	// namespace sprout_adl
 
 namespace sprout {
 	//
 	// to_hash
 	//
 	//	effect:
-	//		ADL callable hash_value(v) -> hash_value(v)
-	//		otherwise -> sprout::hash_value_traits<T>::hash_value(v)
+	//		sprout::hash_value_traits<T>::hash_value(v)
 	//		[default]
-	//			v is Arithmetic || Enum || Pointer || Array -> implementation-defined
-	//			otherwise -> std::hash<T>()(v)
+	//			ADL callable hash_value(v) -> hash_value(v)
+	//			[default]
+	//				T is Arithmetic || Enum || Pointer || Array -> implementation-defined
+	//				otherwise -> std::hash<T>()(v)
 	//
 	template<typename T>
 	inline SPROUT_CONSTEXPR std::size_t
 	to_hash(T&& v) {
-		using sprout::hash_value;
-		using sprout_adl::hash_value;
-		return hash_value(SPROUT_FORWARD(T, v));
+		return sprout::hash_value_traits<T>::hash_value(v);
 	}
 }	// namespace sprout
 
-#include <sprout/functional/hash/hash_value.hpp>
+#include <sprout/functional/hash/hash_value_traits.hpp>
 
 #endif	// #ifndef SPROUT_FUNCTIONAL_HASH_TO_HASH_HPP
