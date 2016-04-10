@@ -12,59 +12,39 @@
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
-#include <sprout/adl/not_found.hpp>
-
-namespace sprout_adl {
-	sprout::not_found_via_adl range_back(...);
-}	// namespace sprout_adl
 
 namespace sprout {
-	namespace container_detail {
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::reference
-		range_back(Container& cont) {
-			return sprout::container_range_traits<Container>::range_back(cont);
-		}
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
-		range_back(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_back(cont);
-		}
-	}	// namespace container_detail
-
 	//
 	// back
 	//
 	//	effect:
-	//		ADL callable range_back(cont) -> range_back(cont)
-	//		otherwise -> sprout::container_range_traits<Container>::range_back(cont)
+	//		sprout::container_range_traits<Container>::range_back(cont)
 	//		[default]
-	//			callable cont.back() -> cont.back()
-	//			otherwise -> *prev(end(cont))
+	//			ADL callable range_back(cont) -> range_back(cont)
+	//			[default]
+	//				Container is T[N] -> cont[N - 1]
+	//				callable cont.back() -> cont.back()
+	//				otherwise -> *sprout::next(sprout::begin(cont), sprout::size(cont) - 1)
 	//
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::reference
 	back(Container& cont) {
-		using sprout::container_detail::range_back;
-		using sprout_adl::range_back;
-		return range_back(cont);
+		return sprout::container_range_traits<Container>::range_back(cont);
 	}
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::reference
 	back(Container const& cont) {
-		using sprout::container_detail::range_back;
-		using sprout_adl::range_back;
-		return range_back(cont);
+		return sprout::container_range_traits<Container const>::range_back(cont);
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<T[N]>::reference
 	back(T (& arr)[N]) {
-		return sprout::container_detail::range_back(arr);
+		return sprout::container_range_traits<T[N]>::range_back(arr);
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::reference
 	back(T const (& arr)[N]) {
-		return sprout::container_detail::range_back(arr);
+		return sprout::container_range_traits<T const[N]>::range_back(arr);
 	}
 
 	//

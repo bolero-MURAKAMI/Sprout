@@ -12,58 +12,38 @@
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
-#include <sprout/adl/not_found.hpp>
-
-namespace sprout_adl {
-	sprout::not_found_via_adl range_data(...);
-}	// namespace sprout_adl
 
 namespace sprout {
-	namespace container_detail {
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::pointer
-		range_data(Container& cont) {
-			return sprout::container_range_traits<Container>::range_data(cont);
-		}
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
-		range_data(Container const& cont) {
-			return sprout::container_range_traits<Container>::range_data(cont);
-		}
-	}	// namespace container_detail
-
 	//
 	// data
 	//
 	//	effect:
-	//		ADL callable range_data(cont) -> range_data(cont)
-	//		otherwise -> sprout::container_range_traits<Container>::range_data(cont)
+	//		sprout::container_range_traits<Container>::range_data(cont)
 	//		[default]
-	//			cont.data()
+	//			ADL callable range_data(cont) -> range_data(cont)
+	//			[default]
+	//				Container is T[N] -> pointer(cont)
+	//				cont.data()
 	//
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::pointer
 	data(Container& cont) {
-		using sprout::container_detail::range_data;
-		using sprout_adl::range_data;
-		return range_data(cont);
+		return sprout::container_range_traits<Container>::range_data(cont);
 	}
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
 	data(Container const& cont) {
-		using sprout::container_detail::range_data;
-		using sprout_adl::range_data;
-		return range_data(cont);
+		return sprout::container_range_traits<Container>::range_data(cont);
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<T[N]>::pointer
 	data(T (& arr)[N]) {
-		return sprout::container_detail::range_data(arr);
+		return sprout::container_range_traits<T[N]>::range_data(arr);
 	}
 	template<typename T, std::size_t N>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<T const[N]>::pointer
 	data(T const (& arr)[N]) {
-		return sprout::container_detail::range_data(arr);
+		return sprout::container_range_traits<T const[N]>::range_data(arr);
 	}
 
 	//
