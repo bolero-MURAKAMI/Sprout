@@ -51,7 +51,7 @@ namespace sprout {
 
 #if SPROUT_USE_VARIABLE_TEMPLATES
 	template<typename T, typename U>
-	SPROUT_STATIC_CONSTEXPR bool is_swappable_with_v = sprout::is_swappable_with<T>::value;
+	SPROUT_STATIC_CONSTEXPR bool is_swappable_with_v = sprout::is_swappable_with<T, U>::value;
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 }	// namespace sprout
 
