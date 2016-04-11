@@ -6,7 +6,7 @@
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 #ifndef SPROUT_TYPE_TRAITS_IS_SWAPPABLE_HPP
-#define SPROUT_TYPE_TRAITS_IS_SWAPPABLE_WITH_HPP
+#define SPROUT_TYPE_TRAITS_IS_SWAPPABLE_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/type_traits/is_swappable_with.hpp>
