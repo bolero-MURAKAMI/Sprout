@@ -23,7 +23,9 @@ namespace sprout {
 	//			ADL callable range_begin(cont) -> range_begin(cont)
 	//			[default]
 	//				Container is T[N] -> iterator(cont)
-	//				otherwise -> cont.begin()
+	//				otherwise, ADL callable begin(cont) -> begin(cont)
+	//				otherwise, callabe cont.begin() -> cont.begin()
+	//				otherwise -> std::begin(cont)
 	//
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator

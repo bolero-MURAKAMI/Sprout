@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/as_lvalue.hpp>
 #include <sprout/utility/as_const.hpp>
+#include <sprout/utility/as_non_const.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
 #include <sprout/utility/unmove.hpp>
 #include <sprout/utility/pass_through.hpp>
