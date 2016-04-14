@@ -23,7 +23,7 @@ namespace sprout {
 	//			ADL callable range_at(cont, i) -> range_at(cont, i)
 	//			[default]
 	//				Container is T[N] -> cont[i]
-	//				callable cont.at(i) -> cont.at(i)
+	//				otherwise, callable cont.at(i) -> cont.at(i)
 	//				otherwise -> *sprout::next(sprout::begin(cont), i)
 	//
 	template<typename Container>

@@ -23,7 +23,7 @@ namespace sprout {
 	//			ADL callable range_back(cont) -> range_back(cont)
 	//			[default]
 	//				Container is T[N] -> cont[N - 1]
-	//				callable cont.back() -> cont.back()
+	//				otherwise, callable cont.back() -> cont.back()
 	//				otherwise -> *sprout::next(sprout::begin(cont), sprout::size(cont) - 1)
 	//
 	template<typename Container>

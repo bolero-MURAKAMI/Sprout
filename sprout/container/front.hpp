@@ -23,7 +23,7 @@ namespace sprout {
 	//			ADL callable range_front(cont) -> range_front(cont)
 	//			[default]
 	//				Container is T[N] -> cont[0]
-	//				callable cont.front() -> cont.front()
+	//				otherwise, callable cont.front() -> cont.front()
 	//				otherwise -> *sprout::begin(cont)
 	//
 	template<typename Container>

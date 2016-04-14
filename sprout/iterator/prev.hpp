@@ -137,7 +137,7 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_prev(it) -> iterator_prev(it)
-	//		it is RandomAccessIterator -> it - 1
+	//		otherwise, BidirectionalIterator is RandomAccessIterator -> it - 1
 	//		otherwise -> cxx14_prev(it)
 	//
 	template<typename BidirectionalIterator>

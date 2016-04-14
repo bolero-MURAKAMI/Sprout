@@ -23,7 +23,7 @@ namespace sprout {
 	//			ADL callable range_index_of(cont, p) -> range_index_of(cont, p)
 	//			[default]
 	//				Container is T[N] -> p - iterator(cont)
-	//				callable cont.index_of(p) -> cont.index_of(p)
+	//				otherwise, callable cont.index_of(p) -> cont.index_of(p)
 	//				otherwise -> sprout::distance(begin(cont), p)
 	//
 	template<typename Container>

@@ -23,7 +23,7 @@ namespace sprout {
 	//			ADL callable range_nth(cont, i) -> range_nth(cont, i)
 	//			[default]
 	//				Container is T[N] -> iterator(cont) + i
-	//				callable cont.nth(i) -> cont.nth(i)
+	//				otherwise, callable cont.nth(i) -> cont.nth(i)
 	//				otherwise -> sprout::next(sprout::begin(cont), i)
 	//
 	template<typename Container>

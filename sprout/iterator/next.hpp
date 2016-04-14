@@ -162,7 +162,7 @@ namespace sprout {
 	//
 	//	effect:
 	//		ADL callable iterator_next(it) -> iterator_next(it)
-	//		it is RandomAccessIterator -> it + 1
+	//		otherwise, InputIterator is RandomAccessIterator -> it + 1
 	//		otherwise -> cxx14_next(it)
 	//
 	template<typename InputIterator>

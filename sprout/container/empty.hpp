@@ -23,7 +23,7 @@ namespace sprout {
 	//			ADL callable range_empty(cont) -> range_empty(cont)
 	//			[default]
 	//				Container is T[N] -> false
-	//				callable cont.empty() -> cont.empty()
+	//				otherwise, callable cont.empty() -> cont.empty()
 	//				otherwise -> sprout::size(cont) == 0
 	//
 	template<typename Container>

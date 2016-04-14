@@ -23,7 +23,7 @@ namespace sprout {
 	//			ADL callable range_size(cont) -> range_size(cont)
 	//			[default]
 	//				Container is T[N] -> N
-	//				callable cont.size() -> cont.size()
+	//				otherwise, callable cont.size() -> cont.size()
 	//				otherwise -> distance(begin(cont), end(cont))
 	//
 	template<typename Container>
