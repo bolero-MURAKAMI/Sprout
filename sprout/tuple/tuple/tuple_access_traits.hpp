@@ -24,8 +24,6 @@ namespace sprout_adl {
 }	// namespace sprout_adl
 
 namespace sprout_tuple_detail {
-	using sprout_adl::tuple_get;
-
 	template<std::size_t I, typename T>
 	inline SPROUT_CONSTEXPR decltype(std::get<I>(std::declval<T&>()))
 	tuple_get(T& t)
@@ -50,14 +48,6 @@ namespace sprout_tuple_detail {
 	{
 		return std::get<I>(t);
 	}
-
-	template<std::size_t I, typename T>
-	inline SPROUT_CONSTEXPR decltype(tuple_get<I>(std::declval<T>()))
-	call_tuple_get(T&& t)
-	SPROUT_NOEXCEPT_IF_EXPR(tuple_get<I>(std::declval<T>()))
-	{
-		return tuple_get<I>(SPROUT_FORWARD(T, t));
-	}
 }	// namespace sprout_tuple_detail
 
 namespace sprout {
@@ -71,17 +61,23 @@ namespace sprout {
 			template<std::size_t I>
 			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_traits<Tuple>::template lvalue_reference<I>::type
 			tuple_get(Tuple& t) SPROUT_NOEXCEPT {
-				return sprout_tuple_detail::call_tuple_get<I>(t);
+				using sprout_tuple_detail::tuple_get;
+				using sprout_adl::tuple_get;
+				return tuple_get<I>(t);
 			}
 			template<std::size_t I>
 			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_traits<Tuple>::template rvalue_reference<I>::type
 			tuple_get(Tuple&& t) SPROUT_NOEXCEPT {
-				return sprout_tuple_detail::call_tuple_get<I>(sprout::move(t));
+				using sprout_tuple_detail::tuple_get;
+				using sprout_adl::tuple_get;
+				return tuple_get<I>(sprout::move(t));
 			}
 			template<std::size_t I>
 			static SPROUT_CONSTEXPR typename sprout::tuples::tuple_traits<Tuple const>::template lvalue_reference<I>::type
 			tuple_get(Tuple const& t) SPROUT_NOEXCEPT {
-				return sprout_tuple_detail::call_tuple_get<I>(t);
+				using sprout_tuple_detail::tuple_get;
+				using sprout_adl::tuple_get;
+				return tuple_get<I>(t);
 			}
 		};
 		template<typename Tuple>
