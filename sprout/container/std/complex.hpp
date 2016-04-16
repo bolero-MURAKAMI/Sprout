@@ -74,7 +74,6 @@ namespace sprout {
 		range_begin(std::complex<T> const& cont) {
 			return typename sprout::container_traits<std::complex<T> const>::iterator(cont, 0);
 		}
-
 		static SPROUT_CONSTEXPR typename sprout::container_traits<std::complex<T> >::iterator
 		range_end(std::complex<T>& cont) {
 			return typename sprout::container_traits<std::complex<T> >::iterator(cont, 2);

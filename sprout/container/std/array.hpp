@@ -32,10 +32,9 @@ namespace sprout {
 			template<typename T, typename U>
 			SPROUT_CONSTEXPR decltype(std::declval<T>()[std::declval<U>()])
 			operator()(T&& x, U&& y)
-			const SPROUT_NOEXCEPT_IF_EXPR(std::declval<T>()[std::declval<U>()])
+			const SPROUT_NOEXCEPT_IF_EXPR(const_cast<decltype(std::declval<T>()[std::declval<U>()])>(sprout::as_const(std::declval<T>())[std::declval<U>()]))
 			{
-				typedef decltype(std::declval<T>()[std::declval<U>()]) type;
-				return const_cast<type>(sprout::as_const(x)[SPROUT_FORWARD(U, y)]);
+				return const_cast<decltype(std::declval<T>()[std::declval<U>()])>(sprout::as_const(x)[SPROUT_FORWARD(U, y)]);
 			}
 		};
 	}	// namespace detail

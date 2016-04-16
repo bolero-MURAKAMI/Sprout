@@ -30,7 +30,7 @@
 #define SPROUT_ADL_TESTER_DECL(NAME) \
 	SPROUT_ADL_TEST_TAG_DECL(NAME); \
 	template<typename T> \
-	void sprout_adl_tester(sprout_adl_test::SPROUT_PP_CAT(NAME, _tag)&&, T&&)
+	void sprout_adl_tester(sprout_adl_test::SPROUT_PP_CAT(NAME, _tag)*&&, T&&)
 
 //
 // SPROUT_ADL_TEST_TAG
@@ -68,7 +68,7 @@ namespace sprout_adl_tester_detail {
 	public:
 		template<
 			typename Tag0 = Tag, typename U = T,
-			typename R = typename sprout::identity<decltype(sprout_adl_tester(std::declval<Tag0>(), std::declval<U>()))>::type
+			typename R = typename sprout::identity<decltype(sprout_adl_tester(std::declval<Tag0*>(), std::declval<U>()))>::type
 		>
 		static sprout::is_found_via_adl<R> test(int);
 		static sprout::false_type test(...);
