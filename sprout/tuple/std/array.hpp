@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/utility/move.hpp>
+#include <sprout/utility/as_const.hpp>
 #include <sprout/tuple/tuple/tuple_access_traits.hpp>
 #include <sprout/tuple/tuple/get.hpp>
 
@@ -28,7 +29,7 @@ namespace sprout {
 			static SPROUT_CONSTEXPR T&
 			tuple_get(std::array<T, N>& t) SPROUT_NOEXCEPT {
 				static_assert(I < N, "tuple_get: index out of range");
-				return t[I];
+				return const_cast<T&>(sprout::as_const(t)[I]);
 			}
 			template<std::size_t I>
 			static SPROUT_CONSTEXPR T const&

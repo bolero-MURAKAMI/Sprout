@@ -46,10 +46,10 @@
 	struct SPROUT_PP_CAT(is_within_namespace_, NAME) \
 		: public sprout::is_within_tag_namespace<NAMESPACE::SPROUT_ADL_TEST_TAG(NAME), T> \
 	{}; \
-	SPROUT_IS_WITHIN_NAMESPACE_V(NAME, NAMESPACE);
+	SPROUT_IS_WITHIN_NAMESPACE_V(NAME, NAMESPACE)
 #if SPROUT_USE_VARIABLE_TEMPLATES
 #	define SPROUT_IS_WITHIN_NAMESPACE_V(NAME, NAMESPACE) \
-		template<typename T>
+		template<typename T> \
 		SPROUT_STATIC_CONSTEXPR bool SPROUT_PP_CAT(SPROUT_PP_CAT(is_within_namespace_, NAME), _v) = SPROUT_PP_CAT(is_within_namespace_, NAME)<T>::value
 #else	// #if SPROUT_USE_VARIABLE_TEMPLATES
 #	define SPROUT_IS_WITHIN_NAMESPACE_V(NAME, NAMESPACE) \

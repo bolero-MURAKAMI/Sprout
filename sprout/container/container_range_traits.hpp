@@ -632,7 +632,7 @@ namespace sprout {
 			typename sprout::container_traits<Container>::size_type
 		>::type
 		range_index_of_impl(Container& cont, typename sprout::container_traits<Container>::iterator p) {
-			return sprout::distance(begin(cont), p);
+			return sprout::distance(sprout::begin(cont), p);
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -648,7 +648,7 @@ namespace sprout {
 			typename sprout::container_traits<Container const>::size_type
 		>::type
 		range_index_of_impl(Container const& cont, typename sprout::container_traits<Container const>::iterator p) {
-			return sprout::distance(begin(cont), p);
+			return sprout::distance(sprout::begin(cont), p);
 		}
 	}	// namespace detail
 }	// namespace sprout
@@ -658,24 +658,22 @@ namespace sprout_container_range_detail {
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
 	range_begin(Container& cont) {
 		return sprout::detail::range_begin_impl(cont);
-//		return cont.begin();
 	}
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
 	range_begin(Container const& cont) {
 		return sprout::detail::range_begin_impl(cont);
-//		return cont.begin();
 	}
 
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
 	range_end(Container& cont) {
-		return cont.end();
+		return sprout::detail::range_end_impl(cont);
 	}
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
 	range_end(Container const& cont) {
-		return cont.end();
+		return sprout::detail::range_end_impl(cont);
 	}
 
 	template<typename Container>
