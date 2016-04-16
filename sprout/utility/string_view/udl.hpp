@@ -17,30 +17,34 @@
 
 namespace sprout {
 	namespace udl {
-		//
-		// _sv
-		//
-		inline SPROUT_CONSTEXPR sprout::basic_string_view<char>
-		operator"" _sv(char const* s, std::size_t size) {
-			return sprout::basic_string_view<char>(s, size);
-		}
-		inline SPROUT_CONSTEXPR sprout::basic_string_view<wchar_t>
-		operator"" _sv(wchar_t const* s, std::size_t size) {
-			return sprout::basic_string_view<wchar_t>(s, size);
-		}
+		namespace strings {
+			//
+			// _sv
+			//
+			inline SPROUT_CONSTEXPR sprout::basic_string_view<char>
+			operator"" _sv(char const* s, std::size_t size) {
+				return sprout::basic_string_view<char>(s, size);
+			}
+			inline SPROUT_CONSTEXPR sprout::basic_string_view<wchar_t>
+			operator"" _sv(wchar_t const* s, std::size_t size) {
+				return sprout::basic_string_view<wchar_t>(s, size);
+			}
 #if SPROUT_USE_UNICODE_LITERALS
-		inline SPROUT_CONSTEXPR sprout::basic_string_view<char16_t>
-		operator"" _sv(char16_t const* s, std::size_t size) {
-			return sprout::basic_string_view<char16_t>(s, size);
-		}
-		inline SPROUT_CONSTEXPR sprout::basic_string_view<char32_t>
-		operator"" _sv(char32_t const* s, std::size_t size) {
-			return sprout::basic_string_view<char32_t>(s, size);
-		}
+			inline SPROUT_CONSTEXPR sprout::basic_string_view<char16_t>
+			operator"" _sv(char16_t const* s, std::size_t size) {
+				return sprout::basic_string_view<char16_t>(s, size);
+			}
+			inline SPROUT_CONSTEXPR sprout::basic_string_view<char32_t>
+			operator"" _sv(char32_t const* s, std::size_t size) {
+				return sprout::basic_string_view<char32_t>(s, size);
+			}
 #endif
+		}	// namespace strings
+
+		using sprout::udl::strings::operator"" _sv;
 	}	// namespace udl
 
-	using sprout::udl::operator"" _sv;
+	using sprout::udl::strings::operator"" _sv;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS

@@ -59,8 +59,10 @@ namespace sprout {
 					;
 			}
 		}	// namespace detail
+	}	// namespace uuids
 
-		namespace udl {
+	namespace udl {
+		namespace uuids {
 			//
 			// _uuid
 			//
@@ -126,28 +128,16 @@ namespace sprout {
 				return sprout::uuids::detail::uuid5_impl(sprout::range::make_ptr_range(s, size));
 			}
 #endif
-		}	// namespace udl
-
-		using sprout::uuids::udl::operator"" _uuid;
-		using sprout::uuids::udl::operator"" _uuid3;
-		using sprout::uuids::udl::operator"" _uuid5;
-	}	// namespace uuids
-
-	namespace udl {
-		namespace uuids {
-			using sprout::uuids::udl::operator"" _uuid;
-			using sprout::uuids::udl::operator"" _uuid3;
-			using sprout::uuids::udl::operator"" _uuid5;
 		}	// namespace uuids
 
-		using sprout::uuids::udl::operator"" _uuid;
-		using sprout::uuids::udl::operator"" _uuid3;
-		using sprout::uuids::udl::operator"" _uuid5;
+		using sprout::udl::uuids::operator"" _uuid;
+		using sprout::udl::uuids::operator"" _uuid3;
+		using sprout::udl::uuids::operator"" _uuid5;
 	}	// namespace udl
 
-	using sprout::uuids::udl::operator"" _uuid;
-	using sprout::uuids::udl::operator"" _uuid3;
-	using sprout::uuids::udl::operator"" _uuid5;
+	using sprout::udl::uuids::operator"" _uuid;
+	using sprout::udl::uuids::operator"" _uuid3;
+	using sprout::udl::uuids::operator"" _uuid5;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS

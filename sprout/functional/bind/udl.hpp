@@ -34,8 +34,8 @@ namespace sprout {
 		>
 	{};
 
-	namespace placeholders {
-		namespace udl {
+	namespace udl {
+		namespace placeholders {
 			//
 			// _
 			// _tail
@@ -52,17 +52,10 @@ namespace sprout {
 				typedef typename sprout::variadic_placeholders_result<Chars...>::type type;
 				return type();
 			}
-		}	// namespace udl
-	}	// namespace placeholders
-
-	namespace udl {
-		namespace placeholders {
-			using sprout::placeholders::udl::operator"" _;
-			using sprout::placeholders::udl::operator"" _tail;
 		}	// namespace placeholders
 
-		using sprout::placeholders::udl::operator"" _;
-		using sprout::placeholders::udl::operator"" _tail;
+		using sprout::udl::placeholders::operator"" _;
+		using sprout::udl::placeholders::operator"" _tail;
 	}	// namespace udl
 }	// namespace sprout
 

@@ -160,30 +160,34 @@ namespace sprout {
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 
 	namespace udl {
-		//
-		// _sr
-		//
-		inline SPROUT_CONSTEXPR sprout::basic_string_view<char>
-		operator"" _sr(char const* s, std::size_t size) {
-			return sprout::basic_string_view<char>(s, size);
-		}
-		inline SPROUT_CONSTEXPR sprout::basic_string_view<wchar_t>
-		operator"" _sr(wchar_t const* s, std::size_t size) {
-			return sprout::basic_string_view<wchar_t>(s, size);
-		}
+		namespace strings {
+			//
+			// _sr
+			//
+			inline SPROUT_CONSTEXPR sprout::basic_string_view<char>
+			operator"" _sr(char const* s, std::size_t size) {
+				return sprout::basic_string_view<char>(s, size);
+			}
+			inline SPROUT_CONSTEXPR sprout::basic_string_view<wchar_t>
+			operator"" _sr(wchar_t const* s, std::size_t size) {
+				return sprout::basic_string_view<wchar_t>(s, size);
+			}
 #if SPROUT_USE_UNICODE_LITERALS
-		inline SPROUT_CONSTEXPR sprout::basic_string_view<char16_t>
-		operator"" _sr(char16_t const* s, std::size_t size) {
-			return sprout::basic_string_view<char16_t>(s, size);
-		}
-		inline SPROUT_CONSTEXPR sprout::basic_string_view<char32_t>
-		operator"" _sr(char32_t const* s, std::size_t size) {
-			return sprout::basic_string_view<char32_t>(s, size);
-		}
+			inline SPROUT_CONSTEXPR sprout::basic_string_view<char16_t>
+			operator"" _sr(char16_t const* s, std::size_t size) {
+				return sprout::basic_string_view<char16_t>(s, size);
+			}
+			inline SPROUT_CONSTEXPR sprout::basic_string_view<char32_t>
+			operator"" _sr(char32_t const* s, std::size_t size) {
+				return sprout::basic_string_view<char32_t>(s, size);
+			}
 #endif
+		}	// namespace strings
+
+		using sprout::udl::strings::operator"" _sr;
 	}	// namespace udl
 
-	using sprout::udl::operator"" _sr;
+	using sprout::udl::strings::operator"" _sr;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_STRING_VIEW_STRING_REF_HPP
