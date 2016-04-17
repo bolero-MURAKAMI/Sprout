@@ -20,5 +20,7 @@
 #include <sprout/container/nth.hpp>
 #include <sprout/container/index_of.hpp>
 #include <sprout/container/data.hpp>
+#include <sprout/container/range_index_check.hpp>
+#include <sprout/container/shrink_to_fit.hpp>
 
 #endif	// #ifndef SPROUT_CONTAINER_RANGE_FUNCTIONS_HPP

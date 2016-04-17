@@ -14,6 +14,7 @@
 #include <type_traits>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
+#include <sprout/container/range_index_check.hpp>
 #include <sprout/iterator/index_iterator.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/functional/transparent.hpp>
@@ -101,12 +102,20 @@ namespace sprout {
 			return cont.elems[N - 1];
 		}
 		static SPROUT_CONSTEXPR typename sprout::container_traits<boost::array<T, N> >::reference
-		range_at(boost::array<T, N>& cont, typename sprout::container_traits<boost::array<T, N> >::size_type i) {
+		range_subscript_at(boost::array<T, N>& cont, typename sprout::container_traits<boost::array<T, N> >::size_type i) {
 			return cont.elems[i];
 		}
 		static SPROUT_CONSTEXPR typename sprout::container_traits<boost::array<T, N> const>::reference
-		range_at(boost::array<T, N> const& cont, typename sprout::container_traits<boost::array<T, N> const>::size_type i) {
+		range_subscript_at(boost::array<T, N> const& cont, typename sprout::container_traits<boost::array<T, N> const>::size_type i) {
 			return cont.elems[i];
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<boost::array<T, N> >::reference
+		range_at(boost::array<T, N>& cont, typename sprout::container_traits<boost::array<T, N> >::size_type i) {
+			return cont.elems[sprout::range_index_check(cont, i)];
+		}
+		static SPROUT_CONSTEXPR typename sprout::container_traits<boost::array<T, N> const>::reference
+		range_at(boost::array<T, N> const& cont, typename sprout::container_traits<boost::array<T, N> const>::size_type i) {
+			return cont.elems[sprout::range_index_check(cont, i)];
 		}
 		// data access:
 		static SPROUT_CONSTEXPR typename sprout::container_traits<boost::array<T, N> >::pointer

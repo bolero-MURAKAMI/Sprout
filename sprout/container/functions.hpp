@@ -14,6 +14,5 @@
 #include <sprout/container/construct_functions.hpp>
 #include <sprout/container/fitness_functions.hpp>
 #include <sprout/container/sub_functions.hpp>
-#include <sprout/container/shrink_to_fit.hpp>
 
 #endif	// #ifndef SPROUT_CONTAINER_FUNCTIONS_HPP

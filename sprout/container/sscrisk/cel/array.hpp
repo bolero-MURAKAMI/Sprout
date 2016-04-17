@@ -15,6 +15,7 @@
 #	include <sprout/workaround/std/cstddef.hpp>
 #	include <sprout/container/traits.hpp>
 #	include <sprout/iterator/index_iterator.hpp>
+#	include <sprout/detail/functional/const_subscript.hpp>
 #endif
 
 #if SPROUT_USE_INDEX_ITERATOR_IMPLEMENTATION
@@ -27,8 +28,8 @@ namespace sprout {
 		: public sprout::detail::container_traits_default<sscrisk::cel::array<T, N> >
 	{
 	public:
-		typedef sprout::index_iterator<sscrisk::cel::array<T, N>&, true> iterator;
-		typedef sprout::index_iterator<sscrisk::cel::array<T, N> const&, true> const_iterator;
+		typedef sprout::index_iterator<sscrisk::cel::array<T, N>&, true, sprout::detail::const_subscript<> > iterator;
+		typedef sprout::index_iterator<sscrisk::cel::array<T, N> const&, true, sprout::detail::const_subscript<> > const_iterator;
 	};
 
 	//

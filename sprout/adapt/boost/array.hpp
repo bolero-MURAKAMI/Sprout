@@ -8,7 +8,7 @@
 #ifndef SPROUT_ADAPT_BOOST_ARRAY_HPP
 #define SPROUT_ADAPT_BOOST_ARRAY_HPP
 
-#include <array>
+#include <boost/array.hpp>
 #include <sprout/config.hpp>
 #include <sprout/container/boost/array.hpp>
 #include <sprout/functional/hash/boost/array.hpp>

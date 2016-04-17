@@ -18,27 +18,9 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/as_const.hpp>
 #include <sprout/memory/addressof.hpp>
-#include <sprout/functional/transparent.hpp>
+#include <sprout/detail/functional/const_subscript.hpp>
 
 namespace sprout {
-	namespace detail {
-		template<typename T = void>
-		struct const_subscript;
-		template<>
-		struct const_subscript<void>
-			: public sprout::transparent<>
-		{
-		public:
-			template<typename T, typename U>
-			SPROUT_CONSTEXPR decltype(std::declval<T>()[std::declval<U>()])
-			operator()(T&& x, U&& y)
-			const SPROUT_NOEXCEPT_IF_EXPR(const_cast<decltype(std::declval<T>()[std::declval<U>()])>(sprout::as_const(std::declval<T>())[std::declval<U>()]))
-			{
-				return const_cast<decltype(std::declval<T>()[std::declval<U>()])>(sprout::as_const(x)[SPROUT_FORWARD(U, y)]);
-			}
-		};
-	}	// namespace detail
-
 	//
 	// container_traits
 	//
@@ -61,10 +43,6 @@ namespace sprout {
 	private:
 		typedef sprout::detail::container_range_traits_default<std::array<T, N> > base_type;
 	public:
-		using base_type::range_front;
-		using base_type::range_back;
-		using base_type::range_at;
-	public:
 		// iterators:
 		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::iterator
 		range_begin(std::array<T, N>& cont) {
@@ -82,27 +60,7 @@ namespace sprout {
 		range_end(std::array<T, N> const& cont) {
 			return typename sprout::container_traits<std::array<T, N> const>::iterator(cont, cont.size());
 		}
-		// element access:
-		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::reference
-		range_front(std::array<T, N>& cont) {
-			typedef typename sprout::container_traits<std::array<T, N> >::reference type;
-			return const_cast<type>(base_type::range_front(sprout::as_const(cont)));
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::reference
-		range_back(std::array<T, N>& cont) {
-			typedef typename sprout::container_traits<std::array<T, N> >::reference type;
-			return const_cast<type>(base_type::range_back(sprout::as_const(cont)));
-		}
-		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::reference
-		range_at(std::array<T, N>& cont, typename sprout::container_traits<std::array<T, N> >::size_type i) {
-			typedef typename sprout::container_traits<std::array<T, N> >::reference type;
-			return const_cast<type>(base_type::range_at(sprout::as_const(cont), i));
-		}
 		// data access:
-		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::pointer
-		range_data(std::array<T, N>& cont) {
-			return sprout::addressof(range_front(cont));
-		}
 		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> const>::pointer
 		range_data(std::array<T, N> const& cont) {
 			return sprout::addressof(range_front(cont));
