@@ -23,8 +23,15 @@ namespace sprout {
 	//			ADL callable range_index_of(cont, p) -> range_index_of(cont, p)
 	//			[default]
 	//				Container is T[N] -> p - iterator(cont)
+	//				otherwise, Container is not const
+	//					&& sprout::is_const_iterator_cast_convertible<const_iterator, iterator>
+	//					&& (callable sprout::as_const(cont).index_of(p)
+	//						|| callable sprout::as_const(cont).begin()
+	//						|| ADL(without sprout) callable begin(sprout::as_const(cont))
+	//						)
+	//					-> sprout::index_of(sprout::as_const(cont), sprout::const_iterator_cast<iterator>(p))
 	//				otherwise, callable cont.index_of(p) -> cont.index_of(p)
-	//				otherwise -> sprout::distance(begin(cont), p)
+	//				otherwise -> sprout::distance(sprout::begin(cont), p)
 	//
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::size_type

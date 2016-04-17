@@ -15,11 +15,14 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
+#include <sprout/type_traits/is_const_cast_convertible.hpp>
 #include <sprout/type_traits/is_within_namespace_sprout.hpp>
 #include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/range_functions_fwd.hpp>
 #include <sprout/iterator/operation.hpp>
+#include <sprout/iterator/const_iterator_cast.hpp>
+#include <sprout/utility/as_const.hpp>
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
@@ -132,30 +135,34 @@ namespace sprout {
 		{};
 #endif
 
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
-		range_adl_begin(Container& cont) {
-			using std::begin;
-			return begin(cont);
-		}
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
-		range_adl_begin(Container const& cont) {
-			using std::begin;
-			return begin(cont);
-		}
+		template<typename T>
+		struct is_substitutable_const_begin
+			: public sprout::bool_constant<
+				sprout::is_const_iterator_cast_convertible<
+					typename sprout::container_traits<T const>::iterator,
+					typename sprout::container_traits<T>::iterator
+				>::value
+				&& (
+					sprout::detail::has_mem_begin<T const>::value
+						|| sprout::detail::has_adl_begin_without_sprout<T const&>::value
+					)
+			>
+		{};
 
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::detail::has_adl_begin_without_sprout<Container&>::value,
+			sprout::detail::is_substitutable_const_begin<Container>::value,
 			typename sprout::container_traits<Container>::iterator
 		>::type
 		range_begin_impl(Container& cont) {
-			return sprout_container_range_detail::range_adl_begin(cont);
+			typedef typename sprout::container_traits<Container>::iterator type;
+			return sprout::const_iterator_cast<type>(sprout::begin(sprout::as_const(cont)));
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_adl_begin_without_sprout<Container&>::value && sprout::detail::has_mem_begin<Container>::value,
+			!sprout::detail::is_substitutable_const_begin<Container>::value
+				&& sprout::detail::has_mem_begin<Container>::value
+				,
 			typename sprout::container_traits<Container>::iterator
 		>::type
 		range_begin_impl(Container& cont) {
@@ -163,7 +170,21 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_adl_begin_without_sprout<Container&>::value && !sprout::detail::has_mem_begin<Container>::value,
+			!sprout::detail::is_substitutable_const_begin<Container>::value
+				&& !sprout::detail::has_mem_begin<Container>::value
+				&& sprout::detail::has_adl_begin_without_sprout<Container&>::value
+				,
+			typename sprout::container_traits<Container>::iterator
+		>::type
+		range_begin_impl(Container& cont) {
+			return sprout_container_range_detail::range_adl_begin(cont);
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::is_substitutable_const_begin<Container>::value
+				&& !sprout::detail::has_mem_begin<Container>::value
+				&& !sprout::detail::has_adl_begin_without_sprout<Container&>::value
+				,
 			typename sprout::container_traits<Container>::iterator
 		>::type
 		range_begin_impl(Container& cont) {
@@ -171,15 +192,7 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::detail::has_adl_begin_without_sprout<Container const&>::value,
-			typename sprout::container_traits<Container const>::iterator
-		>::type
-		range_begin_impl(Container const& cont) {
-			return sprout_container_range_detail::range_adl_begin(cont);
-		}
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_adl_begin_without_sprout<Container const&>::value && sprout::detail::has_mem_begin<Container const>::value,
+			sprout::detail::has_mem_begin<Container const>::value,
 			typename sprout::container_traits<Container const>::iterator
 		>::type
 		range_begin_impl(Container const& cont) {
@@ -187,7 +200,19 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_adl_begin_without_sprout<Container const&>::value && !sprout::detail::has_mem_begin<Container const>::value,
+			!sprout::detail::has_mem_begin<Container const>::value
+				&& sprout::detail::has_adl_begin_without_sprout<Container const&>::value
+				,
+			typename sprout::container_traits<Container const>::iterator
+		>::type
+		range_begin_impl(Container const& cont) {
+			return sprout_container_range_detail::range_adl_begin(cont);
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::has_mem_begin<Container const>::value
+				&& !sprout::detail::has_adl_begin_without_sprout<Container const&>::value
+				,
 			typename sprout::container_traits<Container const>::iterator
 		>::type
 		range_begin_impl(Container const& cont) {
@@ -236,22 +261,34 @@ namespace sprout {
 		{};
 #endif
 
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::iterator
-		range_adl_end(Container& cont) {
-			using std::end;
-			return end(cont);
-		}
-		template<typename Container>
-		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::iterator
-		range_adl_end(Container const& cont) {
-			using std::end;
-			return end(cont);
-		}
+		template<typename T>
+		struct is_substitutable_const_end
+			: public sprout::bool_constant<
+				sprout::is_const_iterator_cast_convertible<
+					typename sprout::container_traits<T const>::iterator,
+					typename sprout::container_traits<T>::iterator
+				>::value
+				&& (
+					sprout::detail::has_mem_end<T const>::value
+						|| sprout::detail::has_adl_end_without_sprout<T const&>::value
+					)
+			>
+		{};
 
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::detail::has_adl_end_without_sprout<Container&>::value,
+			sprout::detail::is_substitutable_const_end<Container>::value,
+			typename sprout::container_traits<Container>::iterator
+		>::type
+		range_end_impl(Container& cont) {
+			typedef typename sprout::container_traits<Container>::iterator type;
+			return sprout::const_iterator_cast<type>(sprout::end(sprout::as_const(cont)));
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::is_substitutable_const_end<Container>::value
+				&& sprout::detail::has_adl_end_without_sprout<Container&>::value
+				,
 			typename sprout::container_traits<Container>::iterator
 		>::type
 		range_end_impl(Container& cont) {
@@ -259,7 +296,10 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_adl_end_without_sprout<Container&>::value && sprout::detail::has_mem_end<Container>::value,
+			!sprout::detail::is_substitutable_const_end<Container>::value
+				&& !sprout::detail::has_adl_end_without_sprout<Container&>::value
+				&& sprout::detail::has_mem_end<Container>::value
+				,
 			typename sprout::container_traits<Container>::iterator
 		>::type
 		range_end_impl(Container& cont) {
@@ -267,7 +307,10 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_adl_end_without_sprout<Container&>::value && !sprout::detail::has_mem_end<Container>::value,
+			!sprout::detail::is_substitutable_const_end<Container>::value
+				&& !sprout::detail::has_adl_end_without_sprout<Container&>::value
+				&& !sprout::detail::has_mem_end<Container>::value
+				,
 			typename sprout::container_traits<Container>::iterator
 		>::type
 		range_end_impl(Container& cont) {
@@ -398,9 +441,35 @@ namespace sprout {
 		{};
 #endif
 
+		template<typename T>
+		struct is_substitutable_const_front
+			: public sprout::bool_constant<
+				sprout::is_const_cast_convertible<
+					typename sprout::container_traits<T const>::reference,
+					typename sprout::container_traits<T>::reference
+				>::value
+				&& (
+					sprout::detail::has_mem_front<T const>::value
+					|| sprout::detail::has_mem_begin<T const>::value
+					|| sprout::detail::has_adl_begin_without_sprout<T const&>::value
+					)
+			>
+		{};
+
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::detail::has_mem_front<Container>::value,
+			sprout::detail::is_substitutable_const_front<Container>::value,
+			typename sprout::container_traits<Container>::reference
+		>::type
+		range_front_impl(Container& cont) {
+			typedef typename sprout::container_traits<Container>::reference type;
+			return const_cast<type>(sprout::front(sprout::as_const(cont)));
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::is_substitutable_const_front<Container>::value
+				&& sprout::detail::has_mem_front<Container>::value
+				,
 			typename sprout::container_traits<Container>::reference
 		>::type
 		range_front_impl(Container& cont) {
@@ -408,7 +477,9 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_mem_front<Container>::value,
+			!sprout::detail::is_substitutable_const_front<Container>::value
+				&& !sprout::detail::has_mem_front<Container>::value
+				,
 			typename sprout::container_traits<Container>::reference
 		>::type
 		range_front_impl(Container& cont) {
@@ -453,9 +524,35 @@ namespace sprout {
 		{};
 #endif
 
+		template<typename T>
+		struct is_substitutable_const_back
+			: public sprout::bool_constant<
+				sprout::is_const_cast_convertible<
+					typename sprout::container_traits<T const>::reference,
+					typename sprout::container_traits<T>::reference
+				>::value
+				&& (
+					sprout::detail::has_mem_back<T const>::value
+					|| sprout::detail::has_mem_begin<T const>::value
+					|| sprout::detail::has_adl_begin_without_sprout<T const&>::value
+					)
+			>
+		{};
+
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::detail::has_mem_back<Container>::value,
+			sprout::detail::is_substitutable_const_back<Container>::value,
+			typename sprout::container_traits<Container>::reference
+		>::type
+		range_back_impl(Container& cont) {
+			typedef typename sprout::container_traits<Container>::reference type;
+			return const_cast<type>(sprout::back(sprout::as_const(cont)));
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::is_substitutable_const_back<Container>::value
+				&& sprout::detail::has_mem_back<Container>::value
+				,
 			typename sprout::container_traits<Container>::reference
 		>::type
 		range_back_impl(Container& cont) {
@@ -463,7 +560,9 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_mem_back<Container>::value,
+			!sprout::detail::is_substitutable_const_back<Container>::value
+				&& !sprout::detail::has_mem_back<Container>::value
+				,
 			typename sprout::container_traits<Container>::reference
 		>::type
 		range_back_impl(Container& cont) {
@@ -508,9 +607,35 @@ namespace sprout {
 		{};
 #endif
 
+		template<typename T>
+		struct is_substitutable_const_at
+			: public sprout::bool_constant<
+				sprout::is_const_cast_convertible<
+					typename sprout::container_traits<T const>::reference,
+					typename sprout::container_traits<T>::reference
+				>::value
+				&& (
+					sprout::detail::has_mem_at<T const>::value
+					|| sprout::detail::has_mem_begin<T const>::value
+					|| sprout::detail::has_adl_begin_without_sprout<T const&>::value
+					)
+			>
+		{};
+
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::detail::has_mem_at<Container>::value,
+			sprout::detail::is_substitutable_const_at<Container>::value,
+			typename sprout::container_traits<Container>::reference
+		>::type
+		range_at_impl(Container& cont, typename sprout::container_traits<Container>::size_type i) {
+			typedef typename sprout::container_traits<Container>::reference type;
+			return const_cast<type>(sprout::at(sprout::as_const(cont), i));
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::is_substitutable_const_at<Container>::value
+				&& sprout::detail::has_mem_at<Container>::value
+				,
 			typename sprout::container_traits<Container>::reference
 		>::type
 		range_at_impl(Container& cont, typename sprout::container_traits<Container>::size_type i) {
@@ -518,7 +643,9 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_mem_at<Container>::value,
+			!sprout::detail::is_substitutable_const_at<Container>::value
+				&& !sprout::detail::has_mem_at<Container>::value
+				,
 			typename sprout::container_traits<Container>::reference
 		>::type
 		range_at_impl(Container& cont, typename sprout::container_traits<Container>::size_type i) {
@@ -563,9 +690,35 @@ namespace sprout {
 		{};
 #endif
 
+		template<typename T>
+		struct is_substitutable_const_nth
+			: public sprout::bool_constant<
+				sprout::is_const_iterator_cast_convertible<
+					typename sprout::container_traits<T const>::iterator,
+					typename sprout::container_traits<T>::iterator
+				>::value
+				&& (
+					sprout::detail::has_mem_nth<T const>::value
+					|| sprout::detail::has_mem_begin<T const>::value
+					|| sprout::detail::has_adl_begin_without_sprout<T const&>::value
+					)
+			>
+		{};
+
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::detail::has_mem_nth<Container>::value,
+			sprout::detail::is_substitutable_const_nth<Container>::value,
+			typename sprout::container_traits<Container>::iterator
+		>::type
+		range_nth_impl(Container& cont, typename sprout::container_traits<Container>::size_type i) {
+			typedef typename sprout::container_traits<Container>::iterator type;
+			return sprout::const_iterator_cast<type>(sprout::nth(sprout::as_const(cont), i));
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::is_substitutable_const_nth<Container>::value
+				&& sprout::detail::has_mem_nth<Container>::value
+				,
 			typename sprout::container_traits<Container>::iterator
 		>::type
 		range_nth_impl(Container& cont, typename sprout::container_traits<Container>::size_type i) {
@@ -573,7 +726,9 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_mem_nth<Container>::value,
+			!sprout::detail::is_substitutable_const_nth<Container>::value
+				&& !sprout::detail::has_mem_nth<Container>::value
+				,
 			typename sprout::container_traits<Container>::iterator
 		>::type
 		range_nth_impl(Container& cont, typename sprout::container_traits<Container>::size_type i) {
@@ -618,9 +773,35 @@ namespace sprout {
 		{};
 #endif
 
+		template<typename T>
+		struct is_substitutable_const_index_of
+			: public sprout::bool_constant<
+				sprout::is_const_iterator_cast_convertible<
+					typename sprout::container_traits<T const>::iterator,
+					typename sprout::container_traits<T>::iterator
+				>::value
+				&& (
+					sprout::detail::has_mem_index_of<T const>::value
+					|| sprout::detail::has_mem_begin<T const>::value
+					|| sprout::detail::has_adl_begin_without_sprout<T const&>::value
+					)
+			>
+		{};
+
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			sprout::detail::has_mem_index_of<Container>::value,
+			sprout::detail::is_substitutable_const_index_of<Container>::value,
+			typename sprout::container_traits<Container>::size_type
+		>::type
+		range_index_of_impl(Container& cont, typename sprout::container_traits<Container>::iterator p) {
+			typedef typename sprout::container_traits<Container>::iterator type;
+			return sprout::index_of(sprout::as_const(cont), sprout::const_iterator_cast<type>(p));
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::is_substitutable_const_index_of<Container>::value
+				&& sprout::detail::has_mem_index_of<Container>::value
+				,
 			typename sprout::container_traits<Container>::size_type
 		>::type
 		range_index_of_impl(Container& cont, typename sprout::container_traits<Container>::iterator p) {
@@ -628,7 +809,9 @@ namespace sprout {
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!sprout::detail::has_mem_index_of<Container>::value,
+			!sprout::detail::is_substitutable_const_index_of<Container>::value
+				&& !sprout::detail::has_mem_index_of<Container>::value
+				,
 			typename sprout::container_traits<Container>::size_type
 		>::type
 		range_index_of_impl(Container& cont, typename sprout::container_traits<Container>::iterator p) {
@@ -649,6 +832,62 @@ namespace sprout {
 		>::type
 		range_index_of_impl(Container const& cont, typename sprout::container_traits<Container const>::iterator p) {
 			return sprout::distance(sprout::begin(cont), p);
+		}
+
+		template<typename T>
+		struct has_mem_data_test {
+		public:
+			template<
+				typename U = T,
+				typename = typename sprout::identity<decltype(std::declval<U>().data())>::type
+			>
+			static sprout::true_type test(int);
+			static sprout::false_type test(...);
+		};
+#if defined(_MSC_VER) && (_MSC_VER > 1900)
+		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::has_mem_data_test<T>::test(0))>::type>
+		struct has_mem_data
+			: public Base_
+		{};
+#else
+		template<typename T>
+		struct has_mem_data
+			: public sprout::identity<decltype(sprout::detail::has_mem_data_test<T>::test(0))>::type
+		{};
+#endif
+
+		template<typename T>
+		struct is_substitutable_const_data
+			: public sprout::bool_constant<
+				sprout::is_const_cast_convertible<
+					typename sprout::container_traits<T const>::pointer,
+					typename sprout::container_traits<T>::pointer
+				>::value
+				&& sprout::detail::has_mem_data<T const>::value
+			>
+		{};
+
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			sprout::detail::is_substitutable_const_data<Container>::value,
+			typename sprout::container_traits<Container>::pointer
+		>::type
+		range_data_impl(Container& cont) {
+			typedef typename sprout::container_traits<Container>::pointer type;
+			return const_cast<type>(sprout::data(sprout::as_const(cont)));
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename std::enable_if<
+			!sprout::detail::is_substitutable_const_data<Container>::value,
+			typename sprout::container_traits<Container>::pointer
+		>::type
+		range_data_impl(Container& cont) {
+			return cont.data();
+		}
+		template<typename Container>
+		inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
+		range_data_impl(Container const& cont) {
+			return cont.data();
 		}
 	}	// namespace detail
 }	// namespace sprout
@@ -746,12 +985,12 @@ namespace sprout_container_range_detail {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container>::pointer
 	range_data(Container& cont) {
-		return cont.data();
+		return sprout::detail::range_data_impl(cont);
 	}
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::pointer
 	range_data(Container const& cont) {
-		return cont.data();
+		return sprout::detail::range_data_impl(cont);
 	}
 }	// namespace sprout_container_range_detail
 
@@ -1084,5 +1323,10 @@ namespace sprout {
 #include <sprout/container/begin.hpp>
 #include <sprout/container/end.hpp>
 #include <sprout/container/size.hpp>
+#include <sprout/container/front.hpp>
+#include <sprout/container/back.hpp>
+#include <sprout/container/nth.hpp>
+#include <sprout/container/index_of.hpp>
+#include <sprout/container/data.hpp>
 
 #endif	// #ifndef SPROUT_CONTAINER_CONTAINER_RANGE_TRAITS_HPP

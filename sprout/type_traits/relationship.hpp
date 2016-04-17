@@ -14,6 +14,7 @@
 #include <sprout/type_traits/is_base_of.hpp>
 #include <sprout/type_traits/is_convertible.hpp>
 
+#include <sprout/type_traits/is_const_cast_convertible.hpp>
 #include <sprout/type_traits/is_convert_constructible.hpp>
 #include <sprout/type_traits/is_nullptr_cast.hpp>
 #include <sprout/type_traits/is_upcast.hpp>

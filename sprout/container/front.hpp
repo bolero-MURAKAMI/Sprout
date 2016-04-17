@@ -23,6 +23,13 @@ namespace sprout {
 	//			ADL callable range_front(cont) -> range_front(cont)
 	//			[default]
 	//				Container is T[N] -> cont[0]
+	//				otherwise, Container is not const
+	//					&& sprout::is_const_cast_convertible<const_reference, reference>
+	//					&& (callable sprout::as_const(cont).front()
+	//						|| callable sprout::as_const(cont).begin()
+	//						|| ADL(without sprout) callable begin(sprout::as_const(cont))
+	//						)
+	//					-> const_cast<reference>(sprout::front(sprout::as_const(cont)))
 	//				otherwise, callable cont.front() -> cont.front()
 	//				otherwise -> *sprout::begin(cont)
 	//

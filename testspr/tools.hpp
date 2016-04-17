@@ -13,6 +13,7 @@
 #include <testspr/algorithm.hpp>
 #include <testspr/iterator.hpp>
 #include <testspr/range.hpp>
+#include <testspr/utility.hpp>
 #include <testspr/typeinfo.hpp>
 #include <testspr/print.hpp>
 

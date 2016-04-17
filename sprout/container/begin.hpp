@@ -23,8 +23,14 @@ namespace sprout {
 	//			ADL callable range_begin(cont) -> range_begin(cont)
 	//			[default]
 	//				Container is T[N] -> iterator(cont)
-	//				otherwise, ADL callable begin(cont) -> begin(cont)
-	//				otherwise, callabe cont.begin() -> cont.begin()
+	//				otherwise, Container is not const
+	//					&& sprout::is_const_iterator_cast_convertible<const_iterator, iterator>
+	//					&& (callable sprout::as_const(cont).begin()
+	//						|| ADL(without sprout) callable begin(sprout::as_const(cont))
+	//						)
+	//					-> sprout::const_iterator_cast<iterator>(sprout::begin(sprout::as_const(cont)))
+	//				otherwise, callable cont.begin() -> cont.begin()
+	//				otherwise, ADL(without sprout) callable begin(cont) -> begin(cont)
 	//				otherwise -> std::begin(cont)
 	//
 	template<typename Container>

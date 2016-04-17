@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/is_same.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/adl/not_found.hpp>
@@ -21,7 +22,7 @@ namespace sprout {
 	//
 	template<typename From, typename To>
 	struct is_const_iterator_cast_convertible
-		: public sprout::false_type
+		: public sprout::is_same<typename std::remove_cv<From>::type, typename std::remove_cv<To>::type>
 	{};
 	template<typename From, typename To>
 	struct is_const_iterator_cast_convertible<From, To const>
@@ -104,6 +105,11 @@ namespace sprout {
 		inline SPROUT_CONSTEXPR T
 		const_iterator_conversion(U* it) {
 			return const_cast<T>(it);
+		}
+		template<typename T>
+		inline SPROUT_CONSTEXPR T
+		const_iterator_conversion(T const& it) {
+			return it;
 		}
 	}	// namespace iterator_detail
 }	// namespace sprout

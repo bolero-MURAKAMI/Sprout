@@ -23,8 +23,14 @@ namespace sprout {
 	//			ADL callable range_end(cont) -> range_end(cont)
 	//			[default]
 	//				Container is T[N] -> iterator(cont)
-	//				otherwise, ADL callable end(cont) -> end(cont)
-	//				otherwise, callabe cont.end() -> cont.end()
+	//				otherwise, Container is not const
+	//					&& sprout::is_const_iterator_cast_convertible<const_iterator, iterator>
+	//					&& (callable sprout::as_const(cont).end()
+	//						|| ADL(without sprout) callable end(sprout::as_const(cont))
+	//						)
+	//					-> sprout::const_iterator_cast<iterator>(sprout::end(sprout::as_const(cont)))
+	//				otherwise, callable cont.end() -> cont.end()
+	//				otherwise, ADL(without sprout) callable end(cont) -> end(cont)
 	//				otherwise -> std::end(cont)
 	//
 	template<typename Container>

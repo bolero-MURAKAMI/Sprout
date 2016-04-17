@@ -282,47 +282,6 @@ namespace sprout {
 		lhs.swap(rhs);
 	}
 
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::array<T, N>::iterator
-	range_begin(sprout::array<T, N>& t) SPROUT_NOEXCEPT {
-		return sprout::const_iterator_cast<typename sprout::array<T, N>::iterator>(sprout::as_const(t).begin());
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::array<T, N>::iterator
-	range_end(sprout::array<T, N>& t) SPROUT_NOEXCEPT {
-		return sprout::const_iterator_cast<typename sprout::array<T, N>::iterator>(sprout::as_const(t).end());
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::array<T, N>::reference
-	range_at(sprout::array<T, N>& t, typename sprout::array<T, N>::size_type i) {
-		return const_cast<typename sprout::array<T, N>::reference>(sprout::as_const(t).at(i));
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::array<T, N>::reference
-	range_front(sprout::array<T, N>& t) {
-		return const_cast<typename sprout::array<T, N>::reference>(sprout::as_const(t).front());
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::array<T, N>::reference
-	range_back(sprout::array<T, N>& t) {
-		return const_cast<typename sprout::array<T, N>::reference>(sprout::as_const(t).back());
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::array<T, N>::iterator
-	range_nth(sprout::array<T, N>& t, typename sprout::array<T, N>::size_type i) {
-		return sprout::const_iterator_cast<typename sprout::array<T, N>::iterator>(sprout::as_const(t).nth(i));
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::array<T, N>::size_type
-	range_index_of(sprout::array<T, N>& t, typename sprout::array<T, N>::iterator p) SPROUT_NOEXCEPT {
-		return sprout::as_const(t).index_of(p);
-	}
-	template<typename T, std::size_t N>
-	inline SPROUT_CONSTEXPR typename sprout::array<T, N>::pointer
-	range_data(sprout::array<T, N>& t) SPROUT_NOEXCEPT {
-		return const_cast<typename sprout::array<T, N>::pointer>(sprout::as_const(t).data());
-	}
-
 	//
 	// to_array
 	//

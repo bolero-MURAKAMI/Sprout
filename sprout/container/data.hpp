@@ -23,6 +23,10 @@ namespace sprout {
 	//			ADL callable range_data(cont) -> range_data(cont)
 	//			[default]
 	//				Container is T[N] -> pointer(cont)
+	//				otherwise, Container is not const
+	//					&& sprout::is_const_cast_convertible<const_pointer, pointer>
+	//					&& callable sprout::as_const(cont).data()
+	//					-> const_cast<pointer>(sprout::data(sprout::as_const(cont)))
 	//				cont.data()
 	//
 	template<typename Container>

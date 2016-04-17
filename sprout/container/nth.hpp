@@ -23,6 +23,13 @@ namespace sprout {
 	//			ADL callable range_nth(cont, i) -> range_nth(cont, i)
 	//			[default]
 	//				Container is T[N] -> iterator(cont) + i
+	//				otherwise, Container is not const
+	//					&& sprout::is_const_iterator_cast_convertible<const_iterator, iterator>
+	//					&& (callable sprout::as_const(cont).nth(i)
+	//						|| callable sprout::as_const(cont).begin()
+	//						|| ADL(without sprout) callable begin(sprout::as_const(cont))
+	//						)
+	//					-> sprout::const_iterator_cast<iterator>(sprout::nth(sprout::as_const(cont), i))
 	//				otherwise, callable cont.nth(i) -> cont.nth(i)
 	//				otherwise -> sprout::next(sprout::begin(cont), i)
 	//
