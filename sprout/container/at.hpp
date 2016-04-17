@@ -22,7 +22,7 @@ namespace sprout {
 	//		[default]
 	//			ADL callable range_at(cont, i) -> range_at(cont, i)
 	//			[default]
-	//				Container is T[N] -> cont[i]
+	//				Container is T[N] -> cont[sprout::range_index_check(cont, i)]
 	//				otherwise, Container is not const
 	//					&& sprout::is_const_cast_convertible<const_reference, reference>
 	//					&& (callable sprout::as_const(cont).at(i)

@@ -63,7 +63,7 @@ namespace sprout {
 	//
 	template<typename T>
 	struct container_range_traits<sprout::rational<T> >
-		: public sprout::detail::container_range_traits_default<sprout::rational<T> >
+		: public sprout::container_range_traits_default<sprout::rational<T> >
 	{
 	public:
 		static SPROUT_CONSTEXPR typename sprout::container_traits<sprout::rational<T> >::iterator

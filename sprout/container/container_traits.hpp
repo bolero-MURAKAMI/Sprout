@@ -392,7 +392,6 @@ namespace sprout {
 				sprout::detail::is_array_like<Container>::value
 			>
 		{};
-
 		//
 		// container_nosy_fixed_size
 		//
@@ -415,52 +414,6 @@ namespace sprout {
 		{};
 
 		//
-		// container_traits_default
-		//
-		template<typename Container>
-		struct container_traits_default
-			: public sprout::detail::container_nosy_value_type<Container>
-			, public sprout::detail::container_nosy_iterator<Container>
-			, public sprout::detail::container_nosy_const_iterator<Container>
-			, public sprout::detail::container_nosy_reference<Container>
-			, public sprout::detail::container_nosy_const_reference<Container>
-			, public sprout::detail::container_nosy_size_type<Container>
-			, public sprout::detail::container_nosy_difference_type<Container>
-			, public sprout::detail::container_nosy_pointer<Container>
-			, public sprout::detail::container_nosy_const_pointer<Container>
-			, public sprout::detail::container_nosy_static_size<Container>
-			, public sprout::detail::container_nosy_fixed_size<Container>
-		{};
-		template<typename T, std::size_t N>
-		struct container_traits_default<T[N]> {
-		public:
-			typedef T value_type;
-#if SPROUT_USE_PTR_INDEX_ITERATOR_IMPLEMENTATION
-			typedef sprout::ptr_index_iterator<T, true> iterator;
-			typedef sprout::ptr_index_iterator<T const, true> const_iterator;
-#else
-			typedef T* iterator;
-			typedef T const* const_iterator;
-#endif
-			typedef T& reference;
-			typedef T const& const_reference;
-			typedef std::size_t size_type;
-			typedef std::ptrdiff_t difference_type;
-			typedef T* pointer;
-			typedef T const* const_pointer;
-		public:
-			SPROUT_STATIC_CONSTEXPR size_type static_size = N;
-		public:
-			static SPROUT_CONSTEXPR size_type
-			fixed_size() SPROUT_NOEXCEPT {
-				return static_size;
-			}
-		};
-		template<typename T, std::size_t N>
-		SPROUT_CONSTEXPR_OR_CONST typename sprout::detail::container_traits_default<T[N]>::size_type
-		sprout::detail::container_traits_default<T[N]>::static_size;
-
-		//
 		// container_traits_const_default
 		//
 		template<typename Container>
@@ -480,11 +433,86 @@ namespace sprout {
 	}	// namespace detail
 
 	//
+	// container_value_type_default
+	// container_iterator_default
+	// container_const_iterator_default
+	// container_reference_default
+	// container_const_reference_default
+	// container_size_type_default
+	// container_difference_type_default
+	// container_pointer_default
+	// container_const_pointer_default
+	// container_static_size_default
+	// container_fixed_size_default
+	//
+	template<typename Container>
+	struct container_value_type_default
+		: public sprout::detail::container_nosy_value_type<Container>
+	{};
+	template<typename Container>
+	struct container_iterator_default
+		: public sprout::detail::container_nosy_iterator<Container>
+	{};
+	template<typename Container>
+	struct container_const_iterator_default
+		: public sprout::detail::container_nosy_const_iterator<Container>
+	{};
+	template<typename Container>
+	struct container_reference_default
+		: public sprout::detail::container_nosy_reference<Container>
+	{};
+	template<typename Container>
+	struct container_const_reference_default
+		: public sprout::detail::container_nosy_const_reference<Container>
+	{};
+	template<typename Container>
+	struct container_size_type_default
+		: public sprout::detail::container_nosy_size_type<Container>
+	{};
+	template<typename Container>
+	struct container_difference_type_default
+		: public sprout::detail::container_nosy_difference_type<Container>
+	{};
+	template<typename Container>
+	struct container_pointer_default
+		: public sprout::detail::container_nosy_pointer<Container>
+	{};
+	template<typename Container>
+	struct container_const_pointer_default
+		: public sprout::detail::container_nosy_const_pointer<Container>
+	{};
+	template<typename Container>
+	struct container_static_size_default
+		: public sprout::detail::container_nosy_static_size<Container>
+	{};
+	template<typename Container>
+	struct container_fixed_size_default
+		: public sprout::detail::container_nosy_fixed_size<Container>
+	{};
+	//
+	// container_traits_default
+	//
+	template<typename Container>
+	struct container_traits_default
+		: public sprout::container_value_type_default<Container>
+		, public sprout::container_iterator_default<Container>
+		, public sprout::container_const_iterator_default<Container>
+		, public sprout::container_reference_default<Container>
+		, public sprout::container_const_reference_default<Container>
+		, public sprout::container_size_type_default<Container>
+		, public sprout::container_difference_type_default<Container>
+		, public sprout::container_pointer_default<Container>
+		, public sprout::container_const_pointer_default<Container>
+		, public sprout::container_static_size_default<Container>
+		, public sprout::container_fixed_size_default<Container>
+	{};
+
+	//
 	// container_traits
 	//
 	template<typename Container>
 	struct container_traits
-		: public sprout::detail::container_traits_default<Container>
+		: public sprout::container_traits_default<Container>
 	{};
 	template<typename Container>
 	struct container_traits<Container const>
@@ -492,9 +520,33 @@ namespace sprout {
 	{};
 
 	template<typename T, std::size_t N>
-	struct container_traits<T[N]>
-		: public sprout::detail::container_traits_default<T[N]>
-	{};
+	struct container_traits<T[N]> {
+	public:
+		typedef T value_type;
+#if SPROUT_USE_PTR_INDEX_ITERATOR_IMPLEMENTATION
+		typedef sprout::ptr_index_iterator<T, true> iterator;
+		typedef sprout::ptr_index_iterator<T const, true> const_iterator;
+#else
+		typedef T* iterator;
+		typedef T const* const_iterator;
+#endif
+		typedef T& reference;
+		typedef T const& const_reference;
+		typedef std::size_t size_type;
+		typedef std::ptrdiff_t difference_type;
+		typedef T* pointer;
+		typedef T const* const_pointer;
+	public:
+		SPROUT_STATIC_CONSTEXPR size_type static_size = N;
+	public:
+		static SPROUT_CONSTEXPR size_type
+		fixed_size() SPROUT_NOEXCEPT {
+			return static_size;
+		}
+	};
+	template<typename T, std::size_t N>
+	SPROUT_CONSTEXPR_OR_CONST typename sprout::container_traits<T[N]>::size_type
+	sprout::container_traits<T[N]>::static_size;
 	template<typename T, std::size_t N>
 	struct container_traits<T const[N]>
 		: public sprout::detail::container_traits_const_default<T[N]>

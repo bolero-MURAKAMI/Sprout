@@ -25,7 +25,7 @@ namespace sprout {
 	//
 	template<typename T, std::size_t N>
 	struct container_traits<sscrisk::cel::array<T, N> >
-		: public sprout::detail::container_traits_default<sscrisk::cel::array<T, N> >
+		: public sprout::container_traits_default<sscrisk::cel::array<T, N> >
 	{
 	public:
 		typedef sprout::index_iterator<sscrisk::cel::array<T, N>&, true, sprout::detail::const_subscript<> > iterator;

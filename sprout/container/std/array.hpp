@@ -26,7 +26,7 @@ namespace sprout {
 	//
 	template<typename T, std::size_t N>
 	struct container_traits<std::array<T, N> >
-		: public sprout::detail::container_traits_default<std::array<T, N> >
+		: public sprout::container_traits_default<std::array<T, N> >
 	{
 	public:
 		typedef sprout::index_iterator<std::array<T, N>&, true, sprout::detail::const_subscript<> > iterator;
@@ -38,10 +38,8 @@ namespace sprout {
 	//
 	template<typename T, std::size_t N>
 	struct container_range_traits<std::array<T, N> >
-		: public sprout::detail::container_range_traits_default<std::array<T, N> >
+		: public sprout::container_range_traits_default<std::array<T, N> >
 	{
-	private:
-		typedef sprout::detail::container_range_traits_default<std::array<T, N> > base_type;
 	public:
 		// iterators:
 		static SPROUT_CONSTEXPR typename sprout::container_traits<std::array<T, N> >::iterator

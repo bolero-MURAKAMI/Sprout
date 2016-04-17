@@ -11,7 +11,6 @@
 #include <utility>
 #include <boost/array.hpp>
 #include <sprout/config.hpp>
-#include <type_traits>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/range_index_check.hpp>
@@ -43,7 +42,7 @@ namespace sprout {
 	//
 	template<typename T, std::size_t N>
 	struct container_traits<boost::array<T, N> >
-		: public sprout::detail::container_traits_default<boost::array<T, N> >
+		: public sprout::container_traits_default<boost::array<T, N> >
 	{
 	public:
 		typedef sprout::index_iterator<boost::array<T, N>&, true, sprout::detail::elems_subscript<> > iterator;
@@ -55,7 +54,7 @@ namespace sprout {
 	//
 	template<typename T, std::size_t N>
 	struct container_range_traits<boost::array<T, N> >
-		: public sprout::detail::container_range_traits_default<boost::array<T, N> >
+		: public sprout::container_range_traits_default<boost::array<T, N> >
 	{
 	public:
 		// iterators:

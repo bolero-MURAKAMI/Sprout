@@ -20,8 +20,8 @@ namespace sprout {
 	template<typename Container>
 	inline SPROUT_CONSTEXPR typename sprout::container_traits<Container const>::size_type
 	range_index_check(Container const& cont, typename sprout::container_traits<Container const>::size_type i) {
-		return i >= sprout::size(cont) ? throw std::out_of_range("range_index_check: index out of range")
-			: i
+		return i < sprout::size(cont) ? i
+			: throw std::out_of_range("range_index_check: index out of range")
 			;
 	}
 }	// namespace sprout

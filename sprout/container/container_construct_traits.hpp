@@ -24,9 +24,6 @@
 #include <sprout/tpp/algorithm/all_of.hpp>
 
 namespace sprout {
-	//
-	// container_construct_traits
-	//
 	namespace detail {
 		template<typename Container, typename... Args>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
@@ -85,37 +82,35 @@ namespace sprout {
 					)
 				);
 		}
-
-		template<typename Container>
-		struct container_construct_traits_impl {
-		public:
-			typedef Container copied_type;
-		public:
-			template<typename Cont>
-			static SPROUT_CONSTEXPR copied_type
-			deep_copy(Cont&& cont) {
-				return SPROUT_FORWARD(Cont, cont);
-			}
-			template<typename... Args>
-			static SPROUT_CONSTEXPR copied_type
-			make(Args&&... args) {
-				return sprout::detail::default_make_container<Container>(SPROUT_FORWARD(Args, args)...);
-			}
-			template<typename Cont, typename... Args>
-			static SPROUT_CONSTEXPR copied_type
-			remake(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
-				return sprout::detail::default_remake_container<Container>(
-					SPROUT_FORWARD(Cont, cont), size,
-					SPROUT_FORWARD(Args, args)...
-					);
-			}
-		};
 	}	// namespace detail
 
+	//
+	// container_construct_traits
+	//
 	template<typename Container>
-	struct container_construct_traits
-		: public sprout::detail::container_construct_traits_impl<Container>
-	{};
+	struct container_construct_traits {
+	public:
+		typedef Container copied_type;
+	public:
+		template<typename Cont>
+		static SPROUT_CONSTEXPR copied_type
+		deep_copy(Cont&& cont) {
+			return SPROUT_FORWARD(Cont, cont);
+		}
+		template<typename... Args>
+		static SPROUT_CONSTEXPR copied_type
+		make(Args&&... args) {
+			return sprout::detail::default_make_container<Container>(SPROUT_FORWARD(Args, args)...);
+		}
+		template<typename Cont, typename... Args>
+		static SPROUT_CONSTEXPR copied_type
+		remake(Cont&& cont, typename sprout::container_traits<Container>::difference_type size, Args&&... args) {
+			return sprout::detail::default_remake_container<Container>(
+				SPROUT_FORWARD(Cont, cont), size,
+				SPROUT_FORWARD(Args, args)...
+				);
+		}
+	};
 	template<typename Container>
 	struct container_construct_traits<Container const>
 		: public sprout::container_construct_traits<Container>

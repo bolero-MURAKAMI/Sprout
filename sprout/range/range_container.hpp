@@ -163,7 +163,7 @@ namespace sprout {
 	//
 	template<typename Iterator>
 	struct container_traits<sprout::range::range_container<Iterator> >
-		: public sprout::detail::container_traits_default<sprout::range::range_container<Iterator> >
+		: public sprout::container_traits_default<sprout::range::range_container<Iterator> >
 	{};
 }	// namespace sprout
 

@@ -131,7 +131,4 @@ namespace sprout {
 	shrink_to_fit(Container&& cont);
 }	// namespace sprout
 
-#include <sprout/container/size.hpp>
-#include <sprout/container/empty.hpp>
-
 #endif	// #ifndef SPROUT_CONTAINER_RANGE_FUNCTIONS_FWD_HPP
