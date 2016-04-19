@@ -13,7 +13,6 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
-#include <sprout/type_traits/is_const_cast_convertible.hpp>
 #include <sprout/container/traits_fwd.hpp>
 #include <sprout/container/container_traits.hpp>
 #include <sprout/container/range_functions_fwd.hpp>
@@ -53,7 +52,7 @@ namespace sprout {
 		template<typename T>
 		struct is_substitutable_const_back
 			: public sprout::bool_constant<
-				sprout::is_const_cast_convertible<
+				sprout::is_const_reference_cast_convertible<
 					typename sprout::container_traits<T const>::reference,
 					typename sprout::container_traits<T>::reference
 				>::value
@@ -72,7 +71,7 @@ namespace sprout {
 		>::type
 		range_back_impl(Container& cont) {
 			typedef typename sprout::container_traits<Container>::reference type;
-			return const_cast<type>(sprout::back(sprout::as_const(cont)));
+			return sprout::const_reference_cast<type>(sprout::back(sprout::as_const(cont)));
 		}
 		template<typename Container>
 		inline SPROUT_CONSTEXPR typename std::enable_if<

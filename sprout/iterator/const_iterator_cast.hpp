@@ -12,7 +12,6 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/is_same.hpp>
-#include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/adl/not_found.hpp>
 
@@ -86,7 +85,7 @@ namespace sprout {
 	{};
 	template<typename From, typename To>
 	struct is_const_iterator_cast_convertible<From*, To*>
-		: public std::is_same<typename std::remove_const<From>::type, typename std::remove_const<To>::type>
+		: public sprout::is_same<typename std::remove_const<From>::type, typename std::remove_const<To>::type>
 	{};
 }	// namespace sprout
 
@@ -98,8 +97,7 @@ namespace sprout_adl {
 namespace sprout {
 	namespace iterator_detail {
 		template<
-			typename T,
-			typename U,
+			typename T, typename U,
 			typename sprout::enabler_if<sprout::is_const_iterator_cast_convertible<U*, T>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR T
@@ -117,7 +115,7 @@ namespace sprout {
 namespace sprout_iterator_detail {
 	template<typename To, typename From>
 	inline SPROUT_CONSTEXPR To
-	const_iterator_cast(From const& it) {
+	call_const_iterator_conversion(From const& it) {
 		using sprout::iterator_detail::const_iterator_conversion;
 		using sprout_adl::const_iterator_conversion;
 		return const_iterator_conversion<To>(it);
@@ -131,7 +129,7 @@ namespace sprout {
 	template<typename To, typename From>
 	inline SPROUT_CONSTEXPR To
 	const_iterator_cast(From const& it) {
-		return sprout_iterator_detail::const_iterator_cast<To>(it);
+		return sprout_iterator_detail::call_const_iterator_conversion<To>(it);
 	}
 }	// namespace sprout
 

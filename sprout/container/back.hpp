@@ -24,12 +24,12 @@ namespace sprout {
 	//			[default]
 	//				Container is T[N] -> cont[N - 1]
 	//				otherwise, Container is not const
-	//					&& sprout::is_const_cast_convertible<const_reference, reference>
+	//					&& sprout::is_const_reference_cast_convertible<const_reference, reference>
 	//					&& (callable sprout::as_const(cont).back()
 	//						|| callable sprout::as_const(cont).begin()
 	//						|| ADL(without sprout) callable begin(sprout::as_const(cont))
 	//						)
-	//					-> const_cast<reference>(sprout::back(sprout::as_const(cont)))
+	//					-> sprout::const_reference_cast<reference>(sprout::back(sprout::as_const(cont)))
 	//				otherwise, callable cont.back() -> cont.back()
 	//				otherwise -> *sprout::next(sprout::begin(cont), sprout::size(cont) - 1)
 	//

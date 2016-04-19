@@ -13,5 +13,7 @@
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/iterator/advance.hpp>
+#include <sprout/iterator/const_iterator_cast.hpp>
+#include <sprout/iterator/const_reference_cast.hpp>
 
 #endif	// #ifndef SPROUT_ITERATOR_OPERATION_HPP

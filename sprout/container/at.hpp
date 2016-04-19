@@ -24,13 +24,13 @@ namespace sprout {
 	//			[default]
 	//				Container is T[N] -> cont[sprout::range_index_check(cont, i)]
 	//				otherwise, Container is not const
-	//					&& sprout::is_const_cast_convertible<const_reference, reference>
+	//					&& sprout::is_const_reference_cast_convertible<const_reference, reference>
 	//					&& (callable sprout::as_const(cont).at(i)
 	//						|| callable sprout::as_const(cont)[i]
 	//						|| callable sprout::as_const(cont).begin()
 	//						|| ADL(without sprout) callable begin(sprout::as_const(cont))
 	//						)
-	//					-> const_cast<reference>(sprout::at(sprout::as_const(cont), i))
+	//					-> sprout::const_reference_cast<reference>(sprout::at(sprout::as_const(cont), i))
 	//				otherwise, callable cont.at(i) -> cont.at(i)
 	//				otherwise, callable cont[i] -> cont[sprout::range_index_check(cont, i)]
 	//				otherwise -> *sprout::next(sprout::begin(cont), sprout::range_index_check(cont, i))
