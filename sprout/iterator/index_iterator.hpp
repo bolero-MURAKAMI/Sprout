@@ -21,6 +21,7 @@
 #include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/is_same.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
 #include <sprout/functional/subscript.hpp>
@@ -294,7 +295,7 @@ namespace sprout {
 	//
 	template<typename FromContainer, typename ToContainer, bool C, typename Subscript>
 	struct is_const_iterator_cast_convertible<sprout::index_iterator<FromContainer, C, Subscript>, sprout::index_iterator<ToContainer, C, Subscript> >
-		: public std::is_same<typename std::decay<FromContainer>::type, typename std::decay<ToContainer>::type>
+		: public sprout::is_same<typename std::decay<FromContainer>::type, typename std::decay<ToContainer>::type>
 	{};
 	//
 	// const_iterator_conversion

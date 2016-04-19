@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
+#include <sprout/type_traits/is_constructible.hpp>
 
 namespace sprout {
 	//
@@ -23,7 +24,7 @@ namespace sprout {
 		{};
 		template<typename T>
 		struct is_move_constructible_impl<T, false>
-			: public std::is_constructible<T, T&&>
+			: public sprout::is_constructible<T, T&&>
 		{};
 	}	// namespace detail
 	template<typename T>

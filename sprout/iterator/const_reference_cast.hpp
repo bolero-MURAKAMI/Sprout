@@ -189,4 +189,54 @@ namespace sprout {
 	}
 }	// namespace sprout
 
+//
+//	note:
+//		const_reference_cast is an adaptable function for interconversion
+//		with reference and const_reference.
+//		If you want to adapt a user-defined reference proxy class to const_reference_cast:
+//		- Specialize sprout::is_const_reference_cast_convertible.
+//		- Overload const_reference_conversion as to be lookup in the ADL.
+//
+//	example:
+//		#include <type_traits>
+//		#include <sprout/config.hpp>
+//		#include <sprout/type_traits.hpp>
+//		#include <sprout/iterator/const_reference_cast.hpp>
+//		/* Mylib::Reference is an user-defined reference proxy class*/
+//		namespace Mylib {
+//			template<typename T>
+//			struct Reference {
+//				T* p;
+//				typedef T* pointer;
+//				/* definition reference proxy interface... */
+//			};
+//		}
+//		/* const_reference_cast adapt for Mylib::Reference */
+//		namespace sprout {
+//			template<typename From, typename To>
+//			struct is_const_reference_cast_convertible<
+//				Mylib::Reference<From>,
+//				Mylib::Reference<To>
+//			>
+//				: public sprout::is_same<
+//					typename std::remove_cv<From>::type,
+//					typename std::remove_cv<To>::type
+//				>
+//			{};
+//		}
+//		namespace Mylib {
+//			template<typename To, typename From>
+//			inline SPROUT_CONSTEXPR typename std::enable_if<
+//				sprout::is_const_reference_cast_convertible<Reference<From>, To>::value,
+//				To
+//			>::type
+//			const_reference_conversion(Reference<From> const& it) {
+//				return To{const_cast<typename To::pointer>(it.p)};
+//			}
+//		}
+//		/* test const_reference_cast with Mylib::Reference */
+//		constexpr Mylib::Reference<int const> it{0};
+//		static_assert(sprout::const_reference_cast<Mylib::Reference<int> >(it).p == 0, "");
+//
+
 #endif	// #ifndef SPROUT_ITERATOR_CONST_REFERENCE_CAST_HPP

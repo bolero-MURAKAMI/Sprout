@@ -85,7 +85,7 @@ namespace sprout {
 	{};
 	template<typename From, typename To>
 	struct is_const_iterator_cast_convertible<From*, To*>
-		: public sprout::is_same<typename std::remove_const<From>::type, typename std::remove_const<To>::type>
+		: public sprout::is_same<typename std::remove_cv<From>::type, typename std::remove_cv<To>::type>
 	{};
 }	// namespace sprout
 
@@ -132,5 +132,55 @@ namespace sprout {
 		return sprout_iterator_detail::call_const_iterator_conversion<To>(it);
 	}
 }	// namespace sprout
+
+//
+//	note:
+//		const_iterator_cast is an adaptable function for interconversion
+//		with iterator and const_iterator.
+//		If you want to adapt a user-defined iterator class to const_iterator_cast:
+//		- Specialize sprout::is_const_iterator_cast_convertible.
+//		- Overload const_iterator_conversion as to be lookup in the ADL.
+//
+//	example:
+//		#include <type_traits>
+//		#include <sprout/config.hpp>
+//		#include <sprout/type_traits.hpp>
+//		#include <sprout/iterator/const_iterator_cast.hpp>
+//		/* Mylib::Iterator is an user-defined iterator class*/
+//		namespace Mylib {
+//			template<typename T>
+//			struct Iterator {
+//				T* p;
+//				typedef T* pointer;
+//				/* definition iterator interface... */
+//			};
+//		}
+//		/* const_iterator_cast adapt for Mylib::Iterator */
+//		namespace sprout {
+//			template<typename From, typename To>
+//			struct is_const_iterator_cast_convertible<
+//				Mylib::Iterator<From>,
+//				Mylib::Iterator<To>
+//			>
+//				: public sprout::is_same<
+//					typename std::remove_cv<From>::type,
+//					typename std::remove_cv<To>::type
+//				>
+//			{};
+//		}
+//		namespace Mylib {
+//			template<typename To, typename From>
+//			inline SPROUT_CONSTEXPR typename std::enable_if<
+//				sprout::is_const_iterator_cast_convertible<Iterator<From>, To>::value,
+//				To
+//			>::type
+//			const_iterator_conversion(Iterator<From> const& it) {
+//				return To{const_cast<typename To::pointer>(it.p)};
+//			}
+//		}
+//		/* test const_iterator_cast with Mylib::Iterator */
+//		constexpr Mylib::Iterator<int const> it{0};
+//		static_assert(sprout::const_iterator_cast<Mylib::Iterator<int> >(it).p == 0, "");
+//
 
 #endif	// #ifndef SPROUT_ITERATOR_CONST_ITERATOR_CAST_HPP
