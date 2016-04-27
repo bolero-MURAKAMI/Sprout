@@ -28,7 +28,7 @@ namespace sprout {
 		//					&& callable sprout::as_const(t).next_generator()
 		//					-> sprout::const_reference_cast<decltype(std::declval<T&>().next_generator())>(sprout::as_const(cont).next_generator())
 		//				otherwise, callable t.next_generator() -> t.next_generator()
-		//				otherwise, T is InputIterator -> sprout::next(t)
+		//				otherwise, T is InputIterator -> t
 		//				otherwise -> sprout::tuples::get<0>(t)
 		//
 		template<typename T>
@@ -39,8 +39,6 @@ namespace sprout {
 			return sprout::generators::generator_access_traits<typename std::remove_reference<T>::type>::get_next_generator(SPROUT_FORWARD(T, t));
 		}
 	}	// namespace generators
-
-	using sprout::generators::next_generator;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_GENERATOR_NEXT_GENERATOR_HPP

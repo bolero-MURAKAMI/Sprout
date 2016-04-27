@@ -12,6 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/generator/traits_fwd.hpp>
+#include <sprout/generator/access_functions_fwd.hpp>
 #include <sprout/generator/detail/generated_value.hpp>
 #include <sprout/generator/detail/next_generator.hpp>
 

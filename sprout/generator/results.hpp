@@ -8,11 +8,12 @@
 #ifndef SPROUT_GENERATOR_RESULTS_HPP
 #define SPROUT_GENERATOR_RESULTS_HPP
 
-#include <type_traits>
 #include <utility>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/generator/generated_value.hpp>
 #include <sprout/generator/next_generator.hpp>
+#include <sprout/generator/next_value.hpp>
 
 namespace sprout {
 	namespace generators {
@@ -32,12 +33,21 @@ namespace sprout {
 			struct next_generator
 				: public std::decay<decltype(sprout::generators::next_generator(std::declval<Generator>()()))>
 			{};
+
+			//
+			// next_value
+			//
+			template<typename Generator>
+			struct next_value
+				: public std::decay<decltype(sprout::generators::next_value(std::declval<Generator>()()))>
+			{};
 		}	// namespace results
 	}	// namespace generators
 
 	namespace results {
-		using sprout::generators::generated_value;
-		using sprout::generators::next_generator;
+		using sprout::generators::results::generated_value;
+		using sprout::generators::results::next_generator;
+		using sprout::generators::results::next_value;
 	}	// namespace results
 }	// namespace sprout
 

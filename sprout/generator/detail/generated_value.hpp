@@ -67,11 +67,11 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen&>().generated_value())
-			get_generated_value(Gen& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen&>().generated_value())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().generated_value())
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().generated_value())
 			{
-				typedef decltype(std::declval<Gen&>().generated_value()) type;
+				typedef decltype(std::declval<Gen>().generated_value()) type;
 				return sprout::const_reference_cast<type>(sprout::as_const(gen).generated_value());
 			}
 		};
@@ -85,9 +85,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen&>().generated_value())
-			get_generated_value(Gen& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen&>().generated_value())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().generated_value())
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().generated_value())
 			{
 				return gen.generated_value();
 			}
@@ -103,9 +103,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(*std::declval<Gen&>())
-			get_generated_value(Gen& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(*std::declval<Gen&>())
+			static SPROUT_CONSTEXPR decltype(*std::declval<Gen>())
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(*std::declval<Gen>())
 			{
 				return *gen;
 			}
@@ -121,9 +121,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<0>(std::declval<Gen&>()))
-			get_generated_value(Gen& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<0>(std::declval<Gen&>()))
+			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<0>(std::declval<Gen>()))
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<0>(std::declval<Gen>()))
 			{
 				return sprout::tuples::get<0>(gen);
 			}
@@ -138,11 +138,11 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen&&>().generated_value())
-			get_generated_value(Gen&& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen&&>().generated_value())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().generated_value())
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().generated_value())
 			{
-				typedef decltype(std::declval<Gen&&>().generated_value()) type;
+				typedef decltype(std::declval<Gen>().generated_value()) type;
 				return sprout::const_reference_cast<type>(sprout::as_const(sprout::move(gen)).generated_value());
 			}
 		};
@@ -156,9 +156,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen&&>().generated_value())
-			get_generated_value(Gen&& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen&&>().generated_value())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().generated_value())
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().generated_value())
 			{
 				return sprout::move(gen).generated_value();
 			}
@@ -174,9 +174,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(*std::declval<Gen&&>())
-			get_generated_value(Gen&& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(*std::declval<Gen&&>())
+			static SPROUT_CONSTEXPR decltype(*std::declval<Gen>())
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(*std::declval<Gen>())
 			{
 				return *sprout::move(gen);
 			}
@@ -192,9 +192,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<0>(std::declval<Gen&&>()))
-			get_generated_value(Gen&& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<0>(std::declval<Gen&&>()))
+			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<0>(std::declval<Gen>()))
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<0>(std::declval<Gen>()))
 			{
 				return sprout::tuples::get<0>(sprout::move(gen));
 			}
@@ -209,9 +209,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen const&>().generated_value())
-			get_generated_value(Gen const& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen const&>().generated_value())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().generated_value())
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().generated_value())
 			{
 				return gen.generated_value();
 			}
@@ -226,9 +226,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(*std::declval<Gen const&>())
-			get_generated_value(Gen const& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(*std::declval<Gen const&>())
+			static SPROUT_CONSTEXPR decltype(*std::declval<Gen>())
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(*std::declval<Gen>())
 			{
 				return *gen;
 			}
@@ -243,9 +243,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<0>(std::declval<Gen const&>()))
-			get_generated_value(Gen const& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<0>(std::declval<Gen const&>()))
+			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<0>(std::declval<Gen>()))
+			get_generated_value(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<0>(std::declval<Gen>()))
 			{
 				return sprout::tuples::get<0>(gen);
 			}

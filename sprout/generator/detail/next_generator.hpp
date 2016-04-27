@@ -15,7 +15,6 @@
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/iterator/const_reference_cast.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
-#include <sprout/iterator/next.hpp>
 #include <sprout/utility/as_const.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple.hpp>
@@ -68,11 +67,11 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen&>().next_generator())
-			get_next_generator(Gen& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen&>().next_generator())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().next_generator())
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().next_generator())
 			{
-				typedef decltype(std::declval<Gen&>().next_generator()) type;
+				typedef decltype(std::declval<Gen>().next_generator()) type;
 				return sprout::const_reference_cast<type>(sprout::as_const(gen).next_generator());
 			}
 		};
@@ -86,29 +85,11 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen&>().next_generator())
-			get_next_generator(Gen& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen&>().next_generator())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().next_generator())
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().next_generator())
 			{
 				return gen.next_generator();
-			}
-		};
-		template<typename Gen>
-		struct get_next_generator_impl<
-			Gen,
-			typename std::enable_if<
-				std::is_lvalue_reference<Gen>::value && !std::is_const<typename std::remove_reference<Gen>::type>::value
-					&& !sprout::detail::is_substitutable_const_next_generator<Gen>::value
-					&& !sprout::detail::has_mem_next_generator<Gen>::value
-					&& !sprout::is_input_iterator<Gen>::value
-			>::type
-		> {
-		public:
-			static SPROUT_CONSTEXPR decltype(sprout::next(std::declval<Gen&>()))
-			get_next_generator(Gen& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::next(std::declval<Gen&>()))
-			{
-				return sprout::next(gen);
 			}
 		};
 		template<typename Gen>
@@ -122,9 +103,27 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<1>(std::declval<Gen&>()))
-			get_next_generator(Gen& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<1>(std::declval<Gen&>()))
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>())
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>())
+			{
+				return gen;
+			}
+		};
+		template<typename Gen>
+		struct get_next_generator_impl<
+			Gen,
+			typename std::enable_if<
+				std::is_lvalue_reference<Gen>::value && !std::is_const<typename std::remove_reference<Gen>::type>::value
+					&& !sprout::detail::is_substitutable_const_next_generator<Gen>::value
+					&& !sprout::detail::has_mem_next_generator<Gen>::value
+					&& !sprout::is_input_iterator<Gen>::value
+			>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<1>(std::declval<Gen>()))
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<1>(std::declval<Gen>()))
 			{
 				return sprout::tuples::get<1>(gen);
 			}
@@ -139,11 +138,11 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen&&>().next_generator())
-			get_next_generator(Gen&& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen&&>().next_generator())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().next_generator())
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().next_generator())
 			{
-				typedef decltype(std::declval<Gen&&>().next_generator()) type;
+				typedef decltype(std::declval<Gen>().next_generator()) type;
 				return sprout::const_reference_cast<type>(sprout::as_const(sprout::move(gen)).next_generator());
 			}
 		};
@@ -157,9 +156,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen&&>().next_generator())
-			get_next_generator(Gen&& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen&&>().next_generator())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().next_generator())
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().next_generator())
 			{
 				return sprout::move(gen).next_generator();
 			}
@@ -175,11 +174,11 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(sprout::next(std::declval<Gen&&>()))
-			get_next_generator(Gen&& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::next(std::declval<Gen&&>()))
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>())
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>())
 			{
-				return sprout::next(sprout::move(gen));
+				return sprout::move(gen);
 			}
 		};
 		template<typename Gen>
@@ -193,9 +192,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<1>(std::declval<Gen&&>()))
-			get_next_generator(Gen&& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<1>(std::declval<Gen&&>()))
+			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<1>(std::declval<Gen>()))
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<1>(std::declval<Gen>()))
 			{
 				return sprout::tuples::get<1>(sprout::move(gen));
 			}
@@ -210,9 +209,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(std::declval<Gen const&>().next_generator())
-			get_next_generator(Gen const& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen const&>().next_generator())
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>().next_generator())
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>().next_generator())
 			{
 				return gen.next_generator();
 			}
@@ -227,11 +226,11 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(sprout::next(std::declval<Gen const&>()))
-			get_next_generator(Gen const& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::next(std::declval<Gen const&>()))
+			static SPROUT_CONSTEXPR decltype(std::declval<Gen>())
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(std::declval<Gen>())
 			{
-				return sprout::next(gen);
+				return gen;
 			}
 		};
 		template<typename Gen>
@@ -244,9 +243,9 @@ namespace sprout {
 			>::type
 		> {
 		public:
-			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<1>(std::declval<Gen const&>()))
-			get_next_generator(Gen const& gen)
-			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<1>(std::declval<Gen const&>()))
+			static SPROUT_CONSTEXPR decltype(sprout::tuples::get<1>(std::declval<Gen>()))
+			get_next_generator(Gen gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::tuples::get<1>(std::declval<Gen>()))
 			{
 				return sprout::tuples::get<1>(gen);
 			}

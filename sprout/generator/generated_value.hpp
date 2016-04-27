@@ -39,8 +39,6 @@ namespace sprout {
 			return sprout::generators::generator_access_traits<typename std::remove_reference<T>::type>::get_generated_value(SPROUT_FORWARD(T, t));
 		}
 	}	// namespace generators
-
-	using sprout::generators::generated_value;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_GENERATOR_GENERATED_VALUE_HPP
