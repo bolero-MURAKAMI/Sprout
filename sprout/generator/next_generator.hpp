@@ -20,11 +20,14 @@ namespace sprout {
 		// next_generator
 		//
 		//	effect:
-		//		sprout::generators::generator_access_traits<typename std::remove_reference<T>::type>::get_next_generator(t)
+		//		sprout::generators::generator_access_traits<T>::get_next_generator(t)
 		//		[default]
 		//			ADL callable get_next_generator(t) -> get_next_generator(t)
 		//			[default]
-		//				callable t.next_generator() -> t.next_generator()
+		//				T is not const
+		//					&& callable sprout::as_const(t).next_generator()
+		//					-> sprout::const_reference_cast<decltype(std::declval<T&>().next_generator())>(sprout::as_const(cont).next_generator())
+		//				otherwise, callable t.next_generator() -> t.next_generator()
 		//				otherwise -> sprout::tuples::get<0>(t)
 		//
 		template<typename T>

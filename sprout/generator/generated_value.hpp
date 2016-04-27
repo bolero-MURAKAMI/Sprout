@@ -20,11 +20,14 @@ namespace sprout {
 		// generated_value
 		//
 		//	effect:
-		//		sprout::generators::generator_access_traits<typename std::remove_reference<T>::type>::get_generated_value(t)
+		//		sprout::generators::generator_access_traits<T>::get_generated_value(t)
 		//		[default]
 		//			ADL callable get_generated_value(t) -> get_generated_value(t)
 		//			[default]
-		//				callable t.generated_value() -> t.generated_value()
+		//				T is not const
+		//					&& callable sprout::as_const(t).generated_value()
+		//					-> sprout::const_reference_cast<decltype(std::declval<T&>().generated_value())>(sprout::as_const(cont).generated_value())
+		//				otherwise, callable t.generated_value() -> t.generated_value()
 		//				otherwise -> sprout::tuples::get<0>(t)
 		//
 		template<typename T>
