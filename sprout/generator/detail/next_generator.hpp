@@ -14,6 +14,8 @@
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/iterator/const_reference_cast.hpp>
+#include <sprout/iterator/type_traits/is_iterator_of.hpp>
+#include <sprout/iterator/next.hpp>
 #include <sprout/utility/as_const.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/tuple/tuple.hpp>
@@ -98,6 +100,25 @@ namespace sprout {
 				std::is_lvalue_reference<Gen>::value && !std::is_const<typename std::remove_reference<Gen>::type>::value
 					&& !sprout::detail::is_substitutable_const_next_generator<Gen>::value
 					&& !sprout::detail::has_mem_next_generator<Gen>::value
+					&& !sprout::is_input_iterator<Gen>::value
+			>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR decltype(sprout::next(std::declval<Gen&>()))
+			get_next_generator(Gen& gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::next(std::declval<Gen&>()))
+			{
+				return sprout::next(gen);
+			}
+		};
+		template<typename Gen>
+		struct get_next_generator_impl<
+			Gen,
+			typename std::enable_if<
+				std::is_lvalue_reference<Gen>::value && !std::is_const<typename std::remove_reference<Gen>::type>::value
+					&& !sprout::detail::is_substitutable_const_next_generator<Gen>::value
+					&& !sprout::detail::has_mem_next_generator<Gen>::value
+					&& sprout::is_input_iterator<Gen>::value
 			>::type
 		> {
 		public:
@@ -150,6 +171,25 @@ namespace sprout {
 				std::is_rvalue_reference<Gen>::value && !std::is_const<typename std::remove_reference<Gen>::type>::value
 					&& !sprout::detail::is_substitutable_const_next_generator<Gen>::value
 					&& !sprout::detail::has_mem_next_generator<Gen>::value
+					&& sprout::is_input_iterator<Gen>::value
+			>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR decltype(sprout::next(std::declval<Gen&&>()))
+			get_next_generator(Gen&& gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::next(std::declval<Gen&&>()))
+			{
+				return sprout::next(sprout::move(gen));
+			}
+		};
+		template<typename Gen>
+		struct get_next_generator_impl<
+			Gen,
+			typename std::enable_if<
+				std::is_rvalue_reference<Gen>::value && !std::is_const<typename std::remove_reference<Gen>::type>::value
+					&& !sprout::detail::is_substitutable_const_next_generator<Gen>::value
+					&& !sprout::detail::has_mem_next_generator<Gen>::value
+					&& !sprout::is_input_iterator<Gen>::value
 			>::type
 		> {
 		public:
@@ -183,6 +223,24 @@ namespace sprout {
 			typename std::enable_if<
 				std::is_reference<Gen>::value && std::is_const<typename std::remove_reference<Gen>::type>::value
 					&& !sprout::detail::has_mem_next_generator<Gen const>::value
+					&& sprout::is_input_iterator<Gen>::value
+			>::type
+		> {
+		public:
+			static SPROUT_CONSTEXPR decltype(sprout::next(std::declval<Gen const&>()))
+			get_next_generator(Gen const& gen)
+			SPROUT_NOEXCEPT_IF_EXPR(sprout::next(std::declval<Gen const&>()))
+			{
+				return sprout::next(gen);
+			}
+		};
+		template<typename Gen>
+		struct get_next_generator_impl<
+			Gen,
+			typename std::enable_if<
+				std::is_reference<Gen>::value && std::is_const<typename std::remove_reference<Gen>::type>::value
+					&& !sprout::detail::has_mem_next_generator<Gen const>::value
+					&& !sprout::is_input_iterator<Gen>::value
 			>::type
 		> {
 		public:

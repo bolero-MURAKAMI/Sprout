@@ -28,6 +28,7 @@ namespace sprout {
 		//					&& callable sprout::as_const(t).next_generator()
 		//					-> sprout::const_reference_cast<decltype(std::declval<T&>().next_generator())>(sprout::as_const(cont).next_generator())
 		//				otherwise, callable t.next_generator() -> t.next_generator()
+		//				otherwise, T is InputIterator -> sprout::next(t)
 		//				otherwise -> sprout::tuples::get<0>(t)
 		//
 		template<typename T>
