@@ -23,7 +23,7 @@ main(){
 
 	static constexpr auto result = sprout::generate
 		<sprout::array<int, 10> /* Result type */>
-		(sprout::random::combine(engine, dist) /*Random generator*/)
+		(sprout::random::ccombine(engine, dist) /*Random generator*/)
 		;
 
 	static_assert(

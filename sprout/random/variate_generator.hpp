@@ -12,6 +12,8 @@
 #include <sprout/config.hpp>
 #include <sprout/random/detail/ptr_helper.hpp>
 #include <sprout/random/random_result_fwd.hpp>
+#include <sprout/type_traits/lvalue_reference.hpp>
+#include <sprout/utility/lvalue_forward.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {
@@ -37,7 +39,11 @@ namespace sprout {
 			typedef Engine engine_type;
 			typedef Distribution distribution_type;
 			typedef typename distribution_value_type::result_type result_type;
-			typedef sprout::random::random_result<engine_value_type, distribution_value_type> random_result_type;
+			typedef typename std::conditional<
+				std::is_reference<engine_type>::value && !std::is_const<typename std::remove_reference<engine_type>::type>::value,
+				result_type,
+				sprout::random::random_result<engine_value_type, distribution_value_type>
+			>::type random_result_type;
 		private:
 			engine_type engine_;
 			distribution_type distribution_;
@@ -109,8 +115,27 @@ namespace sprout {
 		// combine
 		//
 		template<typename Engine, typename Distribution>
+		inline SPROUT_CONSTEXPR sprout::random::variate_generator<
+			typename sprout::lvalue_reference<Engine>::type,
+			typename sprout::lvalue_reference<Distribution>::type
+		>
+		combine(Engine&& engine, Distribution&& distribution) {
+			typedef sprout::random::variate_generator<
+				typename sprout::lvalue_reference<Engine>::type,
+				typename sprout::lvalue_reference<Distribution>::type
+			> type;
+			return type(
+				sprout::lvalue_forward<Engine>(engine),
+				sprout::lvalue_forward<Distribution>(distribution)
+				);
+		}
+
+		//
+		// ccombine
+		//
+		template<typename Engine, typename Distribution>
 		inline SPROUT_CONSTEXPR sprout::random::variate_generator<Engine const&, Distribution const&>
-		combine(Engine const& engine, Distribution const& distribution) {
+		ccombine(Engine const& engine, Distribution const& distribution) {
 			return sprout::random::variate_generator<Engine const&, Distribution const&>(engine, distribution);
 		}
 
