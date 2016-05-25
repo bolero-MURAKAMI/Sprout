@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/complex/complex.hpp>
-#include <sprout/complex/operators.hpp>
+#include <sprout/complex/arithmetic_operators.hpp>
 #include <sprout/complex/perp.hpp>
 #include <sprout/complex/tanh.hpp>
 

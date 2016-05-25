@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/math/quaternion/quaternion.hpp>
-#include <sprout/math/quaternion/operators.hpp>
+#include <sprout/math/quaternion/arithmetic_operators.hpp>
 #include <sprout/math/quaternion/real.hpp>
 #include <sprout/math/quaternion/conj.hpp>
 

@@ -18,7 +18,7 @@
 #include <sprout/math/cosh.hpp>
 #include <sprout/math/sinh.hpp>
 #include <sprout/complex/complex.hpp>
-#include <sprout/complex/operators.hpp>
+#include <sprout/complex/arithmetic_operators.hpp>
 #include <sprout/complex/euler.hpp>
 #include <sprout/complex/detail/copysign_mul.hpp>
 
