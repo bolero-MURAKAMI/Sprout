@@ -15,7 +15,7 @@
 #include <sprout/math/sin.hpp>
 #include <sprout/math/copysign.hpp>
 #include <sprout/complex/complex.hpp>
-#include <sprout/complex/operators.hpp>
+#include <sprout/complex/arithmetic_operators.hpp>
 #include <sprout/complex/cosh.hpp>
 #include <sprout/complex/sinh.hpp>
 

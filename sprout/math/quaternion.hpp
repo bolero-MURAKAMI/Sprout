@@ -10,7 +10,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/math/quaternion/quaternion.hpp>
-#include <sprout/math/quaternion/operators.hpp>
+#include <sprout/math/quaternion/arithmetic_operators.hpp>
+#include <sprout/math/quaternion/stream_operators.hpp>
 #include <sprout/math/quaternion/values.hpp>
 #include <sprout/math/quaternion/creations.hpp>
 #include <sprout/math/quaternion/transcendentals.hpp>

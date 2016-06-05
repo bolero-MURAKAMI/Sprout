@@ -10,7 +10,8 @@
 
 #include <sprout/config.hpp>
 #include <sprout/complex/complex.hpp>
-#include <sprout/complex/operators.hpp>
+#include <sprout/complex/arithmetic_operators.hpp>
+#include <sprout/complex/stream_operators.hpp>
 #include <sprout/complex/values.hpp>
 #include <sprout/complex/transcendentals.hpp>
 #include <sprout/complex/hash.hpp>

@@ -17,7 +17,7 @@
 #include <sprout/math/log.hpp>
 #include <sprout/math/atan2.hpp>
 #include <sprout/complex/complex.hpp>
-#include <sprout/complex/operators.hpp>
+#include <sprout/complex/arithmetic_operators.hpp>
 #include <sprout/complex/log.hpp>
 #include <sprout/complex/sqrt.hpp>
 

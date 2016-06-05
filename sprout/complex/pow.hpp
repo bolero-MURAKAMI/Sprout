@@ -11,7 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/math/pow.hpp>
 #include <sprout/complex/complex.hpp>
-#include <sprout/complex/operators.hpp>
+#include <sprout/complex/arithmetic_operators.hpp>
 #include <sprout/complex/exp.hpp>
 #include <sprout/complex/log.hpp>
 

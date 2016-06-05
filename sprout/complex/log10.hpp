@@ -12,7 +12,7 @@
 #include <sprout/math/constants.hpp>
 #include <sprout/math/isnan.hpp>
 #include <sprout/complex/complex.hpp>
-#include <sprout/complex/operators.hpp>
+#include <sprout/complex/arithmetic_operators.hpp>
 #include <sprout/complex/log.hpp>
 
 namespace sprout {
