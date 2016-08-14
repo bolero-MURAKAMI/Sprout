@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/integer/integer_digits.hpp>
+#include <sprout/integer/carry_to_exp2.hpp>
 #include <sprout/integer/static_pow.hpp>
 
 #endif	// #ifndef SPROUT_INTEGER_HPP
