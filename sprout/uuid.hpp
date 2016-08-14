@@ -15,6 +15,6 @@
 #include <sprout/uuid/tuple.hpp>
 #include <sprout/uuid/generators.hpp>
 #include <sprout/uuid/namespaces.hpp>
-#include <sprout/uuid/udl.hpp>
+#include <sprout/uuid/literals.hpp>
 
 #endif	// #ifndef SPROUT_UUID_HPP

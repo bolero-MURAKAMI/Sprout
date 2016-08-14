@@ -5,23 +5,24 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_MATH_QUATERNION_UDL_HPP
-#define SPROUT_MATH_QUATERNION_UDL_HPP
+#ifndef SPROUT_MATH_QUATERNION_LITERALS_HPP
+#define SPROUT_MATH_QUATERNION_LITERALS_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/complex/udl.hpp>
+#include <sprout/complex/literals.hpp>
 #include <sprout/math/quaternion/quaternion.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 
 #if SPROUT_USE_USER_DEFINED_LITERALS
 
 namespace sprout {
-	namespace udl {
+	namespace literals {
 		namespace quaternion {
-			using sprout::udl::complex::operator"" _i;
-			using sprout::udl::complex::operator"" _if;
-			using sprout::udl::complex::operator"" _iF;
-			using sprout::udl::complex::operator"" _il;
-			using sprout::udl::complex::operator"" _iL;
+			using sprout::literals::complex::operator"" _i;
+			using sprout::literals::complex::operator"" _if;
+			using sprout::literals::complex::operator"" _iF;
+			using sprout::literals::complex::operator"" _il;
+			using sprout::literals::complex::operator"" _iL;
 
 			//
 			// _j
@@ -92,32 +93,32 @@ namespace sprout {
 			}
 		}	// namespace quaternion
 
-		using sprout::udl::quaternion::operator"" _j;
-		using sprout::udl::quaternion::operator"" _jf;
-		using sprout::udl::quaternion::operator"" _jF;
-		using sprout::udl::quaternion::operator"" _jl;
-		using sprout::udl::quaternion::operator"" _jL;
+		using sprout::literals::quaternion::operator"" _j;
+		using sprout::literals::quaternion::operator"" _jf;
+		using sprout::literals::quaternion::operator"" _jF;
+		using sprout::literals::quaternion::operator"" _jl;
+		using sprout::literals::quaternion::operator"" _jL;
 
-		using sprout::udl::quaternion::operator"" _k;
-		using sprout::udl::quaternion::operator"" _kf;
-		using sprout::udl::quaternion::operator"" _kF;
-		using sprout::udl::quaternion::operator"" _kl;
-		using sprout::udl::quaternion::operator"" _kL;
-	}	// namespace udl
+		using sprout::literals::quaternion::operator"" _k;
+		using sprout::literals::quaternion::operator"" _kf;
+		using sprout::literals::quaternion::operator"" _kF;
+		using sprout::literals::quaternion::operator"" _kl;
+		using sprout::literals::quaternion::operator"" _kL;
+	}	// namespace literals
 
-	using sprout::udl::quaternion::operator"" _j;
-	using sprout::udl::quaternion::operator"" _jf;
-	using sprout::udl::quaternion::operator"" _jF;
-	using sprout::udl::quaternion::operator"" _jl;
-	using sprout::udl::quaternion::operator"" _jL;
+	using sprout::literals::quaternion::operator"" _j;
+	using sprout::literals::quaternion::operator"" _jf;
+	using sprout::literals::quaternion::operator"" _jF;
+	using sprout::literals::quaternion::operator"" _jl;
+	using sprout::literals::quaternion::operator"" _jL;
 
-	using sprout::udl::quaternion::operator"" _k;
-	using sprout::udl::quaternion::operator"" _kf;
-	using sprout::udl::quaternion::operator"" _kF;
-	using sprout::udl::quaternion::operator"" _kl;
-	using sprout::udl::quaternion::operator"" _kL;
+	using sprout::literals::quaternion::operator"" _k;
+	using sprout::literals::quaternion::operator"" _kf;
+	using sprout::literals::quaternion::operator"" _kF;
+	using sprout::literals::quaternion::operator"" _kl;
+	using sprout::literals::quaternion::operator"" _kL;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
 
-#endif	// #ifndef SPROUT_MATH_QUATERNION_UDL_HPP
+#endif	// #ifndef SPROUT_MATH_QUATERNION_LITERALS_HPP

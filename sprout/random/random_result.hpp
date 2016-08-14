@@ -18,6 +18,7 @@
 #include <sprout/generator/functions.hpp>
 #include <sprout/random/random_result_fwd.hpp>
 #include <sprout/random/variate_generator.hpp>
+#include <sprout/random/detail/ptr_helper.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
@@ -37,16 +38,16 @@ namespace sprout {
 		>
 			: public std::iterator<
 				std::input_iterator_tag,
-				typename Distribution::result_type,
+				typename std::remove_reference<Distribution>::type::result_type,
 				std::ptrdiff_t,
-				typename Distribution::result_type const*,
-				typename Distribution::result_type const&
+				typename std::remove_reference<Distribution>::type::result_type const*,
+				typename std::remove_reference<Distribution>::type::result_type const&
 			>
 		{
 		public:
 			typedef Engine engine_type;
 			typedef Distribution distribution_type;
-			typedef typename distribution_type::result_type result_type;
+			typedef typename std::remove_reference<distribution_type>::type::result_type result_type;
 			typedef sprout::random::variate_generator<engine_type, distribution_type> generator_type;
 		private:
 			typedef std::iterator<
@@ -56,12 +57,23 @@ namespace sprout {
 				result_type const*,
 				result_type const&
 			> base_type;
+			typedef sprout::random::detail::ptr_helper<Engine> engine_helper_type;
+			typedef sprout::random::detail::ptr_helper<Distribution> distribution_helper_type;
 		public:
 			typedef typename base_type::iterator_category iterator_category;
 			typedef typename base_type::value_type value_type;
 			typedef typename base_type::difference_type difference_type;
 			typedef typename base_type::pointer pointer;
 			typedef typename base_type::reference reference;
+			typedef typename engine_helper_type::value_type engine_value_type;
+			typedef typename distribution_helper_type::value_type distribution_value_type;
+			typedef typename engine_helper_type::reference_type engine_reference_type;
+			typedef typename distribution_helper_type::reference_type distribution_reference_type;
+			typedef typename engine_helper_type::const_reference_type engine_const_reference_type;
+			typedef typename distribution_helper_type::const_reference_type distribution_const_reference_type;
+			typedef typename engine_helper_type::rvalue_type engine_param_type;
+			typedef typename distribution_helper_type::rvalue_type distribution_param_type;
+			typedef typename generator_type::random_result_type random_result_type;
 		private:
 			result_type result_;
 			generator_type generator_;
@@ -71,13 +83,13 @@ namespace sprout {
 			{}
 			random_result(random_result const&) = default;
 			SPROUT_CONSTEXPR random_result(
-				result_type result,
-				engine_type const& engine, distribution_type const& distribution
+				result_type const& result,
+				engine_param_type engine, distribution_param_type distribution
 				)
 				: result_(result)
 				, generator_(engine, distribution)
 			{}
-			SPROUT_CONSTEXPR random_result operator()() const {
+			SPROUT_CONSTEXPR random_result_type operator()() const {
 				return generator_();
 			}
 			SPROUT_CXX14_CONSTEXPR result_type& generated_value() SPROUT_NOEXCEPT {
@@ -92,6 +104,9 @@ namespace sprout {
 			SPROUT_CONSTEXPR generator_type const& next_generator() const SPROUT_NOEXCEPT {
 				return generator_;
 			}
+			SPROUT_CONSTEXPR random_result_type next_value() const SPROUT_NOEXCEPT {
+				return generator_();
+			}
 			SPROUT_CXX14_CONSTEXPR result_type& result() SPROUT_NOEXCEPT {
 				return result_;
 			}
@@ -104,16 +119,16 @@ namespace sprout {
 			SPROUT_CONSTEXPR generator_type const& next() const SPROUT_NOEXCEPT {
 				return generator_;
 			}
-			SPROUT_CXX14_CONSTEXPR engine_type& engine() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR engine_reference_type engine() SPROUT_NOEXCEPT {
 				return generator_.engine();
 			}
-			SPROUT_CONSTEXPR engine_type const& engine() const SPROUT_NOEXCEPT {
+			SPROUT_CONSTEXPR engine_const_reference_type engine() const SPROUT_NOEXCEPT {
 				return generator_.engine();
 			}
-			SPROUT_CXX14_CONSTEXPR distribution_type& distribution() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR distribution_reference_type distribution() SPROUT_NOEXCEPT {
 				return generator_.distribution();
 			}
-			SPROUT_CONSTEXPR distribution_type const& distribution() const SPROUT_NOEXCEPT {
+			SPROUT_CONSTEXPR distribution_const_reference_type distribution() const SPROUT_NOEXCEPT {
 				return generator_.distribution();
 			}
 			SPROUT_CXX14_CONSTEXPR operator result_type&() SPROUT_NOEXCEPT {
@@ -170,15 +185,15 @@ namespace sprout {
 		>
 			: public std::iterator<
 				std::input_iterator_tag,
-				typename Engine::result_type,
+				typename std::remove_reference<Engine>::type::result_type,
 				std::ptrdiff_t,
-				typename Engine::result_type const*,
-				typename Engine::result_type const&
+				typename std::remove_reference<Engine>::type::result_type const*,
+				typename std::remove_reference<Engine>::type::result_type const&
 			>
 		{
 		public:
 			typedef Engine engine_type;
-			typedef typename engine_type::result_type result_type;
+			typedef typename std::remove_reference<Engine>::type::result_type result_type;
 			typedef engine_type generator_type;
 		private:
 			typedef std::iterator<
@@ -188,12 +203,18 @@ namespace sprout {
 				result_type const*,
 				result_type const&
 			> base_type;
+			typedef sprout::random::detail::ptr_helper<Engine> engine_helper_type;
 		public:
 			typedef typename base_type::iterator_category iterator_category;
 			typedef typename base_type::value_type value_type;
 			typedef typename base_type::difference_type difference_type;
 			typedef typename base_type::pointer pointer;
 			typedef typename base_type::reference reference;
+			typedef typename engine_helper_type::value_type engine_value_type;
+			typedef typename engine_helper_type::reference_type engine_reference_type;
+			typedef typename engine_helper_type::const_reference_type engine_const_reference_type;
+			typedef typename engine_helper_type::rvalue_type engine_param_type;
+			typedef random_result random_result_type;
 		private:
 			result_type result_;
 			generator_type generator_;
@@ -202,10 +223,10 @@ namespace sprout {
 				: result_(), generator_()
 			{}
 			random_result(random_result const&) = default;
-			SPROUT_CONSTEXPR random_result(result_type result, engine_type const& engine)
+			SPROUT_CONSTEXPR random_result(result_type result, engine_param_type engine)
 				: result_(result), generator_(engine)
 			{}
-			SPROUT_CONSTEXPR random_result operator()() const {
+			SPROUT_CONSTEXPR random_result_type operator()() const {
 				return generator_();
 			}
 			SPROUT_CXX14_CONSTEXPR result_type& generated_value() SPROUT_NOEXCEPT {
@@ -220,6 +241,9 @@ namespace sprout {
 			SPROUT_CONSTEXPR generator_type const& next_generator() const SPROUT_NOEXCEPT {
 				return generator_;
 			}
+			SPROUT_CONSTEXPR random_result_type next_value() const SPROUT_NOEXCEPT {
+				return generator_();
+			}
 			SPROUT_CXX14_CONSTEXPR result_type& result() SPROUT_NOEXCEPT {
 				return result_;
 			}
@@ -232,10 +256,10 @@ namespace sprout {
 			SPROUT_CONSTEXPR generator_type const& next() const SPROUT_NOEXCEPT {
 				return generator_;
 			}
-			SPROUT_CXX14_CONSTEXPR engine_type& engine() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR engine_reference_type engine() SPROUT_NOEXCEPT {
 				return generator_;
 			}
-			SPROUT_CONSTEXPR engine_type const& engine() const SPROUT_NOEXCEPT {
+			SPROUT_CONSTEXPR engine_const_reference_type engine() const SPROUT_NOEXCEPT {
 				return generator_;
 			}
 			SPROUT_CXX14_CONSTEXPR operator result_type&() SPROUT_NOEXCEPT {

@@ -5,12 +5,16 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_FUNCTIONAL_BIND_HPP
-#define SPROUT_FUNCTIONAL_BIND_HPP
+#ifndef SPROUT_DETAIL_UDL_NAMESPACE_HPP
+#define SPROUT_DETAIL_UDL_NAMESPACE_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/functional/bind/bind.hpp>
-#include <sprout/functional/bind/placeholder.hpp>
-#include <sprout/functional/bind/literals.hpp>
 
-#endif	// #ifndef SPROUT_FUNCTIONAL_BIND_HPP
+namespace sprout {
+	namespace literals {
+	}	// namespace literals
+
+	namespace udl = sprout::literals;
+}	// namespace sprout
+
+#endif	// #ifndef SPROUT_DETAIL_UDL_NAMESPACE_HPP

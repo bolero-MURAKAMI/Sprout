@@ -5,16 +5,17 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_COMPLEX_UDL_HPP
-#define SPROUT_COMPLEX_UDL_HPP
+#ifndef SPROUT_COMPLEX_LITERALS_HPP
+#define SPROUT_COMPLEX_LITERALS_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/complex/complex.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 
 #if SPROUT_USE_USER_DEFINED_LITERALS
 
 namespace sprout {
-	namespace udl {
+	namespace literals {
 		namespace complex {
 			//
 			// _i
@@ -51,20 +52,20 @@ namespace sprout {
 			}
 		}	// namespace complex
 
-		using sprout::udl::complex::operator"" _i;
-		using sprout::udl::complex::operator"" _if;
-		using sprout::udl::complex::operator"" _iF;
-		using sprout::udl::complex::operator"" _il;
-		using sprout::udl::complex::operator"" _iL;
-	}	// namespace udl
+		using sprout::literals::complex::operator"" _i;
+		using sprout::literals::complex::operator"" _if;
+		using sprout::literals::complex::operator"" _iF;
+		using sprout::literals::complex::operator"" _il;
+		using sprout::literals::complex::operator"" _iL;
+	}	// namespace literals
 
-	using sprout::udl::complex::operator"" _i;
-	using sprout::udl::complex::operator"" _if;
-	using sprout::udl::complex::operator"" _iF;
-	using sprout::udl::complex::operator"" _il;
-	using sprout::udl::complex::operator"" _iL;
+	using sprout::literals::complex::operator"" _i;
+	using sprout::literals::complex::operator"" _if;
+	using sprout::literals::complex::operator"" _iF;
+	using sprout::literals::complex::operator"" _il;
+	using sprout::literals::complex::operator"" _iL;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
 
-#endif	// #ifndef SPROUT_COMPLEX_UDL_HPP
+#endif	// #ifndef SPROUT_COMPLEX_LITERALS_HPP

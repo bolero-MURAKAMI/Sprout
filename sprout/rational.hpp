@@ -19,6 +19,6 @@
 #include <sprout/rational/values.hpp>
 #include <sprout/rational/conversion.hpp>
 #include <sprout/rational/exceptions.hpp>
-#include <sprout/rational/udl.hpp>
+#include <sprout/rational/literals.hpp>
 
 #endif	// #ifndef SPROUT_RATIONAL_HPP

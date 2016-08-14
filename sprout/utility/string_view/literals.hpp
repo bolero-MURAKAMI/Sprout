@@ -5,18 +5,19 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_UTILITY_STRING_VIEW_UDL_HPP
-#define SPROUT_UTILITY_STRING_VIEW_UDL_HPP
+#ifndef SPROUT_UTILITY_STRING_VIEW_LITERALS_HPP
+#define SPROUT_UTILITY_STRING_VIEW_LITERALS_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/utility/string_view/string_view.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 
 #if SPROUT_USE_USER_DEFINED_LITERALS
 
 #include <sprout/workaround/std/cstddef.hpp>
 
 namespace sprout {
-	namespace udl {
+	namespace literals {
 		namespace strings {
 			//
 			// _sv
@@ -41,12 +42,12 @@ namespace sprout {
 #endif
 		}	// namespace strings
 
-		using sprout::udl::strings::operator"" _sv;
-	}	// namespace udl
+		using sprout::literals::strings::operator"" _sv;
+	}	// namespace literals
 
-	using sprout::udl::strings::operator"" _sv;
+	using sprout::literals::strings::operator"" _sv;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
 
-#endif	// #ifndef SPROUT_UTILITY_STRING_VIEW_UDL_HPP
+#endif	// #ifndef SPROUT_UTILITY_STRING_VIEW_LITERALS_HPP

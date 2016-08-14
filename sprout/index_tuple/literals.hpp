@@ -5,11 +5,12 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_INDEX_TUPLE_UDL_HPP
-#define SPROUT_INDEX_TUPLE_UDL_HPP
+#ifndef SPROUT_INDEX_TUPLE_LITERALS_HPP
+#define SPROUT_INDEX_TUPLE_LITERALS_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/index_tuple/index_tuple.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 
 #if SPROUT_USE_USER_DEFINED_LITERALS
 
@@ -30,7 +31,7 @@ namespace sprout {
 		: public sprout::make_uindex_tuple<sprout::detail::digits_to_int<sprout::uindex_t, Chars...>::value>
 	{};
 
-	namespace udl {
+	namespace literals {
 		namespace indexes {
 			//
 			// _indexes
@@ -48,14 +49,14 @@ namespace sprout {
 			}
 		}	// namespace indexes
 
-		using sprout::udl::indexes::operator"" _indexes;
-		using sprout::udl::indexes::operator"" _uindexes;
-	}	// namespace udl
+		using sprout::literals::indexes::operator"" _indexes;
+		using sprout::literals::indexes::operator"" _uindexes;
+	}	// namespace literals
 
-	using sprout::udl::indexes::operator"" _indexes;
-	using sprout::udl::indexes::operator"" _uindexes;
+	using sprout::literals::indexes::operator"" _indexes;
+	using sprout::literals::indexes::operator"" _uindexes;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
 
-#endif	// #ifndef SPROUT_INDEX_TUPLE_UDL_HPP
+#endif	// #ifndef SPROUT_INDEX_TUPLE_LITERALS_HPP

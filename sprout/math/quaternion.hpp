@@ -18,7 +18,7 @@
 #include <sprout/math/quaternion/hash.hpp>
 #include <sprout/math/quaternion/tuple.hpp>
 #include <sprout/math/quaternion/container.hpp>
-#include <sprout/math/quaternion/udl.hpp>
+#include <sprout/math/quaternion/literals.hpp>
 #include <sprout/math/quaternion/type_traits.hpp>
 
 #endif	// #ifndef SPROUT_MATH_QUATERNION_HPP

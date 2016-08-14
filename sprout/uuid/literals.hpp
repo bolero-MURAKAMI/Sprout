@@ -5,11 +5,12 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_UUID_UDL_HPP
-#define SPROUT_UUID_UDL_HPP
+#ifndef SPROUT_UUID_LITERALS_HPP
+#define SPROUT_UUID_LITERALS_HPP
 
 #include <sprout/config.hpp>
 #include <sprout/uuid/uuid.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 
 #if SPROUT_USE_USER_DEFINED_LITERALS
 
@@ -61,7 +62,7 @@ namespace sprout {
 		}	// namespace detail
 	}	// namespace uuids
 
-	namespace udl {
+	namespace literals {
 		namespace uuids {
 			//
 			// _uuid
@@ -130,16 +131,16 @@ namespace sprout {
 #endif
 		}	// namespace uuids
 
-		using sprout::udl::uuids::operator"" _uuid;
-		using sprout::udl::uuids::operator"" _uuid3;
-		using sprout::udl::uuids::operator"" _uuid5;
-	}	// namespace udl
+		using sprout::literals::uuids::operator"" _uuid;
+		using sprout::literals::uuids::operator"" _uuid3;
+		using sprout::literals::uuids::operator"" _uuid5;
+	}	// namespace literals
 
-	using sprout::udl::uuids::operator"" _uuid;
-	using sprout::udl::uuids::operator"" _uuid3;
-	using sprout::udl::uuids::operator"" _uuid5;
+	using sprout::literals::uuids::operator"" _uuid;
+	using sprout::literals::uuids::operator"" _uuid3;
+	using sprout::literals::uuids::operator"" _uuid5;
 }	// namespace sprout
 
 #endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
 
-#endif	// #ifndef SPROUT_UUID_UDL_HPP
+#endif	// #ifndef SPROUT_UUID_LITERALS_HPP

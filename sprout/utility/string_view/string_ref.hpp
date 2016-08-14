@@ -12,6 +12,7 @@
 #include <sprout/string/char_traits.hpp>
 #include <sprout/utility/string_view/string_view.hpp>
 #include <sprout/utility/string_view/type_traits.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 
 namespace sprout {
 	//
@@ -159,7 +160,7 @@ namespace sprout {
 #endif
 #endif	// #if SPROUT_USE_VARIABLE_TEMPLATES
 
-	namespace udl {
+	namespace literals {
 		namespace strings {
 			//
 			// _sr
@@ -184,10 +185,10 @@ namespace sprout {
 #endif
 		}	// namespace strings
 
-		using sprout::udl::strings::operator"" _sr;
-	}	// namespace udl
+		using sprout::literals::strings::operator"" _sr;
+	}	// namespace literals
 
-	using sprout::udl::strings::operator"" _sr;
+	using sprout::literals::strings::operator"" _sr;
 }	// namespace sprout
 
 #endif	// #ifndef SPROUT_UTILITY_STRING_VIEW_STRING_REF_HPP

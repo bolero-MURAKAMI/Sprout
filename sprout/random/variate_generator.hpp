@@ -14,6 +14,7 @@
 #include <sprout/random/random_result_fwd.hpp>
 #include <sprout/type_traits/lvalue_reference.hpp>
 #include <sprout/utility/lvalue_forward.hpp>
+#include <sprout/utility/as_const.hpp>
 #include <sprout/utility/swap.hpp>
 
 namespace sprout {
@@ -41,9 +42,16 @@ namespace sprout {
 			typedef typename distribution_value_type::result_type result_type;
 			typedef typename std::conditional<
 				std::is_reference<engine_type>::value && !std::is_const<typename std::remove_reference<engine_type>::type>::value,
-				result_type,
+				sprout::random::random_result<engine_type, distribution_type>,
 				sprout::random::random_result<engine_value_type, distribution_value_type>
 			>::type random_result_type;
+		private:
+			static SPROUT_CONSTEXPR random_result_type call(variate_generator const& g, sprout::true_type) {
+				return random_result_type(g.distribution_(g.engine_), g.distribution_, g.engine_);
+			}
+			static SPROUT_CONSTEXPR random_result_type call(variate_generator const& g, sprout::false_type) {
+				return g.distribution_(sprout::as_const(g.engine_));
+			}
 		private:
 			engine_type engine_;
 			distribution_type distribution_;
@@ -60,16 +68,20 @@ namespace sprout {
 				: engine_(engine)
 				, distribution_(distribution)
 			{}
-			SPROUT_CONSTEXPR random_result_type const operator()() const {
-				return distribution_(engine_);
+			SPROUT_CONSTEXPR random_result_type operator()() const {
+				typedef sprout::bool_constant<std::is_reference<engine_type>::value && !std::is_const<typename std::remove_reference<engine_type>::type>::value> tag;
+				return call(*this, tag());
 			}
-			engine_reference_type engine() SPROUT_NOEXCEPT {
+			SPROUT_CONSTEXPR random_result_type next_value() const {
+				return (*this)();
+			}
+			SPROUT_CXX14_CONSTEXPR engine_reference_type engine() SPROUT_NOEXCEPT {
 				return engine_helper_type::ref(engine_);
 			}
 			SPROUT_CONSTEXPR engine_const_reference_type engine() const SPROUT_NOEXCEPT {
 				return engine_helper_type::ref(engine_);
 			}
-			distribution_reference_type distribution() SPROUT_NOEXCEPT {
+			SPROUT_CXX14_CONSTEXPR distribution_reference_type distribution() SPROUT_NOEXCEPT {
 				return distribution_helper_type::ref(distribution_);
 			}
 			SPROUT_CONSTEXPR distribution_const_reference_type distribution() const SPROUT_NOEXCEPT {

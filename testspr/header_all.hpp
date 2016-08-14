@@ -29,6 +29,7 @@
 #include <sprout/compressed_pair.hpp>
 #include <sprout/config.hpp>
 #include <sprout/container.hpp>
+#include <sprout/cstddef.hpp>
 #include <sprout/cstdint.hpp>
 #include <sprout/cstdlib.hpp>
 #include <sprout/cstring.hpp>
