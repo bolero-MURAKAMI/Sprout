@@ -18,6 +18,7 @@
 #include <sprout/iterator/bytes_iterator.hpp>
 #include <sprout/numeric/accumulate.hpp>
 #include <sprout/functional/polymorphic/bit_xor.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 
 namespace sprout {
 	//

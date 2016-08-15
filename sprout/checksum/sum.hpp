@@ -21,6 +21,7 @@
 #include <sprout/iterator/bytes_iterator.hpp>
 #include <sprout/numeric/accumulate.hpp>
 #include <sprout/detail/integer.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 
 namespace sprout {
 	static_assert(CHAR_BIT == 8, "CHAR_BIT == 8");

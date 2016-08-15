@@ -26,6 +26,7 @@
 #include <sprout/range/algorithm/fixed/copy.hpp>
 #include <sprout/operation/fixed/set.hpp>
 #include <sprout/bit/rotl.hpp>
+#include <sprout/detail/udl_namespace.hpp>
 #ifdef SPROUT_WORKAROUND_NOT_TERMINATE_RECURSIVE_CONSTEXPR_FUNCTION_TEMPLATE
 #	include <sprout/workaround/recursive_function_template.hpp>
 #endif
