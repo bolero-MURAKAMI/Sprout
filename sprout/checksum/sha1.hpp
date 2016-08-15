@@ -15,6 +15,8 @@
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/array/array.hpp>
 #include <sprout/array/make_array.hpp>
+#include <sprout/string/char_traits.hpp>
+#include <sprout/string/string.hpp>
 #include <sprout/sub_array/sub_array.hpp>
 #include <sprout/sub_array/sub.hpp>
 #include <sprout/container/functions.hpp>
@@ -523,6 +525,74 @@ namespace sprout {
 			return checksum();
 		}
 	};
+
+	//
+	// make_sha1
+	//
+	template<typename ForwardIterator>
+	inline SPROUT_CONSTEXPR sprout::sha1::value_type
+	make_sha1(ForwardIterator first, ForwardIterator last) {
+		return sprout::sha1().c_process_block(first, last)();
+	}
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::sha1::value_type
+	make_sha1(sprout::basic_string<Elem, N, Traits> const& s) {
+		return sprout::sha1().c_process_range(s)();
+	}
+	inline SPROUT_CONSTEXPR sprout::sha1::value_type
+	make_sha1(char const* s) {
+		return sprout::sha1().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::sha1::value_type
+	make_sha1(wchar_t const* s) {
+		return sprout::sha1().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#if SPROUT_USE_UNICODE_LITERALS
+	inline SPROUT_CONSTEXPR sprout::sha1::value_type
+	make_sha1(char16_t const* s) {
+		return sprout::sha1().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::sha1::value_type
+	make_sha1(char32_t const* s) {
+		return sprout::sha1().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#endif
 }	// namespace sprout
+
+#if SPROUT_USE_USER_DEFINED_LITERALS
+
+namespace sprout {
+	namespace literals {
+		namespace checksum {
+			//
+			// _sha1
+			//
+			inline SPROUT_CONSTEXPR sprout::sha1::value_type
+			operator"" _sha1(char const* s, std::size_t size) {
+				return sprout::sha1().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::sha1::value_type
+			operator"" _sha1(wchar_t const* s, std::size_t size) {
+				return sprout::sha1().c_process_bytes(s, size)();
+			}
+#if SPROUT_USE_UNICODE_LITERALS
+			inline SPROUT_CONSTEXPR sprout::sha1::value_type
+			operator"" _sha1(char16_t const* s, std::size_t size) {
+				return sprout::sha1().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::sha1::value_type
+			operator"" _sha1(char32_t const* s, std::size_t size) {
+				return sprout::sha1().c_process_bytes(s, size)();
+			}
+#endif
+		}	// namespace checksum
+
+		using sprout::literals::checksum::operator"" _sha1;
+	}	// namespace literals
+
+	using sprout::literals::checksum::operator"" _sha1;
+}	// namespace sprout
+
+#endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
 
 #endif	// #ifndef SPROUT_CHECKSUM_SHA1_HPP

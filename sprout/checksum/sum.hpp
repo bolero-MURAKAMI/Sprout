@@ -14,6 +14,8 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
+#include <sprout/string/char_traits.hpp>
+#include <sprout/string/string.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
@@ -49,7 +51,9 @@ namespace sprout {
 				);
 		}
 	public:
-		SPROUT_CONSTEXPR sum_basic() SPROUT_DEFAULTED_DEFAULT_CONSTRUCTOR_DECL
+		SPROUT_CONSTEXPR sum_basic()
+			: sum_()
+		{}
 		sum_basic(sum_basic const&) = default;
 		explicit SPROUT_CONSTEXPR sum_basic(sum_type sum)
 			: sum_(sum)
@@ -121,6 +125,182 @@ namespace sprout {
 	typedef sprout::sum_basic<8> sum8;
 	typedef sprout::sum_basic<16> sum16;
 	typedef sprout::sum_basic<32> sum32;
+
+	//
+	// make_sum8
+	//
+	template<typename ForwardIterator>
+	inline SPROUT_CONSTEXPR sprout::sum8::value_type
+	make_sum8(ForwardIterator first, ForwardIterator last) {
+		return sprout::sum8().c_process_block(first, last)();
+	}
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::sum8::value_type
+	make_sum8(sprout::basic_string<Elem, N, Traits> const& s) {
+		return sprout::sum8().c_process_range(s)();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum8::value_type
+	make_sum8(char const* s) {
+		return sprout::sum8().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum8::value_type
+	make_sum8(wchar_t const* s) {
+		return sprout::sum8().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#if SPROUT_USE_UNICODE_LITERALS
+	inline SPROUT_CONSTEXPR sprout::sum8::value_type
+	make_sum8(char16_t const* s) {
+		return sprout::sum8().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum8::value_type
+	make_sum8(char32_t const* s) {
+		return sprout::sum8().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#endif
+	//
+	// make_sum16
+	//
+	template<typename ForwardIterator>
+	inline SPROUT_CONSTEXPR sprout::sum16::value_type
+	make_sum16(ForwardIterator first, ForwardIterator last) {
+		return sprout::sum16().c_process_block(first, last)();
+	}
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::sum16::value_type
+	make_sum16(sprout::basic_string<Elem, N, Traits> const& s) {
+		return sprout::sum16().c_process_range(s)();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum16::value_type
+	make_sum16(char const* s) {
+		return sprout::sum16().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum16::value_type
+	make_sum16(wchar_t const* s) {
+		return sprout::sum16().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#if SPROUT_USE_UNICODE_LITERALS
+	inline SPROUT_CONSTEXPR sprout::sum16::value_type
+	make_sum16(char16_t const* s) {
+		return sprout::sum16().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum16::value_type
+	make_sum16(char32_t const* s) {
+		return sprout::sum16().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#endif
+	//
+	// make_sum32
+	//
+	template<typename ForwardIterator>
+	inline SPROUT_CONSTEXPR sprout::sum32::value_type
+	make_sum32(ForwardIterator first, ForwardIterator last) {
+		return sprout::sum32().c_process_block(first, last)();
+	}
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::sum32::value_type
+	make_sum32(sprout::basic_string<Elem, N, Traits> const& s) {
+		return sprout::sum32().c_process_range(s)();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum32::value_type
+	make_sum32(char const* s) {
+		return sprout::sum32().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum32::value_type
+	make_sum32(wchar_t const* s) {
+		return sprout::sum32().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#if SPROUT_USE_UNICODE_LITERALS
+	inline SPROUT_CONSTEXPR sprout::sum32::value_type
+	make_sum32(char16_t const* s) {
+		return sprout::sum32().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::sum32::value_type
+	make_sum32(char32_t const* s) {
+		return sprout::sum32().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#endif
 }	// namespace sprout
+
+#if SPROUT_USE_USER_DEFINED_LITERALS
+
+namespace sprout {
+	namespace literals {
+		namespace checksum {
+			//
+			// _sum8
+			//
+			inline SPROUT_CONSTEXPR sprout::sum8::value_type
+			operator"" _sum8(char const* s, std::size_t size) {
+				return sprout::sum8().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::sum8::value_type
+			operator"" _sum8(wchar_t const* s, std::size_t size) {
+				return sprout::sum8().c_process_bytes(s, size)();
+			}
+#if SPROUT_USE_UNICODE_LITERALS
+			inline SPROUT_CONSTEXPR sprout::sum8::value_type
+			operator"" _sum8(char16_t const* s, std::size_t size) {
+				return sprout::sum8().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::sum8::value_type
+			operator"" _sum8(char32_t const* s, std::size_t size) {
+				return sprout::sum8().c_process_bytes(s, size)();
+			}
+#endif
+			//
+			// _sum16
+			//
+			inline SPROUT_CONSTEXPR sprout::sum16::value_type
+			operator"" _sum16(char const* s, std::size_t size) {
+				return sprout::sum16().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::sum16::value_type
+			operator"" _sum16(wchar_t const* s, std::size_t size) {
+				return sprout::sum16().c_process_bytes(s, size)();
+			}
+#if SPROUT_USE_UNICODE_LITERALS
+			inline SPROUT_CONSTEXPR sprout::sum16::value_type
+			operator"" _sum16(char16_t const* s, std::size_t size) {
+				return sprout::sum16().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::sum16::value_type
+			operator"" _sum16(char32_t const* s, std::size_t size) {
+				return sprout::sum16().c_process_bytes(s, size)();
+			}
+#endif
+			//
+			// _sum32
+			//
+			inline SPROUT_CONSTEXPR sprout::sum32::value_type
+			operator"" _sum32(char const* s, std::size_t size) {
+				return sprout::sum32().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::sum32::value_type
+			operator"" _sum32(wchar_t const* s, std::size_t size) {
+				return sprout::sum32().c_process_bytes(s, size)();
+			}
+#if SPROUT_USE_UNICODE_LITERALS
+			inline SPROUT_CONSTEXPR sprout::sum32::value_type
+			operator"" _sum32(char16_t const* s, std::size_t size) {
+				return sprout::sum32().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::sum32::value_type
+			operator"" _sum32(char32_t const* s, std::size_t size) {
+				return sprout::sum32().c_process_bytes(s, size)();
+			}
+#endif
+		}	// namespace checksum
+
+		using sprout::literals::checksum::operator"" _sum8;
+		using sprout::literals::checksum::operator"" _sum16;
+		using sprout::literals::checksum::operator"" _sum32;
+	}	// namespace literals
+
+	using sprout::literals::checksum::operator"" _sum8;
+	using sprout::literals::checksum::operator"" _sum16;
+	using sprout::literals::checksum::operator"" _sum32;
+}	// namespace sprout
+
+#endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
 
 #endif	// #ifndef SPROUT_CHECKSUM_SUM_HPP

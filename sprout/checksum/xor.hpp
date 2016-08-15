@@ -11,6 +11,8 @@
 #include <cstdint>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/string/char_traits.hpp>
+#include <sprout/string/string.hpp>
 #include <sprout/container/functions.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/iterator/bytes_iterator.hpp>
@@ -39,6 +41,9 @@ namespace sprout {
 				);
 		}
 	public:
+		SPROUT_CONSTEXPR xor8()
+			: sum_()
+		{}
 		xor8(xor8 const&) = default;
 		explicit SPROUT_CONSTEXPR xor8(sum_type sum)
 			: sum_(sum)
@@ -101,6 +106,74 @@ namespace sprout {
 			return checksum();
 		}
 	};
+
+	//
+	// make_xor8
+	//
+	template<typename ForwardIterator>
+	inline SPROUT_CONSTEXPR sprout::xor8::value_type
+	make_xor8(ForwardIterator first, ForwardIterator last) {
+		return sprout::xor8().c_process_block(first, last)();
+	}
+	template<typename Elem, std::size_t N, typename Traits>
+	inline SPROUT_CONSTEXPR sprout::xor8::value_type
+	make_xor8(sprout::basic_string<Elem, N, Traits> const& s) {
+		return sprout::xor8().c_process_range(s)();
+	}
+	inline SPROUT_CONSTEXPR sprout::xor8::value_type
+	make_xor8(char const* s) {
+		return sprout::xor8().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::xor8::value_type
+	make_xor8(wchar_t const* s) {
+		return sprout::xor8().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#if SPROUT_USE_UNICODE_LITERALS
+	inline SPROUT_CONSTEXPR sprout::xor8::value_type
+	make_xor8(char16_t const* s) {
+		return sprout::xor8().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+	inline SPROUT_CONSTEXPR sprout::xor8::value_type
+	make_xor8(char32_t const* s) {
+		return sprout::xor8().c_process_bytes(s, sprout::char_traits<char>::length(s))();
+	}
+#endif
 }	// namespace sprout
+
+#if SPROUT_USE_USER_DEFINED_LITERALS
+
+namespace sprout {
+	namespace literals {
+		namespace checksum {
+			//
+			// _xor8
+			//
+			inline SPROUT_CONSTEXPR sprout::xor8::value_type
+			operator"" _xor8(char const* s, std::size_t size) {
+				return sprout::xor8().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::xor8::value_type
+			operator"" _xor8(wchar_t const* s, std::size_t size) {
+				return sprout::xor8().c_process_bytes(s, size)();
+			}
+#if SPROUT_USE_UNICODE_LITERALS
+			inline SPROUT_CONSTEXPR sprout::xor8::value_type
+			operator"" _xor8(char16_t const* s, std::size_t size) {
+				return sprout::xor8().c_process_bytes(s, size)();
+			}
+			inline SPROUT_CONSTEXPR sprout::xor8::value_type
+			operator"" _xor8(char32_t const* s, std::size_t size) {
+				return sprout::xor8().c_process_bytes(s, size)();
+			}
+#endif
+		}	// namespace checksum
+
+		using sprout::literals::checksum::operator"" _xor8;
+	}	// namespace literals
+
+	using sprout::literals::checksum::operator"" _xor8;
+}	// namespace sprout
+
+#endif	// #if SPROUT_USE_USER_DEFINED_LITERALS
 
 #endif	// #ifndef SPROUT_CHECKSUM_XOR_HPP
