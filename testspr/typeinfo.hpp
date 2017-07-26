@@ -88,6 +88,31 @@ namespace testspr {
 	typename_of(T&& t) {
 		return testspr::detail::demangle(typeid(std::forward<T>(t)).name());
 	}
+
+	//
+	// strip_outer_template
+	//
+	inline SPROUT_NON_CONSTEXPR std::string
+	strip_outer_template(std::string const& s) {
+		std::string::size_type f = s.find('<');
+		if (f == std::string::npos) {
+			return s;
+		}
+		std::string::size_type l = s.rfind('>');
+		if (l == std::string::npos || f > l) {
+			return s;
+		}
+		return s.substr(f + 1, l - f - 1);
+	}
+
+	//
+	// qualified_typename_of
+	//
+	template<typename T>
+	inline SPROUT_NON_CONSTEXPR std::string
+	qualified_typename_of() {
+		return testspr::strip_outer_template(testspr::typename_of<testspr::id<T> >());
+	}
 }	// namespace testspr
 
 #endif	// #ifndef TESTSPR_TYPEINFO_HPP

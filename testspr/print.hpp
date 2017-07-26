@@ -119,7 +119,7 @@ namespace testspr {
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR void
 	print_type() {
-		testspr::print_typename<testspr::id<T> >();
+		testspr::print_ln(testspr::qualified_typename_of<T>());
 	}
 
 	//
