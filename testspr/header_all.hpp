@@ -87,6 +87,7 @@
 #include <sprout/utility.hpp>
 #include <sprout/uuid.hpp>
 #include <sprout/variant.hpp>
+#include <sprout/version.hpp>
 #include <sprout/weed.hpp>
 #include <sprout/workaround.hpp>
 
