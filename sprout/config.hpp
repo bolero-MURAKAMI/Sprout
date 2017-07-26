@@ -9,5 +9,6 @@
 #define SPROUT_CONFIG_HPP
 
 #include <sprout/config/config.hpp>
+#include <sprout/version.hpp>
 
 #endif	// #ifndef SPROUT_CONFIG_HPP
