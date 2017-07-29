@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -8,7 +8,6 @@
 #ifndef SPROUT_ITERATOR_DETAIL_ITERATOR_TO_POINTER_HPP
 #define SPROUT_ITERATOR_DETAIL_ITERATOR_TO_POINTER_HPP
 
-#include <iterator>
 #include <sprout/config.hpp>
 
 namespace sprout {

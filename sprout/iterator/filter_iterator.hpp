@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -13,6 +13,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
+#include <sprout/iterator/detail/iterator_base.hpp>
 #include <sprout/algorithm/find_if.hpp>
 #include <sprout/utility/swap.hpp>
 
@@ -22,28 +23,30 @@ namespace sprout {
 	//
 	template<typename Predicate, typename Iterator>
 	class filter_iterator
-		: public std::iterator<
+		: public sprout::detail::iterator_base<
+			Iterator,
 			typename sprout::min_iterator_category<
 				typename std::iterator_traits<Iterator>::iterator_category,
 				std::bidirectional_iterator_tag
-			>::type,
-			typename std::iterator_traits<Iterator>::value_type,
-			typename std::iterator_traits<Iterator>::difference_type,
-			typename std::iterator_traits<Iterator>::pointer,
-			typename std::iterator_traits<Iterator>::reference
-		>
+			>::type
+		>::type
 	{
+	private:
+		typedef typename sprout::detail::iterator_base<
+			Iterator,
+			typename sprout::min_iterator_category<
+				typename std::iterator_traits<Iterator>::iterator_category,
+				std::bidirectional_iterator_tag
+			>::type
+		>::type base_type;
 	public:
 		typedef Predicate predicate_type;
 		typedef Iterator iterator_type;
-		typedef typename sprout::min_iterator_category<
-			typename std::iterator_traits<Iterator>::iterator_category,
-			std::bidirectional_iterator_tag
-		>::type iterator_category;
-		typedef typename std::iterator_traits<Iterator>::value_type value_type;
-		typedef typename std::iterator_traits<Iterator>::difference_type difference_type;
-		typedef typename std::iterator_traits<Iterator>::pointer pointer;
-		typedef typename std::iterator_traits<Iterator>::reference reference;
+		typedef typename base_type::iterator_category iterator_category;
+		typedef typename base_type::value_type value_type;
+		typedef typename base_type::difference_type difference_type;
+		typedef typename base_type::pointer pointer;
+		typedef typename base_type::reference reference;
 	private:
 		struct private_construct_t {};
 	private:

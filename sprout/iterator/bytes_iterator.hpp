@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -11,6 +11,7 @@
 #include <iterator>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
@@ -26,7 +27,7 @@ namespace sprout {
 		typename Traits = sprout::endian_traits<typename std::iterator_traits<Iterator>::value_type>
 	>
 	class bytes_iterator
-		: public std::iterator<
+		: public sprout::iterator<
 			typename std::iterator_traits<Iterator>::iterator_category,
 			unsigned char,
 			std::ptrdiff_t,
@@ -38,7 +39,7 @@ namespace sprout {
 		typedef Iterator iterator_type;
 		typedef Traits traits_type;
 	private:
-		typedef std::iterator<
+		typedef sprout::iterator<
 			typename std::iterator_traits<Iterator>::iterator_category,
 			unsigned char,
 			std::ptrdiff_t,

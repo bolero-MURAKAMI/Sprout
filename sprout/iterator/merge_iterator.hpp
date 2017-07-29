@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -12,6 +12,7 @@
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/type_traits/common.hpp>
 #include <sprout/functional/less.hpp>
@@ -26,7 +27,7 @@ namespace sprout {
 		typename Compare = sprout::less<>
 	>
 	class merge_iterator
-		: public std::iterator<
+		: public sprout::iterator<
 			typename sprout::min_iterator_category<
 				typename sprout::common_iterator_category<LIterator, RIterator>::type,
 				std::forward_iterator_tag

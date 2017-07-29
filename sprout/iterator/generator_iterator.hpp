@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -17,6 +17,7 @@
 #include <sprout/generator/functions.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/type_traits/identity.hpp>
+#include <sprout/iterator/iterator.hpp>
 
 namespace sprout {
 	//
@@ -24,7 +25,7 @@ namespace sprout {
 	//
 	template<typename Generator>
 	class generator_iterator
-		: public std::iterator<
+		: public sprout::iterator<
 			std::forward_iterator_tag,
 			typename std::remove_reference<decltype(sprout::generators::generated_value(std::declval<Generator const>()))>::type,
 			std::ptrdiff_t,

@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -9,6 +9,7 @@
 #define SPROUT_ITERATOR_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/iterator_traits.hpp>
 #include <sprout/iterator/type_traits.hpp>
 #include <sprout/iterator/operation.hpp>

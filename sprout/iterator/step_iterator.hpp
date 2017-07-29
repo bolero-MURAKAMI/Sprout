@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -8,12 +8,12 @@
 #ifndef SPROUT_ITERATOR_STEP_ITERATOR_HPP
 #define SPROUT_ITERATOR_STEP_ITERATOR_HPP
 
-#include <iterator>
 #include <utility>
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/iterator/detail/iterator_base.hpp>
 #include <sprout/utility/swap.hpp>
 #include HDR_ALGORITHM_MIN_MAX_SSCRISK_CEL_OR_SPROUT
 
@@ -23,21 +23,17 @@ namespace sprout {
 	//
 	template<typename Iterator>
 	class step_iterator
-		: public std::iterator<
-			typename std::iterator_traits<Iterator>::iterator_category,
-			typename std::iterator_traits<Iterator>::value_type,
-			typename std::iterator_traits<Iterator>::difference_type,
-			typename std::iterator_traits<Iterator>::pointer,
-			typename std::iterator_traits<Iterator>::reference
-		>
+		: public sprout::detail::iterator_base<Iterator>::type
 	{
+	private:
+		typedef typename sprout::detail::iterator_base<Iterator>::type base_type;
 	public:
 		typedef Iterator iterator_type;
-		typedef typename std::iterator_traits<iterator_type>::iterator_category iterator_category;
-		typedef typename std::iterator_traits<iterator_type>::value_type value_type;
-		typedef typename std::iterator_traits<iterator_type>::difference_type difference_type;
-		typedef typename std::iterator_traits<iterator_type>::pointer pointer;
-		typedef typename std::iterator_traits<iterator_type>::reference reference;
+		typedef typename base_type::iterator_category iterator_category;
+		typedef typename base_type::value_type value_type;
+		typedef typename base_type::difference_type difference_type;
+		typedef typename base_type::pointer pointer;
+		typedef typename base_type::reference reference;
 	private:
 		static SPROUT_CONSTEXPR iterator_type get_back(iterator_type it, difference_type wid, iterator_type last) {
 			return sprout::next(it, (sprout::distance(it, last) - 1) / wid * wid);

@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -10,6 +10,7 @@
 
 #include <iterator>
 #include <sprout/config.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
@@ -29,7 +30,7 @@ namespace sprout {
 	//
 	template<typename Container>
 	class insert_iterator
-		: public std::iterator<std::output_iterator_tag, void, void, void, void>
+		: public sprout::iterator<std::output_iterator_tag, void, void, void, void>
 		, public sprout::container_holder<Container>
 	{
 	private:

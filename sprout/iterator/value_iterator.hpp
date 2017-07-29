@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -14,6 +14,7 @@
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/limits.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
@@ -26,7 +27,7 @@ namespace sprout {
 	//
 	template<typename T>
 	class value_iterator
-		: public std::iterator<
+		: public sprout::iterator<
 			std::random_access_iterator_tag,
 			typename sprout::value_holder<T>::value_type,
 			std::ptrdiff_t,
@@ -42,7 +43,7 @@ namespace sprout {
 			typename std::decay<type>::type const
 		>::type const_type;
 	private:
-		typedef std::iterator<
+		typedef sprout::iterator<
 			std::random_access_iterator_tag,
 			typename sprout::value_holder<T>::value_type,
 			std::ptrdiff_t,

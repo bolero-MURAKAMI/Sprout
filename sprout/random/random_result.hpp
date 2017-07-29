@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -13,6 +13,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/workaround/std/cstddef.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/tuple/tuple.hpp>
 #include <sprout/generator/functions.hpp>
@@ -36,7 +37,7 @@ namespace sprout {
 			Distribution,
 			typename std::enable_if<!std::is_same<Distribution, void>::value>::type
 		>
-			: public std::iterator<
+			: public sprout::iterator<
 				std::input_iterator_tag,
 				typename std::remove_reference<Distribution>::type::result_type,
 				std::ptrdiff_t,
@@ -50,7 +51,7 @@ namespace sprout {
 			typedef typename std::remove_reference<distribution_type>::type::result_type result_type;
 			typedef sprout::random::variate_generator<engine_type, distribution_type> generator_type;
 		private:
-			typedef std::iterator<
+			typedef sprout::iterator<
 				std::input_iterator_tag,
 				result_type,
 				std::ptrdiff_t,
@@ -183,7 +184,7 @@ namespace sprout {
 			Distribution,
 			typename std::enable_if<std::is_same<Distribution, void>::value>::type
 		>
-			: public std::iterator<
+			: public sprout::iterator<
 				std::input_iterator_tag,
 				typename std::remove_reference<Engine>::type::result_type,
 				std::ptrdiff_t,
@@ -196,7 +197,7 @@ namespace sprout {
 			typedef typename std::remove_reference<Engine>::type::result_type result_type;
 			typedef engine_type generator_type;
 		private:
-			typedef std::iterator<
+			typedef sprout::iterator<
 				std::input_iterator_tag,
 				result_type,
 				std::ptrdiff_t,

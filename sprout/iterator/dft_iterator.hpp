@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -16,6 +16,7 @@
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
+#include <sprout/iterator/detail/iterator_base.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/numeric/dft/dft_element.hpp>
 
@@ -25,22 +26,24 @@ namespace sprout {
 	//
 	template<typename Iterator>
 	class dft_iterator
-		: public std::iterator<
+		: public sprout::detail::iterator_base<
+			Iterator,
 			std::random_access_iterator_tag,
-			typename std::iterator_traits<Iterator>::value_type,
-			typename std::iterator_traits<Iterator>::difference_type,
+			sprout::use_default,
+			sprout::use_default,
 			void,
 			typename std::iterator_traits<Iterator>::value_type
-		>
+		>::type
 	{
 	private:
-		typedef std::iterator<
+		typedef typename sprout::detail::iterator_base<
+			Iterator,
 			std::random_access_iterator_tag,
-			typename std::iterator_traits<Iterator>::value_type,
-			typename std::iterator_traits<Iterator>::difference_type,
+			sprout::use_default,
+			sprout::use_default,
 			void,
 			typename std::iterator_traits<Iterator>::value_type
-		> base_type;
+		>::type base_type;
 	public:
 		typedef Iterator iterator_type;
 		typedef typename base_type::iterator_category iterator_category;

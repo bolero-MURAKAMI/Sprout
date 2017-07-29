@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -18,6 +18,7 @@
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
 #include <sprout/utility/value_holder/get.hpp>
+#include <sprout/iterator/iterator.hpp>
 
 namespace sprout {
 	//
@@ -29,7 +30,7 @@ namespace sprout {
 	namespace detail {
 		template<typename List>
 		class forward_item_iterator
-			: public std::iterator<
+			: public sprout::iterator<
 				std::forward_iterator_tag,
 				typename List::value_type,
 				typename List::difference_type,
@@ -57,7 +58,7 @@ namespace sprout {
 				typename std::remove_reference<list_type>::type const
 			>::type const_list_type;
 		private:
-			typedef std::iterator<
+			typedef sprout::iterator<
 				std::forward_iterator_tag,
 				typename List::value_type,
 				typename List::difference_type,

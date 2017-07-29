@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -13,6 +13,7 @@
 #include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
@@ -32,7 +33,7 @@ namespace sprout {
 	//
 	template<typename Container, bool ConvertibleToPointer = false, typename Subscript = sprout::subscript<> >
 	class index_iterator
-		: public std::iterator<
+		: public sprout::iterator<
 			std::random_access_iterator_tag,
 			typename sprout::container_traits<typename std::remove_reference<Container>::type>::value_type,
 			typename sprout::container_traits<typename std::remove_reference<Container>::type>::difference_type,
@@ -67,7 +68,7 @@ namespace sprout {
 		>::type const_container_type;
 	private:
 		typedef Subscript subscript_type;
-		typedef std::iterator<
+		typedef sprout::iterator<
 			std::random_access_iterator_tag,
 			typename traits_type::value_type,
 			typename traits_type::difference_type,

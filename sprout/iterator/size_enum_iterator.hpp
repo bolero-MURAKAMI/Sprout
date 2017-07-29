@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -12,6 +12,7 @@
 #include <utility>
 #include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
@@ -24,7 +25,7 @@ namespace sprout {
 	//
 	template<typename Iterator, bool Separated = false>
 	class size_enum_iterator
-		: public std::iterator<
+		: public sprout::iterator<
 			typename std::iterator_traits<Iterator>::iterator_category,
 			typename sprout::container_traits<
 				typename std::iterator_traits<Iterator>::value_type
@@ -134,7 +135,7 @@ namespace sprout {
 	//
 	template<typename Iterator>
 	class size_enum_iterator<Iterator, true>
-		: public std::iterator<
+		: public sprout::iterator<
 			typename std::iterator_traits<Iterator>::iterator_category,
 			typename sprout::container_traits<
 				typename std::iterator_traits<Iterator>::value_type

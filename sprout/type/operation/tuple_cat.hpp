@@ -2,7 +2,7 @@
   Copyright (c) 2015 fimbul
   https://github.com/fimbul/shiro
 
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying

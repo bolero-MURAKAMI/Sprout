@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -8,10 +8,8 @@
 #ifndef SPROUT_ITERATOR_INSERT_RANGE_ITERATOR_HPP
 #define SPROUT_ITERATOR_INSERT_RANGE_ITERATOR_HPP
 
-#include <iterator>
-#include <utility>
-#include <type_traits>
 #include <sprout/config.hpp>
+#include <sprout/iterator/iterator.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
@@ -26,7 +24,7 @@ namespace sprout {
 	//
 	template<typename DstIterator, typename SrcIterator>
 	class insert_range_iterator
-		: public std::iterator<
+		: public sprout::iterator<
 			typename sprout::common_iterator_category<DstIterator, SrcIterator>::type,
 			typename sprout::common_iterator_value_type<DstIterator, SrcIterator>::type,
 			typename sprout::common_iterator_difference_type<DstIterator, SrcIterator>::type,

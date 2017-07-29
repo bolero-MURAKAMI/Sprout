@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2016 Bolero MURAKAMI
+  Copyright (c) 2011-2017 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -16,6 +16,7 @@
 #include <sprout/iterator/prev.hpp>
 #include <sprout/iterator/distance.hpp>
 #include <sprout/iterator/detail/iterator_to_pointer.hpp>
+#include <sprout/iterator/detail/iterator_base.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 
@@ -25,30 +26,17 @@ namespace sprout {
 	//
 	template<typename T, bool ConvertibleToPointer = false>
 	class ptr_index_iterator
-		: public std::iterator<
-			typename std::iterator_traits<T*>::iterator_category,
-			typename std::iterator_traits<T*>::value_type,
-			typename std::iterator_traits<T*>::difference_type,
-			typename std::iterator_traits<T*>::pointer,
-			typename std::iterator_traits<T*>::reference
-		>
+		: public sprout::detail::iterator_base<T*>::type
 		, public sprout::detail::iterator_to_pointer_base<
 			sprout::ptr_index_iterator<T, ConvertibleToPointer>,
 			typename std::iterator_traits<T*>::pointer,
 			ConvertibleToPointer
 		>
 	{
+	private:
+		typedef typename sprout::detail::iterator_base<T*>::type base_type;
 	public:
 		typedef T type;
-	private:
-		typedef std::iterator<
-			typename std::iterator_traits<T*>::iterator_category,
-			typename std::iterator_traits<T*>::value_type,
-			typename std::iterator_traits<T*>::difference_type,
-			typename std::iterator_traits<T*>::pointer,
-			typename std::iterator_traits<T*>::reference
-		> base_type;
-	public:
 		typedef typename base_type::iterator_category iterator_category;
 		typedef typename base_type::value_type value_type;
 		typedef typename base_type::difference_type difference_type;
