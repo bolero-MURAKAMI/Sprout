@@ -20,6 +20,86 @@
 namespace sprout {
 	namespace types {
 		namespace detail {
+			template<typename Tuple>
+			struct is_tuple_like
+				: public sprout::false_type
+			{};
+			template<template<typename...> class TupleClass, typename... Ts>
+			struct is_tuple_like<TupleClass<Ts...> >
+				: public sprout::true_type
+			{};
+			template<typename Tuple>
+			struct is_tuple_like<Tuple const>
+				: public sprout::types::detail::is_tuple_like<Tuple>
+			{};
+			template<typename Tuple>
+			struct is_tuple_like<Tuple volatile>
+				: public sprout::types::detail::is_tuple_like<Tuple>
+			{};
+			template<typename Tuple>
+			struct is_tuple_like<Tuple const volatile>
+				: public sprout::types::detail::is_tuple_like<Tuple>
+			{};
+
+			template<typename IntegerSequence>
+			struct is_integer_sequence_like
+				: public sprout::false_type
+			{};
+			template<template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs>
+			struct is_integer_sequence_like<IntegerSequenceClass<T, Vs...> >
+				: public sprout::true_type
+			{};
+			template<typename IntegerSequence>
+			struct is_integer_sequence_like<IntegerSequence const>
+				: public sprout::types::detail::is_integer_sequence_like<IntegerSequence>
+			{};
+			template<typename IntegerSequence>
+			struct is_integer_sequence_like<IntegerSequence volatile>
+				: public sprout::types::detail::is_integer_sequence_like<IntegerSequence>
+			{};
+			template<typename IntegerSequence>
+			struct is_integer_sequence_like<IntegerSequence const volatile>
+				: public sprout::types::detail::is_integer_sequence_like<IntegerSequence>
+			{};
+
+			template<typename SpecificIntegerSequence>
+			struct is_specific_integer_sequence_like
+				: public sprout::false_type
+			{};
+#define SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(TYPE) \
+			template<template<TYPE...> class SpecificIntegerSequenceClass, TYPE... Vs> \
+			struct is_specific_integer_sequence_like<SpecificIntegerSequenceClass<Vs...> > \
+				: public sprout::true_type \
+			{}
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(bool);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(char);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(signed char);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(unsigned char);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(char16_t);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(char32_t);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(wchar_t);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(short);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(unsigned short);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(int);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(unsigned int);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(long);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(unsigned long);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(long long);
+			SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL(unsigned long long);
+#undef SPROUT_TYPES_DETAIL_IS_SPECIFIC_INTEGER_SEQUENCE_DECL
+			template<typename SpecificIntegerSequence>
+			struct is_specific_integer_sequence_like<SpecificIntegerSequence const>
+				: public sprout::types::detail::is_specific_integer_sequence_like<SpecificIntegerSequence>
+			{};
+			template<typename SpecificIntegerSequence>
+			struct is_specific_integer_sequence_like<SpecificIntegerSequence volatile>
+				: public sprout::types::detail::is_specific_integer_sequence_like<SpecificIntegerSequence>
+			{};
+			template<typename SpecificIntegerSequence>
+			struct is_specific_integer_sequence_like<SpecificIntegerSequence const volatile>
+				: public sprout::types::detail::is_specific_integer_sequence_like<SpecificIntegerSequence>
+			{};
+
 			template<typename Tuple, typename Tup>
 			struct joint_types_impl {
 			private:
@@ -48,28 +128,33 @@ namespace sprout {
 				{};
 			};
 
-			template<typename Tuple, typename Tup>
+			template<
+				typename Tuple, typename Tup,
+				bool = sprout::types::detail::is_tuple_like<Tup>::value,
+				bool = sprout::types::detail::is_integer_sequence_like<Tup>::value,
+				bool = sprout::types::detail::is_specific_integer_sequence_like<Tup>::value
+				>
 			struct joint_types_default_apply;
 
 			template<
 				template<typename...> class TupleClass, typename... Ts,
 				typename Tup
 			>
-			struct joint_types_default_apply<TupleClass<Ts...>, Tup>
+			struct joint_types_default_apply<TupleClass<Ts...>, Tup, false, false, false>
 				: public sprout::types::detail::joint_types_impl<TupleClass<Ts...>, Tup>
 			{};
 			template<
 				template<typename...> class TupleClass, typename... Ts,
 				template<typename...> class TupClass, typename... Types
 			>
-			struct joint_types_default_apply<TupleClass<Ts...>, TupClass<Types...> >
+			struct joint_types_default_apply<TupleClass<Ts...>, TupClass<Types...>, true, false, false>
 				: public sprout::identity<TupleClass<Ts..., Types...> >
 			{};
 			template<
 				template<typename...> class TupleClass, typename... Ts,
 				template<typename VType, VType...> class IntSeqClass, typename Type, Type... Values
 			>
-			struct joint_types_default_apply<TupleClass<Ts...>, IntSeqClass<Type, Values...> >
+			struct joint_types_default_apply<TupleClass<Ts...>, IntSeqClass<Type, Values...>, false, true, false>
 				: public sprout::identity<TupleClass<Ts..., sprout::integral_constant<Type, Values>...> >
 			{};
 #define SPROUT_TYPES_DETAIL_JOINT_TYPES_DEFAULT_APPLY_TUPLE_LIKE_DECL_FOR_CERTAIN_INTEGER_SEQUENCE(TYPE) \
@@ -77,7 +162,7 @@ namespace sprout {
 				template<typename...> class TupleClass, typename... Ts, \
 				template<TYPE...> class IntSeqClass, TYPE... Values \
 			> \
-			struct joint_types_default_apply<TupleClass<Ts...>, IntSeqClass<Values...> > \
+			struct joint_types_default_apply<TupleClass<Ts...>, IntSeqClass<Values...>, false, false, true> \
 				: public sprout::identity<TupleClass<Ts..., sprout::integral_constant<TYPE, Values>...> > \
 			{}
 
@@ -113,21 +198,21 @@ namespace sprout {
 				template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs,
 				typename Tup
 			>
-			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, Tup>
+			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, Tup, false, false, false>
 				: public sprout::types::detail::joint_types_impl<IntegerSequenceClass<T, Vs...>, Tup>
 			{};
 			template<
 				template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs,
 				template<typename...> class TupClass, typename... Types
 			>
-			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, TupClass<Types...> >
+			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, TupClass<Types...>, true, false, false>
 				: public sprout::identity<IntegerSequenceClass<T, Vs..., Types::value...> >
 			{};
 			template<
 				template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs,
 				template<typename VType, VType...> class IntSeqClass, typename Type, Type... Values
 			>
-			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, IntSeqClass<Type, Values...> >
+			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, IntSeqClass<Type, Values...>, false, true, false>
 				: public sprout::identity<IntegerSequenceClass<T, Vs..., Values...> >
 			{};
 #define SPROUT_TYPES_DETAIL_JOINT_TYPES_DEFAULT_APPLY_INTEGER_SEQUENCE_LIKE_DECL_FOR_CERTAIN_INTEGER_SEQUENCE(TYPE) \
@@ -135,7 +220,7 @@ namespace sprout {
 				template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs, \
 				template<TYPE...> class IntSeqClass, TYPE... Values \
 			> \
-			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, IntSeqClass<Values...> > \
+			struct joint_types_default_apply<IntegerSequenceClass<T, Vs...>, IntSeqClass<Values...>, false, false, true> \
 				: public sprout::identity<IntegerSequenceClass<T, Vs..., Values...> > \
 			{}
 			SPROUT_TYPES_DETAIL_JOINT_TYPES_DEFAULT_APPLY_INTEGER_SEQUENCE_LIKE_DECL_FOR_CERTAIN_INTEGER_SEQUENCE(bool);
@@ -154,6 +239,7 @@ namespace sprout {
 			SPROUT_TYPES_DETAIL_JOINT_TYPES_DEFAULT_APPLY_INTEGER_SEQUENCE_LIKE_DECL_FOR_CERTAIN_INTEGER_SEQUENCE(long long);
 			SPROUT_TYPES_DETAIL_JOINT_TYPES_DEFAULT_APPLY_INTEGER_SEQUENCE_LIKE_DECL_FOR_CERTAIN_INTEGER_SEQUENCE(unsigned long long);
 #undef SPROUT_TYPES_DETAIL_JOINT_TYPES_DEFAULT_APPLY_INTEGER_SEQUENCE_LIKE_DECL_FOR_CERTAIN_INTEGER_SEQUENCE
+
 			template<template<typename VT, VT...> class IntegerSequenceClass, typename T, T... Vs>
 			struct joint_types_default<IntegerSequenceClass<T, Vs...> > {
 			public:
@@ -168,7 +254,7 @@ namespace sprout {
 				template<BASE...> class IntegerSequenceClass, BASE... Vs, \
 				template<TYPE...> class IntSeqClass, TYPE... Values \
 			> \
-			struct joint_types_default_apply<IntegerSequenceClass<Vs...>, IntSeqClass<Values...> > \
+			struct joint_types_default_apply<IntegerSequenceClass<Vs...>, IntSeqClass<Values...>, false, false, true> \
 				: public sprout::identity<IntegerSequenceClass<Vs..., Values...> > \
 			{}
 #if SPROUT_USE_UNICODE_LITERALS
@@ -209,21 +295,21 @@ namespace sprout {
 				template<BASE...> class IntegerSequenceClass, BASE... Vs, \
 				typename Tup \
 			> \
-			struct joint_types_default_apply<IntegerSequenceClass<Vs...>, Tup> \
+			struct joint_types_default_apply<IntegerSequenceClass<Vs...>, Tup, false, false, false> \
 				: public sprout::types::detail::joint_types_impl<IntegerSequenceClass<Vs...>, Tup> \
 			{}; \
 			template< \
 				template<BASE...> class IntegerSequenceClass, BASE... Vs, \
 				template<typename...> class TupClass, typename... Types \
 			> \
-			struct joint_types_default_apply<IntegerSequenceClass<Vs...>, TupClass<Types...> > \
+			struct joint_types_default_apply<IntegerSequenceClass<Vs...>, TupClass<Types...>, true, false, false> \
 				: public sprout::identity<IntegerSequenceClass<Vs..., Types::value...> > \
 			{}; \
 			template< \
 				template<BASE...> class IntegerSequenceClass, BASE... Vs, \
 				template<typename VType, VType...> class IntSeqClass, typename Type, Type... Values \
 			> \
-			struct joint_types_default_apply<IntegerSequenceClass<Vs...>, IntSeqClass<Type, Values...> > \
+			struct joint_types_default_apply<IntegerSequenceClass<Vs...>, IntSeqClass<Type, Values...>, false, true, false> \
 				: public sprout::identity<IntegerSequenceClass<Vs..., Values...> > \
 			{}; \
 			SPROUT_TYPES_DETAIL_JOINT_TYPES_DEFAULT_APPLY_CERTAIN_INTEGER_SEQUENCE_DECL_(BASE); \
