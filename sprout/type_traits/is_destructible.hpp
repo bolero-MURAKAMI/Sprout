@@ -30,7 +30,7 @@ namespace sprout {
 			static sprout::false_type test(...);
 		};
 #if defined(_MSC_VER) && (_MSC_VER > 1900)
-		template<typename T, typename Base_ = sprout::identity<decltype(sprout::detail::is_destructible_helper::test<T>(0))>::type>
+		template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::detail::is_destructible_helper::test<T>(0))>::type>
 		struct is_destructible_impl_0
 			: public Base_
 		{};

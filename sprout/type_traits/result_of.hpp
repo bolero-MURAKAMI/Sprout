@@ -32,44 +32,52 @@ namespace sprout {
 		struct result_of_memfun_ref_helper {
 		public:
 			template<typename F, typename T, typename... Args>
-			static sprout::identity<decltype((std::declval<T>().*std::declval<F>())(std::declval<Args>()...))> test(int);
+			static sprout::identity<decltype((std::declval<T>().*std::declval<F>())(std::declval<Args>()...))> test(sprout::types::type_tuple<Args...>);
 			template<typename...>
 			static sprout::detail::nil_base test(...);
 		};
 #if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<
-			typename MemPtr, typename Arg, typename... Args,
-			typename Base_ = sprout::identity<decltype(sprout::detail::result_of_memfun_ref_helper::test<MemPtr, Arg, Args...>(0))>::type
+			typename MemPtr, typename Arg, typename Args,
+			typename Base_ = typename sprout::identity<decltype(sprout::detail::result_of_memfun_ref_helper::test<MemPtr, Arg>(Args()))>::type
 		>
-		struct result_of_memfun_ref
+		struct result_of_memfun_ref_impl
 			: public Base_
+		{};
+		template<typename MemPtr, typename Arg, typename... Args>
+		struct result_of_memfun_ref
+			: public sprout::detail::result_of_memfun_ref_impl<MemPtr, Arg, sprout::types::type_tuple<Args...> >
 		{};
 #else
 		template<typename MemPtr, typename Arg, typename... Args>
 		struct result_of_memfun_ref
-			: public sprout::identity<decltype(sprout::detail::result_of_memfun_ref_helper::test<MemPtr, Arg, Args...>(0))>::type
+			: public sprout::identity<decltype(sprout::detail::result_of_memfun_ref_helper::test<MemPtr, Arg, Args...>(sprout::types::type_tuple<Args...>()))>::type
 		{};
 #endif
 
 		struct result_of_memfun_deref_helper {
 		public:
 			template<typename F, typename T, typename... Args>
-			static sprout::identity<decltype(((*std::declval<T>()).*std::declval<F>())(std::declval<Args>()...))> test(int);
+			static sprout::identity<decltype(((*std::declval<T>()).*std::declval<F>())(std::declval<Args>()...))> test(sprout::types::type_tuple<Args...>);
 			template<typename...>
 			static sprout::detail::nil_base test(...);
 		};
 #if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<
-			typename MemPtr, typename Arg, typename... Args,
-			typename Base_ = sprout::identity<decltype(sprout::detail::result_of_memfun_deref_helper::test<MemPtr, Arg, Args...>(0))>::type
+			typename MemPtr, typename Arg, typename Args,
+			typename Base_ = typename sprout::identity<decltype(sprout::detail::result_of_memfun_deref_helper::test<MemPtr, Arg>(Args()))>::type
 		>
-		struct result_of_memfun_deref
+		struct result_of_memfun_deref_impl
 			: public Base_
+		{};
+		template<typename MemPtr, typename Arg, typename... Args>
+		struct result_of_memfun_deref
+			: public sprout::detail::result_of_memfun_deref_impl<MemPtr, Arg, sprout::types::type_tuple<Args...> >
 		{};
 #else
 		template<typename MemPtr, typename Arg, typename... Args>
 		struct result_of_memfun_deref
-			: public sprout::identity<decltype(sprout::detail::result_of_memfun_deref_helper::test<MemPtr, Arg, Args...>(0))>::type
+			: public sprout::identity<decltype(sprout::detail::result_of_memfun_deref_helper::test<MemPtr, Arg, Args...>(sprout::types::type_tuple<Args...>()))>::type
 		{};
 #endif
 
@@ -83,7 +91,7 @@ namespace sprout {
 #if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<
 			typename MemPtr, typename Arg,
-			typename Base_ = sprout::identity<decltype(sprout::detail::result_of_memobj_ref_helper::test<MemPtr, Arg>(0))>::type
+			typename Base_ = typename sprout::identity<decltype(sprout::detail::result_of_memobj_ref_helper::test<MemPtr, Arg>(0))>::type
 		>
 		struct result_of_memobj_ref
 			: public Base_
@@ -105,7 +113,7 @@ namespace sprout {
 #if defined(_MSC_VER) && (_MSC_VER > 1900)
 		template<
 			typename MemPtr, typename Arg,
-			typename Base_ = sprout::identity<decltype(sprout::detail::result_of_memobj_deref_helper::test<MemPtr, Arg>(0))>::type
+			typename Base_ = typename sprout::identity<decltype(sprout::detail::result_of_memobj_deref_helper::test<MemPtr, Arg>(0))>::type
 		>
 		struct result_of_memobj_deref
 			: public Base_
@@ -164,7 +172,7 @@ namespace sprout {
 		template<typename Functor, typename... Args>
 		struct result_of_other_base {
 		public:
-			typedef sprout::identity<decltype(sprout::detail::result_of_other_impl::test<Functor, Args...>(0))>::type type;
+			typedef typename sprout::identity<decltype(sprout::detail::result_of_other_impl::test<Functor, Args...>(0))>::type type;
 		};
 		template<typename Functor, typename... Args>
 		struct result_of_other
