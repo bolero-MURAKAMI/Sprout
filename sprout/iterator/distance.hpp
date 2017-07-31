@@ -13,6 +13,7 @@
 #include <sprout/config.hpp>
 #include <sprout/iterator/next.hpp>
 #include <sprout/iterator/type_traits/category.hpp>
+#include <sprout/type_traits/is_literal_type.hpp>
 #include <sprout/utility/pair/pair.hpp>
 #include <sprout/adl/not_found.hpp>
 
@@ -91,7 +92,7 @@ namespace sprout {
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			!sprout::is_constant_distance_iterator<InputIterator>::value && sprout::is_input_iterator<InputIterator>::value
-				&& std::is_literal_type<InputIterator>::value,
+				&& sprout::is_literal_type<InputIterator>::value,
 			typename std::iterator_traits<InputIterator>::difference_type
 		>::type
 		iterator_distance_dispatch(InputIterator first, InputIterator last) {
@@ -101,7 +102,7 @@ namespace sprout {
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
 			!sprout::is_constant_distance_iterator<InputIterator>::value && sprout::is_input_iterator<InputIterator>::value
-				&& !std::is_literal_type<InputIterator>::value,
+				&& !sprout::is_literal_type<InputIterator>::value,
 			typename std::iterator_traits<InputIterator>::difference_type
 		>::type
 		iterator_distance_dispatch(InputIterator first, InputIterator last) {

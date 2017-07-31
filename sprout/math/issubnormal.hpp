@@ -41,7 +41,7 @@ namespace sprout {
 			typename sprout::enabler_if<std::is_floating_point<FloatType>::value>::type = sprout::enabler
 		>
 		inline SPROUT_CONSTEXPR bool
-		issubnormal(FloatType x) {
+		issubnormal SPROUT_PREVENT_MACRO_SUBSTITUTION (FloatType x) {
 			return !sprout::math::isnan(x)
 				&& !sprout::math::iszero(x)
 				&& sprout::math::detail::issubnormal_or_zero(x)

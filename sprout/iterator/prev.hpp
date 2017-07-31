@@ -14,6 +14,7 @@
 #include <sprout/iterator/advance.hpp>
 #include <sprout/iterator/next_fwd.hpp>
 #include <sprout/iterator/prev_fwd.hpp>
+#include <sprout/type_traits/is_literal_type.hpp>
 #include <sprout/adl/not_found.hpp>
 
 namespace sprout_adl {
@@ -73,7 +74,7 @@ namespace sprout {
 
 		template<typename BidirectionalIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<BidirectionalIterator>::value,
+			sprout::is_literal_type<BidirectionalIterator>::value,
 			BidirectionalIterator
 		>::type
 		prev_impl(
@@ -88,7 +89,7 @@ namespace sprout {
 		}
 		template<typename BidirectionalIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!std::is_literal_type<BidirectionalIterator>::value,
+			!sprout::is_literal_type<BidirectionalIterator>::value,
 			BidirectionalIterator
 		>::type
 		prev_impl(

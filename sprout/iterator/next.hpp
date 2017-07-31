@@ -14,6 +14,7 @@
 #include <sprout/iterator/advance.hpp>
 #include <sprout/iterator/next_fwd.hpp>
 #include <sprout/iterator/prev_fwd.hpp>
+#include <sprout/type_traits/is_literal_type.hpp>
 #include <sprout/adl/not_found.hpp>
 #include <sprout/assert.hpp>
 #include <sprout/math/greater_equal.hpp>
@@ -100,7 +101,7 @@ namespace sprout {
 
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			std::is_literal_type<InputIterator>::value,
+			sprout::is_literal_type<InputIterator>::value,
 			InputIterator
 		>::type
 		next_impl(
@@ -113,7 +114,7 @@ namespace sprout {
 		}
 		template<typename InputIterator>
 		inline SPROUT_CONSTEXPR typename std::enable_if<
-			!std::is_literal_type<InputIterator>::value,
+			!sprout::is_literal_type<InputIterator>::value,
 			InputIterator
 		>::type
 		next_impl(
