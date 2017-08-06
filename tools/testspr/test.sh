@@ -173,10 +173,12 @@ fi
 
 if [ ${use_version} -ne 0 ]; then
 	script_dir=$(cd $(dirname $0); pwd)
-	version_path="${script_dir}/../../sprout/version.hpp"
-	sprout_version_yyyymmdd=`head -n 18 ${version_path} | tail -n 1`
-	sprout_copyright=`head -n 3 ${version_path} | tail -n 2`
-	echo "Sprout version (YYYYMMDD) = ${sprout_version_yyyymmdd}"
+	version_hpp_path="${script_dir}/../../sprout/version.hpp"
+	sprout_version_yyyymmdd=`sed -n "s/[ \t]*#[ \t]*define[ \t]\+SPROUT_VERSION_YYYYMMDD[ \t]\+//p" ${version_hpp_path}`
+	sprout_copyright=`sed -n "/\/\*=/,/=\*\//s/^[ \t]\+/  /p" ${version_hpp_path}`
+	echo "version:"
+	echo "  Sprout version (YYYYMMDD) = ${sprout_version_yyyymmdd}"
+	echo "copyright:"
 	echo "${sprout_copyright}"
 	exit 0
 fi
