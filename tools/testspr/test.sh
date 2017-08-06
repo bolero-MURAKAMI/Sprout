@@ -116,8 +116,11 @@ while [ -n "$1" ]; do
 done
 
 if [ ${use_help} -ne 0 ]; then
-	echo "help:"
+	echo "overview: Sprout C++ libraries automatic test script"
 	echo ""
+	echo "usage: test.sh [options]"
+	echo ""
+	echo "options:"
 	echo "  -S, --stagedir=<dir>        Output files here."
 	echo "                              Default; 'testspr'"
 	echo ""
