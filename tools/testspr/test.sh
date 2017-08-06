@@ -48,8 +48,12 @@ get_std_option() {
 		if [ "${1}" = "gcc" ]; then
 			if [ "${vn}" -lt "480" ]; then
 				echo -n "-std=c++11"
-			else
+			elif [ "${vn}" -lt "510" ]; then
 				echo -n "-std=c++1y"
+			elif [ "${vn}" -lt "610" ]; then
+				echo -n "-std=c++14"
+			else
+				echo -n "-std=c++1z"
 			fi
 		elif [ "${1}" = "clang" ]; then
 			if [ "${vn}" -lt "32" ]; then
@@ -64,8 +68,10 @@ get_std_option() {
 		if [ "${1}" = "gcc" ]; then
 			if [ "${vn}" -lt "480" ]; then
 				echo -n "-std=c++11"
-			else
+			elif [ "${vn}" -lt "510" ]; then
 				echo -n "-std=c++1y"
+			else
+				echo -n "-std=c++14"
 			fi
 		elif [ "${1}" = "clang" ]; then
 			if [ "${vn}" -lt "32" ]; then
@@ -133,6 +139,7 @@ if [ ${use_help} -ne 0 ]; then
 	echo "                              Default; '/usr/local'"
 	echo ""
 	echo "      --std=<c++XX>           Standard C++ version."
+	echo "                              c++11, c++14, or c++17."
 	echo "                              Default; 'c++11'"
 	echo ""
 	echo "  -O, --option=<opt>          Add compile option."

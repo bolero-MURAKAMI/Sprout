@@ -17,7 +17,7 @@
 #include <sprout/iterator/operation.hpp>
 
 namespace sprout {
-#if defined(SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR) || SPROUT_GCC_IN_RANGE((5, 1, 0), (5, 1, 1))
+#if defined(SPROUT_CONFIG_DISABLE_CXX14_CONSTEXPR) || SPROUT_GCC_IN_RANGE((5, 1, 0), (6, 0, 0))
 	namespace detail {
 		template<typename ForwardIterator, typename Predicate>
 		inline SPROUT_CONSTEXPR ForwardIterator
