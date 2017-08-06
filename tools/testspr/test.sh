@@ -18,6 +18,7 @@ declare -a user_macros=()
 declare -a include_paths=()
 max_procs=
 force=0
+use_version=0
 use_help=0
 std="c++11"
 declare -a common_options=()
@@ -87,7 +88,7 @@ get_std_option() {
 	fi
 }
 
-args=`getopt -o S:s:g:c:O:C:V:D:I:P:f -l stagedir:,source:,gcc-version:,clang-version:,gcc-root:,clang-root:,std:,option:,compiler-option:,version-option:,define:,include:,max-procs:,force,help -- "$@"`
+args=`getopt -o S:s:g:c:O:C:V:D:I:P:f -l stagedir:,source:,gcc-version:,clang-version:,gcc-root:,clang-root:,std:,option:,compiler-option:,version-option:,define:,include:,max-procs:,force,version,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'test.sh --help'"
 	exit 1
@@ -109,6 +110,7 @@ while [ -n "$1" ]; do
 		-I|--include) include_paths=("${include_paths[@]}" "$2"); shift 2;;
 		-P|--max-procs) max_procs=$2; shift 2;;
 		-f|--force) force=1; shift;;
+		--version) use_version=1; shift;;
 		--help) use_help=1; shift;;
 		--) shift; break;;
 		*) echo >&2 "error: unknown option($1) used."; exit 1;;
@@ -163,7 +165,19 @@ if [ ${use_help} -ne 0 ]; then
 	echo ""
 	echo "  -f, --force                 Allow overwrite of <stagedir>."
 	echo ""
+	echo "      --version               Show version."
+	echo ""
 	echo "      --help                  This message."
+	exit 0
+fi
+
+if [ ${use_version} -ne 0 ]; then
+	script_dir=$(cd $(dirname $0); pwd)
+	version_path="${script_dir}/../../sprout/version.hpp"
+	sprout_version_yyyymmdd=`head -n 18 ${version_path} | tail -n 1`
+	sprout_copyright=`head -n 3 ${version_path} | tail -n 2`
+	echo "Sprout version (YYYYMMDD) = ${sprout_version_yyyymmdd}"
+	echo "${sprout_copyright}"
 	exit 0
 fi
 
