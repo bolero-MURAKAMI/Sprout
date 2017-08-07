@@ -29,11 +29,12 @@ max_procs=
 force=0
 continuable=0
 runtime=0
+use_version=0
 use_help=0
 darkcult_cpp=$(cd $(dirname $0); pwd)/darkcult.cpp
 darkcult_py=$(cd $(dirname $0); pwd)/darkcult.py
 
-args=`getopt -o s:S:o:C:w:h:W:H:l:t:r:b:O:D:I:P:fc -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,left:,top:,right:,bottom:,option:,define:,include:,max-procs:,force,continuable,runtime,help -- "$@"`
+args=`getopt -o s:S:o:C:w:h:W:H:l:t:r:b:O:D:I:P:fc -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,left:,top:,right:,bottom:,option:,define:,include:,max-procs:,force,continuable,runtime,version,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'darkcult.sh --help'"
 	exit 1
@@ -60,6 +61,7 @@ while [ -n "$1" ]; do
 		-f|--force) force=1; shift;;
 		-c|--continuable) continuable=1; shift;;
 		--runtime) runtime=1; shift;;
+		--version) use_version=1; shift;;
 		--help) use_help=1; shift;;
 		--) shift; break;;
 		*) echo >&2 "error: unknown option($1) used."; exit 1;;
@@ -69,8 +71,11 @@ done
 : ${b:=${height}}
 
 if [ ${use_help} -ne 0 ]; then
-	echo "help:"
-	echo ""
+	echo "overview:"
+	echo "  Sprout.Darkroom library split rendering script"
+	echo "usage:"
+	echo "  darkcult.sh [options]"
+	echo "options:"
 	echo "  -s, --source=<file>         Indicates the source file."
 	echo "                              Default; '../../example/darkroom/two_spheres.hpp'"
 	echo ""
@@ -125,7 +130,21 @@ if [ ${use_help} -ne 0 ]; then
 	echo ""
 	echo "      --runtime               Enable runtime mode."
 	echo ""
+	echo "      --version               Show version."
+	echo ""
 	echo "      --help                  This message."
+	exit 0
+fi
+
+if [ ${use_version} -ne 0 ]; then
+	script_dir=$(cd $(dirname $0); pwd)
+	version_hpp_path="${script_dir}/../../sprout/version.hpp"
+	sprout_version_yyyymmdd=`sed -n "s/[ \t]*#[ \t]*define[ \t]\+SPROUT_VERSION_YYYYMMDD[ \t]\+//p" ${version_hpp_path}`
+	sprout_copyright=`sed -n "/\/\*=/,/=\*\//s/^[ \t]\+/  /p" ${version_hpp_path}`
+	echo "version:"
+	echo "  Sprout version (YYYYMMDD) = ${sprout_version_yyyymmdd}"
+	echo "copyright:"
+	echo "${sprout_copyright}"
 	exit 0
 fi
 
