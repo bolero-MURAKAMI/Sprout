@@ -9,7 +9,11 @@ include (FindPkgConfig)
 include(CheckCXXSourceCompiles)
 
 # build type
-set(CMAKE_BUILD_TYPE Debug)
+if( NOT DEFINED CMAKE_BUILD_TYPE )
+  set(CMAKE_BUILD_TYPE Debug)
+endif( NOT DEFINED CMAKE_BUILD_TYPE )
+
+option( BUILD_TESTS "If true Sprout's tests will be built" TRUE)
 
 
 set(CMAKE_CXX_FLAGS_DEBUG "-W -Wall -Wextra -Wno-unused-parameter -Werror -std=c++0x -O0 -g")
@@ -21,6 +25,7 @@ set(CMAKE_C_FLAGS_RELEASE "-W -Wall -Wextra -Wno-unused-parameter -Werror -O2")
 if( NOT DEFINED CMAKE_VERBOSE_MAKEFILE )
   set(CMAKE_VERBOSE_MAKEFILE OFF)
 endif( NOT DEFINED CMAKE_VERBOSE_MAKEFILE )
+
 
 if( NOT DEFINED Boost_USE_MULTITHREADED )
   set(Boost_USE_MULTITHREADED ON)
@@ -35,5 +40,8 @@ pkg_check_modules(OpenCV opencv)
 
 INCLUDE_DIRECTORIES( ${CMAKE_CURRENT_SOURCE_DIR} ${Boost_INCLUDE_DIRS} )
 link_directories( ${Boost_LIBRARY_DIRS} )
-subdirs( sprout libs tools cmake )
+subdirs( sprout  tools cmake )
+if( ${BUILD_TESTS} )
+  subdirs(libs)
+endif( ${BUILD_TESTS} )
 
