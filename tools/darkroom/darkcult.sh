@@ -34,6 +34,11 @@ use_help=0
 darkcult_cpp=$(cd $(dirname $0); pwd)/darkcult.cpp
 darkcult_py=$(cd $(dirname $0); pwd)/darkcult.py
 
+get_used_mem() {
+	local mem_info=(`free -m | sed -n "/^Mem:/s/^Mem:[ \t]*//p"`)
+	echo -n "${mem_info[1]}"
+}
+
 args=`getopt -o s:S:o:C:w:h:W:H:l:t:r:b:O:D:I:P:fc -l source:,stagedir:,output:,compiler:,width:,height:,tile-width:,tile-height:,left:,top:,right:,bottom:,option:,define:,include:,max-procs:,force,continuable,runtime,version,help -- "$@"`
 if [ "$?" -ne 0 ]; then
 	echo >&2 "error: options parse error. See 'darkcult.sh --help'"
@@ -142,7 +147,7 @@ if [ ${use_version} -ne 0 ]; then
 	sprout_version_yyyymmdd=`sed -n "s/[ \t]*#[ \t]*define[ \t]\+SPROUT_VERSION_YYYYMMDD[ \t]\+//p" ${version_hpp_path}`
 	sprout_copyright=`sed -n "/\/\*=/,/=\*\//s/^[ \t]\+/  /p" ${version_hpp_path}`
 	echo "version:"
-	echo "  Sprout version (YYYYMMDD) = ${sprout_version_yyyymmdd}"
+	echo "  Sprout version(YYYYMMDD) = ${sprout_version_yyyymmdd}"
 	echo "copyright:"
 	echo "${sprout_copyright}"
 	exit 0
@@ -202,6 +207,7 @@ for ((y=0; y<height; y+=tile_height)); do
 done
 
 echo "rendering:"
+is_uncompleted=0
 start=${SECONDS}
 
 if [ -z "${max_procs}" ]; then
@@ -227,6 +233,7 @@ if [ -z "${max_procs}" ]; then
 				echo >&2 "  error: compile(${y}/${x}) failed."
 				exit 1
 			fi
+
 		done
 		echo ""
 
@@ -252,6 +259,7 @@ else
 	echo ""
 	if [ ${result} -eq 2 ]; then
 		echo "  compile terminated."
+		is_terminated=1
 		exit 0
 	elif [ ${result} -ne 0 ]; then
 		echo >&2 "  error: compile failed."
@@ -262,13 +270,15 @@ fi
 let elapsed=${SECONDS}-${start}
 echo "  elapsed(total) = ${elapsed}s"
 
-for ((y=0; y<height; y+=tile_height)); do
-	pushd ${stagedir}/${y}/ > /dev/null
-	pnmcat -lr $(ls *.ppm | sort -n) > ../${y}.ppm
+if [ ${is_uncompleted} -eq 0 ]; then
+	for ((y=0; y<height; y+=tile_height)); do
+		pushd ${stagedir}/${y}/ > /dev/null
+		pnmcat -lr $(ls *.ppm | sort -n) > ../${y}.ppm
+		popd > /dev/null
+	done
+	pushd ${stagedir} > /dev/null
+	pnmcat -tb $(ls *.ppm | sort -n) > ${output}
 	popd > /dev/null
-done
-pushd ${stagedir} > /dev/null
-pnmcat -tb $(ls *.ppm | sort -n) > ${output}
-popd > /dev/null
+fi
 
 echo "finished."

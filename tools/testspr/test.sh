@@ -177,7 +177,7 @@ if [ ${use_version} -ne 0 ]; then
 	sprout_version_yyyymmdd=`sed -n "s/[ \t]*#[ \t]*define[ \t]\+SPROUT_VERSION_YYYYMMDD[ \t]\+//p" ${version_hpp_path}`
 	sprout_copyright=`sed -n "/\/\*=/,/=\*\//s/^[ \t]\+/  /p" ${version_hpp_path}`
 	echo "version:"
-	echo "  Sprout version (YYYYMMDD) = ${sprout_version_yyyymmdd}"
+	echo "  Sprout version(YYYYMMDD) = ${sprout_version_yyyymmdd}"
 	echo "copyright:"
 	echo "${sprout_copyright}"
 	exit 0

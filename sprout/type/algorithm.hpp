@@ -9,6 +9,14 @@
 #define SPROUT_TYPE_ALGORITHM_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/type/algorithm/all_of.hpp>
+#include <sprout/type/algorithm/all_of_same.hpp>
+#include <sprout/type/algorithm/any_of.hpp>
+#include <sprout/type/algorithm/any_of_same.hpp>
+#include <sprout/type/algorithm/none_of.hpp>
+#include <sprout/type/algorithm/none_of_same.hpp>
+#include <sprout/type/algorithm/one_of.hpp>
+#include <sprout/type/algorithm/one_of_same.hpp>
 #include <sprout/type/algorithm/find_index.hpp>
 #include <sprout/type/algorithm/find_index_if.hpp>
 #include <sprout/type/algorithm/count.hpp>

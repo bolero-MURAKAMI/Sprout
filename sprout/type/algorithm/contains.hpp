@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/type/tuple.hpp>
-#include <sprout/type/algorithm/find_index.hpp>
+#include <sprout/type/algorithm/any_of_same.hpp>
 
 namespace sprout {
 	namespace types {
@@ -19,7 +19,7 @@ namespace sprout {
 		//
 		template<typename Tuple, typename T>
 		struct contains
-			: public sprout::types::find_index<Tuple, T>::is_found
+			: public sprout::types::any_of_same<Tuple, T>
 		{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

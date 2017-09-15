@@ -18,6 +18,7 @@
 #include <sprout/type_traits/common_type.hpp>
 #include <sprout/type_traits/underlying_type.hpp>
 #include <sprout/type_traits/result_of.hpp>
+#include <sprout/type_traits/invoke_result.hpp>
 
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/common_decay.hpp>

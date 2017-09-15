@@ -10,7 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/type/tuple.hpp>
-#include <sprout/type/algorithm/find_index_if.hpp>
+#include <sprout/type/algorithm/any_of.hpp>
 
 namespace sprout {
 	namespace types {
@@ -19,7 +19,7 @@ namespace sprout {
 		//
 		template<typename Tuple, typename Predicate>
 		struct contains_if
-			: public sprout::types::find_index_if<Tuple, Predicate>::is_found
+			: public sprout::types::any_of<Tuple, Predicate>
 		{};
 
 #if SPROUT_USE_TEMPLATE_ALIASES

@@ -17,10 +17,12 @@
 #include <sprout/type_traits/is_standard_layout.hpp>
 #include <sprout/type_traits/is_pod.hpp>
 #include <sprout/type_traits/is_literal_type.hpp>
+#include <sprout/type_traits/has_unique_object_representations.hpp>
 #include <sprout/type_traits/is_empty.hpp>
 #include <sprout/type_traits/is_polymorphic.hpp>
 #include <sprout/type_traits/is_abstract.hpp>
 #include <sprout/type_traits/is_final.hpp>
+#include <sprout/type_traits/is_aggregate.hpp>
 #include <sprout/type_traits/is_signed.hpp>
 #include <sprout/type_traits/is_unsigned.hpp>
 #include <sprout/type_traits/is_constructible.hpp>
