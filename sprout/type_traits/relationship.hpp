@@ -13,6 +13,10 @@
 #include <sprout/type_traits/is_same.hpp>
 #include <sprout/type_traits/is_base_of.hpp>
 #include <sprout/type_traits/is_convertible.hpp>
+#include <sprout/type_traits/is_invocable.hpp>
+#include <sprout/type_traits/is_invocable_r.hpp>
+#include <sprout/type_traits/is_nothrow_invocable.hpp>
+#include <sprout/type_traits/is_nothrow_invocable_r.hpp>
 
 #include <sprout/type_traits/is_const_cast_convertible.hpp>
 #include <sprout/type_traits/is_convert_constructible.hpp>

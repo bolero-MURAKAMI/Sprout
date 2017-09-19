@@ -15,6 +15,8 @@
 #include <iostream>
 #include <iomanip>
 #include <sprout/config.hpp>
+#include <sprout/preprocessor/config.hpp>
+#include <sprout/preprocessor/stringize.hpp>
 #include <sprout/container.hpp>
 #include <sprout/detail/io/ios_state.hpp>
 #include <testspr/typeinfo.hpp>
@@ -180,5 +182,16 @@ namespace testspr {
 		return pf;
 	}
 }	// namespace testspr
+
+//
+// TESTSPR_PRINT_EXPR
+//
+#if SPROUT_PP_VARIADICS
+#	define TESTSPR_PRINT_EXPR(...) \
+		::testspr::print_ln(SPROUT_PP_STRINGIZE((__VA_ARGS__)), " => ", __VA_ARGS__)
+#else
+#	define TESTSPR_PRINT_EXPR(EXPR) \
+		::testspr::print_ln(SPROUT_PP_STRINGIZE((EXPR)), " => ", EXPR)
+#endif
 
 #endif	// #ifndef TESTSPR_PRINT_HPP

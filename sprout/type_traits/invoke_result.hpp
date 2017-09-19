@@ -9,7 +9,7 @@
 #define SPROUT_TYPE_TRAITS_INVOKE_RESULT_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/type_traits/result_of.hpp>
+#include <sprout/type_traits/detail/invoke.hpp>
 
 namespace sprout {
 	//
