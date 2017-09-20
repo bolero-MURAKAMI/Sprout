@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <sprout/config.hpp>
+#include <sprout/detail/predef.hpp>
 
 namespace sprout {
 	//
