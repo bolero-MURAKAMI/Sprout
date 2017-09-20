@@ -10,7 +10,6 @@
 
 #include <memory>
 #include <sprout/config.hpp>
-#include <sprout/detail/predef.hpp>
 
 namespace sprout {
 	//
@@ -22,7 +21,7 @@ namespace sprout {
 		return p;
 	}
 
-#if !SPROUT_CLANG_OR_LATER(5, 0, 0) || (_LIBCPP_STD_VER <= 14 || defined(_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR))
+#if !defined(SPROUT_NO_AUTO_PTR)
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR T*
 	get_pointer(std::auto_ptr<T> const& p) SPROUT_NOEXCEPT {
