@@ -15,6 +15,8 @@
 #include <testspr/range.hpp>
 #include <testspr/utility.hpp>
 #include <testspr/typeinfo.hpp>
+#include <testspr/singleton.hpp>
 #include <testspr/print.hpp>
+#include <testspr/trace.hpp>
 
 #endif	// #ifndef TESTSPR_TOOLS_HPP

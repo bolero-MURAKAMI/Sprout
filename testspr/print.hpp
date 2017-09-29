@@ -12,8 +12,10 @@
 #include <iterator>
 #include <bitset>
 #include <utility>
-#include <iostream>
+#include <string>
+#include <sstream>
 #include <iomanip>
+#include <iostream>
 #include <sprout/config.hpp>
 #include <sprout/preprocessor/config.hpp>
 #include <sprout/preprocessor/stringize.hpp>
@@ -130,6 +132,25 @@ namespace testspr {
 	inline SPROUT_NON_CONSTEXPR void
 	print_hl() {
 		testspr::print_ln("--------------------------------------------------------------------------------");
+	}
+	template<typename T>
+	inline SPROUT_NON_CONSTEXPR void
+	print_hl(char c) {
+		for (std::string::size_type i = 0, last = 80; i != last; ++i) {
+			std::cout << c;
+		}
+		std::cout << std::endl;
+	}
+	template<typename T>
+	inline SPROUT_NON_CONSTEXPR void
+	print_hl(T const& t) {
+		std::ostringstream oss;
+		oss << t;
+		std::string s(oss.str());
+		for (std::string::size_type i = 0, last = 80 / s.size(); i != last; ++i) {
+			std::cout << s;
+		}
+		std::cout << std::endl;
 	}
 
 	//

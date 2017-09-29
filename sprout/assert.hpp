@@ -80,6 +80,16 @@ namespace sprout {
 	};
 
 	//
+	// assertion_failed_msg_default
+	//
+	inline SPROUT_NON_CONSTEXPR bool
+	assertion_failed_default(sprout::assertion_info_msg const& info) {
+		return (std::cerr << "***** Internal Program Error - assertion (" << info.expr() << ") failed: " << info.file() << "(" << info.line() << ")" << ": " << msg << std::endl),
+			std::abort(), false
+			;
+	}
+
+	//
 	// assertion_failed_msg
 	//	* user defined
 	//
@@ -171,6 +181,16 @@ namespace sprout {
 			return line_;
 		}
 	};
+
+	//
+	// assertion_failed_default
+	//
+	inline SPROUT_NON_CONSTEXPR bool
+	assertion_failed_default(sprout::assertion_info const& info) {
+		return (std::cerr << "***** Internal Program Error - assertion (" << info.expr() << ") failed: " << info.file() << "(" << info.line() << ")" << std::endl),
+			std::abort(), false
+			;
+	}
 
 	//
 	// assertion_failed
