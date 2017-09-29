@@ -21,7 +21,7 @@
 #include <sprout/preprocessor/stringize.hpp>
 #include <sprout/current_function.hpp>
 #include <sprout/assert.hpp>
-//#include <testspr/singleton.hpp>
+#include <testspr/singleton.hpp>
 #include <testspr/typeinfo.hpp>
 #include <testspr/print.hpp>
 
