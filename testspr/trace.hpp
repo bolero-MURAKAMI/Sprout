@@ -488,12 +488,12 @@ namespace testspr {
 	// TESTSPR_TRACE_BLOCK
 	//
 #	define TESTSPR_TRACE_BLOCK(name) \
-		testspr::block_tracer SPROUT_PP_CAT(testspr_block_tracer_, __LINE__)(__FILE__, __LINE__, name)
+		testspr::block_tracer SPROUT_PP_CAT(testspr_block_tracer_, __LINE__)(__FILE__, __LINE__, testspr::to_string(name))
 	//
 	// TESTSPR_TRACE_BLOCK_EXPR
 	//
 #	define TESTSPR_TRACE_BLOCK_EXPR(name) \
-		((void)testspr::block_tracer(__FILE__, __LINE__, name))
+		((void)testspr::block_tracer(__FILE__, __LINE__, testspr::to_string(name)))
 
 	namespace detail {
 		inline SPROUT_NON_CONSTEXPR bool
@@ -545,7 +545,7 @@ namespace testspr {
 	// TESTSPR_TRACE_MARK
 	//
 #	define TESTSPR_TRACE_MARK(name) \
-		((void)testspr::trace_stack::instance().notify_mark(name, __FILE__, __LINE__))
+		((void)testspr::trace_stack::instance().notify_mark(testspr::to_string(name), __FILE__, __LINE__))
 
 	//
 	// TESTSPR_PRINT_TRACE_STACK

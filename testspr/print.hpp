@@ -24,6 +24,28 @@
 #include <testspr/typeinfo.hpp>
 
 namespace testspr {
+	namespace detail {
+		inline SPROUT_NON_CONSTEXPR std::ostream&
+		to_string_impl(std::ostream& os) {
+			return os;
+		}
+		template<typename Head, typename... Tail>
+		inline SPROUT_NON_CONSTEXPR std::ostream&
+		to_string_impl(std::ostream& os, Head const& head, Tail const&... tail) {
+			return testspr::detail::to_string_impl(os << head, tail...);
+		}
+	}	// namespace detail
+	//
+	// to_string
+	//
+	template<typename Head, typename... Tail>
+	inline SPROUT_NON_CONSTEXPR std::string
+	to_string(Head const& head, Tail const&... tail) {
+		std::ostringstream os;
+		testspr::detail::to_string_impl(os, head, tail...);
+		return os.str();
+	}
+
 	//
 	// print
 	//
@@ -144,11 +166,12 @@ namespace testspr {
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR void
 	print_hl(T const& t) {
-		std::ostringstream oss;
-		oss << t;
-		std::string s(oss.str());
-		for (std::string::size_type i = 0, last = 80 / s.size(); i != last; ++i) {
+		std::string s(testspr::to_string(t));
+		for (std::string::size_type i = 0, n = 80 / s.size(); i != n; ++i) {
 			std::cout << s;
+		}
+		for (std::string::const_iterator it = s.begin(), last = s.begin() + 80 % s.size(); it != last; ++it) {
+			std::cout << *it;
 		}
 		std::cout << std::endl;
 	}
