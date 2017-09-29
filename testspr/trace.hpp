@@ -546,6 +546,34 @@ namespace testspr {
 	//
 #	define TESTSPR_TRACE_MARK(name) \
 		((void)testspr::trace_stack::instance().notify_mark(name, __FILE__, __LINE__))
+
+	//
+	// TESTSPR_PRINT_TRACE_STACK
+	// TESTSPR_PRINT_TRACE_RECORD
+	//
+#	define TESTSPR_PRINT_TRACE_STACK() \
+		((void)testspr::trace_stack::instance().print())
+#	define TESTSPR_PRINT_TRACE_RECORD() \
+		((void)testspr::trace_record::instance().print())
+
+
+	//
+	// TESTSPR_ENABLE_PRINT_ON_ENTRY
+	// TESTSPR_DISABLE_PRINT_ON_ENTRY
+	//
+#	define TESTSPR_ENABLE_PRINT_ON_ENTRY() \
+		((void)testspr::trace_stack::instance().enable_print_on_entry())
+#	define TESTSPR_DISABLE_PRINT_ON_ENTRY() \
+		((void)testspr::trace_stack::instance().disable_print_on_entry())
+
+	//
+	// TESTSPR_ENABLE_RECORD_ON_ENTRY
+	// TESTSPR_DISABLE_RECORD_ON_ENTRY
+	//
+#	define TESTSPR_ENABLE_RECORD_ON_ENTRY() \
+		((void)testspr::trace_stack::instance().enable_record_on_entry())
+#	define TESTSPR_DISABLE_RECORD_ON_ENTRY() \
+		((void)testspr::trace_stack::instance().disable_record_on_entry())
 }	// namespace testspr
 
 #endif	// #ifndef TESTSPR_TRACE_HPP
