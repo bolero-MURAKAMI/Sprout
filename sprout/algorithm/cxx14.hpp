@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/algorithm/cxx14/for_each.hpp>
+#include <sprout/algorithm/cxx14/for_each_n.hpp>
 #include <sprout/algorithm/cxx14/copy.hpp>
 #include <sprout/algorithm/cxx14/copy_n.hpp>
 #include <sprout/algorithm/cxx14/copy_if.hpp>
