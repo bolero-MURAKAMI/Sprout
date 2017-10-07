@@ -9,7 +9,6 @@
 #define SPROUT_ALGORITHM_CXX14_FOR_EACH_N_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/utility/move.hpp>
 
 namespace sprout {
 	//
