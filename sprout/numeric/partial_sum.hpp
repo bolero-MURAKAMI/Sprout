@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/numeric/fixed/partial_sum.hpp>
 #include <sprout/numeric/fit/partial_sum.hpp>
+#include <sprout/numeric/cxx14/partial_sum.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_PARTIAL_SUM_HPP

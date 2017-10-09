@@ -9,10 +9,12 @@
 #define SPROUT_RANGE_NUMERIC_INNER_PRODUCT_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/numeric/inner_product.hpp>
 
 namespace sprout {
 	namespace range {
+
 		// 26.7.3 Inner product
 		template<typename InputRange1, typename InputRange2, typename T, typename BinaryOperation1, typename BinaryOperation2>
 		inline SPROUT_CONSTEXPR T

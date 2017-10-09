@@ -9,10 +9,12 @@
 #define SPROUT_RANGE_NUMERIC_ACCUMLATE_HPP
 
 #include <sprout/config.hpp>
+#include <sprout/container/functions.hpp>
 #include <sprout/numeric/accumulate.hpp>
 
 namespace sprout {
 	namespace range {
+
 		// 26.7.2 Accumulate
 		template<typename InputRange, typename T, typename BinaryOperation>
 		inline SPROUT_CONSTEXPR T

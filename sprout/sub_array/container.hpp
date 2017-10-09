@@ -85,7 +85,7 @@ namespace sprout {
 		public:
 			typedef sprout::sub_array<
 				typename sprout::container_transform_traits<
-					typename std::remove_reference<Container>::type
+					typename sprout::container_construct_traits<Container>::copied_type
 				>::template rebind_size<Size>::type
 			> type;
 		};
@@ -94,7 +94,7 @@ namespace sprout {
 		public:
 			typedef sprout::sub_array<
 				typename sprout::container_transform_traits<
-					typename std::remove_reference<Container>::type
+					typename sprout::container_construct_traits<Container>::copied_type
 				>::template rebind_type<Type>::type
 			> type;
 		};

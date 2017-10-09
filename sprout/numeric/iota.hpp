@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/numeric/fixed/iota.hpp>
 #include <sprout/numeric/fit/iota.hpp>
+#include <sprout/numeric/cxx14/iota.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_IOTA_HPP

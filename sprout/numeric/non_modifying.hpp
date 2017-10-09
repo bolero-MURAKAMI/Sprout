@@ -10,6 +10,7 @@
 
 #include <sprout/config.hpp>
 #include <sprout/numeric/accumulate.hpp>
+#include <sprout/numeric/reduce.hpp>
 #include <sprout/numeric/inner_product.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_NON_MODIFYIING_HPP

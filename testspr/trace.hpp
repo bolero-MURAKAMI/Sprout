@@ -155,14 +155,18 @@ namespace testspr {
 			SPROUT_NON_CONSTEXPR comparable_function(function_type const& f)
 				: func_(f)
 			{}
-			SPROUT_NON_CONSTEXPR bool operator()(trace_stack const& t) {
+			SPROUT_NON_CONSTEXPR bool operator()(trace_stack const& t) const {
 				return func_(t);
 			}
-			SPROUT_NON_CONSTEXPR bool operator==(function_type const& rhs) {
-				return func_.target_type() == rhs.target_type();
+			SPROUT_NON_CONSTEXPR bool operator==(function_type const& rhs) const {
+				return func_ == nullptr ? rhs == nullptr
+					: rhs == nullptr ? false
+					: func_.target_type() == rhs.target_type()
+						&& func_.target<bool (testspr::trace_stack const&)>() == rhs.target<bool (testspr::trace_stack const&)>()
+					;
 			}
-			SPROUT_NON_CONSTEXPR bool operator!=(function_type const& rhs) {
-				return func_.target_type() != rhs.target_type();
+			SPROUT_NON_CONSTEXPR bool operator!=(function_type const& rhs) const {
+				return !(*this == rhs);
 			}
 		};
 	private:

@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/numeric/fixed/adjacent_difference.hpp>
 #include <sprout/numeric/fit/adjacent_difference.hpp>
+#include <sprout/numeric/cxx14/adjacent_difference.hpp>
 
 #endif	// #ifndef SPROUT_NUMERIC_ADJACENT_DIFFERENCE_HPP

@@ -12,6 +12,7 @@
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/utility/pair/pair.hpp>
+#include <sprout/type_traits/identity.hpp>
 
 namespace sprout {
 	namespace fixed {
@@ -20,22 +21,33 @@ namespace sprout {
 			// algorithm
 			//
 			template<typename Result>
-			struct algorithm {
-			public:
-				typedef typename sprout::container_construct_traits<Result>::copied_type type;
-			};
+			struct algorithm
+				: public sprout::identity<typename sprout::container_construct_traits<Result>::copied_type>
+			{};
+
+			//
+			// resized_relative
+			//
+			template<typename Result, typename sprout::container_traits<Result>::difference_type RelativeSize>
+			struct resized_relative
+				: public sprout::identity<
+					typename sprout::container_transform_traits<Result>
+						::template rebind_size<sprout::container_traits<Result>::static_size + RelativeSize>::type
+				>
+			{};
 
 			//
 			// shuffle
 			//
 			template<typename Container, typename UniformRandomNumberGenerator>
-			struct shuffle {
-			public:
-				typedef sprout::pair<
-					typename sprout::fixed::results::algorithm<Container>::type,
-					typename std::decay<UniformRandomNumberGenerator>::type
-				> type;
-			};
+			struct shuffle
+				: public sprout::identity<
+					sprout::pair<
+						typename sprout::fixed::results::algorithm<Container>::type,
+						typename std::decay<UniformRandomNumberGenerator>::type
+					>
+				>
+			{};
 		}	// namespace results
 	}	// namespace fixed
 
