@@ -30,7 +30,7 @@ namespace sprout {
 			//
 			template<typename Result, typename sprout::container_traits<Result>::difference_type RelativeSize>
 			struct resized_relative
-				: public sprout::identity<
+				: public std::decay<
 					typename sprout::container_transform_traits<Result>
 						::template rebind_size<sprout::container_traits<Result>::static_size + RelativeSize>::type
 				>

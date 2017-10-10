@@ -79,23 +79,22 @@ namespace sprout {
 	//
 	template<typename Container>
 	struct container_transform_traits<sprout::sub_array<Container> > {
+	private:
+		typedef typename sprout::sub_array<Container>::internal_type internal_type;
+		typedef typename sprout::container_construct_traits<internal_type>::copied_type internal_copied_type;
 	public:
 		template<typename sprout::container_traits<sprout::sub_array<Container> >::size_type Size>
 		struct rebind_size {
 		public:
 			typedef sprout::sub_array<
-				typename sprout::container_transform_traits<
-					typename sprout::container_construct_traits<Container>::copied_type
-				>::template rebind_size<Size>::type
+				typename sprout::container_transform_traits<internal_copied_type>::template rebind_size<Size>::type
 			> type;
 		};
 		template<typename Type>
 		struct rebind_type {
 		public:
 			typedef sprout::sub_array<
-				typename sprout::container_transform_traits<
-					typename sprout::container_construct_traits<Container>::copied_type
-				>::template rebind_type<Type>::type
+				typename sprout::container_transform_traits<internal_copied_type>::template rebind_type<Type>::type
 			> type;
 		};
 	};
