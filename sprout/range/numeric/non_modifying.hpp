@@ -12,5 +12,6 @@
 #include <sprout/range/numeric/accumulate.hpp>
 #include <sprout/range/numeric/reduce.hpp>
 #include <sprout/range/numeric/inner_product.hpp>
+#include <sprout/range/numeric/transform_reduce.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_NUMERIC_NON_MODIFYIING_HPP
