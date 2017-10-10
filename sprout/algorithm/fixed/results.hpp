@@ -26,17 +26,6 @@ namespace sprout {
 			{};
 
 			//
-			// resized_relative
-			//
-			template<typename Result, typename sprout::container_traits<Result>::difference_type RelativeSize>
-			struct resized_relative
-				: public std::decay<
-					typename sprout::container_transform_traits<Result>
-						::template rebind_size<sprout::container_traits<Result>::static_size + RelativeSize>::type
-				>
-			{};
-
-			//
 			// shuffle
 			//
 			template<typename Container, typename UniformRandomNumberGenerator>
@@ -48,12 +37,41 @@ namespace sprout {
 					>
 				>
 			{};
+
+			//
+			// resized_relative
+			//
+			template<typename Result, typename sprout::container_traits<Result>::difference_type RelativeSize>
+			struct resized_relative
+				: public std::decay<
+					typename sprout::container_transform_traits<Result>
+						::template rebind_size<sprout::container_traits<Result>::static_size + RelativeSize>::type
+				>
+			{};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+			template<typename Result>
+			using algorithm_t = typename sprout::fixed::results::algorithm<Result>::type;
+
+			template<typename Container, typename UniformRandomNumberGenerator>
+			using shuffle_t = typename sprout::fixed::results::shuffle<Container, UniformRandomNumberGenerator>::type;
+
+			template<typename Result, typename sprout::container_traits<Result>::difference_type RelativeSize>
+			using resized_relative_t = typename sprout::fixed::results::resized_relative<Result, RelativeSize>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 		}	// namespace results
 	}	// namespace fixed
 
 	namespace results {
 		using sprout::fixed::results::algorithm;
 		using sprout::fixed::results::shuffle;
+		using sprout::fixed::results::resized_relative;
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+		using sprout::fixed::results::algorithm_t;
+		using sprout::fixed::results::shuffle_t;
+		using sprout::fixed::results::resized_relative_t;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 	}	// namespace results
 }	// namespace sprout
 

@@ -32,6 +32,11 @@ namespace sprout {
 					>::type
 				> type;
 			};
+
+#if SPROUT_USE_TEMPLATE_ALIASES
+			template<typename Result>
+			using algorithm_t = typename sprout::fit::results::algorithm<Result>::type;
+#endif	// #if SPROUT_USE_TEMPLATE_ALIASES
 		}	// namespace results
 	}	// namespace fit
 }	// namespace sprout
