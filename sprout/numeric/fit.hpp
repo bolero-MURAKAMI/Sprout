@@ -12,6 +12,8 @@
 #include <sprout/numeric/fit/partial_sum.hpp>
 #include <sprout/numeric/fit/exclusive_scan.hpp>
 #include <sprout/numeric/fit/inclusive_scan.hpp>
+#include <sprout/numeric/fit/transform_exclusive_scan.hpp>
+#include <sprout/numeric/fit/transform_inclusive_scan.hpp>
 #include <sprout/numeric/fit/adjacent_difference.hpp>
 #include <sprout/numeric/fit/iota.hpp>
 

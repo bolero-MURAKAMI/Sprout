@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/range/numeric/fixed/exclusive_scan.hpp>
 #include <sprout/range/numeric/fit/exclusive_scan.hpp>
+#include <sprout/range/numeric/cxx14/exclusive_scan.hpp>
 
 #endif	// #ifndef SPROUT_RANGE_NUMERIC_EXCLUSIVE_SCAN_HPP

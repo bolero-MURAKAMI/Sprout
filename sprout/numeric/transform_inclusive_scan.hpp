@@ -5,12 +5,12 @@
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
-#ifndef SPROUT_RANGE_NUMERIC_INCLUSIVE_SCAN_HPP
-#define SPROUT_RANGE_NUMERIC_INCLUSIVE_SCAN_HPP
+#ifndef SPROUT_NUMERIC_TRANSFORM_INCLUSIVE_SCAN_HPP
+#define SPROUT_NUMERIC_TRANSFORM_INCLUSIVE_SCAN_HPP
 
 #include <sprout/config.hpp>
-#include <sprout/range/numeric/fixed/inclusive_scan.hpp>
-#include <sprout/range/numeric/fit/inclusive_scan.hpp>
-#include <sprout/range/numeric/cxx14/inclusive_scan.hpp>
+#include <sprout/numeric/fixed/transform_inclusive_scan.hpp>
+#include <sprout/numeric/fit/transform_inclusive_scan.hpp>
+#include <sprout/numeric/cxx14/transform_inclusive_scan.hpp>
 
-#endif	// #ifndef SPROUT_RANGE_NUMERIC_INCLUSIVE_SCAN_HPP
+#endif	// #ifndef SPROUT_NUMERIC_TRANSFORM_INCLUSIVE_SCAN_HPP

@@ -12,6 +12,8 @@
 #include <sprout/numeric/fixed/partial_sum.hpp>
 #include <sprout/numeric/fixed/exclusive_scan.hpp>
 #include <sprout/numeric/fixed/inclusive_scan.hpp>
+#include <sprout/numeric/fixed/transform_exclusive_scan.hpp>
+#include <sprout/numeric/fixed/transform_inclusive_scan.hpp>
 #include <sprout/numeric/fixed/adjacent_difference.hpp>
 #include <sprout/numeric/fixed/iota.hpp>
 

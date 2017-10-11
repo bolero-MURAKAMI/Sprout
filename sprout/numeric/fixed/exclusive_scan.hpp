@@ -16,7 +16,6 @@
 #include <sprout/algorithm/fixed/results.hpp>
 #include <sprout/pit/pit.hpp>
 #include <sprout/detail/container_complate.hpp>
-#include <sprout/numeric/fixed/exclusive_scan.hpp>
 
 namespace sprout {
 	namespace fixed {

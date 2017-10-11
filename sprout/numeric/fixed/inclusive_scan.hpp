@@ -8,6 +8,7 @@
 #ifndef SPROUT_NUMERIC_FIXED_INCLUSIVE_SCAN_HPP
 #define SPROUT_NUMERIC_FIXED_INCLUSIVE_SCAN_HPP
 
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/container/traits.hpp>
 #include <sprout/container/functions.hpp>
