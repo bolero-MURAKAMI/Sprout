@@ -11,6 +11,7 @@
 #include <sprout/config.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/invoke_result.hpp>
+#include <sprout/type_traits/is_invocable.hpp>
 #include <sprout/type_traits/detail/invoke.hpp>
 
 namespace sprout {

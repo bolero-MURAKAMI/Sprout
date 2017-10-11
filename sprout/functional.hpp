@@ -12,6 +12,7 @@
 #include <sprout/functional/base.hpp>
 #include <sprout/functional/functor.hpp>
 #include <sprout/functional/adaptor.hpp>
+#include <sprout/functional/invoke.hpp>
 #include <sprout/functional/ref.hpp>
 #include <sprout/functional/mem_fn.hpp>
 #include <sprout/functional/bind.hpp>
