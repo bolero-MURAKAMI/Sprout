@@ -162,7 +162,7 @@ namespace testspr {
 				return func_ == nullptr ? rhs == nullptr
 					: rhs == nullptr ? false
 					: func_.target_type() == rhs.target_type()
-						&& func_.target<bool (testspr::trace_stack const&)>() == rhs.target<bool (testspr::trace_stack const&)>()
+						&& func_.target<bool (*)(testspr::trace_stack const&)>() == rhs.target<bool (*)(testspr::trace_stack const&)>()
 					;
 			}
 			SPROUT_NON_CONSTEXPR bool operator!=(function_type const& rhs) const {

@@ -39,10 +39,10 @@ namespace testspr {
 	};
 
 	//
-	// typename_of
+	// demangle
 	//
-	namespace detail {
 #ifdef TESTSPR_HAS_CXXABI_H
+	namespace detail {
 		inline SPROUT_NON_CONSTEXPR char*
 		demangle_alloc(char const* name) {
 			int status = 0;
@@ -66,27 +66,40 @@ namespace testspr {
 				return demangled_;
 			}
 		};
-		inline SPROUT_NON_CONSTEXPR std::string
-		demangle(char const* name) {
-			scoped_demangled_name demangled(name);
-			return demangled.get() ? demangled.get() : name;
-		}
-#else
-		inline SPROUT_NON_CONSTEXPR std::string
-		demangle(char const* name) {
-			return name;
-		}
-#endif
 	}	// namespace detail
+
+	inline SPROUT_NON_CONSTEXPR std::string
+	demangle(char const* name) {
+		testspr::detail::scoped_demangled_name demangled(name);
+		return demangled.get() ? demangled.get() : name;
+	}
+#else
+	inline SPROUT_NON_CONSTEXPR std::string
+	demangle(char const* name) {
+		return name;
+	}
+#endif
+	inline SPROUT_NON_CONSTEXPR std::string
+	demangle(std::string const& name) {
+		return testspr::demangle(name.c_str());
+	}
+
+	//
+	// typename_of
+	//
+	inline SPROUT_NON_CONSTEXPR std::string
+	typename_of(std::type_info const& t) {
+		return testspr::demangle(t.name());
+	}
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR std::string
 	typename_of() {
-		return testspr::detail::demangle(typeid(T).name());
+		return testspr::typename_of(typeid(T));
 	}
 	template<typename T>
 	inline SPROUT_NON_CONSTEXPR std::string
 	typename_of(T&& t) {
-		return testspr::detail::demangle(typeid(std::forward<T>(t)).name());
+		return testspr::typename_of(typeid(std::forward<T>(t)));
 	}
 
 	//
