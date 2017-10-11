@@ -12,7 +12,6 @@
 #include <sprout/utility/move.hpp>
 #include <sprout/iterator/type_traits/is_iterator_of.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
-#include <sprout/numeric/cxx14/partial_sum.hpp>
 
 namespace sprout {
 	//
