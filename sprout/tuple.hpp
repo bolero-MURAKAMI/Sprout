@@ -14,6 +14,7 @@
 #include <sprout/tuple/metafunctions.hpp>
 #include <sprout/tuple/functions.hpp>
 #include <sprout/tuple/apply.hpp>
+#include <sprout/tuple/make_from_tuple.hpp>
 #include <sprout/tuple/fused.hpp>
 #include <sprout/tuple/flex.hpp>
 

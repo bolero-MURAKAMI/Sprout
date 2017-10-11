@@ -20,31 +20,31 @@ namespace sprout {
 		template<typename F, typename... Args>
 		inline SPROUT_CONSTEXPR decltype(std::declval<F>()(std::declval<Args>()...))
 		invoke(F&& f, Args&&... args) SPROUT_NOEXCEPT_IF_EXPR(std::declval<F>()(std::declval<Args>()...)) {
-			return sprout::forward<F>(f)(sprout::forward<Args>(args)...);
+			return SPROUT_FORWARD(F, f)(SPROUT_FORWARD(Args, args)...);
 		}
 
 		template<typename Base, typename T, typename Derived>
 		inline SPROUT_CONSTEXPR decltype(std::declval<Derived>().*(std::declval<T Base::*>()))
 		invoke(T Base::* pm, Derived&& d) SPROUT_NOEXCEPT_IF_EXPR(std::declval<Derived>().*(std::declval<T Base::*>())) {
-			return sprout::forward<Derived>(d).*(pm);
+			return SPROUT_FORWARD(Derived, d).*(pm);
 		}
 
 		template<typename PMD, typename Pointer>
 		inline SPROUT_CONSTEXPR decltype((*std::declval<Pointer>()).*(std::declval<PMD>()))
 		invoke(PMD&& pmd, Pointer&& ptr) SPROUT_NOEXCEPT_IF_EXPR((*std::declval<Pointer>()).*(std::declval<PMD>())) {
-			return sprout::forward<Pointer>(ptr).*(sprout::forward<PMD>(pmd));
+			return SPROUT_FORWARD(Pointer, ptr).*(SPROUT_FORWARD(PMD, pmd));
 		}
 
 		template<typename Base, typename T, typename Derived, typename... Args>
 		inline SPROUT_CONSTEXPR decltype((std::declval<Derived>().*(std::declval<T Base::*>()))(std::declval<Args>()...))
 		invoke(T Base::* pm, Derived&& d, Args&&... args) SPROUT_NOEXCEPT_IF_EXPR((std::declval<Derived>().*(std::declval<T Base::*>()))(std::declval<Args>()...)) {
-			return (sprout::forward<Derived>(d).*(pm))(sprout::forward<Args>(args)...);
+			return (SPROUT_FORWARD(Derived, d).*(pm))(SPROUT_FORWARD(Args, args)...);
 		}
 
 		template<typename PMF, typename Pointer, typename... Args>
 		inline SPROUT_CONSTEXPR decltype(((*std::declval<Pointer>()).*(std::declval<PMF>()))(std::declval<Args>()...))
 		invoke(PMF&& pmf, Pointer&& ptr, Args&&... args) SPROUT_NOEXCEPT_IF_EXPR(((*std::declval<Pointer>()).*(std::declval<PMF>()))(std::declval<Args>()...)) {
-			return (sprout::forward<Pointer>(ptr).*(sprout::forward<PMF>(pmf)))(sprout::forward<Args>(args)...);
+			return (SPROUT_FORWARD(Pointer, ptr).*(SPROUT_FORWARD(PMF, pmf)))(SPROUT_FORWARD(Args, args)...);
 		}
 
 		template<typename R, typename F, typename... Args>

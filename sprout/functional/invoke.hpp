@@ -24,7 +24,7 @@ namespace sprout {
 	template<typename F, typename... Args>
 	inline SPROUT_CONSTEXPR typename sprout::invoke_result<F, Args...>::type
 	invoke(F&& f, Args&&... args) SPROUT_NOEXCEPT_IF((sprout::is_nothrow_invocable<F, Args...>::value)) {
-		return sprout::detail::invoke(sprout::forward<F>(f), sprout::forward<Args>(args)...);
+		return sprout::detail::invoke(SPROUT_FORWARD(F, f), SPROUT_FORWARD(Args, args)...);
 	}
 }	// namespace sprout
 
