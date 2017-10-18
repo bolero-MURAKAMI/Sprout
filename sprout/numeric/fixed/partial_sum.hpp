@@ -59,7 +59,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			partial_sum_impl(
-				InputIterator, InputIterator, Result const& result,
+				InputIterator const&, InputIterator const&, Result const& result,
 				typename sprout::container_traits<Result>::size_type
 				)
 			{
@@ -133,7 +133,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			partial_sum_impl(
-				InputIterator, InputIterator, Result const& result, BinaryOperation,
+				InputIterator const&, InputIterator const&, Result const& result, BinaryOperation,
 				typename sprout::container_traits<Result>::size_type
 				)
 			{

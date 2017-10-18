@@ -59,7 +59,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			transform_exclusive_scan_impl(
-				InputIterator, InputIterator, Result const& result, T, BinaryOperation, UnaryOperation,
+				InputIterator const&, InputIterator const&, Result const& result, T, BinaryOperation, UnaryOperation,
 				typename sprout::container_traits<Result>::size_type
 				)
 			{
@@ -71,7 +71,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			transform_exclusive_scan_impl(
-				InputIterator, InputIterator, Result const& result, T init, BinaryOperation, UnaryOperation,
+				InputIterator const&, InputIterator const&, Result const& result, T init, BinaryOperation, UnaryOperation,
 				typename sprout::container_traits<Result>::size_type
 				)
 			{

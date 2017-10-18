@@ -138,6 +138,11 @@ namespace testspr {
 	print_typename() {
 		testspr::print_ln(testspr::typename_of<T>());
 	}
+	template<typename T>
+	inline SPROUT_NON_CONSTEXPR void
+	print_typename(T&& t) {
+		testspr::print_ln(testspr::typename_of(std::forward<T>(t)));
+	}
 
 	//
 	// print_type

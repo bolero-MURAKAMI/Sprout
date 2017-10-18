@@ -173,7 +173,7 @@ namespace sprout {
 				Result
 			>::type join_impl_1(
 				ContIterator, ContIterator,
-				InputIterator, InputIterator,
+				InputIterator const&, InputIterator const&,
 				Args const&... args
 				)
 			{
@@ -355,7 +355,7 @@ namespace sprout {
 				ContIterator, ContIterator,
 				SepIterator, SepIterator,
 				bool,
-				InputIterator, InputIterator,
+				InputIterator const&, InputIterator const&,
 				Args const&... args
 				)
 			{

@@ -163,7 +163,7 @@ namespace sprout {
 		}
 		template<int D = 16, typename InputIterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
-		process_block_impl(InputIterator first, InputIterator last, Args... args) const {
+		process_block_impl(InputIterator const& first, InputIterator const& last, Args... args) const {
 			return first == last ? process<D + 1>(
 					h_,
 					sprout::make_array<std::uint8_t>(args...),
@@ -182,12 +182,12 @@ namespace sprout {
 		}
 		template<int D = 16, typename InputIterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
-		process_block_impl(InputIterator, InputIterator, Args...) const {
+		process_block_impl(InputIterator const&, InputIterator const&, Args...) const {
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
 		}
 		template<int D = 16, typename InputIterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_CONTINUE(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
-		process_block_impl(InputIterator first, InputIterator last, Args... args) const {
+		process_block_impl(InputIterator const& first, InputIterator const& last, Args... args) const {
 			return first == last ? process<D + 1>(
 					h_,
 					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),
@@ -208,7 +208,7 @@ namespace sprout {
 		}
 		template<int D = 16, typename InputIterator, typename... Args, SPROUT_RECURSIVE_FUNCTION_TEMPLATE_BREAK(D)>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
-		process_block_impl(InputIterator, InputIterator, Args...) const {
+		process_block_impl(InputIterator const&, InputIterator const&, Args...) const {
 			return sprout::throw_recursive_function_template_instantiation_exeeded();
 		}
 #else
@@ -273,7 +273,7 @@ namespace sprout {
 		}
 		template<typename InputIterator, typename... Args>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) == 64, sha1 const>::type
-		process_block_impl(InputIterator first, InputIterator last, Args... args) const {
+		process_block_impl(InputIterator const& first, InputIterator const& last, Args... args) const {
 			return first == last ? process(
 					h_,
 					sprout::make_array<std::uint8_t>(args...),
@@ -290,7 +290,7 @@ namespace sprout {
 		}
 		template<typename InputIterator, typename... Args>
 		SPROUT_CONSTEXPR typename std::enable_if<sizeof...(Args) != 64, sha1 const>::type
-		process_block_impl(InputIterator first, InputIterator last, Args... args) const {
+		process_block_impl(InputIterator const& first, InputIterator const& last, Args... args) const {
 			return first == last ? process(
 					h_,
 					sprout::get_internal(sprout::range::fixed::copy(sprout::make_array<std::uint8_t>(args...), sprout::sub(block_, block_byte_index_))),

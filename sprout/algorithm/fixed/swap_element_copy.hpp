@@ -76,9 +76,9 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			swap_element_copy_impl(
-				ForwardIterator, ForwardIterator,
+				ForwardIterator const&, ForwardIterator const&,
 				Result const& result,
-				ForwardIterator, ForwardIterator,
+				ForwardIterator const&, ForwardIterator const&,
 				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)

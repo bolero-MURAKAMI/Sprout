@@ -43,7 +43,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			copy_until_impl(
-				InputIterator, InputIterator, Result const& result, Predicate,
+				InputIterator const&, InputIterator const&, Result const& result, Predicate,
 				typename sprout::container_traits<Result>::size_type,
 				Args const&... args
 				)

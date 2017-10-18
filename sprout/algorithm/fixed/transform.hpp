@@ -70,7 +70,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			transform_impl(
-				InputIterator, InputIterator,
+				InputIterator const&, InputIterator const&,
 				Result const& result, UnaryOperation,
 				typename sprout::container_traits<Result>::size_type,
 				Args const&... args

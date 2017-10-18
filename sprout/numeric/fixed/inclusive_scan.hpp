@@ -53,7 +53,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			inclusive_scan_impl(
-				InputIterator, InputIterator, Result const& result, BinaryOperation, T,
+				InputIterator const&, InputIterator const&, Result const& result, BinaryOperation, T,
 				typename sprout::container_traits<Result>::size_type
 				)
 			{
@@ -65,7 +65,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			inclusive_scan_impl(
-				InputIterator, InputIterator, Result const& result, BinaryOperation, T init,
+				InputIterator const&, InputIterator const&, Result const& result, BinaryOperation, T init,
 				typename sprout::container_traits<Result>::size_type
 				)
 			{

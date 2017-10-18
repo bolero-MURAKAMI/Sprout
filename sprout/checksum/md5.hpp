@@ -309,7 +309,7 @@ namespace sprout {
 				);
 		}
 		template<typename InputIterator>
-		SPROUT_CONSTEXPR md5 const process_block_impl(InputIterator first, InputIterator last) const {
+		SPROUT_CONSTEXPR md5 const process_block_impl(InputIterator const& first, InputIterator const& last) const {
 			return first == last ? *this
 				: c_process_byte(*first).process_block_impl(sprout::next(first), last)
 				;
@@ -362,7 +362,7 @@ namespace sprout {
 			block_.assign(0);
 		}
 		template<typename InputIterator>
-		SPROUT_CXX14_CONSTEXPR void process_block_impl(InputIterator first, InputIterator last) {
+		SPROUT_CXX14_CONSTEXPR void process_block_impl(InputIterator const& first, InputIterator const& last) {
 			for (; first != last; ++first) {
 				process_byte(*first);
 			}

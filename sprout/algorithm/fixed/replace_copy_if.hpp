@@ -68,7 +68,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			replace_copy_if_impl(
-				InputIterator, InputIterator,
+				InputIterator const&, InputIterator const&,
 				Result const& result, Predicate, T const&,
 				typename sprout::container_traits<Result>::size_type,
 				Args const&... args

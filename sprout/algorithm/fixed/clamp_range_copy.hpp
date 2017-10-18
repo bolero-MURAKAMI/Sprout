@@ -75,7 +75,7 @@ namespace sprout {
 				typename sprout::fixed::results::algorithm<Result>::type
 			>::type
 			clamp_range_copy_impl(
-				InputIterator, InputIterator, Result const& result,
+				InputIterator const&, InputIterator const&, Result const& result,
 				typename std::iterator_traits<InputIterator>::value_type const&,
 				typename std::iterator_traits<InputIterator>::value_type const&,
 				Compare,

@@ -44,7 +44,7 @@ namespace sprout {
 		sum_type sum_;
 	private:
 		template<typename InputIterator>
-		SPROUT_CONSTEXPR sum_type calc_sum(InputIterator first, InputIterator last) const {
+		SPROUT_CONSTEXPR sum_type calc_sum(InputIterator const& first, InputIterator const& last) const {
 			return sprout::accumulate(
 				sprout::make_bytes_iterator(first),
 				sprout::make_bytes_iterator(last),
