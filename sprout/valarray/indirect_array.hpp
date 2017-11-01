@@ -42,7 +42,7 @@ namespace sprout {
 		sprout::value_holder<valarray_type&> arr_;
 		indexes_type indexes_;
 	private:
-		indirect_array() = delete;
+		indirect_array() SPROUT_DELETED_FUNCTION_DECL
 		SPROUT_CONSTEXPR indirect_array(sprout::valarray<T, N>& arr, indexes_type const& indexes)
 			: arr_(arr)
 			, indexes_(indexes)

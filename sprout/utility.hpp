@@ -22,5 +22,6 @@
 #include <sprout/utility/any_convertible.hpp>
 #include <sprout/utility/use_default.hpp>
 #include <sprout/utility/loop.hpp>
+#include <sprout/utility/comparison.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_HPP

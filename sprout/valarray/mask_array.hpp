@@ -45,7 +45,7 @@ namespace sprout {
 		sprout::value_holder<valarray_type&> arr_;
 		indexes_type indexes_;
 	private:
-		mask_array() = delete;
+		mask_array() SPROUT_DELETED_FUNCTION_DECL
 		SPROUT_CONSTEXPR mask_array(sprout::valarray<T, N>& arr, mask_type const& mask)
 			: arr_(arr)
 			, indexes_(

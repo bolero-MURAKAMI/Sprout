@@ -81,7 +81,7 @@ namespace sprout {
 		sprout::valarray<std::size_t, M> size_;
 		sprout::valarray<std::size_t, M> stride_;
 	private:
-		gslice_array() = delete;
+		gslice_array() SPROUT_DELETED_FUNCTION_DECL
 		SPROUT_CONSTEXPR gslice_array(sprout::valarray<T, N>& arr, gslice_type const& gslice)
 			: arr_(arr)
 			, start_(gslice.start())

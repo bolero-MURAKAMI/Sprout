@@ -66,7 +66,7 @@ namespace sprout {
 		sprout::value_holder<valarray_type&> arr_;
 		sprout::slice slice_;
 	private:
-		slice_array() = delete;
+		slice_array() SPROUT_DELETED_FUNCTION_DECL
 		SPROUT_CONSTEXPR slice_array(sprout::valarray<T, N>& arr, sprout::slice const& slice)
 			: arr_(arr), slice_(slice)
 		{}
