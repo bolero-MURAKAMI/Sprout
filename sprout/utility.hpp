@@ -23,5 +23,6 @@
 #include <sprout/utility/use_default.hpp>
 #include <sprout/utility/loop.hpp>
 #include <sprout/utility/comparison.hpp>
+#include <sprout/utility/fold.hpp>
 
 #endif	// #ifndef SPROUT_UTILITY_HPP

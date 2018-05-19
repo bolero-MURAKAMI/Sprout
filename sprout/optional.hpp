@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2017 Bolero MURAKAMI
+  Copyright (c) 2011-2016 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -14,10 +14,10 @@
 #include <sprout/optional/io.hpp>
 #include <sprout/optional/nullopt.hpp>
 #include <sprout/optional/in_place.hpp>
+#include <sprout/optional/exceptions.hpp>
 #include <sprout/optional/make_optional.hpp>
 #include <sprout/optional/get.hpp>
 #include <sprout/optional/hash.hpp>
-#include <sprout/optional/exceptions.hpp>
 #include <sprout/optional/container.hpp>
 
 #endif	// #ifndef SPROUT_OPTIONAL_HPP

@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2017 Bolero MURAKAMI
+  Copyright (c) 2011-2016 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -11,12 +11,14 @@
 #include <type_traits>
 #include <initializer_list>
 #include <sprout/config.hpp>
+#include <sprout/workaround/std/cstddef.hpp>
 #include <sprout/memory/addressof.hpp>
 #include <sprout/utility/swap.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/type_traits/is_constructible.hpp>
 #include <sprout/optional/in_place.hpp>
+#include <sprout/optional/exceptions.hpp>
 
 namespace sprout {
 	namespace detail {
@@ -44,10 +46,10 @@ namespace sprout {
 			static SPROUT_CONSTEXPR holder_type&& hold(movable_param_type p) SPROUT_NOEXCEPT {
 				return sprout::move(p);
 			}
-			static SPROUT_CONSTEXPR reference ref(holder_type& r) {
+			static SPROUT_CONSTEXPR reference ref(holder_type& r) SPROUT_NOEXCEPT {
 				return r;
 			}
-			static SPROUT_CONSTEXPR const_reference ref(holder_type const& r) {
+			static SPROUT_CONSTEXPR const_reference ref(holder_type const& r) SPROUT_NOEXCEPT {
 				return r;
 			}
 			static SPROUT_CONSTEXPR pointer ptr(holder_type& r) SPROUT_NOEXCEPT {
@@ -81,11 +83,11 @@ namespace sprout {
 			static SPROUT_CONSTEXPR holder_type const&& hold(movable_param_type p) SPROUT_NOEXCEPT {
 				return sprout::move(p);
 			}
-			static SPROUT_CONSTEXPR reference ref(holder_type& r) {
-				return *r;
+			static SPROUT_CONSTEXPR reference ref(holder_type& r) SPROUT_NOEXCEPT {
+				return r;
 			}
-			static SPROUT_CONSTEXPR const_reference ref(holder_type const& r) {
-				return *r;
+			static SPROUT_CONSTEXPR const_reference ref(holder_type const& r) SPROUT_NOEXCEPT {
+				return r;
 			}
 			static SPROUT_CONSTEXPR pointer ptr(holder_type& r) SPROUT_NOEXCEPT {
 				return sprout::addressof(r);
@@ -116,7 +118,9 @@ namespace sprout {
 				return sprout::addressof(p);
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type r) {
-				return *r;
+				return r ? *r
+					: (throw sprout::bad_optional_access("value_holder<>: bad optional access"), *r)
+					;
 			}
 			static SPROUT_CONSTEXPR pointer ptr(holder_type r) SPROUT_NOEXCEPT {
 				return r;
@@ -144,7 +148,9 @@ namespace sprout {
 				return sprout::addressof(p);
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type r) {
-				return *r;
+				return r ? *r
+					: (throw sprout::bad_optional_access("value_holder<>: bad optional access"), *r)
+					;
 			}
 			static SPROUT_CONSTEXPR pointer ptr(holder_type r) SPROUT_NOEXCEPT {
 				return r;
@@ -305,6 +311,13 @@ namespace sprout {
 		}
 		SPROUT_CONSTEXPR mutable_or_const_pointer get_ptr() const SPROUT_NOEXCEPT {
 			return get_pointer();
+		}
+
+		SPROUT_EXPLICIT_CONVERSION SPROUT_CONSTEXPR operator bool() const SPROUT_NOEXCEPT {
+			return is_initialized();
+		}
+		SPROUT_CONSTEXPR bool operator!() const SPROUT_NOEXCEPT {
+			return !is_initialized();
 		}
 		SPROUT_CONSTEXPR bool is_initialized() const SPROUT_NOEXCEPT {
 			return !!get_pointer();
