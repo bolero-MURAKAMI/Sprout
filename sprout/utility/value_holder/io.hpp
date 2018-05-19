@@ -10,6 +10,7 @@
 
 #include <istream>
 #include <ostream>
+#include <type_traits>
 #include <sprout/config.hpp>
 #include <sprout/utility/value_holder/value_holder.hpp>
 
@@ -18,7 +19,10 @@ namespace sprout {
 	// operator>>
 	//
 	template<typename Elem, typename Traits, typename T>
-	inline SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>&
+	inline SPROUT_NON_CONSTEXPR typename std::enable_if<
+		!std::is_reference<T>::value,
+		std::basic_istream<Elem, Traits>&
+	>::type
 	operator>>(std::basic_istream<Elem, Traits>& lhs, sprout::value_holder<T>& rhs) {
 		if (lhs.good()) {
 			int d = lhs.get();
@@ -27,28 +31,6 @@ namespace sprout {
 				lhs >> x;
 				rhs = x;
 			} else {
-				lhs.setstate(std::ios::failbit);
-			}
-		}
-		return lhs;
-	}
-	template<typename Elem, typename Traits, typename T>
-	inline SPROUT_NON_CONSTEXPR std::basic_istream<Elem, Traits>&
-	operator>>(std::basic_istream<Elem, Traits>& lhs, sprout::value_holder<T&>& rhs) {
-		if (lhs.good()) {
-			int d = lhs.get();
-			if (d == ' ') {
-				T x;
-				lhs >> x;
-				rhs = x;
-			} else {
-				if (d == '-') {
-					d = lhs.get();
-					if (d == '-') {
-						rhs = sprout::value_holder<T&>();
-						return lhs;
-					}
-				}
 				lhs.setstate(std::ios::failbit);
 			}
 		}
