@@ -18,7 +18,7 @@
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/move.hpp>
 #include <sprout/utility/swap.hpp>
-#include <sprout/utility/eat.hpp>
+#include <sprout/utility/swallow.hpp>
 #include <sprout/utility/pack.hpp>
 #include <sprout/utility/pair/pair_fwd.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
@@ -286,7 +286,7 @@ namespace sprout {
 			template<sprout::index_t... Indexes>
 			SPROUT_CXX14_CONSTEXPR void
 			swap_impl(tuple& other, sprout::index_tuple<Indexes...>) {
-				sprout::eat((sprout::swap(base_type::template get<Indexes>(*this), base_type::template get<Indexes>(other)), 0)...);
+				sprout::swallow({(sprout::swap(base_type::template get<Indexes>(*this), base_type::template get<Indexes>(other)), 0)...});
 			}
 			template<typename Tuple>
 			SPROUT_CXX14_CONSTEXPR void
@@ -297,7 +297,7 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR void
 			assign_impl(Tuple&& t, sprout::index_tuple<Indexes...>) {
 				typedef typename std::decay<Tuple>::type type;
-				sprout::eat((sprout::eat(base_type::template get<Indexes>(*this) = sprout::move(type::template get<Indexes>(SPROUT_FORWARD(Tuple, t)))), 0)...);
+				sprout::swallow({(base_type::template get<Indexes>(*this) = sprout::move(type::template get<Indexes>(SPROUT_FORWARD(Tuple, t))), 0)...});
 			}
 			template<sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR std::tuple<Types...>
