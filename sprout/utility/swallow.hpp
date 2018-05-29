@@ -18,8 +18,6 @@ namespace sprout {
 	//
 	// example:
 	//	swallow({(void)pack, 0}...);
-	//	((void)pack, ..., swallow);	// right fold, since C++17
-	//	(swallow, ..., (void)pack);	// left fold, since C++17
 	//
 	struct swallow_t {
 	public:
@@ -30,16 +28,16 @@ namespace sprout {
 	namespace {
 		SPROUT_STATIC_CONSTEXPR sprout::swallow_t swallow = {};
 	}	// anonymous-namespace
-	template<typename T>
-	inline SPROUT_CONSTEXPR sprout::swallow_t
-	operator,(sprout::swallow_t, T&&) SPROUT_NOEXCEPT {
-		return sprout::swallow;
-	}
-	template<typename T>
-	inline SPROUT_CONSTEXPR sprout::swallow_t
-	operator,(T&&, sprout::swallow_t) SPROUT_NOEXCEPT {
-		return sprout::swallow;
-	}
+//	template<typename T>
+//	inline SPROUT_CONSTEXPR sprout::swallow_t
+//	operator,(sprout::swallow_t, T&&) SPROUT_NOEXCEPT {
+//		return sprout::swallow;
+//	}
+//	template<typename T>
+//	inline SPROUT_CONSTEXPR sprout::swallow_t
+//	operator,(T&&, sprout::swallow_t) SPROUT_NOEXCEPT {
+//		return sprout::swallow;
+//	}
 
 	//
 	// unused_t
