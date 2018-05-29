@@ -297,7 +297,7 @@ namespace sprout {
 			SPROUT_CXX14_CONSTEXPR void
 			assign_impl(Tuple&& t, sprout::index_tuple<Indexes...>) {
 				typedef typename std::decay<Tuple>::type type;
-				sprout::swallow({(base_type::template get<Indexes>(*this) = sprout::move(type::template get<Indexes>(SPROUT_FORWARD(Tuple, t))), 0)...});
+				sprout::swallow({((base_type::template get<Indexes>(*this) = sprout::move(type::template get<Indexes>(SPROUT_FORWARD(Tuple, t)))), 0)...});
 			}
 			template<sprout::index_t... Indexes>
 			SPROUT_CONSTEXPR std::tuple<Types...>
