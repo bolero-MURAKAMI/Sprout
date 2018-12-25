@@ -17,7 +17,7 @@
 #include <sprout/iterator/reverse_iterator.hpp>
 #include <sprout/iterator/operation.hpp>
 #include <sprout/utility/swap.hpp>
-#include <sprout/string/char_traits.hpp>
+#include <sprout/utility/string_view/string_view_fwd.hpp>
 #include <sprout/string/npos.hpp>
 #include <sprout/string/string.hpp>
 #include <sprout/string/detail/operations.hpp>
@@ -31,7 +31,7 @@ namespace sprout {
 	//
 	// basic_string_view
 	//
-	template<typename T, typename Traits = sprout::char_traits<T> >
+	template<typename T, typename Traits>
 	class basic_string_view {
 	public:
 		typedef T value_type;
@@ -94,14 +94,14 @@ namespace sprout {
 			: ptr_(str), len_(traits_type::length(str))
 		{}
 		template<std::size_t N>
-		SPROUT_CONSTEXPR basic_string_view(sprout::basic_string<T, N, Traits> const& str)
+		SPROUT_CONSTEXPR basic_string_view(sprout::basic_string<T, N, Traits> const& str) SPROUT_NOEXCEPT
 			: ptr_(str.data()), len_(str.size())
 		{}
 		template<typename Allocator>
-		SPROUT_NON_CONSTEXPR basic_string_view(std::basic_string<T, Traits, Allocator> const& str)
+		SPROUT_NON_CONSTEXPR basic_string_view(std::basic_string<T, Traits, Allocator> const& str) SPROUT_NOEXCEPT
 			: ptr_(str.data()), len_(str.size())
 		{}
-		SPROUT_CONSTEXPR basic_string_view(const_pointer str, size_type len)
+		SPROUT_CONSTEXPR basic_string_view(const_pointer str, size_type len) SPROUT_NOEXCEPT
 			: ptr_(str), len_(len)
 		{}
 		// iterators:

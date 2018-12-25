@@ -137,6 +137,12 @@ namespace sprout {
 		return sprout::sub_window(arr, to_first);
 	}
 
+	template<typename Container>
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container&> >::type
+	sub(Container& arr) {
+		return sprout::sub(arr, sprout::begin(arr), sprout::end(arr));
+	}
+
 	//
 	// csub
 	//
@@ -218,6 +224,12 @@ namespace sprout {
 		return sprout::csub_window(arr, to_first);
 	}
 
+	template<typename Container>
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container const&> >::type
+	csub(Container const& arr) {
+		return sprout::csub(arr, sprout::begin(arr), sprout::end(arr));
+	}
+
 	//
 	// sub_copy
 	//
@@ -297,6 +309,12 @@ namespace sprout {
 		)
 	{
 		return sprout::sub_window_copy(arr, to_first);
+	}
+
+	template<typename Container>
+	inline SPROUT_CONSTEXPR typename std::enable_if<!sprout::is_sub_array<Container>::value, sprout::sub_array<Container> >::type
+	sub_copy(Container const& arr) {
+		return sprout::sub_copy(arr, sprout::begin(arr), sprout::end(arr));
 	}
 }	// namespace sprout
 

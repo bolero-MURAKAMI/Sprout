@@ -118,9 +118,11 @@ namespace sprout {
 				return sprout::addressof(p);
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type r) {
-				return r ? *r
-					: (throw sprout::bad_optional_access("value_holder<>: bad optional access"), *r)
-					;
+				return *r;
+				// !!!
+//				return r ? *r
+//					: (throw sprout::bad_optional_access("value_holder<>: bad optional access"), *r)
+//					;
 			}
 			static SPROUT_CONSTEXPR pointer ptr(holder_type r) SPROUT_NOEXCEPT {
 				return r;
@@ -148,9 +150,11 @@ namespace sprout {
 				return sprout::addressof(p);
 			}
 			static SPROUT_CONSTEXPR reference ref(holder_type r) {
-				return r ? *r
-					: (throw sprout::bad_optional_access("value_holder<>: bad optional access"), *r)
-					;
+				return *r;
+				// !!!
+//				return r ? *r
+//					: (throw sprout::bad_optional_access("value_holder<>: bad optional access"), *r)
+//					;
 			}
 			static SPROUT_CONSTEXPR pointer ptr(holder_type r) SPROUT_NOEXCEPT {
 				return r;

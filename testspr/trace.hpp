@@ -14,6 +14,7 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include <sstream>
 #include <typeinfo>
 #include <iostream>
 #include <sprout/config.hpp>
@@ -58,6 +59,11 @@ namespace testspr {
 			return what_;
 		}
 	};
+	template<typename Elem, typename Traits>
+	inline SPROUT_NON_CONSTEXPR std::basic_ostream<Elem, Traits>&
+	operator<<(std::basic_ostream<Elem, Traits>& lhs, testspr::trace_info const& rhs) {
+		return lhs << rhs.file() << ':' << rhs.line() << ": " << rhs.tag() << ": " << rhs.what();
+	}
 
 	//
 	// trace_record
@@ -123,9 +129,26 @@ namespace testspr {
 			std::copy(begin(), end(), out);
 		}
 		SPROUT_NON_CONSTEXPR void print() const {
-			testspr::print_ln("trace-record current: size:", size(), ":");
+			testspr::print_ln("trace-record current: size:", size(), ':');
 			for (const_iterator it = cbegin(), last = cend(); it != last; ++it) {
-				testspr::print_ln("  ", it->first, " - ", it->second.file(), ":", it->second.line(), ": ", it->second.tag(), ": ", it->second.what());
+				testspr::print_ln("  ", it->first, " - ", it->second);
+			}
+		}
+		SPROUT_NON_CONSTEXPR void print_stratified() const {
+			testspr::print_ln("trace-record current: size:", size(), ':');
+			std::string indent;
+			for (const_iterator it = cbegin(), last = cend(); it != last; ++it) {
+				if (it->first == "push") {
+					testspr::print_ln("  ", indent, it->second, " {");
+					indent.append(2, ' ');
+				} else if (it->first == "pop") {
+					indent.erase(indent.size() - 2);
+					testspr::print_ln("  ", indent, '}');
+				} else if (it->first == "notify") {
+					testspr::print_ln("  ", indent, it->second);
+				} else {
+					testspr::print_ln("  ", indent, it->first, " - ", it->second);
+				}
 			}
 		}
 	};
@@ -175,16 +198,14 @@ namespace testspr {
 		class print_on_push {
 		public:
 			SPROUT_NON_CONSTEXPR bool operator()(testspr::trace_stack const& stack) const {
-				testspr::trace_info const& info = stack.top();
-				testspr::print_ln("trace-stack push: ", info.file(), ":", info.line(), ": ", info.tag(), ": ", info.what());
+				testspr::print_ln("trace-stack push: ", stack.top());
 				return false;
 			}
 		};
 		class print_on_pop {
 		public:
 			SPROUT_NON_CONSTEXPR bool operator()(testspr::trace_stack const& stack) const {
-				testspr::trace_info const& info = stack.top();
-				testspr::print_ln("trace-stack pop: ", info.file(), ":", info.line(), ": ", info.tag(), ": ", info.what());
+				testspr::print_ln("trace-stack pop: ", stack.top());
 				return false;
 			}
 		};
@@ -206,7 +227,7 @@ namespace testspr {
 		public:
 			SPROUT_NON_CONSTEXPR bool operator()(testspr::trace_stack const& stack) const {
 				testspr::trace_info const& info = stack.top();
-				testspr::print_ln("trace-stack notify: ", info.file(), ":", info.line(), ": ", info.tag(), ": ", info.what());
+				testspr::print_ln("trace-stack notify: ", info);
 				if (info.tag() == "assertion-failed") {
 					testspr::trace_stack::instance().print();
 					testspr::trace_record::instance().print();
@@ -304,9 +325,9 @@ namespace testspr {
 			std::copy(begin(), end(), out);
 		}
 		SPROUT_NON_CONSTEXPR void print() const {
-			testspr::print_ln("trace-stack current: size:", size(), ":");
+			testspr::print_ln("trace-stack current: size:", size(), ':');
 			for (const_iterator it = cbegin(), last = cend(); it != last; ++it) {
-				testspr::print_ln("  ", it->file(), ":", it->line(), ": ", it->tag(), ": ", it->what());
+				testspr::print_ln("  ", *it);
 			}
 		}
 
@@ -552,6 +573,12 @@ namespace testspr {
 		((void)testspr::trace_stack::instance().notify_mark(testspr::to_string(name), __FILE__, __LINE__))
 
 	//
+	// TESTSPR_PRINT_CURRENT
+	//
+#	define TESTSPR_PRINT_CURRENT(name) \
+		((void)testspr::print_ln(testspr::trace_info(__FILE__, __LINE__, "current", name)))
+
+	//
 	// TESTSPR_PRINT_TRACE_STACK
 	// TESTSPR_PRINT_TRACE_RECORD
 	//
@@ -559,6 +586,12 @@ namespace testspr {
 		((void)testspr::trace_stack::instance().print())
 #	define TESTSPR_PRINT_TRACE_RECORD() \
 		((void)testspr::trace_record::instance().print())
+
+	//
+	// TESTSPR_PRINT_STRATIFIED_TRACE_RECORD
+	//
+#	define TESTSPR_PRINT_STRATIFIED_TRACE_RECORD() \
+		((void)testspr::trace_record::instance().print_stratified())
 
 
 	//

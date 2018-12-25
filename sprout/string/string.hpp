@@ -28,6 +28,7 @@
 #include <sprout/algorithm/cxx14/swap_ranges.hpp>
 #include <sprout/utility/forward.hpp>
 #include <sprout/utility/swap.hpp>
+#include <sprout/utility/string_view/string_view_fwd.hpp>
 #include <sprout/type_traits/integral_constant.hpp>
 #include <sprout/type_traits/identity.hpp>
 #include <sprout/type_traits/enabler_if.hpp>
@@ -884,6 +885,9 @@ namespace sprout {
 		template<typename Allocator>
 		SPROUT_EXPLICIT_CONVERSION SPROUT_NON_CONSTEXPR operator std::basic_string<T, Traits, Allocator>() const {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
+		}
+		operator sprout::basic_string_view<T, Traits>() const SPROUT_NOEXCEPT {
+			return sprout::basic_string_view<T, Traits>(*this);
 		}
 
 		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {
