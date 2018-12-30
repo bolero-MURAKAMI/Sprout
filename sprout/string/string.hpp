@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2017 Bolero MURAKAMI
+  Copyright (c) 2011-2018 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -886,8 +886,8 @@ namespace sprout {
 		SPROUT_EXPLICIT_CONVERSION SPROUT_NON_CONSTEXPR operator std::basic_string<T, Traits, Allocator>() const {
 			return std::basic_string<T, Traits, Allocator>(data(), size());
 		}
-		operator sprout::basic_string_view<T, Traits>() const SPROUT_NOEXCEPT {
-			return sprout::basic_string_view<T, Traits>(*this);
+		SPROUT_CONSTEXPR operator sprout::basic_string_view<T, Traits>() const SPROUT_NOEXCEPT {
+			return sprout::basic_string_view<T, Traits>(data(), size());
 		}
 
 		SPROUT_CXX14_CONSTEXPR void rangecheck(size_type i) const {

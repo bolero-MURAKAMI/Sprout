@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Copyright (c) 2011-2017 Bolero MURAKAMI
+# Copyright (c) 2011-2018 Bolero MURAKAMI
 # https://github.com/bolero-MURAKAMI/Sprout
 #
 # Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -45,24 +45,48 @@ get_std_option() {
 	else
 		vn=${2//.}
 	fi
-	if [ "${3}" = "c++17" -o "${3}" = "c++1z" ]; then
+	if [ "${3}" = "c++20" -o "${3}" = "c++2a" ]; then
 		if [ "${1}" = "gcc" ]; then
 			if [ "${vn}" -lt "480" ]; then
 				echo -n "-std=c++11"
 			elif [ "${vn}" -lt "510" ]; then
 				echo -n "-std=c++1y"
-			elif [ "${vn}" -lt "610" ]; then
-				echo -n "-std=c++14"
+			elif [ "${vn}" -lt "800" ]; then
+				echo -n "-std=c++17"
 			else
-				echo -n "-std=c++1z"
+				echo -n "-std=c++2a"
 			fi
 		elif [ "${1}" = "clang" ]; then
 			if [ "${vn}" -lt "32" ]; then
 				echo -n "-std=c++11"
 			elif [ "${vn}" -lt "350" ]; then
 				echo -n "-std=c++1y"
-			else
+			elif [ "${vn}" -lt "500" ]; then
 				echo -n "-std=c++1z"
+			elif [ "${vn}" -lt "600" ]; then
+				echo -n "-std=c++17"
+			else
+				echo -n "-std=c++2a"
+			fi
+		fi
+	elif [ "${3}" = "c++17" -o "${3}" = "c++1z" ]; then
+		if [ "${1}" = "gcc" ]; then
+			if [ "${vn}" -lt "480" ]; then
+				echo -n "-std=c++11"
+			elif [ "${vn}" -lt "510" ]; then
+				echo -n "-std=c++1y"
+			else
+				echo -n "-std=c++17"
+			fi
+		elif [ "${1}" = "clang" ]; then
+			if [ "${vn}" -lt "32" ]; then
+				echo -n "-std=c++11"
+			elif [ "${vn}" -lt "350" ]; then
+				echo -n "-std=c++1y"
+			elif [ "${vn}" -lt "500" ]; then
+				echo -n "-std=c++1z"
+			else
+				echo -n "-std=c++17"
 			fi
 		fi
 	elif [ "${3}" = "c++14" -o "${3}" = "c++1y" ]; then
