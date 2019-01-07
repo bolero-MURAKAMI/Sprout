@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2018 Bolero MURAKAMI
+  Copyright (c) 2011-2019 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -14,6 +14,6 @@
 // SPROUT_VERSION_YYYYMMDD
 //	(yyyyMMdd)
 //
-#define SPROUT_VERSION_YYYYMMDD 20181230
+#define SPROUT_VERSION_YYYYMMDD 20190107
 
 #endif	// #ifndef SPROUT_VERSION_HPP

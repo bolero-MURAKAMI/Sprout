@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2018 Bolero MURAKAMI
+  Copyright (c) 2011-2019 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -35,7 +35,7 @@ namespace sprout {
 			struct seed_k
 				: public sprout::integral_constant<
 					int,
-					(log + ((~(IntType(2) << (log - 1)) & m)? 32 : 31)) / 32
+					(log + ((~(IntType(2) << (log - 1)) & m) ? 32 : 31)) / 32
 				>
 			{};
 

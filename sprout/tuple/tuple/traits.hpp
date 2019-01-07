@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2018 Bolero MURAKAMI
+  Copyright (c) 2011-2019 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -11,5 +11,6 @@
 #include <sprout/config.hpp>
 #include <sprout/tuple/tuple/tuple_traits.hpp>
 #include <sprout/tuple/tuple/tuple_access_traits.hpp>
+#include <sprout/tuple/tuple/has_sprout_get.hpp>
 
 #endif	// #ifndef SPROUT_TUPLE_TUPLE_TRAITS_HPP

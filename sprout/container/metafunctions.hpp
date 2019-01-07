@@ -1,5 +1,5 @@
 /*=============================================================================
-  Copyright (c) 2011-2018 Bolero MURAKAMI
+  Copyright (c) 2011-2019 Bolero MURAKAMI
   https://github.com/bolero-MURAKAMI/Sprout
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -27,5 +27,7 @@
 #include <sprout/container/deep_internal.hpp>
 #include <sprout/container/is_sub_container.hpp>
 #include <sprout/container/indexes.hpp>
+#include <sprout/container/has_sprout_begin.hpp>
+#include <sprout/container/has_sprout_end.hpp>
 
 #endif	// #ifndef SPROUT_CONTAINER_METAFUNCTIONS_HPP
