@@ -32,7 +32,7 @@ namespace sprout {
 				static sprout::false_type test(...);
 			};
 #if defined(_MSC_VER) && (_MSC_VER > 1900)
-			template<typename T, typename Base_ = typename sprout::identity<decltype(sprout::tuples::detail::has_sprout_get_test<T, I>::test(0))>::type>
+			template<typename T, typename std::size_t I, typename Base_ = typename sprout::identity<decltype(sprout::tuples::detail::has_sprout_get_test<T, I>::test(0))>::type>
 			struct has_sprout_get
 				: public Base_
 			{};
