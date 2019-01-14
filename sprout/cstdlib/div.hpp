@@ -343,9 +343,7 @@ namespace sprout {
 	namespace detail {
 		template<typename Div>
 		SPROUT_CONSTEXPR typename std::remove_reference<decltype(std::declval<Div>().quot)>::type&
-		div_at(Div& d, std::size_t i)
-		SPROUT_NOEXCEPT_IF_EXPR(std::declval<Div>().quot)
-		{
+		div_at(Div& d, std::size_t i) {
 			return i == 0 ? d.quot
 				: i == 1 ? d.rem
 				: (throw std::out_of_range("div_at: index out of range"), d.quot)
@@ -353,9 +351,7 @@ namespace sprout {
 		}
 		template<typename Div>
 		SPROUT_CONSTEXPR typename std::remove_reference<decltype(std::declval<Div>().quot)>::type const&
-		div_at(Div const& d, std::size_t i)
-		SPROUT_NOEXCEPT_IF_EXPR(std::declval<Div>().quot)
-		{
+		div_at(Div const& d, std::size_t i) {
 			return i == 0 ? d.quot
 				: i == 1 ? d.rem
 				: (throw std::out_of_range("div_at: index out of range"), d.quot)

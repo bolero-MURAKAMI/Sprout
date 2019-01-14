@@ -175,7 +175,7 @@ namespace sprout {
 		typename T,
 		int N = 1,
 		int R = sprout::typed_rand_detail::typed<T>::template state<
-			sprout::typed_rand_detail::typed<T>::template counter(sprout::true_type(), typename sprout::typed_rand_detail::typed<T>::template tag<N - 1>()) + N - 1
+			sprout::typed_rand_detail::typed<T>::counter(sprout::true_type(), typename sprout::typed_rand_detail::typed<T>::template tag<N - 1>()) + N - 1
 			>::value
 	>
 	inline SPROUT_CONSTEXPR int rand() {
@@ -190,7 +190,7 @@ namespace sprout {
 		typename T, unsigned Seed,
 		int N = 1,
 		int = sprout::typed_rand_detail::typed<T>::template state<
-			sprout::typed_rand_detail::typed<T>::template counter(sprout::true_type(), typename sprout::typed_rand_detail::typed<T>::template tag<N - 1>()) + N - 1,
+			sprout::typed_rand_detail::typed<T>::counter(sprout::true_type(), typename sprout::typed_rand_detail::typed<T>::template tag<N - 1>()) + N - 1,
 			true, Seed
 			>::value
 	>
@@ -199,7 +199,7 @@ namespace sprout {
 		typename T, unsigned Seed,
 		int N = 1,
 		int R = sprout::typed_rand_detail::typed<T>::template state<
-			sprout::typed_rand_detail::typed<T>::template counter(sprout::true_type(), typename sprout::typed_rand_detail::typed<T>::template tag<N - 1>()) + N - 1,
+			sprout::typed_rand_detail::typed<T>::counter(sprout::true_type(), typename sprout::typed_rand_detail::typed<T>::template tag<N - 1>()) + N - 1,
 			true, Seed
 			>::value
 	>

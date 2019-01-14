@@ -106,7 +106,7 @@ namespace sprout {
 	template<
 		typename T,
 		int N = 1,
-		std::intmax_t R = sprout::typed_slot_detail::typed<T>::template val(sprout::true_type(), typename sprout::typed_slot_detail::typed<T>::template tag<N>())
+		std::intmax_t R = sprout::typed_slot_detail::typed<T>::val(sprout::true_type(), typename sprout::typed_slot_detail::typed<T>::template tag<N>())
 	>
 	inline SPROUT_CONSTEXPR std::intmax_t slot() {
 		return R;
@@ -120,7 +120,7 @@ namespace sprout {
 		typename T, std::intmax_t Value,
 		int N = 1,
 		std::intmax_t = sprout::typed_slot_detail::typed<T>::template state<
-			sprout::typed_slot_detail::typed<T>::template counter(sprout::true_type(), typename sprout::typed_slot_detail::typed<T>::template tag<N - 1>()) + N - 1,
+			sprout::typed_slot_detail::typed<T>::counter(sprout::true_type(), typename sprout::typed_slot_detail::typed<T>::template tag<N - 1>()) + N - 1,
 			Value
 			>::value
 	>
@@ -129,7 +129,7 @@ namespace sprout {
 		typename T, std::intmax_t Value,
 		int N = 1,
 		std::intmax_t R = sprout::typed_slot_detail::typed<T>::template state<
-			sprout::typed_slot_detail::typed<T>::template counter(sprout::true_type(), typename sprout::typed_slot_detail::typed<T>::template tag<N - 1>()) + N - 1,
+			sprout::typed_slot_detail::typed<T>::counter(sprout::true_type(), typename sprout::typed_slot_detail::typed<T>::template tag<N - 1>()) + N - 1,
 			Value
 			>::value
 	>
