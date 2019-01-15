@@ -41,10 +41,7 @@ namespace testspr {
 				{
 					std::ostringstream os;
 					os << dist1;
-					// ???
-#if !defined(__clang__)
 					TESTSPR_ASSERT(!!os);
-#endif
 					s = os.str();
 				}
 
@@ -54,10 +51,7 @@ namespace testspr {
 				{
 					std::istringstream is(s);
 					is >> dist_temp;
-					// ???
-#if !defined(__clang__)
 					TESTSPR_ASSERT(!!is);
-#endif
 				}
 
 				TESTSPR_ASSERT(dist_temp == dist1);
