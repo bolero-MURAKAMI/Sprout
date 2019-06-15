@@ -57,7 +57,7 @@ namespace sprout {
 	inline SPROUT_CONSTEXPR T
 	while_loop(T init, Predicate pred, UnaryOperation unary_op) {
 		typedef sprout::pair<T, bool> type;
-		return sprout::detail::while_loop_impl(type(init, false), pred, unary_op, 1).second;
+		return sprout::detail::while_loop_impl(type(init, false), pred, unary_op, 1).first;
 	}
 
 	//
